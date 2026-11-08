@@ -1,0 +1,103 @@
+{
+  "observed_at_utc": "2026-11-08T18:05:51.518319+00:00",
+  "item": "CC-124",
+  "operating_head": "e697383dd27332e287d1d4fef4e71d416acc94ef",
+  "production_date": "2026-11-08",
+  "daily_article_limit": 2,
+  "occupied_article_slots": 0,
+  "active_leases": [],
+  "operation_id": "cc124-nfp-arrival-review-20261106-v1",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-arrival-review-20261106-v1\\binding.json",
+  "binding_file_sha256": "7d91e8991b7202f3fc28faedc835e4dbd15b2ecd63134201d3eaf1c99c6879ce",
+  "cutoff_utc": "2026-11-06T13:58:03.408725Z",
+  "writer_request_sha256": "f91f22eaba23d5af0e115dd181655185d9a5639c627ea07de641d570f5e96c87",
+  "writer_request_file_sha256": "f54561435c19b698d4e3ec013946521fb93e6f9a89cdc512c26af104a1c70610",
+  "writer_return_present": false,
+  "operation_dispatches": [],
+  "source_adapter": {
+    "root": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-124\\run-20261106-2050\\source",
+    "revision": "78995d62efe3a0da6bf378cfd97c99b0a09a0f22055548789f22625251285e15",
+    "gaps": [],
+    "records": [
+      {
+        "id": "cc124-nfp-arrival-review-20261106",
+        "known_at_utc": "2026-11-06T13:34:06Z",
+        "revision_at_utc": "2026-11-06T13:54:12.044066Z",
+        "sha256": "44df64392c74e61c9103e3b74ed5e98876ff303abbe4aadeb1f45de271042029",
+        "public_claim_allowed": true
+      },
+      {
+        "id": "bls-october-release",
+        "known_at_utc": "2026-11-06T13:57:39.392115+00:00",
+        "revision_at_utc": "2026-11-06T13:57:39.392115+00:00",
+        "sha256": "763b464511420ae42ac45b511ed90969231bee8af17c6e3de1706f9c3ae0089c",
+        "public_claim_allowed": true
+      },
+      {
+        "id": "bls-october-sectors",
+        "known_at_utc": "2026-11-06T13:57:39.392115+00:00",
+        "revision_at_utc": "2026-11-06T13:57:39.392115+00:00",
+        "sha256": "4587d810d529b2db436d7ec44bbdf03f553e62d0552ec6b33099e5af42db8f18",
+        "public_claim_allowed": true
+      }
+    ]
+  },
+  "main_export_scenario_count": 40,
+  "latest_daily_main_reports": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+      "sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+      "modified_utc": "2026-11-06T08:18:47.782128+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+      "sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+      "modified_utc": "2026-11-06T06:03:38.600291+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-c8bba0c593d99fb8\\owner-native.json",
+      "sha256": "17082bbfba405e93ea0ae42c167bbb8989d1e83c04a1c2b563d51c68c53910a2",
+      "modified_utc": "2026-11-05T16:54:50.041907+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-45c4fbea254c0def\\owner-native.json",
+      "sha256": "e7e06616a1c44689d84741f769c9b1e242277d787e3c1940ca78eefa6b93a6b3",
+      "modified_utc": "2026-11-05T16:21:56.958702+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d232ac540a32a050\\owner-native.json",
+      "sha256": "34a8884208741350c679779d7ee5825b221d047e918c76c7428d071b82879406",
+      "modified_utc": "2026-11-05T11:12:27.155965+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74cef2ab0eda597b\\owner-native.json",
+      "sha256": "6d4053538c3a2fe4dcc6e011d07e105de6cda04a76d42769134f8b9c14d04e27",
+      "modified_utc": "2026-11-05T08:56:59.538917+00:00"
+    }
+  ],
+  "daily_report_count": 16,
+  "main_public_manifest": {
+    "path": "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1\\manifests\\c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2.json",
+    "sha256": "ab497668c62ea2e2141535239f6655ab32c237b57f2a26bff7cfa564fd6e3623",
+    "emitted_at_utc": "2026-10-20T22:43:00.880869Z",
+    "entry_count": 15
+  },
+  "latest_publications": [
+    {
+      "content_id": "substack:223739949",
+      "title": "Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+      "published_at_utc": "2026-11-06T08:42:20.275000+00:00"
+    },
+    {
+      "content_id": "substack:223749516",
+      "title": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test",
+      "published_at_utc": "2026-11-06T10:37:42.739000+00:00"
+    },
+    {
+      "content_id": "substack:223763353",
+      "title": "NFP preview: why a payroll beat needs help from unemployment",
+      "published_at_utc": "2026-11-06T12:58:16.717000+00:00"
+    }
+  ],
+  "reads_only": true
+}

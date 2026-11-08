@@ -1,0 +1,1477 @@
+{
+  "observed_at_utc": "2026-11-08T18:06:40.181512+00:00",
+  "source_directory_inventory": [
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research",
+      "directories": [
+        {
+          "name": "shock-trigger",
+          "modified_utc": "2026-11-08T18:05:43.787016+00:00"
+        },
+        {
+          "name": "brain-runs",
+          "modified_utc": "2026-11-07T15:59:37.999736+00:00"
+        },
+        {
+          "name": "prompt-snapshots",
+          "modified_utc": "2026-11-07T15:58:21.614852+00:00"
+        },
+        {
+          "name": "daily-research-portfolio-279805139",
+          "modified_utc": "2026-11-07T15:55:36.272796+00:00"
+        },
+        {
+          "name": "t2-runs",
+          "modified_utc": "2026-11-07T15:47:02.273381+00:00"
+        },
+        {
+          "name": "jim-directives",
+          "modified_utc": "2026-11-07T15:35:42.972991+00:00"
+        },
+        {
+          "name": "20261106-nfp",
+          "modified_utc": "2026-11-06T09:31:33.352735+00:00"
+        },
+        {
+          "name": "prompts",
+          "modified_utc": "2026-11-02T02:19:52.579356+00:00"
+        },
+        {
+          "name": "ops",
+          "modified_utc": "2026-11-01T18:20:58.381429+00:00"
+        },
+        {
+          "name": "20261030-eci",
+          "modified_utc": "2026-10-30T12:22:03.387272+00:00"
+        },
+        {
+          "name": "cutover",
+          "modified_utc": "2026-10-29T15:46:50.305069+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+      "directories": [
+        {
+          "name": "20261106-1320-arrival-nfp",
+          "modified_utc": "2026-11-06T13:34:07.341572+00:00"
+        },
+        {
+          "name": "prompt-snapshots",
+          "modified_utc": "2026-11-06T13:20:58.384244+00:00"
+        },
+        {
+          "name": "20261106-0930-dossier-nfp",
+          "modified_utc": "2026-11-06T10:05:17.315808+00:00"
+        },
+        {
+          "name": "20261103-midterm-dossier",
+          "modified_utc": "2026-11-02T23:35:09.153771+00:00"
+        },
+        {
+          "name": "prompts",
+          "modified_utc": "2026-11-02T10:21:13.226983+00:00"
+        },
+        {
+          "name": "20261030-1220-arrival-eci",
+          "modified_utc": "2026-10-30T13:52:31.991932+00:00"
+        },
+        {
+          "name": "20261030-1000-dossier-eci",
+          "modified_utc": "2026-10-30T10:25:42.661244+00:00"
+        },
+        {
+          "name": "20261030-0200-arrival-boj",
+          "modified_utc": "2026-10-30T03:18:09.771584+00:00"
+        },
+        {
+          "name": "20261029-1305-arrival-ecb",
+          "modified_utc": "2026-10-29T13:25:15.045580+00:00"
+        },
+        {
+          "name": "20261029-1220-arrival-gdp-pce",
+          "modified_utc": "2026-10-29T12:38:47.224625+00:00"
+        },
+        {
+          "name": "20261029-1000-dossier-gdp-pce-ecb-boj",
+          "modified_utc": "2026-10-29T10:30:44.561296+00:00"
+        }
+      ]
+    }
+  ],
+  "expanded_report_search": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1000-dossier-gdp-pce-ecb-boj\\dossier.json",
+      "sha256": "85158f7d49233d04cecea705756d734fbc6e93ede547e748cce3eb5fc0d7d171",
+      "size": 43831,
+      "modified_utc": "2026-10-29T10:28:53.848728+00:00",
+      "matched_location_count": 22,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/invalidation_policy",
+          "value_sha256": "5250c584abe5b0f5a3e83848275990bca7471d50f097ee315826a1c1eafbe15e",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/events/us_gdp_pce/branches/0/invalidation",
+          "value_sha256": "42d441931dca08806bdb8003b616d3a62759a8cec558fa14b82b68b8bbae3b8b",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/events/us_gdp_pce/branches/1/invalidation",
+          "value_sha256": "be26240de664caed3fbeec3c2cde7a7ea3007d0568b8aa94798bc360c6ef0ca3",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/events/us_gdp_pce/branches/2/invalidation",
+          "value_sha256": "40ce626b59cc987811df73cb2689ac84574a35b6fced139a40c28481688c6e47",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/events/us_gdp_pce/branches/3/invalidation",
+          "value_sha256": "7dd006ab6b2bba1bee972ef8c0d54f64d851770ac14b00964106801012e7568f",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/events/us_gdp_pce/branches/4/invalidation",
+          "value_sha256": "442c5a28b6635d6744b467322b623183650c40347f8a8bb9c18ad59d1d7f63aa",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/events/us_gdp_pce/branches/5/invalidation",
+          "value_sha256": "442c5a28b6635d6744b467322b623183650c40347f8a8bb9c18ad59d1d7f63aa",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/events/us_gdp_pce/branches/6/invalidation",
+          "value_sha256": "c4b7bce3cc6434223ed4a98b17fd4064a6eaf3109255a7d336d89160fa5ddcf6",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1000-dossier-gdp-pce-ecb-boj\\DOSSIER.md",
+      "sha256": "f637486a96e5d89fe66ddc20793910860491baa3915c1c4b9d8324200aac10ca",
+      "size": 25916,
+      "modified_utc": "2026-10-29T10:28:53.848728+00:00",
+      "matched_location_count": 15,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "line:6",
+          "value_sha256": "034923140c56570afc8a687053a4edd0b9fc294a367ba6f9a38184a3c5e9878b",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:37",
+          "value_sha256": "706ddb4b91632ef8d10d0b14307a258e6fd70849d3f5450e8617d7b48aad4d11",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:39",
+          "value_sha256": "39932cfcf722a31f24fa96a6307dba1943c5d7d96cf64fd257f24d8805336d4f",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:59",
+          "value_sha256": "680401a7b7fbb9cbc49e069d6cd090196f3d0455a5228d293bae6a7b5f2e62f8",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:80",
+          "value_sha256": "f07d39a4d5b7cd08ae4db08dc8746e502ed0d427a6bf2bf261f955c51d1d638e",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:95",
+          "value_sha256": "bad966f678365f959d8b9db78d3865c2dfccd790748dbfd296dc57d73b6f908d",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:96",
+          "value_sha256": "b9939a18fb6e618b473338f5325f0ee3efcf745190f5bb42b4c70b3def207e21",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:97",
+          "value_sha256": "f874d0b216a5e39714f879f23fd75cb8b68f6201b85772516b1e59a268284c6b",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261030-1000-dossier-eci\\dossier.json",
+      "sha256": "8965cc0c977ac8c5fb1f8857fc474322e216a5887835f5d6f2ea5da08c5e5df9",
+      "size": 43766,
+      "modified_utc": "2026-10-30T10:24:37.258184+00:00",
+      "matched_location_count": 5,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/windows/invalidation_checkpoint_utc",
+          "value_sha256": "69cca9fa186fbcebbe53e8c3e275d646f2630c6eae3d0c32a923167bbc6ac7ee",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/branches/0/invalidation",
+          "value_sha256": "b5f825521c4998ceb85f7ed20180096b7a36c2d1913005d44dca07d97ec7067b",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/branches/1/invalidation",
+          "value_sha256": "051f1a5ac1525a8a8b8e061a60d5a6d53103d916716dfd106d4b68fcfbd32b0a",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/branches/2/invalidation",
+          "value_sha256": "9f54d58264613c409f03505637f20c46b421addd56a280c162b7f4b347a0b58b",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/branches/3/invalidation",
+          "value_sha256": "7417850c93111e46ba83b950afc82638af42838fd3cdcbcdf1fe8f901d08b93f",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261030-1000-dossier-eci\\DOSSIER.md",
+      "sha256": "ee4453937509c3f764d1eeb9121580edd17c51c27d9878e1ee53748843ebfa4d",
+      "size": 26892,
+      "modified_utc": "2026-10-30T10:24:37.241077+00:00",
+      "matched_location_count": 13,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "line:6",
+          "value_sha256": "b887d48b337768b4632b2f8e76a5b3964eeeb6b1d484c72d36dc8cf58932eab1",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:57",
+          "value_sha256": "57aaff6efcec45a14173cbeee774c717d01786657034ead4fb99fd9f313a1bcb",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:58",
+          "value_sha256": "f4655f4ebd9fe303cdd0ebd4f1e525a378ef8c86ba91cb63b0dab40f2d59275f",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:60",
+          "value_sha256": "c3fb95e271399861eaa3520899767df715895200ba7ce7e16d83b596cfe8c4f8",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:65",
+          "value_sha256": "8c5d29ece2829fdce7d096fa5e35c037145ae27913cacb7de1836926f75ae5f7",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:66",
+          "value_sha256": "a81cafa636ae9ccb7fa73c70505bfe827789ed6e24b9e735d09e2255469dae14",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:67",
+          "value_sha256": "805038089be9ce35221484e00f73ce51852f200cdc3c8c41631eb6cbcb77305a",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:141",
+          "value_sha256": "ca7d2f77485f8aa49e4a70af136af72e0558d1c8ea635468c2f6824a085e8d42",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\dossier.json",
+      "sha256": "1f367354ec633a472eaadbfd373cf1a1e97f22771a3444a9f557ad102f3b7106",
+      "size": 181856,
+      "modified_utc": "2026-11-02T23:35:08.940068+00:00",
+      "matched_location_count": 101,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/quote_rule_framework/common_invalidation",
+          "value_sha256": "213b34c8f6c2d9ed17bb85dd19be998613a469d50923f518ff5bfe5d3d037d5c",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/outcomes/0/branch_plans/0/invalidation",
+          "value_sha256": "059b00757d33920f29238bd4d86971ed1c12e98297ae14c0bde09b519a36ff34",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/outcomes/0/branch_plans/1/invalidation",
+          "value_sha256": "3384bdb0da557c6d8360df54978109cf2f603359a5bba9f6632ddde8cd29cf68",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/outcomes/0/branch_plans/2/invalidation",
+          "value_sha256": "e304c446310e5860f443ca97f0630457924e056da70a8a57c019bec45cebca99",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/outcomes/0/branch_plans/3/invalidation",
+          "value_sha256": "def43f284d8e255732e85d2b49cf40d2032716313f541ad3a5f5195af3d366d3",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/outcomes/0/branch_plans/4/invalidation",
+          "value_sha256": "7a79e23aba660da8e63d669aeddd76cd5d607f91e5fd4cce6c815932d4471864",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/outcomes/0/branch_plans/5/invalidation",
+          "value_sha256": "6c9cb4e28010151440bd2883575e88d9886589ead74445027893ac1905c91699",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/outcomes/0/branch_plans/6/invalidation",
+          "value_sha256": "50a6da1716ef4458e88b5d6538e52bedddf3a4b1e75a8ed79a8f487f08eec587",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\DOSSIER.md",
+      "sha256": "959f0d26bf66d9d5097982d13545391d9cbad52ca9641991639ea4389cace300",
+      "size": 45395,
+      "modified_utc": "2026-11-02T23:33:37.202504+00:00",
+      "matched_location_count": 49,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "line:46",
+          "value_sha256": "5f3859124b680664d271c140e6bdf37ecddf808276767e9d1fe32abdcdca259c",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:54",
+          "value_sha256": "5efce6b9b740997cd23679621fd34287184665f37f5b7bfa79e2595d42c53cfb",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:66",
+          "value_sha256": "1d18c80113f78fc95d84144b4bf6d9bc8ed6d794f2a684094ac6cc467965d939",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:67",
+          "value_sha256": "0fc106aaedd3ada5ef7675af04c0dac8feae1eb3471d288a237479be588f2258",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:68",
+          "value_sha256": "5b0389941c03165b016e6f9fe3f32675e59b5246725d4799332c9cff13185ac4",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:69",
+          "value_sha256": "d14b18677667eaab2b0f0c9c36792fe0a50896ca9e3603e3b07befd9fb71ff7e",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:70",
+          "value_sha256": "d27db1535b136507db4fec406baf17db2b2ca7dc5009825e23e9e1efb99173d6",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:71",
+          "value_sha256": "cf5a91acf37b5507812dfdd5e6c9b2b6c520ced80bf328d3f27f236b33869ff9",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\PREVIEW.md",
+      "sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "size": 5470,
+      "modified_utc": "2026-11-02T23:32:11.532279+00:00",
+      "matched_location_count": 5,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "line:11",
+          "value_sha256": "626d5ef7127c249dc8478577d0b3541ac31e3baf5f143075e172a2e19c09ca0d",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:19",
+          "value_sha256": "ee65d489c99d2a93a0c230d25f04e093a292fe755b95f28f24934e11e317798f",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:21",
+          "value_sha256": "171de42ec4aba1733a6a4c01b56989d7ea8bfbc56c0d8fadf0a029ba7ccea600",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:33",
+          "value_sha256": "4a156663601512322abff722ed39cd7ee864ff6fb1bae80044e157461adad6ed",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:39",
+          "value_sha256": "c608067cbfcb4e5ed61b03d7fa68813bd7f098f0fe3201b0e87c11c26fd3c5cd",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\dossier.json",
+      "sha256": "970d9bd0186fe73d56f59393ca83e9c70b83b95fc9c70156123ef8edd6802a4d",
+      "size": 423,
+      "modified_utc": "2026-11-06T10:05:16.504167+00:00",
+      "matched_location_count": 0,
+      "explicit_probability_locations": [],
+      "sample_locations": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+      "size": 6468,
+      "modified_utc": "2026-11-06T10:04:39.855570+00:00",
+      "matched_location_count": 9,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "line:13",
+          "value_sha256": "294f24880fc26a00a221f61bbd818f71e4f005d4cdec3e4860aca79b127f42fe",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:14",
+          "value_sha256": "3dd540a2ab75ab9ac293cba6a38d584c7a971099708538aacdd11dce26d4a2e3",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:15",
+          "value_sha256": "e7cd1e590f169ff1328e79d83dd2441eb14418d8dff8d4b3792c55be61fad846",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:17",
+          "value_sha256": "a16f12ed84bb3db333645f7fb7bf0d66a8dcd98918dde83ded8b90564e2e599f",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:22",
+          "value_sha256": "8d76bd8f91ec484339ed8b8a4c582d6f93798bebfce0c0d0f853338bb52ac815",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:23",
+          "value_sha256": "e52c180c6084f907d76c8bafcc68c6582dcbfeda6a9effcf73bbc2d949569bdd",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:36",
+          "value_sha256": "327cad99a325c76bb1b7cc87a8193535c3adc262a5a274006df668d4ed4901cd",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "line:37",
+          "value_sha256": "3619320ebc1fe976d050667c37e608e5d05961e0f4ed1ab053de0bd6ae771881",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-2cb47ca5fa1d0dd4\\owner-native.json",
+      "sha256": "d20d1953c33b40e0f0ccdf47f379d6bc4be25fed5c40502e3d484a25b7db7f7c",
+      "size": 44401,
+      "modified_utc": "2026-11-05T05:52:03.876255+00:00",
+      "matched_location_count": 18,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "6e2cb5dc6a50b8567bd5419d4476ede7e1dc51b2a7cf82bc03475c0376f651cf",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "72db6555e2bdfe7ee8baf859b61b357418e21d060fdc17bdd551fca34bdcbdf4",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "82f3d8456412c957253e183860402a8671f55b093f03c86edad2fc13e121fba8",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "22984d1624956a45151c8bb459c289c279beb56377b2424846f0375970bb8ecd",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/2/invalidation",
+          "value_sha256": "81227541b45535badfbf4d9cb89d3c7835932c60f5389352033c61d7726e386b",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/2/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-3de3b71343111c7b\\owner-native.json",
+      "sha256": "40f79dad5e50cc4d9b589bd524a58907c32c0d7a7bed3b46bd6bc6db149173f0",
+      "size": 33196,
+      "modified_utc": "2026-11-03T06:26:01.435925+00:00",
+      "matched_location_count": 8,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "0c282762df1cc8a9a2ecaa707b5ba1b87c6ff85693e8e1b422386a0cca0495a8",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "2c3402a9d2f15045f4bb8b7c785134263aef4d04ef355a647c2086faa5804860",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "4b30517b3d44199e0feecac91646d629bf04d52f84f60ed020748383b6924633",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "89ff7e062e1a79de16f783aef4e829f665e08592e07fed39118fe9dcfc2fc2c7",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation_timeframe",
+          "value_sha256": "720b20da135f3261fde1f4f062ce023a5fa535af8960dc433af3d21cb08aa013",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/structured_watch/invalidation_predicates",
+          "value_sha256": "a70ab6e8c906418024e0514c3d347941c8dfa903782b8b89a2123b9194f2eb8d",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-45c4fbea254c0def\\owner-native.json",
+      "sha256": "e7e06616a1c44689d84741f769c9b1e242277d787e3c1940ca78eefa6b93a6b3",
+      "size": 50926,
+      "modified_utc": "2026-11-05T16:21:56.958702+00:00",
+      "matched_location_count": 34,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "330defb1d2edaf499d523d282eb5e2585d436b67cc90f3f7774d94c26665be05",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "cec93be5d292e70c56da8b84f61e3220fcbb3eb6e4a19ef55ffa2f1ee6b6356a",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "3b0c688ba1ddaa6b375c7cae58d6316bda8925de9630005902031ff3eea2a924",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation_timeframe",
+          "value_sha256": "99742bffa1b6de29ea2a42fab373f4102a9399c9c8b5e21823941bbf607e9141",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/structured_watch/invalidation_predicates",
+          "value_sha256": "4211ea229fe9245dc98b797cdcb491d6858568d1b36418758392a128a78ba52f",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "89645bcf31ff1f6903819dafa5fa8ab0a8971d0b0e584f0dc525d2ef6cedd660",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-51273dc20d4c181e\\owner-native.json",
+      "sha256": "353561201c8f33500077cfd91dcae2a9f7b21a7b8e5579447940881f30b45b13",
+      "size": 48858,
+      "modified_utc": "2026-11-04T23:50:48.074826+00:00",
+      "matched_location_count": 22,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "02a4de6aa251d9fb3be8b7332139ae60557b9fd60ef3cc16f4c1cf6c0217ca49",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "e0b921880307a3f3ba4738690a42872fa6c5dad0525bd0cdac9d678201984b4a",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "c6e3794a6489343ee6af28cde804bd86b672369a93b39b2e48380b26a4ee6c44",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation_timeframe",
+          "value_sha256": "99742bffa1b6de29ea2a42fab373f4102a9399c9c8b5e21823941bbf607e9141",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/structured_watch/invalidation_predicates",
+          "value_sha256": "85a51fa98861bdfa67d0bd6b1efa31903bdcb03d68fb2a425daf34353640ab17",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "d65afbf7b2f48b77a526cf12cc8bc1081dd38d9b8f202044cc40b17b2c9611bf",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+      "sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+      "size": 40752,
+      "modified_utc": "2026-11-06T08:18:47.782128+00:00",
+      "matched_location_count": 28,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "c64fae8dceff72f382936b30cf24439b41e1ec06a9923fe6c1659b38bbdb9582",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "a3b4350230a60b05e92cc74de4b6b7d9b2885caa21a3f704137a3ffb1e38e003",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "ac029295c344b2e10d4783375fbe685337588f19735f0d52dcb7ee973cd8d2d9",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "2965138ddbe20f18466dc638fa3bbc135b3189425f21b0e696156ee530c20043",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/2/invalidation",
+          "value_sha256": "5884d0e1c8690b0c7a42e90fdf03abeef4baa88c0221459533521d4fd6e35d43",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/2/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-6d24a481c7c3783a\\owner-native.json",
+      "sha256": "4d8088fcec492b1b54e101467aac7c66a537ac4a873cecd06c0a262a09ff5be2",
+      "size": 30446,
+      "modified_utc": "2026-10-31T11:19:55.046611+00:00",
+      "matched_location_count": 6,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "db9d2576d088d16d60d1d85bb78f13503ca2dc418d12f1e67d6c175856a29197",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "233fa6dd8df2111eb0e1639b54e6236118b149fb611aba57e95a9d69a854ccc3",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "5524bec2fb7d03156dd2323526f0ef4e3350c78e0b1794b74ee57425922005bb",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "c86f8f03710955b6d3ce297dc7c12d55a5cf426598ce669b3ca2e53f325d1ad2",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74753dcb175dba34\\owner-native.json",
+      "sha256": "fc111ddfc1026236ac26b2792f46bb489365d670ef1e653552c4007e4d0831c8",
+      "size": 27997,
+      "modified_utc": "2026-10-29T18:02:58.373203+00:00",
+      "matched_location_count": 6,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "a0bc54c517143d9c7eb3b025b496eb21dbaff1ac3040e2bad6866de30c9b3ed5",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "97cf41154ea5eb15bc29f3461dd396bc33dfce9466bbd2ee31c241f85375512b",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "7a24d99bce4e93087e0e8570aa0657ab2f86a1e65a98683f33dc6aa70b5a21d8",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "f3fc6f0de5309809f2847bedd2d0a8829df3cd92631db4123befe596841d7bb1",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74cef2ab0eda597b\\owner-native.json",
+      "sha256": "6d4053538c3a2fe4dcc6e011d07e105de6cda04a76d42769134f8b9c14d04e27",
+      "size": 39672,
+      "modified_utc": "2026-11-05T08:56:59.538917+00:00",
+      "matched_location_count": 16,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "5d7d6811ffa6e2c95fbaea9d14b7dbad8988441661e2f78d28fb4782ac172495",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "c6553de1d65bf5faa824b6556f07b671d58e54a9140fdd217e2fa361c1766c57",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "9f9e4362d7895d1881829c29b2d0fcab906b064a06e339f7f2c781b8ab5600f9",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "966bb59daaf267adbc2c1eee426069e6e16294357c96a8a476a8f2065c32f31f",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation_timeframe",
+          "value_sha256": "99742bffa1b6de29ea2a42fab373f4102a9399c9c8b5e21823941bbf607e9141",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/structured_watch/invalidation_predicates",
+          "value_sha256": "143f893f64c987821630a0df6ba91c5c5b5590c0c4dc2d7e864ece537ee03fa3",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+      "sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+      "size": 50392,
+      "modified_utc": "2026-11-06T06:03:38.600291+00:00",
+      "matched_location_count": 32,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "f9a09bf8d9fe4ef83402418dcfcf4da0a052516fbb82bb56ab99de1fc3936c78",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "a8f03b9e34b3fa4ed3fb9da7a9c3e1a9f2b1cebc5b00f332aa009aad8bbc6e33",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "9088eee4f90f5be5b0544274d7292b2738b254126b5ef57233f6d3cbc282e155",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation_timeframe",
+          "value_sha256": "99742bffa1b6de29ea2a42fab373f4102a9399c9c8b5e21823941bbf607e9141",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/structured_watch/invalidation_predicates",
+          "value_sha256": "235a07adabd05daa48a23be40ae89bd624f67b1e37f21f9a7dd23e789a7f6dd2",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "31b71e40185a608509444ec21daa55fce2a5cdb73ba2036e8b877acda42896bc",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b685c54776119d2a\\owner-native.json",
+      "sha256": "c24e486c857f774fc51b5f2b0bf44951a99bbf7961d79b8c594237d887ed4ebf",
+      "size": 50575,
+      "modified_utc": "2026-11-04T17:36:23.939322+00:00",
+      "matched_location_count": 22,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "4d2cff93d4ea8cf355d8f10e5517ee25cdcab36e1296c1f4c9b01a553bc78a56",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "633adb8efde58ce96a3ca50fd51bfe20be7752aeb32339cf1e425453ae195e42",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "80ced34e11f2364ac6488d4252c8e3192478b1ed938929dad476d2f4fedf9d4b",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation_timeframe",
+          "value_sha256": "99742bffa1b6de29ea2a42fab373f4102a9399c9c8b5e21823941bbf607e9141",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/structured_watch/invalidation_predicates",
+          "value_sha256": "bbad2d298896171c42590416056561d5d9ae227f025508012de49ebe2e6320b1",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "1b454cfc4124b8565fb61ada887029862c6258c812773d8a9a2e2debbdc8c695",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-c8bba0c593d99fb8\\owner-native.json",
+      "sha256": "17082bbfba405e93ea0ae42c167bbb8989d1e83c04a1c2b563d51c68c53910a2",
+      "size": 43780,
+      "modified_utc": "2026-11-05T16:54:50.041907+00:00",
+      "matched_location_count": 30,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "b222e6399e0cd1a54a37ca5bfae159aaf633ccaeb945985aa7105bf3a8c5293b",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "2ab9f9baaaf34efa0aadbe3cbbe6475f3c458e147ba686424d1c9b6b0f11edcd",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "0899da75089e17a818f6d586bab02704d466d67f9d83773098ca67a896467cb0",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation_timeframe",
+          "value_sha256": "99742bffa1b6de29ea2a42fab373f4102a9399c9c8b5e21823941bbf607e9141",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/structured_watch/invalidation_predicates",
+          "value_sha256": "c80255bed9ef2b07578f9cf83332b2b7bf052168079ab0b7f7717756f8a90c4b",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "33114cbf8d9e36fe86e4465383fbaa2bfb14cd1da869f2347b49f792df545a16",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-ca1d8e92cdca3250\\owner-native.json",
+      "sha256": "af5251fc6b215738465d3ecfe6b5dfc4f3adc59aca8af2d3b1a5b0a321e45e9f",
+      "size": 31698,
+      "modified_utc": "2026-11-04T16:00:56.447072+00:00",
+      "matched_location_count": 12,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "246af77f2ccc4d1608965ee46605e7bbdb1620575336b30ea6402ae451e6d3ec",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "27c07f281728e33793a652a6dba6fb4220c83250a76046a04c89b39f3d1ab14f",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "9c2f36f492103ff48986832a55febc269d557fea8b7212b6d52e34ce3ab8ffbf",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "65a27bd909ff3a632e8919372253290f59f29b7cd8e091790fa1fdfd0040c15d",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/2/invalidation",
+          "value_sha256": "9151fc3ef4672699fc8f20d9bb84ce2073305f2156b5bbaee2d464559a0b88db",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/2/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d232ac540a32a050\\owner-native.json",
+      "sha256": "34a8884208741350c679779d7ee5825b221d047e918c76c7428d071b82879406",
+      "size": 49228,
+      "modified_utc": "2026-11-05T11:12:27.155965+00:00",
+      "matched_location_count": 30,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "897dd0efdf3dd65a70bacd91a65e891633fc792938d3edf48edd4331bb0849dd",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "5c5df0a4b76c72042d88b650ff8cb14b2d353619a58d9c2f31a0f40481d1b9e5",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "7e5f4a0602f8dafe9fbd5f83c1c1c264953a14e1b982504870bd588b3c3a5895",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation_timeframe",
+          "value_sha256": "99742bffa1b6de29ea2a42fab373f4102a9399c9c8b5e21823941bbf607e9141",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/structured_watch/invalidation_predicates",
+          "value_sha256": "1b8552dcaea86141f9c4a1474dd9575f6045c525ea796d960612aae9e041ec2a",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "36c87e49519b8a2b58ffb7153020b661604b934e1c7676902cb0acfcbb674344",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d76f8099aa98eb40\\owner-native.json",
+      "sha256": "98c22420685bf51201cc1998d420579b968c19d4cebb104585f382696c59f879",
+      "size": 50187,
+      "modified_utc": "2026-11-04T21:03:53.576707+00:00",
+      "matched_location_count": 20,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "c1e8a81479630144f7819d888a8e30d45f98691a42e3bea1393cb049126efda9",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "4655f4fe2a8ad976302d9e1604f5053e4c8c3b3c926fd0fd8897d9a231d80c83",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "86450d35b38d53f56f3bea681110503b02a5c30a3bf1ee6b8c8a0d3068eef0be",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation_timeframe",
+          "value_sha256": "99742bffa1b6de29ea2a42fab373f4102a9399c9c8b5e21823941bbf607e9141",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/structured_watch/invalidation_predicates",
+          "value_sha256": "cf7385c66bfa00d3da4f4034607c563836d02eb81c29e6af08c793c75e83c936",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "11c96cbf435b3d9c76bce6a8e43ab823061a7aa20e91e58a576d249160705cb8",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e9ea28a3f2bd2bfa\\owner-native.json",
+      "sha256": "afa968ddba9827552c1a37313e799056644b71cbbf603dc195f1485593d30fb8",
+      "size": 44178,
+      "modified_utc": "2026-11-05T01:44:44.180025+00:00",
+      "matched_location_count": 18,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "9139a2bd6f2257a63b48b4328a48d8452f71a21982a73607aef0975b8e4a7a86",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "e70e7a13c46bbe843a5f5fc3c0f5288cb592d3342e51a1b3876d5dbefd10aea4",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "d98dc44112fcb1bc2b23fb93a58963f4d0a10448f94650e76e65d03326aa5ccd",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation_timeframe",
+          "value_sha256": "99742bffa1b6de29ea2a42fab373f4102a9399c9c8b5e21823941bbf607e9141",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/structured_watch/invalidation_predicates",
+          "value_sha256": "a3a36ea38d655bd95676319eb1fce8743bb880e8dd4ec0f1512b0fa2c4f98d89",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "91c317cd24c4cbb99b3651d8d42a02ed858dd82f82a1846b49bb4db9117de9f6",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f178a4640c2aa3de\\owner-native.json",
+      "sha256": "443d431fb4a48cb3c58e85198414ea28ef476efcd9b23a76060dfb2d2f93126f",
+      "size": 35261,
+      "modified_utc": "2026-11-02T06:34:43.926204+00:00",
+      "matched_location_count": 8,
+      "explicit_probability_locations": [],
+      "sample_locations": [
+        {
+          "location": "/scenario_assumptions",
+          "value_sha256": "a5e1ee053c2f9c3c8a12d715ba52972c4b257aa1ed8385d57db9566b33bbebf0",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/invalidation",
+          "value_sha256": "aa305d6814fa299995329b9874611e6b7e5cbdb8d08a16824c587a77c07d6a46",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation",
+          "value_sha256": "61e849464bc3372bda2f908af75402ede0169949873ede8af316d80f94882218",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/invalidation_timeframe",
+          "value_sha256": "fa5df88acfdb856b6bf765f9286e5082c6f0256fffd49f1cf19bc053c7f22c89",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/0/structured_watch/invalidation_predicates",
+          "value_sha256": "6e06cc5ee614fdde0f3b32991de605e3c2826bb8b23776fb5e98f1acd4de525e",
+          "value_type": "list",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/invalidation",
+          "value_sha256": "b8ef66733636baae5239bcf626afeca895587c372fa0fd29b9191752c151af85",
+          "value_type": "str",
+          "is_explicit_probability_value": false
+        },
+        {
+          "location": "/candidates/1/model_numeric_probability_created",
+          "value_sha256": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa",
+          "value_type": "bool",
+          "is_explicit_probability_value": false
+        }
+      ]
+    }
+  ],
+  "latest_shock_trigger_daily_outputs": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-07\\20261107T153542Z\\daily\\analysis.txt",
+      "sha256": "749d76fb35724f2e57d49d12fc4627c28d27b0967f13b6e77315085373bf1ec9",
+      "modified_utc": "2026-11-07T16:02:10.455441+00:00",
+      "text": "Stopped as `OVERLAP_SKIPPED`: a recent run has no `STATUS.md`, triggering the prompt\u2019s overlap guard. Research did not run.\n\n[Saved status](</A:/Capital Chronicle/ResearchRuns/claude-main-research/brain-runs/run-20261107T155937Z/STATUS.md>) and JSON records contain verified prompt provenance."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-06\\20261106T194549Z\\daily\\analysis.txt",
+      "sha256": "cc3e66269e48f709b69d25a085aa0affc467c63feae3b6b10aefc3f5d1541686",
+      "modified_utc": "2026-11-06T20:04:55.368870+00:00",
+      "text": "Stopped: the specified Python executable was not found (exit code 1).\n\nSaved `RESOLVER_NOT_RUN` and the exact error in the [refusal record](<A:/Capital Chronicle/ResearchRuns/claude-main-research/brain-runs/PROMPT_REFUSED_20261106T200447Z_cc-main-frontier-brain-4h.json>). No research ran."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-06\\20261106T190542Z\\daily\\analysis.txt",
+      "sha256": "8c7011a51d4f1f8b0f5ec8639754a4d8d8c629bfe3c4273e03c8502c50f670bd",
+      "modified_utc": "2026-11-06T19:15:23.457286+00:00",
+      "text": "**The research run stopped before any analysis because the position-protection check failed.** It traded nothing, registered no WATCH plans and changed nothing.\n\n- **What started it:** the automatic shock trigger at 02:05 (GMT+7) / 19:05Z, after unusually large moves in USDCAD (+0.81%), GBPUSD (\u22120.75%) and the dollar index (+0.73%). That trigger took the place of the missed 12:00 daily slot, so the run went ahead.\n- **Why it stopped:** before research starts, a read-only check confirms that open positions are protected. That check needs about 4\u20136 seconds; this time it hit its 45-second limit. Protection was never confirmed, and the prompt stops the run in that case. None of the three markets was analysed.\n- **What I found afterwards (read only):**\n  - Verified: one status read took 94 seconds and reported protection as not healthy and new trades as not allowed.\n  - Verified: the most recent protective job run (02:13 / 19:13Z) was cut off by Windows Task Scheduler at its 1-minute limit (code 267014, \"terminated\").\n  - Not verified: whether every protective run since the last good check (16:01Z) has also been cut off.\n  - Only 2.4 GB of 31.9 GB memory was free. My guess, not tested, is that memory pressure is slowing the protective job past its 1-minute limit.\n- **Other gaps:** the usage-reading tool wasn't available in this session, so quota use is recorded as unknown (this doesn't stop a run). No upcoming market event blocked the run.\n\nThis needs Ops Live, not you: until the protective job finishes inside its 1-minute limit again, research runs will keep stopping at this ch"
+    }
+  ],
+  "scope": "All 16 retained daily owner returns and 9 completed event reports/dossiers; excludes prompt/input/schema and provider snapshots. Full sources were read for comparison; only evidence locations and hashes are retained.",
+  "data_research_roots": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\data\\research",
+      "exists": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\data\\research",
+      "exists": false
+    }
+  ]
+}
