@@ -1,0 +1,353 @@
+{
+  "operation_id": "cc341-weekend-wrap-20261109-r2",
+  "request_sha256": "5f2fb189952e498e8c1fcb221e40cef0cd046ac30b42a0f6c78a9b95f53772b8",
+  "request_file_sha256": "93db57ab2cc23b1b6d4635f8538c216b428d4c8c183bc89d9bb7581f5c77548d",
+  "validated_at_utc": "2026-11-08T23:56:08.015905+00:00",
+  "writer_context": "/root/cc341_writer",
+  "schema_contract": "PASS",
+  "scenario_contract": "PASS",
+  "native_configuration_contract": "PASS CONFIGURED_NOT_OBSERVED",
+  "source_canonical_hashes": "PASS exact supplied text hashes",
+  "public_copy_preservation": "PASS removing source markers yields prepared-body-r2.md exactly",
+  "public_write_attempted": false,
+  "writer_notes": [
+    "Owner CC-341 body-preservation instruction takes priority over stale generic reset-lane prohibition on supplied Main estimates and stale ritual report labels. No public body prose added for a generic label.",
+    "Source excerpts are exact substrings of the actual frozen SOURCE_PACK; all scenario values remain exact, including the authorized USDJPY clause.",
+    "No separate native video blurb schema is present in this exact request. Supplied the three required source-bound social summary passages used by the existing eight-channel compiler."
+  ],
+  "source_pack_validation": "PASS",
+  "source_pack_report": {
+    "schema_version": "contentops.v1_simple_gemini_validation.v1",
+    "status": "PASS",
+    "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+    "supported_material_claim_count": 29,
+    "unsupported_material_claim_count": 0,
+    "supported_material_claims": [
+      {
+        "claim_id": "cc341-r2-title-001",
+        "claim_text": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f08b906ea61e93b65e9cb59432183ba31f5139ed27b1ef45c9dcffd2d88b04b1"
+      },
+      {
+        "claim_id": "cc341-r2-dek-hormuz-002",
+        "claim_text": "Capital Chronicle's weekend wrap weighs Hormuz attacks against active diplomacy, while Nvidia adds to AI-stock stress before the CPI week.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "930d252686499cbd3a75eb96cfc8af2cc34924c695ab95bbbbe1a47cad2f3cbb"
+      },
+      {
+        "claim_id": "cc341-r2-dek-nvidia-003",
+        "claim_text": "Capital Chronicle's weekend wrap weighs Hormuz attacks against active diplomacy, while Nvidia adds to AI-stock stress before the CPI week.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f6ec0c846d681d8d1f536294120afa0a7deeba07ed5a33aa2dba98d354854a26"
+      },
+      {
+        "claim_id": "cc341-r2-meta_description-hormuz-004",
+        "claim_text": "The weekend's Hormuz attacks, Iran talks and Nvidia inquiry frame Capital Chronicle's market scenarios before the CPI week.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "930d252686499cbd3a75eb96cfc8af2cc34924c695ab95bbbbe1a47cad2f3cbb"
+      },
+      {
+        "claim_id": "cc341-r2-meta_description-nvidia-005",
+        "claim_text": "The weekend's Hormuz attacks, Iran talks and Nvidia inquiry frame Capital Chronicle's market scenarios before the CPI week.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f6ec0c846d681d8d1f536294120afa0a7deeba07ed5a33aa2dba98d354854a26"
+      },
+      {
+        "claim_id": "cc341-r2-social_hook-hormuz-006",
+        "claim_text": "Hormuz attacks meet active diplomacy before the CPI week; Nvidia adds to AI-stock stress.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "930d252686499cbd3a75eb96cfc8af2cc34924c695ab95bbbbe1a47cad2f3cbb"
+      },
+      {
+        "claim_id": "cc341-r2-social_hook-nvidia-007",
+        "claim_text": "Hormuz attacks meet active diplomacy before the CPI week; Nvidia adds to AI-stock stress.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f6ec0c846d681d8d1f536294120afa0a7deeba07ed5a33aa2dba98d354854a26"
+      },
+      {
+        "claim_id": "cc341-r2-search-title-008",
+        "claim_text": "Hormuz attacks and Iran talks: weekend market wrap before CPI",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f08b906ea61e93b65e9cb59432183ba31f5139ed27b1ef45c9dcffd2d88b04b1"
+      },
+      {
+        "claim_id": "cc341-r2-body-009",
+        "claim_text": "Markets closed on Friday at 4 p.m. after a strong jobs report lifted the odds of a December Fed rate rise to about 78-80% and firmed the dollar. Oil had just finished a week down about 12% on hopes for a deal to end the Iran war. The weekend tested those hopes.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "0e26d6ec8a181b388f17ac5b52fdd370cc46d1d5e2f3eb927564f2a9bb3bb49b"
+      },
+      {
+        "claim_id": "cc341-r2-body-010",
+        "claim_text": "**What happened.** Tankers were hit again around the Strait of Hormuz. The UK's maritime security agency reported a projectile strike on Saturday afternoon and a separate tanker fire, and the UAE rescued 22 crew from a burning cargo ship. President Trump confirmed what he called minor US strikes on Iran's Qeshm Island. Iran's Revolutionary Guards said they had dropped their self-imposed limit on missile range. Early Sunday, Houthi missiles aimed at Riyadh were intercepted, and debris damaged an Aramco office building; Saudi officials reported no casualties and no hit to production. Gulf stocks, open on Sunday, slipped about 1%.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "de4c8bc0d536d8987653d4d6f89f37883bd88f6044dc192ebd8a3e4436a18cee"
+      },
+      {
+        "claim_id": "cc341-r2-body-011",
+        "claim_text": "The counterweight came later on Sunday. Trump told CNN that renewed attacks on Iran were \"highly unlikely\" if talks make progress. Iran's foreign minister said it was time for Washington to decide on Tehran's offer to reopen Hormuz within two days. Qatar says its mediation continues.",
+        "claim_kind": "QUOTE",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "58bbcd991b479324aed50a6c0dabad866c551b1a5794de934d6357f0a16f985a"
+      },
+      {
+        "claim_id": "cc341-r2-body-012",
+        "claim_text": "Three other stories mattered. Democrats sketched AI bills for the next Congress, and a New York Times investigation raised questions about Chinese buyers of Nvidia chips, extending last week's AI-stock stress. Stephen Miller takes over as White House chief of staff on Monday. China reported adding about 26 tonnes of gold to its reserves in October.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "ed11d8ee00d1277922ba28d7572e0fa96d393ed8f45716de3f92aeb18d2dd73d"
+      },
+      {
+        "claim_id": "cc341-r2-body-013",
+        "claim_text": "**What markets are weighing at the reopen** (currencies about 5 p.m., US stock futures and oil 6 p.m.):",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "44d53072d306e47b6eb45a3be038b70ee71551fce5d08958960f0a73f6047657"
+      },
+      {
+        "claim_id": "cc341-r2-market-014",
+        "claim_text": "- **Oil:** our base case is a firmer open, 0.5% to 2.5% above Friday, with Brent near $100. A US response to Iran's offer could reverse that quickly.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "82aca32766db94ca3ed175647fd388787686d26b7f9f195d5d3d375e03bee91f"
+      },
+      {
+        "claim_id": "cc341-r2-market-015",
+        "claim_text": "- **US stocks:** futures look set to start slightly lower, about 0.2% to 0.8% for the S&P 500, with technology under the most pressure.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f033244d16544ae83b8309de635e62e9bb67769a7b8c1cc6ccf6c509e96ab10d"
+      },
+      {
+        "claim_id": "cc341-r2-market-016",
+        "claim_text": "- **Gold:** we expect a quiet open. In this war, higher oil has tended to mean higher inflation, more Fed hikes and a weaker gold price, so the headlines do not translate into a simple safe-haven rally. China's buying is a support.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "d9b32ba0f869877d6aa8f48e29209261e33fd5e444f1c49e843f4e52cdf2e21d"
+      },
+      {
+        "claim_id": "cc341-r2-market-017",
+        "claim_text": "- **Dollar and yen:** the dollar looks set to open slightly firmer; the euro sits near its lowest level in a year. The yen is close to the zone where Tokyo has warned it could step in.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "07e3a70469c8d53fda795c83c3d57b303b9741374c537893fbe8449ed78284a0"
+      },
+      {
+        "claim_id": "cc341-r2-market-018",
+        "claim_text": "- **Bitcoin:** it traded all weekend and stood near $75,700 at 1 p.m. Sunday, almost exactly where it was on Friday. It has tracked the Nasdaq closely.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "b79f1e39416d906ec2fadf5742e63691eb2e938726429e61e8c5db1906bc8290"
+      },
+      {
+        "claim_id": "cc341-r2-body-019",
+        "claim_text": "**The week ahead.** China's inflation figures arrive at 8:30 p.m. Sunday. Several Fed officials speak on Monday, and the New York Fed's survey of consumer inflation expectations comes out at 11 a.m. The main event is the October consumer price index on Tuesday at 8:30 a.m. Forecasters expect core prices to rise 0.2% on the month. A 0.3% or higher reading would likely seal a December hike, lift the dollar and weigh on gold and stocks; 0.1% or lower would do the opposite. The weekend's oil moves cannot change October's number, but they shape how the market hears it. Bond markets close on Wednesday for Veterans Day. Producer prices follow on Friday at 8:30 a.m.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "5c593d4f69ac42af8847ede55dde8b69a22491c44dcd8965b9201e7713893e0f"
+      },
+      {
+        "claim_id": "cc341-r2-nvidia-020",
+        "claim_text": "**On Sunday, Nvidia.** Nvidia's board opened an independent investigation into chief executive Jensen Huang after reports in The New York Times and the Financial Times that a woman he had a relationship with was a suspected Chinese intelligence asset. Huang, who stays in his job, admitted the affair in a note to staff. The board said it has no reason to believe company secrets or national security were compromised. Nvidia is among the largest stocks in the S&P 500 and the Nasdaq-100, so the story adds to the AI-stock stress going into the open.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "f6ec0c846d681d8d1f536294120afa0a7deeba07ed5a33aa2dba98d354854a26"
+      },
+      {
+        "claim_id": "cc341-r2-scenario-021",
+        "claim_text": "**Base case, 55%: talks continue; oil firms at the open, then fades.** Oil opens 0.5% to 2.5% higher and gives most of it back as talks continue. Stocks lean lower at first on AI-stock stress; gold, the euro and the yen stay near Friday's levels; Bitcoin follows the Nasdaq. Tuesday's CPI report then drives rates and the dollar. *Confirms:* oil gives back half its opening gain by Tuesday, Brent stays below $103, and the talks stay active. *Invalidates:* either alternative below.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "9cfc67d2c4342e6ba0d26a5563d2cb170657c1cb42cb86034321ca85ffd7c1c1"
+      },
+      {
+        "claim_id": "cc341-r2-scenario-022",
+        "claim_text": "**Alternative, 25%: escalation around Hormuz.** New strikes on shipping or Gulf energy sites, or wider US or Israeli strikes on Iran. Oil 4% to 10% higher, stocks 1% to 3% lower, the euro weaker, Bitcoin 3% to 6% lower. Gold is torn between inflation fears and falling yields.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "5a1052b2b18f89a18e1ccfb0821422ba3a5f0fe10b9155ab77d73e9c1b3a41d0"
+      },
+      {
+        "claim_id": "cc341-r2-scenario-023",
+        "claim_text": "*Confirms:* Brent above $103, or a confirmed hit on Gulf oil production or exports. *Invalidates:* two days without a new confirmed attack, with Brent back under $100.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "2f91e3dc5a4a8e692c40e005caf3bc8e9f51e0133ed19a89473ceef473c01a2a"
+      },
+      {
+        "claim_id": "cc341-r2-scenario-yen-024",
+        "claim_text": "oil weakens the yen, while risk-off supports it",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "2f551d8980d296d9cab537903493a17d0e05fe5b78304e35988a4a60b3b62154"
+      },
+      {
+        "claim_id": "cc341-r2-scenario-025",
+        "claim_text": "**Alternative, 20%: a deal on Iran's offer.** Washington accepts a framework for Tehran's plan to reopen Hormuz. Oil 3% to 8% lower; stocks, gold and the euro higher; the dollar softer against the yen; Bitcoin up. *Confirms:* a US statement accepting the framework, then tankers moving through the strait. *Invalidates:* a US rejection, the offer lapsing, or oil back above Friday's close after an announcement.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "445703b80657d097c1777bc91c955282190318f7b7e103cf1f2645c11fad09ea"
+      },
+      {
+        "claim_id": "cc341-r2-scenario-label-026",
+        "claim_text": "Probabilities are Capital Chronicle model estimates for the week to Friday 13 November. They are not market prices.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "8dd8a4b09563b73633f025bc8dacfc12a34cd554adf5c582d5addab3073ad17b"
+      },
+      {
+        "claim_id": "cc341-r2-social_mechanism_summary-027",
+        "claim_text": "In this war, higher oil has tended to mean higher inflation, more Fed hikes and a weaker gold price, so the headlines do not translate into a simple safe-haven rally.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "0b4f920cd68b49f22842f7e0ba598c879eba2f9b1154a9ae5b561d4280b8fd17"
+      },
+      {
+        "claim_id": "cc341-r2-social_policy_summary-028",
+        "claim_text": "The counterweight came later on Sunday. Trump told CNN that renewed attacks on Iran were \"highly unlikely\" if talks make progress.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "6cc106adef2a92512ecbfc0708e71dc660b5511e1b38cb3f55d37fcfd3ce5429"
+      },
+      {
+        "claim_id": "cc341-r2-social_cross_asset_summary-029",
+        "claim_text": "A 0.3% or higher reading would likely seal a December hike, lift the dollar and weigh on gold and stocks; 0.1% or lower would do the opposite.",
+        "claim_kind": "CAUSALITY",
+        "source_id": "SOURCE_2",
+        "document_id": "cc341-weekend-wrap-20261109",
+        "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS",
+        "attribution_required": true,
+        "support_excerpt_sha256": "54a6a8774a1e5a14b5c3d1e6997aaac45194817364731c038e4fe4c81c26f3a0"
+      }
+    ],
+    "cited_source_count": 2,
+    "source_urls": [
+      "urn:cc-public-report:main-retained:7ff9e0fabdcc8b74cad93982ba48e5e725b38de39279b5697a4d609b7dd548b0",
+      "urn:cc-public-report:main-retained:ed7678235e1c9efbebc7eaf777efcce59b3d7741f8d49b7ff912d6823e9b7a9f"
+    ],
+    "source_timestamps_are_model_authority": false,
+    "source_bytes_precede_writer": true,
+    "epistemic_state": {
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "The retained Main report records dated analysis and market observations.",
+      "event_truth_supported": false,
+      "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "Capital Chronicle",
+      "primary_reporting_source_identity": "cc341-weekend-wrap-r2-scenarios-20261109",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "DATED CAPITAL CHRONICLE REVIEW",
+      "report_proposition": "Weekend wrap R2: Capital Chronicle model-estimate scenarios 55% base, 25% escalation, 20% deal through Friday 13 November, plus attributed Nvidia update",
+      "report_scope_notice": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "cc341-weekend-wrap-r2-scenarios-20261109"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "report_truth_validated_separately_from_event_truth": true,
+    "public_write_performed": false,
+    "unknown_write_detected": false
+  },
+  "response_sha256": "3306fb0b87a72d6a0f1fa23ec057f4cf263b36666265e0be541ec5fa85f92d4f",
+  "envelope_changed": false,
+  "validator_source_sha256": "d28d20e07b3764f2f959b1ece3df8e5c078d946c30bf090dd45827bad21397ff"
+}
