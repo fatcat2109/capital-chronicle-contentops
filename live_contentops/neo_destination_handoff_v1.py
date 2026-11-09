@@ -66,7 +66,7 @@ def _public_url(destination, url, object_id=None):
     if destination in {"linkedin", "linkedin_company"}:
         match = re.fullmatch(r"/feed/update/(urn:li:(?:activity|share|ugcPost):\d+)/?", unquote(p.path))
         return bool(p.hostname == "www.linkedin.com" and match
-            and (not object_id or match[1] == str(object_id)))
+            and (not object_id or str(object_id) in {match[1], match[1].rsplit(":", 1)[-1]}))
     if destination == "instagram_business":
         return p.hostname == "www.instagram.com" and bool(re.fullmatch(r"/p/[A-Za-z0-9_-]+/", p.path))
     if destination == "telegram":
