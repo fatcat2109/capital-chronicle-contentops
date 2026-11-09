@@ -1,0 +1,8 @@
+{
+  "operation": "official Threads keyword_search target discovery",
+  "public_write_performed": false,
+  "status": "THREADS_TARGET_LOOKUP_PERMISSION_DENIED",
+  "http_status": 403,
+  "provider_code": 10,
+  "message": "Application does not have permission for this action"
+}

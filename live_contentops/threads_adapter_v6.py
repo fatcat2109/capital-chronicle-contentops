@@ -168,6 +168,7 @@ def readback_threads_post(
     canonical_url: str | None = None,
     expected_media_local_path: str | None = None,
     access_token: str | None = None,
+    expected_parent_id: str | None = None,
 ) -> dict[str, Any]:
     access_token = _threads_token(access_token)
     if not post_id or not access_token:
@@ -204,7 +205,13 @@ def readback_threads_post(
     link_verified = True if not canonical_url else canonical_url in visible_text
     permalink = str(value.get("permalink") or "") or None
     username = str(value.get("username") or "")
-    verified = bool(text_verified and media_verified and link_verified and permalink and username.casefold() == "official.capitalchronicle")
+    parent_verified = True
+    if expected_parent_id:
+        edge = readback_threads_chain(root_id=expected_parent_id,
+            reply_expectations=[{"id":post_id,"text":expected_text}],access_token=access_token)
+        parent_verified = edge.get("status") == "SUCCESS"
+    verified = bool(text_verified and media_verified and link_verified and permalink
+        and username.casefold() == "official.capitalchronicle" and parent_verified)
     return {
         "status": "SUCCESS" if verified else "FAILED_THREADS_STRICT_READBACK",
         "platform": "threads",
@@ -220,6 +227,7 @@ def readback_threads_post(
         "media_type": value.get("media_type"),
         "content_binding_checks": {
             "text_match": text_verified,
+            **({"reply_parent_match":parent_verified} if expected_parent_id else {}),
             "media_match": media_verified,
             "canonical_link_match": link_verified,
             "account_match": username.casefold() == "official.capitalchronicle",

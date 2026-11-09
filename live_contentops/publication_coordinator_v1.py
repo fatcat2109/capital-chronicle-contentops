@@ -2058,7 +2058,7 @@ class DurablePublicationCoordinator:
         if plan.get("daily_digest"):
             from live_contentops.substack_daily_digest_v1 import validate_digest_plan
             validate_digest_plan(self.store, work_item_id, plan)
-        if self.published_content_path is not None and not plan.get("daily_digest") and not plan.get("plan_status_post"):
+        if self.published_content_path is not None and not plan.get("daily_digest") and not plan.get("plan_status_post") and not plan.get("sourced_reply"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             article_metadata(plan, require_notice=False)
             if self.published_content_path.exists():
@@ -2168,6 +2168,12 @@ class DurablePublicationCoordinator:
                 if packet.get("part"):
                     intent["plan_status_part"] = packet["part"]
                 intent["native_payload"] = packet["payloads"][destination]
+                intent.pop("published_content_export", None)
+            if plan.get("sourced_reply"):
+                from live_contentops.sourced_replies_v1 import validate_plan, payload as reply_payload
+                row = validate_plan(self.store, work_item_id, plan)
+                intent["sourced_reply"] = row["key"]
+                intent["native_payload"] = reply_payload(row)
                 intent.pop("published_content_export", None)
             payload = _canonical_json(intent)
             expected_hash = str(item.get("payload_hash") or "")
@@ -2522,10 +2528,15 @@ class DurablePublicationCoordinator:
         wrong_time = find_forbidden_public_time(*posted_values(intent, canonical_url), public_media_text(intent.get("media_assets")))
         if wrong_time:
             return {**refusal(destination, wrong_time), "status": TIME_REASON, "reason_code": TIME_REASON}
+        if intent.get("sourced_reply"):
+            from live_contentops.sourced_replies_v1 import validate_intent, reserve, read_target
+            row = validate_intent(self.store, intent)
+            read_target(row)
+            reserve(self.store, row, datetime.now(timezone.utc))
         if intent.get("plan_status_post"):
             from live_contentops.plan_status_posts_v1 import validate_status_post_intent
             validate_status_post_intent(self.store, intent)
-        elif self.published_content_path is not None and not intent.get("daily_digest"):
+        elif self.published_content_path is not None and not intent.get("daily_digest") and not intent.get("sourced_reply"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             from live_contentops.event_article_guard_v1 import check_publication_copy
             metadata = article_metadata(intent)
@@ -2738,6 +2749,11 @@ class DurablePublicationCoordinator:
         """Persist final canonical-URL-bound derivative bytes without dispatching them."""
         if str(message.get("destination") or "") == "substack":
             return "NOT_DERIVATIVE"
+        reply_intent = json.loads(str(message["payload"]))
+        if reply_intent.get("sourced_reply"):
+            from live_contentops.sourced_replies_v1 import validate_intent
+            validate_intent(self.store, reply_intent)
+            return "READY"
         intent = json.loads(str(message["payload"]))
         if intent.get("canonical_url") == canonical_url and (
                 intent.get("post_image_policy") or not intent.get("native_payload")
@@ -3704,7 +3720,7 @@ class DurablePublicationCoordinator:
                     canonical_url = str(intent.get("canonical_url") or "") or self._confirmed_canonical_url_for_work_item(
                         work_item_id) or ""
                 # A status post carries no link at all (decision 83); it never waits for one.
-                if destination != "substack" and not canonical_url and not intent.get("plan_status_post"):
+                if destination != "substack" and not canonical_url and not intent.get("plan_status_post") and not intent.get("sourced_reply"):
                     summary["per_destination"][destination] = {
                         "status": "WAITING_CANONICAL_URL",
                         "publish_called": False,

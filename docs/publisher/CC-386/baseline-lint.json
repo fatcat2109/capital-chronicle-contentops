@@ -1,0 +1,42 @@
+[
+  {
+    "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+    "base": "9d99e10a81c626e619213d51d8b4c77954869d36",
+    "baseline_findings": [
+      {
+        "code": "F401",
+        "message": "`os` imported but unused"
+      },
+      {
+        "code": "F401",
+        "message": "`live_contentops.cloudinary_delivery_media_v1.NOT_REQUIRED` imported but unused"
+      },
+      {
+        "code": "F401",
+        "message": "`live_contentops.media_manifest_authority_v1.select_primary_delivery_media` imported but unused"
+      },
+      {
+        "code": "F401",
+        "message": "`live_contentops.facebook_page_adapter_v6.execute_facebook_photo` imported but unused"
+      },
+      {
+        "code": "F401",
+        "message": "`live_contentops.instagram_adapter_v6.execute_instagram_post` imported but unused"
+      },
+      {
+        "code": "E731",
+        "message": "Do not assign a `lambda` expression, use a `def`"
+      }
+    ]
+  },
+  {
+    "path": "live_contentops/threads_adapter_v6.py",
+    "base": "9d99e10a81c626e619213d51d8b4c77954869d36",
+    "baseline_findings": [
+      {
+        "code": "F401",
+        "message": "`os` imported but unused"
+      }
+    ]
+  }
+]

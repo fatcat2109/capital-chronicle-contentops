@@ -30,7 +30,8 @@ def applies(coordinator, intent):
     # the rule. Offline fixture stores have no publication feed or public grant.
     return (coordinator.published_content_path is not None
             and coordinator._clock() >= EFFECTIVE_FROM
-            and not intent.get("plan_status_post") and not intent.get("daily_digest"))
+            and not intent.get("plan_status_post") and not intent.get("daily_digest")
+            and not intent.get("sourced_reply"))
 
 
 def article_inputs(intent):

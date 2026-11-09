@@ -4111,6 +4111,12 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     output_dir = Path(str(intent.get("output_dir") or ""))
     if not output_dir.is_dir():
         raise RuntimeError("durable_intent_output_dir_unavailable")
+    if intent.get("sourced_reply") and not (intent.get("native_payload") or {}).get("media_asset_ids"):
+        destination = str(intent["destination_plan"]["destination"])
+        return {"output_dir":output_dir,"article":{},"selection":{},"media_assets":[],
+            "delivery_only_assets":[],"payloads":{destination:intent["native_payload"]},
+            "local_media":"","delivery_local_media":"","public_image_url":"",
+            "primary_media":{},"canonical_url":None}
     context = _read_json(output_dir / "run_context_v1.json")
     article = dict(context.get("article") or {})
     selection = dict(context.get("selection") or {})
@@ -4183,7 +4189,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
             decision["channel_media"] = {d: [i for i in ids if i in available] for d, ids in decision["channel_media"].items()}
     # CC-306: a plan-state post is not an article; it carries its validated copy per
     # destination (frozen below), so the article compiler has nothing to compile.
-    payloads = {} if intent.get("plan_status_post") else build_native_derivative_payloads(
+    payloads = {} if intent.get("plan_status_post") or intent.get("sourced_reply") else build_native_derivative_payloads(
         article=article,
         selection=selection,
         canonical_url=canonical_url or "https://capitalchronicle.substack.com/p/pending-publication",
@@ -4663,6 +4669,7 @@ def _publish_one_destination_from_durable_intent(
         root_readback = readback_threads_post(
             post_id=root_id, expected_text=str((payloads.get("threads") or {}).get("root_text") or text),
             canonical_url=canonical_url, expected_media_local_path=image_path or None,
+            **({"expected_parent_id":payloads[destination]["reply_to_id"]} if intent.get("sourced_reply") else {}),
         ) if root_id else {"status": "FAILED_THREADS_ROOT_ID_MISSING"}
         expected_replies = (payloads.get("threads") or {}).get("reply_texts") or []
         chain = readback_threads_chain(
@@ -4771,6 +4778,7 @@ def _readback_one_destination_from_durable_intent(
         result = readback_threads_post(
             post_id=public_object_id, expected_text=str(package.get("root_text") or text), canonical_url=canonical_url,
             expected_media_local_path=image_path or None,
+            **({"expected_parent_id":payloads[destination]["reply_to_id"]} if intent.get("sourced_reply") else {}),
         )
         reply_texts = package.get("reply_texts") or []
         if reply_texts:
