@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.111" timestamp="2026-11-10T00:31:07.775556+07:00" hostname="J-P"><testcase classname="tests.test_plan_status_touch_cc331" name="test_copied_export_bytes_match_the_retained_main_replay" time="0.146" /></testsuite></testsuites>

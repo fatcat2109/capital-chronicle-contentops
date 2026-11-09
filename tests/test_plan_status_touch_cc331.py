@@ -9,6 +9,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import subprocess
 import sys
 
 import pytest
@@ -37,6 +38,10 @@ def test_copied_export_bytes_match_the_retained_main_replay():
     evidence = json.loads((Path(__file__).parent / "evidence/cc-331/revalidation-20261110.json").read_bytes())
     for name, digest in evidence["export_sha256"].items():
         assert hashlib.sha256((FOLDER / name).read_bytes()).hexdigest() == digest
+        # An unchanged working file can hide Git's old normalized index entry after attributes change.
+        staged = subprocess.check_output(["git", "-C", str(FOLDER.parents[2]), "show",
+                                          ":tests/fixtures/cc331_touch_export/" + name])
+        assert hashlib.sha256(staged).hexdigest() == digest
 
 
 def queue(store, main_root, **kw):
