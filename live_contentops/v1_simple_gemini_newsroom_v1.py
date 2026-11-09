@@ -1741,6 +1741,11 @@ def _validate_article_against_source_pack(
     article.pop("public_research_descriptors", None)
     article.pop("frozen_public_record", None)  # Main's exact source, never writer-authored attachment metadata.
     article.pop("weekly_scored_calls", None)
+    from live_contentops.public_instruments_v1 import validate_article as validate_public_instruments
+    try:
+        validate_public_instruments(article)
+    except ValueError as exc:
+        raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", [str(exc)]) from exc
     from live_contentops.weekly_scored_calls_v1 import validate_article as validate_weekly_calls
     try:
         weekly_record = validate_weekly_calls(article, source_pack)
@@ -2076,7 +2081,8 @@ def _reader_safe_native_article(
         result["editorial_scope_notice"] = " ".join(filter(None, (
             result["editorial_scope_notice"], *article.get("desk_record_source_notices", []))))
     for key in ("scenario_analysis", "social_scenarios", "market_asset", "article_type", "release_analysis",
-                "lead_image_asset_id", "publication_quality_policy", "valid_until_utc", "weekly_scored_calls"):
+                "lead_image_asset_id", "publication_quality_policy", "valid_until_utc", "weekly_scored_calls",
+                "public_instrument_policy"):
         if key in article:
             result[key] = article[key]
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices

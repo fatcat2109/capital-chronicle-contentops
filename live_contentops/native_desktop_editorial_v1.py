@@ -1218,6 +1218,10 @@ class NativeDesktopTurn:
         if stage in {"select", "write", "revise", "visual-edit"} and (not frozen or SCENARIO_GUIDANCE in frozen["prompt"]):
             native_guidance += "\n" + SCENARIO_GUIDANCE + "\n"
         request_prompt = kwargs["prompt"] + native_guidance
+        from live_contentops.public_instruments_v1 import GUIDANCE as INSTRUMENT_GUIDANCE
+        if (stage in {"select", "visual-edit", "write", "revise"}
+                and (not frozen or INSTRUMENT_GUIDANCE in frozen["prompt"])):
+            request_prompt += "\n" + INSTRUMENT_GUIDANCE
         if stage in {"write", "revise"}:
             from live_contentops.event_article_guard_v1 import event_writer_guidance
             if not frozen:
@@ -1293,7 +1297,13 @@ class NativeDesktopTurn:
         if not ok:
             raise ValueError("NATIVE_DESKTOP_RETURN_SCHEMA:" + str(reason))
         observation = response["invocation_observation"]
-        return response["output"], {
+        output = response["output"]
+        from live_contentops.public_instruments_v1 import GUIDANCE as INSTRUMENT_GUIDANCE, POLICY as INSTRUMENT_POLICY
+        if stage in {"write", "revise"} and INSTRUMENT_GUIDANCE in request["prompt"] and output.get("article"):
+            # Bind compiler policy to the issued request, not a writer assertion.
+            # Keep the saved native return and all historical request bytes exact.
+            output = {**output, "article": {**output["article"], "public_instrument_policy": INSTRUMENT_POLICY}}
+        return output, {
             "provider": EDITORIAL_AGENTS[editorial_agent_of(request)]["owner"], "selected_model": observation.get("model"),
             "reasoning_effort": observation.get("reasoning_effort"),
             **{k: observation[k] for k in ("configuration_status", "configured_model", "configured_reasoning_effort")

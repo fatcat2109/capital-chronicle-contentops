@@ -128,6 +128,10 @@ def before_article_write(coordinator, intent, destination):
     if not applies(coordinator, intent):
         return None
     article, assets, documents = article_inputs(intent)
+    from live_contentops.public_instruments_v1 import validate_article, validate_payload
+    validate_article(article)
+    for asset in assets:
+        validate_payload(article, asset)
     assets = [a for a in assets if a.get("article_inclusion") is not False
               and a.get("canonical_article_media") is not False]
     if not assets:
@@ -163,6 +167,7 @@ def before_article_write(coordinator, intent, destination):
             from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
             payload = _durable_intent_inputs(intent)["payloads"][destination]
         validate_social_scenarios(article, payload)
+        validate_payload(article, payload)
         if market:
             from live_contentops.article_scenarios_v1 import payload_text
             from live_contentops.tradingview_snapshot_v1 import CREDIT
