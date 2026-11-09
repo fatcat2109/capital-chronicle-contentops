@@ -2165,6 +2165,8 @@ class DurablePublicationCoordinator:
                 from live_contentops.plan_status_posts_v1 import validate_status_post_plan
                 packet = validate_status_post_plan(self.store, work_item_id, plan)
                 intent["plan_status_post"] = packet["key"]
+                if packet.get("part"):
+                    intent["plan_status_part"] = packet["part"]
                 intent["native_payload"] = packet["payloads"][destination]
                 intent.pop("published_content_export", None)
             payload = _canonical_json(intent)
@@ -4177,7 +4179,7 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:
-        if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
+        if destination in {"substack", "substack_notes", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
                 and (intent.get("dated_distribution_recovery") or intent.get("reader_presentation_review"))
                 and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
             return self._neo_transport.publish(destination=destination, intent=intent,
@@ -4273,7 +4275,7 @@ class CanonicalDestinationTransportRuntimeV1:
         if intent.get("reader_presentation_review") and destination not in {"facebook_page", "telegram"}:
             return self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
-        if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
+        if destination in {"substack", "substack_notes", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
                 and intent.get("dated_distribution_recovery")
                 and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
             result = self._neo_transport.readback(destination=destination, intent=intent,

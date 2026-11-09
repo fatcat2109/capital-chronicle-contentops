@@ -77,6 +77,12 @@ class SurfaceTransport:
 
 _SURFACES = (
     SurfaceTransport(
+        "SUBSTACK_NOTE", "substack_notes", "BROWSEROS_NEO_MCP",
+        "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "substack_notes", "@deancapitalchronicle",
+        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@deancapitalchronicle",
+    ),
+    SurfaceTransport(
         "SUBSTACK_ARTICLE", "substack", "BROWSEROS_NEO_MCP",
         "neo_destination_handoff_v1.NeoDestinationHandoff",
         "substack", "capitalchronicle.substack.com",
@@ -172,7 +178,8 @@ DESTINATION_TO_SURFACE = {
     "instagram_business": "INSTAGRAM_BUSINESS_POST",
     "threads": "THREADS_POST",
 }
-OWNER_SELECTED_DESTINATION_TO_SURFACE = {"linkedin_company": "LINKEDIN_COMPANY_POST"}
+OWNER_SELECTED_DESTINATION_TO_SURFACE = {"linkedin_company": "LINKEDIN_COMPANY_POST",
+                                         "substack_notes": "SUBSTACK_NOTE"}
 
 # Quality-probation V1 is one canonical article plus these exact eight derivative
 # surfaces. YouTube here means Community; video/Short surfaces remain V2-only.

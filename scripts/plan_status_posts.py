@@ -41,6 +41,8 @@ def main(argv=None) -> int:
     parser.add_argument("--publish", action="store_true",
                         help="after queueing, post queued rows through the coordinator (X waits for an agent turn)")
     parser.add_argument("--pending-x", action="store_true", help="list status posts' X requests for an agent")
+    parser.add_argument("--pending-notes", action="store_true", help="list status posts' Substack Notes requests")
+    parser.add_argument("--notes-start", metavar="KEY", help="register this post's full Substack Note through Neo")
     parser.add_argument("--x-start", metavar="KEY", help="agent route: register and issue a fresh post's X copy")
     parser.add_argument("--x-begin", nargs=2, metavar=("KEY", "REQUEST_SHA256"))
     parser.add_argument("--x-submit", nargs=3, metavar=("KEY", "REQUEST_SHA256", "RESPONSE_JSON"))
@@ -48,14 +50,16 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
     store = ContentOpsDurableStore(str(args.store), auto_migrate=False)
     from live_contentops import plan_status_posts_v1 as posts
-    if args.pending_x or args.x_start or args.x_begin or args.x_submit:
-        if args.pending_x:
-            result = {"status": "OK", "pending_x": posts.pending_x(store)}
+    if args.pending_x or args.pending_notes or args.x_start or args.notes_start or args.x_begin or args.x_submit:
+        if args.pending_x or args.pending_notes:
+            destination = "substack_notes" if args.pending_notes else "x"
+            result = {"status": "OK", "pending_" + destination: posts.pending_x(store, destination=destination)}
         elif not args.native_invocation_id:
             result = {"status": "NATIVE_INVOCATION_ID_REQUIRED"}
-        elif args.x_start:
-            result = {"status": "OK", "start": posts.start_x(store, args.x_start,
-                                                             native_invocation_id=args.native_invocation_id)}
+        elif args.x_start or args.notes_start:
+            result = {"status": "OK", "start": posts.start_x(store, args.x_start or args.notes_start,
+                destination="substack_notes" if args.notes_start else "x",
+                native_invocation_id=args.native_invocation_id)}
         elif args.x_begin:
             result = {"status": "OK", "begin": posts.begin_x(store, *args.x_begin,
                                                              native_invocation_id=args.native_invocation_id)}

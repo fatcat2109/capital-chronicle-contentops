@@ -20,6 +20,7 @@ from typing import Any, Mapping
 
 from live_contentops.event_article_guard_v1 import (
     CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy, conditional_call_text,
+    public_execution_copy_forbidden,
 )
 
 SCHEMA = "contentops.plan_status_post.v1"
@@ -129,7 +130,77 @@ def _built_plan(plan: Mapping[str, Any], *, state: str | None = None) -> dict:
             "cancel_level": plan.get("cancel_level"),
             "target": plan.get("target", plan.get("target_level")),
             "invalidation_level": (max(invalid) if below else min(invalid)) if invalid else None,
-            "valid_until_utc": until}
+            "valid_until_utc": until,
+            "scenario_analysis": plan.get("scenario_analysis"),
+            **{k: plan.get(k) for k in REASON_FIELDS},
+            "invalidation_text": plan.get("invalidation_text")}
+
+
+# CC-353 / CC-355: only named public rationale fields cross into the composer.
+# In particular, never copy the whole export row (target, sizing and execution fields).
+REASON_FIELDS = {
+    "mechanism": "Mechanism", "priced": "What is priced", "positioning": "Positioning",
+    "driver": "Today's driver", "acceptance": "Confirmation", "zone_reason": "Why this zone",
+    "invalidation_reason": "Why this invalidation", "confirmations": "Confirmations",
+    "opposite_mechanism": "Alternative mechanism",
+    "why_no_open": "Why the plan is waiting",
+}
+PRIVATE_RATIONALE = re.compile(
+    r"\b(?:targets?|take[ -]?profit|after[ -]?cost|risk[ /:-]*(?:reward|return)|R\s*:\s*R|"
+    r"position siz\w*|fills?|filled|tickets?|P\s*&\s*L|(?:realized|unrealized)\s+(?:profit|loss)|prediction[ -]?market|"
+    r"polymarket|kalshi|account|balance|equity capital)\b|https?://|"
+    r"\b(?:towards?|aims? (?:at|for))\s+[$€£]?\d", re.I)
+
+
+def _public_reason(value: Any) -> str:
+    """Keep source sentences only. A private clause never suppresses the whole post."""
+    if isinstance(value, list):
+        value = " ".join(_public_reason(v) for v in value)
+    if not isinstance(value, str):
+        return ""
+    sentences = re.split(r"(?<=[.!?;])\s+|\n+", value.strip())
+    safe = []
+    for sentence in sentences:
+        sentence = " ".join(sentence.split())
+        # A projected destination price is a target (decision 40). Keep the
+        # preceding mechanism, without supplying a replacement price or direction.
+        sentence = re.sub(r"\s+towards?\s+[$€£]?\d.*", "", sentence, flags=re.I)
+        if (not sentence or PRIVATE_RATIONALE.search(sentence) or INTERNAL.search(sentence)
+                or FORBIDDEN.search(sentence) or public_execution_copy_forbidden(sentence)
+                or re.search(r"\b(?:bullish|bearish)\b", sentence, re.I)):
+            continue
+        # An undated UTC clock cannot be converted faithfully. Omit that sentence;
+        # source date-only periods and already-labelled ET clocks remain unchanged.
+        if re.search(r"\b\d{1,2}:\d{2}(?:Z|\s*(?:UTC|GMT))\b|GMT\+7|UTC\+7", sentence):
+            continue
+        safe.append(sentence)
+    return " ".join(safe)
+
+
+def _rationale(plan: Mapping[str, Any]) -> list[str]:
+    scenario = plan.get("scenario_analysis") or {}
+    if not isinstance(scenario, Mapping):
+        scenario = {}
+    lines = []
+    for key, label in (("base_case", "Base case"), ("main_alternative", "Main alternative")):
+        branch = scenario.get(key) or {}
+        if not isinstance(branch, Mapping):
+            continue
+        move = _public_reason(branch.get("market_move"))
+        if not move:
+            continue
+        probability = branch.get("probability_pct")
+        probability = (f" {probability:g}%" if isinstance(probability, (int, float))
+                       and not isinstance(probability, bool) and 0 <= probability <= 100 else "")
+        lines.append(f"{label}{probability} (Capital Chronicle model estimate): {move}")
+    for field, label in REASON_FIELDS.items():
+        value = _public_reason(plan.get(field) or scenario.get(field))
+        if value:
+            lines.append(f"{label}: {value}")
+    invalid = _public_reason(plan.get("invalidation_text") or scenario.get("invalidation_text"))
+    if invalid:
+        lines.append(f"Invalidation: {invalid}")
+    return lines
 
 
 def _row(*, plan_id, symbol, to, at_utc, cause, plan):
@@ -168,7 +239,8 @@ def _cancel_level_is_public(plan: Mapping[str, Any]) -> bool:
     return float(cancel) != float(target)
 
 
-def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None) -> dict:
+def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
+            first_plan_post: bool = False) -> dict:
     """One short post for one transition, or a named cause it is not posted."""
     symbol, plan = row["symbol"], row["plan"]
     if symbol not in MARKETS:
@@ -203,6 +275,11 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None) -> di
         lines = [f"{title}: the plan with the {zone} entry zone is now active.",
                  f"Price reached the zone at {_when(row['at_utc'])}.",
                  f"It is invalidated if {invalid}."]
+        if first_plan_post and plan.get("valid_until_utc"):
+            call = {"condition": f"price trades into {zone}", "direction": plan["direction"], "market": market,
+                    "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}
+            calls = [call]
+            lines = [f"{title}: plan now active at {_when(row['at_utc'])}.", conditional_call_text(call)]
     elif to in {"CANCELLED", "INVALIDATED"}:
         reason = {
             "RUNAWAY_CANCEL": "price moved away before reaching the zone",
@@ -222,11 +299,16 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None) -> di
         lines.insert(0, f"Delayed update as of {_when(delayed_at.isoformat())}.")
         if to == "WAITING":
             lines.append(f"The plan was registered at {_when(row['at_utc'])}.")
-    text = " ".join(lines) + f"\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
+    why = _rationale(plan) if to == "WAITING" or (to == "TRIGGERED" and first_plan_post) else []
+    lead = " ".join(lines)
+    text = lead + (" Why: " + " ".join(why) if why else "") + f"\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
     check_publication_copy({"title": title, "body": text}, conditional_calls=calls)
     if INTERNAL.search(text) or FORBIDDEN.search(text):
         raise PlanPostError("PLAN_POST_INTERNAL_OR_FORBIDDEN_WORDS")
-    return {"status": "COMPOSED", "kind": kind, "text": text, "conditional_calls": calls}
+    return {"status": "COMPOSED", "kind": kind, "text": text, "conditional_calls": calls,
+            **({"lead": lead, "why": why} if why else {}),
+            "rationale_cause": ("SCENARIO_ANALYSIS_MISSING" if not plan.get("scenario_analysis") else
+                                "PUBLIC_RATIONALE_EMPTY" if not why and to in ACTIVE else None)}
 
 
 POSTING_WINDOW_MINUTES = 60
@@ -284,6 +366,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     now = now or datetime.now(timezone.utc)
     oldest = now.timestamp() - window_minutes * 60
     queued, existing, skipped, too_old = [], [], [], 0
+    rationale_causes = {}
     fresh = [row for row in rows if row["symbol"] in MARKETS]
     recoveries = active_recoveries(fresh, now)
     announced = {json.loads(r["payload"]).get("plan_id") for r in store.list_outbox_messages(destination=DESTINATION)
@@ -300,7 +383,8 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
         if row["to"] in WITHDRAWN and row["plan_id"] not in announced:
             skipped.append({"key": row["key"], "cause": "PLAN_NEVER_ANNOUNCED"})
             continue
-        post = compose(row, delayed_at=now if late and row["key"] in recoveries else None)
+        post = compose(row, delayed_at=now if late and row["key"] in recoveries else None,
+                       first_plan_post=row["plan_id"] not in announced)
         if post["status"] != "COMPOSED":
             skipped.append({"key": row["key"], "cause": post.get("cause")})
             continue
@@ -311,10 +395,14 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
                 store.set_outbox_status(row["key"], READY)
             existing.append(row["key"])
             continue
+        rationale_cause = post.get("rationale_cause") if row["to"] in ACTIVE else None
+        if rationale_cause:
+            rationale_causes[rationale_cause] = rationale_causes.get(rationale_cause, 0) + 1
         payload = {"schema_version": SCHEMA, "key": row["key"], "plan_id": row["plan_id"],
                    "symbol": row["symbol"], "state": row["to"],
                    "at_utc": row["at_utc"], "kind": post["kind"], "text": post["text"],
                    "conditional_calls": post["conditional_calls"],
+                    **{k: post[k] for k in ("lead", "why", "rationale_cause") if post.get(k)},
                    # CC-314: the levels the post's image shows (the chart timeframe and the
                    # fallback fact card). Never the target or the cancel level (decision 40).
                    "levels": {k: row["plan"].get(k) for k in PUBLIC_LEVELS},
@@ -336,7 +424,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
             "latest_states": latest, "active_recoveries": recoveries,
             "older_than_window": too_old, "window_minutes": window_minutes,
             "queued" if not dry_run else "would_queue": queued,
-            "already_queued": existing, "not_posted": skipped}
+            "already_queued": existing, "not_posted": skipped, "rationale_causes": rationale_causes}
 
 
 # ---------------------------------------------------------------------------------------------
@@ -346,14 +434,14 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
 # sole coordinator owns exactly-once, UNKNOWN_WRITE and readback. No Substack canonical: the
 # link is the market's page on the site (the preview until CC-305 publishes).
 # ---------------------------------------------------------------------------------------------
-POST_DESTINATIONS = ("telegram", "discord", "threads", "x")
+POST_DESTINATIONS = ("telegram", "discord", "threads", "x", "substack_notes")
 # The minute task posts only these (no agent needed). X is registered by the agent route.
 API_DESTINATIONS = ("telegram", "discord", "threads")
 # Jim's decision 83 (5 Nov): a status post carries no site link, only its text and image.
 POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan-status-posts")
 STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "plan now active", "CANCELLED": "plan cancelled",
                "INVALIDATED": "plan invalidated", "EXPIRED": "plan expired", "VIEW_CHANGED": "view changed"}
-LIMITS = {"x": 280, "threads": 500, "telegram": 1024, "discord": 2000}
+LIMITS = {"x": 280, "threads": 500, "telegram": 1024, "discord": 2000, "substack_notes": 10000}
 X_URL_LENGTH = 23  # X counts every link as 23 characters
 
 
@@ -378,6 +466,55 @@ def _x_length(text: str) -> int:
     return len(re.sub(r"https://\S+", "x" * X_URL_LENGTH, text))
 
 
+def _excerpt(text: str, room: int) -> str:
+    if len(text) <= room:
+        return text
+    if room < 2:
+        return ""
+    return text[:room - 1].rsplit(" ", 1)[0].rstrip(" ,;:") + "…"
+
+
+def _text_parts(body: str, notices: str, limit: int, credit: str = "") -> list[str]:
+    """Full source text, bounded parts. Each part retains the public notices."""
+    parts = []
+    while body:
+        suffix = "\n\n" + "\n\n".join(p for p in (credit if not parts else "", notices) if p)
+        room = limit - len(suffix)
+        if room < 1:
+            raise PlanPostError("PLAN_STATUS_NOTICES_EXCEED_LIMIT")
+        if len(body) <= room:
+            end = len(body)
+        else:
+            end = body.rfind(" ", 0, room + 1)
+            if end <= 0:
+                end = room
+        parts.append(body[:end].rstrip() + suffix)
+        body = body[end:].lstrip()
+    return parts
+
+
+def _short_body(row: Mapping[str, Any], room: int) -> str:
+    """A sourced excerpt, never a newly authored explanation or probability."""
+    calls = row.get("conditional_calls") or []
+    lead = (f"{TITLES[row['symbol']]}: {STATE_WORDS[row['state']]}. "
+            + " ".join(conditional_call_text(c) for c in calls)) if calls else row["lead"]
+    branches = []
+    for line in row["why"]:
+        match = re.fullmatch(r"(Base case|Main alternative)(.*?) \(Capital Chronicle model estimate\): (.*)", line)
+        if match:
+            branches.append((match[1] + match[2] + ": ", match[3]))
+    label = " Capital Chronicle model estimate: " if branches else " Why: "
+    if not branches:
+        branches = [("", row["why"][0])]
+    available = room - len(lead) - len(label) - sum(len(prefix) for prefix, _ in branches) - (len(branches) - 1) * 2
+    if available < len(branches) * 8:
+        # The full conditional call is mandatory. X can use its existing ordered
+        # thread; Threads can use its attached chart plus a concise conditional call.
+        raise PlanPostError("PLAN_STATUS_SHORT_CONDITION_TOO_LONG")
+    excerpts = [_excerpt(value, available // len(branches)) for _, value in branches]
+    return lead + label + "; ".join(prefix + value for (prefix, _), value in zip(branches, excerpts))
+
+
 def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: bool = False) -> dict:
     """The exact copy per destination: the post and the notices, no link (decision 83). With a
     TradingView snapshot, "Chart: TradingView" follows the post (Terms section 4, decision 82)."""
@@ -385,10 +522,13 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
     link = CHART_CREDIT if chart_credit else ""
     payloads = {}
     for destination in POST_DESTINATIONS:
-        text = "\n\n".join(part for part in (body, link, notices) if part)
+        destination_body = body
+        if row.get("why") and destination in {"threads", "x"}:
+            destination_body = _short_body(row, LIMITS["threads"] - len(notices) - 2 - (len(link) + 2 if link else 0))
+        text = "\n\n".join(part for part in (destination_body, link, notices) if part)
         if destination == "x" and _x_length(text) > LIMITS["x"]:
             # Whole sentences per post: the chart credit with the first, the notices last.
-            sentences = re.split(r"(?<=\.)\s+(?=[A-Z])", body)
+            sentences = re.split(r"(?<=\.)\s+(?=[A-Z])", destination_body)
             chunks, current = [], ""
             for sentence in sentences:
                 candidate = f"{current} {sentence}".strip()
@@ -411,10 +551,31 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
                                      "full_text": "\n\n".join(chunks), "media_asset_ids": [card_id]}
             continue
         if (_x_length(text) if destination == "x" else len(text)) > LIMITS[destination]:
+            if row.get("why") and destination in {"telegram", "discord", "substack_notes"}:
+                parts = _text_parts(body, notices, LIMITS[destination], link)
+                payloads[destination] = {"destination": destination, "text": text, "full_text": text,
+                                         "media_asset_ids": [card_id], "parts": parts}
+                continue
             raise PlanPostError("PLAN_STATUS_POST_TOO_LONG:" + destination)
         payloads[destination] = {"destination": destination, "text": text, "full_text": text,
                                  "media_asset_ids": [card_id]}
     return payloads
+
+
+def _part_payloads(payloads: dict, part: int = 0) -> dict:
+    result = {}
+    for destination, payload in payloads.items():
+        if not payload.get("parts"):
+            if part == 0:
+                result[destination] = dict(payload)
+            continue
+        parts = payload.get("parts") or [payload["full_text"]]
+        if part >= len(parts):
+            continue
+        result[destination] = {k: v for k, v in payload.items() if k != "parts"}
+        result[destination].update(text=parts[part], full_text=parts[part],
+                                   media_asset_ids=payload["media_asset_ids"] if part == 0 else [])
+    return result
 
 
 def card_article(row: Mapping[str, Any]) -> dict:
@@ -513,10 +674,15 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":  # cloudinary_delivery_media_v1.READY
             raise PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
         manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))  # the hosting result wraps it
-    payloads = destination_payloads(row, card_id=card["asset_id"], chart_credit=chart_credit)
+    full_payloads = destination_payloads(row, card_id=card["asset_id"], chart_credit=chart_credit)
+    payloads = _part_payloads(full_payloads)
+    context_path = folder / "run_context_v1.json"
+    prior_context = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
     context = {"schema_version": "contentops.plan_status_post_context.v1", "article": {**article, "body": row["text"]},
                "selection": {}, "media": {"assets": [card]}, "plan_status_post": key,
-               "chart_credit": chart_credit}
+               "chart_credit": chart_credit,
+               **({"status_post_continuations": prior_context["status_post_continuations"]}
+                  if prior_context.get("status_post_continuations") else {})}
     (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
     rows = []
     for destination in destinations:
@@ -527,45 +693,65 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
                      "transport_registry_version": REGISTRY_VERSION, "payload": text,
                      "payload_hash": hashlib.sha256(text.encode("utf-8")).hexdigest(), "canonical_url": None,
                      "expected_destination_identity": registration.expected_identity})
-    return {"schema_version": "contentops.publication_plan.v1", "plan_status_post": key,
+    plan = {"schema_version": "contentops.publication_plan.v1", "plan_status_post": key,
             "plan_hash": hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest(),
             "story_identity": key, "article_identity": key, "package_identity": key,
             "publication_window": {"window_identity": key}, "output_dir": str(folder.resolve()),
             "status_post_card_id": card["asset_id"], "transport_registry_version": REGISTRY_VERSION,
             "policy_mode_version": "AUTONOMOUS_DEFAULT:cc306.v1", "destinations": rows}
+    continuations = []
+    for part in range(1, max(len(p.get("parts") or [p]) for p in full_payloads.values())):
+        chosen = _part_payloads(full_payloads, part)
+        child = f"{key}-part-{part}"
+        child_rows = [{**r, "payload": chosen[r["destination"]]["full_text"],
+                       "payload_hash": hashlib.sha256(chosen[r["destination"]]["full_text"].encode()).hexdigest()}
+                      for r in rows if r["destination"] in chosen]
+        if child_rows:
+            continuations.append({**plan, "plan_status_part": part, "work_item_id": child,
+                "story_identity": child, "article_identity": child, "package_identity": child,
+                "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
+                "destinations": child_rows})
+    if set(destinations) == set(API_DESTINATIONS):
+        context["status_post_continuations"] = continuations
+        (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
+    return {**plan, "continuations": continuations}
 
 
-def _expected(store, key: str, output_dir: str) -> tuple[dict, dict]:
+def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, dict]:
     row = _row_payload(store, key)
     context = json.loads((Path(output_dir) / "run_context_v1.json").read_bytes())
     if context.get("plan_status_post") != key:
         raise PlanPostError("PLAN_STATUS_POST_PACKAGE_MISMATCH")
     card_id = context["media"]["assets"][0]["asset_id"]
-    return row, destination_payloads(row, card_id=card_id, chart_credit=bool(context.get("chart_credit")))
+    return row, _part_payloads(destination_payloads(row, card_id=card_id,
+                              chart_credit=bool(context.get("chart_credit"))), part)
 
 
 def validate_status_post_plan(store, work_item_id: str, plan: Mapping[str, Any]) -> dict:
     key = str(plan.get("plan_status_post") or "")
-    if work_item_id != key:
+    part = plan.get("plan_status_part", 0)
+    if not isinstance(part, int) or part < 0 or work_item_id != (f"{key}-part-{part}" if part else key):
         raise PlanPostError("PLAN_STATUS_POST_WORK_ITEM_MISMATCH")
-    row, payloads = _expected(store, key, str(plan.get("output_dir") or ""))
+    row, payloads = _expected(store, key, str(plan.get("output_dir") or ""), part)
     for item in plan.get("destinations") or []:
         destination = item.get("destination")
         if (destination not in payloads or item.get("payload") != payloads[destination]["full_text"]
                 or item.get("canonical_url")):
             raise PlanPostError("PLAN_STATUS_POST_PLAN_COPY_CHANGED")
-    return {"key": key, "payloads": payloads}
+    return {"key": key, "part": part, "payloads": payloads}
 
 
 def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     """Re-checked immediately before every write: the frozen copy is still the stored post's."""
     key = str(intent.get("plan_status_post") or "")
-    row, payloads = _expected(store, key, str(intent.get("output_dir") or ""))
+    part = intent.get("plan_status_part", 0)
+    row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
     destination = str((intent.get("destination_plan") or {}).get("destination") or "")
-    if intent.get("work_item_id") != key or intent.get("native_payload") != payloads.get(destination):
+    if (intent.get("work_item_id") != (f"{key}-part-{part}" if part else key)
+            or intent.get("native_payload") != payloads.get(destination)):
         raise PlanPostError("PLAN_STATUS_POST_INTENT_COPY_CHANGED")
     check_publication_copy({"post": payloads[destination]["full_text"]},
-                           conditional_calls=row.get("conditional_calls") or [])
+                           conditional_calls=(row.get("conditional_calls") or []) if not part else [])
 
 
 FRESHNESS_MINUTES = 60
@@ -590,13 +776,21 @@ def scope_to_post(coordinator, key: str, plan: Mapping[str, Any]) -> None:
     coordinator.recovery_scope = {"work_item_id": key, "plan": plan, "exact_work_item_only": True}
 
 
-def _api_confirmed(store, key: str) -> bool:
+def _api_confirmed(store, key: str, *, root: Path = POST_ROOT) -> bool:
     plan_hash = hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest()
     from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
     for destination in API_DESTINATIONS:
         dispatch = store.get_platform_dispatch(DurablePublicationCoordinator._ids(key, plan_hash, destination)["dispatch_id"])
         if not dispatch or dispatch["status"] != "DISPATCH_CONFIRMED":
             return False
+    context = root / key / "run_context_v1.json"
+    if context.is_file():
+        for continuation in json.loads(context.read_bytes()).get("status_post_continuations") or []:
+            for item in continuation["destinations"]:
+                dispatch = store.get_platform_dispatch(DurablePublicationCoordinator._ids(
+                    continuation["work_item_id"], continuation["plan_hash"], item["destination"])["dispatch_id"])
+                if not dispatch or dispatch["status"] != "DISPATCH_CONFIRMED":
+                    return False
     return True
 
 
@@ -640,7 +834,7 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
                 store.set_outbox_status(row["message_id"], cause[0])
                 results.append({"key": row["message_id"], "status": cause[0], "cause": cause[1]})
                 continue
-        elif _api_confirmed(store, row["message_id"]):
+        elif _api_confirmed(store, row["message_id"], root=root):
             store.set_outbox_status(row["message_id"], "PUBLISHED")
             continue
         elif (payload.get("late_active") and not recovered) or _age_minutes(payload, now) > freshness:
@@ -659,6 +853,30 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
             scope_to_post(coordinator, key, plan)
             coordinator.register_plan(key, plan)
             outcome = coordinator.execute_plan(key, plan)
+            if all((outcome.get("per_destination", {}).get(d) or {}).get("status") == "DISPATCH_CONFIRMED"
+                   for d in API_DESTINATIONS):
+                for continuation in plan.get("continuations") or []:
+                    child = continuation["work_item_id"]
+                    store.create_work_item(story_id=child, title="Plan status continuation", target_surface="MULTI_PLATFORM",
+                                           work_item_id=child)
+                    scope_to_post(coordinator, child, continuation)
+                    coordinator.register_plan(child, continuation)
+                    more = coordinator.execute_plan(child, continuation)
+                    if not all((more.get("per_destination", {}).get(d["destination"]) or {}).get("status")
+                               == "DISPATCH_CONFIRMED" for d in continuation["destinations"]):
+                        outcome["per_destination"].update(more.get("per_destination") or {})
+                        break
+            # The existing minute run issues browser requests; it never waits on
+            # an agent. Both destinations are resumed through this same outbox.
+            if (_row_payload(store, key).get("why")
+                    and all((outcome.get("per_destination", {}).get(d) or {}).get("status") == "DISPATCH_CONFIRMED"
+                            for d in API_DESTINATIONS)):
+                browser_plan = prepare_post(store, key, root=root, host=host,
+                    destinations=("x", "substack_notes"), snapshot=snapshot)
+                scope_to_post(coordinator, key, browser_plan)
+                coordinator.register_plan(key, browser_plan)
+                browser_result = coordinator.execute_plan(key, browser_plan)
+                outcome["per_destination"].update(browser_result.get("per_destination") or {})
         except (OSError, ValueError, KeyError, TypeError) as exc:
             results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
             continue
@@ -670,24 +888,26 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
 
 
 def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None = None, root: Path = POST_ROOT,
-            host=None, snapshot=None) -> dict:
+            host=None, snapshot=None, destination: str = "x") -> dict:
     """The agent route registers and issues a fresh status post's X copy (a Neo request)."""
     from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
     now = now or datetime.now(timezone.utc)
     payload = _row_payload(store, key)
     if _age_minutes(payload, now) > _x_freshness_limit(payload, now):
         raise PlanPostError("PLAN_STATUS_X_STALE_NOT_POSTED: transition older than 60 minutes")
-    plan = prepare_post(store, key, root=root, host=host, destinations=("x",), snapshot=snapshot)
+    if destination not in {"x", "substack_notes"}:
+        raise PlanPostError("PLAN_STATUS_AGENT_DESTINATION_INVALID")
+    plan = prepare_post(store, key, root=root, host=host, destinations=(destination,), snapshot=snapshot)
     coordinator, _ = bind_native_neo_coordinator(
         store, operation_id=key, output_dir=Path(plan["output_dir"]) / "native-neo",
         native_invocation_id=native_invocation_id, allow_publish=True)
     scope_to_post(coordinator, key, plan)
     coordinator.register_plan(key, plan)
     outcome = coordinator.execute_plan(key, plan)
-    return {"key": key, "x": (outcome.get("per_destination") or {}).get("x")}
+    return {"key": key, destination: (outcome.get("per_destination") or {}).get(destination)}
 
 
-def pending_x(store, *, now: datetime | None = None) -> list[dict]:
+def pending_x(store, *, now: datetime | None = None, destination: str = "x") -> list[dict]:
     """X requests of status posts still waiting for an agent turn, freshest first."""
     from live_contentops.native_neo_executor_v1 import NativeNeoExecutor
     now = now or datetime.now(timezone.utc)
@@ -701,7 +921,7 @@ def pending_x(store, *, now: datetime | None = None) -> list[dict]:
                                      allow_publish=True, identity_at_action=True)
         for packet in executor.pending():
             request = packet["request"]
-            if request.get("destination") == "x":
+            if request.get("destination") == destination:
                 pending.append({"key": row["message_id"], "request_sha256": request["request_sha256"],
                                 "action": request["action"], "age_minutes": round(_age_minutes(payload, now), 1),
                                 "fresh": _age_minutes(payload, now) <= _x_freshness_limit(payload, now)})
@@ -717,7 +937,7 @@ def begin_x(store, key: str, request_sha256: str, *, native_invocation_id: str, 
                                  native_invocation_id=native_invocation_id, allow_publish=True,
                                  identity_at_action=True)
     packet = executor._get(request_sha256, "request")
-    if not packet or packet["request"].get("destination") != "x":
+    if not packet or packet["request"].get("destination") not in {"x", "substack_notes"}:
         raise PlanPostError("PLAN_STATUS_X_REQUEST_REQUIRED")
     if (packet["request"]["action"] == "PUBLISH"
             and _age_minutes(payload, now) > _x_freshness_limit(payload, now)):

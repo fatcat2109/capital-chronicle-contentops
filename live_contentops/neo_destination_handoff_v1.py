@@ -16,11 +16,11 @@ from urllib.parse import urlsplit, unquote
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _private
 
 SCHEMA = "contentops.neo_destination_handoff.v1"
-IDENTITIES = {"substack": "capitalchronicle.substack.com", "x": "@Capitalnicle",
+IDENTITIES = {"substack": "capitalchronicle.substack.com", "substack_notes": "@deancapitalchronicle", "x": "@Capitalnicle",
               "youtube": "@CapitalChronicleYouTube", "linkedin": "linkedin:jimcc",
               "linkedin_company": "linkedin:company:143198922", "instagram_business": "official.capitalchronicle",
               "telegram": "@CapitalChronicle", "threads": "official.capitalchronicle"}
-ROOTS = {"substack": "https://capitalchronicle.substack.com/", "x": "https://x.com/Capitalnicle",
+ROOTS = {"substack": "https://capitalchronicle.substack.com/", "substack_notes": "https://substack.com/@deancapitalchronicle", "x": "https://x.com/Capitalnicle",
          "youtube": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
          "linkedin": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
           "linkedin_company": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
@@ -56,6 +56,10 @@ def _public_url(destination, url, object_id=None):
         return False
     if destination == "substack":
         return _canonical(url)
+    if destination == "substack_notes":
+        match = re.fullmatch(r"/@deancapitalchronicle/note/(c-\d+)/?", p.path, re.I)
+        return bool(p.hostname == "substack.com" and match
+                    and (not object_id or match[1] == str(object_id)))
     if destination == "x":
         return (p.hostname in {"x.com", "www.x.com"} and re.fullmatch(r"/Capitalnicle/status/\d+", p.path, re.I)
                 and (not object_id or p.path.rsplit("/", 1)[-1] == str(object_id)))
@@ -276,6 +280,7 @@ class NeoDestinationHandoff:
             "content_binding": content_binding,
             "surface": intent.get("destination_plan", {}).get("surface") or {
                 "substack": "SUBSTACK_ARTICLE", "x": "X_THREAD" if content_binding["thread_post_count"] > 1 else "X_POST",
+                "substack_notes": "SUBSTACK_NOTE",
                 "linkedin": "LINKEDIN_POST", "linkedin_company": "LINKEDIN_COMPANY_POST",
                  "instagram_business": "INSTAGRAM_BUSINESS_POST",
                 "telegram": "TELEGRAM_CHANNEL_POST", "threads": "THREADS_POST",
