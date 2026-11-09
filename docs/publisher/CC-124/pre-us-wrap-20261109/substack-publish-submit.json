@@ -1,0 +1,13 @@
+{
+  "request_sha256": "3e999184131ebd019682f49857c3f88840f72d593827b572210a109704bd790f",
+  "tool_return_sha256": "b2ed729e95780dd3ffcb9792b05cd19b5921178d78f57eb5af6ce74b5caead39",
+  "completed_write_reconciliation": {
+    "dispatch_id": "dispatch_55f30b1078b0faa5785c833cedd5d8d4",
+    "destination": "substack",
+    "public_object_id": "224141856",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar",
+    "reconciliation_status": "RECONCILIATION_PENDING",
+    "publish_called": false,
+    "public_write_performed": false
+  }
+}

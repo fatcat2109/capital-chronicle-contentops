@@ -88,6 +88,19 @@ def _text(value):
     return " ".join(re.sub(r"[#*_`]", "", value).split())
 
 
+def _substack_rendered_text(value):
+    """Compare rendered list/table words while retaining every cell and minus sign."""
+    lines = []
+    for line in str(value or "").splitlines():
+        line = re.sub(r"^[ \t]*[-+][ \t]+", "", line)
+        if re.fullmatch(r"[ \t]*\|(?:[ \t]*:?-+:?[ \t]*\|)+[ \t]*", line):
+            continue
+        if line.strip().startswith("|") and line.strip().endswith("|"):
+            line = " ".join(cell.strip() for cell in line.strip()[1:-1].split("|"))
+        lines.append(line)
+    return _text("\n".join(lines))
+
+
 def _x_reader_text(value, links, public_object_url, canonical):
     text = _text(value)
     for link in links:
@@ -477,7 +490,7 @@ class NeoDestinationHandoff:
             # contains the item text without its leading '- '. Keep numeric minus
             # signs and every item, value and ordering requirement intact.
             text_match = (bool(segments) and all(
-                _text(re.sub(r"(?m)^[ \t]*[-+][ \t]+", "", s)) in comparison_text
+                _substack_rendered_text(s) in comparison_text
                 for s in segments)
                 and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
         if destination == "substack" and intent.get("daily_digest"):

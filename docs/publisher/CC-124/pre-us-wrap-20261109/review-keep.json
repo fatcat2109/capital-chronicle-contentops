@@ -1,0 +1,41 @@
+{
+  "review_id": "native-article-review-a163a28659e7407295855c26d47c33da",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "cc124-pre-us-wrap-20261109-v1",
+  "article_identity": "7316a54aec89749a719946d657d8f1a032cedd724700e02ee170ca264a54bfc6",
+  "package_revision": "5b97602deac2298f24015efee3a2df37f892ab1d32167974f7daa19d44a3facd",
+  "article_metadata_sha256": "23060f0bf161735abb696c9f0f59f17179285a9e2c1e59074618666b7d57ff32",
+  "rationale": "Same native MAX writer /root/native_write_38a478576468 checked exact canonical, all eight native previews, source-bound claims and scenarios, ET clocks and refreshed clean EURUSD original/asset; final-editor-check.json SHA256 221ac2148099d120a396beea2314f7572a19a33eca0d0219bb45aba2b6dc84e8. Decision 53 short path; no unresolved material findings. gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED.",
+  "publication_authority": false,
+  "text_revision_sha256": "5113b3b06959ba1919791061f2399ff5199ac9f588f369a2bf748fb1c2e2d758",
+  "text_approved_at_utc": "2026-11-09T12:10:35.397766+00:00",
+  "publication_speed_policy": {
+    "policy": "JIM_DECISION_53",
+    "target_minutes": 15
+  },
+  "automated_media_check": {
+    "policy": "JIM_DECISION_53",
+    "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+    "findings": [
+      {
+        "asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+        "sha256": "1badc076e1605a49c0f2ba5af43f1ee6062b129379dad6f98349e7a47523b393",
+        "pixels_inspected": false,
+        "loads": true,
+        "width": 1928,
+        "height": 1085,
+        "expected_dimensions": [
+          1928,
+          1085
+        ],
+        "right_size": true,
+        "status": "PASS"
+      }
+    ],
+    "failures_logged_no_repair_loop": 0,
+    "blocks_publication": false
+  },
+  "next_operation": "publication-prepare",
+  "publication_priority": "DISPATCH_NOW_WITHIN_15_MINUTES"
+}

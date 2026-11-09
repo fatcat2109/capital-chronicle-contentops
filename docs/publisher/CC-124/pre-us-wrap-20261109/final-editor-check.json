@@ -1,0 +1,204 @@
+{
+  "schema_version": "contentops.native_final_editor_check.v1",
+  "decision": "KEEP",
+  "review_policy": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+  "reviewed_at_utc": "2026-11-09T12:10:14.764439Z",
+  "article_identity": "7316a54aec89749a719946d657d8f1a032cedd724700e02ee170ca264a54bfc6",
+  "article_revision": "5b97602deac2298f24015efee3a2df37f892ab1d32167974f7daa19d44a3facd",
+  "assembled_package_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\assembled-for-editor-neo-final.json",
+  "assembled_package_sha256": "ea7024873e6b5f53b7d654c966f9b4e51cc8fc4c9942ea234ab882f70fe6f856",
+  "article_sha256": "23060f0bf161735abb696c9f0f59f17179285a9e2c1e59074618666b7d57ff32",
+  "article_body_sha256": "7316a54aec89749a719946d657d8f1a032cedd724700e02ee170ca264a54bfc6",
+  "source_pack_sha256": "9ad405008dc69a169fc2c3010f85abbd5a571edc571cdd372a90bf9708491d59",
+  "source_hashes": [
+    {
+      "document_id": "cc124-pre-us-main-20261109",
+      "source_id": "SOURCE_1",
+      "canonical_content_sha256": "094103bb94e5f77396f32aa9505419fafcc0b40da09c38427f519bfe0da356ee",
+      "document_sha256": "15917167fb3bb3034967e11f5a89e89beb2bac7e0723e643a1b22c8ba49fc6e6"
+    },
+    {
+      "document_id": "cc124-pre-us-opus-scenarios-20261109",
+      "source_id": "SOURCE_2",
+      "canonical_content_sha256": "80f51d88b5e19ce08bf5a4c5e1009f3539e0a87a531f86db0bbd2d5ebe3c896a",
+      "document_sha256": "605fafe5394889606bcf2e502bd1215a7907698320b7a2da9e303845b28a9462"
+    },
+    {
+      "document_id": "cc124-pre-us-rates-20261109",
+      "source_id": "SOURCE_3",
+      "canonical_content_sha256": "cdba923a30d57f2e9aa9324d10eb7edfa4aca4987efe0c8c232783ed23d4e224",
+      "document_sha256": "f23dd962428bdf2667865975445d7247d6b35100a8179f1b2cf89a4680da1751"
+    }
+  ],
+  "material_claim_bindings_sha256": "de8119dcb0a92fc206928b23751a314b9099285fb8cc3a3ed20cb7f9fd77ee3d",
+  "supported_material_claim_count": 61,
+  "media_assets_sha256": "afc0c853946541db5f58fff92a85780e46f56d665ba96e753187f294c18b6b9e",
+  "media_preview_binding_sha256": "dcfb8776875ae06b79e94b246a36298cf4f58774a730226f68ea38eeac001b72",
+  "preview_bundle_sha256": "dcfb8776875ae06b79e94b246a36298cf4f58774a730226f68ea38eeac001b72",
+  "media_file_checks": [
+    {
+      "role": "framed",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\tradingview\\tradingview-55831c1d573ce4d5-16x9.png",
+      "sha256": "1badc076e1605a49c0f2ba5af43f1ee6062b129379dad6f98349e7a47523b393",
+      "dimensions": [
+        1928,
+        1085
+      ],
+      "load": "PASS"
+    },
+    {
+      "role": "original",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\tradingview\\EURUSD_2026-11-09_19-04-05.png",
+      "sha256": "55831c1d573ce4d5daaca6f99f8bdd4fa1f26b59a976620bc0cc4ac47b7880dd",
+      "dimensions": [
+        1928,
+        896
+      ],
+      "load": "PASS"
+    }
+  ],
+  "preview_checks": [
+    {
+      "destination": "telegram",
+      "preview_id": "cc-preview-ac79ab47d36b3239d6cab4731dd30c297b5c3f082e02c5f4231f109d3795f2e4",
+      "preview_sha256": "66f44da9dc22d56bf4bf4c394af13495296bf9d35a815745b406713046a8b136",
+      "payload_sha256": "d3cc291e935aef8c44c55b524fc8ffa6ec578d4ebc5181795cb7e8a8a16b66ce",
+      "status": "PASS",
+      "media_asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+      "attribution": "Dated Capital Chronicle review",
+      "model_estimates": "Weekly, set Sunday; 55% base and conditional 25% alternative",
+      "notices_present": true,
+      "within_platform_limit": true
+    },
+    {
+      "destination": "x",
+      "preview_id": "cc-preview-26b5465fbaa0f2511229b566ccc30c83b02c7e332d4f4f154359723df45bc4e7",
+      "preview_sha256": "297dead48dd93a914ff4d372dedc42a86d19fe486bfa7ce29e92bfc593ccc07e",
+      "payload_sha256": "8e013b9e53caf9490d98a109f3c56b829b2f35673f89bf0a3fbfe4a1ecc17542",
+      "status": "PASS",
+      "media_asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+      "attribution": "Dated Capital Chronicle review",
+      "model_estimates": "Weekly, set Sunday; 55% base and conditional 25% alternative",
+      "notices_present": true,
+      "within_platform_limit": true
+    },
+    {
+      "destination": "linkedin",
+      "preview_id": "cc-preview-4ade564c85c799f7218345ad37389799de4a1ea6d9cab8bbf2643b804761b9bb",
+      "preview_sha256": "15c475595bbd93a6e26e130f3377361be4f4d64f15a3cd4a9beced241e9d34e7",
+      "payload_sha256": "1e0e3b9ad16528f72bf46a8775421366737b3c86dc28052ce5202e2ecc6669f2",
+      "status": "PASS",
+      "media_asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+      "attribution": "Dated Capital Chronicle review",
+      "model_estimates": "Weekly, set Sunday; 55% base and conditional 25% alternative",
+      "notices_present": true,
+      "within_platform_limit": true
+    },
+    {
+      "destination": "discord",
+      "preview_id": "cc-preview-fc478f1823da550adb45ded684abc0d815206235b54d2922a9fda9725aab04c1",
+      "preview_sha256": "b71b90fb19bb2927e314fbc4bd1ab3ca195e7142cd0336b3c5017a4c5f2f6426",
+      "payload_sha256": "2fea8a6a8f27a5145413e0d8116a1b39dd8452567a75b4c302801d636e5fbadf",
+      "status": "PASS",
+      "media_asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+      "attribution": "Dated Capital Chronicle review",
+      "model_estimates": "Weekly, set Sunday; 55% base and conditional 25% alternative",
+      "notices_present": true,
+      "within_platform_limit": true
+    },
+    {
+      "destination": "facebook_page",
+      "preview_id": "cc-preview-82b6cf30685fc0b463aef77f4fbcf997aafba8b41daf096b8a59bb96343a5b1a",
+      "preview_sha256": "eae247a9463022223b030774c4b95a2a7736a319a7ead16763c8c901ad2b9655",
+      "payload_sha256": "8085ee7f64b1af58a52b87dbce080650e7af4b791524a13324bb12c7ae1eb1da",
+      "status": "PASS",
+      "media_asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+      "attribution": "Dated Capital Chronicle review",
+      "model_estimates": "Weekly, set Sunday; 55% base and conditional 25% alternative",
+      "notices_present": true,
+      "within_platform_limit": true
+    },
+    {
+      "destination": "instagram_business",
+      "preview_id": "cc-preview-e9d77224bc01da54fcab2f982f2439b830aa7a4406926cdfa234bf96bd44cd32",
+      "preview_sha256": "1aa777b601280de3af150e297a45a6af7489feb5f769d91bae604e6c1fc30d4c",
+      "payload_sha256": "81db9bb832f24297ebd19f3ef097ea819e83ddc95378d6ae9980dc6ce1a0ac52",
+      "status": "PASS",
+      "media_asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+      "attribution": "Dated Capital Chronicle review",
+      "model_estimates": "Weekly, set Sunday; 55% base and conditional 25% alternative",
+      "notices_present": true,
+      "within_platform_limit": true
+    },
+    {
+      "destination": "threads",
+      "preview_id": "cc-preview-89390298c2e936ef0df504c1b304cabe5786c07e2fb2119e0d9541326370271e",
+      "preview_sha256": "109363eaca7d83746b3d53a1c5a3cd578246ead7e58be93efc10de68f71b1cbb",
+      "payload_sha256": "03e7ff2e932250f4b3a3c82c864ef66f21676e6ff2f36ab23df13ea1738762a1",
+      "status": "PASS",
+      "media_asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+      "attribution": "Dated Capital Chronicle review",
+      "model_estimates": "Weekly, set Sunday; 55% base and conditional 25% alternative",
+      "notices_present": true,
+      "within_platform_limit": true
+    },
+    {
+      "destination": "youtube",
+      "preview_id": "cc-preview-9b43826613830c25bb4226434a33eddd1319e151441f3ae1185da682738f8f5f",
+      "preview_sha256": "68de757bfab4f325f995b9418356f1010d52f071c83671477d4d3806cc79e6d4",
+      "payload_sha256": "dd94a6c31fe3243c5af85999bf48cfd482586ed648afddd72ecf56a5a3d175da",
+      "status": "PASS",
+      "media_asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+      "attribution": "Dated Capital Chronicle review",
+      "model_estimates": "Weekly, set Sunday; 55% base and conditional 25% alternative",
+      "notices_present": true,
+      "within_platform_limit": true
+    }
+  ],
+  "editorial_findings": [
+    "The thesis is supported: dollar weakness is broad across FX, oil rallies have faded, and gold/equities have mixed responses. No Monday joint probability is asserted.",
+    "Monday 03:18 ET observations are separate from Sunday weekly model estimates through Friday 13 November and from Friday 6 November rates. Conditional weekly market phrases and their original source bindings are preserved.",
+    "The 55% base and 25% alternative matrix, 20% deal case in prose, CPI caveat and separate current market estimates remain source-faithful. No unsupported PPI, OIS, consensus table or military-event assertion was introduced.",
+    "All eight reader copies retain dated-review attribution, conditional escalation, both authored scenario lines, full required advice/position notices, TradingView credit and the refreshed asset id.",
+    "The current local EURUSD four-hour image visibly retains its original header and TradingView logo. No personal drawings or execution information are visible. Caption and alt use 07:04 ET and distinguish the later capture from the 03:18 ET observation."
+  ],
+  "nonblocking_metadata_notes": [
+    "Unused editorial_media_decision and source_clock_notes retain the earlier 06:44 ET media reference. The article tradingview_snapshot_asset_ids field also retains a prior id. These are historical internal pointers; the one actual assembled media asset and all eight payload media ids unequivocally bind the refreshed 07:04 ET image. Public canonical prose contains no old chart-time statement."
+  ],
+  "repair_findings": [],
+  "inspection": {
+    "article_text_and_all_eight_payloads_read": true,
+    "local_framed_image_pixels_inspected": true,
+    "local_image_inspection_tool": "view_image",
+    "native_desktop_or_browser_used": false,
+    "canonical_and_channel_rendered_pixels_inspected": false,
+    "automated_image_load_dimensions": "PASS for original and framed files",
+    "independent_rights_page_recheck": false,
+    "rights_basis_reviewed": "Bound TradingView Terms section 4 record, checked 5 November; full attribution retained",
+    "new_image_uniqueness": "Parent reports exact/perceptual check passed; this editor did not rescan publication history"
+  },
+  "time_bound_media": {
+    "captured_at_utc": "2026-11-09T12:04:05Z",
+    "canonical_send_expires_at_utc": "2026-11-09T12:19:05Z",
+    "fresh_at_editor_check": true,
+    "remaining_seconds_at_check": 530,
+    "note": "Publication owner retains its existing send-time freshness check; this review does not reset the capture clock."
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_write_38a478576468",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Same supported native subagent performed the final editorial text check on the exact assembled JSON and eight payloads. Canonical task name supplies invocation identity. Actual model/effort telemetry is unavailable; configuration remains labelled from the exact supported assignment. Local framed image was viewed through view_image; no browser, native desktop, or rendered channel screenshots were inspected.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "supported task request"
+  },
+  "public_write_attempted": false,
+  "new_source_requests": 0,
+  "next_action": "Parent uses this exact KEEP for the existing publication owner; rematerialize pending preview links only after confirmed canonical identity and retain send-time media freshness."
+}
