@@ -530,6 +530,8 @@ def test_discovered_x_thread_recovers_exact_links_media_and_identity(fault):
             "observed_thread": [{"public_object_id": str(123+i),
                 "public_object_url": actual_url if i == 0 else "https://x.com/Capitalnicle/status/124",
                 "observed_text": text} for i, text in enumerate(observed_texts)]}
+    completed = []
+    observed.complete_readback_request = completed.append
     result = NeoDestinationHandoff(native_executor=observed).readback(destination="x", intent=value,
         public_object_id="999" if fault == "pinned_object" else None,
         public_object_url="https://x.com/Capitalnicle/status/999" if fault == "pinned_object" else None)
@@ -537,6 +539,10 @@ def test_discovered_x_thread_recovers_exact_links_media_and_identity(fault):
     if fault is None:
         assert result["write_exists"] is True
         assert result["content_binding_checks"] == {"text_match": True, "media_match": True, "thread_match": True}
+        assert completed[0]["public_object_id"] == "123"
+        assert completed[0]["public_object_url"] == url
+    else:
+        assert completed == []
 
 
 def test_lost_readonly_observation_resumes_in_new_turn_without_reclaiming_write(tmp_path):

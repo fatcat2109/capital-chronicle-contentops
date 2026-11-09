@@ -578,7 +578,8 @@ class NeoDestinationHandoff:
             if absent:
                 complete_readback(request, write_absent=True)
             elif verified or canonical_present:
-                complete_readback(request)
+                complete_readback({**request, "public_object_id": public_object_id,
+                                   "public_object_url": public_object_url})
             elif (identity_exists and text_match and not media_match
                     and result.get("media_check_state") == "MISSING_REQUIRED_MEDIA"
                     and result.get("missing_required_media_observed") is True
