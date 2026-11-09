@@ -1,0 +1,44 @@
+{
+  "tool_request_sha256": "1feaf8f03cad7157c41f225fe8d0ff7a77498fc77c2727a5116108582b06462a",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-09T12:38:33.603863+00:00",
+    "dispatched_at_utc": "2026-11-09T12:37:55Z",
+    "observation_source": "Actual Neo page34: own CapitalChronicleYouTube channel, matching complete pre-click text and uploaded 1928x1085 original preview; one Post click; exact new post read back"
+  },
+  "result": {
+    "request_sha256": "879cd99045ca9948ec8d0b51331960e8bbb45c7065cddb7d9b8a019eb3eaafa3",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "Ugkx_VjgshuS92bb9do98LDOAp_YOWK9iJnK",
+    "public_object_url": "https://www.youtube.com/post/Ugkx_VjgshuS92bb9do98LDOAp_YOWK9iJnK",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@CapitalChronicleYouTube",
+      "observed_stable_id": null,
+      "observed_at_utc": "2026-11-09T12:37:55Z"
+    },
+    "pre_click_posts": [
+      "Update: Capital Chronicle pre-US wrap: dollar slips, oil premium fades\n\n\nCapital Chronicle's pre-US review: the dollar leg is clear, gold and stocks are mixed, and CPI is the test.\n\n\nWhat to watch: In Capital Chronicle's review, gold's range and the split stock-index tape make CPI the next test; a weaker dollar across FX is not a common six-market direction.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar\n\n\nChart: TradingView.\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\n\nBase case: 55% weekly model estimate set Sunday; talks continue and oil fades. CPI can override the path.\nAlternative: 25% weekly model estimate set Sunday; if escalation is confirmed, oil would rise and stocks weaken.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@CapitalChronicleYouTube",
+      "public_object_id": "Ugkx_VjgshuS92bb9do98LDOAp_YOWK9iJnK",
+      "public_object_url": "https://www.youtube.com/post/Ugkx_VjgshuS92bb9do98LDOAp_YOWK9iJnK",
+      "observed_text": "Capital Chronicle\n0 gi\u00e2y tr\u01b0\u1edbc\nUpdate: Capital Chronicle pre-US wrap: dollar slips, oil premium fades\n\nCapital Chronicle's pre-US review: the dollar leg is clear, gold and stocks are mixed, and CPI is the test.\n\nWhat to watch: In Capital Chronicle's review, gold's range and the split stock-index tape make CPI the next test; a weaker dollar across FX is not a common six-market direction.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nBase case: 55% weekly model estimate set Sunday; talks continue and oil fades. CPI can override the path.\nAlternative: 25% weekly model estimate set Sunday; if escalation is confirmed, oil would rise and stocks weaken.\n\nCapital Chronicle may hold positions in the markets it covers.\n\u0110\u1ecdc th\u00eam",
+      "content_verified": true,
+      "public_write_performed": false,
+      "public_image_urls": [
+        "https://yt3.ggpht.com/kIVkSMDFM_wxH5BwUUE2PETcxudkTCobpCpTVMvUsQbDVJGsrCGlxzWXDhzRXhdpya-T68O-HkVF8g=s640-c-fcrop64=1,37f70000c808ffff-rw-nd-v1"
+      ],
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}

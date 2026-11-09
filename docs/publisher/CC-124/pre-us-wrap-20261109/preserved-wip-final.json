@@ -1,0 +1,74 @@
+[
+  {
+    "root": "A:\\Capital Chronicle\\ContentOps",
+    "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+    "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "exact_bytes_unchanged": true,
+    "inherited_content_preserved": true,
+    "inherited_prefix_bytes": null,
+    "runtime_appended_bytes": 0
+  },
+  {
+    "root": "A:\\Capital Chronicle\\ContentOps",
+    "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+    "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "exact_bytes_unchanged": true,
+    "inherited_content_preserved": true,
+    "inherited_prefix_bytes": null,
+    "runtime_appended_bytes": 0
+  },
+  {
+    "root": "A:\\Capital Chronicle\\ContentOps",
+    "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+    "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "exact_bytes_unchanged": true,
+    "inherited_content_preserved": true,
+    "inherited_prefix_bytes": null,
+    "runtime_appended_bytes": 0
+  },
+  {
+    "root": "A:\\Capital Chronicle\\ContentOps",
+    "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+    "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "exact_bytes_unchanged": true,
+    "inherited_content_preserved": true,
+    "inherited_prefix_bytes": null,
+    "runtime_appended_bytes": 0
+  },
+  {
+    "root": "A:\\Capital Chronicle\\ContentOps",
+    "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "sha256": "29cf0387d0ae0cac78d9af1db50cff5d07c0503db683a6fe084c8a306292c55d",
+    "exact_bytes_unchanged": false,
+    "inherited_content_preserved": true,
+    "inherited_prefix_bytes": 1111217,
+    "runtime_appended_bytes": 10160
+  },
+  {
+    "root": "A:\\Capital Chronicle\\ContentOps",
+    "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+    "sha256": "54c9eaa7e1d8c4799428f90b4888d81820b5416687c1e54241ae430479691ab9",
+    "exact_bytes_unchanged": false,
+    "inherited_content_preserved": true,
+    "inherited_prefix_bytes": 25595,
+    "runtime_appended_bytes": 628
+  },
+  {
+    "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+    "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "sha256": "773a06f9f2f689a32855a0b100846d5d104d227e5129128b92a08edf1d42a204",
+    "exact_bytes_unchanged": true,
+    "inherited_content_preserved": true,
+    "inherited_prefix_bytes": null,
+    "runtime_appended_bytes": 0
+  },
+  {
+    "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+    "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+    "sha256": "0e72d11322d8bf710063b44ed758b89aa83ec4eda9845ec5a9cebf8dc5e91db4",
+    "exact_bytes_unchanged": true,
+    "inherited_content_preserved": true,
+    "inherited_prefix_bytes": null,
+    "runtime_appended_bytes": 0
+  }
+]
