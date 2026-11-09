@@ -176,3 +176,59 @@ def test_ordinary_articles_and_historical_frozen_wraps_stay_byte_stable(tmp_path
     assert native.weekly_call_sources(source_pack=docs, selected_candidate={"title": "Daily markets"}, cutoff_utc=CUTOFF) is docs
     monkeypatch.setattr(native, "frozen_request", lambda stage: {"prompt": "Original frozen request"})
     assert native.weekly_call_sources(source_pack=docs, selected_candidate={"title": "Weekend wrap"}, cutoff_utc=CUTOFF) is docs
+
+
+@pytest.mark.parametrize("bad_copy", ["Gold is bearish.", "Gold was bearish.",
+    "Mon 9 Nov ET: Gold; original direction was bearish; entry zone 4,070–4,085; open.",
+    "Mon 9 Nov ET: Gold; original direction was bearish; entry zone 4,070–4,085; stopped. Gold is bullish.",
+    "Mon 9 Nov ET: Gold; original direction was bearish; entry zone 4,070–4,085; stopped. Account number 123456."])
+def test_resolved_call_exception_still_refuses_new_calls_and_account_details(bad_copy):
+    from live_contentops.event_article_guard_v1 import PublicOutputError, check_publication_copy
+    with pytest.raises(PublicOutputError):
+        check_publication_copy({"body": bad_copy + " " + weekly.PUBLIC_NOTICE})
+
+
+def test_actual_newsroom_source_stage_supplies_whole_record_before_writer(tmp_path, monkeypatch):
+    from test_v1_simple_gemini_newsroom_v1 import _headlines, _selection, _evidence_result, _receipt
+    from live_contentops.nine_router_llm_seam_v2 import ROLE_V1_SIMPLE_SELECTION
+    native = turn(tmp_path)
+    monkeypatch.setattr(weekly, "read_export", export)
+    rolling = json.loads(json.dumps(_headlines(1)).replace("2026-08-26T", "2026-11-14T"))
+
+    def invoke(**kwargs):
+        if kwargs["role_task_id"] == ROLE_V1_SIMPLE_SELECTION:
+            return _selection(kwargs["governed_input"]["candidates"][0]["candidate_id"]), _receipt(kwargs["role_task_id"])
+        raise DesktopInputRequired({"stage": "write", "governed_input": kwargs["governed_input"], "prompt": kwargs["prompt"]})
+
+    invoke.native_desktop_protocol = True
+    invoke.weekly_call_sources = native.weekly_call_sources
+    with pytest.raises(DesktopInputRequired) as pending:
+        newsroom.run_v1_simple_gemini_newsroom(output_dir=tmp_path, cutoff_utc=CUTOFF,
+            rolling_input=rolling, llm_invoke=invoke, evidence_loader=lambda request: _evidence_result(), run_id=native.run_id)
+    docs = pending.value.request["governed_input"]["source_pack"]
+    assert len(docs) == 2 and docs[-1]["weekly_scored_calls"]["counts"]["stops"] == 2
+    assert "CC379_WHOLE_WEEK_RECORD" in pending.value.request["prompt"]
+    saved = json.loads((tmp_path / "simple_gemini_evidence_v1.json").read_bytes())
+    assert saved["selected_source_pack"] == docs
+
+
+@pytest.mark.parametrize("fault", [None, "missing_loss", "changed_count"])
+def test_actual_substack_readback_verifies_every_weekly_line_and_count(tmp_path, fault):
+    from test_native_neo_executor_v1 import setup, intent, pending_readback, response
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    _, executor = setup(tmp_path)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    record = weekly.project(export(), cutoff_utc=CUTOFF)
+    value = intent(native_payload={"title": "Weekend wrap", "body_markdown": record["text"]})
+    packet, object_id, url = pending_readback(adapter, value=value)
+    rendered = record["text"].replace("## ", "").replace("\n- ", "\n")
+    if fault == "missing_loss":
+        rendered = rendered.replace(record["rows"][1]["line"].removeprefix("- "), "")
+    elif fault == "changed_count":
+        rendered = rendered.replace("Stops: 2", "Stops: 1")
+    observed = response(executor, packet, {"observed_identity": "capitalchronicle.substack.com",
+        "public_object_id": object_id, "public_object_url": url, "content_verified": True,
+        "observed_text": "Weekend wrap\n" + rendered})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    result = adapter.readback(destination="substack", intent=value, public_object_id=object_id, public_object_url=url)
+    assert result["verified"] is (fault is None)
