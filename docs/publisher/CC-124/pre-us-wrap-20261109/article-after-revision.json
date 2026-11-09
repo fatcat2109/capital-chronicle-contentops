@@ -1,0 +1,150 @@
+{
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "qualified_article_count": 1,
+  "derivative_intent_count": 8,
+  "exact_next_blocker": null,
+  "article_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\article_manifest_v1.json",
+  "native_derivative_preview_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\native_derivative_previews_v1.json",
+  "publication_handoff_state": "REVIEW_REQUIRED_NO_DISPATCH",
+  "editorial_execution": {
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "visual-edit": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "final-visual": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "observed_models": [],
+    "observed_efforts": [],
+    "configured_not_observed_count": 4,
+    "configured_not_observed_roles": [
+      {
+        "stage": "select",
+        "role": "select",
+        "invocation_id": "/root/native_select_79c04705614e",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low"
+      },
+      {
+        "stage": "media-plan",
+        "role": "select",
+        "invocation_id": "/root/native_select_79c04705614e",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low"
+      },
+      {
+        "stage": "write",
+        "role": "write",
+        "invocation_id": "/root/native_write_38a478576468",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max"
+      },
+      {
+        "stage": "revise",
+        "role": "revise",
+        "invocation_id": "/root/native_write_38a478576468",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max"
+      }
+    ],
+    "native_invocation_count_observed": 2,
+    "native_invocation_identity_unknown_count": 0,
+    "semantic_response_count": 4,
+    "maximum_repair_count": 1,
+    "external_provider_attempt_count": 0,
+    "usage_tokens": null,
+    "cost_usd": null,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "observations": [
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact frozen desktop_request_select.json requested_model and requested_reasoning_effort, repeated by the supported parent task assignment.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_79c04705614e",
+        "model": null,
+        "observation_source": "Supported native task context supplies canonical task name as invocation identity; actual model and reasoning effort are not exposed.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "select",
+        "role": "select"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact frozen desktop_request_media-plan.json requested_model and requested_reasoning_effort, under the supported parent continuation assignment.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_79c04705614e",
+        "model": null,
+        "observation_source": "Supported native task context supplies canonical task name as invocation identity; actual model and reasoning effort are not exposed.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "media-plan",
+        "role": "select"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "supported task request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_write_38a478576468",
+        "model": null,
+        "observation_source": "Supported native subagent context supplies canonical task name /root/native_write_38a478576468. It supplies no actual model or effort telemetry. Configured values below come only from this exact supported task assignment and frozen request.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "write",
+        "role": "write"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "supported task request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_write_38a478576468",
+        "model": null,
+        "observation_source": "Same supported native subagent resumed its exact frozen revision request. Canonical invocation identity remains /root/native_write_38a478576468; actual model and effort telemetry remain unavailable. Configuration comes only from the supported task request.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "revise",
+        "role": "revise"
+      }
+    ]
+  },
+  "pending_publication_recovery_dispatch_ids": [
+    "dispatch_7b7450f2047c9427a22419e4f09b0626"
+  ]
+}

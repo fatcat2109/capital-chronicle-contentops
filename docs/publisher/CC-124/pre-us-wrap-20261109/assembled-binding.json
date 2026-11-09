@@ -1,0 +1,19 @@
+{
+  "article_identity": "7316a54aec89749a719946d657d8f1a032cedd724700e02ee170ca264a54bfc6",
+  "article_revision": "5b97602deac2298f24015efee3a2df37f892ab1d32167974f7daa19d44a3facd",
+  "assembled_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\assembled-for-editor-neo-final.json",
+  "assembled_file_sha256": "ea7024873e6b5f53b7d654c966f9b4e51cc8fc4c9942ea234ab882f70fe6f856",
+  "previews": 8,
+  "media_assets": [
+    {
+      "asset_id": "tradingview-snapshot-1badc076e1605a49c0f2",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\tradingview\\tradingview-55831c1d573ce4d5-16x9.png",
+      "sha256": "1badc076e1605a49c0f2ba5af43f1ee6062b129379dad6f98349e7a47523b393"
+    }
+  ],
+  "source_documents": [
+    "cc124-pre-us-main-20261109",
+    "cc124-pre-us-opus-scenarios-20261109",
+    "cc124-pre-us-rates-20261109"
+  ]
+}

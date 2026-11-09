@@ -1,0 +1,13 @@
+{
+  "consumer": "live_contentops.published_images_v1.fingerprint / near",
+  "candidate_asset_id": "tradingview-snapshot-27085e919e8b09a63fb0",
+  "fingerprint": {
+    "sha256": "27085e919e8b09a63fb08d91c9de5fe8d2192f1f8d19bf5059711472d423df9f",
+    "perceptual_hash": "d07f5c9dc640b9c0",
+    "width": 1928,
+    "height": 1085
+  },
+  "active_prior_pieces": 291,
+  "duplicate_piece_ids": [],
+  "register_mutated": false
+}

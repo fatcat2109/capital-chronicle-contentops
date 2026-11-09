@@ -16,6 +16,10 @@ def main():
     parser.add_argument("name")
     parser.add_argument("command")
     args, extra = parser.parse_known_args()
+    for flag in ("--response", "--request-file", "--profile"):
+        if flag in extra:
+            index = extra.index(flag) + 1
+            extra[index] = str(Path(extra[index]).resolve())
     assert all(c.isalnum() or c in "-_" for c in args.name)
     command = [sys.executable, str(LIVE / "scripts/run_native_desktop_editorial.py"), args.command,
                "--binding", str(BINDING), *extra]
