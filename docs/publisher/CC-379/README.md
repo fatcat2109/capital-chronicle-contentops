@@ -67,3 +67,11 @@ weekly-wrap operation, compare the retained Main rows with the assembled section
 then use the ordinary Substack readback. CC-379 is not DONE until that real
 readback confirms every row and the counts. No replacement post or retrospective
 edit is used to manufacture acceptance.
+
+[Operating-root verification](integration.json) records the fast-forward into
+`A:\Capital Chronicle\ContentOps` at `42bcef82` and **25 passing weekly-path tests**
+there in 6.87 seconds. All four changed modules have matching committed Git blobs;
+checkout newline conversion is recorded separately from raw-byte hashes. The
+inherited two builder ledgers and six modified operating-root files remain out
+of these commits. New native CLI processes load the integrated source; no app
+restart was needed.

@@ -1,0 +1,44 @@
+{
+  "integrated_commit": "42bcef825decd36017226f6aebc395d1d1f0298e",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "files": [
+    {
+      "path": "live_contentops/weekly_scored_calls_v1.py",
+      "git_blob": "c335720839bb9b5d265ccac7c6866669d4a14d85",
+      "worktree_sha256": "4c7f91152121eb09911669103e3251924090576cda66fd1f9629c288305c7b40",
+      "operating_root_sha256": "ca557868717be7551edb0055dd7a5092961389ab88e8f039cffe60498d9fa1b9",
+      "text_equal_after_checkout_newline_conversion": true
+    },
+    {
+      "path": "live_contentops/native_desktop_editorial_v1.py",
+      "git_blob": "2336ab1a257d15b9b07c166cd7d082e811a6a357",
+      "worktree_sha256": "df531ca05905947c8bbee0983fe052165e37a909197e217eb2840c059e5d0042",
+      "operating_root_sha256": "df531ca05905947c8bbee0983fe052165e37a909197e217eb2840c059e5d0042",
+      "text_equal_after_checkout_newline_conversion": true
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "git_blob": "79a093fc60aeda0e58f878f9959d3af1dea71b38",
+      "worktree_sha256": "c76c4f2476ed75bad37fe9911ee39df09c57b85148b8cf0fdd774dfaa02e2272",
+      "operating_root_sha256": "c76c4f2476ed75bad37fe9911ee39df09c57b85148b8cf0fdd774dfaa02e2272",
+      "text_equal_after_checkout_newline_conversion": true
+    },
+    {
+      "path": "live_contentops/event_article_guard_v1.py",
+      "git_blob": "db4f20cc1fd29eb518cf00fdc2508714eb795919",
+      "worktree_sha256": "24cbf95245687ec5d64f9c3d8f041ccc9a5b9114aff23b715dd2376369cd21cf",
+      "operating_root_sha256": "24cbf95245687ec5d64f9c3d8f041ccc9a5b9114aff23b715dd2376369cd21cf",
+      "text_equal_after_checkout_newline_conversion": true
+    }
+  ],
+  "focused_tests": {
+    "passed": 227,
+    "seconds": 12.03
+  },
+  "operating_root_weekly_tests": {
+    "passed": 25,
+    "seconds": 6.87
+  },
+  "public_write_performed": false,
+  "remaining_acceptance": "14-15 Nov Substack wrap readback for every 9-13 Nov ET scored call"
+}
