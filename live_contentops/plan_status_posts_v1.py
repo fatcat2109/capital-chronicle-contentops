@@ -403,14 +403,17 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
         # condition, or a resting order's fill, mapped in rows_from_export). An order placed ahead of price stays
         # WAITING, so this post never fires on placement again (9 Nov: EUR/USD and WTI were posted 20 pips and
         # 2.7 dollars away). The words say what happened, since Jim read "now active" as a touch.
-        lines = [f"{title}: price reached the {zone} entry zone at {_when(row['at_utc'])}.",
-                 f"The plan is in play; it is invalidated if {invalid}."]
+        # Jim's decision 106 (9 Nov): the second post confirms the fill and that Capital Chronicle holds the
+        # position. "Model position": the book is the DEMO account, so the words never claim real money; size,
+        # account, the exact fill price and P&L stay private (decision 40).
+        lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's model"
+                 " position is open.", f"It is invalidated if {invalid}."]
         if first_plan_post and plan.get("valid_until_utc"):
             call = {"condition": f"price trades into {zone}", "direction": plan["direction"], "market": market,
                     "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}
             calls = [call]
-            lines = [f"{title}: price reached the {zone} entry zone at {_when(row['at_utc'])}.",
-                     conditional_call_text(call)]
+            lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's"
+                     " model position is open.", conditional_call_text(call)]
     elif to in {"CANCELLED", "INVALIDATED"}:
         reason = {
             "RUNAWAY_CANCEL": "price moved away before reaching the zone",
@@ -471,6 +474,30 @@ LATE_STATE_HOURS = 24
 # then 'view changed' about an older plan whose setup post had been refused). Such states post only for an
 # announced plan, and before any new plan queued in the same run.
 WITHDRAWN = {"VIEW_CHANGED", "CANCELLED", "INVALIDATED", "EXPIRED"}
+# Jim's decision 106 (9 Nov): one trading idea gets two or three posts (the idea with its reasons, the fill, and a
+# selective exit through CC-322). A plan that ends without an entry posts nothing: its first post already gives
+# its window and invalidation level. The machinery stays for a later decision.
+POST_ENDED_WITHOUT_ENTRY = False
+# CC-353's why block went live at 09:48Z on 9 Nov. Only plans registered before it lack their reasons, so only
+# they can get a why follow-up; every later plan carries its reasons in its first post (decision 106).
+WHY_FOLLOW_UP_REGISTERED_BEFORE = "2026-11-09T09:48:00Z"
+# Jim's decision 106: the exit post (CC-322) is optional and selective. A plan that never filled posts nothing; an
+# exit at the horizon end is not posted; a result more than a day old is not news (the week's record lists every
+# scored call); a loss posts at most once in LOSS_POST_DAYS, so a reader who joins during a losing streak is not
+# shown it post by post. A correction always posts.
+RESULT_POSTS_SELECTIVE = True
+LOSS_POST_DAYS = 7
+
+
+def _recent_loss_post(outbox, now) -> bool:
+    for r in outbox:
+        payload = json.loads(r["payload"])
+        when = r.get("created_at") or payload.get("at_utc")
+        if (payload.get("kind") == "result" and payload.get("result") == "STOPPED" and when
+                and r["status"] not in {STALE, SUPERSEDED}
+                and (now - _utc(when)).total_seconds() < LOSS_POST_DAYS * 86400):
+            return True
+    return False
 PUBLIC_LEVELS = ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc")
 ACTIVE = {"WAITING", "TRIGGERED"}
 
@@ -522,9 +549,22 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     recoveries = active_recoveries(fresh, now)
     outbox = store.list_outbox_messages(destination=DESTINATION)
     announced = {json.loads(r["payload"]).get("plan_id") for r in outbox if r["status"] == "PUBLISHED"}
+    loss_recent = _recent_loss_post(outbox, now)
     for row in sorted(fresh, key=lambda r: (r["to"] not in WITHDRAWN, r["at_utc"])):
         late = False
         is_result = row["to"] == "RESULT"
+        if (is_result and RESULT_POSTS_SELECTIVE and not row.get("corrects_outcome_id")
+                and not store.get_outbox_message(row["key"])):
+            cause = ("ENDED_WITHOUT_ENTRY_NOT_POSTED_DECISION_106" if not row["scored"] else
+                     "EXIT_AT_HORIZON_END_NOT_POSTED_DECISION_106" if row["result"] == "EXPIRED" else
+                     "RESULT_OLDER_THAN_A_DAY_NOT_POSTED_DECISION_106"
+                     if (now - _utc(row["at_utc"])).total_seconds() > LATE_STATE_HOURS * 3600 else
+                     "LOSS_POST_LIMIT_DECISION_106" if row["result"] == "STOPPED" and loss_recent else None)
+            if cause:
+                skipped.append({"key": row["key"], "cause": cause})
+                continue
+            if row["result"] == "STOPPED":
+                loss_recent = True
         if is_result and not row["scored"] and row["plan_id"] not in announced:
             skipped.append({"key": row["key"], "cause": "PLAN_NEVER_ANNOUNCED"})
             continue
@@ -535,6 +575,9 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
             else:
                 too_old += 1
                 continue
+        if row["to"] in WITHDRAWN and not POST_ENDED_WITHOUT_ENTRY:
+            skipped.append({"key": row["key"], "cause": "ENDED_WITHOUT_ENTRY_NOT_POSTED_DECISION_106"})
+            continue
         if row["to"] in WITHDRAWN and row["plan_id"] not in announced:
             skipped.append({"key": row["key"], "cause": "PLAN_NEVER_ANNOUNCED"})
             continue
@@ -586,7 +629,8 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     for plan_id, row in last.items():
         until = row["plan"].get("valid_until_utc")
         if (row["to"] != "WAITING" or plan_id not in announced or plan_id in with_why
-                or not until or now >= _utc(until)):
+                or not until or now >= _utc(until)
+                or _utc(row["at_utc"]) >= _utc(WHY_FOLLOW_UP_REGISTERED_BEFORE)):
             continue
         key = WHY_PREFIX + hashlib.sha256(f"{plan_id}|WHY".encode()).hexdigest()[:32]
         if store.get_outbox_message(key):
@@ -636,11 +680,16 @@ POST_DESTINATIONS = ("telegram", "discord", "threads", "x", "substack_notes")
 API_DESTINATIONS = ("telegram", "discord", "threads")
 # Jim's decision 83 (5 Nov): a status post carries no site link, only its text and image.
 POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan-status-posts")
-STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "price reached the zone", "CANCELLED": "plan cancelled",
+STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "entry filled", "CANCELLED": "plan cancelled",
                "INVALIDATED": "plan invalidated", "EXPIRED": "plan expired", "VIEW_CHANGED": "view changed"}
 LIMITS = {"x": 280, "threads": 500, "telegram": 1024, "discord": 2000, "substack_notes": 10000}
-# A Telegram part after the photo post goes out as a text message (Bot API sendMessage, 4096 characters).
-REST_LIMITS = {"telegram": 4096}
+# Every part carries the post image (decision 61's post-image policy), so a Telegram part is a photo caption
+# (1024) like the first. Format 2 posts no parts on Telegram or Discord: see _compact_body.
+REST_LIMITS: dict = {}
+# Decision 106 (9 Nov): the order in which a one-post why keeps its reasons. Jim, 9 Nov: macro, sentiment,
+# what is priced, fundamentals and the technical levels (why this zone, why this stop).
+COMPACT_ORDER = ("Mechanism", "Positioning", "What is priced", "Why this zone", "Why this invalidation level",
+                 "Today's driver", "What confirms it", "Reaction so far", "Invalidation", "Alternative mechanism")
 X_URL_LENGTH = 23  # X counts every link as 23 characters
 
 
@@ -734,6 +783,28 @@ def _short_reasons(row: Mapping[str, Any], room: int) -> str:
     return lead + " Why: " + _excerpt(" ".join(picks), available) + tail
 
 
+def _compact_body(row: Mapping[str, Any], room: int) -> str:
+    """Decision 106: the reasons in one post of at most `room` characters. The odds first, then COMPACT_ORDER;
+    every line is shortened (at a word, with an ellipsis) before the last one is dropped."""
+    odds, reasons = [], {}
+    for line in row["why"]:
+        head = line.partition(": ")[0]
+        if head.startswith(("Base case", "Main alternative")):
+            odds.append(line)
+        else:
+            reasons[head] = line
+    lines = (odds + [reasons[h] for h in COMPACT_ORDER if h in reasons]
+             + [line for h, line in reasons.items() if h not in COMPACT_ORDER])
+    budget = room - len(row["lead"]) - len("\nWhy:")
+    while lines:
+        for cap in range(max(map(len, lines)), 59, -5):
+            fitted = [_excerpt(line, cap) for line in lines]
+            if sum(len(line) + 3 for line in fitted) <= budget:  # each line adds "\n• "
+                return row["lead"] + "\nWhy:" + "".join("\n• " + line for line in fitted)
+        lines = lines[:-1]
+    return row["lead"]
+
+
 def _x_pack(text: str, limit: int) -> list[str]:
     """X thread posts: whole lines where they fit, otherwise whole words."""
     chunks, current = [], ""
@@ -764,6 +835,10 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
             destination_body = _short_reasons(row, LIMITS["threads"] - len(notices) - 2 - (len(link) + 2 if link else 0))
         elif row.get("why") and destination in {"threads", "x"} and not v2:
             destination_body = _short_body(row, LIMITS["threads"] - len(notices) - 2 - (len(link) + 2 if link else 0))
+        elif row.get("why") and destination in {"telegram", "discord"} and v2:
+            room = LIMITS[destination] - len(notices) - 2 - (len(link) + 2 if link else 0)
+            if len(destination_body) > room:
+                destination_body = _compact_body(row, room)
         text = "\n\n".join(part for part in (destination_body, link, notices) if part)
         if destination == "x" and _x_length(text) > LIMITS["x"]:
             # Whole sentences per post: the chart credit with the first, the notices last. Format 2 posts the

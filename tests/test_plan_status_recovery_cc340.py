@@ -9,6 +9,13 @@ import pytest
 
 from live_contentops import plan_status_posts_v1 as posts
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+
+
+@pytest.fixture(autouse=True)
+def ended_posts_on(monkeypatch):
+    """Decision 106 turns ended-without-entry posts off; these tests cover their machinery."""
+    from live_contentops import plan_status_posts_v1
+    monkeypatch.setattr(plan_status_posts_v1, "POST_ENDED_WITHOUT_ENTRY", True)
 from test_plan_status_posts_cc306 import event, main_root, plan, write_export  # noqa: F401
 from test_plan_status_publication_cc306 import fake_host, no_real_snapshot  # noqa: F401
 from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set_mode
