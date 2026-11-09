@@ -1,0 +1,43 @@
+{
+  "tool_request_sha256": "c11a5fd62bab77c44336b3202b2893cba5894c554fe52669a1cfe9211fb7e5f7",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-09T12:33:17.321637+00:00",
+    "observation_source": "Actual Neo company 143198922 admin page, Capital Chronicle composer identity and complete pre-click text checked; one Post click then exact data-urn public post read back; click clock not returned"
+  },
+  "result": {
+    "request_sha256": "3f7e56bbec24f5195a3abb1249284bc44b658c83b0f7973e4497021297e0d9ee",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:activity:7525535662729699328",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525535662729699328/",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "linkedin:company:143198922",
+      "observed_stable_id": "143198922",
+      "observed_at_utc": "2026-11-09T12:33:17.321637+00:00"
+    },
+    "pre_click_posts": [
+      "Capital Chronicle pre-US wrap: dollar slips, oil premium fades\n\n\n\n\nWhy it matters: Capital Chronicle's review sees a broad dollar move across FX, while the earlier gold spike largely retraced.\n\n\n\n\nContext: The countercase is a hot CPI that restores the NFP dollar rally.\n\n\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar\n\n\n\n\nChart: TradingView.\n\n\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\n\n\n\nBase case: 55% weekly model estimate set Sunday; talks continue and oil fades. CPI can override the path.\n\nAlternative: 25% weekly model estimate set Sunday; if escalation is confirmed, oil would rise and stocks weaken.\n\n\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "linkedin:company:143198922",
+      "public_object_id": "urn:li:activity:7525535662729699328",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525535662729699328/",
+      "observed_text": "Feed post number 1\nCapital Chronicle\nCapital Chronicle\n0 followers\n0 followers\nnow \u2022 \n \nJust now \u2022 Visible to anyone on or off LinkedIn\nCapital Chronicle pre-US wrap: dollar slips, oil premium fades\n\nWhy it matters: Capital Chronicle's review sees a broad dollar move across FX, while the earlier gold spike largely retraced.\n\nContext: The countercase is a hot CPI that restores the NFP dollar rally.\n\nRead the full brief: https://lnkd.in/gngFASye\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nBase case: 55% weekly model estimate set Sunday; talks continue and oil fades. CPI can override the path.\nAlternative: 25% weekly model estimate set Sunday; if escalation is confirmed, oil would rise and stocks weaken.\n\nCapital Chronicle may hold positions in the markets it covers.\n\u2026more\nCapital Chronicle pre-US wrap: dollar slips, oil premium fades\ncapitalchronicle.substack.com\nLike\nComment\nRepost",
+      "content_verified": true,
+      "public_write_performed": false,
+      "public_image_urls": [
+        "https://media.licdn.com/dms/image/sync/v2/D5627AQFh_m54p-Pslg/articleshare-shrink_160/B56aHAR8WXLAAQ-/0/1794227291931?e=1794834000&v=beta&t=_yGVL0Lk3QFxrKdemAIoi6HM1XmD_EyJdGZ24uc-QNw"
+      ],
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}

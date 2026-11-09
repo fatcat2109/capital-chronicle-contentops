@@ -1,0 +1,301 @@
+{
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-09-bangkok\\newsroom_production_day_v1.json",
+  "consumer": "live_contentops.native_newsroom_volume_v1.persist_native_day_measurement",
+  "record_sha256": "adab43fca00870c00fef4930a1562de2724a67359843f9b9c850bf3a71946d06",
+  "native_volume_measurement": {
+    "admitted_items": 2,
+    "confirmed_copies_by_channel": {
+      "discord": 2,
+      "facebook_page": 2,
+      "instagram_business": 2,
+      "linkedin": 2,
+      "linkedin_company": 2,
+      "substack": 2,
+      "telegram": 2,
+      "threads": 2,
+      "x": 2,
+      "youtube": 2
+    },
+    "distinct_canonical_items_published": 2,
+    "distinct_daily_target": 8,
+    "first_blocking_causes": {},
+    "interventions": [],
+    "observed_at_utc": "2026-11-09T12:44:41.504949+00:00",
+    "policy_id": "CC-047-20261030",
+    "pre_event_preparations_available": [
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T04:19:17.997970+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T05:02:32.478553+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-10-29T17:10:20.857047+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "us-election-20261103",
+        "known_at_utc": "2026-10-29T17:38:06.658805+00:00",
+        "planned_release_utc": null,
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "boe-mpc-20261105",
+        "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "planned_release_utc": "2026-11-05T12:00:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-10-29T17:36:50.561308+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "INTERNAL_BACKGROUND_NOT_WRITER_SOURCE_PACK"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-ppi-20261113",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-11-04T22:46:34.267520+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-ppi-20261113",
+        "known_at_utc": "2026-11-04T22:51:34.560028+00:00",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-emsit-20261106",
+        "known_at_utc": "2026-11-04T23:06:43.872930+00:00",
+        "planned_release_utc": "2026-11-06T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      },
+      {
+        "event_id": "bls-cpi-20261110",
+        "known_at_utc": "2026-11-06T19:04:03.366756+00:00",
+        "planned_release_utc": "2026-11-10T13:30:00+00:00",
+        "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+      }
+    ],
+    "quota_stops": [],
+    "reader_counts": [
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "224085585"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "99"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1569152000162144367"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2119708899410645394"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin",
+        "observations": null,
+        "public_object_id": "urn:li:activity:7525473196028940288"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1449323570719392"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "18184056127431576"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "18385606024227389"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "Ugkx3BwUEE0-5jRxPKxmJxG5a2DnbMFAhNK2"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:activity:7525472297776889856"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "substack",
+        "observations": null,
+        "public_object_id": "224141856"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "telegram",
+        "observations": null,
+        "public_object_id": "106"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "discord",
+        "observations": null,
+        "public_object_id": "1569327155824037980"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "x",
+        "observations": null,
+        "public_object_id": "2119770659417096674"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin",
+        "observations": null,
+        "public_object_id": "7525534845696122880"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "facebook_page",
+        "observations": null,
+        "public_object_id": "106091951705748_1449816490670100"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "instagram_business",
+        "observations": null,
+        "public_object_id": "18133582142483024"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "threads",
+        "observations": null,
+        "public_object_id": "17961123897259290"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "youtube",
+        "observations": null,
+        "public_object_id": "Ugkx_VjgshuS92bb9do98LDOAp_YOWK9iJnK"
+      },
+      {
+        "availability": "UNAVAILABLE",
+        "channel": "linkedin_company",
+        "observations": null,
+        "public_object_id": "urn:li:activity:7525535662729699328"
+      }
+    ],
+    "reader_counts_availability": "UNAVAILABLE",
+    "source_qualified_items": 2,
+    "target_by_revised_production_day": 3,
+    "tests_or_derivatives_are_original_publications": false,
+    "time_to_canonical": [
+      {
+        "public_object_id": "224085585",
+        "run_id": "cc341-weekend-wrap-20261109-r2",
+        "window_entry_to_canonical_readback_seconds": null
+      },
+      {
+        "public_object_id": "224141856",
+        "run_id": "cc124-pre-us-wrap-20261109-v1",
+        "window_entry_to_canonical_readback_seconds": null
+      }
+    ],
+    "windows": {
+      "standing": {
+        "admitted_count": 1,
+        "brief_only": false,
+        "distinct_canonical_published": 2,
+        "source_request_count": 0
+      }
+    }
+  }
+}

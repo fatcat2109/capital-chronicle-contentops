@@ -1,0 +1,49 @@
+{
+  "tool_request_sha256": "4ef79ae634ec61004e5521b35c7628b28782202f16662ae4b080f2a167faad5c",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-09T12:41:56.744015+00:00",
+    "observation_source": "Actual claimed Neo exact-object DOM readback; complete text, original platform images compared and inspected; shortened links followed in the task's Neo tab to the exact canonical target."
+  },
+  "result": {
+    "request_sha256": "2d565f211310692ae369dd97dbeb1d0e83439bc7d0847c2850d87cbc091eeb47",
+    "status": "SUCCESS",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:activity:7525535662729699328",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525535662729699328/",
+    "observed_text": "Feed post number 1\nCapital Chronicle\nCapital Chronicle\n0 followers\n0 followers\nnow \u2022 \n \nJust now \u2022 Visible to anyone on or off LinkedIn\nCapital Chronicle pre-US wrap: dollar slips, oil premium fades\n\nWhy it matters: Capital Chronicle's review sees a broad dollar move across FX, while the earlier gold spike largely retraced.\n\nContext: The countercase is a hot CPI that restores the NFP dollar rally.\n\nRead the full brief: https://lnkd.in/gngFASye\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nBase case: 55% weekly model estimate set Sunday; talks continue and oil fades. CPI can override the path.\nAlternative: 25% weekly model estimate set Sunday; if escalation is confirmed, oil would rise and stocks weaken.\n\nCapital Chronicle may hold positions in the markets it covers.\n\u2026more\nCapital Chronicle pre-US wrap: dollar slips, oil premium fades\ncapitalchronicle.substack.com\nLike\nComment\nRepost",
+    "content_verified": true,
+    "public_write_performed": false,
+    "media_comparisons": [
+      {
+        "destination": "linkedin_company",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525535662729699328/",
+        "public_image_url": "https://media.licdn.com/dms/image/sync/v2/D5627AQFh_m54p-Pslg/articleshare-shrink_160/B56aHAR8WXLAAQ-/0/1794227291931?e=1794834000&v=beta&t=_yGVL0Lk3QFxrKdemAIoi6HM1XmD_EyJdGZ24uc-QNw",
+        "binary_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\readback\\linkedin_company-public-image.bin",
+        "platform_sha256": "910f35c4dc441942b0b82dee5501cb0df784409df1e535146d5ced3d3c1d90ba",
+        "source_asset_sha256": "1badc076e1605a49c0f2ba5af43f1ee6062b129379dad6f98349e7a47523b393",
+        "bytes": 3362,
+        "width": 160,
+        "height": 90,
+        "visual_similarity": 0.991095406681191,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "inspection_method": "Actual platform binaries inspected with view_image against approved clean EURUSD chart; same candle/volume geometry, full chart and TradingView attribution. LinkedIn is the canonical-link thumbnail; X and YouTube detail retain the full chart. Resized image mean absolute similarity exceeds 0.99."
+      }
+    ],
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/sync/v2/D5627AQFh_m54p-Pslg/articleshare-shrink_160/B56aHAR8WXLAAQ-/0/1794227291931?e=1794834000&v=beta&t=_yGVL0Lk3QFxrKdemAIoi6HM1XmD_EyJdGZ24uc-QNw"
+    ],
+    "observed_media_sha256": [],
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/gngFASye",
+        "target_url": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525535662729699328/"
+      }
+    ]
+  }
+}

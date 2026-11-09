@@ -1,27 +1,51 @@
 # CC-124 pre-US wrap — 9 November 2026
 
-The due wrap uses the new Monday Main synthesis and the decision-98 dated Opus
-weekly scenarios. The production-day reader confirms one published article and
-one remaining slot under decision 93. The newsroom has no active lease.
+**+1 article, published and reconciled.** [The pre-US wrap](https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar)
+went live on Substack at **19:17:45 GMT+7**, web only, with email disabled.
+No code prompt appeared. The same coordinator confirms all eight standard
+destinations and the additional LinkedIn company copy, with zero unknown writes
+or pending native requests. [Final status](final-status.json) retains the exact
+public objects; Discord has its exact API message ID rather than a public URL.
 
-[Source admission](source-admission.json) executes the installed
-`RetainedSourceResearch` and `plan_status_posts_v1.read_export` consumers.
-The public prose projection excludes Main's account, execution and trade-geometry
-paragraphs. Market observations belong to the 08:18Z capture; later synthesis,
-registration and retrieval clocks do not refresh them. Friday's US10Y observation
-is retained as Friday's, never as a Monday intraday quote.
+The existing production-day owner now records **2 distinct articles** and two
+confirmed copies per channel. [Production-day verification](production-day-consumer.json)
+and [the installed Main digest reader](digest-consumer-verification.json) both
+consume that result. The latter executes the real read-only reader; tomorrow's
+scheduled 07:00 digest has not already run.
 
-Current market-specific model estimates and the older weekly geopolitical cases
-remain distinct. The weekly cases are labelled as model estimates set Sunday
-8 November, with their original horizon. No probability or complement is created
-by Publisher. The template supplies structure only, not its sample facts.
+The chosen article uses Monday's new Main synthesis, its market-specific model
+estimates, and the expressly authorised dated Opus weekly scenarios. Their dates,
+horizons and probabilities stay distinct. No probability or complement was
+created. Source admission and exact source/return hashes are in
+[the source evidence](source-admission.json) and [native roles](native-role-results.json).
+The retained NFP operation was not replaced or resumed.
 
-The branch starts from operating HEAD `1c1ced55192e6663c3f55871ed2b244d94da2a56`,
-which contains the freshly fetched remote default. The launch arguments configure
-`gpt-6.1-sol/max` (PID 37008); runtime telemetry is unavailable, so the recorded
-state is `CONFIGURED_NOT_OBSERVED`. Existing modified ledgers remain outside this
-item's commits. No schedule, other chat or desktop control is used.
+Native Sol Light selected/prepared the piece; the same Sol MAX writer wrote,
+made the one certainty correction and gave the [final KEEP](final-editor-check.json).
+Model/effort are `CONFIGURED_NOT_OBSERVED`, preserving unavailable runtime telemetry.
+The lead image is a clean, fresh four-hour EUR/USD TradingView download through
+Neo. Its original attribution remains intact. Substack's stored original has
+the exact approved SHA256 `1badc076e1605a49c0f2ba5af43f1ee6062b129379dad6f98349e7a47523b393`.
+Platform-resized images and shortened canonical links were verified in
+[the social readbacks](social-image-comparisons.json). Binary images remain in
+the operation's own Runtime media folder; none is embedded in Git text.
 
-Editorial preparation and publication are in progress. Source admission is not
-the standing item's acceptance: completion needs canonical publication/readback,
-the social results, and the live production-day/digest consumers.
+Two bounded fixes are live: canonical readback accepts rendered Markdown table
+structure while requiring every cell/value/order; LinkedIn accepts the exact
+numeric suffix or full URN of the same public object. **19 targeted checks passed**
+(11 table/list cases and 8 identifier cases), one pytest process at a time.
+Changes were pushed after each passing sub-step and integrated into the Publisher
+operating root. All inherited content was preserved: six files are byte-identical,
+and two operating ledgers retain their exact prior bytes followed by runtime appends.
+
+**The 15-minute all-channel dispatch target was missed.** The first text approval
+remains **19:10:35 GMT+7**. Canonical publication was within that target; the last
+observed standard-channel click, YouTube at **19:37:55 GMT+7**, was about 27 minutes
+after approval. Canonical readback/table handling, channel transport time and
+browser composition contributed. Approval was never restarted to hide latency.
+
+CC-124 returns to **OPEN, next due 10 November 2026 at 18:30 GMT+7**. Today's
+two-article cap is reached. Decision 98 makes Tuesday's CPI preview that day's
+wrap; no second wrap is prepared here. No schedule, other chat or native desktop
+control was changed. [Final acceptance](acceptance.json) records the live consumers,
+integration evidence and remaining timing limitation.
