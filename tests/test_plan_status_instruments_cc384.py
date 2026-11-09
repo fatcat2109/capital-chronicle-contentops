@@ -1,6 +1,7 @@
 """CC-383 declared shape -> existing queue, image facts and sole publisher."""
 from copy import deepcopy
 import json
+from pathlib import Path
 import sys
 
 import pytest
@@ -119,6 +120,47 @@ def test_spot_name_and_missing_month_are_not_invented():
     value["public_instrument"].update(name="WTI crude oil", symbol="CL", kind="FUT", exchange="NYMEX")
     text = composed(value)["text"]
     assert "WTI crude oil (CL futures)" in text and "Dec 2026" not in text
+
+
+def test_inverse_instrument_uses_the_producers_direction_and_prices():
+    value = source()
+    value.update(asset_id="USDJPY", direction="BEARISH")
+    value["public_instrument"].update(name="Japanese yen", symbol="6J", direction="BULLISH")
+    post = composed(value)
+    call = post["conditional_calls"][0]
+    assert call["direction"] == "bullish" and call["market"] == "6J"
+    assert "price moves below 6,980" == call["invalidation"]
+    assert "Japanese yen (6J futures, Dec 2026)" in post["text"]
+
+
+def test_delayed_first_post_keeps_both_conditions_and_both_true_clocks():
+    value = source(mapped=False)
+    row = p._row(plan_id=value["plan_id"], symbol=value["asset_id"], to="WAITING",
+                 at_utc=NOW.isoformat(), cause="WAITING", plan=p._built_plan(value))
+    post = {"symbol": row["symbol"], "state": row["to"], **p.compose(row, delayed_at=NOW)}
+    for destination, payload in p.destination_payloads(post, card_id="card", chart_credit=True).items():
+        assert "Registered " in payload["full_text"] and "delayed update" in payload["full_text"]
+        assert "(limit)" in payload["full_text"] and "(breakout)" in payload["full_text"]
+        if destination in p.API_DESTINATIONS:
+            assert len(payload["text"]) <= p.LIMITS[destination]
+
+
+@pytest.mark.parametrize("case", ["eur_spot", "oil_dual_null", "oil_dual_mapped"])
+def test_committed_main_producer_shapes_reach_all_destinations(case):
+    export = json.loads((Path(__file__).parent / "fixtures/cc384_public_plan/producer-exports.json").read_bytes())[case]
+    rows = p.rows_from_export(export)
+    assert len(rows) == 1
+    row = rows[0]
+    post = {"symbol": row["symbol"], "state": row["to"], **p.compose(row)}
+    assert post["status"] == "COMPOSED"
+    for d, payload in p.destination_payloads(post, card_id="card", chart_credit=True).items():
+        parts = [part["text"] for part in payload.get("posts") or []] or [payload["text"]]
+        assert all((p._x_length(part) if d == "x" else len(part)) <= p.LIMITS[d] for part in parts)
+        assert not payload.get("parts")
+        check_publication_copy({"text": payload["full_text"]}, conditional_calls=post["conditional_calls"])
+        assert ("CL futures, Dec 2026" if case.startswith("oil") else "EUR.USD spot") in payload["full_text"]
+        if case.startswith("oil"):
+            assert "(limit)" in payload["full_text"] and "(breakout)" in payload["full_text"]
 
 
 def test_export_queue_existing_coordinator_and_repeat_use_one_identity(tmp_path, main_root):  # noqa: F811

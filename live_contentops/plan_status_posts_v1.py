@@ -228,7 +228,7 @@ def _instrument_fields(plan) -> dict:
     instrument = plan.get("public_instrument")
     if isinstance(instrument, Mapping):
         fields["public_instrument"] = {k: instrument.get(k) for k in
-            ("name", "symbol", "kind", "exchange", "contract_month", "zone_low", "zone_high", "invalidation_level")}
+            ("name", "symbol", "kind", "exchange", "contract_month", "direction", "zone_low", "zone_high", "invalidation_level")}
         fields["public_instrument"]["entries"] = _entries(instrument.get("entries"))
     return fields
 
@@ -266,6 +266,8 @@ def _display_plan(plan) -> dict:
     if complete:
         display.update({k: instrument[k] for k in ("zone_low", "zone_high", "invalidation_level")})
         display["entries"] = mapped if entries else []
+        if instrument.get("direction") in {"BULLISH", "BEARISH"}:
+            display["direction"] = instrument["direction"].lower()
     if instrument:
         display["price_basis"] = "instrument" if complete else "plan"
     return display
@@ -278,7 +280,9 @@ def _entry_condition(plan) -> str:
     conditions = []
     for entry in entries:
         if entry["kind"] == "LIMIT" and all(entry.get(k) is not None for k in ("zone_low", "zone_high")):
-            conditions.append(f"price trades into {_level(entry['zone_low'])}–{_level(entry['zone_high'])}"
+            zone = (f"at {_level(entry['zone_low'])}" if entry['zone_low'] == entry['zone_high'] else
+                    f"into {_level(entry['zone_low'])}–{_level(entry['zone_high'])}")
+            conditions.append(f"price trades {zone}"
                               + (" (limit)" if len(entries) > 1 else ""))
         elif entry["kind"] == "BREAKOUT" and entry.get("level") is not None:
             conditions.append(f"price breaks through {_level(entry['level'])} (breakout)")
@@ -464,6 +468,9 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
     if row.get("superseded_by_fill"):
         return {"status": "NOT_POSTED", "cause": "FILL_EVENT_SUPERSEDES_TRIGGER"}
     market, title = MARKETS[symbol], _instrument_title(symbol, plan)
+    if plan.get("price_basis") == "instrument" and (plan.get("public_instrument") or {}).get("direction"):
+        code = plan["public_instrument"]["symbol"]
+        market = BROKER_NAMES.get(code, code)
     if plan.get("direction") not in {"bullish", "bearish"}:
         return {"status": "NOT_POSTED", "cause": "PLAN_DIRECTION_MISSING"}
     if plan.get("zone_low") is None or plan.get("zone_high") is None:
@@ -500,12 +507,14 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
         # account, the exact fill price and P&L stay private (decision 40).
         lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's model"
                  " position is open.", f"It is invalidated if {invalid}."]
+        if len(plan.get("entries") or []) > 1 or any(e["kind"] == "BREAKOUT" for e in plan.get("entries") or []):
+            # Main's idea-level fill does not identify which leg filled. Never assert the limit zone did.
+            lines[0] = f"{title}: an entry filled at {_when(row['at_utc'])}, and Capital Chronicle's model position is open."
         if first_plan_post and plan.get("valid_until_utc"):
             call = {"condition": _entry_condition(plan), "direction": plan["direction"], "market": market,
                     "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}
             calls = [call]
-            lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's"
-                     " model position is open.", conditional_call_text(call)]
+            lines = [lines[0], conditional_call_text(call)]
     elif to in {"CANCELLED", "INVALIDATED"}:
         reason = {
             "RUNAWAY_CANCEL": "price moved away before reaching the zone",
@@ -521,14 +530,17 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
     else:
         lines = [f"{title}: our view changed at {_when(row['at_utc'])}, so the plan with the {zone} entry zone"
                  " is withdrawn."]
+    extended = bool(plan.get("public_instrument") or plan.get("entries"))
     if delayed_at is not None:
-        lines.insert(0, f"Delayed update as of {_when(delayed_at.isoformat())}.")
-        if to == "WAITING":
-            lines.append(f"The plan was registered at {_when(row['at_utc'])}.")
+        if extended and to == "WAITING":
+            lines.insert(0, f"Registered {_when(row['at_utc'])}; delayed update {_when(delayed_at.isoformat())}.")
+        else:
+            lines.insert(0, f"Delayed update as of {_when(delayed_at.isoformat())}.")
+            if to == "WAITING":
+                lines.append(f"The plan was registered at {_when(row['at_utc'])}.")
     if plan.get("price_basis") == "plan":
         lines.insert(1, "Levels use the plan's prices.")
     why = _rationale(plan) if to == "WAITING" or (to in {"TRIGGERED", "FILLED"} and first_plan_post) else []
-    extended = bool(plan.get("public_instrument") or plan.get("entries"))
     lead = ("\n" if extended else " ").join(lines)
     # Ops Product, 9 Nov (Jim): one reason per line, so each block reads on its own (format 2).
     text = lead + ("\nWhy:\n" + "\n".join("• " + line for line in why) if why else "") \
@@ -713,7 +725,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
         rationale_cause = post.get("rationale_cause") if row["to"] in ACTIVE else None
         if rationale_cause:
             rationale_causes[rationale_cause] = rationale_causes.get(rationale_cause, 0) + 1
-        display = _display_plan(row["plan"])
+        display = _display_plan(row["plan"]) if post.get("instrument_title") else row["plan"]
         payload = {"schema_version": SCHEMA, "key": row["key"], "plan_id": row["plan_id"],
                    "symbol": row["symbol"], "state": row["to"],
                    **{k: row[k] for k in ("source_state", "source_transition_id") if row.get(k)},

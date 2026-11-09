@@ -23,6 +23,25 @@ root's accepted `cdb2b25e`, preserving its current consumers. The two inherited
 modified ledgers stay uncommitted. This run configures gpt-6.1-sol/high,
 CONFIGURED_NOT_OBSERVED; no editorial model call is made here.
 
-Pending: compatibility regressions, operating-root integration, and the first
-real Telegram/Discord/Threads post after Main CC-383 integrates. No schedule or
+Compatibility validation: **97 passed in 337.95 seconds**, one pytest process,
+across the seven targeted status-post queue, publication, rationale, recovery,
+fill and correction files. See [regression-tests.xml](regression-tests.xml).
+Final item validation: **20 passed in 3.85 seconds**, including the committed
+Main producer's EUR spot, dual WTI null and dual WTI mapped public exports.
+See [final-tests.xml](final-tests.xml), [producer-shape.json](producer-shape.json)
+and [sample-posts.json](sample-posts.json). Samples are fixtures, not public posts.
+
+The producer supplies its mapped direction, used for inverse expressions without
+inferring a conversion. A dual-entry fill does not identify the filled leg, so
+its wording confirms an entry without claiming that the limit zone filled.
+Delayed first posts preserve registration and update clocks within the short
+copy limit. New public fields do not change the retained result-post price basis.
+
+The existing `CapitalChronicle-PlanStatusPosts-V1` task runs `pythonw.exe -B
+scripts\plan_status_posts.py --publish` from the operating root. Its readback
+is in [live-consumer-task.json](live-consumer-task.json). There is no task change.
+The exact launch arguments are recorded in [launch-config.json](launch-config.json).
+
+Pending: operating-root integration and the first real Telegram/Discord/Threads
+post after Main CC-383 integrates. No schedule or
 other chat changes are part of this item.

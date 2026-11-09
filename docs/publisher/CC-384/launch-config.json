@@ -1,0 +1,11 @@
+{
+  "configured_effort": "high",
+  "argument_effort_present": true,
+  "runtime_model": null,
+  "configured_model": "gpt-6.1-sol",
+  "runtime_effort": null,
+  "argument_model_present": true,
+  "observed_utc": "2026-11-09T19:23:43.7115330Z",
+  "pid": 20556,
+  "telemetry": "CONFIGURED_NOT_OBSERVED"
+}

@@ -1,0 +1,8 @@
+{
+  "producer_head": "802ebd1a4759b79e13f801d94ceff803f7ac6830",
+  "source": "tests/test_plan_status_public_instruments_v1.py isolated fixture builder",
+  "output": "tests\\fixtures\\cc384_public_plan\\producer-exports.json",
+  "sha256": "77389f33b0e5e16dfe596ea2556fedfe9d0d96afd2b33581b88044d5b7358d39",
+  "bytes": 13008,
+  "live_state_used": false
+}

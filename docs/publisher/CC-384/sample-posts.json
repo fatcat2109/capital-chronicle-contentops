@@ -1,0 +1,237 @@
+{
+  "eur_spot": {
+    "fixture_only": true,
+    "source": "tests/fixtures/cc384_public_plan/producer-exports.json#eur_spot",
+    "composed_text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+    "conditional_calls": [
+      {
+        "condition": "price trades into 1.1166–1.117",
+        "direction": "bullish",
+        "market": "EUR/USD",
+        "horizon": "the period to Tue 10 Nov, 08:00 ET",
+        "invalidation": "price moves below 1.1144"
+      }
+    ],
+    "destinations": {
+      "telegram": {
+        "destination": "telegram",
+        "text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "discord": {
+        "destination": "discord",
+        "text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "threads": {
+        "destination": "threads",
+        "text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "x": {
+        "destination": "x",
+        "text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView",
+        "posts": [
+          {
+            "text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView",
+            "media_asset_ids": [
+              "fixture-not-published"
+            ],
+            "order": 0,
+            "role": "root"
+          },
+          {
+            "text": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply"
+          }
+        ],
+        "root_text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView",
+        "reply_texts": [
+          "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+        ],
+        "full_text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "substack_notes": {
+        "destination": "substack_notes",
+        "text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "Euro (EUR.USD spot): new plan.\nLevels use the plan's prices.\nIf price trades into 1.1166–1.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      }
+    }
+  },
+  "oil_dual_null": {
+    "fixture_only": true,
+    "source": "tests/fixtures/cc384_public_plan/producer-exports.json#oil_dual_null",
+    "composed_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+    "conditional_calls": [
+      {
+        "condition": "price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout)",
+        "direction": "bearish",
+        "market": "US crude oil (WTI)",
+        "horizon": "the period to Tue 10 Nov, 08:00 ET",
+        "invalidation": "price moves above 91.6"
+      }
+    ],
+    "destinations": {
+      "telegram": {
+        "destination": "telegram",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "discord": {
+        "destination": "discord",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "threads": {
+        "destination": "threads",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "x": {
+        "destination": "x",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\n\nChart: TradingView",
+        "posts": [
+          {
+            "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\n\nChart: TradingView",
+            "media_asset_ids": [
+              "fixture-not-published"
+            ],
+            "order": 0,
+            "role": "root"
+          },
+          {
+            "text": "If price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.",
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply"
+          },
+          {
+            "text": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply"
+          }
+        ],
+        "root_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\n\nChart: TradingView",
+        "reply_texts": [
+          "If price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.",
+          "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+        ],
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\n\nChart: TradingView\n\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "substack_notes": {
+        "destination": "substack_notes",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 90.2–90.45 (limit) or price breaks through 87.45 (breakout), the desk is bearish on US crude oil (WTI) over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 91.6.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      }
+    }
+  },
+  "oil_dual_mapped": {
+    "fixture_only": true,
+    "source": "tests/fixtures/cc384_public_plan/producer-exports.json#oil_dual_mapped",
+    "composed_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+    "conditional_calls": [
+      {
+        "condition": "price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout)",
+        "direction": "bearish",
+        "market": "CL",
+        "horizon": "the period to Tue 10 Nov, 08:00 ET",
+        "invalidation": "price moves above 92.12345"
+      }
+    ],
+    "destinations": {
+      "telegram": {
+        "destination": "telegram",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "discord": {
+        "destination": "discord",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "threads": {
+        "destination": "threads",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "x": {
+        "destination": "x",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView",
+        "posts": [
+          {
+            "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView",
+            "media_asset_ids": [
+              "fixture-not-published"
+            ],
+            "order": 0,
+            "role": "root"
+          },
+          {
+            "text": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply"
+          }
+        ],
+        "root_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView",
+        "reply_texts": [
+          "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+        ],
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      },
+      "substack_notes": {
+        "destination": "substack_notes",
+        "text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "full_text": "WTI crude oil (CL futures, Dec 2026): new plan.\nIf price trades at 90.35000000000001 (limit) or price breaks through 87.60000000000001 (breakout), the desk is bearish on CL over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves above 92.12345.\n\nChart: TradingView\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "media_asset_ids": [
+          "fixture-not-published"
+        ]
+      }
+    }
+  }
+}

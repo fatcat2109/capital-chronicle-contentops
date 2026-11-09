@@ -1,0 +1,348 @@
+{
+  "eur_spot": {
+    "status": {
+      "schema": "CapitalChroniclePlanStatusV1",
+      "schema_version": "1.0.0",
+      "generated_at_utc": "2026-11-09T18:30:00Z",
+      "refresh_interval_seconds": 60,
+      "notice": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+      "plans": [
+        {
+          "plan_id": "plan_548dc8ceccc41c4fbbfe9427",
+          "kind": "OPEN_ARM",
+          "run_id": "request-91a0ed68b1eb799e",
+          "decision_record_id": "decision:request-91a0ed68b1eb799e:EURUSD",
+          "asset_id": "EURUSD",
+          "direction": "BULLISH",
+          "status": "WAITING",
+          "status_label": "Waiting",
+          "status_at_utc": "2026-11-09T09:11:59.987233Z",
+          "checked_at_utc": "2026-11-09T09:11:59.987233Z",
+          "check_age_seconds": 33480.012767,
+          "data_state": "AVAILABLE",
+          "first_cause": null,
+          "registration_hash": "30407d1009021d69d6fd16cec408fe04fa7b14d8ca7317ad5c4234fec1c51880",
+          "trigger_hash": null,
+          "registered_at_utc": "2026-11-09T09:11:59.987233Z",
+          "analysis_result_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "scenario_analysis": null,
+          "scenario_first_cause": "SCENARIO_RESULT_NOT_RETAINED",
+          "zone": {
+            "minimum": 1.1166,
+            "maximum": 1.117
+          },
+          "conditions": [],
+          "invalidation_conditions": [
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 1.1144
+            }
+          ],
+          "cancel_conditions": [],
+          "cancel_level": null,
+          "cancel_kind": null,
+          "not_before_utc": "2026-11-09T09:11:59.987233Z",
+          "expires_at_utc": "2026-11-12T07:00:00Z",
+          "entry_deadline_utc": "2026-11-10T13:00:00Z",
+          "review_at_utc": null,
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_low": 1.1166,
+              "zone_high": 1.117
+            }
+          ],
+          "entries_first_cause": null,
+          "public_instrument": {
+            "name": "Euro",
+            "symbol": "EUR.USD",
+            "kind": "SPOT",
+            "exchange": "IDEALPRO",
+            "contract_month": null,
+            "contract_first_cause": null,
+            "direction": null,
+            "zone_low": null,
+            "zone_high": null,
+            "invalidation_level": null,
+            "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_low": null,
+                "zone_high": null
+              }
+            ]
+          },
+          "public_instrument_first_cause": null,
+          "outcome": {
+            "public_call_id": "call_b2f65aecf4928fdd86712ad9",
+            "state": "PENDING",
+            "result": null,
+            "outcome_id": null,
+            "score": null,
+            "first_cause": "OUTCOME_NOT_YET_RESOLVED"
+          }
+        }
+      ],
+      "scored_calls": [],
+      "scored_call_count": 0,
+      "scored_call_count_basis": "UNIQUE_EXPORTED_SCORED_CALLS",
+      "content_hash": "4ee1092ca137e53364418e159f3659e8b4a367b86a02837e0e988c786f4199ad"
+    },
+    "transitions": {
+      "schema": "CapitalChroniclePlanTransitionsV1",
+      "schema_version": "1.0.0",
+      "generated_at_utc": "2026-11-09T18:30:00Z",
+      "status_content_hash": "4ee1092ca137e53364418e159f3659e8b4a367b86a02837e0e988c786f4199ad",
+      "transitions": [
+        {
+          "transition_id": "transition_e5be51ff5ff637b505007ae4ac2c54af",
+          "plan_id": "plan_548dc8ceccc41c4fbbfe9427",
+          "status": "WAITING",
+          "status_label": "Waiting",
+          "at_utc": "2026-11-09T09:11:59.987233Z",
+          "evidence_hash": "30407d1009021d69d6fd16cec408fe04fa7b14d8ca7317ad5c4234fec1c51880",
+          "reason_code": "REGISTERED"
+        }
+      ],
+      "content_hash": "088e75305feb6251f4e7faa7f098164a4d5ef23fe7f8d60dffffab680b1bcc27"
+    }
+  },
+  "oil_dual_null": {
+    "status": {
+      "schema": "CapitalChroniclePlanStatusV1",
+      "schema_version": "1.0.0",
+      "generated_at_utc": "2026-11-09T18:30:00Z",
+      "refresh_interval_seconds": 60,
+      "notice": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+      "plans": [
+        {
+          "plan_id": "plan_0f59a4b2a0809ef3d265c524",
+          "kind": "OPEN_ARM",
+          "run_id": "request-91a0ed68b1eb799e",
+          "decision_record_id": "decision:request-91a0ed68b1eb799e:USOIL",
+          "asset_id": "USOIL",
+          "direction": "BEARISH",
+          "status": "WAITING",
+          "status_label": "Waiting",
+          "status_at_utc": "2026-11-09T09:11:59.987233Z",
+          "checked_at_utc": "2026-11-09T09:11:59.987233Z",
+          "check_age_seconds": 33480.012767,
+          "data_state": "AVAILABLE",
+          "first_cause": null,
+          "registration_hash": "e07c5387a002e97e3d7522dd63c50047a939abca33cd2dcb2118781319ed3faa",
+          "trigger_hash": null,
+          "registered_at_utc": "2026-11-09T09:11:59.987233Z",
+          "analysis_result_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "scenario_analysis": null,
+          "scenario_first_cause": "SCENARIO_RESULT_NOT_RETAINED",
+          "zone": {
+            "minimum": 90.2,
+            "maximum": 90.45
+          },
+          "conditions": [],
+          "invalidation_conditions": [
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 91.6
+            }
+          ],
+          "cancel_conditions": [],
+          "cancel_level": null,
+          "cancel_kind": null,
+          "not_before_utc": "2026-11-09T09:11:59.987233Z",
+          "expires_at_utc": "2026-11-12T07:00:00Z",
+          "entry_deadline_utc": "2026-11-10T13:00:00Z",
+          "review_at_utc": null,
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_low": 90.2,
+              "zone_high": 90.45
+            },
+            {
+              "kind": "BREAKOUT",
+              "level": 87.45
+            }
+          ],
+          "entries_first_cause": null,
+          "public_instrument": {
+            "name": "WTI crude oil",
+            "symbol": "CL",
+            "kind": "FUT",
+            "exchange": "NYMEX",
+            "contract_month": "2026-12",
+            "contract_first_cause": null,
+            "direction": null,
+            "zone_low": null,
+            "zone_high": null,
+            "invalidation_level": null,
+            "levels_first_cause": "IBKR_SOME_LEG_LEVELS_UNAVAILABLE",
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_low": null,
+                "zone_high": null
+              },
+              {
+                "kind": "BREAKOUT",
+                "level": null
+              }
+            ]
+          },
+          "public_instrument_first_cause": null,
+          "outcome": {
+            "public_call_id": "call_e503b9b0ed09db6ff2597f4a",
+            "state": "PENDING",
+            "result": null,
+            "outcome_id": null,
+            "score": null,
+            "first_cause": "OUTCOME_LEGS_NOT_YET_RESOLVED"
+          }
+        }
+      ],
+      "scored_calls": [],
+      "scored_call_count": 0,
+      "scored_call_count_basis": "UNIQUE_EXPORTED_SCORED_CALLS",
+      "content_hash": "16f0ca62a45f104335aafc4770fab3d118aa30c240a11642c0bdd846f4cfc97f"
+    },
+    "transitions": {
+      "schema": "CapitalChroniclePlanTransitionsV1",
+      "schema_version": "1.0.0",
+      "generated_at_utc": "2026-11-09T18:30:00Z",
+      "status_content_hash": "16f0ca62a45f104335aafc4770fab3d118aa30c240a11642c0bdd846f4cfc97f",
+      "transitions": [
+        {
+          "transition_id": "transition_c430427f8cfbf54e70a8b8b21450cb75",
+          "plan_id": "plan_0f59a4b2a0809ef3d265c524",
+          "status": "WAITING",
+          "status_label": "Waiting",
+          "at_utc": "2026-11-09T09:11:59.987233Z",
+          "evidence_hash": "681fcb5878f4ca039054e05413b3c3b0f1d46f0d58acafcf074708829560a7e2",
+          "reason_code": "REGISTERED"
+        }
+      ],
+      "content_hash": "d2e376d5b8eabc8530e3e658105c365f08913315704a3bb23c7f516b75872ee3"
+    }
+  },
+  "oil_dual_mapped": {
+    "status": {
+      "schema": "CapitalChroniclePlanStatusV1",
+      "schema_version": "1.0.0",
+      "generated_at_utc": "2026-11-09T18:30:00Z",
+      "refresh_interval_seconds": 60,
+      "notice": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+      "plans": [
+        {
+          "plan_id": "plan_0f59a4b2a0809ef3d265c524",
+          "kind": "OPEN_ARM",
+          "run_id": "request-91a0ed68b1eb799e",
+          "decision_record_id": "decision:request-91a0ed68b1eb799e:USOIL",
+          "asset_id": "USOIL",
+          "direction": "BEARISH",
+          "status": "WAITING",
+          "status_label": "Waiting",
+          "status_at_utc": "2026-11-09T09:11:59.987233Z",
+          "checked_at_utc": "2026-11-09T09:11:59.987233Z",
+          "check_age_seconds": 33480.012767,
+          "data_state": "AVAILABLE",
+          "first_cause": null,
+          "registration_hash": "ea000397f99142b16c7afc91635abeeb8c4867ce60340a333251a4b544717d70",
+          "trigger_hash": null,
+          "registered_at_utc": "2026-11-09T09:11:59.987233Z",
+          "analysis_result_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          "scenario_analysis": null,
+          "scenario_first_cause": "SCENARIO_RESULT_NOT_RETAINED",
+          "zone": {
+            "minimum": 90.2,
+            "maximum": 90.45
+          },
+          "conditions": [],
+          "invalidation_conditions": [
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 91.6
+            }
+          ],
+          "cancel_conditions": [],
+          "cancel_level": null,
+          "cancel_kind": null,
+          "not_before_utc": "2026-11-09T09:11:59.987233Z",
+          "expires_at_utc": "2026-11-12T07:00:00Z",
+          "entry_deadline_utc": "2026-11-10T13:00:00Z",
+          "review_at_utc": null,
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_low": 90.2,
+              "zone_high": 90.45
+            },
+            {
+              "kind": "BREAKOUT",
+              "level": 87.45
+            }
+          ],
+          "entries_first_cause": null,
+          "public_instrument": {
+            "name": "WTI crude oil",
+            "symbol": "CL",
+            "kind": "FUT",
+            "exchange": "NYMEX",
+            "contract_month": "2026-12",
+            "contract_first_cause": null,
+            "direction": "BEARISH",
+            "zone_low": 90.35000000000001,
+            "zone_high": 90.35000000000001,
+            "invalidation_level": 92.12345,
+            "levels_first_cause": null,
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_low": 90.35000000000001,
+                "zone_high": 90.35000000000001
+              },
+              {
+                "kind": "BREAKOUT",
+                "level": 87.60000000000001
+              }
+            ]
+          },
+          "public_instrument_first_cause": null,
+          "outcome": {
+            "public_call_id": "call_e503b9b0ed09db6ff2597f4a",
+            "state": "PENDING",
+            "result": null,
+            "outcome_id": null,
+            "score": null,
+            "first_cause": "OUTCOME_LEGS_NOT_YET_RESOLVED"
+          }
+        }
+      ],
+      "scored_calls": [],
+      "scored_call_count": 0,
+      "scored_call_count_basis": "UNIQUE_EXPORTED_SCORED_CALLS",
+      "content_hash": "9821ce763665f25eb729a787a522a1e9938a8ed7730304bc231523936c0be54a"
+    },
+    "transitions": {
+      "schema": "CapitalChroniclePlanTransitionsV1",
+      "schema_version": "1.0.0",
+      "generated_at_utc": "2026-11-09T18:30:00Z",
+      "status_content_hash": "9821ce763665f25eb729a787a522a1e9938a8ed7730304bc231523936c0be54a",
+      "transitions": [
+        {
+          "transition_id": "transition_c430427f8cfbf54e70a8b8b21450cb75",
+          "plan_id": "plan_0f59a4b2a0809ef3d265c524",
+          "status": "WAITING",
+          "status_label": "Waiting",
+          "at_utc": "2026-11-09T09:11:59.987233Z",
+          "evidence_hash": "eca2abbe9dd3b7f6e559e2e3ccf0fe45e212cbaaec49da518985ee8531943ffd",
+          "reason_code": "REGISTERED"
+        }
+      ],
+      "content_hash": "bde558e48ecdc60b300e2e5b02d5df911e5df8223411090c0923690dbe0f7b85"
+    }
+  }
+}
