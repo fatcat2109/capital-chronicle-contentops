@@ -1,64 +1,43 @@
 # CC-341 — weekend wrap
 
-Publication is blocked by `JIM_DECISION_93_MAIN_WEEKEND_SCENARIOS_INCOMPLETE`.
-The supplied weekend report has no probabilities for talks progressing, Hormuz
-escalation, or a deal on Iran's offer. The MAX editorial pass also identifies
-missing confirmation/invalidation and some alternative six-market implications.
-Publisher cannot supply these Main analytical values. No canonical or social
-write was attempted; the publication acceptance test has not passed.
+The weekend wrap was published on Substack at **9 November 07:41 GMT+7**:
+[canonical article](https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran),
+post `224085585`. The existing draft was resumed and published **web only**, with
+email delivery disabled. No email-code prompt appeared. Social distribution and
+coordinator reconciliation are continuing in the same operation
+`cc341-weekend-wrap-20261109-r2`; this is not yet the complete item acceptance.
 
-[Prepared copy](prepared-body.md) retains the supplied public-ready draft,
-replaces its last line with the required notices, adds sourced scenario prose,
-and includes the fresh USOIL image. It is unfinished publication copy, with no
-invented probability or public placeholder. The complete internal report was
-not copied into this item.
+The reopened item supplied the dated Main scenario revision. The existing source
+review admitted it and bound the three model estimates (55%, 25%, 20%) to their
+source excerpts. The original public-ready paragraphs, sourced Nvidia addition,
+ET dateline and required notices survive in
+[the prepared R2 body](resume-20261109/prepared-body-r2.md). The retained
+[MAX editorial assessment](resume-20261109/editorial-assessment-r2.json) and
+[final editor check](resume-20261109/final-editor-check.json) record the editorial
+work. The writer configured `gpt-6.1-sol/max`; this exec launch's process arguments
+configured `gpt-6.1-sol/high` (PID 4796, started 9 November 07:36 GMT+7).
+Model and effort are `CONFIGURED_NOT_OBSERVED`, because runtime telemetry was
+unavailable. No new editorial model call was made during publication recovery.
 
-[Editorial assessment](editorial-pass.json) records the actual native
-`/root/cc341_editorial` return and exact missing fields. Its two calls configured
-`gpt-6.1-sol/max`; runtime model/effort telemetry was unavailable, recorded as
-`CONFIGURED_NOT_OBSERVED`. The parent launch configured `gpt-6.1-sol/high` with
-the same observation limit. Configuration labels did not prevent work.
+The fresh CC-316 TradingView USOIL snapshot captured at **9 November 07:15 GMT+7**
+is the canonical image. Its original attribution remains intact. Browser readback
+verified its caption, alt text, successful load and dimensions. The existing media
+owner verified exact original-byte SHA256 continuity:
+`7af80bd55b91edf4d55c30c512319d5dd2ff1caa9db7c81363f030a1aeeff327`.
+[Media verification](resume-20261109/canonical-media-verification.json) uses only
+the approved canonical image; the excluded facts card is not required on the page.
+Image bytes remain binary in this operation's own Runtime media folder.
 
-The parent searched 418 retained files, then 67 additional Main/event/native
-sources and the installed Main export. The MAX role independently searched 831
-retained files. These scopes overlap and are not summed. All 40 current export
-scenario fields lack an alternative probability; two are entirely null. An
-older 55% WTI floor-hold scenario expired before Friday's payroll release.
-Fed pricing, CPI bins, old event scenarios and movement ranges were not used
-as weekend geopolitical probabilities. Exact search scopes, hashes and
-dispositions are in [the parent search](additional-source-search.json) and
-the editorial assessment.
+The readback comparison incorrectly expected Markdown list markers in Substack's
+rendered body. The bounded fix strips list syntax for this destination while
+preserving all words, values, numeric minus signs and item order. Its
+[88 targeted passing tests](resume-20261109/list-readback-tests.txt) include changed
+numbers, removed minus signs, omitted items and reordered items. Commit `00058c40`
+is pushed on `backlog/cc-341-weekend-wrap` and fast-forwarded into
+`A:\Capital Chronicle\ContentOps`; both inherited builder ledgers and the six
+modified operating-root files were preserved outside the commit.
 
-The existing CC-316 module captured the attributed USOIL one-hour snapshot at
-**9 November 01:37 GMT+7**. The original and padded images remain binary in
-this item's media folder. [Media checks](media-preflight.json) found no exact
-or perceptual match against 757 image-register rows and zero occupied article
-slots at the observation time. Parent inspected the image pixels; no final
-rendered article review or publication approval is claimed. Refresh through
-the same media owner when publication becomes possible: the snapshot has now
-passed the coordinator's freshness interval. Its bytes and attribution remain
-verified; no refreshed capture is requested while Main's fields are absent.
-
-The preparation files are integrated into `A:\Capital Chronicle\ContentOps`.
-[The operating consumer read](operating-consumer-read.json) loads the exact
-public draft through the installed `RetainedSourceResearch` owner, with zero
-source-admission gaps, and verifies the integrated image bytes. The live
-operation `cc341-weekend-wrap-20261109-v1` retains its pending selection request;
-this prepared source edition has not been attached to that frozen packet.
-[Publication readiness](publication-readiness.json) records zero operation
-dispatches and no active operation lease. This is preparation, not a published
-article or a completed newsroom window.
-
-Run `python docs/publisher/CC-341/verify_preparation.py` for the bounded check.
-It proves the original paragraphs and notices survive, the operating source
-consumer reads the draft, and the snapshot bytes validate. The actual scenario
-reader reports `SCENARIO_PROBABILITY_REQUIRED`. [Verification](verification.json)
-separates these passing preparation checks from failed publication acceptance.
-No application code changed and no pytest suite was run.
-
-Next owner: Main supplies the absent event-specific analytical fields in a
-dated report revision. Publisher then admits that revision through the existing
-source-review path, completes the article and media review, and publishes through
-the sole coordinator with canonical-first readback. No substitute schedule,
-watcher or chat notice was created. Both inherited builder ledger files and all
-six modified operating-root files were preserved outside this item's commits.
+The first text approval remains **9 November 07:18:51 GMT+7**. Canonical publication
+therefore missed decision 53's 15-minute dispatch target. The revised item deadline
+is **9 November 17:00 GMT+7**. The earlier pre-reopen deadline was already missed;
+none of these clocks has been reset. No schedule or other chat was changed.

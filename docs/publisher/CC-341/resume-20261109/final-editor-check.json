@@ -1,0 +1,241 @@
+{
+  "schema_version": "contentops.cc341.final_editor_check.v1",
+  "operation_id": "cc341-weekend-wrap-20261109-r2",
+  "article_identity": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+  "decision": "KEEP",
+  "repair_required": false,
+  "rationale": "The exact assembled text is the accepted source-bound repair: original public prose plus authorized R2 scenarios and Nvidia paragraph, source-exact Sunday ET dateline, precise uncertainty and required notices. The fresh attributed USOIL chart serves the geopolitical oil tension and is selected for every destination. All eight compiler previews retain the authored base and main alternative without added claims. Proceed through the existing sole publisher now.",
+  "approved_text_at_utc": "2026-11-09T00:18:51.677488+00:00",
+  "reviewed_at_utc": "2026-11-09T00:18:51.677488+00:00",
+  "reviewer": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/cc341_writer",
+    "same_writer_editor": true,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "actual_configuration_unavailable": true,
+    "observation_source": "Same supported native subagent role context /root/cc341_writer, which authored and repaired this exact operation; no actual model/effort telemetry is exposed."
+  },
+  "policy": {
+    "short_path": "JIM_DECISION_53_WRITER_ONE_EDITOR_CHECK_PUBLISH",
+    "dispatch_target_minutes": 15,
+    "per_channel_screenshot_or_draft_loop": false,
+    "automated_image_load_dimension_check": "Completed once in this editor check; both PNGs load at their declared sizes. No new review round required."
+  },
+  "bindings": {
+    "assembly_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\assembled-for-editor.json",
+    "assembly_file_sha256": "cb263ead01a339e3a358b6ea23c943f11c3513e59f0f76fc68b14ff6fc8342fe",
+    "article_json_sha256": "0e25bb17b4d8e81b42a0bce529fee8d535d662572c1f481d1285d56a78b80469",
+    "body_sha256": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+    "media_preview_binding_sha256": "b356b88e09512e881490b459c1b3a7c3978a61ed16a9e4d428d99caa0fb2d491",
+    "native_revision_request_sha256": "a5d8a2973a3ca88dc73cf2ce40d9471eabb5d05ce805aedfa58ae6df453f596b",
+    "native_revision_response_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\revision-response.json",
+    "native_revision_response_sha256": "93643e6a9f971e0ea987d00d89782392757b393e96b37121440a03fb9fcc8438"
+  },
+  "source_bindings": [
+    {
+      "document_id": "cc341-weekend-wrap-r2-scenarios-20261109",
+      "canonical_content_sha256": "27f5819e7fe9f5316ca47f0bc23d1794ba9d8f0afca76af962614dd614885ed3",
+      "source_capture_sha256": "7ff9e0fabdcc8b74cad93982ba48e5e725b38de39279b5697a4d609b7dd548b0",
+      "public_expression_reuse_allowed": true,
+      "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+    },
+    {
+      "document_id": "cc341-weekend-wrap-20261109",
+      "canonical_content_sha256": "022007719e97fd1ce6b63b1874cdd8e9636937b1410d3f6f9cceddca02e7e12e",
+      "source_capture_sha256": "ed7678235e1c9efbebc7eaf777efcce59b3d7741f8d49b7ff912d6823e9b7a9f",
+      "public_expression_reuse_allowed": true,
+      "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+    }
+  ],
+  "source_and_copy_findings": {
+    "exact_assembly": "PASS body, five metadata fields, scenarios and authored social summaries match the accepted revision. Duplicate title, raw local image Markdown and redundant old caption are absent.",
+    "numerical_claims": "PASS all 29 supported material bindings. Original and R2 numbers are preserved; probabilities 55%, 25%, 20% come directly from the retained report and are labelled Capital Chronicle model estimates through Friday 13 November. No complement, derived forecast or observed reopen level was added.",
+    "scenarios": "PASS all three scenarios retain exact probability, confirmation, six-market implications and invalidation with exact source bindings, including the R2 USDJPY escalation clause.",
+    "nvidia_uncertainty": "PASS board inquiry and no-reason-to-believe compromise language match the retained Main paragraph and opened CNBC page. The suspected intelligence-asset allegation stays expressly attributed to The New York Times and the Financial Times; not presented as independently established.",
+    "public_time": "PASS source-exact Sunday 8 November dateline and ET copy. Snapshot capture is 19:15 ET on 8 November; TradingView keeps its original UTC header. Current Sunday dateline is valid until 2026-11-09T05:00:00Z.",
+    "source_rights": "PASS own Main public-expression excerpts retain exact lineage and content hashes. TradingView guest-page snapshot rights basis and full visible attribution are retained. No raw third-party table or account/execution identifiers enter copy.",
+    "native_source_validation": "PASS current _validate_article_against_source_pack; 29 supported claims, zero unsupported claims.",
+    "social": "PASS all eight previews; both authored scenario lines, source-faithful conditional mechanism, required notices, correct selected media and platform limits retained."
+  },
+  "selected_media_asset_ids": [
+    "tradingview-snapshot-7af80bd55b91edf4d55c"
+  ],
+  "media_checks": [
+    {
+      "asset_id": "tradingview-snapshot-7af80bd55b91edf4d55c",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc341-weekend-wrap-20261109-r2\\media\\market-snapshot\\tradingview-48c3fbce2946e24e-16x9.png",
+      "sha256": "7af80bd55b91edf4d55c30c512319d5dd2ff1caa9db7c81363f030a1aeeff327",
+      "width": 1524,
+      "height": 858,
+      "load_dimension_check": "PASS",
+      "actual_pixels_inspected_with": "view_image",
+      "decision": "KEEP",
+      "delivery_role": "Sole lead visual for canonical and all eight destinations",
+      "captured_at_utc": "2026-11-09T00:15:44.561252+00:00",
+      "age_seconds_at_load_check": 122.784,
+      "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+      "source_page_url": "https://www.tradingview.com/chart/?symbol=TVC:USOIL&interval=60",
+      "credit": "Chart: TradingView",
+      "pixel_finding": "Legible WTI crude-oil CFD 1h candlesticks with visible dates, price axis and volume. Full TradingView header and logo remain uncropped. No invented overlays or account/execution identifiers. Caption and alt text preserve CFD identity and ET capture time."
+    },
+    {
+      "asset_id": "post-facts-94430843735feda9f950",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc341-weekend-wrap-20261109-r2\\media_assets\\post-facts-94430843735feda9f950.png",
+      "sha256": "78dca7d5d07c0bcd6800e98bf6021cff2c70960f712bc0cc48bcf6b9c5bf82e4",
+      "width": 1080,
+      "height": 1350,
+      "load_dimension_check": "PASS",
+      "actual_pixels_inspected_with": "view_image",
+      "decision": "UNUSED",
+      "delivery_role": "Archive only; already absent from all destination selections",
+      "pixel_finding": "Readable but redundant. Enlarged 80% isolates the upper end of the source 78-80% range; keep it out of publication. The passing fresh TradingView visual is sufficient."
+    }
+  ],
+  "preview_checks": [
+    {
+      "destination": "telegram",
+      "preview_id": "cc-preview-9e194d3fc8dd6a9bff01a05084916072a72ffc915c30fd39fdc4b1497bfb9a38",
+      "article_identity": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+      "payload_sha256": "3dd41d4e0e3793054d9d6bfa6a21f9301935f340da0b0c0b9c41a465ee33ff99",
+      "decision": "KEEP",
+      "media_asset_ids": [
+        "tradingview-snapshot-7af80bd55b91edf4d55c"
+      ],
+      "post_character_counts": [
+        904
+      ],
+      "platform_limit": 1024,
+      "findings": "Authored base 55% and main alternative 25% lines, uncertainty, required notices and TradingView credit are retained; complete sentences and platform limits pass. No preview-site host, source markers, raw image markup or account details.",
+      "canonical_url_state": "Existing prepared canonical placeholder; sole canonical-first coordinator replaces it with the confirmed real Substack URL before derivative writes."
+    },
+    {
+      "destination": "x",
+      "preview_id": "cc-preview-6d4c4eabcc1d065fc25a16c113b6da18abcee233194512ed8fa663b33630f594",
+      "article_identity": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+      "payload_sha256": "5e1fddf744be60ed250fba52794361e6daa3e94fa28918df079b09ffb0c24fca",
+      "decision": "KEEP",
+      "media_asset_ids": [
+        "tradingview-snapshot-7af80bd55b91edf4d55c"
+      ],
+      "post_character_counts": [
+        209,
+        89,
+        267,
+        203,
+        95
+      ],
+      "platform_limit": 280,
+      "findings": "Authored base 55% and main alternative 25% lines, uncertainty, required notices and TradingView credit are retained; complete sentences and platform limits pass. No preview-site host, source markers, raw image markup or account details.",
+      "canonical_url_state": "Existing prepared canonical placeholder; sole canonical-first coordinator replaces it with the confirmed real Substack URL before derivative writes."
+    },
+    {
+      "destination": "linkedin",
+      "preview_id": "cc-preview-b071b04d87b4fdcc811b4b77176331d6f69b53736cfa5a488f23cc044130cab9",
+      "article_identity": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+      "payload_sha256": "340224823276a856813cc630f723bc30bdd17ff23831220c0c268d4290ccdfce",
+      "decision": "KEEP",
+      "media_asset_ids": [
+        "tradingview-snapshot-7af80bd55b91edf4d55c"
+      ],
+      "post_character_counts": [
+        972
+      ],
+      "platform_limit": 3000,
+      "findings": "Authored base 55% and main alternative 25% lines, uncertainty, required notices and TradingView credit are retained; complete sentences and platform limits pass. No preview-site host, source markers, raw image markup or account details.",
+      "canonical_url_state": "Existing prepared canonical placeholder; sole canonical-first coordinator replaces it with the confirmed real Substack URL before derivative writes."
+    },
+    {
+      "destination": "discord",
+      "preview_id": "cc-preview-7378f99d89172fc58122605af0a4a5f9267f5a924a5dc6d93fad8b646e7af8f3",
+      "article_identity": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+      "payload_sha256": "bc70c85f6ee84c6b62208bb7f896151bfb1a2cc2e10945e8bbb7b909cbfc2f3d",
+      "decision": "KEEP",
+      "media_asset_ids": [
+        "tradingview-snapshot-7af80bd55b91edf4d55c"
+      ],
+      "post_character_counts": [
+        900
+      ],
+      "platform_limit": 2000,
+      "findings": "Authored base 55% and main alternative 25% lines, uncertainty, required notices and TradingView credit are retained; complete sentences and platform limits pass. No preview-site host, source markers, raw image markup or account details.",
+      "canonical_url_state": "Existing prepared canonical placeholder; sole canonical-first coordinator replaces it with the confirmed real Substack URL before derivative writes."
+    },
+    {
+      "destination": "facebook_page",
+      "preview_id": "cc-preview-924301e35f7c8002522a2d3c3830c872377d976539a9cc1810f23a1677fa266d",
+      "article_identity": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+      "payload_sha256": "edefb575fb06ee32d5d4a583deb02cad84c26d96d3c1db99c5277e3d3f89cdc2",
+      "decision": "KEEP",
+      "media_asset_ids": [
+        "tradingview-snapshot-7af80bd55b91edf4d55c"
+      ],
+      "post_character_counts": [
+        922
+      ],
+      "platform_limit": 63206,
+      "findings": "Authored base 55% and main alternative 25% lines, uncertainty, required notices and TradingView credit are retained; complete sentences and platform limits pass. No preview-site host, source markers, raw image markup or account details.",
+      "canonical_url_state": "Existing prepared canonical placeholder; sole canonical-first coordinator replaces it with the confirmed real Substack URL before derivative writes."
+    },
+    {
+      "destination": "instagram_business",
+      "preview_id": "cc-preview-de79e284814796da18e4eb54178b529496033d2c4fd1293f615e85a6a7526008",
+      "article_identity": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+      "payload_sha256": "f3cbc559055a044301df6f8fba9a9e215316dd650bea896f2477a1b0da831369",
+      "decision": "KEEP",
+      "media_asset_ids": [
+        "tradingview-snapshot-7af80bd55b91edf4d55c"
+      ],
+      "post_character_counts": [
+        890
+      ],
+      "platform_limit": 2200,
+      "findings": "Authored base 55% and main alternative 25% lines, uncertainty, required notices and TradingView credit are retained; complete sentences and platform limits pass. No preview-site host, source markers, raw image markup or account details.",
+      "canonical_url_state": "Existing prepared canonical placeholder; sole canonical-first coordinator replaces it with the confirmed real Substack URL before derivative writes."
+    },
+    {
+      "destination": "threads",
+      "preview_id": "cc-preview-384a0bc08440071a1c1196fdb4cda04eabd0c21344b5de342c2b0f469a36895a",
+      "article_identity": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+      "payload_sha256": "b0464e9a61b9768deb500f738b2e6c3a08f6db8b26dc23983c0865ca03f34107",
+      "decision": "KEEP",
+      "media_asset_ids": [
+        "tradingview-snapshot-7af80bd55b91edf4d55c"
+      ],
+      "post_character_counts": [
+        341,
+        477,
+        95
+      ],
+      "platform_limit": 500,
+      "findings": "Authored base 55% and main alternative 25% lines, uncertainty, required notices and TradingView credit are retained; complete sentences and platform limits pass. No preview-site host, source markers, raw image markup or account details.",
+      "canonical_url_state": "Existing prepared canonical placeholder; sole canonical-first coordinator replaces it with the confirmed real Substack URL before derivative writes."
+    },
+    {
+      "destination": "youtube",
+      "preview_id": "cc-preview-e844e203d04cce82db502fc4b9b335bb584429a95c7965273590707de9d670c7",
+      "article_identity": "c9e77f53b9468ed7d0c744e7b10b0da2c0a59409a71baea6d2745a8f2cd548b5",
+      "payload_sha256": "c53c73cc3512ecfc070497a82290d73d54b37d87e8642156cc4a4eeceea586ee",
+      "decision": "KEEP",
+      "media_asset_ids": [
+        "tradingview-snapshot-7af80bd55b91edf4d55c"
+      ],
+      "post_character_counts": [
+        905
+      ],
+      "platform_limit": 1000,
+      "findings": "Authored base 55% and main alternative 25% lines, uncertainty, required notices and TradingView credit are retained; complete sentences and platform limits pass. No preview-site host, source markers, raw image markup or account details.",
+      "canonical_url_state": "Existing prepared canonical placeholder; sole canonical-first coordinator replaces it with the confirmed real Substack URL before derivative writes."
+    }
+  ],
+  "nonblocking_findings": [
+    "Unused post-facts card is redundant and visually isolates 80% from a 78-80% range. Do not add it to publication; all existing destination selections already use only the passing fresh TradingView chart.",
+    "The auxiliary article.tradingview_snapshot_asset_ids still records the previous snapshot ID. Actual lead_image_asset_id, post_visual_destination_media, native_destination_media, media asset and all eight payload selections consistently bind the fresh 7af80bd55b91edf4d55c snapshot. This review approves that selected fresh media, not the historical auxiliary ID.",
+    "Preview payloads retain the existing coordinator pending-publication URL. This is a preparation placeholder, not an authorized public link; normal canonical-first substitution remains required."
+  ],
+  "public_write_performed": false,
+  "next_action": "Parent continues the existing sole canonical-first publication coordinator using this KEEP text and the selected fresh TradingView image, retaining the first approval clock. No additional editorial or screenshot review is required."
+}
