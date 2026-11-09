@@ -1,0 +1,145 @@
+"""Recorded text-only output through the real compiler; no model/public calls."""
+from copy import deepcopy
+import json
+from pathlib import Path
+import subprocess
+
+import pytest
+
+from live_contentops import agy_editorial_assist_v1 as agy
+from live_contentops.eight_platform_substack_first_pipeline_v1 import build_native_derivative_payloads
+
+
+def packet():
+    return ({"title": "Publisher adapter validation", "subtitle": "Controlled text-only sample",
+             "substack_body_markdown": "The source line reports 2 observations. The sample contains no current market claim."},
+            [{"publisher": "Controlled fixture", "text": "The source line reports 2 observations."}],
+            [{"asset_id": "sample-chart", "modality": "chart", "caption": "Controlled chart of the two observations; no market data.",
+              "spec": {"observations": 2}, "alt_text": "Original description."}])
+
+
+def recorded_output():
+    return json.loads((Path(__file__).parent / "fixtures/cc378_agy_recorded_output.json").read_bytes())
+
+
+def fake_runner(output=None, error=None):
+    def run(args, **kwargs):
+        assert list(Path(kwargs["cwd"]).iterdir()) == []
+        if "--version" in args:
+            return subprocess.CompletedProcess(args, 0, b"1.5.3\n", b"")
+        assert args[args.index("--model") + 1] == agy.MODEL
+        assert args[args.index("--effort") + 1] == "high"
+        assert args[-1].startswith("Do not call any tool")
+        assert kwargs["timeout"] == 120
+        if error:
+            raise error
+        return subprocess.CompletedProcess(args, 0, json.dumps(output).encode(), b"")
+    return run
+
+
+def prepare(tmp_path, output=None):
+    draft, sources, assets = packet()
+    return agy.prepare_assist(draft, sources, assets, output_dir=tmp_path,
+                              runner=fake_runner(recorded_output() if output is None else output))
+
+
+def approve(tmp_path, record):
+    return agy.review_assist(tmp_path, {"prompt_sha256": record["prompt_sha256"],
+        "decisions": [{"claim_id": f["claim_id"], "action": "KEEP",
+                       "reason": "Controlled fixture; the exact source line states the figure."} for f in record["flags"]],
+        "use_alt_text": True, "use_variants": True})
+
+
+def test_recorded_output_is_used_by_live_compiler(tmp_path):
+    record = prepare(tmp_path)
+    assert record["status"] == "AGY_AVAILABLE"
+    assert record["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
+    assert record["agy_version"] == "1.5.3"
+    assert record["started_utc"] <= record["ended_utc"]
+    assert agy.sha256((Path(record["artifact_path"]).parent / "output.txt").read_bytes()).hexdigest() == record["output_sha256"]
+    approve(tmp_path, record)
+    article, assets = agy.consume_assist(packet()[0], packet()[2], output_dir=tmp_path)
+    assert assets[0]["alt_text"] == recorded_output()["alt_text"][0]["text"]
+    assert article["agy_light_assist"]["variant_destinations"] == sorted(agy.LIMITS)
+    article.update(native_brief_layout=True, social_scenarios={"base_case": "Base case: The sample remains a test.",
+                                                            "alternative": "Alternative: A later test changes the sample."})
+    canonical = "https://capitalchronicle.substack.com/p/controlled"
+    payloads = build_native_derivative_payloads(article=article, selection={}, canonical_url=canonical,
+                                               media_asset_ids=["sample-chart"])
+    for destination in agy.LIMITS:
+        payload = payloads[destination]
+        visible = payload.get("full_text") or payload.get("text") or payload["root_text"]
+        expected = recorded_output()["variants"][destination]
+        assert (expected[0] if isinstance(expected, list) else expected) in visible
+        assert canonical in visible
+        assert "Analysis, not financial advice." in visible
+        assert "Capital Chronicle may hold positions" in visible
+        assert "Base case:" in visible and "Alternative:" in visible
+        if destination in {"x", "threads"}:
+            assert all(len(post["text"]) <= agy.LIMITS[destination] for post in payload["posts"])
+    assert len(payloads) == 8
+
+
+@pytest.mark.parametrize("failure", [FileNotFoundError("controlled missing agy"),
+    subprocess.TimeoutExpired("agy", 120)])
+def test_failure_never_holds_or_changes_the_original_copy(tmp_path, failure):
+    draft, sources, assets = packet()
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(error=failure))
+    assert record["status"] == "AGY_UNAVAILABLE"
+    article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert article["substack_body_markdown"] == draft["substack_body_markdown"]
+    assert "publisher_light_variants" not in article
+    assert media == assets
+    assert record["cause"]
+
+
+def test_failed_or_empty_output_and_resume_do_not_retry(tmp_path):
+    calls = []
+    def run(args, **kwargs):
+        calls.append(args)
+        return subprocess.CompletedProcess(args, 0, b"", b"")
+    draft, sources, assets = packet()
+    first = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)
+    second = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)
+    assert first == second
+    assert first["status"] == "AGY_UNAVAILABLE"
+    assert len(calls) == 2  # version plus one call; resume reuses the result
+
+
+def test_flags_are_bound_to_source_lines_and_publisher_decides(tmp_path):
+    output = recorded_output()
+    output["claims"] = [{"claim_id": "flag-1", "draft_span": "2", "kind": "number",
+                         "source_line_ids": ["L999"], "source_quote": "2", "flag": ""}]
+    record = prepare(tmp_path, output)
+    assert record["flags"][0]["cause"] == "SOURCE_LINE_UNMATCHED"
+    # Unreviewed flags do not block the article or silently change its prose.
+    article, _ = agy.consume_assist(packet()[0], packet()[2], output_dir=tmp_path)
+    assert article["substack_body_markdown"] == packet()[0]["substack_body_markdown"]
+    with pytest.raises(ValueError, match="DECISIONS"):
+        agy.review_assist(tmp_path, {"prompt_sha256": record["prompt_sha256"], "decisions": []})
+    reviewed = approve(tmp_path, record)
+    assert reviewed["publisher_decisions"][0]["action"] == "KEEP"
+
+
+@pytest.mark.parametrize("text", ["See fatcat2109.github.io.", "At 20:00 GMT+7.", "https://unapproved.example/",
+                                 "DEMO account login 279805139.", "A" * 4097])
+def test_bad_suggestion_falls_back_without_holding_the_piece(tmp_path, text):
+    output = recorded_output(); output["variants"]["telegram"] = text
+    record = prepare(tmp_path, output); approve(tmp_path, record)
+    article, _ = agy.consume_assist(packet()[0], packet()[2], output_dir=tmp_path)
+    assert "telegram" not in article.get("publisher_light_variants", {})
+    assert article["agy_light_assist"]["rejected_suggestions"]
+
+
+def test_changed_draft_does_not_use_stale_suggestions(tmp_path):
+    record = prepare(tmp_path); approve(tmp_path, record)
+    draft, _, assets = packet(); draft["substack_body_markdown"] += " A corrected claim."
+    article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert article["agy_light_assist"]["cause"] == "DRAFT_CHANGED"
+    assert media == assets
+
+
+def test_reader_adapter_preserves_selected_variants():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
+    draft = packet()[0]; draft["publisher_light_variants"] = recorded_output()["variants"]
+    assert _reader_safe_native_article(draft, article_mode="BREAKING_BRIEF")["publisher_light_variants"] == draft["publisher_light_variants"]

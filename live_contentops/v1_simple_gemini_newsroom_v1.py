@@ -2084,6 +2084,8 @@ def _reader_safe_native_article(
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
         if article.get(key):
             result[key] = article[key]
+    if article.get("publisher_light_variants"):
+        result["publisher_light_variants"] = article["publisher_light_variants"]
     for key in ("market_asset", "tradingview_snapshot_asset_ids", "native_destination_media"):
         if article.get(key):
             result[key] = article[key]
@@ -3398,6 +3400,8 @@ def run_v1_simple_gemini_newsroom(
         from live_contentops.tradingview_snapshot_v1 import prepare_article_snapshot
         article, admitted_media = prepare_article_snapshot(article, admitted_media, output_dir=root,
             selected_candidate=selected)
+        from live_contentops.agy_editorial_assist_v1 import consume_assist
+        article, admitted_media = consume_assist(article, admitted_media, output_dir=root)
         article_manifest.update(article)
     persist(root / "article_manifest_v1.json", article_manifest)
     try:

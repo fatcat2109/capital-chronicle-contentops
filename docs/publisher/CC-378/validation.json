@@ -1,0 +1,7 @@
+{
+  "command": "python -m pytest -q tests/test_agy_editorial_assist_cc378.py tests/test_v1_simple_gemini_newsroom_v1.py tests/test_native_newsroom_owner_operation_v1.py --disable-warnings --maxfail=2",
+  "result": "80 passed in 15.90s",
+  "verified_utc": "2026-11-09T16:37:00Z",
+  "publication_readbacks": 0,
+  "limit": "Next two CC-124 pieces have not run; 9 Nov cap already 2/2, next due 10 Nov 18:30 GMT+7."
+}

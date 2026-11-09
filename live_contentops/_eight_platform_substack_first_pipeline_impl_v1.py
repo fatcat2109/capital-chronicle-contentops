@@ -551,6 +551,8 @@ def build_native_derivative_payloads(
         canonical_url=canonical_url,
         media_asset_ids=media_asset_ids,
     )
+    from live_contentops.agy_editorial_assist_v1 import apply_variants
+    apply_variants(payloads, article, canonical_url, thread_quality=_thread_quality)
     from live_contentops.article_scenarios_v1 import include_social_scenarios
     include_social_scenarios(payloads, article)
     notices = ("Analysis, not financial advice.",

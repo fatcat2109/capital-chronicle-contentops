@@ -277,7 +277,31 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
         from live_contentops.native_manual_candidate_v1 import continue_manual_candidate
         return continue_manual_candidate(turn, binding, candidate_id=candidate_id, response=response, lease=operation_lease)
     if command == "submit":
-        return turn.submit(stage, response)
+        result = turn.submit(stage, response)
+        if stage in {"write", "revise"} and response.get("output", {}).get("article"):
+            from live_contentops.agy_editorial_assist_v1 import prepare_assist
+            request = turn.frozen_request(stage)
+            governed = request["governed_input"]
+            assets = turn.admitted_editorial_media()
+            draft = response["output"]["article"]
+            # Include the deterministic article card as well as planned photos/charts.
+            if draft.get("reader_first_version") == "DATA_JOURNALISM_V1":
+                from live_contentops.post_visuals_v1 import complete_post_visuals
+                try:
+                    _, assets = complete_post_visuals(draft, response["output"].get("material_claim_bindings", []),
+                        governed.get("source_pack", []), assets, output_dir=turn.root)
+                except (ValueError, KeyError, TypeError):
+                    pass  # Ordinary article validation remains with the existing owner.
+            assist = prepare_assist(draft, governed.get("source_pack", []), assets, output_dir=turn.root)
+            result["agy_light_assist"] = {k: assist.get(k) for k in
+                ("status", "artifact_path", "prompt_sha256", "flags", "cause")}
+            result["agy_next_action"] = "Read the saved suggestions; agy-review records each flag decision and chosen outputs before advance. A failure never holds the article."
+        return result
+    if command == "agy-review":
+        from live_contentops.agy_editorial_assist_v1 import review_assist
+        assist = review_assist(turn.root, response)
+        return {"classification": "AGY_PUBLISHER_REVIEW_RECORDED", "artifact_path": assist["artifact_path"],
+                "publisher_decisions": assist["publisher_decisions"], "public_write_performed": False}
     if command == "status":
         return turn.telemetry()
     if command in {"advance", "media-plan"} and turn.story_outcomes():
@@ -630,7 +654,7 @@ def with_due_digest(result, rollout_path):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
+    parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "agy-review", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
         "digest", "digest-resume", "digest-tool-begin", "digest-tool-submit",
         "publication-prepare", "publication-status", "publication-resume", "publication-reader-derivative", "publication-tool-begin", "publication-tool-submit",
         "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company",

@@ -1,0 +1,12 @@
+{
+  "status": "RECORDED_ADAPTER_FIXTURE_NOT_LIVE_ARTICLE",
+  "returncode": 0,
+  "model": "gemini-3.8-flash-high",
+  "effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "agy_version": "1.5.3",
+  "started_utc": "2026-11-09T16:36:38.489321+00:00",
+  "ended_utc": "2026-11-09T16:36:48.531547+00:00",
+  "prompt_sha256": "1619d23cb36c7737cd8163d44ff6f3c2f01bf62b8a61e4261608fc474f5121d3",
+  "output_sha256": "f513514863ddefb5270fb74c804347d22c66bff6c41212177e47ebe9f5d340c6"
+}

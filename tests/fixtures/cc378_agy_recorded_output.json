@@ -1,0 +1,40 @@
+{
+  "alt_text": [
+    {
+      "asset_id": "sample-chart",
+      "text": "Controlled chart of the two observations showing 2 observations with no market data."
+    }
+  ],
+  "variants": {
+    "x": [
+      "The source line reports 2 observations. The sample contains no current market claim."
+    ],
+    "threads": [
+      "The source line reports 2 observations. The sample contains no current market claim."
+    ],
+    "telegram": "The source line reports 2 observations. The sample contains no current market claim.",
+    "discord": "The source line reports 2 observations. The sample contains no current market claim."
+  },
+  "claims": [
+    {
+      "claim_id": "c1",
+      "draft_span": "The source line",
+      "kind": "attribution",
+      "source_line_ids": [
+        "L2"
+      ],
+      "source_quote": "The source line reports 2 observations.",
+      "flag": ""
+    },
+    {
+      "claim_id": "c2",
+      "draft_span": "2",
+      "kind": "number",
+      "source_line_ids": [
+        "L2"
+      ],
+      "source_quote": "The source line reports 2 observations.",
+      "flag": ""
+    }
+  ]
+}
