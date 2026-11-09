@@ -66,5 +66,10 @@
   "observed_route_state": "NATIVE_REQUEST_READY",
   "observed_next_action": "VERIFY_IDENTITY",
   "browser_action_claimed": false,
-  "outbox_load_repair": "Scope the final publication message lookup by work_item_id; the first installed check spent about four minutes loading global retained history."
+  "outbox_load_repair": "Scope the final publication message lookup by work_item_id; the first installed check spent about four minutes loading global retained history.",
+  "final_code_commit": "c6a221626a7b17bf85393ac45a5fd5825259ac1f",
+  "final_live_route": "live-route-after-query-fix.json",
+  "final_live_route_seconds": 5.839,
+  "frozen_packet_unchanged": true,
+  "future_acceptance_observed": false
 }

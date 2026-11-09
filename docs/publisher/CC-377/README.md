@@ -26,7 +26,7 @@ reading history; `digest-selection-timeout.json` retains that result. The two
 subsequent serial batches validate the final lookup change.
 
 The installed route reached `NATIVE_REQUEST_READY` for the exact retained packet
-(`live-route.json`), requesting identity verification. No browser action was
+(`live-route-after-query-fix.json`), requesting identity verification in 5.839 seconds. No browser action was
 claimed or performed. `live-consumer.json` verifies the installed consumer and
 the article's single allocation.
 

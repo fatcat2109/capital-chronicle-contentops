@@ -1,9 +1,9 @@
 {
-  "observed_at_utc": "2026-11-09T15:53:20.696777+00:00",
+  "observed_at_utc": "2026-11-09T16:00:26.799197+00:00",
   "operating_root": "A:\\Capital Chronicle\\ContentOps",
-  "head": "cafc6687bd2b0ebc7e6bb498232281c3bc3894cb",
+  "head": "c6a221626a7b17bf85393ac45a5fd5825259ac1f",
   "consumer": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
-  "consumer_sha256": "10dcf0b804a05167fef6d84a88ee3d015e7dbe4c0128b986653d87802c3a2dc1",
+  "consumer_sha256": "2eb0518c3b293686331e953c539180c1b3b14098ebee5234462414bb7caefc8b",
   "recovery_and_guard_share_scope": true,
   "digest_id": "cc143-digest-2026-11-09",
   "frozen_packet_sha256": "e8842b2988a96a3b19baac5a24e946567f8c9333513d1ffd9a969dafd9275c14",
