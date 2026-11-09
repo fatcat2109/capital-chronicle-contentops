@@ -1,0 +1,26 @@
+{
+  "threads": [
+    {
+      "url": "https://www.threads.com/@official.capitalchronicle/post/DfhvefCo9WR",
+      "text": "EUR/USD: plan result — expired at Fri 6 Nov, 08:17 ET. Entry zone: 1.1187–1.1191. Scored calls: 2.Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+      "tool": "mcp__browseros_neo__run"
+    },
+    {
+      "url": "https://www.threads.com/@official.capitalchronicle/post/DfhvfreI9zt",
+      "text": "Gold: plan result — stopped at Sun 8 Nov, 20:00 ET. Entry zone: 4,033.406–4,085.1955. Scored calls: 2.Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+      "tool": "mcp__browseros_neo__run"
+    }
+  ],
+  "telegram": {
+    "page": "https://t.me/s/CapitalChronicle",
+    "public_objects": [
+      "https://t.me/CapitalChronicle/112",
+      "https://t.me/CapitalChronicle/113"
+    ],
+    "source_read_path": "C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8317.26\\.browseros\\tool-output\\read-1794241110375-ac44a7ef-b1ea-4ba1-beb6-4b5c30cd5c36.md",
+    "matched_text": true,
+    "matched_notices": true,
+    "scored_call_count": 2
+  },
+  "group_id": "24E4126FC3AB9C690C52290FBA993BE4"
+}

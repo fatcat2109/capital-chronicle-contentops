@@ -47,3 +47,30 @@ that fixture was corrected and passes in the final run. The integration test
 sends an old explicit outcome through the real coordinator with fixture
 transports, confirms all three destinations once, then proves a repeat writes
 nothing. It also refuses a chart capture containing later observations.
+
+Integrated implementation: `9940fec91be67705ca9602bda8cf2a887e2ca610` in the
+Publisher operating root. Both remote tags are pushed:
+`contentops-live-20261109-cc322` and `contentops-rollback-20261109-cc322` (the latter
+at `52adbf3442645a1ffc2fd098eaf85b942baaa6cc`). The installed route sent both held
+scored results at about 23:17 GMT+7 on 9 November. All six copies are now
+DISPATCH_CONFIRMED and both result rows are PUBLISHED. Gold's initial Threads
+UNKNOWN_WRITE is retained in `installed-publication-run.json`; its existing
+dispatch is now reconciled to the confirmed object, not a replacement post.
+
+| Result | Telegram | Discord | Threads |
+|---|---|---|---|
+| EUR/USD expired | [112](https://t.me/CapitalChronicle/112) | [message](https://discord.com/channels/1519310996030750782/1519311669216673802/1569385473137189106) | [post](https://www.threads.com/@official.capitalchronicle/post/DfhvefCo9WR) |
+| Gold stopped | [113](https://t.me/CapitalChronicle/113) | [message](https://discord.com/channels/1519310996030750782/1519311669216673802/1569385514925301791) | [post](https://www.threads.com/@official.capitalchronicle/post/DfhvfreI9zt) |
+
+`integration.json` records the existing coordinator's readbacks and a repeat
+live-consumer dry run with zero rows to queue. Neo independently read both
+Telegram posts on the public channel page and both exact Threads objects;
+`browser-readbacks.json` retains the relevant text checks. No Gmail or signed-in
+Telegram page was read.
+
+The acceptance clause requiring the first plan ending **after** integration
+remains pending: the two scored outcomes above ended earlier. The route is live
+and consumes held data now; this observation does not gate publication. No
+post-integration terminal Main outcome was present during this run. The existing
+minute route will consume the next one; Publisher then reads back its three
+copies. No new schedule, watcher or polling loop was added.

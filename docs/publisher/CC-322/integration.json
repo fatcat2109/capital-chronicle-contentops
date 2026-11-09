@@ -1,0 +1,87 @@
+{
+  "observed_at_utc": "2026-11-09T16:20:29.580344+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "live_commit": "9940fec91be67705ca9602bda8cf2a887e2ca610",
+  "live_tag": "contentops-live-20261109-cc322",
+  "rollback_tag": "contentops-rollback-20261109-cc322",
+  "results": [
+    {
+      "key": "plan-result-post-cbea6a9037c9470ba5ed3f949b3e1665",
+      "outbox_status": "PUBLISHED",
+      "result": "EXPIRED",
+      "count": 2,
+      "resolved_at_utc": "2026-11-06T13:17:15.917000Z",
+      "destinations": {
+        "telegram": {
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "112",
+          "public_object_url": "https://t.me/CapitalChronicle/112",
+          "dispatched_at": "2026-11-09T16:17:38.042551+00:00",
+          "readbacks": [
+            {}
+          ]
+        },
+        "discord": {
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1569385473137189106",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569385473137189106",
+          "dispatched_at": "2026-11-09T16:17:34.111320+00:00",
+          "readbacks": [
+            {}
+          ]
+        },
+        "threads": {
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18130495802311367",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhvefCo9WR",
+          "dispatched_at": "2026-11-09T16:17:40.878538+00:00",
+          "readbacks": [
+            {}
+          ]
+        }
+      }
+    },
+    {
+      "key": "plan-result-post-2da6b8e0185e7615a8a4e308bddf8be8",
+      "outbox_status": "PUBLISHED",
+      "result": "STOPPED",
+      "count": 2,
+      "resolved_at_utc": "2026-11-09T01:00:05.820000Z",
+      "destinations": {
+        "telegram": {
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "113",
+          "public_object_url": "https://t.me/CapitalChronicle/113",
+          "dispatched_at": "2026-11-09T16:17:47.610019+00:00",
+          "readbacks": [
+            {}
+          ]
+        },
+        "discord": {
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1569385514925301791",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569385514925301791",
+          "dispatched_at": "2026-11-09T16:17:44.170797+00:00",
+          "readbacks": [
+            {}
+          ]
+        },
+        "threads": {
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "17917971519541306",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhvfreI9zt",
+          "dispatched_at": "2026-11-09T16:17:51.054438+00:00",
+          "readbacks": [
+            {},
+            {}
+          ]
+        }
+      }
+    }
+  ],
+  "repeat_dry_run_queued": 0,
+  "post_integration_plan_end": "PENDING_NO_NEW_TERMINAL_OUTCOME",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "telemetry": "CONFIGURED_NOT_OBSERVED"
+}
