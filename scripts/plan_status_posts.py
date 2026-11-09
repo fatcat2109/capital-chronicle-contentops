@@ -7,6 +7,11 @@ Reads Main's plan-status export through CC-307's own reader (read_public_status 
 read_public_transitions, run in Main's live root) and registers one READY_FOR_PUBLISHER outbox
 row per new transition in the ContentOps store. Repeats change nothing. --dry-run writes no
 shared state and prints the rows it would queue. No public write here.
+
+An export written more than 10 minutes before the run is refused (EXPORT_STALE): nothing is
+queued or posted in that run. Every run except a dry run appends one line (status, cause, the
+export's clock and age, counts) to daily_app_outputs/plan_status_post_runs/runs-YYYYMMDD.jsonl
+beside the store.
 """
 from __future__ import annotations
 
@@ -74,7 +79,13 @@ def main(argv=None) -> int:
         if args.publish and not args.dry_run and result["status"] == "OK":
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                                                        active_recoveries=result.get("active_recoveries"))
-    if sys.stdout is not None:  # pythonw has no stdout; the outbox rows are the record
+        if not args.dry_run:
+            # pythonw has no stdout: each run's status, the export's age and any refusal go to the run record.
+            try:
+                result["run_record"] = str(posts.record_run(result, args.store.parent / posts.RUN_RECORD_FOLDER))
+            except OSError as exc:
+                result["run_record_error"] = type(exc).__name__
+    if sys.stdout is not None:
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stdout.write(json.dumps(result, sort_keys=True, ensure_ascii=False, indent=1) + "\n")
     return 0 if result["status"] == "OK" else 1

@@ -8,6 +8,14 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from test_plan_status_posts_cc306 import main_root, plan, event, write_export, NOW  # noqa: F401
 from test_plan_status_publication_cc306 import fake_host, no_real_snapshot  # noqa: F401
 from test_plan_status_rationale_cc353 import export_plan
+import pytest
+
+
+@pytest.fixture(autouse=True)
+def export_age_limit_off(monkeypatch):
+    """These tests move the clock hours or days past the fixture export's own time. The 10-minute
+    export-age refusal has its own tests (test_plan_status_export_age_cc306.py)."""
+    monkeypatch.setattr(p, "EXPORT_MAX_AGE_MINUTES", None)
 
 
 def main_like_plan():

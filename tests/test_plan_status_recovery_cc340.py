@@ -16,6 +16,13 @@ def ended_posts_on(monkeypatch):
     """Decision 106 turns ended-without-entry posts off; these tests cover their machinery."""
     from live_contentops import plan_status_posts_v1
     monkeypatch.setattr(plan_status_posts_v1, "POST_ENDED_WITHOUT_ENTRY", True)
+
+
+@pytest.fixture(autouse=True)
+def export_age_limit_off(monkeypatch):
+    """These tests move the clock up to days past the fixture export's own time to test recovery windows.
+    The 10-minute export-age refusal has its own tests (test_plan_status_export_age_cc306.py)."""
+    monkeypatch.setattr(posts, "EXPORT_MAX_AGE_MINUTES", None)
 from test_plan_status_posts_cc306 import event, main_root, plan, write_export  # noqa: F401
 from test_plan_status_publication_cc306 import fake_host, no_real_snapshot  # noqa: F401
 from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set_mode
@@ -212,7 +219,7 @@ def test_late_x_publish_rechecks_source_and_readback_survives_expiry(tmp_path, m
     result = queue(store, folder, main_root)
     key = result["queued"][0]["key"]
     rows = posts.read_transitions(folder, main_root=main_root, python=sys.executable)
-    monkeypatch.setattr(posts, "read_transitions", lambda: rows)
+    monkeypatch.setattr(posts, "read_transitions", lambda *a, **kw: rows)
     action = {"value": "PUBLISH"}
 
     class Executor:

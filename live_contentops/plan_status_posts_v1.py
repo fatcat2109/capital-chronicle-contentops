@@ -68,6 +68,11 @@ def _utc(value: Any) -> datetime:
 # have a namespace package named "tools", which must never merge in one interpreter.
 MAIN_ROOT = Path(r"A:\Capital Chronicle\main-jim-research-dashboard-20261025")
 EXPORT_DIR = Path(r"A:\Capital Chronicle\ResearchRuns\plan-status-v1")
+# Ops Live, 9 Nov 2026: the export was not rewritten from 20:54 to 22:06Z (CC-383 slowed it), and Main's reader
+# refuses only a file dated in the future, so every minute run read a file up to 72 minutes old. The export is
+# written every minute, every 4-7 minutes under load: a status run reads a file written within 10 minutes or none.
+EXPORT_MAX_AGE_MINUTES = 10
+STALE_EXPORT = "PLAN_EXPORT_STALE"
 _READER = """import datetime as dt, json, sys
 from tools.product.plan_status_export_v1 import read_public_status, read_public_transitions
 folder = sys.argv[1]
@@ -187,10 +192,28 @@ def compose_result(row: Mapping[str, Any]) -> dict:
     return {"status": "COMPOSED", "kind": "result", "text": text, "conditional_calls": []}
 
 
-def read_transitions(export_dir: Path = EXPORT_DIR, **kwargs) -> list[dict]:
+def export_freshness(export: Mapping[str, Any], now: datetime | None = None) -> dict:
+    """When the export was written, and its age at `now`, from the status document's own clock."""
+    written = _utc(export["status"]["generated_at_utc"])
+    age = ((now or datetime.now(timezone.utc)) - written).total_seconds()
+    return {"export_generated_at_utc": written.isoformat().replace("+00:00", "Z"), "export_age_seconds": round(age, 1)}
+
+
+def read_transitions(export_dir: Path = EXPORT_DIR, *, now: datetime | None = None,
+                     max_age_minutes: float | None = None, freshness: dict | None = None, **kwargs) -> list[dict]:
+    """The export's rows. With max_age_minutes, a file written longer ago than that is refused
+    (PLAN_EXPORT_STALE); `freshness`, when given, receives the file's clock and age."""
     if not (Path(export_dir) / "plan-status.public.json").is_file():
         return []
-    return rows_from_export(read_export(export_dir, **kwargs))
+    export = read_export(export_dir, **kwargs)
+    if max_age_minutes is not None or freshness is not None:
+        info = export_freshness(export, now)
+        if freshness is not None:
+            freshness.update(info)
+        if max_age_minutes is not None and info["export_age_seconds"] > max_age_minutes * 60:
+            raise PlanPostError(f"{STALE_EXPORT}: written at {info['export_generated_at_utc']}, "
+                                f"{info['export_age_seconds']:.0f} s before this run; the limit is {max_age_minutes} minutes")
+    return rows_from_export(export)
 
 
 def _built_plan(plan: Mapping[str, Any], *, state: str | None = None) -> dict:
@@ -645,12 +668,20 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     The export carries every plan's whole history (back to 27 Oct on 5 Nov). A status post is
     news while recent. CC-340 also recovers the latest active state for up to 24 hours while
     still valid; CC-306 retains late updates of announced plans. A dry run writes nothing.
+    An export written more than EXPORT_MAX_AGE_MINUTES before `now` is refused (EXPORT_STALE):
+    nothing is queued, and the caller posts nothing in that run.
     """
-    try:
-        rows = read_transitions(export_dir, **reader)
-    except (OSError, ValueError, KeyError, TypeError) as exc:
-        return {"status": "EXPORT_UNREADABLE", "cause": str(exc) if isinstance(exc, PlanPostError) else type(exc).__name__}
     now = now or datetime.now(timezone.utc)
+    limit = EXPORT_MAX_AGE_MINUTES
+    freshness = {}
+    try:
+        rows = read_transitions(export_dir, now=now, max_age_minutes=limit, freshness=freshness, **reader)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        cause = str(exc) if isinstance(exc, PlanPostError) else type(exc).__name__
+        if cause.startswith(STALE_EXPORT):
+            return {"status": "EXPORT_STALE", "cause": cause, **freshness, "max_export_age_minutes": limit}
+        return {"status": "EXPORT_UNREADABLE", "cause": cause}
+    freshness["max_export_age_minutes"] = limit
     oldest = now.timestamp() - window_minutes * 60
     queued, existing, skipped, too_old = [], [], [], 0
     rationale_causes = {}
@@ -797,10 +828,36 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     for row in sorted(fresh, key=lambda r: r["at_utc"]):
         latest[row["plan_id"]] = row["to"]
     return {"status": "OK", "dry_run": dry_run, "transitions_read": len(rows), "six_market_transitions": len(fresh),
-            "latest_states": latest, "active_recoveries": recoveries,
+            **freshness, "latest_states": latest, "active_recoveries": recoveries,
             "older_than_window": too_old, "window_minutes": window_minutes,
             "queued" if not dry_run else "would_queue": queued,
             "already_queued": existing, "not_posted": skipped, "rationale_causes": rationale_causes}
+
+
+RUN_RECORD_FOLDER = Path("daily_app_outputs") / "plan_status_post_runs"
+
+
+def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None = None) -> Path:
+    """One line per minute run, beside the store. The task runs under pythonw, which has no stdout,
+    so without this a refused export (EXPORT_STALE, EXPORT_UNREADABLE) left no trace."""
+    now = now or datetime.now(timezone.utc)
+    posts = (result.get("publication") or {}).get("posts") or []
+    published = {}
+    for post in posts:
+        published[post.get("status")] = published.get(post.get("status"), 0) + 1
+    line = {"at_utc": now.isoformat().replace("+00:00", "Z"), "status": result.get("status"),
+            "cause": result.get("cause"),
+            "export_generated_at_utc": result.get("export_generated_at_utc"),
+            "export_age_seconds": result.get("export_age_seconds"),
+            "max_export_age_minutes": result.get("max_export_age_minutes"),
+            "queued": len(result.get("queued") or []), "not_posted": len(result.get("not_posted") or []),
+            "publication": (result.get("publication") or {}).get("status"), "posts_by_status": published}
+    folder = Path(folder)
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"runs-{now:%Y%m%d}.jsonl"
+    with open(path, "a", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(line, sort_keys=True, ensure_ascii=False) + "\n")
+    return path
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1476,16 +1533,28 @@ def begin_x(store, key: str, request_sha256: str, *, native_invocation_id: str, 
     return executor.begin(request_sha256)
 
 
+def _current_rows(now) -> list[dict] | None:
+    """The export as it stands, for the X route's late checks; None when the file is stale, so a stale
+    export never extends a post's freshness."""
+    try:
+        return read_transitions(EXPORT_DIR, main_root=MAIN_ROOT, now=now, max_age_minutes=EXPORT_MAX_AGE_MINUTES)
+    except PlanPostError as exc:
+        if str(exc).startswith(STALE_EXPORT):
+            return None
+        raise
+
+
 def _x_freshness_limit(payload, now) -> int:
     # X's agent may arrive after the minute tick. Re-read Main before a late active write;
     # identity/readback requests remain available even if the public state has since ended.
     if payload.get("why_follow_up"):
-        rows = [r for r in read_transitions() if r["plan_id"] == payload.get("plan_id")]
+        rows = [r for r in _current_rows(now) or [] if r["plan_id"] == payload.get("plan_id")]
         if not rows or max(rows, key=lambda r: _utc(r["at_utc"]))["to"] != "WAITING":
             return 0
         return freshness_limit_minutes(payload)
     if payload.get("state") in ACTIVE and _age_minutes(payload, now) > FRESHNESS_MINUTES:
-        if _recoverable(payload, active_recoveries(read_transitions(), now), now):
+        current = _current_rows(now)
+        if current is not None and _recoverable(payload, active_recoveries(current, now), now):
             return LATE_STATE_HOURS * 60
         return FRESHNESS_MINUTES
     return freshness_limit_minutes(payload)

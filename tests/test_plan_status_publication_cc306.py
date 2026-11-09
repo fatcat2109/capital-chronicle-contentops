@@ -185,7 +185,7 @@ def test_a_stale_x_request_is_never_claimed_for_a_write(queued, monkeypatch):
             raise AssertionError("a stale X post must not be claimed")
 
     monkeypatch.setattr("live_contentops.native_neo_executor_v1.NativeNeoExecutor", Packet)
-    monkeypatch.setattr("live_contentops.plan_status_posts_v1.read_transitions", lambda: [])
+    monkeypatch.setattr("live_contentops.plan_status_posts_v1.read_transitions", lambda *a, **kw: [])
     store, _, _, keys, _ = queued
     with pytest.raises(PlanPostError, match="PLAN_STATUS_X_STALE_NOT_POSTED"):
         begin_x(store, keys[("XAUUSD", "TRIGGERED")], "a" * 64, native_invocation_id="agent",
@@ -239,7 +239,7 @@ def test_a_hosted_card_is_reused_without_a_provider_call(queued):
 def test_x_is_only_issued_by_the_agent_route_and_never_when_stale(queued, monkeypatch):
     from datetime import timedelta
     from live_contentops.plan_status_posts_v1 import start_x
-    monkeypatch.setattr("live_contentops.plan_status_posts_v1.read_transitions", lambda: [])
+    monkeypatch.setattr("live_contentops.plan_status_posts_v1.read_transitions", lambda *a, **kw: [])
     store, _, _, keys, root = queued
     key = keys[("XAUUSD", "TRIGGERED")]
     with pytest.raises(PlanPostError, match="PLAN_STATUS_X_STALE_NOT_POSTED"):
