@@ -457,6 +457,14 @@ class NeoDestinationHandoff:
                 public_object_url, str(intent.get("canonical_url") or ""))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
+        if destination == "substack":
+            # Substack renders Markdown list markers as list nodes, so innerText
+            # contains the item text without its leading '- '. Keep numeric minus
+            # signs and every item, value and ordering requirement intact.
+            text_match = (bool(segments) and all(
+                _text(re.sub(r"(?m)^[ \t]*[-+][ \t]+", "", s)) in comparison_text
+                for s in segments)
+                and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
         if destination == "substack" and intent.get("daily_digest"):
             # A native editor may render this structured link index as paragraphs
             # or a list. Markdown list punctuation adds no reader-facing fact.

@@ -52,6 +52,32 @@ def pending_readback(adapter, destination="substack", value=None):
     return pending.value.request, ids[destination], urls[destination]
 
 
+@pytest.mark.parametrize("fault", [None, "number", "minus", "missing_item", "order"])
+def test_substack_rendered_list_readback_preserves_values_and_order(tmp_path, fault):
+    _, executor = setup(tmp_path)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    value = intent(native_payload={"title": "Weekend wrap", "body_markdown":
+        "Markets at the reopen.\n\n- **Oil:** +2.5%.\n- **Stocks:** -0.8%.\n\nWatch CPI."})
+    packet, object_id, url = pending_readback(adapter, value=value)
+    items = ["Oil: +2.5%.", "Stocks: -0.8%."]
+    if fault == "number":
+        items[0] = "Oil: +5.2%."
+    if fault == "minus":
+        items[1] = "Stocks: 0.8%."
+    if fault == "missing_item":
+        items.pop()
+    if fault == "order":
+        items.reverse()
+    observed = response(executor, packet, {"observed_identity": "capitalchronicle.substack.com",
+        "public_object_id": object_id, "public_object_url": url, "content_verified": True,
+        "observed_text": "Weekend wrap\nMarkets at the reopen.\n" + "\n".join(items) + "\nWatch CPI."})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    result = adapter.readback(destination="substack", intent=value,
+        public_object_id=object_id, public_object_url=url)
+    assert result["verified"] is (fault is None)
+    assert result["write_exists"] is True
+
+
 def test_failed_readonly_identity_can_refresh_in_same_epoch_without_publish(tmp_path):
     store, executor = setup(tmp_path)
     with pytest.raises(NativeNeoInputRequired) as first:
