@@ -209,8 +209,82 @@ def _built_plan(plan: Mapping[str, Any], *, state: str | None = None) -> dict:
             "invalidation_level": (max(invalid) if below else min(invalid)) if invalid else None,
             "valid_until_utc": until,
             "scenario_analysis": plan.get("scenario_analysis"),
+            **_instrument_fields(plan),
             **{k: plan.get(k) for k in REASON_FIELDS},
             "invalidation_text": plan.get("invalidation_text")}
+
+
+def _entries(values) -> list[dict]:
+    """CC-383's public entry fields only. Execution metadata never follows them."""
+    return [{"kind": e["kind"], **{k: e.get(k) for k in
+             (("zone_low", "zone_high") if e["kind"] == "LIMIT" else ("level",))}}
+            for e in values or [] if isinstance(e, Mapping) and e.get("kind") in {"LIMIT", "BREAKOUT"}]
+
+
+def _instrument_fields(plan) -> dict:
+    fields = {}
+    if "entries" in plan:
+        fields["entries"] = _entries(plan["entries"])
+    instrument = plan.get("public_instrument")
+    if isinstance(instrument, Mapping):
+        fields["public_instrument"] = {k: instrument.get(k) for k in
+            ("name", "symbol", "kind", "exchange", "contract_month", "zone_low", "zone_high", "invalidation_level")}
+        fields["public_instrument"]["entries"] = _entries(instrument.get("entries"))
+    return fields
+
+
+def _instrument_title(symbol, plan) -> str:
+    instrument = plan.get("public_instrument") or {}
+    code, kind = instrument.get("symbol"), instrument.get("kind")
+    name = _public_reason(instrument.get("name")).rstrip(".")
+    if (not name or kind not in {"FUT", "ETF", "SPOT", "INDEX"}
+            or not isinstance(code, str) or not re.fullmatch(r"[A-Z0-9.]{1,16}", code)
+            or INTERNAL.search(name) or FORBIDDEN.search(name) or PRIVATE_RATIONALE.search(name)):
+        return TITLES[symbol]
+    # Spot aliases may match the private book's symbols; the market's name is sufficient.
+    label = " ".join(v for v in (code if code not in BROKER_NAMES else "",
+                                  {"FUT": "futures", "ETF": "ETF", "SPOT": "spot", "INDEX": "index"}[kind]) if v)
+    month = instrument.get("contract_month")
+    if kind == "FUT" and isinstance(month, str) and re.fullmatch(r"\d{4}-\d{2}", month):
+        try:
+            label += ", " + datetime.strptime(month, "%Y-%m").strftime("%b %Y")
+        except ValueError:
+            pass
+    return f"{name} ({label})"
+
+
+def _display_plan(plan) -> dict:
+    """Use one complete price basis, never convert or splice mapped and plan prices."""
+    display = dict(plan)
+    instrument = plan.get("public_instrument") or {}
+    entries, mapped = plan.get("entries") or [], instrument.get("entries") or []
+    complete = all(instrument.get(k) is not None for k in ("zone_low", "zone_high", "invalidation_level"))
+    if entries:
+        complete = complete and len(mapped) == len(entries) and all(
+            e["kind"] == p["kind"] and all(v is not None for k, v in p.items() if k != "kind")
+            for e, p in zip(entries, mapped))
+    if complete:
+        display.update({k: instrument[k] for k in ("zone_low", "zone_high", "invalidation_level")})
+        display["entries"] = mapped if entries else []
+    if instrument:
+        display["price_basis"] = "instrument" if complete else "plan"
+    return display
+
+
+def _entry_condition(plan) -> str:
+    entries = plan.get("entries") or []
+    if not entries:
+        return f"price trades into {_level(plan['zone_low'])}–{_level(plan['zone_high'])}"
+    conditions = []
+    for entry in entries:
+        if entry["kind"] == "LIMIT" and all(entry.get(k) is not None for k in ("zone_low", "zone_high")):
+            conditions.append(f"price trades into {_level(entry['zone_low'])}–{_level(entry['zone_high'])}"
+                              + (" (limit)" if len(entries) > 1 else ""))
+        elif entry["kind"] == "BREAKOUT" and entry.get("level") is not None:
+            conditions.append(f"price breaks through {_level(entry['level'])} (breakout)")
+        else:
+            raise PlanPostError("PLAN_ENTRY_LEVEL_MISSING")
+    return " or ".join(conditions)
 
 
 # CC-353 / CC-355: only named public rationale fields cross into the composer.
@@ -382,14 +456,14 @@ def _cancel_level_is_public(plan: Mapping[str, Any]) -> bool:
 def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
             first_plan_post: bool = False) -> dict:
     """One short post for one transition, or a named cause it is not posted."""
-    symbol, plan = row["symbol"], row["plan"]
+    symbol, plan = row["symbol"], _display_plan(row["plan"])
     if symbol not in MARKETS:
         return {"status": "NOT_A_FIRST_PHASE_MARKET"}
     if row["to"] == "RESULT":
         return compose_result(row)
     if row.get("superseded_by_fill"):
         return {"status": "NOT_POSTED", "cause": "FILL_EVENT_SUPERSEDES_TRIGGER"}
-    market, title = MARKETS[symbol], TITLES[symbol]
+    market, title = MARKETS[symbol], _instrument_title(symbol, plan)
     if plan.get("direction") not in {"bullish", "bearish"}:
         return {"status": "NOT_POSTED", "cause": "PLAN_DIRECTION_MISSING"}
     if plan.get("zone_low") is None or plan.get("zone_high") is None:
@@ -399,16 +473,19 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
         return {"status": "NOT_POSTED", "cause": "PLAN_INVALIDATION_LEVEL_MISSING"}
     zone = f"{_level(plan['zone_low'])}–{_level(plan['zone_high'])}"
     side = "below" if plan["direction"] == "bullish" else "above"
+    if plan.get("price_basis") == "instrument":
+        # Inverse expressions (e.g. yen futures) can put the stop on the other side.
+        side = "below" if Decimal(str(plan['invalidation_level'])) < Decimal(str(plan['zone_low'])) else "above"
     invalid = f"price moves {side} {_level(plan['invalidation_level'])}"
     calls, kind, to = [], KINDS[row["to"]], row["to"]
     if to == "WAITING":
         if not plan.get("valid_until_utc"):
             return {"status": "NOT_POSTED", "cause": "PLAN_VALIDITY_MISSING"}
-        call = {"condition": f"price trades into {zone}", "direction": plan["direction"], "market": market,
+        call = {"condition": _entry_condition(plan), "direction": plan["direction"], "market": market,
                 "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}
         calls = [call]
         lines = [f"{title}: new plan.", conditional_call_text(call)]
-        if plan.get("cancel_level") is not None:
+        if plan.get("cancel_level") is not None and not plan.get("entries") and plan.get("price_basis") != "instrument":
             if _cancel_level_is_public(plan):
                 lines.append(f"If price reaches {_level(plan['cancel_level'])} before that, the plan is cancelled.")
             else:
@@ -424,7 +501,7 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
         lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's model"
                  " position is open.", f"It is invalidated if {invalid}."]
         if first_plan_post and plan.get("valid_until_utc"):
-            call = {"condition": f"price trades into {zone}", "direction": plan["direction"], "market": market,
+            call = {"condition": _entry_condition(plan), "direction": plan["direction"], "market": market,
                     "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}
             calls = [call]
             lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's"
@@ -448,8 +525,11 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
         lines.insert(0, f"Delayed update as of {_when(delayed_at.isoformat())}.")
         if to == "WAITING":
             lines.append(f"The plan was registered at {_when(row['at_utc'])}.")
+    if plan.get("price_basis") == "plan":
+        lines.insert(1, "Levels use the plan's prices.")
     why = _rationale(plan) if to == "WAITING" or (to in {"TRIGGERED", "FILLED"} and first_plan_post) else []
-    lead = " ".join(lines)
+    extended = bool(plan.get("public_instrument") or plan.get("entries"))
+    lead = ("\n" if extended else " ").join(lines)
     # Ops Product, 9 Nov (Jim): one reason per line, so each block reads on its own (format 2).
     text = lead + ("\nWhy:\n" + "\n".join("• " + line for line in why) if why else "") \
         + f"\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
@@ -457,7 +537,9 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
     if INTERNAL.search(text) or FORBIDDEN.search(text):
         raise PlanPostError("PLAN_POST_INTERNAL_OR_FORBIDDEN_WORDS")
     return {"status": "COMPOSED", "kind": kind, "text": text, "conditional_calls": calls,
-            **({"lead": lead, "why": why, "format": 2} if why else {}),
+            **({"instrument_title": title, "price_basis": plan.get("price_basis"),
+                "format": 3, "lead": lead} if extended else {}),
+            **({"lead": lead, "why": why, "format": 3 if extended else 2} if why else {}),
             "rationale_cause": ("SCENARIO_ANALYSIS_MISSING" if not plan.get("scenario_analysis") else
                                 "PUBLIC_RATIONALE_EMPTY" if not why and to in ACTIVE else None)}
 
@@ -470,7 +552,7 @@ def compose_why(row: Mapping[str, Any]) -> dict:
     post = compose(row)
     if post.get("status") != "COMPOSED" or not post.get("why"):
         return post
-    title = TITLES[row["symbol"]]
+    title = post.get("instrument_title") or TITLES[row["symbol"]]
     lead = post["lead"].replace(f"{title}: new plan.", f"{title}: the reasoning behind our plan.", 1)
     text = lead + "\nWhy:\n" + "\n".join("• " + line for line in post["why"]) \
         + f"\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
@@ -631,15 +713,20 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
         rationale_cause = post.get("rationale_cause") if row["to"] in ACTIVE else None
         if rationale_cause:
             rationale_causes[rationale_cause] = rationale_causes.get(rationale_cause, 0) + 1
+        display = _display_plan(row["plan"])
         payload = {"schema_version": SCHEMA, "key": row["key"], "plan_id": row["plan_id"],
                    "symbol": row["symbol"], "state": row["to"],
                    **{k: row[k] for k in ("source_state", "source_transition_id") if row.get(k)},
                    "at_utc": row["at_utc"], "kind": post["kind"], "text": post["text"],
                    "conditional_calls": post["conditional_calls"],
-                    **{k: post[k] for k in ("lead", "why", "rationale_cause", "format") if post.get(k)},
+                    **{k: post[k] for k in ("lead", "why", "rationale_cause", "format", "instrument_title",
+                                          "price_basis") if post.get(k)},
+                   **({"format": 3, "lead": post.get("lead") or _split(post["text"])[0]}
+                      if post.get("instrument_title") else {}),
                    # CC-314: the levels the post's image shows (the chart timeframe and the
                    # fallback fact card). Never the target or the cancel level (decision 40).
-                   "levels": {k: row["plan"].get(k) for k in PUBLIC_LEVELS},
+                   "levels": {k: display.get(k) for k in PUBLIC_LEVELS},
+                   **({"entries": display["entries"]} if display.get("entries") else {}),
                    **({k: row[k] for k in ("result", "scored", "scored_call_count", "outcome_id",
                                           "corrects_outcome_id", "score_hash", "source_content_hash")}
                       if is_result else {}),
@@ -807,13 +894,21 @@ def _short_reasons(row: Mapping[str, Any], room: int) -> str:
     """Format 2 on Threads (500 characters): the full call, then the mechanism and the zone's reason as far as
     they fit. The whole reasoning is in the Telegram, Discord, Substack Notes and X copies."""
     calls = row.get("conditional_calls") or []
-    head = (f"{TITLES[row['symbol']]}: the reasoning behind our plan." if row.get("kind") == "why"
-            else f"{TITLES[row['symbol']]}: {STATE_WORDS[row['state']]}.")
-    lead = (head + " " + " ".join(conditional_call_text(c) for c in calls)) if calls else row["lead"]
+    title = row.get("instrument_title") or TITLES[row['symbol']]
+    head = (f"{title}: the reasoning behind our plan." if row.get("kind") == "why"
+            else f"{title}: {STATE_WORDS[row['state']]}.")
+    lead = row["lead"] if row.get("format") == 3 else (
+        (head + " " + " ".join(conditional_call_text(c) for c in calls)) if calls else row["lead"])
     picks = [line.split(": ", 1)[1] for line in row["why"]
              if line.split(": ", 1)[0] in {"Mechanism", "Why this zone"}] or [row["why"][0]]
     tail = " Full reasoning on our Telegram channel."
     available = room - len(lead) - len(" Why: ") - len(tail)
+    if available < 40 and row.get("format") == 3:
+        # Both entry conditions, horizon, invalidation and instrument survive the short destination.
+        tail = ""
+        available = room - len(lead) - len(" Why: ")
+        if available < 15:
+            return lead
     if available < 40:
         raise PlanPostError("PLAN_STATUS_SHORT_CONDITION_TOO_LONG")
     return lead + " Why: " + _excerpt(" ".join(picks), available) + tail
@@ -841,10 +936,16 @@ def _compact_body(row: Mapping[str, Any], room: int) -> str:
     return row["lead"]
 
 
-def _x_pack(text: str, limit: int) -> list[str]:
+def _x_pack(text: str, limit: int, *, preserve_lines: bool = False) -> list[str]:
     """X thread posts: whole lines where they fit, otherwise whole words."""
     chunks, current = [], ""
     for line in text.split("\n"):
+        if preserve_lines and _x_length(line) <= limit:
+            if current and _x_length(current + "\n" + line) > limit:
+                chunks.append(current)
+                current = ""
+            current = (current + "\n" + line).strip()
+            continue
         for index, word in enumerate(line.split(" ")):
             joiner = ("\n" if index == 0 else " ") if current else ""
             if _x_length(current + joiner + word) <= limit:
@@ -864,7 +965,7 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
     body, notices = _split(row["text"])
     link = CHART_CREDIT if chart_credit else ""
     payloads = {}
-    v2 = row.get("format") == 2  # Ops Product, 9 Nov: composed with one reason per line
+    v2 = row.get("format") in {2, 3}  # format 3 carries CC-383's instrument/entry fields
     for destination in (API_DESTINATIONS if row.get("kind") == "result" else POST_DESTINATIONS):
         destination_body = body
         if row.get("why") and destination == "threads" and v2:
@@ -881,7 +982,8 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
             # whole reasoning as an X thread, packed by line and word.
             chunks, current = [], ""
             if v2:
-                chunks = _x_pack(destination_body, LIMITS["x"] - (_x_length(link) + 2 if link else 0))
+                chunks = _x_pack(destination_body, LIMITS["x"] - (_x_length(link) + 2 if link else 0),
+                                 preserve_lines=row.get("format") == 3)
             else:
                 sentences = re.split(r"(?<=\.)\s+(?=[A-Z])", destination_body)
                 for sentence in sentences:
@@ -951,7 +1053,7 @@ def card_article(row: Mapping[str, Any]) -> dict:
                 "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
                 "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     words = "the reasoning behind our plan" if row.get("kind") == "why" else STATE_WORDS[row["state"]]
-    return {"title": f"{TITLES[row['symbol']]}: {words}",
+    return {"title": f"{row.get('instrument_title') or TITLES[row['symbol']]}: {words}",
             "dek": _split(row["text"])[0], "display_date": (lambda et: f"{et:%B} {et.day}, {et.year}")(at.astimezone(PUBLIC_TZ)),
             "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
 
@@ -964,13 +1066,22 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
     """The fallback card's facts: the plan's zone, invalidation, status and time. No target."""
     levels = row.get("levels") or {}
     facts = []
+    if row.get("instrument_title"):
+        facts.append(("Instrument", row["instrument_title"]))
+        if row.get("price_basis") == "plan":
+            facts.append(("Prices", "Plan-price levels"))
     if row.get("kind") == "result":
         facts.extend([("Result", row["result"].lower()), ("Scored calls", str(row["scored_call_count"]))])
     if levels.get("zone_low") is not None and levels.get("zone_high") is not None:
         facts.append(("Entry zone", f"{_level(levels['zone_low'])}–{_level(levels['zone_high'])}"))
     if levels.get("invalidation_level") is not None and levels.get("direction") in {"bullish", "bearish"}:
         side = "Below" if levels["direction"] == "bullish" else "Above"
+        if row.get("price_basis") == "instrument":
+            side = "Below" if Decimal(str(levels["invalidation_level"])) < Decimal(str(levels["zone_low"])) else "Above"
         facts.append(("Invalidation", f"{side} {_level(levels['invalidation_level'])}"))
+    for entry in row.get("entries") or []:
+        if entry["kind"] == "BREAKOUT":
+            facts.append(("Breakout", _level(entry["level"])))
     state = ("scored" if row.get("kind") == "result" and row.get("scored") else
              "not scored — entry condition not met" if row.get("kind") == "result" else
              "waiting for price to reach the zone" if row.get("kind") == "why"
