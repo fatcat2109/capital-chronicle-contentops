@@ -18,12 +18,20 @@
   "original_guard_reproduction": "original-guard-reproduction.xml: regression fails as expected with only the original global guard restored in process memory.",
   "tests": [
     {
-      "file": "digest-tests.xml",
-      "tests": "41",
+      "file": "digest-1.xml",
+      "tests": "21",
       "errors": "0",
       "failures": "0",
       "skipped": "0",
-      "time": "28.456"
+      "time": "29.283"
+    },
+    {
+      "file": "digest-2.xml",
+      "tests": "20",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "15.316"
     },
     {
       "file": "coordinator-1.xml",
@@ -49,5 +57,14 @@
       "skipped": "0",
       "time": "11.917"
     }
-  ]
+  ],
+  "code_commit": "cafc6687bd2b0ebc7e6bb498232281c3bc3894cb",
+  "integrated_operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "installed_consumer_verified": "live-consumer.json",
+  "verification_tests_passed": 77,
+  "live_route": "live-route.json",
+  "observed_route_state": "NATIVE_REQUEST_READY",
+  "observed_next_action": "VERIFY_IDENTITY",
+  "browser_action_claimed": false,
+  "outbox_load_repair": "Scope the final publication message lookup by work_item_id; the first installed check spent about four minutes loading global retained history."
 }

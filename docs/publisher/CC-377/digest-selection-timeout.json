@@ -1,0 +1,6 @@
+{
+  "outcome": "TIMEOUT_50_SECONDS",
+  "completed_selection": false,
+  "cause": "The installed CLI was concurrently loading the historical outbox; the bounded rerun timed out.",
+  "replacement": "Two serial digest batches under a 50-second timeout."
+}

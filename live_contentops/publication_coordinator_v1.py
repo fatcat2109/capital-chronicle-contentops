@@ -3300,8 +3300,8 @@ class DurablePublicationCoordinator:
             if isinstance(row, Mapping) and str(row.get("destination") or "")
         }
         canonical_url: Optional[str] = None
-        messages = [m for m in self.store.list_outbox_messages() if m["work_item_id"] == work_item_id
-            and (m["destination"] in V1_REQUIRED_PUBLICATION_DESTINATIONS
+        messages = [m for m in self.store.list_outbox_messages(work_item_id=work_item_id)
+            if (m["destination"] in V1_REQUIRED_PUBLICATION_DESTINATIONS
                  or (m["destination"] == "substack_notes" and plan.get("plan_status_post"))
                  or (m["destination"] == "linkedin_company"
                      and json.loads(str(m["payload"])).get("routine_company_copy") is True))

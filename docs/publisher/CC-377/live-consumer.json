@@ -1,0 +1,24 @@
+{
+  "observed_at_utc": "2026-11-09T15:53:20.696777+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "head": "cafc6687bd2b0ebc7e6bb498232281c3bc3894cb",
+  "consumer": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+  "consumer_sha256": "10dcf0b804a05167fef6d84a88ee3d015e7dbe4c0128b986653d87802c3a2dc1",
+  "recovery_and_guard_share_scope": true,
+  "digest_id": "cc143-digest-2026-11-09",
+  "frozen_packet_sha256": "e8842b2988a96a3b19baac5a24e946567f8c9333513d1ffd9a969dafd9275c14",
+  "cutoff_utc": "2026-11-09T12:00:00+00:00",
+  "missed_article": {
+    "content_id": "substack:224085585",
+    "content_sha256": "7bb74943b9f7d358c53dfc8a1e54d826dd1771c1deb3c49c9009f5acf9210b79",
+    "published_at_utc": "2026-11-09T00:41:01.324000+00:00",
+    "standfirst": "Capital Chronicle's weekend wrap weighs Hormuz attacks against active diplomacy, while Nvidia adds to AI-stock stress before the CPI week.",
+    "title": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week",
+    "url": "https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran"
+  },
+  "allocated_digest_count": 1,
+  "digest_dispatch": null,
+  "scheduled_acceptance_pending": "10 Nov 2026 19:00 GMT+7 cc-contentops-digest-1900-bp",
+  "public_write_performed": false,
+  "schedule_changed": false
+}

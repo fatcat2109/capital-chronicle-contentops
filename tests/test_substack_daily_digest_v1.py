@@ -303,6 +303,11 @@ def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatc
     assert recovery["legacy_noncanonical_rows_skipped"] == 1
     assert recovery["backlog_remaining"] == 0
     args = dict(output_dir=tmp_path / "tools", invocation_id="controlled-native-loop", rollout={"store_path":str(store.db_path)})
+    list_messages = store.list_outbox_messages
+    def scoped_messages(**filters):
+        assert filters.get("work_item_id") or filters.get("destination"), "Do not hydrate the global outbox"
+        return list_messages(**filters)
+    monkeypatch.setattr(store, "list_outbox_messages", scoped_messages)
     seen = []
     public_url = "https://capitalchronicle.substack.com/p/controlled-digest"
     for _ in range(8):
