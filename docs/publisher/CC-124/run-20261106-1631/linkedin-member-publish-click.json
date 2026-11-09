@@ -1,0 +1,33 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "dispatched_at_utc": "2026-11-06T10:59:35.895Z",
+    "identity": {
+      "changed": false,
+      "page": 702,
+      "settled": false,
+      "value": {
+        "name": "Jim Pham",
+        "observed_at_utc": "2026-11-06T10:59:35.193Z",
+        "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\n\n\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\n\n\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\n\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\n\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\n\n\n\nCapital Chronicle may hold positions in the markets it covers."
+      }
+    },
+    "info": {
+      "browserProfileId": "AE5BBDC417C5C94D312789F609F796DC",
+      "groupId": "83E21CB479726464D4B3630329B6D10A",
+      "index": 12,
+      "isActive": false,
+      "isLoading": false,
+      "isPinned": false,
+      "loadProgress": 0,
+      "pageId": 702,
+      "tabId": 1698402484,
+      "targetId": "71C20F1424209FB14C57F330733F0D6E",
+      "title": "(34) Feed | LinkedIn",
+      "url": "https://www.linkedin.com/sharing/compose",
+      "windowId": 1698400956
+    },
+    "snapshot": "re or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\\n\\n\\n\\n\\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\\n\\n\\n\\n\\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\\n\\n\\n\\n\\nCapital Chronicle may hold positions in the markets it covers.\"\n    - paragraph [ref=e13] [cursor=pointer]\n    - paragraph [ref=e14] [cursor=pointer]\n    - paragraph [ref=e15] [cursor=pointer]\n    - paragraph [ref=e16] [cursor=pointer]\n    - paragraph [ref=e17] [cursor=pointer]\n    - paragraph [ref=e18] [cursor=pointer]\n    - paragraph [ref=e19] [cursor=pointer]\n    - paragraph [ref=e20] [cursor=pointer]\n    - paragraph [ref=e21] [cursor=pointer]\n    - paragraph [ref=e22] [cursor=pointer]\n    - paragraph [ref=e23] [cursor=pointer]\n  - button [ref=e56]\n  - button \"Edit\" [disabled] [ref=e57]\n  - button \"Close\" [disabled] [ref=e58]\n  - button \"Show Emoji Picker\" [collapsed] [ref=e7]\n  - link \"Scheduled\" [collapsed] [ref=e11] [url=\"https://www.linkedin.com/sharing/compose\"]\n  - button \"In progress\" [disabled] [ref=e12]\n  - heading \"0 notifications\" [level=2]"
+  }
+}

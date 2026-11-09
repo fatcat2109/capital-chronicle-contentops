@@ -1,0 +1,31 @@
+{
+  "purpose": "Exact held Main passage through the actual card consumer; local replay",
+  "source_request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-arrival-review-20261106-v1\\desktop_request_write.json",
+  "source_request_sha256": "f54561435c19b698d4e3ec013946521fb93e6f9a89cdc512c26af104a1c70610",
+  "source_document_id": "cc124-nfp-arrival-review-20261106",
+  "source_content_sha256": "44df64392c74e61c9103e3b74ed5e98876ff303abbe4aadeb1f45de271042029",
+  "source_clock_utc": "2026-11-06T13:34:06Z",
+  "rendered": {
+    "key_label": "From the dated review",
+    "key_value": "+165,000",
+    "facts": [
+      [
+        "From the dated review",
+        "- Payrolls: +165,000 (total nonfarm 159,293,000 vs 159,128,000 for September as now published). - Unemployment rate: 4.1% (September 4.2%). The frozen Strong branch needed payrolls about +154,000 or more and unemployment 4.2% or lower. Both held (+165,000, 4.1%). The Weak branch failed."
+      ]
+    ],
+    "source_line": "Source: Capital Chronicle review, November 6, 2026 (ET)."
+  },
+  "asset": {
+    "asset_id": "post-facts-424cbf715c1e2e2d6458",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-333\\resume-20261107\\media\\media_assets\\post-facts-424cbf715c1e2e2d6458.png",
+    "sha256": "61d5cc15fd90f299bdafa2f100d22b1e0a55bdfd1b14d6430d324a8ce7b22630",
+    "width": 1080,
+    "height": 1350
+  },
+  "seconds": 0.551,
+  "source_unchanged": true,
+  "model_calls": 0,
+  "public_writes": 0,
+  "does_not_count_as_public_acceptance": true
+}

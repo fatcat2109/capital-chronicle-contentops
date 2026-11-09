@@ -78,10 +78,13 @@ from live_contentops.v1_simple_epistemic_state_v1 import (
 READER_ATTRIBUTION_POLICY = "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1"
 
 
-def reader_timestamp(instant: str, *, zone: str = "America/New_York") -> str:
+def reader_timestamp(instant: str, *, zone: str = "America/New_York", legacy: bool = False) -> str:
     """Display the supplied instant; never invent precision or refresh its clock."""
     if re.fullmatch(r"\d{4}-\d{2}-\d{2}", instant):
         return instant
+    if not legacy:
+        from live_contentops.public_time_v1 import public_timestamp
+        return public_timestamp(instant)
     value = datetime.fromisoformat(instant.replace("Z", "+00:00"))
     if value.tzinfo is None:
         raise ValueError("READER_TIMESTAMP_REQUIRES_AWARE_INSTANT")
@@ -143,7 +146,7 @@ _RISKY_TEMPORAL_PATTERNS = (
         re.IGNORECASE,
     ),
 )
-_SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_(?:[1-9]|10))\]\]")
+_SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_[1-9][0-9]*)\]\]")
 _URL_RE = re.compile(r"https?://", re.IGNORECASE)
 _EXPLICIT_CC_INFERENCE_RE = re.compile(
     r"\bCapital Chronicle(?:'s)?\s+(?:view|analysis|interpretation|inference)\b|"
@@ -1037,10 +1040,11 @@ def _reader_first_worker_prompt(prompt, governed):
         "lists, paragraph-by-paragraph links or ritual cutoff footers. Keep natural claim attribution, relay qualification "
         "and uncertainty, all internal source markers and actual mandatory quotation/photo/reuse credits or links. "
         "Do not drop meaningful metric/unit/period/context notes. Omit unnecessary exact times; when material, "
-        "display the supplied instant with America/New_York date-correct EDT/EST, or UTC where clearer. Never "
+        "display the supplied instant with America/New_York date-correct daylight saving, written ET. Never "
         "hardcode UTC-5, backdate or treat formatting as fresh evidence. Internal UTC/cutoff/Bangkok schedules stay exact."
     )
-    return prompt
+    from live_contentops.public_time_v1 import WRITER_GUIDANCE
+    return prompt + "\n" + WRITER_GUIDANCE
 
 
 def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any]) -> dict[str, Any]:
@@ -1161,12 +1165,18 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
     original_facts = any((d.get("source_reuse_constraints") or {}).get("scope") ==
         "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" for d in documents)
     document_limit = 10 if held else 6 if original_facts else MAX_SOURCE_DOCUMENTS
-    for document in documents[:document_limit]:
+    owned_context = [d for d in documents if d.get("frozen_public_record") or d.get("public_call_scorecard")]
+    ordinary = [d for d in documents if d not in owned_context]
+    for document in [*ordinary[:document_limit], *owned_context]:
         url = str(document.get("reader_source_url") or document.get("source_url") or "")
         text = str(document.get("canonical_content_text") or "")
         retained_main = (document.get("source_authority_class") == "governed_capital_chronicle_report_only"
                          and document.get("report_lineage")
                          and re.fullmatch(r"urn:cc-public-report:[a-zA-Z0-9_-]{1,100}:[a-f0-9]{64}", url))
+        from live_contentops.event_public_record_v1 import verified_source_metadata
+        public_record_metadata = verified_source_metadata(document)
+        if public_record_metadata:
+            retained_main = True
         desk = document.get("desk_record_binding")
         if (isinstance(desk, Mapping) and document.get("source_authority_class") == "governed_capital_chronicle_report_only"
                 and document.get("retrieval_method") == "MAIN_PUBLIC_DESK_RECORD_PROJECTION"
@@ -1219,7 +1229,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "canonical_content_sha256": str(
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
-                "canonical_content_text": text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
+                "canonical_content_text": text if public_record_metadata else text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
                 **({"source_reuse_constraints": dict(constraints)} if constraints else {}),
                 **({k: document[k] for k in ("context_only", "known_at_utc", "retrieval_time_utc", "revision_at_utc")
                     if k in document} if document.get("context_only") else {}),
@@ -1228,6 +1238,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                    and document.get("rights_evidence_sha256") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
                 **({"preview_preparation": dict(document["preview_preparation"])} if document.get("preview_preparation") else {}),
+                **public_record_metadata,
                 **({"desk_record_binding": dict(desk)} if isinstance(desk, Mapping) else {}),
             }
         )
@@ -1247,6 +1258,7 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
             "meta_description": "string",
             "social_hook": "string",
             "substack_body_markdown": "string",
+            "market_asset": "XAUUSD|US500|EURUSD|USDJPY|USOIL|BTCUSD or null; only the discussed market",
         },
         "cited_sources": [
             {
@@ -1276,6 +1288,10 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "Return exactly one JSON object with exactly the five top-level keys shown in OUTPUT_CONTRACT. "
         "Do not use markdown code fences, commentary, prefixes, or suffixes outside the JSON object. "
         "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. " + background_guidance +
+        "For a daily market piece or an NFP/CPI release piece discussing one market, set article.market_asset "
+        "to XAUUSD (gold), US500, EURUSD, USDJPY, USOIL or BTCUSD. Choose the market actually discussed; "
+        "omit it for an unrelated or multi-market piece. This selects an attributed guest TradingView snapshot, "
+        "never an analytical data source. "
         "For GOVERNED_CAPITAL_CHRONICLE_REPORT, SOURCE_PACK is a derived Main report projection, not freshly "
         "acquired source-page bytes. Attribute facts to that report, distinguish OBSERVED_SOURCE_FACT, CC_ANALYSIS "
         "and CONDITIONAL_SCENARIO, keep horizons and proxy/cost limits, and include report_scope_notice verbatim "
@@ -1338,7 +1354,7 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
 
 
 def _public_copy(article: Mapping[str, Any]) -> str:
-    return "\n".join(
+    text = "\n".join(
         str(article.get(key) or "")
         for key in (
             "title",
@@ -1349,6 +1365,9 @@ def _public_copy(article: Mapping[str, Any]) -> str:
             "substack_body_markdown",
         )
     )
+    social = article.get("social_scenarios") or {}
+    lines = [str(social[k]) for k in ("base_case", "alternative") if social.get(k)]
+    return text + ("\n" + "\n".join(lines) if lines else "")
 
 
 def _normalize_relay_attribution(
@@ -1549,6 +1568,23 @@ def _first_body_paragraph(body: str) -> str:
     return ""
 
 
+def _verified_own_public_excerpts(document: Mapping[str, Any]) -> bool:
+    lineage = document.get("report_lineage") or {}
+    digest = lineage.get("report_projection_sha256")
+    rights = document.get("source_reuse_constraints") or {}
+    text = document.get("canonical_content_text")
+    return bool(
+        lineage.get("origin") == "RETAINED_MAIN_REPORT_EXACT_SPANS"
+        and re.fullmatch(r"[a-f0-9]{64}", str(digest or ""))
+        and document.get("url") == "urn:cc-public-report:main-retained:" + digest
+        and rights.get("scope") == "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+        and rights.get("source_capture_sha256") == digest
+        and rights.get("public_expression_reuse_allowed") is True
+        and isinstance(text, str) and text
+        and document.get("canonical_content_sha256") == _text_hash(text)
+    )
+
+
 def _epistemic_copy_blockers(
     article: Mapping[str, Any],
     claims: Sequence[Mapping[str, Any]],
@@ -1559,15 +1595,26 @@ def _epistemic_copy_blockers(
         return []
     blockers = list(validate_epistemic_state(epistemic_state))
     desk_only = bool(source_pack) and all(d.get("desk_record_binding") for d in source_pack)
+    own_public_excerpts = bool(source_pack) and all(_verified_own_public_excerpts(d) for d in source_pack)
+
+    def exact_public_wording(value):
+        text = _normal(_SOURCE_MARKER_RE.sub("", str(value or "")))
+        return own_public_excerpts and bool(text) and any(
+            text in _normal(d["canonical_content_text"]) for d in source_pack)
     if desk_only:
         from live_contentops.capital_chronicle_desk_record_source_v1 import validate_article_citations
         try:
             validate_article_citations(article, [{"binding": d["desk_record_binding"]} for d in source_pack])
         except (ValueError, KeyError, TypeError) as exc:
             blockers.append(str(exc))
-    if epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT" and not desk_only:
+    if (epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT"
+            and not desk_only and not own_public_excerpts):
         notice = str(epistemic_state.get("report_scope_notice") or "")
-        if not notice or notice not in str(article.get("substack_body_markdown") or ""):
+        # The public equivalent omits the internal producer name. Preserve all
+        # substantive limits from an older frozen packet, without requiring its
+        # internal label to appear in reader-facing prose.
+        notice_forms = {notice, notice.replace("dated Main report", "dated review")}
+        if not notice or not any(form in str(article.get("substack_body_markdown") or "") for form in notice_forms):
             blockers.append("report_horizon_proxy_cost_limits_missing")
     if blockers:
         return blockers
@@ -1597,13 +1644,16 @@ def _epistemic_copy_blockers(
         if value
     }
     if state != "CONFIRMED":
-        if not any(token in _normal(title) for token in attribution_tokens):
+        # Own public excerpts already carry source-bound reader wording. A ritual
+        # prefix/footer must not rewrite that wording (CC-341; decisions 62/98).
+        # New wording still needs the normal uncertainty/attribution checks.
+        if not exact_public_wording(title) and not any(token in _normal(title) for token in attribution_tokens):
             blockers.append("epistemic_title_attribution_or_uncertainty_missing")
         if label.casefold() not in dek.casefold() and not any(
             token in _normal(dek) for token in attribution_tokens
         ):
             blockers.append("epistemic_dek_attribution_or_label_missing")
-        if label.casefold() not in first.casefold() and not any(
+        if not exact_public_wording(first) and label.casefold() not in first.casefold() and not any(
             token in _normal(first) for token in attribution_tokens
         ):
             blockers.append("epistemic_opening_reporting_state_missing")
@@ -1632,7 +1682,17 @@ def _epistemic_copy_blockers(
                 clean,
                 re.IGNORECASE,
             )
-            if conditional is None and not any(
+            # CC-124: the opening already names the dated Main review. Natural
+            # references to that same document retain attribution without forcing
+            # the publisher's full name into every paragraph. Exact source/claim
+            # validation still applies; unattributed event assertions still fail.
+            report_reference = (
+                epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT"
+                and re.search(r"\b(?:the|this|its) (?:dated )?(?:review|report) "
+                              r"(?:says|records|describes|notes|finds|takes|weighs|names|treats)\b",
+                              clean, re.IGNORECASE)
+            )
+            if conditional is None and not report_reference and not any(
                 token in _normal(clean) for token in attribution_tokens
             ):
                 blockers.append(f"epistemic_event_asserted_as_confirmed:{index}")
@@ -1676,11 +1736,15 @@ def _validate_article_against_source_pack(
     # Only source-bound validation may attach this compiler metadata. A writer's
     # extra article fields cannot self-certify a permitted probability descriptor.
     article.pop("public_research_descriptors", None)
+    article.pop("frozen_public_record", None)  # Main's exact source, never writer-authored attachment metadata.
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
     claims = [dict(row) for row in worker_output.get("material_claim_bindings") or [] if isinstance(row, Mapping)]
     available_by_id = {str(row.get("source_id") or ""): dict(row) for row in source_pack}
     cited_by_id: dict[str, dict[str, Any]] = {}
     blockers: list[str] = []
+    from live_contentops.public_time_v1 import REASON as TIME_REASON, find_forbidden_public_time, public_article_text
+    if find_forbidden_public_time(public_article_text(article)):
+        blockers.append(TIME_REASON)
     source_order = {str(row.get("source_id") or ""): i for i, row in enumerate(source_pack)}
     prior_source_position = -1
     for source in sources:
@@ -1809,6 +1873,10 @@ def _validate_article_against_source_pack(
             raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", ["public_probability_reader_disclosure_missing"])
     if descriptors:
         article["public_research_descriptors"] = list(descriptors.values())
+    from live_contentops.event_public_record_v1 import validate_article_record
+    public_record = validate_article_record(article, source_pack)
+    if public_record:
+        article["frozen_public_record"] = public_record
     return article, {
         "schema_version": VALIDATION_SCHEMA_VERSION,
         "status": "PASS",
@@ -1957,11 +2025,16 @@ def _reader_safe_native_article(
     # are internal metadata, just like source markers, never reader-facing copy.
     body = re.sub(r"\[\[VISUAL:[A-Za-z0-9_.:-]+\]\]", "", body)
     body = re.sub(r"\n[ \t]*\n(?:[ \t]*\n)+", "\n\n", body).strip()
-    if not reader_first:
+    if not reader_first and not article.get("scenario_analysis"):
         body = re.sub(r"(?m)^#{1,6}\s+", "", body)
     title = str(article.get("title") or "")
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
-    if not reader_first and label and label.casefold() not in title.casefold():
+    publisher = str((epistemic_state or {}).get("primary_reporting_publisher") or "")
+    attributed_main_review = (
+        (epistemic_state or {}).get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT"
+        and publisher and re.search(r"(?<!\w)" + re.escape(publisher) + r"(?!\w)", title, re.IGNORECASE)
+    )
+    if not reader_first and not attributed_main_review and label and label.casefold() not in title.casefold():
         title = f"{label} | {title}"
     notice = str(article.get("source_date_notice") or "")
     if notice and not reader_first and legacy_presentation:
@@ -1976,7 +2049,7 @@ def _reader_safe_native_article(
         "effective_article_mode": str(article_mode),
         "substack_body_markdown": body,
         "editorial_scope_notice": " ".join(s for s in (
-            str((epistemic_state or {}).get("report_scope_notice") or ""),
+            str((epistemic_state or {}).get("report_scope_notice") or "").replace("dated Main report", "dated review"),
             str(article.get("source_date_notice") or "") if legacy_presentation and not reader_first else "") if s),
     }
     if article.get("text_first"):
@@ -1989,6 +2062,10 @@ def _reader_safe_native_article(
             result["editorial_scope_notice"] += " Fixture, not current data."
         result["editorial_scope_notice"] = " ".join(filter(None, (
             result["editorial_scope_notice"], *article.get("desk_record_source_notices", []))))
+    for key in ("scenario_analysis", "social_scenarios", "market_asset", "article_type", "release_analysis",
+                "lead_image_asset_id", "publication_quality_policy", "valid_until_utc"):
+        if key in article:
+            result[key] = article[key]
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
     notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
     if notices:
@@ -1997,7 +2074,7 @@ def _reader_safe_native_article(
     # Older sealed articles without it remain unchanged; no source claim is added.
     analysis_notice = "Analysis, not financial advice. Readers decide whether to trade."
     retrospective_notice = re.search(
-        r"Retrospective analysis, written on \d{1,2} [A-Z][a-z]+ \d{4} \(GMT\+7\)", raw_body)
+        r"Retrospective analysis, written on \d{1,2} [A-Z][a-z]+ \d{4} \((?:ET|GMT\+7)\)", raw_body)
     if retrospective_notice:
         result["editorial_scope_notice"] = " ".join(filter(None, (
             result["editorial_scope_notice"].strip(), retrospective_notice.group(0))))
@@ -2007,9 +2084,12 @@ def _reader_safe_native_article(
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
         if article.get(key):
             result[key] = article[key]
+    for key in ("market_asset", "tradingview_snapshot_asset_ids", "native_destination_media"):
+        if article.get(key):
+            result[key] = article[key]
     if reader_first:
         result["reader_first_version"] = "DATA_JOURNALISM_V1"
-        result["native_destination_media"] = article.get("post_visual_destination_media") or (article.get("visual_editorial_decision") or {}).get("channel_media", {})
+        result["native_destination_media"] = article.get("post_visual_destination_media") or article.get("native_destination_media") or (article.get("visual_editorial_decision") or {}).get("channel_media", {})
         if article.get("post_visual_policy"):
             result["post_visual_policy"] = article["post_visual_policy"]
         publisher = str((epistemic_state or {}).get("primary_reporting_publisher") or "").strip()
@@ -2057,6 +2137,9 @@ def _publication_media_metadata(media_assets, *, compact=False):
     assets, credits = [], []
     for original in media_assets:
         asset = dict(original)
+        if asset.get("modality") == "tradingview_chart_snapshot":
+            from live_contentops.tradingview_snapshot_v1 import CREDIT
+            credits.append(CREDIT + ".")
         if asset.get("modality") == "source_backed_chart" and asset.get("source_links"):
             links = "; ".join(f"[{s['label']}]({s['url']})" for s in asset["source_links"])
             asset["caption"] = str(asset.get("caption") or "") + " Sources: " + links + "."
@@ -2075,7 +2158,8 @@ def _publication_media_metadata(media_assets, *, compact=False):
                 "Changes: " + str(asset.get("changes_description") or "Unchanged original; display resizing only.").rstrip(".") + ".",
             ))
             if compact:
-                creator=str(asset["creator_publisher"]).strip().rstrip(".")
+                creator=str(asset.get("creator_credit") or asset.get("attribution")
+                            or asset["creator_publisher"]).strip().rstrip(".")
                 license_label=asset.get("license_name") or asset.get("license_short_name") or "Reuse terms"
                 credit=(f"Photo: [{creator}]({asset['source_page_url']}) · "
                     f"[{license_label}]({asset['license_url']}). {reader_photo_caption(asset)}")
@@ -2084,8 +2168,11 @@ def _publication_media_metadata(media_assets, *, compact=False):
                 credit = asset.get("canonical_photo_credit") or credit
             credits.append(credit)
             asset["caption"] = credit
+        if asset.get("modality") == "tradingview_chart_snapshot":
+            from live_contentops.tradingview_snapshot_v1 import CREDIT
+            credits.append(CREDIT + ".")
         assets.append(asset)
-    return assets, "\n\n".join(credits)
+    return assets, "\n\n".join(dict.fromkeys(credits))
 
 
 def _derivative_media_attribution(media_assets, *, compact=False):
@@ -2156,7 +2243,9 @@ def _native_preview_bundle(
         compiler_article["native_destination_credits"] = {d: _derivative_media_attribution(
             [a for a in media_assets if a["asset_id"] in ids],compact=True)
             for d,ids in compiler_article["native_destination_media"].items()}
-    attribution = _derivative_media_attribution([] if reader_first else media_assets[:1])
+    legacy_media = [*media_assets[:1], *(a for a in media_assets[1:]
+        if a.get("modality") == "tradingview_chart_snapshot")]
+    attribution = _derivative_media_attribution([] if reader_first else legacy_media)
     if attribution:
         compiler_article["native_media_attribution"] = attribution
     payloads = build_native_derivative_payloads(
@@ -2245,7 +2334,8 @@ def _native_preview_bundle(
             continue  # A named non-delivery has no reader copy to carry certainty.
         visible = visible_text(payload)
         if (label and label.casefold() not in visible.casefold()
-                and not (reader_first and any(re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)",
+                and not ((reader_first or (epistemic_state or {}).get("evidence_basis")
+                          == "GOVERNED_CAPITAL_CHRONICLE_REPORT") and any(re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)",
                     visible, re.IGNORECASE) for name in attribution_names))):
             raise SimpleGeminiNewsroomError(
                 "native_preview_epistemic_state_missing", [destination]
@@ -2323,7 +2413,9 @@ def _build_simple_publication_lifecycle_plan(
     )
     reader_first = article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     publication_assets, attribution = _publication_media_metadata(media_assets, compact=reader_first)
-    attribution = _derivative_media_attribution([] if reader_first else media_assets[:1])
+    legacy_media = [*media_assets[:1], *(a for a in media_assets[1:]
+        if a.get("modality") == "tradingview_chart_snapshot")]
+    attribution = _derivative_media_attribution([] if reader_first else legacy_media)
     if reader_first:
         compiler_article["native_media_sources"] = {a["asset_id"]:a["source_links"]
             for a in media_assets if a.get("source_links")}
@@ -2339,7 +2431,9 @@ def _build_simple_publication_lifecycle_plan(
         "run_id": run_id,
         "selection": dict(selected_candidate),
         "article": compiler_article,
-        "media": {"assets": publication_assets, "delivery_only_assets": []},
+        "media": {"assets": publication_assets, "delivery_only_assets": [
+            {**a, "article_inclusion": False, "canonical_article_media": False} for a in publication_assets
+            if a.get("modality") == "tradingview_chart_snapshot"]},
         "epistemic_state": dict(epistemic_state or {}),
         "article_identity": article_identity,
         "article_content_sha256": _text_hash(_public_copy(article)),
@@ -2816,6 +2910,11 @@ def run_v1_simple_gemini_newsroom(
             for row in evidence.get("evidence_documents") or []
             if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
         ][:MAX_SOURCE_DOCUMENTS]
+        # Held public commitments and their full denominator are not extra source
+        # requests. Preserve them even when ordinary evidence fills its document cap.
+        owned_context = [d for d in evidence.get("evidence_documents", [])
+                         if d.get("frozen_public_record") or d.get("public_call_scorecard")]
+        documents.extend(d for d in owned_context if d not in documents)
         candidate_source_pack = _source_pack(documents)
         if offline_recovery and evidence.get("recovered_candidate_context"):
             # Selection remains immutable lead provenance. The facts and their
@@ -3295,6 +3394,11 @@ def run_v1_simple_gemini_newsroom(
         publication_speed = (llm_invoke.frozen_request("write") or {}).get("governed_input", {}).get("publication_speed_policy")
         validate_release_media({"article": article, "media_assets": admitted_media, "evidence": source_pack},
             require_pixel_review=not bool(publication_speed))
+    if native:
+        from live_contentops.tradingview_snapshot_v1 import prepare_article_snapshot
+        article, admitted_media = prepare_article_snapshot(article, admitted_media, output_dir=root,
+            selected_candidate=selected)
+        article_manifest.update(article)
     persist(root / "article_manifest_v1.json", article_manifest)
     try:
         native_previews, intents = _native_preview_bundle(

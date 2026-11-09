@@ -1,0 +1,68 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authority_ref": "JIM_DECISION_89",
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "source_url": "urn:cc-public-report:cc341:weekend-wrap:20261109",
+      "headline_id": "cc341-weekend-wrap-20261109",
+      "headline_text": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week",
+      "known_at_utc": "2026-11-08T18:20:00Z",
+      "revision_at_utc": "2026-11-08T18:40:39.699911+00:00",
+      "candidate_catalyst_tags": [
+        "weekend-wrap",
+        "Hormuz",
+        "CPI-week",
+        "six-market"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+          "source_sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+          "fragments": [
+            {
+              "start": 34999,
+              "end": 35113
+            },
+            {
+              "start": 35115,
+              "end": 35174
+            },
+            {
+              "start": 35176,
+              "end": 35437
+            },
+            {
+              "start": 35439,
+              "end": 36074
+            },
+            {
+              "start": 36076,
+              "end": 36360
+            },
+            {
+              "start": 36362,
+              "end": 36712
+            },
+            {
+              "start": 36714,
+              "end": 36817
+            },
+            {
+              "start": 36819,
+              "end": 37673
+            },
+            {
+              "start": 37675,
+              "end": 38341
+            },
+            {
+              "start": 38343,
+              "end": 38526
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

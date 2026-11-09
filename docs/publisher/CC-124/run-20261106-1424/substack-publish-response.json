@@ -1,0 +1,33 @@
+{
+  "tool_request_sha256": "9b15725b6874e868b20c32d00fbad31cf03a5e4b3da3276a9d2d22c30cc7c241",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo page 667, same saved draft 223739949, clicked Publish now then Publish on web only. Reached exact share-center and copied its confirmed canonical URL. No email-code prompt. Evidence: substack-browser-publication.json and substack-web-only-settings.json.",
+    "observed_at_utc": "2026-11-06T08:42:27.317Z",
+    "dispatched_at_utc": "2026-11-06T08:42:20.275Z"
+  },
+  "result": {
+    "request_sha256": "71bd2808af518792ff2ca486f3d2218c186f169f91d2505ea4b95db3ddb7ba17",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223739949",
+    "public_object_url": "https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital",
+    "published_at_utc": "2026-11-06T08:42:20.275Z",
+    "email_sent": false,
+    "email_verification_required": false,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "substack-web-only-settings.json; explicit Publish on web only confirmation; share-center readback"
+    },
+    "step_clocks": {
+      "draft_ready_utc": "2026-11-06T08:41:02.286Z",
+      "images_uploaded_utc": "2026-11-06T08:40:18.398Z",
+      "email_setting_confirmed_utc": "2026-11-06T08:41:53.240Z",
+      "publish_clicked_utc": "2026-11-06T08:42:20.275Z",
+      "share_center_reached_utc": "2026-11-06T08:42:27.317Z"
+    }
+  }
+}

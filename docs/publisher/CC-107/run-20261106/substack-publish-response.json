@@ -1,0 +1,31 @@
+{
+  "tool_request_sha256": "0d438944ae4718611fda938406e1e63574d53543eb987b4a634ec222571c76ee",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+    "observed_at_utc": "2026-11-06T12:58:21.432Z",
+    "observation_source": "Actual Neo page708 reached /publish/posts/detail/223763353/share-center after explicit Publish on web only. Both email and schedule checkboxes verified false before final publish. No email-code prompt or mailbox access."
+  },
+  "result": {
+    "request_sha256": "04b8c82f6fdbe506bca3b49b37125f99aa7d8834a8b7cf86fa3e3fe4c7f35bf6",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "223763353",
+    "public_object_url": "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+    "email_sent": false,
+    "email_verification_required": false,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "substack-browser-delivery.json"
+    },
+    "step_clocks": {
+      "draft_ready_utc": "2026-11-06T12:52:51.267Z",
+      "images_uploaded_utc": "2026-11-06T12:57:14.712Z",
+      "publish_clicked_utc": "2026-11-06T12:58:04.258Z",
+      "email_setting_confirmed_utc": "2026-11-06T12:58:03.732Z",
+      "share_center_reached_utc": "2026-11-06T12:58:21.432Z"
+    }
+  }
+}

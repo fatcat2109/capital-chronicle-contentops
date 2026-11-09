@@ -1,0 +1,14 @@
+{
+  "resumed_at_utc": "2026-11-06T10:26:17.304462+00:00",
+  "last_pushed_and_live_commit": "d57ccf046e64e478e9f4d3a1112c2a2e540a2a79",
+  "pending_operation": "cc124-oil-euro-followup-20261106-v2",
+  "saved_native_result": "editor-check-result-repaired.json",
+  "saved_native_result_sha256": "8e186412e8c37226e2581ccb316cc7d236e780294fc966d974741703291fde38",
+  "role_error": "Native final return hit usage limit after complete result files were saved. User reports limit cleared; reuse the exact saved complete artifact under native result rule.",
+  "saved_verdict": "KEEP",
+  "first_editor_approval_utc": "2026-11-06T10:22:09.586022+00:00",
+  "runtime_application_clock": "To be recorded by the existing review owner; no backdating. Editor approval retained separately for 15-minute target.",
+  "checks": "Exact input hash, article, revision, photo/card and no material issues preserved. No role rerun or model substitution.",
+  "schedule_changed": false,
+  "public_write_so_far": false
+}

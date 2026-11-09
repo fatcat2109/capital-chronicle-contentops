@@ -1,0 +1,100 @@
+{
+  "schema_version": "contentops.native_editor_check_result.v1",
+  "operation_id": "cc107-nfp-preview-20261106-v1",
+  "decision": "REVISE",
+  "article_identity": "2d8e36972f630378df9b6ea7ae8b870f5c0b8c0712a1da9a653bb9c2017c29fb",
+  "package_revision": "24420f1c5477eec7c5635f2695475cc4d48a07c20847f118acf8e76f4ecf74cd",
+  "expected_review_id": null,
+  "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-107\\run-20261106\\editor-check-input.json",
+  "input_sha256": "d46e05539b13ffb1c2ee35a7a9b5dee0c446e7182f45b86d1a1b3883ded37c8a",
+  "checked_at_utc": "2026-11-06T12:42:51.512700Z",
+  "verdict_at_utc": null,
+  "first_text_approval_utc": null,
+  "rationale": "REVISE for one concrete canonical photo-credit omission. The actual four media files are readable, source-bound and relevant; their hashes match the final input. The three BLS charts preserve first-print history, units, seasonal adjustment and the unemployment gap. The portrait is correctly identified as archive context. The article and all eight complete channel payloads preserve the future-event framing and conditional mechanisms. The current 65.00K Investing.com expectation is dated 5 November; the old 63K is absent. Main thresholds and the five-week EURUSD reference range carry the Capital Chronicle model estimate label; all six numeric bindings pass. ET dates, both notices, public identity and marker removal pass. However media_assets[3].canonical_photo_credit names only The White House, omitting Daniel Torok, even though the selected canonical_credit and retained attribution explicitly name him. The canonical media renderer prefers canonical_photo_credit, so the public credit would lose the creator. Restore the already-held creator/source/public-domain credit and retain the archive caption; no prose or image repair is needed. This is the one useful repair under Jim decision 53. No approval or publication clock is issued.",
+  "policy": "JIM_DECISION_53_WRITER_ONE_EDITOR_CHECK_PUBLISH",
+  "same_writer_invocation_id": "/root/cc107_nfp_writer",
+  "invocation_observation": {
+    "invocation_id": "/root/cc107_nfp_writer",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "observation_source": "Same canonical native task supplied by the supported task context; actual runtime model and effort telemetry remain unavailable. This resumes the same unfinished editor check after interruption."
+  },
+  "material_findings": [
+    {
+      "cause": "CANONICAL_PHOTO_CREATOR_CREDIT_OMITTED",
+      "location": "media_assets[asset_id=cc074-archive-warsh-20260522].canonical_photo_credit",
+      "evidence": "The final canonical_photo_credit says Photo: The White House, whereas retained attribution and visual_editorial_decision.contextual_photo_decision.canonical_credit name photographer Daniel Torok. _publication_media_metadata uses canonical_photo_credit preferentially.",
+      "required_repair": "Use the selected creator/source/public-domain attribution in the canonical_photo_credit and preserve its source/terms links and archive caption. No article prose, numerical source, image bytes or derivative text repair is requested.",
+      "proposed_canonical_photo_credit": "Photo: Official White House photograph by Daniel Torok / [The White House](https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg), via Wikimedia Commons. [Public domain (US federal government)](https://commons.wikimedia.org/wiki/Template:PD-USGov). Commons crop; no further edits. Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context for monetary policy; not an image of the forthcoming release.",
+      "authority": "Root Canonical photo attribution, 28 October 2026: full photo creator/source/license attribution stays on canonical Substack."
+    }
+  ],
+  "text_checks": {
+    "worker_text": "PASS",
+    "source_claim_bindings": "PASS:34 supported,0 unsupported,6 cited sources",
+    "event_article_guard": "PASS:16 surfaces,6 numeric bindings",
+    "all_eight_complete_payloads_read": true,
+    "future_event_and_conditional_meaning": "PASS",
+    "current_single_consensus_with_source_date": "PASS:65.00K,Investing.com,5 November 2026",
+    "old_63k_consensus_absent": "PASS",
+    "five_week_range_context": "PASS:dated reference range,not intraday or trade bounds",
+    "model_estimate_labels": "PASS",
+    "public_time_ET": "PASS",
+    "analysis_and_conflicts_notices": "PASS across canonical and complete channel chains",
+    "private_execution_copy": "PASS:no private execution claims",
+    "preview_host_guard": "PASS",
+    "source_visual_marker_removal": "PASS in canonical reader and eight payloads",
+    "pending_canonical_placeholders": "Ordinary pre-publication placeholders remain for exact canonical remapping by the sole coordinator before derivative dispatch."
+  },
+  "media_inspection": [
+    {
+      "asset_id": "payroll_first_print_trend_cc107",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\payroll_first_print_trend_cc107.png",
+      "sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+      "exact_bytes_verified": true,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of owned local file; no native desktop screenshot",
+      "finding": "Readable bars and labels; source-bound first-print payroll history with positive/negative months and latest prior month, not the forthcoming release."
+    },
+    {
+      "asset_id": "september_sector_breakdown",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\september_sector_breakdown.png",
+      "sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+      "exact_bytes_verified": true,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of owned local file; no native desktop screenshot",
+      "finding": "Readable divergent bars, shared zero and signed contributions; broad components sum to the prior payroll total with correct thousands unit."
+    },
+    {
+      "asset_id": "unemployment_first_print_trend",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\unemployment_first_print_trend.png",
+      "sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+      "exact_bytes_verified": true,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of owned local file; no native desktop screenshot",
+      "finding": "Readable separate unemployment series, correct percent unit, latest prior 4.2% and visible retained-series gap without interpolation."
+    },
+    {
+      "asset_id": "cc074-archive-warsh-20260522",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\cc074-archive-warsh-20260522.jpg",
+      "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+      "exact_bytes_verified": true,
+      "pixels_inspected": true,
+      "inspection_method": "view_image of owned local file; no native desktop screenshot",
+      "finding": "Authentic retained archive portrait; public-domain rights record/hash verified. Restore creator in canonical credit; retain archive-context caption."
+    }
+  ],
+  "repair_round_requested": 1,
+  "no_post_approval_screenshot_loop": true,
+  "tests_run": false,
+  "publication_performed": false,
+  "code_edits_performed": false,
+  "next_action": "Parent applies the exact canonical photo-credit correction through the existing media owner, preserves the current piece, and returns the changed exact assembly to this same writer for repair readback. No approval clock starts before KEEP."
+}

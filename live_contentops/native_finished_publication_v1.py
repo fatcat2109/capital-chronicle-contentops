@@ -14,7 +14,7 @@ from uuid import uuid4
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import _private, canonical_bytes, sha256_of
 from live_contentops.native_desktop_editorial_v1 import (
     NativeDesktopTurn, native_review_revision, require_current_final_visual_review,
-    validate_release_media, validated_native_review,
+    validated_native_review,
 )
 from live_contentops.native_desktop_publication_v1 import (
     NativeReviewedPublication, prepare_native_publication, scheduled_publication_authority,
@@ -147,10 +147,10 @@ def check_finished_piece(store, binding):
         if packet["request_sha256"] != sha256_of({k: v for k, v in packet.items() if k != "request_sha256"}):
             raise ValueError("FINISHED_PIECE_NATIVE_REQUEST_CHANGED")
     observation = response.get("invocation_observation") or {}
-    model = observation.get("model") or observation.get("configured_model")
-    effort = observation.get("reasoning_effort") or observation.get("configured_reasoning_effort")
-    if not observation.get("invocation_id") or model != "gpt-6.1-sol" or effort != "max":
-        raise ValueError("FINISHED_PIECE_APPROVED_WRITER_REQUIRED")
+    # Decisions 60 and 86: record role labels; they never refuse a finished piece.
+    # The real invocation, exact source/copy and current review remain required.
+    if not observation.get("invocation_id"):
+        raise ValueError("FINISHED_PIECE_NATIVE_INVOCATION_REQUIRED")
     governed = request["governed_input"]
     cutoff = utc(governed["cutoff_utc"])
     if cutoff != utc(binding["cutoff_utc"]):
@@ -179,13 +179,18 @@ def check_finished_piece(store, binding):
         raise ValueError("FINISHED_PIECE_PUBLIC_OUTPUT_GUARD")
     if "analysis, not financial advice" not in surfaces[0].casefold():
         raise ValueError("FINISHED_PIECE_ANALYSIS_NOTICE_REQUIRED")
-    event_packet = response["output"].get("event_article")
+    event_packet = (response["output"].get("event_article")
+                    or response["output"]["article"].get("event_article_packet"))
     if result["article"].get("article_type") in {"EVENT_PREVIEW", "EVENT_REVIEW"} and not event_packet:
         raise ValueError("FINISHED_EVENT_EXACT_PUBLIC_PACKET_REQUIRED")
     event_check = None
     if event_packet:
         admission = governed.get("public_event_evidence")
-        event_check = check_public_event_article(event_packet, evidence=admission)
+        if admission:
+            event_check = check_public_event_article(event_packet, evidence=admission)
+        else:
+            from live_contentops.event_article_guard_v1 import check_source_bound_event_article
+            event_check = check_source_bound_event_article(event_packet, governed["source_pack"])
         if event_packet["copy"]["headline"] != result["article"]["title"]:
             raise ValueError("FINISHED_EVENT_COPY_CHANGED")
         def strings(value):
@@ -196,6 +201,10 @@ def check_finished_piece(store, binding):
                     yield from strings(child)
         if any(t not in surfaces[0] for t in strings(event_packet["copy"])):
             raise ValueError("FINISHED_EVENT_SECTIONS_CHANGED")
+    from live_contentops.event_public_record_v1 import validate_article_record
+    frozen_record = validate_article_record(result["article"], governed["source_pack"])
+    if frozen_record != result["article"].get("frozen_public_record"):
+        raise ValueError("FINISHED_EVENT_PUBLIC_RECORD_CHANGED")
     return {"status": "PASS", "article_identity": result["article_identity"],
             "package_revision": native_review_revision(result), "review_id": review["review_id"],
             "writer_request_sha256": exact["request_sha256"], "writer_observation": observation,

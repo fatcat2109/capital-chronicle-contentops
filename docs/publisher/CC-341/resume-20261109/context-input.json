@@ -1,0 +1,9 @@
+{
+  "selected_story_context": true,
+  "expected_request_sha256": "bb6063b41b8b10b60dd793765856d1cc35ab1cc8f9e25785004789f83348819f",
+  "candidate_id": "simple-story-73e5bc769d33f80c2354573a",
+  "supporting_headline_ids": [
+    "cc341-weekend-wrap-20261109"
+  ],
+  "match_reason": "CC-341 explicitly requires preserving this exact original public-ready draft and adding the dated R2 scenario/Nvidia revision; same weekend Hormuz/CPI market wrap, exact pinned original source from the frozen source edition, never an independent new story."
+}

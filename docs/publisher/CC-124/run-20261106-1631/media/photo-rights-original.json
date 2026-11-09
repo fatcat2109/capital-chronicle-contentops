@@ -1,0 +1,38 @@
+{
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Oil_refinery_coastal_Texas.jpg",
+  "creator_publisher": "U.S. Fish and Wildlife Service",
+  "license_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing",
+  "rights_status": "PUBLIC_DOMAIN",
+  "depicted_date": "Not given",
+  "original_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+  "license_text": "This image or recording is the work of a U.S. Fish and Wildlife Service employee, taken or made as part of that person's official duties. As a work of the U.S. federal government, the image is in the public domain. For more information, see the Fish and Wildlife Service copyright policy.",
+  "provider_metadata": {
+    "provider_id": "WIKIMEDIA_COMMONS",
+    "observation_method": "EXACT_RENDERED_METADATA_PROJECTION_NOT_MEDIAWIKI_API_RESPONSE",
+    "source_capture_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\source-captures\\commons-refinery-page.md",
+    "source_capture_sha256": "7400aa0bb5846a56d1f29e9a267e8f8418b3c5bb07ec55bf400a747d80fbf31a",
+    "page": {
+      "imageinfo": [
+        {
+          "descriptionurl": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg",
+          "url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Oil_refinery_coastal_Texas.jpg",
+          "extmetadata": {
+            "LicenseUrl": {
+              "value": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing"
+            },
+            "LicenseShortName": {
+              "value": "Public domain"
+            },
+            "DateTimeOriginal": {
+              "value": "Not given"
+            },
+            "Artist": {
+              "value": "U.S. Fish and Wildlife Service"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "consumer": "RetainedSourceResearch",
+  "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+  "research_revision": "cf25581f5eb62efa17096bd6d69fcc5e24d3b14adfe3ccd201aaf73000be899c",
+  "document_ids": [
+    "cc341-weekend-wrap-20261109",
+    "cc341-weekend-wrap-r2-scenarios-20261109"
+  ],
+  "gaps": [],
+  "known_at_utc": "2026-11-08T23:26:00Z",
+  "original_operation_unchanged": true,
+  "revision_reason": "Ops reopened with material new analysis and Nvidia fact after the former cutoff; preserve prior zero-write frozen opportunity; new dated edition uses new operation identity."
+}

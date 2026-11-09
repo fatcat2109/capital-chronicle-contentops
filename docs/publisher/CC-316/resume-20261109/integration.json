@@ -1,0 +1,27 @@
+{
+  "verified_at_utc": "2026-11-09T15:19:48.803247+00:00",
+  "item": "CC-316",
+  "outcome": "INTEGRATED_AND_LIVE_CONSUMER_VERIFIED",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "operating_head": "ac840117bafb1df8042d9c99521e54da715a036d",
+  "branch": "backlog/cc-316-article-tradingview-snapshot",
+  "remote_branch_head": "ac840117bafb1df8042d9c99521e54da715a036d",
+  "tags": {
+    "contentops-live-20261109-cc316": "ac840117bafb1df8042d9c99521e54da715a036d",
+    "contentops-rollback-20261109-cc316": "7dfecb4674d80b74c66c4f85412026c1a3cfce86"
+  },
+  "remote_tag_readback_matches": true,
+  "implementation_integration_commit": "53295992bd7249f8dacb5a0cada16c6212887372",
+  "rollback_scope": "Actual first parent before CC-316 integration; also predates coupled CC-333 changes. Later Publisher work must be preserved in any recovery.",
+  "integration_this_run": "Fast-forwarded acceptance evidence only; implementation was already live through CC-333.",
+  "live_consumer_evidence": "live-consumer-verification.json",
+  "tests_passed": 36,
+  "reconciled_market_wraps": 2,
+  "image_verified_destinations_per_wrap": 10,
+  "inherited_modified_files_preserved": 8,
+  "new_public_writes": 0,
+  "schedule_changes": 0,
+  "other_chat_messages": 0,
+  "choice": "Reuse exact readbacks of already-published market wraps; acceptance needs no duplicate article."
+}

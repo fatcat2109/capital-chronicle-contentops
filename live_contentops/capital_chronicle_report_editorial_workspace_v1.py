@@ -310,6 +310,14 @@ def run_report_editorial_cycle(
                 else "DRAFT_SUPERSEDED",
                 "superseded_by_version": latest["report_version"],
             }
+        # A validator repair can make the original draft pass on a later resume.
+        # A completed native revision remains the current authored result. Reuse
+        # it through the existing pre-dispatch media/assembly owner, preserving
+        # the prior package and every immutable native request/return.
+        if native:
+            from live_contentops.native_desktop_editorial_v1 import resume_completed_native_revision
+            previous = resume_completed_native_revision(tracker.store, llm_invoke, previous,
+                run_id=opportunity_id or run_id or receipt_id)
         return previous
     if record.get("status") in {
         "INVALIDATION_WITHDRAWAL_NOOP",

@@ -1,0 +1,127 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc124-oil-euro-followup-20261106-v2",
+  "public_write_authorized": true,
+  "request": {
+    "action": "PUBLISH",
+    "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+    "content_binding": {
+      "artifact_manifest": [
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+          "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\delivery_media_manifest_v1.json",
+          "sha256": "e847f4f5c5b5346abf86819a4fb503ab2050ce83b39fa0ad530a318607bd85d0"
+        }
+      ],
+      "expected_text_segments": [
+        "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      ],
+      "expected_thread_texts": [],
+      "media_manifest": [
+        {
+          "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+          "asset_id": "post-facts-fc5c1c6572545a5197e3",
+          "attribution": "Source: Capital Chronicle",
+          "caption": "Key facts from the article.",
+          "modality": "source_bound_data_card",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+          "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+          "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        }
+      ],
+      "thread_post_count": 0
+    },
+    "destination": "youtube",
+    "dispatch_attempt_identity": "dispatch_0017054d61d6323f1a5f7c71f761c8c0",
+    "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+    "expected_identity": "@CapitalChronicleYouTube",
+    "forbidden": [
+      "login",
+      "reauthorize",
+      "account_switch",
+      "cookies",
+      "storage",
+      "blind_retry",
+      "bulk_x_ingestion"
+    ],
+    "intent_sha256": "28d53414179de38fb528854811f2462e32a4f59ef316feb308a9c14ab51b1d03",
+    "native_payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-fc5c1c6572545a5197e3"
+      ],
+      "platform_limit": 1000,
+      "text": "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+    "payload": "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "payload_hash": "29e1d53afd82237625b0e0c1370d7f1aa32865d20960c2e31168ac68fa68b246",
+    "public_object_id": null,
+    "public_object_url": null,
+    "request_sha256": "14e01c3b2f1eb77e528e4869292fb8878edf1f751a956324f6235ea5106dd87a",
+    "schema_version": "contentops.neo_destination_handoff.v1",
+    "steps": [
+      "name_session; list tabs, open a task-owned tab",
+      "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+      "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+      "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+      "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+    ],
+    "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+    "surface": "YOUTUBE_COMMUNITY_POST",
+    "work_item_id": "cc124-oil-euro-followup-20261106-v2"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "2dd7e817cd42b5241b4259a70cdbb15ee2771241fe8e5f401bc2723b5e9ddc81",
+  "browser_workspace": {
+    "policy": "JIM_DECISION_63",
+    "window": "Use the one existing BrowserOS Neo window. Create one only if none exists.",
+    "tabs": "Open tabs with tabs action=new and groupId in this task's group, titled Capital Chronicle/<task>. Leave Jim's and other agents' tabs untouched."
+  },
+  "upload_policy": {
+    "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",
+    "source_scope": "ARTICLE_OWN_MEDIA_FOLDER",
+    "bound_media_paths": [
+      "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png"
+    ],
+    "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"
+  },
+  "composed_run": {
+    "policy": "CC-283",
+    "one_run": "One BrowserOS Neo run script does all five steps in this order, in this task's tab. It replaces the request's steps list: no separate identity, snapshot or binding step first.",
+    "1_identity": {
+      "expected_identity": "@CapitalChronicleYouTube",
+      "expected_stable_id": null,
+      "rule": "Read the signed-in account and compare it with the expected identity and stable id. While in this identity or any other pre-write part, result.stage is BEFORE_PUBLISH_CLICK. A mismatch or an unreadable identity returns FAILED_BEFORE_WRITE with definite_no_write true, stage BEFORE_PUBLISH_CLICK and no click."
+    },
+    "2_compose": "Enter each post below in its own composer box, in order, with its bound media. For a thread, add each next box with the composer's add-post control and wait until that box exists and has focus; then enter the post's whole text in one operation, newlines included. Never enter a post paragraph by paragraph, or before its box is ready.",
+    "3_verify_before_click": {
+      "posts": [
+        "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+      ],
+      "rule": "Before the click, read every composer box's text back and compare it with its post, with whitespace collapsed and a link allowed to render shortened. Every post must match, in order, with no box missing or extra. Re-enter a box that differs once and compare again. If any post still differs, return FAILED_BEFORE_WRITE with definite_no_write true, stage BEFORE_PUBLISH_CLICK and no click."
+    },
+    "4_publish": "Immediately BEFORE the publish click, set the observation's dispatched_at_utc and result.stage = PUBLISH_CLICK_ATTEMPTED; then click once to publish the exact payload.",
+    "5_readback": "Right after the click, in the same run, read back the published object (id, url, text, media) and return it as composed.readback. This readback confirms the destination: no separate readback turn follows, and the next destination's run starts after it.",
+    "return": {
+      "result": "the publish result, as for any PUBLISH step, with its stage",
+      "composed": {
+        "identity": [
+          "authenticated",
+          "observed_identity",
+          "observed_stable_id",
+          "observed_at_utc"
+        ],
+        "pre_click_posts": "REQUIRED with any write: the composer texts read in step 3, in order. A return without them is refused; if they were not read, submit nothing",
+        "readback": "REQUIRED with any write: the READBACK result fields (status, observed_identity, public_object_id, public_object_url, observed_text, content_verified, media) observed in this run after the click. A return without it is refused"
+      }
+    },
+    "after_click": "FAILED_BEFORE_WRITE is a definite no-write only for an account mismatch or stage BEFORE_PUBLISH_CLICK. Any other failure, including a missing stage, is UNKNOWN_WRITE; the coordinator reads back before any retry.",
+    "after_run": "Submit this run's return at once, then start the next destination's run. Extra checks of a destination already read back (media comparisons, evidence files, commits) wait until every destination has gone out."
+  }
+}

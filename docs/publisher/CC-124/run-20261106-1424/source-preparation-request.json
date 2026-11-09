@@ -1,0 +1,48 @@
+{
+  "operation_id": "cc124-six-markets-20261106-v1",
+  "stage": "main-report-source-preparation",
+  "role": {
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "observation": "CONFIGURED_NOT_OBSERVED"
+  },
+  "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+  "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+  "completion_record": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261106T050844Z\\run.json",
+  "known_at_utc": "2026-11-06T06:06:29Z",
+  "result_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\source-preparation-result.json",
+  "source_root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\source",
+  "projection_contract": {
+    "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+    "authority_ref": "JIM_DECISION_89",
+    "headline_id": "cc124-six-markets-20261106",
+    "headline_text": "Capital Chronicle reviews six markets ahead of payrolls: a shared dollar risk, different setups",
+    "source_url": "urn:cc-public-report:six-markets:20261106",
+    "known_at_utc": "2026-11-06T06:06:29Z",
+    "revision_at_utc": "ACTUAL_NOW_UTC",
+    "candidate_catalyst_tags": [
+      "payrolls",
+      "six-markets",
+      "dollar"
+    ],
+    "passages": [
+      {
+        "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+        "source_sha256": "exact hash",
+        "source_json_pointer": "/candidates/3/rationale",
+        "fragments": [
+          {
+            "start": 0,
+            "end": 1
+          }
+        ]
+      }
+    ]
+  },
+  "requirements": [
+    "Select exact decoded JSON string excerpts only; fragments refer to character offsets within the string at source_json_pointer. Do not paraphrase inside projection. JSON pointers allowed: /summary/N/text, /causal_alternatives/N/text, /contradictions/N/text, /priced_in/N/text, /coverage_limit, /candidates/N/rationale or /candidates/N/invalidation or /candidates/N/next_required_evidence/M. Max 40 passages, 12 fragments per passage, 1800 chars each.",
+    "Cover XAUUSD, US500, EURUSD, USDJPY, USOIL and BTCUSD from completed Main synthesis. At most 6000 source chars, concise qualitative mechanisms and countercases; source claims retain dated report attribution. Keep useful exact public support sentences and no extracted entry/stop/target/size/account/execution mechanics. Public computed analysis allowed D72b. No numeric prediction-market odds, raw bars or bulk third-party series. Do not select uncalibrated numerical judgments. No isolated bearish/bullish calls without D40 condition horizon invalidation; prefer explanatory neutral summary of the review.",
+    "Public times New York ET, convert supplied instants before choosing public date. Internal source clocks remain UTC; do not modify original source words. Prefer excerpts without raw Z or GMT+7 clocks to reduce later conversion risk.",
+    "Save source/index.json with schema_version contentops.retained_source_research.v1 and records [projection spec]. Save source-claim-trace.json with pointer, original hash, excerpts and market/caveats. Save result file and return paths/hashes, findings and exact limits. No code edits, commits, tests, browser, source fetching, publishing, or chat messages. Adapter extension is parent work."
+  ]
+}

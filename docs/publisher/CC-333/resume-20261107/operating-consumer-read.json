@@ -1,0 +1,48 @@
+{
+  "observed_at_utc": "2026-11-06T20:59:27.648884+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "69a6b3898bf911665385b47f7ac7013a48fb2d8f",
+  "installed_modules": [
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\article_publication_quality_v1.py",
+      "sha256": "30523be8db6e7461e1cf1c5a324e2a1f6be60732bddb2efa4426a0b10778495b"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py",
+      "sha256": "dfcca77599df2a2b6734258eac1e6563123d85c2db837f1adc2f5b92f28613d4"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\tradingview_snapshot_v1.py",
+      "sha256": "7b283b72b29f86c99418cdcdebf84f5aa6e8ecf67643fe9ab4f30cc584c07ff4"
+    }
+  ],
+  "publication_feed": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "feed_sha256": "c3108c317cbbc41b7bb719cf3c8460fb158c111e5bd1d28c663b9cf951f2cd02",
+  "latest_canonical_publication_utc": "2026-11-06T12:58:16.717000+00:00",
+  "feed_articles": 18,
+  "image_register": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+  "image_observation_records": 756,
+  "production_date": "2026-11-07",
+  "daily_article_limit": 1,
+  "occupied_article_slots": 0,
+  "remaining_capacity": 1,
+  "free_ram_skip_removed": true,
+  "event_review_guidance_has_writing_notice": true,
+  "retained_operation": "cc124-nfp-arrival-review-20261106-v1",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-arrival-review-20261106-v1\\binding.json",
+  "binding_sha256": "7d91e8991b7202f3fc28faedc835e4dbd15b2ecd63134201d3eaf1c99c6879ce",
+  "pending_request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-arrival-review-20261106-v1\\desktop_request_write.json",
+  "pending_request_sha256": "f91f22eaba23d5af0e115dd181655185d9a5639c627ea07de641d570f5e96c87",
+  "pending_request_file_sha256": "f54561435c19b698d4e3ec013946521fb93e6f9a89cdc512c26af104a1c70610",
+  "operation_dispatches": [],
+  "new_public_piece_readbacks": 0,
+  "required_public_piece_readbacks": 2,
+  "first_cause": "JIM_DECISION_94_CC124_NOT_DUE",
+  "next_existing_run_utc": "2026-11-07T08:01:00Z",
+  "next_existing_run_gmt7": "7 Nov 2026 15:01 GMT+7",
+  "next_action": "Codex Publisher resumes the retained CC-124 binding at its due run under decision 94; retain exact Substack and social readbacks for the next two compliant pieces.",
+  "new_public_writes": 0,
+  "schedules_changed": false,
+  "process_restarts": 0,
+  "reads_only": true
+}

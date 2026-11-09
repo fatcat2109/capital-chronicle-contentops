@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-08T18:43:58.192230+00:00",
+  "operating_consumer": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\contentops_source_research_v1.py",
+  "live_source_edition": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-341\\source",
+  "verified_document_id": "cc341-weekend-wrap-20261109",
+  "verified_document_sha256": "022007719e97fd1ce6b63b1874cdd8e9636937b1410d3f6f9cceddca02e7e12e",
+  "public_draft_verbatim": true,
+  "source_gaps": [],
+  "live_image_bytes_match": true,
+  "snapshot_validation": "PASS",
+  "source_preparation_integrated": true,
+  "publication_acceptance_passed": false,
+  "public_write_performed": false,
+  "operation_source_attachment": "Pending selection is preserved; this newly prepared edition has not been attached to its frozen candidate packet."
+}

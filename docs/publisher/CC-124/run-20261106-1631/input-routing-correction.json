@@ -1,0 +1,13 @@
+{
+  "checked_at_utc": "2026-11-06T09:44:41.927112+00:00",
+  "first_operation": "cc124-oil-euro-followup-20261106-v1",
+  "cause": "Initial launch used the default rollout feed; resolve_owner_operation intentionally takes feed_pointer_path from rollout, so profile-only research_root did not reach selection. Frozen 32-candidate request omitted the exact held Main projection.",
+  "first_role_result": "Genuine ABSTAIN retained, not relabelled as no new Main content.",
+  "correction": "Use the existing per-article rollout mechanism with one feed_pointer_path difference; all controls, publisher, store, roles and authority bytes preserved. Finish the empty attempt before allocating its corrected-input successor; no public write was attempted.",
+  "scoped_rollout_diff_keys": [
+    "feed_pointer_path"
+  ],
+  "corrected_operation": "cc124-oil-euro-followup-20261106-v2",
+  "same_source_hash": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+  "new_source_or_market_observation": false
+}

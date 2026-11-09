@@ -200,7 +200,12 @@ def readback_discord_post(
     image_hash_match = None
     if expected_image_sha256:
         image_hash_match = False
-        for attachment in attachments:
+        # Discord may move a multipart image into embed.image and return an empty
+        # attachments list (CC-359, 9 Nov). Verify the delivered bytes either way.
+        image_candidates = [*attachments, *((row.get("image") or {}) for row in embeds if isinstance(row, Mapping))]
+        for attachment in image_candidates:
+            if not attachment.get("url"):
+                continue
             parsed = urllib.parse.urlsplit(str(attachment["url"]))
             if parsed.scheme != "https" or parsed.hostname not in {"cdn.discordapp.com", "media.discordapp.net"}:
                 continue
@@ -219,6 +224,9 @@ def readback_discord_post(
         if guild_id and channel_id
         else None
     )
+    if public_url is None and channel_id == "1519311669216673802":
+        from live_contentops.published_content_v1 import DISCORD_LINK_PREFIX
+        public_url = DISCORD_LINK_PREFIX + str(message_id)
     return {
         "status": "SUCCESS" if verified else "FAILED_DISCORD_STRICT_READBACK",
         "verified": verified,

@@ -1,0 +1,27 @@
+{
+  "tool_request_sha256": "7f5d3818b105f8baebab1b2c1fa56d8d39c45b3a85e2696529a3600f130e29af",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observation_source": "Actual Neo publish on exact draft 224141856, email checkbox false, Publish on web only confirmation, then observed same-tab share-center; no code prompt or mailbox opened",
+    "observed_at_utc": "2026-11-09T12:18:24.670944+00:00"
+  },
+  "result": {
+    "request_sha256": "3e999184131ebd019682f49857c3f88840f72d593827b572210a109704bd790f",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "224141856",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar",
+    "content_verified": true,
+    "public_write_performed": true,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "Neo page25 final visible checkbox false, Publish on web only, same-tab /publish/posts/detail/224141856/share-center"
+    },
+    "observed_media_sha256": [
+      "1badc076e1605a49c0f2ba5af43f1ee6062b129379dad6f98349e7a47523b393"
+    ]
+  }
+}

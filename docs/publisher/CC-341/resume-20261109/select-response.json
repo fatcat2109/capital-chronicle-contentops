@@ -1,0 +1,36 @@
+{
+  "request_sha256": "183423fa1d3bf9c8b4ca685690f10072c013b813a426c0d2343adac40a6fd320",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "The tension between renewed Hormuz attacks and active diplomacy shapes the Monday open before CPI; Nvidia adds to equity stress. Preserve the supplied public weekend-wrap draft with the authorized R2 additions.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-73e5bc769d33f80c2354573a",
+        "evidence_plan": "Use the existing RetainedSourceResearch records cc341-weekend-wrap-20261109 (supporting candidate simple-story-7648e1a7919e58d4651259fd; original report SHA256 eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb) and cc341-weekend-wrap-r2-scenarios-20261109 (R2 SHA256 edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e). Both are admitted with zero gaps. Request no additional sources. Preserve original public-ready wording except required notices, R2 section 5 Scenarios replacement, and section 6 Nvidia paragraph after the complete Three other stories mattered paragraph. The retained opened CNBC page supports attributed Nvidia wording. Exact source spans and all six-market confirmation/invalidation bindings, including USDJPY escalation, are in resume-20261109/light-preparation.json. Copy the authorized 55/25/20 Capital Chronicle model estimates through Friday 13 November; do not generate proprietary probabilities or substitute CPI bins. Fresh USOIL TradingView image through existing CC-316 binding, article.market_asset USOIL; no internal tables, broker/account details or invented reopen levels. Time-sensitive news short path; same MAX writer owns article/social prose. Dateline Sunday evening ET until 05:00Z, Monday morning ET after.",
+        "primary_reader_question": "How do the weekend attacks, active Iran talks and Nvidia news change the risks markets carry into Monday and the CPI week?",
+        "research_queries": [
+          "Hormuz tanker attacks Trump Iran talks November 8 2026 weekend markets",
+          "Nvidia board independent investigation Jensen Huang November 8 2026"
+        ],
+        "selection_rationale": "One coherent, time-sensitive weekend news article explicitly requested in CC-341 decision 98. Existing admitted original and R2 records resolve the source route and complete the authorized additions. R2 and the original draft are supporting records for the same article, never two publication candidates."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one combined CC-341 weekend-wrap article from R2 plus the supporting original public-ready draft. Use admitted retained sources without additional source requests. Exclude unrelated candidates and avoid duplicating the original draft as a second article.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/cc341_light",
+    "observation_source": "Canonical collaboration native context /root/cc341_light and this actual assigned select task",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "supported spawn arguments"
+  }
+}

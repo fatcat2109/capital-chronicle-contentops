@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-11-08T18:53:29.965869+00:00",
+  "preparation_checks": "PASS",
+  "original_paragraphs_preserved": 9,
+  "source_consumer": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\contentops_source_research_v1.py",
+  "source_consumer_read": "PASS",
+  "snapshot_and_integrated_bytes": "PASS",
+  "publication_time_snapshot_freshness": "STALE_REFRESH_THROUGH_MEDIA_OWNER_BEFORE_PUBLICATION",
+  "actual_remaining_requirement": "SCENARIO_PROBABILITY_REQUIRED",
+  "reason": "JIM_DECISION_93",
+  "three_geopolitical_probabilities": [
+    null,
+    null,
+    null
+  ],
+  "publication_acceptance_passed": false,
+  "public_write_performed": false,
+  "editorial_artifact_sha256": "6705b42b0cd8880824f2bb36b8234b434cffd8ae61d6dbc092ca6e26d9643fac",
+  "prepared_body_sha256": "9bea834264dc2035560aa79d04c147f1389319b700b1fedccfdbd438df91acf9"
+}

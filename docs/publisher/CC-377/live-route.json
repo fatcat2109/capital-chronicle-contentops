@@ -1,0 +1,23 @@
+{
+  "item": "CC-143",
+  "route_state": "NATIVE_REQUEST_READY",
+  "state": "NATIVE_NEO_TOOL_PENDING",
+  "due_at_gmt7": "2026-11-09T19:00:00+07:00",
+  "due_at_utc": "2026-11-09T12:00:00+00:00",
+  "digest_id": "cc143-digest-2026-11-09",
+  "confirmed": null,
+  "web_confirmed": null,
+  "email_confirmed": null,
+  "public_object_id": null,
+  "public_object_url": null,
+  "next_request": {
+    "action": "VERIFY_IDENTITY",
+    "destination": "substack",
+    "request_sha256": "54c6c0dd9aed44569d74b1cad012f3914a1dc1417b1862234609d2ada38b28b7",
+    "tool_request_sha256": "5b87edff0f40bbc0e566ce499f8970e90b4a2f87de8efed54dd936eb48ff9a9d",
+    "public_write_authorized": false
+  },
+  "articles": 1,
+  "native_invocation_id": "codex-exec:cc377:pid22496:20261109T154307Z",
+  "public_write_performed": false
+}

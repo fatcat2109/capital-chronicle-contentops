@@ -1,0 +1,44 @@
+[
+  {
+    "index": 0,
+    "destination": "x",
+    "action": "READBACK",
+    "request_sha256": "772f231eb4f44929e7dc142d2d9c3b0b968fd9d48e3435da5b532f7369977fb9",
+    "url": "https://x.com/Capitalnicle/status/2118656322845769835"
+  },
+  {
+    "index": 1,
+    "destination": "youtube",
+    "action": "READBACK",
+    "request_sha256": "6099852915ffef7b4866c87f8401558d95b0390a3e73c8fdf482e690d9b684f0",
+    "url": "https://www.youtube.com/post/Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2"
+  },
+  {
+    "index": 2,
+    "destination": "linkedin",
+    "action": "READBACK",
+    "request_sha256": "18ce68ac12f5e13db7f434a66cef543132a8b997aeddd0dc9fc53e3eac1f217e",
+    "url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425263653392384/"
+  },
+  {
+    "index": 3,
+    "destination": "linkedin_company",
+    "action": "READBACK",
+    "request_sha256": "66b1fb434735fcc3106454f3c332b562afb4e75616b6786f124895f0d4806bb0",
+    "url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425901736964096/"
+  },
+  {
+    "index": 4,
+    "destination": "x",
+    "action": "READBACK",
+    "request_sha256": "fb93c13185055791b964db36d04cea950779416dc3cb8e97beb07c3c6284169c",
+    "url": "https://x.com/Capitalnicle/status/2118656322845769835"
+  },
+  {
+    "index": 5,
+    "destination": "youtube",
+    "action": "READBACK",
+    "request_sha256": "b653b8d8c7a255d4474c33a934c4458869371d9bb03251696323cb42e38c22dc",
+    "url": "https://www.youtube.com/post/Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2"
+  }
+]

@@ -34,6 +34,8 @@ STATE_DEFICIT_RECOVERABLE = "DEFICIT_RECOVERABLE"
 STATE_FLOOR_MET = "FLOOR_MET"
 STATE_DEGRADED_DAILY_OUTPUT_DEFICIT = "DEGRADED_DAILY_OUTPUT_DEFICIT"
 STATE_HARD_EXTERNAL_BLOCK = "HARD_EXTERNAL_BLOCK"
+STATE_WITHIN_ARTICLE_CAP = "WITHIN_DAILY_ARTICLE_CAP"
+STATE_ARTICLE_CAP_REACHED = "DAILY_ARTICLE_CAP_REACHED"
 
 PRODUCTION_DAY_STATES = frozenset(
     {
@@ -42,6 +44,8 @@ PRODUCTION_DAY_STATES = frozenset(
         STATE_FLOOR_MET,
         STATE_DEGRADED_DAILY_OUTPUT_DEFICIT,
         STATE_HARD_EXTERNAL_BLOCK,
+        STATE_WITHIN_ARTICLE_CAP,
+        STATE_ARTICLE_CAP_REACHED,
     }
 )
 
@@ -585,6 +589,13 @@ def build_production_day_snapshot(
     day_id = newsroom_production_day_id(reference)
     from live_contentops.native_newsroom_volume_v1 import volume_policy
     target_min = 8 if volume_policy(reference) else FINAL_PUBLISHED_TARGET_MIN
+    from live_contentops.article_publication_quality_v1 import EFFECTIVE_FROM
+    decision_93 = _parse_datetime(reference) >= EFFECTIVE_FROM
+    if decision_93:
+        # Decision 93 sets a ceiling, not a quota or a reason to create filler.
+        target_min = 0
+    from live_contentops.published_images_v1 import daily_limit
+    target_max = daily_limit(reference) if decision_93 else FINAL_PUBLISHED_TARGET_MAX
     qualified = len(
         load_qualified_article_records(output_root, production_day_id=day_id)
     )
@@ -605,7 +616,10 @@ def build_production_day_snapshot(
     deficit = max(0, BUILD_QUALIFIED_FLOOR - qualified)
     published_deficit = max(0, target_min - published)
     reason = str(hard_external_block_reason or "").strip() or None
-    if published_deficit == 0:
+    if decision_93:
+        state = (STATE_ARTICLE_CAP_REACHED if published >= target_max else
+                 STATE_HARD_EXTERNAL_BLOCK if reason else STATE_WITHIN_ARTICLE_CAP)
+    elif published_deficit == 0:
         state = STATE_FLOOR_MET
         reason = None
     elif reason:
@@ -620,7 +634,7 @@ def build_production_day_snapshot(
         newsroom_production_day_id=day_id,
         build_qualified_floor=BUILD_QUALIFIED_FLOOR,
         final_published_target_min=target_min,
-        final_published_target_max=FINAL_PUBLISHED_TARGET_MAX,
+        final_published_target_max=target_max,
         qualified_articles_today=qualified,
         published_articles_today=published,
         remaining_build_deficit=deficit,

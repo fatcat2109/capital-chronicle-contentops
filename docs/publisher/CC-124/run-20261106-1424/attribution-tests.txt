@@ -1,0 +1,39 @@
+...........................F....................................         [100%]
+================================== FAILURES ===================================
+__ test_unconfirmed_native_preview_uses_complete_conditional_watch_sentences __
+
+    def test_unconfirmed_native_preview_uses_complete_conditional_watch_sentences():
+        state = _state()
+        article = {
+            "title": "A relayed leadership transition report",
+            "dek": f"{state['reader_visible_epistemic_label']}: a transition is reported.",
+            "social_hook": f"{state['reader_visible_epistemic_label']}: a transition is reported.",
+            "substack_body_markdown": (
+                "The relay quotes a long sentence, as the letter reportedly states, "
+                '"This is a moment I always knew would come one day, and yet it is still hard '
+                'to believe it has arrived and I am writing". If confirmed, readers should '
+                "wait for official details. [[SOURCE:SOURCE_1]]"
+            ),
+        }
+    
+        bundle, intents = _native_preview_bundle(
+            article=article,
+            article_mode="BREAKING_BRIEF",
+            article_identity="f" * 64,
+            epistemic_state=state,
+        )
+    
+        x_metrics = bundle["packages"]["x"]["quality_metrics"]
+        assert x_metrics["sentence_boundary_pass"] is True
+        assert x_metrics["orphan_fragment_count"] == 0
+>       assert bundle["packages"]["x"]["reply_texts"][-1].endswith(
+            "Watch: Independent confirmation or denial is the next watch point."
+        )
+E       AssertionError: assert False
+E        +  where False = <built-in method endswith of str object at 0x000001B3FD17F480>('Watch: Independent confirmation or denial is the next watch point.')
+E        +    where <built-in method endswith of str object at 0x000001B3FD17F480> = 'Analysis, not financial advice.\n\nCapital Chronicle may hold positions in the markets it covers.'.endswith
+
+tests\test_v1_simple_epistemic_state_v1.py:481: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_v1_simple_epistemic_state_v1.py::test_unconfirmed_native_preview_uses_complete_conditional_watch_sentences
+1 failed, 63 passed in 7.22s

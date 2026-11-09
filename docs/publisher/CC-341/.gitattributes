@@ -1,0 +1,5 @@
+*.md -text
+*.json -text
+*.txt -text
+*.py text eol=lf
+*.png binary

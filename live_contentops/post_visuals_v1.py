@@ -144,15 +144,28 @@ def _render_card(packet, path, mini_chart=None):
     from live_contentops.fact_card_design_v1 import CardSpec, INSTAGRAM_SIZE, key_from_facts, render_fact_card
     display = packet.get("editorial_display") or {}
     labels = display.get("fact_labels") or []
-    facts = [(labels[i] if i < len(labels) else "Reported fact", fact["text"])
+    facts = [(labels[i] if i < len(labels) else
+              "From the dated review" if fact.get("rights_class") == "capital_chronicle_own_report" else "Reported fact",
+              re.sub(r"\*\*([^*]+)\*\*", r"\1", fact["text"]))
         for i, fact in enumerate(packet["facts"])]
     publishers = list(dict.fromkeys(fact["publisher"] for fact in packet["facts"]))
     key_label, key_value = ("", "") if mini_chart else key_from_facts(facts)
     if display:
         key_label, key_value = display["key_label"], display["key_value"]
+    if all(fact.get("rights_class") == "capital_chronicle_own_report" for fact in packet["facts"]):
+        from live_contentops.fact_card_design_v1 import full_number_text, main_review_figure
+        # Display formatting only: the packet retains the admitted source words.
+        # A Main review leads with its count, rather than a period or compact suffix.
+        figure_label, figure_value = main_review_figure(facts)
+        if figure_value:
+            key_label, key_value = figure_label, full_number_text(figure_value)
+        else:
+            key_value = full_number_text(key_value)
+        facts = [(label, full_number_text(text)) for label, text in facts]
     spec = CardSpec(title=display.get("title") or packet.get("title") or "Key facts", facts=facts,
         kicker=display.get("kicker") or " · ".join(publishers),
-        key_label=key_label, key_value=key_value, source_line="Source: " + ", ".join(publishers),
+        key_label=key_label, key_value=key_value,
+        source_line=packet.get("source_line") or "Source: " + ", ".join(publishers),
         dated_line=packet.get("dated_line") or "Capital Chronicle", image_path=str(mini_chart or ""),
         chart=packet.get("series_asset") if mini_chart else None)  # CC-290: drawn for its slot, legible
     result = render_fact_card(path, spec, size=INSTAGRAM_SIZE)
@@ -232,7 +245,16 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
     # The design, title and piece date are part of the packet, so a new render never
     # reuses the path of a card already sent in the older layout.
     packet = {"policy": POLICY, "facts": facts, "design": DESIGN,
+              "text_presentation": "PLAIN_EMPHASIS_AND_DATED_REVIEW_ATTRIBUTION_V1",
               "title": str(article.get("title") or "Key facts"), "dated_line": piece_dated_line(article)}
+    if all(f["rights_class"] == "capital_chronicle_own_report" for f in facts):
+        packet["text_presentation"] = "CC333_MAIN_REVIEW_FULL_FIGURE_V1"
+        from live_contentops.public_time_v1 import public_date
+        source_ids = {f["document_id"] for f in facts}
+        dates = {public_date(d["published_at_utc"]) for d in documents
+                 if d.get("document_id") in source_ids and d.get("published_at_utc")}
+        if len(dates) == 1:
+            packet["source_line"] = "Source: Capital Chronicle review, " + dates.pop() + " (ET)."
     display = (article.get("visual_editorial_decision") or {}).get("post_data_card_plan") or {}
     if display and [f.get("text") for f in display.get("facts", [])] == [f["text"] for f in facts]:
         packet["editorial_display"] = {k: str(display.get(k) or "") for k in (

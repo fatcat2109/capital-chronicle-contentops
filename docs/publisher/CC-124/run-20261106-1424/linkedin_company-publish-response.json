@@ -1,0 +1,44 @@
+{
+  "tool_request_sha256": "648481052551335e29038a41487b5469ea3df86750464faca73cfe6dc8055aa4",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo page 691 in company 143198922 admin; composer Capital Chronicle Post to Anyone, full pre-click copy matched with whitespace normalization and own 1080x1350 card loaded. Post clicked once; Post successful and new exact company activity item read immediately.",
+    "observed_at_utc": "2026-11-06T09:11:29.373Z",
+    "dispatched_at_utc": "2026-11-06T09:11:15.871Z"
+  },
+  "result": {
+    "request_sha256": "1489c6a83c8129e41daee315580e1f6191d141415a077eac4cd82e64608312e5",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "linkedin:company:143198922",
+    "public_object_id": "urn:li:activity:7524397996751572992",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524397996751572992/",
+    "published_at_utc": "2026-11-06T09:11:15.871Z",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "linkedin:company:143198922",
+      "observed_stable_id": "143198922",
+      "observed_at_utc": "2026-11-06T09:10:59.060Z"
+    },
+    "pre_click_posts": [
+      "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\n\n\n\nWhy it matters: Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold.\n\n\n\n\nContext: **WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\n\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital\n\n\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\n\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "linkedin:company:143198922",
+      "public_object_id": "urn:li:activity:7524397996751572992",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524397996751572992/",
+      "observed_text": "Feed post number 1\nCapital Chronicle\nCapital Chronicle\n0 followers\n0 followers\nnow • \n \nJust now • Visible to anyone on or off LinkedIn\nDATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nWhy it matters: Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold.\n\nContext: **WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nRead the full brief: https://lnkd.in/gPM5wpTj\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n…more\nLike\nComment\nRepost",
+      "content_verified": true,
+      "public_image_urls": [
+        "https://media.licdn.com/dms/image/v2/D5622AQG8zhD4RBSfwQ/feedshare-shrink_800/B56aGwIGz.HsAg-/0/1793956277737?e=1795651200&v=beta&t=3Fl82LnXJZHBT33wJ7fCSi4vaCRNMv8vCdYZS7qNNhY"
+      ],
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}

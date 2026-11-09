@@ -1,0 +1,91 @@
+{
+  "item": "CC-333",
+  "observed_at_utc": "2026-11-06T21:00:21.644651+00:00",
+  "builder_selections": [
+    {
+      "artifact": "cc316-final-policy-tests.xml",
+      "passed": 19,
+      "seconds": 9.145
+    },
+    {
+      "artifact": "cc314-capture-tests.xml",
+      "passed": 17,
+      "seconds": 19.292
+    },
+    {
+      "artifact": "reader-followup-final.xml",
+      "passed": 34,
+      "seconds": 10.9
+    },
+    {
+      "artifact": "image-scenario-cap-regressions.xml",
+      "passed": 48,
+      "seconds": 43.607
+    },
+    {
+      "artifact": "weekend-policy-tests.xml",
+      "passed": 5,
+      "seconds": 2.649
+    },
+    {
+      "artifact": "card245-et-final.xml",
+      "passed": 16,
+      "seconds": 4.57
+    },
+    {
+      "artifact": "card290-regressions.xml",
+      "passed": 40,
+      "seconds": 19.933
+    },
+    {
+      "artifact": "post-visual-consumer-tests.xml",
+      "passed": 51,
+      "seconds": 12.42
+    }
+  ],
+  "distinct_passing_builder_checks": 230,
+  "operating_root_selections": [
+    {
+      "artifact": "operating-consumer-tests.xml",
+      "passed": 60,
+      "seconds": 23.297
+    },
+    {
+      "artifact": "operating-final-snapshot-tests.xml",
+      "passed": 19,
+      "seconds": 8.466
+    }
+  ],
+  "operating_root_selections_overlap": true,
+  "full_suite_run": false,
+  "pytest_parallelism": 1,
+  "per_selection_timeout_seconds": 55,
+  "interruptions": [
+    {
+      "artifact": "cc316-merge-tests.txt",
+      "cause": "55-second selection timeout; superseded by separate passing article/capture selections"
+    },
+    {
+      "artifact": "card-design-regressions.txt",
+      "cause": "Turn/process ended before a full result; no pytest survived; superseded by separate passing card selections"
+    }
+  ],
+  "repaired_failures": [
+    "Delivery-only snapshot flags inherited from the merged branch; actual canonical selection retained",
+    "Older midnight-UTC card expectations corrected to ET while date-only periods stay date-only",
+    "Read-only evidence query used an absent table; replaced with the existing store reader",
+    "Scenario-bearing articles no longer require an optional policy label for the correct market lead"
+  ],
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "runtime_model_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "editorial_model_calls": 0,
+  "public_writes": 0,
+  "new_public_piece_readbacks": 0,
+  "required_public_piece_readbacks": 2,
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "native_desktop_control_used": false,
+  "first_cause": "JIM_DECISION_94_CC124_NOT_DUE",
+  "next_existing_run_gmt7": "7 Nov 2026 15:01 GMT+7"
+}

@@ -1,0 +1,55 @@
+{
+  "observed_at_utc": "2026-11-07T20:58:47.521053+00:00",
+  "status": "PASS",
+  "checks": {
+    "binding_bytes_unchanged": true,
+    "writer_request_bytes_unchanged": true,
+    "writer_return_absent": true,
+    "operation_dispatches_unchanged": true,
+    "no_active_newsroom_lease": true,
+    "inherited_wip_bytes_unchanged": true,
+    "all_retained_main_and_official_sources_verified": true,
+    "main_scenario_gap_observed_by_installed_consumer": true,
+    "latest_daily_main_report_unchanged": true,
+    "no_prior_publication_tool_request_resumed": true
+  },
+  "first_cause": "JIM_DECISION_93_MAIN_SCENARIOS_INCOMPLETE",
+  "classification": "SOURCE_BLOCKED",
+  "standing_item_end_status": "OPEN",
+  "occupied_article_slots": 0,
+  "production_date": "2026-11-08",
+  "article_cap": 1,
+  "source_adapter_revision": "78995d62efe3a0da6bf378cfd97c99b0a09a0f22055548789f22625251285e15",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_provenance": "CONFIGURED_NOT_OBSERVED",
+  "next_due_utc": "2026-11-08T08:53:00+00:00",
+  "next_due_gmt7": "8 Nov 2026 15:53 GMT+7",
+  "next_due_rule": "Decision 94: twelve hours after actual start, rounded up to next minute.",
+  "next_action": "Main supplies a dated post-release base case and alternative with explicit probabilities, confirmation, six-market implications and invalidation. Publisher consumes that version in the existing operation/source-review path.",
+  "next_actor": "Main report producer, then Codex Publisher",
+  "new_publications": 0,
+  "new_editorial_model_calls": 0,
+  "new_source_requests": 0,
+  "new_media": 0,
+  "new_destination_drafts": 0,
+  "pytest_processes_started": 0,
+  "runtime_code_changed": false,
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "desktop_control_used": false,
+  "inherited_wip_sha256": {
+    "exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "1cc4f6e6b95194d9093390cf5ccfd5c8f133fdfd016c6b463597fa17ed595483",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "adcf8f92d3dc38f8ece8a08cc363a0b6d0f8ecac2e711df2469b193a9c26b7cd"
+    },
+    "operating": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "58ed65ba9fa0dcab0ba90555ff67343c5f5e193fe5593e38319f6e8cd7765ca4"
+    }
+  }
+}

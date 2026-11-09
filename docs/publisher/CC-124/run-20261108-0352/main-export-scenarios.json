@@ -1,0 +1,830 @@
+{
+  "observed_at_utc": "2026-11-07T20:55:20.271089+00:00",
+  "consumer": "live_contentops.plan_status_posts_v1.read_export",
+  "scenarios": [
+    {
+      "pointer": "/status/plans/0/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T11:00:00Z",
+        "main_alternative": {
+          "market_move": "Discount-rate pressure: the FOMC hiking bias, the 4.95% 10y, sticky core PCE and an NFP risk event cap the rally at the 7720-7792 resistance where the 28 Oct FOMC reaction failed.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "9b99e1fdd8b580600f04cc6e708f2fdbd057c2dc9f76dc3d6d0050938498e816",
+        "source_result_hash": "d292ca5b4c4a292c2d54738f4c9ff28e37b767a7298f3ba4ba3439535f9a3698"
+      }
+    },
+    {
+      "pointer": "/status/plans/1/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T13:00:00Z",
+        "main_alternative": {
+          "market_move": "French fiscal stress and the fade of EUR's Asia gain keep the pair capped in its range.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "6cf4573b759953b32cffed610b35c39d5e842cfb0d9e2151ef93fb2c82fc017d",
+        "source_result_hash": "e7e50c1b5ef26c77519f22938539324f1b5565d6b2f65441904626a986a7b90a"
+      }
+    },
+    {
+      "pointer": "/status/plans/2/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-09T20:00:00Z",
+        "main_alternative": {
+          "market_move": "A weak payrolls print plus crowded EUR shorts squeeze EURUSD through 1.1305 and out of the range.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "a6f6a9654daadc1ec5145823d1990aa88ef1e55d46685f5bec9c14d5a4c793a4",
+        "source_result_hash": "08ee36b2b8e80ad5ce18a415256932e9034fe03e40fe2194d1403b793eb6746b"
+      }
+    },
+    {
+      "pointer": "/status/plans/3/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T13:00:00Z",
+        "main_alternative": {
+          "market_move": "A real-yield-unanchored spike reverting on a USD rebound: real yields are flat to higher and speculators are crowded long.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "6cf4573b759953b32cffed610b35c39d5e842cfb0d9e2151ef93fb2c82fc017d",
+        "source_result_hash": "e7e50c1b5ef26c77519f22938539324f1b5565d6b2f65441904626a986a7b90a"
+      }
+    },
+    {
+      "pointer": "/status/plans/4/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "a dip into the 89.95-90.12 floor holds and WTI revisits higher levels before 13:15Z.",
+          "probability_pct": 55.0
+        },
+        "horizon_end_utc": "2026-11-06T13:15:00Z",
+        "main_alternative": {
+          "market_move": "Peace negotiations and strait-clearance statements re-price the risk premium lower, as on Nov 2-4.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "88436fda8844dc72fece7462ed602dcaea75a2e78ee9f30669cbef40e4c4295b",
+        "source_result_hash": "d6c24e50fdc3c94991433538ed9d2eacace8f8474f2f221ec6845bbaeea6fcc5"
+      }
+    },
+    {
+      "pointer": "/status/plans/5/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "the Asia/Europe USD bid holds through the London morning, a retest of the broken Asia floor is sold, and EURUSD trades to the lower levels before 13:15Z.",
+          "probability_pct": 60.0
+        },
+        "horizon_end_utc": "2026-11-06T13:15:00Z",
+        "main_alternative": {
+          "market_move": "Pre-NFP squaring of crowded EUR shorts plus the USD-negative 5 Nov rate move produce a snap-back above 1.1204.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "88436fda8844dc72fece7462ed602dcaea75a2e78ee9f30669cbef40e4c4295b",
+        "source_result_hash": "d6c24e50fdc3c94991433538ed9d2eacace8f8474f2f221ec6845bbaeea6fcc5"
+      }
+    },
+    {
+      "pointer": "/status/plans/6/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "a rebound stalls under the broken 7466-7546 band of D1 lows and US500 revisits lower levels; below the 65 percent bar, so STARTER.",
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:30:00Z",
+        "main_alternative": {
+          "market_move": "A capitulation and short-covering rally (crowded e-mini short, extreme z-scores) helped by lower yields and a soft NFP.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "3a00b180f7a56ac399e5dc9a79152df7ec603210c72d0ac7aaebaf234ccb8231",
+        "source_result_hash": "47af85a6d810cd090db77984897bc74ff2993b7c4a7784788d6e1fd7db69e9c5"
+      }
+    },
+    {
+      "pointer": "/status/plans/7/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T11:00:00Z",
+        "main_alternative": {
+          "market_move": "A crypto-specific downtrend and deleveraging since 21 Oct , with the 29 Oct post-FOMC breakdown. Relief rallies fail below 81.7k-81.9k and BTC rolls back into the 75.6k-78.8k range.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "9b99e1fdd8b580600f04cc6e708f2fdbd057c2dc9f76dc3d6d0050938498e816",
+        "source_result_hash": "d292ca5b4c4a292c2d54738f4c9ff28e37b767a7298f3ba4ba3439535f9a3698"
+      }
+    },
+    {
+      "pointer": "/status/plans/8/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-12T20:00:00Z",
+        "main_alternative": {
+          "market_move": "US exceptionalism: hot activity and inflation , a Fed that hiked in September and a strong 6 Nov payroll print revive USD demand. The 4 Nov US-session buyback from 1.1273 to 1.1213 is an early sign, and the August-October downtrend resumes.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "3f19d5c971c9c5f4c8880852b9d4315583314d5dabaf6b46465044cefe62b817",
+        "source_result_hash": "31c5ae0d0991fb9b254d2f1d164c7dbe3ff2b621f5c8b207cad206e9399e4e5e"
+      }
+    },
+    {
+      "pointer": "/status/plans/9/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:45:00Z",
+        "main_alternative": {
+          "market_move": "Capitulation after hedge monetization: a sharp reflex rally that reclaims 28100, helped by short covering and a benign payrolls print.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "a6f6a9654daadc1ec5145823d1990aa88ef1e55d46685f5bec9c14d5a4c793a4",
+        "source_result_hash": "08ee36b2b8e80ad5ce18a415256932e9034fe03e40fe2194d1403b793eb6746b"
+      }
+    },
+    {
+      "pointer": "/status/plans/10/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "gold stays below 4109 and trades to lower levels within the horizon; below the 65 percent bar, so STARTER.",
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:30:00Z",
+        "main_alternative": {
+          "market_move": "Lower real yields and fading hike odds after a soft NFP, plus haven demand in a deeper equity rout.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "3a00b180f7a56ac399e5dc9a79152df7ec603210c72d0ac7aaebaf234ccb8231",
+        "source_result_hash": "47af85a6d810cd090db77984897bc74ff2993b7c4a7784788d6e1fd7db69e9c5"
+      }
+    },
+    {
+      "pointer": "/status/plans/11/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:45:00Z",
+        "main_alternative": {
+          "market_move": "Risk-asset liquidation: with a 0.69 correlation to US500 and a crowded speculative long, a deeper equity flush or a strong payrolls print forces gold back below 4024 into its daily downtrend.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "a6f6a9654daadc1ec5145823d1990aa88ef1e55d46685f5bec9c14d5a4c793a4",
+        "source_result_hash": "08ee36b2b8e80ad5ce18a415256932e9034fe03e40fe2194d1403b793eb6746b"
+      }
+    },
+    {
+      "pointer": "/status/plans/12/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-17T20:00:00Z",
+        "main_alternative": {
+          "market_move": "Tech and semiconductor de-rating caps the cap-weighted index even if the Dow rises, on top of the same payrolls and Fed-tightening fade risk.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "b0f71d2be43030e0bc193ce1e3f97c1a77b65cea3f7558a8507887e5cc0a563e",
+        "source_result_hash": "3d8e3d915bd56a5f784b2f40a6ed0ae32d4f8aeb7c91491b88b2a15d60f3387f"
+      }
+    },
+    {
+      "pointer": "/status/plans/13/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T13:00:00Z",
+        "main_alternative": {
+          "market_move": "Risk-on carry demand for USDJPY, observed on 4 Nov when the pair fully recovered the election drop while DXY stayed lower; JGB yields falling with oil narrow the differential less.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "5e3c1935a6a14a95cdbbca569ee41a367eaf98b02e2bd2dd792facbd253e1c55",
+        "source_result_hash": "9bb114546e51c404a6e351ecdd22918b7e2d14d701715f418aae93d92cf70c26"
+      }
+    },
+    {
+      "pointer": "/status/plans/14/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-08T20:00:00Z",
+        "main_alternative": {
+          "market_move": "Range-floor buying and a weaker USD after payrolls lift BTC through 81125.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "a6f6a9654daadc1ec5145823d1990aa88ef1e55d46685f5bec9c14d5a4c793a4",
+        "source_result_hash": "08ee36b2b8e80ad5ce18a415256932e9034fe03e40fe2194d1403b793eb6746b"
+      }
+    },
+    {
+      "pointer": "/status/plans/15/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "about 55-60% that the US-leg USD weakness resumes after the European-open bounce and EURUSD trades from the shelf through its five-week range top toward 1.13000.",
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-09T20:00:00Z",
+        "main_alternative": {
+          "market_move": "EUR-specific stress (French budget and OAT yields, French IP miss) plus the 07:15Z USD bid and a payrolls-driven Fed-hike repricing push EURUSD through 1.1213 back into its August-October downtrend .",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "ea12b9b10bbc0dd2c03029e0083f0a3eb7ed14346bd25dd081936083f5642536",
+        "source_result_hash": "3631b38fce0f52cbe148cff84c74837bdfed09809f40d096ef0d4d19379d58a9"
+      }
+    },
+    {
+      "pointer": "/status/plans/16/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-17T20:00:00Z",
+        "main_alternative": {
+          "market_move": "A liquidation-driven downtrend with falls of about 5% on 14, 22 and 30 Oct can resume on any USD rebound; the 8% oil fall signals weaker commodity demand that can weigh on industrial metals.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "b0f71d2be43030e0bc193ce1e3f97c1a77b65cea3f7558a8507887e5cc0a563e",
+        "source_result_hash": "3d8e3d915bd56a5f784b2f40a6ed0ae32d4f8aeb7c91491b88b2a15d60f3387f"
+      }
+    },
+    {
+      "pointer": "/status/plans/18/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T11:00:00Z",
+        "main_alternative": {
+          "market_move": "Trend continuation lower: silver is about 2 SD below its 50- and 200-day means, and the 29 Oct breakdown zone supplies sellers. The range resolves down once the USD impulse fades.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "9b99e1fdd8b580600f04cc6e708f2fdbd057c2dc9f76dc3d6d0050938498e816",
+        "source_result_hash": "d292ca5b4c4a292c2d54738f4c9ff28e37b767a7298f3ba4ba3439535f9a3698"
+      }
+    },
+    {
+      "pointer": "/status/plans/19/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-11T20:00:00Z",
+        "main_alternative": {
+          "market_move": "Real-yield channel: lower oil cuts breakevens faster than nominal yields, so real yields hold or rise . Combined with less safe-haven demand on peace hopes and no ETF inflow, the rally stalls under 4142 and retraces once the USD squeeze ends.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "3f19d5c971c9c5f4c8880852b9d4315583314d5dabaf6b46465044cefe62b817",
+        "source_result_hash": "31c5ae0d0991fb9b254d2f1d164c7dbe3ff2b621f5c8b207cad206e9399e4e5e"
+      }
+    },
+    {
+      "pointer": "/status/plans/21/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T13:00:00Z",
+        "main_alternative": {
+          "market_move": "Mean reversion after an 8.8% two-day move, without real-yield support.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "6cf4573b759953b32cffed610b35c39d5e842cfb0d9e2151ef93fb2c82fc017d",
+        "source_result_hash": "e7e50c1b5ef26c77519f22938539324f1b5565d6b2f65441904626a986a7b90a"
+      }
+    },
+    {
+      "pointer": "/status/plans/22/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-11T20:00:00Z",
+        "main_alternative": {
+          "market_move": "A lower-high downtrend resumes as the risk-on squeeze fades, and crypto-specific deleveraging or funding pressure, unobserved here, pulls ETH back toward 2250-2320.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "3f19d5c971c9c5f4c8880852b9d4315583314d5dabaf6b46465044cefe62b817",
+        "source_result_hash": "31c5ae0d0991fb9b254d2f1d164c7dbe3ff2b621f5c8b207cad206e9399e4e5e"
+      }
+    },
+    {
+      "pointer": "/status/plans/23/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-17T20:00:00Z",
+        "main_alternative": {
+          "market_move": "High and rising real yields , which an oil-led fall in breakevens can push higher; an unwinding war-haven premium; a crowded speculative long with falling GLD holdings that liquidates into any USD rebound after payrolls.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "b0f71d2be43030e0bc193ce1e3f97c1a77b65cea3f7558a8507887e5cc0a563e",
+        "source_result_hash": "3d8e3d915bd56a5f784b2f40a6ed0ae32d4f8aeb7c91491b88b2a15d60f3387f"
+      }
+    },
+    {
+      "pointer": "/status/plans/24/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-17T20:00:00Z",
+        "main_alternative": {
+          "market_move": "The late-October 79,120-81,900 range broke down on 29 Oct and is overhead supply; a Democratic Congress may slow crypto-friendly legislation (hypothesis, no pack evidence); CME speculative net long is small , so little short-covering fuel; the cost reserve is heavy.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "b0f71d2be43030e0bc193ce1e3f97c1a77b65cea3f7558a8507887e5cc0a563e",
+        "source_result_hash": "3d8e3d915bd56a5f784b2f40a6ed0ae32d4f8aeb7c91491b88b2a15d60f3387f"
+      }
+    },
+    {
+      "pointer": "/status/plans/25/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "about 55-60% that the Iran war premium keeps unwinding after the midterm result and de-escalation diplomacy, so a bounce into the 88.17-88.45 post-crash shelf fails and WTI revisits the 85.27-85.44 pre-escalation breakout area ; the Critical calls this generous.",
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:30:00Z",
+        "main_alternative": {
+          "market_move": "Oversold mean reversion or a re-escalation headline restores part of the premium; lower crude buffers recorded in October cap the downside.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "ea12b9b10bbc0dd2c03029e0083f0a3eb7ed14346bd25dd081936083f5642536",
+        "source_result_hash": "3631b38fce0f52cbe148cff84c74837bdfed09809f40d096ef0d4d19379d58a9"
+      }
+    },
+    {
+      "pointer": "/status/plans/26/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "a bounce into the 87.40-87.90 shelf is sold and WTI reaches lower levels before 6 Nov 13:00Z.",
+          "probability_pct": 55.0
+        },
+        "horizon_end_utc": "2026-11-06T13:00:00Z",
+        "main_alternative": {
+          "market_move": "Escalation in Hormuz (IRGC tanker and mine claims, a rejected reopening plan) and short covering from a -3.2 sd stretch after -15% in four sessions.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "5e3c1935a6a14a95cdbbca569ee41a367eaf98b02e2bd2dd792facbd253e1c55",
+        "source_result_hash": "9bb114546e51c404a6e351ecdd22918b7e2d14d701715f418aae93d92cf70c26"
+      }
+    },
+    {
+      "pointer": "/status/plans/27/scenario_analysis",
+      "value": null
+    },
+    {
+      "pointer": "/status/plans/28/scenario_analysis",
+      "value": null
+    },
+    {
+      "pointer": "/status/plans/29/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "about 55% that a failed bounce into 597-604 reaches lower levels before 612.50 within 4 sessions, against a worst-edge breakeven of about 39%.",
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-10T20:45:00Z",
+        "main_alternative": {
+          "market_move": "An Iranian strike or Israeli escalation re-bids defense names ; separately, an oversold rebound after a 7% drop with ATR at the 93rd percentile.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "c5685e444df6643fddbb7e4f2008b8eae1a4e980f3334e5eb6d75fa858acc70a",
+        "source_result_hash": "6349246dc9147fa1dd7fe18ca4f4bb4698cd6dbfe760a9322721648648964d68"
+      }
+    },
+    {
+      "pointer": "/status/plans/30/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:30:00Z",
+        "main_alternative": {
+          "market_move": "Forced selling is exhausted; short covering after the worst four-day drop since COVID lifts WTI through 93.7.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "a6f6a9654daadc1ec5145823d1990aa88ef1e55d46685f5bec9c14d5a4c793a4",
+        "source_result_hash": "08ee36b2b8e80ad5ce18a415256932e9034fe03e40fe2194d1403b793eb6746b"
+      }
+    },
+    {
+      "pointer": "/status/plans/31/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "after a fall from 102.053 to 86.59 , WTI holds the 4 Nov low and rebounds toward the 92.91 breakdown shelf .",
+          "probability_pct": 60.0
+        },
+        "horizon_end_utc": "2026-11-06T20:30:00Z",
+        "main_alternative": {
+          "market_move": "Risk-off demand destruction plus a possible US-Iran deal removes the premium, and the slide resumes below 86.59.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "0d225000277257b1697a984bc2c6e37211eed9256bc5070f9a731e8b48934469",
+        "source_result_hash": "f274fe87b389da2b0b7e4debb5e4218bbd6fea99ad46ac5b902bf1ba3a968cc8"
+      }
+    },
+    {
+      "pointer": "/status/plans/32/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "AUDUSD stays below 0.69550 and trades to lower levels within the horizon; below the 65 percent full-size bar, so STARTER under Jim's decision 55.",
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:30:00Z",
+        "main_alternative": {
+          "market_move": "Post-crash equity relief plus a soft NFP weakening the USD, squeezing AUD from a 2.5-month support.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "3a00b180f7a56ac399e5dc9a79152df7ec603210c72d0ac7aaebaf234ccb8231",
+        "source_result_hash": "47af85a6d810cd090db77984897bc74ff2993b7c4a7784788d6e1fd7db69e9c5"
+      }
+    },
+    {
+      "pointer": "/status/plans/33/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "USTEC is the centre of a session-built liquidation, and a reflex rally into the 15:00-15:30Z breakdown shelf fails and retests the 26,628.40 low.",
+          "probability_pct": 57.0
+        },
+        "horizon_end_utc": "2026-11-06T20:45:00Z",
+        "main_alternative": {
+          "market_move": "Capitulation and short-covering: a VIX spike of this size plus net-short E-mini positioning produce a reflex rally that carries through 27,484 and holds.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "0d225000277257b1697a984bc2c6e37211eed9256bc5070f9a731e8b48934469",
+        "source_result_hash": "f274fe87b389da2b0b7e4debb5e4218bbd6fea99ad46ac5b902bf1ba3a968cc8"
+      }
+    },
+    {
+      "pointer": "/status/plans/34/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "the 4118-4127 M15 shelf holds and gold extends toward the 4170-4200 mid-October zone before payrolls.",
+          "probability_pct": 60.0
+        },
+        "horizon_end_utc": "2026-11-06T13:00:00Z",
+        "main_alternative": {
+          "market_move": "Short covering in a longer downtrend that retraces once the hot inflation backdrop and a still-priced December hike reassert into payrolls; ETF holdings were still falling into 3 Nov.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "5e3c1935a6a14a95cdbbca569ee41a367eaf98b02e2bd2dd792facbd253e1c55",
+        "source_result_hash": "9bb114546e51c404a6e351ecdd22918b7e2d14d701715f418aae93d92cf70c26"
+      }
+    },
+    {
+      "pointer": "/status/plans/35/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:30:00Z",
+        "main_alternative": {
+          "market_move": "Deleveraging from crowded net-long positioning without ETF inflows extends the flush below 4,029, in line with the D1 downtrend since August.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "0d225000277257b1697a984bc2c6e37211eed9256bc5070f9a731e8b48934469",
+        "source_result_hash": "f274fe87b389da2b0b7e4debb5e4218bbd6fea99ad46ac5b902bf1ba3a968cc8"
+      }
+    },
+    {
+      "pointer": "/status/plans/36/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T11:00:00Z",
+        "main_alternative": {
+          "market_move": "A rates and policy rebound: the FOMC hiking bias plus strong data lift real yields and the USD into NFP, reversing a one-day relief move. Gold's medium-term downtrend and high real yields favour selling rallies into 4068-4083.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "9b99e1fdd8b580600f04cc6e708f2fdbd057c2dc9f76dc3d6d0050938498e816",
+        "source_result_hash": "d292ca5b4c4a292c2d54738f4c9ff28e37b767a7298f3ba4ba3439535f9a3698"
+      }
+    },
+    {
+      "pointer": "/status/plans/37/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T11:00:00Z",
+        "main_alternative": {
+          "market_move": "Headline reversal and physical tightness: a talks denial or Iran escalation restores the premium , supported by a fifth weekly US crude draw. A -8% day at -3.4 SD is prone to sharp short covering.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "9b99e1fdd8b580600f04cc6e708f2fdbd057c2dc9f76dc3d6d0050938498e816",
+        "source_result_hash": "d292ca5b4c4a292c2d54738f4c9ff28e37b767a7298f3ba4ba3439535f9a3698"
+      }
+    },
+    {
+      "pointer": "/status/plans/38/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "the deal-progress path dominates and a break of today's higher-low sequence carries WTI to lower levels within the horizon; below the 65 percent bar, so STARTER.",
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:30:00Z",
+        "main_alternative": {
+          "market_move": "Shipping attacks and transit risk near Hormuz extend the higher-low rebound above 95.30.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "3a00b180f7a56ac399e5dc9a79152df7ec603210c72d0ac7aaebaf234ccb8231",
+        "source_result_hash": "47af85a6d810cd090db77984897bc74ff2993b7c4a7784788d6e1fd7db69e9c5"
+      }
+    },
+    {
+      "pointer": "/status/plans/40/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-09T20:00:00Z",
+        "main_alternative": {
+          "market_move": "Exhaustion after forced short covering , inside a downtrend below the 50-day mean of 2505.96, with four hours of lower H1 highs.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "c5685e444df6643fddbb7e4f2008b8eae1a4e980f3334e5eb6d75fa858acc70a",
+        "source_result_hash": "6349246dc9147fa1dd7fe18ca4f4bb4698cd6dbfe760a9322721648648964d68"
+      }
+    },
+    {
+      "pointer": "/status/plans/41/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": "about 55-60% that GOLD holds above the 4100-4109 shelf and trades into the 4177.5-4199.1 mid-October resistance band before 2026-11-06T20:30Z; the Primary put it near 60% and the Critical treats that as an upper bound.",
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-06T20:30:00Z",
+        "main_alternative": {
+          "market_move": "A short-covering and positioning bounce inside a downtrend with crowded spec length and no ETF inflow, which fades once payrolls or a hawkish Fed repricing lifts yields; gold's 20-session DXY correlation of -0.12 means the USD leg may not carry it.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "ea12b9b10bbc0dd2c03029e0083f0a3eb7ed14346bd25dd081936083f5642536",
+        "source_result_hash": "3631b38fce0f52cbe148cff84c74837bdfed09809f40d096ef0d4d19379d58a9"
+      }
+    },
+    {
+      "pointer": "/status/plans/42/scenario_analysis",
+      "value": {
+        "base_case": {
+          "market_move": null,
+          "probability_pct": null
+        },
+        "horizon_end_utc": "2026-11-09T09:00:00Z",
+        "main_alternative": {
+          "market_move": "Post-midterm fiscal-risk or safe-haven demand, visible in the +127 move on 4 Nov, keeps gold bid regardless of the labor print; or a strong print read as growth-positive lifts risk assets, with gold's positive correlation to US500 cushioning it.",
+          "probability_pct": null
+        },
+        "missing_fields": [
+          "base_case.probability_pct",
+          "base_case.market_move",
+          "main_alternative.probability_pct"
+        ],
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "db7a64e21bf6043c61b9ea75d300db0b72f11002d11ae735637548eb7982304a",
+        "source_result_hash": "daf00053c7104ba104119e10b420e35d10fe7d0f9c2fed97b778fbe9f1c97bdd"
+      }
+    }
+  ]
+}

@@ -1,0 +1,552 @@
+{
+  "observed_at_utc": "2026-11-08T18:46:03.784363+00:00",
+  "searched_sources": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1000-dossier-gdp-pce-ecb-boj\\DOSSIER.md",
+      "sha256": "f637486a96e5d89fe66ddc20793910860491baa3915c1c4b9d8324200aac10ca",
+      "modified_at_utc": "2026-10-29T10:28:53.848728+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1000-dossier-gdp-pce-ecb-boj\\provider-readonly\\family-runtime\\c9784f347af75def\\source\\local-evidence\\work-packets\\w465-ecb-marginal-lending-history\\ECB_KEY_RATE_TABLE_NEO_20261006.md",
+      "sha256": "a3f83bd4a3e6916014f1895b82b3d15b758ec523ec58feecdd026c603dd09883",
+      "modified_at_utc": "2026-10-29T10:01:48.221335+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1000-dossier-gdp-pce-ecb-boj\\RESULT.md",
+      "sha256": "ea366273628fa4f436258b02333b37a896ff16f5b1a862689fbe889eccf89c27",
+      "modified_at_utc": "2026-10-29T10:30:44.556641+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1220-arrival-gdp-pce\\RESULT.md",
+      "sha256": "306c077a5e825db60f6b108de468ca9980c03a50846907a8bd964ad97f8936d8",
+      "modified_at_utc": "2026-10-29T12:38:36.770287+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1305-arrival-ecb\\provider-readonly\\family-runtime\\c9784f347af75def\\source\\local-evidence\\work-packets\\w465-ecb-marginal-lending-history\\ECB_KEY_RATE_TABLE_NEO_20261006.md",
+      "sha256": "a3f83bd4a3e6916014f1895b82b3d15b758ec523ec58feecdd026c603dd09883",
+      "modified_at_utc": "2026-10-29T13:06:02.529132+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1305-arrival-ecb\\RESULT.md",
+      "sha256": "2aa891330a9bac0357e8864dae58a77b067cc53f9f1c12673d7eb92e7c3fc4cd",
+      "modified_at_utc": "2026-10-29T13:25:00.855624+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261030-1000-dossier-eci\\DOSSIER.md",
+      "sha256": "ee4453937509c3f764d1eeb9121580edd17c51c27d9878e1ee53748843ebfa4d",
+      "modified_at_utc": "2026-10-30T10:24:37.241077+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261030-1000-dossier-eci\\RESULT.md",
+      "sha256": "e0e1f06c64dde2cc1f4d29cb4bb01a4bfa9d0f494b2bec8f6a5a1e0139f0e81d",
+      "modified_at_utc": "2026-10-30T10:25:42.659034+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261030-1220-arrival-eci\\RESULT.md",
+      "sha256": "4f733c82057386e23964006723f71bd9ad7f42e6046d6c20e370d48cf8cc6392",
+      "modified_at_utc": "2026-10-30T13:52:31.986637+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\DOSSIER.md",
+      "sha256": "959f0d26bf66d9d5097982d13545391d9cbad52ca9641991639ea4389cace300",
+      "modified_at_utc": "2026-11-02T23:33:37.202504+00:00",
+      "relevant_geopolitical_spans": 2,
+      "possible_probability_spans": [
+        {
+          "offset": 18344,
+          "line": 122
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\PREVIEW.md",
+      "sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+      "modified_at_utc": "2026-11-02T23:32:11.532279+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\RESULT.md",
+      "sha256": "74a1b7067b8af3b75e390dfa4869caf0680b5f47add0486e3b377b8121554937",
+      "modified_at_utc": "2026-11-02T23:35:01.266742+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+      "modified_at_utc": "2026-11-06T10:04:39.855570+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\RESULT.md",
+      "sha256": "d43516579a462db1fb73dcca477d9bad9e4b9ae374981dad759b7566a4d2aac1",
+      "modified_at_utc": "2026-11-06T10:04:51.205714+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+      "sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1",
+      "modified_at_utc": "2026-11-06T13:33:49.777350+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompt-snapshots\\cc-main-ev-20261106-0930-nfp-dossier-20261102T083915Z-18616-0e6e4d11\\cc-main-frontier-brain-4h-710b437a3f2c78f5b3209bf2a3077846018176dee66e55ab72bd06aeb784481a.md",
+      "sha256": "710b437a3f2c78f5b3209bf2a3077846018176dee66e55ab72bd06aeb784481a",
+      "modified_at_utc": "2026-11-02T08:39:15.840463+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompt-snapshots\\cc-main-ev-20261106-0930-nfp-dossier-20261102T083915Z-18616-0e6e4d11\\cc70ecba6a38ac817a6275cbc32e3b5d13f3c738770dbc30bb3b275a42c9d13d.md",
+      "sha256": "cc70ecba6a38ac817a6275cbc32e3b5d13f3c738770dbc30bb3b275a42c9d13d",
+      "modified_at_utc": "2026-11-02T08:39:15.800799+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompt-snapshots\\cc-main-ev-20261106-0930-nfp-dossier-20261106T093053Z-51724-568418f7\\b7b14d03805a9278196926681a9f1bdf9cc44cc2f6af7649d34164288bbbcfb8.md",
+      "sha256": "b7b14d03805a9278196926681a9f1bdf9cc44cc2f6af7649d34164288bbbcfb8",
+      "modified_at_utc": "2026-11-06T09:30:54.712910+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompt-snapshots\\cc-main-ev-20261106-0930-nfp-dossier-20261106T093053Z-51724-568418f7\\cc-main-frontier-brain-4h-7cee4421261c839c66d1a1960f9af73ef8c2553fae68d6e0db1bd460fc004800.md",
+      "sha256": "7cee4421261c839c66d1a1960f9af73ef8c2553fae68d6e0db1bd460fc004800",
+      "modified_at_utc": "2026-11-06T09:30:54.737058+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompt-snapshots\\cc-main-ev-20261106-1320-nfp-20261102T083916Z-27832-996b87f8\\465dd19f471ecd364b1a54fab85e5f20bbb93bf631e17488675b5a6d234067c4.md",
+      "sha256": "465dd19f471ecd364b1a54fab85e5f20bbb93bf631e17488675b5a6d234067c4",
+      "modified_at_utc": "2026-11-02T08:39:17.344061+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompt-snapshots\\cc-main-ev-20261106-1320-nfp-20261102T083916Z-27832-996b87f8\\cc-main-frontier-brain-4h-710b437a3f2c78f5b3209bf2a3077846018176dee66e55ab72bd06aeb784481a.md",
+      "sha256": "710b437a3f2c78f5b3209bf2a3077846018176dee66e55ab72bd06aeb784481a",
+      "modified_at_utc": "2026-11-02T08:39:17.364261+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompt-snapshots\\cc-main-ev-20261106-1320-nfp-20261106T132057Z-34328-b7c9b097\\cc-main-frontier-brain-4h-7cee4421261c839c66d1a1960f9af73ef8c2553fae68d6e0db1bd460fc004800.md",
+      "sha256": "7cee4421261c839c66d1a1960f9af73ef8c2553fae68d6e0db1bd460fc004800",
+      "modified_at_utc": "2026-11-06T13:20:58.398818+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompt-snapshots\\cc-main-ev-20261106-1320-nfp-20261106T132057Z-34328-b7c9b097\\ea25e782a8a9e25bbb2951084a4afda81fa8063ead03c8fdc785d9374c8bc855.md",
+      "sha256": "ea25e782a8a9e25bbb2951084a4afda81fa8063ead03c8fdc785d9374c8bc855",
+      "modified_at_utc": "2026-11-06T13:20:58.384244+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-l1-resume-main-0345-bp.SKILL.pre-cc013-20261102.md",
+      "sha256": "b81b5c0c498cbd282cddb0bf4e2c07032291e67aaece95b23a5e85f7c6d483d5",
+      "modified_at_utc": "2026-11-02T09:53:19.119104+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-l1-send-message-probe2-bp.SKILL.pre-wake-20261103.md",
+      "sha256": "5cb77b1ff948d192f642bfa24d43443d7a1e9a1f43b0e494ce6a493762b7b505",
+      "modified_at_utc": "2026-11-02T10:21:13.226983+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261029-1000-dossier-bp.SKILL.pre-preview-20261102.md",
+      "sha256": "aa46e1129b0036d5d385ef312c31f4aa5d70b02552b8a19c14be353315fd42d0",
+      "modified_at_utc": "2026-11-02T10:20:35.593898+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261029-1000-dossier.md",
+      "sha256": "ebb29a396e9b211edd81997218da0c8701ecdcdafbd758365e69042ced38cedc",
+      "modified_at_utc": "2026-10-29T06:00:14.780736+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261029-1220-gdp-pce-bp.SKILL.pre-ppi-20261102.md",
+      "sha256": "6f6de7fa75f171447316fe6f1f9742b4b4f957f302d5fa7dd4ad4848f14537e2",
+      "modified_at_utc": "2026-11-02T09:35:34.041753+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261029-1220-gdp-pce.md",
+      "sha256": "b5b80164389379f514c265b6359119f0dd466204508071925e4f5c573642cf65",
+      "modified_at_utc": "2026-10-29T06:00:14.794237+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261029-1305-ecb.md",
+      "sha256": "5767b55a17a5374333f6b56d4deaf464e868ecd7376ace9459c79f935f73b9bc",
+      "modified_at_utc": "2026-10-29T06:00:14.808548+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261030-0200-boj.md",
+      "sha256": "5eba230ae1109918c4f0b42e1be8e44882862ce8b0b1ace32dfee7ab2a5d78be",
+      "modified_at_utc": "2026-10-29T06:00:14.821718+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261030-1000-eci-dossier.md",
+      "sha256": "fe2bc61bb895398a2e55715ba408c0be3e227c61e4f8be176227db248a30646f",
+      "modified_at_utc": "2026-10-29T19:11:12.794834+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261030-1000-eci-dossier.post-m7.md",
+      "sha256": "fe2bc61bb895398a2e55715ba408c0be3e227c61e4f8be176227db248a30646f",
+      "modified_at_utc": "2026-10-29T19:11:12.794834+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261030-1000-eci-dossier.pre-m7.md",
+      "sha256": "3f8eedcec7ee95da06d19c925d935a5635e8e8671b4221eb58e305879c1fda24",
+      "modified_at_utc": "2026-10-29T06:00:14.822862+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261030-1220-eci-bp.SKILL.pre-ppi-20261102.md",
+      "sha256": "c7771b671225b19a24d2bb40b9795bd4162c505959b83f977bd2ae7abcd1c9b5",
+      "modified_at_utc": "2026-11-02T09:35:34.085482+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261030-1220-eci.md",
+      "sha256": "ac4e5d0f3398923af48f543d8fda68c65655b7a8a9edb749c2829edd94be6292",
+      "modified_at_utc": "2026-10-29T20:36:31.125391+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261030-1220-eci.post-m7.md",
+      "sha256": "ac4e5d0f3398923af48f543d8fda68c65655b7a8a9edb749c2829edd94be6292",
+      "modified_at_utc": "2026-10-29T20:36:31.125391+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261030-1220-eci.pre-m7.md",
+      "sha256": "04964c9b800d6a93f5dd19945164d0f80d9fd366ef1d92d6fe4ee342539a6e88",
+      "modified_at_utc": "2026-10-29T06:00:14.843145+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261103-midterm-dossier.md",
+      "sha256": "c41ca07166b501bd3db2375b72b604615c5129e49573bb337ce2774724d7b635",
+      "modified_at_utc": "2026-11-02T04:37:53.368636+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261106-1100-nfp-dossier-bp.SKILL.pre-cc071-20261102.md",
+      "sha256": "cd7f92f26165d31a4f00ed0f4ba53dba8bedffe780893c78886264483e19a025",
+      "modified_at_utc": "2026-11-02T08:38:43.157693+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261106-1100-nfp-dossier.md",
+      "sha256": "2e781102e4491c0e208358b266c348a5c985cffc33e51368fde32d26f5e2c473",
+      "modified_at_utc": "2026-10-29T06:00:14.894627+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261106-1320-nfp-bp.SKILL.pre-cc071-20261102.md",
+      "sha256": "da6a4fed4e1a72a0f86cc20e8e38b43d07211d677c903d0ae00beefc0f99cc57",
+      "modified_at_utc": "2026-11-02T08:38:43.244015+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261106-1320-nfp.md",
+      "sha256": "dd4f134d9844ae8824f734081cb117b4889b0f1ba96d5f937e5e429c23026781",
+      "modified_at_utc": "2026-10-29T06:00:14.912067+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261110-1100-cpi-dossier-bp.SKILL.pre-cc071-20261102.md",
+      "sha256": "c3832e986d5616347e7eab5a0a8ba7aa1f1ea4fb5dbb07d27289e7d80dce245a",
+      "modified_at_utc": "2026-11-02T08:38:43.303755+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261110-1100-cpi-dossier.md",
+      "sha256": "cc6f2bb04afa5224b20871ee2276e12e546e8b9bc4c47746989b5633dd5f2a26",
+      "modified_at_utc": "2026-10-29T06:00:14.930247+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261110-1320-cpi-bp.SKILL.pre-cc071-20261102.md",
+      "sha256": "e9ebb9427daebbb1d9d4fc059a4eee40a2e3f1823ff36126ccd2f90a0e827eb3",
+      "modified_at_utc": "2026-11-02T08:38:43.378426+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261110-1320-cpi.md",
+      "sha256": "c8e7c34d199dc39b623288a5999908599918e1e2c3d8d67579879b9b8c4daf45",
+      "modified_at_utc": "2026-10-29T06:00:14.948444+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-m7-cutover-fallback-bp.SKILL.pre-ppi-20261102.md",
+      "sha256": "5b6340a826fb80093457d3cb33c94d2594c2ce9b8f591b4b81e5154974c75055",
+      "modified_at_utc": "2026-11-02T09:35:34.179283+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-m7-cutover-trigger-bp.SKILL.pre-ppi-20261102.md",
+      "sha256": "55651cff80f01615a55a2afa81cd60d4c8e72057cb1bd1ff15ffeaa65b954f07",
+      "modified_at_utc": "2026-11-02T09:35:34.131798+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-m7-route-test-bp.SKILL.pre-cc013-20261102.md",
+      "sha256": "0be4057f1c149fca37ccbd1990a344be675b235c86a88da3e79333921e50fdd2",
+      "modified_at_utc": "2026-11-02T10:11:22.196254+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\release-calendar-check-20261029.md",
+      "sha256": "c3004f2adb258fa19b7fbea1d119a8fdd9ebf4391363db2a39e0543b42dbd924",
+      "modified_at_utc": "2026-10-29T05:40:02.525322+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-2cb47ca5fa1d0dd4\\owner-native.json",
+      "sha256": "d20d1953c33b40e0f0ccdf47f379d6bc4be25fed5c40502e3d484a25b7db7f7c",
+      "modified_at_utc": "2026-11-05T05:52:03.876255+00:00",
+      "relevant_geopolitical_spans": 7,
+      "possible_probability_spans": [
+        {
+          "offset": 5672,
+          "line": 41
+        },
+        {
+          "offset": 39579,
+          "line": 324
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-3de3b71343111c7b\\owner-native.json",
+      "sha256": "40f79dad5e50cc4d9b589bd524a58907c32c0d7a7bed3b46bd6bc6db149173f0",
+      "modified_at_utc": "2026-11-03T06:26:01.435925+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-45c4fbea254c0def\\owner-native.json",
+      "sha256": "e7e06616a1c44689d84741f769c9b1e242277d787e3c1940ca78eefa6b93a6b3",
+      "modified_at_utc": "2026-11-05T16:21:56.958702+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-51273dc20d4c181e\\owner-native.json",
+      "sha256": "353561201c8f33500077cfd91dcae2a9f7b21a7b8e5579447940881f30b45b13",
+      "modified_at_utc": "2026-11-04T23:50:48.074826+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+      "sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+      "modified_at_utc": "2026-11-06T08:18:47.782128+00:00",
+      "relevant_geopolitical_spans": 5,
+      "possible_probability_spans": [
+        {
+          "offset": 34921,
+          "line": 316
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-6d24a481c7c3783a\\owner-native.json",
+      "sha256": "4d8088fcec492b1b54e101467aac7c66a537ac4a873cecd06c0a262a09ff5be2",
+      "modified_at_utc": "2026-10-31T11:19:55.046611+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74753dcb175dba34\\owner-native.json",
+      "sha256": "fc111ddfc1026236ac26b2792f46bb489365d670ef1e653552c4007e4d0831c8",
+      "modified_at_utc": "2026-10-29T18:02:58.373203+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74cef2ab0eda597b\\owner-native.json",
+      "sha256": "6d4053538c3a2fe4dcc6e011d07e105de6cda04a76d42769134f8b9c14d04e27",
+      "modified_at_utc": "2026-11-05T08:56:59.538917+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+      "sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+      "modified_at_utc": "2026-11-06T06:03:38.600291+00:00",
+      "relevant_geopolitical_spans": 5,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b685c54776119d2a\\owner-native.json",
+      "sha256": "c24e486c857f774fc51b5f2b0bf44951a99bbf7961d79b8c594237d887ed4ebf",
+      "modified_at_utc": "2026-11-04T17:36:23.939322+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-c8bba0c593d99fb8\\owner-native.json",
+      "sha256": "17082bbfba405e93ea0ae42c167bbb8989d1e83c04a1c2b563d51c68c53910a2",
+      "modified_at_utc": "2026-11-05T16:54:50.041907+00:00",
+      "relevant_geopolitical_spans": 3,
+      "possible_probability_spans": [
+        {
+          "offset": 27278,
+          "line": 264
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-ca1d8e92cdca3250\\owner-native.json",
+      "sha256": "af5251fc6b215738465d3ecfe6b5dfc4f3adc59aca8af2d3b1a5b0a321e45e9f",
+      "modified_at_utc": "2026-11-04T16:00:56.447072+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d232ac540a32a050\\owner-native.json",
+      "sha256": "34a8884208741350c679779d7ee5825b221d047e918c76c7428d071b82879406",
+      "modified_at_utc": "2026-11-05T11:12:27.155965+00:00",
+      "relevant_geopolitical_spans": 6,
+      "possible_probability_spans": [
+        {
+          "offset": 44304,
+          "line": 399
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d76f8099aa98eb40\\owner-native.json",
+      "sha256": "98c22420685bf51201cc1998d420579b968c19d4cebb104585f382696c59f879",
+      "modified_at_utc": "2026-11-04T21:03:53.576707+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e9ea28a3f2bd2bfa\\owner-native.json",
+      "sha256": "afa968ddba9827552c1a37313e799056644b71cbbf603dc195f1485593d30fb8",
+      "modified_at_utc": "2026-11-05T01:44:44.180025+00:00",
+      "relevant_geopolitical_spans": 2,
+      "possible_probability_spans": []
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f178a4640c2aa3de\\owner-native.json",
+      "sha256": "443d431fb4a48cb3c58e85198414ea28ef476efcd9b23a76060dfb2d2f93126f",
+      "modified_at_utc": "2026-11-02T06:34:43.926204+00:00",
+      "relevant_geopolitical_spans": 0,
+      "possible_probability_spans": []
+    }
+  ],
+  "other_lane_export_consumer": "live_contentops.plan_status_posts_v1.read_export",
+  "export_scenarios": 40,
+  "export_null_scenarios": 2,
+  "export_missing_base_probability": 34,
+  "export_missing_alternative_probability": 40,
+  "data_research_paths": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\data\\research",
+      "exists": false,
+      "searched_text_files": 0
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\data\\research",
+      "exists": false,
+      "searched_text_files": 0
+    }
+  ],
+  "backlog_and_archive": [
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG.md",
+      "sha256": "f2754d16eddc67dd57d5fcb7f181732a0fe42ea4da24529871a1d3ed516ceca6",
+      "matching_lines": [
+        1085,
+        1816,
+        1817,
+        1818,
+        1821,
+        1827
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG_ARCHIVE.md",
+      "sha256": "161a4857ca67a5b567226ee0d71dbe7beda77cded15090465049888cfd61e509",
+      "matching_lines": []
+    }
+  ],
+  "not_substituted": [
+    "CPI outcome-bin probabilities",
+    "Fed December hike market odds",
+    "direction confidence",
+    "old scenario weights for different events"
+  ],
+  "first_cause": "JIM_DECISION_93_MAIN_WEEKEND_SCENARIOS_INCOMPLETE",
+  "possible_probability_match_assessment": {
+    "files_reviewed": 5,
+    "matches": "Fed-rate market odds, past oil changes, risk quantities and one earlier WTI floor-hold base case.",
+    "earlier_wti_base_case": "About 55% in the 6 Nov morning report; its horizon ended 6 Nov 13:15Z, before the weekend. Not a weight for talks, Hormuz escalation, or a deal at the Monday reopen.",
+    "eligible_weekend_geopolitical_scenario_probabilities": 0
+  }
+}

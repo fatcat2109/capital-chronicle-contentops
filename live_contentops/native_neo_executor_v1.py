@@ -87,6 +87,8 @@ def _incomplete_readback_evidence(request, result):
             and result.get("observed_text") and not result.get("public_image_urls")):
         return False  # Decisive failed delivery, not an unfinished binary comparison.
     return (result.get("media_check_state") == "PENDING_BINARY_COMPARISON"
+            or (bool((request.get("content_binding") or {}).get("attachment_manifest"))
+                and not result.get("observed_attachments"))
             or (bool(request.get("publication_clock_readback"))
                 and not (result.get("published_at_utc") or result.get("observed_published_at_utc")))
             or (bool((request.get("content_binding") or {}).get("media_manifest"))
@@ -188,6 +190,9 @@ class NativeNeoExecutor:
                 raise ValueError("NATIVE_NEO_ACTION_ALREADY_CLAIMED_READBACK_ONLY")
             claim_kind = "started-readonly-" + sha256_of(self.native_invocation_id)
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+            from live_contentops.public_time_v1 import require_public_time, public_media_text
+            require_public_time(request.get("native_payload"), request.get("payload"),
+                                public_media_text(request.get("content_binding", {}).get("media_manifest")))
             from live_contentops.llm_operator_control_v1 import assert_llm_operator_execution_enabled
             assert_llm_operator_execution_enabled()
             if not self.allow_publish or self.store.get_operating_control()["operating_mode"] != "AUTONOMOUS_DEFAULT":
@@ -196,6 +201,19 @@ class NativeNeoExecutor:
             expected_status = "DISPATCH_CONFIRMED" if request["action"] == "EDIT_EXISTING" else PENDING
             if not dispatch or dispatch["status"] != expected_status:
                 raise ValueError("NATIVE_NEO_EXACT_COORDINATOR_PENDING_DISPATCH_REQUIRED")
+            if request["action"] == "PUBLISH":
+                # A pending request can outlive the first coordinator call. Apply
+                # decision 93 again at the actual browser action boundary.
+                from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+                from live_contentops.article_publication_quality_v1 import before_article_write
+                coordinator = DurablePublicationCoordinator(store=self.store, transport_runtime=None, clock=self.clock)
+                if coordinator.published_content_path is not None:
+                    message = self.store.get_outbox_message(dispatch["message_id"])
+                    effective = coordinator._effective_message(message)
+                    intent = json.loads(effective["payload"])
+                    before_article_write(coordinator, {**intent,
+                        **({"native_payload": request["native_payload"]} if request.get("native_payload") else {})},
+                        request["destination"])
             if request["action"] == "EDIT_EXISTING" and request.get("approved_presentation_restore"):
                 from live_contentops.approved_presentation_restore_v1 import restore_intent
                 from live_contentops.neo_destination_handoff_v1 import _payload_binding
@@ -236,6 +254,9 @@ class NativeNeoExecutor:
             content = request.get("content_binding") or {}
             if not content.get("expected_text_segments"):
                 raise ValueError("NATIVE_NEO_EXACT_PAYLOAD_REQUIRED")
+            if request["action"] == "PUBLISH":
+                from live_contentops.event_public_record_v1 import require_preview_deadline
+                require_preview_deadline(content.get("event_public_record") or {}, now_utc=self.clock().isoformat())
             # Fresh native account proof is rechecked at the action boundary, after any
             # pending Desktop delay. A configured login/executor flag grants no write.
             # CC-283: a composed publish checks the account inside the same run, just before
@@ -244,7 +265,8 @@ class NativeNeoExecutor:
                 proof = self.readiness(request["surface"])
                 if not proof["authenticated"] or not proof["native_executor_bound"]:
                     raise ValueError("NATIVE_NEO_CURRENT_IDENTITY_REQUIRED")
-            for artifact in [*content.get("artifact_manifest", []), *content.get("media_manifest", [])]:
+            for artifact in [*content.get("artifact_manifest", []), *content.get("media_manifest", []),
+                             *content.get("attachment_manifest", [])]:
                 path = Path(str(artifact.get("path") or ""))
                 if not artifact.get("sha256") or not path.is_file() or sha256(path.read_bytes()).hexdigest() != artifact["sha256"]:
                     raise ValueError("NATIVE_NEO_PAYLOAD_OR_MEDIA_BYTES_CHANGED")
@@ -269,7 +291,9 @@ class NativeNeoExecutor:
             action_packet["upload_policy"] = {
                 "method": "BROWSEROS_NEO_UPLOAD_OR_FILE_CHOOSER_INTERCEPTION",
                 "source_scope": "ARTICLE_OWN_MEDIA_FOLDER",
-                "bound_media_paths": [a["path"] for a in request.get("content_binding", {}).get("media_manifest", [])],
+                "bound_media_paths": [a["path"] for a in [
+                    *request.get("content_binding", {}).get("media_manifest", []),
+                    *request.get("content_binding", {}).get("attachment_manifest", [])]],
                 "native_file_dialog": "FORBIDDEN_STOP_WITH_NATIVE_FILE_DIALOG_OPEN"}
         if request["destination"] == "substack" and request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             action_packet["substack_publish_routine"] = {

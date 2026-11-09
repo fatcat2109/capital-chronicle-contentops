@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-08T23:43:39.486859+00:00",
+  "item": "CC-341",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "configuration_source": "Readback exact Ops codex exec process 35632; runtime telemetry unavailable",
+  "source_admission": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-341\\resume-20261109\\source-admission.json",
+  "revised_operation_id": "cc341-weekend-wrap-20261109-r2",
+  "preserved_operation_id": "cc341-weekend-wrap-20261109-v1",
+  "reason": "New R2 analysis and Nvidia fact postdate original frozen input; preserve old zero-write request and create material source edition under same backlog item.",
+  "snapshot_sha256": "07d7910582d96f7fd6cb97b6d827171ec1bb15371b992f9aba6e0792426beb4e",
+  "public_write_performed": false,
+  "schedule_changes": 0
+}

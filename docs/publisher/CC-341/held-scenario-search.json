@@ -1,0 +1,42 @@
+{
+  "searched_files": 418,
+  "roots": [
+    "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1",
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs",
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs",
+    "C:\\CapitalChronicleScratch\\ResearchRuns\\weekend-wrap-20261108",
+    "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy"
+  ],
+  "matches": [
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+      "line": 14,
+      "text": "1. **Oil opens higher, by about +0.5% to +2.5% (WTI roughly +$0.5 to +$2.2).** The weekend added tanker strikes near Hormuz, Trump's confirmation of \"minor strikes\" on Iran's Qeshm Island, Iran lifting its missile-range cap and a Houthi missile that damaged an Aramco office in Riyadh. Trump's Sunday CNN line that renewed attacks are \"highly unlikely\" if talks progress caps the gap. INFERENCE, confidence medium."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+      "line": 53,
+      "text": "65K against +59-65K; December Fed hike odds 77.9% (Investing.com monitor, 21:35Z), about 80% per Reuters; oil -12% on the week on post-midterm peace hopes, then a Friday bounce on Hormuz attacks; Nasdaq-100 -6.36% on 5 Nov (AI-regulation fears after the Democratic midterm sweep) and a partial Friday rebound; DXY 0.6% under its 52-week high (102.94); EUR/USD 31-35 pips above its 52-week low (1.1105)."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+      "line": 89,
+      "text": "is war, higher oil has meant hotter inflation, more Fed hikes, higher real yields and a lower gold price: gold rose 4.4% in the week oil fell 12%. The sweep's \"XAUUSD up\" on every escalation item is therefore challenged: escalation through oil is gold-negative here; only a risk-off that drags yields lower is gold-positive."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+      "line": 128,
+      "text": "k below Friday's close (90.83 futures, 89.48 CFD) within two hours of the 23:00Z open means the market reads the CNN line as dominant. A US statement accepting a framework for the two-day plan would take oil down 3-8% (INFERENCE). Brent above $103 means escalation is being priced beyond the weekend's facts."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+      "line": 223,
+      "text": "- So the weekend gap matters for November and December headline only if it builds into a lasting move above $95 WTI. The bigger tail is two-sided: a Hormuz framework would cut oil 5-10% and soften the next two headlines; a return to war would lift Brent well above $100."
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+      "line": 296,
+      "text": "- **Oil:** our base case is a firmer open, 0.5% to 2.5% above Friday, with Brent near $100. A US response to Iran's offer could reverse that quickly."
+    }
+  ]
+}

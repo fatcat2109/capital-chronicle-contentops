@@ -7,7 +7,6 @@ absence is a definite pre-write block. This is not an alternate publication coor
 from __future__ import annotations
 
 import json
-import os
 import re
 from hashlib import sha256
 from datetime import datetime, timezone
@@ -17,11 +16,11 @@ from urllib.parse import urlsplit, unquote
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _private
 
 SCHEMA = "contentops.neo_destination_handoff.v1"
-IDENTITIES = {"substack": "capitalchronicle.substack.com", "x": "@Capitalnicle",
+IDENTITIES = {"substack": "capitalchronicle.substack.com", "substack_notes": "@deancapitalchronicle", "x": "@Capitalnicle",
               "youtube": "@CapitalChronicleYouTube", "linkedin": "linkedin:jimcc",
               "linkedin_company": "linkedin:company:143198922", "instagram_business": "official.capitalchronicle",
               "telegram": "@CapitalChronicle", "threads": "official.capitalchronicle"}
-ROOTS = {"substack": "https://capitalchronicle.substack.com/", "x": "https://x.com/Capitalnicle",
+ROOTS = {"substack": "https://capitalchronicle.substack.com/", "substack_notes": "https://substack.com/@deancapitalchronicle", "x": "https://x.com/Capitalnicle",
          "youtube": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
          "linkedin": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
           "linkedin_company": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
@@ -57,13 +56,17 @@ def _public_url(destination, url, object_id=None):
         return False
     if destination == "substack":
         return _canonical(url)
+    if destination == "substack_notes":
+        match = re.fullmatch(r"/@deancapitalchronicle/note/(c-\d+)/?", p.path, re.I)
+        return bool(p.hostname == "substack.com" and match
+                    and (not object_id or match[1] == str(object_id)))
     if destination == "x":
         return (p.hostname in {"x.com", "www.x.com"} and re.fullmatch(r"/Capitalnicle/status/\d+", p.path, re.I)
                 and (not object_id or p.path.rsplit("/", 1)[-1] == str(object_id)))
     if destination in {"linkedin", "linkedin_company"}:
         match = re.fullmatch(r"/feed/update/(urn:li:(?:activity|share|ugcPost):\d+)/?", unquote(p.path))
         return bool(p.hostname == "www.linkedin.com" and match
-            and (not object_id or match[1] == str(object_id)))
+            and (not object_id or str(object_id) in {match[1], match[1].rsplit(":", 1)[-1]}))
     if destination == "instagram_business":
         return p.hostname == "www.instagram.com" and bool(re.fullmatch(r"/p/[A-Za-z0-9_-]+/", p.path))
     if destination == "telegram":
@@ -83,6 +86,19 @@ def _text(value):
     # published copy. Keep numbers, minus signs, words and order exact.
     value = value.translate(str.maketrans({"\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"'}))
     return " ".join(re.sub(r"[#*_`]", "", value).split())
+
+
+def _substack_rendered_text(value):
+    """Compare rendered list/table words while retaining every cell and minus sign."""
+    lines = []
+    for line in str(value or "").splitlines():
+        line = re.sub(r"^[ \t]*[-+][ \t]+", "", line)
+        if re.fullmatch(r"[ \t]*\|(?:[ \t]*:?-+:?[ \t]*\|)+[ \t]*", line):
+            continue
+        if line.strip().startswith("|") and line.strip().endswith("|"):
+            line = " ".join(cell.strip() for cell in line.strip()[1:-1].split("|"))
+        lines.append(line)
+    return _text("\n".join(lines))
 
 
 def _x_reader_text(value, links, public_object_url, canonical):
@@ -159,6 +175,11 @@ def _payload_binding(intent, destination):
         media_ids = set(payload.get("media_asset_ids") or [])
         media_ids.update(a for post in posts if isinstance(post, dict) for a in post.get("media_asset_ids") or [])
         assets = [a for a in assets if a.get("asset_id") in media_ids]
+    if destination == "substack":
+        # Retained delivery assets are not all canonical article images. Honour
+        # the editor's existing exclusions before freezing the browser binding.
+        assets = [a for a in assets if a.get("article_inclusion") is not False
+                  and a.get("canonical_article_media") is not False]
     media = [{k: a[k] for k in ("asset_id", "path", "sha256", "rights", "rights_status", "caption", "alt_text",
               "attribution", "license_url", "source_page_url", "changes_description", "article_section",
               "canonical_article_section_association", "placement_after", "modality", "public_delivery_sha256",
@@ -176,6 +197,13 @@ def _payload_binding(intent, destination):
                 row["placement_after"] = placements[str(row["asset_id"])]
     binding = {"expected_text_segments": texts, "expected_thread_texts": thread_texts, "thread_post_count": len(posts),
                "media_manifest": media, "artifact_manifest": artifacts}
+    if destination == "substack" and article.get("frozen_public_record"):
+        from live_contentops.event_public_record_v1 import attachment_for_article
+        binding["event_public_record"] = {"article_type": article.get("article_type"),
+                                         "frozen_public_record": article["frozen_public_record"]}
+        attachment = attachment_for_article(article, media_dir=root / "media" / "public-record")
+        if attachment:
+            binding["attachment_manifest"] = [attachment]
     if intent.get("reader_presentation_review"):
         binding["excluded_text_segments"] = intent["removed_reader_text"]
     return payload, binding
@@ -247,6 +275,9 @@ class NeoDestinationHandoff:
             from live_contentops.preview_link_guard_v1 import REASON, find_forbidden_link
             if find_forbidden_link(native_payload):
                 raise ValueError(REASON)
+            from live_contentops.public_time_v1 import require_public_time, public_media_text
+            require_public_time(*posted_values(intent), native_payload, public_media_text(intent.get("media_assets")),
+                                public_media_text(content_binding.get("media_manifest")))
         telegram_rule = ({"telegram_read_rule": TELEGRAM_READ_RULE} if destination == "telegram" else {})
         value = {"schema_version": SCHEMA, "destination": destination, "action": action,
             "expected_identity": IDENTITIES[destination],
@@ -262,6 +293,7 @@ class NeoDestinationHandoff:
             "content_binding": content_binding,
             "surface": intent.get("destination_plan", {}).get("surface") or {
                 "substack": "SUBSTACK_ARTICLE", "x": "X_THREAD" if content_binding["thread_post_count"] > 1 else "X_POST",
+                "substack_notes": "SUBSTACK_NOTE",
                 "linkedin": "LINKEDIN_POST", "linkedin_company": "LINKEDIN_COMPANY_POST",
                  "instagram_business": "INSTAGRAM_BUSINESS_POST",
                 "telegram": "TELEGRAM_CHANNEL_POST", "threads": "THREADS_POST",
@@ -287,6 +319,13 @@ class NeoDestinationHandoff:
                 "its alt text to alt_text and its caption to caption (with the credit when attribution is "
                 "present). Return public_alt_text_present and public_caption_present for each image.")
             value["steps"].insert(3, value["substack_media_placement"])
+        if content_binding.get("attachment_manifest"):
+            value["steps"].append(
+                "Upload attachment_manifest files as downloadable files through BrowserOS Neo's upload tool or "
+                "file-chooser interception, from this article's media folder. Never open a native file dialog. "
+                "Preserve exact bytes. If unsupported, report ATTACHMENT_UPLOAD_UNSUPPORTED without publishing. "
+                "Read back each public download, recording observed_attachments with sha256, bytes, url, "
+                "download_verified=true and the exact parent public_object_url. A filename alone proves nothing.")
         if action == "READBACK":
             # An earlier failed observation stays immutable. A corrected readback
             # contract receives a new read-only identity, never a new write.
@@ -407,6 +446,16 @@ class NeoDestinationHandoff:
             return {"status": "BLOCKED", "verified": False, "request": request,
                     "reason_code": "NEO_NATIVE_READBACK_EXECUTOR_NOT_BOUND"}
         result = dict(self.native_executor(request))
+        # A reboot can lose the publish return before the coordinator knows the
+        # object's ID. Bind a discovered, account-valid object before comparing
+        # its shortened links and transcoded media to that exact public URL.
+        # A known object never changes identity during recovery.
+        if (not public_object_id and not public_object_url
+                and result.get("observed_identity") == IDENTITIES[destination]
+                and result.get("public_object_id")
+                and _public_url(destination, result.get("public_object_url"), result["public_object_id"])):
+            public_object_id = result["public_object_id"]
+            public_object_url = result["public_object_url"]
         binding = request["content_binding"]
         segments = binding["expected_text_segments"]
         observed_text = _text(result.get("observed_text"))
@@ -436,6 +485,14 @@ class NeoDestinationHandoff:
                 public_object_url, str(intent.get("canonical_url") or ""))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
+        if destination == "substack":
+            # Substack renders Markdown list markers as list nodes, so innerText
+            # contains the item text without its leading '- '. Keep numeric minus
+            # signs and every item, value and ordering requirement intact.
+            text_match = (bool(segments) and all(
+                _substack_rendered_text(s) in comparison_text
+                for s in segments)
+                and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
         if destination == "substack" and intent.get("daily_digest"):
             # A native editor may render this structured link index as paragraphs
             # or a list. Markdown list punctuation adds no reader-facing fact.
@@ -476,6 +533,9 @@ class NeoDestinationHandoff:
                 and platform_image(m.get("public_image_url"))}
             media_match = expected_media <= source_matches
         thread = result.get("observed_thread") or result.get("thread_posts") or []
+        from live_contentops.event_public_record_v1 import attachment_readback_matches
+        attachments_match = attachment_readback_matches(binding.get("attachment_manifest", []),
+            result.get("observed_attachments") or [], result.get("public_object_url"))
         thread_match = (binding["thread_post_count"] <= 1 or (
             len(thread) == binding["thread_post_count"]
             and all(_text(text) in _text(post.get("observed_text"))
@@ -490,7 +550,7 @@ class NeoDestinationHandoff:
             and (not public_object_id or result.get("public_object_id") == public_object_id)
             and (not public_object_url or result.get("public_object_url") == public_object_url)
             and _public_url(destination, result.get("public_object_url"), result.get("public_object_id"))
-            and result.get("content_verified") is True and text_match and media_match and thread_match)
+            and result.get("content_verified") is True and text_match and media_match and thread_match and attachments_match)
         identity_exists = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == IDENTITIES[destination]
             and bool(public_object_id) and result.get("public_object_id") == public_object_id
@@ -536,7 +596,8 @@ class NeoDestinationHandoff:
             if absent:
                 complete_readback(request, write_absent=True)
             elif verified or canonical_present:
-                complete_readback(request)
+                complete_readback({**request, "public_object_id": public_object_id,
+                                   "public_object_url": public_object_url})
             elif (identity_exists and text_match and not media_match
                     and result.get("media_check_state") == "MISSING_REQUIRED_MEDIA"
                     and result.get("missing_required_media_observed") is True

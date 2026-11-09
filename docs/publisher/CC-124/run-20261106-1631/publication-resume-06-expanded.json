@@ -1,0 +1,1467 @@
+{
+  "classification": "NATIVE_PUBLICATION_CONTINUATION",
+  "coordinator_result": {
+    "plan_hash": "124365a10f9bdb402551bc500154f850863fe9953ef5dd6f3a75da0cb9e8c99b",
+    "registered": [],
+    "outbox_count": 0,
+    "per_destination": {
+      "substack": {
+        "destination": "substack",
+        "dispatch_id": "dispatch_99bced709eb50718ec5b8986367a8825",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "223749516",
+        "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+        "publish_called": false
+      },
+      "telegram": {
+        "destination": "telegram",
+        "dispatch_id": "dispatch_a3f11868377329d130a7a4f70dcd4a94",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "95",
+        "public_object_url": "https://t.me/CapitalChronicle/95",
+        "publish_called": false
+      },
+      "x": {
+        "destination": "x",
+        "dispatch_id": "dispatch_97dc012d41ca46c9bb9056eb14405a3e",
+        "dispatch_recorded": true,
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "discord": {
+        "destination": "discord",
+        "dispatch_id": "dispatch_eebc8d1c4d9d3556b1d25358c6af8333",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "1568213970878468179",
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "linkedin": {
+        "destination": "linkedin",
+        "dispatch_id": "dispatch_aecb984c8542d07b855016361667636a",
+        "dispatch_recorded": true,
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "facebook_page": {
+        "destination": "facebook_page",
+        "dispatch_id": "dispatch_c00c2b6e175c25f33fac46a263d27670",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "106091951705748_1446553694329713",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1446553694329713",
+        "publish_called": false
+      },
+      "instagram_business": {
+        "destination": "instagram_business",
+        "dispatch_id": "dispatch_bb1d8d5d7f2899a6ce2506f2d0fd26dd",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "18115941683037444",
+        "public_object_url": "https://www.instagram.com/p/DfZax4OgX9W/",
+        "publish_called": false
+      },
+      "threads": {
+        "destination": "threads",
+        "dispatch_id": "dispatch_e7ee68547875c1965254330812753ae9",
+        "dispatch_recorded": true,
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "17958876021260382",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZa0BXn5FO",
+        "publish_called": false
+      },
+      "youtube": {
+        "destination": "youtube",
+        "dispatch_id": "dispatch_0017054d61d6323f1a5f7c71f761c8c0",
+        "dispatch_recorded": true,
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      },
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "dispatch_id": "dispatch_20856451a3489f0010a7492ede4a7190",
+        "dispatch_recorded": true,
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      }
+    },
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "recovery_preflight": {
+      "safe_resumes": 9,
+      "safely_attempted": 9,
+      "stale_expired": 0,
+      "marked_unknown": 0,
+      "readbacks": 1,
+      "publish_calls": 5,
+      "readiness_probe_performed": false,
+      "per_destination": {
+        "discord": {
+          "destination": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "publish_called": true,
+          "public_object_id": "1568213970878468179",
+          "public_object_url": null,
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "safe_error_classification": null
+        },
+        "facebook_page": {
+          "destination": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "publish_called": true,
+          "public_object_id": "106091951705748_1446553694329713",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1446553694329713",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "safe_error_classification": null
+        },
+        "instagram_business": {
+          "destination": "instagram_business",
+          "status": "DISPATCH_CONFIRMED",
+          "publish_called": true,
+          "public_object_id": "18115941683037444",
+          "public_object_url": "https://www.instagram.com/p/DfZax4OgX9W/",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "safe_error_classification": null
+        },
+        "linkedin": {
+          "destination": "linkedin",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "publish_called": false,
+          "native_tool_request": {
+            "schema_version": "contentops.native_neo_tool_request.v1",
+            "operation_id": "cc124-oil-euro-followup-20261106-v2",
+            "required_tool": "mcp__browseros_neo__run",
+            "request": {
+              "schema_version": "contentops.neo_destination_handoff.v1",
+              "destination": "linkedin",
+              "action": "PUBLISH",
+              "expected_identity": "linkedin:jimcc",
+              "entry_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+              "intent_sha256": "f7f8d157b9c4d541009f6b2d1cd716925a014e48eb75ce8b66f0efd62cbba34f",
+              "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+              "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+              "payload_hash": "608734dce2265f9129cada3ec8c2da46392313cbb0514e4b76bfb42a0662c6ba",
+              "dispatch_attempt_identity": "dispatch_aecb984c8542d07b855016361667636a",
+              "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+              "public_object_id": null,
+              "public_object_url": null,
+              "native_payload": {
+                "format": "professional_brief",
+                "hard_truncation_used": false,
+                "media_asset_ids": [
+                  "post-facts-fc5c1c6572545a5197e3"
+                ],
+                "platform_limit": 3000,
+                "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+              },
+              "payload": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+              "content_binding": {
+                "expected_text_segments": [
+                  "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+                ],
+                "expected_thread_texts": [],
+                "thread_post_count": 0,
+                "media_manifest": [
+                  {
+                    "asset_id": "post-facts-fc5c1c6572545a5197e3",
+                    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+                    "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+                    "caption": "Key facts from the article.",
+                    "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+                    "attribution": "Source: Capital Chronicle",
+                    "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+                    "modality": "source_bound_data_card"
+                  }
+                ],
+                "artifact_manifest": [
+                  {
+                    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+                    "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+                  },
+                  {
+                    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\delivery_media_manifest_v1.json",
+                    "sha256": "e847f4f5c5b5346abf86819a4fb503ab2050ce83b39fa0ad530a318607bd85d0"
+                  }
+                ]
+              },
+              "surface": "LINKEDIN_POST",
+              "steps": [
+                "name_session; list tabs, open a task-owned tab",
+                "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+                "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+                "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+                "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+              ],
+              "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+              "forbidden": [
+                "login",
+                "reauthorize",
+                "account_switch",
+                "cookies",
+                "storage",
+                "blind_retry",
+                "bulk_x_ingestion"
+              ],
+              "linkedin_api_prewrite_failure": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+              "request_sha256": "74190e3e82dd32ab08cd5a6995452d95977a412a6af61a8343bc317d2928876f"
+            },
+            "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+            "public_write_authorized": true,
+            "tool_request_sha256": "9e2675292a5c3db5559272faefa76436e9cc9993f976b8254c67f406204fb205",
+            "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\native-neo\\74190e3e82dd32ab08cd5a6995452d95977a412a6af61a8343bc317d2928876f.request.json"
+          },
+          "reconciliation_status": null,
+          "public_write_performed": false
+        },
+        "linkedin_company": {
+          "destination": "linkedin_company",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "publish_called": false,
+          "native_tool_request": {
+            "schema_version": "contentops.native_neo_tool_request.v1",
+            "operation_id": "cc124-oil-euro-followup-20261106-v2",
+            "required_tool": "mcp__browseros_neo__run",
+            "request": {
+              "schema_version": "contentops.neo_destination_handoff.v1",
+              "destination": "linkedin_company",
+              "action": "PUBLISH",
+              "expected_identity": "linkedin:company:143198922",
+              "entry_url": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
+              "intent_sha256": "d9d3c2d4520a8ef45f4be97bd4c703415dc79c32f5641e0f2581e25fc1917316",
+              "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+              "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+              "payload_hash": "608734dce2265f9129cada3ec8c2da46392313cbb0514e4b76bfb42a0662c6ba",
+              "dispatch_attempt_identity": "dispatch_20856451a3489f0010a7492ede4a7190",
+              "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+              "public_object_id": null,
+              "public_object_url": null,
+              "native_payload": {
+                "format": "professional_brief",
+                "hard_truncation_used": false,
+                "media_asset_ids": [
+                  "post-facts-fc5c1c6572545a5197e3"
+                ],
+                "platform_limit": 3000,
+                "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+              },
+              "payload": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+              "content_binding": {
+                "expected_text_segments": [
+                  "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+                ],
+                "expected_thread_texts": [],
+                "thread_post_count": 0,
+                "media_manifest": [
+                  {
+                    "asset_id": "post-facts-fc5c1c6572545a5197e3",
+                    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+                    "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+                    "caption": "Key facts from the article.",
+                    "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+                    "attribution": "Source: Capital Chronicle",
+                    "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+                    "modality": "source_bound_data_card"
+                  }
+                ],
+                "artifact_manifest": [
+                  {
+                    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+                    "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+                  },
+                  {
+                    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\delivery_media_manifest_v1.json",
+                    "sha256": "e847f4f5c5b5346abf86819a4fb503ab2050ce83b39fa0ad530a318607bd85d0"
+                  }
+                ]
+              },
+              "surface": "LINKEDIN_COMPANY_POST",
+              "steps": [
+                "name_session; list tabs, open a task-owned tab",
+                "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+                "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+                "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+                "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+              ],
+              "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+              "forbidden": [
+                "login",
+                "reauthorize",
+                "account_switch",
+                "cookies",
+                "storage",
+                "blind_retry",
+                "bulk_x_ingestion"
+              ],
+              "request_sha256": "b6c5e371fa678466966755d071401e61a8f2354a2eb5012eac1bbb1cf9e9e6f0"
+            },
+            "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+            "public_write_authorized": true,
+            "tool_request_sha256": "db7244394b8908c45cd244c08e4e31caa145fddb65d1bef2007637a73fd95581",
+            "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\native-neo\\b6c5e371fa678466966755d071401e61a8f2354a2eb5012eac1bbb1cf9e9e6f0.request.json"
+          },
+          "reconciliation_status": null,
+          "public_write_performed": false
+        },
+        "telegram": {
+          "destination": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "publish_called": true,
+          "public_object_id": "95",
+          "public_object_url": "https://t.me/CapitalChronicle/95",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "safe_error_classification": null
+        },
+        "threads": {
+          "destination": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "publish_called": true,
+          "public_object_id": "17958876021260382",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZa0BXn5FO",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "safe_error_classification": null
+        },
+        "x": {
+          "destination": "x",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "publish_called": false,
+          "native_tool_request": {
+            "schema_version": "contentops.native_neo_tool_request.v1",
+            "operation_id": "cc124-oil-euro-followup-20261106-v2",
+            "required_tool": "mcp__browseros_neo__run",
+            "request": {
+              "schema_version": "contentops.neo_destination_handoff.v1",
+              "destination": "x",
+              "action": "PUBLISH",
+              "expected_identity": "@Capitalnicle",
+              "entry_url": "https://x.com/Capitalnicle",
+              "intent_sha256": "8ef49c2fa7f68be1398d5cd7d00eb1abab064858c09ccd53a4904d7a5e1ed802",
+              "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+              "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+              "payload_hash": "9f2e77fd5bf1a4c9fd8c4cf27a5eebc79c7d101a3b65b6f576d3291b20881af4",
+              "dispatch_attempt_identity": "dispatch_97dc012d41ca46c9bb9056eb14405a3e",
+              "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+              "public_object_id": null,
+              "public_object_url": null,
+              "native_payload": {
+                "format": "text_brief",
+                "full_text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+                "hard_truncation_used": false,
+                "overflow_strategy": "ordered_reply_chain",
+                "platform_limit": 280,
+                "posts": [
+                  {
+                    "media_asset_ids": [
+                      "post-facts-fc5c1c6572545a5197e3"
+                    ],
+                    "order": 0,
+                    "role": "root",
+                    "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review"
+                  },
+                  {
+                    "media_asset_ids": [],
+                    "order": 1,
+                    "role": "reply",
+                    "text": "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg."
+                  },
+                  {
+                    "media_asset_ids": [],
+                    "order": 2,
+                    "role": "reply",
+                    "text": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+                  }
+                ],
+                "quality_metrics": {
+                  "complete_article_visual_count": 1,
+                  "content_reply_count": 2,
+                  "duplicated_sentence_count": 0,
+                  "hard_character_slicing_used": false,
+                  "notice_reply_count": 0,
+                  "orphan_fragment_count": 0,
+                  "per_post_character_utilization": [
+                    0.529,
+                    0.839,
+                    0.882
+                  ],
+                  "post_character_counts": [
+                    148,
+                    235,
+                    247
+                  ],
+                  "reply_count": 2,
+                  "sentence_boundary_pass": true,
+                  "shortest_longest_reply_ratio": 0.599,
+                  "visual_distribution_pass": false
+                },
+                "reply_texts": [
+                  "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.",
+                  "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+                ],
+                "root_text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+                "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review"
+              },
+              "payload": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+              "content_binding": {
+                "expected_text_segments": [
+                  "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+                  "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+                  "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.",
+                  "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+                ],
+                "expected_thread_texts": [
+                  "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+                  "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.",
+                  "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+                ],
+                "thread_post_count": 3,
+                "media_manifest": [
+                  {
+                    "asset_id": "post-facts-fc5c1c6572545a5197e3",
+                    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+                    "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+                    "caption": "Key facts from the article.",
+                    "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+                    "attribution": "Source: Capital Chronicle",
+                    "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+                    "modality": "source_bound_data_card"
+                  }
+                ],
+                "artifact_manifest": [
+                  {
+                    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+                    "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+                  },
+                  {
+                    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\delivery_media_manifest_v1.json",
+                    "sha256": "e847f4f5c5b5346abf86819a4fb503ab2050ce83b39fa0ad530a318607bd85d0"
+                  }
+                ]
+              },
+              "surface": "X_THREAD",
+              "steps": [
+                "name_session; list tabs, open a task-owned tab",
+                "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+                "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+                "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+                "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+              ],
+              "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+              "forbidden": [
+                "login",
+                "reauthorize",
+                "account_switch",
+                "cookies",
+                "storage",
+                "blind_retry",
+                "bulk_x_ingestion"
+              ],
+              "request_sha256": "d951863286bff1989ed8c12f8507eddc39de516d10f6f6090dfdd13996315e31"
+            },
+            "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+            "public_write_authorized": true,
+            "tool_request_sha256": "88a801d2cb25f3de2b5d73b9dd1edd01195e8fdcb956896bf06c8f4643395009",
+            "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\native-neo\\d951863286bff1989ed8c12f8507eddc39de516d10f6f6090dfdd13996315e31.request.json"
+          },
+          "reconciliation_status": null,
+          "public_write_performed": false
+        },
+        "youtube": {
+          "destination": "youtube",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "publish_called": false,
+          "native_tool_request": {
+            "schema_version": "contentops.native_neo_tool_request.v1",
+            "operation_id": "cc124-oil-euro-followup-20261106-v2",
+            "required_tool": "mcp__browseros_neo__run",
+            "request": {
+              "schema_version": "contentops.neo_destination_handoff.v1",
+              "destination": "youtube",
+              "action": "PUBLISH",
+              "expected_identity": "@CapitalChronicleYouTube",
+              "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+              "intent_sha256": "28d53414179de38fb528854811f2462e32a4f59ef316feb308a9c14ab51b1d03",
+              "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+              "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+              "payload_hash": "29e1d53afd82237625b0e0c1370d7f1aa32865d20960c2e31168ac68fa68b246",
+              "dispatch_attempt_identity": "dispatch_0017054d61d6323f1a5f7c71f761c8c0",
+              "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+              "public_object_id": null,
+              "public_object_url": null,
+              "native_payload": {
+                "format": "community_brief",
+                "hard_truncation_used": false,
+                "media_asset_ids": [
+                  "post-facts-fc5c1c6572545a5197e3"
+                ],
+                "platform_limit": 1000,
+                "text": "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+              },
+              "payload": "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+              "content_binding": {
+                "expected_text_segments": [
+                  "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+                ],
+                "expected_thread_texts": [],
+                "thread_post_count": 0,
+                "media_manifest": [
+                  {
+                    "asset_id": "post-facts-fc5c1c6572545a5197e3",
+                    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+                    "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+                    "caption": "Key facts from the article.",
+                    "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+                    "attribution": "Source: Capital Chronicle",
+                    "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+                    "modality": "source_bound_data_card"
+                  }
+                ],
+                "artifact_manifest": [
+                  {
+                    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+                    "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+                  },
+                  {
+                    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\delivery_media_manifest_v1.json",
+                    "sha256": "e847f4f5c5b5346abf86819a4fb503ab2050ce83b39fa0ad530a318607bd85d0"
+                  }
+                ]
+              },
+              "surface": "YOUTUBE_COMMUNITY_POST",
+              "steps": [
+                "name_session; list tabs, open a task-owned tab",
+                "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+                "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+                "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+                "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+              ],
+              "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+              "forbidden": [
+                "login",
+                "reauthorize",
+                "account_switch",
+                "cookies",
+                "storage",
+                "blind_retry",
+                "bulk_x_ingestion"
+              ],
+              "request_sha256": "14e01c3b2f1eb77e528e4869292fb8878edf1f751a956324f6235ea5106dd87a"
+            },
+            "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+            "public_write_authorized": true,
+            "tool_request_sha256": "2dd7e817cd42b5241b4259a70cdbb15ee2771241fe8e5f401bc2723b5e9ddc81",
+            "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\native-neo\\14e01c3b2f1eb77e528e4869292fb8878edf1f751a956324f6235ea5106dd87a.request.json"
+          },
+          "reconciliation_status": null,
+          "public_write_performed": false
+        }
+      },
+      "recovery_attempt_budget": 9,
+      "backlog_remaining": 4,
+      "legacy_noncanonical_rows_skipped": 9,
+      "backlog_remaining_by_destination": [
+        "linkedin",
+        "linkedin_company",
+        "x",
+        "youtube"
+      ],
+      "backlog_remaining_obligations": [
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "linkedin",
+          "durable_status": "NATIVE_NEO_TOOL_PENDING",
+          "blocking_status": "NATIVE_NEO_TOOL_PENDING",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "linkedin_company",
+          "durable_status": "NATIVE_NEO_TOOL_PENDING",
+          "blocking_status": "NATIVE_NEO_TOOL_PENDING",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "x",
+          "durable_status": "NATIVE_NEO_TOOL_PENDING",
+          "blocking_status": "NATIVE_NEO_TOOL_PENDING",
+          "reconciliation_status": ""
+        },
+        {
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+          "destination": "youtube",
+          "durable_status": "NATIVE_NEO_TOOL_PENDING",
+          "blocking_status": "NATIVE_NEO_TOOL_PENDING",
+          "reconciliation_status": ""
+        }
+      ],
+      "recovery_quarantined_obligations": [],
+      "recovery_quarantined_obligation_count": 0,
+      "backlog_blocking_new_publication": true,
+      "backlog_blocking_current_article": true
+    },
+    "public_write_performed": true,
+    "unknown_write_detected": false,
+    "site_publication_confirmed": false,
+    "site_url": null,
+    "site_readback_status": "NOT_FOUND_404",
+    "distribution_route": "CONFIRMED_SUBSTACK_WHILE_SITE_ABSENT",
+    "transaction_classification": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 5,
+    "derivative_attempted_count": 8,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 0,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 0,
+    "recovery_required_destinations": [
+      "linkedin",
+      "x",
+      "youtube"
+    ],
+    "readback_limitation_destinations": [],
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "dispatch_id": "dispatch_20856451a3489f0010a7492ede4a7190",
+        "dispatch_recorded": true,
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "publish_called": false
+      }
+    },
+    "additional_confirmed_count": 0,
+    "additional_recovery_required_destinations": [
+      "linkedin_company"
+    ],
+    "substack_publication_confirmed": true
+  },
+  "publication": {
+    "accepted_evidence_sha256": "0e410a7056d7a9292b7e27df7611ac4d4911cf17f503a5252d4d7a57fd11a7bc",
+    "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+    "artifact_sha256": {
+      "article_manifest_v1.json": "7307014597bdb89b10f7ce0b31a524f973225b9428a8a9fe896784f50a90f4b6",
+      "native_derivative_previews_v1.json": "70f04956865d4d0e6042ea9edc270a861dd86a667737a5f04f9632cbee13c366",
+      "publication_lifecycle_plan_v1.json": "1d43f955979eef5dd8696ba1b17c2afefd9fb558f83c612bb2e8d3250ab2ef9a",
+      "qualified_article_record_v1.json": "c6750deb54cad5c26493079f3d71bbc4d241ab5b809f26b306f6545c94e19b04",
+      "run_context_v1.json": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+    },
+    "binding_sha256": "570f7a09c98d071246a959ec7b15680bcfd1275818086b0d9702b8f0d919d26b",
+    "media_sha256": {
+      "cc124-oil-followup-archive-refinery-fws": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "post-facts-fc5c1c6572545a5197e3": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd"
+    },
+    "native_result_sha256": "0a47102f1d226bf6d9d03e7f0be22c3c802228052f5d46fc226089750c81ecb1",
+    "plan_hash": "124365a10f9bdb402551bc500154f850863fe9953ef5dd6f3a75da0cb9e8c99b",
+    "prepared_handoff_sha256": "39cb98a9ac41c37ffb1361e1b9abe8c05f89f8da766765f7090a5bee44bf717c",
+    "publication_authority": false,
+    "review_id": "native-article-review-0331c88d706147b5a6f1ef6ab5964837",
+    "review_notes_sha256": "d7b75c75b1e7a66c5b2e10701d32490d082c14b2c8f2f4ea5e4ef436dfd4e21b",
+    "run_id": "cc124-oil-euro-followup-20261106-v2",
+    "schema_version": "contentops.native_publication_binding.v1",
+    "work_item_id": "cc124-oil-euro-followup-20261106-v2",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "transaction_classification": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 5,
+    "derivative_attempted_count": 8,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 0,
+    "derivative_failed_count": 0,
+    "derivative_never_attempted_count": 0,
+    "recovery_required_destinations": [
+      "linkedin",
+      "x",
+      "youtube"
+    ],
+    "readback_limitation_destinations": [],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "additional_destinations": {
+      "linkedin_company": {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_20856451a3489f0010a7492ede4a7190",
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "NATIVE_NEO_TOOL_PENDING"
+      }
+    },
+    "additional_confirmed_count": 0,
+    "additional_recovery_required_destinations": [
+      "linkedin_company"
+    ],
+    "state": "PENDING_NATIVE",
+    "operation_scope": "OWNER_MANUAL_LIVE",
+    "destinations": [
+      {
+        "destination": "substack",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_99bced709eb50718ec5b8986367a8825",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "223749516",
+        "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": null
+      },
+      {
+        "destination": "telegram",
+        "transport": "BOT_API",
+        "dispatch_id": "dispatch_a3f11868377329d130a7a4f70dcd4a94",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "95",
+        "public_object_url": "https://t.me/CapitalChronicle/95",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "discord",
+        "transport": "WEBHOOK_API",
+        "dispatch_id": "dispatch_eebc8d1c4d9d3556b1d25358c6af8333",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "1568213970878468179",
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "x",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_97dc012d41ca46c9bb9056eb14405a3e",
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "NATIVE_NEO_TOOL_PENDING"
+      },
+      {
+        "destination": "linkedin",
+        "transport": "OFFICIAL_MEMBER_API",
+        "dispatch_id": "dispatch_aecb984c8542d07b855016361667636a",
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": "NATIVE_NEO_TOOL_PENDING"
+      },
+      {
+        "destination": "facebook_page",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_c00c2b6e175c25f33fac46a263d27670",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "106091951705748_1446553694329713",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1446553694329713",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "instagram_business",
+        "transport": "META_GRAPH_API",
+        "dispatch_id": "dispatch_bb1d8d5d7f2899a6ce2506f2d0fd26dd",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "18115941683037444",
+        "public_object_url": "https://www.instagram.com/p/DfZax4OgX9W/",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "threads",
+        "transport": "THREADS_API",
+        "dispatch_id": "dispatch_e7ee68547875c1965254330812753ae9",
+        "status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": "17958876021260382",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZa0BXn5FO",
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_NON_BROWSER_BINDING",
+        "blocker": null
+      },
+      {
+        "destination": "youtube",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_0017054d61d6323f1a5f7c71f761c8c0",
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "NATIVE_NEO_TOOL_PENDING"
+      },
+      {
+        "destination": "linkedin_company",
+        "transport": "BROWSEROS_NEO_MCP",
+        "dispatch_id": "dispatch_20856451a3489f0010a7492ede4a7190",
+        "status": "NATIVE_NEO_TOOL_PENDING",
+        "reconciliation_status": null,
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatch_recorded": true,
+        "cached_readiness": "READY_AUTHENTICATED",
+        "blocker": "NATIVE_NEO_TOOL_PENDING"
+      }
+    ],
+    "timing": {
+      "policy": "JIM_DECISION_53",
+      "target_minutes": 15,
+      "text_approved_at_utc": "2026-11-06T10:26:23.780939+00:00",
+      "dispatch_deadline_utc": "2026-11-06T10:41:23.780939+00:00",
+      "channels": [
+        {
+          "destination": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-06T10:29:25.925591+00:00",
+          "dispatched_at_utc": "2026-11-06T10:37:53.245Z",
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": 689.464061,
+          "within_target": true,
+          "first_verified_readback_at_utc": "2026-11-06T10:41:54.384478+00:00",
+          "readback_seconds_after_text_approval": 930.603539,
+          "image_verified_readback_at_utc": "2026-11-06T10:41:54.384478+00:00",
+          "finished_piece_within_30_minutes": true,
+          "skipped": false
+        },
+        {
+          "destination": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-06T10:43:08.946253+00:00",
+          "dispatched_at_utc": "2026-11-06T10:43:08.946253+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 1005.165314,
+          "within_target": false,
+          "first_verified_readback_at_utc": "2026-11-06T10:43:11.459017+00:00",
+          "readback_seconds_after_text_approval": 1007.678078,
+          "image_verified_readback_at_utc": "2026-11-06T10:43:11.459017+00:00",
+          "finished_piece_within_30_minutes": true,
+          "skipped": false
+        },
+        {
+          "destination": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-06T10:42:26.207589+00:00",
+          "dispatched_at_utc": "2026-11-06T10:42:28.155216+00:00",
+          "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+          "seconds_after_text_approval": 964.374277,
+          "within_target": null,
+          "first_verified_readback_at_utc": "2026-11-06T10:42:28.155216+00:00",
+          "readback_seconds_after_text_approval": 964.374277,
+          "image_verified_readback_at_utc": "2026-11-06T10:42:28.155216+00:00",
+          "finished_piece_within_30_minutes": true,
+          "skipped": false
+        },
+        {
+          "destination": "x",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-06T10:42:28.683531+00:00",
+          "dispatched_at_utc": "2026-11-06T10:42:28.683531+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 964.902592,
+          "within_target": false,
+          "first_verified_readback_at_utc": "2026-11-06T10:42:34.903730+00:00",
+          "readback_seconds_after_text_approval": 971.122791,
+          "image_verified_readback_at_utc": "2026-11-06T10:42:34.903730+00:00",
+          "finished_piece_within_30_minutes": true,
+          "skipped": false
+        },
+        {
+          "destination": "instagram_business",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-06T10:42:54.208334+00:00",
+          "dispatched_at_utc": "2026-11-06T10:42:54.208334+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 990.427395,
+          "within_target": false,
+          "first_verified_readback_at_utc": "2026-11-06T10:43:06.335709+00:00",
+          "readback_seconds_after_text_approval": 1002.55477,
+          "image_verified_readback_at_utc": "2026-11-06T10:43:06.335709+00:00",
+          "finished_piece_within_30_minutes": true,
+          "skipped": false
+        },
+        {
+          "destination": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "attempted_at_utc": "2026-11-06T10:43:12.189154+00:00",
+          "dispatched_at_utc": "2026-11-06T10:43:12.189154+00:00",
+          "timing_basis": "API_TRANSPORT_CALL",
+          "seconds_after_text_approval": 1008.408215,
+          "within_target": false,
+          "first_verified_readback_at_utc": "2026-11-06T10:43:34.825388+00:00",
+          "readback_seconds_after_text_approval": 1031.044449,
+          "image_verified_readback_at_utc": "2026-11-06T10:43:34.825388+00:00",
+          "finished_piece_within_30_minutes": true,
+          "skipped": false
+        },
+        {
+          "destination": "youtube",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        },
+        {
+          "destination": "linkedin_company",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "attempted_at_utc": null,
+          "dispatched_at_utc": null,
+          "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+          "seconds_after_text_approval": null,
+          "within_target": null,
+          "first_verified_readback_at_utc": null,
+          "readback_seconds_after_text_approval": null,
+          "image_verified_readback_at_utc": null,
+          "finished_piece_within_30_minutes": false,
+          "skipped": false
+        }
+      ],
+      "all_channels_dispatched_within_target": false,
+      "finished_piece_acceptance": {
+        "item": "CC-199",
+        "target_minutes": 30,
+        "all_destinations_with_image_readbacks_within_target": false
+      },
+      "state": "OVERDUE_CONTINUE_PUBLICATION"
+    },
+    "skipped_destinations": [],
+    "pending_requests": [
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-oil-euro-followup-20261106-v2",
+        "public_write_authorized": true,
+        "request": {
+          "action": "PUBLISH",
+          "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+                "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+              },
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\delivery_media_manifest_v1.json",
+                "sha256": "e847f4f5c5b5346abf86819a4fb503ab2050ce83b39fa0ad530a318607bd85d0"
+              }
+            ],
+            "expected_text_segments": [
+              "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [
+              {
+                "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+                "asset_id": "post-facts-fc5c1c6572545a5197e3",
+                "attribution": "Source: Capital Chronicle",
+                "caption": "Key facts from the article.",
+                "modality": "source_bound_data_card",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+                "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+                "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+              }
+            ],
+            "thread_post_count": 0
+          },
+          "destination": "linkedin",
+          "dispatch_attempt_identity": "dispatch_aecb984c8542d07b855016361667636a",
+          "entry_url": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
+          "expected_identity": "linkedin:jimcc",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "f7f8d157b9c4d541009f6b2d1cd716925a014e48eb75ce8b66f0efd62cbba34f",
+          "linkedin_api_prewrite_failure": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+          "native_payload": {
+            "format": "professional_brief",
+            "hard_truncation_used": false,
+            "media_asset_ids": [
+              "post-facts-fc5c1c6572545a5197e3"
+            ],
+            "platform_limit": 3000,
+            "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+          },
+          "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+          "payload": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+          "payload_hash": "608734dce2265f9129cada3ec8c2da46392313cbb0514e4b76bfb42a0662c6ba",
+          "public_object_id": null,
+          "public_object_url": null,
+          "request_sha256": "74190e3e82dd32ab08cd5a6995452d95977a412a6af61a8343bc317d2928876f",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "LINKEDIN_POST",
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "9e2675292a5c3db5559272faefa76436e9cc9993f976b8254c67f406204fb205",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      },
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-oil-euro-followup-20261106-v2",
+        "public_write_authorized": true,
+        "request": {
+          "action": "PUBLISH",
+          "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+                "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+              },
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\delivery_media_manifest_v1.json",
+                "sha256": "e847f4f5c5b5346abf86819a4fb503ab2050ce83b39fa0ad530a318607bd85d0"
+              }
+            ],
+            "expected_text_segments": [
+              "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [
+              {
+                "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+                "asset_id": "post-facts-fc5c1c6572545a5197e3",
+                "attribution": "Source: Capital Chronicle",
+                "caption": "Key facts from the article.",
+                "modality": "source_bound_data_card",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+                "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+                "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+              }
+            ],
+            "thread_post_count": 0
+          },
+          "destination": "linkedin_company",
+          "dispatch_attempt_identity": "dispatch_20856451a3489f0010a7492ede4a7190",
+          "entry_url": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
+          "expected_identity": "linkedin:company:143198922",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "d9d3c2d4520a8ef45f4be97bd4c703415dc79c32f5641e0f2581e25fc1917316",
+          "native_payload": {
+            "format": "professional_brief",
+            "hard_truncation_used": false,
+            "media_asset_ids": [
+              "post-facts-fc5c1c6572545a5197e3"
+            ],
+            "platform_limit": 3000,
+            "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+          },
+          "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+          "payload": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+          "payload_hash": "608734dce2265f9129cada3ec8c2da46392313cbb0514e4b76bfb42a0662c6ba",
+          "public_object_id": null,
+          "public_object_url": null,
+          "request_sha256": "b6c5e371fa678466966755d071401e61a8f2354a2eb5012eac1bbb1cf9e9e6f0",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "LINKEDIN_COMPANY_POST",
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "db7244394b8908c45cd244c08e4e31caa145fddb65d1bef2007637a73fd95581",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      },
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-oil-euro-followup-20261106-v2",
+        "public_write_authorized": true,
+        "request": {
+          "action": "PUBLISH",
+          "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+                "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+              },
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\delivery_media_manifest_v1.json",
+                "sha256": "e847f4f5c5b5346abf86819a4fb503ab2050ce83b39fa0ad530a318607bd85d0"
+              }
+            ],
+            "expected_text_segments": [
+              "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+              "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+              "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.",
+              "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+            ],
+            "expected_thread_texts": [
+              "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+              "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.",
+              "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+            ],
+            "media_manifest": [
+              {
+                "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+                "asset_id": "post-facts-fc5c1c6572545a5197e3",
+                "attribution": "Source: Capital Chronicle",
+                "caption": "Key facts from the article.",
+                "modality": "source_bound_data_card",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+                "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+                "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+              }
+            ],
+            "thread_post_count": 3
+          },
+          "destination": "x",
+          "dispatch_attempt_identity": "dispatch_97dc012d41ca46c9bb9056eb14405a3e",
+          "entry_url": "https://x.com/Capitalnicle",
+          "expected_identity": "@Capitalnicle",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "8ef49c2fa7f68be1398d5cd7d00eb1abab064858c09ccd53a4904d7a5e1ed802",
+          "native_payload": {
+            "format": "text_brief",
+            "full_text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+            "hard_truncation_used": false,
+            "overflow_strategy": "ordered_reply_chain",
+            "platform_limit": 280,
+            "posts": [
+              {
+                "media_asset_ids": [
+                  "post-facts-fc5c1c6572545a5197e3"
+                ],
+                "order": 0,
+                "role": "root",
+                "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review"
+              },
+              {
+                "media_asset_ids": [],
+                "order": 1,
+                "role": "reply",
+                "text": "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg."
+              },
+              {
+                "media_asset_ids": [],
+                "order": 2,
+                "role": "reply",
+                "text": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+              }
+            ],
+            "quality_metrics": {
+              "complete_article_visual_count": 1,
+              "content_reply_count": 2,
+              "duplicated_sentence_count": 0,
+              "hard_character_slicing_used": false,
+              "notice_reply_count": 0,
+              "orphan_fragment_count": 0,
+              "per_post_character_utilization": [
+                0.529,
+                0.839,
+                0.882
+              ],
+              "post_character_counts": [
+                148,
+                235,
+                247
+              ],
+              "reply_count": 2,
+              "sentence_boundary_pass": true,
+              "shortest_longest_reply_ratio": 0.599,
+              "visual_distribution_pass": false
+            },
+            "reply_texts": [
+              "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWatch: The review says gold made no lower low and had stopped following the dollar leg.",
+              "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nAnalysis, not financial advice.\n\nReaders decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+            ],
+            "root_text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+            "text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review"
+          },
+          "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+          "payload": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nhttps://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+          "payload_hash": "9f2e77fd5bf1a4c9fd8c4cf27a5eebc79c7d101a3b65b6f576d3291b20881af4",
+          "public_object_id": null,
+          "public_object_url": null,
+          "request_sha256": "d951863286bff1989ed8c12f8507eddc39de516d10f6f6090dfdd13996315e31",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "X_THREAD",
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "88a801d2cb25f3de2b5d73b9dd1edd01195e8fdcb956896bf06c8f4643395009",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      },
+      {
+        "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+        "operation_id": "cc124-oil-euro-followup-20261106-v2",
+        "public_write_authorized": true,
+        "request": {
+          "action": "PUBLISH",
+          "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+          "content_binding": {
+            "artifact_manifest": [
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\run_context_v1.json",
+                "sha256": "3d3c38fb2d2ee6685e0258e4184c3454f95f9b6a6f8e471c3bd5839e9f1c7855"
+              },
+              {
+                "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\reviewed-handoff\\7ff1ed269d2964779ef3fcfc3720e70bb67db74eef486d59d6ded2101f19afa6\\delivery_media_manifest_v1.json",
+                "sha256": "e847f4f5c5b5346abf86819a4fb503ab2050ce83b39fa0ad530a318607bd85d0"
+              }
+            ],
+            "expected_text_segments": [
+              "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+            ],
+            "expected_thread_texts": [],
+            "media_manifest": [
+              {
+                "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+                "asset_id": "post-facts-fc5c1c6572545a5197e3",
+                "attribution": "Source: Capital Chronicle",
+                "caption": "Key facts from the article.",
+                "modality": "source_bound_data_card",
+                "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-fc5c1c6572545a5197e3.png",
+                "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+                "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+              }
+            ],
+            "thread_post_count": 0
+          },
+          "destination": "youtube",
+          "dispatch_attempt_identity": "dispatch_0017054d61d6323f1a5f7c71f761c8c0",
+          "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+          "expected_identity": "@CapitalChronicleYouTube",
+          "forbidden": [
+            "login",
+            "reauthorize",
+            "account_switch",
+            "cookies",
+            "storage",
+            "blind_retry",
+            "bulk_x_ingestion"
+          ],
+          "intent_sha256": "28d53414179de38fb528854811f2462e32a4f59ef316feb308a9c14ab51b1d03",
+          "native_payload": {
+            "format": "community_brief",
+            "hard_truncation_used": false,
+            "media_asset_ids": [
+              "post-facts-fc5c1c6572545a5197e3"
+            ],
+            "platform_limit": 1000,
+            "text": "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers."
+          },
+          "package_identity": "fa93b1095f9830d04310dcdb964d147703c2880422b3e79e3e173b6a9bc08f86",
+          "payload": "Update: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+          "payload_hash": "29e1d53afd82237625b0e0c1370d7f1aa32865d20960c2e31168ac68fa68b246",
+          "public_object_id": null,
+          "public_object_url": null,
+          "request_sha256": "14e01c3b2f1eb77e528e4869292fb8878edf1f751a956324f6235ea5106dd87a",
+          "schema_version": "contentops.neo_destination_handoff.v1",
+          "steps": [
+            "name_session; list tabs, open a task-owned tab",
+            "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+            "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+            "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+            "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+          ],
+          "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+          "surface": "YOUTUBE_COMMUNITY_POST",
+          "work_item_id": "cc124-oil-euro-followup-20261106-v2"
+        },
+        "required_tool": "mcp__browseros_neo__run",
+        "schema_version": "contentops.native_neo_tool_request.v1",
+        "tool_request_sha256": "2dd7e817cd42b5241b4259a70cdbb15ee2771241fe8e5f401bc2723b5e9ddc81",
+        "action_claimed": false,
+        "next_operation": "publication-tool-begin"
+      }
+    ],
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "next_operation": "publication-tool-begin",
+    "dispatch_continuation_operation": "publication-tool-begin",
+    "next_command": "python scripts/run_native_desktop_editorial.py publication-tool-begin --binding \"A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\native_operation_binding.json\" --request-sha256 14e01c3b2f1eb77e528e4869292fb8878edf1f751a956324f6235ea5106dd87a --native-invocation-id <actual-turn-id> --rollout config/native_desktop_rollout_v1.json",
+    "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale.",
+    "final_visual_acceptance": {
+      "review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+      "policy_id": "JIM_DECISION_53",
+      "review_id": "native-article-review-0331c88d706147b5a6f1ef6ab5964837",
+      "text_approved_at_utc": "2026-11-06T10:26:23.780939+00:00",
+      "automated_media_check": {
+        "policy": "JIM_DECISION_53",
+        "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+        "findings": [
+          {
+            "asset_id": "post-facts-fc5c1c6572545a5197e3",
+            "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 1080,
+            "height": 1350,
+            "expected_dimensions": [
+              1080,
+              1350
+            ],
+            "right_size": true,
+            "status": "PASS"
+          },
+          {
+            "asset_id": "cc124-oil-followup-archive-refinery-fws",
+            "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+            "pixels_inspected": false,
+            "loads": true,
+            "width": 1512,
+            "height": 996,
+            "expected_dimensions": [
+              1512,
+              996
+            ],
+            "right_size": true,
+            "status": "PASS"
+          }
+        ],
+        "failures_logged_no_repair_loop": 0,
+        "blocks_publication": false
+      },
+      "pixels_inspected": false
+    },
+    "site_url": null,
+    "site_publication_confirmed": false,
+    "substack_publication_confirmed": true
+  },
+  "daily_email_digest": {
+    "digest_id": "cc143-digest-2026-11-05",
+    "confirmed": false,
+    "web_confirmed": true,
+    "email_confirmed": false,
+    "state": "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED",
+    "public_object_id": "223626281",
+    "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-756",
+    "public_write_performed": false,
+    "native_continuation": {
+      "command": "digest-resume",
+      "arguments": [
+        "--rollout",
+        "config/native_desktop_rollout_v1.json",
+        "--native-invocation-id",
+        "<actual-active-invocation>"
+      ],
+      "instruction": "Continue this exact due digest through the existing Neo begin/submit loop before preparing another digest. Preserve any code tab and never read a mailbox or enter a code."
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "selected_story_context": true,
+  "expected_request_sha256": "85bcb2714debe3d263458e5772a6b94983f0ba632aa636b12b3ea58c7cf06101",
+  "candidate_id": "simple-story-226805ee78b26e618b49acca",
+  "supporting_headline_ids": [
+    "cc124-pre-us-opus-scenarios-20261109",
+    "cc124-pre-us-rates-20261109"
+  ],
+  "match_reason": "Decision 98 authorizes the dated Opus weekly scenario fallback and Friday rates for this same six-market pre-US wrap. Attach the already frozen, verified sources before any writing; their earlier dates and separate scenario horizons remain explicit. These records provide context and model estimates rather than new event confirmation."
+}

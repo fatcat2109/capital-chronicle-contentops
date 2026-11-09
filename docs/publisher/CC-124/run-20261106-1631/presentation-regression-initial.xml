@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="5" time="1.318" timestamp="2026-11-06T17:17:45.777328+07:00" hostname="J-P"><testcase classname="tests.test_main_report_reader_presentation_v1" name="test_natural_main_attribution_reaches_all_eight_packages_without_prefix" time="0.060"><failure message="assert 'not confirmed' in '{\'format\': \'professional_brief\', \'media_asset_ids\': [\'controlled-card\'], \'text\': &quot;Capital Chronicle\'s oil ...al Chronicle may hold positions in the markets it covers.&quot;, \'platform_limit\': 3000, \'hard_truncation_used\': False}'">def test_natural_main_attribution_reaches_all_eight_packages_without_prefix():
+        article, state = report_article()
+        bundle, _ = _native_preview_bundle(article=article, article_mode="DATA_OR_DOCUMENT_LENS",
+            article_identity="a" * 64, epistemic_state=state, media_asset_ids=["controlled-card"])
+        assert len(bundle["packages"]) == 8
+        for payload in bundle["packages"].values():
+            rendered = str(payload)
+            assert "DATED CAPITAL CHRONICLE REVIEW" not in rendered
+            assert "Capital Chronicle" in rendered
+&gt;           assert "not confirmed" in rendered
+E           assert 'not confirmed' in '{\'format\': \'professional_brief\', \'media_asset_ids\': [\'controlled-card\'], \'text\': "Capital Chronicle\'s oil ...al Chronicle may hold positions in the markets it covers.", \'platform_limit\': 3000, \'hard_truncation_used\': False}'
+
+tests\test_main_report_reader_presentation_v1.py:37: AssertionError</failure></testcase><testcase classname="tests.test_main_report_reader_presentation_v1" name="test_unattributed_title_and_relay_still_retain_reporting_label" time="0.003" /><testcase classname="tests.test_main_report_reader_presentation_v1" name="test_natural_main_attribution_does_not_admit_false_event_confirmation" time="0.004" /><testcase classname="tests.test_main_report_reader_presentation_v1" name="test_main_review_date_reaches_actual_card_renderer_in_new_york[2026-11-06T02:00:00Z-November 5, 2026]" time="0.210" /><testcase classname="tests.test_main_report_reader_presentation_v1" name="test_main_review_date_reaches_actual_card_renderer_in_new_york[2026-07-01T02:00:00Z-June 30, 2026]" time="0.138" /></testsuite></testsuites>

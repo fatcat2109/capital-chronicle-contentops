@@ -1,0 +1,31 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "dispatched_at_utc": "2026-11-06T11:02:10.319Z",
+    "identity": {
+      "changed": false,
+      "page": 703,
+      "settled": false,
+      "value": {
+        "at": "2026-11-06T11:02:09.775Z",
+        "imageCount": 2,
+        "name": "Dialog content start. Create post modal Capital Chronicle Post to Anyone ",
+        "url": "https://www.linkedin.com/company/143198922/admin/page-posts/published/"
+      }
+    },
+    "readback": {
+      "changed": false,
+      "page": 703,
+      "settled": false,
+      "value": {
+        "links": [],
+        "notification": "",
+        "observed_at_utc": "2026-11-06T11:02:13.453Z"
+      }
+    },
+    "ready": {
+      "matched": true
+    }
+  }
+}

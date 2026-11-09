@@ -121,3 +121,32 @@ def test_a_status_post_carries_no_link_on_any_destination(registered):
         intent = json.loads(row["payload"])
         assert intent.get("canonical_url") in (None, "")
         assert find_forbidden_link(intent["native_payload"]) is None and "https://" not in intent["native_payload"]["text"]
+
+@pytest.mark.parametrize("destination", API_DESTINATIONS)
+def test_a_status_post_without_a_link_reaches_its_adapter(registered, destination, monkeypatch):
+    """6 Nov: decision 83 left status posts with no canonical URL, and the router refused every one
+    with CANONICAL_SUBSTACK_URL_UNAVAILABLE before any adapter ran."""
+    store, _, _, key = registered
+    message = next(r for r in store.list_outbox_messages()
+                   if r["work_item_id"] == key and r["destination"] == destination)
+    intent = json.loads(message["payload"])
+    called = []
+
+    def reached(**kw):
+        called.append(kw)
+        raise RuntimeError("adapter reached")
+
+    for target in ("live_contentops.telegram_live_adapter_v6.execute_telegram_photo",
+                   "live_contentops.telegram_live_adapter_v6.execute_telegram_post",
+                   "live_contentops.discord_live_adapter_v6.execute_discord_post",
+                   "live_contentops.threads_adapter_v6.execute_threads_post"):
+        monkeypatch.setattr(target, reached)
+    intent["attempt_identity"] = "attempt-1"
+    try:
+        result = _publish_one_destination_from_durable_intent(destination=destination, intent=intent,
+            authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT", "dispatch_attempt_identity": "attempt-1"})
+    except RuntimeError:
+        result = {}
+    assert (result or {}).get("reason_code") != "CANONICAL_SUBSTACK_URL_UNAVAILABLE"
+    assert called, "the post never reached its adapter"
+

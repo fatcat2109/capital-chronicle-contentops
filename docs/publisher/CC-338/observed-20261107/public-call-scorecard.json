@@ -1,0 +1,87 @@
+{
+  "as_of_utc": "2026-11-06T18:35:00Z",
+  "calls": [
+    {
+      "call": {
+        "condition": "price trades into 89.95–90.12",
+        "direction": "bullish",
+        "horizon": "the period to Fri 6 Nov, 06:30 ET",
+        "invalidation": "price moves below 89.45",
+        "market": "US crude oil (WTI)"
+      },
+      "call_id": "call-b26d83cfdc25a144dba99d72",
+      "call_known_at_utc": "2026-11-06T08:20:55.184821+00:00",
+      "first_published_at_utc": "2026-11-06T08:20:55.184821+00:00",
+      "public_history": [
+        {
+          "at_utc": "2026-11-06T08:19:32.351706Z",
+          "state": "WAITING"
+        },
+        {
+          "at_utc": "2026-11-06T08:45:32.500209Z",
+          "state": "INVALIDATED"
+        }
+      ],
+      "publications": [
+        {
+          "at_utc": "2026-11-06T08:20:55.184821+00:00",
+          "name": "telegram",
+          "url": "https://t.me/CapitalChronicle/91"
+        },
+        {
+          "at_utc": "2026-11-06T08:20:58.787276+00:00",
+          "name": "threads",
+          "url": "https://www.threads.com/@official.capitalchronicle/post/DfZKiUeH44V"
+        }
+      ],
+      "score": null,
+      "state": "INVALIDATED"
+    },
+    {
+      "call": {
+        "condition": "price trades into 1.1187–1.1191",
+        "direction": "bearish",
+        "horizon": "the period to Fri 6 Nov, 06:30 ET",
+        "invalidation": "price moves above 1.1204",
+        "market": "EUR/USD"
+      },
+      "call_id": "call-0ecdc48354a48463ee98cd73",
+      "call_known_at_utc": "2026-11-06T08:21:51.222030+00:00",
+      "first_published_at_utc": "2026-11-06T08:21:51.222030+00:00",
+      "public_history": [
+        {
+          "at_utc": "2026-11-06T08:19:32.351706Z",
+          "state": "WAITING"
+        },
+        {
+          "at_utc": "2026-11-06T08:31:51.192761Z",
+          "state": "TRIGGERED"
+        }
+      ],
+      "publications": [
+        {
+          "at_utc": "2026-11-06T08:21:51.222030+00:00",
+          "name": "telegram",
+          "url": "https://t.me/CapitalChronicle/92"
+        },
+        {
+          "at_utc": "2026-11-06T08:21:53.791685+00:00",
+          "name": "threads",
+          "url": "https://www.threads.com/@official.capitalchronicle/post/DfZKpDnH-Nz"
+        }
+      ],
+      "score": null,
+      "state": "TRIGGERED"
+    }
+  ],
+  "conflicts_notice": "Capital Chronicle may hold positions in the markets it covers.",
+  "notice": "Analysis, not financial advice.",
+  "schema_version": "contentops.public_call_scorecard.v1",
+  "scoring_note": "Public states are shown. Numerical resolution and benchmark scores await Main's scored output; no performance claim.",
+  "since_utc": "2026-11-06T05:00:00Z",
+  "state_counts": {
+    "INVALIDATED": 1,
+    "TRIGGERED": 1
+  },
+  "total_calls": 2
+}

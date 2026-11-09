@@ -1226,7 +1226,12 @@ def post_image_view(result, *, output_dir):
     usable, excluded = [], []
     for asset in view.get("media_assets", []):
         try:
-            if asset.get("modality") == "documentary_photo":
+            if asset.get("modality") == "tradingview_chart_snapshot":
+                from live_contentops.article_publication_quality_v1 import validate_snapshot_asset
+                validate_snapshot_asset(asset, market=article.get("market_asset"))
+                from live_contentops.tradingview_snapshot_v1 import validate_snapshot_asset as validate_delivery_snapshot
+                validate_delivery_snapshot(asset, article)
+            elif asset.get("modality") == "documentary_photo":
                 validate_contextual_photo(asset, require_pixel_review=False)
             elif asset.get("modality") == "source_bound_data_card":
                 from live_contentops.post_visuals_v1 import validate_post_data_card
@@ -1241,13 +1246,22 @@ def post_image_view(result, *, output_dir):
         except (ValueError, OSError, KeyError) as exc:
             excluded.append({"asset_id": asset.get("asset_id"), "sha256": asset.get("sha256"),
                              "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__})
+    admitted_ids = {a["asset_id"] for a in usable}
+    for asset in list(usable):
+        if asset.get("preceding_card") and asset["preceding_card"]["asset_id"] not in admitted_ids:
+            usable.remove(asset)
+            excluded.append({"asset_id": asset["asset_id"], "sha256": asset["sha256"],
+                             "cause": "TRADINGVIEW_PRECEDING_CARD_NOT_ADMITTED"})
     charts = [a for a in usable if a.get("modality") == "source_backed_chart"]
     cards = [a for a in usable if a.get("modality") == "source_bound_data_card"]
-    if not charts and not cards:
+    snapshots = [a for a in usable if a.get("modality") == "tradingview_chart_snapshot"]
+    if not charts and not cards and not snapshots:
         charts = [build_post_image_card(article, output_dir=output_dir, accepted_evidence_sha256=evidence_hash)]
         usable.insert(0, charts[0])
     allowed = {a["asset_id"] for a in usable}
-    default = (cards or charts)[0]["asset_id"]
+    default = article.get("lead_image_asset_id")
+    default = default if default in allowed else (snapshots or cards or charts)[0]["asset_id"]
+    usable.sort(key=lambda a: a["asset_id"] != default)
     from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
     decision = view.get("visual_editorial_decision") or article.get("visual_editorial_decision")
     choices = (article.get("post_visual_destination_media") or article.get("native_destination_media")

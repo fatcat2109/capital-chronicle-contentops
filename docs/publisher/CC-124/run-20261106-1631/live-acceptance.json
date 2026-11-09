@@ -1,0 +1,261 @@
+{
+  "observed_at_utc": "2026-11-06T11:13:31.974011+00:00",
+  "operation_id": "cc124-oil-euro-followup-20261106-v2",
+  "state": "RECONCILED",
+  "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+  "unknown_write_count": 0,
+  "pending_requests": [],
+  "confirmed_destinations": [
+    {
+      "dispatch_id": "dispatch_eebc8d1c4d9d3556b1d25358c6af8333",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1568213970878468179",
+      "public_object_url": null,
+      "dispatched_at": "2026-11-06T10:42:26.194400+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T10:42:28.155216+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "1568213970878468179",
+          "observed_public_object_url": null
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_c00c2b6e175c25f33fac46a263d27670",
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1446553694329713",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1446553694329713",
+      "dispatched_at": "2026-11-06T10:42:28.674255+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T10:42:34.903730+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "106091951705748_1446553694329713",
+          "observed_public_object_url": "https://www.facebook.com/1342369584748125/posts/1446553694329713"
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_bb1d8d5d7f2899a6ce2506f2d0fd26dd",
+      "platform": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18115941683037444",
+      "public_object_url": "https://www.instagram.com/p/DfZax4OgX9W/",
+      "dispatched_at": "2026-11-06T10:42:54.197311+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T10:43:06.335709+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "18115941683037444",
+          "observed_public_object_url": "https://www.instagram.com/p/DfZax4OgX9W/"
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_aecb984c8542d07b855016361667636a",
+      "platform": "linkedin",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524425263653392384",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425263653392384/",
+      "dispatched_at": "2026-11-06T10:43:06.556538+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T11:10:52.708940+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "urn:li:activity:7524425263653392384",
+          "observed_public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425263653392384/",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_20856451a3489f0010a7492ede4a7190",
+      "platform": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524425901736964096",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425901736964096/",
+      "dispatched_at": "2026-11-06T10:43:06.877261+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T11:10:52.808727+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "urn:li:activity:7524425901736964096",
+          "observed_public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425901736964096/",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_99bced709eb50718ec5b8986367a8825",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "223749516",
+      "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+      "dispatched_at": "2026-11-06T10:28:47.019554+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T10:42:25.465570+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "223749516",
+          "observed_public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_a3f11868377329d130a7a4f70dcd4a94",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "95",
+      "public_object_url": "https://t.me/CapitalChronicle/95",
+      "dispatched_at": "2026-11-06T10:43:08.935812+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T10:43:11.459017+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "95",
+          "observed_public_object_url": "https://t.me/CapitalChronicle/95"
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_e7ee68547875c1965254330812753ae9",
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17958876021260382",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZa0BXn5FO",
+      "dispatched_at": "2026-11-06T10:43:12.178520+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T10:43:34.825388+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "17958876021260382",
+          "observed_public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZa0BXn5FO",
+          "content_binding_checks": {
+            "account_match": true,
+            "canonical_link_match": true,
+            "media_match": true,
+            "object_id_match": true,
+            "public_url_match": true,
+            "text_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_97dc012d41ca46c9bb9056eb14405a3e",
+      "platform": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2118656322845769835",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118656322845769835",
+      "dispatched_at": "2026-11-06T10:43:35.024929+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T11:10:52.905730+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "2118656322845769835",
+          "observed_public_object_url": "https://x.com/Capitalnicle/status/2118656322845769835",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        }
+      ]
+    },
+    {
+      "dispatch_id": "dispatch_0017054d61d6323f1a5f7c71f761c8c0",
+      "platform": "youtube",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+      "public_object_url": "https://www.youtube.com/post/Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+      "dispatched_at": "2026-11-06T10:43:35.296011+00:00",
+      "readbacks": [
+        {
+          "read_at_utc": "2026-11-06T11:10:53.010365+00:00",
+          "verified": true,
+          "source_status": "SUCCESS",
+          "identity_match": true,
+          "meaningful_media_visible": true,
+          "observed_public_object_id": "Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+          "observed_public_object_url": "https://www.youtube.com/post/Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+          "content_binding_checks": {
+            "media_match": true,
+            "text_match": true,
+            "thread_match": true
+          }
+        }
+      ]
+    }
+  ],
+  "substack_exact_prose": {
+    "approved_paragraphs": 6,
+    "all_present_in_order": true,
+    "title_match": true,
+    "subtitle_match": true
+  },
+  "production_day": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json",
+    "record_sha256": "bf1cbe7dc153852db5a4117ca3bc51007a48c9e02a0b3270646e7954886c3fc1",
+    "day": "newsroom-production-day-2026-11-06-bangkok",
+    "distinct_canonicals": 3,
+    "new_canonical_in_consumer": true
+  },
+  "digest_consumer": {
+    "evidence": "cc122-digest-live-consumer.json",
+    "email_sent": false,
+    "installed_consumer_count": 3
+  },
+  "publication_timing": {
+    "first_text_approval_utc": "2026-11-06T10:22:09.586022+00:00",
+    "canonical_publish_utc": "2026-11-06T10:37:42.739Z",
+    "latest_browser_send_click_utc": "2026-11-06T11:02:10.319Z",
+    "all_channels_within_15_minutes": false,
+    "cause": "Quota interrupted the saved KEEP handoff; native upload work and serialized browser distribution then exceeded 15 minutes. Original approval clock retained."
+  },
+  "telegram_readback": "telegram-public-readback.json",
+  "schedule_changed": false,
+  "source_trace": "source-claim-trace.json"
+}

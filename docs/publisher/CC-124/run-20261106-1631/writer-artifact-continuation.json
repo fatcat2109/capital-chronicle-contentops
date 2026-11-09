@@ -1,0 +1,9 @@
+{
+  "accepted_artifact": "writer-accepted-return.json",
+  "later_native_final": "writer-final-native-return.json",
+  "cause": "Parent collected complete saved artifact before native final return; role made further edits before returning.",
+  "no_public_write_or_text_approval": true,
+  "resolution": "Preserve both. Existing requested revise stage 239b0fa7b4fde5c22c74697f37bce0c456b935b1d5e5d896f4d779c2c6e6a221 supplies the accepted copy and lets the same writer reconcile the useful edit before assembly/review.",
+  "accepted_output_sha256": "b7794fcd8e1823af831bb76cfefc8f822c4a3dbec57c2218f9490019c907ca03",
+  "final_native_file_sha256": "df6f06df76d6da8e8cfcbc91b9f90ba56b621d67b177911b3e4ea7fef2876271"
+}

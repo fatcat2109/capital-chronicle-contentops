@@ -140,6 +140,9 @@ def _reader_facing_source_date(value: str | None) -> str | None:
     except ValueError:
         # A source may already provide a reader-facing date instead of an ISO timestamp.
         return source
+    if parsed.tzinfo is not None:
+        from live_contentops.public_time_v1 import public_datetime
+        parsed = public_datetime(parsed)
     return f"{parsed.strftime('%B')} {parsed.day}, {parsed.year}"
 
 

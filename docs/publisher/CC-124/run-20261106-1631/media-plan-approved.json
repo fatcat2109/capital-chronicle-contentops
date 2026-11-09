@@ -1,0 +1,57 @@
+{
+  "native_plan_run_id": "cc124-oil-euro-followup-20261106-v2",
+  "native_plan_stage": "media-plan",
+  "native_plan_request_sha256": "2205a124881e41c5f8c1e3392bc1404e13790a59dcfb3b95da33c1f350ad001e",
+  "story_plan": {
+    "thesis": "The later Capital Chronicle review separates three mechanisms before payrolls: its oil interpretation rests on supply-risk context and still needs an upward break from a contracting range; its euro interpretation links the dollar bid to cross-market risk but retains positioning and rates alternatives; gold's failure to make a lower low weakens a uniform dollar explanation. This is a qualitative document comparison, not independent confirmation of geopolitical events or a fresh market observation. Preserve the report's 2026-11-06T08:21:03Z known-at clock and its underlying input cutoff separately from the operation cutoff 2026-11-06T09:44:56.617874Z. Do not complete the truncated oil sentence or invent earlier-review details absent from SOURCE_1.",
+    "analysis_scope": "OTHER_ANALYSIS",
+    "photo_plan": {
+      "asset_id": "cc124-oil-followup-archive-refinery-fws",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\oil-refinery-coastal-texas.jpg",
+      "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg",
+      "creator_publisher": "U.S. Fish and Wildlife Service",
+      "rights_status": "PUBLIC_DOMAIN",
+      "license_evidence": "Retained metadata identifies an official-duty U.S. Fish and Wildlife Service work under PD-USGov-FWS; use the retained rights record, not an inferred licence.",
+      "rights_evidence_sha256": "69e7e160832125a366b909c8cdbc73cdb31f1b63a56236fda3af18ac4311c35e",
+      "caption": "A coastal Texas oil refinery. Archive photograph; the source does not give the capture date.",
+      "alt_text": "Archive aerial photograph of storage tanks and coastal refinery infrastructure in Texas.",
+      "canonical_credit": "Photo: U.S. Fish and Wildlife Service, via Wikimedia Commons. Public domain, U.S. government work. Archive photograph; capture date not supplied. Retain the metadata's source and licence links in the canonical article.",
+      "placement_proposal": "After the opening passage as contextual archive media; SAME MAX writer inspects the exact asset and decides final placement.",
+      "context_only": true,
+      "corroborates_article_facts": false,
+      "limits": "This is Texas refinery context. It does not depict Hormuz, verify a current disruption or establish any contemporary price move. Retain original bytes and do not imply the capture date is known."
+    },
+    "chart_plan": {
+      "proposal": "One qualitative comparison fact card, compiled only after the actual article is written, with three rows: oil, euro and gold. MAX chooses count, form and placement.",
+      "reason": "The exact admitted source is a qualitative Main review, not official-release analysis or a supplied comparable numerical series. A numerical history chart would require invented data and does not serve this scoped document comparison.",
+      "source_id": "SOURCE_1",
+      "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+      "suggested_columns": [
+        "Market",
+        "Main review's explanation",
+        "Alternative or test"
+      ],
+      "source_bound_proposals": [
+        {
+          "market": "Oil",
+          "explanation": "Supply-risk interpretation",
+          "test": "Upward break from contracting range; confirmed de-escalation would remove the supply thesis"
+        },
+        {
+          "market": "Euro",
+          "explanation": "Dollar exposure during the cross-market risk impulse",
+          "test": "Pre-payrolls short positioning and a returning rates channel are alternatives"
+        },
+        {
+          "market": "Gold",
+          "explanation": "No lower low despite the dollar leg",
+          "test": "Divergence limits a uniform dollar explanation"
+        }
+      ],
+      "binding_rule": "Use only propositions that survive into the approved article, attributed to Capital Chronicle's review. Do not introduce numbers, numerical confidence, price levels, targets, forecasts, extra source facts, arrows implying a certain next move, or a fabricated time series. Render source attribution legibly. Any public dated line uses converted New York ET. This card compares explanations, not independently verified events.",
+      "placement_proposal": "After the main comparison, subject to the SAME MAX writer's review."
+    },
+    "source_requests": []
+  }
+}

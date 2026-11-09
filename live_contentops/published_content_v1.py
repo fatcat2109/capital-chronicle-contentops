@@ -313,8 +313,12 @@ def _native_original_prose(plan, article, root):
         context.get("schema_version") == "contentops.simple_durable_run_context.v1"
         and isinstance(record.get("editorial_worker"), dict)
         and record.get("editorial_worker", {}).get("provider") == "NATIVE_CODEX_DESKTOP"
+        # Native identity is the exact body digest. Older targeted revisions
+        # retained a duplicate article_body_sha256 from their prior draft; the
+        # current sealed record, compiler context and plan must all bind the
+        # actual body rather than letting that redundant field wall off CC prose.
         and record["article_identity"] == context.get("article_identity") == plan.get("article_identity")
-        and record.get("article_body_sha256") == sha256(article["substack_body_markdown"].encode()).hexdigest()
+            == sha256(article["substack_body_markdown"].encode()).hexdigest()
         and record.get("accepted_evidence_sha256") == plan.get("accepted_evidence_sha256")
         and all(re.fullmatch(r"[0-9a-f]{64}", str(plan.get(key, "")))
                 and context.get(key) == plan[key]

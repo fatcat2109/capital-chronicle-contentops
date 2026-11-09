@@ -1,0 +1,3146 @@
+{
+  "article_identity": "2d8e36972f630378df9b6ea7ae8b870f5c0b8c0712a1da9a653bb9c2017c29fb",
+  "assets": [
+    {
+      "alt_text": "What range of initial payroll estimates forms the baseline for judging the October report?",
+      "asset_id": "payroll_first_print_trend_cc107",
+      "attribution": "Source: BLS dated first releases. October 2024\u2013September 2026; each month retains its first print.",
+      "caption": "Nonfarm payroll change, seasonally adjusted, October 2024\u2013September 2026. Source: BLS dated first releases; each month retains its first print. September is the latest reported month in this preview.",
+      "computed_values": [
+        [
+          12000.0,
+          227000.0,
+          256000.0,
+          143000.0,
+          151000.0,
+          228000.0,
+          177000.0,
+          139000.0,
+          147000.0,
+          73000.0,
+          22000.0,
+          119000.0,
+          -105000.0,
+          64000.0,
+          50000.0,
+          130000.0,
+          -92000.0,
+          178000.0,
+          115000.0,
+          172000.0,
+          57000.0,
+          -23000.0,
+          162000.0,
+          29000.0
+        ]
+      ],
+      "destination_subset": [
+        "telegram",
+        "discord",
+        "x",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "editorial_data_packet": {
+        "alt_text": "What range of initial payroll estimates forms the baseline for judging the October report?",
+        "asset_id": "payroll_first_print_trend_cc107",
+        "caption": "Nonfarm payroll change, seasonally adjusted, October 2024\u2013September 2026. Source: BLS dated first releases; each month retains its first print. September is the latest reported month in this preview.",
+        "chart_type": "grouped_bar",
+        "destination_subset": [
+          "telegram",
+          "discord",
+          "x",
+          "linkedin",
+          "facebook_page",
+          "instagram_business",
+          "threads",
+          "youtube"
+        ],
+        "history_lineage": {
+          "cutoff_utc": "2026-10-02T12:30:00+00:00",
+          "dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+          "series": [
+            {
+              "name": "NFP_PAYROLL_CHANGE",
+              "observations": [
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2024-10",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 157,878 | 158,731 | 159,181 | 160,007 | 156,832 | 158,770 | 158,993 | 159,005 | 12",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment was essentially unchanged in October (+12,000)",
+                    "headline_reported_value": 12000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "12000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "12",
+                    "reference_period": "2024-10",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2024-11-01T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:45.128Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\7dcc515f63d18cdb850482212987270b1cf36cf2d83daaf3101bd6d37b52d0a0.bin.gz",
+                    "source_relative_artifact": "raw/7dcc515f63d18cdb850482212987270b1cf36cf2d83daaf3101bd6d37b52d0a0.bin.gz",
+                    "source_sha256": "7dcc515f63d18cdb850482212987270b1cf36cf2d83daaf3101bd6d37b52d0a0",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_11012024.htm",
+                    "unit": "persons",
+                    "value": 12000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 12000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2024-11",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,347 | 159,184 | 160,035 | 160,560 | 157,014 | 159,025 | 159,061 | 159,288 | 227",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment rose by 227,000 in November",
+                    "headline_reported_value": 227000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "227000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "227",
+                    "reference_period": "2024-11",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2024-12-06T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.455Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\709c4ef002562bdf6ef311754c47315aa28e0964be97d8d77089ab4285c8f8ee.bin.gz",
+                    "source_relative_artifact": "raw/709c4ef002562bdf6ef311754c47315aa28e0964be97d8d77089ab4285c8f8ee.bin.gz",
+                    "source_sha256": "709c4ef002562bdf6ef311754c47315aa28e0964be97d8d77089ab4285c8f8ee",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_12062024.htm",
+                    "unit": "persons",
+                    "value": 227000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 227000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2024-12",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,269 | 160,030 | 160,539 | 160,458 | 157,304 | 159,068 | 159,280 | 159,536 | 256",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment increased by 256,000 in December",
+                    "headline_reported_value": 256000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "256000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "256",
+                    "reference_period": "2024-12",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-01-10T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.175Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\696ad6dd62fb4666a2333386ca09e81e5096ddf612d32c4d2ffd716ce796084c.bin.gz",
+                    "source_relative_artifact": "raw/696ad6dd62fb4666a2333386ca09e81e5096ddf612d32c4d2ffd716ce796084c.bin.gz",
+                    "source_sha256": "696ad6dd62fb4666a2333386ca09e81e5096ddf612d32c4d2ffd716ce796084c",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_01102025.htm",
+                    "unit": "persons",
+                    "value": 256000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 256000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-01",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 154,942 | 159,882 | 159,943 | 157,091 | 157,049 | 158,619 | 158,926 | 159,069 | 143",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment rose by 143,000 in January",
+                    "headline_reported_value": 143000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "143000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "143",
+                    "reference_period": "2025-01",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-02-07T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.000Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\e653df54e98d870033b675cd6c2bf57f0ea944b4563ce30679bd6b32a8941991.bin.gz",
+                    "source_relative_artifact": "raw/e653df54e98d870033b675cd6c2bf57f0ea944b4563ce30679bd6b32a8941991.bin.gz",
+                    "source_sha256": "e653df54e98d870033b675cd6c2bf57f0ea944b4563ce30679bd6b32a8941991",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_02072025.htm",
+                    "unit": "persons",
+                    "value": 143000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 143000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-02",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 156,007 | 159,923 | 157,092 | 157,983 | 157,271 | 158,942 | 159,067 | 159,218 | 151",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment rose by 151,000 in February",
+                    "headline_reported_value": 151000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "151000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "151",
+                    "reference_period": "2025-02",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-03-07T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.049Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\d3d200716e88a6594647942a43e9a93f952d4103c246ced3aa2cee374af6d298.bin.gz",
+                    "source_relative_artifact": "raw/d3d200716e88a6594647942a43e9a93f952d4103c246ced3aa2cee374af6d298.bin.gz",
+                    "source_sha256": "d3d200716e88a6594647942a43e9a93f952d4103c246ced3aa2cee374af6d298",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_03072025.htm",
+                    "unit": "persons",
+                    "value": 151000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 151000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-03",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 156,612 | 157,095 | 157,950 | 158,506 | 157,517 | 159,053 | 159,170 | 159,398 | 228",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment rose by 228,000 in March",
+                    "headline_reported_value": 228000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "228000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "228",
+                    "reference_period": "2025-03",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-04-04T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.289Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\3b6a767171cc0f963f109033d36e751340db2200abafad1201fc3108e6e587ac.bin.gz",
+                    "source_relative_artifact": "raw/3b6a767171cc0f963f109033d36e751340db2200abafad1201fc3108e6e587ac.bin.gz",
+                    "source_sha256": "3b6a767171cc0f963f109033d36e751340db2200abafad1201fc3108e6e587ac",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_04042025.htm",
+                    "unit": "persons",
+                    "value": 228000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 228000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-04",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 157,438 | 157,944 | 158,411 | 159,316 | 157,635 | 159,155 | 159,340 | 159,517 | 177",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment increased by 177,000 in April",
+                    "headline_reported_value": 177000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "177000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "177",
+                    "reference_period": "2025-04",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-05-02T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.726Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\d66ab0a84207da1342f12861c29a0e4978ccbebbd742c52b1e8533023cdc3873.bin.gz",
+                    "source_relative_artifact": "raw/d66ab0a84207da1342f12861c29a0e4978ccbebbd742c52b1e8533023cdc3873.bin.gz",
+                    "source_sha256": "d66ab0a84207da1342f12861c29a0e4978ccbebbd742c52b1e8533023cdc3873",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_05022025.htm",
+                    "unit": "persons",
+                    "value": 177000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 177000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-05",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,256 | 158,402 | 159,238 | 159,964 | 157,828 | 159,275 | 159,422 | 159,561 | 139",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment increased by 139,000 in May",
+                    "headline_reported_value": 139000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "139000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "139",
+                    "reference_period": "2025-05",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-06-06T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.589Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\427359066f3ccecb6c291c86f706e52280862acea8cb640f990bb9010a3982df.bin.gz",
+                    "source_relative_artifact": "raw/427359066f3ccecb6c291c86f706e52280862acea8cb640f990bb9010a3982df.bin.gz",
+                    "source_sha256": "427359066f3ccecb6c291c86f706e52280862acea8cb640f990bb9010a3982df",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_06062025.htm",
+                    "unit": "persons",
+                    "value": 139000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 139000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-06",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,722 | 159,227 | 159,958 | 160,475 | 157,915 | 159,433 | 159,577 | 159,724 | 147",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment increased by 147,000 in June",
+                    "headline_reported_value": 147000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "147000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "147",
+                    "reference_period": "2025-06",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-07-03T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.536Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\cdebd2b9d549e47842226ce3ecb40f108c0d10390d60a1ff37f43c9abac25a9d.bin.gz",
+                    "source_relative_artifact": "raw/cdebd2b9d549e47842226ce3ecb40f108c0d10390d60a1ff37f43c9abac25a9d.bin.gz",
+                    "source_sha256": "cdebd2b9d549e47842226ce3ecb40f108c0d10390d60a1ff37f43c9abac25a9d",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_07032025.htm",
+                    "unit": "persons",
+                    "value": 147000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 147000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-07",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 157,771 | 159,930 | 160,293 | 159,227 | 158,003 | 159,452 | 159,466 | 159,539 | 73",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment changed little in July (+73,000) and has shown little change since April, ",
+                    "headline_reported_value": 73000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "73000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "73",
+                    "reference_period": "2025-07",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-08-01T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.219Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\3dd179efacf0239bb6c2c8a9780dc30231411bfc5a2385275ff1bfa46e8ef153.bin.gz",
+                    "source_relative_artifact": "raw/3dd179efacf0239bb6c2c8a9780dc30231411bfc5a2385275ff1bfa46e8ef153.bin.gz",
+                    "source_sha256": "3dd179efacf0239bb6c2c8a9780dc30231411bfc5a2385275ff1bfa46e8ef153",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_08012025.htm",
+                    "unit": "persons",
+                    "value": 73000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 73000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-08",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,070 | 160,256 | 159,210 | 159,410 | 158,074 | 159,439 | 159,518 | 159,540 | 22",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment changed little in August (+22,000) and has shown little change since April, ",
+                    "headline_reported_value": 22000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "22000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "22",
+                    "reference_period": "2025-08",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-09-05T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.171Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\ca6186dccc99238b7a30b671c931cef474d4ed4484d6bb8e0d425e2f9a04713a.bin.gz",
+                    "source_relative_artifact": "raw/ca6186dccc99238b7a30b671c931cef474d4ed4484d6bb8e0d425e2f9a04713a.bin.gz",
+                    "source_sha256": "ca6186dccc99238b7a30b671c931cef474d4ed4484d6bb8e0d425e2f9a04713a",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_09052025.htm",
+                    "unit": "persons",
+                    "value": 22000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 22000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-09",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,527 | 159,219 | 159,415 | 159,732 | 158,314 | 159,511 | 159,507 | 159,626 | 119",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment edged up by 119,000 in September but has shown little change since April, ",
+                    "headline_reported_value": 119000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "119000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "119",
+                    "reference_period": "2025-09",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-11-20T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.816Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\32423903015128e72093392cfaf331a097db1aeb2e8e7d300bec15eef9b6dd8e.bin.gz",
+                    "source_relative_artifact": "raw/32423903015128e72093392cfaf331a097db1aeb2e8e7d300bec15eef9b6dd8e.bin.gz",
+                    "source_sha256": "32423903015128e72093392cfaf331a097db1aeb2e8e7d300bec15eef9b6dd8e",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_11202025.htm",
+                    "unit": "persons",
+                    "value": 119000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 119000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-10",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "First publication of October data; Summary table B monthly changes, thousands; Oct column: Total nonfarm | 261 | 108 | -105 | 64",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": null,
+                    "headline_reported_value": null,
+                    "headline_scale": "NO_SEPARATE_OCTOBER_RELEASE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "-105000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "-105",
+                    "reference_period": "2025-10",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-12-16T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.641Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947.bin.gz",
+                    "source_relative_artifact": "raw/69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947.bin.gz",
+                    "source_sha256": "69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_12162025.htm",
+                    "unit": "persons",
+                    "value": -105000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": -105000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-11",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 159,882 | 159,732 | 160,411 | 160,652 | 158,619 | 159,593 | 159,488 | 159,552 | 64",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment changed little in November (+64,000) and has shown little net change since April, ",
+                    "headline_reported_value": 64000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "64000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "64",
+                    "reference_period": "2025-11",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-12-16T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.641Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947.bin.gz",
+                    "source_relative_artifact": "raw/69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947.bin.gz",
+                    "source_sha256": "69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_12162025.htm",
+                    "unit": "persons",
+                    "value": 64000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 64000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-12",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 159,923 | 160,397 | 160,640 | 160,448 | 158,942 | 159,420 | 159,476 | 159,526 | 50",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "total nonfarm payroll employment (+50,000)",
+                    "headline_reported_value": 50000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "50000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "50",
+                    "reference_period": "2025-12",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-01-09T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.589Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\7cc113005b6baba66c5cf85feb83d4467479924b5661d59a6ef1237ff135df27.bin.gz",
+                    "source_relative_artifact": "raw/7cc113005b6baba66c5cf85feb83d4467479924b5661d59a6ef1237ff135df27.bin.gz",
+                    "source_sha256": "7cc113005b6baba66c5cf85feb83d4467479924b5661d59a6ef1237ff135df27",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_01092026.htm",
+                    "unit": "persons",
+                    "value": 50000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 50000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-01",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 156,382 | 159,571 | 159,363 | 156,714 | 158,268 | 158,449 | 158,497 | 158,627 | 130",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment rose by 130,000 in January",
+                    "headline_reported_value": 130000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "130000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "130",
+                    "reference_period": "2026-01",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-02-11T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.376Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\cd282f892c07c124d465f184ad9fab298893d4616b64d99fff467feae60a939f.bin.gz",
+                    "source_relative_artifact": "raw/cd282f892c07c124d465f184ad9fab298893d4616b64d99fff467feae60a939f.bin.gz",
+                    "source_sha256": "cd282f892c07c124d465f184ad9fab298893d4616b64d99fff467feae60a939f",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_02112026.htm",
+                    "unit": "persons",
+                    "value": 130000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 130000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-02",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 157,157 | 159,358 | 156,723 | 157,286 | 158,310 | 158,432 | 158,558 | 158,466 | -92",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment edged down by 92,000 in February",
+                    "headline_reported_value": -92000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "-92000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "-92",
+                    "reference_period": "2026-02",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-03-06T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.079Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\596a68af690cac8805340128de322b5b4ff3f3b7773cc77151c061340b7d1435.bin.gz",
+                    "source_relative_artifact": "raw/596a68af690cac8805340128de322b5b4ff3f3b7773cc77151c061340b7d1435.bin.gz",
+                    "source_sha256": "596a68af690cac8805340128de322b5b4ff3f3b7773cc77151c061340b7d1435",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_03062026.htm",
+                    "unit": "persons",
+                    "value": -92000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": -92000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-03",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 157,540 | 156,728 | 157,204 | 157,775 | 158,377 | 158,592 | 158,459 | 158,637 | 178",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment increased by 178,000 in March",
+                    "headline_reported_value": 178000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "178000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "178",
+                    "reference_period": "2026-03",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-04-03T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.118Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\532760a4d2854a7ee19f238ffbdcbcfc2397f5914c33ea8bd423917b1bd0d818.bin.gz",
+                    "source_relative_artifact": "raw/532760a4d2854a7ee19f238ffbdcbcfc2397f5914c33ea8bd423917b1bd0d818.bin.gz",
+                    "source_sha256": "532760a4d2854a7ee19f238ffbdcbcfc2397f5914c33ea8bd423917b1bd0d818",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_04032026.htm",
+                    "unit": "persons",
+                    "value": 178000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 178000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-04",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,368 | 157,214 | 157,769 | 158,695 | 158,485 | 158,436 | 158,621 | 158,736 | 115",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment edged up by 115,000 in April",
+                    "headline_reported_value": 115000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "115000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "115",
+                    "reference_period": "2026-04",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-05-08T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:41.770Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\1fbf18cc3628258342ab2488beb30dbce1a47a79ce83ec8bb5ed4b018cdb321b.bin.gz",
+                    "source_relative_artifact": "raw/1fbf18cc3628258342ab2488beb30dbce1a47a79ce83ec8bb5ed4b018cdb321b.bin.gz",
+                    "source_sha256": "1fbf18cc3628258342ab2488beb30dbce1a47a79ce83ec8bb5ed4b018cdb321b",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_05082026.htm",
+                    "unit": "persons",
+                    "value": 115000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 115000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-05",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 159,032 | 157,751 | 158,726 | 159,467 | 158,498 | 158,650 | 158,829 | 159,001 | 172",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment increased by 172,000 in May",
+                    "headline_reported_value": 172000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "172000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "172",
+                    "reference_period": "2026-05",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-06-05T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:41.556Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\5c872de512f133555f2ab7ac98b80ff89005e348611d1cae91a449ed992225e8.bin.gz",
+                    "source_relative_artifact": "raw/5c872de512f133555f2ab7ac98b80ff89005e348611d1cae91a449ed992225e8.bin.gz",
+                    "source_sha256": "5c872de512f133555f2ab7ac98b80ff89005e348611d1cae91a449ed992225e8",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_06052026.htm",
+                    "unit": "persons",
+                    "value": 172000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 172000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-06",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 159,299 | 158,713 | 159,398 | 159,830 | 158,478 | 158,798 | 158,927 | 158,984 | 57",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "total nonfarm payroll employment (+57,000)",
+                    "headline_reported_value": 57000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "57000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "57",
+                    "reference_period": "2026-06",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-07-02T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.251Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\a1be102c0f196204af49cc772e153724e8c62bdfef027c139048eafa95e0825f.bin.gz",
+                    "source_relative_artifact": "raw/a1be102c0f196204af49cc772e153724e8c62bdfef027c139048eafa95e0825f.bin.gz",
+                    "source_sha256": "a1be102c0f196204af49cc772e153724e8c62bdfef027c139048eafa95e0825f",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_07022026.htm",
+                    "unit": "persons",
+                    "value": 57000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 57000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-07",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,267 | 159,386 | 159,748 | 158,649 | 158,542 | 158,861 | 158,881 | 158,858 | -23",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "nonfarm payroll employment (-23,000)",
+                    "headline_reported_value": -23000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "-23000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "-23",
+                    "reference_period": "2026-07",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-08-07T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:41.488Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\4602e50c53ccfc789d52ef73191171d9918141516b7734524e70f2b8326024a5.bin.gz",
+                    "source_relative_artifact": "raw/4602e50c53ccfc789d52ef73191171d9918141516b7734524e70f2b8326024a5.bin.gz",
+                    "source_sha256": "4602e50c53ccfc789d52ef73191171d9918141516b7734524e70f2b8326024a5",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_08072026.htm",
+                    "unit": "persons",
+                    "value": -23000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": -23000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-08",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,424 | 159,734 | 158,726 | 158,880 | 158,472 | 158,892 | 158,913 | 159,075 | 162",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "Total nonfarm payroll employment increased by 162,000 in August",
+                    "headline_reported_value": 162000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "162000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "162",
+                    "reference_period": "2026-08",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-09-04T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.320Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\6d83eeecf867f1e8c9a2a5449a4b064896062f4529ad36c4ff2a37e6968b7481.bin.gz",
+                    "source_relative_artifact": "raw/6d83eeecf867f1e8c9a2a5449a4b064896062f4529ad36c4ff2a37e6968b7481.bin.gz",
+                    "source_sha256": "6d83eeecf867f1e8c9a2a5449a4b064896062f4529ad36c4ff2a37e6968b7481",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_09042026.htm",
+                    "unit": "persons",
+                    "value": 162000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 162000.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-09",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "Table B-1 latest SA monthly change, thousands of persons: Total nonfarm | 158,729 | 158,709 | 158,905 | 159,238 | 158,548 | 158,882 | 159,015 | 159,044 | 29",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "headline_evidence": "nonfarm payroll employment (+29,000)",
+                    "headline_reported_value": 29000.0,
+                    "headline_scale": "PERSONS_IN_NARRATIVE",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "29000",
+                    "published_native_unit": "thousands_of_persons",
+                    "published_native_value": "29",
+                    "reference_period": "2026-09",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-10-02T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:41.252Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "NFP_PAYROLL_CHANGE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe.bin.gz",
+                    "source_relative_artifact": "raw/1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe.bin.gz",
+                    "source_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+                    "unit": "persons",
+                    "value": 29000.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 29000.0
+                }
+              ],
+              "official_series_id": "CES0000000001",
+              "seasonal_adjustment": "SA"
+            }
+          ],
+          "vintage_basis": "DATED_RELEASE_FIRST_PRINTS_NOT_CURRENT_REVISED_HISTORY",
+          "window": [
+            "2024-10",
+            "2026-09"
+          ]
+        },
+        "history_point_labels": [],
+        "missingness": [],
+        "placement_after": "The headline has to survive the revisions",
+        "question": "What range of initial payroll estimates forms the baseline for judging the October report?",
+        "series": [
+          {
+            "name": "Nonfarm payroll change",
+            "points": [
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "7dcc515f63d18cdb850482212987270b1cf36cf2d83daaf3101bd6d37b52d0a0",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2024-11-01T12:30:00Z"
+                    },
+                    "prepared_period": "2024-10",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2024-10",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2024-10; 12000 persons; SA; OBSERVED; release 2024-11-01T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "12000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2024-10",
+                "value": 12000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "709c4ef002562bdf6ef311754c47315aa28e0964be97d8d77089ab4285c8f8ee",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2024-12-06T13:30:00Z"
+                    },
+                    "prepared_period": "2024-11",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2024-11",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2024-11; 227000 persons; SA; OBSERVED; release 2024-12-06T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "227000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2024-11",
+                "value": 227000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "696ad6dd62fb4666a2333386ca09e81e5096ddf612d32c4d2ffd716ce796084c",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-01-10T13:30:00Z"
+                    },
+                    "prepared_period": "2024-12",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2024-12",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2024-12; 256000 persons; SA; OBSERVED; release 2025-01-10T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "256000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2024-12",
+                "value": 256000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "e653df54e98d870033b675cd6c2bf57f0ea944b4563ce30679bd6b32a8941991",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-02-07T13:30:00Z"
+                    },
+                    "prepared_period": "2025-01",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-01",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-01; 143000 persons; SA; OBSERVED; release 2025-02-07T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "143000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-01",
+                "value": 143000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "d3d200716e88a6594647942a43e9a93f952d4103c246ced3aa2cee374af6d298",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-03-07T13:30:00Z"
+                    },
+                    "prepared_period": "2025-02",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-02",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-02; 151000 persons; SA; OBSERVED; release 2025-03-07T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "151000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-02",
+                "value": 151000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "3b6a767171cc0f963f109033d36e751340db2200abafad1201fc3108e6e587ac",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-04-04T12:30:00Z"
+                    },
+                    "prepared_period": "2025-03",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-03",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-03; 228000 persons; SA; OBSERVED; release 2025-04-04T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "228000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-03",
+                "value": 228000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "d66ab0a84207da1342f12861c29a0e4978ccbebbd742c52b1e8533023cdc3873",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-05-02T12:30:00Z"
+                    },
+                    "prepared_period": "2025-04",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-04",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-04; 177000 persons; SA; OBSERVED; release 2025-05-02T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "177000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-04",
+                "value": 177000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "427359066f3ccecb6c291c86f706e52280862acea8cb640f990bb9010a3982df",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-06-06T12:30:00Z"
+                    },
+                    "prepared_period": "2025-05",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-05",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-05; 139000 persons; SA; OBSERVED; release 2025-06-06T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "139000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-05",
+                "value": 139000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "cdebd2b9d549e47842226ce3ecb40f108c0d10390d60a1ff37f43c9abac25a9d",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-07-03T12:30:00Z"
+                    },
+                    "prepared_period": "2025-06",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-06",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-06; 147000 persons; SA; OBSERVED; release 2025-07-03T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "147000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-06",
+                "value": 147000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "3dd179efacf0239bb6c2c8a9780dc30231411bfc5a2385275ff1bfa46e8ef153",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-08-01T12:30:00Z"
+                    },
+                    "prepared_period": "2025-07",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-07",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-07; 73000 persons; SA; OBSERVED; release 2025-08-01T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "73000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-07",
+                "value": 73000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "ca6186dccc99238b7a30b671c931cef474d4ed4484d6bb8e0d425e2f9a04713a",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-09-05T12:30:00Z"
+                    },
+                    "prepared_period": "2025-08",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-08",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-08; 22000 persons; SA; OBSERVED; release 2025-09-05T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "22000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-08",
+                "value": 22000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "32423903015128e72093392cfaf331a097db1aeb2e8e7d300bec15eef9b6dd8e",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-11-20T13:30:00Z"
+                    },
+                    "prepared_period": "2025-09",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-09",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-09; 119000 persons; SA; OBSERVED; release 2025-11-20T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "119000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-09",
+                "value": 119000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-12-16T13:30:00Z"
+                    },
+                    "prepared_period": "2025-10",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-10",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-10; -105000 persons; SA; OBSERVED; release 2025-12-16T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "-105000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-10",
+                "value": -105000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2025-12-16T13:30:00Z"
+                    },
+                    "prepared_period": "2025-11",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-11",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-11; 64000 persons; SA; OBSERVED; release 2025-12-16T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "64000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-11",
+                "value": 64000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "7cc113005b6baba66c5cf85feb83d4467479924b5661d59a6ef1237ff135df27",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-01-09T13:30:00Z"
+                    },
+                    "prepared_period": "2025-12",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2025-12",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-12; 50000 persons; SA; OBSERVED; release 2026-01-09T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "50000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-12",
+                "value": 50000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "cd282f892c07c124d465f184ad9fab298893d4616b64d99fff467feae60a939f",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-02-11T13:30:00Z"
+                    },
+                    "prepared_period": "2026-01",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2026-01",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-01; 130000 persons; SA; OBSERVED; release 2026-02-11T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "130000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-01",
+                "value": 130000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "596a68af690cac8805340128de322b5b4ff3f3b7773cc77151c061340b7d1435",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-03-06T13:30:00Z"
+                    },
+                    "prepared_period": "2026-02",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2026-02",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-02; -92000 persons; SA; OBSERVED; release 2026-03-06T13:30:00Z",
+                    "unit": "persons",
+                    "value_text": "-92000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-02",
+                "value": -92000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "532760a4d2854a7ee19f238ffbdcbcfc2397f5914c33ea8bd423917b1bd0d818",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-04-03T12:30:00Z"
+                    },
+                    "prepared_period": "2026-03",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2026-03",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-03; 178000 persons; SA; OBSERVED; release 2026-04-03T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "178000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-03",
+                "value": 178000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "1fbf18cc3628258342ab2488beb30dbce1a47a79ce83ec8bb5ed4b018cdb321b",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-05-08T12:30:00Z"
+                    },
+                    "prepared_period": "2026-04",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2026-04",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-04; 115000 persons; SA; OBSERVED; release 2026-05-08T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "115000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-04",
+                "value": 115000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "5c872de512f133555f2ab7ac98b80ff89005e348611d1cae91a449ed992225e8",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-06-05T12:30:00Z"
+                    },
+                    "prepared_period": "2026-05",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2026-05",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-05; 172000 persons; SA; OBSERVED; release 2026-06-05T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "172000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-05",
+                "value": 172000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "a1be102c0f196204af49cc772e153724e8c62bdfef027c139048eafa95e0825f",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-07-02T12:30:00Z"
+                    },
+                    "prepared_period": "2026-06",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2026-06",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-06; 57000 persons; SA; OBSERVED; release 2026-07-02T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "57000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-06",
+                "value": 57000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "4602e50c53ccfc789d52ef73191171d9918141516b7734524e70f2b8326024a5",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-08-07T12:30:00Z"
+                    },
+                    "prepared_period": "2026-07",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2026-07",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-07; -23000 persons; SA; OBSERVED; release 2026-08-07T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "-23000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-07",
+                "value": -23000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "6d83eeecf867f1e8c9a2a5449a4b064896062f4529ad36c4ff2a37e6968b7481",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-09-04T12:30:00Z"
+                    },
+                    "prepared_period": "2026-08",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2026-08",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-08; 162000 persons; SA; OBSERVED; release 2026-09-04T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "162000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-08",
+                "value": 162000.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+                    "metric": "NFP_PAYROLL_CHANGE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+                      "official_series_id": "CES0000000001",
+                      "release_datetime_utc": "2026-10-02T12:30:00Z"
+                    },
+                    "prepared_period": "2026-09",
+                    "source_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+                    "source_period_text": "2026-09",
+                    "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-09; 29000 persons; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+                    "unit": "persons",
+                    "value_text": "29000"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-09",
+                "value": 29000.0
+              }
+            ]
+          }
+        ],
+        "source_caption": "Source: BLS dated first releases. October 2024\u2013September 2026; each month retains its first print.",
+        "subtitle": "Monthly net change in jobs, seasonally adjusted",
+        "title": "September's first payroll estimate was +29,000",
+        "unit": "persons"
+      },
+      "height": 1040,
+      "media_role": "editorial_data_journalism",
+      "missingness": [],
+      "modality": "source_backed_chart",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\payroll_first_print_trend_cc107.png",
+      "placement_after": "The headline has to survive the revisions",
+      "role": "supporting_fact_context",
+      "sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+      "source_lineage": [
+        {
+          "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+          "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+        }
+      ],
+      "source_links": [
+        {
+          "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+          "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 02 Oct 2026",
+          "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+        }
+      ],
+      "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+      "transform_sha256": "274e658220c7554a8e30706cb41da2f6632efe87a1df6d022237e1183f9332ba",
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "visual_review": {
+        "asset_sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+        "checks": {
+          "comparisons_stacks_totals_missingness": "PASS",
+          "crop_distortion": "PASS",
+          "denominator": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "period_year_quarter": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "source_link_claim": "PASS",
+          "text_contrast": "PASS",
+          "transformation_rounding": "PASS",
+          "units_currency": "PASS",
+          "zero_baseline_scale": "PASS"
+        },
+        "evidence_notes": "Actual exact standalone pixels inspected in the current top-level Sol MAX native context. Source-bound numerical validator passed; no value or vintage changed. All 24 first-print observations remain visible, negatives below zero; September +29,000 is legible in the title, with the overlapping endpoint annotation removed. Period October 2024 through September 2026, persons, seasonal adjustment and source caption are clear.",
+        "findings": [],
+        "invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/cc107_nfp_writer",
+        "review_basis": "Same actual editor inspected these exact source-bound chart bytes; labels/units/periods passed in editor-check-result.json."
+      },
+      "width": 1440
+    },
+    {
+      "alt_text": "September payroll change in thousands: goods-producing +18; private service-providing +28; government -17. Total nonfarm +29.",
+      "asset_id": "september_sector_breakdown",
+      "attribution": "Source: BLS, October 2, 2026, Table B-1. Seasonally adjusted initial estimates. Disjoint groups: 18 + 28 - 17 = 29 thousand.",
+      "caption": "September 2026 payroll change by broad group, seasonally adjusted; thousands of persons. Source: BLS, October 2, 2026, Table B-1. Goods-producing and private services gains were partly offset by government losses.",
+      "computed_values": [
+        [
+          18.0,
+          28.0,
+          -17.0
+        ]
+      ],
+      "destination_subset": [
+        "telegram",
+        "discord",
+        "linkedin",
+        "instagram_business"
+      ],
+      "editorial_data_packet": {
+        "alt_text": "September payroll change in thousands: goods-producing +18; private service-providing +28; government -17. Total nonfarm +29.",
+        "asset_id": "september_sector_breakdown",
+        "caption": "September 2026 payroll change by broad group, seasonally adjusted; thousands of persons. Source: BLS, October 2, 2026, Table B-1. Goods-producing and private services gains were partly offset by government losses.",
+        "chart_type": "horizontal_diverging_bar",
+        "destination_subset": [
+          "telegram",
+          "discord",
+          "linkedin",
+          "instagram_business"
+        ],
+        "placement_after": "Ask whether hiring is broad",
+        "question": "Did the prior headline hide offsetting changes across broad parts of employment?",
+        "series": [
+          {
+            "name": "September payroll change",
+            "points": [
+              {
+                "inputs": [
+                  {
+                    "document_id": "cc124-bls-september-employment-original",
+                    "metric": "Seasonally adjusted August to September payroll change, Goods-producing",
+                    "period_basis": {
+                      "basis": "BLS_TABLE_B1_PRINTED_AUGUST_TO_SEPTEMBER_CHANGE_COLUMN",
+                      "capture_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+                      "column_header": "Change from: Aug.2026 - Sept.2026"
+                    },
+                    "prepared_period": "2026-09",
+                    "source_content_sha256": "786e4868ee3bdb3ded8a6f5a3484c027781f77c07e9a21a033a8e33359cc1ee3",
+                    "source_period_text": "Sept. 2026",
+                    "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+                    "unit": "thousands of persons",
+                    "value_text": "18"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "Goods-producing",
+                "value": 18
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "cc124-bls-september-employment-original",
+                    "metric": "Seasonally adjusted August to September payroll change, Private service-providing",
+                    "period_basis": {
+                      "basis": "BLS_TABLE_B1_PRINTED_AUGUST_TO_SEPTEMBER_CHANGE_COLUMN",
+                      "capture_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+                      "column_header": "Change from: Aug.2026 - Sept.2026"
+                    },
+                    "prepared_period": "2026-09",
+                    "source_content_sha256": "786e4868ee3bdb3ded8a6f5a3484c027781f77c07e9a21a033a8e33359cc1ee3",
+                    "source_period_text": "Sept. 2026",
+                    "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+                    "unit": "thousands of persons",
+                    "value_text": "28"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "Private service-providing",
+                "value": 28
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "cc124-bls-september-employment-original",
+                    "metric": "Seasonally adjusted August to September payroll change, Government",
+                    "period_basis": {
+                      "basis": "BLS_TABLE_B1_PRINTED_AUGUST_TO_SEPTEMBER_CHANGE_COLUMN",
+                      "capture_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+                      "column_header": "Change from: Aug.2026 - Sept.2026"
+                    },
+                    "prepared_period": "2026-09",
+                    "source_content_sha256": "786e4868ee3bdb3ded8a6f5a3484c027781f77c07e9a21a033a8e33359cc1ee3",
+                    "source_period_text": "Sept. 2026",
+                    "support_excerpt": "Both nonfarm payroll employment (+29,000) and the unemployment rate (4.2 percent) changed little in September, the U.S. Bureau of Labor Statistics reported today. Employment in all major industries changed little over the month.\n\nTable B-1. Employees on nonfarm payrolls by industry sector and selected industry detail [In thousands] Industry Not seasonally adjusted Seasonally adjusted Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Sept. 2025 July 2026 Aug. 2026 ( p ) Sept. 2026 ( p ) Change from: Aug.2026 - Sept.2026 ( p ) Total nonfarm 158,729 158,709 158,905 159,238 158,548 158,882 159,015 159,044 29 Total private 135,161 136,571 136,406 135,883 135,005 135,582 135,671 135,717 46 Goods-producing 21,633 21,855 21,880 21,783 21,472 21,571 21,605 21,623 18\n\nPrivate service-providing 113,528 114,716 114,526 114,100 113,533 114,011 114,066 114,094 28\n\nGovernment 23,568 22,138 22,499 23,355 23,543 23,300 23,344 23,327 -17",
+                    "unit": "thousands of persons",
+                    "value_text": "-17"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "Government",
+                "value": -17
+              }
+            ]
+          }
+        ],
+        "source_caption": "Source: BLS, October 2, 2026, Table B-1. Seasonally adjusted initial estimates. Disjoint groups: 18 + 28 - 17 = 29 thousand.",
+        "subtitle": "September 2026: +29,000 total payroll jobs; +46,000 private jobs, -17,000 government jobs.",
+        "title": "September\u2019s small gain contained offsets",
+        "unit": "thousands of persons",
+        "value_label_decimals": 0
+      },
+      "height": 1040,
+      "media_role": "editorial_data_journalism",
+      "missingness": "NO_VALUES_FILLED_OR_INTERPOLATED",
+      "modality": "source_backed_chart",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\september_sector_breakdown.png",
+      "placement_after": "Ask whether hiring is broad",
+      "retained_source_binding": {
+        "research_revision": "a863cd07805c5d66e7d7db509949ffabe9962b143f2a8e6de8228254a841c628",
+        "research_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\source-recovery-september-employment",
+        "source_capture_hashes": {
+          "cc124-bls-september-employment-original": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe"
+        }
+      },
+      "role": "supporting_fact_context",
+      "sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+      "source_lineage": [
+        {
+          "document_id": "cc124-bls-september-employment-original",
+          "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+        }
+      ],
+      "source_links": [
+        {
+          "document_id": "cc124-bls-september-employment-original",
+          "label": "U.S. Bureau of Labor Statistics",
+          "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+        }
+      ],
+      "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+      "transform_sha256": "e4c75d97b9c29de9f2ea05f5103c29b9813c35fc9a81faaa7370ba847ceadd7d",
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "visual_review": {
+        "asset_sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+        "checks": {
+          "comparisons_stacks_totals_missingness": "PASS",
+          "crop_distortion": "PASS",
+          "denominator": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "period_year_quarter": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "source_link_claim": "PASS",
+          "text_contrast": "PASS",
+          "transformation_rounding": "PASS",
+          "units_currency": "PASS",
+          "zero_baseline_scale": "PASS"
+        },
+        "evidence_notes": "Actual exact standalone pixels inspected in the current top-level Sol MAX native context. Source-bound numerical validator passed; no value or vintage changed. Signed disjoint groups +18, +28 and -17 thousand reconcile to +29 thousand; total/private detail, period and source date are clear.",
+        "findings": [],
+        "invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/cc107_nfp_writer",
+        "review_basis": "Same actual editor inspected these exact source-bound chart bytes; labels/units/periods passed in editor-check-result.json."
+      },
+      "width": 1440
+    },
+    {
+      "alt_text": "What independent household-survey signal should readers compare with the new payroll headline?",
+      "asset_id": "unemployment_first_print_trend",
+      "attribution": "Source: BLS dated first releases. October 2024\u2013September 2026; each month retains its first print. October 2025 is absent from the retained series; no interpolation.",
+      "caption": "Civilian unemployment rate, seasonally adjusted, October 2024\u2013September 2026. Source: BLS dated first releases. October 2025 is absent from the retained series and is left unconnected.",
+      "computed_values": [
+        [
+          4.1,
+          4.2,
+          4.1,
+          4.0,
+          4.1,
+          4.2,
+          4.2,
+          4.2,
+          4.1,
+          4.2,
+          4.3,
+          4.4,
+          null,
+          4.6,
+          4.4,
+          4.3,
+          4.4,
+          4.3,
+          4.3,
+          4.3,
+          4.2,
+          4.1,
+          4.1,
+          4.2
+        ]
+      ],
+      "destination_subset": [
+        "instagram_business"
+      ],
+      "editorial_data_packet": {
+        "alt_text": "What independent household-survey signal should readers compare with the new payroll headline?",
+        "asset_id": "unemployment_first_print_trend",
+        "caption": "Civilian unemployment rate, seasonally adjusted, October 2024\u2013September 2026. Source: BLS dated first releases. October 2025 is absent from the retained series and is left unconnected.",
+        "chart_type": "line",
+        "destination_subset": [
+          "instagram_business"
+        ],
+        "history_axis_limits": [
+          0,
+          5
+        ],
+        "history_lineage": {
+          "cutoff_utc": "2026-10-02T12:30:00+00:00",
+          "dataset_sha256": "78e80e0c0c27a99b37ac433d9b5a223584f04031e1a1aabc4801f6e91ee6f98d",
+          "series": [
+            {
+              "name": "UNEMPLOYMENT_RATE",
+              "observations": [
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2024-10",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate was unchanged at 4.1 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.1",
+                    "reference_period": "2024-10",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2024-11-01T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:45.128Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\7dcc515f63d18cdb850482212987270b1cf36cf2d83daaf3101bd6d37b52d0a0.bin.gz",
+                    "source_relative_artifact": "raw/7dcc515f63d18cdb850482212987270b1cf36cf2d83daaf3101bd6d37b52d0a0.bin.gz",
+                    "source_sha256": "7dcc515f63d18cdb850482212987270b1cf36cf2d83daaf3101bd6d37b52d0a0",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_11012024.htm",
+                    "unit": "percent",
+                    "value": 4.1,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.1
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2024-11",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate changed little at 4.2 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.2",
+                    "reference_period": "2024-11",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2024-12-06T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.455Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\709c4ef002562bdf6ef311754c47315aa28e0964be97d8d77089ab4285c8f8ee.bin.gz",
+                    "source_relative_artifact": "raw/709c4ef002562bdf6ef311754c47315aa28e0964be97d8d77089ab4285c8f8ee.bin.gz",
+                    "source_sha256": "709c4ef002562bdf6ef311754c47315aa28e0964be97d8d77089ab4285c8f8ee",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_12062024.htm",
+                    "unit": "percent",
+                    "value": 4.2,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.2
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2024-12",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate changed little at 4.1 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.1",
+                    "reference_period": "2024-12",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-01-10T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.175Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\696ad6dd62fb4666a2333386ca09e81e5096ddf612d32c4d2ffd716ce796084c.bin.gz",
+                    "source_relative_artifact": "raw/696ad6dd62fb4666a2333386ca09e81e5096ddf612d32c4d2ffd716ce796084c.bin.gz",
+                    "source_sha256": "696ad6dd62fb4666a2333386ca09e81e5096ddf612d32c4d2ffd716ce796084c",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_01102025.htm",
+                    "unit": "percent",
+                    "value": 4.1,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.1
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-01",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate edged down to 4.0 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.0",
+                    "reference_period": "2025-01",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-02-07T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.000Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\e653df54e98d870033b675cd6c2bf57f0ea944b4563ce30679bd6b32a8941991.bin.gz",
+                    "source_relative_artifact": "raw/e653df54e98d870033b675cd6c2bf57f0ea944b4563ce30679bd6b32a8941991.bin.gz",
+                    "source_sha256": "e653df54e98d870033b675cd6c2bf57f0ea944b4563ce30679bd6b32a8941991",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_02072025.htm",
+                    "unit": "percent",
+                    "value": 4.0,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.0
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-02",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate changed little at 4.1 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.1",
+                    "reference_period": "2025-02",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-03-07T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.049Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\d3d200716e88a6594647942a43e9a93f952d4103c246ced3aa2cee374af6d298.bin.gz",
+                    "source_relative_artifact": "raw/d3d200716e88a6594647942a43e9a93f952d4103c246ced3aa2cee374af6d298.bin.gz",
+                    "source_sha256": "d3d200716e88a6594647942a43e9a93f952d4103c246ced3aa2cee374af6d298",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_03072025.htm",
+                    "unit": "percent",
+                    "value": 4.1,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.1
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-03",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate changed little at 4.2 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.2",
+                    "reference_period": "2025-03",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-04-04T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:44.289Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\3b6a767171cc0f963f109033d36e751340db2200abafad1201fc3108e6e587ac.bin.gz",
+                    "source_relative_artifact": "raw/3b6a767171cc0f963f109033d36e751340db2200abafad1201fc3108e6e587ac.bin.gz",
+                    "source_sha256": "3b6a767171cc0f963f109033d36e751340db2200abafad1201fc3108e6e587ac",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_04042025.htm",
+                    "unit": "percent",
+                    "value": 4.2,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.2
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-04",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate was unchanged at 4.2 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.2",
+                    "reference_period": "2025-04",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-05-02T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.726Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\d66ab0a84207da1342f12861c29a0e4978ccbebbd742c52b1e8533023cdc3873.bin.gz",
+                    "source_relative_artifact": "raw/d66ab0a84207da1342f12861c29a0e4978ccbebbd742c52b1e8533023cdc3873.bin.gz",
+                    "source_sha256": "d66ab0a84207da1342f12861c29a0e4978ccbebbd742c52b1e8533023cdc3873",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_05022025.htm",
+                    "unit": "percent",
+                    "value": 4.2,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.2
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-05",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate was unchanged at 4.2 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.2",
+                    "reference_period": "2025-05",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-06-06T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.589Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\427359066f3ccecb6c291c86f706e52280862acea8cb640f990bb9010a3982df.bin.gz",
+                    "source_relative_artifact": "raw/427359066f3ccecb6c291c86f706e52280862acea8cb640f990bb9010a3982df.bin.gz",
+                    "source_sha256": "427359066f3ccecb6c291c86f706e52280862acea8cb640f990bb9010a3982df",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_06062025.htm",
+                    "unit": "percent",
+                    "value": 4.2,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.2
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-06",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate changed little at 4.1 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.1",
+                    "reference_period": "2025-06",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-07-03T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.536Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\cdebd2b9d549e47842226ce3ecb40f108c0d10390d60a1ff37f43c9abac25a9d.bin.gz",
+                    "source_relative_artifact": "raw/cdebd2b9d549e47842226ce3ecb40f108c0d10390d60a1ff37f43c9abac25a9d.bin.gz",
+                    "source_sha256": "cdebd2b9d549e47842226ce3ecb40f108c0d10390d60a1ff37f43c9abac25a9d",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_07032025.htm",
+                    "unit": "percent",
+                    "value": 4.1,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.1
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-07",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate, at 4.2 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.2",
+                    "reference_period": "2025-07",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-08-01T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.219Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\3dd179efacf0239bb6c2c8a9780dc30231411bfc5a2385275ff1bfa46e8ef153.bin.gz",
+                    "source_relative_artifact": "raw/3dd179efacf0239bb6c2c8a9780dc30231411bfc5a2385275ff1bfa46e8ef153.bin.gz",
+                    "source_sha256": "3dd179efacf0239bb6c2c8a9780dc30231411bfc5a2385275ff1bfa46e8ef153",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_08012025.htm",
+                    "unit": "percent",
+                    "value": 4.2,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.2
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-08",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate, at 4.3 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.3",
+                    "reference_period": "2025-08",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-09-05T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.171Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\ca6186dccc99238b7a30b671c931cef474d4ed4484d6bb8e0d425e2f9a04713a.bin.gz",
+                    "source_relative_artifact": "raw/ca6186dccc99238b7a30b671c931cef474d4ed4484d6bb8e0d425e2f9a04713a.bin.gz",
+                    "source_sha256": "ca6186dccc99238b7a30b671c931cef474d4ed4484d6bb8e0d425e2f9a04713a",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_09052025.htm",
+                    "unit": "percent",
+                    "value": 4.3,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.3
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-09",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate, at 4.4 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.4",
+                    "reference_period": "2025-09",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-11-20T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.816Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\32423903015128e72093392cfaf331a097db1aeb2e8e7d300bec15eef9b6dd8e.bin.gz",
+                    "source_relative_artifact": "raw/32423903015128e72093392cfaf331a097db1aeb2e8e7d300bec15eef9b6dd8e.bin.gz",
+                    "source_sha256": "32423903015128e72093392cfaf331a097db1aeb2e8e7d300bec15eef9b6dd8e",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_11202025.htm",
+                    "unit": "percent",
+                    "value": 4.4,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.4
+                },
+                {
+                  "availability": "MISSING",
+                  "missing_reason": "NOT_PUBLISHED_OR_NOT_AVAILABLE_AT_EVENT",
+                  "period": "2025-10",
+                  "source_record": null,
+                  "value": null
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-11",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate, at 4.6 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.6",
+                    "reference_period": "2025-11",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2025-12-16T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.641Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947.bin.gz",
+                    "source_relative_artifact": "raw/69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947.bin.gz",
+                    "source_sha256": "69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_12162025.htm",
+                    "unit": "percent",
+                    "value": 4.6,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.6
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2025-12",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate (4.4 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.4",
+                    "reference_period": "2025-12",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-01-09T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.589Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\7cc113005b6baba66c5cf85feb83d4467479924b5661d59a6ef1237ff135df27.bin.gz",
+                    "source_relative_artifact": "raw/7cc113005b6baba66c5cf85feb83d4467479924b5661d59a6ef1237ff135df27.bin.gz",
+                    "source_sha256": "7cc113005b6baba66c5cf85feb83d4467479924b5661d59a6ef1237ff135df27",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_01092026.htm",
+                    "unit": "percent",
+                    "value": 4.4,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.4
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-01",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate changed little at 4.3 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.3",
+                    "reference_period": "2026-01",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-02-11T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.376Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\cd282f892c07c124d465f184ad9fab298893d4616b64d99fff467feae60a939f.bin.gz",
+                    "source_relative_artifact": "raw/cd282f892c07c124d465f184ad9fab298893d4616b64d99fff467feae60a939f.bin.gz",
+                    "source_sha256": "cd282f892c07c124d465f184ad9fab298893d4616b64d99fff467feae60a939f",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_02112026.htm",
+                    "unit": "percent",
+                    "value": 4.3,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.3
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-02",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate changed little at 4.4 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.4",
+                    "reference_period": "2026-02",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-03-06T13:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.079Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\596a68af690cac8805340128de322b5b4ff3f3b7773cc77151c061340b7d1435.bin.gz",
+                    "source_relative_artifact": "raw/596a68af690cac8805340128de322b5b4ff3f3b7773cc77151c061340b7d1435.bin.gz",
+                    "source_sha256": "596a68af690cac8805340128de322b5b4ff3f3b7773cc77151c061340b7d1435",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_03062026.htm",
+                    "unit": "percent",
+                    "value": 4.4,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.4
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-03",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate changed little at 4.3 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.3",
+                    "reference_period": "2026-03",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-04-03T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:43.118Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\532760a4d2854a7ee19f238ffbdcbcfc2397f5914c33ea8bd423917b1bd0d818.bin.gz",
+                    "source_relative_artifact": "raw/532760a4d2854a7ee19f238ffbdcbcfc2397f5914c33ea8bd423917b1bd0d818.bin.gz",
+                    "source_sha256": "532760a4d2854a7ee19f238ffbdcbcfc2397f5914c33ea8bd423917b1bd0d818",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_04032026.htm",
+                    "unit": "percent",
+                    "value": 4.3,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.3
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-04",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate was unchanged at 4.3 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.3",
+                    "reference_period": "2026-04",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-05-08T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:41.770Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\1fbf18cc3628258342ab2488beb30dbce1a47a79ce83ec8bb5ed4b018cdb321b.bin.gz",
+                    "source_relative_artifact": "raw/1fbf18cc3628258342ab2488beb30dbce1a47a79ce83ec8bb5ed4b018cdb321b.bin.gz",
+                    "source_sha256": "1fbf18cc3628258342ab2488beb30dbce1a47a79ce83ec8bb5ed4b018cdb321b",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_05082026.htm",
+                    "unit": "percent",
+                    "value": 4.3,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.3
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-05",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate was unchanged at 4.3 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.3",
+                    "reference_period": "2026-05",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-06-05T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:41.556Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\5c872de512f133555f2ab7ac98b80ff89005e348611d1cae91a449ed992225e8.bin.gz",
+                    "source_relative_artifact": "raw/5c872de512f133555f2ab7ac98b80ff89005e348611d1cae91a449ed992225e8.bin.gz",
+                    "source_sha256": "5c872de512f133555f2ab7ac98b80ff89005e348611d1cae91a449ed992225e8",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_06052026.htm",
+                    "unit": "percent",
+                    "value": 4.3,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.3
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-06",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate (4.2 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.2",
+                    "reference_period": "2026-06",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-07-02T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.251Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\a1be102c0f196204af49cc772e153724e8c62bdfef027c139048eafa95e0825f.bin.gz",
+                    "source_relative_artifact": "raw/a1be102c0f196204af49cc772e153724e8c62bdfef027c139048eafa95e0825f.bin.gz",
+                    "source_sha256": "a1be102c0f196204af49cc772e153724e8c62bdfef027c139048eafa95e0825f",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_07022026.htm",
+                    "unit": "percent",
+                    "value": 4.2,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.2
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-07",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate (4.1 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.1",
+                    "reference_period": "2026-07",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-08-07T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:41.488Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\4602e50c53ccfc789d52ef73191171d9918141516b7734524e70f2b8326024a5.bin.gz",
+                    "source_relative_artifact": "raw/4602e50c53ccfc789d52ef73191171d9918141516b7734524e70f2b8326024a5.bin.gz",
+                    "source_sha256": "4602e50c53ccfc789d52ef73191171d9918141516b7734524e70f2b8326024a5",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_08072026.htm",
+                    "unit": "percent",
+                    "value": 4.1,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.1
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-08",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate was unchanged at 4.1 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.1",
+                    "reference_period": "2026-08",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-09-04T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:42.320Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\6d83eeecf867f1e8c9a2a5449a4b064896062f4529ad36c4ff2a37e6968b7481.bin.gz",
+                    "source_relative_artifact": "raw/6d83eeecf867f1e8c9a2a5449a4b064896062f4529ad36c4ff2a37e6968b7481.bin.gz",
+                    "source_sha256": "6d83eeecf867f1e8c9a2a5449a4b064896062f4529ad36c4ff2a37e6968b7481",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_09042026.htm",
+                    "unit": "percent",
+                    "value": 4.1,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.1
+                },
+                {
+                  "availability": "OBSERVED",
+                  "missing_reason": null,
+                  "period": "2026-09",
+                  "source_record": {
+                    "archive_correction_notice": false,
+                    "availability": "OBSERVED",
+                    "consensus": null,
+                    "evidence": "unemployment rate (4.2 percent",
+                    "extraction_method": "EXPLICIT_RELEASE_ACTUAL",
+                    "family": "empsit",
+                    "historical_retrieval_at_release_proven": false,
+                    "native_value": "4.2",
+                    "reference_period": "2026-09",
+                    "release_clock_kind": "PUBLISHER_EMBARGO_HEADER_EASTERN_CONVERTED_TO_UTC",
+                    "release_datetime_utc": "2026-10-02T12:30:00Z",
+                    "retrieved_at_utc": "2026-10-30T01:34:41.252Z",
+                    "rights_tag": "BLS_US_FEDERAL_PUBLIC_DOMAIN_DATA_WITH_ATTRIBUTION",
+                    "seasonal_adjustment": "SA",
+                    "series": "UNEMPLOYMENT_RATE",
+                    "source_artifact": "C:\\Users\\bullw\\.codex\\scratch\\w941-internal-research-release\\integration\\local-evidence\\work-packets\\w1091-event-desk-data\\raw\\1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe.bin.gz",
+                    "source_relative_artifact": "raw/1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe.bin.gz",
+                    "source_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+                    "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+                    "unit": "percent",
+                    "value": 4.2,
+                    "vintage": "FIRST_REFERENCE_MONTH_IN_DATED_RELEASE"
+                  },
+                  "value": 4.2
+                }
+              ],
+              "official_series_id": "LNS14000000",
+              "seasonal_adjustment": "SA"
+            }
+          ],
+          "vintage_basis": "DATED_RELEASE_FIRST_PRINTS_NOT_CURRENT_REVISED_HISTORY",
+          "window": [
+            "2024-10",
+            "2026-09"
+          ]
+        },
+        "missingness": [
+          {
+            "period": "2025-10",
+            "reader_note": "NO_SAVED_OBSERVATION_FOR_PERIOD; absent from retained series",
+            "reason": "NOT_PUBLISHED_OR_NOT_AVAILABLE_AT_EVENT",
+            "series": "UNEMPLOYMENT_RATE"
+          }
+        ],
+        "placement_after": "Check people as well as payroll jobs",
+        "question": "What independent household-survey signal should readers compare with the new payroll headline?",
+        "series": [
+          {
+            "name": "Civilian unemployment rate",
+            "points": [
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "7dcc515f63d18cdb850482212987270b1cf36cf2d83daaf3101bd6d37b52d0a0",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2024-11-01T12:30:00Z"
+                    },
+                    "prepared_period": "2024-10",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2024-10",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2024-10; 4.1 percent; SA; OBSERVED; release 2024-11-01T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.1"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2024-10",
+                "value": 4.1
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "709c4ef002562bdf6ef311754c47315aa28e0964be97d8d77089ab4285c8f8ee",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2024-12-06T13:30:00Z"
+                    },
+                    "prepared_period": "2024-11",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2024-11",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2024-11; 4.2 percent; SA; OBSERVED; release 2024-12-06T13:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.2"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2024-11",
+                "value": 4.2
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "696ad6dd62fb4666a2333386ca09e81e5096ddf612d32c4d2ffd716ce796084c",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-01-10T13:30:00Z"
+                    },
+                    "prepared_period": "2024-12",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2024-12",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2024-12; 4.1 percent; SA; OBSERVED; release 2025-01-10T13:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.1"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2024-12",
+                "value": 4.1
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "e653df54e98d870033b675cd6c2bf57f0ea944b4563ce30679bd6b32a8941991",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-02-07T13:30:00Z"
+                    },
+                    "prepared_period": "2025-01",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-01",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-01; 4 percent; SA; OBSERVED; release 2025-02-07T13:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-01",
+                "value": 4.0
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "d3d200716e88a6594647942a43e9a93f952d4103c246ced3aa2cee374af6d298",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-03-07T13:30:00Z"
+                    },
+                    "prepared_period": "2025-02",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-02",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-02; 4.1 percent; SA; OBSERVED; release 2025-03-07T13:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.1"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-02",
+                "value": 4.1
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "3b6a767171cc0f963f109033d36e751340db2200abafad1201fc3108e6e587ac",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-04-04T12:30:00Z"
+                    },
+                    "prepared_period": "2025-03",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-03",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-03; 4.2 percent; SA; OBSERVED; release 2025-04-04T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.2"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-03",
+                "value": 4.2
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "d66ab0a84207da1342f12861c29a0e4978ccbebbd742c52b1e8533023cdc3873",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-05-02T12:30:00Z"
+                    },
+                    "prepared_period": "2025-04",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-04",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-04; 4.2 percent; SA; OBSERVED; release 2025-05-02T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.2"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-04",
+                "value": 4.2
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "427359066f3ccecb6c291c86f706e52280862acea8cb640f990bb9010a3982df",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-06-06T12:30:00Z"
+                    },
+                    "prepared_period": "2025-05",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-05",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-05; 4.2 percent; SA; OBSERVED; release 2025-06-06T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.2"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-05",
+                "value": 4.2
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "cdebd2b9d549e47842226ce3ecb40f108c0d10390d60a1ff37f43c9abac25a9d",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-07-03T12:30:00Z"
+                    },
+                    "prepared_period": "2025-06",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-06",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-06; 4.1 percent; SA; OBSERVED; release 2025-07-03T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.1"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-06",
+                "value": 4.1
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "3dd179efacf0239bb6c2c8a9780dc30231411bfc5a2385275ff1bfa46e8ef153",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-08-01T12:30:00Z"
+                    },
+                    "prepared_period": "2025-07",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-07",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-07; 4.2 percent; SA; OBSERVED; release 2025-08-01T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.2"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-07",
+                "value": 4.2
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "ca6186dccc99238b7a30b671c931cef474d4ed4484d6bb8e0d425e2f9a04713a",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-09-05T12:30:00Z"
+                    },
+                    "prepared_period": "2025-08",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-08",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-08; 4.3 percent; SA; OBSERVED; release 2025-09-05T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.3"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-08",
+                "value": 4.3
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "32423903015128e72093392cfaf331a097db1aeb2e8e7d300bec15eef9b6dd8e",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-11-20T13:30:00Z"
+                    },
+                    "prepared_period": "2025-09",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-09",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-09; 4.4 percent; SA; OBSERVED; release 2025-11-20T13:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.4"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-09",
+                "value": 4.4
+              },
+              {
+                "inputs": [],
+                "missing_binding": {
+                  "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                  "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3"
+                },
+                "missing_reason": "NOT_PUBLISHED_OR_NOT_AVAILABLE_AT_EVENT",
+                "observation_kind": "MISSING",
+                "period": "2025-10",
+                "value": null
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "69c3fa7418e51c61aebe003969fc72878c19f3ea9c25e14155e244a2591e7947",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2025-12-16T13:30:00Z"
+                    },
+                    "prepared_period": "2025-11",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-11",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-11; 4.6 percent; SA; OBSERVED; release 2025-12-16T13:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.6"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-11",
+                "value": 4.6
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "7cc113005b6baba66c5cf85feb83d4467479924b5661d59a6ef1237ff135df27",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-01-09T13:30:00Z"
+                    },
+                    "prepared_period": "2025-12",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2025-12",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2025-12; 4.4 percent; SA; OBSERVED; release 2026-01-09T13:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.4"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2025-12",
+                "value": 4.4
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "cd282f892c07c124d465f184ad9fab298893d4616b64d99fff467feae60a939f",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-02-11T13:30:00Z"
+                    },
+                    "prepared_period": "2026-01",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2026-01",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-01; 4.3 percent; SA; OBSERVED; release 2026-02-11T13:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.3"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-01",
+                "value": 4.3
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "596a68af690cac8805340128de322b5b4ff3f3b7773cc77151c061340b7d1435",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-03-06T13:30:00Z"
+                    },
+                    "prepared_period": "2026-02",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2026-02",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-02; 4.4 percent; SA; OBSERVED; release 2026-03-06T13:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.4"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-02",
+                "value": 4.4
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "532760a4d2854a7ee19f238ffbdcbcfc2397f5914c33ea8bd423917b1bd0d818",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-04-03T12:30:00Z"
+                    },
+                    "prepared_period": "2026-03",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2026-03",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-03; 4.3 percent; SA; OBSERVED; release 2026-04-03T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.3"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-03",
+                "value": 4.3
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "1fbf18cc3628258342ab2488beb30dbce1a47a79ce83ec8bb5ed4b018cdb321b",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-05-08T12:30:00Z"
+                    },
+                    "prepared_period": "2026-04",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2026-04",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-04; 4.3 percent; SA; OBSERVED; release 2026-05-08T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.3"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-04",
+                "value": 4.3
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "5c872de512f133555f2ab7ac98b80ff89005e348611d1cae91a449ed992225e8",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-06-05T12:30:00Z"
+                    },
+                    "prepared_period": "2026-05",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2026-05",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-05; 4.3 percent; SA; OBSERVED; release 2026-06-05T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.3"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-05",
+                "value": 4.3
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "a1be102c0f196204af49cc772e153724e8c62bdfef027c139048eafa95e0825f",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-07-02T12:30:00Z"
+                    },
+                    "prepared_period": "2026-06",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2026-06",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-06; 4.2 percent; SA; OBSERVED; release 2026-07-02T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.2"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-06",
+                "value": 4.2
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "4602e50c53ccfc789d52ef73191171d9918141516b7734524e70f2b8326024a5",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-08-07T12:30:00Z"
+                    },
+                    "prepared_period": "2026-07",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2026-07",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-07; 4.1 percent; SA; OBSERVED; release 2026-08-07T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.1"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-07",
+                "value": 4.1
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "6d83eeecf867f1e8c9a2a5449a4b064896062f4529ad36c4ff2a37e6968b7481",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-09-04T12:30:00Z"
+                    },
+                    "prepared_period": "2026-08",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2026-08",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-08; 4.1 percent; SA; OBSERVED; release 2026-09-04T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.1"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-08",
+                "value": 4.1
+              },
+              {
+                "inputs": [
+                  {
+                    "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+                    "metric": "UNEMPLOYMENT_RATE",
+                    "period_basis": {
+                      "basis": "HASH_VERIFIED_CC010_FIRST_PRINT_OBSERVATION",
+                      "capture_sha256": "1de7921a0f1a8fe0d512e9faf5f588383d65e2e3a90e62d8c6c8c7c730f4c4fe",
+                      "official_series_id": "LNS14000000",
+                      "release_datetime_utc": "2026-10-02T12:30:00Z"
+                    },
+                    "prepared_period": "2026-09",
+                    "source_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+                    "source_period_text": "2026-09",
+                    "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2026-09; 4.2 percent; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+                    "unit": "percent",
+                    "value_text": "4.2"
+                  }
+                ],
+                "observation_kind": "REPORTED_ACTUAL",
+                "period": "2026-09",
+                "value": 4.2
+              }
+            ]
+          }
+        ],
+        "source_caption": "Source: BLS dated first releases. October 2024\u2013September 2026; each month retains its first print. October 2025 is absent from the retained series; no interpolation.",
+        "subtitle": "Civilian unemployment rate, seasonally adjusted",
+        "title": "The household survey supplies a separate test",
+        "unit": "percent"
+      },
+      "height": 1040,
+      "media_role": "editorial_data_journalism",
+      "missingness": [
+        {
+          "period": "2025-10",
+          "reader_note": "NO_SAVED_OBSERVATION_FOR_PERIOD; absent from retained series",
+          "reason": "NOT_PUBLISHED_OR_NOT_AVAILABLE_AT_EVENT",
+          "series": "UNEMPLOYMENT_RATE"
+        }
+      ],
+      "modality": "source_backed_chart",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\unemployment_first_print_trend.png",
+      "placement_after": "Check people as well as payroll jobs",
+      "role": "supporting_fact_context",
+      "sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+      "source_lineage": [
+        {
+          "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+          "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+        }
+      ],
+      "source_links": [
+        {
+          "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+          "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 02 Oct 2026",
+          "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+        }
+      ],
+      "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+      "transform_sha256": "26cbda6580e0680ecff9c1d83c9d0a23d60e71c319ad9f9ed3000515c2c61c5a",
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "visual_review": {
+        "asset_sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+        "checks": {
+          "comparisons_stacks_totals_missingness": "PASS",
+          "crop_distortion": "PASS",
+          "denominator": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "period_year_quarter": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "source_link_claim": "PASS",
+          "text_contrast": "PASS",
+          "transformation_rounding": "PASS",
+          "units_currency": "PASS",
+          "zero_baseline_scale": "PASS"
+        },
+        "evidence_notes": "Actual exact standalone pixels inspected in the current top-level Sol MAX native context. Source-bound numerical validator passed; no value or vintage changed. Missing October 2025 remains an unconnected gap; September 4.2%, percent units and dated first-print window are clear.",
+        "findings": [],
+        "invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+        "pixels_inspected": true,
+        "labels_and_units_legible": true,
+        "reviewer": "/root/cc107_nfp_writer",
+        "review_basis": "Same actual editor inspected these exact source-bound chart bytes; labels/units/periods passed in editor-check-result.json."
+      },
+      "width": 1440
+    },
+    {
+      "alt_text": "Archive portrait of Kevin Warsh in a navy suit at his May 22, 2026 swearing-in ceremony.",
+      "asset_id": "cc074-archive-warsh-20260522",
+      "attribution": "Official White House photograph by Daniel Torok, May 22, 2026. Public domain (US federal government). Commons crop; no further edits.",
+      "canonical_photo_credit": "Photo: Official White House photograph by Daniel Torok / [The White House](https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg), via Wikimedia Commons. [Public domain (US federal government)](https://commons.wikimedia.org/wiki/Template:PD-USGov). Commons crop; no further edits. Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context for monetary policy; not an image of the forthcoming release.",
+      "caption": "Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context for monetary policy; not an image of the forthcoming release.",
+      "context_only": true,
+      "corroborates_article_facts": false,
+      "creator_publisher": "The White House",
+      "depicted_date": "22 May 2026, 12:12:50",
+      "documentary_generated_classification": "AUTHENTIC_DOCUMENTARY_PHOTOGRAPH",
+      "height": 900,
+      "is_thumbnail": false,
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+      "modality": "documentary_photo",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House%2C_Friday%2C_May_22%2C_2026._%28Cropped%29.jpg",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\cc074-archive-warsh-20260522.jpg",
+      "relevance_rationale": "Archive portrait of the Federal Reserve chair supplies institutional context for the preview's conditional transmission from labor data to monetary policy; it does not corroborate the forthcoming report.",
+      "rights_evidence_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\cc074-archive-warsh-20260522-rights.json",
+      "rights_evidence_sha256": "a2e719ea883df3930fb136ce679a8e244898f459f2d8bf400de5dd445e05b047",
+      "rights_status": "PUBLIC_DOMAIN",
+      "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+      "source_reuse_basis": "Exact Commons PD-USGov template, federal authorship and retained public-domain policy",
+      "visual_review": {
+        "asset_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+        "checks": {
+          "comparisons_stacks_totals_missingness": "PASS",
+          "crop_distortion": "PASS",
+          "denominator": "PASS",
+          "labels_legend": "PASS",
+          "overlap_clipping": "PASS",
+          "period_year_quarter": "PASS",
+          "placement": "PASS",
+          "sign_magnitude": "PASS",
+          "source_link_claim": "PASS",
+          "text_contrast": "PASS",
+          "transformation_rounding": "PASS",
+          "units_currency": "PASS",
+          "zero_baseline_scale": "PASS"
+        },
+        "evidence_notes": "Actual exact standalone pixels inspected in the current top-level Sol MAX native context. Source-bound numerical validator passed; no value or vintage changed. Archive portrait is contextual, accurately credited to Daniel Torok/The White House, with its held public-domain metadata; it does not depict the forthcoming release.",
+        "findings": [],
+        "invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+        "pixels_inspected": true,
+        "relevant_subject": true,
+        "reviewer": "/root/cc107_nfp_writer",
+        "review_basis": "Same actual editor inspected exact original bytes; identity and archive relevance passed in editor-check-result.json. Canonical creator credit is restored from held metadata."
+      },
+      "width": 635
+    }
+  ],
+  "expected_package_revision": "24420f1c5477eec7c5635f2695475cc4d48a07c20847f118acf8e76f4ecf74cd"
+}

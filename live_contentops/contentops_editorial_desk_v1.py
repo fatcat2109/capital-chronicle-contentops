@@ -19,6 +19,72 @@ SOURCE_REVIEW = "internal:native-story-source-review"
 STORY_PREPARATION = "internal:native-story-preparation"
 
 
+def _retain_consensus_fact(spec, *, cutoff_utc, event_time_utc, refresh=False):
+    """Seal the one selected fact; a mutable daily index is not its identity."""
+    from hashlib import sha256
+    from pathlib import Path
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _time
+    spec = dict(spec)
+    if spec.get("retained_record"):
+        row = spec["retained_record"]
+        if sha256_of(row) != spec.get("retained_record_sha256"):
+            raise ValueError("PREVIEW_RETAINED_CONSENSUS_RECORD_CHANGED")
+    else:
+        raw = Path(spec["projection_path"]).read_bytes()
+        digest = sha256(raw).hexdigest()
+        if not refresh and digest != spec["projection_sha256"]:
+            raise ValueError("PREVIEW_CONSENSUS_PROJECTION_CHANGED")
+        projection = json.loads(raw)
+        if projection["release_id"] != spec["release_id"]:
+            raise ValueError("PREVIEW_CONSENSUS_EVENT_CHANGED")
+        rows = [r for r in projection["records"] if r["source"] == spec["source"]
+                and r["measure_key"] == spec["measure_key"]]
+        if len(rows) != 1:
+            raise ValueError("PREVIEW_EXACTLY_ONE_ATTRIBUTED_CONSENSUS_REQUIRED")
+        # Keep exactly the fact fields used by the existing source consumer.
+        # Raw table cells stay in their original private capture, never in copy.
+        keys = ("source", "measure_key", "raw_path", "raw_sha256", "pre_release_eligible",
+                "source_value_text", "known_at_utc", "acquired_at_utc", "released_at_utc",
+                "source_statistic_label", "reference_period", "release_date", "unit", "rights_class", "source_url")
+        row = {k: rows[0][k] for k in keys}
+        spec.update(projection_sha256=digest, retained_record=row, retained_record_sha256=sha256_of(row))
+    capture_root = Path(spec["capture_root"]).resolve()
+    capture = (capture_root / row["raw_path"]).resolve()
+    if not capture.is_relative_to(capture_root) or sha256(capture.read_bytes()).hexdigest() != row["raw_sha256"]:
+        raise ValueError("PREVIEW_CONSENSUS_SOURCE_CAPTURE_CHANGED")
+    if (not row["pre_release_eligible"] or not row["source_value_text"]
+            or _time(row["known_at_utc"]) > _time(cutoff_utc)
+            or _time(row["released_at_utc"]) != _time(event_time_utc)):
+        raise ValueError("PREVIEW_CONSENSUS_PERIOD_OR_CLOCK_INVALID")
+    return spec
+
+
+def refresh_pre_event_consensus(store, *, event_id, known_at_utc):
+    """Append a current fact revision; never modify prior preparations or requests."""
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
+    with store.get_read_only_connection() as conn:
+        rows = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? ORDER BY rowid",
+                            (STORY_PREPARATION,)).fetchall()
+    matches = [(r["message_id"], json.loads(r["payload"])) for r in rows
+               if json.loads(r["payload"]).get("event_id") == event_id]
+    if not matches:
+        raise ValueError("PREPARATION_EVENT_NOT_FOUND:" + event_id)
+    message_id, packet = matches[-1]
+    if _time(known_at_utc) >= _time(packet["planned_release_utc"]):
+        raise ValueError("PREVIEW_EVENT_HAS_PASSED_USE_EVENT_REVIEW")
+    spec = dict(packet["single_consensus_fact"])
+    spec.pop("retained_record", None)
+    spec.pop("retained_record_sha256", None)
+    spec = _retain_consensus_fact(spec, cutoff_utc=known_at_utc,
+                                 event_time_utc=packet["planned_release_utc"], refresh=True)
+    if packet.get("single_consensus_fact") == spec:
+        return {"message_id": message_id, "event_id": event_id, "classification": "EXACT_CONSENSUS_ALREADY_RETAINED"}
+    revised = {**packet, "single_consensus_fact": spec, "known_at_utc": known_at_utc,
+               "previous_preparation_message_id": message_id}
+    return {**record_pre_event_preparation(store, revised), "previous_preparation_message_id": message_id,
+            "classification": "CURRENT_CONSENSUS_FACT_RETAINED", "source_known_at_utc": spec["retained_record"]["known_at_utc"]}
+
+
 def record_pre_event_preparation(store, packet):
     """Retain dated background; preview operations can admit its verified sources."""
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
@@ -33,6 +99,10 @@ def record_pre_event_preparation(store, packet):
         if (not source.get("url", "").startswith("https://") or not source.get("capture_path")
                 or sha256(Path(source["capture_path"]).read_bytes()).hexdigest() != source.get("capture_sha256")):
             raise ValueError("PREPARATION_OFFICIAL_CAPTURE_BINDING_REQUIRED")
+    packet = dict(packet)
+    if packet.get("single_consensus_fact"):
+        packet["single_consensus_fact"] = _retain_consensus_fact(packet["single_consensus_fact"],
+            cutoff_utc=packet["known_at_utc"], event_time_utc=packet["planned_release_utc"])
     value = {"schema_version": "contentops.native_story_preparation.v1", **packet,
         "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW", "public_write_performed": False}
     key = "native-story-preparation-" + sha256_of(value)
@@ -91,7 +161,7 @@ def retain_reviewed_preview_background(store, *, event_id, run_id):
         "classification": "REVIEWED_BACKGROUND_FEEDS_PREVIEW_PREPARATION"}
 
 
-def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="EVENT_PREVIEW"):
+def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="EVENT_PREVIEW", published_feed_path=None):
     """Use our existing preparation in the preview's ordinary source/writer path.
 
     The preparation's prose is editorial context. Only exact, captured BLS spans
@@ -104,8 +174,8 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _time
     from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
 
-    if article_type != "EVENT_PREVIEW":
-        raise ValueError("PREPARATION_REUSE_IS_FOR_EVENT_PREVIEWS")
+    if article_type not in {"EVENT_PREVIEW", "EVENT_REVIEW"}:
+        raise ValueError("PREPARATION_REUSE_IS_FOR_EVENT_ARTICLES")
     eligible = []
     with store.get_read_only_connection() as conn:
         rows = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? ORDER BY rowid",
@@ -119,9 +189,14 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
         eligible.append((row["message_id"], packet))
     if not eligible:
         raise ValueError("PREPARATION_EVENT_NOT_FOUND:" + event_id)
-    message_id, packet = max(eligible, key=lambda x: _time(x[1]["known_at_utc"]))
-    if not packet.get("planned_release_utc") or _time(cutoff_utc) >= _time(packet["planned_release_utc"]):
+    # Append order resolves equal source clocks: an attachment must not disappear
+    # merely because the newer preparation preserves the original known-at time.
+    message_id, packet = max(reversed(eligible), key=lambda x: _time(x[1]["known_at_utc"]))
+    if not packet.get("planned_release_utc") or (article_type == "EVENT_PREVIEW"
+            and _time(cutoff_utc) >= _time(packet["planned_release_utc"])):
         raise ValueError("PREVIEW_EVENT_HAS_PASSED_USE_EVENT_REVIEW")
+    if article_type == "EVENT_REVIEW" and _time(cutoff_utc) < _time(packet["planned_release_utc"]):
+        raise ValueError("EVENT_REVIEW_BEFORE_RELEASE")
     sources = {}
     for source in packet["official_sources"]:
         raw = Path(source["capture_path"]).read_bytes()
@@ -154,7 +229,7 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
         content_hash = sha256(text.encode()).hexdigest()
         rights = {"scope": "BLS_AGENCY_AUTHORED_PUBLIC_DOMAIN_TEXT_PREVIEW_BACKGROUND",
             "authority_ref": "JIM_DECISION_41_AND_BACKLOG_CC216",
-            "article_types": ["EVENT_PREVIEW"], "attribution_required": True,
+            "article_types": [article_type], "attribution_required": True,
             "source_capture_sha256": digest, "content_sha256": content_hash,
             "MODEL_INPUT_ALLOWED": True, "LLM_INPUT_ALLOWED": True,
             "INTERNAL_ANALYSIS_ALLOWED": True,
@@ -188,32 +263,16 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
             "rights_state": "BLS_US_FEDERAL_PUBLIC_DOMAIN_TEXT",
             "source_capture_sha256": digest, "rights_evidence_sha256": sha256_of(rights),
             "source_permissions": rights, "source_permission_record_sha256": sha256_of(rights),
-            "candidate_catalyst_tags": ["EVENT_PREVIEW", event_id],
+            "candidate_catalyst_tags": [article_type, event_id],
             "originality": "EXISTING_NEWSROOM_PREPARATION_WITH_EXACT_PRIOR_OFFICIAL_SOURCES",
             "correction_of": None, "document": doc, "source_chart": None,
             "permitted_source_text": text, "supporting_headline_ids": [],
-            "research_metadata": {"event_id": event_id, "article_type": "EVENT_PREVIEW",
+            "research_metadata": {"event_id": event_id, "article_type": article_type,
                 "preparation_message_id": message_id}}
     if consensus := packet.get("single_consensus_fact"):
-        projection_raw = Path(consensus["projection_path"]).read_bytes()
-        if sha256(projection_raw).hexdigest() != consensus["projection_sha256"]:
-            raise ValueError("PREVIEW_CONSENSUS_PROJECTION_CHANGED")
-        projection = json.loads(projection_raw)
-        if projection["release_id"] != consensus["release_id"]:
-            raise ValueError("PREVIEW_CONSENSUS_EVENT_CHANGED")
-        rows = [r for r in projection["records"] if r["source"] == consensus["source"]
-            and r["measure_key"] == consensus["measure_key"]]
-        if len(rows) != 1:
-            raise ValueError("PREVIEW_EXACTLY_ONE_ATTRIBUTED_CONSENSUS_REQUIRED")
-        row = rows[0]
-        capture_root = Path(consensus["capture_root"]).resolve()
-        capture = (capture_root / row["raw_path"]).resolve()
-        if not capture.is_relative_to(capture_root) or sha256(capture.read_bytes()).hexdigest() != row["raw_sha256"]:
-            raise ValueError("PREVIEW_CONSENSUS_SOURCE_CAPTURE_CHANGED")
-        if (not row.get("pre_release_eligible") or not row.get("source_value_text")
-                or _time(row["known_at_utc"]) > _time(cutoff_utc)
-                or _time(row["released_at_utc"]) != _time(packet["planned_release_utc"])):
-            raise ValueError("PREVIEW_CONSENSUS_PERIOD_OR_CLOCK_INVALID")
+        consensus = _retain_consensus_fact(consensus, cutoff_utc=cutoff_utc,
+                                         event_time_utc=packet["planned_release_utc"])
+        row = consensus["retained_record"]
         text = (f"{row['source']} {row['source_statistic_label']} for {row['measure_key']} "
             f"({row['reference_period']}, release {row['release_date']}): {row['source_value_text']}; "
             f"unit {row['unit']}; observed {row['known_at_utc']}. "
@@ -244,6 +303,12 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
         # Context belongs to this preview's source pack, never its own candidate.
         template["research_metadata"] = {"event_id": event_id, "context_only": True}
         records[identity] = template
+    if packet.get("frozen_public_record"):
+        from live_contentops.event_public_record_v1 import attach_research_records, attach_scorecard_record
+        attach_research_records(records, packet["frozen_public_record"], event_id=event_id,
+            event_time_utc=packet["planned_release_utc"], cutoff_utc=cutoff_utc, article_type=article_type)
+        if article_type == "EVENT_REVIEW":
+            attach_scorecard_record(records, store, cutoff_utc=cutoff_utc, feed_path=published_feed_path)
     snapshot = {"root": str(Path(__file__).resolve().parents[1]),
         "revision": sha256_of([message_id, records]), "records": records, "gaps": []}
     return RetainedSourceResearch.from_frozen_snapshot({**snapshot, "snapshot_sha256": sha256_of(snapshot)})

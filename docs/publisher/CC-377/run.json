@@ -1,0 +1,75 @@
+{
+  "item": "CC-377",
+  "started_at_utc": "2026-11-09T15:43:07.485027Z",
+  "recorded_at_utc": "2026-11-09T15:48:13.175330+00:00",
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "evidence": "Win32_Process PID 22496 launch arguments",
+    "telemetry": "CONFIGURED_NOT_OBSERVED"
+  },
+  "base": "b3f22f50f11a68be6a3efc543891b95e71670893",
+  "base_reason": "Current ContentOps operating HEAD; origin/master predates integrated Publisher deliveries.",
+  "decision": "Reuse exact digest packet and the existing recovery scope in both recovery and its guard; retain same-digest uncertain-write protection.",
+  "future_acceptance": "10 Nov 2026 19:00 GMT+7 cc-contentops-digest-1900-bp actual publish/readback remains pending.",
+  "schedule_changed": false,
+  "integration_base": "d498fb1563b73ff58b04f05be7c37a047cbe2127",
+  "integration_base_reason": "Preserved concurrently integrated plan-status copy changes by fast-forwarding the item branch before commit; no overlapping files.",
+  "original_guard_reproduction": "original-guard-reproduction.xml: regression fails as expected with only the original global guard restored in process memory.",
+  "tests": [
+    {
+      "file": "digest-1.xml",
+      "tests": "21",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "29.283"
+    },
+    {
+      "file": "digest-2.xml",
+      "tests": "20",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "15.316"
+    },
+    {
+      "file": "coordinator-1.xml",
+      "tests": "12",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "19.568"
+    },
+    {
+      "file": "coordinator-2.xml",
+      "tests": "12",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "19.788"
+    },
+    {
+      "file": "coordinator-3.xml",
+      "tests": "12",
+      "errors": "0",
+      "failures": "0",
+      "skipped": "0",
+      "time": "11.917"
+    }
+  ],
+  "code_commit": "cafc6687bd2b0ebc7e6bb498232281c3bc3894cb",
+  "integrated_operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "installed_consumer_verified": "live-consumer.json",
+  "verification_tests_passed": 77,
+  "live_route": "live-route.json",
+  "observed_route_state": "NATIVE_REQUEST_READY",
+  "observed_next_action": "VERIFY_IDENTITY",
+  "browser_action_claimed": false,
+  "outbox_load_repair": "Scope the final publication message lookup by work_item_id; the first installed check spent about four minutes loading global retained history.",
+  "final_code_commit": "c6a221626a7b17bf85393ac45a5fd5825259ac1f",
+  "final_live_route": "live-route-after-query-fix.json",
+  "final_live_route_seconds": 5.839,
+  "frozen_packet_unchanged": true,
+  "future_acceptance_observed": false
+}

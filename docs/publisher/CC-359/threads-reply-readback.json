@@ -1,0 +1,28 @@
+{
+ "status": "SUCCESS",
+ "platform": "threads",
+ "root_id": "18649780468040990",
+ "reply_ids_in_provider_order": [
+  "17915910789554425"
+ ],
+ "reply_ids_in_chronological_order": [
+  "17915910789554425"
+ ],
+ "provider_order_verified": true,
+ "ordered_replies": [
+  {
+   "order": 1,
+   "id": "17915910789554425",
+   "public_url": "https://www.threads.com/@official.capitalchronicle/post/DfhfaevlDDY",
+   "parent_root_id": "18649780468040990",
+   "parent_child_verified": true,
+   "visible_body_text": "Correction: our 04:16 ET EUR/USD and 04:18 ET US crude oil updates said price had reached the entry zone. It had not: at those times both plans were still waiting for price to reach their zones, EUR/USD 1.1166\u20131.117 and US crude oil 90.2\u201390.45. Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+   "text_verified": true,
+   "expected_media_local_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\cc359-zone-correction-20261109\\media_assets\\plan-fact-card-9b5049e75500d42469ad.png",
+   "media_required": true,
+   "media_verified": true,
+   "expected_chart_visual_similarity": 0.9982
+  }
+ ],
+ "complete_article_visual_count": 2
+}

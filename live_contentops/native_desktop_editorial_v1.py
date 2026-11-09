@@ -254,6 +254,12 @@ def validate_visual_decision(value, *, dropped_after_repair=False):
             or any(not re.fullmatch(r"post-facts-[a-f0-9]{20}", i) for i in card_ids)):
         raise ValueError("BOUND_POST_DATA_CARD_IDENTITIES_REQUIRED")
     ids.extend(card_ids)
+    snapshot_ids = value.get("tradingview_snapshot_asset_ids", [])
+    if (not isinstance(snapshot_ids, list) or len(snapshot_ids) > 2
+            or len(set(snapshot_ids)) != len(snapshot_ids)
+            or any(not re.fullmatch(r"tradingview-(?:snapshot|panel)-[a-f0-9]{20}", i) for i in snapshot_ids)):
+        raise ValueError("BOUND_TRADINGVIEW_SNAPSHOT_IDENTITIES_REQUIRED")
+    ids.extend(snapshot_ids)
     destinations = {"telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"}
     photo_ids = value.get("contextual_photo_ids", [])
     if not isinstance(photo_ids, list) or len(photo_ids) > 2 or len(set(photo_ids)) != len(photo_ids):
@@ -274,14 +280,16 @@ def admit_selected_story_context(turn, binding, response):
     from hashlib import sha256
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
     from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
-    from live_contentops.v1_simple_gemini_newsroom_v1 import MAX_SOURCE_DOCUMENTS
 
     turn._check_pause()
     selection, visual = turn.frozen_request("select"), turn.frozen_request("visual-edit")
-    if (not selection or not turn._get("select", "response") or not visual
-            or not turn.visual_response()
-            or response.get("expected_request_sha256") != visual["request_sha256"]
-            or turn.frozen_request("write") or turn._get("write", "response")):
+    writer = turn.frozen_request("write")
+    short_path = bool(not visual and writer and writer["governed_input"].get("publication_speed_policy"))
+    reference = writer if short_path else visual
+    if (not selection or not turn._get("select", "response") or not reference
+            or (not short_path and not turn.visual_response())
+            or response.get("expected_request_sha256") != reference["request_sha256"]
+            or (writer and not short_path) or turn._get("write", "response")):
         raise ValueError("EXACT_UNWRITTEN_SELECTED_VISUAL_REQUEST_REQUIRED")
     ids = response.get("supporting_headline_ids", [])
     reason = response.get("match_reason", "")
@@ -319,14 +327,13 @@ def admit_selected_story_context(turn, binding, response):
         verified_context = {d["document_id"]: d for d in admitted.get("evidence_documents", [])}
         research = additional
     walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
-    primary = visual["governed_input"]["source_packet"]["source_pack"]
+    primary = (writer["governed_input"]["source_pack"] if short_path
+               else visual["governed_input"]["source_packet"]["source_pack"])
     candidate = response.get("candidate_id")
     if (candidate != walk.get("selected_candidate_id") or not primary
             or candidate not in {p["candidate_id"] for p in turn._get("select", "response")["output"]["ordered_candidate_plan"]}
             or walk.get("selected_source_pack") != primary
-            or sum(d.get("source_authority_class") != "official_release_history_from_cc010" for d in primary)
-                + len(ids) > MAX_SOURCE_DOCUMENTS
-            or len(primary) + len(ids) > 10):
+            or len({(d["document_id"], d["canonical_content_sha256"]) for d in primary}) + len(ids) > 10):
         raise ValueError("EXACT_QUALIFIED_SELECTED_SOURCE_PACK_REQUIRED")
     documents = []
     for item_id in ids:
@@ -352,7 +359,10 @@ def admit_selected_story_context(turn, binding, response):
             "source_reuse_constraints": permission})
     value = {"schema_version": "contentops.native_selected_story_context.v1",
         "pre_writer_context_attachment": True, "candidate_id": candidate,
-        "selection_request_sha256": selection["request_sha256"], "visual_request_sha256": visual["request_sha256"],
+        "selection_request_sha256": selection["request_sha256"],
+        "source_request_sha256": reference["request_sha256"],
+        **({"superseded_unanswered_writer_sha256": writer["request_sha256"]} if short_path
+           else {"visual_request_sha256": visual["request_sha256"]}),
         "context_amendment_sha256": amendment_sha, "primary_source_pack_sha256": sha256_of(primary),
         "supporting_headline_ids": ids, "context_documents": documents,
         "research_revision": research.revision, "cutoff_utc": input_cutoff,
@@ -363,6 +373,16 @@ def admit_selected_story_context(turn, binding, response):
             "publication_state": "CONTEXT_SOURCE_REPORTING_NOT_PRIOR_PUBLIC_CC_COVERAGE"},
         "public_write_performed": False}
     value["request_sha256"] = sha256_of(value)
+    if short_path:
+        path = turn.root / "desktop_request_write.json"
+        if path.is_file():
+            archive = turn.root / "source-recovery-history" / writer["request_sha256"] / path.name
+            archive.parent.mkdir(parents=True, exist_ok=True)
+            if archive.exists():
+                if archive.read_bytes() != path.read_bytes():
+                    raise ValueError("SELECTED_STORY_WRITER_HISTORY_CONFLICT")
+            else:
+                path.replace(archive)
     turn.store.register_outbox_message(message_id="native-source-recovery-" + sha256_of(value),
         work_item_id=turn.work, destination="internal:native-desktop-source-recovery",
         payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
@@ -1186,7 +1206,23 @@ class NativeDesktopTurn:
         if visual:
             native_guidance = native_guidance.replace(
                 "say it is not supplied in source notes.", "retain that missing clock in internal evidence metadata.")
+        from live_contentops.public_time_v1 import WRITER_GUIDANCE
+        if stage in {"write", "revise", "visual-edit"} and (not frozen or WRITER_GUIDANCE in frozen["prompt"]):
+            native_guidance += "\n" + WRITER_GUIDANCE + "\n"
+        from live_contentops.article_scenarios_v1 import WRITER_GUIDANCE as SCENARIO_WRITER, PREPARATION_GUIDANCE
+        SCENARIO_GUIDANCE = SCENARIO_WRITER if stage in {"write", "revise"} else PREPARATION_GUIDANCE
+        if stage in {"select", "write", "revise", "visual-edit"} and (not frozen or SCENARIO_GUIDANCE in frozen["prompt"]):
+            native_guidance += "\n" + SCENARIO_GUIDANCE + "\n"
         request_prompt = kwargs["prompt"] + native_guidance
+        if stage in {"write", "revise"}:
+            from live_contentops.event_article_guard_v1 import event_writer_guidance
+            if not frozen:
+                request_prompt += event_writer_guidance(kwargs["governed_input"])
+            elif "\nCC107_EVENT_RESOLUTION_FRAME\n" in frozen["prompt"]:
+                # Replay the issued brief's bytes even after templates change.
+                issued = frozen["prompt"].split("\nCC107_EVENT_RESOLUTION_FRAME\n", 1)[1]
+                issued = issued.split("\nA terminal pre-writer refusal", 1)[0]
+                request_prompt += "\nCC107_EVENT_RESOLUTION_FRAME\n" + issued
         if publication_speed:
             request_prompt = frozen_writer["prompt"] if frozen_writer else request_prompt + publication_guidance
         negative_contract = role in {"select", "visual-edit", "write"} and (
@@ -1448,8 +1484,21 @@ def normalize_native_receipt(value: dict[str, Any], telemetry: Mapping[str, Any]
         value["exact_next_blocker"] = value["exact_next_blocker"].replace("GEMINI_", "DESKTOP_")
 
 
+def resume_completed_native_revision(store, turn, result, *, run_id):
+    """Keep the completed authored revision current when reopening an assembly."""
+    request = getattr(turn, "frozen_request", lambda _: None)("revise")
+    response = getattr(turn, "_get", lambda *_: None)("revise", "response")
+    if not request or not response or result.get("simple_result", {}).get("revision_performed"):
+        return result
+    bind_editorial_media(store, run_id=run_id, article_identity=result["article_identity"],
+        assets=result.get("media_assets", []), expected_package_revision=native_review_revision(result),
+        completed_revision_request_sha256=request["request_sha256"])
+    return json.loads(store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))["payload"])
+
+
 def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None,
-                         final_visual_repair=None, corrected_worker_output=None, drop_failed_visuals=False):
+                         final_visual_repair=None, corrected_worker_output=None, drop_failed_visuals=False,
+                         completed_revision_request_sha256=None):
     """Seal relevant inspected media before review using the existing final outbox.
 
     Earlier bytes stay history. A reviewed correction needs its exact revision and
@@ -1492,9 +1541,20 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                 (run_id,row["work_item_id"])).fetchone()
         if dispatched:
             raise ValueError("REVIEWED_MEDIA_IMMUTABLE_AFTER_PUBLICATION_DISPATCH")
+    if completed_revision_request_sha256:
+        registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+        operation = json.loads(registered["payload"]) if registered else {}
+        turn = NativeDesktopTurn(store, run_id=run_id, output_dir=operation["output_dir"], owner_manual_validation=True)
+        request, response = turn.frozen_request("revise"), turn._get("revise", "response")
+        if (not request or not response or request["request_sha256"] != completed_revision_request_sha256
+                or response["request_sha256"] != request["request_sha256"]
+                or request["governed_input"]["source_pack"] != result["evidence"]
+                or corrected_worker_output is not None):
+            raise ValueError("EXACT_COMPLETED_NATIVE_REVISION_REQUIRED")
+        corrected_worker_output = response["output"]
     corrected_article = result["article"]
     if corrected_worker_output is not None:
-        if final_visual_repair is None:
+        if final_visual_repair is None and not completed_revision_request_sha256:
             raise ValueError("COPY_CORRECTION_REQUIRES_SAME_MAX_FINAL_REPAIR")
         from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_worker_text, _validate_article_against_source_pack
         ok, _, _, reason = _validate_worker_text(json.dumps(corrected_worker_output))
@@ -1519,6 +1579,14 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                if final_visual_repair.get("channel_media_after_drop") else {}),
             "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     allowed = {d["url"] for d in result.get("evidence", [])}
+    if corrected_article.get("market_asset"):
+        from live_contentops.article_publication_quality_v1 import prepare_market_snapshot
+        registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
+        operation = json.loads(registered["payload"]) if registered else {}
+        if not operation.get("output_dir"):
+            raise ValueError("ARTICLE_MEDIA_OUTPUT_DIR_REQUIRED")
+        corrected_article, assets = prepare_market_snapshot(corrected_article, assets,
+            output_dir=resolve_workspace_path(operation["output_dir"]) / "media" / "market-snapshot")
     allowed.update(s["url"] for d in result.get("evidence", []) for s in d.get("desk_record_binding", {}).get("sources", []))
     for d in result.get("evidence", []):
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
@@ -1532,10 +1600,18 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     if not reader_first:
         assets = sorted(assets, key=lambda a: a.get("modality") != "source_backed_chart")
     else:
+        from live_contentops.native_publication_latency_v1 import uses_short_path
         validate_release_media({**result, "article": corrected_article, "media_assets": assets,
             "visual_repair_disposition": disposition,
-            "visual_editorial_decision": corrected_article.get("visual_editorial_decision")})
+            "visual_editorial_decision": corrected_article.get("visual_editorial_decision")},
+            require_pixel_review=not uses_short_path(store, run_id=run_id, result=result))
+    if corrected_article.get("lead_image_asset_id"):
+        assets = sorted(assets, key=lambda a: a.get("asset_id") != corrected_article["lead_image_asset_id"])
     for asset in assets:
+        if asset.get("modality") == "tradingview_chart_snapshot":
+            from live_contentops.article_publication_quality_v1 import validate_snapshot_asset
+            validate_snapshot_asset(asset, market=corrected_article.get("market_asset"))
+            continue
         if asset.get("modality") == "documentary_photo":
             from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
             validate_contextual_photo(asset)
@@ -1591,13 +1667,17 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         article_path = root / "article_manifest_v1.json"
         article_path.write_bytes(canonical_bytes(article))
         record.update(article_identity=article_identity, article_path=str(article_path),
+            article_body_sha256=sha256(article["substack_body_markdown"].encode()).hexdigest(),
             derivative_package_intents=intents, derivative_package_intent_count=len(intents))
         record["record_sha256"] = _logical_hash({k:v for k,v in record.items() if k != "record_sha256"})
         record_path = persist_qualified_article_record(root, record)
         updated["visual_repair_revision"] = {"qualified_record_path": str(record_path),
             "prior_article_identity": result["article_identity"], "source_requests": 0, "intake_restarted": False}
         updated["simple_result"] = {**result["simple_result"], "article_identity": article_identity,
-            "article_path": str(article_path), "qualified_record_path": str(record_path)}
+            "article_path": str(article_path), "qualified_record_path": str(record_path),
+            **({"revision_performed": True} if completed_revision_request_sha256 else {})}
+        if completed_revision_request_sha256:
+            updated["completed_native_revision_request_sha256"] = completed_revision_request_sha256
     store.finalize_outbox_payload_before_dispatch(message_id=key, payload=canonical_bytes(updated).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 
@@ -1609,13 +1689,25 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
     assets = result.get("media_assets") or []
     from live_contentops.native_text_first_v1 import text_first_brief
     text_first = text_first_brief(result)
-    decision = result.get("visual_editorial_decision") or (result.get("article") or {}).get("visual_editorial_decision")
-    if not text_first and (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision:
+    decision = result.get("visual_editorial_decision") or (result.get("article") or {}).get("visual_editorial_decision") or {}
+    # Decision 53's short path deliberately freezes no separate visual-editor
+    # role. Its writer and one editor check use the bound assets directly.
+    # The same caller flag already selects its automated image checks below.
+    if (require_pixel_review and not text_first
+            and (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision):
         raise ValueError("MAX_VISUAL_DECISION_REQUIRED")
     reader_first = bool(decision)
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
     cards = [a for a in assets if a.get("modality") == "source_bound_data_card"]
+    snapshots = [a for a in assets if a.get("modality") == "tradingview_chart_snapshot"]
+    for snapshot in snapshots:
+        from live_contentops.article_publication_quality_v1 import validate_snapshot_asset
+        validate_snapshot_asset(snapshot, market=(result.get("article") or {}).get("market_asset"))
+        from live_contentops.tradingview_snapshot_v1 import validate_snapshot_asset as validate_delivery_snapshot
+        validate_delivery_snapshot(snapshot, result.get("article"))
+    if decision and not set(decision.get("tradingview_snapshot_asset_ids", [])) <= {a["asset_id"] for a in snapshots}:
+        raise ValueError("TRADINGVIEW_SNAPSHOT_CHOICE_UNBOUND")
     article = result.get("article") or {}
     from live_contentops.post_visuals_v1 import POLICY, validate_post_data_card
     current_visuals = article.get("post_visual_policy") == POLICY
@@ -1641,10 +1733,10 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
         card_article = article if article.get("substack_body_markdown") else {
             "title": company_card_plan.get("title", ""), "substack_body_markdown": " ".join(selected)}
         validate_post_data_card(cards[0], card_article, result.get("evidence") or [])
-    if len(assets) != len(photos) + len(charts) + len(cards):
+    if len(assets) != len(photos) + len(charts) + len(cards) + len(snapshots):
         raise ValueError("RELEASE_UNSUPPORTED_MEDIA")
     if text_first:
-        if len(assets) != len(photos) + len(charts) + len(cards):
+        if len(assets) != len(photos) + len(charts) + len(cards) + len(snapshots):
             raise ValueError("TEXT_FIRST_UNSUPPORTED_MEDIA")
     elif reader_first:
         if dropped_after_repair:
@@ -1792,7 +1884,7 @@ def dated_distribution_destinations(recovery):
 
 
 def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, destinations=None,
-                                      reader_timezone="America/New_York"):
+                                      reader_timezone="America/New_York", legacy=False):
     """Prepare the owner's dated distribution amendment without changing sent intents."""
     from datetime import datetime
     from zoneinfo import ZoneInfo
@@ -1811,13 +1903,13 @@ def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, des
         for r in store.get_reconciliations_for_work_item(run_id))
     if canonical.get("status") != "DISPATCH_CONFIRMED" or not reconciled:
         raise ValueError("DATED_DISTRIBUTION_CONFIRMED_CANONICAL_REQUIRED")
-    if reader_timezone is None:
+    if legacy and reader_timezone is None:
         # Only rebuilding an immutable historical recovery uses its original label.
         cutoff = datetime.fromisoformat(binding["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Asia/Bangkok"))
         label = f"Reporting as of {cutoff:%H:%M} Bangkok on {cutoff.day} {cutoff:%B %Y}."
     else:
         from live_contentops.v1_simple_gemini_newsroom_v1 import reader_timestamp
-        label = f"Reporting as of {reader_timestamp(binding['cutoff_utc'], zone=reader_timezone)}."
+        label = f"Reporting as of {reader_timestamp(binding['cutoff_utc'], zone=reader_timezone, legacy=legacy)}."
     scope = dated_distribution_destinations({} if destinations is None else {"destinations": destinations})
     payloads, originals = {}, {}
     for destination in sorted(scope):
@@ -1838,6 +1930,10 @@ def build_dated_distribution_recovery(store, *, run_id, owner_authority_ref, des
         "article_identity": result["article_identity"], "canonical_article_revision": native_review_revision(result),
         "plan_hash": plan["plan_hash"], "canonical_url": canonical["public_object_url"],
         "date_label": label, "original_intent_sha256": originals, "payloads": payloads}
+    if not legacy:
+        from live_contentops.public_time_v1 import POLICY
+        recovery["public_time_policy"] = POLICY
+        reader_timezone = "America/New_York"
     if reader_timezone is not None:
         recovery["reader_timezone"] = reader_timezone
     if destinations is not None:
@@ -1854,7 +1950,7 @@ def dated_distribution_recovery_view(store, *, run_id, result, recovery):
     from copy import deepcopy
     expected = build_dated_distribution_recovery(store, run_id=run_id,
         owner_authority_ref=recovery.get("owner_authority_ref"), destinations=recovery.get("destinations"),
-        reader_timezone=recovery.get("reader_timezone"))
+        reader_timezone=recovery.get("reader_timezone"), legacy="public_time_policy" not in recovery)
     if recovery != expected or native_review_revision(result) != recovery["canonical_article_revision"]:
         raise ValueError("DATED_DISTRIBUTION_SOURCE_OR_PAYLOAD_CHANGED")
     view = deepcopy(result)
@@ -1893,9 +1989,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
     canonical = proposal["canonical_amendment"]
     body = canonical["governed_article_body"]
     dates = canonical["display_date_if_rendered"]
-    cutoff = datetime.fromisoformat(result["simple_result"]["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Asia/Bangkok"))
+    cutoff = datetime.fromisoformat(result["simple_result"]["cutoff_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("America/New_York"))
     date = f"{cutoff.day} {cutoff:%B %Y}"
-    label = f"Reporting as of {cutoff:%H:%M} Bangkok on {date}."
     suffix = body["removed_exact_suffix"]
     if (body["before"] != result["article"]["substack_body_markdown"] or not body["after"].strip()
             or body["before"] != body["after"] + suffix
@@ -1918,7 +2013,8 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
         effective = json.loads(co._dated_distribution_message(original)["payload"])
         before, after = change["before_payload"], change["after_payload"]
         resolved = _durable_intent_inputs(effective)["payloads"][destination]
-        if (before != resolved or before["text"] != label + "\n\n" + after["text"][len(date) + 2:]
+        label = resolved["text"].split("\n\n", 1)[0]
+        if (not label.startswith("Reporting as of ") or before != resolved or before["text"] != label + "\n\n" + after["text"][len(date) + 2:]
                 or not after["text"].startswith(date + "\n\n")
                 or {k:v for k,v in before.items() if k != "text"} != {k:v for k,v in after.items() if k != "text"}):
             raise ValueError("READER_REVISION_ONLY_DATED_PREFIX_PRESENTATION_ALLOWED")

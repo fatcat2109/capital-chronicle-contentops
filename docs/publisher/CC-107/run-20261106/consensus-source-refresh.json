@@ -1,0 +1,15 @@
+{
+  "receipt": {
+    "message_id": "native-story-preparation-2e3d8eb73ea8308ac51816759102484fbf52f09df16b4efa641154618cd708be",
+    "event_id": "bls-emsit-20261106",
+    "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+  },
+  "original_preparation": "native-story-preparation-b65dcc1c9f57da188b6b264fc2412c924e29e9eeef45842fd289c1c435f453cd",
+  "source_projection": "A:\\Capital Chronicle\\ResearchRuns\\cc-068-release-consensus\\root\\daily\\2026-11-06\\US_NFP_20261106.json",
+  "source_projection_sha256": "34148e3fcae76e8c38e7648d959af9a7cfc99b57735a1379e3a7e6e7e2fc3226",
+  "single_fact_projection": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-107\\run-20261106\\single-consensus-projection.json",
+  "source_value_text": "65.00K",
+  "known_at_utc": "2026-11-05T17:14:01.546812Z",
+  "reviewed_background_unchanged": true,
+  "reason": "Pin the held current single consensus fact; preserve the changed historical projection and old background."
+}

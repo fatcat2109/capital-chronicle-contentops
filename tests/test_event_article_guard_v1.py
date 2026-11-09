@@ -67,8 +67,28 @@ def test_both_authored_templates_pass_without_granting_publication(kind, monkeyp
     assert first == check_public_event_article(article, evidence=evidence)
     assert first["status"] == "PASS"
     assert not first["publication_authority"]
-    assert first["jim_approval_required"] and first["final_native_render_review_required"]
+    assert not first["jim_approval_required"]
+    assert first["standing_approval"] == "JIM_DECISION_36"
+    assert first["final_native_render_review_required"]
     assert first["checked_surfaces"] == len(SECTIONS[kind]) + len(REACTION_ASSETS) - 1
+
+
+@pytest.mark.parametrize("kind", ARTICLE_TYPES)
+def test_event_resolution_sections_are_checked_as_public_copy(kind):
+    from live_contentops.event_article_guard_v1 import EVENT_FRAME_SECTIONS
+    article, evidence = packet(kind)
+    for key in EVENT_FRAME_SECTIONS[kind]:
+        article["copy"][key] = "The dated observation remains conditional."
+    assert check_public_event_article(article, evidence=evidence)["status"] == "PASS"
+    key = next(iter(EVENT_FRAME_SECTIONS[kind]))
+    article["copy"][key] = "Buy gold."
+    refused(article, evidence, "PRIVATE_OR_EXECUTION_COPY_FORBIDDEN")
+
+
+def test_incomplete_frame_is_not_silently_accepted():
+    article, evidence = packet()
+    article["copy"]["pre_event_range"] = "Source-owned range."
+    refused(article, evidence, "EVENT_SECTIONS_REQUIRED")
 
 
 @pytest.mark.parametrize("key", [

@@ -1,0 +1,42 @@
+{
+  "tool_request_sha256": "6d9910807cc3abe22e440c28f6f89d32aa83dc4ded90e0cb0bc816bab5e6c8dc",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T11:08:28.718Z",
+    "observation_source": "Exact public-object Neo readback; X redirect and LinkedIn external-link interstitial destination anchors verify the canonical. Platform image binaries were compared and viewed; see observation, redirect and media evidence."
+  },
+  "result": {
+    "request_sha256": "6099852915ffef7b4866c87f8401558d95b0390a3e73c8fdf482e690d9b684f0",
+    "status": "SUCCESS",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+    "public_object_url": "https://www.youtube.com/post/Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+    "observed_text": "Capital Chronicle\n17 ph\u00fat tr\u01b0\u1edbc\nUpdate: Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link.\n\nWhat to watch: The review says gold made no lower low and had stopped following the dollar leg.\n\nRead the full brief: https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\u0110\u1ecdc th\u00eam",
+    "content_verified": true,
+    "public_write_performed": false,
+    "media_comparisons": [
+      {
+        "destination": "youtube",
+        "public_object_url": "https://www.youtube.com/post/Ugkxb1PcuEu4mpuBVHDfcKOTJdzuHZPkF9k2",
+        "public_image_url": "https://yt3.ggpht.com/pNtP6oZd1Tmfl9CqAHA1lccJSvdzTZoyse89qmbAc6q9J7Tp0hUKvqJEi9dQdW8qGhNlldBEbIWyVg8=s640-rw-nd-v1",
+        "binary_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\readback\\youtube.webp",
+        "platform_sha256": "66672b0f441b8f637033873bd354dc594bab119fe1908c472d35f5aa1204fae2",
+        "source_asset_sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+        "bytes": 29434,
+        "mime_type": "image/webp",
+        "width": 512,
+        "height": 640,
+        "visual_similarity": 0.9938,
+        "dimension_ratio_matches": true,
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "pixel_inspection": "All title, three dated-review facts, source date and footer match the approved card; platform resizes/compression retained. LinkedIn member and company bytes are identical."
+      }
+    ],
+    "public_image_urls": [
+      "https://yt3.ggpht.com/pNtP6oZd1Tmfl9CqAHA1lccJSvdzTZoyse89qmbAc6q9J7Tp0hUKvqJEi9dQdW8qGhNlldBEbIWyVg8=s640-rw-nd-v1"
+    ]
+  }
+}

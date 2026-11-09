@@ -1,0 +1,44 @@
+{
+  "tool_request_sha256": "14cfefbfa7e32a9dd63cea384109141ee1ad248eb19edab8446df6ba5af628ab",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo page 689: Your channel and owner studio links match @CapitalChronicleYouTube and UCuSrYOgd4eeudcD2vidafbA. Full pre-click text read with whitespace normalization, own 1080x1350 image loaded. Clicked Post once; exact new post read from feed.",
+    "observed_at_utc": "2026-11-06T09:01:32.005Z",
+    "dispatched_at_utc": "2026-11-06T09:01:11.379Z"
+  },
+  "result": {
+    "request_sha256": "681f5ae9c9622fd2a9eb3ca40a0c121fc90e59c8feb8b4945a5dbfccba3a662d",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "UgkxZaXCLvwbnUs3W9Y_rO2RN1ELyutCgC73",
+    "public_object_url": "https://www.youtube.com/post/UgkxZaXCLvwbnUs3W9Y_rO2RN1ELyutCgC73",
+    "published_at_utc": "2026-11-06T09:01:11.379Z",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "@CapitalChronicleYouTube",
+      "observed_stable_id": "UCuSrYOgd4eeudcD2vidafbA",
+      "observed_at_utc": "2026-11-06T08:56:53.333Z"
+    },
+    "pre_click_posts": [
+      "Update: DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\n\nA dollar bid is not a six-market verdict.\n\n\nWhat to watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "@CapitalChronicleYouTube",
+      "public_object_id": "UgkxZaXCLvwbnUs3W9Y_rO2RN1ELyutCgC73",
+      "public_object_url": "https://www.youtube.com/post/UgkxZaXCLvwbnUs3W9Y_rO2RN1ELyutCgC73",
+      "observed_text": "Update: DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nA dollar bid is not a six-market verdict.\n\nWhat to watch: **Bitcoin.** The review treats Bitcoin downside and S&P 500 downside as overlapping exposure.\n\nRead the full brief: https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "content_verified": true,
+      "public_image_urls": [
+        "https://yt3.ggpht.com/Pof0xXaVlNcIiNYLJjf1mHtjk0tDiNk3O1vutzflFG1wxKexIX38fFeS3FwZluCzKhy3xPRSBeGCCA=s640-c-fcrop64=1,0000199affffe666-rw-nd-v1"
+      ],
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}

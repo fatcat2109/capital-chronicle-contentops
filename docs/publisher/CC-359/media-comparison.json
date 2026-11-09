@@ -1,0 +1,36 @@
+{
+ "x": {
+  "source_asset_sha256": "c14ff07c41fda0be8991bc084222dc1998e8f9a406b0e566eab0513e98d19e8d",
+  "platform_sha256": "76475d8093cfb9f8fc709d38a63fbaea24f71ad866b05025017c38be58f95f25",
+  "public_image_url": "https://pbs.twimg.com/media/HWsDbcaboAA0hVT?format=png&name=small",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\cc359-zone-correction-20261109\\media_assets\\x-published.png",
+  "size": 61591,
+  "dimensions": [
+   680,
+   383
+  ],
+  "mean_abs_pixel_difference": [
+   0.6184879434802641,
+   0.6197358316694824,
+   0.652879741975119
+  ],
+  "byte_match": false
+ },
+ "substack_notes": {
+  "source_asset_sha256": "c14ff07c41fda0be8991bc084222dc1998e8f9a406b0e566eab0513e98d19e8d",
+  "platform_sha256": "c14ff07c41fda0be8991bc084222dc1998e8f9a406b0e566eab0513e98d19e8d",
+  "public_image_url": "https://substack-post-media.s3.amazonaws.com/public/images/32fcc521-a334-4b73-90df-e15b35c564a3_1600x900.png",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan-status-posts\\cc359-zone-correction-20261109\\media_assets\\substack_notes-published.png",
+  "size": 58956,
+  "dimensions": [
+   1600,
+   900
+  ],
+  "mean_abs_pixel_difference": [
+   0.0,
+   0.0,
+   0.0
+  ],
+  "byte_match": true
+ }
+}

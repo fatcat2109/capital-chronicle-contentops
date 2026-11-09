@@ -1,5 +1,39 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Temporary weekend load — 7–8 November 2026 (decision 94)
+
+Until 9 November 01:00 GMT+7, CC-124 checks every twelve hours and publishes
+at most one article per existing production day, only from a new Main report.
+The existing publisher and day read model apply the temporary one-article cap;
+the normal decision-93 ceiling of two returns at that reset. No schedule change
+is part of CC-333. Status posts keep their separate contract. The retained NFP
+operation and frozen native request remain available for the next due CC-124 run.
+
+## Fewer pieces, new images and scenarios — 6 November 2026 (CC-333; decision 93)
+
+At most two articles per existing newsroom production day, including event pieces.
+CC-124's standing cadence is six hours; this changes no schedule in an item run.
+This supersedes older 5–8/day targets and no-image exceptions for new publication.
+The existing coordinator requires a content image never published in another piece,
+checking exact SHA256 and perceptual hashes in `published_images_v1.jsonl` beside
+the publication feed. The same article distributes its images to its social copies.
+Six-market pieces set `article.market_asset` before media binding/registration and
+lead with a fresh CC-316 TradingView snapshot; release pieces keep their release
+card first and add the relevant snapshot. Other pieces use their own data chart
+or an unused lawful photo. Never reuse the Fed building or Capitol photographs.
+Use the existing media binding owner to capture/refresh before review; preserve
+TradingView's full attribution, free-public-page rights and image bytes.
+
+Every article carries a Scenarios section with 2–3 Main-sourced scenarios: labelled
+model-estimate probability, confirmation, six-market implications and invalidation.
+Supply `article.scenario_analysis` with exact source bindings and two authored
+`article.social_scenarios` lines (base case and main alternative). The existing
+eight-channel compiler carries both lines to social copy. Do not invent missing
+probabilities or derive an unsupported complement. Search held full Main reports
+and dossiers before naming a gap. Decisions 40, 84 and 90 still apply. Status
+posts and digest link indexes retain their separate existing contracts. Historical
+objects and frozen requests stay immutable; readback/reconciliation stays available.
+
 ## Publication speed — 3 November 2026 (CC-172; Jim's decisions 53 and 54)
 
 Dispatch every applicable channel within 15 minutes of approved text. Preserve the first
@@ -33,6 +67,16 @@ capital-chronicle-preview, any *.github.io, pages.dev, workers.dev, netlify.app 
 fatcat2109, in any post text, link, Substack body or profile. A social copy links the confirmed Substack post or
 nothing; a status post carries no link. Every write path refuses such a copy with PREVIEW_HOST_LINK_FORBIDDEN
 (`live_contentops/preview_link_guard_v1.py`): never work around it.
+
+## Public dates and times — 6 November 2026 (CC-326; Jim's decision 90)
+
+Every new public article, social copy, card, digest and dated line uses New York time
+(`America/New_York`, including daylight saving), written **ET**. Convert the supplied
+instant before choosing its public date. Date-only source periods stay date-only.
+Never put GMT+7, UTC+7, Bangkok time or Vietnam time in public copy. TradingView's own
+snapshot header stays as supplied. Already-published posts are not edited for this rule.
+Messages to Jim stay GMT+7; records stay UTC and internal schedules do not change.
+The final payload checks in `live_contentops/public_time_v1.py` apply before a new write.
 
 ## Scheduled terminal-window reporting (CC-238, 5 Nov 2026)
 

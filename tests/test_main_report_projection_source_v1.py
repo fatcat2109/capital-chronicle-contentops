@@ -10,11 +10,13 @@ from tests.test_capital_chronicle_report_feed_v1 import feed
 NOW = "2026-10-18T17:00:00Z"
 
 
-def retained(tmp_path, monkeypatch, text="The dossier favoured a Democratic sweep. Equities and Bitcoin rose."):
-    report = tmp_path / "Main" / "DOSSIER.md"
+def retained(tmp_path, monkeypatch, text="The dossier favoured a Democratic sweep. Equities and Bitcoin rose.", *, native=False):
+    report = tmp_path / "Main" / ("owner-native.json" if native else "DOSSIER.md")
     report.parent.mkdir()
-    report.write_text(text, encoding="utf-8")
+    report.write_text(json.dumps({"summary": [{"text": text}], "candidates": [{"entry": 123, "rationale": text}]})
+                      if native else text, encoding="utf-8")
     monkeypatch.setattr(projection, "REPORT_ROOTS", (report.parent,))
+    monkeypatch.setattr(projection, "NATIVE_MAIN_REPORT_ROOT", report.parent)
     root = tmp_path / "sources"
     root.mkdir()
     spec = {"authorship_class": projection.AUTHORSHIP, "authority_ref": "JIM_DECISION_89",
@@ -22,13 +24,16 @@ def retained(tmp_path, monkeypatch, text="The dossier favoured a Democratic swee
         "source_url": "urn:cc-public-report:midterm-review", "known_at_utc": "2026-10-18T15:00:00Z",
         "revision_at_utc": "2026-10-18T16:00:00Z", "passages": [{"source_path": str(report),
             "source_sha256": sha256(report.read_bytes()).hexdigest(), "fragments": [{"start": 0, "end": len(text)}]}]}
+    if native:
+        spec["passages"][0]["source_json_pointer"] = "/summary/0/text"
     (root / "index.json").write_text(json.dumps({"schema_version": "contentops.retained_source_research.v1",
         "records": [spec]}), encoding="utf-8")
     return root, report, spec
 
 
-def test_retained_main_report_reaches_existing_newsroom_writer(tmp_path, monkeypatch):
-    root, report, spec = retained(tmp_path, monkeypatch)
+@pytest.mark.parametrize("native", [False, True])
+def test_retained_main_report_reaches_existing_newsroom_writer(tmp_path, monkeypatch, native):
+    root, report, spec = retained(tmp_path, monkeypatch, native=native)
     research = RetainedSourceResearch(root)
     assert not research.gaps
     f = feed(tmp_path / "feed")
@@ -57,7 +62,8 @@ def test_retained_main_report_reaches_existing_newsroom_writer(tmp_path, monkeyp
         workspace = result.get("report_workspace_result", {})
         pytest.fail(str({k: workspace.get(k) for k in ("classification", "exact_next_blocker", "simple_result")}))
     assert len(seen) == 1
-    assert seen[0]["canonical_content_text"] == report.read_text(encoding="utf-8")
+    expected = json.loads(report.read_bytes())["summary"][0]["text"] if native else report.read_text(encoding="utf-8")
+    assert seen[0]["canonical_content_text"] == expected
     assert seen[0]["source_authority_class"] == "governed_capital_chronicle_report_only"
     assert seen[0]["report_truth_only"] is True
 
@@ -67,8 +73,9 @@ def test_retained_main_report_reaches_existing_newsroom_writer(tmp_path, monkeyp
     ("Kalshi priced the sweep at 74%.", "MAIN_REPORT_RAW_OR_PREDICTION_NUMBERS_FORBIDDEN"),
     ("The DEMO account balance rose.", "PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"),
 ])
-def test_private_rows_and_prediction_numbers_stay_out(tmp_path, monkeypatch, text, cause):
-    root, _, _ = retained(tmp_path, monkeypatch, text)
+@pytest.mark.parametrize("native", [False, True])
+def test_private_rows_and_prediction_numbers_stay_out(tmp_path, monkeypatch, text, cause, native):
+    root, _, _ = retained(tmp_path, monkeypatch, text, native=native)
     research = RetainedSourceResearch(root)
     assert not research.records
     assert research.gaps[0]["state"] == cause
@@ -121,3 +128,150 @@ def test_report_path_cannot_escape_configured_main_roots(tmp_path, monkeypatch):
     spec["passages"][0]["source_path"] = str(tmp_path / "outside.md")
     with pytest.raises(ValueError, match="MAIN_REPORT_SOURCE_PATH_INVALID"):
         projection.verify_projection(spec)
+
+
+def test_unadmitted_file_is_refused_before_reading_bytes(tmp_path, monkeypatch):
+    from pathlib import Path
+    _, _, spec = retained(tmp_path, monkeypatch, native=True)
+    outside = tmp_path / "outside" / "owner-native.json"
+    outside.parent.mkdir()
+    outside.write_text('{"summary": [{"text": "Not admitted"}]}', encoding="utf-8")
+    spec["passages"][0]["source_path"] = str(outside)
+    original = Path.read_bytes
+
+    def guarded_read(path):
+        assert path != outside, "Unadmitted source bytes must never be read"
+        return original(path)
+
+    monkeypatch.setattr(Path, "read_bytes", guarded_read)
+    with pytest.raises(ValueError, match="MAIN_REPORT_SOURCE_PATH_INVALID"):
+        projection.verify_projection(spec)
+
+
+@pytest.mark.parametrize("pointer", ["/candidates/0/entry", "/summary/8/text", "/account/balance"])
+def test_native_projection_refuses_execution_fields_or_absent_prose(tmp_path, monkeypatch, pointer):
+    _, _, spec = retained(tmp_path, monkeypatch, native=True)
+    spec["passages"][0]["source_json_pointer"] = pointer
+    with pytest.raises(ValueError, match="MAIN_REPORT_PUBLIC_TEXT_POINTER_INVALID"):
+        projection.verify_projection(spec)
+
+
+def test_native_synthesis_prose_feeds_existing_public_card(tmp_path, monkeypatch):
+    from live_contentops.post_visuals_v1 import build_post_data_card, validate_post_data_card
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+    text = "Gold faces a dollar risk. A rebound remains possible."
+    root, _, spec = retained(tmp_path, monkeypatch, text, native=True)
+    research = RetainedSourceResearch(root)
+    docs = _source_pack(research.evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)["evidence_documents"])
+    article = {"title": "Six markets before payrolls", "substack_body_markdown": text}
+    claims = [{"claim_id": "view", "claim_text": text, "support_excerpt": text, "source_id": "SOURCE_1"}]
+    asset = build_post_data_card(article, claims, docs, output_dir=tmp_path / "media")
+    validate_post_data_card(asset, article, docs)
+    assert asset["data_card_packet"]["facts"][0]["text"] in text
+
+
+def test_review_card_renders_prose_without_exposing_markdown_or_certifying_interpretation(tmp_path, monkeypatch):
+    from live_contentops import fact_card_design_v1 as design
+    from live_contentops.post_visuals_v1 import build_post_data_card
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+    text = "**Gold.** The review describes competing mechanisms."
+    root, _, spec = retained(tmp_path, monkeypatch, text, native=True)
+    docs = _source_pack(RetainedSourceResearch(root).evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)["evidence_documents"])
+    seen, original = [], design.render_fact_card
+
+    def capture(path, card_spec, **kwargs):
+        seen.extend(card_spec.facts)
+        return original(path, card_spec, **kwargs)
+
+    monkeypatch.setattr(design, "render_fact_card", capture)
+    article = {"title": "Capital Chronicle review", "substack_body_markdown": text}
+    asset = build_post_data_card(article, [{"claim_text": text, "support_excerpt": text, "source_id": "SOURCE_1"}], docs,
+                                output_dir=tmp_path / "media")
+    assert asset["data_card_packet"]["facts"][0]["text"] == text
+    assert seen == [("From the dated review", "Gold. The review describes competing mechanisms.")]
+
+
+def test_all_derivatives_display_public_review_notice_without_changing_frozen_provenance(tmp_path, monkeypatch):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
+    root, _, _ = retained(tmp_path, monkeypatch, native=True)
+    state = projection.projection_evidence(list(RetainedSourceResearch(root).records.values()), {})["epistemic_state"]
+    old = "Capital Chronicle's dated Main report provides analysis, not independently confirmed event facts or a performance record."
+    state["report_scope_notice"] = old
+    article = {"title": "Capital Chronicle reviews six markets", "dek": "Capital Chronicle's dated review.",
+               "substack_body_markdown": "Capital Chronicle reviews competing mechanisms.\n\n" + old.replace("dated Main report", "dated review")}
+    bundle, intents = _native_preview_bundle(article=article, article_mode="DATA_OR_DOCUMENT_LENS",
+        article_identity="f" * 64, epistemic_state=state)
+    assert len(intents) == 8
+    for package in bundle["packages"].values():
+        assert "dated Main report" not in json.dumps(package)
+        assert "dated review" in json.dumps(package)
+    assert state["report_scope_notice"] == old
+
+
+@pytest.mark.parametrize("paragraph,attributed", [
+    ("The review records gold falling even as yields fell.", True),
+    ("The review says gold and yields fell together.", True),
+    ("Gold and yields fell together.", False),
+])
+def test_main_review_attribution_survives_natural_document_references(tmp_path, monkeypatch, paragraph, attributed):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _epistemic_copy_blockers
+    root, _, spec = retained(tmp_path, monkeypatch, native=True)
+    records = list(RetainedSourceResearch(root).records.values())
+    state = projection.projection_evidence(records, {})["epistemic_state"]
+    state["event_proposition"] = "Gold and yields fell together."
+    article = {key: "Capital Chronicle reviews gold and yields" for key in
+               ("title", "dek", "search_title", "meta_description", "social_hook")}
+    article["substack_body_markdown"] = ("Capital Chronicle reviews gold and yields.\n\n" + paragraph
+                                         + "\n\n" + state["report_scope_notice"])
+    blockers = _epistemic_copy_blockers(article, [], state)
+    assert ("epistemic_event_asserted_as_confirmed:2" not in blockers) is attributed
+
+
+@pytest.mark.parametrize("keep_limits", [True, False])
+def test_public_review_notice_keeps_frozen_packet_limits_without_internal_producer_name(tmp_path, monkeypatch, keep_limits):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _epistemic_copy_blockers
+    root, _, _ = retained(tmp_path, monkeypatch, native=True)
+    records = list(RetainedSourceResearch(root).records.values())
+    state = projection.projection_evidence(records, {})["epistemic_state"]
+    state["report_scope_notice"] = ("Capital Chronicle's dated Main report provides analysis, "
+                                    "not independently confirmed event facts or a performance record.")
+    article = {key: "Capital Chronicle reviews the dated report" for key in
+               ("title", "dek", "search_title", "meta_description", "social_hook")}
+    notice = state["report_scope_notice"].replace("dated Main report", "dated review")
+    article["substack_body_markdown"] = "Capital Chronicle reviews the report.\n\n" + (notice if keep_limits else "")
+    blockers = _epistemic_copy_blockers(article, [], state)
+    assert ("report_horizon_proxy_cost_limits_missing" not in blockers) is keep_limits
+
+
+@pytest.mark.parametrize("change", [None, "title", "opening", "rights", "hash", "lineage", "mixed"])
+def test_verified_public_excerpt_reaches_copy_consumer_without_ritual_rewrite(tmp_path, monkeypatch, change):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack, _epistemic_copy_blockers
+    text = "Nvidia investigates a suspected intelligence link."
+    root, _, spec = retained(tmp_path, monkeypatch, text=text)
+    research = RetainedSourceResearch(root)
+    evidence = research.evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)
+    docs = _source_pack(evidence["evidence_documents"])
+    state = evidence["epistemic_state"]
+    article = {key: "Capital Chronicle reviews the dated allegations" for key in
+               ("dek", "search_title", "meta_description", "social_hook")}
+    article.update(title=text, substack_body_markdown=text)
+    if change in {"title", "opening"}:
+        article["title" if change == "title" else "substack_body_markdown"] = "Nvidia confirms an intelligence link."
+    elif change == "rights":
+        docs[0]["source_reuse_constraints"]["public_expression_reuse_allowed"] = False
+    elif change == "hash":
+        docs[0]["canonical_content_text"] += " Changed bytes."
+    elif change == "lineage":
+        docs[0]["report_lineage"]["report_projection_sha256"] = "0" * 64
+    elif change == "mixed":
+        docs.append({"canonical_content_text": "External report"})
+    blockers = _epistemic_copy_blockers(article, [], state, source_pack=docs)
+    if change is None:
+        assert blockers == []
+        assert state["event_confirmation_state"] == "UNCONFIRMED"
+        assert state["underlying_event_may_be_stated_as_confirmed"] is False
+    elif change in {"title", "opening"}:
+        assert ("epistemic_title_attribution_or_uncertainty_missing" if change == "title"
+                else "epistemic_opening_reporting_state_missing") in blockers
+    else:
+        assert "report_horizon_proxy_cost_limits_missing" in blockers

@@ -1,0 +1,53 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "changed": false,
+    "page": 701,
+    "settled": false,
+    "value": {
+      "articles": [
+        {
+          "canonicals": [
+            {
+              "href": "https://t.co/hzB8iY4ai7",
+              "text": "https://\ncapitalchronicle.substack.com/p/capital-chro\nnicles-pre-payrolls-review\n…",
+              "title": null
+            }
+          ],
+          "images": [
+            "https://pbs.twimg.com/media/HWb6UqGbsAACsza?format=png&name=small"
+          ],
+          "links": [
+            "https://x.com/Capitalnicle/status/2118656322845769835/photo/1",
+            "https://x.com/Capitalnicle/status/2118656322845769835",
+            "https://x.com/Capitalnicle/status/2118656322845769835/analytics"
+          ],
+          "text": "Capital Chronicle\n@Capitalnicle\nCapital Chronicle's pre-payrolls review gives oil a supply-risk test\n\n\nhttps://\ncapitalchronicle.substack.com/p/capital-chro\nnicles-pre-payrolls-review\n…\nALT\n5:46 PM · Nov 6, 2026\n·\n20\n Views\n1",
+          "tweetText": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\n\nhttps://\ncapitalchronicle.substack.com/p/capital-chro\nnicles-pre-payrolls-review\n…"
+        },
+        {
+          "canonicals": [],
+          "images": [],
+          "links": [
+            "https://x.com/Capitalnicle/status/2118656325576171894",
+            "https://x.com/Capitalnicle/status/2118656325576171894/analytics"
+          ],
+          "text": "Capital Chronicle\n@Capitalnicle\n·\n28s\nCapital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link. Watch: The review says gold made no lower low and had stopped following the dollar leg.\n1\n2",
+          "tweetText": "Capital Chronicle's oil thesis needs a range break; its euro reading retains rates and positioning countercases, while gold tests the dollar link. Watch: The review says gold made no lower low and had stopped following the dollar leg."
+        },
+        {
+          "canonicals": [],
+          "images": [],
+          "links": [
+            "https://x.com/Capitalnicle/status/2118656327757246475",
+            "https://x.com/Capitalnicle/status/2118656327757246475/analytics"
+          ],
+          "text": "Capital Chronicle\n@Capitalnicle\n·\n28s\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers.\n1",
+          "tweetText": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade. Capital Chronicle may hold positions in the markets it covers."
+        }
+      ],
+      "observed_at_utc": "2026-11-06T10:47:14.262Z"
+    }
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "observed_at_utc": "2026-11-06T13:35:30.659872+00:00",
+  "operation_id": "cc107-nfp-preview-20261106-v1",
+  "canonical_url": "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+  "published_feed_rows": 1,
+  "article_type": "EVENT_PREVIEW",
+  "public_dispatch_states": [
+    {
+      "dispatch_id": "dispatch_497a35c5139079bd6b576d0de801f44b",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1568249134022926396",
+      "public_object_url": null,
+      "dispatched_at": "2026-11-06T13:02:09.443343+00:00"
+    },
+    {
+      "dispatch_id": "dispatch_84e6b085fabc96863ebed2de0f68a319",
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1446687330983016",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1446687330983016",
+      "dispatched_at": "2026-11-06T13:02:12.559475+00:00"
+    },
+    {
+      "dispatch_id": "dispatch_2005d450bd2984e764f5c6782d30f9a6",
+      "platform": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17965687209215810",
+      "public_object_url": "https://www.instagram.com/p/DfZqv2MgVUW/",
+      "dispatched_at": "2026-11-06T13:02:25.867432+00:00"
+    },
+    {
+      "dispatch_id": "dispatch_437c79c189ad89436dfc9826e0c54bcf",
+      "platform": "linkedin",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524460754750750720",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524460754750750720/",
+      "dispatched_at": "2026-11-06T13:02:45.998253+00:00"
+    },
+    {
+      "dispatch_id": "dispatch_ea6fef69841a1b77ebabac38c599af4e",
+      "platform": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524462065680285696",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+      "dispatched_at": "2026-11-06T13:02:46.410913+00:00"
+    },
+    {
+      "dispatch_id": "dispatch_a260b1cce70fc7a3a71bb1f7f7db51e3",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "223763353",
+      "public_object_url": "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+      "dispatched_at": "2026-11-06T12:51:23.858296+00:00"
+    },
+    {
+      "dispatch_id": "dispatch_3ef1e93c8e2461adc23105c0f0507177",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "96",
+      "public_object_url": "https://t.me/CapitalChronicle/96",
+      "dispatched_at": "2026-11-06T13:02:48.295786+00:00"
+    },
+    {
+      "dispatch_id": "dispatch_564f176e32c8f076898cd24dede59304",
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18121659562995811",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZqy7Qnzbx",
+      "dispatched_at": "2026-11-06T13:02:51.816957+00:00"
+    },
+    {
+      "dispatch_id": "dispatch_7744b7c45d5ec7723b71728ea4277716",
+      "platform": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2118693801451823351",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118693801451823351",
+      "dispatched_at": "2026-11-06T13:03:28.315784+00:00"
+    },
+    {
+      "dispatch_id": "dispatch_c490f9d3056ccdc2363755792f7be269",
+      "platform": "youtube",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "UgkxgzPknumtaawPLwOIxiH0-Yd6m6QcbZin",
+      "public_object_url": "https://www.youtube.com/post/UgkxgzPknumtaawPLwOIxiH0-Yd6m6QcbZin",
+      "dispatched_at": "2026-11-06T13:03:28.654646+00:00"
+    }
+  ],
+  "production_record": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json",
+  "distinct_canonicals": 4,
+  "installed_main_commit": "264f3555c848a0f41f61a4e605e80306493adfc3",
+  "installed_digest_sha256": "7f7f08b10d5645e841384559bf39f41b3f70a8c43fa3580d8a73d7c8cd80eb67",
+  "installed_main_digest_sha256": "d8df4a5e73a0296b768f3eb62f1cf8ac5bded4460dc4b36602c4d05fccb7c114",
+  "installed_wiring": [
+    {
+      "line": 22,
+      "source": "from .contentops_digest_v1 import STORE, collect_contentops, default_production_record"
+    },
+    {
+      "line": 714,
+      "source": "contentops = collect_contentops(reader, record=contentops_record, store=contentops_store, now=now)"
+    },
+    {
+      "line": 969,
+      "source": "f\"| Distinct articles published | {_cell(newsroom['distinct_articles_published'])} |\"])"
+    }
+  ],
+  "consumer": {
+    "state": "SAVED_RECORD",
+    "record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json",
+    "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "production_day_id": "newsroom-production-day-2026-11-06-bangkok",
+    "observed_at_utc": "2026-11-06T13:35:30.242295Z",
+    "stories_admitted": 4,
+    "distinct_articles_published": 4,
+    "confirmed_copies_by_channel": {
+      "discord": 4,
+      "facebook_page": 4,
+      "instagram_business": 4,
+      "linkedin": 4,
+      "linkedin_company": 4,
+      "substack": 4,
+      "telegram": 4,
+      "threads": 4,
+      "x": 4,
+      "youtube": 3
+    },
+    "first_blocking_causes": {
+      "NO_MATERIAL_NEWS": 1
+    },
+    "last_public_post": {
+      "state": "SAVED_CONFIRMED_DISPATCH",
+      "at_utc": "2026-11-06T13:03:28.315784Z",
+      "channel": "x",
+      "dispatch_id": "dispatch_7744b7c45d5ec7723b71728ea4277716",
+      "clock": "dispatched_at",
+      "reconciled_at_utc": "2026-11-06T13:35:20.995330Z"
+    }
+  },
+  "reader_evidence": {
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json": {
+      "label": "ContentOps production day",
+      "state": "READ",
+      "sha256": "44e46026032fe3200afc7b833783cf4905a872c72496686426a12a61646d2cd5"
+    },
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3": {
+      "label": "ContentOps publication store",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+      "state": "READ",
+      "observed_at_utc": "2026-11-06T13:35:30.659872Z"
+    }
+  },
+  "email_sent": false,
+  "schedule_changed": false
+}

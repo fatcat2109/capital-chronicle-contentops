@@ -1,0 +1,160 @@
+{
+  "prepared_at_utc": "2026-11-06T18:58:21.122335+00:00",
+  "root": "A:\\Capital Chronicle\\ContentOps",
+  "build": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+  "root_head_before": "be449906fc6955acc984e49131111f36c9734d7e",
+  "code_commit": "9b0470bcf870f182f02b335b66547142fdfc0133",
+  "root_wip_before": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "58ed65ba9fa0dcab0ba90555ff67343c5f5e193fe5593e38319f6e8cd7765ca4"
+  },
+  "builder_wip_before": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "1cc4f6e6b95194d9093390cf5ccfd5c8f133fdfd016c6b463597fa17ed595483",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "adcf8f92d3dc38f8ece8a08cc363a0b6d0f8ecac2e711df2469b193a9c26b7cd"
+  },
+  "changed_paths": [
+    "docs/publisher/CC-338/README.md",
+    "docs/publisher/CC-338/consensus-feature-tests.xml",
+    "docs/publisher/CC-338/feed-regressions.xml",
+    "docs/publisher/CC-338/final-feature-tests.xml",
+    "docs/publisher/CC-338/freeze-tests.xml",
+    "docs/publisher/CC-338/input-check-20261107.json",
+    "docs/publisher/CC-338/native-regressions-1.xml",
+    "docs/publisher/CC-338/native-regressions-2.xml",
+    "docs/publisher/CC-338/native-regressions-3.xml",
+    "docs/publisher/CC-338/native-regressions-4.xml",
+    "docs/publisher/CC-338/native-regressions-5.xml",
+    "docs/publisher/CC-338/observed-20261107-validated/public-call-scorecard.json",
+    "docs/publisher/CC-338/observed-20261107-validated/public-call-scorecard.md",
+    "docs/publisher/CC-338/observed-20261107/public-call-scorecard.json",
+    "docs/publisher/CC-338/observed-20261107/public-call-scorecard.md",
+    "docs/publisher/CC-338/release-regressions.xml",
+    "docs/publisher/CC-338/scorecard-tests.xml",
+    "docs/publisher/CC-338/validation.json",
+    "docs/publisher/CC-338/writer-regressions.xml",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_preview.md",
+    "docs/publisher/EVENT_ARTICLES_V1/templates/event_review.md",
+    "live_contentops/capital_chronicle_report_feed_v1.py",
+    "live_contentops/contentops_editorial_desk_v1.py",
+    "live_contentops/event_article_guard_v1.py",
+    "live_contentops/event_public_record_v1.py",
+    "live_contentops/native_finished_publication_v1.py",
+    "live_contentops/native_neo_executor_v1.py",
+    "live_contentops/neo_destination_handoff_v1.py",
+    "live_contentops/public_call_scorecard_v1.py",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py",
+    "scripts/event_public_record.py",
+    "tests/test_event_public_record_v1.py",
+    "tests/test_pre_event_preview_v1.py",
+    "tests/test_public_call_scorecard_v1.py"
+  ],
+  "status": "INTEGRATED_PUBLIC_ACCEPTANCE_PENDING",
+  "initial_code_commit": "e965c21378a5800cf7bc0557148bd289f97b885d",
+  "root_head_after_code": "9b0470bcf870f182f02b335b66547142fdfc0133",
+  "verified_at_utc": "2026-11-06T19:05:54.547790+00:00",
+  "source_parity": [
+    {
+      "path": "live_contentops/capital_chronicle_report_feed_v1.py",
+      "git_blob": "0271a390d2da1676e9ccddde4b100bfc822ad6f2",
+      "root_working_sha256": "eececb1d3aa8d85e0e25e7bbf1e12628371a70b6c7595ba5f5a6297e68194662",
+      "builder_working_sha256": "eececb1d3aa8d85e0e25e7bbf1e12628371a70b6c7595ba5f5a6297e68194662"
+    },
+    {
+      "path": "live_contentops/contentops_editorial_desk_v1.py",
+      "git_blob": "0a8450413ea44c5dae1f9b8f4ea4aba7b2e5da07",
+      "root_working_sha256": "9e99dc81ac92337c0c3c11143f71c3751472591c53c7d15013572131559d6c6b",
+      "builder_working_sha256": "9e99dc81ac92337c0c3c11143f71c3751472591c53c7d15013572131559d6c6b"
+    },
+    {
+      "path": "live_contentops/event_article_guard_v1.py",
+      "git_blob": "0b137ddd8e02632c9ec731aeaa3a029be32b8a98",
+      "root_working_sha256": "1e9575e85c90a1da163f24769c66dd7a235fda4c5640ec31b16ffd9711287c7a",
+      "builder_working_sha256": "1e9575e85c90a1da163f24769c66dd7a235fda4c5640ec31b16ffd9711287c7a"
+    },
+    {
+      "path": "live_contentops/event_public_record_v1.py",
+      "git_blob": "f6648ac61151d35cf8d00b4908487cacda0ec397",
+      "root_working_sha256": "16b3d49db41824abf467afba6943bcd0136dbedc76e0eb8ec3392ee5fbfbac06",
+      "builder_working_sha256": "fdabe83e87c91e0aef8290195e27db0b3ab1ac5a0b5ce555719125c7adef5b05"
+    },
+    {
+      "path": "live_contentops/native_finished_publication_v1.py",
+      "git_blob": "61b525afb105b5ff9c592781414724ff50ffdecf",
+      "root_working_sha256": "4d64cc10091064f3f1e4612b9921b2a62c6fe693e7aec7de4c5a5595dc4a4cca",
+      "builder_working_sha256": "4d64cc10091064f3f1e4612b9921b2a62c6fe693e7aec7de4c5a5595dc4a4cca"
+    },
+    {
+      "path": "live_contentops/native_neo_executor_v1.py",
+      "git_blob": "ee7c8c7298df3061a365047cf8e78bd1a0238932",
+      "root_working_sha256": "7da04f104d2b023231c2a8486af6cb5200ebb8cc8336c46871662dff89363763",
+      "builder_working_sha256": "7da04f104d2b023231c2a8486af6cb5200ebb8cc8336c46871662dff89363763"
+    },
+    {
+      "path": "live_contentops/neo_destination_handoff_v1.py",
+      "git_blob": "af1374a31a53df45258251e1be22647d56237b83",
+      "root_working_sha256": "949246ec7a8212b3c1b431e78e455b9c5e0f4ac13f56580eeb308fcf7e50169e",
+      "builder_working_sha256": "949246ec7a8212b3c1b431e78e455b9c5e0f4ac13f56580eeb308fcf7e50169e"
+    },
+    {
+      "path": "live_contentops/public_call_scorecard_v1.py",
+      "git_blob": "3483e7731268370d204126dd905997386ab4601f",
+      "root_working_sha256": "253369e70340647c6e16cc794ed08248bdae54cd5bd9eb0356edcb4c0ba5cc62",
+      "builder_working_sha256": "a816d32e83856426eda88a62da9c18e456212e8ee2267502c82ef85e77cd648e"
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "git_blob": "c4c9082540303d9c1b23c7178f774d7d5c129662",
+      "root_working_sha256": "7bd027ebb8984b13568b92583883768f4cb15c9b8a7a020aebfaa7c6d5aefe4c",
+      "builder_working_sha256": "7bd027ebb8984b13568b92583883768f4cb15c9b8a7a020aebfaa7c6d5aefe4c"
+    },
+    {
+      "path": "scripts/event_public_record.py",
+      "git_blob": "1554bb5386ae8551246a34cea2054476b548c89a",
+      "root_working_sha256": "00e17de49ab1d4f224bae3959dde225af5bd91ab08757b27a0affb750cf9e13f",
+      "builder_working_sha256": "8de0527d08877cd87391a4d386bddf30819f11759fe5becb0f344af977c97062"
+    },
+    {
+      "path": "tests/test_event_public_record_v1.py",
+      "git_blob": "1a18ef789cf1bac8c5635a64784ce688679601a6",
+      "root_working_sha256": "c074e7f9fc6470026a6efe87bb87bb98c1b1c0c61d4e195e5caeb5b72906bad9",
+      "builder_working_sha256": "789e7aa46f80acee3342f1e55b117e43f48f36096fa93a08b87db3f7f8637935"
+    },
+    {
+      "path": "tests/test_pre_event_preview_v1.py",
+      "git_blob": "fb27c3cd3a4e7946e7424d713214de35af155c65",
+      "root_working_sha256": "200e514194455851fb2ec256e1772b3115b3a73e6d0d88a8bda21787ff1aa5e4",
+      "builder_working_sha256": "200e514194455851fb2ec256e1772b3115b3a73e6d0d88a8bda21787ff1aa5e4"
+    },
+    {
+      "path": "tests/test_public_call_scorecard_v1.py",
+      "git_blob": "e348ef3e79be547c31c7c7d9e2d5a731b2f495f3",
+      "root_working_sha256": "499846a1e590a47ee133fcab1558632f33e1a14285fc1cbbe936de9de2d41e19",
+      "builder_working_sha256": "37c97fd0a21f4645ad69b7d6499ac8a033f62db001684a50c49387863be6f8a5"
+    }
+  ],
+  "all_source_git_blobs_match": true,
+  "root_inherited_wip_unchanged": true,
+  "builder_inherited_wip_unchanged": true,
+  "first_cause": "G05_FROZEN_PUBLIC_FILE_NOT_ISSUED",
+  "operating_consumer": "operating-consumer-read.json",
+  "runtime_preparation_application": "preparation-repair.json",
+  "operating_root_tests": [
+    "operating-root-tests.xml",
+    "operating-preparation-tests.xml"
+  ],
+  "distinct_passing_checks": 190,
+  "live_tag": "contentops-live-20261107-cc338",
+  "rollback_source_tag": "contentops-rollback-20261107-cc338",
+  "public_acceptance": {
+    "preview_readback": false,
+    "review_matching_download_readback": false,
+    "g05_frozen_file_issued": false
+  },
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "runtime_model_telemetry": "CONFIGURED_NOT_OBSERVED"
+}

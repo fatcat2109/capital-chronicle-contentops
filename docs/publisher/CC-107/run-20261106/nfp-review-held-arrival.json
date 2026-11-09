@@ -1,0 +1,132 @@
+{
+  "operation": "cc107-nfp-review-20261107-preparation",
+  "source_spec": {
+    "authority_ref": "JIM_DECISION_89",
+    "source_url": "urn:cc-public-report:cc107:nfp-arrival:20261106",
+    "headline_id": "cc107-nfp-arrival-20261106",
+    "headline_text": "Capital Chronicle NFP arrival: employment outcome and model branch score",
+    "known_at_utc": "2026-11-06T13:33:49.777350+00:00",
+    "revision_at_utc": "2026-11-06T13:39:47.071087+00:00",
+    "candidate_catalyst_tags": [
+      "NFP",
+      "event-review",
+      "market-reaction"
+    ],
+    "passages": [
+      {
+        "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+        "source_sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1",
+        "fragments": [
+          {
+            "start": 358,
+            "end": 448
+          },
+          {
+            "start": 506,
+            "end": 553
+          },
+          {
+            "start": 864,
+            "end": 1005
+          }
+        ]
+      }
+    ]
+  },
+  "admitted_source_record": {
+    "headline_id": "cc107-nfp-arrival-20261106",
+    "headline_text": "Capital Chronicle NFP arrival: employment outcome and model branch score",
+    "text_sha256": "154b9ec073f32b0c2a1d7ac8bfa4eacfd7478904d14cf42d7b13b7b39868ad7c",
+    "source_identity": "cc107-nfp-arrival-20261106",
+    "source_account": "Capital Chronicle",
+    "source_platform": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+    "source_url": "urn:cc-public-report:main-retained:237c660b4279e935fbbc6c07464330248a211293fae25f2e24d5bd9a27e45102",
+    "official_source_urls": [],
+    "source_timestamp_utc": "2026-11-06T13:33:49.777350+00:00",
+    "headline_timestamp": "2026-11-06T13:33:49.777350+00:00",
+    "known_at_utc": "2026-11-06T13:33:49.777350+00:00",
+    "retrieval_time_utc": "2026-11-06T13:39:47.071087+00:00",
+    "revision_at_utc": "2026-11-06T13:39:47.071087+00:00",
+    "rights_state": "MAIN_PUBLIC_REPORT_PROJECTION",
+    "rights_evidence_sha256": "c986de914b42b33f5fca382ff1d5f87af2612b339d3c73b322b1e4d35e504092",
+    "source_capture_sha256": "237c660b4279e935fbbc6c07464330248a211293fae25f2e24d5bd9a27e45102",
+    "source_permission_record_sha256": "c986de914b42b33f5fca382ff1d5f87af2612b339d3c73b322b1e4d35e504092",
+    "source_permissions": {
+      "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+      "authority_ref": "JIM_DECISION_89",
+      "provider_safe": true,
+      "MODEL_INPUT_ALLOWED": true,
+      "LLM_INPUT_ALLOWED": true,
+      "INTERNAL_ANALYSIS_ALLOWED": true,
+      "permitted_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "attribution_required": true,
+      "public_expression_reuse_allowed": true,
+      "underlying_event_truth_granted": false,
+      "source_capture_sha256": "237c660b4279e935fbbc6c07464330248a211293fae25f2e24d5bd9a27e45102"
+    },
+    "candidate_catalyst_tags": [
+      "NFP",
+      "event-review",
+      "market-reaction"
+    ],
+    "originality": "MAIN_ORIGIN_RECIRCULATION",
+    "correction_of": null,
+    "document": {
+      "document_id": "cc107-nfp-arrival-20261106",
+      "title": "Capital Chronicle NFP arrival: employment outcome and model branch score",
+      "publisher": "Capital Chronicle",
+      "source_identity": "cc107-nfp-arrival-20261106",
+      "source_url": "urn:cc-public-report:main-retained:237c660b4279e935fbbc6c07464330248a211293fae25f2e24d5bd9a27e45102",
+      "reader_source_url": "urn:cc-public-report:main-retained:237c660b4279e935fbbc6c07464330248a211293fae25f2e24d5bd9a27e45102",
+      "source_authority_class": "governed_capital_chronicle_report_only",
+      "source_adapter_family": "capital_chronicle_main_report",
+      "published_at_utc": "2026-11-06T13:33:49.777350+00:00",
+      "known_at_utc": "2026-11-06T13:33:49.777350+00:00",
+      "published_at_source": "RETAINED_MAIN_REPORT_KNOWN_AT_NOT_PUBLICATION_CLOCK",
+      "canonical_content_text": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+      "canonical_content_sha256": "ef7f4bb7e045937df8bcc58711b93c360ed7860982680b823bf87fcfad6ac751",
+      "source_capture_sha256": "237c660b4279e935fbbc6c07464330248a211293fae25f2e24d5bd9a27e45102",
+      "source_reuse_constraints": {
+        "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+        "authority_ref": "JIM_DECISION_89",
+        "provider_safe": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "permitted_consumers": [
+          "internal_research",
+          "narrative_context"
+        ],
+        "attribution_required": true,
+        "public_expression_reuse_allowed": true,
+        "underlying_event_truth_granted": false,
+        "source_capture_sha256": "237c660b4279e935fbbc6c07464330248a211293fae25f2e24d5bd9a27e45102"
+      },
+      "public_claim_allowed": true,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS",
+      "report_lineage": {
+        "report_id": "cc107-nfp-arrival-20261106",
+        "report_projection_sha256": "237c660b4279e935fbbc6c07464330248a211293fae25f2e24d5bd9a27e45102",
+        "origin": "RETAINED_MAIN_REPORT_EXACT_SPANS",
+        "independent_confirmation": false
+      }
+    },
+    "source_chart": null,
+    "permitted_source_text": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+    "supporting_headline_ids": [],
+    "research_metadata": {
+      "source_hashes": {
+        "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1"
+      },
+      "authority_ref": "JIM_DECISION_89",
+      "independent_event_confirmation": false
+    }
+  },
+  "next_use": "Attach through the existing Main-report source adapter to the dated NFP review; add Main market-response timeline, then native writing and digest readback.",
+  "preview_unchanged": true
+}

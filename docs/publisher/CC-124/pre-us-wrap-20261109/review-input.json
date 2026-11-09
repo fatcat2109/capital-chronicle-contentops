@@ -1,0 +1,6 @@
+{
+  "article_identity": "7316a54aec89749a719946d657d8f1a032cedd724700e02ee170ca264a54bfc6",
+  "decision": "KEEP",
+  "rationale": "Same native MAX writer /root/native_write_38a478576468 checked exact canonical, all eight native previews, source-bound claims and scenarios, ET clocks and refreshed clean EURUSD original/asset; final-editor-check.json SHA256 221ac2148099d120a396beea2314f7572a19a33eca0d0219bb45aba2b6dc84e8. Decision 53 short path; no unresolved material findings. gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED.",
+  "expected_review_id": null
+}

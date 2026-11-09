@@ -1,0 +1,19 @@
+{
+  "tool_request_sha256": "ea9c445f463fb0d1f3b403e4c17a2adb72aba515a383409d7353281be78293dd",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observed_at_utc": "2026-11-06T08:28:16.090Z",
+    "observation_source": "Neo page 666 shows authenticated Publisher dashboard and capitalchronicle.substack.com publication links."
+  },
+  "result": {
+    "request_sha256": "97adda13c48364cf25733c5d4f37ab400f033daaa6cc4222b7ef23f885177317",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "authenticated": true,
+    "identity_match": true,
+    "public_handle": "capitalchronicle.substack.com",
+    "public_write_performed": false
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "observed_at_utc": "2026-11-09T01:13:11.131470Z",
+  "implementation_commit": "4ffc66a9da994d711588f65ffda8e00675283252",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "rollback_tag": "contentops-rollback-20261109-cc340",
+  "rollback_commit": "1a24eaa6b6f070c99ff8828886f56e4871337c7a",
+  "live_tag": "contentops-live-20261109-cc340",
+  "source_sha256": {
+    "scripts/plan_status_posts.py": "0c250305aea990c2eddbb4586de3fb752f313aa2c816b0f3dd006d5f1713bbdc",
+    "live_contentops/plan_status_posts_v1.py": "2b5c6a7e8a6dfd1d408f033391a1f5269dc9a5a203b409ce85bd61fdeac43db7"
+  },
+  "live_consumer": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "schedule_changed": false,
+    "restart_required": false
+  },
+  "installed_cli_observed": {
+    "status": "OK",
+    "transitions_read": 81,
+    "would_queue_count": 0,
+    "active_recovery_count": 0,
+    "dry_run": true
+  },
+  "preserved_unrelated_tracked_wip": 6,
+  "tests": {
+    "passed": 58,
+    "failed": 0,
+    "one_pytest_process": true
+  },
+  "launch": {
+    "pid": 5524,
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "evidence": "CONFIGURED_NOT_OBSERVED"
+  },
+  "limitation": "Historical replay and controlled transports prove recovery; no historical NFP post sent now and no fresh late-publication incident observed."
+}

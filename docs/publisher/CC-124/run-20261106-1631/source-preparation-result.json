@@ -1,0 +1,34 @@
+{
+  "operation_id": "cc124-oil-euro-followup-20261106-v1",
+  "stage": "main-report-source-preparation",
+  "outcome": "SOURCE_PREPARED",
+  "native_task_identity": "/root/followup_source_preparation",
+  "role": {
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "observation": "CONFIGURED_NOT_OBSERVED"
+  },
+  "completed_at_utc": "2026-11-06T09:36:14.772334Z",
+  "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+  "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+  "passage_count": 10,
+  "findings": [
+    "Material follow-up: prior article framed Asian equities as rebounding and oil through competing headline scenarios; new completed synthesis interprets oil as supply-led against falling equities and retains a contracting-range/de-escalation countercase.",
+    "Euro follow-up replaces the earlier limited-risk-sensitivity framing with Main's dollar-risk linkage while preserving positioning and rates countercases.",
+    "Gold follow-up: Main says gold stopped making lower lows as the dollar extended; this qualifies the earlier common-dollar/haven-unwind account.",
+    "Oil conditional positive assessment is expressed through mechanism and countercase only. Its private trade plan and numerical confidence are excluded."
+  ],
+  "limits": [
+    "Completed Main synthesis known at 2026-11-06T08:21:03Z; source input cutoff 2026-11-06T07:36:24Z. No observations after cutoff.",
+    "No source fetching or independent confirmation of Hormuz, agreement or escalation reports.",
+    "No private execution/account details, entry/stop/target/size, raw third-party price series, numerical judgment probabilities or prediction-market odds selected.",
+    "Qualitative mechanism update, not a public directional call. D40 condition/horizon/invalidation requirements still apply if later copy makes a directional call.",
+    "Synthesis role did not re-read several underlying series; exact coverage excerpt retained.",
+    "Public copy must label source as dated Capital Chronicle analysis and use New York ET dates/times. Internal source clocks remain UTC."
+  ],
+  "output_sha256": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\source\\index.json": "b2b799932f281db5cc12e210d87b5682d2388c97dfc6e5442da108e6ef15e2df",
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\source-claim-trace.json": "c03e1271c90fdf39a5a3902ff3c2a5255c91261c6c709b4700ac2e23fa3d515d"
+  },
+  "next_action": "Parent validates projection through its existing adapter and passes the prepared source and preserved caveats to the assigned writer/editor."
+}

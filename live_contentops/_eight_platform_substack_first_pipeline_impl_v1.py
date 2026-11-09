@@ -527,6 +527,16 @@ def _root_and_replies(
     }
 
 
+def _telegram_plain_text(text: str) -> str:
+    """Keep authored words and link targets while removing Markdown presentation."""
+    text = re.sub(r"!?\[([^\]]+)\]\((https?://[^\s)]+)\)", r"\1 (\2)", text)
+    text = re.sub(r"(?m)^\s{0,3}(?:#{1,6}\s+|>\s?)", "", text)
+    text = re.sub(r"(`{1,3})([\s\S]*?)\1", r"\2", text)
+    for _ in range(3):
+        text = re.sub(r"(?<!\w)(\*{1,3}|_{1,3}|~~)(?=\S)(.+?)(?<=\S)\1(?!\w)", r"\2", text)
+    return text
+
+
 def build_native_derivative_payloads(
     *,
     article: Mapping[str, Any],
@@ -541,6 +551,8 @@ def build_native_derivative_payloads(
         canonical_url=canonical_url,
         media_asset_ids=media_asset_ids,
     )
+    from live_contentops.article_scenarios_v1 import include_social_scenarios
+    include_social_scenarios(payloads, article)
     notices = ("Analysis, not financial advice.",
                "Capital Chronicle may hold positions in the markets it covers.")
     for destination, payload in payloads.items():
@@ -579,14 +591,19 @@ def build_native_derivative_payloads(
                 payload[field] = "\n\n".join([text, *missing])
                 if limit and len(payload[field]) > limit:
                     raise ValueError("PUBLICATION_NOTICES_EXCEED_PLATFORM_LIMIT:" + destination)
+    telegram = payloads.get("telegram") or {}
+    for field in ("text", "full_text", "caption"):
+        if isinstance(telegram.get(field), str):
+            telegram[field] = _telegram_plain_text(telegram[field])
     from live_contentops.native_text_first_v1 import text_first_brief, skipped_destinations
     if text_first_brief(article):
         for skipped in skipped_destinations(has_image=bool(media_asset_ids)):
             destination = skipped["destination"]
             payloads[destination] = {"destination": destination, "delivery_state": skipped["status"],
                 "skip_reason": skipped["reason"], "media_asset_ids": []}
-        return payloads
-    if article.get("reader_first_version") != "DATA_JOURNALISM_V1":
+        if not article.get("tradingview_snapshot_asset_ids"):
+            return payloads
+    if article.get("reader_first_version") != "DATA_JOURNALISM_V1" and not article.get("tradingview_snapshot_asset_ids"):
         return payloads
     choices = article.get("native_destination_media")
     if not isinstance(choices, Mapping) or set(choices) != set(payloads):
@@ -1174,6 +1191,7 @@ def _publish_telegram_photo_verified(
     canonical_url: str,
     image_path: str,
     guard_canonical_url: str | None = None,
+    reply_to_message_id: str | None = None,
 ) -> dict[str, Any]:
     from live_contentops.telegram_live_adapter_v6 import execute_telegram_photo
 
@@ -1196,8 +1214,9 @@ def _publish_telegram_photo_verified(
     raw = execute_telegram_photo(
         photo_url=image_path,
         caption=text,
-        parse_mode="HTML",
+        parse_mode=None,
         dry_run=False,
+        **({"reply_to_message_id": reply_to_message_id} if reply_to_message_id else {}),
         approval_context={
             "operator_approval_marker": marker,
             "run_id": run_id,
@@ -1223,6 +1242,7 @@ def _publish_telegram_photo_verified(
         and account_ok
         and canonical_url in caption
         and has_photo
+        and (not reply_to_message_id or str((message.get("reply_to_message") or {}).get("message_id")) == reply_to_message_id)
     )
     public_url = f"https://t.me/CapitalChronicle/{message_id}" if message_id else None
     if verified:
@@ -1275,7 +1295,7 @@ def _publish_telegram_text_verified(
         run_id=run_id, topic_hash=topic_hash, payload_hash=payload_hash, platform="telegram",
     )
     raw = execute_telegram_post(
-        message=text, parse_mode="HTML", dry_run=False,
+        message=text, parse_mode=None, dry_run=False,
         approval_context={
             "operator_approval_marker": marker,
             "run_id": run_id,
@@ -4017,6 +4037,15 @@ def _prepare_cloudinary_delivery_media_for_plan(
             "accepted_evidence_sha256": context["accepted_evidence_sha256"]},
             output_dir=output_dir / "media" / "post-images")
         article_assets = selected["media_assets"]
+    # CC-316: snapshots are displayed in the article and hosted through the
+    # existing delivery-only owner; they are never parsed as source-value charts.
+    snapshots = [a for a in article_assets if a.get("modality") == "tradingview_chart_snapshot"]
+    known_delivery = {a.get("asset_id") for a in delivery_only_assets}
+    delivery_only_assets.extend({**a, "article_inclusion": False, "canonical_article_media": False}
+        for a in snapshots if a.get("asset_id") not in known_delivery)
+    delivery_only_assets = [{**a, "article_inclusion": False, "canonical_article_media": False}
+        if a.get("modality") == "tradingview_chart_snapshot" else a for a in delivery_only_assets]
+    article_assets = [a for a in article_assets if a.get("modality") != "tradingview_chart_snapshot"]
     if not article_assets and not delivery_only_assets:
         # Simple's text-first qualified article intentionally has no in-body media. Reuse the
         # accepted deterministic delivery-only card seam so Instagram can receive media without
@@ -4224,6 +4253,8 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         from live_contentops.v1_simple_gemini_newsroom_v1 import canonical_photo_attribution_payload
         payloads[destination] = canonical_photo_attribution_payload(payloads[destination], article=article,
             media_assets=media_assets, canonical_url=canonical_url)
+    if destination == "substack":
+        media_assets = [a for a in media_assets if not a.get("derivative_only")]
     local_media = next((
         str(row.get("path") or row.get("absolute_local_source_path") or "")
         for row in media_assets
@@ -4379,6 +4410,12 @@ def _publish_one_destination_from_durable_intent(
     if forbidden:
         return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True, "public_write_performed": False,
                 "reason_code": REASON, "matched": forbidden}
+    from live_contentops.public_time_v1 import REASON as TIME_REASON, find_forbidden_public_time, public_media_text, public_article_text
+    wrong_time = find_forbidden_public_time(payloads.get(destination),
+        public_article_text(article) if destination == "substack" else None, public_media_text(data["media_assets"]))
+    if wrong_time:
+        return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True, "public_write_performed": False,
+                "reason_code": TIME_REASON, "matched": wrong_time}
     if destination == "substack":
         result = publish_substack_article_via_edge(
             cdp_port=cdp_port,
@@ -4440,7 +4477,9 @@ def _publish_one_destination_from_durable_intent(
             }
             _write_json(output_dir / "delivery_media_manifest_v1.json", delivery)
         return result
-    if not canonical_url:
+    # Decision 83 (CC-315): a plan-status post carries no link at all, so it has no canonical URL.
+    # Only an article copy needs the confirmed Substack post (6 Nov: every status post was refused here).
+    if not canonical_url and not intent.get("plan_status_post"):
         return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
                 "reason_code": "CANONICAL_SUBSTACK_URL_UNAVAILABLE"}
     text = str((payloads.get(destination) or {}).get("text") or "")
@@ -4573,6 +4612,8 @@ def _publish_one_destination_from_durable_intent(
             # Decision 83: a status post carries no link; its guard identity is the channel plus the post key.
             guard_canonical_url=(f"https://t.me/CapitalChronicle?status_post={intent['plan_status_post']}"
                                  if intent.get("plan_status_post") else None),
+            **({"reply_to_message_id": payloads[destination]["reply_to_id"]}
+               if payloads[destination].get("reply_to_id") else {}),
         )
     if destination == "discord":
         return _publish_discord_verified(
@@ -4604,6 +4645,8 @@ def _publish_one_destination_from_durable_intent(
         root = execute_threads_post(
             text=text, image_url=(public_image_url or None) if image_path else None,
             dry_run=False,
+            **({"reply_to_id": payloads[destination]["reply_to_id"]}
+               if payloads[destination].get("reply_to_id") else {}),
         )
         root_id = str(root.get("id") or "")
         replies = []

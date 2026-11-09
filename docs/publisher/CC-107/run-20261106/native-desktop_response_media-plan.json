@@ -1,0 +1,151 @@
+{
+  "request_sha256": "406bffee38ecf75325358a837f360fe5487105b8181837a2fef8feaccbc93b43",
+  "output": {
+    "story_plan": {
+      "thesis": "Reuse the accepted CC-216 NFP background and passing media for the October jobs preview. Explain past payroll breadth and household unemployment as separate measures, then attach Main frozen model-threshold context through the existing owner. Historical charts never depict a future result or outcome probability.",
+      "photo_plan": {
+        "proposal": "Reuse the accepted archive portrait as monetary-policy context.",
+        "held_photo_verified": true,
+        "held_asset_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\cc074-archive-warsh-20260522.jpg",
+        "held_asset_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+        "asset_id": "cc074-archive-warsh-20260522",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+        "creator_publisher": "The White House",
+        "creator_credit": "Official White House Photo by Daniel Torok",
+        "license": "Public domain",
+        "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+        "depicted_date": "22 May 2026, 12:12:50",
+        "caption": "Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context for monetary policy; not an image of the forthcoming release.",
+        "alt_text": "Archive portrait of Kevin Warsh in a navy suit at his May 22, 2026 swearing-in ceremony.",
+        "rights_record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\cc074-archive-warsh-20260522-rights.json",
+        "rights_record_sha256": "a2e719ea883df3930fb136ce679a8e244898f459f2d8bf400de5dd445e05b047",
+        "canonical_credit": "Official White House Photo by Daniel Torok / The White House, via Wikimedia Commons. Public domain.",
+        "discovery_performed": false
+      },
+      "chart_plan": {
+        "proposed_count": 2,
+        "max_editor_decides_count_type_and_placement": true,
+        "proposals": [
+          {
+            "proposal_id": "september_sector_breakdown",
+            "purpose": "Preserve the accepted source-bound NFP preview context",
+            "held_asset_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\september_sector_breakdown.png",
+            "held_asset_sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+            "source_document_id": "cc124-bls-september-employment-original",
+            "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+            "caption": "September 2026 payroll change by broad group, seasonally adjusted; thousands of persons. Source: BLS, October 2, 2026, Table B-1. Goods-producing and private services gains were partly offset by government losses.",
+            "alt_text": "September payroll change in thousands: goods-producing +18; private service-providing +28; government -17. Total nonfarm +29.",
+            "placement_proposal": "Ask whether hiring is broad",
+            "unit": "thousands of persons",
+            "period": "September 2026",
+            "seasonal_adjustment": "SA",
+            "rights_basis": "BLS agency-authored public-domain facts; independent chart with retained source binding",
+            "editorial_checks": "Reuse the accepted exact image and source vintage. Keep the visible zero and component/total distinction for sector bars; preserve the October 2025 missing point and disconnected line for unemployment. Do not turn a prior observation into the forthcoming result. MAX decides placement in the affected article."
+          },
+          {
+            "proposal_id": "unemployment_first_print_trend",
+            "purpose": "Preserve the accepted source-bound NFP preview context",
+            "held_asset_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\unemployment_first_print_trend.png",
+            "held_asset_sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+            "source_document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+            "source_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+            "caption": "Civilian unemployment rate, seasonally adjusted, October 2024\u2013September 2026. Source: BLS dated first releases. October 2025 is absent from the retained series and is left unconnected.",
+            "alt_text": "What independent household-survey signal should readers compare with the new payroll headline?",
+            "placement_proposal": "Check people as well as payroll jobs",
+            "unit": "percent",
+            "period": "October 2024\u2013September 2026",
+            "seasonal_adjustment": "SA",
+            "rights_basis": "BLS agency-authored public-domain facts; independent chart with retained source binding",
+            "editorial_checks": "Reuse the accepted exact image and source vintage. Keep the visible zero and component/total distinction for sector bars; preserve the October 2025 missing point and disconnected line for unemployment. Do not turn a prior observation into the forthcoming result. MAX decides placement in the affected article."
+          }
+        ],
+        "reuse_rules": "Reuse accepted exact CC-216 media bytes and original source bindings; originals remain immutable. No speculative history, imputation or consensus chart. Preserve units, adjustment, first-print vintages and gaps.",
+        "source_pack_sufficiency": "Current packet contains exact BLS sector source cc124-bls-september-employment-original and unemployment history official-history-c3527e60cf6b66f4f7b44bd4. Payroll and earnings first-print histories are also present for MAX to consider through existing owners, but their CC-216 images failed the one repair round and are not proposed for reuse.",
+        "revision_treatment": "Keep revisions in correctly dated prose separate from first-print trends.",
+        "available_history_proposals": [
+          {
+            "source_document_id": "official-history-1660fee0f509bbb4afddb7d7",
+            "metric": "NFP_PAYROLL_CHANGE",
+            "unit": "persons",
+            "period": "October 2024\u2013September 2026",
+            "treatment": "24 monthly initial payroll changes; use admitted data and code rendering if MAX selects this history. Do not reuse the previously failed image."
+          },
+          {
+            "source_document_id": "official-history-843f76a60b18948f30fd1775",
+            "metric": "AHE_MOM",
+            "unit": "percent",
+            "period": "October 2024\u2013September 2026",
+            "treatment": "Nominal monthly earnings change; preserve code-derived observation labels and rounding. MAX may select a new render from admitted data. Do not reuse the previously failed image."
+          }
+        ],
+        "headline_core_interpretation": "Payrolls has no core analogue. Preserve payroll headline, separate household unemployment, nominal earnings and component breakdown as distinct series; do not invent a core payroll measure."
+      },
+      "source_requests": [],
+      "reuse_evidence": {
+        "background_run_id": "cc216-nfp-background-20261105-v1",
+        "article_identity": "8f27feefedd3aaf6a2daf6eebe86a9a854b311c8f7312c9db32e9cb39b3adda0",
+        "article_revision": "c5791a900fb2e52f19201d648bb99d24aa4e1ca46a355cb5dd448bbe577bf84b",
+        "prior_review_id": "native-article-review-851f7a8c9917441c8fc5bce7eea700df",
+        "prior_reviewed_at_utc": "2026-11-04T23:06:43.872930+00:00",
+        "asset_byte_checks": [
+          {
+            "asset_id": "september_sector_breakdown",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\september_sector_breakdown.png",
+            "sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+            "exact_bytes_verified": true
+          },
+          {
+            "asset_id": "unemployment_first_print_trend",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\unemployment_first_print_trend.png",
+            "sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+            "exact_bytes_verified": true
+          },
+          {
+            "asset_id": "cc074-archive-warsh-20260522",
+            "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc216-nfp-background-20261105-v1\\media\\cc074-archive-warsh-20260522.jpg",
+            "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+            "exact_bytes_verified": true
+          }
+        ],
+        "current_source_document_ids": [
+          "cc124-bls-september-employment-original",
+          "official-history-1660fee0f509bbb4afddb7d7",
+          "official-history-843f76a60b18948f30fd1775",
+          "official-history-c3527e60cf6b66f4f7b44bd4",
+          "preview-background-c6526a37c91d82c822730ab62766b2359b42b2f26503214e90a277dce7510b05",
+          "preview-consensus-386a493136a09e24d66becdb4c9387e26c24f6034ea01a4792edea313b9872bd",
+          "preview-consensus-3c335bbf9b882ba00fd94e22629277e3abaca0297a2a0eca8d2b98f35a945d72"
+        ],
+        "pixel_inspection_performed_this_call": false
+      },
+      "execution_limits": {
+        "new_external_source_requests": 0,
+        "public_write_attempted": false,
+        "final_prose_written": false,
+        "source_fetch_performed": false,
+        "cutoff_utc": "2026-11-06T11:29:03.660594Z",
+        "gaps": [
+          "Actual October release is not observed; this remains a preview.",
+          "Main frozen dossier is added by the parent at the visual stage.",
+          "No numeric economic-branch probabilities, measured pre-event range or implied move is supplied; none is charted.",
+          "Payroll and earnings image failures from CC-216 remain retained and are not relabelled passing."
+        ],
+        "future_editorial_action": "MAX chooses whether additional held official-history charts add distinct value and reviews the affected final assembly through the existing owner."
+      }
+    }
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/cc107_nfp_preparation",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "speed": "standard",
+    "observation_source": "Supported canonical native task identity from this subagent context is /root/cc107_nfp_preparation. Model and effort are the requested role configuration, not supported observed runtime telemetry; actual model and reasoning effort remain unknown.",
+    "configuration_source": "Exact sealed native media-plan request 406bffee38ecf75325358a837f360fe5487105b8181837a2fef8feaccbc93b43 and same supported Light-role continuation."
+  }
+}

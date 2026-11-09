@@ -147,6 +147,31 @@ def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, m
     assert result["new_source_requests"] == 0
 
 
+def test_short_path_adds_held_context_to_unanswered_writer_without_visual_stage(tmp_path, monkeypatch):
+    turn, binding, response, _ = seeded(tmp_path, monkeypatch)
+    original_get = turn._get
+    visual = turn.frozen_request("visual-edit")
+    primary = visual["governed_input"]["source_packet"]["source_pack"]
+    writer = {"request_sha256": "controlled-short-writer", "stage": "write", "prompt": "Exact issued prompt.",
+        "governed_input": {"source_pack": primary, "publication_speed_policy": {"policy": "JIM_DECISION_53"}}}
+    turn._put("write", "request", writer)
+    turn.root.mkdir(parents=True, exist_ok=True)
+    path = turn.root / "desktop_request_write.json"
+    path.write_bytes(canonical_bytes(writer))
+    def without_old_visual(stage, kind):
+        return None if stage == "visual-edit" else original_get(stage, kind)
+    monkeypatch.setattr(turn, "_get", without_old_visual)
+    response["expected_request_sha256"] = writer["request_sha256"]
+    from live_contentops.native_desktop_editorial_v1 import admit_selected_story_context
+    result = admit_selected_story_context(turn, binding, response)
+    assert result["new_source_requests"] == 0
+    context = turn.source_recovery()
+    assert context["context_documents"][0]["document_id"] == "prior-context"
+    assert context["superseded_unanswered_writer_sha256"] == writer["request_sha256"]
+    assert json.loads((turn.root / "source-recovery-history" / writer["request_sha256"] / path.name).read_bytes()) == writer
+    assert turn.frozen_request("write") is None
+
+
 @pytest.mark.parametrize("same_bytes", [True, False])
 def test_new_excerpt_of_held_main_report_keeps_real_admission_clock(tmp_path, monkeypatch, same_bytes):
     from live_contentops.contentops_source_research_v1 import RetainedSourceResearch

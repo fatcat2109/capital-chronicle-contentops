@@ -1,0 +1,23 @@
+{
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:Eccles_Building_(26088200676).jpg",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/8/89/Eccles_Building_%2826088200676%29.jpg",
+  "creator_publisher": "Federalreserve",
+  "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov-Federal_Reserve",
+  "rights_status": "PUBLIC_DOMAIN",
+  "depicted_date": "2011-03-29 11:47",
+  "asset_id": "cc124-eccles-archive-2011",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\eccles-building-2011.jpg",
+  "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+  "width": 3000,
+  "height": 2041,
+  "modality": "documentary_photo",
+  "context_only": true,
+  "corroborates_article_facts": false,
+  "attribution": "Britt Leckman / Federal Reserve Board, via Wikimedia Commons. Public domain.",
+  "caption": "The Federal Reserve\u2019s Eccles Building, photographed on 29 March 2011. Archive image.",
+  "alt_text": "Archive photograph of the Federal Reserve\u2019s white stone Eccles Building, with columns and a blue sky.",
+  "relevance_rationale": "Archive central-bank context for the dollar and interest-rate mechanisms discussed in Main\u2019s six-market review; no current event or price corroboration.",
+  "source_reuse_basis": "Commons licensing identifies an official Board of Governors work; metadata credits Britt Leckman, Official Federal Reserve Photo, U.S. government work.",
+  "rights_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\media\\photo-rights.json",
+  "rights_evidence_sha256": "74bdf9204edc85dded9326da4f3a2557edf99d0a1483e9957f85bed5ac1d97fb"
+}

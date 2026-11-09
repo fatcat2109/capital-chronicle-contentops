@@ -1,0 +1,52 @@
+{
+  "item": "CC-341",
+  "operation_id": "cc341-weekend-wrap-20261109-v1",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc341-weekend-wrap-20261109-v1\\binding.json",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "configuration_source": "Ops-dispatched launch process 29040 arguments read back; runtime model/effort telemetry unavailable",
+  "native_parent_task": "/root",
+  "editorial_task": "/root/cc341_editorial",
+  "editorial_configured_model": "gpt-6.1-sol",
+  "editorial_configured_reasoning_effort": "max",
+  "observed_at_utc": "2026-11-08T18:42:18.523835+00:00",
+  "base_sha": "9dcfb6c532232533acc612f1c6b03ac54a394e39",
+  "base_reason": "Current Publisher operating head preserves installed live consumers beyond remote master.",
+  "inherited_files": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "1cc4f6e6b95194d9093390cf5ccfd5c8f133fdfd016c6b463597fa17ed595483",
+      "action": "preserved uncommitted; excluded from item commits"
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "adcf8f92d3dc38f8ece8a08cc363a0b6d0f8ecac2e711df2469b193a9c26b7cd",
+      "action": "preserved uncommitted; excluded from item commits"
+    }
+  ],
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "editorial_native_returns": [
+    {
+      "task": "/root/cc341_editorial",
+      "assignment": "CC341_SUPPLIED_DRAFT_EDITORIAL_PASS",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "editorial_artifact_sha256": "3dee3585f00c67cf656662a71e2c7538c418a399a6f7a700e8d76782d5943d53",
+      "prepared_copy_sha256": "d63c5bd48bc90885c590528438475d40dd274fa10f1b0aad98cedd50b1972567",
+      "result": "Native final collected; three probabilities absent."
+    },
+    {
+      "task": "/root/cc341_editorial",
+      "assignment": "Same writer, one Scenarios heading correction",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "editorial_artifact_sha256": "6705b42b0cd8880824f2bb36b8234b434cffd8ae61d6dbc092ca6e26d9643fac",
+      "prepared_copy_sha256": "9bea834264dc2035560aa79d04c147f1389319b700b1fedccfdbd438df91acf9",
+      "result": "Native final collected; heading fixed; source gaps unchanged."
+    }
+  ]
+}

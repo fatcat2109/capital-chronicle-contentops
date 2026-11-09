@@ -1,0 +1,51 @@
+{
+ "tool_request_sha256": "f97246d2aa17d27c535deb1196fad4060d05d9c933b55b565e9d61a1c8b98a7a",
+ "tool_observation": {
+  "surface": "CODEX_EXEC",
+  "tool_name": "mcp__browseros_neo__run",
+  "native_invocation_id": "cc359-codex-exec-38460",
+  "observation_source": "BrowserOS Neo page 45; account, composers and published profile readback",
+  "observed_at_utc": "2026-11-09T13:59:48.658Z",
+  "dispatched_at_utc": "2026-11-09T13:59:43.907Z"
+ },
+ "result": {
+  "request_sha256": "92ebec30408509f3394cf31f18996336edac1a0e34ed4cd4d126e863e5f3cbe2",
+  "status": "SUCCESS",
+  "public_object_id": "2119792055350337767",
+  "public_object_url": "https://x.com/Capitalnicle/status/2119792055350337767",
+  "stage": "PUBLISH_CLICK_ATTEMPTED"
+ },
+ "composed": {
+  "identity": {
+   "authenticated": true,
+   "observed_identity": "@Capitalnicle",
+   "observed_at_utc": "2026-11-09T13:59:43.069Z"
+  },
+  "pre_click_posts": [
+   "Correction: our 04:16 ET EUR/USD and 04:18 ET US crude oil updates said price had reached the entry zone. It had not: at those times both plans were still waiting for price to reach their zones, EUR/USD 1.1166–1.117 and US crude oil 90.2–90.45.",
+   "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+  ],
+  "readback": {
+   "status": "SUCCESS",
+   "request_sha256": "92ebec30408509f3394cf31f18996336edac1a0e34ed4cd4d126e863e5f3cbe2",
+   "observed_identity": "@Capitalnicle",
+   "public_object_id": "2119792055350337767",
+   "public_object_url": "https://x.com/Capitalnicle/status/2119792055350337767",
+   "observed_text": "Correction: our 04:16 ET EUR/USD and 04:18 ET US crude oil updates said price had reached the entry zone. It had not: at those times both plans were still waiting for price to reach their zones, EUR/USD 1.1166–1.117 and US crude oil 90.2–90.45.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+   "content_verified": true,
+   "media_check_state": "PENDING_BINARY_COMPARISON",
+   "observed_thread": [
+    {
+     "public_object_id": "2119792055350337767",
+     "public_object_url": "https://x.com/Capitalnicle/status/2119792055350337767",
+     "observed_text": "Correction: our 04:16 ET EUR/USD and 04:18 ET US crude oil updates said price had reached the entry zone. It had not: at those times both plans were still waiting for price to reach their zones, EUR/USD 1.1166–1.117 and US crude oil 90.2–90.45."
+    },
+    {
+     "public_object_id": "2119792058236129749",
+     "public_object_url": "https://x.com/Capitalnicle/status/2119792058236129749",
+     "observed_text": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+    }
+   ]
+  }
+ }
+}

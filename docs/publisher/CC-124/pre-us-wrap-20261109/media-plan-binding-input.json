@@ -1,0 +1,73 @@
+{
+  "plan": {
+    "native_plan_run_id": "cc124-pre-us-wrap-20261109-v1",
+    "native_plan_stage": "media-plan",
+    "native_plan_request_sha256": "0e110d24cfd9d8dca3412a0f04b03d9acc15be7a614f6001323935c15cc93d5f",
+    "story_plan": {
+      "thesis": "Use the dated Main six-market review to explain a clear weaker-dollar FX move and fading oil premium alongside mixed gold and US equities before CPI. Keep Monday market evidence distinct from Friday rates and the explicitly dated weekly geopolitical scenarios. This is OTHER_ANALYSIS, a pre-US wrap, not a release-history analysis.",
+      "photo_plan": "Set article.market_asset to EURUSD before binding. Lead with the existing CC-316 owner's fresh clean public TradingView FX:EURUSD four-hour Download image captured at 11:44Z on 9 November. Parent reports this clean capture; this role has not inspected its pixels, file or rights record. Bind exact original bytes, file SHA256, source page, free-public-page rights and full TradingView attribution through the existing media owner. Require published_images_v1 exact/perceptual uniqueness checks before registration. Exclude the rejected personal-layout image and any drawings or execution information. Use the clean snapshot solely as display media: it postdates the frozen factual cutoff and cannot supply or refresh any claim, price or scenario. Caption its own capture time in ET separately from Main's market observation. Preserve attribution and the same image in social copies. No reused Fed or Capitol photo; no additional stock-photo search is needed.",
+      "chart_plan": "Propose the fresh EURUSD snapshot as the lead visual and a source-bound six-market condition/invalidation table for the body, with MAX choosing final form and placement. The table uses SOURCE_1 / cc124-pre-us-main-20261109, canonical content SHA256 094103bb94e5f77396f32aa9505419fafcc0b40da09c38427f519bfe0da356ee, projection SHA256 d1e9590e49a7df452836848d951bf475c72e4178467b9dd60910ce9c48c4b44f. Retain exact source spans, units, instrument labels, observation clocks and forecast horizons. Do not chart levels on a shared axis or imply price-comparable scales. A comparison panel, if useful, may use only the explicitly supplied same-close-to-capture moves for the relevant instruments, not an invented complete six-market return set. Do not create a historical line series from isolated observations, invent Monday US10Y, present futures/proxies as cash indices, or infer cross-market joint probability. Use Friday US10Y only as an explicitly dated reference from the held rates record. The separately authorised weekly scenario fields must remain verbatim, visibly labelled model estimates set Sun 8 Nov, with original week-to-Friday horizon and relative-to-Friday conditional implications; do not turn their forecasts into observed Monday changes. The admitted media-plan source_pack here contains only SOURCE_1: use the already held authorised scenario/rates records and their exact bindings downstream, never fabricate their absent excerpt fields. No release-history or component charts are required for this OTHER_ANALYSIS wrap. No new factual acquisition or generic chart search is needed; code owns arithmetic and MAX owns prose and one editor check. Preserve first text approval and use one automated image load/dimension check after approval.",
+      "source_requests": []
+    }
+  },
+  "assets": [
+    {
+      "asset_id": "tradingview-snapshot-27085e919e8b09a63fb0",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\tradingview\\tradingview-4e21d4ee7f7d0f01-16x9.png",
+      "sha256": "27085e919e8b09a63fb08d91c9de5fe8d2192f1f8d19bf5059711472d423df9f",
+      "width": 1928,
+      "height": 1085,
+      "mime_type": "image/png",
+      "modality": "tradingview_chart_snapshot",
+      "card_kind": "TRADINGVIEW_SNAPSHOT",
+      "media_role": "delivery_only",
+      "role": "market_chart",
+      "delivery_only": true,
+      "article_inclusion": false,
+      "canonical_article_media": false,
+      "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+      "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+      "attribution": "TradingView",
+      "credit": "Chart: TradingView",
+      "caption": "EUR/USD before the US session: 4h chart (FX:EURUSD). Chart: TradingView.",
+      "alt_text": "TradingView 4h candlestick chart of Euro / US dollar, FX:EURUSD, captured 06:44 ET on 9 November 2026.",
+      "source_page_url": "https://www.tradingview.com/chart/?symbol=FX:EURUSD&interval=240",
+      "tradingview_snapshot": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\tradingview\\EURUSD_2026-11-09_18-44-16.png",
+        "sha256": "4e21d4ee7f7d0f014fc6cace54cac5bd0ee2172ebcfb647c00ad17e4bd09062e",
+        "width": 1928,
+        "height": 896,
+        "tv_symbol": "FX:EURUSD",
+        "interval": "240",
+        "interval_label": "4h",
+        "legend": "FX:EURUSD \u00b7 4h",
+        "page_title": "Euro / U.S. Dollar \u00b7 FX:EURUSD \u00b7 4 hours",
+        "chart_url": "https://www.tradingview.com/chart/?symbol=FX:EURUSD&interval=240",
+        "suggested_filename": "EURUSD_2026-11-09_18-44-16.png",
+        "captured_at_utc": "2026-11-09T11:44:16Z",
+        "seconds": null,
+        "capture_method": "BROWSEROS_NEO_DOWNLOAD_IMAGE",
+        "capture_browser_url": "https://s.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=240&theme=light&style=1&hide_side_toolbar=1&allow_symbol_change=0&save_image=1",
+        "browser_page_id": 24,
+        "browser_group_id": "260ABBF56F8BB036D549851718BFFB37",
+        "native_download_bytes": 102344,
+        "visual_inspection": "Clean four-hour FXCM EURUSD candles and volume; TradingView creation header and logo intact; no user drawings or invented levels. Display media only; source claims retain Main capture clock.",
+        "framing": {
+          "ratio": "16:9",
+          "width": 1928,
+          "height": 1085,
+          "original_box": [
+            0,
+            94,
+            1928,
+            990
+          ]
+        },
+        "policy": "contentops.tradingview_snapshot.v1",
+        "levels_drawn": [],
+        "target_drawn": false
+      },
+      "publication_authority": false
+    }
+  ]
+}

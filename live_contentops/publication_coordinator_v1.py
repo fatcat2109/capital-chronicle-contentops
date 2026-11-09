@@ -499,7 +499,7 @@ class DurablePublicationCoordinator:
         remaining = int(recovery.get("backlog_remaining") or 0)
         if not self.allow_prior_confirmed_distribution:
             return remaining > 0
-        messages = self.store.list_outbox_messages() if evidence_messages is None else evidence_messages
+        messages = self._recovery_messages() if evidence_messages is None else evidence_messages
         confirmations = {}
         def canonical_resolved(intent):
             if intent.get("repost_of_dispatch_id"):
@@ -597,6 +597,18 @@ class DurablePublicationCoordinator:
             if not matches or not plan.get("article_identity"):
                 return True
             for intent in matches:
+                if (intent.get("plan_status_post") == run and run != work_item_id
+                        and intent.get("article_identity") == run
+                        and intent["article_identity"] != plan["article_identity"]):
+                    # CC-107: a source-bound plan-status post has no Substack
+                    # canonical by design. Its UNKNOWN_WRITE remains fenced for
+                    # readback; it cannot be a duplicate of this distinct article.
+                    from live_contentops.plan_status_posts_v1 import _row_payload
+                    try:
+                        _row_payload(self.store, run)
+                    except (ValueError, OSError, KeyError, TypeError):
+                        return True
+                    continue
                 if (not intent.get("article_identity") or intent["article_identity"] == plan["article_identity"]
                         or not canonical_resolved(intent)):
                     return True
@@ -2153,6 +2165,8 @@ class DurablePublicationCoordinator:
                 from live_contentops.plan_status_posts_v1 import validate_status_post_plan
                 packet = validate_status_post_plan(self.store, work_item_id, plan)
                 intent["plan_status_post"] = packet["key"]
+                if packet.get("part"):
+                    intent["plan_status_part"] = packet["part"]
                 intent["native_payload"] = packet["payloads"][destination]
                 intent.pop("published_content_export", None)
             payload = _canonical_json(intent)
@@ -2335,6 +2349,21 @@ class DurablePublicationCoordinator:
             work_item_id=str(intent["work_item_id"]), status=status,
         )
         self.store.set_reconciliation_status(ids["reconciliation_id"], status)
+        from live_contentops.article_publication_quality_v1 import settle_article_images
+        try:
+            settle_article_images(self, intent, destination=destination, status=status, canonical_url=observed_url,
+                                  published_at_utc=normalized.get("observed_published_at_utc"))
+            if status in {RECONCILED_CONFIRMED, RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE}:
+                from live_contentops.article_publication_quality_v1 import observe_published_images
+                observe_published_images(self, intent, dispatch, observed_url=observed_url,
+                                         published_at_utc=normalized.get("observed_published_at_utc"))
+        except (ValueError, OSError, KeyError, TypeError) as image_error:
+            # An auxiliary fingerprint failure never changes exact public-object
+            # truth or disables readback. Fresh writes still consult the register.
+            self.store.register_incident(incident_id="image-register-sync-" + _hash(dispatch_id + status)[:24],
+                work_item_id=intent["work_item_id"], severity="IMAGE_REGISTER_SYNC",
+                description=_canonical_json({"policy": "JIM_DECISION_93", "dispatch_id": dispatch_id,
+                                             "cause": type(image_error).__name__}))
         return status
 
     def _dispatch_message(
@@ -2489,6 +2518,10 @@ class DurablePublicationCoordinator:
         forbidden = find_forbidden_link(*posted_values(intent, canonical_url))
         if forbidden:
             return refusal(destination, forbidden)
+        from live_contentops.public_time_v1 import REASON as TIME_REASON, find_forbidden_public_time, public_media_text
+        wrong_time = find_forbidden_public_time(*posted_values(intent, canonical_url), public_media_text(intent.get("media_assets")))
+        if wrong_time:
+            return {**refusal(destination, wrong_time), "status": TIME_REASON, "reason_code": TIME_REASON}
         if intent.get("plan_status_post"):
             from live_contentops.plan_status_posts_v1 import validate_status_post_intent
             validate_status_post_intent(self.store, intent)
@@ -2542,6 +2575,16 @@ class DurablePublicationCoordinator:
             readiness = self._readiness(destination, item)
         if readiness not in READY_STATES:
             return {"destination": destination, "status": readiness or "READINESS_UNKNOWN", "publish_called": False}
+        from live_contentops.article_publication_quality_v1 import before_article_write
+        try:
+            if not native_pending_resume:
+                # A resume consumes the frozen native request/return and can
+                # reveal an already-completed write. begin() checks any actual
+                # unclaimed browser write; never block consuming its result.
+                before_article_write(self, intent, destination)
+        except (ValueError, OSError, KeyError, TypeError) as quality_error:
+            cause = str(quality_error) if isinstance(quality_error, ValueError) else type(quality_error).__name__
+            return {"destination": destination, "status": cause, "reason_code": cause, "publish_called": False}
         claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
             message_id=ids["message_id"], platform=destination,
             expected_status=existing.get("status") if existing else None)
@@ -2645,6 +2688,9 @@ class DurablePublicationCoordinator:
         )
         self.store.set_dispatch_status(ids["dispatch_id"], str(result["status"]))
         self.store.set_outbox_status(ids["message_id"], str(result["status"]))
+        if result["status"] == DEFINITE_NO_WRITE:
+            from live_contentops.article_publication_quality_v1 import settle_article_images
+            settle_article_images(self, intent, destination=destination, status=DEFINITE_NO_WRITE)
         dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
         if result["status"] in {DISPATCH_CONFIRMED, UNKNOWN_WRITE}:
             reconciliation = self._reconcile(
@@ -3254,8 +3300,9 @@ class DurablePublicationCoordinator:
             if isinstance(row, Mapping) and str(row.get("destination") or "")
         }
         canonical_url: Optional[str] = None
-        messages = [m for m in self.store.list_outbox_messages() if m["work_item_id"] == work_item_id
-            and (m["destination"] in V1_REQUIRED_PUBLICATION_DESTINATIONS
+        messages = [m for m in self.store.list_outbox_messages(work_item_id=work_item_id)
+            if (m["destination"] in V1_REQUIRED_PUBLICATION_DESTINATIONS
+                 or (m["destination"] == "substack_notes" and plan.get("plan_status_post"))
                  or (m["destination"] == "linkedin_company"
                      and json.loads(str(m["payload"])).get("routine_company_copy") is True))
             and json.loads(str(m["payload"])).get("plan_hash") == plan.get("plan_hash")]
@@ -3509,6 +3556,16 @@ class DurablePublicationCoordinator:
         return not self.recovery_blocks_new_publication(
             recovery, scope["work_item_id"], plan=scope["plan"], evidence_messages=evidence_messages)
 
+    def _recovery_messages(self):
+        """Use the same eligible rows for recovery and its publication guard."""
+        scope = self.recovery_scope or {}
+        if scope.get("exact_work_item_only"):
+            # Digest recovery must neither send nor be held by another article's
+            # lifecycle. Exact dispatch/readback checks still protect this digest.
+            # Query before loading payloads: retained history can be very large.
+            return self.store.list_outbox_messages(work_item_id=scope["work_item_id"])
+        return self.store.list_outbox_messages()
+
     def recover_pending(self) -> dict[str, Any]:
         """Reconcile every ambiguity, then spend one bounded freshness-safe recovery budget."""
         summary = {
@@ -3518,17 +3575,7 @@ class DurablePublicationCoordinator:
             "recovery_attempt_budget": RECOVERY_ATTEMPT_BUDGET,
             "backlog_remaining": 0,
         }
-        def recovery_messages():
-            scope = self.recovery_scope or {}
-            if scope.get("exact_work_item_only"):
-                # A digest invocation must not send another article's queued
-                # social copy (observed during CC-143's 5 November resume).
-                # Filter in the existing store query: loading every historical
-                # payload first stalled CC-124 distribution for several minutes.
-                # The global store and exactly-once checks remain available.
-                return self.store.list_outbox_messages(work_item_id=scope["work_item_id"])
-            return self.store.list_outbox_messages()
-        messages = recovery_messages()
+        messages = self._recovery_messages()
         dispatch_by_message = {str(d["message_id"]): d for d in self.store.list_platform_dispatches()}
         ready_messages: list[tuple[Mapping[str, Any], bool]] = []
         quarantined_obligations: set[tuple[str, str, str]] = set()
@@ -3783,7 +3830,7 @@ class DurablePublicationCoordinator:
         refreshed_dispatches = {
             str(row["message_id"]): row for row in self.store.list_platform_dispatches()
         }
-        for message in recovery_messages():
+        for message in self._recovery_messages():
             try:
                 intent = json.loads(str(message["payload"]))
             except (TypeError, ValueError, KeyError):
@@ -4133,7 +4180,7 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:
-        if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
+        if destination in {"substack", "substack_notes", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
                 and (intent.get("dated_distribution_recovery") or intent.get("reader_presentation_review"))
                 and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
             return self._neo_transport.publish(destination=destination, intent=intent,
@@ -4229,7 +4276,7 @@ class CanonicalDestinationTransportRuntimeV1:
         if intent.get("reader_presentation_review") and destination not in {"facebook_page", "telegram"}:
             return self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
-        if destination in {"substack", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
+        if destination in {"substack", "substack_notes", "x", "youtube", "linkedin_company"} or (destination == "linkedin"
                 and intent.get("dated_distribution_recovery")
                 and intent.get("destination_plan", {}).get("transport_type") == "BROWSEROS_NEO_MCP"):
             result = self._neo_transport.readback(destination=destination, intent=intent,

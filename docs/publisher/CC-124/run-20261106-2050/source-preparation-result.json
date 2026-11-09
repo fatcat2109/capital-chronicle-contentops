@@ -1,0 +1,57 @@
+{
+  "operation_id": "cc124-nfp-arrival-review-20261106-v1",
+  "stage": "main-report-source-preparation",
+  "status": "PREPARED",
+  "native_invocation_id": "/root/nfp_source_preparation",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "low",
+  "model_effort_evidence": "CONFIGURED_NOT_OBSERVED",
+  "prepared_at_utc": "2026-11-06T13:54:12.044066Z",
+  "known_at_utc": "2026-11-06T13:34:06Z",
+  "revision_at_utc": "2026-11-06T13:54:12.044066Z",
+  "verification_result": "PASS",
+  "verifier": "main_report_projection_source_v1.verify_projection",
+  "records": 1,
+  "artifacts": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-2050\\source\\index.json",
+      "sha256": "fed37858a76215949661bf652e119341d1b8d8bd8422516ebf2b68594c3eb166"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-2050\\source-claim-trace.json",
+      "sha256": "b7d5de761ada08db6e9f9d04d6cc05997c3daac7fe4d8aa4a342d3320b98d546"
+    }
+  ],
+  "source_hashes": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+      "sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\run.json",
+      "sha256": "768e6f986439bec3a8bd1bf6a2d67bc86705e21241044b83df7b4778280126b9"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336"
+    }
+  ],
+  "novelty": "Held arrival report records +165K payrolls and 4.1% unemployment: both frozen strong conditions held. Adds conditional policy/USD/real-yield mechanism, weak countercase, whipsaw/weekend risk and retained rates/context gaps; does not score market performance.",
+  "limits": [
+    "Report truth only; parent handles official supporting evidence.",
+    "Conditional pre-event mechanism is not observed market reaction. No fill, execution success, profitability or realised performance claim is supported.",
+    "No separate rates read or market-context.json in dossier. No full reaction timeline required to use held release facts.",
+    "Excluded private execution/account identifiers, entry/stop/target/size, raw third-party prices/tables, private consensus rows and uncalibrated probabilities."
+  ],
+  "chart_data_requirements": [
+    "Parent supplies public-domain official history: headline and core trend over at least 24 months, latest-month change and available component breakdown.",
+    "Bind each chart to exact source series, units, vintage and window. Projection contains no chart history; never chart private consensus, positioning or broker prices.",
+    "Use lawful contextual photo where available with source/creator/licence metadata."
+  ],
+  "next_action": "Parent collects native return, joins official history/components and continues same operation through native selection.",
+  "tests_run": false,
+  "commits": false,
+  "external_acquisition": false,
+  "public_writing": false,
+  "publication": false
+}

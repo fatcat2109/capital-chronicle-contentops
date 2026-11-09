@@ -1,0 +1,59 @@
+{
+  "native_desktop_return": {
+    "request_sha256": "36d8968f90b81038703f23341a6cda5610a6d07f84699f5e592e801b0be5c014",
+    "output": {
+      "story_plan": {
+        "thesis": "OTHER_ANALYSIS: a qualitative six-market document lens from the completed Main review. Compare competing mechanisms and coverage limits. Attribute statements to the retained review, preserving its correction to a USD bid rather than risk-off and its absence of a fresh six-market directional call.",
+        "photo_plan": {
+          "proposal": "Contextual archive Federal Reserve Eccles Building photograph; parent media owner is downloading and must bind exact bytes and rights before use.",
+          "source_identity": "Wikimedia Commons File:Eccles_Building_(26088200676).jpg",
+          "creator": "Federal Reserve",
+          "depicted_date": "2011-03-29",
+          "license": "Public domain, US Federal Reserve",
+          "caption_constraints": "Label archive photograph dated March 29, 2011; do not imply this is the current review window or a new announcement. Canonical credit must preserve the verified media record's full creator/source/license attribution.",
+          "max_decides": "Same MAX writer chooses placement and utility."
+        },
+        "chart_plan": {
+          "analysis_scope": "OTHER_ANALYSIS",
+          "reason": "This is a qualitative retained-review document lens, not analysis of a new data release or policy decision. The admitted spans do not supply comparable numerical series.",
+          "proposal": "After the actual article is written, prepare a comparison/data card using only its source-bound written facts: six market rows with the review's mechanism, named opposite mechanism where supplied, and relevant coverage limitation. MAX decides count, form, final rows and placement. Omit unsupported cells or mark unavailable; never fabricate balanced rows.",
+          "markets": [
+            "Gold",
+            "US equities",
+            "EURUSD",
+            "USDJPY",
+            "Oil",
+            "BTC"
+          ],
+          "source_id": "SOURCE_1",
+          "binding_requirements": "Map every card statement to the final written article and exact retained source span. Preserve report attribution, uncertainty and distinct dates. No invented prices, levels, forecasts, probabilities, consensus medians or numerical histories.",
+          "coverage_limits": [
+            "US500 and BTCUSD H1/M15 rows unread; coverage gaps are not standalone directional reasons.",
+            "USDJPY intraday contract refused at capture.",
+            "NFP consensus medians null; DXY level, VIX and high-yield spreads unknown.",
+            "COT dated October 27 and GEX proxy from October 23 case must not be shown as current measurements.",
+            "ETF holdings are stocks; latest GLD row November 4.",
+            "Oil deal-dominance rests on one FT headline in context, not demonstrated event evidence."
+          ],
+          "numerical_series": [],
+          "new_factual_claims_admitted": false
+        },
+        "source_requests": []
+      }
+    },
+    "invocation_observation": {
+      "invocation_id": "/root/native_media_plan_36d8968f90b8",
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "observation_source": "supported native task context",
+      "speed": "standard",
+      "actual_model": null,
+      "actual_reasoning_effort": null,
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "actual_configuration_unavailable": true,
+      "configuration_source": "exact native assignment"
+    }
+  }
+}

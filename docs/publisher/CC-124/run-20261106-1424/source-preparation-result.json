@@ -1,0 +1,52 @@
+{
+  "operation_id": "cc124-six-markets-20261106-v1",
+  "stage": "main-report-source-preparation",
+  "outcome": "PREPARED_EXACT_MAIN_REPORT_EXCERPTS",
+  "prepared_at_utc": "2026-11-06T07:30:23.181445Z",
+  "native_task_identity": "/root/six_market_source_preparation",
+  "role": {
+    "model": "gpt-6.1-sol",
+    "effort": "low",
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "actual_runtime_model": null,
+    "actual_runtime_effort": null
+  },
+  "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+  "source_sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+  "completion_record": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261106T050844Z\\run.json",
+  "completion_outcome": "BRAIN_RUN_COMPLETE",
+  "known_at_utc": "2026-11-06T06:06:29Z",
+  "outputs": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\source\\index.json",
+      "sha256": "115977a9144a65f68a4fbcc23e2f15b2c44f3f822a91ff8fc5c8ee3657e11816"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\source-claim-trace.json",
+      "sha256": "361744bbc229fa28074ad59ae30a2293a15040d280212cd1818b652bbedb0c98"
+    }
+  ],
+  "passage_count": 11,
+  "source_character_count": 1546,
+  "markets": [
+    "XAUUSD",
+    "US500",
+    "EURUSD",
+    "USDJPY",
+    "USOIL",
+    "BTCUSD"
+  ],
+  "findings": [
+    "Dollar bid is distinguished from broad risk-off in the completed report.",
+    "Oil is expressly based on competing contextual headlines, with official negotiation status not established.",
+    "USDJPY offsetting mechanisms and BTC/equity overlap survive selection.",
+    "Exact public excerpts omit DEMO account and execution mechanics, raw third-party tables, numerical prediction-market odds and uncalibrated numerical judgments."
+  ],
+  "limits": [
+    "Preparation uses retained completed Main synthesis only; no source fetching or fresh verification.",
+    "No selected report result after its original cutoff is implied.",
+    "US500 and BTCUSD intraday rows were not read by Main roles; USDJPY intraday contract unavailable at capture.",
+    "Model/effort configuration is not runtime observation.",
+    "Parent must apply projection adapter, writer and publication checks; no public copy or visual acceptance is produced here."
+  ]
+}

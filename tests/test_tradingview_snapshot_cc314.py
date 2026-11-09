@@ -22,11 +22,6 @@ from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set
 FIXTURE = Path(__file__).parent / "fixtures" / "cc314" / "SPX500USD_2026-11-05_13-21-11.png"
 
 
-@pytest.fixture(autouse=True)
-def enough_ram(monkeypatch):
-    monkeypatch.setattr(tv, "free_ram_gb", lambda: 8.0)
-
-
 @pytest.fixture
 def outcomes(tmp_path, monkeypatch):
     path = tmp_path / "outcomes.jsonl"
@@ -115,7 +110,7 @@ def test_a_failed_snapshot_still_posts_with_the_plans_numbers(queued, outcomes):
     assert asset["card_kind"] == "PLAN_FACT_CARD" and Path(asset["path"]).is_file()
     facts = dict(asset["data_card_packet"]["facts"])
     assert facts["Entry zone"] == "7,650–7,672.5" and facts["Invalidation"] == "Below 7,620"
-    assert facts["Status"] == "New plan" and facts["As of"] == "Thu 5 Nov, 12:20 UTC"
+    assert facts["Status"] == "New plan" and facts["As of"] == "Thu 5 Nov, 07:20 ET"
     assert "7,790" not in json.dumps(asset) and "7,740" not in json.dumps(asset)
     for row in plan_["destinations"]:
         assert "Chart: TradingView" not in row["payload"]
@@ -184,7 +179,7 @@ def test_the_plan_facts_never_carry_a_target():
            "levels": {"direction": "bearish", "zone_low": 61.2, "zone_high": 61.8, "invalidation_level": 62.4,
                       "target": 59.0}}
     assert plan_facts(row) == [("Entry zone", "61.2–61.8"), ("Invalidation", "Above 62.4"),
-                               ("Status", "Plan now active"), ("As of", "Thu 5 Nov, 12:20 UTC")]
+                               ("Status", "Price reached the zone"), ("As of", "Thu 5 Nov, 07:20 ET")]
 
 
 def test_a_daily_chart_is_confirmed_by_tradingviews_d_label(tmp_path):
@@ -196,16 +191,12 @@ def test_a_daily_chart_is_confirmed_by_tradingviews_d_label(tmp_path):
     assert snap["tv_symbol"] == "FX:USDJPY" and snap["interval"] == "D"
 
 
-def test_below_the_ram_floor_no_browser_starts_and_the_fact_card_is_counted(queued, outcomes, monkeypatch):
+def test_capture_has_no_ram_gate(queued, outcomes, monkeypatch):
     store, _, key, root = queued
-    monkeypatch.setattr(tv, "free_ram_gb", lambda: 1.1)
+    # Even unavailable/low telemetry cannot refuse the capture (Jim decision 87).
+    monkeypatch.setattr(tv, "free_ram_gb", lambda: None, raising=False)
     calls = []
     plan_ = prepare_post(store, key, root=root, host=fake_host, snapshot=snapshot_with(calls))
     asset = json.loads((Path(plan_["output_dir"]) / "run_context_v1.json").read_bytes())["media"]["assets"][0]
-    assert calls == [] and asset["card_kind"] == "PLAN_FACT_CARD"
-    assert json.loads(outcomes.read_text().splitlines()[0])["status"] == "LOW_MEMORY_FALLBACK"
-    assert tv.failure_count(outcomes) == 1
-    monkeypatch.setattr(tv, "free_ram_gb", lambda: None)  # unreadable memory is treated as low
-    with pytest.raises(tv.LowMemory):
-        tv.capture("US500", "240", root / "unknown", worker=tradingview_worker(calls))
-    assert calls == []
+    assert len(calls) == 1 and asset["card_kind"] == "TRADINGVIEW_SNAPSHOT"
+    assert json.loads(outcomes.read_text().splitlines()[0])["status"] == "CAPTURED"

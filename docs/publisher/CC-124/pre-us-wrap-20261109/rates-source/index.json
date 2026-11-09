@@ -1,0 +1,38 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authority_ref": "JIM_DECISION_89",
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "source_url": "urn:cc-public-report:cc124:pre-us-rates:20261109",
+      "headline_id": "cc124-pre-us-rates-20261109",
+      "headline_text": "Main weekend report: Friday US10Y anchor and Monday catalyst calendar",
+      "known_at_utc": "2026-11-08T18:20:00Z",
+      "revision_at_utc": "2026-11-09T11:39:01.455774+00:00",
+      "candidate_catalyst_tags": [
+        "pre-US-wrap",
+        "rates"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+          "source_sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+          "fragments": [
+            {
+              "start": 21105,
+              "end": 21155
+            },
+            {
+              "start": 21157,
+              "end": 21266
+            },
+            {
+              "start": 21267,
+              "end": 21468
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

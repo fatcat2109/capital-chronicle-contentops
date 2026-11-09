@@ -1,0 +1,98 @@
+{
+  "observed_at_utc": "2026-11-07T08:43:48.772982+00:00",
+  "item": "CC-124",
+  "operating_head": "80c28525548c03963e8418db75b47047de157e6b",
+  "production_date": "2026-11-07",
+  "article_limit": 1,
+  "occupied_article_slots": 0,
+  "active_leases": [],
+  "operation_id": "cc124-nfp-arrival-review-20261106-v1",
+  "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-arrival-review-20261106-v1\\binding.json",
+  "binding_file_sha256": "7d91e8991b7202f3fc28faedc835e4dbd15b2ecd63134201d3eaf1c99c6879ce",
+  "cutoff_utc": "2026-11-06T13:58:03.408725Z",
+  "writer_request_sha256": "f91f22eaba23d5af0e115dd181655185d9a5639c627ea07de641d570f5e96c87",
+  "writer_request_file_sha256": "f54561435c19b698d4e3ec013946521fb93e6f9a89cdc512c26af104a1c70610",
+  "writer_return_present": false,
+  "governed_input_keys": [
+    "analysis_boundaries",
+    "article_mode",
+    "audience_learning",
+    "capital_chronicle_context",
+    "capital_chronicle_proprietary_claims_authorized_in_this_lane",
+    "cutoff_utc",
+    "epistemic_state",
+    "event_truth",
+    "evidence_plan",
+    "evolving_story_context",
+    "institutional_edge_editorial_packet",
+    "native_evolving_article_context",
+    "primary_reader_question",
+    "publication_speed_policy",
+    "reader_attribution_policy",
+    "report_truth",
+    "selected_candidate",
+    "selection_angle",
+    "selection_rationale",
+    "source_marker_contract",
+    "source_pack",
+    "text_first_policy"
+  ],
+  "source_pack": [
+    {
+      "source_id": "SOURCE_1",
+      "title": null,
+      "source_url": null,
+      "url": "urn:cc-public-report:main-retained:12012df82fade1c63089203d4757bba1bc6549a2afe495ef81b49aabefdac7f2",
+      "known_at_utc": null,
+      "published_at_utc": "2026-11-06T13:34:06Z",
+      "content_path": null
+    }
+  ],
+  "latest_published": [
+    {
+      "content_id": "substack:223667079",
+      "title": "Lower Treasury yields leave Bitcoin's demand question open",
+      "published_at_utc": "2026-11-05T18:44:51.561000+00:00"
+    },
+    {
+      "content_id": "substack:223722704",
+      "title": "Capital Chronicle's midterm review: right scenario, wrong market call",
+      "published_at_utc": "2026-11-06T04:25:26.791000+00:00"
+    },
+    {
+      "content_id": "substack:223739949",
+      "title": "Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+      "published_at_utc": "2026-11-06T08:42:20.275000+00:00"
+    },
+    {
+      "content_id": "substack:223749516",
+      "title": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test",
+      "published_at_utc": "2026-11-06T10:37:42.739000+00:00"
+    },
+    {
+      "content_id": "substack:223763353",
+      "title": "NFP preview: why a payroll beat needs help from unemployment",
+      "published_at_utc": "2026-11-06T12:58:16.717000+00:00"
+    }
+  ],
+  "configured_launch": {
+    "lane": "Codex Publisher",
+    "items": [
+      "CC-124"
+    ],
+    "pid": 29132,
+    "started_utc": "2026-11-07T08:33:04Z",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED",
+    "launch_arguments_read_back": true,
+    "codex": "C:\\Users\\bullw\\AppData\\Local\\OpenAI\\Codex\\bin\\f71a721e0e6193a9\\codex.exe",
+    "worktree": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+    "add_dirs": "A:\\Capital Chronicle\\ContentOps;A:\\Capital Chronicle\\Runtime\\ContentOps",
+    "output": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-124-20261107T0832\\last-message.txt"
+  },
+  "inherited_files_sha256": {
+    "docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": "1cc4f6e6b95194d9093390cf5ccfd5c8f133fdfd016c6b463597fa17ed595483",
+    "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": "adcf8f92d3dc38f8ece8a08cc363a0b6d0f8ecac2e711df2469b193a9c26b7cd"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "tool_request_sha256": "6d82dfb8d5b58b9f01bbd7faa7bae7bb4efb5c3ef8dad2705ce093179a7bab86",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observation_source": "Actual BrowserOS Neo run; resumed existing draft 224085585, verified email unchecked and confirmed Publish on web only; exact same tab reached share-center.",
+    "observed_at_utc": "2026-11-09T00:41:11.093Z",
+    "dispatched_at_utc": "2026-11-09T00:40:59.755Z"
+  },
+  "result": {
+    "request_sha256": "d8b9465517543256e974adce34d83414b85a8fabab34c51671f830217820bcd3",
+    "status": "SUCCESS",
+    "observed_identity": "capitalchronicle.substack.com",
+    "public_object_id": "224085585",
+    "public_object_url": "https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran",
+    "public_write_performed": true,
+    "delivery_observation": {
+      "email_send_enabled": false,
+      "web_publish_enabled": true,
+      "evidence_ref": "BrowserOS task page 2, Publish on web only confirmation and /publish/posts/detail/224085585/share-center"
+    },
+    "step_clocks": {
+      "draft_ready_utc": "2026-11-09T00:38:30.520Z",
+      "images_uploaded_utc": null,
+      "email_setting_confirmed_utc": "2026-11-09T00:40:50.108Z",
+      "publish_clicked_utc": "2026-11-09T00:40:59.755Z",
+      "share_center_reached_utc": "2026-11-09T00:41:11.093Z"
+    }
+  }
+}

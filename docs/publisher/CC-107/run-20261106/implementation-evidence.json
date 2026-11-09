@@ -1,0 +1,23 @@
+{
+  "recorded_at_utc": "2026-11-06T11:26:42.269801+00:00",
+  "base_commit": "9cc3ab287ffe55b8b2b9b6a78eb4ba2f5df9d9ec",
+  "previous_pushed_commit": "66e18450510bfcce96725836abe4a1534dab8978",
+  "branch": "backlog/cc-107-event-resolution-20261106",
+  "tests": {
+    "result": "279 passed in 11.39s",
+    "junit": "tests/evidence/cc-107-20261106/event-frame.xml",
+    "log": "tests/evidence/cc-107-20261106/event-frame.txt",
+    "parallel_workers": false
+  },
+  "launch": {
+    "surface": "CODEX_EXEC",
+    "invocation_id": "01a1b092-b78e-7203-aeb6-664d04f8765a",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "model": null,
+    "reasoning_effort": null
+  },
+  "frozen_dossier": "A:/Capital Chronicle/ResearchRuns/claude-main-events-20261029/20261106-0930-dossier-nfp/DOSSIER.md",
+  "public_write_performed": false
+}

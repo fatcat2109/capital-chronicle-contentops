@@ -1,0 +1,385 @@
+{
+  "observed_at_utc": "2026-11-09T09:50:32.810467+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "5da94a81e4e94c0412fe0a7767b89c828598a710",
+  "consumer_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+  "consumer_sha256": "fc2ab03c58e48099d4cc1f07728a2f7c8502f9fbaa28de4ffc9e39e448cb643f",
+  "live_tag": "contentops-live-20261109-cc353-plan-rationale",
+  "rollback_tag": "contentops-rollback-20261109-cc353-plan-rationale",
+  "dry_run": {
+    "status": "OK",
+    "transitions_read": 87,
+    "six_market_transitions": 69,
+    "older_than_window": 63,
+    "would_queue": [],
+    "already_queued": [
+      "plan-status-post-c178c039541aaf11b7c83b0fbc51a393",
+      "plan-status-post-15149c6a905d4c4e33f9cf84299ee950",
+      "plan-status-post-33c0051a7e7066bd08faac8fae64626f",
+      "plan-status-post-28c2459d80110d5878532f9dce9c064a",
+      "plan-status-post-a47bf553fcd41d7cecd0ba4f2aa3a6ea",
+      "plan-status-post-7de05797da876f17c7392552e64d2f22"
+    ],
+    "not_posted": [],
+    "rationale_causes": {}
+  },
+  "current_day_store_rows": [
+    {
+      "key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393",
+      "symbol": "USOIL",
+      "state": "WAITING",
+      "at_utc": "2026-11-09T09:11:59.987233Z",
+      "status": "PUBLISHED",
+      "why": false
+    },
+    {
+      "key": "plan-status-post-15149c6a905d4c4e33f9cf84299ee950",
+      "symbol": "BTCUSD",
+      "state": "WAITING",
+      "at_utc": "2026-11-09T09:11:59.987233Z",
+      "status": "PUBLISHED",
+      "why": false
+    },
+    {
+      "key": "plan-status-post-33c0051a7e7066bd08faac8fae64626f",
+      "symbol": "USDJPY",
+      "state": "WAITING",
+      "at_utc": "2026-11-09T09:11:59.987233Z",
+      "status": "PUBLISHED",
+      "why": false
+    },
+    {
+      "key": "plan-status-post-28c2459d80110d5878532f9dce9c064a",
+      "symbol": "EURUSD",
+      "state": "WAITING",
+      "at_utc": "2026-11-09T09:11:59.987233Z",
+      "status": "PUBLISHED",
+      "why": false
+    },
+    {
+      "key": "plan-status-post-a47bf553fcd41d7cecd0ba4f2aa3a6ea",
+      "symbol": "EURUSD",
+      "state": "TRIGGERED",
+      "at_utc": "2026-11-09T09:16:58.202425Z",
+      "status": "PUBLISHED",
+      "why": false
+    },
+    {
+      "key": "plan-status-post-7de05797da876f17c7392552e64d2f22",
+      "symbol": "USOIL",
+      "state": "TRIGGERED",
+      "at_utc": "2026-11-09T09:18:58.521365Z",
+      "status": "PUBLISHED",
+      "why": false
+    }
+  ],
+  "real_export_composition": [
+    {
+      "key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393",
+      "symbol": "USOIL",
+      "state": "WAITING",
+      "why_lines": 3,
+      "destinations": {
+        "telegram": {
+          "part_characters": [
+            925
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "2220ed79e1fc1b5fcb4913e88012c09483e14624ba58d1a97417d8eae70c88ef"
+        },
+        "discord": {
+          "part_characters": [
+            925
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "2220ed79e1fc1b5fcb4913e88012c09483e14624ba58d1a97417d8eae70c88ef"
+        },
+        "threads": {
+          "part_characters": [
+            493
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "e73343c16ecd063894f2633086a7643b116c73fff421dec3136baa5024085e77"
+        },
+        "x": {
+          "part_characters": [
+            198,
+            198,
+            94
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "5e95d41ed9a3af95326fc0c27582a21acedac30b0213c351ca574c06e211a5e6"
+        },
+        "substack_notes": {
+          "part_characters": [
+            925
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "2220ed79e1fc1b5fcb4913e88012c09483e14624ba58d1a97417d8eae70c88ef"
+        }
+      }
+    },
+    {
+      "key": "plan-status-post-15149c6a905d4c4e33f9cf84299ee950",
+      "symbol": "BTCUSD",
+      "state": "WAITING",
+      "why_lines": 3,
+      "destinations": {
+        "telegram": {
+          "part_characters": [
+            812
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "9efd1647b6f4bae29ec9f2be3a64716985c74143da842afc82e82e29fed071d7"
+        },
+        "discord": {
+          "part_characters": [
+            812
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "9efd1647b6f4bae29ec9f2be3a64716985c74143da842afc82e82e29fed071d7"
+        },
+        "threads": {
+          "part_characters": [
+            491
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "0dc33858d39f3e939c1d576a83ec5fa9db73623f501abf90a2f84c7be1479aae"
+        },
+        "x": {
+          "part_characters": [
+            187,
+            207,
+            94
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "64323c3da5edccb4a67e92b5bbef27cc264ae959cbf872dfb3721191781e90a9"
+        },
+        "substack_notes": {
+          "part_characters": [
+            812
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "9efd1647b6f4bae29ec9f2be3a64716985c74143da842afc82e82e29fed071d7"
+        }
+      }
+    },
+    {
+      "key": "plan-status-post-33c0051a7e7066bd08faac8fae64626f",
+      "symbol": "USDJPY",
+      "state": "WAITING",
+      "why_lines": 3,
+      "destinations": {
+        "telegram": {
+          "part_characters": [
+            803
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "30228cc5eb8609966b4fcf5de9cf246dd8c9611832378def1f0aa3f70acdd159"
+        },
+        "discord": {
+          "part_characters": [
+            803
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "30228cc5eb8609966b4fcf5de9cf246dd8c9611832378def1f0aa3f70acdd159"
+        },
+        "threads": {
+          "part_characters": [
+            496
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "b2d9380bec9406dc9fb74dd011437852269b7e5f8f6437c74b0ec2eb35bc864b"
+        },
+        "x": {
+          "part_characters": [
+            185,
+            214,
+            94
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "f277a7d1f724fb8feb956be0935d6e5950329fbe1baae4a9beb3033ada8832d1"
+        },
+        "substack_notes": {
+          "part_characters": [
+            803
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "30228cc5eb8609966b4fcf5de9cf246dd8c9611832378def1f0aa3f70acdd159"
+        }
+      }
+    },
+    {
+      "key": "plan-status-post-28c2459d80110d5878532f9dce9c064a",
+      "symbol": "EURUSD",
+      "state": "WAITING",
+      "why_lines": 3,
+      "destinations": {
+        "telegram": {
+          "part_characters": [
+            810
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "17748fb962aa4f9821cdc61fdb9651a5e47108c374ed70c4bff2b5d47f849dcf"
+        },
+        "discord": {
+          "part_characters": [
+            810
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "17748fb962aa4f9821cdc61fdb9651a5e47108c374ed70c4bff2b5d47f849dcf"
+        },
+        "threads": {
+          "part_characters": [
+            496
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "0edee7c15cbdcf0c456826ca262d6fab2d51dbad02cad049deba8f04c9756486"
+        },
+        "x": {
+          "part_characters": [
+            186,
+            213,
+            94
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "7cd674a11adfc8088bff83bb7b15ea971b3e32d82d62b8de8ed1e87195c99f3c"
+        },
+        "substack_notes": {
+          "part_characters": [
+            810
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "17748fb962aa4f9821cdc61fdb9651a5e47108c374ed70c4bff2b5d47f849dcf"
+        }
+      }
+    },
+    {
+      "key": "plan-status-post-a47bf553fcd41d7cecd0ba4f2aa3a6ea",
+      "symbol": "EURUSD",
+      "state": "TRIGGERED",
+      "why_lines": 3,
+      "destinations": {
+        "telegram": {
+          "part_characters": [
+            840
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "781727b18b143487785909a7b5b0aa8f350ad082b476242c3317ec6d20af6f24"
+        },
+        "discord": {
+          "part_characters": [
+            840
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "781727b18b143487785909a7b5b0aa8f350ad082b476242c3317ec6d20af6f24"
+        },
+        "threads": {
+          "part_characters": [
+            489
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "8a030a1bbaddd7dcdf86d6101d5cbaa3737b61f899abf8a0ecc826c2998bb863"
+        },
+        "x": {
+          "part_characters": [
+            193,
+            199,
+            94
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "63926ff13a2a8916fd25b64f9d1879446973f36acd554d9de3ac7a0fc7d7923d"
+        },
+        "substack_notes": {
+          "part_characters": [
+            840
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "781727b18b143487785909a7b5b0aa8f350ad082b476242c3317ec6d20af6f24"
+        }
+      }
+    },
+    {
+      "key": "plan-status-post-7de05797da876f17c7392552e64d2f22",
+      "symbol": "USOIL",
+      "state": "TRIGGERED",
+      "why_lines": 3,
+      "destinations": {
+        "telegram": {
+          "part_characters": [
+            955
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "146f54dd32f20e5b7a12af9d5758824c0676c23594ca253b92cb6da9955a223e"
+        },
+        "discord": {
+          "part_characters": [
+            955
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "146f54dd32f20e5b7a12af9d5758824c0676c23594ca253b92cb6da9955a223e"
+        },
+        "threads": {
+          "part_characters": [
+            493
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "be79cd9db10928b7f1e1ae59df6f419f2dccb3649f5c3a08a54e9a048c519a2d"
+        },
+        "x": {
+          "part_characters": [
+            205,
+            191,
+            94
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "d3c082b108c9934a47559441a0111d6b3b05093c1e19982e81635e5d11af70cb"
+        },
+        "substack_notes": {
+          "part_characters": [
+            955
+          ],
+          "all_parts_within_limit": true,
+          "rationale_present": true,
+          "sha256": "146f54dd32f20e5b7a12af9d5758824c0676c23594ca253b92cb6da9955a223e"
+        }
+      }
+    }
+  ],
+  "public_writes_performed": 0,
+  "remaining_acceptance": "NEXT_ELIGIBLE_NEW_PLAN_TRANSITION_AND_PUBLIC_READBACK",
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED"
+  }
+}

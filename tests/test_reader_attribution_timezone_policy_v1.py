@@ -40,20 +40,20 @@ def test_authored_meaningful_notes_and_required_link_are_not_blindly_stripped():
 
 
 @pytest.mark.parametrize("instant,expected", [
-    ("2026-10-27T04:00:52.972454Z", "00:00 EDT on 27 October 2026"),
-    ("2026-01-15T04:30:00Z", "23:30 EST on 14 January 2026"),
-    ("2026-03-08T06:59:00Z", "01:59 EST on 8 March 2026"),
-    ("2026-03-08T07:00:00Z", "03:00 EDT on 8 March 2026"),
-    ("2026-11-01T05:30:00Z", "01:30 EDT on 1 November 2026"),
-    ("2026-11-01T06:30:00Z", "01:30 EST on 1 November 2026"),
+    ("2026-10-27T04:00:52.972454Z", "00:00 ET on 27 October 2026"),
+    ("2026-01-15T04:30:00Z", "23:30 ET on 14 January 2026"),
+    ("2026-03-08T06:59:00Z", "01:59 ET on 8 March 2026"),
+    ("2026-03-08T07:00:00Z", "03:00 ET on 8 March 2026"),
+    ("2026-11-01T05:30:00Z", "01:30 ET on 1 November 2026"),
+    ("2026-11-01T06:30:00Z", "01:30 ET on 1 November 2026"),
     ("2026-10-27", "2026-10-27"),
 ])
 def test_reader_time_uses_actual_dst_and_preserves_unknown_precision(instant, expected):
     assert reader_timestamp(instant) == expected
 
 
-def test_utc_alternative_and_no_naive_or_invented_time():
-    assert reader_timestamp("2026-10-27T04:00:52Z", zone="UTC") == "04:00 UTC on 27 October 2026"
+def test_public_zone_is_et_even_for_a_legacy_zone_argument_and_no_naive_time():
+    assert reader_timestamp("2026-10-27T04:00:52Z", zone="UTC") == "00:00 ET on 27 October 2026"
     with pytest.raises(ValueError, match="AWARE_INSTANT"):
         reader_timestamp("2026-10-27T04:00:52")
 

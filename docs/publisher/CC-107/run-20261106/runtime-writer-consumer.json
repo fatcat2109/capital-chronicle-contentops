@@ -1,0 +1,29 @@
+{
+  "recorded_at_utc": "2026-11-06T11:54:08.069532+00:00",
+  "operation_id": "cc107-nfp-preview-20261106-v1",
+  "binding_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\binding.json",
+  "writer_request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\desktop_request_write.json",
+  "writer_request_sha256": "28d887035e0b3d617c94981890f47edac59bb067db18331ea93e33902fdcdb26",
+  "event_brief_consumed": true,
+  "source_count": 11,
+  "source_unique_count": 8,
+  "frozen_main_source": [
+    {
+      "source_id": "SOURCE_11",
+      "document_id": "cc107-nfp-frozen-preview-20261106",
+      "canonical_content_sha256": "99c81fd51119456ad566d6d12ab08aaa6675d7dea0e1a7a0298bade00a681b39",
+      "known_at_utc": "2026-11-06T10:03:37Z",
+      "source_authority_class": "governed_capital_chronicle_report_only"
+    }
+  ],
+  "accepted_background_reused": true,
+  "current_consensus": "65.00K (investing, captured 2026-11-05T17:14:01.546812Z)",
+  "short_path_held_context_result": {
+    "classification": "SELECTED_STORY_CONTEXT_ATTACHED",
+    "request_sha256": "5910a5cd8b6c01cf38b1e00f3cb1a0288fbbfe5cca6336d731c17b4c3caedc8f",
+    "new_source_requests": 0,
+    "public_write_performed": false
+  },
+  "test_state": "No test run started during CC-035 blackout. New regression cases authored; existing 285 passing tests predate the short-path/source-span changes.",
+  "public_write_performed": false
+}

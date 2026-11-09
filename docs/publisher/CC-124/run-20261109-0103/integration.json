@@ -1,0 +1,58 @@
+{
+  "observed_at_utc": "2026-11-08T18:10:21.850344+00:00",
+  "status": "PASS",
+  "integrated_source_check_commit": "8c59949ba7a976b0cd7fea30e0661e60a76294c1",
+  "remote_branch": "backlog/cc-124-main-source-check-20261109-0103",
+  "remote_commit": "8c59949ba7a976b0cd7fea30e0661e60a76294c1",
+  "checks": {
+    "remote_branch_matches_source_check_commit": true,
+    "operating_root_matches_source_check_commit": true,
+    "all_ten_evidence_blobs_installed": true,
+    "all_eight_inherited_files_preserved": true,
+    "source_readers_unchanged": true,
+    "publication_feed_unchanged": true
+  },
+  "installed_blobs": {
+    "docs/publisher/CC-124/run-20261109-0103/README.md": {
+      "expected": "f1f21e225de663c0d209611cda1f7e41ce5e54f8",
+      "installed": "f1f21e225de663c0d209611cda1f7e41ce5e54f8"
+    },
+    "docs/publisher/CC-124/run-20261109-0103/compare_sources.py": {
+      "expected": "5be4cc1efa74cfa73d7f76d31797cce7055087d3",
+      "installed": "5be4cc1efa74cfa73d7f76d31797cce7055087d3"
+    },
+    "docs/publisher/CC-124/run-20261109-0103/inspect_sources.py": {
+      "expected": "6f83c7371b845b53d456fdc91451bda842434123",
+      "installed": "6f83c7371b845b53d456fdc91451bda842434123"
+    },
+    "docs/publisher/CC-124/run-20261109-0103/main-export-scenarios.json": {
+      "expected": "05ab431b568a09d5094170b37b63b4f1b5ad7a25",
+      "installed": "05ab431b568a09d5094170b37b63b4f1b5ad7a25"
+    },
+    "docs/publisher/CC-124/run-20261109-0103/preflight.json": {
+      "expected": "320f76c03fec91a86d66d5d99d25053ee2df85c3",
+      "installed": "320f76c03fec91a86d66d5d99d25053ee2df85c3"
+    },
+    "docs/publisher/CC-124/run-20261109-0103/source-comparison.json": {
+      "expected": "2f94dde121780ca56479d0ddc3eeef89fcda6d8b",
+      "installed": "2f94dde121780ca56479d0ddc3eeef89fcda6d8b"
+    },
+    "docs/publisher/CC-124/run-20261109-0103/source-inventory.json": {
+      "expected": "7ca0732ff2eae0982500f58b57402063c4507568",
+      "installed": "7ca0732ff2eae0982500f58b57402063c4507568"
+    },
+    "docs/publisher/CC-124/run-20261109-0103/source-readiness.json": {
+      "expected": "aff50c4316b35935d75117c61fbfc6da30c6358b",
+      "installed": "aff50c4316b35935d75117c61fbfc6da30c6358b"
+    },
+    "docs/publisher/CC-124/run-20261109-0103/verification.json": {
+      "expected": "e32a806255c7cd786d28e8a3515c156a313910f2",
+      "installed": "e32a806255c7cd786d28e8a3515c156a313910f2"
+    },
+    "docs/publisher/CC-124/run-20261109-0103/verify_result.py": {
+      "expected": "af46562daacde0a294244abff91b183bbc258a8d",
+      "installed": "af46562daacde0a294244abff91b183bbc258a8d"
+    }
+  },
+  "acceptance": "Run evidence integrated; standing article acceptance remains unmet; +0 publications."
+}

@@ -1,5 +1,16 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
+## Current volume and quality — decision 93, 6 November 2026
+
+For new publication, the operating ceiling is two articles per existing newsroom
+production day, including events; CC-124 checks every six hours. This supersedes
+older 5–8/day targets. Each article requires an unpublished lead image and 2–3
+Main-sourced scenarios with labelled model probabilities, confirmation, six-market
+implications and invalidation. Each social copy carries the base and main alternative.
+CC-316 supplies the fresh TradingView image for market pieces. Release cards stay
+first in event pieces. Use the existing coordinator, media and compiler consumers
+described in the root contract and [CC-333](../publisher/CC-333/README.md).
+
 ## Dated V1 volume direction — 29 October 2026
 
 The [next-production-day volume amendment](CONTENTOPS_V1_NEXT_PRODUCTION_DAY_VOLUME_V1.md) is current for new operations from production day 30 October. It supersedes earlier three-admission/six-request/one-article and conditional J8/J10 limits only in that dated scope. Tonight's four full windows, old bindings and exhausted editions stay unchanged. Use six admissions, one shared ten-request non-chargeable cap, actual candidate fallback, two canonical articles per full window, photo-less NEWS/POLICY with Instagram skipped, and capped existing-App brief windows. Same native roles, final MAX review, sole publisher, rights and UNKNOWN_WRITE recovery remain. Stage source now; apply at the day boundary. V2/V3 stay paused.

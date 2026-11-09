@@ -1,0 +1,13 @@
+{
+  "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+  "source_sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+  "consumer": "live_contentops.contentops_source_research_v1.RetainedSourceResearch",
+  "consumer_module": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\live_contentops\\contentops_source_research_v1.py",
+  "research_revision": "15c9a3e5e822d68a9a7f50a3d54fac8238a52057978a477429149ba1ac67f0e5",
+  "document_id": "cc341-weekend-wrap-20261109",
+  "public_text_sha256": "022007719e97fd1ce6b63b1874cdd8e9636937b1410d3f6f9cceddca02e7e12e",
+  "fragments": 10,
+  "gaps": [],
+  "public_draft_only": true,
+  "public_write_performed": false
+}

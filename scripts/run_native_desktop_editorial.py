@@ -413,6 +413,8 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
     completed = store.get_outbox_message(native_artifact_key(store, binding["run_id"], "cc-editorial-final-"))
     final = json.loads(completed["payload"]) if completed else {}
     if final.get("qualified_article_count") and final.get("model_execution_state") == "NATIVE_DESKTOP_REQUEST_RETURN":
+        from live_contentops.native_desktop_editorial_v1 import resume_completed_native_revision
+        final = resume_completed_native_revision(store, turn, final, run_id=binding["run_id"])
         return {"classification": "COMPLETED_NATIVE_ARTICLE_REOPENED", "article_identity": final["article_identity"],
                 "qualified_article_count": 1, "new_model_invocations": 0, "new_source_requests": 0,
                 "editorial_execution": turn.telemetry(), "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",

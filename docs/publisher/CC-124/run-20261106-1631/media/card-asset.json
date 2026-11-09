@@ -1,0 +1,93 @@
+{
+  "asset_id": "post-facts-3686e830033ce0a8774d",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-3686e830033ce0a8774d.png",
+  "sha256": "077cc2c1a95d86b1ef25947ba1716e4d656ef9b4898090737b46c6b97166e3e8",
+  "width": 1080,
+  "height": 1350,
+  "modality": "source_bound_data_card",
+  "role": "supporting_fact_context",
+  "media_role": "post_key_facts",
+  "caption": "Key facts from the article.",
+  "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+  "attribution": "Source: Capital Chronicle",
+  "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+  "source_links": [
+    {
+      "document_id": "cc124-oil-euro-followup-20261106",
+      "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+      "label": "Capital Chronicle"
+    },
+    {
+      "document_id": "cc124-oil-euro-followup-20261106",
+      "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+      "label": "Capital Chronicle"
+    },
+    {
+      "document_id": "cc124-oil-euro-followup-20261106",
+      "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+      "label": "Capital Chronicle"
+    }
+  ],
+  "source_lineage": [
+    {
+      "document_id": "cc124-oil-euro-followup-20261106",
+      "source_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+    },
+    {
+      "document_id": "cc124-oil-euro-followup-20261106",
+      "source_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+    },
+    {
+      "document_id": "cc124-oil-euro-followup-20261106",
+      "source_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+    }
+  ],
+  "underlying_source_rights_status": "attributed_facts_independent_chart",
+  "data_card_packet": {
+    "policy": "CC144_EVERY_POST_VISUAL_V1",
+    "facts": [
+      {
+        "claim_id": "lead-gold",
+        "text": "Gold's divergence challenges a uniform dollar account.",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-oil-euro-followup-20261106",
+        "support_excerpt": "while gold made no lower low, so gold stopped following the USD leg.",
+        "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+        "rights_class": "capital_chronicle_own_report",
+        "rights_binding_sha256": "5842648e139902ae70dc704710b81da1d7e2eeba8fdbf4b70971390bedbe7d20",
+        "publisher": "Capital Chronicle",
+        "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+      },
+      {
+        "claim_id": "body-oil-supply",
+        "text": "The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-oil-euro-followup-20261106",
+        "support_excerpt": "WTI moved on Hormuz supply risk, against equities.",
+        "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+        "rights_class": "capital_chronicle_own_report",
+        "rights_binding_sha256": "5842648e139902ae70dc704710b81da1d7e2eeba8fdbf4b70971390bedbe7d20",
+        "publisher": "Capital Chronicle",
+        "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+      },
+      {
+        "claim_id": "body-oil-range",
+        "text": "Its conditional oil thesis needs the contracting range to break upward.",
+        "source_id": "SOURCE_1",
+        "document_id": "cc124-oil-euro-followup-20261106",
+        "support_excerpt": "so the target needs the contracting range to break upward",
+        "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+        "rights_class": "capital_chronicle_own_report",
+        "rights_binding_sha256": "5842648e139902ae70dc704710b81da1d7e2eeba8fdbf4b70971390bedbe7d20",
+        "publisher": "Capital Chronicle",
+        "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+      }
+    ],
+    "design": "CC290_SITE_FACT_CARD_V2",
+    "text_presentation": "PLAIN_EMPHASIS_AND_DATED_REVIEW_ATTRIBUTION_V1",
+    "title": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test",
+    "dated_line": "Capital Chronicle"
+  },
+  "transform_sha256": "3686e830033ce0a8774d9b67c8b2f37e8ef78679df0cbc9c6205cb874fc4e59a",
+  "publication_authority": false
+}

@@ -1,0 +1,32 @@
+{
+  "operation_id": "cc124-nfp-arrival-review-20261106-v1",
+  "stage": "main-report-source-preparation",
+  "sources": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+      "sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\run.json",
+      "sha256": "768e6f986439bec3a8bd1bf6a2d67bc86705e21241044b83df7b4778280126b9"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336"
+    }
+  ],
+  "role": {
+    "model": "gpt-6.1-sol",
+    "effort": "low"
+  },
+  "source_root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-2050\\source",
+  "result_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-2050\\source-preparation-result.json",
+  "known_at_utc": "2026-11-06T13:34:06Z",
+  "previous_article": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-107\\run-20261106\\article-draft.md",
+  "requirements": [
+    "Prepare exact Main-report excerpts through main_report_projection_source_v1.verify_projection. Use prior CC-107 nfp-review-held-arrival.json source_spec and add useful bounded qualitative mechanism/countercase excerpts from DOSSIER.md. Preserve exact source bytes and fragment offsets; do not paraphrase source spans.",
+    "Create source/index.json with contentops.retained_source_research.v1 and one CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION record, authority_ref JIM_DECISION_89, headline_id cc124-nfp-arrival-review-20261106, urn source_url, exact known_at and actual revision_at. Explain outcome +165K payrolls and unemployment 4.1%, while Main's pre-event strong condition held. Exclude private execution/account identifiers, entry/stop/target/size, raw third-party prices/tables, uncalibrated numerical probabilities and private consensus rows. No market reaction or fill/performance claim without evidence. Main report is attributed analysis; use report truth semantics.",
+    "Create source-claim-trace.json plus result path with actual native task identity, configured model/effort labelled CONFIGURED_NOT_OBSERVED, paths/hashes, novelty, limits and chart/data requirements. Review source spans with existing verifier. No public copy, commits, tests, browser, source fetching, code edits outside this run folder, publication or chat messages.",
+    "The parent handles official supporting history and components separately, then invokes the native selection request; do not require new Main work or a full first-day reaction timeline to use held release facts. Public times ET; records UTC."
+  ]
+}

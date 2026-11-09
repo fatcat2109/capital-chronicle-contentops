@@ -1,0 +1,93 @@
+{
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "operation_id": "cc107-nfp-preview-20261106-v1",
+  "public_write_authorized": true,
+  "request": {
+    "action": "PUBLISH",
+    "canonical_url": "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+    "content_binding": {
+      "artifact_manifest": [
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-nfp-preview-20261106-v1\\reviewed-handoff\\79b99d7ee60be54b75d1329e92163d030d965f52e82e1c2a521f9a525c964a8d\\run_context_v1.json",
+          "sha256": "4703b98bb4581fa43ac37966538abde7566893aa5539f4c78b1fa2a2d3b87c54"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-nfp-preview-20261106-v1\\reviewed-handoff\\79b99d7ee60be54b75d1329e92163d030d965f52e82e1c2a521f9a525c964a8d\\delivery_media_manifest_v1.json",
+          "sha256": "5cdf489d4e4311b2d2121f6e5daa16531c2cc7f5fb81d717d4a889f12d2dc792"
+        }
+      ],
+      "expected_text_segments": [
+        "Update: NFP preview: why a payroll beat needs help from unemployment\n\nA payroll beat alone cannot settle the October jobs story. Watch unemployment, revisions and wages, then ask whether rates and the dollar agree.\n\nWhat to watch: Indices: Better employment could improve revenue expectations even as higher yields weigh on valuations. A weak report could ease discount-rate pressure while raising earnings concerns. Growth and interest rates can therefore point equities in opposite directions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS."
+      ],
+      "expected_thread_texts": [],
+      "media_manifest": [
+        {
+          "alt_text": "What range of initial payroll estimates forms the baseline for judging the October report?",
+          "asset_id": "payroll_first_print_trend_cc107",
+          "attribution": "Source: BLS dated first releases. October 2024\u2013September 2026; each month retains its first print.",
+          "caption": "Nonfarm payroll change, seasonally adjusted, October 2024\u2013September 2026. Source: BLS dated first releases; each month retains its first print. September is the latest reported month in this preview. Sources: [U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 02 Oct 2026](https://www.bls.gov/news.release/archives/empsit_10022026.htm).",
+          "modality": "source_backed_chart",
+          "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-preview-20261106-v1\\media\\payroll_first_print_trend_cc107.png",
+          "placement_after": "The headline has to survive the revisions",
+          "sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+          "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+        }
+      ],
+      "thread_post_count": 0
+    },
+    "destination": "youtube",
+    "dispatch_attempt_identity": "dispatch_c490f9d3056ccdc2363755792f7be269",
+    "entry_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
+    "expected_identity": "@CapitalChronicleYouTube",
+    "forbidden": [
+      "login",
+      "reauthorize",
+      "account_switch",
+      "cookies",
+      "storage",
+      "blind_retry",
+      "bulk_x_ingestion"
+    ],
+    "intent_sha256": "9f135c00bc537b9c7c144997b8d34a41b78023edc53306ca8c42a133c14b3cbe",
+    "native_payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "payroll_first_print_trend_cc107"
+      ],
+      "media_source_links": {
+        "payroll_first_print_trend_cc107": [
+          {
+            "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+            "label": "U.S. Bureau of Labor Statistics (CC-010 first-print projection) \u00b7 02 Oct 2026",
+            "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm"
+          }
+        ]
+      },
+      "platform_limit": 1000,
+      "text": "Update: NFP preview: why a payroll beat needs help from unemployment\n\nA payroll beat alone cannot settle the October jobs story. Watch unemployment, revisions and wages, then ask whether rates and the dollar agree.\n\nWhat to watch: Indices: Better employment could improve revenue expectations even as higher yields weigh on valuations. A weak report could ease discount-rate pressure while raising earnings concerns. Growth and interest rates can therefore point equities in opposite directions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS."
+    },
+    "package_identity": "25840a6fef8f75e1bf709642facd164487f636e3cc21bcc0427f2f94fb2255fa",
+    "payload": "Update: NFP preview: why a payroll beat needs help from unemployment\n\nA payroll beat alone cannot settle the October jobs story. Watch unemployment, revisions and wages, then ask whether rates and the dollar agree.\n\nWhat to watch: Indices: Better employment could improve revenue expectations even as higher yields weigh on valuations. A weak report could ease discount-rate pressure while raising earnings concerns. Growth and interest rates can therefore point equities in opposite directions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs\n\nAnalysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nSource: BLS.",
+    "payload_hash": "4a2953a0443d7874a74856722a0e7d0700d28efbf1eea1ca642f5f4aa7d2c9b0",
+    "public_object_id": null,
+    "public_object_url": null,
+    "request_sha256": "45c3a4e9eedfa25d51fff1870aa595c506b0230a4574a26f92f25fb1a1367985",
+    "schema_version": "contentops.neo_destination_handoff.v1",
+    "steps": [
+      "name_session; list tabs, open a task-owned tab",
+      "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+      "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+      "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+      "read back stable public object ID, exact public URL, identity and content; preserve ambiguity"
+    ],
+    "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+    "surface": "YOUTUBE_COMMUNITY_POST",
+    "work_item_id": "cc107-nfp-preview-20261106-v1"
+  },
+  "required_tool": "mcp__browseros_neo__run",
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "tool_request_sha256": "6b924c357247af16cd239660df56bbccbce90a05f007ee2c233430fd18b96d53",
+  "action_claimed": false,
+  "next_operation": "publication-tool-begin"
+}

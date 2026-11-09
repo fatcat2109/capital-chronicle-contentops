@@ -1,0 +1,421 @@
+{
+  "accepted_evidence_sha256": "d2bf24a1cf3e5179c7b908441224452b8f6c71a75ebc8aa5500f30585ec0151d",
+  "article_identity": "2d8e36972f630378df9b6ea7ae8b870f5c0b8c0712a1da9a653bb9c2017c29fb",
+  "artifact_sha256": {
+    "article_manifest_v1.json": "0bd3bdce16c69ff2917cb611ebdca298c087cf7a39c1f1d28d4688c0f0cac006",
+    "native_derivative_previews_v1.json": "1015dd5c76021c9c91562dcd3cb4ffaa242ad47581c9bc9e0cb1f527dfeb1b82",
+    "publication_lifecycle_plan_v1.json": "7515ff22f141bf3c6f1923dc87cdeaeb6e8f5d9e129e835a22da822da7d1913d",
+    "qualified_article_record_v1.json": "6e6f03ded620314c88f71dd0fc84035cdda690e89475cbe31b13354e14dd9f61",
+    "run_context_v1.json": "4703b98bb4581fa43ac37966538abde7566893aa5539f4c78b1fa2a2d3b87c54"
+  },
+  "binding_sha256": "b8ad524b965ccd7a51e52bc13af9d79437b641612863ad4ab9bed604c2df1e24",
+  "media_sha256": {
+    "cc074-archive-warsh-20260522": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+    "payroll_first_print_trend_cc107": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+    "september_sector_breakdown": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+    "unemployment_first_print_trend": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b"
+  },
+  "native_result_sha256": "f7f8242569d33ac373e77f0543de53b076eb978e8813f672a129e182a00378ce",
+  "plan_hash": "4cd8e5f67f968488d936e1db3e5ba46d97811fc7458a47f695ec1fceb0ff85bb",
+  "prepared_handoff_sha256": "2b3cae47d1cf89922133151442146d2052df3b002d6abbe56f9a7a15bf8f18ac",
+  "publication_authority": false,
+  "review_id": "native-article-review-311c3822475c4804bf859c56da23916e",
+  "review_notes_sha256": "fca8290c00374358986cf6a5957071dc70bd9fe9c94f2a486778a42d5fe4f66f",
+  "run_id": "cc107-nfp-preview-20261106-v1",
+  "schema_version": "contentops.native_publication_binding.v1",
+  "work_item_id": "cc107-nfp-preview-20261106-v1",
+  "canonical_article_status": "REAL_PUBLISHED",
+  "canonical_article_real_published": true,
+  "canonical_url": "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+  "canonical_publication_status": "FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED",
+  "distribution_status": "FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED",
+  "transaction_classification": "FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED",
+  "derivative_confirmed_count": 8,
+  "derivative_attempted_count": 8,
+  "derivative_unknown_count": 0,
+  "derivative_absent_safe_to_retry_count": 0,
+  "derivative_failed_count": 0,
+  "derivative_never_attempted_count": 0,
+  "recovery_required_destinations": [],
+  "readback_limitation_destinations": [
+    "youtube"
+  ],
+  "unknown_write_detected": false,
+  "unknown_write_count": 0,
+  "additional_destinations": {
+    "linkedin_company": {
+      "destination": "linkedin_company",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_ea6fef69841a1b77ebabac38c599af4e",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524462065680285696",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_AUTHENTICATED",
+      "blocker": null
+    }
+  },
+  "additional_confirmed_count": 1,
+  "additional_recovery_required_destinations": [],
+  "state": "DISTRIBUTION_INCOMPLETE",
+  "operation_scope": "OWNER_MANUAL_LIVE",
+  "destinations": [
+    {
+      "destination": "substack",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_a260b1cce70fc7a3a71bb1f7f7db51e3",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "223763353",
+      "public_object_url": "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_AUTHENTICATED",
+      "blocker": null
+    },
+    {
+      "destination": "telegram",
+      "transport": "BOT_API",
+      "dispatch_id": "dispatch_3ef1e93c8e2461adc23105c0f0507177",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "96",
+      "public_object_url": "https://t.me/CapitalChronicle/96",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": null
+    },
+    {
+      "destination": "discord",
+      "transport": "WEBHOOK_API",
+      "dispatch_id": "dispatch_497a35c5139079bd6b576d0de801f44b",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "1568249134022926396",
+      "public_object_url": null,
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": null
+    },
+    {
+      "destination": "x",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_7744b7c45d5ec7723b71728ea4277716",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "2118693801451823351",
+      "public_object_url": "https://x.com/Capitalnicle/status/2118693801451823351",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_AUTHENTICATED",
+      "blocker": null
+    },
+    {
+      "destination": "linkedin",
+      "transport": "OFFICIAL_MEMBER_API",
+      "dispatch_id": "dispatch_437c79c189ad89436dfc9826e0c54bcf",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524460754750750720",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524460754750750720/",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": null
+    },
+    {
+      "destination": "facebook_page",
+      "transport": "META_GRAPH_API",
+      "dispatch_id": "dispatch_84e6b085fabc96863ebed2de0f68a319",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1446687330983016",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1446687330983016",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": null
+    },
+    {
+      "destination": "instagram_business",
+      "transport": "META_GRAPH_API",
+      "dispatch_id": "dispatch_2005d450bd2984e764f5c6782d30f9a6",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "17965687209215810",
+      "public_object_url": "https://www.instagram.com/p/DfZqv2MgVUW/",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": null
+    },
+    {
+      "destination": "threads",
+      "transport": "THREADS_API",
+      "dispatch_id": "dispatch_564f176e32c8f076898cd24dede59304",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "18121659562995811",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfZqy7Qnzbx",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_NON_BROWSER_BINDING",
+      "blocker": null
+    },
+    {
+      "destination": "youtube",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_c490f9d3056ccdc2363755792f7be269",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "public_object_id": "UgkxgzPknumtaawPLwOIxiH0-Yd6m6QcbZin",
+      "public_object_url": "https://www.youtube.com/post/UgkxgzPknumtaawPLwOIxiH0-Yd6m6QcbZin",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_AUTHENTICATED",
+      "blocker": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
+    },
+    {
+      "destination": "linkedin_company",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_ea6fef69841a1b77ebabac38c599af4e",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "urn:li:activity:7524462065680285696",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+      "dispatch_recorded": true,
+      "cached_readiness": "READY_AUTHENTICATED",
+      "blocker": null
+    }
+  ],
+  "timing": {
+    "policy": "JIM_DECISION_53",
+    "target_minutes": 15,
+    "text_approved_at_utc": "2026-11-06T12:46:46.675168+00:00",
+    "dispatch_deadline_utc": "2026-11-06T13:01:46.675168+00:00",
+    "channels": [
+      {
+        "destination": "substack",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T12:51:49.664589+00:00",
+        "dispatched_at_utc": "2026-11-06T12:58:21.432Z",
+        "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+        "seconds_after_text_approval": 694.756832,
+        "within_target": true,
+        "first_verified_readback_at_utc": "2026-11-06T13:01:07.652000+00:00",
+        "readback_seconds_after_text_approval": 860.976832,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T13:02:48.305011+00:00",
+        "dispatched_at_utc": "2026-11-06T13:02:48.305011+00:00",
+        "timing_basis": "API_TRANSPORT_CALL",
+        "seconds_after_text_approval": 961.629843,
+        "within_target": false,
+        "first_verified_readback_at_utc": "2026-11-06T13:02:50.986003+00:00",
+        "readback_seconds_after_text_approval": 964.310835,
+        "image_verified_readback_at_utc": "2026-11-06T13:02:50.986003+00:00",
+        "finished_piece_within_30_minutes": true,
+        "skipped": false
+      },
+      {
+        "destination": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T13:02:09.453682+00:00",
+        "dispatched_at_utc": "2026-11-06T13:02:11.978654+00:00",
+        "timing_basis": "VERIFIED_READBACK_UPPER_BOUND",
+        "seconds_after_text_approval": 925.303486,
+        "within_target": null,
+        "first_verified_readback_at_utc": "2026-11-06T13:02:11.978654+00:00",
+        "readback_seconds_after_text_approval": 925.303486,
+        "image_verified_readback_at_utc": "2026-11-06T13:02:11.978654+00:00",
+        "finished_piece_within_30_minutes": true,
+        "skipped": false
+      },
+      {
+        "destination": "x",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T13:04:37.894602+00:00",
+        "dispatched_at_utc": "2026-11-06T13:17:52.052Z",
+        "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+        "seconds_after_text_approval": 1865.376832,
+        "within_target": false,
+        "first_verified_readback_at_utc": "2026-11-06T13:31:56.425000+00:00",
+        "readback_seconds_after_text_approval": 2709.749832,
+        "image_verified_readback_at_utc": "2026-11-06T13:31:56.425000+00:00",
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "linkedin",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T13:04:39.473052+00:00",
+        "dispatched_at_utc": "2026-11-06T13:20:37.627Z",
+        "timing_basis": "NATIVE_ACTION_OBSERVED",
+        "seconds_after_text_approval": 2030.951832,
+        "within_target": false,
+        "first_verified_readback_at_utc": "2026-11-06T13:33:20.130000+00:00",
+        "readback_seconds_after_text_approval": 2793.454832,
+        "image_verified_readback_at_utc": "2026-11-06T13:33:20.130000+00:00",
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "facebook_page",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T13:27:20.570797+00:00",
+        "dispatched_at_utc": "2026-11-06T13:27:20.570797+00:00",
+        "timing_basis": "API_TRANSPORT_CALL",
+        "seconds_after_text_approval": 2433.895629,
+        "within_target": false,
+        "first_verified_readback_at_utc": "2026-11-06T13:27:26.924592+00:00",
+        "readback_seconds_after_text_approval": 2440.249424,
+        "image_verified_readback_at_utc": "2026-11-06T13:27:26.924592+00:00",
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "instagram_business",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T13:02:25.878817+00:00",
+        "dispatched_at_utc": "2026-11-06T13:02:25.878817+00:00",
+        "timing_basis": "API_TRANSPORT_CALL",
+        "seconds_after_text_approval": 939.203649,
+        "within_target": false,
+        "first_verified_readback_at_utc": "2026-11-06T13:02:45.735841+00:00",
+        "readback_seconds_after_text_approval": 959.060673,
+        "image_verified_readback_at_utc": "2026-11-06T13:02:45.735841+00:00",
+        "finished_piece_within_30_minutes": true,
+        "skipped": false
+      },
+      {
+        "destination": "threads",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T13:02:51.827326+00:00",
+        "dispatched_at_utc": "2026-11-06T13:02:51.827326+00:00",
+        "timing_basis": "API_TRANSPORT_CALL",
+        "seconds_after_text_approval": 965.152158,
+        "within_target": false,
+        "first_verified_readback_at_utc": "2026-11-06T13:03:27.953839+00:00",
+        "readback_seconds_after_text_approval": 1001.278671,
+        "image_verified_readback_at_utc": "2026-11-06T13:03:27.953839+00:00",
+        "finished_piece_within_30_minutes": true,
+        "skipped": false
+      },
+      {
+        "destination": "youtube",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T13:04:42.727688+00:00",
+        "dispatched_at_utc": "2026-11-06T13:20:37.664Z",
+        "timing_basis": "NATIVE_RETURN_OBSERVED_UPPER_BOUND",
+        "seconds_after_text_approval": 2030.988832,
+        "within_target": false,
+        "first_verified_readback_at_utc": null,
+        "readback_seconds_after_text_approval": null,
+        "image_verified_readback_at_utc": null,
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      },
+      {
+        "destination": "linkedin_company",
+        "status": "DISPATCH_CONFIRMED",
+        "attempted_at_utc": "2026-11-06T13:04:41.137501+00:00",
+        "dispatched_at_utc": "2026-11-06T13:25:51.136Z",
+        "timing_basis": "NATIVE_ACTION_OBSERVED",
+        "seconds_after_text_approval": 2344.460832,
+        "within_target": false,
+        "first_verified_readback_at_utc": "2026-11-06T13:33:22.173000+00:00",
+        "readback_seconds_after_text_approval": 2795.497832,
+        "image_verified_readback_at_utc": "2026-11-06T13:33:22.173000+00:00",
+        "finished_piece_within_30_minutes": false,
+        "skipped": false
+      }
+    ],
+    "all_channels_dispatched_within_target": false,
+    "finished_piece_acceptance": {
+      "item": "CC-199",
+      "target_minutes": 30,
+      "all_destinations_with_image_readbacks_within_target": false
+    },
+    "state": "OVERDUE_CONTINUE_PUBLICATION"
+  },
+  "skipped_destinations": [],
+  "pending_requests": [],
+  "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+  "next_operation": "publication-resume",
+  "dispatch_continuation_operation": "publication-resume",
+  "next_command": "python scripts/run_native_desktop_editorial.py publication-resume --binding \"A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-nfp-preview-20261106-v1\\native_operation_binding.json\" --native-invocation-id <actual-turn-id> --rollout config/native_desktop_rollout_v1.json",
+  "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale.",
+  "final_visual_acceptance": {
+    "review_type": "WRITER_ONE_EDITOR_CHECK_PUBLISH",
+    "policy_id": "JIM_DECISION_53",
+    "review_id": "native-article-review-311c3822475c4804bf859c56da23916e",
+    "text_approved_at_utc": "2026-11-06T12:46:46.675168+00:00",
+    "automated_media_check": {
+      "policy": "JIM_DECISION_53",
+      "check": "IMAGE_LOAD_AND_SIZE_ONCE",
+      "findings": [
+        {
+          "asset_id": "payroll_first_print_trend_cc107",
+          "sha256": "c8b26f95e130c5490da5028837b91ab5f2352d24d5b0c13ed433b34584383a60",
+          "pixels_inspected": false,
+          "loads": true,
+          "width": 1440,
+          "height": 1040,
+          "expected_dimensions": [
+            1440,
+            1040
+          ],
+          "right_size": true,
+          "status": "PASS"
+        },
+        {
+          "asset_id": "september_sector_breakdown",
+          "sha256": "2bb1bd99db2b1c6b3f2060ed05d71355ddeb237db4a6f85829ca6b33b6de027a",
+          "pixels_inspected": false,
+          "loads": true,
+          "width": 1440,
+          "height": 1040,
+          "expected_dimensions": [
+            1440,
+            1040
+          ],
+          "right_size": true,
+          "status": "PASS"
+        },
+        {
+          "asset_id": "unemployment_first_print_trend",
+          "sha256": "f80105d8a1f7a3df2bc67664108fcd7cd0a423f09ad47580a25d8aa32338a74b",
+          "pixels_inspected": false,
+          "loads": true,
+          "width": 1440,
+          "height": 1040,
+          "expected_dimensions": [
+            1440,
+            1040
+          ],
+          "right_size": true,
+          "status": "PASS"
+        },
+        {
+          "asset_id": "cc074-archive-warsh-20260522",
+          "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+          "pixels_inspected": false,
+          "loads": true,
+          "width": 635,
+          "height": 900,
+          "expected_dimensions": [
+            635,
+            900
+          ],
+          "right_size": true,
+          "status": "PASS"
+        }
+      ],
+      "failures_logged_no_repair_loop": 0,
+      "blocks_publication": false
+    },
+    "pixels_inspected": false
+  },
+  "site_url": null,
+  "site_publication_confirmed": false,
+  "substack_publication_confirmed": true
+}

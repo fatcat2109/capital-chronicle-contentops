@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-11-09T11:38:30.760805+00:00",
+  "operating_head": "84d45ae14b96ac735a4ba76f9852c919addf6f57",
+  "production_date": "2026-11-09",
+  "daily_article_limit": 2,
+  "published_canonicals": [
+    "https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran"
+  ],
+  "active_leases": [],
+  "source_hashes": {
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+    "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e"
+  },
+  "research_revision": "a0066997f4e0ee27480ea39b902a729da3134276dfa0483c174168cce9b67631",
+  "document_ids": [
+    "cc124-pre-us-main-20261109",
+    "cc124-pre-us-opus-scenarios-20261109"
+  ],
+  "gaps": [],
+  "current_public_plan_rows": 4,
+  "source_consumer": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\contentops_source_research_v1.py",
+  "configured_launch": {
+    "process_id": 37008,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "observation": "CONFIGURED_NOT_OBSERVED"
+  },
+  "choice": "Use new Monday Main analytical paragraphs and their market-specific estimates; dated Opus weekly scenarios remain explicitly dated, never silently recalibrated or treated as joint probabilities from separate market estimates."
+}

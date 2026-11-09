@@ -1,0 +1,56 @@
+{
+  "observed_at_utc": "2026-11-08T10:36:07.168422+00:00",
+  "status": "PASS",
+  "checks": {
+    "binding_bytes_unchanged_since_prior_run": true,
+    "writer_request_bytes_unchanged_since_prior_run": true,
+    "writer_return_absent": true,
+    "operation_dispatches_absent": true,
+    "no_active_newsroom_lease": true,
+    "all_eight_inherited_modified_files_preserved": true,
+    "installed_research_reader_verified_three_records": true,
+    "installed_export_reader_observes_missing_alternative_probabilities": true,
+    "all_fourteen_full_report_hashes_unchanged": true,
+    "latest_daily_report_unchanged": true,
+    "weekend_article_capacity_available": true,
+    "item_contract_preserved": true
+  },
+  "first_cause": "JIM_DECISION_93_MAIN_SCENARIOS_INCOMPLETE",
+  "next_due_utc": "2026-11-08T18:00:00+00:00",
+  "next_due_gmt7": "9 Nov 2026 01:00 GMT+7",
+  "next_due_rule": "Decision 94 ends at 9 Nov 01:00 GMT+7; the six-hour interval since this start has already elapsed then.",
+  "next_actor": "Main report producer, then Codex Publisher",
+  "next_action": "Main supplies a dated post-release base case and alternative with explicit probabilities, confirmation, six-market implications and invalidation. Publisher consumes that version in the existing operation/source-review path.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_provenance": "CONFIGURED_NOT_OBSERVED",
+  "new_publications": 0,
+  "new_editorial_model_calls": 0,
+  "new_source_requests": 0,
+  "new_media": 0,
+  "new_destination_drafts": 0,
+  "pytest_processes_started": 0,
+  "runtime_code_changed": false,
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "desktop_control_used": false,
+  "inherited_wip_sha256": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec": {
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "adcf8f92d3dc38f8ece8a08cc363a0b6d0f8ecac2e711df2469b193a9c26b7cd",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "1cc4f6e6b95194d9093390cf5ccfd5c8f133fdfd016c6b463597fa17ed595483"
+    },
+    "A:\\Capital Chronicle\\ContentOps": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "58ed65ba9fa0dcab0ba90555ff67343c5f5e193fe5593e38319f6e8cd7765ca4",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    }
+  },
+  "publication_feed_sha256": "c3108c317cbbc41b7bb719cf3c8460fb158c111e5bd1d28c663b9cf951f2cd02",
+  "reader_implementation_sha256": {
+    "A:\\Capital Chronicle\\ContentOps\\live_contentops\\contentops_source_research_v1.py": "6385fa3e3cfb1f50b73c40934ac4510d03c9b829ea6e351649326b2638f5ff77",
+    "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py": "f8a9a5ab34358cabf49887b79aff5a8b7d92617c74baa7a62ad6e8847eaaed8d"
+  }
+}

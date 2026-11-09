@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-06T13:57:39.392115+00:00",
+  "verifier": "RetainedSourceResearch",
+  "records": [
+    "cc124-nfp-arrival-review-20261106",
+    "bls-october-release",
+    "bls-october-sectors"
+  ],
+  "gaps": [],
+  "source_index_sha256": "78995d62efe3a0da6bf378cfd97c99b0a09a0f22055548789f22625251285e15",
+  "public_write_performed": false
+}

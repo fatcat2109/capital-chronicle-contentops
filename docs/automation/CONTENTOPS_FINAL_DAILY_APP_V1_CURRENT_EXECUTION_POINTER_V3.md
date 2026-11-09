@@ -1,5 +1,13 @@
 # ContentOps V1 current execution pointer
 
+## Current decision 93 — 6 November 2026
+
+New articles, including events, are capped at two per existing production day.
+CC-124's standing cadence is six hours. Use the root contract's new-image and
+Main-scenario rules and the existing consumers documented in
+[CC-333](../publisher/CC-333/README.md). The older 5–8/day and no-image directions
+below describe prior policy. Do not alter schedules or historical objects.
+
 ## Permanent final-media review and direct repair — 27 October 2026
 
 Jim's actual messages01a17b8c-11a4-78b0-8686-d3ca0b1bcb6a,01a17b92-5b16-7a02-92d2-39c33c9df307 and01a17b94-5870-7402-9f46-c736f10052fe were verified via read_thread in assigned L2. The [permanent final-product rule](CONTENTOPS_V1_FINAL_MEDIA_REVIEW_AND_REPAIR_RULE_V1.md) is mandatory for every V1 article and material revision.

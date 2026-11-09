@@ -1,0 +1,49 @@
+{
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "run_id": "cc341-weekend-wrap-20261109-r2",
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "status": "PASS",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "width": 800,
+    "height": 400
+  },
+  "assets": [
+    {
+      "media_asset_id": "tradingview-snapshot-7af80bd55b91edf4d55c",
+      "media_role": "delivery_only",
+      "modality": "tradingview_chart_snapshot",
+      "source_page_url": "https://www.tradingview.com/chart/?symbol=TVC:USOIL&interval=60",
+      "absolute_local_source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc341-weekend-wrap-20261109-r2\\media\\market-snapshot\\tradingview-48c3fbce2946e24e-16x9.png",
+      "sha256": "7af80bd55b91edf4d55c30c512319d5dd2ff1caa9db7c81363f030a1aeeff327",
+      "declared_sha256": "7af80bd55b91edf4d55c30c512319d5dd2ff1caa9db7c81363f030a1aeeff327",
+      "mime_type": "image/png",
+      "width": 1524,
+      "height": 858,
+      "source_provenance": {
+        "status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+        "source_label": null,
+        "source_page_url": "https://www.tradingview.com/chart/?symbol=TVC:USOIL&interval=60",
+        "caption": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week: 1h chart (TVC:USOIL). Chart: TradingView."
+      },
+      "chart_title": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week: 1h chart (TVC:USOIL). Chart: TradingView.",
+      "alt_text": "TradingView 1h candlestick chart of WTI crude oil (TVC CFD), TVC:USOIL, captured 19:15 ET on 8 November 2026.",
+      "canonical_article_section_association": "tradingview-snapshot-7af80bd55b91edf4d55c",
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/eaa9c533-7e35-483d-bb58-f27cc32b2bf7_1524x858.png",
+      "public_delivery_sha256": "7af80bd55b91edf4d55c30c512319d5dd2ff1caa9db7c81363f030a1aeeff327",
+      "local_public_hash_continuity": true
+    }
+  ],
+  "selected_primary_media_asset_id": "tradingview-snapshot-7af80bd55b91edf4d55c",
+  "selected_primary_media_sha256": "7af80bd55b91edf4d55c30c512319d5dd2ff1caa9db7c81363f030a1aeeff327",
+  "remote_objects_audited": [
+    {
+      "supplied_url": "https://substack-post-media.s3.amazonaws.com/public/images/eaa9c533-7e35-483d-bb58-f27cc32b2bf7_1524x858.png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/eaa9c533-7e35-483d-bb58-f27cc32b2bf7_1524x858.png",
+      "sha256": "7af80bd55b91edf4d55c30c512319d5dd2ff1caa9db7c81363f030a1aeeff327",
+      "mime_type": "image/png",
+      "width": 1524,
+      "height": 858
+    }
+  ]
+}

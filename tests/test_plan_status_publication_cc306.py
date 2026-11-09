@@ -53,6 +53,11 @@ def fake_host(*, work_item_id, delivery_only_assets, existing_manifest, article_
 def queued(tmp_path, export_fixture, main_root):
     store, transport, coordinator = _coordinator(tmp_path, runtime=FixtureTransport())
     _set_mode(store, "AUTONOMOUS_DEFAULT")
+    # Oil's setup went out earlier, so its cancellation is news readers can follow (Jim, 6 Nov).
+    from live_contentops.plan_status_posts_v1 import DESTINATION as _D, WORK_ITEM_ID as _W
+    store.create_work_item(story_id=_W, title="Plan status posts (decision 79)", target_surface="MULTI_PLATFORM", work_item_id=_W)
+    store.register_outbox_message(message_id="announced-plan_oil", work_item_id=_W, destination=_D, status="PUBLISHED",
+                                  payload=json.dumps({"plan_id": "plan_oil", "state": "WAITING"}))
     result = queue_posts(store, export_fixture, now=NOW, main_root=main_root, python=sys.executable)
     keys = {(q["symbol"], q["state"]): q["key"] for q in result["queued"]}
     return store, transport, coordinator, keys, tmp_path / "posts"
@@ -173,6 +178,7 @@ def test_a_stale_x_request_is_never_claimed_for_a_write(queued, monkeypatch):
             raise AssertionError("a stale X post must not be claimed")
 
     monkeypatch.setattr("live_contentops.native_neo_executor_v1.NativeNeoExecutor", Packet)
+    monkeypatch.setattr("live_contentops.plan_status_posts_v1.read_transitions", lambda: [])
     store, _, _, keys, _ = queued
     with pytest.raises(PlanPostError, match="PLAN_STATUS_X_STALE_NOT_POSTED"):
         begin_x(store, keys[("XAUUSD", "TRIGGERED")], "a" * 64, native_invocation_id="agent",
@@ -226,6 +232,7 @@ def test_a_hosted_card_is_reused_without_a_provider_call(queued):
 def test_x_is_only_issued_by_the_agent_route_and_never_when_stale(queued, monkeypatch):
     from datetime import timedelta
     from live_contentops.plan_status_posts_v1 import start_x
+    monkeypatch.setattr("live_contentops.plan_status_posts_v1.read_transitions", lambda: [])
     store, _, _, keys, root = queued
     key = keys[("XAUUSD", "TRIGGERED")]
     with pytest.raises(PlanPostError, match="PLAN_STATUS_X_STALE_NOT_POSTED"):

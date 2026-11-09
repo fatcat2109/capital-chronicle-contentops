@@ -1,0 +1,89 @@
+{
+  "operation_id": "cc124-six-markets-20261106-v1",
+  "article_identity": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+  "revision": "fa76de42a70fc58c98d55edf983768b043028141e941ded3c30c9a0848e9eaf0",
+  "decision": "REPAIR_REQUIRED",
+  "text_approved": false,
+  "recorded_at_utc": "2026-11-06T08:04:15.919866+00:00",
+  "editor_role": "SAME_WRITER_FINAL_EDITOR_CHECK",
+  "invocation_observation": {
+    "invocation_id": "/root/cc124_six_market_max",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "observation_source": "supported native task context",
+    "model": null,
+    "reasoning_effort": null,
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true,
+    "speed": "standard",
+    "configuration_source": "Exact SAME MAX final-editor assignment for A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\editor-check-input.json; task /root/cc124_six_market_max"
+  },
+  "inspected_input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\editor-check-input.json",
+  "inspected_input_sha256": "db8b4d951b8a00a09939d3d2b538893a681b02f8a656efd5464553c8f6c62369",
+  "review_scope": [
+    "Complete canonical article and public metadata in editor-check-input.json",
+    "All eight payloads, including every X post and Threads post and their complete chains",
+    "Exact comparison card pixels through view_image",
+    "Photo metadata and previously inspected source photo at the same original SHA256"
+  ],
+  "material_issues": [
+    {
+      "code": "ASSEMBLED_INPUT_RETAINS_PRE_REPAIR_COPY",
+      "finding": "The supplied assembled canonical body is byte-identical to the original writer body, not the completed bounded revision. Its Gold and US500 paragraphs do not contain the explicit named Capital Chronicle attribution added by desktop_response_revise.json, and its public closing notice still contains the internal name Main.",
+      "assembled_body_sha256": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "original_writer_body_sha256": "c30ba72b539d36726abe218ff0703e77323c6b875b454a8644d300373347e08a",
+      "bounded_revised_body_sha256": "26298d484c41c4cdfffa5f5cc99d9df0932c24f7cde1bb940dffacba47e9173c",
+      "assembled_equals_original_writer": true,
+      "assembled_equals_bounded_revision": false,
+      "expected_current_response_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1424\\desktop_response_revise.json",
+      "expected_current_response_sha256": "15cb48615ba601381b67db58ec7066aa6a0fbb7de6efc48b88dc3d896d4f5af2",
+      "next_action": "Assemble the saved bounded revision through the existing owner, including its updated claim bindings and cleaned public scope notice; regenerate the eight payloads and present the resulting exact identity to this same editor. No new source or substantive rewrite is needed."
+    },
+    {
+      "code": "INTERNAL_PRODUCT_NAME_IN_ALL_DERIVATIVE_NOTICES",
+      "finding": "All eight derivative payloads contain Capital Chronicle's dated Main report. The existing bounded revision replaces it with Capital Chronicle's dated review.",
+      "affected_destinations": [
+        "telegram",
+        "x",
+        "linkedin",
+        "discord",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "next_action": "Use the cleaned public scope notice in the canonical body and derivative compiler input, while preserving the internal epistemic provenance record."
+    }
+  ],
+  "presentation_notes": [
+    "The card is legible, has no clipping or overlap, and its two passages match the supplied source-bound article passages. Literal markdown emphasis remains visible around EUR/USD on the card; plain-text X and Threads payloads similarly retain emphasis markers around market labels. Strip these rendering artifacts without changing words or claims.",
+    "The card labels both passages REPORTED FACT although the second is the review's qualitative comparison. A label such as From the dated review would preserve the source-versus-interpretation distinction more clearly."
+  ],
+  "positive_findings": [
+    "The six-market content remains a dated Capital Chronicle comparison, with competing mechanisms and coverage limits. It adds no numerical probability, target, size or execution/account detail.",
+    "The canonical body and each complete derivative chain retain the analysis, reader-choice and holdings notices.",
+    "Public text contains no forbidden preview-host link or non-New-York clock label. Date-only observations retain their source dates.",
+    "The photo remains the inspected 29 March 2011 archive image, with full Britt Leckman / Federal Reserve Board, Commons and public-domain credit in the canonical media record.",
+    "Derivative pending-publication URLs are preparation placeholders; the existing coordinator must replace them with the confirmed canonical URL before any derivative send."
+  ],
+  "media_inspected": [
+    {
+      "asset_id": "post-facts-d20ae2b692df6277c87d",
+      "sha256": "9f83695b0bfa70436fab957986e71ab7f7abf424a4d64d5257ed0231e4d6b335",
+      "inspection": "EXACT_LOCAL_CARD_PIXELS_VIEW_IMAGE_THIS_CHECK"
+    },
+    {
+      "asset_id": "cc124-eccles-archive-2011",
+      "sha256": "9daa459a37b2edae6159f9f4d98b7a2b91ef3d5e0cbd25b9fe85fb556f174a62",
+      "inspection": "SAME_WRITER_PREVIOUS_LOCAL_SOURCE_PHOTO_PIXELS_UNCHANGED"
+    }
+  ],
+  "publication_speed_policy": "JIM_DECISION_53",
+  "per_channel_screenshots_performed": false,
+  "public_write_attempted": false,
+  "limits": "This check covers the supplied assembly only. It does not approve a different article identity, claim publication or establish public-object readback."
+}

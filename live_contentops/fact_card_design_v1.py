@@ -21,6 +21,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from datetime import date, datetime, timezone
+from decimal import Decimal, localcontext
 from functools import lru_cache
 from pathlib import Path
 import re
@@ -91,13 +92,8 @@ class CardSpec:
 
 def card_date(now: datetime | None = None) -> str:
     """The card's own date, in New York like the site's public times (reader policy)."""
-    now = now or datetime.now(timezone.utc)
-    try:
-        from zoneinfo import ZoneInfo
-        local = now.astimezone(ZoneInfo("America/New_York"))
-    except Exception:  # tz database missing: UTC date is still a true date
-        local = now.astimezone(timezone.utc)
-    return f"{local:%B} {local.day}, {local.year}"
+    from live_contentops.public_time_v1 import public_date
+    return public_date(now or datetime.now(timezone.utc))
 
 
 def reader_date(value: str | None) -> str:
@@ -106,6 +102,9 @@ def reader_date(value: str | None) -> str:
     match = re.match(r"^(\d{4})-(\d{2})-(\d{2})", text)
     if not match:
         return text
+    if "T" in text:
+        from live_contentops.public_time_v1 import public_date
+        return public_date(text)
     parsed = datetime(int(match[1]), int(match[2]), int(match[3]))
     return f"{parsed:%B} {parsed.day}, {parsed.year}"
 
@@ -119,6 +118,35 @@ _DATE = re.compile(r"\b(?:" + _MONTHS + r") \d{1,2}, \d{4}\b")
 _PERIOD = re.compile(r"(?:(?:" + _MONTHS + r")(?: \d{1,2},)? \d{4}|Q[1-4] \d{4}|\d{4})")
 _SCHEDULED = re.compile(r"\b(?:scheduled|next|upcoming|due)\b", re.I)
 _GENERIC_LABELS = {"", "reported fact", "what happened", "key figure"}
+_COMPACT_NUMBER = re.compile(r"(?<![\w.])([-+−]?\$?)(\d[\d,]*(?:\.\d+)?)[ \t]*([KMBT])(?![\w])")
+_FULL_COUNT = re.compile(r"(?<![\w.])[-+−]?\$?(?:\d{1,3}(?:,\d{3})+|\d{5,})(?:\.\d+)?(?![\w.])")
+
+
+def full_number_text(text: str) -> str:
+    """Expand an explicit magnitude suffix without rounding or changing its value."""
+    def expand(match):
+        with localcontext() as context:
+            context.prec = len(match[2]) + 16
+            value = Decimal(match[2].replace(",", "")) * (Decimal(10) ** {"K": 3, "M": 6, "B": 9, "T": 12}[match[3]])
+            shown = format(value, ",f")
+        if "." in shown:
+            shown = shown.rstrip("0").rstrip(".")
+        return match[1] + shown
+    text = _COMPACT_NUMBER.sub(expand, text)
+    return re.sub(r"(?<![\w.])\d{5,}(?![\w.])", lambda match: format(int(match[0]), ","), text)
+
+
+def main_review_figure(facts: Sequence[tuple[str, str]]) -> tuple[str, str]:
+    """One exact displayed figure from a review fact, preferring its explicit count."""
+    for label, text in facts:
+        match = _COMPACT_NUMBER.search(text)
+        if match:
+            return label, full_number_text(match.group(0))
+    for label, text in facts:
+        match = _FULL_COUNT.search(text)
+        if match:
+            return label, full_number_text(match.group(0))
+    return key_from_facts(facts)
 
 
 def piece_dated_line(article) -> str:
@@ -580,6 +608,9 @@ class _Body:
 def render_fact_card(path: str | Path, spec: CardSpec, *, size: tuple[int, int] = X_SIZE) -> dict:
     """Render ``spec`` at ``size``; returns the layout facts tests and reviewers check."""
     from PIL import Image, ImageDraw
+    from live_contentops.public_time_v1 import require_public_time
+    require_public_time(spec.title, spec.facts, spec.kicker, spec.key_label, spec.key_value,
+                        spec.source_line, spec.dated_line, spec.notice)
 
     if not spec.title.strip():
         raise ValueError("FACT_CARD_TITLE_REQUIRED")

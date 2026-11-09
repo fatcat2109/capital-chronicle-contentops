@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-11-08T18:43:38.903911+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "before": "9dcfb6c532232533acc612f1c6b03ac54a394e39",
+  "after": "a38d69258ed22a3a2b511a083fb0a22a71fc68ba",
+  "changed_paths": [
+    "docs/publisher/CC-341/media-preflight.json",
+    "docs/publisher/CC-341/media/USOIL_2026-11-08_18-37-06.png",
+    "docs/publisher/CC-341/media/tradingview-8766e274d0d3a3ef-16x9.png",
+    "docs/publisher/CC-341/prepare_source.py",
+    "docs/publisher/CC-341/request.txt",
+    "docs/publisher/CC-341/run-context.json",
+    "docs/publisher/CC-341/source-verification.json",
+    "docs/publisher/CC-341/source/index.json",
+    "docs/publisher/CC-341/supplied-draft.md",
+    "docs/publisher/CC-341/tradingview-asset.json"
+  ],
+  "inherited_dirty_paths_unchanged": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "58ed65ba9fa0dcab0ba90555ff67343c5f5e193fe5593e38319f6e8cd7765ca4"
+  },
+  "integration": "fast-forward preparation artifacts only",
+  "publication_completed": false
+}

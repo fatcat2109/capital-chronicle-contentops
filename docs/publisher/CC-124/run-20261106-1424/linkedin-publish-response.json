@@ -1,0 +1,44 @@
+{
+  "tool_request_sha256": "f6d1fbc6f1486043eb8077884dabc746c3134c837c86c344ed3742d07addc4cc",
+  "tool_observation": {
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "surface": "CODEX_EXEC",
+    "observation_source": "Neo page 690: own Jim Pham profile and composer identity, approved full text matched with whitespace normalization and uploaded own 1080x1350 card. Post clicked once; the first own-activity item carries the new exact copy, image and analytics activity identity.",
+    "observed_at_utc": "2026-11-06T09:08:21.263Z",
+    "dispatched_at_utc": "2026-11-06T09:07:24.902Z"
+  },
+  "result": {
+    "request_sha256": "d866c1bf563752fe1d0bafd61a37b80b4de97d0e4ab729cd0e3d30e1c9acaf71",
+    "status": "SUCCESS",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "linkedin:jimcc",
+    "public_object_id": "urn:li:activity:7524397031067521024",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524397031067521024/",
+    "published_at_utc": "2026-11-06T09:07:24.902Z",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_identity": "linkedin:jimcc",
+      "observed_stable_id": null,
+      "observed_at_utc": "2026-11-06T09:07:13.719Z"
+    },
+    "pre_click_posts": [
+      "DATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\n\n\n\nWhy it matters: Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold.\n\n\n\n\nContext: **WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\n\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/dated-capital-chronicle-review-capital\n\n\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\n\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "SUCCESS",
+      "observed_identity": "linkedin:jimcc",
+      "public_object_id": "urn:li:activity:7524397031067521024",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524397031067521024/",
+      "observed_text": "Feed post\n\nJim Pham\n\n • You\n\nGlobal Macro & Quant Trading Researcher | Founder, Capital Chronicle | AI-Driven Market Intelligence | Financial Data Systems\n\nnow\n\nDATED CAPITAL CHRONICLE REVIEW | Capital Chronicle's pre-payrolls review: a dollar bid with different countercases\n\nWhy it matters: Capital Chronicle's 6 November pre-payrolls review describes an Asian dollar bid alongside rising equities and falling gold.\n\nContext: **WTI.** The review weighs deal progress against shipping-attack risk near Hormuz.\n\nRead the full brief: https://lnkd.in/g5uY9RuQ\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.\n… more\n\n​\n​\n​\n​\n\n2 impressions\n\nView analytics\nView analytics\n\nBoost",
+      "content_verified": true,
+      "public_image_urls": [
+        "https://media.licdn.com/dms/image/v2/D5622AQEX0ep8K_93xg/feedshare-shrink_160/B56aGwHOcoLAAc-/0/1793956046889?e=1795651200&v=beta&t=Nk_OE7rQOWVUWypCSzjQsMtEw-U9pmDRzAvXuXyAgYA"
+      ],
+      "media_check_state": "PENDING_BINARY_COMPARISON"
+    }
+  }
+}

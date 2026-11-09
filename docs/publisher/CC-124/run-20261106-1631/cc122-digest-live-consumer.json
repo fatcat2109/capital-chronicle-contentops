@@ -1,0 +1,72 @@
+{
+  "observed_at_utc": "2026-11-06T11:13:31.974011+00:00",
+  "installed_main_commit": "264f3555c848a0f41f61a4e605e80306493adfc3",
+  "source_sha256": "7f7f08b10d5645e841384559bf39f41b3f70a8c43fa3580d8a73d7c8cd80eb67",
+  "main_daily_digest_source_sha256": "d8df4a5e73a0296b768f3eb62f1cf8ac5bded4460dc4b36602c4d05fccb7c114",
+  "installed_wiring": [
+    {
+      "line": 22,
+      "source": "from .contentops_digest_v1 import STORE, collect_contentops, default_production_record"
+    },
+    {
+      "line": 714,
+      "source": "contentops = collect_contentops(reader, record=contentops_record, store=contentops_store, now=now)"
+    },
+    {
+      "line": 969,
+      "source": "f\"| Distinct articles published | {_cell(newsroom['distinct_articles_published'])} |\"])"
+    }
+  ],
+  "consumer": {
+    "state": "SAVED_RECORD",
+    "record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json",
+    "store_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "production_day_id": "newsroom-production-day-2026-11-06-bangkok",
+    "observed_at_utc": "2026-11-06T11:13:31.554824Z",
+    "stories_admitted": 3,
+    "distinct_articles_published": 3,
+    "confirmed_copies_by_channel": {
+      "discord": 3,
+      "facebook_page": 3,
+      "instagram_business": 3,
+      "linkedin": 3,
+      "linkedin_company": 3,
+      "substack": 3,
+      "telegram": 3,
+      "threads": 3,
+      "x": 3,
+      "youtube": 3
+    },
+    "first_blocking_causes": {
+      "NO_MATERIAL_NEWS": 1
+    },
+    "last_public_post": {
+      "state": "SAVED_CONFIRMED_DISPATCH",
+      "at_utc": "2026-11-06T10:43:35.296011Z",
+      "channel": "youtube",
+      "dispatch_id": "dispatch_0017054d61d6323f1a5f7c71f761c8c0",
+      "clock": "dispatched_at",
+      "reconciled_at_utc": "2026-11-06T11:10:53.024687Z"
+    }
+  },
+  "reader_evidence": {
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json": {
+      "label": "ContentOps production day",
+      "state": "READ",
+      "sha256": "3e56216c842ce3d7260a5bf7961623125d73b94a28135014811faac716c898fb"
+    },
+    "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3": {
+      "label": "ContentOps publication store",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+      "state": "READ",
+      "observed_at_utc": "2026-11-06T11:13:31.974011Z"
+    }
+  },
+  "next_0700_GMT7": "2026-11-07T07:00:00+07:00",
+  "default_next_record": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\newsroom-production-day-2026-11-06-bangkok\\newsroom_production_day_v1.json",
+  "path_selection_is_pure_forecast": true,
+  "actual_consumer_clock_utc": "2026-11-06T11:13:31.974011+00:00",
+  "email_sent": false,
+  "schedule_changed": false,
+  "published_feed_rows": 1
+}

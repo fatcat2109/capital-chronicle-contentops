@@ -52,6 +52,60 @@ def pending_readback(adapter, destination="substack", value=None):
     return pending.value.request, ids[destination], urls[destination]
 
 
+@pytest.mark.parametrize("fault", [None, "number", "minus", "missing_item", "order"])
+def test_substack_rendered_list_readback_preserves_values_and_order(tmp_path, fault):
+    _, executor = setup(tmp_path)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    value = intent(native_payload={"title": "Weekend wrap", "body_markdown":
+        "Markets at the reopen.\n\n- **Oil:** +2.5%.\n- **Stocks:** -0.8%.\n\nWatch CPI."})
+    packet, object_id, url = pending_readback(adapter, value=value)
+    items = ["Oil: +2.5%.", "Stocks: -0.8%."]
+    if fault == "number":
+        items[0] = "Oil: +5.2%."
+    if fault == "minus":
+        items[1] = "Stocks: 0.8%."
+    if fault == "missing_item":
+        items.pop()
+    if fault == "order":
+        items.reverse()
+    observed = response(executor, packet, {"observed_identity": "capitalchronicle.substack.com",
+        "public_object_id": object_id, "public_object_url": url, "content_verified": True,
+        "observed_text": "Weekend wrap\nMarkets at the reopen.\n" + "\n".join(items) + "\nWatch CPI."})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    result = adapter.readback(destination="substack", intent=value,
+        public_object_id=object_id, public_object_url=url)
+    assert result["verified"] is (fault is None)
+    assert result["write_exists"] is True
+
+
+@pytest.mark.parametrize("fault", [None, "number", "minus", "missing_row", "order", "missing_header"])
+def test_substack_rendered_table_readback_preserves_cells_and_order(tmp_path, fault):
+    _, executor = setup(tmp_path)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    value = intent(native_payload={"title": "Market wrap", "body_markdown":
+        "Dated model estimates.\n\n| Market | Move |\n| :--- | ---: |\n"
+        "| Oil | +2.5% |\n| Stocks | -0.8% |\n\nWatch CPI."})
+    packet, object_id, url = pending_readback(adapter, value=value)
+    rows = ["Oil +2.5%", "Stocks -0.8%"]
+    if fault == "number":
+        rows[0] = "Oil +5.2%"
+    if fault == "minus":
+        rows[1] = "Stocks 0.8%"
+    if fault == "missing_row":
+        rows.pop()
+    if fault == "order":
+        rows.reverse()
+    header = "" if fault == "missing_header" else "Market Move\n"
+    observed = response(executor, packet, {"observed_identity": "capitalchronicle.substack.com",
+        "public_object_id": object_id, "public_object_url": url, "content_verified": True,
+        "observed_text": "Market wrap\nDated model estimates.\n" + header + "\n".join(rows) + "\nWatch CPI."})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    result = adapter.readback(destination="substack", intent=value,
+        public_object_id=object_id, public_object_url=url)
+    assert result["verified"] is (fault is None)
+    assert result["write_exists"] is True
+
+
 def test_failed_readonly_identity_can_refresh_in_same_epoch_without_publish(tmp_path):
     store, executor = setup(tmp_path)
     with pytest.raises(NativeNeoInputRequired) as first:
@@ -457,7 +511,8 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path, thread_fiel
     ({"pixels_inspected": False}, False),
     ({"source_pixels_match": False}, False),
 ])
-def test_transcoded_chart_needs_exact_public_object_and_pixel_inspection(destination, changed, verified):
+@pytest.mark.parametrize("discover_object", [False, True])
+def test_transcoded_chart_needs_exact_public_object_and_pixel_inspection(destination, changed, verified, discover_object):
     source_hash = "a" * 64
     url = "https://x.com/Capitalnicle/status/123" if destination == "x" else "https://www.youtube.com/post/123"
     identity = "@Capitalnicle" if destination == "x" else "@CapitalChronicleYouTube"
@@ -473,8 +528,49 @@ def test_transcoded_chart_needs_exact_public_object_and_pixel_inspection(destina
             "observed_text": "Exact supported proposition.", "content_verified": True,
             "observed_media_sha256": ["b" * 64], "media_comparisons": [comparison]}
     result = NeoDestinationHandoff(native_executor=observed).readback(destination=destination, intent=value,
-        public_object_id="123", public_object_url=url)
+        public_object_id=None if discover_object else "123", public_object_url=None if discover_object else url)
     assert result["verified"] is verified
+
+
+@pytest.mark.parametrize("fault", [None, "identity", "handle", "id", "number", "link", "pinned_object"])
+def test_discovered_x_thread_recovers_exact_links_media_and_identity(fault):
+    canonical = "https://capitalchronicle.substack.com/p/test"
+    url = "https://x.com/Capitalnicle/status/123"
+    shown = "capitalchronicle.substack.com/p/test..."
+    texts = ["Oil and the reopen. " + canonical, "Base case: 55% model estimate."]
+    value = intent("x", native_payload={"posts": [{"text": t} for t in texts]},
+                   media_assets=[{"asset_id": "chart", "sha256": "a" * 64}])
+    actual_url = url.replace("Capitalnicle", "OtherAccount") if fault == "handle" else url
+    comparison = {"source_asset_sha256": "a" * 64, "platform_sha256": "b" * 64,
+        "public_image_url": "https://pbs.twimg.com/media/chart?format=png&name=small",
+        "public_object_url": actual_url, "pixels_inspected": True, "source_pixels_match": True}
+    observed_texts = ["Oil and the reopen. " + shown,
+                      "Base case: 50% model estimate." if fault == "number" else texts[1]]
+    def observed(request):
+        return {"request_sha256": request["request_sha256"], "status": "SUCCESS",
+            "observed_identity": "@OtherAccount" if fault == "identity" else "@Capitalnicle",
+            "public_object_id": "999" if fault == "id" else "123", "public_object_url": actual_url,
+            "content_verified": True, "observed_text": "\n".join(observed_texts),
+            "media_comparisons": [comparison],
+            "observed_link_resolutions": [{"displayed_text": shown, "short_url": "https://t.co/abc",
+                "target_verified": True, "public_object_url": actual_url,
+                "target_url": canonical + "-wrong" if fault == "link" else canonical}],
+            "observed_thread": [{"public_object_id": str(123+i),
+                "public_object_url": actual_url if i == 0 else "https://x.com/Capitalnicle/status/124",
+                "observed_text": text} for i, text in enumerate(observed_texts)]}
+    completed = []
+    observed.complete_readback_request = completed.append
+    result = NeoDestinationHandoff(native_executor=observed).readback(destination="x", intent=value,
+        public_object_id="999" if fault == "pinned_object" else None,
+        public_object_url="https://x.com/Capitalnicle/status/999" if fault == "pinned_object" else None)
+    assert result["verified"] is (fault is None)
+    if fault is None:
+        assert result["write_exists"] is True
+        assert result["content_binding_checks"] == {"text_match": True, "media_match": True, "thread_match": True}
+        assert completed[0]["public_object_id"] == "123"
+        assert completed[0]["public_object_url"] == url
+    else:
+        assert completed == []
 
 
 def test_lost_readonly_observation_resumes_in_new_turn_without_reclaiming_write(tmp_path):

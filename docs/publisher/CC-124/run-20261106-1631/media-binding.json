@@ -1,0 +1,175 @@
+{
+  "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+  "assets": [
+    {
+      "asset_id": "post-facts-3686e830033ce0a8774d",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-3686e830033ce0a8774d.png",
+      "sha256": "077cc2c1a95d86b1ef25947ba1716e4d656ef9b4898090737b46c6b97166e3e8",
+      "width": 1080,
+      "height": 1350,
+      "modality": "source_bound_data_card",
+      "role": "supporting_fact_context",
+      "media_role": "post_key_facts",
+      "caption": "Key facts from the article.",
+      "alt_text": "Gold's divergence challenges a uniform dollar account. The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise. Its conditional oil thesis needs the contracting range to break upward.",
+      "attribution": "Source: Capital Chronicle",
+      "source_page_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+      "source_links": [
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+          "label": "Capital Chronicle"
+        },
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+          "label": "Capital Chronicle"
+        },
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+          "label": "Capital Chronicle"
+        }
+      ],
+      "source_lineage": [
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "source_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        },
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "source_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        },
+        {
+          "document_id": "cc124-oil-euro-followup-20261106",
+          "source_url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+        }
+      ],
+      "underlying_source_rights_status": "attributed_facts_independent_chart",
+      "data_card_packet": {
+        "policy": "CC144_EVERY_POST_VISUAL_V1",
+        "facts": [
+          {
+            "claim_id": "lead-gold",
+            "text": "Gold's divergence challenges a uniform dollar account.",
+            "source_id": "SOURCE_1",
+            "document_id": "cc124-oil-euro-followup-20261106",
+            "support_excerpt": "while gold made no lower low, so gold stopped following the USD leg.",
+            "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+            "rights_class": "capital_chronicle_own_report",
+            "rights_binding_sha256": "5842648e139902ae70dc704710b81da1d7e2eeba8fdbf4b70971390bedbe7d20",
+            "publisher": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+          },
+          {
+            "claim_id": "body-oil-supply",
+            "text": "The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.",
+            "source_id": "SOURCE_1",
+            "document_id": "cc124-oil-euro-followup-20261106",
+            "support_excerpt": "WTI moved on Hormuz supply risk, against equities.",
+            "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+            "rights_class": "capital_chronicle_own_report",
+            "rights_binding_sha256": "5842648e139902ae70dc704710b81da1d7e2eeba8fdbf4b70971390bedbe7d20",
+            "publisher": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+          },
+          {
+            "claim_id": "body-oil-range",
+            "text": "Its conditional oil thesis needs the contracting range to break upward.",
+            "source_id": "SOURCE_1",
+            "document_id": "cc124-oil-euro-followup-20261106",
+            "support_excerpt": "so the target needs the contracting range to break upward",
+            "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+            "rights_class": "capital_chronicle_own_report",
+            "rights_binding_sha256": "5842648e139902ae70dc704710b81da1d7e2eeba8fdbf4b70971390bedbe7d20",
+            "publisher": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1"
+          }
+        ],
+        "design": "CC290_SITE_FACT_CARD_V2",
+        "text_presentation": "PLAIN_EMPHASIS_AND_DATED_REVIEW_ATTRIBUTION_V1",
+        "title": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test",
+        "dated_line": "Capital Chronicle"
+      },
+      "transform_sha256": "3686e830033ce0a8774d9b67c8b2f37e8ef78679df0cbc9c6205cb874fc4e59a",
+      "publication_authority": false
+    },
+    {
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Oil_refinery_coastal_Texas.jpg",
+      "creator_publisher": "U.S. Fish and Wildlife Service",
+      "license_url": "https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg#Licensing",
+      "rights_status": "PUBLIC_DOMAIN",
+      "depicted_date": "Not given",
+      "width": 1512,
+      "height": 996,
+      "source_reuse_basis": "Commons identifies an official-duty Fish and Wildlife Service work as public domain (PD-USGov-FWS).",
+      "asset_id": "cc124-oil-followup-archive-refinery-fws",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\oil-refinery-coastal-texas.jpg",
+      "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "modality": "documentary_photo",
+      "context_only": true,
+      "corroborates_article_facts": false,
+      "attribution": "U.S. Fish and Wildlife Service / Wikimedia Commons. Public domain.",
+      "caption": "A coastal Texas oil refinery. Archive photograph; the source does not give the capture date.",
+      "alt_text": "Archive aerial photograph of storage tanks and coastal refinery infrastructure in Texas.",
+      "relevance_rationale": "Archive oil infrastructure context for the dated Main review of supply risk; it does not depict Hormuz or confirm any current event.",
+      "rights_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\photo-rights-original.json",
+      "rights_evidence_sha256": "69e7e160832125a366b909c8cdbc73cdb31f1b63a56236fda3af18ac4311c35e",
+      "canonical_photo_credit": "Photo: U.S. Fish and Wildlife Service, via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Oil_refinery_coastal_Texas.jpg). [Public domain \u2014 U.S. government work](https://commons.wikimedia.org/wiki/Template:PD-USGov-FWS). Archive photograph of a coastal Texas oil refinery; capture date not supplied.",
+      "placement": "After the opening passage, as unaltered archive context. The article fact card follows the main comparison.",
+      "visual_review": {
+        "status": "PASS_SOURCE_PHOTO_INSPECTION",
+        "operation_id": "cc124-oil-euro-followup-20261106-v2",
+        "inspected": true,
+        "pixels_inspected": true,
+        "relevant_subject": true,
+        "inspection_tool": "view_image",
+        "inspection_surface": "LOCAL_ARTIFACT_VIEW_IMAGE",
+        "inspection_detail": "original",
+        "inspected_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\oil-refinery-coastal-texas.jpg",
+        "inspected_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+        "asset_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+        "source_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\photo-asset-unreviewed.json",
+        "source_metadata_sha256": "11c5a4df1e8772942084842e42ae203ad091fd6fccfa7f79089c8a84987896d6",
+        "reviewer_invocation_id": "/root/cc124_followup_max",
+        "reviewer": "/root/cc124_followup_max",
+        "observation_source": "Supported native task context and the exact local JPEG pixels emitted by view_image at original detail.",
+        "actual_model": null,
+        "actual_reasoning_effort": null,
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "recorded_at_utc": "2026-11-06T09:54:23.0776273+00:00",
+        "reviewed_at_utc": "2026-11-06T09:54:23.0776273+00:00",
+        "findings": [
+          "The inspected 1512 by 996 landscape image shows cylindrical storage tanks in the foreground, coastal water and marsh islands, roads or embankments, and harbor or industrial infrastructure beyond. The retained source metadata identifies the scene as a coastal Texas oil refinery; the location is not independently established by pixels.",
+          "The image is visibly soft and blue tinted, with bright upper areas, but the tank farm, water and shoreline remain recognizable. No material pixel defect prevents its intended use as contextual archive media. No embedded date, event label or watermark is visible.",
+          "The original composition includes tanks cut by its lower edge. Retain the complete original image without an additional destructive crop, overlays or invented detail; do not enlarge it beyond a sensible article display width.",
+          "The supplied caption, alt text and archive qualification match the visible subject and retained source metadata. Preserve the explicit unknown capture date and full U.S. Fish and Wildlife Service, Wikimedia Commons and public-domain credit with their source and licence links on the canonical article.",
+          "The photograph provides oil-infrastructure context for the qualitative oil, euro and gold document follow-up. It does not depict Hormuz or corroborate a current disruption, agreement, escalation, price move or any other contemporary event. Those limits prevent a false event-image association under the no-fabrication rule; the image remains usable as labelled archive context.",
+          "Source and rights evidence are retained exactly: the local JPEG and original rights record hashes match the supplied metadata. This inspection did not fetch or independently recheck the external source or licence page.",
+          "This review covers only the original source photograph. It does not inspect an assembled canonical article, fact card or derivative render, and it does not approve text. The dated Main report remains known at 2026-11-06T08:21:03Z with underlying inputs ending 2026-11-06T07:36:24Z."
+        ],
+        "material_issues": [],
+        "repair_required": false,
+        "final_render_review_completed": false,
+        "text_approved": false,
+        "invocation_observation": {
+          "invocation_id": "/root/cc124_followup_max",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "observation_source": "Supported native task context identifies this task as /root/cc124_followup_max; runtime model and effort telemetry is not exposed.",
+          "model": null,
+          "reasoning_effort": null,
+          "actual_model": null,
+          "actual_reasoning_effort": null,
+          "configured_model": "gpt-6.1-sol",
+          "configured_reasoning_effort": "max",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "actual_configuration_unavailable": true,
+          "configuration_source": "Exact parent native assignment for CC-124 operation cc124-oil-euro-followup-20261106-v2, SAME Sol MAX writer/editor source-photograph inspection."
+        }
+      }
+    }
+  ]
+}

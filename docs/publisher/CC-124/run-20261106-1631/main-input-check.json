@@ -1,0 +1,23 @@
+{
+  "item": "CC-124",
+  "started_at_utc": "2026-11-06T09:31:05Z",
+  "operation_id": "cc124-oil-euro-followup-20261106-v1",
+  "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+  "source_sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+  "source_completed_at_utc": "2026-11-06T08:21:03Z",
+  "source_cutoff_utc": "2026-11-06T07:36:24Z",
+  "base_commit": "b906abd3143377a28c1324c3027e6ac97ba51eb0",
+  "remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_reason": "Publisher operating HEAD contains fresh remote default and all integrated live consumers; continue that live lineage.",
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "provenance": "Current exec command line read back; CONFIGURED_NOT_OBSERVED"
+  },
+  "inherited_files_sha256": {
+    "docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": "eaf106a6c5f0f94602af7ef759fd3f13ff0c8e8a68e78b3c2b625b8f8a755ebe",
+    "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": "6b9fcc177395a2a4fb1dec6ae823731a9b907a60e21bf8c63b085e50f1cb6e2a"
+  },
+  "lease_observed_at_utc": "2026-11-06T09:35:25.698662+00:00",
+  "lease_rows": []
+}

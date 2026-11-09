@@ -6,6 +6,7 @@ not another report producer, store or publisher. Private originals stay local.
 from __future__ import annotations
 
 from hashlib import sha256
+import json
 from pathlib import Path
 import re
 
@@ -18,6 +19,37 @@ REPORT_ROOTS = (
     Path(r"A:\Capital Chronicle\ResearchRuns\claude-main-events-20261029"),
     Path(r"A:\Capital Chronicle\control-tower-reporting-closeout-20261018\docs\project_control_tower\report_upgrade_review_20261105"),
 )
+NATIVE_MAIN_REPORT_ROOT = Path(
+    r"A:\Capital Chronicle\ResearchRuns\claude-main-research\daily-research-portfolio-279805139\requests"
+)
+
+
+def _allowed_report_path(path):
+    return ((path.suffix.lower() == ".md" and any(path.is_relative_to(root.resolve()) for root in REPORT_ROOTS))
+            or (path.name == "owner-native.json" and path.is_relative_to(NATIVE_MAIN_REPORT_ROOT.resolve())))
+
+
+def _passage_text(path, passage, raw):
+    """Read prose fields from Main's synthesis without admitting its execution rows."""
+    if path.suffix.lower() == ".md" and any(path.is_relative_to(root.resolve()) for root in REPORT_ROOTS):
+        return raw.decode("utf-8-sig")
+    if path.name != "owner-native.json" or not path.is_relative_to(NATIVE_MAIN_REPORT_ROOT.resolve()):
+        raise ValueError("MAIN_REPORT_SOURCE_PATH_INVALID")
+    pointer = passage.get("source_json_pointer", "")
+    if not re.fullmatch(
+        r"/(?:summary|causal_alternatives|contradictions|priced_in)/\d+/text"
+        r"|/coverage_limit|/candidates/\d+/(?:rationale|invalidation|next_required_evidence/\d+)", pointer
+    ):
+        raise ValueError("MAIN_REPORT_PUBLIC_TEXT_POINTER_INVALID")
+    value = json.loads(raw)
+    try:
+        for key in pointer.split("/")[1:]:
+            value = value[int(key)] if isinstance(value, list) else value[key]
+    except (KeyError, IndexError, TypeError, ValueError) as exc:
+        raise ValueError("MAIN_REPORT_PUBLIC_TEXT_POINTER_INVALID") from exc
+    if not isinstance(value, str):
+        raise ValueError("MAIN_REPORT_PUBLIC_TEXT_REQUIRED")
+    return value
 
 
 def verify_projection(spec):
@@ -36,14 +68,13 @@ def verify_projection(spec):
     texts, sources = [], {}
     for passage in passages:
         path = Path(passage["source_path"]).resolve()
-        if (path.suffix.lower() != ".md" or not any(path.is_relative_to(root.resolve()) for root in REPORT_ROOTS)
-                or path.stat().st_size > 1_000_000):
+        if not _allowed_report_path(path) or not path.is_file() or path.stat().st_size > 1_000_000:
             raise ValueError("MAIN_REPORT_SOURCE_PATH_INVALID")
         raw = path.read_bytes()
         digest = sha256(raw).hexdigest()
         if digest != passage["source_sha256"]:
             raise ValueError("MAIN_REPORT_SOURCE_BYTES_CHANGED")
-        original = raw.decode("utf-8-sig")
+        original = _passage_text(path, passage, raw)
         fragments = passage.get("fragments")
         if not isinstance(fragments, list) or not 1 <= len(fragments) <= 12:
             raise ValueError("MAIN_REPORT_EXACT_FRAGMENTS_REQUIRED")
@@ -92,7 +123,7 @@ def verify_projection(spec):
         "revision_at_utc": spec["revision_at_utc"], "rights_state": "MAIN_PUBLIC_REPORT_PROJECTION",
         "rights_evidence_sha256": sha256_of(permission), "source_capture_sha256": capture_hash,
         "source_permission_record_sha256": sha256_of(permission), "source_permissions": permission,
-        "candidate_catalyst_tags": ["midterms", "election", "market-reaction"],
+        "candidate_catalyst_tags": spec.get("candidate_catalyst_tags", ["midterms", "election", "market-reaction"]),
         "originality": "MAIN_ORIGIN_RECIRCULATION", "correction_of": None,
         "document": document, "source_chart": None, "permitted_source_text": text,
         "supporting_headline_ids": [], "research_metadata": {"source_hashes": sources,
@@ -116,7 +147,7 @@ def projection_evidence(records, request):
             "supporting_document_ids": [d["document_id"] for d in docs], "analysis_must_be_conditional": True,
             "underlying_event_may_be_stated_as_confirmed": False, "authority_granted_by_adapter": False,
             "public_write_authority": False,
-            "report_scope_notice": "This is a retrospective of Capital Chronicle's dated dossier and review, not a performance record."},
+            "report_scope_notice": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record."},
         "provenance": {"request_count_for_call": 0, "new_external_acquisition": False,
             "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS"}}
 

@@ -1,0 +1,226 @@
+{
+  "item": "CC-333",
+  "observed_at_utc": "2026-11-07T09:25:15.066840+00:00",
+  "verification": "PASS",
+  "operating_head": "3fc9f8797b780ee1d16bab1a72fd125868f3f702",
+  "builder_head": "3fc9f8797b780ee1d16bab1a72fd125868f3f702",
+  "live_tag": "contentops-live-20261107-cc333-r2",
+  "rollback_tag": "contentops-rollback-20261107-cc333-r2",
+  "installed_modules": [
+    {
+      "path": "live_contentops/article_publication_quality_v1.py",
+      "sha256": "30523be8db6e7461e1cf1c5a324e2a1f6be60732bddb2efa4426a0b10778495b",
+      "builder_sha256": "a4aa8ca0c746f8250ad263b5cf87f11d321aff29fccfc9e6988e8f551f0a7caf",
+      "git_blob": "35a7476df5ba95a7cf4244cd5f71b9b79bf70e41",
+      "matches_live_tag_and_builder": true
+    },
+    {
+      "path": "live_contentops/article_scenarios_v1.py",
+      "sha256": "b137aaf24eae09fc67fe9f250697c624dcd72a78140bf328ce8cf3e5aa05f611",
+      "builder_sha256": "5e9759213d2a7689f56d8dffb6b46541f52c0b81005cef3d4358353bd909516e",
+      "git_blob": "50d867d15260aa345ff27a60225c37d7ab32bb26",
+      "matches_live_tag_and_builder": true
+    },
+    {
+      "path": "live_contentops/published_images_v1.py",
+      "sha256": "dfcca77599df2a2b6734258eac1e6563123d85c2db837f1adc2f5b92f28613d4",
+      "builder_sha256": "b88b44183cdf07a722bf31bf7fac201857cf11fab90a95d7a012032a7e09c8f0",
+      "git_blob": "9c93aee8fe5c4dab89e0890ff7ac2a92f9d44b9a",
+      "matches_live_tag_and_builder": true
+    },
+    {
+      "path": "live_contentops/tradingview_snapshot_v1.py",
+      "sha256": "7b283b72b29f86c99418cdcdebf84f5aa6e8ecf67643fe9ab4f30cc584c07ff4",
+      "builder_sha256": "7b283b72b29f86c99418cdcdebf84f5aa6e8ecf67643fe9ab4f30cc584c07ff4",
+      "git_blob": "89fa6b8c09312b2a3f21fcb87458ce9b87ad3c32",
+      "matches_live_tag_and_builder": true
+    }
+  ],
+  "verification_comparison_repair": "Git-normalized blob comparison replaces raw LF/CRLF equality; both raw file hashes are retained. No runtime check was changed.",
+  "production_date": "2026-11-07",
+  "daily_article_limit": 1,
+  "occupied_article_slots": 0,
+  "remaining_capacity": 1,
+  "publication_feed": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+  "feed_sha256": "c3108c317cbbc41b7bb719cf3c8460fb158c111e5bd1d28c663b9cf951f2cd02",
+  "feed_articles": 18,
+  "latest_canonical_publication_utc": "2026-11-06T12:58:16.717000+00:00",
+  "image_register": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+  "image_observation_records": 756,
+  "post_policy_public_pieces": 0,
+  "required_public_piece_readbacks": 2,
+  "new_public_piece_readbacks": 0,
+  "operation_dispatches": [],
+  "verified_held_source_records": 3,
+  "held_source_revision": "78995d62efe3a0da6bf378cfd97c99b0a09a0f22055548789f22625251285e15",
+  "main_export_scenario_records": 40,
+  "main_alternative_probability_absent": 40,
+  "missing_probability_pointers": [
+    "/status/plans/0/scenario_analysis",
+    "/status/plans/1/scenario_analysis",
+    "/status/plans/2/scenario_analysis",
+    "/status/plans/3/scenario_analysis",
+    "/status/plans/4/scenario_analysis",
+    "/status/plans/5/scenario_analysis",
+    "/status/plans/6/scenario_analysis",
+    "/status/plans/7/scenario_analysis",
+    "/status/plans/8/scenario_analysis",
+    "/status/plans/9/scenario_analysis",
+    "/status/plans/10/scenario_analysis",
+    "/status/plans/11/scenario_analysis",
+    "/status/plans/12/scenario_analysis",
+    "/status/plans/13/scenario_analysis",
+    "/status/plans/14/scenario_analysis",
+    "/status/plans/15/scenario_analysis",
+    "/status/plans/16/scenario_analysis",
+    "/status/plans/18/scenario_analysis",
+    "/status/plans/19/scenario_analysis",
+    "/status/plans/21/scenario_analysis",
+    "/status/plans/22/scenario_analysis",
+    "/status/plans/23/scenario_analysis",
+    "/status/plans/24/scenario_analysis",
+    "/status/plans/25/scenario_analysis",
+    "/status/plans/26/scenario_analysis",
+    "/status/plans/27/scenario_analysis",
+    "/status/plans/28/scenario_analysis",
+    "/status/plans/29/scenario_analysis",
+    "/status/plans/30/scenario_analysis",
+    "/status/plans/31/scenario_analysis",
+    "/status/plans/32/scenario_analysis",
+    "/status/plans/33/scenario_analysis",
+    "/status/plans/34/scenario_analysis",
+    "/status/plans/35/scenario_analysis",
+    "/status/plans/36/scenario_analysis",
+    "/status/plans/37/scenario_analysis",
+    "/status/plans/38/scenario_analysis",
+    "/status/plans/40/scenario_analysis",
+    "/status/plans/41/scenario_analysis",
+    "/status/plans/42/scenario_analysis"
+  ],
+  "held_main_source_checks": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\primary-native.json",
+      "sha256": "19093505fb6d39424bf2c0a884e733ef2410874a292cba3975af72f527a1cc53",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\critical-native.json",
+      "sha256": "9fe682ca3038cfc4d4fc1ae573b342352fbd03b488d24a9e4696b5276e55d4e2",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\owner-native.json",
+      "sha256": "a56d2c52ba4ed163ee6ff75d594eae2cc07d46d3806877d99c77256fb97291cc",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\native-hybrid-decision.json",
+      "sha256": "bed1ab2e0fee3f6bf0ed703220c6197f5a87a98e6d3f7b80ef66d4cfa53b88aa",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\integrated-qualitative-evaluation.json",
+      "sha256": "11b7bf50c779310f377afd1adc6a6ba3c021bad1e1ae78ad0e7002e9f5a68649",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+      "sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+      "sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-c8bba0c593d99fb8\\owner-native.json",
+      "sha256": "17082bbfba405e93ea0ae42c167bbb8989d1e83c04a1c2b563d51c68c53910a2",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-45c4fbea254c0def\\owner-native.json",
+      "sha256": "e7e06616a1c44689d84741f769c9b1e242277d787e3c1940ca78eefa6b93a6b3",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d232ac540a32a050\\owner-native.json",
+      "sha256": "34a8884208741350c679779d7ee5825b221d047e918c76c7428d071b82879406",
+      "unchanged_since_due_run": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74cef2ab0eda597b\\owner-native.json",
+      "sha256": "6d4053538c3a2fe4dcc6e011d07e105de6cda04a76d42769134f8b9c14d04e27",
+      "unchanged_since_due_run": true
+    }
+  ],
+  "completed_daily_reports_in_catalog": 16,
+  "latest_daily_main_report": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+    "sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+    "file_modified_at_utc": "2026-11-06T08:18:47.782128+00:00"
+  },
+  "source_comparison_evidence": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261107-1533\\source-readiness.json",
+  "operation_id": "cc124-nfp-arrival-review-20261106-v1",
+  "binding_file_sha256": "7d91e8991b7202f3fc28faedc835e4dbd15b2ecd63134201d3eaf1c99c6879ce",
+  "pending_writer_request_sha256": "f91f22eaba23d5af0e115dd181655185d9a5639c627ea07de641d570f5e96c87",
+  "writer_request_file_sha256": "f54561435c19b698d4e3ec013946521fb93e6f9a89cdc512c26af104a1c70610",
+  "writer_return_present": false,
+  "first_cause": "JIM_DECISION_93_MAIN_SCENARIOS_INCOMPLETE",
+  "restriction_reason": "no-red-tape 2d: decision 93 requires Main-supplied probabilities, confirmation, six-market implications and invalidation for 2-3 scenarios; host rule 8 forbids invented values.",
+  "choice": "Retain the existing NFP operation; use its held facts for source comparison and do not invent the missing scenario probabilities or a complement.",
+  "next_actor": "Main report producer, then Codex Publisher at the next eligible CC-124 run",
+  "next_action": "Main supplies a dated complete base/alternative scenario set; Publisher consumes it through the existing editorial/publication owners and retains exact Substack/social readbacks for the next two compliant pieces.",
+  "next_cc124_due_gmt7": "8 Nov 2026 03:34 GMT+7",
+  "configured_launch": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-ops-integrations\\codex-exec\\publisher-cc-333-20261107T0916\\launch.json",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "provenance": "CONFIGURED_NOT_OBSERVED"
+  },
+  "inherited_files": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "sha256": "1cc4f6e6b95194d9093390cf5ccfd5c8f133fdfd016c6b463597fa17ed595483",
+        "unchanged": true
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "sha256": "adcf8f92d3dc38f8ece8a08cc363a0b6d0f8ecac2e711df2469b193a9c26b7cd",
+        "unchanged": true
+      }
+    },
+    "A:\\Capital Chronicle\\ContentOps": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+        "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "unchanged": true
+      },
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+        "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "unchanged": true
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+        "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "unchanged": true
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+        "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "unchanged": true
+      },
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "sha256": "cffe67cefeece6d6c4212033e4dc2afdd8d8981a1d39ce27db08886f2052b07d",
+        "unchanged": true
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "sha256": "58ed65ba9fa0dcab0ba90555ff67343c5f5e193fe5593e38319f6e8cd7765ca4",
+        "unchanged": true
+      }
+    }
+  },
+  "editorial_model_calls": 0,
+  "new_public_writes": 0,
+  "pytest_runs": 0,
+  "runtime_code_changed": false,
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "native_desktop_control_used": false
+}

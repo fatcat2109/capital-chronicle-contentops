@@ -1,0 +1,260 @@
+{
+  "schema_version": "contentops.native_final_editor_check.v1",
+  "operation_id": "cc124-oil-euro-followup-20261106-v2",
+  "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+  "revision": "223bc5f86acc5af972d7ab611db977c279bb44bcb3c8c0f85cada82f0cba40e7",
+  "editor_check_input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\editor-check-input.json",
+  "editor_check_input_sha256": "7f9086681ac65e5918dd3eda3584e7df35f950a855e119ca35ee52bd5c87f09a",
+  "article_payload_sha256_canonical_json": "7307014597bdb89b10f7ce0b31a524f973225b9428a8a9fe896784f50a90f4b6",
+  "canonical_body_sha256_utf8": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+  "accepted_native_response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\desktop_response_revise.json",
+  "accepted_native_response_file_sha256": "6976052dd13d8f44e121b2eb8093890837f1622ff3b064bb4ff1b3549d7ac6d5",
+  "decision": "REVISE",
+  "rationale": "REVISE this exact package in one limited repair round. The source-bound prose, conditional oil thesis, euro countercases, gold divergence and full notices are sound; no factual rewrite is needed. 1. Remove the exact 'DATED CAPITAL CHRONICLE REVIEW | ' prefix from all eight destination headlines and their root/full-text/reply-chain representations. The frozen owner request expressly rejects that visible prefix; the authored title already attributes the analysis naturally to Capital Chronicle. Preserve the attribution, uncertainty and notices. 2. Add the approved review date to the card's source footer: 'Source: Capital Chronicle review, November 6, 2026 (ET).' The actual 1080x1350 card is readable and its three facts are supported, but its dated-line field currently repeats Capital Chronicle and gives no date. Keep the existing facts and layout; no new chart or prose is needed. The unchanged Texas archive photo remains usable with the complete retained creator/source/licence credit and unknown capture date. Pending Substack URLs are internal pre-canonical placeholders and must be rematerialized to the confirmed canonical URL through the existing coordinator before dispatch. I inspected card pixels and the same unchanged photo in this native context, plus the canonical text and all eight complete payloads/chains. I did not inspect browser, channel-screen or canonical-layout pixels. No text approval is granted for this revision.",
+  "expected_review_id": null,
+  "verdict_at_utc": "2026-11-06T10:13:31.198421+00:00",
+  "text_approved": false,
+  "first_text_approval_utc": null,
+  "policy": "JIM_DECISION_53_WRITER_ONE_EDITOR_CHECK_PUBLISH",
+  "native_role": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/cc124_followup_max",
+    "observation_source": "Supported native task context; direct reading of the exact local editor-check package and complete payload chains; card pixels emitted by view_image and unchanged source-photo pixels inspected earlier in this same context.",
+    "model": null,
+    "reasoning_effort": null,
+    "actual_model": null,
+    "actual_reasoning_effort": null,
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "speed": "standard",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "actual_configuration_unavailable": true
+  },
+  "inspection_scope": {
+    "canonical_article_text_and_metadata_read": true,
+    "all_eight_complete_preview_payloads_read": true,
+    "all_reply_chains_read": true,
+    "admitted_source_1_read": true,
+    "both_media_metadata_read": true,
+    "card_exact_pixels_inspected": true,
+    "unchanged_photo_exact_pixels_inspected_earlier_same_context": true,
+    "canonical_page_layout_pixels_inspected": false,
+    "channel_screen_pixels_inspected": false,
+    "browser_or_native_desktop_used": false,
+    "public_write_performed": false
+  },
+  "source_binding": {
+    "source_id": "SOURCE_1",
+    "source_content_sha256": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+    "actual_source_text_sha256_utf8": "8d80386373c4a132edf9cffbc6c81fe6daff00cb917612a6d48e8e86c2f4cf61",
+    "report_projection_sha256": "e1f7519106d3b0b4eee737e3570faa8f8477821719ce9ec62da7cd79820d1cf1",
+    "report_known_at_utc": "2026-11-06T08:21:03Z",
+    "source_input_cutoff_utc": "2026-11-06T07:36:24Z",
+    "operation_cutoff_utc": "2026-11-06T09:44:56.617874Z",
+    "clock_finding": "The report-completion and operation clocks are not presented as fresh market-observation clocks. November 6 is the New York date of the admitted report; November 5 is retained as the date-only source context."
+  },
+  "findings": [
+    {
+      "check": "oil_claims_and_conditions",
+      "result": "PASS",
+      "detail": "The oil passage attributes the supply-risk explanation to Main, retains an upward contracting-range test and an explicit if-confirmed ceasefire/agreement and de-escalation countercase. It does not independently confirm Hormuz disruption."
+    },
+    {
+      "check": "euro_countercases",
+      "result": "PASS",
+      "detail": "The euro explanation retains the attributed dollar-risk mechanism and both short-position squaring and rates alternatives, without a fresh directional call."
+    },
+    {
+      "check": "gold_divergence",
+      "result": "PASS",
+      "detail": "Gold is limited to the admitted no-lower-low and stopped-following-the-dollar passage. The added dollar-extended description has been removed."
+    },
+    {
+      "check": "private_numbers_and_freshness",
+      "result": "PASS",
+      "detail": "No private account/execution detail, entry, stop, target, size, raw price series, numerical probability or prediction-market number appears in the public copy. No after-cutoff observation or confirmed geopolitical event is asserted."
+    },
+    {
+      "check": "notices_and_chains",
+      "result": "PASS",
+      "detail": "The canonical text and all eight complete destination payloads/chains retain Analysis, not financial advice; reader choice; and the holdings notice. X has three complete posts and Threads has two; the notices survive in their final replies."
+    },
+    {
+      "check": "card_pixels_and_source_facts",
+      "result": "PASS_WITH_DATE_REPAIR",
+      "detail": "At 1080x1350 the actual card text is legible, complete, unclipped and source-bound. It shows gold divergence, attributed oil supply risk with its uncertainty, and the oil range condition. No numerical history or directional arrow is fabricated. Its source footer omits the review date."
+    },
+    {
+      "check": "archive_photo_and_credit",
+      "result": "PASS_METADATA_AND_UNCHANGED_PIXELS",
+      "detail": "The exact inspected Texas refinery photo hash is unchanged. The retained media record carries U.S. Fish and Wildlife Service authorship, Wikimedia source and public-domain licence links, archive context and capture date not supplied. The source and rights record are preserved; no current-event corroboration is claimed. Actual canonical-layout placement and credit rendering were not inspected."
+    },
+    {
+      "check": "natural_attribution",
+      "result": "REVISE",
+      "detail": "The canonical authored title, dek and prose attribute naturally. All eight compiled destination headlines add DATED CAPITAL CHRONICLE REVIEW |, contrary to the exact owner request."
+    },
+    {
+      "check": "public_dates_and_links",
+      "result": "REVISE_CARD_DATE_ONLY",
+      "detail": "The text has no public GMT+7/UTC+7/Bangkok/Vietnam clock or forbidden preview host. The source date must be restored on the card. Existing pending-publication Substack URLs remain internal pre-canonical placeholders, with real URL rematerialization still required through the existing coordinator."
+    }
+  ],
+  "required_repairs": [
+    {
+      "id": "R1",
+      "scope": "All eight compiled destination payloads and any canonical reader presentation that adds the same prefix",
+      "observed_defect": "The exact prefix DATED CAPITAL CHRONICLE REVIEW | appears in all eight channel headlines despite the owner request forbidding that prefix.",
+      "repair": "Remove only that prefix across title/root/full_text/posts/reply-chain representations. Keep the authored Capital Chronicle title, natural attribution, uncertainty, notices and ordered chains.",
+      "reason": "Measured public-copy presentation failure against the exact frozen owner_editorial_request; no factual or numeric data is excluded."
+    },
+    {
+      "id": "R2",
+      "scope": "Fact-card source footer",
+      "observed_defect": "The card dated_line currently repeats Capital Chronicle and the inspected pixels show no review date, although the approved media decision supplies the material review date.",
+      "repair": "Use Source: Capital Chronicle review, November 6, 2026 (ET). in the source footer, preserving existing facts and a readable layout. This is the one limited visual repair round; no new chart or factual scope is needed.",
+      "reason": "Measured dated-source presentation failure in the exact inspected card and a mismatch with the approved source-attribution line."
+    }
+  ],
+  "previews": [
+    {
+      "destination": "telegram",
+      "preview_id": "cc-preview-16e5d34ab5790de1653c36bba9988e5e473b2d9318908fcaaf0ec05bd9c60a58",
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "payload_sha256_canonical_json": "6d131fa4ef3db020f5b62912b6017bf7f64ebb0a9e7905365f09b4707fc6341e",
+      "full_payload_read": true,
+      "all_posts_and_replies_read": true,
+      "post_count": 1,
+      "source_bound_substance": "PASS",
+      "full_analysis_and_holdings_notices": "PASS_IN_COMPLETE_PAYLOAD_OR_CHAIN",
+      "preview_host_link_guard": "NO_FORBIDDEN_HOST_FOUND",
+      "presentation_finding": "REMOVE_FORBIDDEN_DATED_REVIEW_PREFIX"
+    },
+    {
+      "destination": "x",
+      "preview_id": "cc-preview-574acc0ed9e3f1d1a0a9f1dc7de45411e9d420a4a0acfa4fb42d6c44ccfc5a78",
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "payload_sha256_canonical_json": "56ce231dbd1d00922d9fd407e5d519ff89622da5d48ef5a6eecd560c8dbbe72a",
+      "full_payload_read": true,
+      "all_posts_and_replies_read": true,
+      "post_count": 3,
+      "source_bound_substance": "PASS",
+      "full_analysis_and_holdings_notices": "PASS_IN_COMPLETE_PAYLOAD_OR_CHAIN",
+      "preview_host_link_guard": "NO_FORBIDDEN_HOST_FOUND",
+      "presentation_finding": "REMOVE_FORBIDDEN_DATED_REVIEW_PREFIX"
+    },
+    {
+      "destination": "linkedin",
+      "preview_id": "cc-preview-82c61259093366e0ef30f401f21c389dd204dcf9181fe51c59761ddb980a3a8a",
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "payload_sha256_canonical_json": "1293407f4159716c43e47fae12fddf95b711b9ed7e8130c883e33f133048543d",
+      "full_payload_read": true,
+      "all_posts_and_replies_read": true,
+      "post_count": 1,
+      "source_bound_substance": "PASS",
+      "full_analysis_and_holdings_notices": "PASS_IN_COMPLETE_PAYLOAD_OR_CHAIN",
+      "preview_host_link_guard": "NO_FORBIDDEN_HOST_FOUND",
+      "presentation_finding": "REMOVE_FORBIDDEN_DATED_REVIEW_PREFIX"
+    },
+    {
+      "destination": "discord",
+      "preview_id": "cc-preview-c0bf0706b0d4aa4de5f5fcb7580368d2420eb0f600f4c486511113656ef8a203",
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "payload_sha256_canonical_json": "1a0d68e7a38e9a2b58f6c5b951890d6adc55c0fcccae8fb7e30c76b8778d2f15",
+      "full_payload_read": true,
+      "all_posts_and_replies_read": true,
+      "post_count": 1,
+      "source_bound_substance": "PASS",
+      "full_analysis_and_holdings_notices": "PASS_IN_COMPLETE_PAYLOAD_OR_CHAIN",
+      "preview_host_link_guard": "NO_FORBIDDEN_HOST_FOUND",
+      "presentation_finding": "REMOVE_FORBIDDEN_DATED_REVIEW_PREFIX"
+    },
+    {
+      "destination": "facebook_page",
+      "preview_id": "cc-preview-f191311e75c1ad44e3dc90cfd2a52e0781a681123ff2a445fd5f3bc157a6fd30",
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "payload_sha256_canonical_json": "563b72b2f5b93fd88e930231de2c963511aa810c0613953005266c7a9250e08b",
+      "full_payload_read": true,
+      "all_posts_and_replies_read": true,
+      "post_count": 1,
+      "source_bound_substance": "PASS",
+      "full_analysis_and_holdings_notices": "PASS_IN_COMPLETE_PAYLOAD_OR_CHAIN",
+      "preview_host_link_guard": "NO_FORBIDDEN_HOST_FOUND",
+      "presentation_finding": "REMOVE_FORBIDDEN_DATED_REVIEW_PREFIX"
+    },
+    {
+      "destination": "instagram_business",
+      "preview_id": "cc-preview-2653008bca66373941fbd406e12b45632a4fb4626162cc1227433b9613f27116",
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "payload_sha256_canonical_json": "785542c51daa1c0ebec4af979b2e7882306a3a9ce7aadb36144486276268951e",
+      "full_payload_read": true,
+      "all_posts_and_replies_read": true,
+      "post_count": 1,
+      "source_bound_substance": "PASS",
+      "full_analysis_and_holdings_notices": "PASS_IN_COMPLETE_PAYLOAD_OR_CHAIN",
+      "preview_host_link_guard": "NO_FORBIDDEN_HOST_FOUND",
+      "presentation_finding": "REMOVE_FORBIDDEN_DATED_REVIEW_PREFIX"
+    },
+    {
+      "destination": "threads",
+      "preview_id": "cc-preview-3d810f45fcf8355b8caecdd59025d70ed6d55691b257ababe95e996222c1fcd9",
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "payload_sha256_canonical_json": "964a13928815736934270c78e163d4f53a0813fc17bcfc10dab6d668ce38e5e1",
+      "full_payload_read": true,
+      "all_posts_and_replies_read": true,
+      "post_count": 2,
+      "source_bound_substance": "PASS",
+      "full_analysis_and_holdings_notices": "PASS_IN_COMPLETE_PAYLOAD_OR_CHAIN",
+      "preview_host_link_guard": "NO_FORBIDDEN_HOST_FOUND",
+      "presentation_finding": "REMOVE_FORBIDDEN_DATED_REVIEW_PREFIX"
+    },
+    {
+      "destination": "youtube",
+      "preview_id": "cc-preview-10d99771b91387f213c8a0c4deb2828cb57a8f91cf6ff303201b0f4e3214a4d3",
+      "article_identity": "71cee49477edd904cc70be4c154eaf3380dccc0eb3086bfb9829adace73e619b",
+      "payload_sha256_canonical_json": "3cf4d1d447a820476bc2014166270d83e892792cd35b430e0525122020782dd5",
+      "full_payload_read": true,
+      "all_posts_and_replies_read": true,
+      "post_count": 1,
+      "source_bound_substance": "PASS",
+      "full_analysis_and_holdings_notices": "PASS_IN_COMPLETE_PAYLOAD_OR_CHAIN",
+      "preview_host_link_guard": "NO_FORBIDDEN_HOST_FOUND",
+      "presentation_finding": "REMOVE_FORBIDDEN_DATED_REVIEW_PREFIX"
+    }
+  ],
+  "media_assets": [
+    {
+      "asset_id": "post-facts-3686e830033ce0a8774d",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\media_assets\\post-facts-3686e830033ce0a8774d.png",
+      "supplied_sha256": "077cc2c1a95d86b1ef25947ba1716e4d656ef9b4898090737b46c6b97166e3e8",
+      "actual_file_sha256": "077cc2c1a95d86b1ef25947ba1716e4d656ef9b4898090737b46c6b97166e3e8",
+      "width": 1080,
+      "height": 1350,
+      "metadata_sha256_canonical_json": "93a272c11fb8509cb30bf8702dce7c0fe2115c519a975afb0e4f7b8e4545bfd6",
+      "pixel_inspection": "VIEW_IMAGE_ORIGINAL_IN_THIS_NATIVE_CONTEXT",
+      "pixel_inspection_timing": "THIS_FINAL_CHECK"
+    },
+    {
+      "asset_id": "cc124-oil-followup-archive-refinery-fws",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\oil-refinery-coastal-texas.jpg",
+      "supplied_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "actual_file_sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "width": 1512,
+      "height": 996,
+      "metadata_sha256_canonical_json": "e4f9f25a6139255456bec22930598e78331cbbf1be92f5e5f2381e814fb57f8b",
+      "pixel_inspection": "VIEW_IMAGE_ORIGINAL_IN_THIS_NATIVE_CONTEXT",
+      "pixel_inspection_timing": "EARLIER_SOURCE_PHOTO_INSPECTION_SAME_CONTEXT_UNCHANGED_BYTES"
+    }
+  ],
+  "photo_metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\photo-asset.json",
+  "photo_metadata_sha256": "aa7634dc36188d7023eb436155f2853b671e49d8d9f1d7306556398efb4c5d5a",
+  "photo_rights_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-1631\\media\\photo-rights-original.json",
+  "photo_rights_sha256": "69e7e160832125a366b909c8cdbc73cdb31f1b63a56236fda3af18ac4311c35e",
+  "repair_boundary": "Return these two exact corrections for one repair round. Preserve the supported article prose, source identity, source cutoff, accepted operation and valid photograph. No approval clock is started for this revision.",
+  "limits": [
+    "This verdict covers the exact supplied text package and actual card/source-photo pixels, not uninspected canonical or channel screen layouts.",
+    "No browser, desktop automation, test, publication, runtime state or code change was performed.",
+    "The initial exact package is not approved; the correction is limited to the two named presentation defects."
+  ]
+}

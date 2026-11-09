@@ -1,0 +1,30 @@
+{
+  "redirects": [
+    {
+      "short_url": "https://t.co/hzB8iY4ai7",
+      "observed_at_utc": "2026-11-06T11:08:45.357Z",
+      "title": "(1) Capital Chronicle's pre-payrolls review gives oil a supply-risk test",
+      "url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+      "target_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+      "target_verified": true,
+      "verification_method": "Short link navigated to exact canonical."
+    },
+    {
+      "short_url": "https://lnkd.in/gr23TiSx",
+      "observed_at_utc": "2026-11-06T11:09:05.307Z",
+      "title": "LinkedIn",
+      "url": "https://lnkd.in/gr23TiSx",
+      "target_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+      "target_verified": true,
+      "verification_method": "LinkedIn short link opened its external-link interstitial, whose observed destination anchor is the exact confirmed canonical URL."
+    },
+    {
+      "short_url": "https://lnkd.in/gT6yH3cv",
+      "url": "https://lnkd.in/gT6yH3cv",
+      "target_url": "https://capitalchronicle.substack.com/p/capital-chronicles-pre-payrolls-review",
+      "target_verified": true,
+      "observed_at_utc": "2026-11-06T11:10:03.826Z",
+      "verification_method": "LinkedIn short link opened its external-link interstitial, whose observed destination anchor is the exact confirmed canonical URL."
+    }
+  ]
+}

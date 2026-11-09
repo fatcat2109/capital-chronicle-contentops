@@ -56,34 +56,7 @@ class SnapshotError(RuntimeError):
     pass
 
 
-# Ops Product, 5 Nov (CC-035): one headless Chromium on TradingView takes about 0.5 GB for 10-20 s,
-# and Guardian overran at 1.9 GB free. Below this floor the post takes the fact card instead.
-MIN_FREE_RAM_GB = 1.5
-LOW_MEMORY = "LOW_MEMORY_FALLBACK"
-
-
-class LowMemory(SnapshotError):
-    pass
-
-
-def free_ram_gb() -> float | None:
-    """Free physical memory (GlobalMemoryStatusEx); None when it cannot be read."""
-    try:
-        import ctypes
-
-        class MemoryStatus(ctypes.Structure):
-            _fields_ = [("dwLength", ctypes.c_ulong), ("dwMemoryLoad", ctypes.c_ulong),
-                        ("ullTotalPhys", ctypes.c_ulonglong), ("ullAvailPhys", ctypes.c_ulonglong),
-                        ("ullTotalPageFile", ctypes.c_ulonglong), ("ullAvailPageFile", ctypes.c_ulonglong),
-                        ("ullTotalVirtual", ctypes.c_ulonglong), ("ullAvailVirtual", ctypes.c_ulonglong),
-                        ("ullAvailExtendedVirtual", ctypes.c_ulonglong)]
-        status = MemoryStatus()
-        status.dwLength = ctypes.sizeof(MemoryStatus)
-        if not ctypes.windll.kernel32.GlobalMemoryStatusEx(ctypes.byref(status)):
-            return None
-        return status.ullAvailPhys / 1024 ** 3
-    except (AttributeError, OSError):
-        return None
+# Jim decision 87 (CC-316): memory measurements never gate capture.
 
 
 def _utc(value: Any) -> datetime | None:
@@ -192,9 +165,6 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
     """One TradingView Download image of the market at the interval, checked before use."""
     if market not in SYMBOLS or interval not in INTERVAL_LABELS:
         raise SnapshotError("TRADINGVIEW_SNAPSHOT_MARKET_OR_INTERVAL_UNSUPPORTED")
-    free = free_ram_gb()
-    if free is None or free < MIN_FREE_RAM_GB:  # unreadable counts as low: never risk Guardian
-        raise LowMemory(f"{LOW_MEMORY}:{'unknown' if free is None else round(free, 2)}GB")
     tv_symbol = SYMBOLS[market]
     out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -234,7 +204,8 @@ def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir
     digest = _sha256(framed_path)
     label = snapshot["interval_label"]
     captured = _utc(snapshot.get("captured_at_utc")) or datetime.now(timezone.utc)
-    when = f"{captured:%a} {captured.day} {captured:%b} {captured:%H:%M} UTC"
+    from live_contentops.public_time_v1 import public_timestamp
+    when = public_timestamp(captured)
     return {"asset_id": "tradingview-snapshot-" + digest[:20], "path": str(framed_path), "sha256": digest,
             "width": framing["width"], "height": framing["height"], "mime_type": "image/png",
             "modality": "tradingview_chart_snapshot", "card_kind": "TRADINGVIEW_SNAPSHOT",
@@ -249,6 +220,176 @@ def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir
             "tradingview_snapshot": {**dict(snapshot), "framing": framing, "policy": POLICY,
                                      "levels_drawn": [], "target_drawn": False},
             "publication_authority": False}
+
+
+def validate_snapshot_asset(asset: Mapping[str, Any], article: Mapping[str, Any] | None = None) -> None:
+    """Validate the exact download and uncropped pixels; never treat it as a data series."""
+    from PIL import Image, ImageChops
+    snap = asset["tradingview_snapshot"]
+    market = (article or {}).get("market_asset")
+    if ((article or {}).get("paid") or (article or {}).get("paywall")
+            or (article or {}).get("audience") in {"paid", "paid_subscribers"}):
+        raise ValueError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
+    if (snap.get("policy") != POLICY or asset.get("credit") != CREDIT
+            or asset.get("provenance_status") != "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE"
+            or not asset.get("rights_basis") or snap.get("levels_drawn") != []
+            or snap.get("target_drawn") is not False
+            or snap.get("tv_symbol") not in SYMBOLS.values()
+            or (market and SYMBOLS.get(market) != snap.get("tv_symbol"))
+            or snap.get("chart_url") != chart_url(snap["tv_symbol"], snap["interval"])
+            or snap.get("interval") not in INTERVAL_LABELS):
+        raise ValueError("TRADINGVIEW_SNAPSHOT_BINDING_INVALID")
+    if _sha256(Path(asset["path"])) != asset["sha256"] or _sha256(Path(snap["path"])) != snap["sha256"]:
+        raise ValueError("TRADINGVIEW_SNAPSHOT_BYTES_CHANGED")
+    with Image.open(snap["path"]) as original, Image.open(asset["path"]) as framed:
+        box = snap["framing"]["original_box"]
+        if (original.format != "PNG" or min(original.size) < 400
+                or (box[2] - box[0], box[3] - box[1]) != original.size
+                or framed.size != (asset["width"], asset["height"])
+                or ImageChops.difference(original.convert("RGB"), framed.convert("RGB").crop(box)).getbbox()):
+            raise ValueError("TRADINGVIEW_SNAPSHOT_ATTRIBUTION_CROPPED_OR_CHANGED")
+        top = asset.get("preceding_card")
+        if top:
+            if _sha256(Path(top["path"])) != top["sha256"]:
+                raise ValueError("TRADINGVIEW_PRECEDING_CARD_BYTES_CHANGED")
+            with Image.open(top["path"]) as card:
+                if ImageChops.difference(card.convert("RGB"), framed.convert("RGB").crop(top["box"])).getbbox():
+                    raise ValueError("TRADINGVIEW_PRECEDING_CARD_PIXELS_CHANGED")
+
+
+def _single_image_panel(asset: dict, card: dict, folder: Path) -> dict:
+    """Single-image transports display the release card first, then the intact chart."""
+    from copy import deepcopy
+    from PIL import Image
+    panel = deepcopy(asset)
+    with Image.open(card["path"]) as first, Image.open(asset["path"]) as chart:
+        width, height = max(first.width, chart.width), first.height + chart.height
+        canvas = Image.new("RGB", (width, height), "white")
+        x1, x2 = (width - first.width) // 2, (width - chart.width) // 2
+        canvas.paste(first.convert("RGB"), (x1, 0))
+        canvas.paste(chart.convert("RGB"), (x2, first.height))
+        name = hashlib.sha256((card["sha256"] + asset["sha256"]).encode()).hexdigest()[:20]
+        path = folder / ("card-and-tradingview-" + name + ".png")
+        canvas.save(path, format="PNG")
+        box = panel["tradingview_snapshot"]["framing"]["original_box"]
+        panel["tradingview_snapshot"]["framing"]["original_box"] = [
+            box[0] + x2, box[1] + first.height, box[2] + x2, box[3] + first.height]
+        panel["preceding_card"] = {**deepcopy(card), "box": [x1, 0, x1 + first.width, first.height]}
+    panel.update(asset_id="tradingview-panel-" + name, path=str(path), sha256=_sha256(path),
+        width=width, height=height, derivative_only=True,
+        article_inclusion=False, canonical_article_media=False,
+        caption=str(card.get("caption") or "") + ". " + asset["caption"],
+        alt_text=str(card.get("alt_text") or "") + ". " + asset["alt_text"])
+    return panel
+
+
+def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, output_dir: Path,
+                             selected_candidate: Mapping[str, Any] | None = None) -> tuple[dict, list[dict]]:
+    """Capture once before article registration; keep the current card on any failure.
+
+    The writer names the discussed market. A single structured candidate asset can
+    supply it too. We never pick an arbitrary market from a multi-market release.
+    """
+    from copy import deepcopy
+    article, assets = deepcopy(article), deepcopy(assets)
+    candidate = selected_candidate or {}
+    aliases = {"GOLD": "XAUUSD", **{m: m for m in SYMBOLS}}
+    value = article.get("market_asset")
+    if not value:
+        values = candidate.get("asset_ids") or []
+        if isinstance(values, str):
+            values = [values]
+        markets = {aliases[str(v).upper()] for v in values if str(v).upper() in aliases}
+        value = next(iter(markets)) if len(markets) == 1 else None
+    market = aliases.get(str(value).upper())
+    if not market:
+        return article, assets
+    article["market_asset"] = market
+    if article.get("retrospective") or "Retrospective analysis, written on" in str(article.get("substack_body_markdown")):
+        article["tradingview_snapshot_outcome"] = {"status": "JIM_DECISION_19B_NO_POST_EVENT_CHART", "market": market}
+        return article, assets
+    # Terms section 4: free publication only, until written paid-use permission.
+    if article.get("paid") or article.get("paywall") or article.get("audience") in {"paid", "paid_subscribers"}:
+        article["tradingview_snapshot_outcome"] = {"status": "PUBLIC_REDISTRIBUTION_NOT_LICENSED", "market": market}
+        return article, assets
+    existing = next((a for a in assets if a.get("modality") == "tradingview_chart_snapshot"
+                     and not a.get("derivative_only")), None)
+    folder = Path(output_dir) / "media" / "tradingview"
+    # This is an operation artifact, reused on resume including a failed attempt.
+    key = hashlib.sha256(json.dumps([market, article.get("title"), article.get("substack_body_markdown")],
+                                    sort_keys=True).encode()).hexdigest()[:20]
+    saved = folder / (key + ".json")
+    try:
+        if existing:
+            asset = existing
+        elif saved.is_file():
+            prior = json.loads(saved.read_text(encoding="utf-8"))
+            if prior["status"] != "CAPTURED":
+                article["tradingview_snapshot_outcome"] = prior
+                return article, assets
+            asset = prior["asset"]
+        else:
+            taken = capture(market, "240", folder)
+            asset = snapshot_asset(market, article["title"], taken, folder)
+        validate_snapshot_asset(asset, article)
+        asset = {**asset, "placement_after": "standfirst", "article_inclusion": True,
+                 "canonical_article_media": True,
+                 "canonical_article_section_association": "introduction"}
+        outcome = {"status": "CAPTURED", "market": market, "asset": asset}
+    except Exception as exc:  # A failed optional capture never stops the article.
+        outcome = {"status": "FAILED", "market": market, "cause": str(exc)[:200]}
+        asset = None
+    if not saved.is_file():
+        try:
+            folder.mkdir(parents=True, exist_ok=True)
+            saved.write_text(json.dumps(outcome, sort_keys=True), encoding="utf-8")
+        except OSError:
+            pass
+        record_outcome({k: v for k, v in outcome.items() if k != "asset"})
+    article["tradingview_snapshot_outcome"] = {k: v for k, v in outcome.items() if k != "asset"}
+    if asset:
+        event = article.get("article_type") in {"EVENT_PREVIEW", "EVENT_REVIEW"} or article.get("release_analysis") is True
+        decision_93 = bool(article.get("scenario_analysis")) or article.get("publication_quality_policy") == "JIM_DECISION_93"
+        if decision_93:
+            article["publication_quality_policy"] = "JIM_DECISION_93"
+        # Preserve the older card inference for retained requests. Decision 93
+        # explicitly distinguishes a market lead from a release-card lead.
+        card_first = event or not decision_93
+        if not existing:
+            assets.append(asset)  # Keep the release card first.
+        first_card = (next((a for a in assets if a.get("modality") == "source_bound_data_card"), None)
+                      or next((a for a in assets if a.get("modality") == "source_backed_chart"), None)) if card_first else None
+        selected = asset
+        if first_card:
+            try:
+                selected = _single_image_panel(asset, first_card, folder)
+                validate_snapshot_asset(selected, article)
+            except Exception as exc:
+                article["tradingview_snapshot_outcome"] = {"status": "FAILED", "market": market,
+                    "cause": "SINGLE_IMAGE_PANEL_FAILED:" + str(exc)[:160]}
+                record_outcome(article["tradingview_snapshot_outcome"])
+                return article, [a for a in assets if a.get("modality") != "tradingview_chart_snapshot"]
+            if selected["asset_id"] not in {a["asset_id"] for a in assets}:
+                assets.append(selected)
+            # The current compiler may have appended its release card after a
+            # photo/history chart. Keep that card first on the canonical too.
+            assets = [first_card, asset, *(a for a in assets
+                      if a["asset_id"] not in {first_card["asset_id"], asset["asset_id"]})]
+        elif decision_93:
+            assets = [asset, *(a for a in assets if a["asset_id"] != asset["asset_id"])]
+        article["lead_image_asset_id"] = assets[0]["asset_id"]
+        article["tradingview_snapshot_asset_ids"] = [selected["asset_id"]]
+        from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+        # One exact image also reaches transports with a single-image API. The
+        # canonical keeps the separate release card first and snapshot second.
+        choices = {d: [selected["asset_id"]] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+        article["native_destination_media"] = choices
+        if article.get("post_visual_destination_media") is not None:
+            article["post_visual_destination_media"] = choices
+        if article.get("visual_editorial_decision"):
+            article["visual_editorial_decision"]["channel_media"] = choices
+            article["visual_editorial_decision"]["tradingview_snapshot_asset_ids"] = [selected["asset_id"]]
+    return article, assets
 
 
 def fallback_card(*, title: str, facts: list[tuple[str, str]], dated_line: str, out_dir: Path,

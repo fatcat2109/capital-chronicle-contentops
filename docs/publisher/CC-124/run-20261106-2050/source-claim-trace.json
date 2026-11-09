@@ -1,0 +1,179 @@
+{
+  "operation_id": "cc124-nfp-arrival-review-20261106-v1",
+  "native_invocation_id": "/root/nfp_source_preparation",
+  "source_spec": {
+    "authority_ref": "JIM_DECISION_89",
+    "source_url": "urn:cc-public-report:cc124:nfp-arrival-review:20261106",
+    "headline_id": "cc124-nfp-arrival-review-20261106",
+    "headline_text": "Capital Chronicle NFP arrival review: the strong condition held",
+    "known_at_utc": "2026-11-06T13:34:06Z",
+    "revision_at_utc": "2026-11-06T13:54:12.044066Z",
+    "candidate_catalyst_tags": [
+      "NFP",
+      "event-review",
+      "labour-market",
+      "conditional-policy-mechanism"
+    ],
+    "passages": [
+      {
+        "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+        "source_sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1",
+        "fragments": [
+          {
+            "start": 358,
+            "end": 448
+          },
+          {
+            "start": 506,
+            "end": 553
+          },
+          {
+            "start": 864,
+            "end": 1005
+          }
+        ]
+      },
+      {
+        "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+        "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+        "fragments": [
+          {
+            "start": 3868,
+            "end": 3948
+          },
+          {
+            "start": 4205,
+            "end": 4298
+          },
+          {
+            "start": 4719,
+            "end": 4764
+          },
+          {
+            "start": 5913,
+            "end": 5958
+          },
+          {
+            "start": 6431,
+            "end": 6467
+          }
+        ]
+      }
+    ]
+  },
+  "claims": [
+    {
+      "claim_id": "p1-f1",
+      "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+      "source_sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1",
+      "fragment": {
+        "start": 358,
+        "end": 448
+      },
+      "exact_text": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published).",
+      "semantics": "DATED_MAIN_REPORT_ATTRIBUTED_ANALYSIS"
+    },
+    {
+      "claim_id": "p1-f2",
+      "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+      "source_sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1",
+      "fragment": {
+        "start": 506,
+        "end": 553
+      },
+      "exact_text": "- Unemployment rate: **4.1%** (September 4.2%).",
+      "semantics": "DATED_MAIN_REPORT_ATTRIBUTED_ANALYSIS"
+    },
+    {
+      "claim_id": "p1-f3",
+      "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md",
+      "source_sha256": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1",
+      "fragment": {
+        "start": 864,
+        "end": 1005
+      },
+      "exact_text": "The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+      "semantics": "DATED_MAIN_REPORT_ATTRIBUTED_ANALYSIS"
+    },
+    {
+      "claim_id": "p2-f1",
+      "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+      "fragment": {
+        "start": 3868,
+        "end": 3948
+      },
+      "exact_text": "a hawkish labour surprise raises the expected Fed path, the USD and real yields;",
+      "semantics": "DATED_MAIN_REPORT_ATTRIBUTED_ANALYSIS"
+    },
+    {
+      "claim_id": "p2-f2",
+      "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+      "fragment": {
+        "start": 4205,
+        "end": 4298
+      },
+      "exact_text": "a second weak print after September's +29K lowers the expected hike path and weakens the USD;",
+      "semantics": "DATED_MAIN_REPORT_ATTRIBUTED_ANALYSIS"
+    },
+    {
+      "claim_id": "p2-f3",
+      "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+      "fragment": {
+        "start": 4719,
+        "end": 4764
+      },
+      "exact_text": "Whipsaw after the release and the weekend gap",
+      "semantics": "DATED_MAIN_REPORT_ATTRIBUTED_ANALYSIS"
+    },
+    {
+      "claim_id": "p2-f4",
+      "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+      "fragment": {
+        "start": 5913,
+        "end": 5958
+      },
+      "exact_text": "no separate rates read was taken in this run.",
+      "semantics": "DATED_MAIN_REPORT_ATTRIBUTED_ANALYSIS"
+    },
+    {
+      "claim_id": "p2-f5",
+      "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md",
+      "source_sha256": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+      "fragment": {
+        "start": 6431,
+        "end": 6467
+      },
+      "exact_text": "No market-context.json was gathered.",
+      "semantics": "DATED_MAIN_REPORT_ATTRIBUTED_ANALYSIS"
+    }
+  ],
+  "source_index": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261106-2050\\source\\index.json",
+    "sha256": "fed37858a76215949661bf652e119341d1b8d8bd8422516ebf2b68594c3eb166"
+  },
+  "source_verification": "PASS: verify_projection reconstructed exact pinned spans",
+  "known_at_utc": "2026-11-06T13:34:06Z",
+  "revision_at_utc": "2026-11-06T13:54:12.044066Z",
+  "novelty": "Held arrival report records +165K payrolls and 4.1% unemployment: both frozen strong conditions held. Adds conditional policy/USD/real-yield mechanism, weak countercase, whipsaw/weekend risk and retained rates/context gaps; does not score market performance.",
+  "limits": [
+    "Report truth only; parent handles official supporting evidence.",
+    "Conditional pre-event mechanism is not observed market reaction. No fill, execution success, profitability or realised performance claim is supported.",
+    "No separate rates read or market-context.json in dossier. No full reaction timeline required to use held release facts.",
+    "Excluded private execution/account identifiers, entry/stop/target/size, raw third-party prices/tables, private consensus rows and uncalibrated probabilities."
+  ],
+  "chart_data_requirements": [
+    "Parent supplies public-domain official history: headline and core trend over at least 24 months, latest-month change and available component breakdown.",
+    "Bind each chart to exact source series, units, vintage and window. Projection contains no chart history; never chart private consensus, positioning or broker prices.",
+    "Use lawful contextual photo where available with source/creator/licence metadata."
+  ],
+  "run_json_use": "Pinned run.json checked for provenance and clock consistency, not projected.",
+  "prior_source_artifact": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-107\\run-20261106\\nfp-review-held-arrival.json",
+    "sha256": "0b3e9d65708924c974e550dd3fc72d50298a5f2d9fa680f708186eb271ad7a8d"
+  },
+  "projection_preparation_note": "Verifier rejected execution wording in an initial candidate span; retained only exact whipsaw/weekend phrase and rates/context gaps. No code changes."
+}

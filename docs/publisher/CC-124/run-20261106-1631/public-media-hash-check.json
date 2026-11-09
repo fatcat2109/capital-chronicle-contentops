@@ -1,0 +1,21 @@
+{
+  "assets": [
+    {
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/8fd158c3-b664-4298-9b8d-711f70c84af9_1512x996.jpeg",
+      "sha256": "38f6b090a3ef11a5967e4f7d46fa56a1b7a58cf4bc3edee9fffd32faadd79d4c",
+      "bytes": 112433,
+      "binary_path": "docs\\publisher\\CC-124\\run-20261106-1631\\media\\public-photo.jpeg",
+      "local": "media/oil-refinery-coastal-texas.jpg",
+      "matches": true
+    },
+    {
+      "url": "https://substack-post-media.s3.amazonaws.com/public/images/67f4247a-f09b-4a0b-b8e5-e0c11c7a2fb1_1080x1350.png",
+      "sha256": "64751f15fe570006300424adba143bc4403df1a13f98616c3232816273b781dd",
+      "bytes": 122571,
+      "binary_path": "docs\\publisher\\CC-124\\run-20261106-1631\\media\\public-card.png",
+      "local": "media/media_assets/post-facts-fc5c1c6572545a5197e3.png",
+      "matches": true
+    }
+  ],
+  "method": "Neo public originals downloaded with curl after Python TLS handshake timeout; exact binary hashes verified."
+}

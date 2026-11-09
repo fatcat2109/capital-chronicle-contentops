@@ -1,0 +1,62 @@
+{
+  "live_contentops/channel_engagement_v1.py": [
+    56,
+    57,
+    150,
+    156
+  ],
+  "live_contentops/codex_desktop_newsroom_operator_v1.py": [
+    325,
+    420,
+    562,
+    584
+  ],
+  "live_contentops/daily_app_supervisor_v1.py": [
+    254
+  ],
+  "live_contentops/daily_x_cdp_headline_capture_packet_v0.py": [
+    23,
+    24,
+    26,
+    28
+  ],
+  "live_contentops/native_desktop_editorial_v1.py": [
+    1819
+  ],
+  "live_contentops/native_desktop_schedule_binding_v1.py": [
+    511,
+    521,
+    524,
+    565,
+    566,
+    718,
+    802
+  ],
+  "live_contentops/newsroom_coverage_v1.py": [
+    15,
+    130,
+    143,
+    149
+  ],
+  "live_contentops/newsroom_production_day_v1.py": [
+    25
+  ],
+  "live_contentops/plan_status_posts_v1.py": [
+    142
+  ],
+  "live_contentops/retrospective_piece_v1.py": [
+    18,
+    82
+  ],
+  "live_contentops/substack_daily_digest_v1.py": [
+    22,
+    204
+  ],
+  "live_contentops/v1_simple_gemini_newsroom_v1.py": [
+    91
+  ],
+  "live_contentops/x_list_feed_v1.py": [
+    60,
+    141
+  ]
+}
