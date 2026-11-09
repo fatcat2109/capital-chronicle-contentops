@@ -85,3 +85,27 @@ def test_telegram_photo_serializes_exact_reply_without_mutating_original(tmp_pat
         assert b'name="reply_parameters"' in sent[0].data and b'{"message_id": 104}' in sent[0].data
     else:
         assert json.loads(sent[0].data)["reply_parameters"] == {"message_id": 104}
+
+
+def test_discord_readback_verifies_image_moved_into_embed(monkeypatch):
+    from live_contentops import discord_live_adapter_v6 as adapter
+    import hashlib
+    pixels = b"controlled PNG bytes"
+    payload = {"id": "200", "channel_id": "1519311669216673802", "content": correction.TEXT,
+               "embeds": [{"image": {"url": "https://cdn.discordapp.com/attachments/fixture.png"}}],
+               "attachments": []}
+    class Response:
+        def __init__(self, body): self.body = body
+        def __enter__(self): return self
+        def __exit__(self, *a): pass
+        def read(self, *a): return self.body
+    def read(request, **kwargs):
+        return Response(json.dumps(payload).encode() if hasattr(request, "full_url") else pixels)
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", read)
+    result = adapter.readback_discord_post(message_id="200", expected_text=correction.TEXT, canonical_url="",
+        webhook_url="https://discord.com/api/webhooks/fixture", expected_image_sha256=hashlib.sha256(pixels).hexdigest())
+    assert result["verified"] and result["image_sha256_match"]
+    assert result["public_url"] == "https://discord.com/channels/1519310996030750782/1519311669216673802/200"
+    result = adapter.readback_discord_post(message_id="200", expected_text=correction.TEXT, canonical_url="",
+        webhook_url="https://discord.com/api/webhooks/fixture", expected_image_sha256="0" * 64)
+    assert not result["verified"]
