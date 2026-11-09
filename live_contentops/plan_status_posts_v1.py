@@ -481,6 +481,23 @@ POST_ENDED_WITHOUT_ENTRY = False
 # CC-353's why block went live at 09:48Z on 9 Nov. Only plans registered before it lack their reasons, so only
 # they can get a why follow-up; every later plan carries its reasons in its first post (decision 106).
 WHY_FOLLOW_UP_REGISTERED_BEFORE = "2026-11-09T09:48:00Z"
+# Jim's decision 106: the exit post (CC-322) is optional and selective. A plan that never filled posts nothing; an
+# exit at the horizon end is not posted; a result more than a day old is not news (the week's record lists every
+# scored call); a loss posts at most once in LOSS_POST_DAYS, so a reader who joins during a losing streak is not
+# shown it post by post. A correction always posts.
+RESULT_POSTS_SELECTIVE = True
+LOSS_POST_DAYS = 7
+
+
+def _recent_loss_post(outbox, now) -> bool:
+    for r in outbox:
+        payload = json.loads(r["payload"])
+        when = r.get("created_at") or payload.get("at_utc")
+        if (payload.get("kind") == "result" and payload.get("result") == "STOPPED" and when
+                and r["status"] not in {STALE, SUPERSEDED}
+                and (now - _utc(when)).total_seconds() < LOSS_POST_DAYS * 86400):
+            return True
+    return False
 PUBLIC_LEVELS = ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc")
 ACTIVE = {"WAITING", "TRIGGERED"}
 
@@ -532,9 +549,22 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     recoveries = active_recoveries(fresh, now)
     outbox = store.list_outbox_messages(destination=DESTINATION)
     announced = {json.loads(r["payload"]).get("plan_id") for r in outbox if r["status"] == "PUBLISHED"}
+    loss_recent = _recent_loss_post(outbox, now)
     for row in sorted(fresh, key=lambda r: (r["to"] not in WITHDRAWN, r["at_utc"])):
         late = False
         is_result = row["to"] == "RESULT"
+        if (is_result and RESULT_POSTS_SELECTIVE and not row.get("corrects_outcome_id")
+                and not store.get_outbox_message(row["key"])):
+            cause = ("ENDED_WITHOUT_ENTRY_NOT_POSTED_DECISION_106" if not row["scored"] else
+                     "EXIT_AT_HORIZON_END_NOT_POSTED_DECISION_106" if row["result"] == "EXPIRED" else
+                     "RESULT_OLDER_THAN_A_DAY_NOT_POSTED_DECISION_106"
+                     if (now - _utc(row["at_utc"])).total_seconds() > LATE_STATE_HOURS * 3600 else
+                     "LOSS_POST_LIMIT_DECISION_106" if row["result"] == "STOPPED" and loss_recent else None)
+            if cause:
+                skipped.append({"key": row["key"], "cause": cause})
+                continue
+            if row["result"] == "STOPPED":
+                loss_recent = True
         if is_result and not row["scored"] and row["plan_id"] not in announced:
             skipped.append({"key": row["key"], "cause": "PLAN_NEVER_ANNOUNCED"})
             continue

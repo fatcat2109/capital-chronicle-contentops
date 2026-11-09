@@ -13,6 +13,12 @@ from test_plan_status_publication_cc306 import fake_host, no_real_snapshot
 from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set_mode
 
 
+@pytest.fixture(autouse=True)
+def every_result_posts(monkeypatch):
+    """Decision 106 makes result posts selective; these tests cover the full result machinery."""
+    monkeypatch.setattr(posts, "RESULT_POSTS_SELECTIVE", False)
+
+
 def source(tmp_path, result="STOPPED", *, correction=None, state="SCORED", count=2):
     p = plan("plan_gold", "XAUUSD", "BEARISH", 4070, 4085, invalid=4100)
     p["status"] = "FILLED" if state == "SCORED" else "EXPIRED"

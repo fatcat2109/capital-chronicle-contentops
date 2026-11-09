@@ -131,3 +131,43 @@ def test_decision_106_no_post_when_a_plan_ends_without_an_entry(tmp_path, main_r
     result = p.queue_posts(store, folder, now=NOW + timedelta(minutes=10), main_root=main_root, python=sys.executable)
     assert not [q for q in result["queued"] if q["state"] == "EXPIRED"]
     assert any(s["cause"] == "ENDED_WITHOUT_ENTRY_NOT_POSTED_DECISION_106" for s in result["not_posted"])
+
+
+def result_export(folder, plan_id, result, *, state="SCORED", resolved="2026-11-05T12:20:00Z"):
+    """CC-322's shape (test_plan_result_posts_cc322.source), one plan per folder."""
+    source = plan(plan_id, "XAUUSD", "BEARISH", 4070, 4085, invalid=4100)
+    source["status"] = "FILLED" if state == "SCORED" else "EXPIRED"
+    score = {"plan_id": plan_id, "asset_id": "XAUUSD", "result": result, "outcome_id": f"outcome_{plan_id}",
+             "resolved_at_utc": resolved, "corrects_outcome_id": None, "content_hash": "s" * 64,
+             "score_basis": "PRIVATE_EXECUTION_DETAIL"}
+    source["outcome"] = {"state": state, "result": result if state == "SCORED" else None,
+                         "outcome_id": score["outcome_id"] if state == "SCORED" else None,
+                         "score": score if state == "SCORED" else None}
+    out = write_export(folder, [source], [event(plan_id, source["status"], resolved)])
+    path = out / "plan-status.public.json"
+    status = json.loads(path.read_bytes())
+    status["scored_call_count"] = 2
+    path.write_text(json.dumps(status), encoding="utf-8")
+    return out
+
+
+def results(store, folder, main_root, now=NOW):
+    out = p.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    return ([q["key"] for q in out["queued"] if q["state"] == "RESULT"],
+            {s["cause"] for s in out["not_posted"] if "DECISION_106" in str(s["cause"])})
+
+
+def test_decision_106_exit_posts_are_selective(tmp_path, main_root):
+    store = ContentOpsDurableStore(tmp_path / "store.db")
+    assert results(store, result_export(tmp_path / "a", "plan_a", "EXPIRED", state="NOT_SCORED_UNTRIGGERED"),
+                   main_root) == ([], {"ENDED_WITHOUT_ENTRY_NOT_POSTED_DECISION_106"})
+    assert results(store, result_export(tmp_path / "b", "plan_b", "EXPIRED"), main_root) == (
+        [], {"EXIT_AT_HORIZON_END_NOT_POSTED_DECISION_106"})
+    hit, _ = results(store, result_export(tmp_path / "c", "plan_c", "HIT"), main_root)
+    assert len(hit) == 1
+    loss, _ = results(store, result_export(tmp_path / "d", "plan_d", "STOPPED"), main_root)
+    assert len(loss) == 1
+    assert results(store, result_export(tmp_path / "e", "plan_e", "STOPPED"), main_root) == (
+        [], {"LOSS_POST_LIMIT_DECISION_106"})
+    old = result_export(tmp_path / "f", "plan_f", "HIT", resolved="2026-11-03T12:20:00Z")
+    assert results(store, old, main_root) == ([], {"RESULT_OLDER_THAN_A_DAY_NOT_POSTED_DECISION_106"})
