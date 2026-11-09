@@ -653,8 +653,13 @@ POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\pla
 STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "entry filled", "CANCELLED": "plan cancelled",
                "INVALIDATED": "plan invalidated", "EXPIRED": "plan expired", "VIEW_CHANGED": "view changed"}
 LIMITS = {"x": 280, "threads": 500, "telegram": 1024, "discord": 2000, "substack_notes": 10000}
-# A Telegram part after the photo post goes out as a text message (Bot API sendMessage, 4096 characters).
-REST_LIMITS = {"telegram": 4096}
+# Every part carries the post image (decision 61's post-image policy), so a Telegram part is a photo caption
+# (1024) like the first. Format 2 posts no parts on Telegram or Discord: see _compact_body.
+REST_LIMITS: dict = {}
+# Decision 106 (9 Nov): the order in which a one-post why keeps its reasons. Jim, 9 Nov: macro, sentiment,
+# what is priced, fundamentals and the technical levels (why this zone, why this stop).
+COMPACT_ORDER = ("Mechanism", "Positioning", "What is priced", "Why this zone", "Why this invalidation level",
+                 "Today's driver", "What confirms it", "Reaction so far", "Invalidation", "Alternative mechanism")
 X_URL_LENGTH = 23  # X counts every link as 23 characters
 
 
@@ -748,6 +753,28 @@ def _short_reasons(row: Mapping[str, Any], room: int) -> str:
     return lead + " Why: " + _excerpt(" ".join(picks), available) + tail
 
 
+def _compact_body(row: Mapping[str, Any], room: int) -> str:
+    """Decision 106: the reasons in one post of at most `room` characters. The odds first, then COMPACT_ORDER;
+    every line is shortened (at a word, with an ellipsis) before the last one is dropped."""
+    odds, reasons = [], {}
+    for line in row["why"]:
+        head = line.partition(": ")[0]
+        if head.startswith(("Base case", "Main alternative")):
+            odds.append(line)
+        else:
+            reasons[head] = line
+    lines = (odds + [reasons[h] for h in COMPACT_ORDER if h in reasons]
+             + [line for h, line in reasons.items() if h not in COMPACT_ORDER])
+    budget = room - len(row["lead"]) - len("\nWhy:")
+    while lines:
+        for cap in range(max(map(len, lines)), 59, -5):
+            fitted = [_excerpt(line, cap) for line in lines]
+            if sum(len(line) + 3 for line in fitted) <= budget:  # each line adds "\n• "
+                return row["lead"] + "\nWhy:" + "".join("\n• " + line for line in fitted)
+        lines = lines[:-1]
+    return row["lead"]
+
+
 def _x_pack(text: str, limit: int) -> list[str]:
     """X thread posts: whole lines where they fit, otherwise whole words."""
     chunks, current = [], ""
@@ -778,6 +805,10 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
             destination_body = _short_reasons(row, LIMITS["threads"] - len(notices) - 2 - (len(link) + 2 if link else 0))
         elif row.get("why") and destination in {"threads", "x"} and not v2:
             destination_body = _short_body(row, LIMITS["threads"] - len(notices) - 2 - (len(link) + 2 if link else 0))
+        elif row.get("why") and destination in {"telegram", "discord"} and v2:
+            room = LIMITS[destination] - len(notices) - 2 - (len(link) + 2 if link else 0)
+            if len(destination_body) > room:
+                destination_body = _compact_body(row, room)
         text = "\n\n".join(part for part in (destination_body, link, notices) if part)
         if destination == "x" and _x_length(text) > LIMITS["x"]:
             # Whole sentences per post: the chart credit with the first, the notices last. Format 2 posts the

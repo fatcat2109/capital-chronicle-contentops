@@ -111,7 +111,14 @@ def test_long_full_text_uses_bounded_parts_with_all_reasons(tmp_path, main_root)
     q = p.queue_posts(store, folder, now=NOW, main_root=main_root, python=sys.executable)
     key = q["queued"][0]["key"]
     packet = p.prepare_post(store, key, root=tmp_path / "posts", host=fake_host)
-    assert packet["continuations"]
+    # Decision 106: one post per destination; Telegram and Discord shorten each reason instead of a second part.
+    assert not packet["continuations"]
+    row = p._row_payload(store, key)
+    payloads = p.destination_payloads(row, card_id="card")
+    for d in ("telegram", "discord"):
+        assert len(payloads[d]["text"]) <= p.LIMITS[d] and "Why this zone: " in payloads[d]["text"]
+        assert "• Mechanism: Falling US yields narrow the rate gap." in payloads[d]["text"] and "…" in payloads[d]["text"]
+    assert payloads["substack_notes"]["text"].count("Falling US yields narrow the rate gap.") == 80
     for package in [packet, *packet["continuations"]]:
         work_id = package.get("work_item_id", key)
         parsed = p.validate_status_post_plan(store, work_id, package)
