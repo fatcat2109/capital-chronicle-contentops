@@ -1,0 +1,544 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authority_ref": "JIM_DECISION_89",
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "revision_at_utc": "2026-11-09T11:38:30.760805+00:00",
+      "candidate_catalyst_tags": [
+        "pre-US-wrap",
+        "CPI-week",
+        "six-market"
+      ],
+      "headline_id": "cc124-pre-us-main-20261109",
+      "headline_text": "Pre-US wrap: Monday's weaker dollar and fading oil premium leave gold and US stocks waiting for CPI",
+      "source_url": "urn:cc-public-report:cc124:pre-us-main:20261109",
+      "known_at_utc": "2026-11-09T09:10:57.375677+00:00",
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/0/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 794
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/0/rationale",
+          "fragments": [
+            {
+              "start": 3457,
+              "end": 3585
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/1/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 685
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/1/rationale",
+          "fragments": [
+            {
+              "start": 2708,
+              "end": 2837
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/2/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 868
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/2/rationale",
+          "fragments": [
+            {
+              "start": 2794,
+              "end": 2943
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/3/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 785
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/3/rationale",
+          "fragments": [
+            {
+              "start": 2898,
+              "end": 3061
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/4/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 730
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/4/rationale",
+          "fragments": [
+            {
+              "start": 2460,
+              "end": 2587
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/5/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 752
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/candidates/5/rationale",
+          "fragments": [
+            {
+              "start": 1813,
+              "end": 1921
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/causal_alternatives/0/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 333
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/causal_alternatives/1/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 268
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/causal_alternatives/2/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 228
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/causal_alternatives/3/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 162
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+          "source_sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+          "source_json_pointer": "/priced_in/0/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 273
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "authority_ref": "JIM_DECISION_89",
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "revision_at_utc": "2026-11-09T11:38:30.760805+00:00",
+      "candidate_catalyst_tags": [
+        "pre-US-wrap",
+        "CPI-week",
+        "six-market"
+      ],
+      "headline_id": "cc124-pre-us-opus-scenarios-20261109",
+      "headline_text": "Dated weekly geopolitical scenarios: model estimates set Sun 8 Nov, horizon through Fri 13 Nov",
+      "source_url": "urn:cc-public-report:cc124:pre-us-opus-scenarios:20261109",
+      "known_at_utc": "2026-11-08T23:26:00Z",
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 3495,
+              "end": 3520
+            },
+            {
+              "start": 3525,
+              "end": 3586
+            },
+            {
+              "start": 3587,
+              "end": 3617
+            },
+            {
+              "start": 3618,
+              "end": 3644
+            },
+            {
+              "start": 3665,
+              "end": 3717
+            },
+            {
+              "start": 3718,
+              "end": 3727
+            },
+            {
+              "start": 3728,
+              "end": 3737
+            },
+            {
+              "start": 3738,
+              "end": 3747
+            },
+            {
+              "start": 3750,
+              "end": 3766
+            },
+            {
+              "start": 3767,
+              "end": 3882
+            },
+            {
+              "start": 3883,
+              "end": 3998
+            },
+            {
+              "start": 3999,
+              "end": 4079
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 4082,
+              "end": 4112
+            },
+            {
+              "start": 4113,
+              "end": 4275
+            },
+            {
+              "start": 4276,
+              "end": 4402
+            },
+            {
+              "start": 4403,
+              "end": 4495
+            },
+            {
+              "start": 4498,
+              "end": 4515
+            },
+            {
+              "start": 4516,
+              "end": 4706
+            },
+            {
+              "start": 4707,
+              "end": 4843
+            },
+            {
+              "start": 4844,
+              "end": 4958
+            },
+            {
+              "start": 4961,
+              "end": 5008
+            },
+            {
+              "start": 5009,
+              "end": 5113
+            },
+            {
+              "start": 5114,
+              "end": 5162
+            },
+            {
+              "start": 5163,
+              "end": 5205
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 5207,
+              "end": 5259
+            },
+            {
+              "start": 5261,
+              "end": 5497
+            },
+            {
+              "start": 5500,
+              "end": 5521
+            },
+            {
+              "start": 5522,
+              "end": 5542
+            },
+            {
+              "start": 5543,
+              "end": 5555
+            },
+            {
+              "start": 5556,
+              "end": 5562
+            },
+            {
+              "start": 5583,
+              "end": 5625
+            },
+            {
+              "start": 5626,
+              "end": 5691
+            },
+            {
+              "start": 5692,
+              "end": 5728
+            },
+            {
+              "start": 5729,
+              "end": 5765
+            },
+            {
+              "start": 5768,
+              "end": 5801
+            },
+            {
+              "start": 5802,
+              "end": 5939
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 5940,
+              "end": 6040
+            },
+            {
+              "start": 6041,
+              "end": 6113
+            },
+            {
+              "start": 6116,
+              "end": 6143
+            },
+            {
+              "start": 6144,
+              "end": 6261
+            },
+            {
+              "start": 6262,
+              "end": 6274
+            },
+            {
+              "start": 6275,
+              "end": 6291
+            },
+            {
+              "start": 6294,
+              "end": 6315
+            },
+            {
+              "start": 6316,
+              "end": 6411
+            },
+            {
+              "start": 6412,
+              "end": 6447
+            },
+            {
+              "start": 6448,
+              "end": 6564
+            },
+            {
+              "start": 6567,
+              "end": 6588
+            },
+            {
+              "start": 6589,
+              "end": 6679
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 6680,
+              "end": 6781
+            },
+            {
+              "start": 6782,
+              "end": 6922
+            },
+            {
+              "start": 6925,
+              "end": 6959
+            },
+            {
+              "start": 6960,
+              "end": 7021
+            },
+            {
+              "start": 7022,
+              "end": 7191
+            },
+            {
+              "start": 7192,
+              "end": 7262
+            },
+            {
+              "start": 7265,
+              "end": 7480
+            },
+            {
+              "start": 7482,
+              "end": 7523
+            },
+            {
+              "start": 7525,
+              "end": 7664
+            },
+            {
+              "start": 7665,
+              "end": 7789
+            },
+            {
+              "start": 7790,
+              "end": 7913
+            },
+            {
+              "start": 7914,
+              "end": 8150
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "source_sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "fragments": [
+            {
+              "start": 8151,
+              "end": 8370
+            },
+            {
+              "start": 8371,
+              "end": 8462
+            },
+            {
+              "start": 8463,
+              "end": 8637
+            },
+            {
+              "start": 8638,
+              "end": 8810
+            },
+            {
+              "start": 8811,
+              "end": 8957
+            },
+            {
+              "start": 8959,
+              "end": 9053
+            },
+            {
+              "start": 9055,
+              "end": 9067
+            },
+            {
+              "start": 9069,
+              "end": 9186
+            },
+            {
+              "start": 9188,
+              "end": 9670
+            },
+            {
+              "start": 9672,
+              "end": 10116
+            },
+            {
+              "start": 10118,
+              "end": 10529
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
