@@ -259,6 +259,14 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         remainder = remainder.replace(wording, "")
     if calls and CONFLICTS_NOTICE not in combined:
         _fail("CONFLICTS_NOTICE_REQUIRED", "copy")
+    # CC-379 / decision 106: a dated, resolved call is a record of the original
+    # direction, not a new unconditional call. Only the complete closed result
+    # grammar is exempt; source/number binding and private-copy checks still apply.
+    remainder = re.sub(
+        r"(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) \d{1,2} [A-Z][a-z]{2} ET: [^;\n]{1,80}; "
+        r"original direction was (?:bullish|bearish); entry zone "
+        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?; "
+        r"(?:hit|stopped|closed at the end of its window)\.", "", remainder)
     if re.search(r"\b(?:bullish|bearish)\b", remainder, re.I):
         _fail("UNCONDITIONAL_CALL_FORBIDDEN", "copy")
     for call in calls:

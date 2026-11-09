@@ -810,6 +810,10 @@ class NativeDesktopTurn:
         from live_contentops.official_release_history_v1 import enrich_source_pack
         return enrich_source_pack(self, **kwargs)
 
+    def weekly_call_sources(self, **kwargs):
+        from live_contentops.weekly_scored_calls_v1 import enrich_source_pack
+        return enrich_source_pack(self, **kwargs)
+
     def _get(self, stage: str, kind: str) -> dict[str, Any] | None:
         row = self.store.get_outbox_message(self._key(stage, kind))
         return json.loads(row["payload"]) if row else None

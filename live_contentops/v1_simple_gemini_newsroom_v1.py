@@ -1350,6 +1350,9 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         + "\nGOVERNED_INPUT:\n"
         + json.dumps(governed, sort_keys=True, ensure_ascii=False)
     )
+    if any(d.get("weekly_scored_calls") for d in governed.get("source_pack", [])):
+        from live_contentops.weekly_scored_calls_v1 import WRITER_GUIDANCE
+        prompt += WRITER_GUIDANCE
     return _reader_first_worker_prompt(prompt, governed)
 
 
@@ -1737,6 +1740,14 @@ def _validate_article_against_source_pack(
     # extra article fields cannot self-certify a permitted probability descriptor.
     article.pop("public_research_descriptors", None)
     article.pop("frozen_public_record", None)  # Main's exact source, never writer-authored attachment metadata.
+    article.pop("weekly_scored_calls", None)
+    from live_contentops.weekly_scored_calls_v1 import validate_article as validate_weekly_calls
+    try:
+        weekly_record = validate_weekly_calls(article, source_pack)
+    except ValueError as exc:
+        raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", [str(exc)]) from exc
+    if weekly_record:
+        article["weekly_scored_calls"] = weekly_record
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
     claims = [dict(row) for row in worker_output.get("material_claim_bindings") or [] if isinstance(row, Mapping)]
     available_by_id = {str(row.get("source_id") or ""): dict(row) for row in source_pack}
@@ -1900,7 +1911,9 @@ def _validate_article_against_source_pack(
 def _revision_prompt(
     governed: Mapping[str, Any], prior: Mapping[str, Any], blockers: Sequence[str]
 ) -> str:
-    return (
+    from live_contentops.weekly_scored_calls_v1 import WRITER_GUIDANCE
+    weekly_guidance = WRITER_GUIDANCE if any(d.get("weekly_scored_calls") for d in governed.get("source_pack", [])) else ""
+    return weekly_guidance + (
         "Return exactly one JSON object with no markdown fence, commentary, prefix, or suffix. "
         "Revise the prior article once using only the same governed candidate and SOURCE_PACK. "
         "Fix exactly the deterministic blockers, do not add a source or expand factual scope, and return the complete strict object. "
@@ -2063,7 +2076,7 @@ def _reader_safe_native_article(
         result["editorial_scope_notice"] = " ".join(filter(None, (
             result["editorial_scope_notice"], *article.get("desk_record_source_notices", []))))
     for key in ("scenario_analysis", "social_scenarios", "market_asset", "article_type", "release_analysis",
-                "lead_image_asset_id", "publication_quality_policy", "valid_until_utc"):
+                "lead_image_asset_id", "publication_quality_policy", "valid_until_utc", "weekly_scored_calls"):
         if key in article:
             result[key] = article[key]
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
@@ -3017,6 +3030,9 @@ def run_v1_simple_gemini_newsroom(
                                      for i, d in enumerate(contextual)]]
         selected = {**selected, "evolving_story_context": [*selected.get("evolving_story_context", []),
                                                         selected_context["selected_story_context"]]}
+    if selected is not None and native and getattr(llm_invoke, "weekly_call_sources", None):
+        source_pack = llm_invoke.weekly_call_sources(source_pack=source_pack,
+            selected_candidate=selected, cutoff_utc=cutoff_utc)
     evidence_artifact = {
         "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
         "status": "PASS" if selected is not None else "BLOCKED",
