@@ -1,5 +1,61 @@
 # CC-316 — article TradingView snapshots
 
+## Completed verification — 9 November 2026
+
+CC-316's implementation is already integrated into the Publisher operating root.
+Merge `53295992bd7249f8dacb5a0cada16c6212887372` on 7 November included all three
+original commits, including `b3d166f8` removing the RAM gate. CC-333's subsequent
+`69a6b3898bf911665385b47f7ac7013a48fb2d8f` preserves the daily snapshot lead and
+release-card-first ordering. The earlier pending-integration notes below describe
+the original build, not the current state. This continuation fast-forwards the
+existing item branch to operating HEAD `43461a35` before recording acceptance.
+
+The [installed-consumer verification](resume-20261109/live-consumer-verification.json)
+executes the operating root's `publication-status` against both existing bindings.
+It confirms two reconciled articles, each with Substack, all eight standard social
+destinations and the LinkedIn company copy, no unknown writes and no pending
+requests. Their frozen packages all select their approved TradingView image;
+the source bytes pass the snapshot validator and match the coordinator's sealed
+media hashes. Every destination retains an image-verified readback clock.
+
+- [Weekend wrap](https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran):
+  the first post-integration market wrap, USOIL, published 9 November at 07:41 GMT+7;
+  image SHA256 `7af80bd55b91edf4d55c30c512319d5dd2ff1caa9db7c81363f030a1aeeff327`.
+- [Pre-US daily wrap](https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar):
+  EURUSD, published 9 November at 19:17:45 GMT+7;
+  image SHA256 `1badc076e1605a49c0f2ba5af43f1ee6062b129379dad6f98349e7a47523b393`.
+
+The earlier exact browser/API observations remain in
+[CC-341](../CC-341/README.md) and
+[CC-124](../CC-124/pre-us-wrap-20261109/README.md). This continuation re-reads their
+installed coordinator state and saved source bytes; it makes no new browser visit,
+capture or public write. Those runs missed the separate 15-minute dispatch target;
+their original approval and readback clocks remain unchanged.
+
+All **36 focused checks pass**: 19 article/registration/order/fallback/rights/hosting
+checks and 17 capture checks, including capture without a RAM gate. The three
+article selections are disjoint. One initial combined attempt was stopped at
+55 seconds without a complete result; the subsequent four serial selections each
+finished in under 12 seconds. JUnit and text results are in `resume-20261109/`.
+No runtime source change was needed. All seven affected installed source modules
+match this branch's Git blobs and file hashes. Eight inherited modified files
+across the two checkouts remain byte-identical and outside these commits.
+
+The explicit tags are `contentops-live-20261109-cc316` and
+`contentops-rollback-20261109-cc316`. The rollback names `7dfecb46`, the actual
+pre-CC-316-integration parent of `53295992`, and therefore also predates the
+associated CC-333 changes. It is a recovery reference, not an instruction to
+remove subsequent Publisher work. Integration and tag readback are recorded in
+[integration.json](resume-20261109/integration.json).
+
+Launch process 27412, started 9 November at 22:10:35 GMT+7, explicitly configured
+`gpt-6.1-sol/high`; model and effort remain `CONFIGURED_NOT_OBSERVED`. This
+engineering verification made zero editorial model calls, changed no schedule
+and sent no chat messages. The chosen path reuses the already-published market
+wraps because their exact image readbacks satisfy the item without another post.
+
+## Original build — 6 November 2026
+
 Built on `backlog/cc-316-article-tradingview-snapshot`. Integration is intentionally pending: the item says to integrate only after the Friday 6 November NFP release piece is published. No operating-root merge, live/rollback tag, production store mutation, article send, browser action or schedule change was made in this run.
 
 The base is operating HEAD `8e0ee573eb76a7255de601dd3c4d3ea89513bb8a`, which contains CC-314's snapshot module. Fresh `origin/master` was `5be8fc63317be06d8319f3dd51ac4137a107cbb5` and lacks that operational dependency. The previous lane telemetry/duplicate-ledger changes and unrelated CC-124 artifacts remain outside these commits.

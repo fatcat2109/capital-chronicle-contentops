@@ -1,0 +1,14 @@
+{
+  "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "773a06f9f2f689a32855a0b100846d5d104d227e5129128b92a08edf1d42a204",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "0e72d11322d8bf710063b44ed758b89aa83ec4eda9845ec5a9cebf8dc5e91db4"
+  },
+  "A:\\Capital Chronicle\\ContentOps": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "76a4f3a0bde1354a52df11d87fe2a355220d1f9d841e0bf638f88d27ae0de1ed",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "5fca890cf04b56861f734a490d67125ca25698839b07a5da680d6d4386785467"
+  }
+}
