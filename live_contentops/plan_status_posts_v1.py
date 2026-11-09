@@ -898,6 +898,7 @@ def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None 
     if destination not in {"x", "substack_notes"}:
         raise PlanPostError("PLAN_STATUS_AGENT_DESTINATION_INVALID")
     plan = prepare_post(store, key, root=root, host=host, destinations=(destination,), snapshot=snapshot)
+    store.create_work_item(story_id=key, title="Plan status post", target_surface="MULTI_PLATFORM", work_item_id=key)
     coordinator, _ = bind_native_neo_coordinator(
         store, operation_id=key, output_dir=Path(plan["output_dir"]) / "native-neo",
         native_invocation_id=native_invocation_id, allow_publish=True)

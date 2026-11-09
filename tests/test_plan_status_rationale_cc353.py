@@ -163,3 +163,21 @@ def test_notes_uses_existing_neo_request_and_exact_public_readback():
     assert request["expected_identity"] == "@deancapitalchronicle"
     assert request["surface"] == "SUBSTACK_NOTE"
     assert request["content_binding"]["expected_text_segments"] == [value["native_payload"]["text"]]
+
+
+def test_real_native_composition_queues_note_without_network_or_canonical_article(tmp_path, main_root):
+    from live_contentops.native_neo_executor_v1 import NativeNeoExecutor
+    source = export_plan()
+    folder = write_export(tmp_path / "export", [source], [event("plan_why", "WAITING", NOW.isoformat())])
+    store = ContentOpsDurableStore(tmp_path / "store.db")
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    queued = p.queue_posts(store, folder, now=NOW, main_root=main_root, python=sys.executable)
+    key = queued["queued"][0]["key"]
+    root = tmp_path / "posts"
+    result = p.start_x(store, key, root=root, host=fake_host, now=NOW,
+        native_invocation_id="cc353-controlled", destination="substack_notes")
+    executor = NativeNeoExecutor(store, operation_id=key, output_dir=root / key / "native-neo",
+        native_invocation_id="cc353-controlled", allow_publish=True, identity_at_action=True)
+    requests = executor.pending()
+    assert any(r["request"]["destination"] == "substack_notes" and r["request"]["action"] == "PUBLISH"
+               for r in requests), result
