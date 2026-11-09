@@ -292,6 +292,11 @@ def _operation(binding, *, command="advance", response=None, stage=None, rollout
                         governed.get("source_pack", []), assets, output_dir=turn.root)
                 except (ValueError, KeyError, TypeError):
                     pass  # Ordinary article validation remains with the existing owner.
+            # The same owner will reuse this capture during advance. Its spec and
+            # caption must enter the light pass alongside the article's other media.
+            from live_contentops.tradingview_snapshot_v1 import prepare_article_snapshot
+            draft, assets = prepare_article_snapshot(draft, assets, output_dir=turn.root,
+                selected_candidate=governed.get("selected_candidate"))
             assist = prepare_assist(draft, governed.get("source_pack", []), assets, output_dir=turn.root)
             result["agy_light_assist"] = {k: assist.get(k) for k in
                 ("status", "artifact_path", "prompt_sha256", "flags", "cause")}

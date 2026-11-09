@@ -3401,7 +3401,8 @@ def run_v1_simple_gemini_newsroom(
         article, admitted_media = prepare_article_snapshot(article, admitted_media, output_dir=root,
             selected_candidate=selected)
         from live_contentops.agy_editorial_assist_v1 import consume_assist
-        article, admitted_media = consume_assist(article, admitted_media, output_dir=root)
+        article, admitted_media = consume_assist(article, admitted_media, output_dir=root,
+            article_mode=str(selected_plan_entry["article_mode"]), epistemic_state=selected_epistemic_state)
         article_manifest.update(article)
     persist(root / "article_manifest_v1.json", article_manifest)
     try:

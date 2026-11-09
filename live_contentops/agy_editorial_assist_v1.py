@@ -37,6 +37,15 @@ def _draft_binding(draft):
     return _hash({k: draft.get(k) for k in ("title", "subtitle", "substack_body_markdown")})
 
 
+def _numbers(text):
+    return set(re.findall(r"(?<!\w)\d[\d,.:%/-]*", text))
+
+
+def _no_new_numbers(text, basis):
+    if _numbers(text) - _numbers(_json(basis)):
+        raise ValueError("AGY_UNSUPPORTED_NUMBER")
+
+
 def _write(path, value):
     Path(path).write_text(_json(value), encoding="utf-8")
 
@@ -110,6 +119,14 @@ def prompt_for(draft, source_pack, assets):
 
 def _parse(raw):
     text = raw.decode("utf-8").strip()
+    # agy 1.5.3's documented stream input avoids Windows' command-line size
+    # ceiling. Its final event is {event:result,result:{status,response,...}}.
+    if text.startswith('{"event"'):
+        events = [json.loads(line) for line in text.splitlines() if line.strip()]
+        final = next((e["result"] for e in reversed(events) if e.get("event") == "result"), {})
+        if final.get("status") != "SUCCESS":
+            raise ValueError("AGY_STREAM_RESULT_UNAVAILABLE")
+        text = str(final.get("response") or "").strip()
     if text.startswith("```"):
         text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
     value = json.loads(text)
@@ -120,6 +137,8 @@ def _parse(raw):
         raise ValueError("AGY_OUTPUT_SCHEMA_INVALID")
     if not isinstance(value["alt_text"], list) or not isinstance(value["variants"], dict) or not isinstance(value["claims"], list):
         raise ValueError("AGY_OUTPUT_SCHEMA_INVALID")
+    if set(value["variants"]) != set(LIMITS):
+        raise ValueError("AGY_FOUR_VARIANTS_REQUIRED")
     return value
 
 
@@ -167,8 +186,9 @@ def prepare_assist(draft, source_pack, assets, *, output_dir, runner=None):
               "configuration_status": "CONFIGURED_NOT_OBSERVED", "started_utc": _now(),
               "prompt_sha256": key, "artifact_path": str(path), "publisher_decisions": [],
               "input_sha256": _hash(packet), "draft_binding_sha256": _draft_binding(draft),
+              "asset_specs": {a["asset_id"]: a for a in packet["media"]},
               "output": None, "flags": []}
-    (path.parent / "prompt.txt").write_text(prompt, encoding="utf-8")
+    (path.parent / "prompt.txt").write_bytes(prompt.encode("utf-8"))
     _write(path.parent / "source_pack_lines.json", packet["source_lines"])
     raw, err = b"", b""
     try:
@@ -176,8 +196,10 @@ def prepare_assist(draft, source_pack, assets, *, output_dir, runner=None):
             version = run([AGY, "--version"], cwd=cwd, timeout=5)
             record["agy_version"] = version.stdout.decode(errors="replace").strip()[:200]
             args = [AGY, "--model", MODEL, "--effort", EFFORT, "--disable-slash-commands",
-                    "--print-timeout", "120s", "--print", prompt]
-            result = run(args, cwd=cwd, timeout=120)
+                    "--print-timeout", "120s", "--input-format", "stream-json",
+                    "--output-format", "stream-json", "--print", ""]
+            message = {"event": "user", "message": {"role": "user", "content": [{"type": "text", "text": prompt}]}}
+            result = run(args, cwd=cwd, timeout=120, input=(_json(message) + "\n").encode())
             raw, err = result.stdout, result.stderr
             record["returncode"] = result.returncode
             if result.returncode != 0:
@@ -229,7 +251,7 @@ def _public(text):
         raise ValueError("AGY_COMPILER_OWNS_LINK")
 
 
-def consume_assist(article, assets, *, output_dir):
+def consume_assist(article, assets, *, output_dir, article_mode=None, epistemic_state=None):
     """Only Publisher-selected, safe suggestions change the compiler's inputs."""
     article, assets = deepcopy(article), deepcopy(assets)
     article.pop("publisher_light_variants", None)
@@ -252,6 +274,11 @@ def consume_assist(article, assets, *, output_dir):
                     _public(alt["text"])
                     if alt["asset_id"] not in by_id or len(alt["text"]) > 1000:
                         raise ValueError("AGY_ALT_ASSET_INVALID")
+                    basis = record["asset_specs"].get(alt["asset_id"], {})
+                    _no_new_numbers(alt["text"], basis)
+                    if any(by_id[alt["asset_id"]].get(k) != basis.get(k) for k in
+                           ("caption", "modality", "spec", "chart_spec", "computed_values", "series")):
+                        raise ValueError("AGY_ALT_SPEC_CHANGED")
                     by_id[alt["asset_id"]]["alt_text"] = alt["text"]
                     usage["alt_asset_ids"].append(alt["asset_id"])
                 except (ValueError, KeyError, TypeError) as exc:
@@ -267,6 +294,8 @@ def consume_assist(article, assets, *, output_dir):
                         raise ValueError("AGY_VARIANT_SCHEMA_INVALID")
                     for post in posts:
                         _public(post)
+                        _no_new_numbers(post, {k: article.get(k) for k in
+                            ("title", "subtitle", "dek", "substack_body_markdown", "social_scenarios")})
                         if len(post) > LIMITS[destination] - (300 if destination in {"telegram", "discord"} else 0):
                             raise ValueError("AGY_VARIANT_LIMIT:" + destination)
                     variants[destination] = text
@@ -275,6 +304,16 @@ def consume_assist(article, assets, *, output_dir):
             if variants:
                 article["publisher_light_variants"] = variants
                 usage["variant_destinations"] = sorted(variants)
+                if article_mode:
+                    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle, SimpleGeminiNewsroomError
+                    try:
+                        _native_preview_bundle(article=article, article_mode=article_mode,
+                            article_identity=_draft_binding(article), epistemic_state=epistemic_state,
+                            media_asset_ids=[a["asset_id"] for a in assets], media_assets=assets)
+                    except (SimpleGeminiNewsroomError, ValueError) as exc:
+                        article.pop("publisher_light_variants", None)
+                        usage["variant_destinations"] = []
+                        usage["rejected_suggestions"].append("AGY_COMPILER_FALLBACK:" + str(exc)[:300])
     record["consumer"] = usage
     _write(record["artifact_path"], record); _write(path, record)
     article["agy_light_assist"] = usage

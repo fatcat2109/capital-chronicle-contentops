@@ -1,0 +1,1 @@
+Error: --input-format stream-json reads prompts from stdin, so a prompt given on the command line would be ignored

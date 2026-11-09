@@ -1,0 +1,12 @@
+{
+  "started_utc": "2026-11-09T16:39:48.627325+00:00",
+  "ended_utc": "2026-11-09T16:39:53.490181+00:00",
+  "returncode": 1,
+  "model": "gemini-3.8-flash-high",
+  "effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "agy_version": "1.5.3",
+  "prompt_sha256": "7e1a468d150acaeb0216025d5c4ec96a87369df76b8835eddc9458a9d644c756",
+  "output_sha256": "e1d7e11e07575e057b262881a65fc9d13809f40706e2344edaa045327aa0827b",
+  "output_bytes": 1719
+}

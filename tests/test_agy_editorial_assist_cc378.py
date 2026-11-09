@@ -29,7 +29,9 @@ def fake_runner(output=None, error=None):
             return subprocess.CompletedProcess(args, 0, b"1.5.3\n", b"")
         assert args[args.index("--model") + 1] == agy.MODEL
         assert args[args.index("--effort") + 1] == "high"
-        assert args[-1].startswith("Do not call any tool")
+        message = json.loads(kwargs["input"])
+        assert message["event"] == "user"
+        assert message["message"]["content"][0]["text"].startswith("Do not call any tool")
         assert kwargs["timeout"] == 120
         if error:
             raise error
@@ -56,6 +58,7 @@ def test_recorded_output_is_used_by_live_compiler(tmp_path):
     assert record["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
     assert record["agy_version"] == "1.5.3"
     assert record["started_utc"] <= record["ended_utc"]
+    assert agy.sha256((Path(record["artifact_path"]).parent / "prompt.txt").read_bytes()).hexdigest() == record["prompt_sha256"]
     assert agy.sha256((Path(record["artifact_path"]).parent / "output.txt").read_bytes()).hexdigest() == record["output_sha256"]
     approve(tmp_path, record)
     article, assets = agy.consume_assist(packet()[0], packet()[2], output_dir=tmp_path)
@@ -122,7 +125,7 @@ def test_flags_are_bound_to_source_lines_and_publisher_decides(tmp_path):
 
 
 @pytest.mark.parametrize("text", ["See fatcat2109.github.io.", "At 20:00 GMT+7.", "https://unapproved.example/",
-                                 "DEMO account login 279805139.", "A" * 4097])
+                                 "DEMO account login 279805139.", "The sample now reports 999 observations.", "A" * 4097])
 def test_bad_suggestion_falls_back_without_holding_the_piece(tmp_path, text):
     output = recorded_output(); output["variants"]["telegram"] = text
     record = prepare(tmp_path, output); approve(tmp_path, record)
@@ -143,3 +146,63 @@ def test_reader_adapter_preserves_selected_variants():
     from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
     draft = packet()[0]; draft["publisher_light_variants"] = recorded_output()["variants"]
     assert _reader_safe_native_article(draft, article_mode="BREAKING_BRIEF")["publisher_light_variants"] == draft["publisher_light_variants"]
+
+
+def test_long_source_pack_stream_and_parser_have_no_command_line_limit(tmp_path):
+    draft, sources, assets = packet()
+    sources[0]["context"] = "Inert context. " * 5000
+    output = recorded_output()
+    def run(args, **kwargs):
+        if "--version" in args:
+            return subprocess.CompletedProcess(args, 0, b"1.5.3", b"")
+        assert len(" ".join(args)) < 1000
+        assert len(kwargs["input"]) > 32768
+        return subprocess.CompletedProcess(args, 0,
+            (json.dumps({"event": "init", "test": True}) + "\n" + json.dumps({"event": "result",
+                "result": {"status": "SUCCESS", "response": json.dumps(output)}})).encode(), b"")
+    assert agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)["status"] == "AGY_AVAILABLE"
+
+
+def test_native_submit_and_review_route_the_light_step(tmp_path, monkeypatch):
+    from scripts import run_native_desktop_editorial as cli
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    store = ContentOpsDurableStore(tmp_path / "isolated.sqlite3")
+    draft, sources, assets = packet()
+    class Turn:
+        def __init__(self, *args, **kwargs):
+            self.root = tmp_path
+        def submit(self, stage, response):
+            return {"stage": stage, "public_write_performed": False}
+        def frozen_request(self, stage):
+            return {"governed_input": {"source_pack": sources}}
+        def admitted_editorial_media(self):
+            return assets
+    monkeypatch.setattr(cli, "validate_binding", lambda *args, **kwargs: None)
+    monkeypatch.setattr(cli, "_bound_store", lambda *args: store)
+    monkeypatch.setattr(cli, "NativeDesktopTurn", Turn)
+    monkeypatch.setattr(agy, "_run", fake_runner(recorded_output()))
+    binding = {"run_id": "controlled-article", "output_dir": str(tmp_path)}
+    submitted = cli._operation(binding, command="submit", stage="write", response={"output": {"article": draft}})
+    record = json.loads((tmp_path / agy.NAME).read_bytes())
+    assert submitted["agy_light_assist"]["status"] == "AGY_AVAILABLE"
+    decision = {"prompt_sha256": record["prompt_sha256"], "use_alt_text": True, "use_variants": True,
+                "decisions": [{"claim_id": f["claim_id"], "action": "KEEP", "reason": "Controlled exact source."}
+                              for f in record["flags"]]}
+    reviewed = cli._operation(binding, command="agy-review", response=decision)
+    assert reviewed["classification"] == "AGY_PUBLISHER_REVIEW_RECORDED"
+    article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert media[0]["alt_text"] == recorded_output()["alt_text"][0]["text"]
+    assert set(article["publisher_light_variants"]) == set(agy.LIMITS)
+
+
+def test_compiler_rejecting_suggestions_retains_the_original_article(tmp_path, monkeypatch):
+    from live_contentops import v1_simple_gemini_newsroom_v1 as newsroom
+    record = prepare(tmp_path); approve(tmp_path, record)
+    def reject(**kwargs):
+        raise newsroom.SimpleGeminiNewsroomError("native_preview_epistemic_certainty_inflation")
+    monkeypatch.setattr(newsroom, "_native_preview_bundle", reject)
+    article, _ = agy.consume_assist(packet()[0], packet()[2], output_dir=tmp_path,
+                                  article_mode="STANDARD_NEWS_ANALYSIS")
+    assert "publisher_light_variants" not in article
+    assert article["substack_body_markdown"] == packet()[0]["substack_body_markdown"]
+    assert article["agy_light_assist"]["rejected_suggestions"]
