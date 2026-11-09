@@ -78,6 +78,34 @@ def test_substack_rendered_list_readback_preserves_values_and_order(tmp_path, fa
     assert result["write_exists"] is True
 
 
+@pytest.mark.parametrize("fault", [None, "number", "minus", "missing_row", "order", "missing_header"])
+def test_substack_rendered_table_readback_preserves_cells_and_order(tmp_path, fault):
+    _, executor = setup(tmp_path)
+    adapter = NeoDestinationHandoff(native_executor=executor)
+    value = intent(native_payload={"title": "Market wrap", "body_markdown":
+        "Dated model estimates.\n\n| Market | Move |\n| :--- | ---: |\n"
+        "| Oil | +2.5% |\n| Stocks | -0.8% |\n\nWatch CPI."})
+    packet, object_id, url = pending_readback(adapter, value=value)
+    rows = ["Oil +2.5%", "Stocks -0.8%"]
+    if fault == "number":
+        rows[0] = "Oil +5.2%"
+    if fault == "minus":
+        rows[1] = "Stocks 0.8%"
+    if fault == "missing_row":
+        rows.pop()
+    if fault == "order":
+        rows.reverse()
+    header = "" if fault == "missing_header" else "Market Move\n"
+    observed = response(executor, packet, {"observed_identity": "capitalchronicle.substack.com",
+        "public_object_id": object_id, "public_object_url": url, "content_verified": True,
+        "observed_text": "Market wrap\nDated model estimates.\n" + header + "\n".join(rows) + "\nWatch CPI."})
+    executor.submit(packet["request"]["request_sha256"], observed)
+    result = adapter.readback(destination="substack", intent=value,
+        public_object_id=object_id, public_object_url=url)
+    assert result["verified"] is (fault is None)
+    assert result["write_exists"] is True
+
+
 def test_failed_readonly_identity_can_refresh_in_same_epoch_without_publish(tmp_path):
     store, executor = setup(tmp_path)
     with pytest.raises(NativeNeoInputRequired) as first:
