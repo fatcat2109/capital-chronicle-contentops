@@ -1,0 +1,61 @@
+{
+  "reason": "The compiler automatically captured a separate snapshot; bind the inspected BrowserOS Neo original before any review or send.",
+  "compiler_generated_assets": [
+    {
+      "alt_text": "TradingView 4h candlestick chart of Euro / US dollar, FX:EURUSD, captured 07:01 ET on 9 November 2026.",
+      "article_inclusion": true,
+      "asset_id": "tradingview-snapshot-5a75a78ce64601057883",
+      "attribution": "TradingView",
+      "canonical_article_media": true,
+      "canonical_article_section_association": "introduction",
+      "caption": "Capital Chronicle pre-US wrap: dollar slips, oil premium fades: 4h chart (FX:EURUSD). Chart: TradingView.",
+      "card_kind": "TRADINGVIEW_SNAPSHOT",
+      "credit": "Chart: TradingView",
+      "delivery_only": true,
+      "height": 858,
+      "media_role": "delivery_only",
+      "mime_type": "image/png",
+      "modality": "tradingview_chart_snapshot",
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\tradingview\\tradingview-e8c50137562fb567-16x9.png",
+      "placement_after": "standfirst",
+      "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+      "publication_authority": false,
+      "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+      "role": "market_chart",
+      "sha256": "5a75a78ce64601057883217064db235280e43f06e5323a730d14bdbe11907d39",
+      "source_page_url": "https://www.tradingview.com/chart/?symbol=FX:EURUSD&interval=240",
+      "tradingview_snapshot": {
+        "captured_at_utc": "2026-11-09T12:01:16.009951+00:00",
+        "chart_url": "https://www.tradingview.com/chart/?symbol=FX:EURUSD&interval=240",
+        "framing": {
+          "height": 858,
+          "original_box": [
+            0,
+            1,
+            1524,
+            857
+          ],
+          "ratio": "16:9",
+          "width": 1524
+        },
+        "height": 856,
+        "interval": "240",
+        "interval_label": "4h",
+        "legend": "4h",
+        "levels_drawn": [],
+        "page_title": "EURUSD 1.11884 \u25b2 +0.47%",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\tradingview\\EURUSD_2026-11-09_12-01-15.png",
+        "policy": "contentops.tradingview_snapshot.v1",
+        "seconds": 19.3,
+        "sha256": "e8c50137562fb5673f06506096322469ab75745d3c4bfd08c3668425202e8cb3",
+        "suggested_filename": "EURUSD_2026-11-09_12-01-15.png",
+        "target_drawn": false,
+        "tv_symbol": "FX:EURUSD",
+        "width": 1524
+      },
+      "width": 1524
+    }
+  ],
+  "selected_neo_asset_id": "tradingview-snapshot-27085e919e8b09a63fb0",
+  "public_write_performed": false
+}
