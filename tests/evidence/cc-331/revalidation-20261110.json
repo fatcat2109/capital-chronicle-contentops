@@ -104,8 +104,8 @@
   "launch_started_gmt7": "2026-11-10T00:13:23.729677+07:00",
   "acceptance": {
     "status": "PASS",
-    "verified_at_utc": "2026-11-10T00:25:51.429622+07:00",
-    "implementation_root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+    "verified_at_utc": "2026-11-09T17:31:45.601922+00:00",
+    "implementation_root": "A:\\Capital Chronicle\\ContentOps",
     "implementation_sha256": "c724de2a8520f943e706b514e45d854e1c00144eab0ba0c651995792f3472489",
     "main_commit": "ef053ea0d36e372d6cf3053c6c2abfa0d62499a0",
     "main_reader_sha256": {
@@ -177,7 +177,7 @@
         "plan_id": "plan_5eb033547e64c256929ab849",
         "source_state": "FILLED",
         "normalized_state": "TRIGGERED",
-        "at_utc": "2026-11-06T08:32:25.128Z",
+        "at_utc": "2026-11-06T08:32:25.128000Z",
         "post": {
           "status": "COMPOSED",
           "kind": "triggered",
@@ -200,7 +200,7 @@
         }
       }
     ],
-    "replay_clock_utc": "2026-11-06T17:40:57.378561+07:00",
+    "replay_clock_utc": "2026-11-06T10:40:57.378561+00:00",
     "dry_run": {
       "status": "OK",
       "dry_run": true,
@@ -214,7 +214,7 @@
         "plan-status-post-8e388e040f978aeb84b8f7111ee83305": {
           "plan_id": "plan_5eb033547e64c256929ab849",
           "state": "TRIGGERED",
-          "at_utc": "2026-11-06T08:32:25.128Z",
+          "at_utc": "2026-11-06T08:32:25.128000Z",
           "valid_until_utc": "2026-11-06T11:30:00Z"
         }
       },
@@ -225,7 +225,7 @@
           "key": "plan-status-post-8e388e040f978aeb84b8f7111ee83305",
           "symbol": "EURUSD",
           "state": "TRIGGERED",
-          "at_utc": "2026-11-06T08:32:25.128Z",
+          "at_utc": "2026-11-06T08:32:25.128000Z",
           "text": "Delayed update as of Fri 6 Nov, 05:40 ET. EUR/USD: the 1.1187–1.1191 entry zone filled at Fri 6 Nov, 03:32 ET, and Capital Chronicle's model position is open. If price trades into 1.1187–1.1191, the desk is bearish on EUR/USD over the period to Fri 6 Nov, 06:30 ET. Invalidated if price moves above 1.1204.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
         }
       ],
@@ -263,7 +263,11 @@
       }
     ],
     "distinct_passed": 85,
-    "pytest_processes_run_serially": true
+    "pytest_processes_run_serially": true,
+    "fixture_blob_check": {
+      "artifact": "tests/evidence/cc-331/pytest-bytes.xml",
+      "passed": 1
+    }
   },
   "policy": {
     "decision": 106,
@@ -304,5 +308,22 @@
         "WorkingDirectory": "A:\\Capital Chronicle\\ContentOps"
       }
     ]
-  }
+  },
+  "live_consumer_verification": {
+    "observed_at_utc": "2026-11-09T17:32:48.826731+00:00",
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "installed_change_commit": "64e50399a7d70401a5b48d1aa17d769fcb37c061",
+    "installed_source_git_blob": "c687e6c45e28067537e8cfd18ba445febbff2801",
+    "operating_source_matches_tested_git_blob": true,
+    "fixture_working_and_committed_bytes_match_retained_export": true,
+    "root_replay_status": "PASS",
+    "public_transport_calls": 0,
+    "production_store_access": false,
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "command": "pythonw.exe -B scripts\\plan_status_posts.py --publish",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "schedule_changes": 0,
+    "restarts": 0
+  },
+  "fixture_checkout_repair": "The first installed replay exposed Git-normalized newlines; exact retained bytes are now stored under -text attributes and checked in both index and installed blobs."
 }

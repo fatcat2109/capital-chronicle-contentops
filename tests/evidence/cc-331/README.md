@@ -31,7 +31,9 @@ sends are retained, and prevent another confirmation while readback is pending.
 - Controlled coordinator tests prove that the fill reaches the existing publisher
   once. Privacy tests inject private fields and verify they never reach copy.
 - The input fixture has exact-byte Git attributes. Its SHA256 values match
-  CC-330's retained `fill-touch-output`, recorded in the replay evidence.
+  CC-330's retained `fill-touch-output`, recorded in the replay evidence. The
+  [stored-blob check](pytest-bytes.xml) catches Git newline conversion as well
+  as working-file drift.
 
 Reproduce from this checkout:
 
@@ -45,7 +47,9 @@ The existing `CapitalChronicle-PlanStatusPosts-V1` task runs
 `pythonw.exe -B scripts\plan_status_posts.py --publish` from
 `A:\Capital Chronicle\ContentOps`. It imports this consumer on each invocation;
 integration needs no restart or schedule change. The acceptance artifact records
-the actual implementation root and hash used by the replay.
+the actual implementation root and hash used by the replay. The installed-root
+replay passed all five rows, the dry-run store check and repeated-read deduplication;
+its working files and committed fixture bytes match the retained Main export.
 
 The branch starts at the current Publisher operating head `7ad363a5`, preserving
 the already installed policy and consumer changes. The remote default branch
