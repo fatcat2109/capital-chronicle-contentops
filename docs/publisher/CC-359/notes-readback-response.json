@@ -1,0 +1,25 @@
+{
+ "tool_request_sha256": "236ed1f80b7d47a69b867498c90bcacb99a354b8ca2396b6ab009e0d3b719d2a",
+ "tool_observation": {
+  "surface": "CODEX_EXEC",
+  "tool_name": "mcp__browseros_neo__run",
+  "native_invocation_id": "cc359-codex-exec-38460",
+  "observation_source": "Exact public object in BrowserOS Neo; browser-readback.json and media-comparison.json; X platform PNG inspected",
+  "observed_at_utc": "2026-11-09T14:04:29.913Z"
+ },
+ "result": {
+  "request_sha256": "bf5daba0e952f9237ac120490044a63745eb833f87c4043f947d3f9e67d5a72d",
+  "status": "SUCCESS",
+  "observed_identity": "@deancapitalchronicle",
+  "public_object_id": "c-382817690",
+  "public_object_url": "https://substack.com/@deancapitalchronicle/note/c-382817690",
+  "content_verified": true,
+  "public_image_urls": [
+   "https://substack-post-media.s3.amazonaws.com/public/images/32fcc521-a334-4b73-90df-e15b35c564a3_1600x900.png"
+  ],
+  "observed_text": "Dean\njust now\nJim’s Substack\n\nCorrection: our 04:16 ET EUR/USD and 04:18 ET US crude oil updates said price had reached the entry zone. It had not: at those times both plans were still waiting for price to reach their zones, EUR/USD 1.1166–1.117 and US crude oil 90.2–90.45.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.\n",
+  "observed_media_sha256": [
+   "c14ff07c41fda0be8991bc084222dc1998e8f9a406b0e566eab0513e98d19e8d"
+  ]
+ }
+}

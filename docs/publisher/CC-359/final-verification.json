@@ -1,0 +1,104 @@
+{
+ "item": "CC-359",
+ "operation_id": "cc359-zone-correction-20261109",
+ "verified_at_utc": "2026-11-09T14:09:45.119493+00:00",
+ "source_commit": "95ae9c57fa17211c7fae9a9354727d615906ab09",
+ "store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+ "internal_row_status": "PUBLISHED",
+ "destinations": [
+  {
+   "dispatch_id": "dispatch_4b9d0955b60922b91ff03abfab48c5f9",
+   "platform": "telegram",
+   "status": "DISPATCH_CONFIRMED",
+   "public_object_id": "107",
+   "public_object_url": "https://t.me/CapitalChronicle/107"
+  },
+  {
+   "dispatch_id": "dispatch_71fdae51a6d8073e2f2d583371d32fc4",
+   "platform": "substack_notes",
+   "status": "DISPATCH_CONFIRMED",
+   "public_object_id": "c-382817690",
+   "public_object_url": "https://substack.com/@deancapitalchronicle/note/c-382817690"
+  },
+  {
+   "dispatch_id": "dispatch_8e26c1dc01fa645152504b47e08a93c3",
+   "platform": "discord",
+   "status": "DISPATCH_CONFIRMED",
+   "public_object_id": "1569350151401639966",
+   "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569350151401639966"
+  },
+  {
+   "dispatch_id": "dispatch_e29d55b139e249d83ed06c054990d919",
+   "platform": "x",
+   "status": "DISPATCH_CONFIRMED",
+   "public_object_id": "2119792055350337767",
+   "public_object_url": "https://x.com/Capitalnicle/status/2119792055350337767"
+  },
+  {
+   "dispatch_id": "dispatch_eb901dc382209e08af303ad2a06594ed",
+   "platform": "threads",
+   "status": "DISPATCH_CONFIRMED",
+   "public_object_id": "17915910789554425",
+   "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhfaevlDDY"
+  }
+ ],
+ "reconciliations": [
+  {
+   "reconciliation_id": "reconciliation_4b9d0955b60922b91ff03abfab48c5f9",
+   "work_item_id": "cc359-zone-correction-20261109",
+   "status": "RECONCILED_CONFIRMED",
+   "reconciled_at": "2026-11-09T13:57:19.986152+00:00"
+  },
+  {
+   "reconciliation_id": "reconciliation_71fdae51a6d8073e2f2d583371d32fc4",
+   "work_item_id": "cc359-zone-correction-20261109",
+   "status": "RECONCILED_CONFIRMED",
+   "reconciled_at": "2026-11-09T14:05:16.851222+00:00"
+  },
+  {
+   "reconciliation_id": "reconciliation_8e26c1dc01fa645152504b47e08a93c3",
+   "work_item_id": "cc359-zone-correction-20261109",
+   "status": "RECONCILED_CONFIRMED",
+   "reconciled_at": "2026-11-09T13:57:14.539176+00:00"
+  },
+  {
+   "reconciliation_id": "reconciliation_e29d55b139e249d83ed06c054990d919",
+   "work_item_id": "cc359-zone-correction-20261109",
+   "status": "RECONCILED_CONFIRMED",
+   "reconciled_at": "2026-11-09T14:05:17.247024+00:00"
+  },
+  {
+   "reconciliation_id": "reconciliation_eb901dc382209e08af303ad2a06594ed",
+   "work_item_id": "cc359-zone-correction-20261109",
+   "status": "RECONCILED_CONFIRMED",
+   "reconciled_at": "2026-11-09T13:57:33.228188+00:00"
+  }
+ ],
+ "pending_native_requests": 0,
+ "originals": [
+  {
+   "key": "plan-status-post-a47bf553fcd41d7cecd0ba4f2aa3a6ea",
+   "status": "PUBLISHED",
+   "payload_sha256": "3ceb2b7cd66c3e963749172f962326df4fb437319c6502aed5387ddb33b608bd",
+   "at_utc": "2026-11-09T09:16:58.202425Z",
+   "public_text_preserved": "EUR/USD: the plan with the 1.1166–1.117 entry zone is now active. Price reached the zone at Mon 9 Nov, 04:16 ET. It is invalidated if price moves below 1.1144.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "key": "plan-status-post-7de05797da876f17c7392552e64d2f22",
+   "status": "PUBLISHED",
+   "payload_sha256": "413d75a66a6237a6016836aa99597d156415776ac6b9b55aa5efb8780b4f3a0e",
+   "at_utc": "2026-11-09T09:18:58.521365Z",
+   "public_text_preserved": "US crude oil: the plan with the 90.2–90.45 entry zone is now active. Price reached the zone at Mon 9 Nov, 04:18 ET. It is invalidated if price moves above 91.6.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+  }
+ ],
+ "tests": [
+  "16 passed, 104 deselected in 32.56s",
+  "13 passed in 3.20s"
+ ],
+ "limits": [
+  "Discord webhook has no native message-reply field; one new correction posted, both originals bound in stored correction_of.",
+  "No confirmed X or Notes originals; correction posted as new objects on those explicitly named destinations.",
+  "Discord binary re-download HTTP 403; exact text and embed verified via API GET."
+ ],
+ "model": "launch command line PID 38460: gpt-6.1-sol/high CONFIGURED_NOT_OBSERVED; no editorial-model calls for supplied text"
+}

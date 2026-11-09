@@ -1,0 +1,13 @@
+{
+ "status": "SUCCESS",
+ "verified": true,
+ "write_exists": true,
+ "message_id": "1569350151401639966",
+ "public_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569350151401639966",
+ "body_text_visible": true,
+ "substack_url_visible": true,
+ "meaningful_media_visible": true,
+ "attached_article_visual": false,
+ "image_sha256_match": null,
+ "binary_readback_limit": "Discord CDN and media proxy returned HTTP 403; embed presence and exact text verified via webhook GET; initial upload used the bound local PNG."
+}

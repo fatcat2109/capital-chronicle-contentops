@@ -1,0 +1,38 @@
+{
+ "tool_request_sha256": "cb855ee58163f533de402e8d51d3b8e737b6c1d049fb067bcd23fc165379255a",
+ "tool_observation": {
+  "surface": "CODEX_EXEC",
+  "tool_name": "mcp__browseros_neo__run",
+  "native_invocation_id": "cc359-codex-exec-38460",
+  "observation_source": "BrowserOS Neo page 46 publish and profile readback; exact new note ID observed; content and media check continued separately",
+  "observed_at_utc": "2026-11-09T14:01:57.217Z",
+  "dispatched_at_utc": "2026-11-09T14:01:37.782Z"
+ },
+ "result": {
+  "request_sha256": "b1f82a0890206c7eff46ec3260c76189ec43e30c6635d335b1ea02f8f4d7953b",
+  "status": "SUCCESS",
+  "public_object_id": "c-382817690",
+  "public_object_url": "https://substack.com/@deancapitalchronicle/note/c-382817690",
+  "stage": "PUBLISH_CLICK_ATTEMPTED"
+ },
+ "composed": {
+  "identity": {
+   "authenticated": true,
+   "observed_identity": "@deancapitalchronicle",
+   "observed_at_utc": "2026-11-09T14:01:37.725Z"
+  },
+  "pre_click_posts": [
+   "Correction: our 04:16 ET EUR/USD and 04:18 ET US crude oil updates said price had reached the entry zone. It had not: at those times both plans were still waiting for price to reach their zones, EUR/USD 1.1166–1.117 and US crude oil 90.2–90.45.\n\n\n\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+  ],
+  "readback": {
+   "status": "PARTIAL_CONTENT_READBACK",
+   "request_sha256": "b1f82a0890206c7eff46ec3260c76189ec43e30c6635d335b1ea02f8f4d7953b",
+   "public_object_id": "c-382817690",
+   "public_object_url": "https://substack.com/@deancapitalchronicle/note/c-382817690",
+   "observed_identity": "@deancapitalchronicle",
+   "observed_text": "",
+   "content_verified": false,
+   "media_check_state": "PENDING_BINARY_COMPARISON"
+  }
+ }
+}
