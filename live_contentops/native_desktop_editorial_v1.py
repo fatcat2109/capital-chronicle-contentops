@@ -1600,9 +1600,11 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     if not reader_first:
         assets = sorted(assets, key=lambda a: a.get("modality") != "source_backed_chart")
     else:
+        from live_contentops.native_publication_latency_v1 import uses_short_path
         validate_release_media({**result, "article": corrected_article, "media_assets": assets,
             "visual_repair_disposition": disposition,
-            "visual_editorial_decision": corrected_article.get("visual_editorial_decision")})
+            "visual_editorial_decision": corrected_article.get("visual_editorial_decision")},
+            require_pixel_review=not uses_short_path(store, run_id=run_id, result=result))
     if corrected_article.get("lead_image_asset_id"):
         assets = sorted(assets, key=lambda a: a.get("asset_id") != corrected_article["lead_image_asset_id"])
     for asset in assets:
