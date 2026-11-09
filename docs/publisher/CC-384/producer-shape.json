@@ -2,7 +2,11 @@
   "producer_head": "802ebd1a4759b79e13f801d94ceff803f7ac6830",
   "source": "tests/test_plan_status_public_instruments_v1.py isolated fixture builder",
   "output": "tests\\fixtures\\cc384_public_plan\\producer-exports.json",
-  "sha256": "77389f33b0e5e16dfe596ea2556fedfe9d0d96afd2b33581b88044d5b7358d39",
-  "bytes": 13008,
-  "live_state_used": false
+  "sha256": "70bb3e1ff7b1da1b0761a862304d2a245d9229fa774a718f42787bbb3b0a2322",
+  "bytes": 12660,
+  "live_state_used": false,
+  "generated_bytes_sha256": "77389f33b0e5e16dfe596ea2556fedfe9d0d96afd2b33581b88044d5b7358d39",
+  "serialization": "Committed UTF-8 JSON with LF newlines; public producer fields unchanged.",
+  "producer_blob": "8a860c5a424b1cd0bbb1d3f89a178d2ca8bda10b",
+  "fixture_builder_blob": "41a08ca7ff047ef947c18a2b32a95eabed19f641"
 }

@@ -42,6 +42,26 @@ scripts\plan_status_posts.py --publish` from the operating root. Its readback
 is in [live-consumer-task.json](live-consumer-task.json). There is no task change.
 The exact launch arguments are recorded in [launch-config.json](launch-config.json).
 
-Pending: operating-root integration and the first real Telegram/Discord/Threads
-post after Main CC-383 integrates. No schedule or
+Integrated into `A:\Capital Chronicle\ContentOps` by fast-forward at
+`15ad2aab542d97186131d092f5d2f6348650de9c`. **20 installed tests passed in
+4.50 seconds**, saved in [installed-tests.xml](installed-tests.xml). A fresh
+installed import read the live export through Main's strict reader, consuming
+85 transition/result rows. Its source blob matches the committed module, and
+all six pre-existing modified operating-root files retain their prior hashes.
+See [integration.json](integration.json). The two inherited modified builder
+ledgers remain outside every item commit.
+
+CC-384 remains **BLOCKED: CC383_LIVE_EXPORT_FIELDS_PENDING**. At **10 November
+2026 02:30 GMT+7**, the validated live export had 47 plans, zero
+`public_instrument` fields and zero `entries` fields; CC-383 was still
+IN_PROGRESS. The first real post using those fields, including both entries
+when present, cannot yet be read back on Telegram, Discord and Threads.
+This is an upstream production-data dependency, not an integration wait.
+
+Choice: one conditional call with both entry alternatives keeps the idea in one
+first post and fits the destination limits. The consumer is installed before
+CC-383 lands. Ops Live integrates CC-383 through its existing reviewed route;
+then Codex Publisher verifies the first eligible new idea and its three public
+readbacks through the existing minute publisher/coordinator. No historical plan
+is reposted to manufacture that evidence. No schedule or
 other chat changes are part of this item.
