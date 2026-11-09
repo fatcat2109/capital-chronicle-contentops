@@ -20,6 +20,13 @@ from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set
 
 
 @pytest.fixture(autouse=True)
+def ended_posts_on(monkeypatch):
+    """Decision 106 turns ended-without-entry posts off; these tests cover their machinery."""
+    from live_contentops import plan_status_posts_v1
+    monkeypatch.setattr(plan_status_posts_v1, "POST_ENDED_WITHOUT_ENTRY", True)
+
+
+@pytest.fixture(autouse=True)
 def no_real_snapshot(monkeypatch, tmp_path):
     """CC-314: these tests never open TradingView; a refused snapshot takes the plan's fact card."""
     from live_contentops import tradingview_snapshot_v1 as tv

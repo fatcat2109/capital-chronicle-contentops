@@ -19,6 +19,13 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
 from live_contentops.plan_status_posts_v1 import DESTINATION, compose, queue_posts, read_transitions
 
+
+@pytest.fixture(autouse=True)
+def ended_posts_on(monkeypatch):
+    """Decision 106 turns ended-without-entry posts off; these tests cover their machinery."""
+    from live_contentops import plan_status_posts_v1
+    monkeypatch.setattr(plan_status_posts_v1, "POST_ENDED_WITHOUT_ENTRY", True)
+
 NOW = datetime(2026, 11, 5, 12, 30, tzinfo=timezone.utc)
 STUB_READER = textwrap.dedent('''
     import json
@@ -113,8 +120,8 @@ def test_setup_post_states_the_conditional_call_with_zone_invalidation_validity_
 def test_triggered_and_cancelled_posts_report_the_change_in_plain_words(export, main_root):
     rows = rows_by(export, main_root)
     assert compose(rows[("XAUUSD", "TRIGGERED")])["text"].startswith(
-        "Gold: price reached the 4,070–4,085 entry zone at Thu 5 Nov, 07:20 ET. The plan is in play; it is "
-        "invalidated if price moves below 4,055.")
+        "Gold: the 4,070–4,085 entry zone filled at Thu 5 Nov, 07:20 ET, and Capital Chronicle's model position is"
+        " open. It is invalidated if price moves below 4,055.")
     cancelled = compose(rows[("USOIL", "CANCELLED")])["text"]
     assert cancelled.startswith("US crude oil: the plan with the 61.2–61.8 entry zone is cancelled at "
                                 "Thu 5 Nov, 07:10 ET: price moved away before reaching the zone.")
@@ -277,7 +284,8 @@ def test_a_resting_order_fill_posts_once_as_price_reaching_the_zone(tmp_path, ma
     assert [(q["symbol"], q["state"], q["at_utc"]) for q in result["queued"]] == [
         ("EURUSD", "WAITING", "2026-11-05T12:00:00Z"), ("EURUSD", "TRIGGERED", "2026-11-05T12:10:05Z")]
     text = result["queued"][1]["text"]
-    assert text.startswith("EUR/USD: price reached the 1.1166–1.117 entry zone at Thu 5 Nov, 07:10 ET.")
-    assert not re.search(r"\b(?:fill|filled|order|lots?|size)\b", text, re.I)
+    assert text.startswith("EUR/USD: the 1.1166–1.117 entry zone filled at Thu 5 Nov, 07:10 ET, and Capital"
+                           " Chronicle's model position is open.")
+    assert not re.search(r"\b(?:order|lots?|size|demo|account)\b", text, re.I)  # decision 106: the fill is public
     assert queue(store, folder, main_root)["queued"] == []
 

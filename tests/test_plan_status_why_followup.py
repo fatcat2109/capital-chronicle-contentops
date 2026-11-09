@@ -119,3 +119,15 @@ def test_follow_up_copy_fits_every_destination_and_x_carries_the_whole_reasoning
                       "native_payload": parsed["payloads"][d["destination"]]}
             p.validate_status_post_intent(store, intent)
     assert p.card_article(row)["title"] == "USD/JPY: the reasoning behind our plan"
+
+
+def test_decision_106_no_post_when_a_plan_ends_without_an_entry(tmp_path, main_root):
+    source = main_like_plan()
+    events = [event(source["plan_id"], "WAITING", NOW.isoformat()),
+              event(source["plan_id"], "EXPIRED", (NOW + timedelta(minutes=5)).isoformat())]
+    folder = write_export(tmp_path / "export", [source], events)
+    store = ContentOpsDurableStore(tmp_path / "store.db")
+    announced(store, source, why=["Mechanism: posted."])
+    result = p.queue_posts(store, folder, now=NOW + timedelta(minutes=10), main_root=main_root, python=sys.executable)
+    assert not [q for q in result["queued"] if q["state"] == "EXPIRED"]
+    assert any(s["cause"] == "ENDED_WITHOUT_ENTRY_NOT_POSTED_DECISION_106" for s in result["not_posted"])
