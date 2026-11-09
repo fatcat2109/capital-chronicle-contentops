@@ -1,0 +1,18 @@
+{
+  "schema_version": "contentops.weekly_scored_calls.v1",
+  "cutoff_utc": "2026-11-09T17:10:55.310178Z",
+  "week_start_et": "2026-11-02T00:00:00-05:00",
+  "week_end_exclusive_et": "2026-11-07T00:00:00-05:00",
+  "export_content_hash": "76baf365056dc8528639e2fb60a35ec85443d37d56e7f045b0749054bb92b0e2",
+  "export_generated_at_utc": "2026-11-09T17:10:03.425291Z",
+  "export_scored_call_count": 2,
+  "counts": {
+    "scored_calls": 1,
+    "hits": 0,
+    "stops": 0
+  },
+  "source_sha256": "bcc3234d9f35caf89d7c3f0a91305c6de17308a6f89f4b8209e16c572c1f98d3",
+  "source_published_at_utc": "2026-11-09T10:52:03.594981Z",
+  "public_write_performed": false,
+  "python": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe"
+}
