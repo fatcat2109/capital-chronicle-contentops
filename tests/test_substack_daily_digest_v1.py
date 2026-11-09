@@ -12,7 +12,9 @@ from live_contentops.substack_daily_digest_v1 import (
     prepare_daily_digest, packets, digest_status, validate_digest_plan, delivery_mode_for_plan,
     delivery_policy, WEB_ONLY, EMAIL_DIGEST, continue_daily_digest,
 )
-from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+from live_contentops.publication_coordinator_v1 import (
+    DurablePublicationCoordinator, UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING,
+)
 from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
 from test_publication_coordinator_v1 import _plan, FixtureTransport
 
@@ -271,14 +273,35 @@ def test_digest_uses_native_identity_request_not_another_publisher(tmp_path, mon
     assert store.list_platform_dispatches() == []
 
 
-def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatch):
+@pytest.mark.parametrize("unrelated_status", [None, "UNKNOWN_WRITE", "DISPATCH_CONFIRMED"])
+def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatch, unrelated_status):
     from live_contentops.native_neo_executor_v1 import TOOL
     monkeypatch.setattr("live_contentops.native_desktop_publication_v1.live_publication_policy", lambda _: None)
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store, feed = setup(tmp_path, [row()])
+    unrelated_before = None
+    if unrelated_status:
+        store.create_work_item(story_id="unrelated", work_item_id="unrelated",
+            title="A different article", target_surface="SUBSTACK_ARTICLE")
+        old_plan = _plan("substack")
+        old = DurablePublicationCoordinator(store=store, transport_runtime=None)
+        old.register_plan("unrelated", old_plan)
+        old_ids = old._ids("unrelated", old_plan["plan_hash"], "substack")
+        store.register_platform_dispatch(dispatch_id=old_ids["dispatch_id"],
+            message_id=old_ids["message_id"], platform="substack", status=unrelated_status)
+        unrelated_before = store.get_platform_dispatch(old_ids["dispatch_id"])
     packet = prepared(store, feed)["packet"]
     control = store.get_operating_control()
     store.update_operating_control(operating_mode="AUTONOMOUS_DEFAULT", expected_state_version=control["state_version"], control_source="TEST")
+    # The frozen packet is the one legacy/noncanonical row skipped by recovery.
+    # Its guard must use that same scope rather than unrelated global history.
+    scoped = DurablePublicationCoordinator(store=store, transport_runtime=None,
+        allow_prior_confirmed_distribution=True)
+    scoped.recovery_scope = {"work_item_id": packet["digest_id"], "plan": packet["plan"],
+                             "exact_work_item_only": True}
+    recovery = scoped.recover_pending()
+    assert recovery["legacy_noncanonical_rows_skipped"] == 1
+    assert recovery["backlog_remaining"] == 0
     args = dict(output_dir=tmp_path / "tools", invocation_id="controlled-native-loop", rollout={"store_path":str(store.db_path)})
     seen = []
     public_url = "https://capitalchronicle.substack.com/p/controlled-digest"
@@ -322,9 +345,12 @@ def test_full_native_digest_restart_loop_and_email_readback(tmp_path, monkeypatc
         pytest.fail("native digest did not complete in the bounded controlled loop")
     assert seen == ["VERIFY_IDENTITY", "PUBLISH", "READBACK"]
     assert result["web_confirmed"] and result["email_confirmed"] and result["confirmed"]
-    assert len(store.list_platform_dispatches()) == 1
+    dispatches_before_resume = store.list_platform_dispatches()
+    assert len(dispatches_before_resume) == 1 + bool(unrelated_status)
     assert continue_daily_digest(store, packet, **args)["confirmed"]
-    assert len(store.list_platform_dispatches()) == 1
+    assert store.list_platform_dispatches() == dispatches_before_resume
+    if unrelated_status:
+        assert store.get_platform_dispatch(old_ids["dispatch_id"]) == unrelated_before
 
 
 @pytest.mark.parametrize("link_state", ["exact", "duplicate", "wrong", "missing"])
@@ -494,3 +520,35 @@ def test_digest_uses_live_recovery_scope_with_prior_unknown_social(tmp_path, mon
     request = result["native_tool_request"]["request"]
     assert request["action"] == "VERIFY_IDENTITY" and request["destination"] == "substack"
     assert store.get_platform_dispatch(old_dispatch)["status"] == "UNKNOWN_WRITE"
+
+
+@pytest.mark.parametrize("status", [UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING])
+def test_digest_empty_recovery_still_checks_its_own_uncertain_dispatch(tmp_path, status):
+    store, feed = setup(tmp_path, [row()])
+    packet = prepared(store, feed)["packet"]
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None,
+        allow_prior_confirmed_distribution=True)
+    coordinator.recovery_scope = {"work_item_id": packet["digest_id"], "plan": packet["plan"],
+                                  "exact_work_item_only": True}
+    coordinator.register_plan(packet["digest_id"], packet["plan"])
+    ids = coordinator._ids(packet["digest_id"], packet["plan"]["plan_hash"], "substack")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack", status=status)
+    assert coordinator.recovery_blocks_new_publication({"backlog_remaining": 0},
+        packet["digest_id"], plan=packet["plan"])
+
+
+def test_nov9_missed_article_resumes_once_on_nov10_and_is_not_reallocated(tmp_path):
+    missed = row("missed-nov9", "2026-11-09T00:41:01Z")
+    store, feed = setup(tmp_path, [missed])
+    first = prepared(store, feed, "2026-11-09T12:00:00Z")["packet"]
+    append_record(feed, row("next-nov10", "2026-11-10T03:00:00Z"))
+    restarted = ContentOpsDurableStore(store.db_path, auto_migrate=False)
+    next_run = prepared(restarted, feed, "2026-11-10T12:00:00Z")["packet"]
+    assert next_run == first
+    assert [a["content_id"] for a in next_run["articles"]] == ["missed-nov9"]
+    confirm(restarted, next_run)
+    later = prepared(restarted, feed, "2026-11-10T12:01:00Z")["packet"]
+    assert [a["content_id"] for a in later["articles"]] == ["next-nov10"]
+    assert sum(a["url"] == missed["outlets"][0]["url"] for p in packets(restarted)
+               for a in p["articles"]) == 1

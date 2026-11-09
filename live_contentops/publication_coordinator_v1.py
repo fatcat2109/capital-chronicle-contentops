@@ -499,7 +499,7 @@ class DurablePublicationCoordinator:
         remaining = int(recovery.get("backlog_remaining") or 0)
         if not self.allow_prior_confirmed_distribution:
             return remaining > 0
-        messages = self.store.list_outbox_messages() if evidence_messages is None else evidence_messages
+        messages = self._recovery_messages() if evidence_messages is None else evidence_messages
         confirmations = {}
         def canonical_resolved(intent):
             if intent.get("repost_of_dispatch_id"):
@@ -3556,6 +3556,16 @@ class DurablePublicationCoordinator:
         return not self.recovery_blocks_new_publication(
             recovery, scope["work_item_id"], plan=scope["plan"], evidence_messages=evidence_messages)
 
+    def _recovery_messages(self):
+        """Use the same eligible rows for recovery and its publication guard."""
+        scope = self.recovery_scope or {}
+        if scope.get("exact_work_item_only"):
+            # Digest recovery must neither send nor be held by another article's
+            # lifecycle. Exact dispatch/readback checks still protect this digest.
+            # Query before loading payloads: retained history can be very large.
+            return self.store.list_outbox_messages(work_item_id=scope["work_item_id"])
+        return self.store.list_outbox_messages()
+
     def recover_pending(self) -> dict[str, Any]:
         """Reconcile every ambiguity, then spend one bounded freshness-safe recovery budget."""
         summary = {
@@ -3565,17 +3575,7 @@ class DurablePublicationCoordinator:
             "recovery_attempt_budget": RECOVERY_ATTEMPT_BUDGET,
             "backlog_remaining": 0,
         }
-        def recovery_messages():
-            scope = self.recovery_scope or {}
-            if scope.get("exact_work_item_only"):
-                # A digest invocation must not send another article's queued
-                # social copy (observed during CC-143's 5 November resume).
-                # Filter in the existing store query: loading every historical
-                # payload first stalled CC-124 distribution for several minutes.
-                # The global store and exactly-once checks remain available.
-                return self.store.list_outbox_messages(work_item_id=scope["work_item_id"])
-            return self.store.list_outbox_messages()
-        messages = recovery_messages()
+        messages = self._recovery_messages()
         dispatch_by_message = {str(d["message_id"]): d for d in self.store.list_platform_dispatches()}
         ready_messages: list[tuple[Mapping[str, Any], bool]] = []
         quarantined_obligations: set[tuple[str, str, str]] = set()
@@ -3830,7 +3830,7 @@ class DurablePublicationCoordinator:
         refreshed_dispatches = {
             str(row["message_id"]): row for row in self.store.list_platform_dispatches()
         }
-        for message in recovery_messages():
+        for message in self._recovery_messages():
             try:
                 intent = json.loads(str(message["payload"]))
             except (TypeError, ValueError, KeyError):

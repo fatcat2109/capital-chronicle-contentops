@@ -1,0 +1,6 @@
+{
+  "outcome": "STOPPED_FOR_LOAD_WINDOW_LIMIT",
+  "elapsed_seconds_at_stop": 74.2,
+  "completed_selection": false,
+  "replacement": "Three serial batches of twelve nodes, each bounded to 50 seconds."
+}

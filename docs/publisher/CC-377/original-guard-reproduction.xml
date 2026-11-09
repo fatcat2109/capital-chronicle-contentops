@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="3.910" timestamp="2026-11-09T22:49:01.919748+07:00" hostname="J-P"><testcase classname="tests.test_substack_daily_digest_v1" name="test_full_native_digest_restart_loop_and_email_readback[UNKNOWN_WRITE]" time="1.654"><failure message="AssertionError: {'confirmed': False, 'digest_id': 'cc143-digest-2026-11-03', 'email_confirmed': False, 'pending_requests': [], ...}&#10;assert None">tests\test_substack_daily_digest_v1.py:315: in test_full_native_digest_restart_loop_and_email_readback
+    assert pending, result
+E   AssertionError: {'confirmed': False, 'digest_id': 'cc143-digest-2026-11-03', 'email_confirmed': False, 'pending_requests': [], ...}
+E   assert None</failure></testcase></testsuite></testsuites>
