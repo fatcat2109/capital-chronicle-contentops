@@ -179,7 +179,7 @@ def test_the_plan_facts_never_carry_a_target():
            "levels": {"direction": "bearish", "zone_low": 61.2, "zone_high": 61.8, "invalidation_level": 62.4,
                       "target": 59.0}}
     assert plan_facts(row) == [("Entry zone", "61.2–61.8"), ("Invalidation", "Above 62.4"),
-                               ("Status", "Plan armed"), ("As of", "Thu 5 Nov, 07:20 ET")]
+                               ("Status", "Price reached the zone"), ("As of", "Thu 5 Nov, 07:20 ET")]
 
 
 def test_a_daily_chart_is_confirmed_by_tradingviews_d_label(tmp_path):

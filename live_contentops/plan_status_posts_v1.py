@@ -99,14 +99,22 @@ def read_export(export_dir: Path = EXPORT_DIR, *, main_root: Path = MAIN_ROOT, p
 
 def rows_from_export(export: Mapping[str, Any]) -> list[dict]:
     plans = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("plan_id")}
+    events = export["transitions"].get("transitions", [])
+    triggered = {e.get("plan_id") for e in events if e.get("status") == "TRIGGERED"}
     rows = []
-    for event in export["transitions"].get("transitions", []):
+    for event in events:
         plan = plans.get(event.get("plan_id"))
         if plan is None:
             raise PlanPostError("PLAN_EXPORT_TRANSITION_UNKNOWN_PLAN")
-        rows.append(_row(plan_id=event["plan_id"], symbol=plan.get("asset_id"), to=event.get("status"),
+        status = event.get("status")
+        # Ops Product, 9 Nov (CC-360): a resting order now goes WAITING -> FILLED with no TRIGGERED. The fill is
+        # private (decision 40), but price trading into the public zone is a market fact readers need, so that
+        # fill's clock posts as the zone being reached. A market send keeps its own TRIGGERED; its fill stays silent.
+        if status == "FILLED" and event.get("plan_id") not in triggered:
+            status = "TRIGGERED"
+        rows.append(_row(plan_id=event["plan_id"], symbol=plan.get("asset_id"), to=status,
                          at_utc=event.get("at_utc"), cause=event.get("reason_code"),
-                         plan=_built_plan(plan, state=event.get("status"))))
+                         plan=_built_plan(plan, state=status)))
     return rows
 
 
@@ -280,17 +288,18 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
             else:
                 lines.append("If price runs away before any pullback, the plan is cancelled and we re-assess.")
     elif to == "TRIGGERED":
-        # Ops Product, 9 Nov: Main's export marks a plan TRIGGERED when its entry is armed (a resting order
-        # placed at the zone, ORDER_SENT_WINDOW_COMPLETE), often before price gets there: on 9 Nov EUR/USD and
-        # WTI were posted as "price reached the zone" with price 20 pips and 2.7 dollars away. Jim read
-        # "now active" the same way. The post says only what holds in every case: armed, and when it enters.
-        lines = [f"{title}: plan armed at {_when(row['at_utc'])}.",
-                 f"It enters only if price trades into {zone}, and it is invalidated if {invalid}."]
+        # CC-360 (Ops Live, 9 Nov): TRIGGERED now means price traded into the zone (a market send after the
+        # condition, or a resting order's fill, mapped in rows_from_export). An order placed ahead of price stays
+        # WAITING, so this post never fires on placement again (9 Nov: EUR/USD and WTI were posted 20 pips and
+        # 2.7 dollars away). The words say what happened, since Jim read "now active" as a touch.
+        lines = [f"{title}: price reached the {zone} entry zone at {_when(row['at_utc'])}.",
+                 f"The plan is in play; it is invalidated if {invalid}."]
         if first_plan_post and plan.get("valid_until_utc"):
             call = {"condition": f"price trades into {zone}", "direction": plan["direction"], "market": market,
                     "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}
             calls = [call]
-            lines = [f"{title}: plan armed at {_when(row['at_utc'])}.", conditional_call_text(call)]
+            lines = [f"{title}: price reached the {zone} entry zone at {_when(row['at_utc'])}.",
+                     conditional_call_text(call)]
     elif to in {"CANCELLED", "INVALIDATED"}:
         reason = {
             "RUNAWAY_CANCEL": "price moved away before reaching the zone",
@@ -450,7 +459,7 @@ POST_DESTINATIONS = ("telegram", "discord", "threads", "x", "substack_notes")
 API_DESTINATIONS = ("telegram", "discord", "threads")
 # Jim's decision 83 (5 Nov): a status post carries no site link, only its text and image.
 POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan-status-posts")
-STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "plan armed", "CANCELLED": "plan cancelled",
+STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "price reached the zone", "CANCELLED": "plan cancelled",
                "INVALIDATED": "plan invalidated", "EXPIRED": "plan expired", "VIEW_CHANGED": "view changed"}
 LIMITS = {"x": 280, "threads": 500, "telegram": 1024, "discord": 2000, "substack_notes": 10000}
 X_URL_LENGTH = 23  # X counts every link as 23 characters

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import json
+import re
 import sys
 import textwrap
 
@@ -112,10 +113,8 @@ def test_setup_post_states_the_conditional_call_with_zone_invalidation_validity_
 def test_triggered_and_cancelled_posts_report_the_change_in_plain_words(export, main_root):
     rows = rows_by(export, main_root)
     assert compose(rows[("XAUUSD", "TRIGGERED")])["text"].startswith(
-        "Gold: plan armed at Thu 5 Nov, 07:20 ET. It enters only if price trades into 4,070–4,085, and it is "
+        "Gold: price reached the 4,070–4,085 entry zone at Thu 5 Nov, 07:20 ET. The plan is in play; it is "
         "invalidated if price moves below 4,055.")
-    # Ops Product, 9 Nov: an armed plan is never described as price having reached the zone.
-    assert "reached the zone" not in compose(rows[("XAUUSD", "TRIGGERED")])["text"]
     cancelled = compose(rows[("USOIL", "CANCELLED")])["text"]
     assert cancelled.startswith("US crude oil: the plan with the 61.2–61.8 entry zone is cancelled at "
                                 "Thu 5 Nov, 07:10 ET: price moved away before reaching the zone.")
@@ -264,4 +263,21 @@ def test_a_demo_fill_is_read_but_never_posted(tmp_path, main_root):
     assert result["status"] == "OK"
     assert [(q["symbol"], q["state"]) for q in result["queued"]] == [("EURUSD", "WAITING"), ("EURUSD", "TRIGGERED")]
     assert [s["cause"] for s in result["not_posted"]] == ["DEMO_FILL_NOT_PUBLIC"]
+
+
+def test_a_resting_order_fill_posts_once_as_price_reaching_the_zone(tmp_path, main_root):
+    """CC-360 (9 Nov): a resting order goes WAITING -> FILLED with no TRIGGERED. Readers learn that price reached
+    the zone, at the fill's clock, with no fill, order or size words; a placement alone posts nothing."""
+    plans = [plan("plan_eur", "EURUSD", "BULLISH", 1.1166, 1.117, invalid=1.1144)]
+    events = [event("plan_eur", "WAITING", "2026-11-05T12:00:00Z"),
+              event("plan_eur", "FILLED", "2026-11-05T12:10:05Z")]
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    folder = write_export(tmp_path / "fill", plans, events)
+    result = queue(store, folder, main_root)
+    assert [(q["symbol"], q["state"], q["at_utc"]) for q in result["queued"]] == [
+        ("EURUSD", "WAITING", "2026-11-05T12:00:00Z"), ("EURUSD", "TRIGGERED", "2026-11-05T12:10:05Z")]
+    text = result["queued"][1]["text"]
+    assert text.startswith("EUR/USD: price reached the 1.1166–1.117 entry zone at Thu 5 Nov, 07:10 ET.")
+    assert not re.search(r"\b(?:fill|filled|order|lots?|size)\b", text, re.I)
+    assert queue(store, folder, main_root)["queued"] == []
 

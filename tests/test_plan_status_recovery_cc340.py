@@ -46,7 +46,8 @@ def test_missed_active_state_queues_once_with_true_times(tmp_path, main_root, st
     assert len(store.list_outbox_messages(destination=posts.DESTINATION)) == 1
 
 
-@pytest.mark.parametrize("state", ["CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED", "FILLED"])
+# CC-360: a FILLED with no TRIGGERED is a resting order's fill and posts as the zone reached (CC-306 test).
+@pytest.mark.parametrize("state", ["CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED"])
 def test_ended_unannounced_plan_never_recovers_an_active_post(tmp_path, main_root, state):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     assert queue(store, source(tmp_path, state), main_root)["queued"] == []
