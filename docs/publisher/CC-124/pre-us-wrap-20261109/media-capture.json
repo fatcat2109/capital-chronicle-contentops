@@ -1,0 +1,67 @@
+{
+  "asset": {
+    "asset_id": "tradingview-snapshot-27085e919e8b09a63fb0",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\tradingview\\tradingview-4e21d4ee7f7d0f01-16x9.png",
+    "sha256": "27085e919e8b09a63fb08d91c9de5fe8d2192f1f8d19bf5059711472d423df9f",
+    "width": 1928,
+    "height": 1085,
+    "mime_type": "image/png",
+    "modality": "tradingview_chart_snapshot",
+    "card_kind": "TRADINGVIEW_SNAPSHOT",
+    "media_role": "delivery_only",
+    "role": "market_chart",
+    "delivery_only": true,
+    "article_inclusion": false,
+    "canonical_article_media": false,
+    "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+    "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+    "attribution": "TradingView",
+    "credit": "Chart: TradingView",
+    "caption": "EUR/USD before the US session: 4h chart (FX:EURUSD). Chart: TradingView.",
+    "alt_text": "TradingView 4h candlestick chart of Euro / US dollar, FX:EURUSD, captured 06:44 ET on 9 November 2026.",
+    "source_page_url": "https://www.tradingview.com/chart/?symbol=FX:EURUSD&interval=240",
+    "tradingview_snapshot": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\tradingview\\EURUSD_2026-11-09_18-44-16.png",
+      "sha256": "4e21d4ee7f7d0f014fc6cace54cac5bd0ee2172ebcfb647c00ad17e4bd09062e",
+      "width": 1928,
+      "height": 896,
+      "tv_symbol": "FX:EURUSD",
+      "interval": "240",
+      "interval_label": "4h",
+      "legend": "FX:EURUSD \u00b7 4h",
+      "page_title": "Euro / U.S. Dollar \u00b7 FX:EURUSD \u00b7 4 hours",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=FX:EURUSD&interval=240",
+      "suggested_filename": "EURUSD_2026-11-09_18-44-16.png",
+      "captured_at_utc": "2026-11-09T11:44:16Z",
+      "seconds": null,
+      "capture_method": "BROWSEROS_NEO_DOWNLOAD_IMAGE",
+      "capture_browser_url": "https://s.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=240&theme=light&style=1&hide_side_toolbar=1&allow_symbol_change=0&save_image=1",
+      "browser_page_id": 24,
+      "browser_group_id": "260ABBF56F8BB036D549851718BFFB37",
+      "native_download_bytes": 102344,
+      "visual_inspection": "Clean four-hour FXCM EURUSD candles and volume; TradingView creation header and logo intact; no user drawings or invented levels. Display media only; source claims retain Main capture clock.",
+      "framing": {
+        "ratio": "16:9",
+        "width": 1928,
+        "height": 1085,
+        "original_box": [
+          0,
+          94,
+          1928,
+          990
+        ]
+      },
+      "policy": "contentops.tradingview_snapshot.v1",
+      "levels_drawn": [],
+      "target_drawn": false
+    },
+    "publication_authority": false
+  },
+  "rejected_capture": {
+    "file": "EURUSD_2026-11-09_18-42-41.png",
+    "cause": "SAVED_PERSONAL_DRAWINGS_AND_POOR_VIEW",
+    "used": false
+  },
+  "image_bytes_in_git": false,
+  "original_and_framed_validated": true
+}
