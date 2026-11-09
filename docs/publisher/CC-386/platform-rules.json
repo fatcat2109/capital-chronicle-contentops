@@ -1,0 +1,44 @@
+{
+  "checked_at_utc": "2026-11-09T18:48:06.670439+00:00",
+  "sources": [
+    {
+      "title": "X Automation rules",
+      "url": "https://help.x.com/en/rules-and-policies/x-automation",
+      "source_updated": "April 2026",
+      "requirements": [
+        "No non-API website automation",
+        "Automated replies require recipient opt-in and opt-out, one reply per interaction",
+        "AI reply bots require prior explicit written approval from X"
+      ],
+      "effect": "Requested unsolicited Neo replies cannot run under these rules."
+    },
+    {
+      "title": "X Authenticity",
+      "url": "https://help.x.com/en/rules-and-policies/authenticity",
+      "source_updated": "April 2025",
+      "requirements": [
+        "No unauthorized automation, inauthentic amplification or repetitive reply spam"
+      ]
+    },
+    {
+      "title": "Threads Terms of Use",
+      "url": "https://help.instagram.com/769983657850450",
+      "source_updated": null,
+      "requirements": [
+        "Incorporates Instagram Terms and Meta Community Standards",
+        "Use existing authorized Threads API; no new grants or accounts"
+      ]
+    },
+    {
+      "title": "Meta Spam",
+      "url": "https://transparency.meta.com/policies/community-standards/spam/",
+      "source_updated": "Page change log shows Jun 26, 2024 and Today; no stable newer date exposed",
+      "requirements": [
+        "No very high frequency or repetitive engagement",
+        "No purchased or exchanged engagement or deceptive links"
+      ]
+    }
+  ],
+  "access": "BrowserOS Neo, existing window, task group 9E7A4402CA9A32DC806A5EDAAA140354",
+  "public_writes": 0
+}
