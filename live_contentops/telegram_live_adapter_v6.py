@@ -223,6 +223,7 @@ def execute_telegram_photo(
     parse_mode: str | None = "HTML",
     dry_run: bool = False,
     approval_context: Mapping[str, Any] | None = None,
+    reply_to_message_id: str | None = None,
 ) -> dict[str, Any]:
     """Publishes a photo with caption via Telegram Bot API sendPhoto."""
     if dry_run:
@@ -275,6 +276,8 @@ def execute_telegram_photo(
             "chat_id": str(target_chat),
             "caption": caption,
         }
+        if reply_to_message_id:
+            fields["reply_parameters"] = json.dumps({"message_id": int(reply_to_message_id)})
         if parse_mode:
             fields["parse_mode"] = parse_mode
         for k, v in fields.items():
@@ -294,6 +297,8 @@ def execute_telegram_photo(
         req.add_header("Content-Length", str(len(data)))
     else:
         payload = {"chat_id": target_chat, "photo": photo_url, "caption": caption}
+        if reply_to_message_id:
+            payload["reply_parameters"] = {"message_id": int(reply_to_message_id)}
         if parse_mode:
             payload["parse_mode"] = parse_mode
         data = json.dumps(payload).encode("utf-8")

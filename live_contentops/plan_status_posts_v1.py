@@ -579,6 +579,13 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
             raise PlanPostError("PLAN_STATUS_POST_TOO_LONG:" + destination)
         payloads[destination] = {"destination": destination, "text": text, "full_text": text,
                                  "media_asset_ids": [card_id]}
+    if row.get("correction_of"):
+        for destination, payload in payloads.items():
+            originals = row["correction_of"].get(destination) or []
+            payload["correction_of"] = originals
+            if originals and destination in {"telegram", "threads", "x", "substack_notes"}:
+                payload["reply_to_id"] = originals[0]["public_object_id"]
+                payload["reply_to_url"] = originals[0].get("public_object_url")
     return payloads
 
 
@@ -600,6 +607,10 @@ def _part_payloads(payloads: dict, part: int = 0) -> dict:
 
 def card_article(row: Mapping[str, Any]) -> dict:
     at = _utc(row["at_utc"])
+    if row.get("correction_of"):
+        return {"title": "Correction: price had not reached either zone", "dek": _split(row["text"])[0],
+                "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
+                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     return {"title": f"{TITLES[row['symbol']]}: {STATE_WORDS[row['state']]}",
             "dek": _split(row["text"])[0], "display_date": (lambda et: f"{et:%B} {et.day}, {et.year}")(at.astimezone(PUBLIC_TZ)),
             "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
@@ -635,6 +646,11 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
         if assets and Path(assets[0]["path"]).is_file() \
                 and hashlib.sha256(Path(assets[0]["path"]).read_bytes()).hexdigest() == assets[0]["sha256"]:
             return assets[0], bool(prior.get("chart_credit"))
+    if row.get("correction_of"):
+        return tv.fallback_card(title="Correction: both plans were waiting",
+            facts=[("EUR/USD zone", "1.1166–1.117"), ("US crude oil zone", "90.2–90.45"),
+                   ("At 04:16 / 04:18 ET", "Price had not reached either zone")],
+            dated_line="November 9, 2026", out_dir=folder / "media_assets"), False
     market = row["symbol"]
     interval = tv.interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
     media_dir = folder / "media_assets"

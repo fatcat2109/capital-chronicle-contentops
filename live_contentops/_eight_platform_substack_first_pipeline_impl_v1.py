@@ -1191,6 +1191,7 @@ def _publish_telegram_photo_verified(
     canonical_url: str,
     image_path: str,
     guard_canonical_url: str | None = None,
+    reply_to_message_id: str | None = None,
 ) -> dict[str, Any]:
     from live_contentops.telegram_live_adapter_v6 import execute_telegram_photo
 
@@ -1215,6 +1216,7 @@ def _publish_telegram_photo_verified(
         caption=text,
         parse_mode=None,
         dry_run=False,
+        **({"reply_to_message_id": reply_to_message_id} if reply_to_message_id else {}),
         approval_context={
             "operator_approval_marker": marker,
             "run_id": run_id,
@@ -1240,6 +1242,7 @@ def _publish_telegram_photo_verified(
         and account_ok
         and canonical_url in caption
         and has_photo
+        and (not reply_to_message_id or str((message.get("reply_to_message") or {}).get("message_id")) == reply_to_message_id)
     )
     public_url = f"https://t.me/CapitalChronicle/{message_id}" if message_id else None
     if verified:
@@ -4609,6 +4612,8 @@ def _publish_one_destination_from_durable_intent(
             # Decision 83: a status post carries no link; its guard identity is the channel plus the post key.
             guard_canonical_url=(f"https://t.me/CapitalChronicle?status_post={intent['plan_status_post']}"
                                  if intent.get("plan_status_post") else None),
+            **({"reply_to_message_id": payloads[destination]["reply_to_id"]}
+               if payloads[destination].get("reply_to_id") else {}),
         )
     if destination == "discord":
         return _publish_discord_verified(
@@ -4640,6 +4645,8 @@ def _publish_one_destination_from_durable_intent(
         root = execute_threads_post(
             text=text, image_url=(public_image_url or None) if image_path else None,
             dry_run=False,
+            **({"reply_to_id": payloads[destination]["reply_to_id"]}
+               if payloads[destination].get("reply_to_id") else {}),
         )
         root_id = str(root.get("id") or "")
         replies = []
