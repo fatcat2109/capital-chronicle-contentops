@@ -1,0 +1,111 @@
+{
+  "observed_at_utc": "2026-11-09T18:41:13.0369604Z",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "before_head": "810bd2626bc9eb2d58e7e91fd25f0289e9869aba",
+  "integrated_code_commit": "008b95f97fc2d4cb081f01b2cdf1329b40e6d036",
+  "installed_module_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\public_instruments_v1.py",
+  "files": [
+    {
+      "path": "live_contentops/public_instruments_v1.py",
+      "committed_git_blob": "56fee44d1d3fb7d0116b3ec6e664d1b2f8123ee5",
+      "installed_git_blob": "56fee44d1d3fb7d0116b3ec6e664d1b2f8123ee5",
+      "matches": true,
+      "installed_sha256": "4E7DB5685F1D95B082A259FEB9BE02C942823FDD5C7A220A5E605BB8118E06D3"
+    },
+    {
+      "path": "live_contentops/native_desktop_editorial_v1.py",
+      "committed_git_blob": "bcca573aa3e175c15041997311650772443aa399",
+      "installed_git_blob": "bcca573aa3e175c15041997311650772443aa399",
+      "matches": true,
+      "installed_sha256": "9C53C95EEE0D536990C9AC2B6E4C8FBFE2661056D5058FA6CC59C1A9CBE8DD3A"
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "committed_git_blob": "128554da388af95a49135b03169483774a1b0e9a",
+      "installed_git_blob": "128554da388af95a49135b03169483774a1b0e9a",
+      "matches": true,
+      "installed_sha256": "8404394671F6197D5D307151772C12B1A3BBBB74BE9DAB34C1D985174FF00BC8"
+    },
+    {
+      "path": "live_contentops/article_publication_quality_v1.py",
+      "committed_git_blob": "215c50b9086b3e2cc1e5d57d3040dab85d63a298",
+      "installed_git_blob": "215c50b9086b3e2cc1e5d57d3040dab85d63a298",
+      "matches": true,
+      "installed_sha256": "4CA4EF4040476E838EABA1740B2039EC7547F37B34ABA8E262EA6DF2DBB3044F"
+    },
+    {
+      "path": "live_contentops/tradingview_snapshot_v1.py",
+      "committed_git_blob": "75baaecfa8906e129994001537ebb78a95a1dadc",
+      "installed_git_blob": "75baaecfa8906e129994001537ebb78a95a1dadc",
+      "matches": true,
+      "installed_sha256": "4D4F6FB2E6EFCD1CCF49AF2A86CAADB01187A1ED3FFAB289AE10ABA4A6B12034"
+    }
+  ],
+  "inherited_dirty_files": [
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "before_sha256": "75BFB5AAB26C3FFF71410CF46B8EE571FF91D18585355B7DA4AAB3937A259491",
+      "after_sha256": "75BFB5AAB26C3FFF71410CF46B8EE571FF91D18585355B7DA4AAB3937A259491",
+      "preserved": true
+    },
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "before_sha256": "B694254E17E8C117166C09D8AFA52124082CE0219EF13D1045D99E0899BFA44F",
+      "after_sha256": "B694254E17E8C117166C09D8AFA52124082CE0219EF13D1045D99E0899BFA44F",
+      "preserved": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "before_sha256": "9BE80F6E56E837C5141CC449B2FF8CBC8EB11FDB7374AB2CEED87C67643ECB4F",
+      "after_sha256": "9BE80F6E56E837C5141CC449B2FF8CBC8EB11FDB7374AB2CEED87C67643ECB4F",
+      "preserved": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "before_sha256": "39439E46A34C2AA7980B28A6059010B8C322A67C5DF5D29AE746BFF0F66E16C0",
+      "after_sha256": "39439E46A34C2AA7980B28A6059010B8C322A67C5DF5D29AE746BFF0F66E16C0",
+      "preserved": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "before_sha256": "7671B24AF3B8DFC1BC94E02720B89D293162F5AEBF37F77AA5F1CCF16D667E49",
+      "after_sha256": "7671B24AF3B8DFC1BC94E02720B89D293162F5AEBF37F77AA5F1CCF16D667E49",
+      "preserved": true
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "before_sha256": "C357B41B5386EFEFF2F1D1F50F97B973501886813EA73F3907D56A92FAD01A80",
+      "after_sha256": "C357B41B5386EFEFF2F1D1F50F97B973501886813EA73F3907D56A92FAD01A80",
+      "preserved": true
+    }
+  ],
+  "corrected_regressions": {
+    "files": [
+      "tests/test_public_instruments_cc382.py",
+      "tests/test_article_publication_quality_cc333.py",
+      "tests/test_tradingview_snapshot_cc314.py"
+    ],
+    "passed": 107,
+    "seconds": 196.58
+  },
+  "final_item_tests": {
+    "evidence": "focused-tests.xml",
+    "passed": 38,
+    "seconds": 43.14
+  },
+  "operating_root_tests": {
+    "evidence": "installed-tests.xml",
+    "seconds": 15.06,
+    "passed": 3,
+    "selection": "native_request_and_return or valid_new_article",
+    "deselected": 35
+  },
+  "acceptance": {
+    "next_due_utc": "2026-11-10T11:30:00Z",
+    "schedule_changes": 0,
+    "state": "PENDING_NEXT_SCHEDULED_ARTICLE_AND_WRAP_SUBSTACK_READBACK",
+    "next_due_gmt7": "10 Nov 2026 18:30 GMT+7",
+    "responsible_owner": "Codex Publisher through existing CC-124 / CC-338 operation",
+    "public_writes_this_item": 0
+  }
+}

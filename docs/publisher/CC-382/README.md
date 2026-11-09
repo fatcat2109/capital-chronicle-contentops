@@ -56,3 +56,19 @@ captions are checked; unused assets do not prevent publication. New snapshot
 captions use the feed's existing public name, with exact feed code retained in
 metadata and original image pixels. No prices, probabilities or source facts are
 rewritten by this change.
+
+[Installed-consumer verification](integration.json) records the fast-forward from
+`810bd262` to `008b95f97fc2d4cb081f01b2cdf1329b40e6d036` and the pushed operating
+branch. All five runtime modules match their committed Git blobs. All six inherited
+modified files in the operating root retain their pre-integration SHA-256 hashes;
+the builder's two inherited modified files remain outside the item commits.
+
+From `A:\Capital Chronicle\ContentOps`, **3 installed-consumer tests passed in
+15.06 seconds** (35 deselected), saved in [installed-tests.xml](installed-tests.xml).
+These exercise the actual native request/return owner and valid source-bound
+Substack and Telegram coordinator transports using temporary stores and fixtures.
+A fresh import resolves `public_instruments_v1` to that operating root. Future
+native CLI runs load this source; no user application is restarted. There is no
+public write or schedule change in this item run. The only remaining acceptance
+is the scheduled article/wrap's real Substack text and chart readback, by Codex
+Publisher through the existing CC-124 / CC-338 operation.
