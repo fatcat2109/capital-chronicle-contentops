@@ -68,7 +68,8 @@ def main(argv=None) -> int:
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
                              main_root=args.main_root, python=child_python())
         if args.publish and not args.dry_run and result["status"] == "OK":
-            result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"))
+            result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
+                                                       active_recoveries=result.get("active_recoveries"))
     if sys.stdout is not None:  # pythonw has no stdout; the outbox rows are the record
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stdout.write(json.dumps(result, sort_keys=True, ensure_ascii=False, indent=1) + "\n")

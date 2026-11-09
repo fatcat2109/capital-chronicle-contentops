@@ -104,7 +104,8 @@ def rows_from_export(export: Mapping[str, Any]) -> list[dict]:
         if plan is None:
             raise PlanPostError("PLAN_EXPORT_TRANSITION_UNKNOWN_PLAN")
         rows.append(_row(plan_id=event["plan_id"], symbol=plan.get("asset_id"), to=event.get("status"),
-                         at_utc=event.get("at_utc"), cause=event.get("reason_code"), plan=_built_plan(plan)))
+                         at_utc=event.get("at_utc"), cause=event.get("reason_code"),
+                         plan=_built_plan(plan, state=event.get("status"))))
     return rows
 
 
@@ -114,18 +115,21 @@ def read_transitions(export_dir: Path = EXPORT_DIR, **kwargs) -> list[dict]:
     return rows_from_export(read_export(export_dir, **kwargs))
 
 
-def _built_plan(plan: Mapping[str, Any]) -> dict:
+def _built_plan(plan: Mapping[str, Any], *, state: str | None = None) -> dict:
     zone = plan.get("zone") or {}
     direction = {"BULLISH": "bullish", "BEARISH": "bearish"}.get(plan.get("direction"))
     below = direction == "bullish"
     invalid = [p["threshold"] for p in plan.get("invalidation_conditions") or []
                if p.get("operator") in ({"LT", "LTE"} if below else {"GT", "GTE"})
                and p.get("field") in {"low", "close", "bid", "mid"} | ({"high", "ask"} if not below else set())]
+    until = plan.get("expires_at_utc")
+    if state != "TRIGGERED" and plan.get("entry_deadline_utc"):
+        until = min((v for v in (until, plan["entry_deadline_utc"]) if v), key=_utc)
     return {"direction": direction, "zone_low": zone.get("minimum"), "zone_high": zone.get("maximum"),
             "cancel_level": plan.get("cancel_level"),
             "target": plan.get("target", plan.get("target_level")),
             "invalidation_level": (max(invalid) if below else min(invalid)) if invalid else None,
-            "valid_until_utc": plan.get("entry_deadline_utc") or plan.get("expires_at_utc")}
+            "valid_until_utc": until}
 
 
 def _row(*, plan_id, symbol, to, at_utc, cause, plan):
@@ -164,7 +168,7 @@ def _cancel_level_is_public(plan: Mapping[str, Any]) -> bool:
     return float(cancel) != float(target)
 
 
-def compose(row: Mapping[str, Any]) -> dict:
+def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None) -> dict:
     """One short post for one transition, or a named cause it is not posted."""
     symbol, plan = row["symbol"], row["plan"]
     if symbol not in MARKETS:
@@ -214,6 +218,10 @@ def compose(row: Mapping[str, Any]) -> dict:
     else:
         lines = [f"{title}: our view changed at {_when(row['at_utc'])}, so the plan with the {zone} entry zone"
                  " is withdrawn."]
+    if delayed_at is not None:
+        lines.insert(0, f"Delayed update as of {_when(delayed_at.isoformat())}.")
+        if to == "WAITING":
+            lines.append(f"The plan was registered at {_when(row['at_utc'])}.")
     text = " ".join(lines) + f"\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
     check_publication_copy({"title": title, "body": text}, conditional_calls=calls)
     if INTERNAL.search(text) or FORBIDDEN.search(text):
@@ -231,6 +239,34 @@ LATE_STATE_HOURS = 24
 # announced plan, and before any new plan queued in the same run.
 WITHDRAWN = {"VIEW_CHANGED", "CANCELLED", "INVALIDATED", "EXPIRED"}
 PUBLIC_LEVELS = ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc")
+ACTIVE = {"WAITING", "TRIGGERED"}
+
+
+def active_recoveries(rows, now: datetime) -> dict:
+    """CC-340: only each plan's latest still-valid active state can recover a missed post.
+
+    A missing outbox row already covers both composer refusal and an unreadable export;
+    no separate failure ledger or replay of all the missed transitions is needed.
+    """
+    latest = {}
+    for row in sorted(rows, key=lambda r: _utc(r["at_utc"])):
+        latest[row["plan_id"]] = row
+    result = {}
+    for row in latest.values():
+        until = row["plan"].get("valid_until_utc")
+        if (row["symbol"] in MARKETS and row["to"] in ACTIVE and until
+                and 0 <= (now - _utc(row["at_utc"])).total_seconds() <= LATE_STATE_HOURS * 3600
+                and now < _utc(until)):
+            result[row["key"]] = {"plan_id": row["plan_id"], "state": row["to"],
+                                  "at_utc": row["at_utc"], "valid_until_utc": until}
+    return result
+
+
+def _recoverable(payload, recoveries, now) -> bool:
+    current = (recoveries or {}).get(payload["key"])
+    return bool(current and all(current[k] == payload[k] for k in ("plan_id", "state", "at_utc"))
+                and 0 <= _age_minutes(payload, now) <= LATE_STATE_HOURS * 60
+                and now < _utc(current["valid_until_utc"]))
 
 
 def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = None,
@@ -238,8 +274,8 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     """Register one outbox row per new transition for the six markets; repeats change nothing.
 
     The export carries every plan's whole history (back to 27 Oct on 5 Nov). A status post is
-    news only while it is recent, so a transition older than the posting window is counted and
-    never posted. A dry run reads the store but writes nothing.
+    news while recent. CC-340 also recovers the latest active state for up to 24 hours while
+    still valid; CC-306 retains late updates of announced plans. A dry run writes nothing.
     """
     try:
         rows = read_transitions(export_dir, **reader)
@@ -249,13 +285,14 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     oldest = now.timestamp() - window_minutes * 60
     queued, existing, skipped, too_old = [], [], [], 0
     fresh = [row for row in rows if row["symbol"] in MARKETS]
+    recoveries = active_recoveries(fresh, now)
     announced = {json.loads(r["payload"]).get("plan_id") for r in store.list_outbox_messages(destination=DESTINATION)
                  if r["status"] == "PUBLISHED"}
     for row in sorted(fresh, key=lambda r: (r["to"] not in WITHDRAWN, r["at_utc"])):
         late = False
         if _utc(row["at_utc"]).timestamp() < oldest:
-            if (row["to"] != "WAITING" and row["plan_id"] in announced
-                    and _utc(row["at_utc"]).timestamp() >= now.timestamp() - LATE_STATE_HOURS * 3600):
+            if (row["key"] in recoveries or (row["to"] != "WAITING" and row["plan_id"] in announced
+                    and _utc(row["at_utc"]).timestamp() >= now.timestamp() - LATE_STATE_HOURS * 3600)):
                 late = True
             else:
                 too_old += 1
@@ -263,11 +300,15 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
         if row["to"] in WITHDRAWN and row["plan_id"] not in announced:
             skipped.append({"key": row["key"], "cause": "PLAN_NEVER_ANNOUNCED"})
             continue
-        post = compose(row)
+        post = compose(row, delayed_at=now if late and row["key"] in recoveries else None)
         if post["status"] != "COMPOSED":
             skipped.append({"key": row["key"], "cause": post.get("cause")})
             continue
-        if store.get_outbox_message(row["key"]):
+        prior = store.get_outbox_message(row["key"])
+        if prior:
+            # Keep the exact identity and bytes; the coordinator still reconciles prior writes.
+            if not dry_run and row["key"] in recoveries and prior["status"] == STALE:
+                store.set_outbox_status(row["key"], READY)
             existing.append(row["key"])
             continue
         payload = {"schema_version": SCHEMA, "key": row["key"], "plan_id": row["plan_id"],
@@ -277,7 +318,9 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
                    # CC-314: the levels the post's image shows (the chart timeframe and the
                    # fallback fact card). Never the target or the cancel level (decision 40).
                    "levels": {k: row["plan"].get(k) for k in PUBLIC_LEVELS},
-                   **({"late": True} if late else {})}
+                   **({"late": True} if late else {}),
+                   **({"late_active": True, "queued_at_utc": now.isoformat().replace("+00:00", "Z")}
+                      if late and row["key"] in recoveries else {})}
         queued.append({"key": row["key"], "symbol": row["symbol"], "state": row["to"], "at_utc": row["at_utc"],
                        "text": post["text"]})
         if dry_run:
@@ -290,7 +333,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     for row in sorted(fresh, key=lambda r: r["at_utc"]):
         latest[row["plan_id"]] = row["to"]
     return {"status": "OK", "dry_run": dry_run, "transitions_read": len(rows), "six_market_transitions": len(fresh),
-            "latest_states": latest,
+            "latest_states": latest, "active_recoveries": recoveries,
             "older_than_window": too_old, "window_minutes": window_minutes,
             "queued" if not dry_run else "would_queue": queued,
             "already_queued": existing, "not_posted": skipped}
@@ -557,13 +600,13 @@ def _api_confirmed(store, key: str) -> bool:
     return True
 
 
-def publish_ready(store, *, latest_states=None, now: datetime | None = None, coordinator_for=None,
+def publish_ready(store, *, latest_states=None, active_recoveries=None, now: datetime | None = None, coordinator_for=None,
                   root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None) -> dict:
     """Post fresh rows to the API destinations (Telegram, Discord, Threads) through the sole
     coordinator, and exit. Never waits on agent work: X is not in this plan (see start_x).
 
-    Freshness (Ops Product, 5 Nov): a row whose transition is older than 60 minutes when the
-    poster reaches it is marked stale and never posted. A "new plan" post whose plan has since
+    Freshness: ordinary rows keep 60 minutes; CC-340's current active recovery and CC-306's
+    late announced state keep up to 24 hours. A "new plan" post whose plan has since
     moved on (triggered, cancelled, expired) is marked superseded and never posted. A fresh row
     whose API copies are not all confirmed yet is resumed (the coordinator reads back before any
     retry); a row with all three confirmed is done, so an idle run touches nothing.
@@ -582,9 +625,13 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
         if row["status"] not in {READY, "PUBLISHING"}:
             continue
         payload = json.loads(row["payload"])
+        recovered = _recoverable(payload, active_recoveries, now)
+        freshness = LATE_STATE_HOURS * 60 if recovered else freshness_limit_minutes(payload)
         if row["status"] == READY:
             cause = None
-            if _age_minutes(payload, now) > freshness_limit_minutes(payload):
+            if payload.get("late_active") and not recovered:
+                cause = (SUPERSEDED, "LATE_ACTIVE_PLAN_NO_LONGER_CURRENT_OR_VALID")
+            elif _age_minutes(payload, now) > freshness:
                 cause = (STALE, "TRANSITION_OLDER_THAN_60_MINUTES_WHEN_POSTER_REACHED_IT")
             elif (payload.get("state") == "WAITING" and latest_states is not None
                     and latest_states.get(payload.get("plan_id"), "WAITING") != "WAITING"):
@@ -596,7 +643,7 @@ def publish_ready(store, *, latest_states=None, now: datetime | None = None, coo
         elif _api_confirmed(store, row["message_id"]):
             store.set_outbox_status(row["message_id"], "PUBLISHED")
             continue
-        elif _age_minutes(payload, now) > freshness_limit_minutes(payload):
+        elif (payload.get("late_active") and not recovered) or _age_minutes(payload, now) > freshness:
             continue  # an unresolved old copy is left to the coordinator's own recovery, not this tick
         candidates.append(row)
     import time
@@ -627,7 +674,8 @@ def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None 
     """The agent route registers and issues a fresh status post's X copy (a Neo request)."""
     from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
     now = now or datetime.now(timezone.utc)
-    if _age_minutes(_row_payload(store, key), now) > FRESHNESS_MINUTES:
+    payload = _row_payload(store, key)
+    if _age_minutes(payload, now) > _x_freshness_limit(payload, now):
         raise PlanPostError("PLAN_STATUS_X_STALE_NOT_POSTED: transition older than 60 minutes")
     plan = prepare_post(store, key, root=root, host=host, destinations=("x",), snapshot=snapshot)
     coordinator, _ = bind_native_neo_coordinator(
@@ -656,7 +704,7 @@ def pending_x(store, *, now: datetime | None = None) -> list[dict]:
             if request.get("destination") == "x":
                 pending.append({"key": row["message_id"], "request_sha256": request["request_sha256"],
                                 "action": request["action"], "age_minutes": round(_age_minutes(payload, now), 1),
-                                "fresh": _age_minutes(payload, now) <= FRESHNESS_MINUTES})
+                                "fresh": _age_minutes(payload, now) <= _x_freshness_limit(payload, now)})
     return sorted(pending, key=lambda p: p["age_minutes"])
 
 
@@ -671,9 +719,20 @@ def begin_x(store, key: str, request_sha256: str, *, native_invocation_id: str, 
     packet = executor._get(request_sha256, "request")
     if not packet or packet["request"].get("destination") != "x":
         raise PlanPostError("PLAN_STATUS_X_REQUEST_REQUIRED")
-    if packet["request"]["action"] == "PUBLISH" and _age_minutes(payload, now) > FRESHNESS_MINUTES:
+    if (packet["request"]["action"] == "PUBLISH"
+            and _age_minutes(payload, now) > _x_freshness_limit(payload, now)):
         raise PlanPostError("PLAN_STATUS_X_STALE_NOT_POSTED: transition older than 60 minutes")
     return executor.begin(request_sha256)
+
+
+def _x_freshness_limit(payload, now) -> int:
+    # X's agent may arrive after the minute tick. Re-read Main before a late active write;
+    # identity/readback requests remain available even if the public state has since ended.
+    if payload.get("state") in ACTIVE and _age_minutes(payload, now) > FRESHNESS_MINUTES:
+        if _recoverable(payload, active_recoveries(read_transitions(), now), now):
+            return LATE_STATE_HOURS * 60
+        return FRESHNESS_MINUTES
+    return freshness_limit_minutes(payload)
 
 
 def submit_x(store, key: str, request_sha256: str, response: Mapping[str, Any], *, native_invocation_id: str):

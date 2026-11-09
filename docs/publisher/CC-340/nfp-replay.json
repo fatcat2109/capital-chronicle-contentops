@@ -1,0 +1,45 @@
+{
+  "replay_as_of_utc": "2026-11-06T14:35:00Z",
+  "retained_snapshot_generated_at_utc": "2026-11-06T18:01:31.160535Z",
+  "source_status_sha256": "6fbe0ca820d843b13b8b1524d93258751e9c61fd46949aa18fdbc50d57d4c164",
+  "source_transitions_sha256": "325ecfbd3108b92a57696746b4dc25d39139266908e600cf1c3269477ab04cd6",
+  "injected_failure": {
+    "status": "EXPORT_UNREADABLE",
+    "cause": "PLAN_EXPORT_UNREADABLE:PLAN_EXPORT_TRANSITION_INVALID"
+  },
+  "transitions_read": 81,
+  "first_queue": [
+    {
+      "key": "plan-status-post-7b4f0f89f06611da94f05ec618c75101",
+      "symbol": "XAUUSD",
+      "state": "TRIGGERED",
+      "at_utc": "2026-11-06T13:33:46.424024Z",
+      "text": "Delayed update as of Fri 6 Nov, 09:35 ET. Gold: the plan with the 4,033.406–4,085.1955 entry zone is now active. Price reached the zone at Fri 6 Nov, 08:33 ET. It is invalidated if price moves above 4,110.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+    }
+  ],
+  "recovered_payload": {
+    "at_utc": "2026-11-06T13:33:46.424024Z",
+    "conditional_calls": [],
+    "key": "plan-status-post-7b4f0f89f06611da94f05ec618c75101",
+    "kind": "triggered",
+    "late": true,
+    "late_active": true,
+    "levels": {
+      "direction": "bearish",
+      "invalidation_level": 4110,
+      "valid_until_utc": "2026-11-06T15:00:00Z",
+      "zone_high": 4085.1955,
+      "zone_low": 4033.406
+    },
+    "plan_id": "plan_f8af4bad6713a6184e7ef146",
+    "queued_at_utc": "2026-11-06T14:35:00Z",
+    "schema_version": "contentops.plan_status_post.v1",
+    "state": "TRIGGERED",
+    "symbol": "XAUUSD",
+    "text": "Delayed update as of Fri 6 Nov, 09:35 ET. Gold: the plan with the 4,033.406–4,085.1955 entry zone is now active. Price reached the zone at Fri 6 Nov, 08:33 ET. It is invalidated if price moves above 4,110.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+  },
+  "second_queue_count": 0,
+  "outbox_count": 1,
+  "public_writes": 0,
+  "scope": "Copied retained export, original clocks and levels; no production store or transport"
+}
