@@ -30,13 +30,16 @@ from typing import Any, Mapping
 
 POLICY = "contentops.tradingview_snapshot.v1"
 CREDIT = "Chart: TradingView"
-# The site's reviewed TradingView map (Main ui/src/product/public-desk/reviewed-tradingview-symbols.json),
-# for the six first-phase markets; a test checks these against the reviewed file.
-SYMBOLS = {"XAUUSD": "OANDA:XAUUSD", "US500": "OANDA:SPX500USD", "EURUSD": "FX:EURUSD",
-           "USDJPY": "FX:USDJPY", "USOIL": "TVC:USOIL", "BTCUSD": "COINBASE:BTCUSD"}
-NAMES = {"XAUUSD": "Gold / US dollar (OANDA spot CFD)", "US500": "S&P 500 (OANDA index CFD)",
-         "EURUSD": "Euro / US dollar", "USDJPY": "US dollar / Japanese yen",
-         "USOIL": "WTI crude oil (TVC CFD)", "BTCUSD": "Bitcoin / US dollar (Coinbase spot)"}
+# Jim's decision 107 (10 Nov): charts European and US readers trust, futures, ETFs or spot, never a CFD feed.
+# Each keeps the plan's price scale: spot gold and FX from ICE, the S&P 500 cash index, WTI's front-month
+# futures (the DEMO book's oil follows it), spot Bitcoin. All six captured by this worker on 9 Nov, 17:50Z.
+# The paused site's reviewed map (Main ui/src/product/public-desk/reviewed-tradingview-symbols.json) still
+# lists the old CFD feeds; it follows when the site returns (decision 84).
+SYMBOLS = {"XAUUSD": "FX_IDC:XAUUSD", "US500": "SP:SPX", "EURUSD": "FX_IDC:EURUSD",
+           "USDJPY": "FX_IDC:USDJPY", "USOIL": "NYMEX:CL1!", "BTCUSD": "COINBASE:BTCUSD"}
+NAMES = {"XAUUSD": "Gold spot / US dollar (ICE)", "US500": "S&P 500 index",
+         "EURUSD": "Euro / US dollar spot (ICE)", "USDJPY": "US dollar / Japanese yen spot (ICE)",
+         "USOIL": "WTI light crude oil futures, front month (NYMEX)", "BTCUSD": "Bitcoin / US dollar (Coinbase spot)"}
 REVIEWED_MAP = Path(r"A:\Capital Chronicle\Worktrees\codex-web-cc254-clean\ui\src\product\public-desk"
                     r"\reviewed-tradingview-symbols.json")
 INTERVAL_LABELS = {"60": "1h", "240": "4h", "D": "1D"}

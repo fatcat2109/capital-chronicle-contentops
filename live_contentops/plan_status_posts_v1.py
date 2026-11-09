@@ -29,10 +29,10 @@ WORK_ITEM_ID = "plan-status-posts-v1"
 READY = "READY_FOR_PUBLISHER"
 # Decision 79's first-phase markets, as the trading system names them.
 MARKETS = {
-    "XAUUSD": "gold", "US500": "the US 500 index", "EURUSD": "EUR/USD",
+    "XAUUSD": "gold", "US500": "the S&P 500", "EURUSD": "EUR/USD",
     "USDJPY": "USD/JPY", "USOIL": "US crude oil (WTI)", "BTCUSD": "Bitcoin",
 }
-TITLES = {"XAUUSD": "Gold", "US500": "US 500", "EURUSD": "EUR/USD", "USDJPY": "USD/JPY",
+TITLES = {"XAUUSD": "Gold", "US500": "S&P 500", "EURUSD": "EUR/USD", "USDJPY": "USD/JPY",
           "USOIL": "US crude oil", "BTCUSD": "Bitcoin"}
 KINDS = {"WAITING": "setup", "TRIGGERED": "triggered", "FILLED": "triggered", "CANCELLED": "cancelled",
          "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
@@ -243,6 +243,16 @@ MONTHS = {m: i for i, m in enumerate(("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
 DATED_CLOCK = re.compile(r"\b(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2}):(\d{2})"
                          r"(?:\s*[-–]\s*(\d{1,2}):(\d{2}))?(?:Z\b|\s*(?:UTC|GMT)\b(?!\+))?")
 LABEL_WORDS = re.compile(r"\b(CLEAR|MIXED|UNCLEAR|ABSENT|CONFLICTED)\b")
+# Jim's decision 107 (10 Nov): instruments European and US readers know, and no "CFD". Main's text uses the DEMO
+# book's symbols; public copy gives the market's own name ("WTI (USOIL)" becomes "WTI").
+BROKER_NAMES = {"US500": "the S&P 500", "US30": "the Dow", "USTEC": "the Nasdaq 100", "USOIL": "WTI",
+                "UKOIL": "Brent", "XAUUSD": "gold", "XAGUSD": "silver", "EURUSD": "EUR/USD", "USDJPY": "USD/JPY",
+                "USDCAD": "USD/CAD", "GBPUSD": "GBP/USD", "AUDUSD": "AUD/USD", "USDCHF": "USD/CHF",
+                "BTCUSD": "Bitcoin", "ETHUSD": "Ether", "DE40": "the DAX", "UK100": "the FTSE 100",
+                "JP225": "the Nikkei 225"}
+BROKER_SYMBOL = re.compile(r"\b(" + "|".join(BROKER_NAMES) + r")\b")
+BROKER_ALIAS = re.compile(r"\s*\((?:" + "|".join(BROKER_NAMES) + r")\)")
+CFD_WORD = re.compile(r"\bCFDs?\b", re.I)
 SOURCE_TAG = re.compile(r"\s*\((?:press|context)(?:,\s*(?:press|context))*\)|;\s*context(?=\))")
 
 
@@ -278,6 +288,7 @@ def _public_reason(value: Any) -> str:
         value = DATED_CLOCK.sub(_et_clock, value)
     value = LABEL_WORDS.sub(lambda m: m[1].lower(), SOURCE_TAG.sub("", value))
     value = re.sub(r"\b(is|are) context\b", r"\1 background", value)
+    value = BROKER_SYMBOL.sub(lambda m: BROKER_NAMES[m[1]], BROKER_ALIAS.sub("", value))
     sentences = re.split(r"(?<=[.!?;])\s+|\n+", value.strip())
     safe = []
     for sentence in sentences:
@@ -290,7 +301,7 @@ def _public_reason(value: Any) -> str:
         if (not sentence or PRIVATE_RATIONALE.search(sentence) or INTERNAL.search(sentence)
                 or INTERNAL_RATIONALE.search(sentence)
                 or FORBIDDEN.search(sentence) or public_execution_copy_forbidden(sentence)
-                or re.search(r"\b(?:bullish|bearish)\b", sentence, re.I)):
+                or re.search(r"\b(?:bullish|bearish)\b", sentence, re.I) or CFD_WORD.search(sentence)):
             continue
         # An undated UTC clock cannot be converted faithfully. Omit that sentence;
         # source date-only periods and already-labelled ET clocks remain unchanged.

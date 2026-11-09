@@ -171,3 +171,16 @@ def test_decision_106_exit_posts_are_selective(tmp_path, main_root):
         [], {"LOSS_POST_LIMIT_DECISION_106"})
     old = result_export(tmp_path / "f", "plan_f", "HIT", resolved="2026-11-03T12:20:00Z")
     assert results(store, old, main_root) == ([], {"RESULT_OLDER_THAN_A_DAY_NOT_POSTED_DECISION_106"})
+
+
+def test_decision_107_public_reasons_name_the_market_not_the_cfd_symbol():
+    source = main_like_plan()
+    source.update(mechanism="WTI (USOIL) keeps failing below the shelf; Brent is weaker in the UKOIL bars.",
+                  driver="US30 (+0.49%) and US500 (+0.13%) rose while XAUUSD slipped.",
+                  priced="The broker CFD carries a spread. EURUSD tracks DXY.")
+    text = "\n".join(p._rationale(p._built_plan(source, state="WAITING")))
+    assert "WTI keeps failing below the shelf; Brent is weaker in the Brent bars." in text
+    assert "the Dow (+0.49%) and the S&P 500 (+0.13%) rose while gold slipped." in text
+    assert "EUR/USD tracks DXY." in text and "CFD" not in text
+    assert not any(s in text for s in ("USOIL", "UKOIL", "US500", "US30", "XAUUSD", "EURUSD"))
+    assert p.TITLES["US500"] == "S&P 500" and p.MARKETS["US500"] == "the S&P 500"

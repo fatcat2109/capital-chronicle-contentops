@@ -19,7 +19,7 @@ from test_plan_status_posts_cc306 import NOW, event, main_root, plan, write_expo
 from test_plan_status_publication_cc306 import fake_host
 from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _set_mode
 
-FIXTURE = Path(__file__).parent / "fixtures" / "cc314" / "SPX500USD_2026-11-05_13-21-11.png"
+FIXTURE = Path(__file__).parent / "fixtures" / "cc314" / "SPX_2026-11-09_17-50-41.png"  # SP:SPX, 4h (decision 107)
 
 
 @pytest.fixture
@@ -48,7 +48,7 @@ def tradingview_worker(calls):
         target = Path(args["out_dir"]) / FIXTURE.name
         shutil.copyfile(FIXTURE, target)
         return {"path": str(target), "suggested_filename": FIXTURE.name, "legend": "4h",
-                "page_title": "SPX500USD 7,705.6", "captured_at_utc": "2026-11-05T13:21:11+00:00", "seconds": 20.3}
+                "page_title": "SPX 7,549.51", "captured_at_utc": "2026-11-09T17:50:41+00:00", "seconds": 6.4}
     return worker
 
 
@@ -65,9 +65,9 @@ def test_the_package_holds_tradingviews_snapshot_of_the_right_symbol_and_timefra
     asset = context["media"]["assets"][0]
     assert asset["card_kind"] == "TRADINGVIEW_SNAPSHOT" and asset["asset_id"] == plan_["status_post_card_id"]
     snap = asset["tradingview_snapshot"]
-    # US500 is the site's reviewed CFD symbol; a 24.4-hour plan takes the 4-hour chart.
-    assert calls[0]["url"] == "https://www.tradingview.com/chart/?symbol=OANDA:SPX500USD&interval=240"
-    assert snap["tv_symbol"] == "OANDA:SPX500USD" and snap["interval_label"] == "4h"
+    # Decision 107: the S&P 500 cash index, not a CFD feed; a 24.4-hour plan takes the 4-hour chart.
+    assert calls[0]["url"] == "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240"
+    assert snap["tv_symbol"] == "SP:SPX" and snap["interval_label"] == "4h"
     assert context["chart_credit"] is True
     for row in plan_["destinations"]:
         assert "Chart: TradingView" in row["payload"]
@@ -167,11 +167,13 @@ def test_the_timeframe_follows_the_plans_validity(hours, interval):
     assert tv.interval_for((start + timedelta(hours=hours)).isoformat(), start.isoformat()) == interval
 
 
-def test_the_symbols_are_the_sites_reviewed_map():
-    if not tv.REVIEWED_MAP.is_file():
-        pytest.skip("the site's reviewed map is not on this machine")
-    reviewed = tv.reviewed_symbols()
-    assert {m: reviewed.get(m) for m in tv.SYMBOLS} == tv.SYMBOLS
+def test_the_symbols_are_futures_etfs_or_spot_never_a_cfd_feed():
+    """Jim's decision 107 (10 Nov)."""
+    assert tv.SYMBOLS == {"XAUUSD": "FX_IDC:XAUUSD", "US500": "SP:SPX", "EURUSD": "FX_IDC:EURUSD",
+                          "USDJPY": "FX_IDC:USDJPY", "USOIL": "NYMEX:CL1!", "BTCUSD": "COINBASE:BTCUSD"}
+    assert not any(s.split(":")[0] in {"OANDA", "TVC", "CAPITALCOM", "FX", "PEPPERSTONE", "FOREXCOM"}
+                   for s in tv.SYMBOLS.values())
+    assert not any("CFD" in name for name in tv.NAMES.values())
 
 
 def test_the_plan_facts_never_carry_a_target():
@@ -188,7 +190,7 @@ def test_a_daily_chart_is_confirmed_by_tradingviews_d_label(tmp_path):
         shutil.copyfile(FIXTURE, target)
         return {"path": str(target), "suggested_filename": target.name, "legend": "D"}
     snap = tv.capture("USDJPY", "D", tmp_path / "d", worker=worker)
-    assert snap["tv_symbol"] == "FX:USDJPY" and snap["interval"] == "D"
+    assert snap["tv_symbol"] == "FX_IDC:USDJPY" and snap["interval"] == "D"  # decision 107: ICE spot
 
 
 def test_capture_has_no_ram_gate(queued, outcomes, monkeypatch):
