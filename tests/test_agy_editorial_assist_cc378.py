@@ -84,7 +84,7 @@ def test_recorded_output_is_used_by_live_compiler(tmp_path):
 
 
 @pytest.mark.parametrize("failure", [FileNotFoundError("controlled missing agy"),
-    subprocess.TimeoutExpired("agy", 120)])
+    subprocess.TimeoutExpired("agy", 120, output=b"controlled partial response", stderr=b"controlled timeout")])
 def test_failure_never_holds_or_changes_the_original_copy(tmp_path, failure):
     draft, sources, assets = packet()
     record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(error=failure))
@@ -94,6 +94,8 @@ def test_failure_never_holds_or_changes_the_original_copy(tmp_path, failure):
     assert "publisher_light_variants" not in article
     assert media == assets
     assert record["cause"]
+    if isinstance(failure, subprocess.TimeoutExpired):
+        assert record["output_sha256"] == agy.sha256(failure.output).hexdigest()
 
 
 def test_failed_or_empty_output_and_resume_do_not_retry(tmp_path):

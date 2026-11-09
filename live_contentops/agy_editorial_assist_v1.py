@@ -56,7 +56,7 @@ def _run(args, *, cwd, timeout, input=None):
                             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
     try:
         out, err = proc.communicate(input=input, timeout=timeout)
-    except subprocess.TimeoutExpired:
+    except subprocess.TimeoutExpired as exc:
         # agy may have a child holding the pipes: end only our own invocation.
         if __import__("os").name == "nt":
             subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"],
@@ -64,7 +64,8 @@ def _run(args, *, cwd, timeout, input=None):
                            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
         else:
             proc.kill()
-        proc.communicate(timeout=5)
+        out, err = proc.communicate(timeout=5)
+        exc.output, exc.stderr = out, err
         raise
     return subprocess.CompletedProcess(args, proc.returncode, out, err)
 
@@ -208,7 +209,10 @@ def prepare_assist(draft, source_pack, assets, *, output_dir, runner=None):
             flags = _claim_flags(output, packet)
             record.update(status="AGY_AVAILABLE", output=output, flags=flags)
     except Exception as exc:
-        record["cause"] = ("AGY_TIMEOUT_120S" if isinstance(exc, subprocess.TimeoutExpired)
+        if isinstance(exc, subprocess.TimeoutExpired):
+            raw, err = exc.output or b"", exc.stderr or b""
+        record["cause"] = (("AGY_TIMEOUT_120S" if exc.timeout == 120 else "AGY_VERSION_TIMEOUT_5S")
+                           if isinstance(exc, subprocess.TimeoutExpired)
                            else type(exc).__name__ + ": " + str(exc)[:500])
     record.update(ended_utc=_now(), output_sha256=sha256(raw).hexdigest(), stderr_sha256=sha256(err).hexdigest())
     (path.parent / "output.txt").write_bytes(raw)

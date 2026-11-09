@@ -72,4 +72,4 @@ docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/**/*.json bin
 tests/evidence/cc-043/** -text whitespace=cr-at-eol
 
 # CC-378 binds prompt/output hashes to exact CLI bytes on Windows.
-docs/publisher/CC-378/** -text
+docs/publisher/CC-378/** -text whitespace=cr-at-eol
