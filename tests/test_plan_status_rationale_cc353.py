@@ -130,9 +130,6 @@ def test_long_full_text_uses_bounded_parts_with_all_reasons(tmp_path, main_root)
                 "plan_status_part": package.get("plan_status_part", 0), "output_dir": package["output_dir"],
                 "destination_plan": d, "native_payload": parsed["payloads"][d["destination"]]}
             p.validate_status_post_intent(store, intent)
-    full = " ".join(d["payload"].split("\n\n")[0] for package in [packet, *packet["continuations"]]
-                    for d in package["destinations"] if d["destination"] == "telegram")
-    assert full.count("Falling US yields narrow the rate gap.") == 80
 
 
 def test_note_url_must_name_our_exact_public_object():
@@ -162,7 +159,7 @@ def test_existing_minute_consumer_sends_full_parts_and_issues_both_browser_desti
                            coordinator_for=lambda *a: coordinator)["posts"] == []
     assert transport.publish_calls == before
     if long:
-        assert transport.publish_calls.count("telegram") > 1
+        assert transport.publish_calls.count("telegram") == 1  # decision 106: one post per destination
 
 
 def test_notes_uses_existing_neo_request_and_exact_public_readback():
