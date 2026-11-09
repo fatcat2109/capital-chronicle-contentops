@@ -151,6 +151,12 @@ PRIVATE_RATIONALE = re.compile(
     r"polymarket|kalshi|account|balance|equity capital)\b|https?://|"
     r"\b(?:towards?|aims? (?:at|for))\s+[$€£]?\d", re.I)
 
+# Ops Product, 9 Nov: Main's fields name its roles ("the Primary's 1.11480", "The Critical showed") and can
+# carry an empty value ("request CPI consensus null"). Neither means anything to a reader. A parenthetical
+# role credit is cut; any other sentence with a role name or an empty value is left out.
+ROLE_CREDIT = re.compile(r"\s*\([^()]*\b(?:Primary|Critical)\b[^()]*\)")
+INTERNAL_RATIONALE = re.compile(r"\b(?:Primary|Critical|Owner)(?:'s)?\b|\b(?:null|None|NaN|undefined)\b")
+
 
 def _public_reason(value: Any) -> str:
     """Keep source sentences only. A private clause never suppresses the whole post."""
@@ -165,7 +171,9 @@ def _public_reason(value: Any) -> str:
         # A projected destination price is a target (decision 40). Keep the
         # preceding mechanism, without supplying a replacement price or direction.
         sentence = re.sub(r"\s+towards?\s+[$€£]?\d.*", "", sentence, flags=re.I)
+        sentence = ROLE_CREDIT.sub("", sentence)
         if (not sentence or PRIVATE_RATIONALE.search(sentence) or INTERNAL.search(sentence)
+                or INTERNAL_RATIONALE.search(sentence)
                 or FORBIDDEN.search(sentence) or public_execution_copy_forbidden(sentence)
                 or re.search(r"\b(?:bullish|bearish)\b", sentence, re.I)):
             continue

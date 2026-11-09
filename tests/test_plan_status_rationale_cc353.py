@@ -181,3 +181,16 @@ def test_real_native_composition_queues_note_without_network_or_canonical_articl
     requests = executor.pending()
     assert any(r["request"]["destination"] == "substack_notes" and r["request"]["action"] == "PUBLISH"
                for r in requests), result
+
+
+def test_public_why_drops_role_names_and_empty_values():
+    """Ops Product, 9 Nov: the 09:11Z EUR/USD and WTI rows carried these exact shapes."""
+    source = export_plan()
+    source.update(
+        priced="Five-day move -1.83 ATR and the 30 Oct high of 104.04 (Primary figures); request CPI consensus null.",
+        invalidation_reason="The stop moves from the Primary's 1.11480 to 1.11440. The Critical showed that 1.11480 "
+                            "sat 1.5 pips above the day's low.")
+    text = composed(source)["text"]
+    assert "What is priced: Five-day move -1.83 ATR and the 30 Oct high of 104.04;" in text
+    for leaked in ("Primary", "Critical", "null", "Why this invalidation"):
+        assert leaked not in text
