@@ -112,7 +112,10 @@ def test_setup_post_states_the_conditional_call_with_zone_invalidation_validity_
 def test_triggered_and_cancelled_posts_report_the_change_in_plain_words(export, main_root):
     rows = rows_by(export, main_root)
     assert compose(rows[("XAUUSD", "TRIGGERED")])["text"].startswith(
-        "Gold: the plan with the 4,070–4,085 entry zone is now active. Price reached the zone at Thu 5 Nov, 07:20 ET.")
+        "Gold: plan armed at Thu 5 Nov, 07:20 ET. It enters only if price trades into 4,070–4,085, and it is "
+        "invalidated if price moves below 4,055.")
+    # Ops Product, 9 Nov: an armed plan is never described as price having reached the zone.
+    assert "reached the zone" not in compose(rows[("XAUUSD", "TRIGGERED")])["text"]
     cancelled = compose(rows[("USOIL", "CANCELLED")])["text"]
     assert cancelled.startswith("US crude oil: the plan with the 61.2–61.8 entry zone is cancelled at "
                                 "Thu 5 Nov, 07:10 ET: price moved away before reaching the zone.")

@@ -272,14 +272,17 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
             else:
                 lines.append("If price runs away before any pullback, the plan is cancelled and we re-assess.")
     elif to == "TRIGGERED":
-        lines = [f"{title}: the plan with the {zone} entry zone is now active.",
-                 f"Price reached the zone at {_when(row['at_utc'])}.",
-                 f"It is invalidated if {invalid}."]
+        # Ops Product, 9 Nov: Main's export marks a plan TRIGGERED when its entry is armed (a resting order
+        # placed at the zone, ORDER_SENT_WINDOW_COMPLETE), often before price gets there: on 9 Nov EUR/USD and
+        # WTI were posted as "price reached the zone" with price 20 pips and 2.7 dollars away. Jim read
+        # "now active" the same way. The post says only what holds in every case: armed, and when it enters.
+        lines = [f"{title}: plan armed at {_when(row['at_utc'])}.",
+                 f"It enters only if price trades into {zone}, and it is invalidated if {invalid}."]
         if first_plan_post and plan.get("valid_until_utc"):
             call = {"condition": f"price trades into {zone}", "direction": plan["direction"], "market": market,
                     "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}
             calls = [call]
-            lines = [f"{title}: plan now active at {_when(row['at_utc'])}.", conditional_call_text(call)]
+            lines = [f"{title}: plan armed at {_when(row['at_utc'])}.", conditional_call_text(call)]
     elif to in {"CANCELLED", "INVALIDATED"}:
         reason = {
             "RUNAWAY_CANCEL": "price moved away before reaching the zone",
@@ -439,7 +442,7 @@ POST_DESTINATIONS = ("telegram", "discord", "threads", "x", "substack_notes")
 API_DESTINATIONS = ("telegram", "discord", "threads")
 # Jim's decision 83 (5 Nov): a status post carries no site link, only its text and image.
 POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan-status-posts")
-STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "plan now active", "CANCELLED": "plan cancelled",
+STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "plan armed", "CANCELLED": "plan cancelled",
                "INVALIDATED": "plan invalidated", "EXPIRED": "plan expired", "VIEW_CHANGED": "view changed"}
 LIMITS = {"x": 280, "threads": 500, "telegram": 1024, "discord": 2000, "substack_notes": 10000}
 X_URL_LENGTH = 23  # X counts every link as 23 characters
