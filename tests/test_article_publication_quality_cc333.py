@@ -402,6 +402,22 @@ def test_release_card_stays_first_and_snapshot_is_added(tmp_path):
     assert assets[1]["modality"] == "tradingview_chart_snapshot"
 
 
+def test_refresh_consumes_completed_capture_clock_and_replaces_old_channel_binding(tmp_path, monkeypatch):
+    from live_contentops import article_publication_quality_v1 as quality
+    from live_contentops.tradingview_snapshot_v1 import snapshot_asset
+    old = snapshot_asset("US500", "Controlled snapshot", captured_snapshot(tmp_path, NOW - timedelta(minutes=16)), tmp_path)
+    old["asset_id"] = "controlled-old-snapshot"
+    article, _ = scenario_article()
+    article.update(market_asset="US500", native_destination_media={"x": [old["asset_id"]]})
+    elapsed = iter((100.0, 140.0))
+    monkeypatch.setattr(quality, "monotonic", lambda: next(elapsed))
+    article, assets = prepare_market_snapshot(article, [old], output_dir=tmp_path, now=NOW,
+        capture=lambda *a: captured_snapshot(tmp_path, NOW + timedelta(seconds=40)))
+    assert article["native_destination_media"]["x"] == [assets[0]["asset_id"]]
+    assert old["asset_id"] not in article["native_destination_media"]["x"]
+    validate_snapshot_asset(assets[0], market="US500", now=NOW + timedelta(seconds=40))
+
+
 def test_existing_hosting_consumer_receives_snapshot_as_delivery_media(tmp_path, monkeypatch):
     from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
     article, _ = scenario_article()

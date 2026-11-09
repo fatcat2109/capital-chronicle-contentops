@@ -5,6 +5,7 @@ from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 import json
 from pathlib import Path
+from time import monotonic
 
 from live_contentops.article_scenarios_v1 import validate_article_scenarios, validate_social_scenarios
 from live_contentops.published_images_v1 import ImagePolicyError, PublishedImages
@@ -86,6 +87,7 @@ def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=No
     market = article.get("market_asset")
     if market not in tv.SYMBOLS:
         return article, assets
+    started = monotonic()
     now = now or datetime.now(timezone.utc)
     snapshots = [a for a in assets if a.get("modality") == "tradingview_chart_snapshot"]
     if snapshots:
@@ -104,15 +106,20 @@ def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=No
         snapshot = (capture or tv.capture)(market, interval, Path(output_dir))
         snapshot_asset = tv.snapshot_asset(snapshot=snapshot, market=market, title=article["title"], out_dir=Path(output_dir))
         snapshot_asset.update(article_inclusion=True, canonical_article_media=True, placement_after="introduction")
-        validate_snapshot_asset(snapshot_asset, market=market, now=now)
+        # Capture completes after the preparation clock. Validate against that
+        # elapsed clock, so a just-downloaded image is not labelled future/stale.
+        validate_snapshot_asset(snapshot_asset, market=market,
+            now=now + timedelta(seconds=monotonic() - started))
     event = article.get("article_type") in {"EVENT_PREVIEW", "EVENT_REVIEW"} or article.get("release_analysis") is True
     other = [a for a in assets if a.get("modality") != "tradingview_chart_snapshot"]
     ordered = [*other, snapshot_asset] if event else [snapshot_asset, *other]
     article = {**article, "lead_image_asset_id": ordered[0]["asset_id"], "publication_quality_policy": POLICY}
     choices = article.get("post_visual_destination_media") or article.get("native_destination_media") or {}
     if choices:
+        available = {a["asset_id"] for a in ordered}
         choices = {d: list(dict.fromkeys(([ordered[0]["asset_id"], snapshot_asset["asset_id"]]
-                    if event else [snapshot_asset["asset_id"]]) + list(ids)))[:5] for d, ids in choices.items()}
+                    if event else [snapshot_asset["asset_id"]]) + [i for i in ids if i in available]))[:5]
+                   for d, ids in choices.items()}
         article.update(post_visual_destination_media=choices, native_destination_media=choices)
     return article, ordered
 
