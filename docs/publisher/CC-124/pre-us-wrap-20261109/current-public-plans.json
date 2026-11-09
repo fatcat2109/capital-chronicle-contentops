@@ -1,0 +1,182 @@
+{
+  "generated_at_utc": "2026-11-09T11:38:05.974342Z",
+  "consumer": "live_contentops.plan_status_posts_v1.read_export",
+  "plans": [
+    {
+      "asset_id": "BTCUSD",
+      "registered_at_utc": "2026-11-09T09:11:59.987233Z",
+      "scenario_analysis": {
+        "acceptance": "unconfirmed. The 8 Nov D1 close of 74,768.94 sat above the 6 Nov low of 74,730.62 (the Critical's correction), and price is below that low only intraday on 9 Nov. No level depends on it.",
+        "base_case": {
+          "market_move": "BTC's seven-week downtrend continues, and a retest of the broken 75,400-75,800 shelf is sold toward lower levels within three sessions.",
+          "probability_pct": 55.0
+        },
+        "confirmations": "the lower-high and lower-low sequence in the captured D1 bars; the 20-day US500 correlation of 0.78 in the BTCUSD quant card.",
+        "driver": "the risk channel is MIXED. BTC is -1.08% since the 8 Nov close while US30 (+0.49%) and US500 (+0.13%) rose (Primary figures), and context points to crypto-specific selling.",
+        "field_first_causes": {
+          "acceptance": null,
+          "confirmations": null,
+          "driver": null,
+          "invalidation_reason": null,
+          "invalidation_text": null,
+          "mechanism": null,
+          "opposite_mechanism": null,
+          "positioning": null,
+          "priced": null,
+          "why_no_open": null,
+          "zone_reason": null
+        },
+        "horizon_end_utc": "2026-11-12T07:00:00Z",
+        "invalidation_reason": "Stop 76,700, above the 76,308 and 76,100 highs.",
+        "invalidation_text": "a completed M15 high at or above 76,700, or a soft US CPI that lifts US500 above 7,446 and squeezes BTC above 76,308.",
+        "main_alternative": {
+          "market_move": "mean reversion from the 200-day mean of 73,173, helped by a soft CPI and the 129,414-contract E-mini short, squeezes BTC back above 76,308.",
+          "probability_pct": 35.0
+        },
+        "mechanism": "the daily bars show lower highs (87,405 on 21 Sep, 84,862 on 21 Oct, 81,125 on 4 Nov, 76,308 on 6 Nov, 76,151 on 7 Nov, 76,100 on 8 Nov) and lower lows to 73,328 on 8 Nov. BTC trades with US equities (20-day correlation with US500 0.78, beta 1.33; with DXY only -0.10) during an AI-led equity drawdown, and China's continuing crypto crackdown is context.",
+        "missing_fields": [],
+        "opposite_mechanism": "mean reversion from the 200-day mean of 73,173, helped by a soft CPI and the 129,414-contract E-mini short, squeezes BTC back above 76,308.",
+        "positioning": "CME speculators net long only 2,230 (COT 3 Nov), so there is no forced flow either way; shorts are squeezed above 76,308.",
+        "priced": "20-day z -1.61, 50-day z -2.28, 200-day z +0.19 (mean 73,173); five-day move -1.43 ATR (77,361 to 73,962); 20-day range 73,328-84,862; ATR 2,380 (64th percentile).",
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "83289587bfbd54d4a3fd8541e76a226b22ffaf73c4f0d0b22673ed3d57dcbf3f",
+        "source_result_hash": "dd9c5cf0214821970de59f0c4f295c626a8771746387b06c0e05b549c03666c4",
+        "why_no_open": "at the 73,962 capture; on the 200-day mean; the base case is below the bar.",
+        "zone_reason": "zone 75,400-75,800 (the broken 7 Nov low of 75,460 and the 6-7 Nov closes of 75,738-75,754)."
+      },
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "EURUSD",
+      "registered_at_utc": "2026-11-09T09:11:59.987233Z",
+      "scenario_analysis": {
+        "acceptance": "the NFP USD move held on 6 Nov (EURUSD closed 1.11398, below the 1.11636 pre-release level) and was undone on 9 Nov as a new USD-weak move, not as a 30-minute failed reaction.",
+        "base_case": {
+          "market_move": "EURUSD extends its 9 Nov rebound from the 1.11309 post-NFP low toward higher levels within three sessions, after a pullback into 1.1166-1.1170.",
+          "probability_pct": 60.0
+        },
+        "confirmations": "the same-session USD decline across EURUSD, USDJPY and USDCAD in the captured H1 bars; the EURUSD-DXY correlation of -0.962; the crowded EUR short in COT as of 3 Nov.",
+        "driver": "the USD leg, CLEAR. EUR, JPY and CAD all rose against the USD from the 6 Nov close in the captured bars.",
+        "field_first_causes": {
+          "acceptance": null,
+          "confirmations": null,
+          "driver": null,
+          "invalidation_reason": null,
+          "invalidation_text": null,
+          "mechanism": null,
+          "opposite_mechanism": null,
+          "positioning": null,
+          "priced": null,
+          "why_no_open": null,
+          "zone_reason": null
+        },
+        "horizon_end_utc": "2026-11-12T07:00:00Z",
+        "invalidation_reason": "the stop moves from the Primary's 1.11480 to 1.11440. The Critical showed that 1.11480 sat 1.5 pips above the day's 1.11465 low, so an ordinary retest would stop the trade without the USD-weak thesis failing.",
+        "invalidation_text": "a completed M15 low at or below 1.11440, below the 9 Nov low of 1.11465, or a hot US CPI on 10 Nov at 13:30Z that sends EURUSD back below 1.1164.",
+        "main_alternative": {
+          "market_move": "a hot US CPI on 10 Nov restores the NFP dollar rally and takes EURUSD back through 1.1144 toward 1.1131.",
+          "probability_pct": 30.0
+        },
+        "mechanism": "a CLEAR US-leg move. From the 6 Nov close to the 08:18Z capture EURUSD rose 1.11398 to 1.11781 (+0.34%) while USDJPY fell 0.35% and USDCAD 0.29%. EURUSD tracks DXY at a 20-day correlation of -0.962, and speculators hold a net EUR short of 157,791 contracts that must cover above 1.11922.",
+        "missing_fields": [],
+        "opposite_mechanism": "a hot US CPI on 10 Nov restores the NFP dollar rally and takes EURUSD back through 1.1144 toward 1.1131.",
+        "positioning": "EUR shorts (net 157,791, COT 3 Nov) cover above 1.11922 and 1.12348; long stops cluster under the 1.11465 session low.",
+        "priced": "US2Y 4.51 on 6 Nov against EFFR 3.88 on 5 Nov; five-day move -0.52 ATR (1.1207 to 1.1178); price 16 pips under the 20-day mean of 1.11942 and 109 pips under the 50-day mean of 1.12871 (200-day z -2.05); 20-day range 1.11044-1.12731; request CPI consensus null.",
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "83289587bfbd54d4a3fd8541e76a226b22ffaf73c4f0d0b22673ed3d57dcbf3f",
+        "source_result_hash": "dd9c5cf0214821970de59f0c4f295c626a8771746387b06c0e05b549c03666c4",
+        "why_no_open": "at the 1.11781 capture; under 1.1187-1.1192 resistance; the base case is below the 65-70% bar.",
+        "zone_reason": "zone 1.11660-1.11700 (9 Nov 07:15-07:45 M15 lows of 1.11637-1.11691)."
+      },
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "USDJPY",
+      "registered_at_utc": "2026-11-09T09:11:59.987233Z",
+      "scenario_analysis": {
+        "acceptance": "the NFP move held on 6 Nov (close 158.501, above the 158.35 pre-release level) and was undone over the weekend and in the 9 Nov Asia and London sessions.",
+        "base_case": {
+          "market_move": "USDJPY stays inside its 20-session range of 156.08-158.95, and a rally into 158.20-158.30 fades back toward lower levels within three sessions.",
+          "probability_pct": 55.0
+        },
+        "confirmations": "the same-session USD decline across USDJPY, EURUSD and USDCAD in the captured bars; the range top that held at 158.585-158.77 on three sessions.",
+        "driver": "the USD leg is CLEAR, but USDJPY's rate channel is MIXED. The US-Japan 2y gap widened about 18bp on 6 Nov (US2Y 4.46 to 4.51, JP2Y 1.86 to 1.732).",
+        "field_first_causes": {
+          "acceptance": null,
+          "confirmations": null,
+          "driver": null,
+          "invalidation_reason": null,
+          "invalidation_text": null,
+          "mechanism": null,
+          "opposite_mechanism": null,
+          "positioning": null,
+          "priced": null,
+          "why_no_open": null,
+          "zone_reason": null
+        },
+        "horizon_end_utc": "2026-11-12T07:00:00Z",
+        "invalidation_reason": "Stop 158.650, above the 6 Nov NFP spike high of 158.585 and the 158.559 Friday close-high.",
+        "invalidation_text": "a completed M15 high at or above 158.650, or a hot US CPI that widens the US-Japan rate gap and lifts USDJPY through 158.65-158.77.",
+        "main_alternative": {
+          "market_move": "a hot CPI widens the US-Japan rate gap and squeezes yen longs through 158.65 toward the 158.95 range top.",
+          "probability_pct": 35.0
+        },
+        "mechanism": "the US leg is CLEAR across FX today, with USDJPY down from 158.501 to 157.945 (-0.35%) in step with EURUSD (+0.34%). The 158.55-158.77 range top capped price on 3, 4 and 6 Nov, and hawkish BoJ minutes are context.",
+        "missing_fields": [],
+        "opposite_mechanism": "a hot CPI widens the US-Japan rate gap and squeezes yen longs through 158.65 toward the 158.95 range top.",
+        "positioning": "speculators net long 102,321 JPY contracts (COT 3 Nov), squeezed above 158.77; long-USD stops sit under 157.26.",
+        "priced": "about 20bp of December BoJ hike; five-day move -0.68 ATR (158.471 to 157.945, Primary); 20-day range 156.075-158.952; yields after 6 Nov not observed.",
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "83289587bfbd54d4a3fd8541e76a226b22ffaf73c4f0d0b22673ed3d57dcbf3f",
+        "source_result_hash": "dd9c5cf0214821970de59f0c4f295c626a8771746387b06c0e05b549c03666c4",
+        "why_no_open": "at the 157.945 capture; mid-range; the base case is below the 65-70% bar.",
+        "zone_reason": "zone 158.200-158.300 (the 9 Nov Asia congestion, with M15 highs of 158.273-158.37, broken at 06:45Z)."
+      },
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "USOIL",
+      "registered_at_utc": "2026-11-09T09:11:59.987233Z",
+      "scenario_analysis": {
+        "acceptance": "the Asia escalation headlines (Hormuz navigational aids at 04:13Z, the Qeshm strike at 04:39Z; context) did not hold 90.46, and price fell to 88.42 by 07:30Z.",
+        "base_case": {
+          "market_move": "WTI (USOIL) keeps failing below the 90.2-91.45 shelf and trades down toward lower levels within three sessions as the Iran risk premium keeps unwinding.",
+          "probability_pct": 55.0
+        },
+        "confirmations": "the repeated rejections below 90.47 in the USOIL H1 and M15 bars, including through the Asia escalation headlines; Brent trading weaker than WTI in the UKOIL bars; speculators still net long 80,289 WTI contracts as of 3 Nov.",
+        "driver": "the Iran risk premium, a CLEAR channel for oil. USOIL is -0.71% from the 6 Nov close of 89.483.",
+        "field_first_causes": {
+          "acceptance": null,
+          "confirmations": null,
+          "driver": null,
+          "invalidation_reason": null,
+          "invalidation_text": null,
+          "mechanism": null,
+          "opposite_mechanism": null,
+          "positioning": null,
+          "priced": null,
+          "why_no_open": null,
+          "zone_reason": null
+        },
+        "horizon_end_utc": "2026-11-12T07:00:00Z",
+        "invalidation_reason": "Stop 91.600, above the 91.449 bounce high.",
+        "invalidation_text": "a completed M15 high at or above 91.600, or official confirmation of strikes that disrupt supply or a Hormuz closure.",
+        "main_alternative": {
+          "market_move": "a confirmed re-escalation (a third wave of strikes or Hormuz disruption) restores the premium and squeezes WTI through 91.45.",
+          "probability_pct": 35.0
+        },
+        "mechanism": "US-Iran de-escalation talk has removed most of the premium (5 Nov low 86.02), and every bounce since has been sold: 91.449 (6 Nov 03:00 H1) fell to 88.20; the 90.25-90.33 highs (6 Nov 19:15-20:15) gave way; and 90.464 (9 Nov 03:00 M15) fell to 88.422 by 07:30Z, while Brent is weaker than WTI today (-1.42% against -0.71%).",
+        "missing_fields": [],
+        "opposite_mechanism": "a confirmed re-escalation (a third wave of strikes or Hormuz disruption) restores the premium and squeezes WTI through 91.45.",
+        "positioning": "speculators net long 80,289 (COT 3 Nov) would liquidate below 88.2 and 86.0; shorts cover above 91.45.",
+        "priced": "five-day move -1.83 ATR and the 30 Oct high of 104.04 (Primary figures); a 13% weekly fall (press, context); daily ATR 3.79.",
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "83289587bfbd54d4a3fd8541e76a226b22ffaf73c4f0d0b22673ed3d57dcbf3f",
+        "source_result_hash": "dd9c5cf0214821970de59f0c4f295c626a8771746387b06c0e05b549c03666c4",
+        "why_no_open": "the base case is below the bar.",
+        "zone_reason": "zone 90.200-90.450 (the 9 Nov 03:00-04:30 M15 highs of 90.395-90.464 and the 6 Nov 19:15-20:15 highs of 90.25-90.33)."
+      },
+      "scenario_first_cause": null
+    }
+  ]
+}

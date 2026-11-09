@@ -1,0 +1,42 @@
+[
+  {
+    "stage": "select",
+    "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\desktop_response_select.json",
+    "response_file_sha256": "a46808f60244c3b658633b18be50888e7d4e46581f3eb9ccd78290e23ca6a0ce",
+    "request_sha256": "79c04705614e511d5fb9e49aecdde83a960ecdbd65ab6ed1b9d21259026c95ee",
+    "invocation_observation": {
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "invocation_id": "/root/native_select_79c04705614e",
+      "model": null,
+      "reasoning_effort": null,
+      "speed": "standard",
+      "observation_source": "Supported native task context supplies canonical task name as invocation identity; actual model and reasoning effort are not exposed.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "actual_configuration_unavailable": true,
+      "configuration_source": "Exact frozen desktop_request_select.json requested_model and requested_reasoning_effort, repeated by the supported parent task assignment."
+    }
+  },
+  {
+    "stage": "media-plan",
+    "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\desktop_response_media-plan.json",
+    "response_file_sha256": "2e6bc1bb7baec2b5ca39a7d16adf8a02ab07caf01a5e1c3be2d542f8d849974c",
+    "request_sha256": "0e110d24cfd9d8dca3412a0f04b03d9acc15be7a614f6001323935c15cc93d5f",
+    "invocation_observation": {
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "invocation_id": "/root/native_select_79c04705614e",
+      "model": null,
+      "reasoning_effort": null,
+      "speed": "standard",
+      "observation_source": "Supported native task context supplies canonical task name as invocation identity; actual model and reasoning effort are not exposed.",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low",
+      "actual_configuration_unavailable": true,
+      "configuration_source": "Exact frozen desktop_request_media-plan.json requested_model and requested_reasoning_effort, under the supported parent continuation assignment."
+    }
+  }
+]
