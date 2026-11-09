@@ -483,7 +483,8 @@ def test_readback_requires_exact_text_url_media_and_thread(tmp_path, thread_fiel
     ({"pixels_inspected": False}, False),
     ({"source_pixels_match": False}, False),
 ])
-def test_transcoded_chart_needs_exact_public_object_and_pixel_inspection(destination, changed, verified):
+@pytest.mark.parametrize("discover_object", [False, True])
+def test_transcoded_chart_needs_exact_public_object_and_pixel_inspection(destination, changed, verified, discover_object):
     source_hash = "a" * 64
     url = "https://x.com/Capitalnicle/status/123" if destination == "x" else "https://www.youtube.com/post/123"
     identity = "@Capitalnicle" if destination == "x" else "@CapitalChronicleYouTube"
@@ -499,8 +500,43 @@ def test_transcoded_chart_needs_exact_public_object_and_pixel_inspection(destina
             "observed_text": "Exact supported proposition.", "content_verified": True,
             "observed_media_sha256": ["b" * 64], "media_comparisons": [comparison]}
     result = NeoDestinationHandoff(native_executor=observed).readback(destination=destination, intent=value,
-        public_object_id="123", public_object_url=url)
+        public_object_id=None if discover_object else "123", public_object_url=None if discover_object else url)
     assert result["verified"] is verified
+
+
+@pytest.mark.parametrize("fault", [None, "identity", "handle", "id", "number", "link", "pinned_object"])
+def test_discovered_x_thread_recovers_exact_links_media_and_identity(fault):
+    canonical = "https://capitalchronicle.substack.com/p/test"
+    url = "https://x.com/Capitalnicle/status/123"
+    shown = "capitalchronicle.substack.com/p/test..."
+    texts = ["Oil and the reopen. " + canonical, "Base case: 55% model estimate."]
+    value = intent("x", native_payload={"posts": [{"text": t} for t in texts]},
+                   media_assets=[{"asset_id": "chart", "sha256": "a" * 64}])
+    actual_url = url.replace("Capitalnicle", "OtherAccount") if fault == "handle" else url
+    comparison = {"source_asset_sha256": "a" * 64, "platform_sha256": "b" * 64,
+        "public_image_url": "https://pbs.twimg.com/media/chart?format=png&name=small",
+        "public_object_url": actual_url, "pixels_inspected": True, "source_pixels_match": True}
+    observed_texts = ["Oil and the reopen. " + shown,
+                      "Base case: 50% model estimate." if fault == "number" else texts[1]]
+    def observed(request):
+        return {"request_sha256": request["request_sha256"], "status": "SUCCESS",
+            "observed_identity": "@OtherAccount" if fault == "identity" else "@Capitalnicle",
+            "public_object_id": "999" if fault == "id" else "123", "public_object_url": actual_url,
+            "content_verified": True, "observed_text": "\n".join(observed_texts),
+            "media_comparisons": [comparison],
+            "observed_link_resolutions": [{"displayed_text": shown, "short_url": "https://t.co/abc",
+                "target_verified": True, "public_object_url": actual_url,
+                "target_url": canonical + "-wrong" if fault == "link" else canonical}],
+            "observed_thread": [{"public_object_id": str(123+i),
+                "public_object_url": actual_url if i == 0 else "https://x.com/Capitalnicle/status/124",
+                "observed_text": text} for i, text in enumerate(observed_texts)]}
+    result = NeoDestinationHandoff(native_executor=observed).readback(destination="x", intent=value,
+        public_object_id="999" if fault == "pinned_object" else None,
+        public_object_url="https://x.com/Capitalnicle/status/999" if fault == "pinned_object" else None)
+    assert result["verified"] is (fault is None)
+    if fault is None:
+        assert result["write_exists"] is True
+        assert result["content_binding_checks"] == {"text_match": True, "media_match": True, "thread_match": True}
 
 
 def test_lost_readonly_observation_resumes_in_new_turn_without_reclaiming_write(tmp_path):

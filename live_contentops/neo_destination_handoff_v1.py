@@ -428,6 +428,16 @@ class NeoDestinationHandoff:
             return {"status": "BLOCKED", "verified": False, "request": request,
                     "reason_code": "NEO_NATIVE_READBACK_EXECUTOR_NOT_BOUND"}
         result = dict(self.native_executor(request))
+        # A reboot can lose the publish return before the coordinator knows the
+        # object's ID. Bind a discovered, account-valid object before comparing
+        # its shortened links and transcoded media to that exact public URL.
+        # A known object never changes identity during recovery.
+        if (not public_object_id and not public_object_url
+                and result.get("observed_identity") == IDENTITIES[destination]
+                and result.get("public_object_id")
+                and _public_url(destination, result.get("public_object_url"), result["public_object_id"])):
+            public_object_id = result["public_object_id"]
+            public_object_url = result["public_object_url"]
         binding = request["content_binding"]
         segments = binding["expected_text_segments"]
         observed_text = _text(result.get("observed_text"))
