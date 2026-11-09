@@ -1,0 +1,14 @@
+{
+  "destination": "substack",
+  "public_object_url": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar",
+  "public_image_url": "https://substackcdn.com/image/fetch/$s_!IS_D!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb0bfe2ea-8621-4367-a0ef-a998f1271ad1_1928x1085.png",
+  "binary_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\media\\readback\\substack-image.webp",
+  "platform_sha256": "a18a488aedce8019dc6c2330c38f04d4b9d2b8144d26c51441fd23ff8a5d54d4",
+  "source_asset_sha256": "1badc076e1605a49c0f2ba5af43f1ee6062b129379dad6f98349e7a47523b393",
+  "width": 1456,
+  "height": 819,
+  "visual_similarity": 0.9939555046213094,
+  "pixels_inspected": true,
+  "source_pixels_match": true,
+  "inspection_method": "Actual platform binary inspected with view_image; same clean candles, four-hour FXCM symbol, creation header, labels and TradingView attribution; resized full approved snapshot. Neo download timed out; binary-only fetch used the exact public URL observed through Neo."
+}
