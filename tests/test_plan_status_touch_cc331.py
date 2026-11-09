@@ -33,6 +33,12 @@ def copied_export():
             "transitions": json.loads((FOLDER / "plan-transitions.public.json").read_bytes())}
 
 
+def test_copied_export_bytes_match_the_retained_main_replay():
+    evidence = json.loads((Path(__file__).parent / "evidence/cc-331/revalidation-20261110.json").read_bytes())
+    for name, digest in evidence["export_sha256"].items():
+        assert hashlib.sha256((FOLDER / name).read_bytes()).hexdigest() == digest
+
+
 def queue(store, main_root, **kw):
     return posts.queue_posts(store, FOLDER.resolve(), main_root=main_root, python=sys.executable, now=NOW, **kw)
 
@@ -58,6 +64,7 @@ def test_all_five_source_rows_keep_their_original_setup_and_event_clock():
     fill = next(r for r in rows if r["source_state"] == "FILLED")
     assert fill["at_utc"] == FILL_AT and fill["plan_id"] == EUR
     assert "filled at Fri 6 Nov, 03:32 ET" in posts.compose(fill)["text"]
+    assert posts.compose({**fill, "to": "FILLED"})["text"] == posts.compose(fill)["text"]
 
 
 def test_fill_copy_uses_only_public_fields_even_when_private_fields_are_present():
