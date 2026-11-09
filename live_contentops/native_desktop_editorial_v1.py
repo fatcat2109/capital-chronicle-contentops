@@ -1687,8 +1687,12 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
     assets = result.get("media_assets") or []
     from live_contentops.native_text_first_v1 import text_first_brief
     text_first = text_first_brief(result)
-    decision = result.get("visual_editorial_decision") or (result.get("article") or {}).get("visual_editorial_decision")
-    if not text_first and (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision:
+    decision = result.get("visual_editorial_decision") or (result.get("article") or {}).get("visual_editorial_decision") or {}
+    # Decision 53's short path deliberately freezes no separate visual-editor
+    # role. Its writer and one editor check use the bound assets directly.
+    # The same caller flag already selects its automated image checks below.
+    if (require_pixel_review and not text_first
+            and (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision):
         raise ValueError("MAX_VISUAL_DECISION_REQUIRED")
     reader_first = bool(decision)
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]

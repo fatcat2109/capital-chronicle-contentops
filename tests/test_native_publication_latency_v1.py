@@ -427,6 +427,19 @@ def test_short_analysis_prepares_source_bound_media_then_replays_exact_writer_wi
         turn(**args)
     assert resumed.value.request["request_sha256"] == request["request_sha256"]
 
+    # CC-341: the compiler must consume the same short-path assets without
+    # demanding the separate visual role that this request explicitly skips.
+    from live_contentops.native_desktop_editorial_v1 import validate_release_media
+    packet = {"article": {"reader_first_version": "DATA_JOURNALISM_V1", "news_item_kind": "ANALYSIS"},
+              "media_assets": [photo, chart], "evidence": [doc]}
+    assert validate_release_media(packet, require_pixel_review=False)["chart_count"] == 1
+    with pytest.raises(ValueError, match="MAX_VISUAL_DECISION_REQUIRED"):
+        validate_release_media(packet)
+    damaged = copy.deepcopy(packet)
+    damaged["media_assets"][1]["sha256"] = "0" * 64
+    with pytest.raises(ValueError):
+        validate_release_media(damaged, require_pixel_review=False)
+
 
 def test_agents_md_opens_gmail_only_on_the_check_your_email_dialog():
     import re
