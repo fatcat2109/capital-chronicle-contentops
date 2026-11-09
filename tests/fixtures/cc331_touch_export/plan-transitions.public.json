@@ -1,0 +1,54 @@
+{
+  "content_hash": "095efb315caed536e3292569dbc3f6e84814a919dc8f126c0a9bb8964f5eb52f",
+  "generated_at_utc": "2026-11-06T10:40:56.378561Z",
+  "schema": "CapitalChroniclePlanTransitionsV1",
+  "schema_version": "1.0.0",
+  "status_content_hash": "0d62c11a57d2854528e961ef3431b43cb87f67a19d76a540b2a7b9fddd3faad8",
+  "transitions": [
+    {
+      "at_utc": "2026-11-06T08:19:32.351706Z",
+      "evidence_hash": "32eec7def32647d789969f1d2dc6c9e75503a6858abe986e771c4649a16329d5",
+      "plan_id": "plan_509c186b2f272a801714acef",
+      "reason_code": "REGISTERED",
+      "status": "WAITING",
+      "status_label": "Waiting",
+      "transition_id": "transition_899d15fe0fb23830bba2ea07501225dd"
+    },
+    {
+      "at_utc": "2026-11-06T08:19:32.351706Z",
+      "evidence_hash": "394ab2eb59f016ea465cfab1c815de6e39945a1f830057ed7010459ba245d65d",
+      "plan_id": "plan_5eb033547e64c256929ab849",
+      "reason_code": "REGISTERED",
+      "status": "WAITING",
+      "status_label": "Waiting",
+      "transition_id": "transition_4c8d178c7ed00a610e016bc1a9162ccf"
+    },
+    {
+      "at_utc": "2026-11-06T08:31:51.192761Z",
+      "evidence_hash": "39658070ce93031874cadf048f8a54f1215c09b9acf292dba84cd1916eaed772",
+      "plan_id": "plan_5eb033547e64c256929ab849",
+      "reason_code": "TRIGGERED",
+      "status": "TRIGGERED",
+      "status_label": "Triggered",
+      "transition_id": "transition_efc8b5e2de6f934bffc6c7c4fce65eec"
+    },
+    {
+      "at_utc": "2026-11-06T08:32:25.128000Z",
+      "evidence_hash": "e4c1f6923c8b6c0e2b1f1b4f03e3bda6ce0e93b992b038e5df40bb59a64b2962",
+      "plan_id": "plan_5eb033547e64c256929ab849",
+      "reason_code": "FILLED",
+      "status": "FILLED",
+      "status_label": "Filled",
+      "transition_id": "transition_baca4749bfd814b21f7ee54982e5c9c2"
+    },
+    {
+      "at_utc": "2026-11-06T08:45:32.500209Z",
+      "evidence_hash": "16d72cad573a21dda9674d5ad47a6215a40e356da7c1cee06ab1807ad98ef0a9",
+      "plan_id": "plan_509c186b2f272a801714acef",
+      "reason_code": "INVALIDATED",
+      "status": "INVALIDATED",
+      "status_label": "Invalidated",
+      "transition_id": "transition_75c277d62c863ea86f417a104f2fdee3"
+    }
+  ]
+}

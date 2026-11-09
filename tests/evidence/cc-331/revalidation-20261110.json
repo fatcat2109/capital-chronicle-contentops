@@ -1,0 +1,105 @@
+{
+  "item": "CC-331",
+  "source_item": "CC-330",
+  "main_commit": "ef053ea0d36e372d6cf3053c6c2abfa0d62499a0",
+  "main_reader_root": "C:\\CapitalChronicleScratch\\cc-331\\main-reader-ef053ea0",
+  "source_export": "C:\\CapitalChronicleScratch\\cc-330\\20261106T103151Z\\fill-touch-output",
+  "export_sha256": {
+    "plan-status.public.json": "b6437b20e7fdd8b38bc1d7d0a9c3096934f31776fccaaab717270326d94588d2",
+    "plan-transitions.public.json": "97bedf896486037ab1e8c5e49cb998faa09d26f34d222428da7074793b6b7f87"
+  },
+  "reader_sha256": {
+    "tools/product/plan_status_export_v1.py": "26c3965e2e2e56e1488e6fa21f063d29a1ab6ec859bb33b8f472228720d2813d",
+    "tools/product/execution_control_plane_v1.py": "e5cd5df3b9bd0b2a7d332d7b841d97ef01f6736e11764e72ebec25e37b688cdf",
+    "tools/product/paper_execution_tca_implementation_shortfall_v1.py": "e71bd942247c5ba7936b4b7280c95e48f4d9783490d112607e0b9fe69dd8ee31",
+    "tools/product/mwp_common_v1.py": "5e9e38571fe509e00e05093eb510945a5cf1b95c6df860dad0fe27cc7a6662a5",
+    "schemas/publication/CapitalChroniclePlanStatusV1.schema.json": "2cdc8314fd49516d39a489b3dd609e293eafcacb6b9713acd005ed1a3512938e",
+    "schemas/publication/CapitalChroniclePlanTransitionsV1.schema.json": "f28ecff84c5fecbfff4c10c2f597dee606d1b658652d06e136a8424ad3a6949d"
+  },
+  "baseline_publisher_commit": "7ad363a5082ea0bb9167d3f6d448bfab331c019c",
+  "before": [
+    {
+      "plan_id": "plan_509c186b2f272a801714acef",
+      "source_state": "WAITING",
+      "normalized_state": "WAITING",
+      "at_utc": "2026-11-06T08:19:32.351706Z",
+      "composition": {
+        "status": "COMPOSED",
+        "kind": "setup",
+        "text": "US crude oil: new plan. If price trades into 89.95\u201390.12, the desk is bullish on US crude oil (WTI) over the period to Fri 6 Nov, 06:30 ET. Invalidated if price moves below 89.45.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "conditional_calls": [
+          {
+            "condition": "price trades into 89.95\u201390.12",
+            "direction": "bullish",
+            "market": "US crude oil (WTI)",
+            "horizon": "the period to Fri 6 Nov, 06:30 ET",
+            "invalidation": "price moves below 89.45"
+          }
+        ],
+        "rationale_cause": "SCENARIO_ANALYSIS_MISSING"
+      }
+    },
+    {
+      "plan_id": "plan_5eb033547e64c256929ab849",
+      "source_state": "WAITING",
+      "normalized_state": "WAITING",
+      "at_utc": "2026-11-06T08:19:32.351706Z",
+      "composition": {
+        "status": "COMPOSED",
+        "kind": "setup",
+        "text": "EUR/USD: new plan. If price trades into 1.1187\u20131.1191, the desk is bearish on EUR/USD over the period to Fri 6 Nov, 06:30 ET. Invalidated if price moves above 1.1204.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "conditional_calls": [
+          {
+            "condition": "price trades into 1.1187\u20131.1191",
+            "direction": "bearish",
+            "market": "EUR/USD",
+            "horizon": "the period to Fri 6 Nov, 06:30 ET",
+            "invalidation": "price moves above 1.1204"
+          }
+        ],
+        "rationale_cause": "SCENARIO_ANALYSIS_MISSING"
+      }
+    },
+    {
+      "plan_id": "plan_5eb033547e64c256929ab849",
+      "source_state": "TRIGGERED",
+      "normalized_state": "TRIGGERED",
+      "at_utc": "2026-11-06T08:31:51.192761Z",
+      "composition": {
+        "status": "COMPOSED",
+        "kind": "triggered",
+        "text": "EUR/USD: the 1.1187\u20131.1191 entry zone filled at Fri 6 Nov, 03:31 ET, and Capital Chronicle's model position is open. It is invalidated if price moves above 1.1204.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "conditional_calls": [],
+        "rationale_cause": "SCENARIO_ANALYSIS_MISSING"
+      }
+    },
+    {
+      "plan_id": "plan_5eb033547e64c256929ab849",
+      "source_state": "FILLED",
+      "normalized_state": "FILLED",
+      "at_utc": "2026-11-06T08:32:25.128000Z",
+      "composition": {
+        "status": "NOT_POSTED",
+        "cause": "DEMO_FILL_NOT_PUBLIC"
+      }
+    },
+    {
+      "plan_id": "plan_509c186b2f272a801714acef",
+      "source_state": "INVALIDATED",
+      "normalized_state": "INVALIDATED",
+      "at_utc": "2026-11-06T08:45:32.500209Z",
+      "composition": {
+        "status": "COMPOSED",
+        "kind": "invalidated",
+        "text": "US crude oil: the plan with the 89.95\u201390.12 entry zone is invalidated at Fri 6 Nov, 03:45 ET: price moved below 89.45 before reaching the zone. It ended without an entry. We are reassessing.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "conditional_calls": [],
+        "rationale_cause": "SCENARIO_ANALYSIS_MISSING"
+      }
+    }
+  ],
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_observation": "CONFIGURED_NOT_OBSERVED",
+  "launch_pid": 37772,
+  "launch_started_gmt7": "2026-11-10T00:13:23.729677+07:00"
+}

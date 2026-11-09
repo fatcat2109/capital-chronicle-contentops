@@ -1,0 +1,110 @@
+{
+  "content_hash": "0d62c11a57d2854528e961ef3431b43cb87f67a19d76a540b2a7b9fddd3faad8",
+  "generated_at_utc": "2026-11-06T10:40:56.378561Z",
+  "notice": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+  "plans": [
+    {
+      "analysis_result_hash": "d6c24e50fdc3c94991433538ed9d2eacace8f8474f2f221ec6845bbaeea6fcc5",
+      "asset_id": "USOIL",
+      "cancel_conditions": [],
+      "cancel_kind": null,
+      "cancel_level": null,
+      "check_age_seconds": 6923.878352,
+      "checked_at_utc": "2026-11-06T08:45:32.500209Z",
+      "conditions": [
+        {
+          "kind": "COMPLETED_BAR",
+          "predicates": [
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 90.12
+            }
+          ],
+          "timeframe": "M15"
+        }
+      ],
+      "data_state": "AVAILABLE",
+      "decision_record_id": "decision:request-563c1412ec555cbb:USOIL",
+      "direction": "BULLISH",
+      "entry_deadline_utc": "2026-11-06T11:30:00Z",
+      "expires_at_utc": "2026-11-06T11:30:00Z",
+      "first_cause": null,
+      "invalidation_conditions": [
+        {
+          "field": "low",
+          "operator": "LTE",
+          "threshold": 89.45
+        }
+      ],
+      "kind": "WATCH",
+      "not_before_utc": "2026-11-06T08:30:00Z",
+      "plan_id": "plan_509c186b2f272a801714acef",
+      "registered_at_utc": "2026-11-06T08:19:32.351706Z",
+      "registration_hash": "32eec7def32647d789969f1d2dc6c9e75503a6858abe986e771c4649a16329d5",
+      "review_at_utc": "2026-11-06T11:30:00Z",
+      "run_id": "request-563c1412ec555cbb",
+      "status": "INVALIDATED",
+      "status_at_utc": "2026-11-06T08:45:32.500209Z",
+      "status_label": "Invalidated",
+      "trigger_hash": "d9e668c0817b4a26f1888bc206397ff4f9d3452400a3e9d70e38d2127f5c0a64",
+      "zone": {
+        "maximum": 90.12,
+        "minimum": 89.95
+      }
+    },
+    {
+      "analysis_result_hash": "d6c24e50fdc3c94991433538ed9d2eacace8f8474f2f221ec6845bbaeea6fcc5",
+      "asset_id": "EURUSD",
+      "cancel_conditions": [],
+      "cancel_kind": null,
+      "cancel_level": null,
+      "check_age_seconds": 579.020476,
+      "checked_at_utc": "2026-11-06T10:31:17.358085Z",
+      "conditions": [
+        {
+          "kind": "COMPLETED_BAR",
+          "predicates": [
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 1.1187
+            }
+          ],
+          "timeframe": "M15"
+        }
+      ],
+      "data_state": "AVAILABLE",
+      "decision_record_id": "decision:request-563c1412ec555cbb:EURUSD",
+      "direction": "BEARISH",
+      "entry_deadline_utc": "2026-11-06T11:30:00Z",
+      "expires_at_utc": "2026-11-06T11:30:00Z",
+      "first_cause": null,
+      "invalidation_conditions": [
+        {
+          "field": "high",
+          "operator": "GTE",
+          "threshold": 1.1204
+        }
+      ],
+      "kind": "WATCH",
+      "not_before_utc": "2026-11-06T08:30:00Z",
+      "plan_id": "plan_5eb033547e64c256929ab849",
+      "registered_at_utc": "2026-11-06T08:19:32.351706Z",
+      "registration_hash": "394ab2eb59f016ea465cfab1c815de6e39945a1f830057ed7010459ba245d65d",
+      "review_at_utc": "2026-11-06T11:30:00Z",
+      "run_id": "request-563c1412ec555cbb",
+      "status": "FILLED",
+      "status_at_utc": "2026-11-06T08:32:25.128000Z",
+      "status_label": "Filled",
+      "trigger_hash": "bdbfaf36a4801689bb565abf1683c9bcdaeee27547ee74df758808d7a649d68e",
+      "zone": {
+        "maximum": 1.1191,
+        "minimum": 1.1187
+      }
+    }
+  ],
+  "refresh_interval_seconds": 60,
+  "schema": "CapitalChroniclePlanStatusV1",
+  "schema_version": "1.0.0"
+}

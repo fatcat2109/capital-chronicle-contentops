@@ -34,11 +34,9 @@ MARKETS = {
 }
 TITLES = {"XAUUSD": "Gold", "US500": "US 500", "EURUSD": "EUR/USD", "USDJPY": "USD/JPY",
           "USOIL": "US crude oil", "BTCUSD": "Bitcoin"}
-KINDS = {"WAITING": "setup", "TRIGGERED": "triggered", "CANCELLED": "cancelled",
+KINDS = {"WAITING": "setup", "TRIGGERED": "triggered", "FILLED": "triggered", "CANCELLED": "cancelled",
          "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
-# CC-330: the export also carries FILLED (our DEMO order filled). Fills, positions and P&L are DEMO details and
-# never public (decision 40), so the composer reads the state and never posts it.
-PRIVATE_STATES = {"FILLED"}
+# Decision 106 permits confirming a model position, but account, exact fill price, size and P&L stay private.
 # Section 4.4: none of these may reach a reader.
 INTERNAL = re.compile(
     r"\b(?:frozen|committee|fixture|export|admission|deterministic|watch_runtime|plan_[0-9a-f]{6,}|"
@@ -100,7 +98,7 @@ def read_export(export_dir: Path = EXPORT_DIR, *, main_root: Path = MAIN_ROOT, p
 def rows_from_export(export: Mapping[str, Any]) -> list[dict]:
     plans = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("plan_id")}
     events = export["transitions"].get("transitions", [])
-    triggered = {e.get("plan_id") for e in events if e.get("status") == "TRIGGERED"}
+    filled = {e.get("plan_id"): _utc(e["at_utc"]) for e in events if e.get("status") == "FILLED"}
     rows = []
     for event in events:
         plan = plans.get(event.get("plan_id"))
@@ -109,14 +107,20 @@ def rows_from_export(export: Mapping[str, Any]) -> list[dict]:
         status = event.get("status")
         if status == "EXPIRED" and (plan.get("outcome") or {}).get("state") == "NOT_SCORED_UNTRIGGERED":
             continue  # CC-322: one result post replaces the expiry status post.
-        # Ops Product, 9 Nov (CC-360): a resting order now goes WAITING -> FILLED with no TRIGGERED. The fill is
-        # private (decision 40), but price trading into the public zone is a market fact readers need, so that
-        # fill's clock posts as the zone being reached. A market send keeps its own TRIGGERED; its fill stays silent.
-        if status == "FILLED" and event.get("plan_id") not in triggered:
+        # CC-331 / decision 106: a fill confirms the model position at its own clock. Keep CC-360's existing
+        # public TRIGGERED identity even when Main later backfills a separate trigger; this must not post twice.
+        # Retain the source state/id, and every row's original event clock, for internal attribution.
+        source_state = status
+        if status == "FILLED":
             status = "TRIGGERED"
-        rows.append(_row(plan_id=event["plan_id"], symbol=plan.get("asset_id"), to=status,
-                         at_utc=event.get("at_utc"), cause=event.get("reason_code"),
-                         plan=_built_plan(plan, state=status)))
+        row = _row(plan_id=event["plan_id"], symbol=plan.get("asset_id"), to=status,
+                   at_utc=event.get("at_utc"), cause=event.get("reason_code"),
+                   plan=_built_plan(plan, state=status))
+        row.update(source_state=source_state, source_transition_id=event.get("transition_id"))
+        if (source_state == "TRIGGERED" and event["plan_id"] in filled
+                and _utc(row["at_utc"]) != filled[event["plan_id"]]):
+            row["superseded_by_fill"] = True
+        rows.append(row)
     return rows + result_rows_from_export(export)
 
 
@@ -197,7 +201,7 @@ def _built_plan(plan: Mapping[str, Any], *, state: str | None = None) -> dict:
                if p.get("operator") in ({"LT", "LTE"} if below else {"GT", "GTE"})
                and p.get("field") in {"low", "close", "bid", "mid"} | ({"high", "ask"} if not below else set())]
     until = plan.get("expires_at_utc")
-    if state != "TRIGGERED" and plan.get("entry_deadline_utc"):
+    if state not in {"TRIGGERED", "FILLED"} and plan.get("entry_deadline_utc"):
         until = min((v for v in (until, plan["entry_deadline_utc"]) if v), key=_utc)
     return {"direction": direction, "zone_low": zone.get("minimum"), "zone_high": zone.get("maximum"),
             "cancel_level": plan.get("cancel_level"),
@@ -329,7 +333,7 @@ def _rationale(plan: Mapping[str, Any]) -> list[str]:
 
 
 def _row(*, plan_id, symbol, to, at_utc, cause, plan):
-    if not plan_id or (to not in KINDS and to not in PRIVATE_STATES) or not at_utc:
+    if not plan_id or to not in KINDS or not at_utc:
         raise PlanPostError("PLAN_EXPORT_TRANSITION_INVALID")
     at = _utc(at_utc).isoformat().replace("+00:00", "Z")
     return {"key": "plan-status-post-" + hashlib.sha256(f"{plan_id}|{to}|{at}".encode()).hexdigest()[:32],
@@ -372,8 +376,8 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
         return {"status": "NOT_A_FIRST_PHASE_MARKET"}
     if row["to"] == "RESULT":
         return compose_result(row)
-    if row["to"] in PRIVATE_STATES:
-        return {"status": "NOT_POSTED", "cause": "DEMO_FILL_NOT_PUBLIC"}
+    if row.get("superseded_by_fill"):
+        return {"status": "NOT_POSTED", "cause": "FILL_EVENT_SUPERSEDES_TRIGGER"}
     market, title = MARKETS[symbol], TITLES[symbol]
     if plan.get("direction") not in {"bullish", "bearish"}:
         return {"status": "NOT_POSTED", "cause": "PLAN_DIRECTION_MISSING"}
@@ -398,7 +402,7 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
                 lines.append(f"If price reaches {_level(plan['cancel_level'])} before that, the plan is cancelled.")
             else:
                 lines.append("If price runs away before any pullback, the plan is cancelled and we re-assess.")
-    elif to == "TRIGGERED":
+    elif to in {"TRIGGERED", "FILLED"}:
         # CC-360 (Ops Live, 9 Nov): TRIGGERED now means price traded into the zone (a market send after the
         # condition, or a resting order's fill, mapped in rows_from_export). An order placed ahead of price stays
         # WAITING, so this post never fires on placement again (9 Nov: EUR/USD and WTI were posted 20 pips and
@@ -433,7 +437,7 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
         lines.insert(0, f"Delayed update as of {_when(delayed_at.isoformat())}.")
         if to == "WAITING":
             lines.append(f"The plan was registered at {_when(row['at_utc'])}.")
-    why = _rationale(plan) if to == "WAITING" or (to == "TRIGGERED" and first_plan_post) else []
+    why = _rationale(plan) if to == "WAITING" or (to in {"TRIGGERED", "FILLED"} and first_plan_post) else []
     lead = " ".join(lines)
     # Ops Product, 9 Nov (Jim): one reason per line, so each block reads on its own (format 2).
     text = lead + ("\nWhy:\n" + "\n".join("• " + line for line in why) if why else "") \
@@ -499,7 +503,7 @@ def _recent_loss_post(outbox, now) -> bool:
             return True
     return False
 PUBLIC_LEVELS = ("direction", "zone_low", "zone_high", "invalidation_level", "valid_until_utc")
-ACTIVE = {"WAITING", "TRIGGERED"}
+ACTIVE = {"WAITING", "TRIGGERED", "FILLED"}
 
 
 def active_recoveries(rows, now: datetime) -> dict:
@@ -550,9 +554,29 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     outbox = store.list_outbox_messages(destination=DESTINATION)
     announced = {json.loads(r["payload"]).get("plan_id") for r in outbox if r["status"] == "PUBLISHED"}
     loss_recent = _recent_loss_post(outbox, now)
+    prior_confirmations = {}
+    for row in fresh:
+        if row.get("superseded_by_fill"):
+            prior = store.get_outbox_message(row["key"])
+            if prior and prior["status"] in {"PUBLISHING", "PUBLISHED"}:
+                prior_confirmations[row["plan_id"]] = prior
     for row in sorted(fresh, key=lambda r: (r["to"] not in WITHDRAWN, r["at_utc"])):
         late = False
         is_result = row["to"] == "RESULT"
+        if row.get("superseded_by_fill"):
+            # A previous tick may have queued the trigger before Main supplied its fill. Retire only an
+            # unsent row; frozen published bytes and ambiguous writes remain with the existing coordinator.
+            prior = store.get_outbox_message(row["key"])
+            if not dry_run and prior and prior["status"] == READY:
+                store.set_outbox_status(row["key"], SUPERSEDED)
+            skipped.append({"key": row["key"], "cause": "FILL_EVENT_SUPERSEDES_TRIGGER"})
+            continue
+        if row.get("source_state") == "FILLED" and row["plan_id"] in prior_confirmations:
+            prior = prior_confirmations[row["plan_id"]]
+            skipped.append({"key": row["key"], "prior_key": prior["message_id"],
+                            "cause": "FILL_CONFIRMATION_PENDING_READBACK" if prior["status"] == "PUBLISHING"
+                            else "FILL_CONFIRMATION_ALREADY_PUBLISHED"})
+            continue  # No second confirmation while a prior send is ambiguous, or after it is confirmed.
         if (is_result and RESULT_POSTS_SELECTIVE and not row.get("corrects_outcome_id")
                 and not store.get_outbox_message(row["key"])):
             cause = ("ENDED_WITHOUT_ENTRY_NOT_POSTED_DECISION_106" if not row["scored"] else
@@ -598,6 +622,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
             rationale_causes[rationale_cause] = rationale_causes.get(rationale_cause, 0) + 1
         payload = {"schema_version": SCHEMA, "key": row["key"], "plan_id": row["plan_id"],
                    "symbol": row["symbol"], "state": row["to"],
+                   **{k: row[k] for k in ("source_state", "source_transition_id") if row.get(k)},
                    "at_utc": row["at_utc"], "kind": post["kind"], "text": post["text"],
                    "conditional_calls": post["conditional_calls"],
                     **{k: post[k] for k in ("lead", "why", "rationale_cause", "format") if post.get(k)},
@@ -680,7 +705,7 @@ POST_DESTINATIONS = ("telegram", "discord", "threads", "x", "substack_notes")
 API_DESTINATIONS = ("telegram", "discord", "threads")
 # Jim's decision 83 (5 Nov): a status post carries no site link, only its text and image.
 POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan-status-posts")
-STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "entry filled", "CANCELLED": "plan cancelled",
+STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "entry filled", "FILLED": "entry filled", "CANCELLED": "plan cancelled",
                "INVALIDATED": "plan invalidated", "EXPIRED": "plan expired", "VIEW_CHANGED": "view changed"}
 LIMITS = {"x": 280, "threads": 500, "telegram": 1024, "discord": 2000, "substack_notes": 10000}
 # Every part carries the post image (decision 61's post-image policy), so a Telegram part is a photo caption
