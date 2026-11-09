@@ -216,8 +216,8 @@ def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir
             "article_inclusion": False, "canonical_article_media": False,
             "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE", "rights_basis": RIGHTS_BASIS,
             "attribution": "TradingView", "credit": CREDIT,
-            "caption": f"{title}: {label} chart ({snapshot['tv_symbol']}). {CREDIT}.",
-            "alt_text": f"TradingView {label} candlestick chart of {NAMES[market]}, {snapshot['tv_symbol']}, "
+            "caption": f"{title}: {label} chart of {NAMES[market]}. {CREDIT}.",
+            "alt_text": f"TradingView {label} candlestick chart of {NAMES[market]}, "
                         f"captured {when}.",
             "source_page_url": snapshot["chart_url"],
             "tradingview_snapshot": {**dict(snapshot), "framing": framing, "policy": POLICY,

@@ -60,6 +60,48 @@ def test_policy_does_not_convert_or_replace_numbers_or_frozen_history():
                       "substack_body_markdown": "CFDs are contracts for difference."})
 
 
+def test_instrument_in_seo_or_social_does_not_replace_article_coverage():
+    copy = article()
+    copy.update(substack_body_markdown="Spot gold reacts to rates.", meta_description="GC futures and GLD ETF",
+                social_hook="GC futures and GLD ETF")
+    with pytest.raises(ValueError, match="PUBLIC_FUTURES_OR_ETF_REQUIRED:XAUUSD"):
+        validate_article(copy)
+
+
+def test_spot_bitcoin_ticker_alone_does_not_claim_a_futures_instrument():
+    copy = {"title": "Bitcoin review", "public_instrument_policy": POLICY,
+            "substack_body_markdown": "BTC spot follows the dollar."}
+    with pytest.raises(ValueError, match="PUBLIC_FUTURES_OR_ETF_REQUIRED:BTCUSD"):
+        validate_article(copy)
+    copy["substack_body_markdown"] += " IBIT is an ETF expression."
+    validate_article(copy)
+
+
+def test_sp_global_publisher_name_does_not_mean_the_sp500_market():
+    copy = {"title": "Gold and business surveys", "public_instrument_policy": POLICY,
+            "substack_body_markdown": "Gold: GC futures. A headline survey figure from S&P Global."}
+    validate_article(copy)
+
+
+@pytest.mark.parametrize("market", INSTRUMENTS)
+def test_fresh_chart_captions_use_public_names_and_keep_exact_feed_and_image(tmp_path, market):
+    from hashlib import sha256
+    from pathlib import Path
+    from live_contentops.tradingview_snapshot_v1 import SYMBOLS, NAMES, chart_url, snapshot_asset
+    fixture = Path(__file__).parent / "fixtures/cc314/SPX_2026-11-09_17-50-41.png"
+    digest = sha256(fixture.read_bytes()).hexdigest()
+    snapshot = {"path": str(fixture), "sha256": digest, "tv_symbol": SYMBOLS[market], "interval": "240",
+        "interval_label": "4h", "chart_url": chart_url(SYMBOLS[market], "240"),
+        "captured_at_utc": "2026-11-09T18:00:00Z"}
+    # The same binary fixture tests caption formatting, not the six charts' pixels.
+    asset = snapshot_asset(market, "Market review", snapshot, tmp_path)
+    validate_payload(article(), asset)
+    assert NAMES[market] in asset["caption"]
+    assert asset["tradingview_snapshot"]["tv_symbol"] == SYMBOLS[market]
+    assert asset["tradingview_snapshot"]["sha256"] == digest
+    assert sha256(fixture.read_bytes()).hexdigest() == digest
+
+
 def test_rendered_article_retains_the_request_bound_policy():
     copy = article()
     rendered = _reader_safe_native_article(copy, article_mode="STANDARD_NEWS_ANALYSIS")
@@ -148,3 +190,36 @@ def test_eight_destination_compiler_preserves_public_names():
     assert len(bundle["packages"]) == 8
     for payload in bundle["packages"].values():
         validate_payload(copy, payload)
+
+
+@pytest.mark.parametrize("destination", ["substack", "telegram"])
+def test_valid_new_article_reaches_existing_transport_with_source_bound_scenarios(tmp_path, destination):
+    from hashlib import sha256
+    from test_article_publication_quality_cc333 import publication
+    _, transport, coordinator, message, _, _, _ = publication(tmp_path, destination=destination)
+    context_path = tmp_path / "article" / "run_context_v1.json"
+    context = json.loads(context_path.read_bytes())
+    # Relabel only the synthetic fixture's display strings, leaving raw market keys exact.
+    def display(text):
+        for market, (name, symbols) in INSTRUMENTS.items():
+            text = text.replace(market, name + " (" + symbols[0] + " futures)")
+        return text
+    copy = context["article"]
+    copy["public_instrument_policy"] = POLICY
+    copy["substack_body_markdown"] = display(copy["substack_body_markdown"])
+    for scenario in copy["scenario_analysis"]:
+        scenario["market_moves"] = {key: display(value) for key, value in scenario["market_moves"].items()}
+        for binding in scenario["source_bindings"].values():
+            binding["support_excerpt"] = display(binding["support_excerpt"])
+    for doc in context["source_documents"]:
+        doc["canonical_content_text"] = display(doc["canonical_content_text"])
+        doc["canonical_content_sha256"] = sha256(doc["canonical_content_text"].encode()).hexdigest()
+    context_path.write_text(json.dumps(context), encoding="utf-8")
+    intent = json.loads(message["payload"])
+    if destination != "substack":
+        intent["native_payload"] = {"text": "Gold: GC futures and GLD ETF.\n" +
+            "\n".join(copy["social_scenarios"].values()), "media_asset_ids": ["image-1"]}
+    outcome = coordinator._dispatch_message({**message, "payload": json.dumps(intent)},
+        canonical_url=None if destination == "substack" else "https://capitalchronicle.substack.com/p/test")
+    assert outcome["status"] == "DISPATCH_CONFIRMED"
+    assert transport.publish_calls == [destination]

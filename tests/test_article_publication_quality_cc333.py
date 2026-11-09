@@ -24,7 +24,7 @@ from live_contentops.v1_simple_gemini_newsroom_v1 import _public_copy, _native_p
 from test_publication_coordinator_v1 import FixtureTransport, _coordinator, _plan, _set_mode
 
 NOW = datetime(2026, 11, 6, 14, 10, tzinfo=timezone.utc)
-TV_FIXTURE = Path(__file__).parent / "fixtures/cc314/SPX500USD_2026-11-05_13-21-11.png"
+TV_FIXTURE = Path(__file__).parent / "fixtures/cc314/SPX_2026-11-09_17-50-41.png"
 
 
 def image_asset(tmp_path, seed=1):
@@ -365,8 +365,8 @@ def test_coordinator_refuses_social_copy_missing_alternative_before_transport(tm
 def captured_snapshot(tmp_path, now=NOW):
     path = tmp_path / TV_FIXTURE.name
     shutil.copyfile(TV_FIXTURE, path)
-    return {"path": str(path), "sha256": sha256(path.read_bytes()).hexdigest(), "tv_symbol": "OANDA:SPX500USD",
-            "interval": "240", "interval_label": "4h", "chart_url": "https://www.tradingview.com/chart/?symbol=OANDA:SPX500USD&interval=240",
+    return {"path": str(path), "sha256": sha256(path.read_bytes()).hexdigest(), "tv_symbol": "SP:SPX",
+            "interval": "240", "interval_label": "4h", "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
             "captured_at_utc": now.isoformat()}
 
 

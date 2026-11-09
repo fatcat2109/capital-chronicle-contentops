@@ -130,10 +130,10 @@ def before_article_write(coordinator, intent, destination):
     article, assets, documents = article_inputs(intent)
     from live_contentops.public_instruments_v1 import validate_article, validate_payload
     validate_article(article)
-    for asset in assets:
-        validate_payload(article, asset)
     assets = [a for a in assets if a.get("article_inclusion") is not False
               and a.get("canonical_article_media") is not False]
+    for asset in assets:
+        validate_payload(article, asset)
     if not assets:
         raise ImagePolicyError("IMAGE_MISSING")
     lead = article.get("lead_image_asset_id") or assets[0]["asset_id"]

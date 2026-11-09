@@ -39,3 +39,20 @@ next article and next wrap's exact Substack text and decision-107 chart readback
 Use their existing operations and publication coordinator. Do not start an extra
 article, change a frozen request or repost a historical object to manufacture that
 future evidence. CC-382 stays short of DONE until those readbacks exist.
+
+The corrected chart/publication regression set passed **107 tests in 196.58
+seconds** (one process): `test_public_instruments_cc382.py`,
+`test_article_publication_quality_cc333.py`, and `test_tradingview_snapshot_cc314.py`.
+The initial broader run's five failures were the old CC-333 OANDA fixture binding;
+its fixtures now use the existing observed `SP:SPX` image and exact decision-107
+feed. The native and newsroom regression files reached no failure in that run.
+
+Final item-specific validation: **38 passed in 43.14 seconds**, saved in
+[focused-tests.xml](focused-tests.xml). Additional cases cover valid source-bound
+canonical and social dispatch, all six fresh snapshot captions with exact original
+hashes/bindings, body coverage rather than SEO-only mentions, ambiguous spot BTC,
+and the distinction between S&P Global and the S&P 500. Only displayed media
+captions are checked; unused assets do not prevent publication. New snapshot
+captions use the feed's existing public name, with exact feed code retained in
+metadata and original image pixels. No prices, probabilities or source facts are
+rewritten by this change.

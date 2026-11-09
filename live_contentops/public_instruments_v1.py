@@ -19,10 +19,10 @@ INSTRUMENTS = {
 }
 MARKET_PATTERNS = {
     "XAUUSD": r"\bgold\b",
-    "US500": r"\bS\s*&\s*P\s*500\b|\bS&P\b",
+    "US500": r"\bS\s*&\s*P\s*500\b",
     "USOIL": r"\bWTI\b|\bcrude oil\b",
-    "EURUSD": r"\bEUR\s*/\s*USD\b|\beuro\s*/\s*dollar\b",
-    "USDJPY": r"\bUSD\s*/\s*JPY\b|\bdollar\s*/\s*yen\b",
+    "EURUSD": r"\bEUR\s*/?\s*USD\b|\beuro\s*[/–-]\s*dollar\b",
+    "USDJPY": r"\bUSD\s*/?\s*JPY\b|\bdollar\s*[/–-]\s*yen\b",
     "BTCUSD": r"\bBitcoin\b",
 }
 GUIDANCE = """
@@ -75,11 +75,20 @@ def is_cfd_topic(article):
     return bool(re.search(r"\bCFDs?\b|\bcontracts? for difference\b", str(article.get("title") or ""), re.I))
 
 
+def _has_instrument(text, market):
+    symbols = INSTRUMENTS[market][1]
+    # BTC by itself can mean spot Bitcoin; require the futures name for that
+    # ambiguous ticker. MBT and the named ETFs already identify the instrument.
+    return any(re.search(r"\bBTC\s+(?i:futures)\b" if symbol == "BTC" else
+                         r"\b" + symbol + r"\b", text) for symbol in symbols)
+
+
 def validate_article(article):
     """Only new, request-bound articles adopt the rule; sealed history stays exact."""
     if article.get("public_instrument_policy") != POLICY or is_cfd_topic(article):
         return
-    text = public_text(article)
+    text = public_text({key: article[key] for key in
+        ("title", "subtitle", "dek", "substack_body_markdown", "body_markdown") if key in article})
     validate_payload(article, article)
     covered = {m for m, pattern in MARKET_PATTERNS.items() if re.search(pattern, text, re.I)}
     if article.get("market_asset") in INSTRUMENTS:
@@ -88,8 +97,7 @@ def validate_article(article):
         if any(re.search(r"\b" + s + r"\b", text) for s in symbols):
             covered.add(market)
     for market in sorted(covered):
-        symbols = INSTRUMENTS[market][1]
-        if not any(re.search(r"\b" + s + r"\b", text) for s in symbols):
+        if not _has_instrument(text, market):
             raise ValueError("PUBLIC_FUTURES_OR_ETF_REQUIRED:" + market)
 
 
