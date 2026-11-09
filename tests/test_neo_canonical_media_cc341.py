@@ -4,6 +4,20 @@ import pytest
 from live_contentops.neo_destination_handoff_v1 import _payload_binding
 
 
+@pytest.mark.parametrize("destination", ["linkedin", "linkedin_company"])
+@pytest.mark.parametrize("object_id,valid", [
+    ("urn:li:activity:7525534845696122880", True),
+    ("7525534845696122880", True),
+    ("7525534845696122881", False),
+    ("urn:li:share:7525534845696122880", False),
+])
+def test_linkedin_exact_url_accepts_urn_or_its_numeric_id(destination, object_id, valid):
+    from live_contentops.neo_destination_handoff_v1 import _public_url
+    assert bool(_public_url(destination,
+        "https://www.linkedin.com/feed/update/urn:li:activity:7525534845696122880/",
+        object_id)) is valid
+
+
 @pytest.mark.parametrize("excluded", ["article_inclusion", "canonical_article_media"])
 def test_canonical_browser_binding_excludes_retained_unused_asset(excluded):
     selected = {"asset_id": "selected-chart", "path": "chart.png", "sha256": "a" * 64,
