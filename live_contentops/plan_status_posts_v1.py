@@ -10,7 +10,7 @@ No order, no price data and no write outside the store.
 from __future__ import annotations
 
 from zoneinfo import ZoneInfo
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 import hashlib
 import json
@@ -148,11 +148,12 @@ def _built_plan(plan: Mapping[str, Any], *, state: str | None = None) -> dict:
 # In particular, never copy the whole export row (target, sizing and execution fields).
 REASON_FIELDS = {
     "mechanism": "Mechanism", "priced": "What is priced", "positioning": "Positioning",
-    "driver": "Today's driver", "acceptance": "Confirmation", "zone_reason": "Why this zone",
-    "invalidation_reason": "Why this invalidation", "confirmations": "Confirmations",
+    "driver": "Today's driver", "acceptance": "Reaction so far", "zone_reason": "Why this zone",
+    "invalidation_reason": "Why this invalidation level", "confirmations": "What confirms it",
     "opposite_mechanism": "Alternative mechanism",
-    "why_no_open": "Why the plan is waiting",
 }
+# Ops Product, 9 Nov: `why_no_open` stays off public copy. Its words are the desk's own ("at the 1.11781
+# capture", "below the 65-70% bar"); the post already says the plan waits for price to reach its zone.
 PRIVATE_RATIONALE = re.compile(
     r"\b(?:targets?|take[ -]?profit|after[ -]?cost|risk[ /:-]*(?:reward|return)|R\s*:\s*R|"
     r"position siz\w*|fills?|filled|tickets?|P\s*&\s*L|(?:realized|unrealized)\s+(?:profit|loss)|prediction[ -]?market|"
@@ -165,13 +166,49 @@ PRIVATE_RATIONALE = re.compile(
 ROLE_CREDIT = re.compile(r"\s*\([^()]*\b(?:Primary|Critical)\b[^()]*\)")
 INTERNAL_RATIONALE = re.compile(r"\b(?:Primary|Critical|Owner)(?:'s)?\b|\b(?:null|None|NaN|undefined)\b")
 
+# Ops Product, 9 Nov (Jim: the reasons must read cleanly). Main writes bar times in UTC ("the 9 Nov 03:00-04:30
+# M15 highs") and its own labels in capitals ("a CLEAR channel", "(press, context)"). Public copy gives times in
+# ET (decision 90) and plain words; a stop is the plan's invalidation level.
+MONTHS = {m: i for i, m in enumerate(("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",
+                                       "Nov", "Dec"), 1)}
+DATED_CLOCK = re.compile(r"\b(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2}):(\d{2})"
+                         r"(?:\s*[-–]\s*(\d{1,2}):(\d{2}))?(?:Z\b|\s*(?:UTC|GMT)\b(?!\+))?")
+LABEL_WORDS = re.compile(r"\b(CLEAR|MIXED|UNCLEAR|ABSENT|CONFLICTED)\b")
+SOURCE_TAG = re.compile(r"\s*\((?:press|context)(?:,\s*(?:press|context))*\)|;\s*context(?=\))")
+
+
+def _et_clock(match: re.Match, now: datetime | None = None) -> str:
+    """A dated UTC clock from Main's text, in New York time."""
+    now = now or datetime.now(timezone.utc)
+
+    def at(hour: str, minute: str) -> datetime:
+        value = datetime(now.year, MONTHS[match[2]], int(match[1]), int(hour), int(minute), tzinfo=timezone.utc)
+        if value - now > timedelta(days=2):
+            value = value.replace(year=now.year - 1)
+        return value.astimezone(PUBLIC_TZ)
+
+    try:
+        start = at(match[3], match[4])
+        text = f"{start.day} {start:%b} {start:%H:%M}"
+        if match[5]:
+            end = at(match[5], match[6])
+            text += f"-{end:%H:%M}" if end.date() == start.date() else f" to {end.day} {end:%b} {end:%H:%M}"
+    except ValueError:
+        return match[0]
+    return text + " ET"
+
 
 def _public_reason(value: Any) -> str:
     """Keep source sentences only. A private clause never suppresses the whole post."""
     if isinstance(value, list):
-        value = " ".join(_public_reason(v) for v in value)
+        # Each item is filtered (and its clocks converted) once, never a second time as joined text.
+        return " ".join(part for part in (_public_reason(v) for v in value) if part)
     if not isinstance(value, str):
         return ""
+    if not re.search(r"\b(?:ET|EST|EDT)\b", value):
+        value = DATED_CLOCK.sub(_et_clock, value)
+    value = LABEL_WORDS.sub(lambda m: m[1].lower(), SOURCE_TAG.sub("", value))
+    value = re.sub(r"\b(is|are) context\b", r"\1 background", value)
     sentences = re.split(r"(?<=[.!?;])\s+|\n+", value.strip())
     safe = []
     for sentence in sentences:
@@ -180,6 +217,7 @@ def _public_reason(value: Any) -> str:
         # preceding mechanism, without supplying a replacement price or direction.
         sentence = re.sub(r"\s+towards?\s+[$€£]?\d.*", "", sentence, flags=re.I)
         sentence = ROLE_CREDIT.sub("", sentence)
+        sentence = re.sub(r"^Stop (?=\d)", "Invalidation at ", sentence)
         if (not sentence or PRIVATE_RATIONALE.search(sentence) or INTERNAL.search(sentence)
                 or INTERNAL_RATIONALE.search(sentence)
                 or FORBIDDEN.search(sentence) or public_execution_copy_forbidden(sentence)
@@ -190,14 +228,15 @@ def _public_reason(value: Any) -> str:
         if re.search(r"\b\d{1,2}:\d{2}(?:Z|\s*(?:UTC|GMT))\b|GMT\+7|UTC\+7", sentence):
             continue
         safe.append(sentence)
-    return " ".join(safe)
+    text = " ".join(safe).rstrip(" ;,:")
+    return text + "." if text and text[-1] not in ".!?…" else text
 
 
 def _rationale(plan: Mapping[str, Any]) -> list[str]:
     scenario = plan.get("scenario_analysis") or {}
     if not isinstance(scenario, Mapping):
         scenario = {}
-    lines = []
+    lines, alternative = [], ""
     for key, label in (("base_case", "Base case"), ("main_alternative", "Main alternative")):
         branch = scenario.get(key) or {}
         if not isinstance(branch, Mapping):
@@ -209,8 +248,13 @@ def _rationale(plan: Mapping[str, Any]) -> list[str]:
         probability = (f" {probability:g}%" if isinstance(probability, (int, float))
                        and not isinstance(probability, bool) and 0 <= probability <= 100 else "")
         lines.append(f"{label}{probability} (Capital Chronicle model estimate): {move}")
+        if key == "main_alternative":
+            alternative = move.rstrip(".")
     for field, label in REASON_FIELDS.items():
         value = _public_reason(plan.get(field) or scenario.get(field))
+        # Ops Product, 9 Nov: Main often repeats the main alternative as the opposite mechanism.
+        if field == "opposite_mechanism" and value.rstrip(".") == alternative:
+            continue
         if value:
             lines.append(f"{label}: {value}")
     invalid = _public_reason(plan.get("invalidation_text") or scenario.get("invalidation_text"))
@@ -321,14 +365,34 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
             lines.append(f"The plan was registered at {_when(row['at_utc'])}.")
     why = _rationale(plan) if to == "WAITING" or (to == "TRIGGERED" and first_plan_post) else []
     lead = " ".join(lines)
-    text = lead + (" Why: " + " ".join(why) if why else "") + f"\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
+    # Ops Product, 9 Nov (Jim): one reason per line, so each block reads on its own (format 2).
+    text = lead + ("\nWhy:\n" + "\n".join("• " + line for line in why) if why else "") \
+        + f"\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
     check_publication_copy({"title": title, "body": text}, conditional_calls=calls)
     if INTERNAL.search(text) or FORBIDDEN.search(text):
         raise PlanPostError("PLAN_POST_INTERNAL_OR_FORBIDDEN_WORDS")
     return {"status": "COMPOSED", "kind": kind, "text": text, "conditional_calls": calls,
-            **({"lead": lead, "why": why} if why else {}),
+            **({"lead": lead, "why": why, "format": 2} if why else {}),
             "rationale_cause": ("SCENARIO_ANALYSIS_MISSING" if not plan.get("scenario_analysis") else
                                 "PUBLIC_RATIONALE_EMPTY" if not why and to in ACTIVE else None)}
+
+
+WHY_PREFIX = "plan-status-why-"
+
+
+def compose_why(row: Mapping[str, Any]) -> dict:
+    """Ops Product, 9 Nov (Jim): the reasoning of a live plan whose first post went out without it."""
+    post = compose(row)
+    if post.get("status") != "COMPOSED" or not post.get("why"):
+        return post
+    title = TITLES[row["symbol"]]
+    lead = post["lead"].replace(f"{title}: new plan.", f"{title}: the reasoning behind our plan.", 1)
+    text = lead + "\nWhy:\n" + "\n".join("• " + line for line in post["why"]) \
+        + f"\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
+    check_publication_copy({"title": title, "body": text}, conditional_calls=post["conditional_calls"])
+    if INTERNAL.search(text) or FORBIDDEN.search(text):
+        raise PlanPostError("PLAN_POST_INTERNAL_OR_FORBIDDEN_WORDS")
+    return {**post, "kind": "why", "lead": lead, "text": text}
 
 
 POSTING_WINDOW_MINUTES = 60
@@ -389,8 +453,8 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     rationale_causes = {}
     fresh = [row for row in rows if row["symbol"] in MARKETS]
     recoveries = active_recoveries(fresh, now)
-    announced = {json.loads(r["payload"]).get("plan_id") for r in store.list_outbox_messages(destination=DESTINATION)
-                 if r["status"] == "PUBLISHED"}
+    outbox = store.list_outbox_messages(destination=DESTINATION)
+    announced = {json.loads(r["payload"]).get("plan_id") for r in outbox if r["status"] == "PUBLISHED"}
     for row in sorted(fresh, key=lambda r: (r["to"] not in WITHDRAWN, r["at_utc"])):
         late = False
         if _utc(row["at_utc"]).timestamp() < oldest:
@@ -422,7 +486,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
                    "symbol": row["symbol"], "state": row["to"],
                    "at_utc": row["at_utc"], "kind": post["kind"], "text": post["text"],
                    "conditional_calls": post["conditional_calls"],
-                    **{k: post[k] for k in ("lead", "why", "rationale_cause") if post.get(k)},
+                    **{k: post[k] for k in ("lead", "why", "rationale_cause", "format") if post.get(k)},
                    # CC-314: the levels the post's image shows (the chart timeframe and the
                    # fallback fact card). Never the target or the cancel level (decision 40).
                    "levels": {k: row["plan"].get(k) for k in PUBLIC_LEVELS},
@@ -436,6 +500,45 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
         store.create_work_item(story_id=WORK_ITEM_ID, title="Plan status posts (decision 79)",
                                target_surface="MULTI_PLATFORM", work_item_id=WORK_ITEM_ID)
         store.register_outbox_message(message_id=row["key"], work_item_id=WORK_ITEM_ID, destination=DESTINATION,
+                                      payload=json.dumps(payload, sort_keys=True, ensure_ascii=False), status=READY)
+    # Ops Product, 9 Nov (Jim: the posts must say why). A live plan announced before the why block went live
+    # (CC-353, 16:48 GMT+7) gets its reasoning once, while it still waits for its zone and is valid. The key is
+    # fixed per plan, so it never repeats; the plan's own posts are never sent again.
+    with_why = {json.loads(r["payload"]).get("plan_id") for r in outbox
+                if json.loads(r["payload"]).get("why") and r["status"] not in {STALE, SUPERSEDED}}
+    last = {}
+    for row in sorted(fresh, key=lambda r: _utc(r["at_utc"])):
+        last[row["plan_id"]] = row
+    for plan_id, row in last.items():
+        until = row["plan"].get("valid_until_utc")
+        if (row["to"] != "WAITING" or plan_id not in announced or plan_id in with_why
+                or not until or now >= _utc(until)):
+            continue
+        key = WHY_PREFIX + hashlib.sha256(f"{plan_id}|WHY".encode()).hexdigest()[:32]
+        if store.get_outbox_message(key):
+            existing.append(key)
+            continue
+        try:
+            post = compose_why(row)
+        except ValueError as exc:
+            skipped.append({"key": key, "cause": str(exc)[:120]})
+            continue
+        if post.get("kind") != "why":
+            skipped.append({"key": key, "cause": post.get("cause") or post.get("rationale_cause")
+                            or "PUBLIC_RATIONALE_EMPTY"})
+            continue
+        at = now.isoformat().replace("+00:00", "Z")
+        payload = {"schema_version": SCHEMA, "key": key, "plan_id": plan_id, "symbol": row["symbol"],
+                   "state": "WAITING", "at_utc": at, "registered_at_utc": row["at_utc"], "kind": "why",
+                   "why_follow_up": True, "format": 2, "text": post["text"], "lead": post["lead"],
+                   "why": post["why"], "conditional_calls": post["conditional_calls"],
+                   "levels": {k: row["plan"].get(k) for k in PUBLIC_LEVELS}}
+        queued.append({"key": key, "symbol": row["symbol"], "state": "WHY", "at_utc": at, "text": post["text"]})
+        if dry_run:
+            continue
+        store.create_work_item(story_id=WORK_ITEM_ID, title="Plan status posts (decision 79)",
+                               target_surface="MULTI_PLATFORM", work_item_id=WORK_ITEM_ID)
+        store.register_outbox_message(message_id=key, work_item_id=WORK_ITEM_ID, destination=DESTINATION,
                                       payload=json.dumps(payload, sort_keys=True, ensure_ascii=False), status=READY)
     latest = {}
     for row in sorted(fresh, key=lambda r: r["at_utc"]):
@@ -462,6 +565,8 @@ POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\pla
 STATE_WORDS = {"WAITING": "new plan", "TRIGGERED": "price reached the zone", "CANCELLED": "plan cancelled",
                "INVALIDATED": "plan invalidated", "EXPIRED": "plan expired", "VIEW_CHANGED": "view changed"}
 LIMITS = {"x": 280, "threads": 500, "telegram": 1024, "discord": 2000, "substack_notes": 10000}
+# A Telegram part after the photo post goes out as a text message (Bot API sendMessage, 4096 characters).
+REST_LIMITS = {"telegram": 4096}
 X_URL_LENGTH = 23  # X counts every link as 23 characters
 
 
@@ -494,18 +599,22 @@ def _excerpt(text: str, room: int) -> str:
     return text[:room - 1].rsplit(" ", 1)[0].rstrip(" ,;:") + "…"
 
 
-def _text_parts(body: str, notices: str, limit: int, credit: str = "") -> list[str]:
-    """Full source text, bounded parts. Each part retains the public notices."""
+def _text_parts(body: str, notices: str, limit: int, credit: str = "", *, lines: bool = False,
+                rest_limit: int | None = None) -> list[str]:
+    """Full source text, bounded parts. Each part retains the public notices. With `lines` a part ends at a
+    line where it can; `rest_limit` bounds the parts after the first (a Telegram text message after the photo)."""
     parts = []
     while body:
         suffix = "\n\n" + "\n\n".join(p for p in (credit if not parts else "", notices) if p)
-        room = limit - len(suffix)
+        room = (limit if not parts or rest_limit is None else rest_limit) - len(suffix)
         if room < 1:
             raise PlanPostError("PLAN_STATUS_NOTICES_EXCEED_LIMIT")
         if len(body) <= room:
             end = len(body)
         else:
-            end = body.rfind(" ", 0, room + 1)
+            end = body.rfind("\n", 0, room + 1) if lines else -1
+            if end < room // 2:
+                end = body.rfind(" ", 0, room + 1)
             if end <= 0:
                 end = room
         parts.append(body[:end].rstrip() + suffix)
@@ -535,30 +644,70 @@ def _short_body(row: Mapping[str, Any], room: int) -> str:
     return lead + label + "; ".join(prefix + value for (prefix, _), value in zip(branches, excerpts))
 
 
+def _short_reasons(row: Mapping[str, Any], room: int) -> str:
+    """Format 2 on Threads (500 characters): the full call, then the mechanism and the zone's reason as far as
+    they fit. The whole reasoning is in the Telegram, Discord, Substack Notes and X copies."""
+    calls = row.get("conditional_calls") or []
+    head = (f"{TITLES[row['symbol']]}: the reasoning behind our plan." if row.get("kind") == "why"
+            else f"{TITLES[row['symbol']]}: {STATE_WORDS[row['state']]}.")
+    lead = (head + " " + " ".join(conditional_call_text(c) for c in calls)) if calls else row["lead"]
+    picks = [line.split(": ", 1)[1] for line in row["why"]
+             if line.split(": ", 1)[0] in {"Mechanism", "Why this zone"}] or [row["why"][0]]
+    tail = " Full reasoning on our Telegram channel."
+    available = room - len(lead) - len(" Why: ") - len(tail)
+    if available < 40:
+        raise PlanPostError("PLAN_STATUS_SHORT_CONDITION_TOO_LONG")
+    return lead + " Why: " + _excerpt(" ".join(picks), available) + tail
+
+
+def _x_pack(text: str, limit: int) -> list[str]:
+    """X thread posts: whole lines where they fit, otherwise whole words."""
+    chunks, current = [], ""
+    for line in text.split("\n"):
+        for index, word in enumerate(line.split(" ")):
+            joiner = ("\n" if index == 0 else " ") if current else ""
+            if _x_length(current + joiner + word) <= limit:
+                current += joiner + word
+                continue
+            if current:
+                chunks.append(current)
+            current = word
+    if current:
+        chunks.append(current)
+    return chunks
+
+
 def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: bool = False) -> dict:
     """The exact copy per destination: the post and the notices, no link (decision 83). With a
     TradingView snapshot, "Chart: TradingView" follows the post (Terms section 4, decision 82)."""
     body, notices = _split(row["text"])
     link = CHART_CREDIT if chart_credit else ""
     payloads = {}
+    v2 = row.get("format") == 2  # Ops Product, 9 Nov: composed with one reason per line
     for destination in POST_DESTINATIONS:
         destination_body = body
-        if row.get("why") and destination in {"threads", "x"}:
+        if row.get("why") and destination == "threads" and v2:
+            destination_body = _short_reasons(row, LIMITS["threads"] - len(notices) - 2 - (len(link) + 2 if link else 0))
+        elif row.get("why") and destination in {"threads", "x"} and not v2:
             destination_body = _short_body(row, LIMITS["threads"] - len(notices) - 2 - (len(link) + 2 if link else 0))
         text = "\n\n".join(part for part in (destination_body, link, notices) if part)
         if destination == "x" and _x_length(text) > LIMITS["x"]:
-            # Whole sentences per post: the chart credit with the first, the notices last.
-            sentences = re.split(r"(?<=\.)\s+(?=[A-Z])", destination_body)
+            # Whole sentences per post: the chart credit with the first, the notices last. Format 2 posts the
+            # whole reasoning as an X thread, packed by line and word.
             chunks, current = [], ""
-            for sentence in sentences:
-                candidate = f"{current} {sentence}".strip()
-                room = LIMITS["x"] - (_x_length(link) + 2 if link and not chunks else 0)
-                if current and _x_length(candidate) > room:
-                    chunks.append(current)
-                    current = sentence
-                else:
-                    current = candidate
-            chunks.append(current)
+            if v2:
+                chunks = _x_pack(destination_body, LIMITS["x"] - (_x_length(link) + 2 if link else 0))
+            else:
+                sentences = re.split(r"(?<=\.)\s+(?=[A-Z])", destination_body)
+                for sentence in sentences:
+                    candidate = f"{current} {sentence}".strip()
+                    room = LIMITS["x"] - (_x_length(link) + 2 if link and not chunks else 0)
+                    if current and _x_length(candidate) > room:
+                        chunks.append(current)
+                        current = sentence
+                    else:
+                        current = candidate
+                chunks.append(current)
             if link:
                 chunks[0] = f"{chunks[0]}\n\n{link}"
             chunks.append(notices)
@@ -572,7 +721,8 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
             continue
         if (_x_length(text) if destination == "x" else len(text)) > LIMITS[destination]:
             if row.get("why") and destination in {"telegram", "discord", "substack_notes"}:
-                parts = _text_parts(body, notices, LIMITS[destination], link)
+                parts = _text_parts(body, notices, LIMITS[destination], link, lines=v2,
+                                    rest_limit=REST_LIMITS.get(destination) if v2 else None)
                 payloads[destination] = {"destination": destination, "text": text, "full_text": text,
                                          "media_asset_ids": [card_id], "parts": parts}
                 continue
@@ -611,7 +761,8 @@ def card_article(row: Mapping[str, Any]) -> dict:
         return {"title": "Correction: price had not reached either zone", "dek": _split(row["text"])[0],
                 "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
                 "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
-    return {"title": f"{TITLES[row['symbol']]}: {STATE_WORDS[row['state']]}",
+    words = "the reasoning behind our plan" if row.get("kind") == "why" else STATE_WORDS[row["state"]]
+    return {"title": f"{TITLES[row['symbol']]}: {words}",
             "dek": _split(row["text"])[0], "display_date": (lambda et: f"{et:%B} {et.day}, {et.year}")(at.astimezone(PUBLIC_TZ)),
             "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
 
@@ -629,7 +780,8 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
     if levels.get("invalidation_level") is not None and levels.get("direction") in {"bullish", "bearish"}:
         side = "Below" if levels["direction"] == "bullish" else "Above"
         facts.append(("Invalidation", f"{side} {_level(levels['invalidation_level'])}"))
-    state = STATE_WORDS.get(row.get("state"), "status update")
+    state = ("waiting for price to reach the zone" if row.get("kind") == "why"
+             else STATE_WORDS.get(row.get("state"), "status update"))
     facts.append(("Status", state[0].upper() + state[1:]))
     facts.append(("As of", _when(row["at_utc"])))
     return facts
@@ -668,7 +820,8 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
     else:
         tv.record_outcome({**outcome, "status": "SKIPPED_RUN_TIME_BUDGET"})
     at = _utc(row["at_utc"])
-    card = tv.fallback_card(title=f"{TITLES[market]}: {STATE_WORDS.get(row.get('state'), 'status update')}",
+    words = "why this plan" if row.get("kind") == "why" else STATE_WORDS.get(row.get("state"), "status update")
+    card = tv.fallback_card(title=f"{TITLES[market]}: {words}",
                             facts=plan_facts(row), dated_line=f"{at:%B} {at.day}, {at.year}", out_dir=media_dir)
     return card, False
 
@@ -795,7 +948,13 @@ STALE = "STALE_NOT_POSTED"
 
 
 def freshness_limit_minutes(payload) -> int:
-    """60 minutes for a new post; a later state of an announced plan keeps LATE_STATE_HOURS."""
+    """60 minutes for a new post; a later state of an announced plan keeps LATE_STATE_HOURS. A why follow-up
+    stays postable while its plan is valid, up to LATE_STATE_HOURS; a change of the plan's state supersedes it."""
+    if payload.get("why_follow_up"):
+        until = (payload.get("levels") or {}).get("valid_until_utc")
+        if not until:
+            return 0
+        return max(0, min(LATE_STATE_HOURS * 60, int((_utc(until) - _utc(payload["at_utc"])).total_seconds() // 60)))
     return LATE_STATE_HOURS * 60 if payload.get("late") else FRESHNESS_MINUTES
 SUPERSEDED = "SUPERSEDED_NOT_POSTED"
 
@@ -985,6 +1144,11 @@ def begin_x(store, key: str, request_sha256: str, *, native_invocation_id: str, 
 def _x_freshness_limit(payload, now) -> int:
     # X's agent may arrive after the minute tick. Re-read Main before a late active write;
     # identity/readback requests remain available even if the public state has since ended.
+    if payload.get("why_follow_up"):
+        rows = [r for r in read_transitions() if r["plan_id"] == payload.get("plan_id")]
+        if not rows or max(rows, key=lambda r: _utc(r["at_utc"]))["to"] != "WAITING":
+            return 0
+        return freshness_limit_minutes(payload)
     if payload.get("state") in ACTIVE and _age_minutes(payload, now) > FRESHNESS_MINUTES:
         if _recoverable(payload, active_recoveries(read_transitions(), now), now):
             return LATE_STATE_HOURS * 60

@@ -58,8 +58,11 @@ def test_rationale_crosses_export_queue_coordinator_and_native_payload(tmp_path,
         payload = intent["native_payload"]
         parts = [post["text"] for post in payload.get("posts") or []] or [payload["text"]]
         assert all(len(text) <= p.LIMITS[d] for text in parts)
-        assert "Capital Chronicle model estimate" in payload["full_text"]
-        assert "55%" in payload["full_text"] and "35%" in payload["full_text"]
+        if d == "threads":  # Ops Product, 9 Nov: Threads gives the call and its reasons; the odds go elsewhere
+            assert "Why: " in payload["full_text"] and "Full reasoning on our Telegram channel." in payload["full_text"]
+        else:
+            assert "Capital Chronicle model estimate" in payload["full_text"]
+            assert "55%" in payload["full_text"] and "35%" in payload["full_text"]
         assert PUBLIC_NOTICE in payload["full_text"] and CONFLICTS_NOTICE in payload["full_text"]
         assert not any(str(n) in payload["full_text"] for n in (777777, 2.9, 12345, 45678, 99887))
         if d in {"telegram", "discord", "substack_notes"}:
@@ -113,7 +116,9 @@ def test_long_full_text_uses_bounded_parts_with_all_reasons(tmp_path, main_root)
         work_id = package.get("work_item_id", key)
         parsed = p.validate_status_post_plan(store, work_id, package)
         for d in package["destinations"]:
-            assert len(d["payload"]) <= p.LIMITS[d["destination"]] or d["destination"] == "x"
+            limit = (p.LIMITS[d["destination"]] if not package.get("plan_status_part")
+                     else p.REST_LIMITS.get(d["destination"], p.LIMITS[d["destination"]]))
+            assert len(d["payload"]) <= limit or d["destination"] == "x"
             intent = {"work_item_id": work_id, "plan_status_post": key,
                 "plan_status_part": package.get("plan_status_part", 0), "output_dir": package["output_dir"],
                 "destination_plan": d, "native_payload": parsed["payloads"][d["destination"]]}
@@ -191,6 +196,6 @@ def test_public_why_drops_role_names_and_empty_values():
         invalidation_reason="The stop moves from the Primary's 1.11480 to 1.11440. The Critical showed that 1.11480 "
                             "sat 1.5 pips above the day's low.")
     text = composed(source)["text"]
-    assert "What is priced: Five-day move -1.83 ATR and the 30 Oct high of 104.04;" in text
+    assert "What is priced: Five-day move -1.83 ATR and the 30 Oct high of 104.04." in text
     for leaked in ("Primary", "Critical", "null", "Why this invalidation"):
         assert leaked not in text
