@@ -1,0 +1,50 @@
+{
+  "observed_at_utc": "2026-11-09T19:04:39.083478+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "installed_commit": "161a12c94702241d4e02830339bb2660577e0134",
+  "installed_files": [
+    {
+      "path": "live_contentops/sourced_replies_v1.py",
+      "sha256": "724a8aa2b39888432959af8ca5e59131bd1c7e5a347426d1387b7de20fb3175a",
+      "matches_item_worktree": true
+    },
+    {
+      "path": "scripts/run_sourced_replies.py",
+      "sha256": "7b7d5e2dfd0dfb9175dedc1d5c1e2b79a05a2d15be1e480b665ff3cf9db88d88",
+      "matches_item_worktree": true
+    },
+    {
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "sha256": "37ad672f4068f6d57f257e94e3d65cb781969e8047cb6c9a9597de4bb46f8ab2",
+      "matches_item_worktree": true
+    },
+    {
+      "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+      "sha256": "a2cbf15bdc2f8ed28093b7d7d88691c7ffc9844c6e8c8aa9aaf61eb993fc97fe",
+      "matches_item_worktree": true
+    },
+    {
+      "path": "live_contentops/threads_adapter_v6.py",
+      "sha256": "ca2915010a03b9227c0eafec957cb529508381ed629931fcd9f14df21a13c510",
+      "matches_item_worktree": true
+    },
+    {
+      "path": "live_contentops/article_publication_quality_v1.py",
+      "sha256": "6970d696c8533794032e80b03a9342df0ac4840008c87c5724cbff3395db1070",
+      "matches_item_worktree": true
+    }
+  ],
+  "production_store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "installed_consumer": "scripts/run_sourced_replies.py status",
+  "observed_replies": [],
+  "public_writes": 0,
+  "model_calls": 0,
+  "schedules_changed": false,
+  "acceptance": {
+    "x_readback_replies": 0,
+    "threads_readback_replies": 0,
+    "debate_followups": 0,
+    "collected_24h_observations": 0,
+    "met": false
+  }
+}

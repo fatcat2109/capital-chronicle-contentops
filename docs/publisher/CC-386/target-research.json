@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-11-09T19:04:39.443855+00:00",
+  "held_list_feed_generated_at_utc": "2026-11-09T19:03:52.171Z",
+  "held_list_rows": 990,
+  "targets": [
+    {
+      "x_author": "PeterSchiff",
+      "in_held_list": true,
+      "threads_profile": "https://www.threads.com/@peterschiff",
+      "identity_evidence": "Verified badge, Peter Schiff name and schiffradio.com profile link observed in Neo",
+      "thread": "https://www.threads.com/@peterschiff/post/DfTVFz_z0q0",
+      "topic": "Claim that fiscal interest costs constrain further Fed tightening",
+      "provider_target_id": null,
+      "selected_for_publication": false
+    }
+  ],
+  "other_profile_checks": [
+    "mikezaccardi: page unavailable",
+    "nicktimiraos: page unavailable",
+    "Daniel Lacalle profile search: no verified matching finance identity established",
+    "Robin Brooks profile search: no verified matching finance identity established"
+  ],
+  "first_api_lookup_cause": "THREADS_TARGET_LOOKUP_PERMISSION_DENIED HTTP403/code10",
+  "public_writes": 0
+}
