@@ -1,8 +1,50 @@
 {
   "command": "python -m pytest -q tests/test_agy_editorial_assist_cc378.py tests/test_v1_simple_gemini_newsroom_v1.py tests/test_native_newsroom_owner_operation_v1.py tests/test_native_manual_candidate_v1.py --disable-warnings --maxfail=2",
   "result": "119 passed in 101.46s",
-  "verified_utc": "2026-11-09T16:46:28.035676+00:00",
+  "verified_utc": "2026-11-09T16:49:40.620261+00:00",
   "publication_readbacks": 0,
   "limit": "Next two CC-124 pieces have not run; 9 Nov cap already 2/2, next due 10 Nov 18:30 GMT+7.",
-  "live_integration": "pending final byte-preservation check and merge"
+  "live_integration": "Native submit, review and compiler source integrated; future CC-124 uses fresh CLI processes from the operating root.",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "integrated_code_sha": "a36f42ffe2b9ca9991cb2a0d7c5bb161a5cdd34c",
+  "post_integration_test": {
+    "command": "python -m pytest -q tests/test_agy_editorial_assist_cc378.py --disable-warnings --maxfail=1",
+    "cwd": "A:\\Capital Chronicle\\ContentOps",
+    "result": "16 passed in 3.14s"
+  },
+  "source_checks": [
+    {
+      "path": "live_contentops/agy_editorial_assist_v1.py",
+      "source_text_sha256": "f29a9399b169e29627d71951b985ea152bf493d915d8da52d243ebf312cc0fa6",
+      "operating_source_text_sha256": "f29a9399b169e29627d71951b985ea152bf493d915d8da52d243ebf312cc0fa6",
+      "equal": true
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "source_text_sha256": "c57cf55b5ea6356049a8ec99f3cb5f8e54eb0e004559e46a5ac844a6d3049070",
+      "operating_source_text_sha256": "c57cf55b5ea6356049a8ec99f3cb5f8e54eb0e004559e46a5ac844a6d3049070",
+      "equal": true
+    },
+    {
+      "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+      "source_text_sha256": "e03cc08fb2c01a0d5aebb97a150094b1170c55e088b69d5a54f71af2dcc02fa7",
+      "operating_source_text_sha256": "e03cc08fb2c01a0d5aebb97a150094b1170c55e088b69d5a54f71af2dcc02fa7",
+      "equal": true
+    },
+    {
+      "path": "scripts/run_native_desktop_editorial.py",
+      "source_text_sha256": "7485a7d1efbfd4c53142d9a129e34538b936223da44646916deb22f62cddb1e1",
+      "operating_source_text_sha256": "7485a7d1efbfd4c53142d9a129e34538b936223da44646916deb22f62cddb1e1",
+      "equal": true
+    }
+  ],
+  "exact_recorded_bytes_verified": true,
+  "remaining_acceptance": "Next two CC-124 pieces: saved output, Publisher flag decisions, and published alt/copy readbacks.",
+  "first_next_due_gmt7": "10 Nov 2026 18:30 GMT+7",
+  "top_level_configuration": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "source": "Current codex exec ancestor launch arguments read back: --model gpt-6.1-sol and model_reasoning_effort=high"
+  }
 }
