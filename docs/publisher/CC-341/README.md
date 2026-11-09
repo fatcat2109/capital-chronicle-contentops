@@ -3,9 +3,11 @@
 The weekend wrap was published on Substack at **9 November 07:41 GMT+7**:
 [canonical article](https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran),
 post `224085585`. The existing draft was resumed and published **web only**, with
-email delivery disabled. No email-code prompt appeared. Social distribution and
-coordinator reconciliation are continuing in the same operation
-`cc341-weekend-wrap-20261109-r2`; this is not yet the complete item acceptance.
+email delivery disabled. No email-code prompt appeared. The same operation
+`cc341-weekend-wrap-20261109-r2` is now fully reconciled: Substack, all eight
+standard social destinations and the additional LinkedIn company copy are
+confirmed. The four reboot-interrupted copies were recovered before the revised
+17:00 GMT+7 deadline on 9 November.
 
 The reopened item supplied the dated Main scenario revision. The existing source
 review admitted it and bound the three model estimates (55%, 25%, 20%) to their
@@ -41,3 +43,41 @@ The first text approval remains **9 November 07:18:51 GMT+7**. Canonical publica
 therefore missed decision 53's 15-minute dispatch target. The revised item deadline
 is **9 November 17:00 GMT+7**. The earlier pre-reopen deadline was already missed;
 none of these clocks has been reset. No schedule or other chat was changed.
+
+## Reboot recovery — 9 November
+
+The four remaining feeds were read before sending. Their newest visible posts
+were from 6 November; the weekend wrap was absent. Each existing coordinator
+request was then claimed and published once, with the approved text and image:
+
+| Destination | Sent, GMT+7 | Exact public object |
+| --- | --- | --- |
+| LinkedIn company | 15:20:11 | [7525472297776889856](https://www.linkedin.com/feed/update/urn:li:activity:7525472297776889856/) |
+| LinkedIn personal | 15:23:44 | [7525473196028940288](https://www.linkedin.com/feed/update/urn:li:activity:7525473196028940288/) |
+| YouTube | 15:26:18 | [Ugkx3BwUEE0-5jRxPKxmJxG5a2DnbMFAhNK2](https://www.youtube.com/post/Ugkx3BwUEE0-5jRxPKxmJxG5a2DnbMFAhNK2) |
+| X, five posts | 15:29:18 | [2119708899410645394](https://x.com/Capitalnicle/status/2119708899410645394) |
+
+Readback verified every approved paragraph, all five X posts in order, both
+LinkedIn short-link targets and the X link target. LinkedIn uses the canonical
+article's chart thumbnail; its full source image and credit remain on the linked
+article. X and YouTube carry the uploaded original chart; YouTube's post detail
+shows the full chart although its channel feed uses a square crop. Original and
+platform binary images were inspected and compared through the existing media
+owner. No image bytes or base64 are stored in Git.
+
+Interrupted X recovery exposed an existing readback bug: before the coordinator
+knew the public ID, shortened-link and transcoded-image comparisons used an empty
+object URL. The fix binds the observed, account-valid object before those checks
+and retires obsolete unclaimed reads after verification. Known IDs stay pinned;
+wrong account, ID, numbers, link targets and source images still fail. Commit
+`2964bc92` passed 116 targeted tests; cleanup commit `ad5556b5` passed the 43
+affected discovery/media cases. Both are pushed and integrated into the operating
+root. The original source, media and editorial operation were reused.
+
+The [final operating-root status](reboot-recovery-20261109/final-operating-status.json)
+records `RECONCILED`, eight confirmed standard derivatives, one confirmed company
+copy, zero unknown writes and no pending native requests. The
+[acceptance check](reboot-recovery-20261109/final-acceptance.json) binds this result
+to the installed consumer and the preserved modified files. This recovery launch
+configured `gpt-6.1-sol/high` (PID 36308); model/effort remain
+`CONFIGURED_NOT_OBSERVED`. No new editorial model call was made.

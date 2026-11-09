@@ -1,0 +1,36 @@
+{
+  "tool_request_sha256": "9ff13e7c29e9171c21a9383cd0cd2f5819c8aa809f28169ea1eace13bdbd3b59",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observation_source": "Actual BrowserOS Neo YouTube composer and single publish click; asynchronous first read was pending; subsequent public post readback supplies exact ID, full text and image URL",
+    "observed_at_utc": "2026-11-09T08:26:50.971Z",
+    "dispatched_at_utc": "2026-11-09T08:26:18.764Z"
+  },
+  "result": {
+    "request_sha256": "b526782cf692ce2ba44802e99c62e8c4b5806bf150471e5c3ce2bdc65f192eb9",
+    "status": "PUBLISHED",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@CapitalChronicleYouTube",
+    "public_object_id": "Ugkx3BwUEE0-5jRxPKxmJxG5a2DnbMFAhNK2",
+    "public_object_url": "https://www.youtube.com/post/Ugkx3BwUEE0-5jRxPKxmJxG5a2DnbMFAhNK2",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-09T08:26:18.531Z",
+      "observed_identity": "@CapitalChronicleYouTube"
+    },
+    "pre_click_posts": [
+      "Update: Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week\n\n\nHormuz attacks meet active diplomacy before the CPI week; Nvidia adds to AI-stock stress.\n\n\nWhat to watch: A 0.3% or higher reading would likely seal a December hike, lift the dollar and weigh on gold and stocks; 0.1% or lower would do the opposite.\n\n\nRead the full brief: https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\n\nBase case: 55% Capital Chronicle model estimate. Talks continue; oil firms at the open, then fades.\nAlternative: 25% Capital Chronicle model estimate. Hormuz escalation lifts oil and weighs on stocks.\n\n\nAnalysis, not financial advice.\n\n\nCapital Chronicle may hold positions in the markets it covers.\n\n\nChart: TradingView."
+    ],
+    "readback": {
+      "status": "PENDING",
+      "reason_code": "ASYNCHRONOUS_POST_STILL_IN_PROGRESS_AT_FIRST_READ",
+      "media_check_state": "PENDING_BINARY_COMPARISON",
+      "content_verified": false
+    }
+  }
+}

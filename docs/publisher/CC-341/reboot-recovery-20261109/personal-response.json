@@ -1,0 +1,36 @@
+{
+  "tool_request_sha256": "1fc3e2baa6d9d778c46cdc74084d2ea30a9f98f49fc323405acac9c68d578d8d",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observation_source": "Actual BrowserOS Neo personal composer comparison and single publish click; initial readback still in progress; subsequent View post link supplied object ID, full readback pending",
+    "observed_at_utc": "2026-11-09T08:24:37.708Z",
+    "dispatched_at_utc": "2026-11-09T08:23:44.878Z"
+  },
+  "result": {
+    "request_sha256": "0c936bfb04ce5d9296b3e494f2f9329de698de154659c94048a9da4ddd38d57e",
+    "status": "PUBLISHED",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "linkedin:jimcc",
+    "public_object_id": "urn:li:activity:7525473196028940288",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525473196028940288/",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-09T08:23:44.850Z",
+      "observed_identity": "linkedin:jimcc"
+    },
+    "pre_click_posts": [
+      "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week\n\nWhy it matters: In this war, higher oil has tended to mean higher inflation, more Fed hikes and a weaker gold price, so the headlines do not translate into a simple safe-haven rally.\n\nContext: The counterweight came later on Sunday. Trump told CNN that renewed attacks on Iran were \"highly unlikely\" if talks make progress.\n\nRead the full brief: https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nBase case: 55% Capital Chronicle model estimate. Talks continue; oil firms at the open, then fades.\nAlternative: 25% Capital Chronicle model estimate. Hormuz escalation lifts oil and weighs on stocks.\n\nAnalysis, not financial advice.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView."
+    ],
+    "readback": {
+      "status": "PENDING",
+      "reason_code": "ASYNCHRONOUS_POST_STILL_IN_PROGRESS_AT_FIRST_READ",
+      "media_check_state": "PENDING_BINARY_COMPARISON",
+      "content_verified": false
+    }
+  }
+}

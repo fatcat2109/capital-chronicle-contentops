@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-09T08:39:48.512560+00:00",
+  "native_task_identity": "/root",
+  "model_effort_evidence": "CONFIGURED_NOT_OBSERVED",
+  "launch_processes": {
+    "pid": 36308,
+    "start_utc": "2026-11-09T08:14:22.8573300Z",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  },
+  "scope": "CC-341 four interrupted social destinations only",
+  "choice": "Read every destination before posting; reuse original pending coordinator requests and approved copy/media; fix discovered-object recovery instead of resending",
+  "new_editorial_calls": 0,
+  "schedules_changed": 0,
+  "other_chats_messaged": 0
+}

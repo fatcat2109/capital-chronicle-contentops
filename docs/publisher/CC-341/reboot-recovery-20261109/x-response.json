@@ -1,0 +1,47 @@
+{
+  "tool_request_sha256": "7e29c9dac8f33bfd2d4799a8eb7c0a36995deb5ef432d3705bce91dee36de5d2",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "/root",
+    "observation_source": "Actual BrowserOS Neo X run: signed in account observed; all five boxes compared in order; Post all clicked once; root and first reply observed immediately in profile",
+    "observed_at_utc": "2026-11-09T08:29:24.291Z",
+    "dispatched_at_utc": "2026-11-09T08:29:18.007Z"
+  },
+  "result": {
+    "request_sha256": "668431bc655568e7fce9e00d26d64469e77fc75d2b27032a75c8b15e0c5ff2fd",
+    "status": "PUBLISHED",
+    "stage": "PUBLISH_CLICK_ATTEMPTED",
+    "observed_identity": "@Capitalnicle",
+    "public_object_id": "2119708899410645394",
+    "public_object_url": "https://x.com/Capitalnicle/status/2119708899410645394",
+    "public_write_performed": true
+  },
+  "composed": {
+    "identity": {
+      "authenticated": true,
+      "observed_at_utc": "2026-11-09T08:29:17.878Z",
+      "observed_identity": "@Capitalnicle"
+    },
+    "pre_click_posts": [
+      "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week\n\nhttps://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran\n\nChart: TradingView.",
+      "Hormuz attacks meet active diplomacy before the CPI week; Nvidia adds to AI-stock stress.",
+      "Watch: A 0.3% or higher reading would likely seal a December hike, lift the dollar and weigh on gold and stocks; 0.1% or lower would do the opposite.\n\n\n\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.",
+      "Base case: 55% Capital Chronicle model estimate.\n\n\n\n\nTalks continue; oil firms at the open, then fades.\n\n\n\n\nAlternative: 25% Capital Chronicle model estimate.\n\n\n\n\nHormuz escalation lifts oil and weighs on stocks.",
+      "Analysis, not financial advice.\n\n\n\n\nCapital Chronicle may hold positions in the markets it covers."
+    ],
+    "readback": {
+      "status": "PENDING",
+      "observed_identity": "@Capitalnicle",
+      "public_object_id": "2119708899410645394",
+      "public_object_url": "https://x.com/Capitalnicle/status/2119708899410645394",
+      "observed_text": "Capital Chronicle\n@Capitalnicle\n·\n5s\nTanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week\n\n\nhttps://\ncapitalchronicle.substack.com/p/tanker-strik\nes-us-strikes-on-iran\n…\n\nChart: TradingView.\n1",
+      "content_verified": false,
+      "media_check_state": "PENDING_BINARY_COMPARISON",
+      "public_image_urls": [
+        "https://pbs.twimg.com/media/HWq2JawbwAAJOtg?format=png&name=small"
+      ],
+      "reason_code": "ROOT_AND_FIRST_REPLY_VISIBLE_FULL_THREAD_READBACK_PENDING"
+    }
+  }
+}
