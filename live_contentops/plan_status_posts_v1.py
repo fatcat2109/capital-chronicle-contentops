@@ -107,6 +107,8 @@ def rows_from_export(export: Mapping[str, Any]) -> list[dict]:
         if plan is None:
             raise PlanPostError("PLAN_EXPORT_TRANSITION_UNKNOWN_PLAN")
         status = event.get("status")
+        if status == "EXPIRED" and (plan.get("outcome") or {}).get("state") == "NOT_SCORED_UNTRIGGERED":
+            continue  # CC-322: one result post replaces the expiry status post.
         # Ops Product, 9 Nov (CC-360): a resting order now goes WAITING -> FILLED with no TRIGGERED. The fill is
         # private (decision 40), but price trading into the public zone is a market fact readers need, so that
         # fill's clock posts as the zone being reached. A market send keeps its own TRIGGERED; its fill stays silent.
@@ -115,7 +117,70 @@ def rows_from_export(export: Mapping[str, Any]) -> list[dict]:
         rows.append(_row(plan_id=event["plan_id"], symbol=plan.get("asset_id"), to=status,
                          at_utc=event.get("at_utc"), cause=event.get("reason_code"),
                          plan=_built_plan(plan, state=status)))
+    return rows + result_rows_from_export(export)
+
+
+def result_rows_from_export(export: Mapping[str, Any]) -> list[dict]:
+    """CC-322: Main's explicit outcomes only; prices never decide a result here.
+
+    Initial results have one identity per plan. Explicit corrections get a new post;
+    the original outbox bytes and public calls stay intact.
+    """
+    status = export["status"]
+    count = status.get("scored_call_count")
+    rows = []
+    for plan in status.get("plans", []):
+        if plan.get("asset_id") not in MARKETS:
+            continue
+        outcome = plan.get("outcome") or {}
+        score = outcome.get("score") or {}
+        state = outcome.get("state")
+        if state == "SCORED":
+            result = outcome.get("result")
+            if (result not in {"HIT", "STOPPED", "EXPIRED"} or score.get("result") != result
+                    or score.get("plan_id") != plan["plan_id"]
+                    or score.get("asset_id") != plan["asset_id"]
+                    or not outcome.get("outcome_id") or outcome["outcome_id"] != score.get("outcome_id")):
+                raise PlanPostError("PLAN_RESULT_SCORE_BINDING_INVALID")
+            at = score.get("resolved_at_utc")
+            correction = score.get("corrects_outcome_id")
+        elif state == "NOT_SCORED_UNTRIGGERED" and plan.get("status") == "EXPIRED":
+            result, correction = "EXPIRED", None
+            ended = [e for e in export["transitions"].get("transitions", [])
+                     if e.get("plan_id") == plan["plan_id"] and e.get("status") == "EXPIRED"]
+            if not ended:
+                continue
+            at = max(ended, key=lambda e: _utc(e["at_utc"]))["at_utc"]
+        else:
+            continue
+        if not isinstance(count, int) or isinstance(count, bool) or count < 0:
+            raise PlanPostError("PLAN_RESULT_SCORED_COUNT_INVALID")
+        at = _utc(at).isoformat().replace("+00:00", "Z")
+        identity = f"{plan['plan_id']}|RESULT" + (f"|{score['outcome_id']}" if correction else "")
+        rows.append({"key": "plan-result-post-" + hashlib.sha256(identity.encode()).hexdigest()[:32],
+                     "plan_id": plan["plan_id"], "symbol": plan["asset_id"], "to": "RESULT", "at_utc": at,
+                     "plan": _built_plan(plan), "result": result, "scored": state == "SCORED",
+                     "scored_call_count": count, "outcome_id": outcome.get("outcome_id"),
+                     "corrects_outcome_id": correction, "score_hash": score.get("content_hash"),
+                     "source_content_hash": status.get("content_hash")})
     return rows
+
+
+def compose_result(row: Mapping[str, Any]) -> dict:
+    """Closed vocabulary: no source free text, execution fields or performance claims."""
+    result = row["result"].lower()
+    if result not in {"hit", "stopped", "expired"}:
+        raise PlanPostError("PLAN_RESULT_INVALID")
+    prefix = "Correction — " if row.get("corrects_outcome_id") else ""
+    text = f"{prefix}{TITLES[row['symbol']]}: plan result — {result} at {_when(row['at_utc'])}."
+    plan = row["plan"]
+    if plan.get("zone_low") is not None and plan.get("zone_high") is not None:
+        text += f" Entry zone: {_level(plan['zone_low'])}–{_level(plan['zone_high'])}."
+    if not row["scored"]:
+        text += " The entry condition was not met; this call is not scored."
+    text += f" Scored calls: {row['scored_call_count']}.\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
+    check_publication_copy({"body": text})
+    return {"status": "COMPOSED", "kind": "result", "text": text, "conditional_calls": []}
 
 
 def read_transitions(export_dir: Path = EXPORT_DIR, **kwargs) -> list[dict]:
@@ -305,6 +370,8 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
     symbol, plan = row["symbol"], row["plan"]
     if symbol not in MARKETS:
         return {"status": "NOT_A_FIRST_PHASE_MARKET"}
+    if row["to"] == "RESULT":
+        return compose_result(row)
     if row["to"] in PRIVATE_STATES:
         return {"status": "NOT_POSTED", "cause": "DEMO_FILL_NOT_PUBLIC"}
     market, title = MARKETS[symbol], TITLES[symbol]
@@ -457,7 +524,11 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     announced = {json.loads(r["payload"]).get("plan_id") for r in outbox if r["status"] == "PUBLISHED"}
     for row in sorted(fresh, key=lambda r: (r["to"] not in WITHDRAWN, r["at_utc"])):
         late = False
-        if _utc(row["at_utc"]).timestamp() < oldest:
+        is_result = row["to"] == "RESULT"
+        if is_result and not row["scored"] and row["plan_id"] not in announced:
+            skipped.append({"key": row["key"], "cause": "PLAN_NEVER_ANNOUNCED"})
+            continue
+        if not is_result and _utc(row["at_utc"]).timestamp() < oldest:
             if (row["key"] in recoveries or (row["to"] != "WAITING" and row["plan_id"] in announced
                     and _utc(row["at_utc"]).timestamp() >= now.timestamp() - LATE_STATE_HOURS * 3600)):
                 late = True
@@ -490,6 +561,9 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
                    # CC-314: the levels the post's image shows (the chart timeframe and the
                    # fallback fact card). Never the target or the cancel level (decision 40).
                    "levels": {k: row["plan"].get(k) for k in PUBLIC_LEVELS},
+                   **({k: row[k] for k in ("result", "scored", "scored_call_count", "outcome_id",
+                                          "corrects_outcome_id", "score_hash", "source_content_hash")}
+                      if is_result else {}),
                    **({"late": True} if late else {}),
                    **({"late_active": True, "queued_at_utc": now.isoformat().replace("+00:00", "Z")}
                       if late and row["key"] in recoveries else {})}
@@ -684,7 +758,7 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
     link = CHART_CREDIT if chart_credit else ""
     payloads = {}
     v2 = row.get("format") == 2  # Ops Product, 9 Nov: composed with one reason per line
-    for destination in POST_DESTINATIONS:
+    for destination in (API_DESTINATIONS if row.get("kind") == "result" else POST_DESTINATIONS):
         destination_body = body
         if row.get("why") and destination == "threads" and v2:
             destination_body = _short_reasons(row, LIMITS["threads"] - len(notices) - 2 - (len(link) + 2 if link else 0))
@@ -757,6 +831,10 @@ def _part_payloads(payloads: dict, part: int = 0) -> dict:
 
 def card_article(row: Mapping[str, Any]) -> dict:
     at = _utc(row["at_utc"])
+    if row.get("kind") == "result":
+        return {"title": f"{TITLES[row['symbol']]}: plan result — {row['result'].lower()}",
+                "dek": _split(row["text"])[0], "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
+                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     if row.get("correction_of"):
         return {"title": "Correction: price had not reached either zone", "dek": _split(row["text"])[0],
                 "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
@@ -775,12 +853,16 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
     """The fallback card's facts: the plan's zone, invalidation, status and time. No target."""
     levels = row.get("levels") or {}
     facts = []
+    if row.get("kind") == "result":
+        facts.extend([("Result", row["result"].lower()), ("Scored calls", str(row["scored_call_count"]))])
     if levels.get("zone_low") is not None and levels.get("zone_high") is not None:
         facts.append(("Entry zone", f"{_level(levels['zone_low'])}–{_level(levels['zone_high'])}"))
     if levels.get("invalidation_level") is not None and levels.get("direction") in {"bullish", "bearish"}:
         side = "Below" if levels["direction"] == "bullish" else "Above"
         facts.append(("Invalidation", f"{side} {_level(levels['invalidation_level'])}"))
-    state = ("waiting for price to reach the zone" if row.get("kind") == "why"
+    state = ("scored" if row.get("kind") == "result" and row.get("scored") else
+             "not scored — entry condition not met" if row.get("kind") == "result" else
+             "waiting for price to reach the zone" if row.get("kind") == "why"
              else STATE_WORDS.get(row.get("state"), "status update"))
     facts.append(("Status", state[0].upper() + state[1:]))
     facts.append(("As of", _when(row["at_utc"])))
@@ -803,6 +885,13 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
             facts=[("EUR/USD zone", "1.1166–1.117"), ("US crude oil zone", "90.2–90.45"),
                    ("At 04:16 / 04:18 ET", "Price had not reached either zone")],
             dated_line="November 9, 2026", out_dir=folder / "media_assets"), False
+    if row.get("kind") == "result":
+        # Decision 19b: a new snapshot would include bars after this historical outcome.
+        # CC-314's existing fact-card fallback shows the exact result, count and plan levels.
+        at = _utc(row["at_utc"]).astimezone(PUBLIC_TZ)
+        return tv.fallback_card(title=f"{TITLES[row['symbol']]}: {row['result'].lower()}",
+            facts=plan_facts(row), dated_line=f"{at:%B} {at.day}, {at.year}",
+            out_dir=folder / "media_assets"), False
     market = row["symbol"]
     interval = tv.interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
     media_dir = folder / "media_assets"
@@ -820,7 +909,8 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
     else:
         tv.record_outcome({**outcome, "status": "SKIPPED_RUN_TIME_BUDGET"})
     at = _utc(row["at_utc"])
-    words = "why this plan" if row.get("kind") == "why" else STATE_WORDS.get(row.get("state"), "status update")
+    words = (f"plan result — {row['result'].lower()}" if row.get("kind") == "result" else
+             "why this plan" if row.get("kind") == "why" else STATE_WORDS.get(row.get("state"), "status update"))
     card = tv.fallback_card(title=f"{TITLES[market]}: {words}",
                             facts=plan_facts(row), dated_line=f"{at:%B} {at.day}, {at.year}", out_dir=media_dir)
     return card, False
@@ -846,6 +936,11 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from live_contentops.destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     row = _row_payload(store, key)
+    if row.get("kind") == "result":
+        if any(d not in API_DESTINATIONS for d in destinations):
+            if destinations != POST_DESTINATIONS:
+                raise PlanPostError("PLAN_RESULT_DESTINATION_INVALID")
+            destinations = API_DESTINATIONS
     folder = Path(root) / key
     article = card_article(row)
     card, chart_credit = _post_image(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
@@ -935,6 +1030,10 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     key = str(intent.get("plan_status_post") or "")
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
+    if row.get("kind") == "result":
+        expected = compose_result({**row, "plan": row["levels"]})["text"]
+        if row["text"] != expected:
+            raise PlanPostError("PLAN_RESULT_COPY_CHANGED")
     destination = str((intent.get("destination_plan") or {}).get("destination") or "")
     if (intent.get("work_item_id") != (f"{key}-part-{part}" if part else key)
             or intent.get("native_payload") != payloads.get(destination)):
@@ -950,6 +1049,8 @@ STALE = "STALE_NOT_POSTED"
 def freshness_limit_minutes(payload) -> int:
     """60 minutes for a new post; a later state of an announced plan keeps LATE_STATE_HOURS. A why follow-up
     stays postable while its plan is valid, up to LATE_STATE_HOURS; a change of the plan's state supersedes it."""
+    if payload.get("kind") == "result":
+        return float("inf")  # Dated results remain owed; age never turns them into a fresh call.
     if payload.get("why_follow_up"):
         until = (payload.get("levels") or {}).get("valid_until_utc")
         if not until:
