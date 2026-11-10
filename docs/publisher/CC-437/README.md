@@ -46,3 +46,12 @@ Static AST parsing, diff checks and lint of the changed routing modules, CLI and
 new test pass. The analysis module and older card test retain the existing lint
 items listed in `static-checks.json`. Targeted tests, operating integration and
 the next real consumer readback follow after CC-035's 22:30 GMT+7 test embargo.
+
+Timed continuation: the branch is pushed through `d8094824`; no pytest process
+was started under CC-035 and no source was installed. `continuation.json` records
+the exact operating HEAD and WIP hash comparison. After 22:30 GMT+7, run the new
+Discord queue test, the existing call-card regression, the analysis-page regression
+and the status-export/CLI regression in serial targeted runs (under one minute
+each until 23:00). Then forward-integrate this branch into the Publisher operating
+root, observe the unchanged minute task once, and retain its exact Discord
+confirmations and per-card causes before closing acceptance.
