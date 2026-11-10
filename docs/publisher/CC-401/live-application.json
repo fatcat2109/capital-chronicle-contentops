@@ -1,0 +1,51 @@
+{
+  "status": "APPLIED",
+  "applied_at_utc": "2026-11-10T02:58:54.939650+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "source_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+  "source_sha256": "5a863817454b0b7b5302fb8c2e71987f0c9e38cb4bacf0fe3ba5993985b3ca4d",
+  "code_commit": "7a013ffccc3095231131858e8a51d0d829425d88",
+  "public_write_performed": false,
+  "results": [
+    {
+      "message_id": "outbox_2e5a55e29f03ca70094eb5f39ea4496a",
+      "dispatch_id": "dispatch_2e5a55e29f03ca70094eb5f39ea4496a",
+      "destination": "substack_notes",
+      "status": "DEFINITE_NO_WRITE",
+      "reason_code": "CC401_STALE_STATUS_NOTE_UNCLAIMED",
+      "public_write_performed": false
+    },
+    {
+      "message_id": "outbox_1e8b666c608b9df5feaf073366aaf47d",
+      "dispatch_id": "dispatch_1e8b666c608b9df5feaf073366aaf47d",
+      "destination": "substack_notes",
+      "status": "DEFINITE_NO_WRITE",
+      "reason_code": "CC401_STALE_STATUS_NOTE_UNCLAIMED",
+      "public_write_performed": false
+    },
+    {
+      "message_id": "outbox_76be49b9c3b261491b10d1b849a2cbe0",
+      "dispatch_id": "dispatch_76be49b9c3b261491b10d1b849a2cbe0",
+      "destination": "substack_notes",
+      "status": "DEFINITE_NO_WRITE",
+      "reason_code": "CC401_STALE_STATUS_NOTE_UNCLAIMED",
+      "public_write_performed": false
+    }
+  ],
+  "readback": [
+    {
+      "message_id": "outbox_1e8b666c608b9df5feaf073366aaf47d",
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "message_id": "outbox_2e5a55e29f03ca70094eb5f39ea4496a",
+      "status": "DEFINITE_NO_WRITE"
+    },
+    {
+      "message_id": "outbox_76be49b9c3b261491b10d1b849a2cbe0",
+      "status": "DEFINITE_NO_WRITE"
+    }
+  ],
+  "pending_substack_notes_remaining": 0,
+  "consumer": "plan_status_posts_v1.publish_ready and NativeReviewedPublication bind the sole coordinator from the operating root on each fresh CLI invocation; no long-lived Publisher process was present."
+}

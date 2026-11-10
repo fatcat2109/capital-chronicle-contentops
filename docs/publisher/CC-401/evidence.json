@@ -35,7 +35,7 @@
   ],
   "next_full_et_day": "2026-11-10",
   "day_end_gmt7": "11 Nov 2026 12:00 GMT+7",
-  "daily_observation_status": "PENDING",
+  "daily_observation_status": "NEXT_FULL_ET_DAY_NOT_ELAPSED",
   "root_cause": "Discord and Threads wrappers changed successful provider responses with IDs into FAILED_*_STRICT_READBACK, which the coordinator normalized to UNKNOWN_WRITE.",
   "notes_choice": "Close the three stale, unclaimed status Notes as definitely not posted; publishing old status text after the 15-minute dispatch window is less useful than preserving truthful no-write endings.",
   "preservation": "No historical incidents, frozen payloads, issued requests or public objects are rewritten; only lifecycle statuses and an exact cancellation readback are recorded.",
@@ -44,5 +44,27 @@
     "focused_after_fixture_repairs": "278 passed, 2 failed; final-targeted-tests.txt",
     "affected_final": "14 passed, 227 deselected; verified-targeted-tests.txt",
     "limits": "The two remaining broad-run fixture failures were repaired and both pass in the affected final selection; no whole-suite claim."
+  },
+  "integration": {
+    "code_commit": "7a013ffccc3095231131858e8a51d0d829425d88",
+    "operating_root": "A:/Capital Chronicle/ContentOps",
+    "method": "git merge --ff-only; unrelated root WIP preserved",
+    "live_consumer_source_verified": true,
+    "schedules_changed": false,
+    "user_applications_restarted": false
+  },
+  "copied_live_replay": {
+    "artifact": "copied-live-replay.json",
+    "snapshot_bytes": 555094016,
+    "confirmed_provider_writes_without_incident": 2,
+    "pending_notes_cancelled_on_copy": 3,
+    "temporary_copy_removed": true
+  },
+  "live_notes": {
+    "artifact": "live-application.json",
+    "not_posted": 3,
+    "cause": "CC401_STALE_STATUS_NOTE_UNCLAIMED",
+    "pending_remaining": 0,
+    "public_write_performed": false
   }
 }
