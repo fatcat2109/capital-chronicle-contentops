@@ -517,6 +517,10 @@ class NeoDestinationHandoff:
                 previous = fresh_readback(value)
                 if previous:
                     return previous
+        if action == "PUBLISH":
+            fresh_publish = getattr(self.native_executor, "fresh_publish_request", None)
+            if callable(fresh_publish):
+                value = fresh_publish(value) or value
         value["request_sha256"] = sha256_of(value)
         return value
 

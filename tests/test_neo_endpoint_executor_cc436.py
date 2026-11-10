@@ -328,6 +328,41 @@ def test_larger_neo_dom_result_reads_only_documented_local_output(tmp_path,monke
     with pytest.raises(neo.NeoEndpointError,match='NEO_DOM_OUTPUT_PATH_INVALID'):c.run(1,'readback')
 
 
+def test_large_preclick_posts_load_the_actual_bounded_observation(tmp_path,monkeypatch):
+    folder=tmp_path/'.browseros'/'tool-output';folder.mkdir(parents=True)
+    path=folder/'preclick.txt';actual=['Bound public copy. '*500]
+    path.write_text(json.dumps(actual),encoding='utf-8')
+    c=neo.NeoMcpClient()
+    monkeypatch.setattr(c,'call',lambda *a,**kw:{'structuredContent':{'ok':True,'value':
+        {'status':'CLICKED','pre_click_posts':{'neo_output_file':str(path)}}}})
+    assert c.run(1,'publish')['pre_click_posts']==actual
+    path=tmp_path/'outside.txt'
+    with pytest.raises(neo.NeoEndpointError,match='NEO_DOM_OUTPUT_PATH_INVALID'):c.run(1,'publish')
+
+
+def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,monkeypatch):
+    store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
+    with endpoint(fault='composer') as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url)
+        e.executor_revision='old-source'
+        failed=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert failed['status']=='DEFINITE_NO_WRITE',failed
+        packets=[json.loads(r['payload']) for r in store.list_outbox_messages(destination='internal:native-neo-tool')]
+        request=next(p['request'] for p in packets if p.get('request',{}).get('action')=='PUBLISH')
+        original=e._get(request['request_sha256'],'response')
+        base={k:v for k,v in request.items() if k!='request_sha256'}
+        assert e.fresh_publish_request(base) is None  # unchanged code never repeats its failed attempt
+        e.executor_revision='repaired-source'
+        refreshed=e.fresh_publish_request(base)
+        assert refreshed['supersedes_prewrite_no_write_sha256']
+        assert all(refreshed[k]==v for k,v in base.items())
+        assert e._get(request['request_sha256'],'response')==original
+        ambiguous={**original['result'],'status':'UNKNOWN_WRITE','definite_no_write':False,
+                   'stage':'PUBLISH_CLICK_ATTEMPTED'}
+        monkeypatch.setattr(e,'_get',lambda *a:{'result':ambiguous})
+        assert e.fresh_publish_request(base) is None
+
+
 def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(tmp_path):
     store=copied_store(tmp_path);ids,value=message(store,'x')
     c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'issued',

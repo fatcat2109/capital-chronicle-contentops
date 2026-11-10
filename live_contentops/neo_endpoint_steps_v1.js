@@ -37,20 +37,28 @@ if (input.phase === 'expose_note_upload') {
 
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
   const s = await snap();
+  const posts = input.posts;
+  const check = input.phase === 'composer' ? null : unwrap(await page.evaluateInPage(expected => {
+    const norm = text => String(text).replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/\s+/g,' ').trim();
+    const actual = Array.from((document.querySelector('[role="dialog"]') || document)
+      .querySelectorAll('[contenteditable="true"][role="textbox"]'))
+      .filter(e => e.getClientRects().length).map(e => e.innerText);
+    return {count:actual.length, matches:actual.length === expected.length
+      && actual.every((text,i) => norm(text) === norm(expected[i]))};
+  }, posts));
   const editors = unwrap(await page.evaluateInPage(() =>
     Array.from((document.querySelector('[role="dialog"]') || document).querySelectorAll('[contenteditable="true"][role="textbox"]'))
       .filter(e => e.getClientRects().length).map(e => e.innerText)));
   if (input.phase === 'composer') return editors;
-  const posts = input.posts;
   const name = input.destination === 'x' && posts.length > 1 ? 'Post all'
     : input.reply_parent ? 'Reply' : 'Post';
   const buttons = s.refs.filter(r => r.role === 'button' && r.name === name);
   const button = buttons[buttons.length - 1];
-  if (editors.length !== posts.length || editors.some((p,i) => normalize(p) !== normalize(posts[i])) || !button) {
+  if (!check.matches || check.count !== posts.length || !button) {
     return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'NEO_COMPOSER_PAYLOAD_MISMATCH', pre_click_posts:editors};
   }
-  if (input.phase === 'validate') return {status:'PREPARED',post_count:editors.length};
+  if (input.phase === 'validate') return {status:'PREPARED',post_count:check.count};
   // This clock precedes the one publish click. Any lost return is readback-only.
   const dispatched_at_utc = new Date().toISOString();
   await page.click(button.ref);

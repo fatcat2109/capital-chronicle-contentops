@@ -399,6 +399,7 @@ def normalize_readback_result(
 # Refusals made locally, before any platform call; they never skip a destination for the ET day (CC-401).
 LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({
     "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE", "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+    "NEO_COMPOSER_PAYLOAD_MISMATCH",
 })
 
 
@@ -2578,6 +2579,8 @@ class DurablePublicationCoordinator:
                 row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
                 failure = json.loads(row["description"]) if row else None
                 local = failure and (failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+                if local and failure.get("safe_error_classification") == "NEO_COMPOSER_PAYLOAD_MISMATCH":
+                    local = failure.get("status") == DEFINITE_NO_WRITE
                 confirmed = False
                 if failure and failure.get("dispatch_id"):
                     dispatch_id = failure["dispatch_id"]
@@ -2637,7 +2640,9 @@ class DurablePublicationCoordinator:
         # CC-401: reuse the incident table as the daily circuit, with first cause
         # retained by its idempotent insert. No new queue, ledger or scheduler.
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
-        if (detail.get("reason_code") or detail.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES:
+        local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
+        if (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+                and (local_cause != "NEO_COMPOSER_PAYLOAD_MISMATCH" or detail.get("status") == DEFINITE_NO_WRITE)):
             return
         incident_id, day, _ = self._destination_failure_cursor(destination, instant)
         self.store.register_incident(incident_id=incident_id,

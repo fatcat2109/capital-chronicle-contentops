@@ -139,6 +139,16 @@ class NeoMcpClient:
                         continue
         return value
 
+    @staticmethod
+    def _read_dom_output(path):
+        path=Path(path).resolve()
+        if "/.browseros/tool-output/" not in path.as_posix().lower() or not path.is_file() or path.stat().st_size>512_000:
+            raise NeoEndpointError("NEO_DOM_OUTPUT_PATH_INVALID")
+        body=path.read_text(encoding="utf-8")
+        if body.startswith("[UNTRUSTED_PAGE_CONTENT "):
+            body=body.split("\n",1)[1]
+        return json.JSONDecoder().raw_decode(body)[0]
+
     def run(self, page, phase, **values):
         # JSON is embedded in JS only, never interpolated into a shell command.
         prefix = "const input=" + json.dumps({"phase": phase, **values}) + ";\n"
@@ -148,17 +158,11 @@ class NeoMcpClient:
             raise NeoEndpointError("NEO_RUN_FAILED_" + phase.upper())
         value = result.get("value")
         if isinstance(value,dict) and value.get("neo_output_file"):
-            path=Path(value["neo_output_file"]).resolve()
             # Neo's documented overflow output is local public DOM, not a
             # second browser route. Bound the read and never print its bytes.
-            if "/.browseros/tool-output/" not in path.as_posix().lower() or not path.is_file() or path.stat().st_size>512_000:
-                raise NeoEndpointError("NEO_DOM_OUTPUT_PATH_INVALID")
-            body=path.read_text(encoding="utf-8")
-            if body.startswith("[UNTRUSTED_PAGE_CONTENT "):
-                body=body.split("\n",1)[1]
-                value,_=json.JSONDecoder().raw_decode(body)
-            else:
-                value=json.loads(body)
+            value=self._read_dom_output(value["neo_output_file"])
+        if isinstance(value,dict) and isinstance(value.get("pre_click_posts"),dict) and value["pre_click_posts"].get("neo_output_file"):
+            value["pre_click_posts"]=self._read_dom_output(value["pre_click_posts"]["neo_output_file"])
         if value is None:
             raise NeoEndpointError("NEO_RUN_RESULT_MISSING_" + phase.upper())
         return value
@@ -541,6 +545,28 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         kwargs["native_invocation_id"] = "neo-endpoint:" + uuid4().hex
         super().__init__(*args,**kwargs)
         self.client=client or endpoint_client()
+        self.executor_revision=sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
+
+    def fresh_publish_request(self, request):
+        """A repaired transport can supersede its proven pre-click refusal once.
+
+        Keep every old request/return. An unchanged transport or any attempted
+        click keeps its original outcome and cannot obtain a fresh write claim.
+        """
+        from .capital_chronicle_latest_report_consumer_v1 import sha256_of
+        refreshed = dict(request)
+        while True:
+            previous = self._get(sha256_of(refreshed), "response") or {}
+            result = previous.get("result") or {}
+            if (result.get("status") != "FAILED_BEFORE_WRITE" or result.get("definite_no_write") is not True
+                    or result.get("public_write_performed") is not False
+                    or result.get("stage") != "BEFORE_PUBLISH_CLICK"
+                    or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
+                    or not result.get("native_tool_return_sha256")
+                    or result.get("neo_executor_revision") == self.executor_revision):
+                break
+            refreshed["supersedes_prewrite_no_write_sha256"] = sha256_of(previous)
+        return refreshed if refreshed != request else None
 
     def __call__(self,request):
         try:
@@ -568,7 +594,7 @@ class EndpointNeoExecutor(NativeNeoExecutor):
             raise
         try:
             observed=NeoBrowserDriver(self.client).perform(packet)
-            result={"request_sha256":request_hash,**observed["result"]}
+            result={"request_sha256":request_hash,**observed["result"],"neo_executor_revision":self.executor_revision}
             observation={"tool_name":ENDPOINT_TOOL,"surface":ENDPOINT_SURFACE,
                 "native_invocation_id":self.native_invocation_id,
                 "observation_source":"BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",

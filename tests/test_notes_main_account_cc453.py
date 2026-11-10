@@ -122,6 +122,23 @@ def test_destination_failure_consumes_the_current_exact_readback(tmp_path, recon
         assert conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()[0] == original
 
 
+@pytest.mark.parametrize("status", ["DEFINITE_NO_WRITE", "UNKNOWN_WRITE"])
+def test_composer_refusal_never_poses_as_a_platform_outage(tmp_path, status):
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    store = copied_store(tmp_path)
+    _, value = message(store, "substack_notes")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    detail = {"status": status, "safe_error_classification": "NEO_COMPOSER_PAYLOAD_MISMATCH"}
+    coordinator._record_destination_day_failure(value, "substack_notes", detail)
+    assert (coordinator._destination_day_failure("substack_notes") is None) is (status == "DEFINITE_NO_WRITE")
+    # Historical incidents are also interpreted without changing their bytes.
+    incident_id, _ = coordinator._destination_failure_key("substack_notes")
+    if status == "DEFINITE_NO_WRITE":
+        store.register_incident(incident_id=incident_id, work_item_id=value["work_item_id"],
+                                severity="DISPATCH_FAILURE", description=json.dumps(detail))
+        assert coordinator._destination_day_failure("substack_notes") is None
+
+
 @pytest.mark.parametrize("actual,expected,authenticated", [
     ("@capitalchronicle", "@capitalchronicle", True),
     ("@deancapitalchronicle", "@capitalchronicle", False),
@@ -170,3 +187,29 @@ fn({phase:'readback',expected_identity:process.argv[3]},
     assert len(observed["notes"]) == count
     if count:
         assert observed["notes"][0]["public_object_url"] == f"https://substack.com/{author}/note/c-123"
+
+
+@pytest.mark.parametrize("changed", [False, True])
+def test_long_note_publish_checks_every_word_before_the_click(changed):
+    source = Path(__file__).parents[1] / "live_contentops" / "neo_endpoint_steps_v1.js"
+    code = """
+const fs=require('fs');
+const fn=new (Object.getPrototypeOf(async function(){}).constructor)('input','page',fs.readFileSync(process.argv[1],'utf8'));
+const expected='Condition 1.1234. '+('The original full analysis remains bound. '.repeat(180));
+const actual=process.argv[2]==='changed'?expected.replace('1.1234','9.8765'):expected+'\\n\\n';
+const editor={innerText:actual,getClientRects:()=>[1]};
+const dialog={querySelectorAll:()=>[editor]};
+global.document={querySelector:()=>dialog,querySelectorAll:()=>[editor]};
+let clicks=0;
+fn({phase:'publish',destination:'substack_notes',posts:[expected]}, {
+ snapshot:async()=>({refs:[{role:'button',name:'Post',ref:'post'}]}),
+ evaluateInPage:async(f,arg)=>{const value=f(arg);return Array.isArray(value)?
+   {writtenToFile:true,path:'documented-long-editor-output'}:{value};},
+ click:async()=>{clicks++;}
+}).then(value=>console.log(JSON.stringify({status:value.status,clicks})));
+"""
+    result = subprocess.run(["node", "-e", code, str(source), "changed" if changed else "same"],
+                            capture_output=True, text=True, check=True, timeout=10)
+    observed = json.loads(result.stdout)
+    assert observed["clicks"] == (0 if changed else 1)
+    assert observed["status"] == ("FAILED_BEFORE_WRITE" if changed else "CLICKED")
