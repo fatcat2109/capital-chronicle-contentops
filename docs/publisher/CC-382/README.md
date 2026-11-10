@@ -1,5 +1,38 @@
 # CC-382 — public instrument names
 
+Acceptance completed on 10 November 2026. The next CC-124 article and wrap are
+the same [published CPI preview](https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher)
+under decision 98, confirmed in CC-124's current backlog instructions and its
+20:22 GMT+7 source check. It published at 19:09:49 GMT+7; this item does not
+claim that CC-338 met its earlier deadline.
+
+The current Neo public readback and the real article package pass the installed
+instrument validator: gold names GC/GLD; S&P 500 ES/SPY; WTI CL/USO; EUR/USD FXE;
+USD/JPY FXY; Bitcoin IBIT. All four instrument paragraphs match the authored
+package after its internal source markers are removed for display. No CFD or
+forbidden DEMO-book symbol appears in the public copy. The article explicitly
+keeps Main's spot/index estimates separate from futures and ETF moves and
+explains FXY's inverse yen expression.
+
+The visible gold snapshot uses `FX_IDC:XAUUSD`, decision 107's current feed. Its
+caption, alt text and five original public image URLs match the confirmed
+canonical repair. Original public image bytes were verified at 19:49:06 GMT+7;
+this run separately confirms those same URLs and hashes the held original
+snapshot and delivery image. It does not label that earlier byte capture fresh.
+The existing coordinator reports the canonical REAL_PUBLISHED, six social
+destinations confirmed and zero uncertain writes. LinkedIn's TLS recovery and
+CC-338's missing G05 freeze file remain in their existing items.
+
+See [the public-copy readback](public-readback-20261110.md),
+[package and installed-consumer evidence](public-readback-20261110.json) and
+[the read-only verifier](verify_public_readback.py). All five installed source
+modules match this worktree and the operating commit. No pytest, copied-store
+replay, editorial call, public write or schedule change ran during this closeout.
+The launch explicitly configured `gpt-6.1-sol/high`, PID 29484;
+`CONFIGURED_NOT_OBSERVED` because actual model/effort telemetry is unavailable.
+
+The following records describe the implementation and earlier pending acceptance.
+
 Decision 107 reaches new native selection, visual preparation, writing and revision
 requests through the existing `NativeDesktopTurn`. Gold, the S&P 500, WTI,
 EUR/USD, USD/JPY and Bitcoin each name at least one of the decision's futures or
