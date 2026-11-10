@@ -369,7 +369,7 @@ def test_unconfirmed_copy_cannot_inflate_certainty_or_invent_origin_labels():
     assert "epistemic_unsupported_leak_label" in origin_exc.value.details
 
 
-def test_exact_eight_previews_preserve_machine_and_reader_visible_epistemic_state():
+def test_required_previews_preserve_machine_and_reader_visible_epistemic_state():
     state = _state()
     article, validation = _validate_article_against_source_pack(
         _article_output(state),
@@ -386,7 +386,7 @@ def test_exact_eight_previews_preserve_machine_and_reader_visible_epistemic_stat
         epistemic_state=state,
     )
     assert set(bundle["packages"]) == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
-    assert bundle["package_count"] == 8
+    assert bundle["package_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert bundle["every_preview_preserves_epistemic_state"] is True
     label = str(state["reader_visible_epistemic_label"])
     assert all(label in str(payload) for payload in bundle["packages"].values())
@@ -432,7 +432,7 @@ def test_native_preview_allows_explicit_nonconfirmation_but_blocks_confirmed_ass
         article_identity="e" * 64,
         epistemic_state=state,
     )
-    assert bundle["package_count"] == 8
+    assert bundle["package_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
 
     inflated = json.loads(json.dumps(payloads))
     inflated["linkedin"]["text"] = (
@@ -1098,7 +1098,7 @@ def test_relay_copy_cannot_impersonate_original_publisher_or_drop_relay():
     )
 
 
-def test_canonical_x_rumor_all_eight_previews_preserve_unconfirmed_label():
+def test_canonical_x_rumor_required_previews_preserve_unconfirmed_label():
     candidate = _canonical_candidate(
         account="financialjuice",
         headline="Market chatter says SoftBank may refinance its OpenAI debt — rumor.",
@@ -1129,7 +1129,7 @@ def test_canonical_x_rumor_all_eight_previews_preserve_unconfirmed_label():
         article_identity="c" * 64,
         epistemic_state=state,
     )
-    assert bundle["package_count"] == 8
+    assert bundle["package_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert all(label in str(payload) for payload in bundle["packages"].values())
     assert all(row["epistemic_state"] == state for row in intents)
 
@@ -1380,7 +1380,7 @@ def test_canonical_x_relay_runs_zero_get_writer_and_eight_preview_path(tmp_path)
     native = json.loads(
         (tmp_path / "native_derivative_previews_v1.json").read_text()
     )
-    assert native["package_count"] == 8
+    assert native["package_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert native["epistemic_state"] == state
     assert native["every_preview_preserves_epistemic_state"] is True
     label = str(state["reader_visible_epistemic_label"])

@@ -61,5 +61,46 @@
       "bytes": 55376,
       "sha256": "0582b0d989a9c90238cc0fa2400ee5650e35bdeaf6e6df0c158dc75baa35a8e8"
     }
+  ],
+  "before_integration": {
+    "at_utc": "2026-11-10T16:42:49.063841+00:00",
+    "latest_dispatch_at": "2026-11-10T16:38:48.850882+00:00"
+  },
+  "tests": [
+    {
+      "files": 6,
+      "passed": 145,
+      "failed": 20,
+      "seconds": 27.62,
+      "artifact": "tests-before.txt"
+    },
+    {
+      "files": 5,
+      "passed": 204,
+      "failed": 0,
+      "seconds": 31.19,
+      "artifact": "tests-notice.txt"
+    },
+    {
+      "files": 6,
+      "passed": 172,
+      "failed": 1,
+      "seconds": 24.81,
+      "artifact": "tests-acceptance-first.txt"
+    },
+    {
+      "files": 6,
+      "passed": 173,
+      "failed": 0,
+      "seconds": 26.16,
+      "artifact": "tests-acceptance.txt"
+    },
+    {
+      "files": 3,
+      "passed": 43,
+      "failed": 0,
+      "seconds": 14.75,
+      "artifact": "tests-policy.txt"
+    }
   ]
 }

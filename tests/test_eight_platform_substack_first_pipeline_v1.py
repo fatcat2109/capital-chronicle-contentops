@@ -2,6 +2,8 @@ import json
 import inspect
 from pathlib import Path
 
+import pytest
+
 import live_contentops._eight_platform_substack_first_pipeline_impl_v1 as pipeline
 from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
     EXPECTED_DESTINATIONS,
@@ -10,13 +12,30 @@ from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import (
     build_native_derivative_payloads,
 )
 from live_contentops.destination_transport_registry_v1 import (
-    V1_REQUIRED_PUBLICATION_DESTINATIONS,
+    V1_REQUIRED_DERIVATIVE_DESTINATIONS, V1_REQUIRED_PUBLICATION_DESTINATIONS,
+    barred_browser_destinations,
 )
+from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
 from live_contentops.media_manifest_authority_v1 import build_delivery_only_editorial_card
 
 
 def _article() -> dict:
     return {"title": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues", "subtitle": "FRED's latest reading keeps the policy-transmission question in focus."}
+
+
+def test_required_derivatives_follow_decisions_109_and_112():
+    assert set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) == {
+        "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads"}
+
+
+def test_release_preflight_does_not_probe_retired_browser_routes(monkeypatch):
+    calls = []
+    monkeypatch.setattr(pipeline, "probe_authenticated_platform_session",
+                        lambda port, platform: calls.append(platform) or {"authenticated": True})
+    rows = pipeline._release_account_preflight(9223)
+    assert "youtube" not in calls and "x" in calls
+    assert rows["youtube"] == {"platform": "youtube", "status": "NOT_POSTED",
+                               "reason_code": barred_browser_destinations()["youtube"]}
 
 
 def test_every_derivative_carries_notices_and_overflow_remains_a_valid_thread(monkeypatch):
@@ -203,7 +222,7 @@ def test_breaking_and_ordinary_briefs_are_native_self_contained_and_undispatched
             )
 
 
-def test_document_lens_without_article_media_uses_eight_text_only_native_packages():
+def test_document_lens_without_article_media_uses_required_text_only_native_packages():
     canonical_url = "https://capitalchronicle.substack.com/p/pending-publication"
     article = {
         "title": "State Department Approves Possible APKWS II Sale to Italy",
@@ -231,7 +250,7 @@ def test_document_lens_without_article_media_uses_eight_text_only_native_package
     )
 
     assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
-    assert len(payloads) == 8
+    assert len(payloads) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert all(canonical_url in str(payload.get("full_text") or payload["text"]) for payload in payloads.values())
     assert all(payload["hard_truncation_used"] is False for payload in payloads.values())
     for platform in ("x", "threads"):
@@ -266,7 +285,7 @@ def test_text_only_derivatives_skip_title_equivalent_hook_lede_and_context():
         media_asset_ids=(),
     )
 
-    assert len(payloads) == 8
+    assert len(payloads) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert set(payloads) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) - {"substack"}
     for destination, payload in payloads.items():
         public_text = str(payload.get("full_text") or payload["text"])
@@ -356,8 +375,11 @@ def test_native_briefs_never_promote_pre_evidence_selection_hypotheses() -> None
         and "What to watch:" not in str(payload.get("full_text") or payload["text"])
         for payload in narrow_payloads.values()
     )
-    assert narrow_payloads["x"]["reply_texts"] == []
-    assert narrow_payloads["threads"]["reply_texts"] == []
+    for destination in ("x", "threads"):
+        payload = narrow_payloads[destination]
+        assert payload["quality_metrics"]["content_reply_count"] == 0
+        assert all(pipeline._publication_notice_only(post) for post in payload["posts"][1:])
+        assert CONFLICTS_NOTICE in payload["full_text"] and PUBLIC_NOTICE in payload["full_text"]
 
 
 def test_delivery_only_card_is_rights_safe_and_never_article_media(tmp_path):
@@ -849,9 +871,9 @@ def test_native_payloads_are_distinct_and_carry_canonical_url():
     assert canonical_url in payloads["linkedin"]["text"]
     assert canonical_url in payloads["discord"]["text"]
     assert canonical_url in payloads["telegram"]["text"]
-    assert canonical_url in payloads["youtube"]["text"]
+    assert set(payloads) == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    assert "youtube" not in payloads and "x" in payloads
     assert payloads["telegram"]["format"] == "channel_photo_with_caption"
-    assert payloads["youtube"]["format"] == "community_text_image_post"
     assert payloads["x"]["format"] != payloads["linkedin"]["format"]
     assert payloads["discord"]["text"] != payloads["facebook_page"]["text"]
     assert len(payloads["x"]["text"]) <= 280
@@ -1013,7 +1035,7 @@ def test_brief_context_retains_a_subject_after_duplicate_sentence_is_removed():
     before = dict(article)
     payloads = build_native_derivative_payloads(article=article, selection={},
         canonical_url="https://capitalchronicle.substack.com/p/dated-custody", media_asset_ids=["source"])
-    assert len(payloads) == 8
+    assert len(payloads) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     for destination in ("linkedin", "discord", "instagram_business", "threads"):
         assert "khả năng ấy" not in str(payloads[destination])
         assert standalone in str(payloads[destination])
@@ -1048,7 +1070,7 @@ def test_brief_watch_retains_the_condition_after_a_rhetorical_transition():
     before = dict(article)
     payloads = build_native_derivative_payloads(article=article, selection={},
         canonical_url="https://capitalchronicle.substack.com/p/meta-share-plan", media_asset_ids=[])
-    for destination in ("telegram", "threads", "x", "youtube"):
+    for destination in ("telegram", "threads", "x"):
         text = str(payloads[destination].get("full_text") or payloads[destination]["text"])
         assert condition in text
         assert "What would change that assessment?" not in text
@@ -1062,8 +1084,8 @@ def test_reader_first_brief_preserves_qualified_passages_and_watch_subject():
     article = {"title": "Wire reports a diplomatic push", "reader_first_version": "DATA_JOURNALISM_V1",
         "effective_article_mode": "BREAKING_BRIEF", "social_hook": "A wire relays a reported push. Direct talks remain unconfirmed.",
         "social_policy_summary": context, "social_mechanism_summary": mechanism,
-        "social_cross_asset_summary": watch, "native_destination_media": {d: ["photo"] for d in (
-            "telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube")}}
+        "social_cross_asset_summary": watch,
+        "native_destination_media": {d: ["photo"] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}}
     original = dict(article)
     payloads = build_native_derivative_payloads(article=article, selection={},
         canonical_url="https://capitalchronicle.substack.com/p/diplomatic-push", media_asset_ids=["photo"])
@@ -1071,7 +1093,7 @@ def test_reader_first_brief_preserves_qualified_passages_and_watch_subject():
         assert context in str(payloads[destination].get("full_text") or payloads[destination]["text"])
     for destination in ("linkedin", "facebook_page"):
         assert mechanism in payloads[destination]["text"]
-    for destination in ("telegram", "x", "threads", "youtube"):
+    for destination in ("telegram", "x", "threads"):
         text = str(payloads[destination].get("full_text") or payloads[destination]["text"])
         assert watch in " ".join(text.split()) and "Watch: Watch" not in text and "watch: Watch" not in text
     for destination in ("x", "threads"):
@@ -1123,6 +1145,7 @@ def test_prepare_only_release_candidate_never_calls_publishers(tmp_path: Path, m
     assert packet["public_write_performed"] is False
     assert packet["publishing_adapter_called"] is False
     assert packet["video_or_tiktok_adapter_called"] is False
+    assert set(packet["payload_sha256"]) == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert pipeline._verify_release_candidate_lock(tmp_path)["status"] == "PASS_RELEASE_CANDIDATE_LOCK"
 
     (tmp_path / "article_manifest_v1.json").write_text('{"tampered":true}\n', encoding="utf-8")
@@ -1286,13 +1309,19 @@ def test_operator_audit_gate_requires_all_nine_strict_public_surfaces(tmp_path: 
     assert len(packet["screenshots"]["threads"]) == 3
 
 
-def test_classification_requires_every_expanded_destination_for_pass():
+def test_classification_requires_current_destinations_and_preserves_retired_uncertainty():
     results = {platform: {"status": "SUCCESS"} for platform in EXPECTED_DESTINATIONS}
     assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
     results["tiktok"] = {"status": "BLOCKED_TIKTOK_LOGIN_REQUIRED"}
     assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
     results["youtube"] = {"status": "BLOCKED_YOUTUBE_COMMUNITY_NOT_AVAILABLE"}
+    assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
+    results["youtube"] = {"status": "UNKNOWN_WRITE", "id": "retained-uncertain-attempt"}
+    assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
+    results["threads"] = {"status": "NOT_POSTED"}
     assert _classification(results) == "PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
+    results["threads"] = {"status": "UNKNOWN_WRITE"}
+    assert _classification(results) == "FAILED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
     results["substack"] = {"status": "FAILED_SUBSTACK_PUBLIC_URL_READBACK"}
     assert _classification(results) == "FAILED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
 
@@ -1832,77 +1861,38 @@ def test_derivative_only_resume_preserves_successful_destinations(tmp_path: Path
     assert ledger[-1]["action"] == "edit_existing_post"
 
 
-def test_youtube_correction_records_wrong_short_and_uses_community_adapter_only(tmp_path: Path, monkeypatch):
+@pytest.mark.parametrize("prior", [
+    {"status": "SUCCESS", "action": "public_short", "id": "FvasNsZ1F2U",
+     "public_url": "https://www.youtube.com/watch?v=FvasNsZ1F2U"},
+    {"status": "SUCCESS", "action": "community_post", "id": "UgkxCommunity123",
+     "public_url": "https://www.youtube.com/post/UgkxCommunity123"},
+    {"status": "UNKNOWN_WRITE", "id": "retained-uncertain-attempt"},
+])
+def test_retired_youtube_resume_preserves_observations_without_browser_actions(tmp_path: Path, monkeypatch, prior):
     canonical_url = "https://capitalchronicle.substack.com/p/example"
-    chart_path = tmp_path / "chart.png"
-    chart_path.write_bytes(b"chart")
     results = {platform: {"status": "SUCCESS", "id": f"{platform}-id"} for platform in EXPECTED_DESTINATIONS}
     results["substack"] = {"status": "SUCCESS", "draft_id": "206418070", "public_url": canonical_url}
-    results["tiktok"] = {"status": "BLOCKED_TIKTOK_LOGIN_REQUIRED"}
-    results["youtube"] = {
-        "status": "SUCCESS",
-        "action": "public_short",
-        "id": "FvasNsZ1F2U",
-        "public_url": "https://www.youtube.com/watch?v=FvasNsZ1F2U",
-    }
-    evidence = {
-        "classification": "PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1",
-        "run_id": "resume-live-run",
-        "article": _article(),
-        "selected_idea": _selection(),
-        "media": {"assets": [{"path": str(chart_path)}]},
-        "results": results,
-    }
-    (tmp_path / "run_evidence_v1.json").write_text(json.dumps(evidence), encoding="utf-8")
-    calls = []
-    monkeypatch.setattr(pipeline, "browser_doctor", lambda: {"status": "READY_TO_ATTACH", "recommended_cdp_port": 9223})
-    approved_media = {
-        "media_asset_id": "primary",
-        "media_role": "primary_chart",
-        "absolute_local_source_path": str(chart_path),
-        "sha256": "a" * 64,
-        "verified_public_delivery_url": "https://example.com/chart.png",
-    }
-    monkeypatch.setattr(pipeline, "build_delivery_media_manifest", lambda **kwargs: {"status": "PASS", "assets": [approved_media]})
-    monkeypatch.setattr(pipeline, "select_primary_chart", lambda manifest: dict(approved_media))
-    monkeypatch.setattr(
-        pipeline,
-        "publish_youtube_community_post_via_edge",
-        lambda **kwargs: calls.append(kwargs)
-        or {
-            "status": "SUCCESS",
-            "platform": "youtube",
-            "action": "community_post",
-            "post_id": "UgkxCommunity123",
-            "public_url": "https://www.youtube.com/post/UgkxCommunity123",
-            "destination_identity": "@CapitalChronicleYouTube",
-            "media_transfer": {"upload_transport": "playwright_file_chooser"},
-            "provider_readback_verified": True,
-            "readback": {
-                "status": "SUCCESS",
-                "public_url": "https://www.youtube.com/post/UgkxCommunity123",
-                "body_text_visible": True,
-                "meaningful_media_visible": True,
-                "substack_url_visible": True,
-                "channel_identity_verified": True,
-            },
-        },
-    )
-    monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("canonical publisher must not run")))
+    results["youtube"] = prior
+    evidence = {"run_id": "resume-live-run", "results": results}
+    evidence_path = tmp_path / "run_evidence_v1.json"
+    evidence_path.write_text(json.dumps(evidence), encoding="utf-8")
 
-    resumed = pipeline._resume_eight_platform_derivatives(
-        output_dir=tmp_path,
-        cdp_port=9223,
-        platforms=["youtube"],
-    )
+    def forbidden(*args, **kwargs):
+        raise AssertionError("Decision 109: no retired-route probe, readback, media work or write")
 
-    assert resumed["classification"] == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
-    assert resumed["results"]["youtube"]["action"] == "community_post"
-    assert resumed["results"]["youtube"]["public_url"] == "https://www.youtube.com/post/UgkxCommunity123"
-    assert resumed["wrong_surface_executions"]["youtube"]["status"] == "WRONG_SURFACE_EXECUTION_NOT_ACCEPTED"
-    assert resumed["wrong_surface_executions"]["youtube"]["public_url"].endswith("FvasNsZ1F2U")
-    assert resumed["derivative_resume"]["youtube_video_or_short_adapter_called"] is False
-    assert len(calls) == 1
-    ledger = [json.loads(line) for line in (tmp_path / "platform_dispatch_ledger_v1.jsonl").read_text(encoding="utf-8").splitlines()]
-    assert ledger[-1]["idempotency_scope"] == "youtube_community_post"
-    assert ledger[-1]["action"] == "community_post"
+    for name in ("browser_doctor", "build_delivery_media_manifest", "publish_substack_article_via_edge",
+                 "publish_youtube_community_post_via_edge", "readback_youtube_community_post_via_edge"):
+        monkeypatch.setattr(pipeline, name, forbidden)
+
+    for _ in range(2):
+        resumed = pipeline._resume_eight_platform_derivatives(output_dir=tmp_path, cdp_port=9223, platforms=["youtube"])
+        assert resumed["classification"] == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
+        assert resumed["results"] == results
+        assert resumed["results"]["youtube"] == prior
+        assert resumed["derivative_resume_not_posted"] == {"youtube": {
+            "status": "NOT_POSTED", "reason_code": barred_browser_destinations()["youtube"]}}
+        assert resumed["derivative_resume"]["targets"] == []
+        assert resumed["derivative_resume"]["canonical_republished"] is False
+        assert resumed["derivative_resume"]["successful_destinations_frozen"] is True
+        assert resumed["derivative_resume"]["youtube_video_or_short_adapter_called"] is False
+    assert not (tmp_path / "platform_dispatch_ledger_v1.jsonl").exists()

@@ -1,0 +1,153 @@
+.................F........F.....F.................F............F..F..... [ 43%]
+.....FFF............F.......F.FFF..F...........F......FF................ [ 87%]
+.............F.F.....                                                    [100%]
+================================== FAILURES ===================================
+______________ test_telegram_final_credit_retains_both_scenarios ______________
+tests\test_demo_positions_notice_cc423.py:47: in test_telegram_final_credit_retains_both_scenarios
+    assert len(text) <= 620 and watch not in text and "Chart: TradingView." in text
+E   AssertionError: assert (518 <= 620 and 'What to wat...il matters. ' not in 'Conditional...s it covers.'
+E    +  where 518 = len('Conditional headline\n\nWhat to watch: The source detail matters. The source detail matters. The source detail matter...lysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.')
+E     
+E     'What to watch: The...ce detail matters. ' is contained here:
+E       Conditional headline
+E       
+E       What to watch: The source detail matters. The source detail matters. The source detail matters. The source detail matters. The source detail matters. The source detail matters. The source detail matters. The source detail matters. The source detail matters. 
+E       
+E       https://example.com/story...
+E     
+E     ...Full output truncated (7 lines hidden), use '-vv' to show)
+___ test_derivative_notice_overflow_keeps_complete_sentences_within_limits ____
+tests\test_demo_positions_notice_cc423.py:129: in test_derivative_notice_overflow_keeps_complete_sentences_within_limits
+    assert LEGACY_CONFLICTS_NOTICE not in "\n\n".join(p["text"] for p in parts)
+E   AssertionError: assert 'Capital Chr...s it covers.' not in 'A source-qu...mmendations.'
+E     
+E     'Capital Chronicle ... markets it covers.' is contained here:
+E       A source-qualified report. Capital Chronicle may hold positions in the markets it covers.
+E       
+E       Capital Chronicle offers analysis only, not financial advice or recommendations.
+_____ test_triggered_and_cancelled_posts_report_the_change_in_plain_words _____
+tests\test_plan_status_posts_cc306.py:124: in test_triggered_and_cancelled_posts_report_the_change_in_plain_words
+    assert compose(rows[("XAUUSD", "TRIGGERED")])["text"].startswith(
+E   assert False
+E    +  where False = <built-in method startswith of str object at 0x0000028177681220>("Gold: the 4,070�4,085 entry zone filled at Thu 5 Nov, 07:20 ET, and Capital Chronicle's position is open. It is invalidated if price moves below 4,055.")
+E    +    where <built-in method startswith of str object at 0x0000028177681220> = "Gold: the 4,070�4,085 entry zone filled at Thu 5 Nov, 07:20 ET, and Capital Chronicle's model position is open. It is...analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.".startswith
+_______ test_a_resting_order_fill_posts_once_as_price_reaching_the_zone _______
+tests\test_plan_status_posts_cc306.py:289: in test_a_resting_order_fill_posts_once_as_price_reaching_the_zone
+    assert text.startswith("EUR/USD: the 1.1166�1.117 entry zone filled at Thu 5 Nov, 07:10 ET, and Capital"
+E   assert False
+E    +  where False = <built-in method startswith of str object at 0x00000281771C8140>("EUR/USD: the 1.1166�1.117 entry zone filled at Thu 5 Nov, 07:10 ET, and Capital Chronicle's position is open.")
+E    +    where <built-in method startswith of str object at 0x00000281771C8140> = "EUR/USD: the 1.1166�1.117 entry zone filled at Thu 5 Nov, 07:10 ET, and Capital Chronicle's model position is open. I...analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.".startswith
+_ test_fill_names_same_instrument_and_never_uses_execution_fields[TRIGGERED-True] _
+tests\test_plan_status_instruments_cc384.py:111: in test_fill_names_same_instrument_and_never_uses_execution_fields
+    payloads = p.destination_payloads(post, card_id="card", chart_credit=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\plan_status_posts_v1.py:1087: in destination_payloads
+    destination_body = _short_reasons(row, LIMITS["threads"] - len(notices) - 2 - (len(link) + 2 if link else 0))
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\plan_status_posts_v1.py:1025: in _short_reasons
+    raise PlanPostError("PLAN_STATUS_SHORT_CONDITION_TOO_LONG")
+E   live_contentops.plan_status_posts_v1.PlanPostError: PLAN_STATUS_SHORT_CONDITION_TOO_LONG
+_____ test_delayed_first_post_keeps_both_conditions_and_both_true_clocks ______
+tests\test_plan_status_instruments_cc384.py:141: in test_delayed_first_post_keeps_both_conditions_and_both_true_clocks
+    for destination, payload in p.destination_payloads(post, card_id="card", chart_credit=True).items():
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\plan_status_posts_v1.py:1131: in destination_payloads
+    raise PlanPostError("PLAN_STATUS_POST_TOO_LONG:" + destination)
+E   live_contentops.plan_status_posts_v1.PlanPostError: PLAN_STATUS_POST_TOO_LONG:threads
+_ test_document_lens_without_article_media_uses_eight_text_only_native_packages _
+tests\test_eight_platform_substack_first_pipeline_v1.py:234: in test_document_lens_without_article_media_uses_eight_text_only_native_packages
+    assert len(payloads) == 8
+E   AssertionError: assert 7 == 8
+E    +  where 7 = len({'discord': {'format': 'newsroom_brief', 'hard_truncation_used': False, 'media_asset_ids': [], 'platform_limit': 2000,...format': 'professional_brief', 'hard_truncation_used': False, 'media_asset_ids': [], 'platform_limit': 3000, ...}, ...})
+___ test_text_only_derivatives_skip_title_equivalent_hook_lede_and_context ____
+tests\test_eight_platform_substack_first_pipeline_v1.py:269: in test_text_only_derivatives_skip_title_equivalent_hook_lede_and_context
+    assert len(payloads) == 8
+E   AssertionError: assert 7 == 8
+E    +  where 7 = len({'discord': {'format': 'newsroom_brief', 'hard_truncation_used': False, 'media_asset_ids': [], 'platform_limit': 2000,...format': 'professional_brief', 'hard_truncation_used': False, 'media_asset_ids': [], 'platform_limit': 3000, ...}, ...})
+_____ test_native_briefs_never_promote_pre_evidence_selection_hypotheses ______
+tests\test_eight_platform_substack_first_pipeline_v1.py:359: in test_native_briefs_never_promote_pre_evidence_selection_hypotheses
+    assert narrow_payloads["x"]["reply_texts"] == []
+E   AssertionError: assert ['Capital Chr...s it covers.'] == []
+E     
+E     Left contains one more item: 'Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.'
+E     Use -v to get more diff
+__________ test_native_payloads_are_distinct_and_carry_canonical_url __________
+tests\test_eight_platform_substack_first_pipeline_v1.py:852: in test_native_payloads_are_distinct_and_carry_canonical_url
+    assert canonical_url in payloads["youtube"]["text"]
+                            ^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'youtube'
+__ test_brief_context_retains_a_subject_after_duplicate_sentence_is_removed ___
+tests\test_eight_platform_substack_first_pipeline_v1.py:1016: in test_brief_context_retains_a_subject_after_duplicate_sentence_is_removed
+    assert len(payloads) == 8
+E   AssertionError: assert 7 == 8
+E    +  where 7 = len({'discord': {'format': 'newsroom_brief', 'hard_truncation_used': False, 'media_asset_ids': ['source'], 'platform_limit... 'professional_brief', 'hard_truncation_used': False, 'media_asset_ids': ['source'], 'platform_limit': 3000, ...}, ...})
+____ test_brief_watch_retains_the_condition_after_a_rhetorical_transition _____
+tests\test_eight_platform_substack_first_pipeline_v1.py:1052: in test_brief_watch_retains_the_condition_after_a_rhetorical_transition
+    text = str(payloads[destination].get("full_text") or payloads[destination]["text"])
+               ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'youtube'
+___ test_reader_first_brief_preserves_qualified_passages_and_watch_subject ____
+tests\test_eight_platform_substack_first_pipeline_v1.py:1075: in test_reader_first_brief_preserves_qualified_passages_and_watch_subject
+    text = str(payloads[destination].get("full_text") or payloads[destination]["text"])
+               ^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'youtube'
+_________ test_prepare_only_release_candidate_never_calls_publishers __________
+tests\test_eight_platform_substack_first_pipeline_v1.py:1121: in test_prepare_only_release_candidate_never_calls_publishers
+    packet = pipeline._prepare_text_image_release_candidate(run_id="rc-no-write", output_dir=tmp_path)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py:1852: in _prepare_text_image_release_candidate
+    if len(payloads["youtube"]["text"]) > int(payloads["youtube"]["platform_limit"]):
+           ^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'youtube'
+______ test_classification_requires_every_expanded_destination_for_pass _______
+tests\test_eight_platform_substack_first_pipeline_v1.py:1295: in test_classification_requires_every_expanded_destination_for_pass
+    assert _classification(results) == "PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
+E   AssertionError: assert 'PASS_SUBSTAC...STRIBUTION_V1' == 'PARTIAL_EIGH...S_LIVE_RUN_V1'
+E     
+E     - PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1
+E     + PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1
+_ test_youtube_correction_records_wrong_short_and_uses_community_adapter_only _
+tests\test_eight_platform_substack_first_pipeline_v1.py:1893: in test_youtube_correction_records_wrong_short_and_uses_community_adapter_only
+    resumed = pipeline._resume_eight_platform_derivatives(
+live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py:8101: in _resume_eight_platform_derivatives
+    payload=payloads["youtube"]["text"],
+            ^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'youtube'
+_ test_exact_eight_previews_preserve_machine_and_reader_visible_epistemic_state _
+tests\test_v1_simple_epistemic_state_v1.py:389: in test_exact_eight_previews_preserve_machine_and_reader_visible_epistemic_state
+    assert bundle["package_count"] == 8
+E   assert 7 == 8
+_ test_native_preview_allows_explicit_nonconfirmation_but_blocks_confirmed_assertion _
+tests\test_v1_simple_epistemic_state_v1.py:435: in test_native_preview_allows_explicit_nonconfirmation_but_blocks_confirmed_assertion
+    assert bundle["package_count"] == 8
+E   assert 7 == 8
+____ test_canonical_x_rumor_all_eight_previews_preserve_unconfirmed_label _____
+tests\test_v1_simple_epistemic_state_v1.py:1132: in test_canonical_x_rumor_all_eight_previews_preserve_unconfirmed_label
+    assert bundle["package_count"] == 8
+E   assert 7 == 8
+_____ test_canonical_x_relay_runs_zero_get_writer_and_eight_preview_path ______
+tests\test_v1_simple_epistemic_state_v1.py:1383: in test_canonical_x_relay_runs_zero_get_writer_and_eight_preview_path
+    assert native["package_count"] == 8
+E   assert 7 == 8
+=========================== short test summary info ===========================
+FAILED tests/test_demo_positions_notice_cc423.py::test_telegram_final_credit_retains_both_scenarios
+FAILED tests/test_demo_positions_notice_cc423.py::test_derivative_notice_overflow_keeps_complete_sentences_within_limits
+FAILED tests/test_plan_status_posts_cc306.py::test_triggered_and_cancelled_posts_report_the_change_in_plain_words
+FAILED tests/test_plan_status_posts_cc306.py::test_a_resting_order_fill_posts_once_as_price_reaching_the_zone
+FAILED tests/test_plan_status_instruments_cc384.py::test_fill_names_same_instrument_and_never_uses_execution_fields[TRIGGERED-True]
+FAILED tests/test_plan_status_instruments_cc384.py::test_delayed_first_post_keeps_both_conditions_and_both_true_clocks
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_document_lens_without_article_media_uses_eight_text_only_native_packages
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_text_only_derivatives_skip_title_equivalent_hook_lede_and_context
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_native_briefs_never_promote_pre_evidence_selection_hypotheses
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_native_payloads_are_distinct_and_carry_canonical_url
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_brief_context_retains_a_subject_after_duplicate_sentence_is_removed
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_brief_watch_retains_the_condition_after_a_rhetorical_transition
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_reader_first_brief_preserves_qualified_passages_and_watch_subject
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_prepare_only_release_candidate_never_calls_publishers
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_classification_requires_every_expanded_destination_for_pass
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_youtube_correction_records_wrong_short_and_uses_community_adapter_only
+FAILED tests/test_v1_simple_epistemic_state_v1.py::test_exact_eight_previews_preserve_machine_and_reader_visible_epistemic_state
+FAILED tests/test_v1_simple_epistemic_state_v1.py::test_native_preview_allows_explicit_nonconfirmation_but_blocks_confirmed_assertion
+FAILED tests/test_v1_simple_epistemic_state_v1.py::test_canonical_x_rumor_all_eight_previews_preserve_unconfirmed_label
+FAILED tests/test_v1_simple_epistemic_state_v1.py::test_canonical_x_relay_runs_zero_get_writer_and_eight_preview_path
+20 failed, 145 passed in 27.62s

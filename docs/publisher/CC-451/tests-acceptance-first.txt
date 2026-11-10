@@ -1,0 +1,16 @@
+........................................................................ [ 41%]
+.........................................F.............................. [ 83%]
+.............................                                            [100%]
+================================== FAILURES ===================================
+_ test_classification_requires_current_destinations_and_preserves_retired_uncertainty _
+tests\test_eight_platform_substack_first_pipeline_v1.py:1324: in test_classification_requires_current_destinations_and_preserves_retired_uncertainty
+    assert _classification(results) == "FAILED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
+E   AssertionError: assert 'PARTIAL_EIGH...S_LIVE_RUN_V1' == 'FAILED_EIGHT...S_LIVE_RUN_V1'
+E     
+E     - FAILED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1
+E     ? ^   --
+E     + PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1
+E     ? ^ ++ +
+=========================== short test summary info ===========================
+FAILED tests/test_eight_platform_substack_first_pipeline_v1.py::test_classification_requires_current_destinations_and_preserves_retired_uncertainty
+1 failed, 172 passed in 24.81s
