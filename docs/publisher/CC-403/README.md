@@ -41,7 +41,9 @@ New request settings still select the assigned roles explicitly. Actual model
 and effort observations are retained as returned, including unknown or different
 values. The old return-label veto is removed under decisions 60 and 86. The
 same source, public-copy, rights, operation, writer identity, paid-speed and
-exact-render checks remain in their owning functions.
+exact-render checks remain in their owning functions. The downstream qualification
+owner also records actual model/effort values without a second label veto; its
+new daily-note cases and canonical production-day tests pass.
 
 Historical requests, responses, public objects and their hashes are preserved.
 An older frozen source pack also retains its original bytes when the only
@@ -60,7 +62,7 @@ Implementation owners:
   [existing editor review](../../../live_contentops/contentops_editorial_desk_v1.py)
   and [publication timing](../../../live_contentops/native_publication_latency_v1.py).
 
-Validation: **321 distinct test cases pass**, with three preview-host cases skipped under decision 83. The [test summary](tests-summary.json) preserves failed runs and their corrected results. Parameter variants retained from the earlier test name are counted as distinct there; they are not additional model calls. Runs use at most three targeted files, one pytest process at a time, without parallel workers; no full suite ran. No test started before **10 November 22:30 GMT+7**.
+Validation: **330 distinct test cases pass**, with three preview-host cases skipped under decision 83. The [test summary](tests-summary.json) preserves failed runs and their corrected results. Parameter variants retained from the earlier test name are counted as distinct there; they are not additional model calls. Runs use at most three targeted files, one pytest process at a time, without parallel workers; no full suite ran. No test started before **10 November 22:30 GMT+7**.
 
 Regression checks exposed two owned handoff defects: a newly compiled destination count was not updated, and final visual review still requested a removed destination. The handoff now records its actual count and reviews its compiled variants; frozen originals are unchanged. Definite no-writes caused by platform rules are excluded from the timing target with their exact cause; uncertain writes still require recovery and remain in the timing result. Older text fixtures use decision 109's current public notice and current transport-return semantics. The final recovery cases prove allowed destinations receive the copy while barred browser routes retain a definite no-write.
 

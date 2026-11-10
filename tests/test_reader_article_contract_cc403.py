@@ -256,6 +256,25 @@ def test_observed_publication_uses_the_source_clock():
     assert publication_timing(article, published_at_utc=None)["within_60_minutes"] is None
 
 
+@pytest.mark.parametrize("model,effort", [("gpt-6.1-sol", "low"), ("different-observed-model", "ultra")])
+def test_daily_note_reaches_qualification_with_its_actual_editor_values(model, effort):
+    from live_contentops.newsroom_production_day_v1 import build_current_zero_write_qualified_article_record
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    article, docs = daily()
+    record = build_current_zero_write_qualified_article_record(
+        production_day_id="newsroom-production-day-2026-11-10-bangkok", parent_window_id="note", attempt_run_id="note",
+        article=article, story_identity="daily-note", update_chain_identity="daily-note",
+        resolved_article_mode="STANDARD_NEWS_ANALYSIS", accepted_evidence_documents=docs,
+        editorial_provider="NATIVE_CODEX_DESKTOP", editorial_model=model, editorial_reasoning_effort=effort,
+        logical_model_invocation_count=2,
+        derivative_package_intents=[{"destination": d, "dispatch_state": "UNDISPATCHED"}
+                                    for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS],
+        native_execution_observation={"observations": [{"model": model, "reasoning_effort": effort}]})
+    assert record["qualified"] is True, record["qualification_blockers"]
+    assert record["editorial_worker"]["model"] == model
+    assert record["editorial_worker"]["reasoning_effort"] == effort.upper()
+
+
 @pytest.mark.parametrize("published,read_at,within", [
     ("2026-11-10T14:35:00Z", "2026-11-10T14:40:00Z", True),
     (None, "2026-11-10T14:40:00Z", True),
