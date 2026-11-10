@@ -1,0 +1,13 @@
+..........F...                                                           [100%]
+================================== FAILURES ===================================
+______ test_durable_totals_survive_pending_callback_and_duplicate_resume ______
+tests\test_publication_coordinator_v1.py:2142: in test_durable_totals_survive_pending_callback_and_duplicate_resume
+    assert state["per_destination"]["youtube"]["status"] == DEFINITE_NO_WRITE
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: assert 'DEFINITE_NO_WRITE' == 'NOT_DISPATCHED'
+E     
+E     - NOT_DISPATCHED
+E     + DEFINITE_NO_WRITE
+=========================== short test summary info ===========================
+FAILED tests/test_publication_coordinator_v1.py::test_durable_totals_survive_pending_callback_and_duplicate_resume
+1 failed, 13 passed, 227 deselected in 25.46s

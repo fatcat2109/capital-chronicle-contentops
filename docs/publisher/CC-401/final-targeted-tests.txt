@@ -1,0 +1,25 @@
+........................................................................ [ 25%]
+.....................F.................................................. [ 51%]
+........................................................................ [ 77%]
+..............................F.................................         [100%]
+================================== FAILURES ===================================
+_______ test_linkedin_ambiguous_provider_cause_reaches_durable_incident _______
+tests\test_publication_coordinator_v1.py:2059: in test_linkedin_ambiguous_provider_cause_reaches_durable_incident
+    assert any(json.loads(row[0]).get("safe_error_classification") ==
+E   assert False
+E    +  where False = any(<generator object test_linkedin_ambiguous_provider_cause_reaches_durable_incident.<locals>.<genexpr> at 0x0000015CE3C39000>)
+_____ test_existing_dispatch_readback_stays_in_coordinator_without_write ______
+tests\test_native_neo_executor_v1.py:883: in test_existing_dispatch_readback_stays_in_coordinator_without_write
+    coordinator, bound = bind_native_neo_coordinator(store, operation_id="same-op", output_dir=tmp_path,
+live_contentops\native_neo_executor_v1.py:764: in bind_native_neo_coordinator
+    readiness = DestinationReadinessManager(store=store, neo_readiness_provider=executor.publication_readiness)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\destination_transport_registry_v1.py:371: in __init__
+    validate_registry()
+live_contentops\destination_transport_registry_v1.py:247: in validate_registry
+    raise RuntimeError("v1_required_publication_destination_mismatch")
+E   RuntimeError: v1_required_publication_destination_mismatch
+=========================== short test summary info ===========================
+FAILED tests/test_publication_coordinator_v1.py::test_linkedin_ambiguous_provider_cause_reaches_durable_incident
+FAILED tests/test_native_neo_executor_v1.py::test_existing_dispatch_readback_stays_in_coordinator_without_write
+2 failed, 278 passed in 419.80s (0:06:59)

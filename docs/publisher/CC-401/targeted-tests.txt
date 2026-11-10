@@ -1,0 +1,282 @@
+...........................F............................................ [ 28%]
+.....................F...F.............................................F [ 57%]
+F....FF.FFFFFFFFFFFFFFFFFFF.FF.FFFFFF................FF................F [ 86%]
+..................................                                       [100%]
+================================== FAILURES ===================================
+___ test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once ____
+tests\test_publication_coordinator_v1.py:933: in test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once
+    assert len(store.list_platform_dispatches()) == 8
+E   AssertionError: assert 7 == 8
+E    +  where 7 = len([{'dispatch_id': 'dispatch_3ab2b3592491ea44bc83141995a3f46f', 'dispatched_at': '2026-11-10T02:32:55.534353+00:00', 'me...-10T02:32:56.803566+00:00', 'message_id': 'outbox_499019edc8bc8c0e5bbcb42ed1d93308', 'platform': 'telegram', ...}, ...])
+E    +    where [{'dispatch_id': 'dispatch_3ab2b3592491ea44bc83141995a3f46f', 'dispatched_at': '2026-11-10T02:32:55.534353+00:00', 'me...-10T02:32:56.803566+00:00', 'message_id': 'outbox_499019edc8bc8c0e5bbcb42ed1d93308', 'platform': 'telegram', ...}, ...] = list_platform_dispatches()
+E    +      where list_platform_dispatches = <live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000002437BF28650>.list_platform_dispatches
+_ test_explicit_member_transport_correction_needs_absence_and_is_one_shot[True] _
+tests\test_publication_coordinator_v1.py:2050: in test_explicit_member_transport_correction_needs_absence_and_is_one_shot
+    assert first["publish_called"] is absence_proved
+E   assert False is True
+______ test_durable_totals_survive_pending_callback_and_duplicate_resume ______
+tests\test_publication_coordinator_v1.py:2097: in test_durable_totals_survive_pending_callback_and_duplicate_resume
+    ???
+E   assert 0 == 1
+________ test_fresh_public_readback_survives_derived_receipt_hash_only ________
+tests\test_native_neo_executor_v1.py:136: in test_fresh_public_readback_survives_derived_receipt_hash_only
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+___ test_observed_missing_public_image_stays_failed_without_a_readback_loop ___
+tests\test_native_neo_executor_v1.py:158: in test_observed_missing_public_image_stays_failed_without_a_readback_loop
+    packet, object_id, url = pending_readback(adapter, "youtube", value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+______ test_only_proven_absence_retires_older_unclaimed_reads[1200-True] ______
+tests\test_native_neo_executor_v1.py:226: in test_only_proven_absence_retires_older_unclaimed_reads
+    older = adapter.request(destination="x", action="READBACK", intent=intent("x"))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\neo_destination_handoff_v1.py:271: in request
+    raise ValueError(barred_browser_destinations()[destination])
+E   ValueError: X_NON_API_AUTOMATION_PROHIBITED
+______ test_only_proven_absence_retires_older_unclaimed_reads[599-False] ______
+tests\test_native_neo_executor_v1.py:226: in test_only_proven_absence_retires_older_unclaimed_reads
+    older = adapter.request(destination="x", action="READBACK", intent=intent("x"))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\neo_destination_handoff_v1.py:271: in request
+    raise ValueError(barred_browser_destinations()[destination])
+E   ValueError: X_NON_API_AUTOMATION_PROHIBITED
+_ test_readback_action_uses_existing_window_and_task_group_without_changing_request[x] _
+tests\test_native_neo_executor_v1.py:250: in test_readback_action_uses_existing_window_and_task_group_without_changing_request
+    packet, _, _ = pending_readback(adapter, destination=destination)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_readback_action_uses_existing_window_and_task_group_without_changing_request[youtube] _
+tests\test_native_neo_executor_v1.py:250: in test_readback_action_uses_existing_window_and_task_group_without_changing_request
+    packet, _, _ = pending_readback(adapter, destination=destination)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[1200-@Capitalnicle-True-True] _
+tests\test_native_neo_executor_v1.py:271: in test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[599-@Capitalnicle-True-False] _
+tests\test_native_neo_executor_v1.py:271: in test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[1200-@OTHER_ACCOUNT-True-False] _
+tests\test_native_neo_executor_v1.py:271: in test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[1200-@Capitalnicle-False-False] _
+tests\test_native_neo_executor_v1.py:271: in test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_profile_absence_waits_ten_minutes_after_latest_api_attempt[120-False] __
+tests\test_native_neo_executor_v1.py:300: in test_profile_absence_waits_ten_minutes_after_latest_api_attempt
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+__ test_profile_absence_waits_ten_minutes_after_latest_api_attempt[700-True] __
+tests\test_native_neo_executor_v1.py:300: in test_profile_absence_waits_ten_minutes_after_latest_api_attempt
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_____ test_retry_invalidates_prior_absence_return_in_same_readback_epoch ______
+tests\test_native_neo_executor_v1.py:321: in test_retry_invalidates_prior_absence_return_in_same_readback_epoch
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+___ test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[None] ___
+tests\test_native_neo_executor_v1.py:349: in test_repaired_x_thread_uses_existing_posts_and_verified_shortlink
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[unverified_link] _
+tests\test_native_neo_executor_v1.py:349: in test_repaired_x_thread_uses_existing_posts_and_verified_shortlink
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[wrong_link] _
+tests\test_native_neo_executor_v1.py:349: in test_repaired_x_thread_uses_existing_posts_and_verified_shortlink
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[extra_claim] _
+tests\test_native_neo_executor_v1.py:349: in test_repaired_x_thread_uses_existing_posts_and_verified_shortlink
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[duplicate_root] _
+tests\test_native_neo_executor_v1.py:349: in test_repaired_x_thread_uses_existing_posts_and_verified_shortlink
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[missing_notice] _
+tests\test_native_neo_executor_v1.py:349: in test_repaired_x_thread_uses_existing_posts_and_verified_shortlink
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[wrong_order] _
+tests\test_native_neo_executor_v1.py:349: in test_repaired_x_thread_uses_existing_posts_and_verified_shortlink
+    packet, object_id, url = pending_readback(adapter, destination="x", value=value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_company_probe_names_required_id_and_accepts_corrected_observation[None] _
+tests\test_native_neo_executor_v1.py:379: in test_company_probe_names_required_id_and_accepts_corrected_observation
+    executor.readiness("LINKEDIN_COMPANY_POST")
+live_contentops\native_neo_executor_v1.py:711: in readiness
+    age = self.clock() - datetime.fromisoformat(observed["observed_at_utc"].replace("Z", "+00:00"))
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'observed_at_utc'
+_ test_company_probe_names_required_id_and_accepts_corrected_observation[wrong-company] _
+tests\test_native_neo_executor_v1.py:379: in test_company_probe_names_required_id_and_accepts_corrected_observation
+    executor.readiness("LINKEDIN_COMPANY_POST")
+live_contentops\native_neo_executor_v1.py:711: in readiness
+    age = self.clock() - datetime.fromisoformat(observed["observed_at_utc"].replace("Z", "+00:00"))
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'observed_at_utc'
+____ test_legacy_company_probe_without_numeric_id_does_not_hold_new_probe _____
+tests\test_native_neo_executor_v1.py:401: in test_legacy_company_probe_without_numeric_id_does_not_hold_new_probe
+    executor.readiness("LINKEDIN_COMPANY_POST")
+live_contentops\native_neo_executor_v1.py:711: in readiness
+    age = self.clock() - datetime.fromisoformat(observed["observed_at_utc"].replace("Z", "+00:00"))
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'observed_at_utc'
+_____ test_same_turn_gets_later_ten_minute_readback_without_another_send ______
+tests\test_native_neo_executor_v1.py:437: in test_same_turn_gets_later_ten_minute_readback_without_another_send
+    first, _, _ = pending_readback(NeoDestinationHandoff(native_executor=executor), "x")
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+___ test_later_native_turn_obtains_fresh_readback_without_repeating_a_write ___
+tests\test_native_neo_executor_v1.py:447: in test_later_native_turn_obtains_fresh_readback_without_repeating_a_write
+    first, object_id, url = pending_readback(NeoDestinationHandoff(native_executor=executor), "x")
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+________ test_exact_readback_restart_immutable_and_no_public_action[x] ________
+tests\test_native_neo_executor_v1.py:462: in test_exact_readback_restart_immutable_and_no_public_action
+    packet, object_id, url = pending_readback(adapter, destination)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_____ test_exact_readback_restart_immutable_and_no_public_action[youtube] _____
+tests\test_native_neo_executor_v1.py:462: in test_exact_readback_restart_immutable_and_no_public_action
+    packet, object_id, url = pending_readback(adapter, destination)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+___ test_readback_requires_exact_text_url_media_and_thread[observed_thread] ___
+tests\test_native_neo_executor_v1.py:484: in test_readback_requires_exact_text_url_media_and_thread
+    packet, object_id, url = pending_readback(adapter, "x", value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+____ test_readback_requires_exact_text_url_media_and_thread[thread_posts] _____
+tests\test_native_neo_executor_v1.py:484: in test_readback_requires_exact_text_url_media_and_thread
+    packet, object_id, url = pending_readback(adapter, "x", value)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_neo_executor_v1.py:49: in pending_readback
+    with pytest.raises(NativeNeoInputRequired) as pending:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'live_contentops.native_neo_executor_v1.NativeNeoInputRequired'>
+_ test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[False-changed0-True-x] _
+tests\test_native_neo_executor_v1.py:536: in test_transcoded_chart_needs_exact_public_object_and_pixel_inspection
+    assert result["verified"] is verified
+E   assert False is True
+_ test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[False-changed0-True-youtube] _
+tests\test_native_neo_executor_v1.py:536: in test_transcoded_chart_needs_exact_public_object_and_pixel_inspection
+    assert result["verified"] is verified
+E   assert False is True
+_ test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[True-changed0-True-x] _
+tests\test_native_neo_executor_v1.py:536: in test_transcoded_chart_needs_exact_public_object_and_pixel_inspection
+    assert result["verified"] is verified
+E   assert False is True
+_ test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[True-changed0-True-youtube] _
+tests\test_native_neo_executor_v1.py:536: in test_transcoded_chart_needs_exact_public_object_and_pixel_inspection
+    assert result["verified"] is verified
+E   assert False is True
+___ test_discovered_x_thread_recovers_exact_links_media_and_identity[None] ____
+tests\test_native_neo_executor_v1.py:570: in test_discovered_x_thread_recovers_exact_links_media_and_identity
+    assert result["verified"] is (fault is None)
+E   assert False is (None is None)
+=========================== short test summary info ===========================
+FAILED tests/test_publication_coordinator_v1.py::test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_member_transport_correction_needs_absence_and_is_one_shot[True]
+FAILED tests/test_publication_coordinator_v1.py::test_durable_totals_survive_pending_callback_and_duplicate_resume
+FAILED tests/test_native_neo_executor_v1.py::test_fresh_public_readback_survives_derived_receipt_hash_only
+FAILED tests/test_native_neo_executor_v1.py::test_observed_missing_public_image_stays_failed_without_a_readback_loop
+FAILED tests/test_native_neo_executor_v1.py::test_only_proven_absence_retires_older_unclaimed_reads[1200-True]
+FAILED tests/test_native_neo_executor_v1.py::test_only_proven_absence_retires_older_unclaimed_reads[599-False]
+FAILED tests/test_native_neo_executor_v1.py::test_readback_action_uses_existing_window_and_task_group_without_changing_request[x]
+FAILED tests/test_native_neo_executor_v1.py::test_readback_action_uses_existing_window_and_task_group_without_changing_request[youtube]
+FAILED tests/test_native_neo_executor_v1.py::test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[1200-@Capitalnicle-True-True]
+FAILED tests/test_native_neo_executor_v1.py::test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[599-@Capitalnicle-True-False]
+FAILED tests/test_native_neo_executor_v1.py::test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[1200-@OTHER_ACCOUNT-True-False]
+FAILED tests/test_native_neo_executor_v1.py::test_own_profile_absence_reaches_reconciliation_only_after_ten_minutes[1200-@Capitalnicle-False-False]
+FAILED tests/test_native_neo_executor_v1.py::test_profile_absence_waits_ten_minutes_after_latest_api_attempt[120-False]
+FAILED tests/test_native_neo_executor_v1.py::test_profile_absence_waits_ten_minutes_after_latest_api_attempt[700-True]
+FAILED tests/test_native_neo_executor_v1.py::test_retry_invalidates_prior_absence_return_in_same_readback_epoch
+FAILED tests/test_native_neo_executor_v1.py::test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[None]
+FAILED tests/test_native_neo_executor_v1.py::test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[unverified_link]
+FAILED tests/test_native_neo_executor_v1.py::test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[wrong_link]
+FAILED tests/test_native_neo_executor_v1.py::test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[extra_claim]
+FAILED tests/test_native_neo_executor_v1.py::test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[duplicate_root]
+FAILED tests/test_native_neo_executor_v1.py::test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[missing_notice]
+FAILED tests/test_native_neo_executor_v1.py::test_repaired_x_thread_uses_existing_posts_and_verified_shortlink[wrong_order]
+FAILED tests/test_native_neo_executor_v1.py::test_company_probe_names_required_id_and_accepts_corrected_observation[None]
+FAILED tests/test_native_neo_executor_v1.py::test_company_probe_names_required_id_and_accepts_corrected_observation[wrong-company]
+FAILED tests/test_native_neo_executor_v1.py::test_legacy_company_probe_without_numeric_id_does_not_hold_new_probe
+FAILED tests/test_native_neo_executor_v1.py::test_same_turn_gets_later_ten_minute_readback_without_another_send
+FAILED tests/test_native_neo_executor_v1.py::test_later_native_turn_obtains_fresh_readback_without_repeating_a_write
+FAILED tests/test_native_neo_executor_v1.py::test_exact_readback_restart_immutable_and_no_public_action[x]
+FAILED tests/test_native_neo_executor_v1.py::test_exact_readback_restart_immutable_and_no_public_action[youtube]
+FAILED tests/test_native_neo_executor_v1.py::test_readback_requires_exact_text_url_media_and_thread[observed_thread]
+FAILED tests/test_native_neo_executor_v1.py::test_readback_requires_exact_text_url_media_and_thread[thread_posts]
+FAILED tests/test_native_neo_executor_v1.py::test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[False-changed0-True-x]
+FAILED tests/test_native_neo_executor_v1.py::test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[False-changed0-True-youtube]
+FAILED tests/test_native_neo_executor_v1.py::test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[True-changed0-True-x]
+FAILED tests/test_native_neo_executor_v1.py::test_transcoded_chart_needs_exact_public_object_and_pixel_inspection[True-changed0-True-youtube]
+FAILED tests/test_native_neo_executor_v1.py::test_discovered_x_thread_recovers_exact_links_media_and_identity[None]
+37 failed, 213 passed in 411.68s (0:06:51)

@@ -2443,6 +2443,80 @@ class DurablePublicationCoordinator:
                                              "cause": type(image_error).__name__}))
         return status
 
+    def cancel_unclaimed_note(self, message_id, *, reason):
+        """End an exact queued Note with zero write, preserving all request bytes."""
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+        conn = self.store.get_connection()
+        try:
+            conn.execute("BEGIN IMMEDIATE")
+            row = conn.execute("SELECT * FROM outbox_messages WHERE message_id=?", (message_id,)).fetchone()
+            if not row or row["destination"] != "substack_notes":
+                raise ValueError("EXACT_SUBSTACK_NOTE_REQUIRED")
+            intent = json.loads(row["payload"])
+            ids = self._ids(row["work_item_id"], intent["plan_hash"], "substack_notes")
+            if ids["message_id"] != message_id or not intent.get("plan_status_post"):
+                raise ValueError("EXACT_STATUS_NOTE_REQUIRED")
+            dispatch = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (ids["dispatch_id"],)).fetchone()
+            if (not dispatch or dispatch["status"] != NATIVE_NEO_PENDING
+                    or dispatch["public_object_id"] or dispatch["public_object_url"]):
+                raise ValueError("UNCLAIMED_PENDING_NOTE_REQUIRED")
+            requests = []
+            for native in conn.execute("SELECT * FROM outbox_messages WHERE destination='internal:native-neo-tool' AND work_item_id=?", (row["work_item_id"],)):
+                packet = json.loads(native["payload"])
+                request = packet.get("request") or {}
+                if request.get("destination") != "substack_notes" or request.get("action") != "PUBLISH":
+                    continue
+                if request.get("intent_sha256") != sha256_of(intent):
+                    raise ValueError("EXACT_NOTE_INTENT_REQUIRED")
+                for kind in ("started", "response"):
+                    key = "native-neo-" + sha256_of([row["work_item_id"], request["request_sha256"], kind])
+                    if conn.execute("SELECT 1 FROM outbox_messages WHERE message_id=?", (key,)).fetchone():
+                        raise ValueError("NOTE_ALREADY_CLAIMED_READBACK_REQUIRED")
+                requests.append(native["message_id"])
+            if not requests:
+                raise ValueError("PENDING_NOTE_REQUEST_REQUIRED")
+            for key in requests:
+                conn.execute("UPDATE outbox_messages SET status='NATIVE_NEO_SUPERSEDED' WHERE message_id=?", (key,))
+            conn.execute("UPDATE outbox_messages SET status=? WHERE message_id=?", (DEFINITE_NO_WRITE, message_id))
+            conn.execute("UPDATE platform_dispatches SET status=? WHERE dispatch_id=?", (DEFINITE_NO_WRITE, ids["dispatch_id"]))
+            conn.execute("INSERT INTO reconciliations (reconciliation_id,work_item_id,status,reconciled_at) VALUES (?,?,?,?) "
+                "ON CONFLICT(reconciliation_id) DO UPDATE SET status=excluded.status,reconciled_at=excluded.reconciled_at",
+                (ids["reconciliation_id"], row["work_item_id"], "RECONCILED_CANCELLED_NO_WRITE", datetime.now(timezone.utc).isoformat()))
+            result = {"message_id": message_id, "dispatch_id": ids["dispatch_id"], "destination": "substack_notes",
+                      "status": DEFINITE_NO_WRITE, "reason_code": reason, "public_write_performed": False}
+            conn.execute("INSERT OR IGNORE INTO readbacks (readback_id,dispatch_id,readback_data,read_at) VALUES (?,?,?,?)",
+                ("cancel_unclaimed_" + ids["dispatch_id"], ids["dispatch_id"], _canonical_json(result), datetime.now(timezone.utc).isoformat()))
+            conn.execute("COMMIT")
+            return result
+        except Exception:
+            conn.rollback()
+            raise
+        finally:
+            conn.close()
+
+    @staticmethod
+    def _destination_failure_key(destination, instant=None):
+        from zoneinfo import ZoneInfo
+        day = (instant or datetime.now(timezone.utc)).astimezone(ZoneInfo("America/New_York")).date().isoformat()
+        return "incident_destination_day_" + _hash(destination + ":" + day)[:32], day
+
+    def _destination_day_failure(self, destination):
+        incident_id, _ = self._destination_failure_key(destination)
+        conn = self.store.get_connection()
+        try:
+            row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
+            return json.loads(row["description"]) if row else None
+        finally:
+            conn.close()
+
+    def _record_destination_day_failure(self, intent, destination, detail, instant=None):
+        # CC-401: reuse the incident table as the daily circuit, with first cause
+        # retained by its idempotent insert. No new queue, ledger or scheduler.
+        incident_id, day = self._destination_failure_key(destination, instant)
+        self.store.register_incident(incident_id=incident_id,
+            work_item_id=intent["work_item_id"], severity="DISPATCH_FAILURE",
+            description=_canonical_json({**detail, "destination": destination, "et_day": day}))
+
     def _dispatch_message(
         self,
         message: Mapping[str, Any],
@@ -2579,6 +2653,14 @@ class DurablePublicationCoordinator:
                         or ""
                     ),
                 }
+        # Existing ambiguous writes and native claims are consumed/read back by
+        # their original recovery path. Only fresh/definitely absent writes skip.
+        if not native_pending_resume:
+            failure = self._destination_day_failure(destination)
+            if failure:
+                return {"destination": destination, "status": "DESTINATION_FAILED_ET_DAY_SKIP",
+                        "publish_called": False, "reason_code": "DESTINATION_FAILED_ET_DAY_SKIP",
+                        "first_failure": failure}
         dependency = item.get("canonical_url_dependency")
         if dependency and not (canonical_url or intent.get("canonical_url")):
             return {"destination": destination, "status": "WAITING_CANONICAL_URL", "publish_called": False}
@@ -2674,6 +2756,8 @@ class DurablePublicationCoordinator:
         else:
             readiness = self._readiness(destination, item)
         if readiness not in READY_STATES:
+            self._record_destination_day_failure(intent, destination,
+                {"status": readiness or "READINESS_UNKNOWN", "stage": "READINESS"})
             return {"destination": destination, "status": readiness or "READINESS_UNKNOWN", "publish_called": False}
         from live_contentops.article_publication_quality_v1 import before_article_write
         try:
@@ -2770,16 +2854,6 @@ class DurablePublicationCoordinator:
             from live_contentops.native_publication_latency_v1 import record_api_dispatch
             record_api_dispatch(self.store, intent=intent, destination=destination, dispatch_id=ids["dispatch_id"],
                 started_at=dispatch_call_started_at, status=result["status"])
-        if result["status"] in {DEFINITE_NO_WRITE, UNKNOWN_WRITE}:
-            detail = {"dispatch_id": ids["dispatch_id"], "destination": destination,
-                      "status": result["status"], "attempt_started_at_utc": dispatch_call_started_at,
-                      "safe_error_classification": result.get("safe_error_classification"),
-                      "write_outcome_certainty": result.get("write_outcome_certainty")}
-            self.store.register_incident(
-                incident_id="incident_dispatch_outcome_" + _hash(ids["dispatch_id"])[:24]
-                + "_" + _hash(_canonical_json(detail))[:24],
-                work_item_id=intent["work_item_id"], severity="DISPATCH_FAILURE",
-                description=_canonical_json(detail))
         self.store.register_platform_dispatch(
             dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
             platform=destination, status=ATTEMPT_STARTED,
@@ -2823,6 +2897,12 @@ class DurablePublicationCoordinator:
         else:
             reconciliation = RECONCILED_ABSENT_SAFE_TO_RETRY
         persisted = self.store.get_platform_dispatch(ids["dispatch_id"]) or dispatch
+        if result["status"] in {DEFINITE_NO_WRITE, UNKNOWN_WRITE} and persisted.get("status") != DISPATCH_CONFIRMED:
+            detail = {"dispatch_id": ids["dispatch_id"], "destination": destination,
+                      "status": result["status"], "attempt_started_at_utc": dispatch_call_started_at,
+                      "safe_error_classification": result.get("safe_error_classification"),
+                      "write_outcome_certainty": result.get("write_outcome_certainty")}
+            self._record_destination_day_failure(intent, destination, detail)
         return {
             "destination": destination, "status": str(persisted.get("status") or result["status"]),
             "publish_called": True,

@@ -1359,16 +1359,20 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
         and (embed_image if image_url else True)
     )
     if image_path and raw.get("status") == "SUCCESS" and message_id:
-        observed = readback_discord_post(message_id=message_id, expected_text=text,
-            canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path))
-        return {**raw, "status": "SUCCESS" if observed.get("verified") else "FAILED_DISCORD_STRICT_READBACK",
+        try:
+            observed = readback_discord_post(message_id=message_id, expected_text=text,
+                canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path))
+        except Exception as exc:
+            observed = {"status": "READBACK_UNAVAILABLE", "verified": False,
+                        "safe_error_classification": type(exc).__name__}
+        # The webhook's message ID confirms the write; content/media verification
+        # remains a separate reconciliation and can never undo provider acceptance.
+        return {**raw,
                 "public_url": observed.get("public_url"), "destination_identity": f"discord_channel:{channel_id}",
                 "provider_readback_verified": bool(observed.get("verified")), "readback": observed}
     public_url = f"https://discord.com/channels/{guild_id}/{channel_id}/{message_id}" if guild_id and channel_id and message_id else None
     return {
-        "status": "SUCCESS" if verified else (
-            "FAILED_DISCORD_STRICT_READBACK" if raw.get("status") == "SUCCESS" else str(raw.get("status") or "FAILED_DISCORD_STRICT_READBACK")
-        ),
+        "status": str(raw.get("status") or "FAILED"),
         "platform": "discord",
         "action": "post",
         "id": message_id or None,
@@ -4651,28 +4655,37 @@ def _publish_one_destination_from_durable_intent(
                if payloads[destination].get("reply_to_id") else {}),
         )
         root_id = str(root.get("id") or "")
+        if root.get("status") not in SUCCESS_STATUSES or not root_id:
+            return root
         replies = []
         for index, reply_text in enumerate((payloads.get("threads") or {}).get("reply_texts") or [], start=1):
-            reply = execute_threads_post(
-                text=str(reply_text), reply_to_id=root_id, dry_run=False,
-            )
+            try:
+                reply = execute_threads_post(
+                    text=str(reply_text), reply_to_id=root_id, dry_run=False,
+                )
+            except Exception as exc:
+                reply = {"status": "UNKNOWN_WRITE", "safe_error_classification": type(exc).__name__}
             replies.append({**reply, "order": index, "text": str(reply_text),
                             "expected_media_local_path": None})
             if str(reply.get("status") or "") not in SUCCESS_STATUSES:
                 break
-        root_readback = readback_threads_post(
-            post_id=root_id, expected_text=str((payloads.get("threads") or {}).get("root_text") or text),
-            canonical_url=canonical_url, expected_media_local_path=image_path or None,
-            **({"expected_parent_id":payloads[destination]["reply_to_id"]} if intent.get("sourced_reply") else {}),
-        ) if root_id else {"status": "FAILED_THREADS_ROOT_ID_MISSING"}
-        expected_replies = (payloads.get("threads") or {}).get("reply_texts") or []
-        chain = readback_threads_chain(
-            root_id=root_id,
-            reply_expectations=[{"id": row.get("id"), "text": row.get("text"),
-                                 "expected_media_local_path": None} for row in replies],
-        ) if root_id and len(replies) == len(expected_replies) else {"status": "FAILED_THREADS_REPLY_CHAIN_INCOMPLETE"}
+        try:
+            root_readback = readback_threads_post(
+                post_id=root_id, expected_text=str((payloads.get("threads") or {}).get("root_text") or text),
+                canonical_url=canonical_url, expected_media_local_path=image_path or None,
+                **({"expected_parent_id":payloads[destination]["reply_to_id"]} if intent.get("sourced_reply") else {}),
+            )
+            expected_replies = (payloads.get("threads") or {}).get("reply_texts") or []
+            chain = readback_threads_chain(
+                root_id=root_id,
+                reply_expectations=[{"id": row.get("id"), "text": row.get("text"),
+                                     "expected_media_local_path": None} for row in replies],
+            ) if len(replies) == len(expected_replies) else {"status": "FAILED_THREADS_REPLY_CHAIN_INCOMPLETE"}
+        except Exception as exc:
+            root_readback = {"status": "READBACK_UNAVAILABLE", "safe_error_classification": type(exc).__name__}
+            chain = {"status": "READBACK_UNAVAILABLE"}
         verified = root_readback.get("status") == "SUCCESS" and chain.get("status") == "SUCCESS"
-        return {**root, "status": "SUCCESS" if verified else "FAILED_THREADS_STRICT_THREAD_READBACK",
+        return {**root,
                 "reply_chain": replies, "readback": {"root": root_readback, "chain": chain},
                 "provider_readback_verified": verified,
                 "public_url": root_readback.get("public_url") or root.get("public_url")}

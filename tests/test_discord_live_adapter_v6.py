@@ -13,6 +13,27 @@ from live_contentops.discord_live_adapter_v6 import (
 )
 
 
+@pytest.mark.parametrize("provider_id", ["123456789", None])
+def test_cc401_wait_true_uses_only_the_provider_message_id(monkeypatch, provider_id):
+    from urllib.parse import urlsplit, parse_qs
+    from live_contentops import discord_live_adapter_v6 as adapter, live_telemetry_v6
+    import json
+    from unittest.mock import MagicMock
+    response = MagicMock()
+    response.__enter__.return_value = response
+    response.read.return_value = json.dumps({"id": provider_id}).encode()
+    def send(request, **kwargs):
+        assert parse_qs(urlsplit(request.full_url).query)["wait"] == ["true"]
+        return response
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", send)
+    monkeypatch.setattr(live_telemetry_v6, "classify_and_record_dispatch", lambda *a, **kw: None)
+    result = adapter.execute_discord_post("fixture", webhook_url="https://discord.test/webhook?wait=false")
+    assert result["id"] == provider_id
+    from live_contentops.publication_coordinator_v1 import normalize_dispatch_result
+    normalized = normalize_dispatch_result(result, destination="discord", surface="DISCORD_ANNOUNCEMENT", transport_type="WEBHOOK_API")
+    assert normalized["status"] == ("DISPATCH_CONFIRMED" if provider_id else "UNKNOWN_WRITE")
+
+
 def test_execute_discord_post_dry_run():
     res = execute_discord_post(
         message="Test announcement message",

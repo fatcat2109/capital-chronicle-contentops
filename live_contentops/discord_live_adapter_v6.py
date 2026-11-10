@@ -68,11 +68,10 @@ def execute_discord_post(
     from .live_telemetry_v6 import classify_and_record_dispatch
 
     t0 = time.perf_counter()
-    post_url = target_webhook
-    if "?" in post_url:
-        post_url += "&wait=true"
-    else:
-        post_url += "?wait=true"
+    parts = urllib.parse.urlsplit(target_webhook)
+    query = dict(urllib.parse.parse_qsl(parts.query))
+    query["wait"] = "true"
+    post_url = urllib.parse.urlunsplit(parts._replace(query=urllib.parse.urlencode(query)))
 
     payload: dict[str, Any] = {"content": message}
     if embeds:
@@ -119,7 +118,7 @@ def execute_discord_post(
                 "status": "SUCCESS",
                 "platform": "discord",
                 "action": "post",
-                "id": res_json.get("id", f"msg_{payload_hash}"),
+                "id": res_json.get("id"),
                 "response": res_json,
             }
     except urllib.error.HTTPError as e:

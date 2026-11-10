@@ -1,0 +1,48 @@
+{
+  "item": "CC-401",
+  "observed_at_utc": "2026-11-10T02:37:12.125107+00:00",
+  "base_commit": "ab4790e8a8bb64bdc995e34e6a65df2ccb4be1d1",
+  "base_reason": "Operating root contains 737 integrated commits beyond remote master; extend current live consumers without reverting them.",
+  "launch": {
+    "pid": 2776,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "high",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch arguments read back; native model/effort telemetry unavailable."
+  },
+  "baseline_incidents_by_utc_date": {
+    "2026-11-09|discord|UNKNOWN_WRITE": 15,
+    "2026-11-09|threads|UNKNOWN_WRITE": 13,
+    "2026-11-10|discord|UNKNOWN_WRITE": 4,
+    "2026-11-10|threads|UNKNOWN_WRITE": 3
+  },
+  "pending_notes_before": [
+    {
+      "message_id": "outbox_2e5a55e29f03ca70094eb5f39ea4496a",
+      "work_item_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+      "status": "NATIVE_NEO_TOOL_PENDING"
+    },
+    {
+      "message_id": "outbox_1e8b666c608b9df5feaf073366aaf47d",
+      "work_item_id": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+      "status": "NATIVE_NEO_TOOL_PENDING"
+    },
+    {
+      "message_id": "outbox_76be49b9c3b261491b10d1b849a2cbe0",
+      "work_item_id": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+      "status": "NATIVE_NEO_TOOL_PENDING"
+    }
+  ],
+  "next_full_et_day": "2026-11-10",
+  "day_end_gmt7": "11 Nov 2026 12:00 GMT+7",
+  "daily_observation_status": "PENDING",
+  "root_cause": "Discord and Threads wrappers changed successful provider responses with IDs into FAILED_*_STRICT_READBACK, which the coordinator normalized to UNKNOWN_WRITE.",
+  "notes_choice": "Close the three stale, unclaimed status Notes as definitely not posted; publishing old status text after the 15-minute dispatch window is less useful than preserving truthful no-write endings.",
+  "preservation": "No historical incidents, frozen payloads, issued requests or public objects are rewritten; only lifecycle statuses and an exact cancellation readback are recorded.",
+  "validation": {
+    "focused_initial": "213 passed, 37 failed; original failures retained in targeted-tests.txt",
+    "focused_after_fixture_repairs": "278 passed, 2 failed; final-targeted-tests.txt",
+    "affected_final": "14 passed, 227 deselected; verified-targeted-tests.txt",
+    "limits": "The two remaining broad-run fixture failures were repaired and both pass in the affected final selection; no whole-suite claim."
+  }
+}

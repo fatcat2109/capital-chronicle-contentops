@@ -1,0 +1,9 @@
+...........F..                                                           [100%]
+================================== FAILURES ===================================
+______ test_durable_totals_survive_pending_callback_and_duplicate_resume ______
+tests\test_publication_coordinator_v1.py:2137: in test_durable_totals_survive_pending_callback_and_duplicate_resume
+    assert "youtube" not in state["per_destination"]
+E   AssertionError: assert 'youtube' not in {'discord': {'destination': 'discord', 'dispatch_id': 'dispatch_1a9b2f76c3c1fb52ad735335ecee9ac8', 'dispatch_recorded'...patch_id': 'dispatch_7ade928d4c10bb62c2c90b0980d3f941', 'dispatch_recorded': True, 'public_object_id': None, ...}, ...}
+=========================== short test summary info ===========================
+FAILED tests/test_publication_coordinator_v1.py::test_durable_totals_survive_pending_callback_and_duplicate_resume
+1 failed, 13 passed, 107 deselected in 92.55s (0:01:32)

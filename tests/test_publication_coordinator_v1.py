@@ -8,6 +8,181 @@ from pathlib import Path
 import pytest
 
 
+@pytest.fixture
+def cc401_copied_store(tmp_path):
+    import sqlite3
+    source, _, _ = _coordinator(tmp_path / "seed")
+    copied = tmp_path / "copied.sqlite3"
+    with sqlite3.connect(source.db_path) as src, sqlite3.connect(copied) as dst:
+        src.backup(dst)
+    return ContentOpsDurableStore(copied)
+
+
+@pytest.mark.parametrize("destination", ["discord", "threads"])
+@pytest.mark.parametrize("readback_raises", [False, True])
+def test_cc401_provider_acceptance_does_not_file_incident(cc401_copied_store, tmp_path, monkeypatch,
+                                                        destination, readback_raises):
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    from live_contentops import discord_live_adapter_v6 as discord, threads_adapter_v6 as threads
+    from live_contentops import post_visuals_v1
+    store = cc401_copied_store
+    monkeypatch.setattr(post_visuals_v1, "require_publication_image", lambda *a: None)
+    monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda intent: {
+        "output_dir": tmp_path, "article": {}, "payloads": {destination: {"text": "exact text"}},
+        "canonical_url": "https://capitalchronicle.substack.com/p/test", "local_media": "", "public_image_url": "", "media_assets": []})
+    monkeypatch.setattr(discord, "execute_discord_post", lambda **kw: {
+        "status": "SUCCESS", "id": "provider-123", "response": {"id": "provider-123", "content": ""}})
+    monkeypatch.setattr(threads, "execute_threads_post", lambda **kw: {"status": "SUCCESS", "id": "provider-123"})
+    def unavailable(**kw):
+        if readback_raises:
+            raise TimeoutError("eventual consistency")
+        return {"status": "READBACK_UNAVAILABLE", "verified": False}
+    monkeypatch.setattr(threads, "readback_threads_post", unavailable)
+    monkeypatch.setattr(threads, "readback_threads_chain", unavailable)
+    # Discord's attachment branch must also preserve acceptance if its GET fails.
+    if destination == "discord" and readback_raises:
+        monkeypatch.setattr(discord, "readback_discord_post", unavailable)
+        monkeypatch.setattr(pipeline, "_sha256_file", lambda path: "fixture-hash")
+        original = pipeline._durable_intent_inputs
+        monkeypatch.setattr(pipeline, "_durable_intent_inputs", lambda intent: {**original(intent), "local_media": "fixture.png"})
+    class Runtime(FixtureTransport):
+        def publish(self, **kwargs):
+            self.publish_calls.append(kwargs["destination"])
+            return pipeline._publish_one_destination_from_durable_intent(**kwargs)
+    transport = Runtime(ambiguous=True)
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"})
+    plan = _plan(destination)
+    registered = coordinator.register_plan("work-1", plan)["registered"][0]
+    message = store.get_outbox_message(registered["message_id"])
+    result = coordinator._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert result["status"] == DISPATCH_CONFIRMED
+    assert result["public_object_id"] == "provider-123"
+    assert result["reconciliation_status"] != RECONCILED_CONFIRMED
+    conn = store.get_connection()
+    try:
+        assert conn.execute("SELECT count(*) FROM incidents").fetchone()[0] == 0
+    finally:
+        conn.close()
+    coordinator._dispatch_message(message, canonical_url=None)
+    assert transport.publish_calls == [destination]
+
+
+def test_cc401_failure_skips_destination_until_next_et_day(cc401_copied_store, monkeypatch):
+    from datetime import timedelta
+    import live_contentops.publication_coordinator_v1 as module
+    store = cc401_copied_store
+    class Clock(datetime):
+        current = datetime(2026, 11, 10, 4, 59, tzinfo=timezone.utc)
+        @classmethod
+        def now(cls, tz=None):
+            return cls.current
+    monkeypatch.setattr(module, "datetime", Clock)
+    class Failed(FixtureTransport):
+        def publish(self, **kwargs):
+            self.publish_calls.append(kwargs["destination"])
+            raise TimeoutError("response lost")
+    runtime = Failed(ambiguous=True)
+    c = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"})
+    def message(work, dest):
+        if work != "work-1":
+            store.create_work_item(story_id=work, title=work, target_surface="MULTI_PLATFORM", work_item_id=work,
+                actor_ref="controlled_test", correlation_id=work)
+        row = c.register_plan(work, _plan(dest))["registered"][0]
+        return store.get_outbox_message(row["message_id"])
+    first = message("work-1", "discord")
+    assert c._dispatch_message(first, canonical_url=None)["status"] == UNKNOWN_WRITE
+    second = message("second", "discord")
+    skipped = c._dispatch_message(second, canonical_url=None)
+    assert skipped["status"] == "DESTINATION_FAILED_ET_DAY_SKIP"
+    assert skipped["first_failure"]["et_day"] == "2026-11-09"
+    assert runtime.publish_calls == ["discord"]
+    # Another destination continues, and the old ambiguous write is never retried.
+    c._dispatch_message(message("other", "threads"), canonical_url=None)
+    assert runtime.publish_calls == ["discord", "threads"]
+    c._dispatch_message(first, canonical_url=None)
+    assert runtime.publish_calls == ["discord", "threads"]
+    Clock.current += timedelta(minutes=2)
+    assert c._dispatch_message(second, canonical_url=None)["status"] == UNKNOWN_WRITE
+    conn = store.get_connection()
+    try:
+        rows = [json.loads(r[0]) for r in conn.execute("SELECT description FROM incidents")]
+    finally:
+        conn.close()
+    assert [(r["destination"], r["et_day"]) for r in rows] == [
+        ("discord", "2026-11-09"), ("threads", "2026-11-09"), ("discord", "2026-11-10")]
+
+
+@pytest.mark.parametrize("claimed", [False, True])
+def test_cc401_cancel_note_only_before_native_claim(cc401_copied_store, tmp_path, claimed):
+    from live_contentops.native_neo_executor_v1 import NativeNeoExecutor
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store = cc401_copied_store
+    c = DurablePublicationCoordinator(store=store, transport_runtime=FixtureTransport())
+    row = c.register_plan("work-1", _plan("substack_notes"))["registered"][0]
+    message = store.get_outbox_message(row["message_id"])
+    intent = json.loads(message["payload"])
+    intent["plan_status_post"] = True
+    # Synthetic pending fixture; production payloads are never changed by cancellation.
+    conn = store.get_connection()
+    try:
+        conn.execute("UPDATE outbox_messages SET payload=?,status=? WHERE message_id=?",
+            (json.dumps(intent), "NATIVE_NEO_TOOL_PENDING", row["message_id"]))
+        conn.commit()
+    finally:
+        conn.close()
+    store.register_platform_dispatch(dispatch_id=row["dispatch_id"], message_id=row["message_id"],
+        platform="substack_notes", status="NATIVE_NEO_TOOL_PENDING")
+    e = NativeNeoExecutor(store, operation_id="work-1", output_dir=tmp_path,
+        native_invocation_id="fixture", allow_publish=True)
+    request = {"action": "PUBLISH", "destination": "substack_notes", "request_sha256": "fixture-hash",
+               "intent_sha256": sha256_of(intent)}
+    e._put("fixture-hash", "request", {"request": request}, "work-1")
+    if claimed:
+        e._put("fixture-hash", "started", {"native_invocation_id": "fixture"}, "work-1")
+        with pytest.raises(ValueError, match="NOTE_ALREADY_CLAIMED"):
+            c.cancel_unclaimed_note(row["message_id"], reason="CC401_STALE_STATUS_NOTE_UNCLAIMED")
+        assert store.get_platform_dispatch(row["dispatch_id"])["status"] == "NATIVE_NEO_TOOL_PENDING"
+    else:
+        result = c.cancel_unclaimed_note(row["message_id"], reason="CC401_STALE_STATUS_NOTE_UNCLAIMED")
+        assert result["status"] == DEFINITE_NO_WRITE
+        assert store.get_outbox_message(row["message_id"])["payload"] == json.dumps(intent)
+        with pytest.raises(ValueError, match="SUPERSEDED"):
+            e.begin("fixture-hash")
+
+
+def test_cc401_day_audit_waits_for_whole_day_and_detects_false_alarms(cc401_copied_store):
+    import runpy
+    audit = runpy.run_path(str(Path(__file__).parents[1] / "scripts/audit_publication_day_cc401.py"))["audit"]
+    store = cc401_copied_store
+    c = DurablePublicationCoordinator(store=store, transport_runtime=FixtureTransport())
+    rows = c.register_plan("work-1", _plan("discord", "threads"))["registered"]
+    for row, destination in zip(rows, ["discord", "threads"]):
+        store.register_platform_dispatch(dispatch_id=row["dispatch_id"], message_id=row["message_id"],
+            platform=destination, status=DISPATCH_CONFIRMED, public_object_id=destination + "-123")
+    conn = store.get_connection()
+    try:
+        conn.execute("UPDATE platform_dispatches SET dispatched_at='2026-11-10T06:00:00+00:00'")
+        conn.commit()
+    finally:
+        conn.close()
+    assert audit(store.db_path, "2026-11-10", now=datetime(2026, 11, 10, 8, tzinfo=timezone.utc))["status"] == "OBSERVATION_PENDING"
+    later = datetime(2026, 11, 11, 5, tzinfo=timezone.utc)
+    result = audit(store.db_path, "2026-11-10", now=later)
+    assert result["status"] == "PASS"
+    assert result["confirmed_posts"] == {"discord": 1, "threads": 1}
+    store.register_incident(incident_id="false-alarm", work_item_id="work-1", severity="DISPATCH_FAILURE",
+        description=json.dumps({"dispatch_id": rows[0]["dispatch_id"], "destination": "discord", "status": UNKNOWN_WRITE}))
+    conn = store.get_connection()
+    try:
+        conn.execute("UPDATE incidents SET created_at='2026-11-10T06:01:00+00:00'")
+        conn.commit()
+    finally:
+        conn.close()
+    assert audit(store.db_path, "2026-11-10", now=later)["status"] == "FAIL"
+
+
 @pytest.fixture(autouse=True)
 def fixture_platform_permissions(monkeypatch):
     """These state-machine replays use fake transports with simulated permission.
@@ -786,7 +961,7 @@ def test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once(tmp_p
     assert result["derivative_confirmed_count"] == 6
     assert transport.publish_calls.count("substack") == 1
     assert all(transport.publish_calls.count(destination) == 1 for destination in destinations)
-    assert len(store.list_platform_dispatches()) == 8
+    assert len(store.list_platform_dispatches()) == len(destinations)
 
 
 def test_one_derivative_failure_does_not_block_remaining_ready_derivatives(tmp_path):
@@ -1870,23 +2045,28 @@ def test_explicit_transport_correction_is_exact_and_one_shot(
     assert transport.publish_calls.count(destination) == before + 1
 
 
-def test_linkedin_ambiguous_provider_cause_reaches_durable_incident(tmp_path):
+@pytest.mark.parametrize("recovered", [False, True])
+def test_linkedin_ambiguous_provider_cause_reaches_durable_incident(tmp_path, recovered):
     from live_contentops.linkedin_official_member_api_v1 import LinkedInAmbiguousWriteError
     class FailedMemberTransport(FixtureTransport):
         def publish(self, *, destination, intent, authorization_context):
             if destination == "linkedin":
                 raise LinkedInAmbiguousWriteError("UNKNOWN_WRITE_PROVIDER_REQUEST_REJECTED", http_status=503)
             return super().publish(destination=destination, intent=intent, authorization_context=authorization_context)
+        def readback(self, **kwargs):
+            if kwargs["destination"] == "linkedin" and not recovered:
+                return {"status": "AMBIGUOUS", "verified": False}
+            return super().readback(**kwargs)
     store, _, coordinator = _coordinator(tmp_path, runtime=FailedMemberTransport())
     coordinator.execute_plan("work-1", _quality_plan())
     with store.get_read_only_connection() as conn:
         rows = conn.execute("SELECT description FROM incidents WHERE severity='DISPATCH_FAILURE'").fetchall()
     assert any(json.loads(row[0]).get("safe_error_classification") ==
-        "UNKNOWN_WRITE_PROVIDER_REQUEST_REJECTED;http_status:503" for row in rows)
+        "UNKNOWN_WRITE_PROVIDER_REQUEST_REJECTED;http_status:503" for row in rows) is (not recovered)
 
 
 @pytest.mark.parametrize("absence_proved", [True, False])
-def test_explicit_member_transport_correction_needs_absence_and_is_one_shot(tmp_path, absence_proved):
+def test_explicit_member_transport_correction_needs_absence_and_is_one_shot(tmp_path, absence_proved, monkeypatch):
     class InitiallyUnavailable(FixtureTransport):
         unavailable = True
         def publish(self, *, destination, intent, authorization_context):
@@ -1902,6 +2082,14 @@ def test_explicit_member_transport_correction_needs_absence_and_is_one_shot(tmp_
     status = RECONCILED_ABSENT_SAFE_TO_RETRY if absence_proved else UNKNOWN_WRITE
     store.set_dispatch_status(ids["dispatch_id"], status)
     store.set_reconciliation_status(ids["reconciliation_id"], status)
+    held = coordinator.complete_derivative_after_transport_correction(ids["dispatch_id"], correction_id="cc296-controlled-tls-fix")
+    assert held["publish_called"] is False
+    assert held["status"] == ("DESTINATION_FAILED_ET_DAY_SKIP" if absence_proved else "CORRECTION_BLOCKED_UNKNOWN_WRITE_PRESENT")
+    # The same correction budget is still available on the following ET day.
+    from datetime import timedelta
+    failure_key = coordinator._destination_failure_key
+    tomorrow = datetime.now(timezone.utc) + timedelta(days=1)
+    monkeypatch.setattr(coordinator, "_destination_failure_key", lambda destination, instant=None: failure_key(destination, tomorrow))
     first = coordinator.complete_derivative_after_transport_correction(ids["dispatch_id"], correction_id="cc296-controlled-tls-fix")
     assert first["publish_called"] is absence_proved
     second = coordinator.complete_derivative_after_transport_correction(ids["dispatch_id"], correction_id="cc296-controlled-tls-fix")
@@ -1950,8 +2138,9 @@ def test_durable_totals_survive_pending_callback_and_duplicate_resume(tmp_path):
     assert state["derivative_unknown_count"] == 1
     assert state["derivative_failed_count"] == 1
     assert state["derivative_absent_safe_to_retry_count"] == 2
-    assert state["derivative_never_attempted_count"] == 1
-    assert state["per_destination"]["youtube"]["status"] == "NOT_DISPATCHED"
+    assert state["derivative_never_attempted_count"] == 0
+    assert state["per_destination"]["youtube"]["status"] == DEFINITE_NO_WRITE
+    assert state["per_destination"]["youtube"]["reason_code"] == "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"
     assert coordinator.publication_state("other-operation", plan)["derivative_confirmed_count"] == 0
     coordinator.recover_pending = lambda: {"backlog_remaining": 1, "publish_calls": 0}
     for _ in range(2):

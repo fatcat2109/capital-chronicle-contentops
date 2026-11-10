@@ -306,6 +306,11 @@ class NativeNeoExecutor:
             claim["identity_at_action"] = True
         # The unique immutable outbox key fences simultaneous Desktop claimers too.
         self._put(request_hash, claim_kind, claim, request["work_item_id"])
+        # CC-401: cancellation and begin may race. A cancelled unclaimed Note
+        # cannot return an action packet even if its claim arrived just afterward.
+        current = self.store.get_outbox_message(self._key(request_hash, "request"))
+        if current and current["status"] == "NATIVE_NEO_SUPERSEDED":
+            raise ValueError("NATIVE_NEO_STALE_PUBLISH_REVISION_SUPERSEDED")
         if request["action"] == "READBACK":
             identity = sha256_of({k: v for k, v in request.items()
                 if k not in {"request_sha256", "native_invocation_id"}})

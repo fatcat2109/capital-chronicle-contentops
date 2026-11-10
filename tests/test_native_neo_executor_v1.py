@@ -15,6 +15,15 @@ from live_contentops.publication_coordinator_v1 import (
 )
 
 
+@pytest.fixture(autouse=True)
+def legacy_protocol_permissions(monkeypatch):
+    """Replay historical fake requests; real prohibitions live in CC-393 tests."""
+    from live_contentops import neo_destination_handoff_v1 as handoff
+    monkeypatch.setattr(handoff, "NON_API_AUTOMATION_PROHIBITED", {})
+    from live_contentops import destination_transport_registry_v1 as registry
+    monkeypatch.setattr(registry, "V1_REQUIRED_PUBLICATION_DESTINATIONS", tuple(registry.DESTINATION_TO_SURFACE))
+
+
 def setup(tmp_path, allow_publish=False):
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     store.create_work_item(story_id="story", work_item_id="work", title="test", target_surface="test")
@@ -175,7 +184,7 @@ def test_verified_object_retires_only_unclaimed_requests_for_its_exact_intent(
     # Reconstruct an old, pre-prohibition request with local fakes. Current
     # no-write enforcement and queued-request refusal are covered by CC-393.
     from live_contentops.neo_destination_handoff_v1 import NON_API_AUTOMATION_PROHIBITED
-    monkeypatch.delitem(NON_API_AUTOMATION_PROHIBITED, "x")
+    monkeypatch.delitem(NON_API_AUTOMATION_PROHIBITED, "x", raising=False)
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store, executor = setup(tmp_path, allow_publish=True)
     adapter = NeoDestinationHandoff(native_executor=executor)
