@@ -459,22 +459,56 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
     return text
 
 
-def register_link(store, packet, *, original_key, destination, authored_summary=None):
+def _analysis_parent(store, original_key, plan_id, destination):
+    from .plan_call_cards_v1 import _reference
+    parent = _reference(store, original_key, destination)
+    if parent:
+        return parent
+    identity = "plan-analysis-root-" + plan_id + "-" + destination
+    row = store.get_outbox_message(identity)
+    if not row:
+        return None
+    value = json.loads(row["payload"])
+    if value.get("original_key") != original_key:
+        return None
+    from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+    ids = Coordinator._ids(identity, value["plan"]["plan_hash"], destination)
+    dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+    if dispatch.get("status") == "DISPATCH_CONFIRMED" and dispatch.get("public_object_id"):
+        return {k: dispatch.get(k) for k in ("public_object_id", "public_object_url", "dispatch_id")}
+    return None
+
+
+def register_link(store, packet, *, original_key, destination, authored_summary=None,
+                  original_analysis_root=False, canonical_image_url=None):
     from .plan_call_cards_v1 import _reference
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     status = page_status(store, packet)
     if not status["confirmed"]:
         return {"state":"PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED", "destination":destination}
-    parent = _reference(store, original_key, destination)
-    if not parent:
+    parent = _analysis_parent(store, original_key, packet["plan_id"], destination)
+    if original_analysis_root:
+        # Decision 113 explicitly asks for today's original plan analysis. An
+        # unsent legacy setup is not a new live call: publish a dated analysis
+        # root through the same coordinator, then attach the requested reply.
+        if destination != "threads" or _reference(store, original_key, destination) or parent:
+            raise ValueError("PLAN_ANALYSIS_ORIGINAL_ROOT_NOT_REQUIRED")
+        if not authored_summary or "original plan" not in authored_summary.casefold():
+            raise ValueError("PLAN_ANALYSIS_DATED_ORIGINAL_COPY_REQUIRED")
+        if not canonical_image_url or not canonical_image_url.startswith("https://substack-post-media.s3.amazonaws.com/public/images/"):
+            raise ValueError("PLAN_ANALYSIS_CANONICAL_IMAGE_REQUIRED")
+    elif not parent:
         return {"state":"PLAN_ANALYSIS_PARENT_NOT_CONFIRMED", "destination":destination, "original_key":original_key}
-    identity = "plan-analysis-link-"+packet["plan_id"]+'-'+destination
+    identity = ("plan-analysis-root-" if original_analysis_root else "plan-analysis-link-")+packet["plan_id"]+'-'+destination
     prior = store.get_outbox_message(identity)
     if prior and not authored_summary:
         return json.loads(prior["payload"])
     text = structured_summary(packet, destination, status["canonical_url"],authored_summary)
-    payload = {"destination":destination, "text":text, "full_text":text, "media_asset_ids":[],
-               "reply_to_id":str(parent["public_object_id"]), "reply_to_url":parent["public_object_url"]}
+    payload = {"destination":destination, "text":text, "full_text":text, "media_asset_ids":[]}
+    if parent:
+        payload.update(reply_to_id=str(parent["public_object_id"]), reply_to_url=parent["public_object_url"])
+    if original_analysis_root:
+        payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]], image_url=canonical_image_url)
     if destination=="discord":
         payload.update(discord_thread_parent_id=str(parent["public_object_id"]), discord_thread_name="Full plan analysis")
     registration = registration_for_destination(destination)
@@ -487,6 +521,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     plan["plan_hash"] = sha256_of(plan)
     value={"link_id":identity, "page_id":packet["page_id"], "plan_id":packet["plan_id"], "original_key":original_key,
            "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"],
+           "original_analysis_root":original_analysis_root,
            **({'authored_summary':authored_summary} if authored_summary else {})}
     store.create_work_item(story_id=identity,work_item_id=identity,title="Full plan analysis link",target_surface="MULTI_PLATFORM")
     if prior:
@@ -507,9 +542,30 @@ def validate_link_plan(store, work_item_id, plan):
     validate_plan(store,packet["page_id"],packet["plan"])
     if page_status(store,packet)["canonical_url"]!=value["canonical_url"]:
         raise ValueError("PLAN_ANALYSIS_LINK_CANONICAL_CHANGED")
-    parent=_reference(store,value["original_key"],value["destination"])
-    if not parent or parent!=value["parent"]:
-        raise ValueError("PLAN_ANALYSIS_LINK_PARENT_CHANGED")
+    if value.get("original_analysis_root"):
+        if (value["destination"] != "threads" or value.get("parent")
+                or _reference(store,value["original_key"],value["destination"])
+                or "original plan" not in value.get("authored_summary", "").casefold()):
+            raise ValueError("PLAN_ANALYSIS_ORIGINAL_ROOT_CHANGED")
+        # The public image must be the exact image observed on the confirmed
+        # canonical. A caller cannot substitute a third-party image URL.
+        image=value["native_payload"].get("image_url")
+        observed=False
+        if value["native_payload"].get("media_asset_ids") != [packet["media_assets"][0]["asset_id"]]:
+            raise ValueError("PLAN_ANALYSIS_ORIGINAL_ROOT_MEDIA_CHANGED")
+        for row in store.list_outbox_messages(work_item_id=packet["page_id"], destination="internal:native-neo-tool"):
+            read=json.loads(row["payload"]).get("result",{})
+            if (read.get("status")=="SUCCESS" and read.get("public_object_url")==value["canonical_url"]
+                    and image in read.get("public_image_urls",[])
+                    and packet["media_assets"][0]["sha256"] in read.get("observed_media_sha256",[])
+                    and read.get("native_tool_observation")):
+                observed=True
+        if not observed:
+            raise ValueError("PLAN_ANALYSIS_CANONICAL_IMAGE_NOT_OBSERVED")
+    else:
+        parent=_analysis_parent(store,value["original_key"],value["plan_id"],value["destination"])
+        if not parent or parent!=value["parent"]:
+            raise ValueError("PLAN_ANALYSIS_LINK_PARENT_CHANGED")
     expected=structured_summary(packet,value["destination"],value["canonical_url"],value.get('authored_summary'))
     if value["native_payload"]["text"]!=expected:
         raise ValueError("PLAN_ANALYSIS_LINK_COPY_CHANGED")

@@ -4119,11 +4119,14 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     output_dir = Path(str(intent.get("output_dir") or ""))
     if not output_dir.is_dir():
         raise RuntimeError("durable_intent_output_dir_unavailable")
-    if (intent.get("sourced_reply") or intent.get("plan_analysis_link")) and not (intent.get("native_payload") or {}).get("media_asset_ids"):
+    if intent.get("plan_analysis_link") or (intent.get("sourced_reply") and not (intent.get("native_payload") or {}).get("media_asset_ids")):
         destination = str(intent["destination_plan"]["destination"])
+        frozen = intent["native_payload"]
+        assets = intent.get("media_assets") or []
         return {"output_dir":output_dir,"article":{},"selection":{},"media_assets":[],
-            "delivery_only_assets":[],"payloads":{destination:intent["native_payload"]},
-            "local_media":"","delivery_local_media":"","public_image_url":"",
+            "delivery_only_assets":[],"payloads":{destination:frozen},
+            "local_media":str(assets[0]["path"]) if frozen.get("media_asset_ids") and assets else "",
+            "delivery_local_media":"","public_image_url":frozen.get("image_url", ""),
             "primary_media":{},"canonical_url":intent.get("canonical_url")}
     context = _read_json(output_dir / "run_context_v1.json")
     article = dict(context.get("article") or {})

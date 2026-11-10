@@ -230,3 +230,30 @@ def test_media_revision_preserves_prior_and_refuses_possible_native_send(source,
         payload=json.dumps({'request':{'action':'PUBLISH'}}),status='NATIVE_NEO_TOOL_PENDING')
     with pytest.raises(ValueError,match='NATIVE_WRITE_ALREADY_ISSUED'):
         pages.replace_unpublished_media(store,revised,{**revised,'media_assets':[]})
+
+
+def test_original_analysis_root_is_dated_source_bound_and_exactly_once(source, tmp_path):
+    store = ContentOpsDurableStore(tmp_path / 'store.sqlite3')
+    packet = pages.register_page(store, rendered(source, tmp_path))
+    # A real page image is required for a new root. The fixture supplies one
+    # bound asset, while the other page/source validation remains real.
+    packet['media_assets'] = [{'asset_id': 'bound-card', 'path': str(tmp_path / 'card.png'), 'sha256': 'b' * 64}]
+    store.finalize_outbox_payload_before_dispatch(message_id=packet['page_id'], payload=json.dumps(packet), status='EDITORIAL_INTERNAL')
+    ids = DurablePublicationCoordinator._ids(packet['page_id'], packet['plan']['plan_hash'], 'substack')
+    url = 'https://capitalchronicle.substack.com/p/original-plan'
+    store.register_outbox_message(message_id=ids['message_id'],work_item_id=packet['page_id'],destination='substack',payload='{}')
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],platform='substack',status='DISPATCH_CONFIRMED',public_object_id='1',public_object_url=url)
+    store.register_reconciliation(reconciliation_id=ids['reconciliation_id'],work_item_id=packet['page_id'],status='RECONCILED_CONFIRMED')
+    image = 'https://substack-post-media.s3.amazonaws.com/public/images/test.png'
+    with pytest.raises(ValueError, match='DATED_ORIGINAL_COPY_REQUIRED'):
+        pages.register_link(store,packet,original_key='unsent',destination='threads',original_analysis_root=True,authored_summary='A new plan.',canonical_image_url=image)
+    root = pages.register_link(store,packet,original_key='unsent',destination='threads',original_analysis_root=True,authored_summary='Original plan: base 55%; alternative 35%.',canonical_image_url=image)
+    assert 'reply_to_id' not in root['native_payload']
+    assert root['native_payload']['media_asset_ids'] == ['bound-card']
+    assert pages._analysis_parent(store,'unsent',packet['plan_id'],'threads') is None
+    ids = DurablePublicationCoordinator._ids(root['link_id'], root['plan']['plan_hash'], 'threads')
+    store.register_outbox_message(message_id=ids['message_id'],work_item_id=root['link_id'],destination='threads',payload='{}')
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],platform='threads',status='DISPATCH_CONFIRMED',public_object_id='42',public_object_url='https://www.threads.com/@official.capitalchronicle/post/test')
+    assert pages._analysis_parent(store,'unsent',packet['plan_id'],'threads')['public_object_id'] == '42'
+    with pytest.raises(ValueError,match='ORIGINAL_ROOT_NOT_REQUIRED'):
+        pages.register_link(store,packet,original_key='unsent',destination='threads',original_analysis_root=True,authored_summary='Original plan.',canonical_image_url=image)

@@ -2205,6 +2205,9 @@ class DurablePublicationCoordinator:
                 packet = validate_link_plan(self.store, work_item_id, plan)
                 intent["plan_analysis_link"] = packet["link_id"]
                 intent["native_payload"] = packet["native_payload"]
+                if packet.get("original_analysis_root"):
+                    page = json.loads(self.store.get_outbox_message(packet["page_id"])["payload"])
+                    intent["media_assets"] = page["media_assets"]
                 intent.pop("published_content_export", None)
             if plan.get("plan_status_post"):
                 # CC-306: a plan-state post freezes its validated copy per destination, as the
