@@ -56,6 +56,18 @@ def test_reviewed_article_chart_uses_same_cloudinary_path_without_delivery_only_
     assert rejected["status"] == "BLOCKED_CLOUDINARY_DELIVERY_MEDIA_PREPARATION"
 
 
+def test_verified_snapshot_delivery_projection_sets_the_delivery_flag(tmp_path, monkeypatch):
+    asset = {**_asset(tmp_path), "modality": "tradingview_chart_snapshot", "delivery_only": False}
+    monkeypatch.setattr("live_contentops.tradingview_snapshot_v1.validate_snapshot_asset", lambda *a: None)
+    row, blockers = cloudinary._validated_local_asset(asset)
+    assert not blockers and row["delivery_only"] is True
+    def changed_bytes(*args):
+        raise ValueError("TRADINGVIEW_SOURCE_HASH_CHANGED")
+    monkeypatch.setattr("live_contentops.tradingview_snapshot_v1.validate_snapshot_asset", changed_bytes)
+    _, blockers = cloudinary._validated_local_asset(asset)
+    assert any(b.startswith("tradingview_snapshot_invalid:") for b in blockers)
+
+
 def test_credential_presence_and_missing_failure_never_serialize_values(tmp_path, monkeypatch):
     asset = _asset(tmp_path)
     monkeypatch.setattr(

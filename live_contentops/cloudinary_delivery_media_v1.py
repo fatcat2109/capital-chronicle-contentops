@@ -214,6 +214,11 @@ def _validated_local_asset(asset: Mapping[str, Any], *, article_asset=False,
                 blockers.extend(card_blockers)
         except (ValueError, OSError, KeyError) as exc:
             blockers.append(f"tradingview_snapshot_invalid:{asset_id}:{type(exc).__name__}")
+        if (not blockers and not article_asset and row.get("article_inclusion") is False
+                and row.get("canonical_article_media") is False):
+            # A canonical snapshot projected for social delivery retains its
+            # exact verified bytes; normalize the delivery view's role flag.
+            row["delivery_only"] = True
     if article_asset:
         if row.get("modality") == "documentary_photo":
             from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
