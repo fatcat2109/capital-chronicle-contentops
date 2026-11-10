@@ -1,0 +1,144 @@
+{
+  "validated_at_utc": "2026-11-10T17:16:38.741958+00:00",
+  "checks": {
+    "inventory_unique": true,
+    "all_inventory_items_covered": true,
+    "all_15_required_items": true,
+    "each_row_has_url_or_named_gap": true,
+    "table_rows_equal_findings": true,
+    "no_duplicate_findings": true,
+    "cpi_et_clock_public": true,
+    "cpi_public_copy_no_forbidden_times": true,
+    "cpi_scenario_probabilities": true,
+    "nfp_dated_consensus": true,
+    "api_observation_count": true,
+    "api_strict_success_count": true,
+    "only_two_observed_threads_render_differences": true,
+    "scorecard_exact_main_projection": true,
+    "scorecard_stored_readback_exact": true,
+    "scorecard_latency_under_hour": true,
+    "scorecard_same_one_object": true,
+    "scorecard_public_text_matches_api": true,
+    "no_cross_article_exact_image_reuse": true,
+    "bound_published_card_bytes": true,
+    "card_values_bound_to_public_article": true,
+    "original_agy_failure_preserved": true,
+    "no_false_frozen_file_claim": true,
+    "read_only_api_routes": true,
+    "all_9_existing_wip_files_unchanged": true,
+    "no_inline_image_data_or_secret_urls": true,
+    "python_scripts_compile": true,
+    "new_plan_why_public": true,
+    "five_public_posts_have_images": true,
+    "cpi_public_instruments": true,
+    "cpi_no_demo_book_symbols": true,
+    "historical_cpi_footer_discrepancy_recorded": true
+  },
+  "check_count": 32,
+  "passed": 32,
+  "pre_existing_work": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\live_contentops\\agy_editorial_assist_v1.py",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    }
+  ],
+  "pytest_processes_started": 0,
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "chat_messages_sent": 0,
+  "model_calls": 0,
+  "counts": {
+    "items": 40,
+    "PASS": 10,
+    "GAP": 30
+  },
+  "artifact_sha256": [
+    {
+      "path": "api-readbacks.json",
+      "bytes": 29326,
+      "sha256": "0d36e2146e8eb11f6554d95a38825f633a4a89e999979835903f75e3a95ca614"
+    },
+    {
+      "path": "article-bindings.json",
+      "bytes": 209405,
+      "sha256": "a2f3c5781d6a609f1419796472ac86008c3af6f453575f1f4f0a018f0235fb3f"
+    },
+    {
+      "path": "capture_api_readbacks.py",
+      "bytes": 4777,
+      "sha256": "eb4b262f0c2898b11fb75fe05fee31c9add32b2b051c3d9bb7d05f4772f3dc20"
+    },
+    {
+      "path": "capture_consumer_evidence.py",
+      "bytes": 5493,
+      "sha256": "dec32acef524b7d4712fa40ef64248da9009265f1e1e136cdefa5d33736150d6"
+    },
+    {
+      "path": "consumer-evidence.json",
+      "bytes": 9699,
+      "sha256": "6b6e2d437841f12dab518c782be0ad3d574af98a062a098d4f995b59d75cd2b1"
+    },
+    {
+      "path": "findings.json",
+      "bytes": 24806,
+      "sha256": "f9a7650f7e82e50bc890750af1ad110800d75e9d6f5d94eac9abf32f59c34d16"
+    },
+    {
+      "path": "inventory.json",
+      "bytes": 45602,
+      "sha256": "6f38d574dae5e76277a506cfdfa4d67bed5002cbfb937869cf6cc41441e5cf56"
+    },
+    {
+      "path": "launch.json",
+      "bytes": 2689,
+      "sha256": "ba40c142af7ae45bcf2f9bcefa1cc0b901a046654dd44469bd858458e8ba940b"
+    },
+    {
+      "path": "pinned-scorecard-readback.json",
+      "bytes": 10987,
+      "sha256": "a20abdb875e2b94d24f68499e7c37ff36ec3a130b65599e63c8bc5db09212dbc"
+    },
+    {
+      "path": "public-readbacks.json",
+      "bytes": 109198,
+      "sha256": "38988c82684fc38d27f27ecd2f073562088fe1df9c9a40d7bdae085d9d580fe4"
+    },
+    {
+      "path": "README.md",
+      "bytes": 23307,
+      "sha256": "b89cb7035a769c904701f76085908f6515bd771e3d49dfc0cb4203e01c6fa700"
+    }
+  ]
+}

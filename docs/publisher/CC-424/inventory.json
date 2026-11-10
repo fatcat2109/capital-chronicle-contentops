@@ -352,8 +352,17 @@
       "required_explicitly": false,
       "acceptance": "- Acceptance: one replay per event, published and read back.",
       "retained_result": "- Branch: — · Result: —"
+    },
+    {
+      "item": "CC-357",
+      "title": "CC-357 · The private desk refreshes within a minute of a change, not every 20 minutes (private-desk lane, line 4)",
+      "status": "IN_PROGRESS (Ops Product, 9 Nov 19:34 GMT+7: runner patch live, CPI-day reading left)",
+      "owner_line": "- Owner: Codex Web · Effort: high · Risk: process (private desk runner) · Due: Tue 10 Nov 2026 12:00 GMT+7 · Status: IN_PROGRESS (Ops Product, 9 Nov 19:34 GMT+7: runner patch live, CPI-day reading left)",
+      "acceptance": "- Acceptance:\n  - copy proof: a touched producer file triggers one refresh within 60 s; a second touch inside the gap waits; an unchanged store is not copied again; the 20-minute backstop still runs;\n  - on CPI day (Tue 10 Nov, release 13:30Z) the desk's CPI page shows the admitted print within 60 s of its admission readback, and the arrival result within 60 s of its RESULT.md.",
+      "retained_result": "- Branch: backlog/cc-357-private-desk-change-refresh · Result: 0769673401 pushed; 7 PASS, fixture touch to consumer 13.8 s, unchanged store copied 0 bytes; reused CC-284 to bound disk work; tests/evidence/cc-357/VALIDATION.md; Ops patch application and 10 Nov CPI live readback pending.",
+      "required_explicitly": false
     }
   ],
   "captured_at_utc": "2026-11-10T16:56:20.146466+00:00",
-  "selection": "All 15 explicitly named items, plus non-terminal Product items whose status names an upcoming public piece/event, first/next proof, published-object readback or its stated live dependency; paused/future dependencies are identified, not resumed."
+  "selection": "All 15 explicitly named items, plus non-terminal Product items whose status names an upcoming public piece/event, first/next proof, published-object readback or its stated live dependency; paused/future dependencies are identified, not resumed. Web CC-357 is included because its status explicitly awaits a CPI-day reading; public posts cannot prove its private desk consumer."
 }

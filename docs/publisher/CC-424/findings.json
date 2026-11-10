@@ -1,0 +1,410 @@
+{
+  "recorded_at_utc": "2026-11-10T17:15:26.934194+00:00",
+  "items": [
+    {
+      "item": "CC-264",
+      "result": "PASS",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "NFP: “Investing.com's payroll forecast was 65.00K for October, observed on 5 November 2026.” CPI: “Capital Chronicle model estimate probability 44%.” Source/date and labelled model output are public.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-043",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "CPI consumes the held Main event research and exposes its labelled estimates.",
+      "gap": "RECURRING_CC014_PRODUCER_BINDING_NOT_PROVED: a retained-source article does not establish the recurring desk-record producer binding named in this item.",
+      "next_action": "Ops Live/Main read back the declared recurring CC-014 export and Publisher consumer binding."
+    },
+    {
+      "item": "CC-171",
+      "result": "GAP",
+      "urls": [],
+      "proof": "The current CPI Threads copy passed the official API read.",
+      "gap": "PAUSED_JIM_DECISIONS_88_89; the original midterm publication deadline expired. A current Threads success does not publish the paused historical piece.",
+      "next_action": "Ops Product resolves the paused item; no historical repost was attempted."
+    },
+    {
+      "item": "CC-177",
+      "result": "GAP",
+      "urls": [],
+      "proof": "The existing Publisher integrations remain in the operating root.",
+      "gap": "MAIN_WEEKLY_DIGEST_AND_CC014_CC136_CONSUMER_BINDINGS: the required per-item consumer closure is not established by tonight’s public posts.",
+      "next_action": "Ops Product/Main reconcile the named consumer dependencies on CC-043/044/047/135."
+    },
+    {
+      "item": "CC-107",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "Both preview types are public and were read.",
+      "gap": "DATED_NFP_REVIEW_TIMELINE_AND_CPI_REVIEW_NOT_PUBLICLY_PROVED: neither preview supplies the missing dated review record.",
+      "next_action": "Use the existing event-review operation when Main supplies its dated review; do not call a preview a review."
+    },
+    {
+      "item": "CC-124",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "The CPI preview is the day’s wrap under decision 98.",
+      "gap": "STANDING_NEXT_DUE_11_NOV_2026_02_14_GMT7; the retained 20:22 check found no post-CPI Main review. This audit creates no new edition.",
+      "next_action": "Keep CC-124 OPEN at its existing due time; its owner makes the next normal source check."
+    },
+    {
+      "item": "CC-135",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "Publication exists; the retained sealed-piece producer remains live.",
+      "gap": "CC136_CC014_SITE_CONSUMER_READBACK: a public article alone does not prove the Main/site consumers use the sealed file.",
+      "next_action": "Ops Product/Main verify the named consumers; preserve the published piece."
+    },
+    {
+      "item": "CC-142",
+      "result": "PASS",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "NFP carries the 24-month payroll and unemployment histories and the September broad-group breakdown. Captions name BLS first releases, October 2024–September 2026, units and the missing October 2025 point. CPI’s BLS monthly and component charts are also public; exact source lineage is retained in article-bindings.json.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-143",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-1ce"
+      ],
+      "proof": "The recovered November 9 digest is public with its one original article and card.",
+      "gap": "WEB_CONFIRMED_EMAIL_READBACK_REQUIRED: the scheduled result says email delivery was not observed; recipients still showed “-”.",
+      "next_action": "The existing digest owner verifies the same post’s email delivery through its allowed stats route, without a second send or Gmail access."
+    },
+    {
+      "item": "CC-144",
+      "result": "PASS",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs",
+        "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar",
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-1ce",
+        "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis"
+      ],
+      "proof": "Five current public posts contain their own visuals: NFP has three BLS charts and a credited public-domain photo; the wrap has TradingView; CPI has its card, snapshot, charts and archive photo; the digest has its card; EUR/USD has its source-bound level diagram. CPI card numbers and the release time match its Main/BLS source bindings.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-267",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "CPI’s card has admitted numeric facts; it is not the private-survey title-only fallback.",
+      "gap": "NO_REAL_PRIVATE_SURVEY_TITLE_CARD_IN_THIS_PASS: the sampled output cannot prove the pending Challenger/ISM title-only path.",
+      "next_action": "Read the next genuine private-survey title-card post through its existing route; fixtures are not counted as publication."
+    },
+    {
+      "item": "CC-290",
+      "result": "PASS",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://substack-post-media.s3.amazonaws.com/public/images/6ed59edf-41da-49c9-a915-c1c8bb304825_1080x1350.png"
+      ],
+      "proof": "Direct BrowserOS pixel inspection of the published lead card shows a white field, one aligned left edge and the numeric 0.7% hero. The date sits in the BLS fact below it; there is no black date slab. The bound original PNG is SHA256 7e79e5205e765377d8f90acbf3e54893599df82d920f1b6805f04e03c6ddec94.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-297",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "Four CPI API destinations pass fresh reads, and Telegram is public.",
+      "gap": "ALL_DESTINATIONS_AND_ENVIRONMENT_MIGRATION_NOT_PROVED: CPI LinkedIn has no public object after a retained TLS definite no-write; this read-only pass does not inspect environment values or credentials.",
+      "next_action": "Use the existing credential owner’s migration evidence and the official LinkedIn route; do not print secrets or republish confirmed copies."
+    },
+    {
+      "item": "CC-304",
+      "result": "GAP",
+      "urls": [],
+      "proof": "The retained status is paused under decisions 88/89.",
+      "gap": "PAUSED_QUIET_DAY_EXPLAINER_ACCEPTANCE: no sampled genuine quiet-day explainer or week-ahead run proves this item’s first-piece requirement.",
+      "next_action": "Ops Product resolves the paused scope; no substitute piece is manufactured."
+    },
+    {
+      "item": "CC-306",
+      "result": "GAP",
+      "urls": [
+        "https://t.me/CapitalChronicle/158",
+        "https://www.threads.com/@official.capitalchronicle/post/DfkWsITI6im",
+        "https://discord.com/channels/1519310996030750782/1519311669216673802/1569753146874658928"
+      ],
+      "proof": "One actual fill update is public: “an entry filled at 10 Nov 11:38 ET; the position is open.” Telegram, Discord and Threads show that state. Threads removes only the hash before the unchanged short call ID.",
+      "gap": "X_LIVE_READBACK_NOT_AVAILABLE: this update has no confirmed X dispatch, and CC-424 permits an X read only through an API.",
+      "next_action": "The standing publication owner completes its existing X route; retain this exact fill and object identities."
+    },
+    {
+      "item": "CC-314",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://t.me/CapitalChronicle/136"
+      ],
+      "proof": "CPI shows the attributed four-hour TradingView gold chart; its Telegram copy carries “Chart: TradingView.”",
+      "gap": "STATUS_SNAPSHOT_ALL_DESTINATIONS_NOT_PROVED: an article snapshot is not the required complete status-post snapshot readback; no X API read is available.",
+      "next_action": "Read one exact six-market status snapshot across the named destinations using permitted routes."
+    },
+    {
+      "item": "CC-315",
+      "result": "PASS",
+      "urls": [
+        "https://t.me/CapitalChronicle/158",
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "The real fill update carries no site link. The CPI API copies link the confirmed Substack article. Checked public text contains no preview-host address. The existing reported bio inventory is docs/publisher/CC-395/bios.md; it retains its own earlier observation clocks and access gaps.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-322",
+      "result": "GAP",
+      "urls": [
+        "https://t.me/CapitalChronicle/157"
+      ],
+      "proof": "A new EUR/USD result is visible: “stopped at its invalidation level. Ended 10 Nov 08:30 ET.”",
+      "gap": "CC322_PROSPECTIVE_ROUTE_NOT_PROVED: the existing amended result-post route retained LOSS_POST_LIMIT_DECISION_106 and a 16 November loss slot; the later call-card copy does not establish that route’s first eligible all-destination acceptance.",
+      "next_action": "The CC-322 owner reconciles the amended cadence and reads its first eligible result; no extra loss post is sent by this audit."
+    },
+    {
+      "item": "CC-326",
+      "result": "PASS",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "“10 November 2026 at 08:30 ET” and “captured 06:55 ET on 10 November 2026” are public. The article body and current sampled API text contain no GMT+7, UTC+7, Bangkok or Vietnam time.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-333",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar",
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://t.me/CapitalChronicle/136"
+      ],
+      "proof": "Both canonical pieces have scenarios. The image register shows one fresh wrap image and five CPI images, with no exact SHA256 shared with another published canonical. CPI socials carry “Base case … 44%” and “Alternative … 31%”.",
+      "gap": "TWO_PIECES_ALL_SOCIAL_READBACKS_INCOMPLETE: the wrap’s social objects were not freshly read in this pass; CPI LinkedIn is absent and X has no permitted fresh API read. Near-duplicate admission remains the retained publisher check, not a new pHash recomputation.",
+      "next_action": "Finish the two exact existing pieces’ destination readbacks through their owners; do not post another article to fill the proof."
+    },
+    {
+      "item": "CC-336",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://t.me/CapitalChronicle/145",
+        "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-1ce"
+      ],
+      "proof": "Real output demonstrates cards, official charts, article TradingView, cited model estimates, status posts and the digest.",
+      "gap": "ALL_11_TOOLS_NOT_CLOSED: the retained stress-test table still has the retrospective “written on” follow-up and paused public-site scorecard; this pass does not provide a genuine retrospective publication or close CC-322’s amended route.",
+      "next_action": "Ops Product reconciles the existing 11-tool table using these observations and the specific remaining tool outputs."
+    },
+    {
+      "item": "CC-338",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "The authorized no-hash CPI preview is public; its retained result records 17 CPI forecasts and 36 total calls.",
+      "gap": "G05_FROZEN_PUBLIC_FILE_NOT_ISSUED: bls-cpi-20261110.json is still absent. There is no published matching-hash review. The preview also missed its 18:30 GMT+7 deadline, publishing at 19:09 GMT+7.",
+      "next_action": "Ops Live supplies the PPI frozen public file/hash; the existing CC-338 owner follows the 13 November fallback and complete scorecard."
+    },
+    {
+      "item": "CC-216",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs"
+      ],
+      "proof": "Both previews exist.",
+      "gap": "EARLY_PREVIEW_AND_FROZEN_DOSSIER_ACCEPTANCE: tonight’s late CPI preview does not prove the day-before timing or the missing frozen event dossier/review.",
+      "next_action": "Use the retained background and the next source-issued frozen dossier; keep the original publication clocks."
+    },
+    {
+      "item": "CC-245",
+      "result": "PASS",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://substack-post-media.s3.amazonaws.com/public/images/6ed59edf-41da-49c9-a915-c1c8bb304825_1080x1350.png"
+      ],
+      "proof": "The actual published release card reads “October CPI: the conditional gold map”, leads with 0.7%, and carries the Main estimate and BLS release time. Its visible content replaces a blank/title-only release presentation; card numbers bind to the article’s own facts.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-247",
+      "result": "GAP",
+      "urls": [],
+      "proof": "Tonight’s CPI preview is a different public object from the historical September CPI and SEC objects in this paused item.",
+      "gap": "HISTORICAL_EXACT_OBJECT_REPAIR_NOT_AUDITED: this pass is not deletion/readback proof for the old Facebook, X and Discord identities; decisions 88/89 keep the item paused.",
+      "next_action": "Ops Product resolves the retained historical repair scope and its exact objects; no deletion or repost is performed here."
+    },
+    {
+      "item": "CC-355",
+      "result": "PASS",
+      "urls": [
+        "https://t.me/CapitalChronicle/145"
+      ],
+      "proof": "The real MCL setup prints Main’s why: “oil’s own driver, not CPI: WTI fell 1.39% today while the USD rose …”. The sealed public export for plan_5a5b965487f7fe4318d12140 holds the same mechanism and priced fields under scenario_analysis. The live composer consumes those fields; no plan or entry was changed.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-377",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-1ce"
+      ],
+      "proof": "The 10 November 19:00 route raised the existing request and recovered November 9’s missed article once. The exact web article/link/card read back.",
+      "gap": "DIGEST_EMAIL_DELIVERY_NOT_OBSERVED: final route state remains WEB_CONFIRMED_EMAIL_READBACK_REQUIRED. Web publication proves the backlog-unblocking repair, but not the complete digest delivery.",
+      "next_action": "The existing digest owner reads the same post’s delivery stats; preserve the one recovered digest."
+    },
+    {
+      "item": "CC-378",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "The CPI run records gemini-3.8-flash-high/high, CONFIGURED_NOT_OBSERVED, with its real call artifact. Publication continued through the allowed fallback.",
+      "gap": "AGY_TIMEOUT_120S: its status is AGY_UNAVAILABLE; flags and Publisher decisions are empty. It does not prove two completed CC-124 claim-list/alt/variant outputs or their public readbacks.",
+      "next_action": "Retain this timeout; observe the next two normal successful assisted pieces and their flag decisions, without rerunning the historical call."
+    },
+    {
+      "item": "CC-379",
+      "result": "GAP",
+      "urls": [],
+      "proof": "The 9–13 November ET week is not complete at this audit.",
+      "gap": "WEEK_INCOMPLETE_UNTIL_14_NOV_2026_12_00_GMT7; no full weekly Substack review is due in this pass.",
+      "next_action": "Keep the existing 14–15 November review and include every scored call then."
+    },
+    {
+      "item": "CC-382",
+      "result": "PASS",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "Fresh readback reconfirms the already-DONE CPI article/wrap: GC/GLD, ES/SPY, CL/USO, FXE, FXY and IBIT are named. The article’s authored copy contains no CFD or private DEMO-book symbol. Chart identity is the same decision-107 set recorded in CC-382’s source-bound readback.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-384",
+      "result": "GAP",
+      "urls": [
+        "https://t.me/CapitalChronicle/145"
+      ],
+      "proof": "The real setup names “Micro WTI crude oil (MCL futures, Dec 2026)” and its source-bound zone.",
+      "gap": "DUAL_ENTRY_LIVE_CASE_NOT_OBSERVED: the current public export has 68 plans, 30 with one entries row and 38 without one; none has two. A first real dual-entry readback on Telegram/Discord/Threads is not established.",
+      "next_action": "The existing CC-383/384 owners verify the intended dual-entry source case and its one-post rendering; never invent a second entry."
+    },
+    {
+      "item": "CC-394",
+      "result": "PASS",
+      "urls": [
+        "https://t.me/CapitalChronicle/134"
+      ],
+      "proof": "Official Bot API getChat and the public channel show the same pinned message 134: “Results: 20 | HIT: 0 | STOPPED: 3 | EXPIRED: 17 | NOT TRIGGERED: 0”. The current Main projection equals that text. Main scored the latest stop at 20:31:06.891 GMT+7; the stored exact readback confirmed it at 20:31:31.499, 24.608 seconds later. One bound anchor/object proves an edit of the existing message, with no new scorecard feed object.",
+      "gap": "",
+      "next_action": ""
+    },
+    {
+      "item": "CC-395",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://t.me/CapitalChronicle/158"
+      ],
+      "proof": "The next real post carries “Capital Chronicle offers analysis only, not financial advice or recommendations.” Current required destinations are seven after decision 112 restores X; YouTube remains excluded.",
+      "gap": "FULL_ARTICLE_DISTRIBUTION_INCOMPLETE: CPI has six confirmed social copies; LinkedIn is RECONCILED_ABSENT_SAFE_TO_RETRY after TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE. X is retained-confirmed but not freshly API-read under CC-424.",
+      "next_action": "Use the existing official LinkedIn recovery owner and permitted X readback; preserve all confirmed identities and the existing bio inventory."
+    },
+    {
+      "item": "CC-401",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://www.threads.com/@official.capitalchronicle/post/DfkWsITI6im"
+      ],
+      "proof": "CPI’s four API reads pass. Two later Threads updates exist with the exact expected body after the provider strips only “#” from an eight-hex call ID; the adapter’s original FAILED_THREADS_STRICT_READBACK flags are retained.",
+      "gap": "FULL_ET_DAY_NOT_ELAPSED: the item’s 11 November 12:00 GMT+7 audit is still future. The two strict false flags also need the owning route’s rendering normalization; no post is missing on that evidence.",
+      "next_action": "At the existing due time, audit the full ET day and reconcile the literal call-ID rendering check without weakening identity or meaningful-content checks."
+    },
+    {
+      "item": "CC-403",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ],
+      "proof": "The preview is public, and decision 98 prevents a second CPI-day wrap.",
+      "gap": "NEXT_DAILY_NOTE_AND_60_MINUTE_PROOF_PENDING: this preview is not the new short daily-note/table/first-person format or a proof of the source-cutoff SLA.",
+      "next_action": "Use the next normal daily source/note at the retained 11 November 18:30 GMT+7 acceptance time."
+    },
+    {
+      "item": "CC-417",
+      "result": "GAP",
+      "urls": [],
+      "proof": "Its delivery reports 33 CPI releases and 378 moves with 414 explicit gaps.",
+      "gap": "CC425_PUBLIC_REACTION_TABLE_CONSUMER_NOT_PUBLISHED: tonight’s conditional preview does not read back the new historical reaction table.",
+      "next_action": "CC-425 consumes the existing CC-417 delivery when due; keep its explicit gaps."
+    },
+    {
+      "item": "CC-423",
+      "result": "GAP",
+      "urls": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "https://t.me/CapitalChronicle/158"
+      ],
+      "proof": "The current fill post uses “Capital Chronicle may hold positions in the markets it covers.” The historical CPI preview still shows the earlier demo-account sentence.",
+      "gap": "SUPERSEDED_BY_JIM_DECISION_117: the original requested disclosure must not be restored. The still-public older CPI footer conflicts with the newer wording instruction.",
+      "next_action": "Ops Product closes the obsolete requirement appropriately and routes any exact-object footer correction through the existing publication owner; CC-424 makes no edit."
+    },
+    {
+      "item": "CC-353",
+      "result": "GAP",
+      "urls": [
+        "https://t.me/CapitalChronicle/145"
+      ],
+      "proof": "The next new-plan setup now prints a real mechanism, priced context and the 55% model-estimate base chance.",
+      "gap": "COMPLETE_WHY_ON_EVERY_DESTINATION_NOT_PROVED: this published card truncates source paragraphs and does not show the whole base/alternative/positioning/zone/invalidation set; X has no fresh API read.",
+      "next_action": "Ops Product reconciles this item with the later call-card/analysis-page contract and reads the exact complete why output on the required destinations."
+    },
+    {
+      "item": "CC-339",
+      "result": "GAP",
+      "urls": [],
+      "proof": "The first replay is paused until after the PPI event record.",
+      "gap": "EVENT_REPLAY_NOT_DUE_AND_CC338_RECORD_PENDING: no replay piece is published in tonight’s sampled output.",
+      "next_action": "Keep the existing post-13-November event replay; do not relabel a preview as a replay."
+    },
+    {
+      "item": "CC-357",
+      "result": "GAP",
+      "urls": [],
+      "proof": "The Web item’s status explicitly retains its CPI-day reading.",
+      "gap": "PRIVATE_DESK_NATURAL_REFRESH_NOT_PROVED_BY_PUBLIC_POSTS: its runner/hash and private desk clock need the Web/Ops acceptance, outside this public-output pass.",
+      "next_action": "Web/Ops reads its existing private consumer once; this audit does not install, rebuild or copy Main state."
+    }
+  ]
+}

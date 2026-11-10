@@ -1,0 +1,486 @@
+{
+  "captured_at_utc": "2026-11-10T16:58:34.793268+00:00",
+  "store_open_mode": "ro; PRAGMA query_only=ON",
+  "publication_calls": 0,
+  "api_destination_allowlist": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "threads"
+  ],
+  "x_readback": "X_API_READBACK_UNAVAILABLE; CC-424 forbids a browser read",
+  "linkedin_readback": "NO_CONFIRMED_LINKEDIN_OBJECT_ID; retained definite no-write, not a new attempt",
+  "dispatches": [
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T11:36:06.827478+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "linkedin_company",
+      "status": "DEFINITE_NO_WRITE",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T11:36:06.862046+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T11:47:41.697049+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "linkedin_company",
+      "status": "DEFINITE_NO_WRITE",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T11:47:41.727933+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "substack",
+      "status": "UNSENT_MEDIA_SUPERSEDED",
+      "dispatch_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T11:48:16.109608+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T12:00:11.993725+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "linkedin_company",
+      "status": "DEFINITE_NO_WRITE",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T12:00:12.028872+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "224293572",
+      "public_object_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+      "dispatched_at": "2026-11-10T12:00:49.096662+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1569687377679745110",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569687377679745110",
+      "dispatched_at": "2026-11-10T12:17:13.591347+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1450849443900138",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1450849443900138",
+      "dispatched_at": "2026-11-10T12:17:17.247000+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "dispatch_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T12:17:56.771203+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "136",
+      "public_object_url": "https://t.me/CapitalChronicle/136",
+      "dispatched_at": "2026-11-10T12:17:59.274449+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18189728134418285",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfj42NGlE4E",
+      "dispatched_at": "2026-11-10T12:18:03.511519+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2120129873830388070",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120129873830388070",
+      "dispatched_at": "2026-11-10T12:18:38.357688+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18118649638820551",
+      "public_object_url": "https://www.instagram.com/p/Dfj5h_nj32E/",
+      "dispatched_at": "2026-11-10T12:24:00.935056+00:00"
+    },
+    {
+      "work_item_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1569753146874658928",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569753146874658928",
+      "dispatched_at": "2026-11-10T16:38:34.464158+00:00"
+    },
+    {
+      "work_item_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1451065237211892_1461568849250709",
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T16:38:36.624654+00:00"
+    },
+    {
+      "work_item_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18204620554375842",
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T16:38:40.933177+00:00"
+    },
+    {
+      "work_item_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "158",
+      "public_object_url": "https://t.me/CapitalChronicle/158",
+      "dispatched_at": "2026-11-10T16:38:45.016640+00:00"
+    },
+    {
+      "work_item_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18084548918344983",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkWsITI6im",
+      "dispatched_at": "2026-11-10T16:38:48.850882+00:00"
+    },
+    {
+      "work_item_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1450602847258131_1126975306965402",
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T16:28:34.853166+00:00"
+    },
+    {
+      "work_item_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18137716240639687",
+      "public_object_url": null,
+      "dispatched_at": "2026-11-10T16:28:38.607443+00:00"
+    },
+    {
+      "work_item_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "157",
+      "public_object_url": "https://t.me/CapitalChronicle/157",
+      "dispatched_at": "2026-11-10T16:28:42.364459+00:00"
+    },
+    {
+      "work_item_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17977176222153319",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfkViWqox1_",
+      "dispatched_at": "2026-11-10T16:28:44.943205+00:00"
+    }
+  ],
+  "observations": [
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "discord",
+      "object_id": "1569687377679745110",
+      "recorded_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569687377679745110",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T12:17:13.591347+00:00",
+      "observed_start_utc": "2026-11-10T16:58:32.212871+00:00",
+      "observed_end_utc": "2026-11-10T16:58:32.930927+00:00",
+      "expected_public_text": "**Newsroom brief: If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate**\n\nOctober CPI: a gold reaction map is only as useful as its rates, dollar and inflation-detail checks.\n\n**Context:** Capital Chronicle's competing explanation is concentration: an energy-led headline rise need not establish a broader core acceleration. But September's substantial core effect also challenges an energy-only account. The next test is whether shelter and other persistent services agree with the rounded core number.\n\nRead the article: https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher\n\nRelease schedule attributed to the U.S. Bureau of Labor Statistics (BLS). Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: Capital Chronicle model estimate 44% for the in-line core CPI bin; modest gold relief depends on the detail and rates.\nAlternative: Capital Chronicle model estimate 31% for the hot core CPI bin; gold weakness needs higher rates and a stronger dollar.\n\nPositions we mention are model positions on a demo account.\n\nChart: TradingView.",
+      "observation": {
+        "status": "SUCCESS",
+        "verified": true,
+        "write_exists": true,
+        "public_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569687377679745110",
+        "body_text_visible": true,
+        "substack_url_visible": true,
+        "meaningful_media_visible": true,
+        "public_object_id": "1569687377679745110"
+      }
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "facebook_page",
+      "object_id": "106091951705748_1450849443900138",
+      "recorded_url": "https://www.facebook.com/1342369584748125/posts/1450849443900138",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T12:17:17.247000+00:00",
+      "observed_start_utc": "2026-11-10T16:58:32.213095+00:00",
+      "observed_end_utc": "2026-11-10T16:58:33.295576+00:00",
+      "expected_public_text": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate\n\nOctober CPI: a gold reaction map is only as useful as its rates, dollar and inflation-detail checks.\n\nWhy it matters: Capital Chronicle's analysis starts with rates: a hot core reading would need a higher two-year Treasury yield and a stronger dollar to reinforce pressure on gold. A soft reading would need the opposite. A CPI surprise alone does not establish either market response.\n\nRead the full brief: https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher\n\nRelease schedule attributed to the U.S. Bureau of Labor Statistics (BLS). Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: Capital Chronicle model estimate 44% for the in-line core CPI bin; modest gold relief depends on the detail and rates.\nAlternative: Capital Chronicle model estimate 31% for the hot core CPI bin; gold weakness needs higher rates and a stronger dollar.\n\nPositions we mention are model positions on a demo account.\n\nChart: TradingView.",
+      "observation": {
+        "status": "SUCCESS",
+        "platform": "facebook_page",
+        "post_id": "106091951705748_1450849443900138",
+        "public_url": "https://www.facebook.com/1342369584748125/posts/1450849443900138",
+        "destination_identity": "Capital Chronicle",
+        "visible_body_text": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate October CPI: a gold reaction map is only as useful as its rates, dollar and inflation-detail checks. Why it matters: Capital Chronicle's analysis starts with rates: a hot core reading would need a higher two-year Treasury yield and a stronger dollar to reinforce pressure on gold. A soft reading would need the opposite. A CPI surprise alone does not establish either market response. Read the full brief: https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher Release schedule attributed to the U.S. Bureau of Labor Statistics (BLS). Capital Chronicle offers analysis only, not financial advice or recommendations. Base case: Capital Chronicle model estimate 44% for the in-line core CPI bin; modest gold relief depends on the detail and rates. Alternative: Capital Chronicle model estimate 31% for the hot core CPI bin; gold weakness needs higher rates and a stronger dollar. Positions we mention are model positions on a demo account. Chart: TradingView.",
+        "body_text_visible": true,
+        "substack_url_visible": true,
+        "meaningful_media_visible": true,
+        "verified": true,
+        "public_object_id": "106091951705748_1450849443900138"
+      }
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "threads",
+      "object_id": "18189728134418285",
+      "recorded_url": "https://www.threads.com/@official.capitalchronicle/post/Dfj42NGlE4E",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T12:18:03.511519+00:00",
+      "observed_start_utc": "2026-11-10T16:58:32.213431+00:00",
+      "observed_end_utc": "2026-11-10T16:58:33.429729+00:00",
+      "expected_public_text": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate\n\nhttps://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher\n\nChart: TradingView.",
+      "observation": {
+        "status": "SUCCESS",
+        "platform": "threads",
+        "post_id": "18189728134418285",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/Dfj42NGlE4E",
+        "destination_identity": "official.capitalchronicle",
+        "account_identity_verified": true,
+        "visible_body_text": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher Chart: TradingView.",
+        "body_text_visible": true,
+        "substack_url_visible": true,
+        "meaningful_media_visible": true,
+        "write_exists": true,
+        "verified": true,
+        "public_object_id": "18189728134418285"
+      },
+      "observed_text_comparison": {
+        "exact_before_rendering": true,
+        "equal_after_only_call_id_hash_removal": true,
+        "normalization": "Only (#<eight hex call id>) -> (<same eight hex call id>); visible provider text and strict false flag both retained."
+      }
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "instagram_business",
+      "object_id": "18118649638820551",
+      "recorded_url": "https://www.instagram.com/p/Dfj5h_nj32E/",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T12:24:00.935056+00:00",
+      "observed_start_utc": "2026-11-10T16:58:32.213633+00:00",
+      "observed_end_utc": "2026-11-10T16:58:33.167354+00:00",
+      "expected_public_text": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate\n\nOctober CPI: a gold reaction map is only as useful as its rates, dollar and inflation-detail checks.\n\nIn focus: Capital Chronicle's competing explanation is concentration: an energy-led headline rise need not establish a broader core acceleration. But September's substantial core effect also challenges an energy-only account. The next test is whether shelter and other persistent services agree with the rounded core number.\n\nFull brief: https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher\n\n#CapitalChronicle\n\nRelease schedule attributed to the U.S. Bureau of Labor Statistics (BLS). Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: Capital Chronicle model estimate 44% for the in-line core CPI bin; modest gold relief depends on the detail and rates.\nAlternative: Capital Chronicle model estimate 31% for the hot core CPI bin; gold weakness needs higher rates and a stronger dollar.\n\nPositions we mention are model positions on a demo account.\n\nChart: TradingView.",
+      "observation": {
+        "status": "SUCCESS",
+        "platform": "instagram_business",
+        "media_id": "18118649638820551",
+        "public_url": "https://www.instagram.com/p/Dfj5h_nj32E/",
+        "destination_identity": "official.capitalchronicle",
+        "account_identity_verified": true,
+        "visible_body_text": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate October CPI: a gold reaction map is only as useful as its rates, dollar and inflation-detail checks. In focus: Capital Chronicle's competing explanation is concentration: an energy-led headline rise need not establish a broader core acceleration. But September's substantial core effect also challenges an energy-only account. The next test is whether shelter and other persistent services agree with the rounded core number. Full brief: https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher #CapitalChronicle Release schedule attributed to the U.S. Bureau of Labor Statistics (BLS). Capital Chronicle offers analysis only, not financial advice or recommendations. Base case: Capital Chronicle model estimate 44% for the in-line core CPI bin; modest gold relief depends on the detail and rates. Alternative: Capital Chronicle model estimate 31% for the hot core CPI bin; gold weakness needs higher rates and a stronger dollar. Positions we mention are model positions on a demo account. Chart: TradingView.",
+        "body_text_visible": true,
+        "substack_url_visible": true,
+        "canonical_url_exact": true,
+        "meaningful_media_visible": true,
+        "verified": true,
+        "public_object_id": "18118649638820551"
+      }
+    },
+    {
+      "work_item_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "destination": "discord",
+      "object_id": "1569753146874658928",
+      "recorded_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569753146874658928",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T16:38:34.464158+00:00",
+      "observed_start_utc": "2026-11-10T16:58:32.931001+00:00",
+      "observed_end_utc": "2026-11-10T16:58:33.298861+00:00",
+      "expected_public_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 10 Nov (#cb3fd1c5): an entry filled at 10 Nov 11:38 ET; the position is open.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "observation": {
+        "status": "SUCCESS",
+        "verified": true,
+        "write_exists": true,
+        "public_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569753146874658928",
+        "body_text_visible": true,
+        "substack_url_visible": true,
+        "meaningful_media_visible": true,
+        "public_object_id": "1569753146874658928"
+      }
+    },
+    {
+      "work_item_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "destination": "facebook_page",
+      "object_id": "1451065237211892_1461568849250709",
+      "recorded_url": null,
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T16:38:36.624654+00:00",
+      "observed_start_utc": "2026-11-10T16:58:33.167424+00:00",
+      "observed_end_utc": "2026-11-10T16:58:33.808418+00:00",
+      "expected_public_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 10 Nov (#cb3fd1c5): an entry filled at 10 Nov 11:38 ET; the position is open.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "observation": {
+        "status": "SUCCESS",
+        "verified": true,
+        "public_object_id": "1451065237211892_1461568849250709",
+        "body_text_visible": true
+      }
+    },
+    {
+      "work_item_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "destination": "instagram_business",
+      "object_id": "18204620554375842",
+      "recorded_url": null,
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T16:38:40.933177+00:00",
+      "observed_start_utc": "2026-11-10T16:58:33.295678+00:00",
+      "observed_end_utc": "2026-11-10T16:58:33.728475+00:00",
+      "expected_public_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 10 Nov (#cb3fd1c5): an entry filled at 10 Nov 11:38 ET; the position is open.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "observation": {
+        "status": "SUCCESS",
+        "verified": true,
+        "public_object_id": "18204620554375842",
+        "body_text_visible": true
+      }
+    },
+    {
+      "work_item_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "destination": "threads",
+      "object_id": "18084548918344983",
+      "recorded_url": "https://www.threads.com/@official.capitalchronicle/post/DfkWsITI6im",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T16:38:48.850882+00:00",
+      "observed_start_utc": "2026-11-10T16:58:33.298914+00:00",
+      "observed_end_utc": "2026-11-10T16:58:34.090782+00:00",
+      "expected_public_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 10 Nov (#cb3fd1c5): an entry filled at 10 Nov 11:38 ET; the position is open.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "observation": {
+        "status": "FAILED_THREADS_STRICT_READBACK",
+        "platform": "threads",
+        "post_id": "18084548918344983",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DfkWsITI6im",
+        "destination_identity": "official.capitalchronicle",
+        "account_identity_verified": true,
+        "visible_body_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 10 Nov (cb3fd1c5): an entry filled at 10 Nov 11:38 ET; the position is open. Since 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits. Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+        "body_text_visible": false,
+        "substack_url_visible": true,
+        "meaningful_media_visible": true,
+        "write_exists": true,
+        "verified": false,
+        "public_object_id": "18084548918344983"
+      },
+      "observed_text_comparison": {
+        "exact_before_rendering": false,
+        "equal_after_only_call_id_hash_removal": true,
+        "normalization": "Only (#<eight hex call id>) -> (<same eight hex call id>); visible provider text and strict false flag both retained."
+      }
+    },
+    {
+      "work_item_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "destination": "facebook_page",
+      "object_id": "1450602847258131_1126975306965402",
+      "recorded_url": null,
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T16:28:34.853166+00:00",
+      "observed_start_utc": "2026-11-10T16:58:33.429801+00:00",
+      "observed_end_utc": "2026-11-10T16:58:33.842502+00:00",
+      "expected_public_text": "Euro (EUR.USD spot) long of 10 Nov (#1e13cbf6): stopped at its invalidation level. Ended 10 Nov 08:30 ET.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "observation": {
+        "status": "SUCCESS",
+        "verified": true,
+        "public_object_id": "1450602847258131_1126975306965402",
+        "body_text_visible": true
+      }
+    },
+    {
+      "work_item_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "destination": "instagram_business",
+      "object_id": "18137716240639687",
+      "recorded_url": null,
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T16:28:38.607443+00:00",
+      "observed_start_utc": "2026-11-10T16:58:33.728556+00:00",
+      "observed_end_utc": "2026-11-10T16:58:34.238271+00:00",
+      "expected_public_text": "Euro (EUR.USD spot) long of 10 Nov (#1e13cbf6): stopped at its invalidation level. Ended 10 Nov 08:30 ET.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "observation": {
+        "status": "SUCCESS",
+        "verified": true,
+        "public_object_id": "18137716240639687",
+        "body_text_visible": true
+      }
+    },
+    {
+      "work_item_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "destination": "threads",
+      "object_id": "17977176222153319",
+      "recorded_url": "https://www.threads.com/@official.capitalchronicle/post/DfkViWqox1_",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-10T16:28:44.943205+00:00",
+      "observed_start_utc": "2026-11-10T16:58:33.808479+00:00",
+      "observed_end_utc": "2026-11-10T16:58:34.792856+00:00",
+      "expected_public_text": "Euro (EUR.USD spot) long of 10 Nov (#1e13cbf6): stopped at its invalidation level. Ended 10 Nov 08:30 ET.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "observation": {
+        "status": "FAILED_THREADS_STRICT_READBACK",
+        "platform": "threads",
+        "post_id": "17977176222153319",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DfkViWqox1_",
+        "destination_identity": "official.capitalchronicle",
+        "account_identity_verified": true,
+        "visible_body_text": "Euro (EUR.USD spot) long of 10 Nov (1e13cbf6): stopped at its invalidation level. Ended 10 Nov 08:30 ET. Since 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits. Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+        "body_text_visible": false,
+        "substack_url_visible": true,
+        "meaningful_media_visible": true,
+        "write_exists": true,
+        "verified": false,
+        "public_object_id": "17977176222153319"
+      },
+      "observed_text_comparison": {
+        "exact_before_rendering": false,
+        "equal_after_only_call_id_hash_removal": true,
+        "normalization": "Only (#<eight hex call id>) -> (<same eight hex call id>); visible provider text and strict false flag both retained."
+      }
+    }
+  ]
+}
