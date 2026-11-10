@@ -1,0 +1,45 @@
+{
+  "store_copy": "C:\\Users\\bullw\\AppData\\Local\\Temp\\cc431-copied-store-7lhs13dw\\copied.sqlite3",
+  "source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "method": "Read-only SQLite backup; real coordinator and NeoDestinationHandoff; controlled tool returns",
+  "simulated_clock_utc": "2026-11-11T12:00:00Z",
+  "required_derivatives": [
+    "telegram",
+    "x",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads"
+  ],
+  "confirmed_count": 7,
+  "distribution_status": "FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED",
+  "x_requests": [
+    {
+      "destination": "x",
+      "action": "PUBLISH",
+      "request_sha256": "9ec74b27a380d2add16aebe787a6c122db459e7eba913d39ffc10b16eda32f98",
+      "surface": "X_THREAD"
+    },
+    {
+      "destination": "x",
+      "action": "READBACK",
+      "request_sha256": "54247862c02779197a66b955d23f913384cdcde7ef2532408c721c4c456f1dcc",
+      "surface": "X_THREAD"
+    }
+  ],
+  "publish_calls": [
+    "substack",
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "telegram",
+    "threads",
+    "x"
+  ],
+  "duplicate_resume_created_no_write": true,
+  "source_store_mutated": false,
+  "external_calls": 0,
+  "live_publication_proof": false
+}
