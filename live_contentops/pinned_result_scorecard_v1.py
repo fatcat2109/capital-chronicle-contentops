@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import datetime, timezone
+from decimal import Decimal, InvalidOperation
 import hashlib
 import json
 import urllib.error
@@ -66,7 +67,11 @@ def project(export, *, now=None, retained_rows=()):
         if direction not in {"bullish", "bearish"}:
             raise ValueError("SCORECARD_DIRECTION_INVALID")
         low, high = display.get("zone_low"), display.get("zone_high")
-        if low is None or high is None or low > high:
+        try:
+            lower, upper = Decimal(str(low)), Decimal(str(high))
+        except InvalidOperation:
+            raise ValueError("SCORECARD_ZONE_INVALID") from None
+        if not lower.is_finite() or not upper.is_finite() or lower > upper:
             raise ValueError("SCORECARD_ZONE_INVALID")
         # This field remains absent until Main exports it. Never infer it from prices.
         end_direction = score.get("direction_at_window_end")
@@ -79,10 +84,11 @@ def project(export, *, now=None, retained_rows=()):
                 + f" | {row['result'].replace('_', ' ')}"
                 + (" (untriggered; not scored)" if not row["scored"] else "")
                 + (" (correction)" if row.get("corrects_outcome_id") else "")
-                + " | end direction: " + (end_direction.lower() if end_direction else "not supplied"))
+                + (" | end direction: " + end_direction.lower() if end_direction else ""))
         projected = {k: row.get(k) for k in (
             "plan_id", "outcome_id", "score_hash", "at_utc", "result", "scored", "corrects_outcome_id")}
-        projected.update(line=line, scored_at_utc=score.get("scored_at_utc"))
+        projected.update(line=line, scored_at_utc=score.get("scored_at_utc"),
+                         direction_at_window_end=end_direction)
         previous = rows.get(row["plan_id"])
         # A temporary incomplete export cannot erase a held, explicit score.
         if previous and previous["scored"] and not row["scored"]:
@@ -173,10 +179,18 @@ def _save(store, key, destination, payload, status):
 
 
 def _confirm(store, revision, object_id, message, now):
-    _save(store, revision + "-readback", DESTINATION + "-readback",
-        {"message_id": str(object_id), "text": message["text"],
-         "chat_username": "CapitalChronicle", "pinned": True,
-         "observed_at_utc": now.isoformat()}, "CONFIRMED")
+    # Recovery also covers a crash after saving the readback but before the
+    # revision status changes. Do not rewrite the first observation's clock.
+    existing = store.get_outbox_message(revision + "-readback")
+    if existing:
+        observation = json.loads(existing["payload"])
+        if observation["message_id"] != str(object_id) or observation["text"] != message["text"]:
+            raise ValueError("SCORECARD_READBACK_IDENTITY_CONFLICT")
+    else:
+        _save(store, revision + "-readback", DESTINATION + "-readback",
+            {"message_id": str(object_id), "text": message["text"],
+             "chat_username": "CapitalChronicle", "pinned": True,
+             "observed_at_utc": now.isoformat()}, "CONFIRMED")
     store.set_outbox_status(revision, "CONFIRMED")
 
 
@@ -203,6 +217,13 @@ def update_scorecard(coordinator, export, *, now=None, api=None):
         if not prior:
             _save(store, revision, DESTINATION, record, "READY")
         api = api or TelegramScorecardAPI()
+
+        def write(method, **fields):
+            # The fuse may change while a network read is in flight.
+            if coordinator._mode() != "AUTONOMOUS_DEFAULT":
+                raise TelegramScorecardError("SCORECARD_KILL_SWITCH", definite=True)
+            return api.call(method, **fields)
+
         chat = api.call("getChat")
         if (chat.get("username", "").casefold() != "capitalchronicle" or chat.get("type") != "channel"):
             raise TelegramScorecardError("SCORECARD_DESTINATION_IDENTITY_MISMATCH", definite=True)
@@ -221,7 +242,7 @@ def update_scorecard(coordinator, export, *, now=None, api=None):
                     _save(store, ANCHOR, DESTINATION + "-anchor", {"revision": revision}, "READY")
                 store.set_outbox_status(ANCHOR, "ATTEMPT_STARTED")
                 try:
-                    message = api.call("sendMessage", text=record["text"], disable_notification=True,
+                    message = write("sendMessage", text=record["text"], disable_notification=True,
                                        link_preview_options={"is_disabled": True})
                 except TelegramScorecardError as exc:
                     store.set_outbox_status(ANCHOR, "READY" if exc.definite else "UNKNOWN_WRITE")
@@ -260,7 +281,7 @@ def update_scorecard(coordinator, export, *, now=None, api=None):
         else:
             store.set_outbox_status(revision, "ATTEMPT_STARTED")
             try:
-                message = api.call("editMessageText", message_id=int(object_id), text=record["text"],
+                message = write("editMessageText", message_id=int(object_id), text=record["text"],
                                    link_preview_options={"is_disabled": True})
             except TelegramScorecardError as exc:
                 store.set_outbox_status(revision, "READY" if exc.definite else "UNKNOWN_WRITE")
@@ -272,7 +293,7 @@ def update_scorecard(coordinator, export, *, now=None, api=None):
                         "message_id": object_id}
             edited = int(message != {"not_modified": True})
         if not _message_matches(pinned, record["text"], object_id):
-            api.call("pinChatMessage", message_id=int(object_id), disable_notification=True)
+            write("pinChatMessage", message_id=int(object_id), disable_notification=True)
             pinned = (api.call("getChat") or {}).get("pinned_message") or {}
         if not _message_matches(pinned, record["text"], object_id):
             return {"status": "PIN_READBACK_REQUIRED", "message_id": object_id}

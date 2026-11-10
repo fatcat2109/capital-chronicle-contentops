@@ -9,13 +9,15 @@ The projection reads Main through its own export reader, then reuses
 `result_rows_from_export`. HIT, STOPPED and EXPIRED share one dated ET form.
 Main-supplied scored NOT_TRIGGERED results enter this record without adding
 unfilled feed posts. Current untriggered expiries remain explicitly unscored.
-Window-end direction is never inferred from prices. Public instruments and
+Window-end direction appears only when Main supplies it; absent values stay
+null in the retained rows. Public instruments and
 mapped levels use the existing CC-384 projection; incomplete mappings keep
 the original plan levels, identified in the line.
 
 All held outcomes feed running totals. The message keeps the newest complete
 lines within 4,096 UTF-16 units; it never selects by result. The existing
-CC-379 weekly record remains the complete weekly publication. Removed export
+CC-379 weekly record now also keeps explicit unscored expiries and accepts
+Main-scored NOT_TRIGGERED results. Removed export
 rows cannot erase outcomes already held in this scorecard's outbox revisions.
 Corrections replace their plan's current result without a second denominator;
 the old immutable revision remains retained.
@@ -30,9 +32,11 @@ source bindings, private-data checks and the public notice remain enforced.
 without any API or store writes. Normal `--dry-run --publish` also remains
 read-only. No editorial model is called for this structured result record.
 
-The initial targeted run passes 216 checks across the scorecard, CC-322
+The final targeted run passes 221 checks across the scorecard, CC-322
 results, CC-400 export contracts, public output guard and CC-379 weekly
-record. `targeted-tests.xml` is the evidence. The old CC-322 replay fixture
+record. All 111 canonical coordinator checks also pass (`coordinator-tests.xml`).
+The final weekly-source clock check is in `weekly-final-tests.xml`.
+`targeted-tests.xml` is the combined evidence. The old CC-322 replay fixture
 was corrected to put an aged outcome in a fresh export; advancing the whole
 export four days tested the later freshness refusal instead of old results.
 `live-preview.json` binds the actual five current results and their source
@@ -44,3 +48,7 @@ fresh `origin/master` is its ancestor. Branch:
 `backlog/cc-394-pinned-results-scorecard`. Existing unrelated work is excluded.
 The launch arguments configure `gpt-6.1-sol` / `max`, recorded as
 `CONFIGURED_NOT_OBSERVED`.
+
+Official transport references: [Telegram editMessageText](https://core.telegram.org/bots/api#editmessagetext),
+[pinChatMessage](https://core.telegram.org/bots/api#pinchatmessage) and
+[ChatFullInfo](https://core.telegram.org/bots/api#chatfullinfo).

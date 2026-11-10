@@ -103,8 +103,8 @@ def test_win_and_loss_have_identical_fields_in_one_message():
     result = scorecard.project(export(call("win"), call("loss", "STOPPED")), now=NOW)
     assert result["counts"] == {"HIT": 1, "STOPPED": 1, "EXPIRED": 0, "NOT_TRIGGERED": 0, "total": 2, "scored": 2}
     lines = [r["line"].split(" | ") for r in result["rows"]]
-    assert len(lines[0]) == len(lines[1]) == 6
-    assert lines[0][:4] == lines[1][:4] and lines[0][-1] == lines[1][-1]
+    assert len(lines[0]) == len(lines[1]) == 5
+    assert lines[0][:4] == lines[1][:4]
     assert "2026-11-10 ET" in result["text"] and "ES futures, Dec 2026" in result["text"]
     assert "(plan levels)" in result["text"] and scorecard.PUBLIC_NOTICE in result["text"]
 
@@ -124,7 +124,8 @@ def test_no_free_text_execution_data_or_inferred_end_direction():
     plan.update(balance=999999, lots=20, fill_price=6123.45)
     plan["outcome"]["score"].update(comment="private ticket 123456789 profit 999999", pnl=999999)
     record = scorecard.project(export(plan), now=NOW)
-    assert "end direction: not supplied" in record["text"]
+    assert "end direction:" not in record["text"]
+    assert record["rows"][0]["direction_at_window_end"] is None
     assert not any(value in record["text"] for value in ("123456789", "999999", "6123.45", "private ticket", "lots"))
     plan["outcome"]["score"]["direction_at_window_end"] = "BEARISH"
     assert "end direction: bearish" in scorecard.project(export(plan), now=NOW)["text"]
@@ -143,7 +144,7 @@ def test_legacy_expiry_is_unscored_until_main_supplies_not_triggered():
     assert "EXPIRED (untriggered; not scored)" in record["text"] and record["counts"]["scored"] == 0
     plan = call("unfilled", "NOT_TRIGGERED")
     record = scorecard.project(export(plan), now=NOW)
-    assert "| NOT TRIGGERED |" in record["text"] and record["counts"]["NOT_TRIGGERED"] == 1
+    assert "| NOT TRIGGERED\n" in record["text"] and record["counts"]["NOT_TRIGGERED"] == 1
     assert posts.result_rows_from_export(export(plan)) == []  # Feed cadence stays selective.
 
 
@@ -309,12 +310,43 @@ def test_transport_errors_never_expose_a_token_url(monkeypatch):
 
 
 @pytest.mark.parametrize("change", [
-    lambda text: text.replace("HIT |", "waiting |"),
+    lambda text: text.replace("| HIT", "| waiting"),
     lambda text: text.replace("2026-11-10 ET |", "Today |"),
-    lambda text: text.replace(" | end direction: not supplied", ""),
+    lambda text: text.replace("entry zone", "suggested entry"),
     lambda text: text + "\nThe market is bullish.",
 ])
 def test_result_grammar_never_exempts_a_new_unconditional_call(change):
     text = scorecard.project(export(call("win")), now=NOW)["text"]
     with pytest.raises(ValueError, match="UNCONDITIONAL_CALL_FORBIDDEN"):
         scorecard.check_publication_copy({"body": change(text)})
+
+
+def test_crash_after_saved_readback_preserves_the_first_observation(live, monkeypatch):
+    real_status = live[0].set_outbox_status
+    def interrupted(key, status):
+        if status == "CONFIRMED":
+            raise RuntimeError("simulated process interruption")
+        return real_status(key, status)
+    monkeypatch.setattr(live[0], "set_outbox_status", interrupted)
+    with pytest.raises(RuntimeError, match="process interruption"):
+        update(live, export(call("win")))
+    before = live[0].list_outbox_messages(destination=scorecard.DESTINATION + "-readback")
+    monkeypatch.setattr(live[0], "set_outbox_status", real_status)
+    assert update(live, export(call("win")))["status"] == "CONFIRMED"
+    assert live[0].list_outbox_messages(destination=scorecard.DESTINATION + "-readback") == before
+    assert live[2].count("sendMessage") == 1 and live[2].count("editMessageText") == 0
+
+
+@pytest.mark.parametrize("switch_after", ["getChat", "sendMessage"])
+def test_kill_switch_changed_during_network_io_is_checked_before_next_write(live, switch_after, monkeypatch):
+    original = live[2].call
+    def switch(method, **fields):
+        result = original(method, **fields)
+        if method == switch_after:
+            _set_mode(live[0], "KILL_SWITCH")
+        return result
+    monkeypatch.setattr(live[2], "call", switch)
+    result = update(live, export(call("win")))
+    assert result["cause"] == "SCORECARD_KILL_SWITCH"
+    assert live[2].count("sendMessage") == int(switch_after == "sendMessage")
+    assert live[2].count("pinChatMessage") == 0

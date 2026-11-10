@@ -14,11 +14,12 @@ from zoneinfo import ZoneInfo
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy
-from live_contentops.plan_status_posts_v1 import TITLES, _utc, read_export
+from live_contentops.plan_status_posts_v1 import TITLES, _utc, read_export, result_rows_from_export
 
 SCHEMA = "contentops.weekly_scored_calls.v1"
 ET = ZoneInfo("America/New_York")
-RESULTS = {"HIT": "hit", "STOPPED": "stopped", "EXPIRED": "closed at the end of its window"}
+RESULTS = {"HIT": "hit", "STOPPED": "stopped", "EXPIRED": "closed at the end of its window",
+           "NOT_TRIGGERED": "not triggered"}
 WRITER_GUIDANCE = (
     "\nCC379_WHOLE_WEEK_RECORD: The SOURCE_PACK includes Main's complete weekly scored-call record. "
     "Include its canonical_content_text exactly once as a section of substack_body_markdown, "
@@ -96,14 +97,39 @@ def project(export, *, cutoff_utc):
         rows.append({"plan_id": plan["plan_id"], "outcome_id": outcome["outcome_id"],
                      "source_plan_hash": score.get("source_plan_hash"), "score_hash": score.get("content_hash"),
                      "resolved_at_utc": score["resolved_at_utc"], "scored_at_utc": score["scored_at_utc"],
-                     "market": symbol, "direction": direction, "zone": dict(zone), "result": result, "line": line})
+                     "market": symbol, "direction": direction, "zone": dict(zone), "result": result,
+                     "scored": True, "line": line})
+    # CC-394's pinned message overflows into this same complete weekly record.
+    # Preserve the reader's explicit legacy expiries as unscored, until Main
+    # supplies scored NOT_TRIGGERED outcomes. Never count them as scored calls.
+    for row in result_rows_from_export(export, include_not_triggered=True):
+        if row["scored"]:
+            continue
+        resolved = _utc(row["at_utc"])
+        if not start <= resolved < end or resolved > cutoff or _utc(status["generated_at_utc"]) > cutoff:
+            continue
+        plan = row["plan"]
+        if plan.get("direction") not in {"bullish", "bearish"}:
+            raise ValueError("WEEKLY_CALL_MARKET_OR_DIRECTION_INVALID")
+        local = resolved.astimezone(ET)
+        line = (f"- {local:%a} {local.day} {local:%b} ET: {TITLES[row['symbol']]}; "
+                f"original direction was {plan['direction']}; entry zone "
+                f"{_level(plan['zone_low'])}–{_level(plan['zone_high'])}; expired without entry; not scored.")
+        rows.append({"plan_id": row["plan_id"], "outcome_id": None, "score_hash": None,
+            "resolved_at_utc": row["at_utc"], "scored_at_utc": None, "market": row["symbol"],
+            "direction": plan["direction"], "zone": {"minimum": plan["zone_low"], "maximum": plan["zone_high"]},
+            "result": row["result"], "scored": False, "line": line})
     rows.sort(key=lambda r: (_utc(r["resolved_at_utc"]), r["plan_id"]))
-    counts = {"scored_calls": len(rows), "hits": sum(r["result"] == "HIT" for r in rows),
+    counts = {"scored_calls": sum(r["scored"] for r in rows), "hits": sum(r["result"] == "HIT" for r in rows),
               "stops": sum(r["result"] == "STOPPED" for r in rows)}
+    unscored = sum(not r["scored"] for r in rows)
+    if unscored:
+        counts["unscored_expiries"] = unscored
     friday = (end - timedelta(days=1)).date()
     period = f"{start.day} {start:%b}–{friday.day} {friday:%b %Y} ET"
-    text = (f"## The week's scored calls ({period})\n\n"
-            f"Scored calls: {counts['scored_calls']}. Hits: {counts['hits']}. Stops: {counts['stops']}.\n\n"
+    text = (f"## The week's call results ({period})\n\n"
+            f"Scored calls: {counts['scored_calls']}. Hits: {counts['hits']}. Stops: {counts['stops']}."
+            + (f" Unscored expiries: {unscored}." if unscored else "") + "\n\n"
             + ("\n".join(r["line"] for r in rows) if rows else "No conditional model calls were scored for this week.")
             + f"\n\nResults refer to resolved conditional model calls.\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}")
     check_publication_copy({"body": text})
@@ -119,7 +145,8 @@ def document(record, source_id):
     url = "urn:cc-public-report:weekly-scored-calls:" + sha256_of(record)
     return {"source_id": source_id, "document_id": "weekly-scored-calls-" + digest,
             "url": url, "source_url": url, "publisher": "Capital Chronicle",
-            "published_at_utc": max((r["scored_at_utc"] for r in record["rows"]), key=_utc,
+            "published_at_utc": max((r.get("scored_at_utc") or record["export_generated_at_utc"]
+                                     for r in record["rows"]), key=_utc,
                                     default=record["export_generated_at_utc"]),
             "canonical_content_text": text, "canonical_content_sha256": digest,
             "raw_sha256": record["export_content_hash"], "content_truncated": False,
@@ -159,7 +186,8 @@ def validate_article(article, documents):
         raise ValueError("WEEKLY_CALL_SOURCE_CHANGED")
     text = doc["canonical_content_text"]
     body = re.sub(r"\[\[SOURCE:SOURCE_\d+\]\]", "", article.get("substack_body_markdown") or "")
-    normal = lambda value: " ".join(value.split())
+    def normal(value):
+        return " ".join(value.split())
     if normal(body).count(normal(text)) != 1:
         raise ValueError("WEEKLY_CALL_COMPLETE_RECORD_REQUIRED")
     return {"source_id": doc["source_id"], "source_sha256": doc["canonical_content_sha256"],

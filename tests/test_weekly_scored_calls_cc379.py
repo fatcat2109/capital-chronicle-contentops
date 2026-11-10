@@ -65,6 +65,32 @@ def test_empty_week_is_explicit_without_invented_results():
     assert "No conditional model calls were scored" in record["text"]
 
 
+def test_cc394_weekly_overflow_keeps_main_scored_not_triggered():
+    data = export()
+    data["status"]["plans"].append(scored("not-entered", "NOT_TRIGGERED", "2026-11-12T14:00:00Z"))
+    data["status"]["scored_call_count"] += 1
+    record = weekly.project(data, cutoff_utc=CUTOFF)
+    assert len(record["rows"]) == 5 and record["counts"]["scored_calls"] == 5
+    assert "not triggered." in record["text"]
+    assert "not-entered" in {r["plan_id"] for r in record["rows"]}
+
+
+def test_cc394_weekly_overflow_keeps_legacy_expiry_without_inflating_scored_count():
+    data = export()
+    data["status"]["plans"].append({"plan_id": "legacy-expiry", "asset_id": "EURUSD", "direction": "BULLISH",
+        "status": "EXPIRED", "zone": {"minimum": 1.12, "maximum": 1.13}, "invalidation_conditions": [],
+        "expires_at_utc": "2026-11-12T14:00:00Z", "outcome": {"state": "NOT_SCORED_UNTRIGGERED"}})
+    data["transitions"]["transitions"].append({"plan_id": "legacy-expiry", "status": "EXPIRED",
+                                                "at_utc": "2026-11-12T14:00:00Z"})
+    record = weekly.project(data, cutoff_utc=CUTOFF)
+    assert len(record["rows"]) == 5 and record["counts"]["scored_calls"] == 4
+    assert record["counts"]["unscored_expiries"] == 1
+    assert "expired without entry; not scored." in record["text"]
+    document = weekly.document(record, "SOURCE_1")
+    assert document["weekly_scored_calls"] == record
+    assert document["published_at_utc"] == CUTOFF
+
+
 @pytest.mark.parametrize("change", ["count", "duplicate", "score", "direction", "zone"])
 def test_inconsistent_export_cannot_silently_drop_or_relabel_a_call(change):
     data = export()
