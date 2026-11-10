@@ -10,6 +10,86 @@ const unwrap = r => {
   return r.value;
 };
 
+// CC-454 extends this same transport for the two restored article destinations.
+if (input.phase === 'article_identity') {
+  const s = await snap();
+  const company = input.destination === 'linkedin_company';
+  const correct = company
+    ? /^https:\/\/www\.linkedin\.com\/company\/143198922\/admin\//.test(s.url)
+      && !!find(s, 'button', 'Start a post') && /heading "Capital Chronicle"/.test(s.text)
+    : /^https:\/\/www\.youtube\.com\/@CapitalChronicleYouTube\/posts/.test(s.url)
+      && s.refs.some(r => r.role === 'link' && ['Tùy chỉnh kênh', 'Customize channel'].includes(r.name))
+      && s.refs.some(r => r.role === 'tab' && ['Bài đăng', 'Posts'].includes(r.name));
+  return {authenticated:correct, observed_identity:correct ? input.expected_identity : null,
+    ...(company && correct ? {observed_stable_id:'143198922'} : {}), observed_at_utc:new Date().toISOString()};
+}
+
+if (input.phase === 'article_upload') {
+  return unwrap(await page.evaluateInPage(destination => {
+    const scope = destination === 'linkedin_company'
+      ? document.querySelector('[role="dialog"]') : document;
+    const fields = Array.from(scope?.querySelectorAll('input[type="file"]') || []);
+    const field = fields.find(e => /image/.test(e.accept)
+      && (destination === 'linkedin_company' || e.name === 'Filedata'));
+    if (!field) return {ready:false};
+    field.style.cssText='display:block;visibility:visible;position:relative;width:180px;height:30px;opacity:1';
+    field.removeAttribute('aria-hidden'); field.setAttribute('aria-label','CC454 article image');
+    return {ready:true};
+  }, input.destination));
+}
+
+if (input.phase === 'article_publish') {
+  const s = await snap();
+  const editors = unwrap(await page.evaluateInPage(destination => {
+    const scope = destination === 'linkedin_company'
+      ? document.querySelector('[role="dialog"]') : document;
+    return Array.from(scope?.querySelectorAll(destination === 'linkedin_company'
+      ? '[contenteditable="true"][role="textbox"]' : '#contenteditable-root[contenteditable="true"]') || [])
+      .filter(e => e.getClientRects().length).map(e => e.innerText);
+  }, input.destination));
+  const buttons=s.refs.filter(r=>r.role==='button' && ['Post','Đăng'].includes(r.name));
+  const button=buttons[buttons.length-1];
+  if (!button || editors.length !== 1 || input.posts.length !== 1
+      || normalize(editors[0]) !== normalize(input.posts[0])) {
+    return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'NEO_COMPOSER_PAYLOAD_MISMATCH',pre_click_posts:editors};
+  }
+  const dispatched_at_utc=new Date().toISOString();
+  await page.click(button.ref);
+  return {status:'CLICKED',stage:'PUBLISH_CLICK_ATTEMPTED',dispatched_at_utc,pre_click_posts:editors};
+}
+
+if (input.phase === 'article_readback') {
+  return unwrap(await page.evaluateInPage(destination => {
+    const visible=e=>!!e && e.getClientRects().length>0;
+    const links=e=>Array.from(e.querySelectorAll('a[href]')).map(a=>{
+      const u=new URL(a.href);const expanded=u.hostname==='www.youtube.com' && u.pathname==='/redirect'
+        ? u.searchParams.get('q') : null;
+      return {text:a.innerText,url:a.href,expanded_url:expanded};
+    });
+    const nodes=destination==='linkedin_company'
+      ? document.querySelectorAll('[data-urn^="urn:li:activity:"]')
+      : document.querySelectorAll('ytd-backstage-post-renderer');
+    const posts=Array.from(nodes).filter(visible).map(e=>{
+      const ls=links(e);
+      const author=ls.find(l=>destination==='linkedin_company'
+        ? /^https:\/\/www\.linkedin\.com\/company\/(?:143198922|capitalchronicle)(?:\/|$)/i.test(l.url)
+        : /^https:\/\/www\.youtube\.com\/@CapitalChronicleYouTube(?:\/|$)/i.test(l.url));
+      const id=destination==='linkedin_company' ? e.getAttribute('data-urn')
+        : ls.find(l=>/^https:\/\/www\.youtube\.com\/post\//.test(l.url))?.url.split('/post/')[1];
+      const url=destination==='linkedin_company'
+        ? 'https://www.linkedin.com/feed/update/'+id+'/' : (id?'https://www.youtube.com/post/'+id:null);
+      const body=e.querySelector(destination==='linkedin_company'?'.update-components-text':'#content-text');
+      return {public_object_id:id,public_object_url:url,observed_text:body?.innerText || '',
+        observed_identity:author?(destination==='linkedin_company'?'linkedin:company:143198922':'@CapitalChronicleYouTube'):null,
+        ...(destination==='linkedin_company'&&author?{observed_stable_id:'143198922'}:{}),links:ls,
+        public_image_urls:Array.from(e.querySelectorAll('img')).filter(visible).map(i=>i.currentSrc||i.src)
+          .filter(u=>destination==='linkedin_company'?/^https:\/\/media\.licdn\.com\//.test(u):/^https:\/\/yt3\.ggpht\.com\//.test(u))};
+    }).filter(p=>p.public_object_id && p.observed_identity);
+    return {posts};
+  }, input.destination));
+}
+
 if (input.phase === 'identity') {
   const s = await snap();
   const correct = input.destination === 'x'

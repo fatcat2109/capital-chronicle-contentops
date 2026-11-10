@@ -767,7 +767,7 @@ class NativeNeoExecutor:
 
 
 def bind_native_neo_coordinator(store, *, operation_id, output_dir, native_invocation_id,
-                                allow_publish=False, automatic=False, endpoint_client=None):
+                                allow_publish=False, automatic=False, automatic_articles=False, endpoint_client=None):
     """One concrete supported composition; existing API routes and sole owner are reused."""
     from live_contentops.destination_transport_registry_v1 import DestinationReadinessManager
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
@@ -776,10 +776,12 @@ def bind_native_neo_coordinator(store, *, operation_id, output_dir, native_invoc
     )
     executor_type = NativeNeoExecutor
     options = {}
-    if automatic:
+    if automatic or automatic_articles:
         from live_contentops.neo_endpoint_executor_v1 import EndpointNeoExecutor
         executor_type = EndpointNeoExecutor
         options["client"] = endpoint_client
+        if automatic_articles and not automatic:
+            options["automatic_destinations"] = {"linkedin_company", "youtube"}
     executor = executor_type(store, operation_id=operation_id, output_dir=output_dir,
                                  native_invocation_id=native_invocation_id, allow_publish=allow_publish,
                                  identity_at_action=allow_publish, **options)

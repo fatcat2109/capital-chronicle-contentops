@@ -23,6 +23,7 @@ ENDPOINT_SURFACE = "NEO_ENDPOINT_EXECUTOR"
 ENDPOINT_TOOL = "browseros-neo/run"
 STEPS = Path(__file__).with_name("neo_endpoint_steps_v1.js")
 GROUP = "codex/cc436-automatic-posts"
+ARTICLE_ROUTES = {"linkedin_company", "youtube"}
 
 
 class NeoEndpointError(RuntimeError):
@@ -229,6 +230,8 @@ class NeoMcpClient:
                         host = urlsplit(match[2]).hostname
                         if host == "x.com": self.pages.setdefault("x", int(match[1]))
                         if host == "substack.com": self.pages.setdefault("substack_notes", int(match[1]))
+                        if host == "www.linkedin.com": self.pages.setdefault("linkedin_company", int(match[1]))
+                        if host == "www.youtube.com": self.pages.setdefault("youtube", int(match[1]))
                         if host in {"t.co","capitalchronicle.substack.com"}:
                             self.pages.setdefault("link-verification",int(match[1]))
         if destination in self.pages:
@@ -257,7 +260,7 @@ class NeoMcpClient:
         return self.call("act", {"page": page, "kind": kind, "diff": "none", **values})
 
     def verify_link(self, short_url, canonical):
-        if not re.fullmatch(r"https://t\.co/[A-Za-z0-9]+",short_url):
+        if not re.fullmatch(r"https://(?:t\.co/[A-Za-z0-9]+|lnkd\.in/[A-Za-z0-9_-]+)",short_url):
             return False
         cache=getattr(self,"verified_links",{})
         if short_url not in cache:
@@ -280,7 +283,9 @@ def compare_public_images(request, observed, *, http=None):
         host = parsed.hostname or ""
         allowed = (request["destination"] == "x" and host == "pbs.twimg.com" and parsed.path.startswith("/media/")) or (
             request["destination"] == "substack_notes" and (
-                host == "substack-post-media.s3.amazonaws.com" or host == "substackcdn.com" or host.endswith(".substackcdn.com")))
+                host == "substack-post-media.s3.amazonaws.com" or host == "substackcdn.com" or host.endswith(".substackcdn.com"))) or (
+            request["destination"] == "linkedin_company" and host == "media.licdn.com") or (
+            request["destination"] == "youtube" and host == "yt3.ggpht.com")
         if parsed.scheme != "https" or not allowed:
             continue
         try:
@@ -338,6 +343,117 @@ class NeoBrowserDriver:
         refs = [r for r in self.client.snapshot(page)["refs"] if r["role"] == role and r["name"] in names]
         if not refs: raise NeoEndpointError("NEO_EXPECTED_" + role.upper() + "_MISSING")
         return refs[-1 if last else 0]["ref"]
+
+    def article_guard(self, request, page):
+        """Observe objections without clicking a checkpoint or optional verification."""
+        snapshot = self.client.snapshot(page)
+        text, url = snapshot.get("text", ""), snapshot.get("url", "")
+        patterns = (
+            r"[^\n]*(?:your account (?:has been|is) (?:temporarily )?(?:restricted|suspended)|"
+            r"your channel (?:has been|is) (?:removed|suspended|terminated)|"
+            r"verify your identity|confirm your identity|security verification|"
+            r"tài khoản của bạn (?:đã bị|bị) (?:hạn chế|tạm ngưng)|xác minh danh tính)[^\n]*",
+        )
+        wording = next((m.group(0).strip() for p in patterns if (m := re.search(p, text, re.I))), None)
+        checkpoint = bool(re.search(r"/(?:checkpoint|challenge|verify)(?:/|\?|$)", url, re.I))
+        if not wording and not checkpoint:
+            return None
+        cause = ("LINKEDIN" if request["destination"] == "linkedin_company" else "YOUTUBE") + "_PLATFORM_RESTRICTION"
+        from .neo_destination_handoff_v1 import suspend_route
+        suspend_route(request["destination"], cause)
+        return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+            "public_write_performed": False, "stage": "BEFORE_PUBLISH_CLICK",
+            "reason_code": cause, "platform_wording": wording or text[:1500], "page_url": url}
+
+    def article_readback(self, request, page, *, posts=None):
+        if request.get("public_object_url"):
+            self.client.call("navigate", {"page": page, "url": request["public_object_url"]})
+        refused = self.article_guard(request, page)
+        if refused:
+            return {**refused, "status": "READBACK_UNAVAILABLE", "verified": False}
+        data = self.client.run(page, "article_readback", destination=request["destination"])
+        candidates = data["posts"]
+        for post in candidates:
+            resolutions = []
+            for link in post.get("links") or []:
+                if (request.get("canonical_url") and request["destination"] == "linkedin_company"
+                        and re.fullmatch(r"https://lnkd\.in/[A-Za-z0-9_-]+", str(link.get("url") or ""))
+                        and self.client.verify_link(link["url"], request["canonical_url"])):
+                    link["expanded_url"] = request["canonical_url"]
+                    resolutions.append({"displayed_url": link["url"], "target_url": request["canonical_url"],
+                        "target_verified": True, "public_object_url": post["public_object_url"]})
+            post["observed_link_resolutions"] = resolutions
+        texts = posts or expected_posts(request)
+        from .neo_destination_handoff_v1 import _text
+        def matches(post):
+            if post.get("observed_identity") != request["expected_identity"]:
+                return False
+            observed = _text(post["observed_text"])
+            for link in post.get("links") or []:
+                if link.get("expanded_url") == request.get("canonical_url"):
+                    observed = observed.replace(_text(link["url"]), _text(link["expanded_url"]))
+            return all(_text(text) in observed for text in texts)
+        matches_found = [p for p in candidates if matches(p) and (
+            not request.get("public_object_url") or p["public_object_url"] == request["public_object_url"])]
+        if len(matches_found) != 1:
+            return {"status": "READBACK_UNAVAILABLE", "verified": False,
+                "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND", "observed_identity": request["expected_identity"]}
+        post = matches_found[0]
+        if not request.get("public_object_url"):
+            return self.article_readback({**request, "public_object_url": post["public_object_url"]}, page, posts=texts)
+        return compare_public_images(request, {**post, "status": "SUCCESS", "content_verified": True,
+            "request_sha256": request["request_sha256"]}, http=getattr(self.client, "image_http", None))
+
+    def article_perform(self, packet):
+        request = packet["request"]
+        destination = request["destination"]
+        identity = {"authenticated": False, "observed_identity": None,
+            "observed_at_utc": datetime.now(timezone.utc).isoformat()}
+        page = self.client.open(destination, ROOTS[destination])
+        refused = self.article_guard(request, page)
+        if refused:
+            return {"result": refused, "identity": identity}
+        if request["action"] == "READBACK":
+            return {"result": self.article_readback(request, page), "identity": identity}
+        identity = self.client.run(page, "article_identity", destination=destination,
+            expected_identity=request["expected_identity"])
+        if request["action"] == "VERIFY_IDENTITY":
+            return {"result": {**identity, "status": "SUCCESS"}, "identity": identity}
+        if not identity.get("authenticated"):
+            return {"result": {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                "stage": "BEFORE_PUBLISH_CLICK", "reason_code": "NEO_SIGNED_IN_ACCOUNT_MISMATCH"}, "identity": identity}
+        try:
+            posts = expected_posts(request)
+            if len(posts) != 1:
+                raise NeoEndpointError("ARTICLE_SINGLE_POST_REQUIRED")
+            if destination == "linkedin_company":
+                self.client.act(page, "click", ref=self._ref(page, "button", {"Start a post"}))
+                self.client.wait(page, '[role="dialog"] [contenteditable="true"]')
+                ref = self._ref(page, "textbox", {"Text editor for creating content"}, last=True)
+            else:
+                ref = self._ref(page, "button", {"Bật mí về video tiếp theo của bạn", "Share an upcoming video", "What's on your mind?"})
+            self.client.act(page, "fill", ref=ref, value=posts[0])
+            media = (request.get("content_binding") or {}).get("media_manifest") or []
+            if media:
+                ready = self.client.run(page, "article_upload", destination=destination)
+                if not ready.get("ready"):
+                    raise NeoEndpointError("ARTICLE_FILE_INPUT_UNAVAILABLE")
+                ref = self._ref(page, "button", {"CC454 article image"})
+                self.client.call("upload", {"page": page, "ref": ref, "files": [a["path"] for a in media]})
+            refused = self.article_guard(request, page)
+            if refused:
+                return {"result": refused, "identity": identity}
+        except NeoEndpointError as exc:
+            return {"result": {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                "stage": "BEFORE_PUBLISH_CLICK", "reason_code": "NEO_COMPOSER_PREPARATION_FAILED",
+                "safe_error_classification": str(exc)}, "identity": identity}
+        result = self.client.run(page, "article_publish", destination=destination, posts=posts)
+        if result["status"] != "CLICKED":
+            return {"result": result, "identity": identity}
+        readback = self.article_readback(request, page, posts=posts)
+        return {"result": {**readback, "status": "SUCCESS" if readback.get("public_object_id") else "UNKNOWN_WRITE",
+                "stage": "PUBLISH_CLICK_ATTEMPTED"}, "identity": identity, "readback": readback,
+            "pre_click_posts": result["pre_click_posts"], "dispatched_at_utc": result["dispatched_at_utc"]}
 
     @staticmethod
     def _links(request, post):
@@ -499,6 +615,8 @@ class NeoBrowserDriver:
     def perform(self, packet):
         request = packet["request"]
         destination = request["destination"]
+        if destination in ARTICLE_ROUTES:
+            return self.article_perform(packet)
         profile = request["entry_url"] if request["action"] == "READBACK" else ROOTS[destination]
         identity={"authenticated":False,"observed_identity":None,
             "observed_at_utc":datetime.now(timezone.utc).isoformat()}
@@ -541,10 +659,12 @@ def endpoint_client():
 class EndpointNeoExecutor(NativeNeoExecutor):
     """The existing sole publisher calls this synchronously; no model is involved."""
     inline_transport = True
-    def __init__(self,*args,client=None,**kwargs):
+    def __init__(self,*args,client=None,automatic_destinations=None,**kwargs):
         kwargs["native_invocation_id"] = "neo-endpoint:" + uuid4().hex
         super().__init__(*args,**kwargs)
         self.client=client or endpoint_client()
+        self.automatic_destinations = (set(automatic_destinations) if automatic_destinations is not None
+            else {"x", "substack_notes", *ARTICLE_ROUTES})
         self.executor_revision=sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
 
     def fresh_publish_request(self, request):
@@ -572,7 +692,7 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         try:
             return super().__call__(request)
         except NativeNeoInputRequired as waiting:
-            if request.get("destination") not in {"x","substack_notes"} or request.get("action") == "EDIT_EXISTING":
+            if request.get("destination") not in self.automatic_destinations or request.get("action") == "EDIT_EXISTING":
                 raise
             pending=waiting
         # Connect before claiming: an unavailable endpoint has made no public attempt.
