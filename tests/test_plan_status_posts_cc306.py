@@ -122,7 +122,7 @@ def test_setup_post_states_the_conditional_call_with_zone_invalidation_validity_
 def test_triggered_and_cancelled_posts_report_the_change_in_plain_words(export, main_root):
     rows = rows_by(export, main_root)
     assert compose(rows[("XAUUSD", "TRIGGERED")])["text"].startswith(
-        "Gold: the 4,070–4,085 entry zone filled at Thu 5 Nov, 07:20 ET, and Capital Chronicle's model position is"
+        "Gold: the 4,070–4,085 entry zone filled at Thu 5 Nov, 07:20 ET, and Capital Chronicle's position is"
         " open. It is invalidated if price moves below 4,055.")
     cancelled = compose(rows[("USOIL", "CANCELLED")])["text"]
     assert cancelled.startswith("US crude oil: the plan with the 61.2–61.8 entry zone is cancelled at "
@@ -287,7 +287,7 @@ def test_a_resting_order_fill_posts_once_as_price_reaching_the_zone(tmp_path, ma
         ("EURUSD", "WAITING", "2026-11-05T12:00:00Z"), ("EURUSD", "TRIGGERED", "2026-11-05T12:10:05Z")]
     text = result["queued"][1]["text"]
     assert text.startswith("EUR/USD: the 1.1166–1.117 entry zone filled at Thu 5 Nov, 07:10 ET, and Capital"
-                           " Chronicle's model position is open.")
+                           " Chronicle's position is open.")
     # CC-423 permits only the exact demo-position notice; execution details stay private.
     assert not re.search(r"\b(?:order|lots?|size|demo|account)\b", text.replace(CONFLICTS_NOTICE, ""), re.I)
     assert queue(store, folder, main_root)["queued"] == []

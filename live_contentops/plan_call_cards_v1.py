@@ -258,14 +258,14 @@ def compose(row):
         if row.get("price_basis") == "plan":
             extra.append("Levels use the plan's prices.")
         if row.get("state") in {"TRIGGERED", "FILLED"}:
-            extra.append("The model position is open.")
+            extra.append("The position is open.")
     else:
         prefix = f"{title} {direction} of {day.day} {day:%b} ({identity}): "
         extra = []
         if kind == "result":
             lead = prefix + ending_words(row) + f". Ended {_clock(row['at_utc'])}."
         elif row["state"] in {"TRIGGERED", "FILLED"}:
-            lead = prefix + f"an entry filled at {_clock(row['at_utc'])}; the model position is open."
+            lead = prefix + f"an entry filled at {_clock(row['at_utc'])}; the position is open."
         else:
             words = {"CANCELLED": "the plan was withdrawn", "VIEW_CHANGED": "the view changed",
                      "INVALIDATED": "the idea's invalidation condition was reached",

@@ -545,7 +545,7 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
                  " position is open.", f"It is invalidated if {invalid}."]
         if len(plan.get("entries") or []) > 1 or any(e["kind"] == "BREAKOUT" for e in plan.get("entries") or []):
             # Main's idea-level fill does not identify which leg filled. Never assert the limit zone did.
-            lines[0] = f"{title}: an entry filled at {_when(row['at_utc'])}, and Capital Chronicle's model position is open."
+            lines[0] = f"{title}: an entry filled at {_when(row['at_utc'])}, and Capital Chronicle's position is open."
         if first_plan_post and plan.get("valid_until_utc"):
             call = {"condition": _entry_condition(plan), "direction": plan["direction"], "market": market,
                     "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}

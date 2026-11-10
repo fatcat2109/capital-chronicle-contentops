@@ -76,7 +76,7 @@ def test_recorded_output_is_used_by_live_compiler(tmp_path):
         assert (expected[0] if isinstance(expected, list) else expected) in visible
         assert canonical in visible
         assert "Capital Chronicle offers analysis only, not financial advice or recommendations." in visible
-        assert "Positions we mention are model positions on a demo account." in visible
+        assert "Capital Chronicle may hold positions in the markets it covers." in visible
         assert "Base case:" in visible and "Alternative:" in visible
         if destination in {"x", "threads"}:
             assert all(len(post["text"]) <= agy.LIMITS[destination] for post in payload["posts"])

@@ -44,7 +44,7 @@ def render(row, folder):
         side = "LONG" if plan.get("direction") == "bullish" else "SHORT"
         text(72, 198, f"{side} IDEA   /   #{row['short_id']}", 30, gold)
         if row["kind"] != "setup":
-            text(72, 253, ending_words(row) if row["kind"] == "result" else "Model position open", 34, cyan, width=61)
+            text(72, 253, ending_words(row) if row["kind"] == "result" else "Position open", 34, cyan, width=61)
         else:
             text(72, 253, "Conditional on the entry shown below", 30, muted)
         text(72, 330, "PLAN LEVELS  ·  price levels, not price history", 24, muted)

@@ -106,7 +106,7 @@ def test_fill_names_same_instrument_and_never_uses_execution_fields(state, first
     assert "fill_price" not in json.dumps(built)
     post = composed(value, state, first)
     assert "ES futures, Dec 2026" in post["text"]
-    assert "model position is open" in post["text"]
+    assert "position is open" in post["text"]
     assert not any(v in post["text"] for v in ("7999.888", "998877", "CFD", "US500"))
     payloads = p.destination_payloads(post, card_id="card", chart_credit=True)
     assert len(payloads["threads"]["text"]) <= 500

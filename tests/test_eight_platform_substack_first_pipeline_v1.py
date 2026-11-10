@@ -34,7 +34,7 @@ def test_every_derivative_carries_notices_and_overflow_remains_a_valid_thread(mo
     for destination, payload in result.items():
         visible = payload.get("full_text") or payload["text"]
         assert pipeline.PUBLIC_NOTICE in visible
-        assert "Positions we mention are model positions on a demo account." in visible
+        assert "Capital Chronicle may hold positions in the markets it covers." in visible
         if destination in {"x", "threads"}:
             assert payload["text"] == payload["root_text"] == payload["posts"][0]["text"]
             assert payload["reply_texts"] == [post["text"] for post in payload["posts"][1:]]
@@ -80,7 +80,7 @@ def test_bound_chart_credit_reflows_into_live_native_thread_without_losing_copy(
         assert source in payload["root_text"]
         assert "The jobs report can ease rate pressure while weakening the earnings outlook." in payload["full_text"]
         assert pipeline.PUBLIC_NOTICE in payload["full_text"]
-        assert "Positions we mention are model positions on a demo account." in payload["full_text"]
+        assert "Capital Chronicle may hold positions in the markets it covers." in payload["full_text"]
         assert payload["posts"][0]["media_asset_ids"] == ["chart"]
         assert all(not post["media_asset_ids"] for post in payload["posts"][1:])
         assert payload["text"] == payload["root_text"] == payload["posts"][0]["text"]

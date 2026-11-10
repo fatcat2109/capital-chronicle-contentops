@@ -31,7 +31,7 @@ SCHEMA = "contentops.event_article.v1"
 EVIDENCE_SCHEMA = "contentops.event_article_evidence.v1"
 DISCLAIMER = "Capital Chronicle offers analysis only, not financial advice or recommendations."
 PUBLIC_NOTICE = "Capital Chronicle offers analysis only, not financial advice or recommendations."
-CONFLICTS_NOTICE = "Positions we mention are model positions on a demo account."
+CONFLICTS_NOTICE = "Capital Chronicle may hold positions in the markets it covers."
 # Frozen source records and already-published objects retain their original bytes.
 LEGACY_CONFLICTS_NOTICE = "Capital Chronicle may hold positions in the markets it covers."
 # Decision 72 b: the rights classes of a cited third-party figure and of our computed outputs (schema 1.4, CC-262).

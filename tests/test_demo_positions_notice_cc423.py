@@ -17,7 +17,7 @@ from test_plan_status_posts_cc306 import export, main_root, rows_by  # noqa: F40
 from test_event_public_record_v1 import frozen_file, source as frozen_source
 
 
-EXPECTED = "Positions we mention are model positions on a demo account."
+EXPECTED = "Capital Chronicle may hold positions in the markets it covers."
 
 
 def test_telegram_keeps_scenarios_and_notices_before_optional_dek(monkeypatch):
