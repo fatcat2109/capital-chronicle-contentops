@@ -1,0 +1,133 @@
+{
+  "item": "CC-400",
+  "observed_at_utc": "2026-11-10T09:19:30.095101+00:00",
+  "outcome": "INTEGRATED_AND_CONSUMED",
+  "branch": "backlog/cc-400-export-contract",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_code_commit": "0ed28cddf66c1b2c6a920f21def50dedaef07a6d",
+  "base_commit": "50b449cf8eb758cd8f47d8cefc8d8daab3dd645a",
+  "base_choice": "Retain the live CC-399/CC-432 consumer; fetched remote master is its ancestor.",
+  "tested_contracts": [
+    {
+      "version": "legacy/schema-1.0.0",
+      "evidence": "Live export, Main reader, composer/destination dry run and existing minute-run readback."
+    },
+    {
+      "version": "2.0.0",
+      "producer_commit": "215c7fa136959cb2453978dc4f3898f9c66ea4f8",
+      "evidence": "Controlled composer fixtures; this producer version was not live at observation."
+    }
+  ],
+  "live_dry_run": {
+    "validation": "PASS",
+    "status": "OK",
+    "contract_version": "legacy/schema-1.0.0",
+    "source_content_hash": "5c19c85c4dc7c5d98c79925b6698919b822b2fb044b11fbf6be44ff9fd2abb77",
+    "rendered_count": 21,
+    "transitions_read": 99,
+    "export_generated_at_utc": "2026-11-10T09:16:04.560221Z",
+    "export_age_seconds": 58.4
+  },
+  "renamed_field_copy": {
+    "validation": "FAIL",
+    "status": "EXPORT_CONTRACT_REJECTED",
+    "failed_field": "status.plans[0].zone",
+    "incident_recorded": false
+  },
+  "unknown_version_acceptance": {
+    "source": "tests/test_plan_status_contract_cc400.py",
+    "outbox_rows": 0,
+    "platform_dispatches": 0,
+    "incidents_after_two_runs": 1,
+    "publisher_unreachable": true,
+    "production_unknown_version_injected": false
+  },
+  "ops_live_command": "python \"A:\\Capital Chronicle\\ContentOps\\scripts\\plan_status_posts.py\" --dry-run",
+  "ops_live_integration_instruction": "Run the command at each Main integration that changes the export; Main integration remains Ops Live-owned.",
+  "test_reports": {
+    "composer-tests.xml": {
+      "passed": 71,
+      "failures": 0
+    },
+    "final-composer-tests.xml": {
+      "passed": 52,
+      "failures": 0
+    },
+    "installed-tests.xml": {
+      "passed": 17,
+      "failures": 0
+    }
+  },
+  "distinct_targeted_checks": 72,
+  "installed_minute_consumer": {
+    "artifact": "installed-consumer.json",
+    "latest_run": {
+      "at_utc": "2026-11-10T09:17:29.229477Z",
+      "cause": null,
+      "contract_version": "legacy/schema-1.0.0",
+      "export_age_seconds": 22.2,
+      "export_generated_at_utc": "2026-11-10T09:17:04.474185Z",
+      "failed_field": null,
+      "incident_id": null,
+      "max_export_age_minutes": 10,
+      "not_posted": 20,
+      "posts_by_status": {
+        "NOT_STARTED": 1,
+        "PUBLISHING": 7
+      },
+      "publication": "OK",
+      "queued": 0,
+      "status": "OK"
+    },
+    "task": {
+      "task_name": "CapitalChronicle-PlanStatusPosts-V1",
+      "working_directory": "A:\\Capital Chronicle\\ContentOps",
+      "executable": "pythonw.exe",
+      "arguments": "-B scripts\\plan_status_posts.py --publish",
+      "schedule_changed": false
+    }
+  },
+  "public_write_requested_by_this_run": false,
+  "schedule_changed": false,
+  "main_source_changed": false,
+  "unrelated_wip_hashes_unchanged": true,
+  "launch_configuration": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "configured_parent_pid": 4112,
+    "parent_started_at_utc": "2026-11-10T08:56:42.301747Z",
+    "source": "Read-back parent codex.exe launch arguments",
+    "editorial_model_calls": 0
+  },
+  "artifacts": {
+    "composer-tests.xml": {
+      "bytes": 11109,
+      "sha256": "494fb3c302aebf06a16f7d3929545bdcca2a8907577c414597045618e24c3822"
+    },
+    "final-composer-tests.xml": {
+      "bytes": 8138,
+      "sha256": "341ebf62dce2cde771758b8fa545716144c7e9c6775bf67af1f003952074b737"
+    },
+    "installed-consumer.json": {
+      "bytes": 1211,
+      "sha256": "14a0b06f4e7db516aaa55abea5f84970d02001cbc866c238354d7977049703f2"
+    },
+    "installed-dry-run.json": {
+      "bytes": 193641,
+      "sha256": "66f08395e8b09d184ec0ddc96619e0c4fdde092c618469cea13f2a2cdec48436"
+    },
+    "installed-tests.xml": {
+      "bytes": 3065,
+      "sha256": "f24d0c709a118a1882c509b751e25b3aa1a760c222371ca57064a6f8e3d87cb4"
+    },
+    "live-dry-run.json": {
+      "bytes": 193641,
+      "sha256": "5a175aa113e2ce37d1f6f72d9b9c69e63fd95b730f4b6b8c1f30830d08951f4e"
+    },
+    "renamed-field-dry-run.json": {
+      "bytes": 404,
+      "sha256": "4e552cd10dbcd39a59b8dc95999a377828cf55c66589915929c66db08a8d2aef"
+    }
+  }
+}

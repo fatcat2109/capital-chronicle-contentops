@@ -1,5 +1,12 @@
 # CC-400 — Tested plan-status export contracts
 
+Integrated into `A:\Capital Chronicle\ContentOps` at code commit
+`0ed28cddf66c1b2c6a920f21def50dedaef07a6d`. The existing minute consumer recorded
+`OK`, the tested contract version and its export clock at 16:17:29 GMT+7 on
+10 November 2026. The installed dry run passes and all 17 contract checks pass
+from that operating root. There are 72 distinct passing targeted checks across
+the validation runs. No task or application was restarted.
+
 The existing plan-status composer validates the export before creating an
 outbox post. An unknown semantic version stops that run's publication and
 records one incident in the existing store, keyed by the version. Repeated
@@ -46,8 +53,10 @@ write through SQLite or call the publisher.
 
 [composer-tests.xml](composer-tests.xml) and
 [final-composer-tests.xml](final-composer-tests.xml) retain the targeted checks.
-Integration and installed-consumer observations are recorded in
-[acceptance.json](acceptance.json) when completed.
+The installed checks are in [installed-tests.xml](installed-tests.xml), with
+the actual default-export preview in [installed-dry-run.json](installed-dry-run.json).
+Integration and the minute consumer's version readback are recorded in
+[acceptance.json](acceptance.json) and [installed-consumer.json](installed-consumer.json).
 
 The branch starts from operating commit
 `50b449cf8eb758cd8f47d8cefc8d8daab3dd645a`, retaining the installed CC-399 and

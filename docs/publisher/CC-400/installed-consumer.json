@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-11-10T09:18:08.832332+00:00",
+  "run_record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261110.jsonl",
+  "latest_existing_minute_run": {
+    "at_utc": "2026-11-10T09:17:29.229477Z",
+    "cause": null,
+    "contract_version": "legacy/schema-1.0.0",
+    "export_age_seconds": 22.2,
+    "export_generated_at_utc": "2026-11-10T09:17:04.474185Z",
+    "failed_field": null,
+    "incident_id": null,
+    "max_export_age_minutes": 10,
+    "not_posted": 20,
+    "posts_by_status": {
+      "NOT_STARTED": 1,
+      "PUBLISHING": 7
+    },
+    "publication": "OK",
+    "queued": 0,
+    "status": "OK"
+  },
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_code_commit": "0ed28cddf66c1b2c6a920f21def50dedaef07a6d",
+  "consumer_binding": {
+    "task_name": "CapitalChronicle-PlanStatusPosts-V1",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "executable": "pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "schedule_changed": false
+  },
+  "public_write_requested_by_this_probe": false,
+  "store_write_requested_by_this_probe": false
+}
