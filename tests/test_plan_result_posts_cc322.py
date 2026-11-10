@@ -107,7 +107,17 @@ def test_old_scored_results_reach_all_three_live_consumers_once(tmp_path, main_r
     store, transport, coordinator = _coordinator(tmp_path, runtime=FixtureTransport())
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     folder = source(tmp_path)
-    later = NOW + timedelta(days=4)
+    # An old outcome in a fresh export, rather than a four-day-stale export
+    # which the later CC-306 freshness check correctly refuses.
+    path = folder / "plan-status.public.json"
+    status = json.loads(path.read_bytes())
+    status["plans"][0]["outcome"]["score"]["resolved_at_utc"] = (NOW - timedelta(days=4)).isoformat()
+    path.write_text(json.dumps(status), encoding="utf-8")
+    transitions = folder / "plan-transitions.public.json"
+    events = json.loads(transitions.read_bytes())
+    events["transitions"][0]["at_utc"] = (NOW - timedelta(days=4)).isoformat()
+    transitions.write_text(json.dumps(events), encoding="utf-8")
+    later = NOW
     queued = posts.queue_posts(store, folder, now=later, main_root=main_root, python=sys.executable)
     key = next(q["key"] for q in queued["queued"] if q["state"] == "RESULT")
     root = tmp_path / "posts"

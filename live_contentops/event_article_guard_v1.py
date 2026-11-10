@@ -271,6 +271,16 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         r"original direction was (?:bullish|bearish); entry zone "
         r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?; "
         r"(?:hit|stopped|closed at the end of its window)\.", "", remainder)
+    # CC-394 / decision 109: the same resolved record in the pinned scorecard.
+    # Only this complete dated result line is historical; free directional prose
+    # still requires decision 40's condition, horizon and invalidation.
+    remainder = re.sub(
+        r"(?m)^\d{4}-\d{2}-\d{2} ET \| [^|\n]{1,140} \| "
+        r"original direction was (?:bullish|bearish) \| entry zone "
+        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?(?: \(plan levels\))? \| "
+        r"(?:HIT|STOPPED|EXPIRED|NOT TRIGGERED)(?: \(untriggered; not scored\))?"
+        r"(?: \(correction\))? \| end direction: (?:bullish|bearish|flat|not supplied)$",
+        "", remainder)
     if re.search(r"\b(?:bullish|bearish)\b", remainder, re.I):
         _fail("UNCONDITIONAL_CALL_FORBIDDEN", "copy")
     for call in calls:

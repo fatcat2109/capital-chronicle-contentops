@@ -140,7 +140,7 @@ def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True)
     return rows + (result_rows_from_export(export) if include_results else [])
 
 
-def result_rows_from_export(export: Mapping[str, Any]) -> list[dict]:
+def result_rows_from_export(export: Mapping[str, Any], *, include_not_triggered: bool = False) -> list[dict]:
     """CC-322: Main's explicit outcomes only; prices never decide a result here.
 
     Initial results have one identity per plan. Explicit corrections get a new post;
@@ -157,7 +157,9 @@ def result_rows_from_export(export: Mapping[str, Any]) -> list[dict]:
         state = outcome.get("state")
         if state == "SCORED":
             result = outcome.get("result")
-            if (result not in {"HIT", "STOPPED", "EXPIRED"} or score.get("result") != result
+            if result == "NOT_TRIGGERED" and not include_not_triggered:
+                continue  # CC-394's complete record does not add an unfilled feed post.
+            if (result not in {"HIT", "STOPPED", "EXPIRED", "NOT_TRIGGERED"} or score.get("result") != result
                     or score.get("plan_id") != plan["plan_id"]
                     or score.get("asset_id") != plan["asset_id"]
                     or not outcome.get("outcome_id") or outcome["outcome_id"] != score.get("outcome_id")):
@@ -874,6 +876,8 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
             "max_export_age_minutes": result.get("max_export_age_minutes"),
             "queued": len(result.get("queued") or []), "not_posted": len(result.get("not_posted") or []),
             "publication": (result.get("publication") or {}).get("status"), "posts_by_status": published}
+    if "scorecard" in result:
+        line["scorecard"] = result["scorecard"]
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / f"runs-{now:%Y%m%d}.jsonl"

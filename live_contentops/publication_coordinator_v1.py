@@ -1006,6 +1006,11 @@ class DurablePublicationCoordinator:
             public_object_id=dispatch["public_object_id"], public_object_url=dispatch["public_object_url"])
         return {"edit": raw, "readback": observed, "new_post_calls": 0}
 
+    def update_pinned_result_scorecard(self, export, *, now=None, api=None):
+        """CC-394: maintain the one Telegram record through this public-write owner."""
+        from live_contentops.pinned_result_scorecard_v1 import update_scorecard
+        return update_scorecard(self, export, now=now, api=api)
+
     def amend_reader_presentation(self, dispatch_id, *, review_reference):
         """Edit the reviewed existing object once; all uncertain outcomes are readback-only."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of

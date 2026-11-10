@@ -53,6 +53,8 @@ def main(argv=None) -> int:
     parser.add_argument("--main-root", type=Path, default=MAIN_ROOT)
     parser.add_argument("--publish", action="store_true",
                         help="after queueing, post queued rows through the coordinator")
+    parser.add_argument("--scorecard-only", action="store_true",
+                        help="update only the pinned Telegram result record, without queueing feed posts")
     parser.add_argument("--pending-x", action="store_true", help="list status posts' X requests for an agent")
     parser.add_argument("--x-start", metavar="KEY", help="register this post's X copy through Neo")
     parser.add_argument("--x-begin", nargs=2, metavar=("KEY", "REQUEST_SHA256"))
@@ -89,6 +91,11 @@ def main(argv=None) -> int:
                 json.loads(Path(response).read_text(encoding="utf-8")),
                 native_invocation_id=args.native_invocation_id)}
 
+    elif args.scorecard_only:
+        from live_contentops.pinned_result_scorecard_v1 import refresh_scorecard
+        result = {"scorecard": refresh_scorecard(store, args.export_dir, main_root=args.main_root,
+            python=child_python(), dry_run=args.dry_run)}
+        result["status"] = "OK" if result["scorecard"]["status"] in {"CONFIRMED", "PREVIEW"} else "SCORECARD_NOT_CONFIRMED"
     else:
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
                              render_all=args.dry_run,
@@ -96,6 +103,9 @@ def main(argv=None) -> int:
         if args.dry_run:
             result["validation"] = "PASS" if result["status"] == "OK" else "FAIL"
         if args.publish and not args.dry_run and result["status"] == "OK":
+            from live_contentops.pinned_result_scorecard_v1 import refresh_scorecard
+            result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,
+                                                  python=child_python())
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                                                        active_recoveries=result.get("active_recoveries"))
         if not args.dry_run:
