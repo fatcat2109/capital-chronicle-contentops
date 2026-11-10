@@ -211,6 +211,8 @@ def test_prepared_background_keeps_its_admitted_history_in_writer(tmp_path, monk
     text = "The exact prior official monthly history remains admitted for this event preview."
     extra = {"document_id": "controlled-prior-official-history", "source_url": "https://www.bls.gov/controlled-history",
         "publisher": "U.S. Bureau of Labor Statistics", "canonical_content_text": text,
+        "source_authority_class": "official_release_history_from_cc010",
+        "official_release_history": {"window": ["2024-10", "2026-09"]},
         "canonical_content_sha256": sha256(text.encode()).hexdigest()}
     def background(record):
         record["document"]["preview_preparation"] = {
@@ -226,6 +228,7 @@ def test_prepared_background_keeps_its_admitted_history_in_writer(tmp_path, monk
     docs = pending.value.request["governed_input"]["source_pack"]
     assert {"prior-context", "controlled-prior-official-history"} <= {d["document_id"] for d in docs}
     assert next(d for d in docs if d["document_id"] == extra["document_id"])["canonical_content_text"] == text
+    assert next(d for d in docs if d["document_id"] == extra["document_id"])["official_release_history"] == extra["official_release_history"]
 
 
 def test_short_path_adds_held_context_to_unanswered_writer_without_visual_stage(tmp_path, monkeypatch):

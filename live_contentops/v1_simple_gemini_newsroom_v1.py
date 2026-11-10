@@ -1151,6 +1151,9 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
     held = [source for document in documents
         for source in (document.get("preview_preparation", {}).get("reviewed_background", {})
                        .get("original_source_pack", []))]
+    consensus_scope = "SINGLE_ATTRIBUTED_CONSENSUS_FACT_NO_TABLE_SERIES_OR_CHART"
+    if any((d.get("source_reuse_constraints") or {}).get("scope") == consensus_scope for d in documents):
+        held = [d for d in held if (d.get("source_reuse_constraints") or {}).get("scope") != consensus_scope]
     if held:
         expanded, seen = [], set()
         for document in [*documents, *held]:
@@ -1238,6 +1241,9 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                    and document.get("rights_evidence_sha256") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
                 **({"preview_preparation": dict(document["preview_preparation"])} if document.get("preview_preparation") else {}),
+                **({k: document[k] for k in ("official_release_history", "release_component_effects",
+                    "newsroom_desk_projection") if k in document}
+                   if document.get("source_authority_class") == "official_release_history_from_cc010" else {}),
                 **public_record_metadata,
                 **({"desk_record_binding": dict(desk)} if isinstance(desk, Mapping) else {}),
             }
