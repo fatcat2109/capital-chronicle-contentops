@@ -284,3 +284,30 @@ def test_confirmed_linkedin_run_does_not_get_a_duplicate_analysis_index(ready):
     assert next(r for r in result["links"] if r["destination"] == "linkedin")["state"] == "CONFIRMED_IN_RUN_POST"
     assert not any(json.loads(r["payload"]).get("kind") == "run"
                    for r in store.list_outbox_messages(destination=pages.DESTINATION))
+
+
+def test_minute_record_keeps_exact_analysis_link_and_first_transport_failure(tmp_path):
+    result = {"status": "OK", "publication": {"status": "OK", "analysis_distribution": {"links": [
+        {"link_id": "exact-index", "destination": "linkedin", "outcome": {
+            "distribution_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS", "recovery_preflight": {
+                "per_destination": {"linkedin": {"status": "DESTINATION_FAILED_ET_DAY_SKIP",
+                    "first_failure": {"safe_error_classification": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"}}}}}}]}}}
+    path = posts.record_run(result, tmp_path)
+    saved = json.loads(path.read_text(encoding="utf-8"))["analysis_links"][0]
+    assert saved["link_id"] == "exact-index"
+    assert saved["destination_causes"]["linkedin"] == "DESTINATION_FAILED_ET_DAY_SKIP"
+    assert saved["first_failures"]["linkedin"]["safe_error_classification"] == "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+
+
+def test_link_resume_returns_the_already_queued_native_request(ready, monkeypatch):
+    from live_contentops import native_neo_executor_v1 as native
+    from types import SimpleNamespace
+    store, packet, original = ready
+    value = pages.register_link(store, packet, original_key=original, destination="substack_notes")
+    pending = [{"request": {"action": "PUBLISH", "request_sha256": "frozen-request"}}]
+    coordinator = SimpleNamespace(publish_plan=lambda *a: {"distribution_status": "RECOVERY_REQUIRED"})
+    executor = SimpleNamespace(pending=lambda: pending)
+    monkeypatch.setattr(native, "bind_native_neo_coordinator", lambda *a, **kw: (coordinator, executor))
+    result = pages.continue_link(store, value, invocation_id="test-native-turn")
+    assert result["pending_requests"] == pending
+    assert result["distribution_status"] == "RECOVERY_REQUIRED"

@@ -650,11 +650,21 @@ def continue_link(store, value, *, invocation_id="plan-analysis-links-cc435", co
             packet = executor._get(request_hash, "request") or {}
             if packet.get("operation_id") != value["link_id"]:
                 raise ValueError("PLAN_ANALYSIS_LINK_TOOL_REQUEST_MISMATCH")
-            return executor.begin(request_hash) if command == "begin" else executor.submit(request_hash, response)
+            if command == "begin":
+                return executor.begin(request_hash)
+            submitted = executor.submit(request_hash, response)
+            observed = response.get("result") or {}
+            if (packet["request"]["action"] == "PUBLISH" and observed.get("status") == "SUCCESS"
+                    and observed.get("public_object_id") and observed.get("public_object_url")):
+                submitted["completed_write_reconciliation"] = coordinator.reconcile_completed_native_publish(
+                    packet["request"]["dispatch_attempt_identity"], request_hash=request_hash)
+            return submitted
         if command == "readback":
             ids = coordinator._ids(value["link_id"], value["plan"]["plan_hash"], value["destination"])
-            return coordinator.readback_existing_dispatch(ids["dispatch_id"])
-        return coordinator.publish_plan(value["link_id"], value["plan"])
+            result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
+        else:
+            result = coordinator.publish_plan(value["link_id"], value["plan"])
+        return {**result, "pending_requests": executor.pending()}
     except NativeNeoInputRequired as pending:
         return {"state": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request}
 

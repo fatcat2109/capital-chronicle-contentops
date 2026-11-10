@@ -883,6 +883,19 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
                                    for row in result.get("not_posted") or []]}
     if "scorecard" in result:
         line["scorecard"] = result["scorecard"]
+    analysis = (result.get("publication") or {}).get("analysis_distribution")
+    if analysis is not None:
+        line["analysis_links"] = []
+        for row in analysis.get("links") or []:
+            outcome = row.get("outcome") or {}
+            per = outcome.get("per_destination") or (outcome.get("recovery_preflight") or {}).get("per_destination") or {}
+            line["analysis_links"].append({
+                **{k: row[k] for k in ("page_id", "destination", "link_id", "state", "cause") if k in row},
+                "status": (outcome.get("state") or outcome.get("status")
+                           or outcome.get("distribution_status") or row.get("state")),
+                "per_destination": {d: v.get("status") for d, v in per.items()},
+                "destination_causes": destination_causes({"per_destination": per}),
+                "first_failures": {d: v["first_failure"] for d, v in per.items() if v.get("first_failure")}})
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / f"runs-{now:%Y%m%d}.jsonl"
