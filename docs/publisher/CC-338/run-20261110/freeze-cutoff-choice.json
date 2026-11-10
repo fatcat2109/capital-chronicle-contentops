@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-11-10T10:50:48.150924+00:00",
+  "public_freeze_path": "A:\\Capital Chronicle\\ResearchRuns\\frozen-public-calls\\bls-cpi-20261110.json",
+  "public_freeze_present": false,
+  "cutoff_utc": "2026-11-10T10:50:00Z",
+  "choice": "PUBLISH_CPI_WITHOUT_PUBLIC_FREEZE_HASH_PER_CC338_FALLBACK",
+  "reason": "No public frozen file issued by the backlog cutoff; preview deadline remains 11:30Z; the hash record starts at PPI on 13 November",
+  "preview_deadline_utc": "2026-11-10T11:30:00Z",
+  "fallback_event_id": "bls-ppi-20261113"
+}

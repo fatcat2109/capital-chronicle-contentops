@@ -170,6 +170,8 @@ def test_context_can_reach_media_preparation_before_visual_editor(tmp_path, monk
 
 def test_jim44_single_attributed_fact_reaches_context_consumer(tmp_path, monkeypatch):
     def consensus(record):
+        record["source_timestamp_utc"] = None
+        record["document"]["published_at_utc"] = None
         record["source_permissions"] = {
             "scope": "SINGLE_ATTRIBUTED_CONSENSUS_FACT_NO_TABLE_SERIES_OR_CHART",
             "authority_ref": "JIM_DECISION_44_AND_HOST_RULE_7_CITATIONS"}

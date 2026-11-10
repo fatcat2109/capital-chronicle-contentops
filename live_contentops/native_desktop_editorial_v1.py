@@ -347,8 +347,9 @@ def admit_selected_story_context(turn, binding, response):
         if not record:
             raise ValueError("CONTEXT_SOURCE_NOT_IN_FROZEN_RESEARCH")
         held_main_bytes = projection_bytes_already_frozen(record, frozen["research"]["records"])
-        if (any(_time(record.get(k)) > _time(input_cutoff)
-                for k in ("source_timestamp_utc", "known_at_utc"))
+        if (_time(record["known_at_utc"]) > _time(input_cutoff)
+                or (record.get("source_timestamp_utc")
+                    and _time(record["source_timestamp_utc"]) > _time(input_cutoff))
                 or (_time(record.get("revision_at_utc")) > _time(input_cutoff) and not held_main_bytes)):
             raise ValueError("CONTEXT_SOURCE_AFTER_FROZEN_CUTOFF")
         permission = record["source_permissions"]
