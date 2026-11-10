@@ -198,6 +198,8 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
             self.publish_calls.append(destination)
             self.intents.append(intent)
             number = str(1000 + len(self.intents))
+            if destination == "instagram_business" and intent["native_payload"].get("reuse_run_carousel"):
+                number = intent["native_payload"]["carousel_parent_id"]
             return {"status": "SUCCESS", "id": number, "public_url": f"https://example.test/{destination}/{number}"}
 
     store, folder, plans, events = five
@@ -211,6 +213,9 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
     assert len(result["posts"]) == 6, result
     assert all(r["status"] == "PUBLISHED" for r in result["posts"]), result
     assert len(runtime.intents) == 36
+    instagram_card_ids = {cards._reference(store, c["key"], "instagram_business")["public_object_id"]
+                          for c in rows(store) if c["kind"] == "setup"}
+    assert len(instagram_card_ids) == 1  # all five verified slots belong to one published run object
     run = next(r for r in rows(store) if r["kind"] == "run")
     card = next(r for r in rows(store) if r["kind"] == "setup")
     for destination in ("telegram", "threads", "substack_notes"):
