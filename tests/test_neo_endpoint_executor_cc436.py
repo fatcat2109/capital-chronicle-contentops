@@ -363,6 +363,32 @@ def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,m
         assert e.fresh_publish_request(base) is None
 
 
+def test_reopened_note_runs_the_repaired_transport_through_its_original_coordinator(tmp_path,monkeypatch):
+    from live_contentops import neo_destination_handoff_v1 as handoff
+    control=tmp_path/'suspended_routes.json';control.write_text('{}',encoding='utf-8')
+    monkeypatch.setattr(handoff,'SUSPENDED_ROUTES_FILE',control)
+    store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
+    with endpoint(fault='composer') as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url);e.executor_revision='old-source'
+        failed=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert failed['status']=='DEFINITE_NO_WRITE',failed
+    control.write_text(json.dumps({'substack_notes':'SUBSTACK_ACCOUNT_SUSPENDED'}),encoding='utf-8')
+    c._settle_barred_browser_no_write(store.get_outbox_message(ids['message_id']))
+    control.write_text('{}',encoding='utf-8')
+    with endpoint() as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url)
+        original=c.transport_runtime.publish
+        def publish(**kwargs):
+            try:
+                return original(**kwargs)
+            except ValueError as exc:
+                pytest.fail('REPAIRED_NOTE_LOCAL_ERROR: '+str(exc))
+        monkeypatch.setattr(c.transport_runtime,'publish',publish)
+        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='DISPATCH_CONFIRMED',json.dumps(result)
+        assert result['public_object_url']=='https://substack.com/@capitalchronicle/note/c-456'
+
+
 def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(tmp_path):
     store=copied_store(tmp_path);ids,value=message(store,'x')
     c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'issued',
