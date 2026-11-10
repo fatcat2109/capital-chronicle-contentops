@@ -94,3 +94,30 @@ bot route is not configured. Existing registered thread cards retain that
 route; only newly queued cards select webhook channel delivery. Their
 credential constraint is separate from the cleared READY queue and visible
 run causes. No fresh Discord card confirmation is claimed by these tests.
+
+## Live acceptance, 10 November 2026, 23:29 GMT+7
+
+All three acceptance conditions pass in `live-consumer.json`:
+
+- Zero 10 November Discord rows remain READY. The five expired analysis links
+  retain their exact `PLAN_ALREADY_EXPIRED` cause.
+- The next Main run, `plan-run-post-074c47181a90a973118c3f48e0c8d271`,
+  posted its run announcement and all four new cards to Discord. Each has
+  `DISPATCH_CONFIRMED`, `RECONCILED_CONFIRMED` and an API readback identity.
+  The cards use the new webhook channel route. Source events remain at
+  23:18:25 GMT+7; observed dispatches are 23:19:47–23:22:42 GMT+7.
+- The completed minute run at 23:29:02 GMT+7 has zero NOT_STARTED cards.
+  All 25 waiting cards have their key and cause in the existing run record.
+
+The branch and operating root contain the tested repairs at
+`320523f4d6faf2d306c0f2a5c6a6dfae4ef7e658`; installation and scheduled
+consumption are recorded separately from the public readbacks. There are
+128 distinct passing targeted test cases across the successful selections
+in `tests-summary.json`. No suite-wide result is claimed.
+
+Existing registered thread cards retain their bot-token refusal. Their
+payloads and parents were not rewritten to take the new-card channel route.
+The remaining waits name those parent dependencies or their bounded work
+limit; they do not conceal a READY Discord queue. All original work in
+progress remains intact. Two operating JSONL files gained runtime appends,
+and their original bytes are still exact prefixes. No schedule changed.

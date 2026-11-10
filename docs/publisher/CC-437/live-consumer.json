@@ -1,0 +1,248 @@
+{
+  "at_utc": "2026-11-10T16:29:17.325637+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "320523f4d6faf2d306c0f2a5c6a6dfae4ef7e658",
+  "task": "CapitalChronicle-PlanStatusPosts-V1",
+  "task_unchanged": true,
+  "processes_restarted": false,
+  "installed_source": [
+    {
+      "path": "live_contentops/plan_call_cards_v1.py",
+      "sha256": "e588108ab1a66b028fdbecffad3d49b66c88f5b2b0e305fa0b56eb4896b123ba",
+      "matches_branch": true
+    },
+    {
+      "path": "live_contentops/plan_status_posts_v1.py",
+      "sha256": "ee269fb7438d35e2ca1e6827650f21a92fa945a8910b4a5dece983deffa6fc2c",
+      "matches_branch": true
+    },
+    {
+      "path": "live_contentops/plan_analysis_pages_v1.py",
+      "sha256": "3a769271136dbbef80e0b2db0d7ce141d94369715fe68cba08b8cfbb20a83698",
+      "matches_branch": true
+    },
+    {
+      "path": "scripts/plan_status_posts.py",
+      "sha256": "d0dac8c99baeb5c22e066134d2759f9d59950f2d28966164d45818dd4c7d33db",
+      "matches_branch": true
+    }
+  ],
+  "acceptance": {
+    "discord_rows_from_10_nov_ready_without_cause": 0,
+    "next_main_run": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+    "new_run_confirmed_on_discord": true,
+    "new_cards_confirmed_on_discord": 4,
+    "latest_completed_minute_run_at_utc": "2026-11-10T16:29:02.539401Z",
+    "latest_not_started": 0,
+    "waiting_cards_with_key_and_cause": 25,
+    "unnamed_not_started_or_waiting": 0
+  },
+  "discord_confirmations": [
+    {
+      "dispatch_id": "dispatch_18c14f792d6dc0fb6251571b41af2ffb",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-10T16:19:47.442061+00:00",
+      "public_object_id": "1569748420481122395",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748420481122395",
+      "key": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "kind": "run",
+      "plan_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "source_content_hash": "d825607ad9169cf88a6bcb37173279e4797921c41c0d6a44784d8cb7130fbadd",
+      "source_event_at_utc": "2026-11-10T16:18:25.849991Z",
+      "source_registered_at_utc": null,
+      "discord_delivery": null,
+      "channel_post": null,
+      "frozen_internal_payload_sha256": "e86a00a63e0170968b8baf5d5fd4a00b10f7d52e17cf879bde07b236ade3c58a",
+      "reconciliation": {
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-10T16:19:49.464417+00:00"
+      },
+      "readback": {
+        "readback_id": "readback_9b8e777ec7b1fd8860574fb27dedba0f",
+        "read_at": "2026-11-10T16:19:49.413679+00:00"
+      }
+    },
+    {
+      "dispatch_id": "dispatch_55702fa11df77e66f53de38ebf44aaba",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-10T16:21:00.685739+00:00",
+      "public_object_id": "1569748728376729611",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748728376729611",
+      "key": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "kind": "setup",
+      "plan_id": "plan_1335ba1ab3963352e9f2204b",
+      "source_content_hash": "d825607ad9169cf88a6bcb37173279e4797921c41c0d6a44784d8cb7130fbadd",
+      "source_event_at_utc": "2026-11-10T16:18:25.849991Z",
+      "source_registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "discord_delivery": "channel",
+      "channel_post": true,
+      "frozen_internal_payload_sha256": "ec2d98609d3afc465a5821548b25690fff5bf104f115eb184e04e99742ce42f4",
+      "reconciliation": {
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-10T16:21:02.717761+00:00"
+      },
+      "readback": {
+        "readback_id": "readback_3ea1fc210c5de5cbcde6fcf0366758b3",
+        "read_at": "2026-11-10T16:21:02.701130+00:00"
+      }
+    },
+    {
+      "dispatch_id": "dispatch_ba6cc723cb940eb98764e98e426cd30a",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-10T16:21:34.508437+00:00",
+      "public_object_id": "1569748871180189796",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748871180189796",
+      "key": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "kind": "setup",
+      "plan_id": "plan_5a5b965487f7fe4318d12140",
+      "source_content_hash": "d825607ad9169cf88a6bcb37173279e4797921c41c0d6a44784d8cb7130fbadd",
+      "source_event_at_utc": "2026-11-10T16:18:25.849991Z",
+      "source_registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "discord_delivery": "channel",
+      "channel_post": true,
+      "frozen_internal_payload_sha256": "d2bebe5c5a552b3e9e0e1b981b2a60752306a5fef2868a9649a4b6be5f1f2b71",
+      "reconciliation": {
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-10T16:21:36.812287+00:00"
+      },
+      "readback": {
+        "readback_id": "readback_a4e44edd8f184118dd191f05e62fb039",
+        "read_at": "2026-11-10T16:21:36.773526+00:00"
+      }
+    },
+    {
+      "dispatch_id": "dispatch_ea04958b8d8aff9c4b939b77a33167df",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-10T16:22:07.754294+00:00",
+      "public_object_id": "1569749009965256767",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569749009965256767",
+      "key": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "kind": "setup",
+      "plan_id": "plan_a4df2fdd4daa648a59d5a121",
+      "source_content_hash": "d825607ad9169cf88a6bcb37173279e4797921c41c0d6a44784d8cb7130fbadd",
+      "source_event_at_utc": "2026-11-10T16:18:25.849991Z",
+      "source_registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "discord_delivery": "channel",
+      "channel_post": true,
+      "frozen_internal_payload_sha256": "1260fad4fca10a7350bcb74e95ce921194bf56dd9f9e7d6060f5d3f77e5f4cda",
+      "reconciliation": {
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-10T16:22:09.884861+00:00"
+      },
+      "readback": {
+        "readback_id": "readback_cdf5bce33801dcd36a757522ecd095d9",
+        "read_at": "2026-11-10T16:22:09.866682+00:00"
+      }
+    },
+    {
+      "dispatch_id": "dispatch_462815fdae29a62d8372227e8366c467",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-10T16:22:42.462127+00:00",
+      "public_object_id": "1569749155533037619",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569749155533037619",
+      "key": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "kind": "setup",
+      "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+      "source_content_hash": "d825607ad9169cf88a6bcb37173279e4797921c41c0d6a44784d8cb7130fbadd",
+      "source_event_at_utc": "2026-11-10T16:18:25.849991Z",
+      "source_registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "discord_delivery": "channel",
+      "channel_post": true,
+      "frozen_internal_payload_sha256": "09e8eb59a6963c27403e752a661dc3879d3e47160bcf4a7845bd192e5a51c467",
+      "reconciliation": {
+        "status": "RECONCILED_CONFIRMED",
+        "reconciled_at": "2026-11-10T16:22:44.558486+00:00"
+      },
+      "readback": {
+        "readback_id": "readback_3b9bb1cf358d243aca316c80e389a5de",
+        "read_at": "2026-11-10T16:22:44.541602+00:00"
+      }
+    }
+  ],
+  "expired_queued_analysis_links": {
+    "count": 5,
+    "cause": "PLAN_ALREADY_EXPIRED",
+    "evidence": "first-installed-runs.json"
+  },
+  "preserved_thread_cards": {
+    "cause": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE",
+    "public_identity_or_thread_binding_changed": false,
+    "bot_token_configured": false,
+    "new_cards_use_channel_webhook": true
+  },
+  "retained_source_and_dispatch_clocks_are_separate": true,
+  "wip": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "current_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "preserved": true,
+      "runtime_appended": false
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "current_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "preserved": true,
+      "runtime_appended": false
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "live_contentops/agy_editorial_assist_v1.py",
+      "sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+      "current_sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+      "preserved": true,
+      "runtime_appended": false
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "current_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "preserved": true,
+      "runtime_appended": false
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "current_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "preserved": true,
+      "runtime_appended": false
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "current_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "preserved": true,
+      "runtime_appended": false
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "current_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "preserved": true,
+      "runtime_appended": false
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "42e5972611cb4387e23da4b2e4e438570d4e60ad92f1154e508b385525348247",
+      "current_sha256": "fe3f225efd629914c94cfaf9a043750c280688d15811823a18bd208693b267a1",
+      "preserved": true,
+      "runtime_appended": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "4fde5d5cddda8cc662c9902342e2339e780f71db9ffeb1fe59dc21001bdcffa6",
+      "current_sha256": "0582b0d989a9c90238cc0fa2400ee5650e35bdeaf6e6df0c158dc75baa35a8e8",
+      "preserved": true,
+      "runtime_appended": true
+    }
+  ]
+}

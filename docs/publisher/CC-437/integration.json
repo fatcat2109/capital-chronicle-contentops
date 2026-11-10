@@ -86,5 +86,26 @@
     "working_directory": "A:\\Capital Chronicle\\ContentOps",
     "scheduled_task_changed": false
   },
-  "installed_ast_parse": "PASS"
+  "installed_ast_parse": "PASS",
+  "followup": {
+    "operating_head": "320523f4d6faf2d306c0f2a5c6a6dfae4ef7e658",
+    "installed_at_utc": "2026-11-10T16:22:17.6316094Z",
+    "live_consumer_evidence": "live-consumer.json",
+    "observed_fresh_consumer": {
+      "process_id": 22604,
+      "started_at_utc": "2026-11-10T16:26:26.504754Z",
+      "arguments": "-B scripts\\plan_status_posts.py --publish"
+    },
+    "accepted_at_utc": "2026-11-10T16:29:17.325637+00:00",
+    "acceptance": {
+      "discord_rows_from_10_nov_ready_without_cause": 0,
+      "next_main_run": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "new_run_confirmed_on_discord": true,
+      "new_cards_confirmed_on_discord": 4,
+      "latest_completed_minute_run_at_utc": "2026-11-10T16:29:02.539401Z",
+      "latest_not_started": 0,
+      "waiting_cards_with_key_and_cause": 25,
+      "unnamed_not_started_or_waiting": 0
+    }
+  }
 }
