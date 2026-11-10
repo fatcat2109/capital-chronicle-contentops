@@ -1,13 +1,5 @@
-"""Ops Product, 10 Nov 2026: one Discord card without a bot token must not darken Discord for the ET day."""
+"""Ops Product, 10 Nov 2026: a local refusal (no Discord bot token for a thread) must not darken Discord for the ET day."""
 import types
-
-
-def test_card_asks_for_a_discord_thread_only_with_a_bot_token(monkeypatch):
-    from live_contentops import plan_call_cards_v1 as cards, secret_store_v1
-    monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: None)
-    assert cards._discord_threads_available() is False
-    monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: "token" if name == "DISCORD_BOT_TOKEN" else None)
-    assert cards._discord_threads_available() is True
 
 
 class _Conn:

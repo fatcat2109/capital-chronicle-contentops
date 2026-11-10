@@ -429,9 +429,3 @@ def test_cc432_envelope_cannot_mix_plans_preview_hosts_or_private_summary(fault,
     else:
         raw["analysis_publication"]["summary"]["macro"] = "The desk is AI-run by Opus."
     assert cards.analysis_publication(raw) == ({}, cause)
-
-@pytest.fixture(autouse=True)
-def discord_bot_available_for_the_thread_tests(monkeypatch):
-    # These tests cover the call thread. Without a bot token a card posts in the channel (Ops Product, 10 Nov 2026).
-    monkeypatch.setattr(cards, "_discord_threads_available", lambda: True)
-
