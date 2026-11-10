@@ -148,6 +148,20 @@ class NativeNeoExecutor:
         request_hash = request.get("request_sha256")
         if request_hash != sha256_of({k: v for k, v in request.items() if k != "request_sha256"}):
             raise ValueError("NATIVE_NEO_REQUEST_HASH_INVALID")
+        if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+            from live_contentops.neo_destination_handoff_v1 import _prohibited_write
+            refused = _prohibited_write(request.get("destination"))
+            if refused is not None:
+                # Preserve existing responses/claims: an earlier attempted write
+                # still belongs to readback/reconciliation, never a new no-write.
+                response = self._get(request_hash, "response")
+                if response:
+                    return dict(response["result"])
+                if self._get(request_hash, "started"):
+                    return {"status": "UNKNOWN_WRITE", "request_sha256": request_hash,
+                            "reason_code": "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN",
+                            "retry_permitted": False}
+                return {**refused, "request_sha256": request_hash}
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"} and not self.allow_publish:
             return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                     "request_sha256": request_hash, "observed_identity": request["expected_identity"],
@@ -181,6 +195,11 @@ class NativeNeoExecutor:
         if not packet:
             raise ValueError("NATIVE_NEO_REQUEST_NOT_FOUND")
         request = packet["request"]
+        if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
+            from live_contentops.neo_destination_handoff_v1 import _prohibited_write
+            refused = _prohibited_write(request.get("destination"))
+            if refused is not None:
+                raise ValueError(refused["reason_code"])
         original = self._get(request_hash, "started")
         claim_kind = "started"
         if original:

@@ -7,6 +7,17 @@ from pathlib import Path
 
 import pytest
 
+
+@pytest.fixture(autouse=True)
+def fixture_platform_permissions(monkeypatch):
+    """These state-machine replays use fake transports with simulated permission.
+
+    Actual route prohibitions, including the coordinator's pre-readiness boundary,
+    are exercised with the production map by test_platform_rules_cc393.py.
+    """
+    from live_contentops import neo_destination_handoff_v1 as handoff
+    monkeypatch.setattr(handoff, "NON_API_AUTOMATION_PROHIBITED", {})
+
 from live_contentops.destination_transport_registry_v1 import (
     REGISTRY_VERSION,
     READY_STATES,

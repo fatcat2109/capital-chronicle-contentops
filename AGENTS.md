@@ -1,5 +1,26 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Platform automation restrictions — 10 November 2026 (CC-393; decision 109)
+
+The platforms' own rules bind. LinkedIn member/company posts and edits, YouTube
+Community posts and edits, and Instagram browser edits now join X in the existing
+`NON_API_AUTOMATION_PROHIBITED` map. Never bypass it with direct browser actions,
+another browser, a private endpoint or an old queued request. Use the already
+authorized official APIs where supported. Company LinkedIn API access and X API
+posting are not enabled by this review. An earlier attempted write still requires
+exact readback/reconciliation; a new prohibition does not prove it was not sent.
+
+The source review and five rule dimensions for every route are in
+`docs/publisher/CC-393/platform-rules.json`. Substack's bounded logged-in publishing
+route continues: a blanket posting-automation ban was not found; its scraping and
+spam prohibitions remain. Do not treat a searched absence as express permission.
+
+CC-258's specific Ops Product instruction keeps the X browser feed through CPI on
+10 November, with its replacement or stop assigned to Ops Product on 11 November.
+CC-393 records that method's conflict with X rules and changes no feed process,
+Main input or schedule today. Retained archives keep their existing internal use.
+Ops Product's candidate-channel pick remains its own backlog decision.
+
 ## No posting on X through a browser — 10 November 2026 (Jim's scan answers, item 3)
 
 X's developer guidelines and automation rules say non-API automation, meaning scripting or driving the

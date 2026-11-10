@@ -14,9 +14,15 @@ def never_called(request):
     raise AssertionError("an X write must never reach a browser request")
 
 
-def test_only_x_is_barred():
-    assert handoff.NON_API_AUTOMATION_PROHIBITED == {"x": "X_NON_API_AUTOMATION_PROHIBITED"}
-    for destination in ("substack", "substack_notes", "youtube", "linkedin", "linkedin_company"):
+def test_platform_prohibitions_apply_to_neo_only():
+    assert handoff.NON_API_AUTOMATION_PROHIBITED == {
+        "x": "X_NON_API_AUTOMATION_PROHIBITED",
+        "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+        "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+        "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+        "instagram_business": "INSTAGRAM_NON_API_AUTOMATION_PROHIBITED",
+    }
+    for destination in ("substack", "substack_notes"):
         assert handoff._prohibited_write(destination) is None
 
 

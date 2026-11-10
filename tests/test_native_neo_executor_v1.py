@@ -172,6 +172,10 @@ def test_observed_missing_public_image_stays_failed_without_a_readback_loop(tmp_
     ("PUBLISH", True, False), ("PUBLISH", False, True)])
 def test_verified_object_retires_only_unclaimed_requests_for_its_exact_intent(
         tmp_path, monkeypatch, prior_action, claimed, changed_intent):
+    # Reconstruct an old, pre-prohibition request with local fakes. Current
+    # no-write enforcement and queued-request refusal are covered by CC-393.
+    from live_contentops.neo_destination_handoff_v1 import NON_API_AUTOMATION_PROHIBITED
+    monkeypatch.delitem(NON_API_AUTOMATION_PROHIBITED, "x")
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     store, executor = setup(tmp_path, allow_publish=True)
     adapter = NeoDestinationHandoff(native_executor=executor)

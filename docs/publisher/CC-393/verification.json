@@ -1,0 +1,44 @@
+{
+  "item_id": "CC-393",
+  "base": "000162ddf2f5d54858ee4340a452ea117165f8d4",
+  "base_reason": "Current Publisher operating HEAD includes integrated lane items and the X write prohibition; remote master is behind this operating branch.",
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "pid": 37852,
+    "parent_pid": 30552
+  },
+  "checks": [
+    {
+      "artifact": "final-targeted-tests.xml",
+      "result": "46 passed",
+      "scope": "27 CC-393 route/source/recovery checks; 5 X prohibition checks; 10 held-feed checks; 4 corrected pre-prohibition native replays"
+    },
+    {
+      "artifact": "coordinator-corrected-tests.xml",
+      "result": "104 coordinator state-machine checks passed; combined run had one separate CC-393 fixture failure subsequently fixed in final-targeted-tests.xml",
+      "scope": "Simulated platform permissions only; actual production map tested separately"
+    },
+    {
+      "artifact": "route-tests.xml",
+      "result": "157 passed, 3 fixture failures; corrected native fixture replay passes",
+      "scope": "Earlier broader native executor regression; failures retained"
+    },
+    {
+      "artifact": "coordinator-tests.xml",
+      "result": "122 passed, 17 fixture failures; corrected coordinator and final targeted checks supersede these failures",
+      "scope": "Earlier unadapted state-machine fixture run; retained"
+    },
+    {
+      "artifact": "record structural read",
+      "result": "PASS: 23 routes, 39 primary sources, 70 rules, valid references, UTC clocks, <=25 quoted words/source"
+    },
+    {
+      "artifact": "git diff --check",
+      "result": "PASS on explicit changed paths"
+    }
+  ],
+  "runtime_installation": "Recorded in live-consumer.json after integration; no restart, public write, schedule change or X source transition.",
+  "remaining": "Ops Product must read record and write its candidate pick; explicit CC-258 transition remains 11 Nov after CPI. No claim of that review or choice."
+}

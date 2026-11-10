@@ -1,0 +1,1581 @@
+{
+  "schema_version": "contentops.platform_rules_review.v1",
+  "item_id": "CC-393",
+  "checked_at_utc": "2026-11-10T01:18:35Z",
+  "extends": {
+    "path": "docs/publisher/CC-386/platform-rules.json",
+    "sha256": "2497e9d885f28a9acd1e23e6d11b681303e0cfbc3ffece7ea57b1c888a3b55e0"
+  },
+  "prior_review": {
+    "checked_at_utc": "2026-11-09T18:48:06.670439+00:00",
+    "sources": [
+      {
+        "title": "X Automation rules",
+        "url": "https://help.x.com/en/rules-and-policies/x-automation",
+        "source_updated": "April 2026",
+        "requirements": [
+          "No non-API website automation",
+          "Automated replies require recipient opt-in and opt-out, one reply per interaction",
+          "AI reply bots require prior explicit written approval from X"
+        ],
+        "effect": "Requested unsolicited Neo replies cannot run under these rules."
+      },
+      {
+        "title": "X Authenticity",
+        "url": "https://help.x.com/en/rules-and-policies/authenticity",
+        "source_updated": "April 2025",
+        "requirements": [
+          "No unauthorized automation, inauthentic amplification or repetitive reply spam"
+        ]
+      },
+      {
+        "title": "Threads Terms of Use",
+        "url": "https://help.instagram.com/769983657850450",
+        "source_updated": "28 May 2025",
+        "requirements": [
+          "Incorporates Instagram Terms and Meta Community Standards",
+          "Use existing authorized Threads API; no new grants or accounts"
+        ]
+      },
+      {
+        "title": "Meta Spam",
+        "url": "https://transparency.meta.com/policies/community-standards/spam/",
+        "source_updated": "Page change log shows Jun 26, 2024 and Today; no stable newer date exposed",
+        "requirements": [
+          "No very high frequency or repetitive engagement",
+          "No purchased or exchanged engagement or deceptive links"
+        ]
+      }
+    ],
+    "access": "BrowserOS Neo, existing window, task group 9E7A4402CA9A32DC806A5EDAAA140354",
+    "public_writes": 0
+  },
+  "access": {
+    "browser": "BrowserOS Neo",
+    "window": "Existing single window; task tabs only",
+    "task_group": "79333A3AEFCDB449AA26A6BD7358BFFB",
+    "public_writes": 0,
+    "account_changes": 0,
+    "schedule_changes": 0,
+    "desktop_control": false,
+    "fallback": "Primary-source web reader for connection resets/empty documentation bodies, explicitly marked per source."
+  },
+  "interpretation": {
+    "source_time": "Read times are observation clocks, not effective dates. Web-return bounds marked individually.",
+    "absence": "NOT_FOUND is bounded to the cited reviewed pages and recorded searches; it grants no permission and is not a blanket restriction on held data.",
+    "law": "This records platform requirements. No platform disclaimer or silence establishes a professional licence, local legal classification, tax exemption or public redistribution right.",
+    "precedence": "Decision 109 and CC-393 apply; CC-258 contains a specific through-CPI/11 Nov source transition instruction. No authority inferred to change Main input today.",
+    "internal_data": "Held archives remain available to internal consumers under decision 62 with source and age. No data is relabelled research-only."
+  },
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "evidence": "Win32_Process command-line fields for CC-393 codex.exe PID 37852, parent 30552",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "note": "Only configured arguments were observed; no editorial model call or runtime-model telemetry claimed."
+  },
+  "sources": [
+    {
+      "id": "substack-tos",
+      "title": "Substack Terms of Use",
+      "url": "https://substack.com/tos",
+      "read_at_utc": "2026-11-10T00:56:52.882Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "“Crawls,” “scrapes,” or “spiders” any page, data, or portion of Substack"
+      ],
+      "notes": "Prohibits scraping, spam/autoresponders and impersonation. No blanket logged-in publishing-automation ban located; this is absence of a ban, not express permission."
+    },
+    {
+      "id": "substack-pa",
+      "title": "Substack Publisher Agreement",
+      "url": "https://substack.com/pa",
+      "read_at_utc": "2026-11-10T00:56:52.882Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Automated Content Analysis."
+      ],
+      "notes": "Substack may classify AI-assisted content and provide a dispute route. Publisher owns responsibility and necessary rights."
+    },
+    {
+      "id": "substack-content",
+      "title": "Substack Content Guidelines",
+      "url": "https://substack.com/content",
+      "read_at_utc": "2026-11-10T01:04:58.653Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "We don’t allow impersonation"
+      ],
+      "notes": "Anti-spam, plagiarism and unlawful-content rules; Stripe restrictions also apply if paid subscriptions are enabled."
+    },
+    {
+      "id": "substack-recs",
+      "title": "Substack Recommendations help",
+      "url": "https://support.substack.com/hc/en-us/articles/5036794583828-How-can-I-recommend-other-publications-on-Substack",
+      "read_at_utc": "2026-11-10T01:08:48.656Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "you can’t recommend your own publication or a private publication."
+      ],
+      "notes": "Owner/admin feature; recommendations can send subscriber digests. A recommendation is not a financial recommendation licence."
+    },
+    {
+      "id": "linkedin-ua",
+      "title": "LinkedIn User Agreement",
+      "url": "https://www.linkedin.com/legal/user-agreement",
+      "read_at_utc": "2026-11-10T00:56:52.882Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Use bots or other unauthorized automated methods to access the Services"
+      ],
+      "notes": "Section 8.2 expressly includes creating/commenting/liking/sharing posts. Members must use real names. Company branding does not waive admin identity or automation restrictions."
+    },
+    {
+      "id": "linkedin-api",
+      "title": "LinkedIn Share on LinkedIn API",
+      "url": "https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/share-on-linkedin",
+      "read_at_utc": "2026-11-10T00:58:43.979Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Required to create a LinkedIn post on behalf of the authenticated member."
+      ],
+      "notes": "w_member_social; authenticated member OAuth permission. This is member posting, not organization API access."
+    },
+    {
+      "id": "linkedin-community",
+      "title": "LinkedIn Professional Community Policies",
+      "url": "https://www.linkedin.com/legal/professional-community-policies",
+      "read_at_utc": "2026-11-10T01:05:45.009Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Use your true identity and share information that is real and authentic."
+      ],
+      "notes": "No deception or inauthentic engagement. No general AI-prose disclosure requirement located in this review."
+    },
+    {
+      "id": "youtube-tos",
+      "title": "YouTube Terms of Service",
+      "url": "https://www.youtube.com/t/terms?hl=en&override_hl=1",
+      "read_at_utc": "2026-11-10T00:57:21.861Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "access the Service using any automated means"
+      ],
+      "notes": "Exceptions for public search engines or YouTube's prior written permission; neither was found for ContentOps. Applies to Community posts as part of Service."
+    },
+    {
+      "id": "youtube-ai",
+      "title": "YouTube disclosing GenAI content",
+      "url": "https://support.google.com/youtube/answer/14328491?hl=en",
+      "read_at_utc": "2026-11-10T01:05:00.189Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "We require creators to disclose AI-generated or altered content that seems realistic."
+      ],
+      "notes": "Media disclosure; not a universal AI-text label. Financial content can carry prominent context labels. No ban on all AI assistance inferred."
+    },
+    {
+      "id": "x-automation",
+      "title": "X Automation rules",
+      "url": "https://help.x.com/en/rules-and-policies/x-automation",
+      "read_at_utc": "2026-11-10T00:57:40.470Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Use non-API-based forms of automation, such as scripting the >x< website."
+      ],
+      "notes": "This phrase is under the prohibited actions. Informational automated posts via API are allowed subject to rules; AI replies need prior written explicit approval."
+    },
+    {
+      "id": "x-guidelines",
+      "title": "X Developer Guidelines",
+      "url": "https://docs.x.com/developer-guidelines",
+      "read_at_utc": "2026-11-10T01:06:42.063Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Enable the 'Automated' profile label"
+      ],
+      "notes": "Also disclose bot/operator in bio, link a human-managed account, respect opt-out/rate limits. The technical non-API prohibition applies to research tools as well as bots."
+    },
+    {
+      "id": "x-labels",
+      "title": "X Automated account labels",
+      "url": "https://help.x.com/en/using-x/automated-account-labels",
+      "read_at_utc": "2026-11-10T00:57:40.513Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "perform programmed actions through the >x< API."
+      ],
+      "notes": "Describes automated accounts and labels; guidelines provide the operator requirement."
+    },
+    {
+      "id": "x-pricing",
+      "title": "X API pay-per-use pricing",
+      "url": "https://docs.x.com/x-api/getting-started/pricing",
+      "read_at_utc": "2026-11-10T01:12:34.827Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Post: Create (with URL)"
+      ],
+      "notes": "USD per request: Create 0.015; Create with URL 0.200; summoned Create 0.010. List Read 0.005 per resource. Pay-per-use prepaid credits, no subscription/minimum; do not treat list timeline as one charged resource."
+    },
+    {
+      "id": "telegram-bot-terms",
+      "title": "Telegram Bot Platform Developer Terms",
+      "url": "https://telegram.org/tos/bot-developers",
+      "read_at_utc": "2026-11-10T00:57:41.661Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Developers can operate their TPA by interfacing with the Bot API"
+      ],
+      "notes": "No unsolicited spam, comply with laws, independent third-party identity, privacy policy. Data collection for AI products/training is a distinct restricted use; it does not prohibit publishing our original prose."
+    },
+    {
+      "id": "telegram-api",
+      "title": "Telegram Bot API",
+      "url": "https://core.telegram.org/bots/api",
+      "read_at_utc": "2026-11-10T01:06:43.236Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "sendMessage"
+      ],
+      "notes": "Official channel transport; channel privileges and valid bot token required. Readback stays public t.me/s/CapitalChronicle; no signed-in Telegram was opened."
+    },
+    {
+      "id": "discord-bot",
+      "title": "Discord Automated User Accounts (Self-Bots)",
+      "url": "https://support.discord.com/hc/en-us/articles/115002192352-Automated-User-Accounts-Self-Bots",
+      "read_at_utc": "2026-11-10T01:05:45.499Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Discord's API provides a separate type of user account dedicated to automation, called a bot account."
+      ],
+      "notes": "Normal user self-bots prohibited. Use bot API or authorized webhook."
+    },
+    {
+      "id": "discord-policy",
+      "title": "Discord Developer Policy",
+      "url": "https://support-dev.discord.com/hc/en-us/articles/8563934450327-Discord-Developer-Policy",
+      "read_at_utc": "2026-11-10T01:12:34.925Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Do not contact users on Discord without their explicit permission."
+      ],
+      "notes": "No financial scams, deceptive identity, unsolicited marketing or fake activity. API message content training restriction is not a publishing ban."
+    },
+    {
+      "id": "meta-platform",
+      "title": "Meta Platform Terms",
+      "url": "https://developers.facebook.com/terms/",
+      "read_at_utc": "2026-11-10T00:57:44.019Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "You must also comply with the applicable requirements in our Developer Policies"
+      ],
+      "notes": "Official APIs with approved permissions, privacy and content rights. Does not grant permission to scrape browser pages."
+    },
+    {
+      "id": "meta-pages",
+      "title": "Meta Pages API posts",
+      "url": "https://developers.facebook.com/documentation/pages-api/posts",
+      "read_at_utc": "2026-11-10T00:58:44.381Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "This guide explains how to create, publish, and update a post"
+      ],
+      "notes": "Page access token and Page task permissions; POST /page_id/feed. Existing API transport is used."
+    },
+    {
+      "id": "meta-instagram",
+      "title": "Instagram API overview",
+      "url": "https://developers.facebook.com/documentation/instagram-platform",
+      "read_at_utc": "2026-11-10T01:01:02.028Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "supports messaging, media publishing, comment management, mentions, and insights"
+      ],
+      "notes": "Business/Creator account and authorized app; Facebook Login variant links a Page, Instagram Login need not."
+    },
+    {
+      "id": "instagram-terms",
+      "title": "Instagram Terms of Use",
+      "url": "https://www.facebook.com/help/instagram/581066165581870",
+      "read_at_utc": "2026-11-10T01:01:00.917Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "You don't have to disclose your identity on Instagram"
+      ],
+      "notes": "Accurate private registration, no impersonation; automated access/collection needs express permission. Existing authorized API remains available; browser edits are barred."
+    },
+    {
+      "id": "threads-terms",
+      "title": "Threads Terms of Use",
+      "url": "https://help.instagram.com/769983657850450",
+      "read_at_utc": "2026-11-10T01:08:49.189Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "supplement and amend the Instagram Terms of Use and the Meta Community Standards"
+      ],
+      "notes": "Incorporates the Instagram terms. Existing authorized API, no browser write fallback."
+    },
+    {
+      "id": "threads-api",
+      "title": "Meta Threads API publish request",
+      "url": "https://www.postman.com/meta/threads/request/34203612-c940a17f-e719-4b5b-9d28-7390bc658fb7",
+      "read_at_utc": "2026-11-10T01:14:43Z",
+      "classification": "PRIMARY",
+      "access": "Web primary-source reader; Neo page body unavailable",
+      "quotes": [
+        "/me/threads_publish"
+      ],
+      "notes": "PRIMARY publisher-owned Meta collection, indexed endpoint excerpt only. Neo and web documentation shells did not expose full body. Permissions are also confirmed in held implementation, not claimed as a full fresh docs read.",
+      "read_time_basis": "Source returned between 2026-11-10 01:14:40 UTC and 2026-11-10 01:14:43 UTC; read_at_utc is observed return upper bound, not page publication time."
+    },
+    {
+      "id": "meta-ai",
+      "title": "Meta approach to AI labels",
+      "url": "https://about.fb.com/news/2024/04/metas-approach-to-labeling-ai-generated-content-and-manipulated-media/",
+      "read_at_utc": "2026-11-10T01:02:56.951Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "We will still display the “AI info” label"
+      ],
+      "notes": "Meta can label AI images/audio/video via detection or self-disclosure. No universal AI-written text label found in this reviewed rule."
+    },
+    {
+      "id": "meta-scams",
+      "title": "Meta prohibited commercial practices",
+      "url": "https://transparency.meta.com/policies/community-standards/prohibited-commercial-practices/",
+      "read_at_utc": "2026-11-10T01:01:02.029Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "investment schemes (including guaranteed returns)"
+      ],
+      "notes": "Organic anti-scam rules; ads/paid promotion require separate advertising rules, not authorized by this review."
+    },
+    {
+      "id": "meta-identity",
+      "title": "Meta Inauthentic Behavior",
+      "url": "https://transparency.meta.com/policies/community-standards/inauthentic-behavior/",
+      "read_at_utc": "2026-11-10T01:01:00.959Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "a network of inauthentic assets"
+      ],
+      "notes": "No deceptive coordinated identity/engagement. A truthful brand Page is distinct from its private admin."
+    },
+    {
+      "id": "fx-editorial",
+      "title": "FXStreet Editorial Guidelines",
+      "url": "https://www.fxstreet.com/info/editorial-guidelines",
+      "read_at_utc": "2026-11-10T01:14:43Z",
+      "classification": "PRIMARY",
+      "access": "Web source reader after Neo ERR_CONNECTION_RESET",
+      "quotes": [
+        "Misleading language, a promise of benefit, easy money"
+      ],
+      "notes": "Financial analysis accepted; accurate, original and sourced. Contributor proposals go to editorial approval.",
+      "read_time_basis": "Source returned between 2026-11-10 01:14:40 UTC and 2026-11-10 01:14:43 UTC; read_at_utc is observed return upper bound, not page publication time."
+    },
+    {
+      "id": "fx-ai",
+      "title": "How FXStreet uses AI",
+      "url": "https://www.fxstreet.com/info/how-fxstreet-uses-ai",
+      "read_at_utc": "2026-11-10T01:14:43Z",
+      "classification": "PRIMARY",
+      "access": "Web source reader after Neo ERR_CONNECTION_RESET",
+      "quotes": [
+        "Using AI to write articles from scratch or to rewrite them is forbidden"
+      ],
+      "notes": "Human-led internal policy; AI-assisted articles carry a disclaimer. Contributor scope not expressly clarified; do not assert their staff rules are a signed contributor agreement.",
+      "read_time_basis": "Source returned between 2026-11-10 01:14:40 UTC and 2026-11-10 01:14:43 UTC; read_at_utc is observed return upper bound, not page publication time."
+    },
+    {
+      "id": "invest-editorial",
+      "title": "Investing.com contributor editorial guidelines",
+      "url": "https://www.investing.com/about-us/editorial-guidelines",
+      "read_at_utc": "2026-11-10T01:03:29.361Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Self-promotional material will automatically be denied"
+      ],
+      "notes": "Original non-exclusive market analysis, editorial review, no repeated rejected submissions; no AI or pseudonym permission found."
+    },
+    {
+      "id": "sa-editorial",
+      "title": "Seeking Alpha article submission guidelines",
+      "url": "https://about.seekingalpha.com/article-submission-guidelines",
+      "read_at_utc": "2026-11-10T01:02:55.341Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "No artificial intelligence."
+      ],
+      "notes": "Ban includes generated articles and AI rewrites/clarification. Non-exclusive submissions allowed; editorial review. Our current AI-authored output cannot be submitted."
+    },
+    {
+      "id": "sa-identity",
+      "title": "Seeking Alpha contributor pseudonyms",
+      "url": "https://help.seekingalpha.com/contributors/how-can-i-change-my-author-name-and-can-i-use-a-pseudonym",
+      "read_at_utc": "2026-11-10T01:14:43Z",
+      "classification": "PRIMARY",
+      "access": "Web primary-source reader; Neo page body unavailable",
+      "quotes": [
+        "professional and investment-related"
+      ],
+      "notes": "Pseudonyms allowed subject to author name/bio/image conditions; does not waive private identity/payment checks or AI ban.",
+      "read_time_basis": "Source returned between 2026-11-10 01:14:40 UTC and 2026-11-10 01:14:43 UTC; read_at_utc is observed return upper bound, not page publication time."
+    },
+    {
+      "id": "tv-house",
+      "title": "TradingView House Rules",
+      "url": "https://www.tradingview.com/house-rules/",
+      "read_at_utc": "2026-11-10T01:02:55.271Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "All content should be ad-free."
+      ],
+      "notes": "No promotion, fundraising or ranking manipulation; language must match selected site; vendor terms apply to sellers."
+    },
+    {
+      "id": "tv-terms",
+      "title": "TradingView Terms and policies",
+      "url": "https://www.tradingview.com/policies/",
+      "read_at_utc": "2026-11-10T01:04:25.060Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "other automated means"
+      ],
+      "notes": "Terms restrict automated gathering/access without prior express written consent. No general public API for posting Ideas found. MCP has separate personal/noncommercial restrictions; snapshots retain section 4 attribution, not a market-data licence."
+    },
+    {
+      "id": "metaculus-rules",
+      "title": "Metaculus Competition Rules",
+      "url": "https://www.metaculus.com/tournament-rules/",
+      "read_at_utc": "2026-11-10T01:04:58.875Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Unless otherwise specifically permitted in the Competition-specific rules"
+      ],
+      "notes": "Default excludes bots from prizes, with explicit competition exceptions; one entry/account. Prize payment may require identity, tax and bank details."
+    },
+    {
+      "id": "metaculus-bots",
+      "title": "FutureEval Bot Tournament Resources",
+      "url": "https://www.metaculus.com/notebooks/38928/aib-resource-page/",
+      "read_at_utc": "2026-11-10T01:14:43Z",
+      "classification": "PRIMARY",
+      "access": "Web source reader; Neo shell",
+      "quotes": [
+        "Bot makers should only submit one forecast per question"
+      ],
+      "notes": "Current official resource describes Fall 2026 bot tournaments and API workflow. Full text read with web source reader because Neo only exposed shell. Tournament-specific rules control human intervention and prize eligibility.",
+      "read_time_basis": "Source returned between 2026-11-10 01:14:40 UTC and 2026-11-10 01:14:43 UTC; read_at_utc is observed return upper bound, not page publication time."
+    },
+    {
+      "id": "metaculus-api",
+      "title": "Metaculus API documentation",
+      "url": "https://www.metaculus.com/api/",
+      "read_at_utc": "2026-11-10T01:04:25.066Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "any commercial use whatsoever requires a separate written agreement."
+      ],
+      "notes": "Authenticated API; bot benchmarking project access exists. API also says training/evaluation/development needs prior written permission; project access is not a blanket commercial licence."
+    },
+    {
+      "id": "zalo-oa",
+      "title": "Zalo OA messaging policy",
+      "url": "https://oa.zalo.me/home/resources/news/thong-bao-chinh-sach-gui-tin-va-quy-dinh-phi-gui-tin_1433049880779375099",
+      "read_at_utc": "2026-11-10T01:04:58.653Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Tin nhắn UID được phân thành 3 loại: Tin Tư vấn, Tin Giao dịch, Tin Truyền thông."
+      ],
+      "notes": "Use correct message category/opt-in and plan limits; article has dated historical plan caps, not a live price quote."
+    },
+    {
+      "id": "zalo-identity",
+      "title": "Zalo verified OA creation",
+      "url": "https://ads.zalo.me/business/huong-dan-tao-zalo-official-account/",
+      "read_at_utc": "2026-11-10T01:08:49.631Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "Doanh nghiệp/Hộ kinh doanh có Giấy phép Đăng ký kinh doanh"
+      ],
+      "notes": "Verified OA supports messages/Broadcast/articles/chatbot; ad-only profile without registration does not. Financial/banking/insurance categories need verification. Private business/representative verification conflicts with public anonymity only if identity is displayed; do not invent a public anonymity guarantee."
+    },
+    {
+      "id": "zalo-api",
+      "title": "Zalo Official Account developer docs",
+      "url": "https://developers.zalo.me/docs/official-account/bat-dau/kich-hoat-api",
+      "read_at_utc": "2026-11-10T01:05:46.015Z",
+      "classification": "PRIMARY",
+      "access": "BrowserOS Neo",
+      "quotes": [
+        "API Explorer"
+      ],
+      "notes": "Official OA API exists; page exposed navigation, not complete activation terms. No browser-message automation permission inferred."
+    }
+  ],
+  "rules": {
+    "substack-auto": {
+      "status": "NO_BLANKET_POSTING_BAN_FOUND",
+      "summary": "Logged-in own-post publishing is not expressly banned in the terms searched. Scraping and spam are prohibited. Keep bounded own-account publishing; no undocumented private API, mass collection, unsolicited replies or growth bot.",
+      "source_ids": [
+        "substack-tos",
+        "substack-content"
+      ],
+      "search_queries": [
+        "site.substack.com tos bots automated artificial intelligence",
+        "site.substack.com \"automated\" \"posting\" terms"
+      ]
+    },
+    "substack-ai": {
+      "status": "FOUND",
+      "summary": "AI-assisted content may be analyzed or labelled by Substack; no universal author-applied AI-prose label or AI-writing ban found. Do not remove platform provenance or required labels.",
+      "source_ids": [
+        "substack-pa",
+        "substack-tos"
+      ],
+      "search_queries": []
+    },
+    "substack-finance": {
+      "status": "PARTIAL",
+      "summary": "Original general market analysis must be lawful and owned; spam/illegal promotion barred. A platform-specific financial-analysis licence/disclaimer rule was NOT FOUND after the terms/content review. Paid business categories additionally depend on Stripe; no paid onboarding was performed.",
+      "source_ids": [
+        "substack-content",
+        "substack-pa"
+      ],
+      "search_queries": [
+        "Substack Terms of Use and Content Guidelines: financial, investment, licence, promotion"
+      ]
+    },
+    "substack-identity": {
+      "status": "FOUND",
+      "summary": "Use our existing named account/publication. No impersonation; legal-name publication requirement NOT FOUND in reviewed terms. Private billing/Stripe verification is separate.",
+      "source_ids": [
+        "substack-tos",
+        "substack-content"
+      ],
+      "search_queries": []
+    },
+    "substack-account": {
+      "status": "FOUND",
+      "summary": "Jim alone completes any email code, credentials, payment or identity verification if requested. Existing account needs no new signup for Notes/recommendations; no account change made.",
+      "source_ids": [
+        "substack-tos",
+        "substack-pa",
+        "substack-recs"
+      ],
+      "search_queries": []
+    },
+    "linkedin-auto": {
+      "status": "FOUND",
+      "summary": "Neo posting/editing is prohibited absent platform authorization. The existing member API uses member OAuth; company API requires separate organization permissions and has not been enabled.",
+      "source_ids": [
+        "linkedin-ua",
+        "linkedin-api"
+      ],
+      "search_queries": []
+    },
+    "linkedin-ai": {
+      "status": "PARTIAL",
+      "summary": "The agreement acknowledges automatically generated content, while requiring truthful/authentic information. General AI-prose disclosure mandate NOT FOUND; no universal AI-writing ban inferred.",
+      "source_ids": [
+        "linkedin-ua",
+        "linkedin-community"
+      ],
+      "search_queries": [
+        "site.linkedin.com \"AI-generated\" \"disclose\" policy"
+      ]
+    },
+    "linkedin-finance": {
+      "status": "PARTIAL",
+      "summary": "No deceptive/scam promotion; platform-specific general market-analysis licence/disclaimer requirement NOT FOUND in the agreement/community policy search. Existing desk public-output notices still apply.",
+      "source_ids": [
+        "linkedin-community",
+        "linkedin-ua"
+      ],
+      "search_queries": [
+        "LinkedIn agreement/community policies: financial, investment, licence, promotion"
+      ]
+    },
+    "linkedin-identity": {
+      "status": "FOUND",
+      "summary": "Members must use their real name; posting as a member exposes that public profile. A company Page uses brand identity with an authentic admin. Jim's anonymity means no new member-name disclosure or profile change; Ops Product must choose brand API versus member output.",
+      "source_ids": [
+        "linkedin-ua",
+        "linkedin-community"
+      ],
+      "search_queries": []
+    },
+    "linkedin-account": {
+      "status": "FOUND",
+      "summary": "Jim completes OAuth/re-authentication, any authentic admin verification and organization permission grant. No new grant or personal-profile edit was performed.",
+      "source_ids": [
+        "linkedin-api",
+        "linkedin-ua"
+      ],
+      "search_queries": []
+    },
+    "youtube-auto": {
+      "status": "FOUND",
+      "summary": "Community Neo posts/edits require YouTube prior written permission; none was located among held permission records. Do not substitute undocumented API endpoints. A supported Community-post write API was NOT FOUND in this review.",
+      "source_ids": [
+        "youtube-tos"
+      ],
+      "search_queries": [
+        "YouTube terms automated means; official YouTube Data API Community post publishing"
+      ]
+    },
+    "youtube-ai": {
+      "status": "FOUND",
+      "summary": "Disclose realistic synthetic/altered media via platform controls; this is not a blanket AI-text label. Current browser route remains barred independently.",
+      "source_ids": [
+        "youtube-ai"
+      ],
+      "search_queries": []
+    },
+    "youtube-finance": {
+      "status": "PARTIAL",
+      "summary": "No scams/deceptive promotion; licence specifically for general financial commentary NOT FOUND after terms/AI-policy search. A disclaimer does not override financial or local law requirements.",
+      "source_ids": [
+        "youtube-tos",
+        "youtube-ai"
+      ],
+      "search_queries": [
+        "YouTube terms and GenAI policy: financial, licence, investment, promotion"
+      ]
+    },
+    "youtube-identity": {
+      "status": "PARTIAL",
+      "summary": "Brand channel identity remains; legal public real-name requirement NOT FOUND for the channel in the reviewed terms. Private Google verification can still apply.",
+      "source_ids": [
+        "youtube-tos"
+      ],
+      "search_queries": [
+        "YouTube terms: channel identity, real name, impersonation"
+      ]
+    },
+    "youtube-account": {
+      "status": "FOUND",
+      "summary": "Jim completes account/security/identity steps. YouTube must provide written automation permission before this route resumes; no permission request or account action was sent.",
+      "source_ids": [
+        "youtube-tos"
+      ],
+      "search_queries": []
+    },
+    "telegram-auto": {
+      "status": "FOUND",
+      "summary": "Use the official Bot API with channel privileges; no spam or unsolicited direct messages. Readback uses the public channel page only. No signed-in Telegram view was read.",
+      "source_ids": [
+        "telegram-bot-terms",
+        "telegram-api"
+      ],
+      "search_queries": []
+    },
+    "telegram-ai": {
+      "status": "NOT_FOUND",
+      "summary": "A general ban or required label for original AI-written market prose was NOT FOUND. Bot-data collection/model-training restrictions are a separate use and remain binding.",
+      "source_ids": [
+        "telegram-bot-terms"
+      ],
+      "search_queries": [
+        "site.telegram.org \"AI\" \"financial\" bot terms",
+        "Telegram bot terms: AI-generated, artificial intelligence, disclosure"
+      ]
+    },
+    "telegram-finance": {
+      "status": "PARTIAL",
+      "summary": "No scams/unlawful business; no special licence/disclaimer for general financial commentary found in bot terms. Commercial subscriptions and Vietnam legal/tax status are separate from the free public channel.",
+      "source_ids": [
+        "telegram-bot-terms"
+      ],
+      "search_queries": [
+        "Telegram bot terms: financial, licence, promotion; held scan Y and Y2"
+      ]
+    },
+    "telegram-identity": {
+      "status": "PARTIAL",
+      "summary": "A brand channel/bot is distinct from its private phone-account administrator; do not impersonate Telegram or others. Public operator real-name requirement NOT FOUND in reviewed bot terms.",
+      "source_ids": [
+        "telegram-bot-terms"
+      ],
+      "search_queries": [
+        "Telegram bot terms: identity, operator, impersonation"
+      ]
+    },
+    "telegram-account": {
+      "status": "FOUND",
+      "summary": "Jim completes any account login, bot creation/token provisioning and admin grant. Reuse the already-bound bot; no token, private messages or personal Telegram view was opened.",
+      "source_ids": [
+        "telegram-api",
+        "telegram-bot-terms"
+      ],
+      "search_queries": []
+    },
+    "discord-auto": {
+      "status": "FOUND",
+      "summary": "Authorized bot/webhook posts to the opted-in desk channel; user-account self-bots, unsolicited DMs and artificial activity are barred.",
+      "source_ids": [
+        "discord-bot",
+        "discord-policy"
+      ],
+      "search_queries": []
+    },
+    "discord-ai": {
+      "status": "NOT_FOUND",
+      "summary": "Universal original AI-prose ban/disclosure requirement NOT FOUND. Do not train on API message data without Discord permission; server-specific rules also apply.",
+      "source_ids": [
+        "discord-policy"
+      ],
+      "search_queries": [
+        "site.discord.com policy \"AI-generated\" \"disclosure\"",
+        "Discord Developer Policy: machine learning, artificial intelligence"
+      ]
+    },
+    "discord-finance": {
+      "status": "PARTIAL",
+      "summary": "Financial scams and irrelevant unsolicited advertising prohibited. A general market-commentary licence/disclaimer rule NOT FOUND; sensitive user financial data remains protected.",
+      "source_ids": [
+        "discord-policy"
+      ],
+      "search_queries": [
+        "Discord Developer Policy: financial, licence, promotion"
+      ]
+    },
+    "discord-identity": {
+      "status": "FOUND",
+      "summary": "No deceptive app identity or impersonation. A branded bot/webhook is allowed; private developer verification is distinct from public brand identity.",
+      "source_ids": [
+        "discord-policy",
+        "discord-bot"
+      ],
+      "search_queries": []
+    },
+    "discord-account": {
+      "status": "FOUND",
+      "summary": "Jim completes any app/bot creation, token/OAuth or server permission grant. Existing authorized channel transport remains; no new invitation or grant.",
+      "source_ids": [
+        "discord-bot",
+        "discord-policy"
+      ],
+      "search_queries": []
+    },
+    "meta-auto": {
+      "status": "FOUND",
+      "summary": "Official APIs with the account/app permissions are the supported route. Instagram/Threads browser access or collection needs express permission; keep API writes and no browser write fallback.",
+      "source_ids": [
+        "meta-platform",
+        "meta-pages",
+        "meta-instagram",
+        "threads-api",
+        "instagram-terms",
+        "threads-terms"
+      ],
+      "search_queries": []
+    },
+    "meta-ai": {
+      "status": "PARTIAL",
+      "summary": "Meta labels AI-generated media and has disclosure rules for realistic synthetic audio/video; no universal AI-written text label found. Platform-applied labels/provenance stay intact.",
+      "source_ids": [
+        "meta-ai"
+      ],
+      "search_queries": [
+        "Meta AI labels: scope images, audio, video versus text"
+      ]
+    },
+    "meta-finance": {
+      "status": "PARTIAL",
+      "summary": "Fraud, guaranteed-return schemes and deceptive promotion prohibited. A specific general-analysis licence/disclaimer requirement NOT FOUND in these organic-content rules. Ads and regulated financial services have additional rules; this review launches neither.",
+      "source_ids": [
+        "meta-scams",
+        "meta-platform"
+      ],
+      "search_queries": [
+        "Meta Platform Terms and fraud policy: finance, investment, licence, promotion"
+      ]
+    },
+    "meta-identity": {
+      "status": "FOUND",
+      "summary": "Instagram need not publicly disclose operator identity but must hold accurate registration; no impersonation or coordinated fake identity. Brand Page/professional profile can retain Jim's public anonymity; private admin verification may still be required.",
+      "source_ids": [
+        "instagram-terms",
+        "meta-identity"
+      ],
+      "search_queries": []
+    },
+    "meta-account": {
+      "status": "FOUND",
+      "summary": "Jim completes login/OAuth, business verification and any app permission or token grant. Reuse existing bindings for Pages, Instagram and Threads; no new accounts/grants were created.",
+      "source_ids": [
+        "meta-platform",
+        "meta-pages",
+        "meta-instagram",
+        "threads-api"
+      ],
+      "search_queries": []
+    },
+    "x-auto": {
+      "status": "FOUND",
+      "summary": "Only official API automation; no website scripting/scraping. Informational original posts may be automated; AI replies need X prior written explicit approval and remain off under decision 96.",
+      "source_ids": [
+        "x-automation",
+        "x-guidelines"
+      ],
+      "search_queries": []
+    },
+    "x-ai": {
+      "status": "FOUND",
+      "summary": "Automated account label, bot/operator bio and human-managed account linkage are required. This is account automation disclosure, not a command to label the whole desk AI-run. Do not silently bypass decision 109's identity direction.",
+      "source_ids": [
+        "x-guidelines",
+        "x-labels"
+      ],
+      "search_queries": []
+    },
+    "x-finance": {
+      "status": "PARTIAL",
+      "summary": "Informational posts must meet X rules, anti-spam and truthful-link requirements. A general commentary licence/disclaimer rule NOT FOUND in automation guidelines; ads and regulated promotion require separate review.",
+      "source_ids": [
+        "x-automation",
+        "x-guidelines"
+      ],
+      "search_queries": [
+        "X automation/guidelines: financial, investment, licence, promotion"
+      ]
+    },
+    "x-identity": {
+      "status": "FOUND",
+      "summary": "Operator can be a brand (the guidelines give a company-handle example), with a linked human-managed account. Preserve Jim's anonymity; no personal bio/name edit in this item.",
+      "source_ids": [
+        "x-guidelines"
+      ],
+      "search_queries": []
+    },
+    "x-account": {
+      "status": "FOUND",
+      "summary": "Jim completes developer registration, OAuth/key/credit purchase and automation-label/account-link actions if Ops selects API posting. No credits purchased, token read, settings edited or API posting enabled.",
+      "source_ids": [
+        "x-guidelines",
+        "x-pricing"
+      ],
+      "search_queries": []
+    },
+    "fx-auto": {
+      "status": "NOT_FOUND",
+      "summary": "Contributor proposal/editorial acceptance is documented; permission for browser/API submission automation was NOT FOUND. Source APIs sell data access, not contributor posting permission.",
+      "source_ids": [
+        "fx-editorial"
+      ],
+      "search_queries": [
+        "site.fxstreet.com contributors API artificial intelligence anonymity editorial",
+        "FXStreet Editorial Guidelines and contributor programme: automated submission"
+      ]
+    },
+    "fx-ai": {
+      "status": "SCOPE_UNCERTAIN",
+      "summary": "FXStreet's own newsroom policy bans scratch-written/rewritten AI articles and discloses AI assistance. It does not explicitly grant that workflow to contributors. Our current autonomous AI articles are a poor fit; clarify contributor scope before a pilot.",
+      "source_ids": [
+        "fx-ai"
+      ],
+      "search_queries": []
+    },
+    "fx-finance": {
+      "status": "FOUND",
+      "summary": "Original sourced analysis is accepted; misleading easy-money promises and copyright abuse are rejected. No contributor professional-licence requirement found in the editorial page.",
+      "source_ids": [
+        "fx-editorial"
+      ],
+      "search_queries": []
+    },
+    "fx-identity": {
+      "status": "NOT_FOUND",
+      "summary": "Permission to contribute pseudonymously was NOT FOUND; do not disclose Jim's legal identity or invent a credential.",
+      "source_ids": [
+        "fx-editorial"
+      ],
+      "search_queries": [
+        "site.fxstreet.com \"pseudonym\" contributor"
+      ]
+    },
+    "fx-account": {
+      "status": "FOUND",
+      "summary": "Jim completes any contributor identity/signup/agreement. Prepare one proposal and source-bound sample only after Ops selects the channel; no application or email was sent.",
+      "source_ids": [
+        "fx-editorial"
+      ],
+      "search_queries": []
+    },
+    "invest-auto": {
+      "status": "NOT_FOUND",
+      "summary": "Editorial submission is supported, but permission for an automated submission API/browser process was NOT FOUND. No permission inferred from the existence of a submission form.",
+      "source_ids": [
+        "invest-editorial"
+      ],
+      "search_queries": [
+        "site.investing.com contributors artificial intelligence submission guidelines",
+        "Investing.com contributor guidelines: automation/API"
+      ]
+    },
+    "invest-ai": {
+      "status": "NOT_FOUND",
+      "summary": "AI-content permission, ban or required label was NOT FOUND in contributor guidelines and targeted search. Investing.com's own AI products do not grant outside contributors permission.",
+      "source_ids": [
+        "invest-editorial"
+      ],
+      "search_queries": [
+        "site.investing.com contributor AI generated pseudonym editorial policy"
+      ]
+    },
+    "invest-finance": {
+      "status": "FOUND",
+      "summary": "Market-focused original analysis, no self-promotion, plagiarism or recycled denied posts; non-exclusive submission is allowed. Contributor-specific professional licence requirement NOT FOUND.",
+      "source_ids": [
+        "invest-editorial"
+      ],
+      "search_queries": []
+    },
+    "invest-identity": {
+      "status": "NOT_FOUND",
+      "summary": "Pseudonym/brand-only author acceptance was NOT FOUND; obtain acceptance before exposing identity or applying.",
+      "source_ids": [
+        "invest-editorial"
+      ],
+      "search_queries": [
+        "site.investing.com contributor AI generated pseudonym editorial policy"
+      ]
+    },
+    "invest-account": {
+      "status": "FOUND",
+      "summary": "Jim completes contributor registration/verification and agreement if selected. Prepare one application; no account created or submission sent.",
+      "source_ids": [
+        "invest-editorial"
+      ],
+      "search_queries": []
+    },
+    "sa-auto": {
+      "status": "NOT_FOUND",
+      "summary": "Editorial submission exists; no browser/API automation permission found. Current content is independently ineligible under the explicit AI rule.",
+      "source_ids": [
+        "sa-editorial"
+      ],
+      "search_queries": [
+        "Seeking Alpha submission guidelines: automation API"
+      ]
+    },
+    "sa-ai": {
+      "status": "FOUND",
+      "summary": "AI generation, rewriting and clarification are prohibited for contributor articles. Do not submit current ContentOps articles or relabel them human-written.",
+      "source_ids": [
+        "sa-editorial"
+      ],
+      "search_queries": []
+    },
+    "sa-finance": {
+      "status": "FOUND",
+      "summary": "Investment-oriented original analysis; editorial approval, exclusivity/payment choice and disclosure requirements apply. No claim that a disclaimer licences regulated advice.",
+      "source_ids": [
+        "sa-editorial"
+      ],
+      "search_queries": []
+    },
+    "sa-identity": {
+      "status": "FOUND",
+      "summary": "Professional investment-related pseudonyms are allowed subject to name/bio/image constraints. Private contributor/payment identity steps remain separate.",
+      "source_ids": [
+        "sa-identity"
+      ],
+      "search_queries": []
+    },
+    "sa-account": {
+      "status": "FOUND",
+      "summary": "Jim alone registers and completes contributor/private identity/payment steps. No account action is needed for a channel excluded by its AI rule.",
+      "source_ids": [
+        "sa-editorial",
+        "sa-identity"
+      ],
+      "search_queries": []
+    },
+    "tv-auto": {
+      "status": "FOUND",
+      "summary": "No public Ideas write API located; terms restrict automated access/gathering absent written consent. Do not implement browser posting or use MCP as a business workaround.",
+      "source_ids": [
+        "tv-terms"
+      ],
+      "search_queries": [
+        "TradingView policies and House Rules: automated access, public Ideas API"
+      ]
+    },
+    "tv-ai": {
+      "status": "PARTIAL",
+      "summary": "No blanket ban/mandatory label for independently AI-assisted Ideas found; platform AI Features and MCP have their own restrictions. All claims remain accountable and sourced.",
+      "source_ids": [
+        "tv-terms"
+      ],
+      "search_queries": [
+        "TradingView House Rules/policies: AI generated Ideas disclosure"
+      ]
+    },
+    "tv-finance": {
+      "status": "FOUND",
+      "summary": "Ideas must be ad-free and in the site language; no fundraising/ranking manipulation; vendors have extra requirements. Snapshot attribution does not grant raw data redistribution or automated trading use.",
+      "source_ids": [
+        "tv-house",
+        "tv-terms"
+      ],
+      "search_queries": []
+    },
+    "tv-identity": {
+      "status": "PARTIAL",
+      "summary": "Registered username required to publish. Public legal-name requirement NOT FOUND; private billing/data entitlement verification remains distinct. No fake identity or qualification.",
+      "source_ids": [
+        "tv-terms"
+      ],
+      "search_queries": [
+        "TradingView policies registration identity public name"
+      ]
+    },
+    "tv-account": {
+      "status": "FOUND",
+      "summary": "Jim completes signup/login/data entitlements and written automation permission if applicable. No account, MCP connection, purchase or Idea created.",
+      "source_ids": [
+        "tv-terms"
+      ],
+      "search_queries": []
+    },
+    "meta-forecast-auto": {
+      "status": "FOUND",
+      "summary": "Use the authenticated Metaculus API and bot-eligible competition; default human tournament prize rules do not imply bot eligibility. Specific access/commercial agreement required where applicable.",
+      "source_ids": [
+        "metaculus-api",
+        "metaculus-bots",
+        "metaculus-rules"
+      ],
+      "search_queries": []
+    },
+    "meta-forecast-ai": {
+      "status": "FOUND",
+      "summary": "FutureEval explicitly evaluates AI forecasting bots; competition-specific bot/one-forecast/human-intervention rules apply. Ordinary tournament prizes exclude bots absent an explicit exception.",
+      "source_ids": [
+        "metaculus-bots",
+        "metaculus-rules"
+      ],
+      "search_queries": []
+    },
+    "meta-forecast-finance": {
+      "status": "PARTIAL",
+      "summary": "A forecasting contest is not a financial-adviser licence. Commercial API use and AI model evaluation need written permission; don't export third-party crowd forecasts as our model estimates.",
+      "source_ids": [
+        "metaculus-api"
+      ],
+      "search_queries": []
+    },
+    "meta-forecast-identity": {
+      "status": "FOUND",
+      "summary": "Use a truthful bot account for the external record; prize collection may require private identity/tax/payment information. No public real-name mandate found for a bot display name.",
+      "source_ids": [
+        "metaculus-rules",
+        "metaculus-bots"
+      ],
+      "search_queries": []
+    },
+    "meta-forecast-account": {
+      "status": "FOUND",
+      "summary": "Jim creates/verifies the account and issues API credentials; request the specified bot/project/commercial permission if selected. Prepare one registration action, no account or forecasting entry created.",
+      "source_ids": [
+        "metaculus-api",
+        "metaculus-rules"
+      ],
+      "search_queries": []
+    },
+    "partner-auto": {
+      "status": "CONTRACT_REQUIRED",
+      "summary": "No partner has been selected in the item. Contract must explicitly permit the chosen API/submission route, rate, format and edits; receiving platform rules remain binding.",
+      "source_ids": [
+        "substack-pa",
+        "meta-platform"
+      ],
+      "search_queries": []
+    },
+    "partner-ai": {
+      "status": "CONTRACT_REQUIRED",
+      "summary": "Contract must accept our AI-assisted workflow and define disclosures, editor responsibility and prohibited uses. No implied permission from silence.",
+      "source_ids": [
+        "fx-ai",
+        "sa-editorial"
+      ],
+      "search_queries": []
+    },
+    "partner-finance": {
+      "status": "CONTRACT_REQUIRED",
+      "summary": "Grant only original prose/computed outputs/lawful images; no raw restricted inputs. Define general-analysis scope, notices, conflicts, promotion, corrections, attribution, takedown and record retention.",
+      "source_ids": [
+        "substack-pa",
+        "meta-platform"
+      ],
+      "search_queries": []
+    },
+    "partner-identity": {
+      "status": "CONTRACT_REQUIRED",
+      "summary": "Public credit stays Capital Chronicle; confidential legal identity only through Jim's own contracting action. No promise a counterparty will accept anonymity.",
+      "source_ids": [
+        "linkedin-ua",
+        "instagram-terms"
+      ],
+      "search_queries": []
+    },
+    "partner-account": {
+      "status": "CONTRACT_REQUIRED",
+      "summary": "Jim completes any actual contract signature, verification, credentials or payment after Ops selects a named partner. This is a checklist for an unselected pilot, not a signed agreement.",
+      "source_ids": [
+        "substack-pa",
+        "meta-platform"
+      ],
+      "search_queries": []
+    },
+    "zalo-auto": {
+      "status": "PARTIAL",
+      "summary": "Use official OA OpenAPI and correct subscriber-message category/limits; no personal-account browser bot. Exact current account tier/quota must be read when an OA exists; old policy-page plan numbers aren't a current offer.",
+      "source_ids": [
+        "zalo-oa",
+        "zalo-api",
+        "zalo-identity"
+      ],
+      "search_queries": []
+    },
+    "zalo-ai": {
+      "status": "NOT_FOUND",
+      "summary": "Blanket AI-prose ban/disclosure rule NOT FOUND in reviewed OA sources/search. No blanket permission for a financial-content business inferred.",
+      "source_ids": [
+        "zalo-oa",
+        "zalo-identity"
+      ],
+      "search_queries": [
+        "site.oa.zalo.me \"AI\" \"nội dung\" chính sách"
+      ]
+    },
+    "zalo-finance": {
+      "status": "PARTIAL",
+      "summary": "Financial/banking/insurance businesses require verified OA. A gold-commentary newsletter's exact category/licence treatment was NOT FOUND. General-analysis notice does not replace local registration/tax/service rules.",
+      "source_ids": [
+        "zalo-identity",
+        "zalo-oa"
+      ],
+      "search_queries": [
+        "site.oa.zalo.me chính sách nội dung dịch vụ tài chính đầu tư",
+        "Held scan evidence Y and Y2: original commentary vs regulated personal advice"
+      ]
+    },
+    "zalo-identity": {
+      "status": "FOUND",
+      "summary": "OA brand identity needs supporting business/trademark documents; the private personal admin signs in. Public personal anonymity is not guaranteed by these sources; ad-only unverified profile cannot substitute for OA broadcast.",
+      "source_ids": [
+        "zalo-identity"
+      ],
+      "search_queries": []
+    },
+    "zalo-account": {
+      "status": "FOUND",
+      "summary": "Jim completes one verified OA signup with business/brand documents and personal login, then app/OAuth/API activation if chosen. No signup, document upload, purchase, message or group created.",
+      "source_ids": [
+        "zalo-identity",
+        "zalo-api"
+      ],
+      "search_queries": []
+    }
+  },
+  "policy_profiles": {
+    "substack": {
+      "automation": "substack-auto",
+      "ai_content": "substack-ai",
+      "financial_content": "substack-finance",
+      "identity": "substack-identity",
+      "account_steps": "substack-account"
+    },
+    "linkedin": {
+      "automation": "linkedin-auto",
+      "ai_content": "linkedin-ai",
+      "financial_content": "linkedin-finance",
+      "identity": "linkedin-identity",
+      "account_steps": "linkedin-account"
+    },
+    "youtube": {
+      "automation": "youtube-auto",
+      "ai_content": "youtube-ai",
+      "financial_content": "youtube-finance",
+      "identity": "youtube-identity",
+      "account_steps": "youtube-account"
+    },
+    "telegram": {
+      "automation": "telegram-auto",
+      "ai_content": "telegram-ai",
+      "financial_content": "telegram-finance",
+      "identity": "telegram-identity",
+      "account_steps": "telegram-account"
+    },
+    "discord": {
+      "automation": "discord-auto",
+      "ai_content": "discord-ai",
+      "financial_content": "discord-finance",
+      "identity": "discord-identity",
+      "account_steps": "discord-account"
+    },
+    "meta": {
+      "automation": "meta-auto",
+      "ai_content": "meta-ai",
+      "financial_content": "meta-finance",
+      "identity": "meta-identity",
+      "account_steps": "meta-account"
+    },
+    "x": {
+      "automation": "x-auto",
+      "ai_content": "x-ai",
+      "financial_content": "x-finance",
+      "identity": "x-identity",
+      "account_steps": "x-account"
+    },
+    "fx": {
+      "automation": "fx-auto",
+      "ai_content": "fx-ai",
+      "financial_content": "fx-finance",
+      "identity": "fx-identity",
+      "account_steps": "fx-account"
+    },
+    "invest": {
+      "automation": "invest-auto",
+      "ai_content": "invest-ai",
+      "financial_content": "invest-finance",
+      "identity": "invest-identity",
+      "account_steps": "invest-account"
+    },
+    "sa": {
+      "automation": "sa-auto",
+      "ai_content": "sa-ai",
+      "financial_content": "sa-finance",
+      "identity": "sa-identity",
+      "account_steps": "sa-account"
+    },
+    "tv": {
+      "automation": "tv-auto",
+      "ai_content": "tv-ai",
+      "financial_content": "tv-finance",
+      "identity": "tv-identity",
+      "account_steps": "tv-account"
+    },
+    "meta-forecast": {
+      "automation": "meta-forecast-auto",
+      "ai_content": "meta-forecast-ai",
+      "financial_content": "meta-forecast-finance",
+      "identity": "meta-forecast-identity",
+      "account_steps": "meta-forecast-account"
+    },
+    "partner": {
+      "automation": "partner-auto",
+      "ai_content": "partner-ai",
+      "financial_content": "partner-finance",
+      "identity": "partner-identity",
+      "account_steps": "partner-account"
+    },
+    "zalo": {
+      "automation": "zalo-auto",
+      "ai_content": "zalo-ai",
+      "financial_content": "zalo-finance",
+      "identity": "zalo-identity",
+      "account_steps": "zalo-account"
+    }
+  },
+  "routes": [
+    {
+      "id": "substack_posts",
+      "label": "Substack canonical posts",
+      "part": 1,
+      "transport": "NEO",
+      "policy_profile": "substack",
+      "recommendation": "CONTINUE_EXISTING_BOUNDED_ROUTE",
+      "detail": "No blanket publishing-automation ban located. Scraping remains forbidden; use own exact-object publication/recovery only.",
+      "neo_destination": "substack"
+    },
+    {
+      "id": "substack_notes",
+      "label": "Substack Notes",
+      "part": 1,
+      "transport": "NEO",
+      "policy_profile": "substack",
+      "recommendation": "CONTINUE_EXISTING_BOUNDED_ROUTE",
+      "detail": "Candidate Notes uses this same reviewed route; no second publisher.",
+      "neo_destination": "substack_notes"
+    },
+    {
+      "id": "linkedin_company_neo",
+      "label": "LinkedIn company Page",
+      "part": 1,
+      "transport": "NEO",
+      "policy_profile": "linkedin",
+      "recommendation": "BAR_NEO_WRITES",
+      "detail": "New and edit requests refused; organization API is the supported candidate replacement, not enabled.",
+      "neo_destination": "linkedin_company"
+    },
+    {
+      "id": "youtube_community_neo",
+      "label": "YouTube Community posts",
+      "part": 1,
+      "transport": "NEO",
+      "policy_profile": "youtube",
+      "recommendation": "BAR_NEO_WRITES",
+      "detail": "No prior written permission found; no documented public Community-post API found. Exact old-object recovery remains in coordinator.",
+      "neo_destination": "youtube"
+    },
+    {
+      "id": "telegram_bot_api",
+      "label": "Telegram",
+      "part": 1,
+      "transport": "OFFICIAL_BOT_API",
+      "policy_profile": "telegram",
+      "recommendation": "CONTINUE_EXISTING_API",
+      "detail": ""
+    },
+    {
+      "id": "discord_api",
+      "label": "Discord",
+      "part": 1,
+      "transport": "OFFICIAL_BOT_OR_WEBHOOK_API",
+      "policy_profile": "discord",
+      "recommendation": "CONTINUE_EXISTING_API",
+      "detail": ""
+    },
+    {
+      "id": "threads_api",
+      "label": "Threads",
+      "part": 1,
+      "transport": "OFFICIAL_API",
+      "policy_profile": "meta",
+      "recommendation": "CONTINUE_EXISTING_API",
+      "detail": "threads_basic/threads_content_publish are held implementation scopes; fresh Meta collection documents publishing endpoint."
+    },
+    {
+      "id": "facebook_page_api",
+      "label": "Facebook Page",
+      "part": 1,
+      "transport": "OFFICIAL_PAGES_API",
+      "policy_profile": "meta",
+      "recommendation": "CONTINUE_EXISTING_API",
+      "detail": "Page access token and pages_manage_posts/read engagement permissions."
+    },
+    {
+      "id": "instagram_api",
+      "label": "Instagram professional",
+      "part": 1,
+      "transport": "OFFICIAL_API",
+      "policy_profile": "meta",
+      "recommendation": "CONTINUE_EXISTING_API",
+      "detail": "Browser edits are also barred under the reviewed Instagram terms.",
+      "neo_destination": "instagram_business"
+    },
+    {
+      "id": "linkedin_member_api",
+      "label": "LinkedIn member",
+      "part": 1,
+      "transport": "OFFICIAL_MEMBER_API",
+      "policy_profile": "linkedin",
+      "recommendation": "API_TECHNICALLY_SUPPORTED_IDENTITY_PICK_PENDING",
+      "detail": "No Neo fallback; retain existing API transport, but Ops Product must reconcile public member identity with decision 109 anonymity.",
+      "neo_destination": "linkedin"
+    },
+    {
+      "id": "x_official_api",
+      "label": "X official API",
+      "part": 1,
+      "transport": "OFFICIAL_API_NOT_ENABLED",
+      "policy_profile": "x",
+      "recommendation": "COSTED_OPTION_NO_ACTIVATION",
+      "detail": "Retain existing X Neo ban. Label/bio/linkage and Jim's account actions required before official API adoption.",
+      "neo_destination": "x"
+    },
+    {
+      "id": "x_list_cdp",
+      "label": "CC-258 X list feed",
+      "part": 1,
+      "transport": "SIGNED_IN_BROWSER_CDP",
+      "policy_profile": "x",
+      "recommendation": "PROHIBITED_METHOD_WITH_DATED_OPS_TRANSITION",
+      "detail": "X restriction covers scraping/collection, not just writes. CC-258 Ops Product 10 Nov 07:40 GMT+7 explicitly keeps this source through CPI and assigns replacement/stop on 11 Nov. This run changes no feed process, source, schedule or consumer; not labelled compliant."
+    },
+    {
+      "id": "fxstreet_contributor",
+      "label": "FXStreet contributor programme",
+      "part": 2,
+      "transport": "EDITORIAL_PROPOSAL",
+      "policy_profile": "fx",
+      "recommendation": "DO_NOT_SELECT_CURRENT_AUTONOMOUS_WRITING",
+      "detail": "AI staff policy is incompatible; exact contributor scope, identity and delivery permission need agreement."
+    },
+    {
+      "id": "investing_contributor",
+      "label": "Investing.com contributor programme",
+      "part": 2,
+      "transport": "EDITORIAL_SUBMISSION",
+      "policy_profile": "invest",
+      "recommendation": "POSSIBLE_EDITORIAL_PILOT_TERMS_UNRESOLVED",
+      "detail": "No AI/identity/automation permission found; prepare a single proposal only if Ops chooses it."
+    },
+    {
+      "id": "seekingalpha_contributor",
+      "label": "Seeking Alpha contributor programme",
+      "part": 2,
+      "transport": "EDITORIAL_SUBMISSION",
+      "policy_profile": "sa",
+      "recommendation": "EXCLUDE_CURRENT_AI_AUTHORED_CONTENT",
+      "detail": "Explicit article AI ban; pseudonym option does not cure it."
+    },
+    {
+      "id": "tradingview_ideas",
+      "label": "TradingView Ideas",
+      "part": 2,
+      "transport": "BROWSER_WRITE_NOT_IMPLEMENTED",
+      "policy_profile": "tv",
+      "recommendation": "NO_AUTOMATED_IDEAS_PILOT_WITHOUT_WRITTEN_PERMISSION",
+      "detail": "No Ideas write API found; ad-free analysis rule prevents treating Ideas as a funnel of subscription links."
+    },
+    {
+      "id": "candidate_substack_notes",
+      "label": "Substack Notes candidate",
+      "part": 2,
+      "transport": "REUSES_REVIEWED_NEO_ROUTE",
+      "policy_profile": "substack",
+      "recommendation": "RECOMMEND_EXISTING_NOTES",
+      "detail": "Same route and restrictions as part 1; no new account."
+    },
+    {
+      "id": "substack_recommendations",
+      "label": "Substack recommendations",
+      "part": 2,
+      "transport": "EXISTING_OWNER_ADMIN_FEATURE",
+      "policy_profile": "substack",
+      "recommendation": "RECOMMEND_BOUNDED_GENUINE_RECOMMENDATIONS",
+      "detail": "No self/private recommendations; no engagement exchange/spam. Platform feature can send digests; no recommendation was added."
+    },
+    {
+      "id": "event_frozen_call_hash",
+      "label": "Event-time posts with frozen-call hash",
+      "part": 2,
+      "transport": "EXISTING_ALLOWED_CHANNEL_TRANSPORT",
+      "policy_profile": "telegram",
+      "recommendation": "RECOMMEND_TELEGRAM_FIRST",
+      "detail": "Hash proves version identity only; it neither proves timing/accuracy nor changes channel rights, AI/media or identity rules. Use existing API; no new cadence/schedule."
+    },
+    {
+      "id": "metaculus_ai_tournament",
+      "label": "Metaculus AI forecasting tournament",
+      "part": 2,
+      "transport": "OFFICIAL_AUTHENTICATED_API",
+      "policy_profile": "meta-forecast",
+      "recommendation": "POSSIBLE_EXTERNAL_BOT_RECORD_AFTER_TERMS_ACCEPTANCE",
+      "detail": "Specific bot-competition exception, API project and written commercial/evaluation permissions must fit; no entry, training/evaluation, signup or benchmark was run."
+    },
+    {
+      "id": "partner_pilot",
+      "label": "One partner pilot terms",
+      "part": 2,
+      "transport": "NEGOTIATED_DELIVERY",
+      "policy_profile": "partner",
+      "recommendation": "RECOMMEND_ONE_BRAND_CREDITED_ORIGINAL_ANALYSIS_PILOT",
+      "detail": "Contract checklist prepared; no partner nominated or agreement held by this item. No outreach or contract sent."
+    },
+    {
+      "id": "vietnam_gold_telegram",
+      "label": "Vietnamese gold note on Telegram",
+      "part": 2,
+      "transport": "EXISTING_OFFICIAL_BOT_API",
+      "policy_profile": "telegram",
+      "recommendation": "RECOMMEND_FREE_GENERAL_ANALYSIS_PILOT_FOR_OPS_SELECTION",
+      "detail": "Use original commentary/official or licensed facts; no personalised recommendations, broker/execution details or raw restricted inputs. Held Y/Y2 is context, not a present legal/tax clearance or confirmed Telegram-access guarantee. No piece authored/published."
+    },
+    {
+      "id": "vietnam_gold_zalo",
+      "label": "Zalo second channel",
+      "part": 2,
+      "transport": "VERIFIED_OA_OPENAPI_NOT_ENABLED",
+      "policy_profile": "zalo",
+      "recommendation": "PREPARE_VERIFIED_OA_ACTION_ONLY",
+      "detail": "Public anonymity and financial-category verification need a concrete OA acceptance; ad-only profile is not a broadcast substitute. No account, payment or API grant."
+    }
+  ],
+  "x_api_pricing": {
+    "source_id": "x-pricing",
+    "currency": "USD",
+    "plain_post_per_request": 0.015,
+    "post_with_url_per_request": 0.2,
+    "summoned_post_per_request": 0.01,
+    "list_read_per_resource": 0.005,
+    "billing": "Prepaid pay-per-use, no subscription or minimum spend stated",
+    "example": {
+      "kind": "calculation_not_quote_or_budget",
+      "url_posts": 60,
+      "write_cost_usd": 12,
+      "exclusions": "Read resources, media, replies, tax and account-specific conditions; no purchase made"
+    },
+    "note": "Price is observed current documentation, not historic tier pricing. List/timeline collection is not costed as one resource per request."
+  },
+  "enforcement": {
+    "owner": "DurablePublicationCoordinator -> NeoDestinationHandoff -> NativeNeoExecutor",
+    "neo_barred_destinations": {
+      "x": "X_NON_API_AUTOMATION_PROHIBITED",
+      "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+      "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+      "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+      "instagram_business": "INSTAGRAM_NON_API_AUTOMATION_PROHIBITED"
+    },
+    "new_writes": "Fresh prohibited Neo dispatches stop before identity readiness and browser requests; publish/edit and direct request/begin paths also refuse.",
+    "old_writes": "Preserve saved responses and claimed-action ambiguity; exact readback/reconciliation remains. No deletes, reposts, retries or bulk state rewrite.",
+    "x_collection": "No change: explicit CC-258 through-CPI instruction; Ops Product transition 11 Nov."
+  },
+  "consumer": {
+    "owner": "Ops Product",
+    "requested_read_date_gmt7": "10 Nov 2026",
+    "status": "PENDING_OPS_PRODUCT_READ_AND_PICK",
+    "observed_read": false,
+    "observed_pick": null,
+    "reason": "Codex Publisher supplies record/recommendation and applies live prohibited write routes. Item explicitly reserves candidate pick to Ops Product; do not impersonate it or message a chat.",
+    "prepared_recommendation": [
+      "Keep allowed existing APIs and bounded Substack route",
+      "Use existing Substack Notes, genuine recommendations and event-hash posts via Telegram",
+      "Optional brand-credited partner pilot and free Vietnamese gold note on Telegram",
+      "Exclude Seeking Alpha for current AI articles; do not select FXStreet without contributor-specific acceptance",
+      "No automated TradingView Ideas or Zalo rollout; Metaculus only with matching bot/commercial/evaluation terms"
+    ],
+    "next_action": "Ops Product reads this record and writes its candidate pick and CC-258 source transition into CC-393/CC-258; no message sent by this run."
+  }
+}

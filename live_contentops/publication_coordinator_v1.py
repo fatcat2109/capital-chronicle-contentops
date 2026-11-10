@@ -2388,6 +2388,22 @@ class DurablePublicationCoordinator:
         registration = self._intent_registration(destination, intent)
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        # CC-393: a forbidden fresh Neo route is settled before readiness can
+        # request a browser identity probe. Existing attempts keep recovery.
+        if existing is None and registration.transport_type == "BROWSEROS_NEO_MCP":
+            from live_contentops.neo_destination_handoff_v1 import _prohibited_write
+            refused = _prohibited_write(destination)
+            if refused is not None:
+                claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
+                    message_id=ids["message_id"], platform=destination, expected_status=None)
+                if not claimed:
+                    actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+                    return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),
+                            "publish_called": False, "reason_code": "EXACT_DISPATCH_ALREADY_CLAIMED"}
+                self.store.set_dispatch_status(ids["dispatch_id"], DEFINITE_NO_WRITE)
+                self.store.set_outbox_status(ids["message_id"], DEFINITE_NO_WRITE)
+                return {**refused, "status": DEFINITE_NO_WRITE, "destination": destination,
+                        "dispatch_id": ids["dispatch_id"], "publish_called": False}
         if intent.get("distribution_policy") == "SITE_FIRST_V1":
             confirmed_site, observed_site_absence, _ = _site_first_owners()
             site = confirmed_site(self.store, intent["work_item_id"], intent)

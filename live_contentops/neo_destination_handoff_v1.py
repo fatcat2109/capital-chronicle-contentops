@@ -37,7 +37,18 @@ TELEGRAM_READ_RULE = ("Read only https://t.me/s/CapitalChronicle, with no sign-i
 # driving the website in a browser, "results in permanent suspension". Jim, 10 Nov 2026 (scan answers, item 3): X's
 # own rules bind. So no write to X goes through Neo: a publish or an edit there is a definite no-write, before any
 # request reaches a browser. X returns only through X's official API.
-NON_API_AUTOMATION_PROHIBITED = {"x": "X_NON_API_AUTOMATION_PROHIBITED"}
+# CC-393, Jim decision 109 item 3, read 10 Nov 2026: LinkedIn User Agreement 8.2 prohibits unauthorized
+# automated posting; YouTube Terms, Permissions and Restrictions 2, require prior
+# written permission for automated access. No such platform permission is held.
+# Official API transports remain separate; this map applies to the Neo path only.
+# Sources and the remaining routes: docs/publisher/CC-393/platform-rules.json.
+NON_API_AUTOMATION_PROHIBITED = {
+    "x": "X_NON_API_AUTOMATION_PROHIBITED",
+    "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+    "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+    "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+    "instagram_business": "INSTAGRAM_NON_API_AUTOMATION_PROHIBITED",
+}
 
 
 def _prohibited_write(destination):
@@ -254,6 +265,10 @@ class NeoDestinationHandoff:
 
     def request(self, *, destination, action, intent, authorization_context=None,
                 public_object_id=None, public_object_url=None):
+        if action in {"PUBLISH", "EDIT_EXISTING"}:
+            refused = _prohibited_write(destination)
+            if refused is not None:
+                raise ValueError(refused["reason_code"])
         if destination not in IDENTITIES or action not in {"PUBLISH", "READBACK", "EDIT_EXISTING"}:
             raise ValueError("NEO_DESTINATION_ACTION_UNSUPPORTED")
         if destination in {"telegram", "threads"} and action != "READBACK":
@@ -404,8 +419,32 @@ class NeoDestinationHandoff:
         value["request_sha256"] = sha256_of(value)
         return value
 
-    def publish(self, *, destination, intent, authorization_context):
+    def _prohibited_or_prior(self, destination, action, intent, authorization_context):
         refused = _prohibited_write(destination)
+        executor = self.native_executor
+        if refused is None or not getattr(executor, "native_neo_protocol", False):
+            return refused
+        # A platform policy change cannot turn an already-attempted action into
+        # proof that nothing was written. Consume its saved return or recover.
+        attempt = (authorization_context or {}).get("dispatch_attempt_identity")
+        if attempt:
+            for row in executor.store.list_outbox_messages(destination="internal:native-neo-tool",
+                    work_item_id=intent.get("work_item_id")):
+                packet = json.loads(row["payload"])
+                request = packet.get("request") or {}
+                if (request.get("destination") == destination and request.get("action") == action
+                        and request.get("dispatch_attempt_identity") == attempt):
+                    key = request["request_sha256"]
+                    response = executor._get(key, "response")
+                    if response:
+                        return dict(response["result"])
+                    if executor._get(key, "started"):
+                        return {"status": "UNKNOWN_WRITE", "reason_code": "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN",
+                                "retry_permitted": False}
+        return refused
+
+    def publish(self, *, destination, intent, authorization_context):
+        refused = self._prohibited_or_prior(destination, "PUBLISH", intent, authorization_context)
         if refused is not None:
             return refused
         request = self.request(destination=destination, action="PUBLISH", intent=intent,
@@ -437,7 +476,7 @@ class NeoDestinationHandoff:
         return result
 
     def amend_existing(self, *, destination, intent, public_object_id, public_object_url, authorization_context):
-        refused = _prohibited_write(destination)
+        refused = self._prohibited_or_prior(destination, "EDIT_EXISTING", intent, authorization_context)
         if refused is not None:
             return refused
         request = self.request(destination=destination, action="EDIT_EXISTING", intent=intent,
