@@ -3030,7 +3030,7 @@ def run_v1_simple_gemini_newsroom(
                 or selected_context["primary_source_pack_sha256"] != sha256_of(source_pack)):
             raise SimpleGeminiNewsroomError("selected_story_context_source_changed")
         contextual = _source_pack(selected_context["context_documents"])
-        if len(contextual) != len(selected_context["supporting_headline_ids"]):
+        if not set(selected_context["supporting_headline_ids"]) <= {d["document_id"] for d in contextual}:
             raise SimpleGeminiNewsroomError("selected_story_context_source_missing")
         if selected_context.get("primary_context_document_ids"):
             kept = set(selected_context["primary_context_document_ids"])

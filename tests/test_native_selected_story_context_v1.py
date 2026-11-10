@@ -207,6 +207,27 @@ def test_selected_context_keeps_topic_sources_and_uses_prepared_event_history(tm
     assert len(calls) == 2 and calls[-1][-1]["preview_preparation"]["event_id"] == "controlled-cpi"
 
 
+def test_prepared_background_keeps_its_admitted_history_in_writer(tmp_path, monkeypatch):
+    text = "The exact prior official monthly history remains admitted for this event preview."
+    extra = {"document_id": "controlled-prior-official-history", "source_url": "https://www.bls.gov/controlled-history",
+        "publisher": "U.S. Bureau of Labor Statistics", "canonical_content_text": text,
+        "canonical_content_sha256": sha256(text.encode()).hexdigest()}
+    def background(record):
+        record["document"]["preview_preparation"] = {
+            "reviewed_background": {"original_source_pack": [extra]}}
+    turn, binding, response, args = seeded(tmp_path, monkeypatch, change=background)
+    entry().operation(binding, command="recover-sources", response=response)
+    _, photo, _ = controlled_release_packet(tmp_path / "controlled-background-media")
+    turn.store.register_outbox_message(message_id="native-editorial-media-plan-" + sha256_of(turn.run_id),
+        work_item_id=turn.work, destination="internal:controlled-media", status="EDITORIAL_INTERNAL",
+        payload=canonical_bytes({"source_request_sha256": "controlled", "assets": [photo]}).decode())
+    with pytest.raises(DesktopInputRequired) as pending:
+        run_v1_simple_gemini_newsroom(**args)
+    docs = pending.value.request["governed_input"]["source_pack"]
+    assert {"prior-context", "controlled-prior-official-history"} <= {d["document_id"] for d in docs}
+    assert next(d for d in docs if d["document_id"] == extra["document_id"])["canonical_content_text"] == text
+
+
 def test_short_path_adds_held_context_to_unanswered_writer_without_visual_stage(tmp_path, monkeypatch):
     turn, binding, response, _ = seeded(tmp_path, monkeypatch)
     original_get = turn._get
