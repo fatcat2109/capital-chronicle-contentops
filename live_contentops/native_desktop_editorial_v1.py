@@ -88,6 +88,8 @@ def request_role_assignment(request):
 
 
 def native_role(stage):
+    if stage == "gold-note":
+        return "write"
     if re.fullmatch(r"final-visual-[a-f0-9]{64}", stage):
         return "final-visual"
     if stage == "visual-edit-amend":
@@ -1412,7 +1414,11 @@ class NativeDesktopTurn:
                 and response["output"].get("story_kind") not in {"NEWS", "POLICY"}):
             raise ValueError("BRIEF_WINDOW_CANNOT_ADMIT_ANALYSIS")
         role = native_role(stage)
-        if role == "filter":
+        if stage == "gold-note":
+            from live_contentops.vietnamese_gold_note_v1 import validate_note
+            validate_note(response["output"], request["governed_input"])
+            ok, reason = True, None
+        elif role == "filter":
             from live_contentops.native_headline_filter_v1 import _validate
             expected = {r["input_sha256"]: r["original_record"]["headline_id"]
                         for r in request["governed_input"]["records"]}

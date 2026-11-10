@@ -10,7 +10,7 @@ import argparse
 import json
 import sys
 import subprocess
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from uuid import uuid4
 
@@ -659,13 +659,19 @@ def with_due_digest(result, rollout_path):
     except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
         digest = {"state": "DIGEST_PREPARATION_FAILED", "cause": str(exc),
                   "public_write_performed": False}
-    return {**result, "daily_email_digest": digest}
+    from live_contentops.vietnamese_gold_note_v1 import command as gold_note
+    try:
+        gold = gold_note(rollout, "gold-note")
+    except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
+        gold = {"state": "GOLD_NOTE_PREPARATION_FAILED", "cause": str(exc), "public_write_performed": False}
+    return {**result, "daily_email_digest": digest, "vietnamese_gold_note": gold}
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "agy-review", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
         "digest", "digest-resume", "digest-tool-begin", "digest-tool-submit",
+        "gold-note", "gold-note-submit", "gold-note-accept", "gold-note-status",
         "publication-prepare", "publication-status", "publication-resume", "publication-reader-derivative", "publication-tool-begin", "publication-tool-submit",
         "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company",
         "publication-repost-after-removal", "quota-stop",
@@ -692,11 +698,26 @@ def main(argv=None):
     parser.add_argument("--evaluation-id", help="Stable bounded learning evaluation identity")
     parser.add_argument("--response", type=Path)
     parser.add_argument("--stage", help="select/write/revise or exact pending filter-<batch sha256>")
+    parser.add_argument("--note-date", type=date.fromisoformat, help="Exact gold-note date from its request (GMT+7)")
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     parser.add_argument("--editorial-agent", choices=("codex", "claude"),
                         help="CC-300: who runs a NEW operation's editorial stages (default codex); fixed for its life")
     args = parser.parse_args(argv)
+    if args.command.startswith("gold-note"):
+        if not args.rollout:
+            parser.error("gold-note requires the applied --rollout")
+        if args.command in {"gold-note-submit", "gold-note-accept"} and not args.response:
+            parser.error(args.command + " requires --response")
+        from live_contentops.vietnamese_gold_note_v1 import command as gold_note
+        try:
+            result = gold_note(json.loads(args.rollout.read_bytes()), args.command, day=args.note_date,
+                response=json.loads(args.response.read_bytes()) if args.response else None)
+        except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
+            print(json.dumps({"state": "GOLD_NOTE_ACTION_FAILED", "cause": str(exc), "public_write_performed": False}))
+            return 2
+        print(json.dumps(result, ensure_ascii=True))
+        return 0
     if args.command.startswith("digest"):
         if not args.rollout:
             parser.error("digest requires the applied --rollout")
