@@ -1,0 +1,87 @@
+{
+  "recorded_at_utc": "2026-11-10T10:13:35.942326+00:00",
+  "status": "BLOCKED",
+  "first_cause": "FIRST_NEW_EXPORTED_MAIN_RESULT_PENDING",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_code_commit": "75394f93cf99e2cb08cf81981679e66f7145c4dd",
+  "branch": "backlog/cc-394-pinned-results-scorecard",
+  "live_tag": "contentops-live-20261110-cc394-r2",
+  "initial_live_tag": "contentops-live-20261110-cc394",
+  "rollback_tag": "contentops-rollback-20261110-cc394",
+  "installed_source_files": {
+    "live_contentops/pinned_result_scorecard_v1.py": {
+      "worktree_sha256": "1ca1d66bbca18d8ce97397d926ba6afa668e672b5a2f9b23d6576220565ee337",
+      "operating_sha256": "c51038a572925842862d825e5fc04959694dbe6b997b23f4eec5d02783a3ba16",
+      "exact_bytes_match": false,
+      "text_matches_after_crlf_normalization": true
+    },
+    "live_contentops/weekly_scored_calls_v1.py": {
+      "worktree_sha256": "d9ba39cb4b26901f0f9e9253469d9620eb48a293c886ed120bc56ad3b65056ef",
+      "operating_sha256": "d9ba39cb4b26901f0f9e9253469d9620eb48a293c886ed120bc56ad3b65056ef",
+      "exact_bytes_match": true,
+      "text_matches_after_crlf_normalization": true
+    },
+    "live_contentops/event_article_guard_v1.py": {
+      "worktree_sha256": "4198e3a39d0a499904ca3d7314f105ed25fa245f266f1b8b9c891e4ed4882ace",
+      "operating_sha256": "4198e3a39d0a499904ca3d7314f105ed25fa245f266f1b8b9c891e4ed4882ace",
+      "exact_bytes_match": true,
+      "text_matches_after_crlf_normalization": true
+    },
+    "live_contentops/plan_status_posts_v1.py": {
+      "worktree_sha256": "62afe994bbcb030f8b9d82dbc8a92f954b7b77791dba74b3daa7cba8a940ddbf",
+      "operating_sha256": "62afe994bbcb030f8b9d82dbc8a92f954b7b77791dba74b3daa7cba8a940ddbf",
+      "exact_bytes_match": true,
+      "text_matches_after_crlf_normalization": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "worktree_sha256": "2728b0894c0fbc8353c0767971cd306ca9de9f7f6582d48c4967c6aba400e854",
+      "operating_sha256": "2728b0894c0fbc8353c0767971cd306ca9de9f7f6582d48c4967c6aba400e854",
+      "exact_bytes_match": true,
+      "text_matches_after_crlf_normalization": true
+    },
+    "scripts/plan_status_posts.py": {
+      "worktree_sha256": "77bd61c3b8a7dff2456bf24de7a1641dda8b731e760f9a750dabaf607ef863c7",
+      "operating_sha256": "77bd61c3b8a7dff2456bf24de7a1641dda8b731e760f9a750dabaf607ef863c7",
+      "exact_bytes_match": true,
+      "text_matches_after_crlf_normalization": true
+    }
+  },
+  "source_line_endings_note": "The new scorecard module uses LF in the build worktree and CRLF in the operating checkout; installed Python text matches after newline normalization. No Git configuration changed.",
+  "existing_wip_unchanged": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true,
+    "live_contentops/agy_editorial_assist_v1.py": true
+  },
+  "tests": {
+    "combined_targeted": 221,
+    "canonical_coordinator": 111,
+    "final_scorecard": 30,
+    "final_weekly": 27,
+    "installed_initial": 56,
+    "installed_final_scorecard": 30,
+    "distinct_targeted_checks": 333
+  },
+  "public_object_url": "https://t.me/CapitalChronicle/134",
+  "public_readback_url": "https://t.me/s/CapitalChronicle/134",
+  "bot_api_exact_text_verified": true,
+  "public_page_exact_text_verified": true,
+  "counts": {
+    "EXPIRED": 4,
+    "HIT": 0,
+    "NOT_TRIGGERED": 0,
+    "STOPPED": 1,
+    "scored": 2,
+    "total": 5
+  },
+  "minute_consumer_runs_observed": 6,
+  "bootstrap_messages": 1,
+  "latest_tick_created_messages": 0,
+  "latest_tick_edited_messages": 0,
+  "next_action": "Publisher reads the first new scored result in Main's plan-status export on the same pinned message within 60 minutes, verifies Bot API and the public channel page, and checks that the scorecard caused no extra result feed post.",
+  "choice": "Reuse the existing minute consumer, outbox, lease and sole publication coordinator; retain every supplied result and keep decision 106 feed selection unchanged.",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "telemetry_state": "CONFIGURED_NOT_OBSERVED",
+  "schedule_changes": 0,
+  "editorial_model_calls": 0
+}

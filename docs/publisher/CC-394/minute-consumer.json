@@ -1,0 +1,77 @@
+{
+  "first": {
+    "at_utc": "2026-11-10T10:04:52.461767Z",
+    "cause": null,
+    "contract_version": "legacy/schema-1.0.0",
+    "export_age_seconds": 22.0,
+    "export_generated_at_utc": "2026-11-10T10:04:05.080679Z",
+    "failed_field": null,
+    "incident_id": null,
+    "max_export_age_minutes": 10,
+    "not_posted": 20,
+    "posts_by_status": {
+      "NOT_STARTED": 3,
+      "PUBLISHING": 5
+    },
+    "publication": "OK",
+    "queued": 0,
+    "scorecard": {
+      "characters": 1119,
+      "counts": {
+        "EXPIRED": 4,
+        "HIT": 0,
+        "NOT_TRIGGERED": 0,
+        "STOPPED": 1,
+        "scored": 2,
+        "total": 5
+      },
+      "created_messages": 1,
+      "edited_messages": 0,
+      "extra_result_feed_posts": 0,
+      "message_id": "134",
+      "public_url": "https://t.me/CapitalChronicle/134",
+      "revision": "pinned-result-scorecard-v1-64d40d1b1635612136c28d992f2f46708f094a99828531d22a6c664045899cc8",
+      "shown": 5,
+      "status": "CONFIRMED"
+    },
+    "status": "OK"
+  },
+  "latest": {
+    "at_utc": "2026-11-10T10:09:52.651220Z",
+    "cause": null,
+    "contract_version": "legacy/schema-1.0.0",
+    "export_age_seconds": 22.2,
+    "export_generated_at_utc": "2026-11-10T10:09:04.823527Z",
+    "failed_field": null,
+    "incident_id": null,
+    "max_export_age_minutes": 10,
+    "not_posted": 20,
+    "posts_by_status": {
+      "NOT_STARTED": 3,
+      "PUBLISHING": 5
+    },
+    "publication": "OK",
+    "queued": 0,
+    "scorecard": {
+      "characters": 1119,
+      "counts": {
+        "EXPIRED": 4,
+        "HIT": 0,
+        "NOT_TRIGGERED": 0,
+        "STOPPED": 1,
+        "scored": 2,
+        "total": 5
+      },
+      "created_messages": 0,
+      "edited_messages": 0,
+      "extra_result_feed_posts": 0,
+      "message_id": "134",
+      "public_url": "https://t.me/CapitalChronicle/134",
+      "revision": "pinned-result-scorecard-v1-64d40d1b1635612136c28d992f2f46708f094a99828531d22a6c664045899cc8",
+      "shown": 5,
+      "status": "CONFIRMED"
+    },
+    "status": "OK"
+  },
+  "observed_runs": 6
+}

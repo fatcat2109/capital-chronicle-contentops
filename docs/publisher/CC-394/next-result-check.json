@@ -1,0 +1,17 @@
+{
+  "checked_at_utc": "2026-11-10T10:10:28.322623+00:00",
+  "status": "PENDING",
+  "first_cause": "FIRST_NEW_EXPORTED_MAIN_RESULT_PENDING",
+  "export_generated_at_utc": "2026-11-10T10:10:05.049783Z",
+  "current_counts": {
+    "HIT": 0,
+    "STOPPED": 1,
+    "EXPIRED": 4,
+    "NOT_TRIGGERED": 0,
+    "total": 5,
+    "scored": 2
+  },
+  "new_scored_results": [],
+  "baseline_public_message_id": "134",
+  "scope": "No new scored outcome in the required plan-status export since scorecard integration; this does not assert that other Main scorers have not run."
+}
