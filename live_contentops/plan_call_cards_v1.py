@@ -19,7 +19,7 @@ from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publi
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 FORMAT = 4
 API_DESTINATIONS = ("telegram", "discord", "threads", "facebook_page", "instagram_business")
-DESTINATIONS = (*API_DESTINATIONS, "substack_notes")
+DESTINATIONS = (*API_DESTINATIONS, "x", "substack_notes")
 TERMINAL = {"CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED"}
 NOTICES = f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
 GLOSSARY = {
@@ -516,10 +516,24 @@ def _parents(store, row, destinations, previous):
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None):
     result = {}
-    limits = {"telegram": 1024, "discord": 2000, "threads": 500,
+    limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000}
     for destination in DESTINATIONS:
         text = row["text"]
+        if destination == "x":
+            body, notices = posts._split(text)
+            chunks = posts._x_pack(body, limits["x"], preserve_lines=True) + [notices]
+            if any(posts._x_length(part) > limits["x"] for part in chunks):
+                raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:x")
+            payload = {"destination": "x", "text": chunks[0], "root_text": chunks[0],
+                "full_text": "\n\n".join(chunks), "reply_texts": chunks[1:], "media_asset_ids": [card_id],
+                "posts": [{"text": part, "order": i, "role": "root" if i == 0 else "reply",
+                    "media_asset_ids": [] if i else [card_id]} for i, part in enumerate(chunks)]}
+            ref = (parents or {}).get(destination)
+            if ref:
+                payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"))
+            result[destination] = payload
+            continue
         room = limits[destination] - len(NOTICES) - 2
         body = text.split("\n\n", 1)[0]
         if len(body) > room:

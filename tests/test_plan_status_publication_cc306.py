@@ -11,6 +11,7 @@ import sys
 import pytest
 
 from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE
 from live_contentops.plan_status_posts_v1 import (
     DESTINATION, POST_DESTINATIONS, PlanPostError, _x_length, destination_payloads,
     prepare_post, publish_ready, queue_posts, validate_status_post_intent,
@@ -78,7 +79,7 @@ def test_each_destination_gets_the_post_and_the_notices_and_no_link(queued):
         # Jim's decision 83: a status post carries no site link, only its text and image.
         assert row["canonical_url"] is None and "https://" not in row["payload"]
         assert row["payload"].startswith("Gold: new plan. If price trades into 4,070–4,085, the desk is bullish")
-        assert "Analysis, not financial advice." in row["payload"]
+        assert PUBLIC_NOTICE in row["payload"]
     assert not {"linkedin", "facebook_page", "instagram_business", "substack"} & {d["destination"] for d in plan_["destinations"]}
 
 
@@ -89,7 +90,7 @@ def test_x_splits_into_a_post_and_a_notice_reply_within_its_limit(queued):
                                    card_id=plan_["status_post_card_id"])["x"]
     assert all(_x_length(p["text"]) <= 280 for p in payload["posts"])
     assert payload["posts"][0]["media_asset_ids"] == [plan_["status_post_card_id"]]
-    assert payload["posts"][1]["text"].startswith("Analysis, not financial advice.")
+    assert payload["posts"][1]["text"].startswith(PUBLIC_NOTICE)
 
 
 def test_the_registered_intents_carry_the_frozen_copy_card_and_hosted_url(queued):

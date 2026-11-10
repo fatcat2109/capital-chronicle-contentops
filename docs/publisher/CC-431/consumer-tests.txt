@@ -1,0 +1,78 @@
+........................................................................ [ 29%]
+..........................................................F...........F. [ 58%]
+........................................................................ [ 88%]
+.............................                                            [100%]
+================================== FAILURES ===================================
+______ test_copied_store_five_cards_fill_and_ending_use_sole_coordinator ______
+
+five = (<live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x0000022AD8B7B2D0>, WindowsPath('C:/U...'WAITING'}, {'at_utc': '2026-11-10T07:45:00Z', 'plan_id': 'id0000004', 'reason_code': 'WAITING', 'status': 'WAITING'}])
+main_root = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-1369/test_copied_store_five_cards_f0/main')
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-1369/test_copied_store_five_cards_f0')
+
+    def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main_root, tmp_path):
+        from test_publication_coordinator_v1 import FixtureTransport, _set_mode
+        from test_plan_status_publication_cc306 import fake_host
+        from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    
+        class Recorded(FixtureTransport):
+            def __init__(self):
+                super().__init__()
+                self.intents = []
+            def publish(self, *, destination, intent, authorization_context):
+                self.publish_calls.append(destination)
+                self.intents.append(intent)
+                number = str(1000 + len(self.intents))
+                if destination == "instagram_business" and intent["native_payload"].get("reuse_run_carousel"):
+                    number = intent["native_payload"]["carousel_parent_id"]
+                return {"status": "SUCCESS", "id": number, "public_url": f"https://example.test/{destination}/{number}"}
+    
+        store, folder, plans, events = five
+        _set_mode(store, "AUTONOMOUS_DEFAULT")
+        runtime = Recorded()
+        coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+            readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED" if d == "substack_notes" else "READY_NON_BROWSER_BINDING"})
+        queued = queue(store, folder, main_root)
+        result = posts.publish_ready(store, now=NOW, latest_states=queued["latest_states"],
+            root=tmp_path / "posts", host=fake_host, coordinator_for=lambda key, folder: coordinator)
+        assert len(result["posts"]) == 6, result
+        assert all(r["status"] == "PUBLISHED" for r in result["posts"]), result
+>       assert len(runtime.intents) == 36
+E       AssertionError: assert 42 == 36
+E        +  where 42 = len([{'accepted_evidence_ids': [], 'accepted_evidence_sha256': None, 'article_content_sha256': None, 'article_identity': '... None, 'article_content_sha256': None, 'article_identity': 'plan-run-post-a1f22c7cf7f53b03af6a8f3f9ab398f2', ...}, ...])
+E        +    where [{'accepted_evidence_ids': [], 'accepted_evidence_sha256': None, 'article_content_sha256': None, 'article_identity': '... None, 'article_content_sha256': None, 'article_identity': 'plan-run-post-a1f22c7cf7f53b03af6a8f3f9ab398f2', ...}, ...] = <test_plan_call_cards_cc399.test_copied_store_five_cards_fill_and_ending_use_sole_coordinator.<locals>.Recorded object at 0x0000022AD8B99160>.intents
+
+tests\test_plan_call_cards_cc399.py:225: AssertionError
+_________ test_cc432_summary_and_confirmed_page_replace_short_reasons _________
+
+five = (<live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x0000022AD7289D50>, WindowsPath('C:/U...'WAITING'}, {'at_utc': '2026-11-10T07:45:00Z', 'plan_id': 'id0000004', 'reason_code': 'WAITING', 'status': 'WAITING'}])
+main_root = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-1369/test_cc432_summary_and_confirm0/main')
+
+    def test_cc432_summary_and_confirmed_page_replace_short_reasons(five, main_root):
+        store, folder, plans, events = five
+        for raw in plans:
+            raw["registration_hash"] = "b" * 64
+            raw["analysis_publication"] = {"plan_id": raw["plan_id"], "registration_hash": "b" * 64,
+                "canonical_url": "https://capitalchronicle.substack.com/p/the-analysis",
+                "summary": {"macro": "A weaker dollar is the economic driver.",
+                            "fundamental": "The rate differential supports the view.",
+                            "technical": "The idea waits for a pullback.",
+                            "geopolitical": "No new event is confirmed.",
+                            "priced_in": "Positioning leaves room for a reversal.",
+                            "scenarios": "The alternative is a stronger dollar.",
+                            "desk_process": "The critic challenged the timing; the final view kept a conditional entry."}}
+        write(folder, plans, events)
+        queue(store, folder, main_root)
+        card = next(r for r in rows(store) if r["kind"] == "setup")
+        assert "Macro: A weaker dollar" in card["text"]
+        assert "How the desk reached its view:" in card["text"]
+        assert "Full analysis: https://capitalchronicle.substack.com/p/the-analysis" in card["text"]
+        assert "� A weaker dollar supports the idea." not in card["text"]
+        for destination, payload in cards.destination_payloads(card, card_id="card").items():
+>           assert "https://capitalchronicle.substack.com/p/the-analysis" in payload["text"]
+E           AssertionError: assert 'https://capitalchronicle.substack.com/p/the-analysis' in '#id000000 � long idea\nIf price trades into 1.1202�1.1205, the desk is bullish on EUR/USD over the period to 10 Nov 1... price moves below 1.1182.\nModel target level: 1.1241.\nEntry window to 10 Nov 10:00 ET.\nTime exit: 10 Nov 16:00 ET.'
+
+tests\test_plan_call_cards_cc399.py:408: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_plan_call_cards_cc399.py::test_copied_store_five_cards_fill_and_ending_use_sole_coordinator
+FAILED tests/test_plan_call_cards_cc399.py::test_cc432_summary_and_confirmed_page_replace_short_reasons
+2 failed, 243 passed in 213.26s (0:03:33)

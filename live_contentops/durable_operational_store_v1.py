@@ -1331,11 +1331,19 @@ class ContentOpsDurableStore:
             conn.close()
 
     def claim_platform_dispatch_attempt(self, *, dispatch_id: str, message_id: str,
-                                        platform: str, expected_status: Optional[str] = None) -> bool:
+                                        platform: str, expected_status: Optional[str] = None,
+                                        policy_no_write_cause: Optional[str] = None) -> bool:
         """Atomically fence one provider call in the existing dispatch row."""
         with self.get_connection() as conn:
             conn.execute("BEGIN IMMEDIATE")
             row = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)).fetchone()
+            restored_x_no_write = False
+            if (row is not None and platform == "x" and expected_status == "DEFINITE_NO_WRITE"
+                    and policy_no_write_cause == "X_NON_API_AUTOMATION_PROHIBITED"
+                    and not row["public_object_id"] and not row["public_object_url"]):
+                cause = conn.execute("SELECT status FROM reconciliations WHERE reconciliation_id=?",
+                    ("reconciliation_" + dispatch_id.removeprefix("dispatch_"),)).fetchone()
+                restored_x_no_write = bool(cause and cause[0] == policy_no_write_cause)
             if row is None:
                 if expected_status is not None:
                     conn.execute("COMMIT")
@@ -1344,9 +1352,9 @@ class ContentOpsDurableStore:
                     (dispatch_id, message_id, platform, "DISPATCH_ATTEMPT_STARTED", self._get_now_iso()))
             elif (row["message_id"] != message_id or row["platform"] != platform
                     or expected_status is None or row["status"] != expected_status
-                    or expected_status not in {"NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY",
+                    or (expected_status not in {"NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY",
                         "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE", "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
-                        "DISPATCH_CONFIRMED"}):
+                        "DISPATCH_CONFIRMED"} and not restored_x_no_write)):
                 conn.execute("COMMIT")
                 return False
             else:

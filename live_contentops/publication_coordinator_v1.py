@@ -1917,11 +1917,10 @@ class DurablePublicationCoordinator:
     def _full_v1_distribution_preflight(
         self, work_item_id: str, plan: Mapping[str, Any]
     ) -> dict[str, Any]:
-        """Validate current required destination structure and JIT only canonical Substack before its write.
+        """Validate required packages and current Substack/X identity before distribution.
 
-        Derivative readiness is intentionally deferred until after canonical confirmation.  The
-        exact required destination identities/packages remain structural requirements, but a local
-        derivative outage is a hold/recovery obligation rather than a canonical veto.
+        Decision 112 restores X with a fresh identity proof. Other derivative readiness
+        stays at its existing destination boundary.
         """
 
         destinations = [
@@ -1964,7 +1963,8 @@ class DurablePublicationCoordinator:
         confirmed_canonical = self._confirmed_canonical_url_for_work_item(work_item_id, plan_hash=plan_hash)
         for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:
             item = item_by_destination.get(destination, {})
-            if destination != "substack" or plan.get("distribution_policy") == "SITE_FIRST_V1":
+            if destination not in {"substack", "x"} or (
+                    destination == "substack" and plan.get("distribution_policy") == "SITE_FIRST_V1"):
                 readiness_rows[destination] = {
                     "readiness_state": "JIT_DEFERRED_UNTIL_CANONICAL_CONFIRMED",
                     "identity_match": None,
@@ -1975,7 +1975,7 @@ class DurablePublicationCoordinator:
                     "sanitized_detail": {},
                 }
                 continue
-            if confirmed_canonical:
+            if confirmed_canonical and destination == "substack":
                 readiness_rows[destination] = {
                     "readiness_state": RECONCILED_CONFIRMED, "identity_match": True,
                     "write_eligible": False, "canonical_write_already_confirmed": True,
@@ -1983,6 +1983,13 @@ class DurablePublicationCoordinator:
                 }
                 continue
             try:
+                if destination == "x":
+                    executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+                    if getattr(executor, "native_neo_protocol", False):
+                        # Queue the existing read-only identity request if no fresh
+                        # actual observation exists; a deferred composed check alone
+                        # cannot release all seven derivatives under decision 112.
+                        executor.readiness(str(item.get("surface") or "X_POST"))
                 if self.readiness_manager is not None:
                     row = dict(
                         self.readiness_manager.verify_destination_jit(
@@ -2038,7 +2045,7 @@ class DurablePublicationCoordinator:
             "structural_blockers": structural_blockers,
             "readiness_blockers": readiness_blockers,
             "derivative_readiness_deferred": list(
-                V1_REQUIRED_DERIVATIVE_DESTINATIONS
+                d for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS if d != "x"
             ),
             "per_destination": readiness_rows,
             "public_write_performed": False,
@@ -2536,6 +2543,7 @@ class DurablePublicationCoordinator:
         registration = self._intent_registration(destination, intent)
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        restored_x_no_write = False
         # CC-393: a forbidden fresh Neo route is settled before readiness can
         # request a browser identity probe. Existing attempts keep recovery.
         if existing is None and registration.transport_type == "BROWSEROS_NEO_MCP":
@@ -2592,12 +2600,24 @@ class DurablePublicationCoordinator:
                     None,
                 )
             recovery_object_id = str(existing.get("public_object_id") or "") or None
+            restored_x_no_write = bool(destination == "x" and intent.get("plan_status_post")
+                and existing.get("status") == DEFINITE_NO_WRITE
+                and not existing.get("public_object_id") and not existing.get("public_object_url")
+                and reconciliation_status == "X_NON_API_AUTOMATION_PROHIBITED")
+            if restored_x_no_write:
+                from live_contentops.plan_status_posts_v1 import require_active_x_restoration
+                try:
+                    require_active_x_restoration(self.store, intent)
+                except (ValueError, OSError, KeyError, TypeError) as exc:
+                    return {"destination": destination, "status": DEFINITE_NO_WRITE,
+                        "reason_code": str(exc), "publish_called": False}
             retry_eligible = bool(
                 explicit_reconciled_absent_retry
                 and str(existing.get("status") or "") == RECONCILED_ABSENT_SAFE_TO_RETRY
                 and reconciliation_status == RECONCILED_ABSENT_SAFE_TO_RETRY
                 and (destination != "substack" or recovery_object_id)
             )
+            retry_eligible = retry_eligible or restored_x_no_write
             correction_retry_eligible = bool(
                 explicit_transport_correction_retry
                 and (
@@ -2772,7 +2792,8 @@ class DurablePublicationCoordinator:
             return {"destination": destination, "status": cause, "reason_code": cause, "publish_called": False}
         claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
             message_id=ids["message_id"], platform=destination,
-            expected_status=existing.get("status") if existing else None)
+            expected_status=existing.get("status") if existing else None,
+            **({"policy_no_write_cause": "X_NON_API_AUTOMATION_PROHIBITED"} if restored_x_no_write else {}))
         if not claimed:
             actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
             return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),

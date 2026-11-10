@@ -222,18 +222,18 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
         root=tmp_path / "posts", host=fake_host, coordinator_for=lambda key, folder: coordinator)
     assert len(result["posts"]) == 6, result
     assert all(r["status"] == "PUBLISHED" for r in result["posts"]), result
-    assert len(runtime.intents) == 36
+    assert len(runtime.intents) == 6 * len(cards.DESTINATIONS)
     instagram_card_ids = {cards._reference(store, c["key"], "instagram_business")["public_object_id"]
                           for c in rows(store) if c["kind"] == "setup"}
     assert len(instagram_card_ids) == 1  # all five verified slots belong to one published run object
     run = next(r for r in rows(store) if r["kind"] == "run")
     card = next(r for r in rows(store) if r["kind"] == "setup")
-    for destination in ("telegram", "threads", "substack_notes"):
+    for destination in ("telegram", "threads", "x", "substack_notes"):
         first = next(i for i in runtime.intents if i["work_item_id"] == card["key"] and i["destination_plan"]["destination"] == destination)
         assert first["native_payload"]["reply_to_id"] == cards._reference(store, run["key"], destination)["public_object_id"]
     again = posts.publish_ready(store, now=NOW, root=tmp_path / "posts", host=fake_host,
                                  coordinator_for=lambda key, folder: coordinator)
-    assert again["posts"] == [] and len(runtime.intents) == 36
+    assert again["posts"] == [] and len(runtime.intents) == 6 * len(cards.DESTINATIONS)
     pid = card["plan_id"]
     raw = next(p for p in plans if p["plan_id"] == pid)
     raw["status"] = "FILLED"
@@ -246,8 +246,8 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
     ended = posts.publish_ready(store, now=NOW, root=tmp_path / "posts", host=fake_host,
                                 coordinator_for=lambda key, folder: coordinator)
     assert len(ended["posts"]) == 2 and all(r["status"] == "PUBLISHED" for r in ended["posts"]), ended
-    assert len(runtime.intents) == 48
-    for intent in runtime.intents[36:]:
+    assert len(runtime.intents) == 8 * len(cards.DESTINATIONS)
+    for intent in runtime.intents[6 * len(cards.DESTINATIONS):]:
         destination = intent["destination_plan"]["destination"]
         package = intent["native_payload"]
         assert package["reply_to_id"] == cards._reference(store, card["key"], destination)["public_object_id"]
@@ -405,7 +405,9 @@ def test_cc432_summary_and_confirmed_page_replace_short_reasons(five, main_root)
     assert "Full analysis: https://capitalchronicle.substack.com/p/the-analysis" in card["text"]
     assert "• A weaker dollar supports the idea." not in card["text"]
     for destination, payload in cards.destination_payloads(card, card_id="card").items():
-        assert "https://capitalchronicle.substack.com/p/the-analysis" in payload["text"]
+        assert "https://capitalchronicle.substack.com/p/the-analysis" in payload["full_text"]
+        if destination == "x":
+            assert all(posts._x_length(part["text"]) <= 280 for part in payload["posts"])
         assert len(payload["text"]) <= (500 if destination == "threads" else 1024 if destination == "telegram" else 60000)
 
 

@@ -434,11 +434,11 @@ def test_registry_locks_surface_transport_and_browser_roles():
     assert registration_for_destination("youtube").surface == "YOUTUBE_COMMUNITY_POST"
     assert registration_for_destination("youtube").transport_type == "BROWSEROS_NEO_MCP"
     assert V1_REQUIRED_DERIVATIVE_DESTINATIONS == (
-        "telegram", "discord", "linkedin", "facebook_page",
+        "telegram", "x", "discord", "linkedin", "facebook_page",
         "instagram_business", "threads",
     )
     assert set(V1_REQUIRED_PUBLICATION_DESTINATIONS) == {
-        "substack", "telegram", "discord", "linkedin", "facebook_page",
+        "substack", "telegram", "x", "discord", "linkedin", "facebook_page",
         "instagram_business", "threads",
     }
     assert not {"tiktok", "youtube_video", "youtube_short"}.intersection(
@@ -477,9 +477,9 @@ def test_quality_probation_derivative_readiness_hold_does_not_veto_canonical(
         PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
     )
     assert result["quality_preflight"]["readiness_blockers"] == []
-    assert result["quality_preflight"]["derivative_readiness_deferred"] == list(
-        V1_REQUIRED_DERIVATIVE_DESTINATIONS
-    )
+    assert result["quality_preflight"]["derivative_readiness_deferred"] == [
+        d for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS if d != "x"
+    ]
     assert result["recovery_required_destinations"] == ["threads"]
     assert result["per_destination"]["threads"]["status"] == "AUTH_INVALID"
     assert result["per_destination"]["threads"]["publish_called"] is False
@@ -487,7 +487,7 @@ def test_quality_probation_derivative_readiness_hold_does_not_veto_canonical(
     assert result["outbox_count"] == 10  # nine V1 surfaces plus the LinkedIn company-page copy
     assert transport.publish_calls[0] == "substack"
     assert "threads" not in transport.publish_calls
-    assert len(transport.publish_calls) == 7  # six derivatives plus company, one held
+    assert len(transport.publish_calls) == 8  # seven derivatives plus company, one held
     assert len(store.list_outbox_messages()) == 10
 
 
@@ -585,8 +585,8 @@ def test_quality_probation_full_nine_surface_confirmation(tmp_path):
 
     assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
     assert result["transaction_classification"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
-    assert result["derivative_attempted_count"] == 6
-    assert result["derivative_confirmed_count"] == 6
+    assert result["derivative_attempted_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    assert result["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert result["recovery_required_destinations"] == []
     assert transport.publish_calls[0] == "substack"
     # The LinkedIn company-page copy goes with the eight derivatives (4 Nov).
@@ -850,7 +850,7 @@ def test_recovery_delivery_media_ignores_only_owner_quarantined_unknown(tmp_path
     recovery = coordinator.recover_pending()
 
     assert recovery["backlog_remaining"] == 0
-    assert recovery["publish_calls"] == 7  # six derivatives plus the company-page copy
+    assert recovery["publish_calls"] == 8  # seven derivatives plus the company-page copy
     assert len(transport.prepare_calls) == 1
     assert transport.prepare_calls[0]["preconditions"]["unknown_write_count"] == 0
     assert store.get_platform_dispatch(legacy["dispatch_id"])["status"] == UNKNOWN_WRITE
@@ -946,7 +946,7 @@ def test_case_a_api_success_and_case_b_cdp_success(tmp_path):
 
 def test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once(tmp_path):
     destinations = (
-        "substack", "telegram", "discord", "linkedin", "facebook_page",
+        "substack", "telegram", "x", "discord", "linkedin", "facebook_page",
         "instagram_business", "threads",
     )
     store, transport, coordinator = _coordinator(tmp_path)
@@ -957,8 +957,8 @@ def test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once(tmp_p
     assert result["canonical_article_real_published"] is True
     assert result["distribution_status"] == "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
     assert set(result["per_destination"]) == set(destinations)
-    assert result["derivative_attempted_count"] == 6
-    assert result["derivative_confirmed_count"] == 6
+    assert result["derivative_attempted_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    assert result["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert transport.publish_calls.count("substack") == 1
     assert all(transport.publish_calls.count(destination) == 1 for destination in destinations)
     assert len(store.list_platform_dispatches()) == len(destinations)
@@ -985,9 +985,9 @@ def test_one_derivative_failure_does_not_block_remaining_ready_derivatives(tmp_p
     assert result["canonical_article_real_published"] is True
     assert result["per_destination"]["linkedin"]["status"] == DEFINITE_NO_WRITE
     assert result["per_destination"]["telegram"]["status"] == DISPATCH_CONFIRMED
-    assert result["per_destination"]["x"]["status"] == DEFINITE_NO_WRITE
+    assert result["per_destination"]["x"]["status"] == DISPATCH_CONFIRMED
     assert result["distribution_status"] == "CANONICAL_PUBLISHED_READY_FANOUT_ATTEMPTED"
-    assert sorted(transport.publish_calls) == ["linkedin", "substack", "telegram"]
+    assert sorted(transport.publish_calls) == ["linkedin", "substack", "telegram", "x"]
 
 
 def test_exact_write_exists_clears_unknown_without_claiming_strict_reconciliation(tmp_path):
@@ -1656,7 +1656,7 @@ def test_neo_identity_must_be_current_and_does_not_bootstrap_edge(tmp_path):
         edge_runtime_ensurer=lambda: pytest.fail("Neo must never bootstrap Edge"),
         neo_readiness_provider=lambda surface: {"public_handle": "@Capitalnicle", "authenticated": True,
             "native_executor_bound": True, "proof_fresh": True, "observation_sha256": "controlled-test-observation"})
-    assert manager.probe_surface("X_THREAD")["readiness_state"] == "CAPABILITY_UNSUPPORTED"
+    assert manager.probe_surface("X_THREAD")["readiness_state"] == "READY_AUTHENTICATED"
     manager.neo_readiness_provider = lambda surface: {"public_handle": "@Capitalnicle", "authenticated": False}
     assert manager.probe_surface("X_THREAD")["write_eligible"] is False
 
@@ -1683,7 +1683,7 @@ def test_exactly_one_write_mixed_transport_duplicate_restart_recovery(tmp_path):
     assert len(first["registered"]) == 5
     assert len(store.list_outbox_messages()) == 5
     assert len(store.list_platform_dispatches()) == 5
-    assert len(transport.publish_calls) == 4
+    assert len(transport.publish_calls) == 5
     assert second["public_write_performed"] is False
     assert sum(row["publish_calls"] for row in recoveries) == 0
     assert len({row["public_object_id"] for row in store.list_platform_dispatches()}) == 5
@@ -1949,11 +1949,11 @@ def test_pending_unknown_write_uses_exact_destination_readback_only(tmp_path):
 
     recovery = coordinator.recover_pending()
 
-    assert recovery["readbacks"] == 0
-    assert readiness.readback_destinations == []
+    assert recovery["readbacks"] == 1
+    assert readiness.readback_destinations == ["x"]
     assert readiness.jit_destinations == []
     assert readiness.probe_all_calls == 0
-    assert transport.readback_calls == []
+    assert transport.readback_calls == ["x"]
 
 
 @pytest.mark.parametrize(
@@ -2134,7 +2134,7 @@ def test_durable_totals_survive_pending_callback_and_duplicate_resume(tmp_path):
     state = coordinator.publication_state("work-1", plan)
     assert state["canonical_article_real_published"] is True
     assert state["canonical_url"] == canonical
-    assert state["derivative_confirmed_count"] == 3
+    assert state["derivative_confirmed_count"] == 4
     assert state["derivative_unknown_count"] == 1
     assert state["derivative_failed_count"] == 1
     assert state["derivative_absent_safe_to_retry_count"] == 2
@@ -2146,7 +2146,7 @@ def test_durable_totals_survive_pending_callback_and_duplicate_resume(tmp_path):
     for _ in range(2):
         result = coordinator.execute_plan("work-1", plan)
         assert result["canonical_article_real_published"] is True
-        assert result["derivative_confirmed_count"] == 3
+        assert result["derivative_confirmed_count"] == 4
         assert result["per_destination"]["linkedin"]["status"] == UNKNOWN_WRITE
     assert transport.publish_calls == before
 
@@ -2248,7 +2248,7 @@ def test_native_internal_records_never_become_dispatch_destinations(tmp_path):
     assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
     assert set(result["per_destination"]) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) | {"linkedin_company", "x", "youtube"}
     repeated = coordinator.execute_plan("work-1", plan)
-    assert repeated["derivative_confirmed_count"] == 6
+    assert repeated["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert transport.publish_calls == before
     assert len(store.list_platform_dispatches()) == 10  # plus the company-page copy
 

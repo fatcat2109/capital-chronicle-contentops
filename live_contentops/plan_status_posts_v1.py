@@ -871,8 +871,8 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
 # sole coordinator owns exactly-once, UNKNOWN_WRITE and readback. No Substack canonical: the
 # link is the market's page on the site (the preview until CC-305 publishes).
 # ---------------------------------------------------------------------------------------------
-POST_DESTINATIONS = ("telegram", "discord", "threads", "substack_notes")
-# The minute task posts only these; Substack Notes retains its native agent route.
+POST_DESTINATIONS = ("telegram", "discord", "threads", "x", "substack_notes")
+# The minute task posts only these; X and Substack Notes use the native agent route.
 API_DESTINATIONS = ("telegram", "discord", "threads")
 # Jim's decision 83 (5 Nov): a status post carries no site link, only its text and image.
 POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan-status-posts")
@@ -1557,6 +1557,17 @@ def begin_x(store, key: str, request_sha256: str, *, native_invocation_id: str, 
     packet = executor._get(request_sha256, "request")
     if not packet or packet["request"].get("destination") not in {"x", "substack_notes"}:
         raise PlanPostError("PLAN_STATUS_X_REQUEST_REQUIRED")
+    if packet["request"]["action"] == "PUBLISH" and packet["request"].get("destination") == "x":
+        dispatch = store.get_platform_dispatch(packet["request"].get("dispatch_attempt_identity") or "")
+        message = store.get_outbox_message(dispatch["message_id"]) if dispatch else None
+        if message:
+            intent = json.loads(message["payload"])
+            from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+            ids = DurablePublicationCoordinator._ids(intent["work_item_id"], intent["plan_hash"], "x")
+            if any(r["reconciliation_id"] == ids["reconciliation_id"]
+                   and r["status"] == "X_NON_API_AUTOMATION_PROHIBITED"
+                   for r in store.get_reconciliations_for_work_item(key)):
+                require_active_x_restoration(store, intent, now=now)
     if (packet["request"]["action"] == "PUBLISH"
             and _age_minutes(payload, now) > _x_freshness_limit(payload, now)):
         raise PlanPostError("PLAN_STATUS_X_STALE_NOT_POSTED: transition older than 60 minutes")
@@ -1572,6 +1583,24 @@ def _current_rows(now) -> list[dict] | None:
         if str(exc).startswith(STALE_EXPORT):
             return None
         raise
+
+
+def require_active_x_restoration(store, intent, *, now=None) -> None:
+    """Decision 112: an exact prior X no-write resumes only for its still-active plan.
+
+    Keep its frozen event time/copy and the new actual dispatch clock separate.
+    Readback remains available after the plan ends; only a fresh write is checked.
+    """
+    now = now or datetime.now(timezone.utc)
+    key = intent.get("plan_status_post")
+    if not key:
+        raise PlanPostError("X_RESTORATION_STATUS_POST_REQUIRED")
+    payload = _row_payload(store, key)
+    current = _current_rows(now)
+    if current is None:
+        raise PlanPostError("X_RESTORATION_CURRENT_PLAN_EXPORT_STALE")
+    if not _recoverable(payload, active_recoveries(current, now), now):
+        raise PlanPostError("X_RESTORATION_PLAN_NO_LONGER_ACTIVE_OR_VALID")
 
 
 def _x_freshness_limit(payload, now) -> int:
