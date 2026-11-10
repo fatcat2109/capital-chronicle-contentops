@@ -2076,7 +2076,10 @@ class DurablePublicationCoordinator:
         if plan.get("daily_digest"):
             from live_contentops.substack_daily_digest_v1 import validate_digest_plan
             validate_digest_plan(self.store, work_item_id, plan)
-        if self.published_content_path is not None and not plan.get("daily_digest") and not plan.get("plan_status_post") and not plan.get("sourced_reply"):
+        if plan.get("plan_analysis_page"):
+            from live_contentops.plan_analysis_pages_v1 import validate_plan
+            validate_plan(self.store, work_item_id, plan)
+        if self.published_content_path is not None and not plan.get("daily_digest") and not plan.get("plan_analysis_page") and not plan.get("plan_status_post") and not plan.get("sourced_reply"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             article_metadata(plan, require_notice=False)
             if self.published_content_path.exists():
@@ -2184,6 +2187,15 @@ class DurablePublicationCoordinator:
                 intent["native_payload"] = packet["native_payload"]
                 intent["media_assets"] = packet.get("media_assets", [])
                 # A digest is a link index, not a new analytical article in the feed.
+                intent.pop("published_content_export", None)
+            if plan.get("plan_analysis_page"):
+                from live_contentops.plan_analysis_pages_v1 import validate_plan
+                packet = validate_plan(self.store, work_item_id, plan)
+                intent["plan_analysis_page"] = packet["page_id"]
+                intent["native_payload"] = packet["native_payload"]
+                intent["media_assets"] = packet.get("media_assets", [])
+                # Decision 113: these plan records are web-only pages, outside
+                # the ordinary newsletter's article quota and email digest.
                 intent.pop("published_content_export", None)
             if plan.get("plan_status_post"):
                 # CC-306: a plan-state post freezes its validated copy per destination, as the
@@ -2728,6 +2740,9 @@ class DurablePublicationCoordinator:
         if intent.get("plan_status_post"):
             from live_contentops.plan_status_posts_v1 import validate_status_post_intent
             validate_status_post_intent(self.store, intent)
+        elif intent.get("plan_analysis_page"):
+            from live_contentops.plan_analysis_pages_v1 import validate_intent
+            validate_intent(self.store, intent)
         elif self.published_content_path is not None and not intent.get("daily_digest") and not intent.get("sourced_reply"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             from live_contentops.event_article_guard_v1 import check_publication_copy
@@ -3304,7 +3319,7 @@ class DurablePublicationCoordinator:
                 current.update({k: result[k] for k in ("distribution_status", "canonical_publication_status",
                     "transaction_classification") if k in result})
             result = {**result, **current}
-        if self.published_content_path is not None and result.get("canonical_article_real_published") and not plan.get("daily_digest"):
+        if self.published_content_path is not None and result.get("canonical_article_real_published") and not plan.get("daily_digest") and not plan.get("plan_analysis_page"):
             result["published_content_record"] = self.sync_published_content(work_item_id)
         return result
 
@@ -3398,7 +3413,7 @@ class DurablePublicationCoordinator:
         result = {**registration, "delivery_media_preparation": delivery, "per_destination": outcomes, **self.publication_totals(
             outcomes, full_v1=self._full_v1_distribution_required(plan))}
         result = self._site_publication_state(work_item_id, plan, result)
-        if self.published_content_path is not None and result["substack_publication_confirmed"] and not plan.get("daily_digest"):
+        if self.published_content_path is not None and result["substack_publication_confirmed"] and not plan.get("daily_digest") and not plan.get("plan_analysis_page"):
             from live_contentops.published_content_v1 import sync_confirmed_piece
             try:
                 result["published_content_record"] = sync_confirmed_piece(self.store,
@@ -4507,7 +4522,7 @@ class CanonicalDestinationTransportRuntimeV1:
             result = self._neo_transport.readback(destination=destination, intent=intent,
                 public_object_id=public_object_id, public_object_url=public_object_url)
             if (destination == "substack" and result.get("verified") is True
-                    and result.get("public_image_urls") and not intent.get("daily_digest")):
+                    and result.get("public_image_urls") and not intent.get("daily_digest") and not intent.get("plan_analysis_page")):
                 # Ordinary articles prepare downstream derivative media here.
                 # The frozen digest has no derivative plan or article workspace;
                 # Neo has already checked its bound original card hash.

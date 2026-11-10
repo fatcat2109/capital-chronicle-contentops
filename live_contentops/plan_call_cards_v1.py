@@ -351,6 +351,12 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
             return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
         source_rows = posts.rows_from_export(export, include_results=False)
         sources = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("asset_id") in posts.MARKETS}
+        # CC-432's confirmed page is the Publisher-owned projection of the exact
+        # Main plan. Never write it back into Main or alter historical packets.
+        from .plan_analysis_pages_v1 import confirmed_publication
+        sources = {pid: {**raw, **({"analysis_publication": publication} if
+                   (publication := confirmed_publication(store, raw)) else {})}
+                   for pid, raw in sources.items()}
         records = record_line(export["status"])
     except (OSError, ValueError, KeyError, TypeError) as exc:
         return {"status": "EXPORT_UNREADABLE", "cause": str(exc) if isinstance(exc, posts.PlanPostError) else type(exc).__name__}
