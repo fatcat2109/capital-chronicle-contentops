@@ -1,0 +1,158 @@
+{
+  "at_utc": "2026-11-10T04:06:19.558337+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "675d75b50a8148088a2038d530a9ba2f120de66c",
+  "consumer_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+  "call_cards_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_call_cards_v1.py",
+  "consumer_sha256": "c1dec776cd7c3ab2d53c0b5c79c0b12d5342ae4d148e818061e5c48020a8c1ca",
+  "call_cards_sha256": "c87ab24056733b1c68b355e40a5f72c22f05cf554fbdec16f71cb4bacef596a7",
+  "export_dry_run": {
+    "status": "OK",
+    "format": 4,
+    "export_generated_at_utc": "2026-11-10T04:06:04.588525Z",
+    "export_age_seconds": 13.4,
+    "transitions_read": 91
+  },
+  "would_queue_count": 10,
+  "discord_thread_credential_available": false,
+  "cc432_publication_envelopes": 0,
+  "plan_analysis_export_files": 0,
+  "public_write_performed_by_this_probe": false,
+  "shared_store_written_by_this_probe": false,
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "verification": {
+    "operating_root_targeted_tests": 65,
+    "operating_root_targeted_seconds": 26.57,
+    "upgrade_genesis_regressions": 2,
+    "operating_upgrade_regression": 1,
+    "shared_checks_passed": 287,
+    "baseline_failures": [
+      "PLAN_STATUS_POST_TOO_LONG:threads (legacy delayed format 3; reproduced at base 9b94d318)",
+      "retired begin_x route expected by old CC-340 test (unchanged; CC-431 owns restoration)"
+    ]
+  },
+  "upgrade_fix": {
+    "cause": "Existing shared work item was recreated with a different title",
+    "code_commit": "675d75b50a8148088a2038d530a9ba2f120de66c",
+    "result": "Reuse original plan-status work-item genesis; copied upgrade and installed-root regression pass"
+  },
+  "consumer_binding": {
+    "task_name": "CapitalChronicle-PlanStatusPosts-V1",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "executable": "pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "schedule_changed": false
+  },
+  "remaining": {
+    "discord": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE",
+    "prepared_person_action": "Ops Product provides the existing Discord bot credential as CapitalChronicle/DISCORD_BOT_TOKEN with permission to create and send in the approved announcement channel threads.",
+    "analysis": "CC-432 has supplied no filtered summary/publication envelope or full-analysis page at this observation.",
+    "live_acceptance": "Next natural run announcement/cards and its ending require public Telegram readback; historical replies are not that run."
+  },
+  "scheduled_observation": {
+    "observed_at_utc": "2026-11-10T04:08:43.427467+00:00",
+    "latest_existing_run_record": {
+      "at_utc": "2026-11-10T04:08:28.087571Z",
+      "cause": null,
+      "export_age_seconds": 23.0,
+      "export_generated_at_utc": "2026-11-10T04:08:04.197678Z",
+      "max_export_age_minutes": 10,
+      "not_posted": 20,
+      "posts_by_status": {
+        "PUBLISHING": 1,
+        "STALE_NOT_POSTED": 1,
+        "WAITING_FOR_CARD_PARENT": 4
+      },
+      "publication": "OK",
+      "queued": 0,
+      "status": "OK"
+    },
+    "format4_rows": [
+      {
+        "key": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+        "status": "PUBLISHING",
+        "kind": "result",
+        "at_utc": "2026-11-05T16:23:18.602579Z",
+        "per_destination": {
+          "discord": {
+            "status": "DEFINITE_NO_WRITE",
+            "public_object_id": null,
+            "public_object_url": null
+          },
+          "threads": {
+            "status": "DISPATCH_CONFIRMED",
+            "public_object_id": "18116671601172933",
+            "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjAmYiFGhG"
+          }
+        }
+      },
+      {
+        "key": "plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048",
+        "status": "READY_FOR_PUBLISHER",
+        "kind": "result",
+        "at_utc": "2026-11-05T16:56:21.035971Z",
+        "per_destination": {}
+      },
+      {
+        "key": "plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3",
+        "status": "READY_FOR_PUBLISHER",
+        "kind": "result",
+        "at_utc": "2026-11-05T16:56:21.035971Z",
+        "per_destination": {}
+      },
+      {
+        "key": "plan-result-post-a8dc64408d816fc67f764a0aedd02bb9",
+        "status": "READY_FOR_PUBLISHER",
+        "kind": "result",
+        "at_utc": "2026-11-05T18:00:29.285314Z",
+        "per_destination": {}
+      },
+      {
+        "key": "plan-result-post-cef8beddd4a508e9fb45e81b95883ba4",
+        "status": "READY_FOR_PUBLISHER",
+        "kind": "result",
+        "at_utc": "2026-11-06T06:05:17.984347Z",
+        "per_destination": {}
+      },
+      {
+        "key": "plan-result-post-91e901549fa0f118686df4f9bc23f69a",
+        "status": "READY_FOR_PUBLISHER",
+        "kind": "result",
+        "at_utc": "2026-11-06T06:05:17.984347Z",
+        "per_destination": {}
+      },
+      {
+        "key": "plan-result-post-57d1814f092cfdd78ad52daa200892fc",
+        "status": "READY_FOR_PUBLISHER",
+        "kind": "result",
+        "at_utc": "2026-11-06T08:20:18.529589Z",
+        "per_destination": {}
+      },
+      {
+        "key": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+        "status": "READY_FOR_PUBLISHER",
+        "kind": "result",
+        "at_utc": "2026-11-06T08:45:32.500209Z",
+        "per_destination": {}
+      },
+      {
+        "key": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+        "status": "READY_FOR_PUBLISHER",
+        "kind": "result",
+        "at_utc": "2026-11-09T23:50:00Z",
+        "per_destination": {}
+      },
+      {
+        "key": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+        "status": "READY_FOR_PUBLISHER",
+        "kind": "result",
+        "at_utc": "2026-11-09T23:50:00Z",
+        "per_destination": {}
+      }
+    ],
+    "new_run_card_ending_acceptance_observed": false,
+    "scope": "Existing scheduled task operation, distinct from the read-only verification probe."
+  }
+}

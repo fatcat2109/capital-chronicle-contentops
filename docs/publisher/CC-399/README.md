@@ -1,5 +1,12 @@
 # CC-399 — Call cards and their threads
 
+Integrated into `A:\Capital Chronicle\ContentOps` at
+`675d75b50a8148088a2038d530a9ba2f120de66c`, on 10 November 2026 at
+11:05 GMT+7. The existing minute task reads this operating root and completed
+an OK format-4 operation. Completion remains blocked by the missing Discord
+thread credential; CC-432's pages and the natural run/card/ending Telegram
+readback are also outstanding. See [live-consumer.json](live-consumer.json).
+
 The plan-status consumer now aggregates new calls by Main's run identity. Each
 run has one announcement and one source-bound card per call. Later fills and
 endings retain their card key. The existing outbox, transports and sole
@@ -39,11 +46,10 @@ thread-create return from creating another thread. Messages use an exact card
 reference. Without `DISCORD_BOT_TOKEN`, the child message is a definite no-write
 with `DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE`; other destinations continue.
 
-28 targeted composition, coordinator-consumption and Discord adapter checks
-passed. See [card-and-thread-tests.xml](card-and-thread-tests.xml). The binary
-visual example was inspected for zone, invalidation, target and ET window
-legibility. Integration and the next natural morning/ending readbacks are
-still pending.
+The binary JPEG visual example was inspected for zone, invalidation, target,
+ET window and notice legibility. The copied-store acceptance and official
+adapter checks are retained in [card-and-thread-tests.xml](card-and-thread-tests.xml)
+and [final-card-tests.xml](final-card-tests.xml).
 
 The Meta route now keeps the same reader structure: Facebook puts image cards
 in comments under the run photo; Instagram uses one run carousel and binds
@@ -67,3 +73,19 @@ dry run read Main's own contract reader, used the existing production outbox
 identities and returned OK without a store or public write. See
 [summary-and-parent-tests.xml](summary-and-parent-tests.xml) and
 [current-export-dry-run.json](current-export-dry-run.json).
+
+65 targeted checks passed from the operating root in 26.57 seconds. The live
+upgrade then exposed a conflicting recreation of the old shared work item's
+title. `675d75b5` reuses its original genesis instead; two copied-store
+regressions and the installed-root upgrade check pass. The existing task's
+11:08 GMT+7 record is OK, with ten dated ending rows registered. One historical
+ending has an API-confirmed Threads object. Its Telegram parent has no
+confirmed write, so that destination correctly stays unsent. These historical
+replies are not the required new morning run acceptance.
+
+Remaining actions are destination-specific: Ops Product supplies the existing
+Discord bot credential in `CapitalChronicle/DISCORD_BOT_TOKEN`, with permission
+to create and send in the approved announcement channel's threads; CC-432
+supplies its filtered publication result; Publisher reads the next natural
+run's cards and ending on the public Telegram feed. No schedule, user app,
+Main code, unrelated WIP or historical public post was changed by this item.

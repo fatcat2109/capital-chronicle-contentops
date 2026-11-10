@@ -1,0 +1,227 @@
+{
+ "active_recoveries": {},
+ "already_queued": [
+  "plan-status-post-75c71303cc66652abed6a2f06ee59536",
+  "plan-status-post-8cbf9fb0b4cfc1bbbc886b71ba16cb52",
+  "plan-status-post-bfa6c39bd61d07e98351a77a2f4a2fbb",
+  "plan-result-post-cbea6a9037c9470ba5ed3f949b3e1665",
+  "plan-result-post-2da6b8e0185e7615a8a4e308bddf8be8"
+ ],
+ "dry_run": true,
+ "export_age_seconds": 16.7,
+ "export_generated_at_utc": "2026-11-10T04:04:04.270684Z",
+ "format": 4,
+ "latest_states": {
+  "plan_09125dacd06e67f5030fcba6": "VIEW_CHANGED",
+  "plan_1150f22c3ee156366aee910f": "EXPIRED",
+  "plan_1b731dfb43d0baa7c04e3eb6": "VIEW_CHANGED",
+  "plan_1dfad1e7f425faf5960f3d08": "INVALIDATED",
+  "plan_1dfbc3e31e7901e2630b9f38": "VIEW_CHANGED",
+  "plan_204b49986f5608a251ee7699": "VIEW_CHANGED",
+  "plan_260016d7357fac80f5e83378": "CANCELLED",
+  "plan_26cb1eb8c72cbb8b45ce1396": "WAITING",
+  "plan_27f48ab340502cd04e337244": "WAITING",
+  "plan_2cb803e758d4bf9e74de0ddb": "TRIGGERED",
+  "plan_2f8b85fc74a7054ec917bdd4": "WAITING",
+  "plan_3611d41461b5c25546568841": "VIEW_CHANGED",
+  "plan_509c186b2f272a801714acef": "INVALIDATED",
+  "plan_535119732122292be6375d68": "INVALIDATED",
+  "plan_54212ef910bd51753de3c78c": "WAITING",
+  "plan_56cc8d7cf7887df00014e859": "WAITING",
+  "plan_5a9b1a69ac72f3a7c23064a2": "VIEW_CHANGED",
+  "plan_5eb033547e64c256929ab849": "TRIGGERED",
+  "plan_6ce7b6d137920d09843f61db": "WAITING",
+  "plan_71f0701d5f0d78b138829a4d": "VIEW_CHANGED",
+  "plan_7676aac16455086193912626": "WAITING",
+  "plan_79ec7bb46eb37b474f0f2c04": "WAITING",
+  "plan_829c6d5505eb74877d962853": "WAITING",
+  "plan_8b7c1dd880206079033b6efe": "WAITING",
+  "plan_98d27db8a03c16e8a765ab2d": "VIEW_CHANGED",
+  "plan_a43713db7a7b44d25d426478": "VIEW_CHANGED",
+  "plan_a4e853272f83b1cca81ab1d1": "WAITING",
+  "plan_a7224c6e6d3164849bf027db": "VIEW_CHANGED",
+  "plan_b249fe5400f1c040d11a58f2": "WAITING",
+  "plan_ba8b17735f371081a6863387": "WAITING",
+  "plan_c43599eb4f150b968e73d7bb": "VIEW_CHANGED",
+  "plan_d5cb0613c2c869bd40891a38": "VIEW_CHANGED",
+  "plan_dca968b0fc4ff30f3f204fc7": "INVALIDATED",
+  "plan_e0055c9f89c401e87bd7d3cf": "INVALIDATED",
+  "plan_e4fa3d0e39425f3090df5011": "CANCELLED",
+  "plan_e51226117aef037a534579e0": "WAITING",
+  "plan_f45a45412d7fb675b4db238d": "WAITING",
+  "plan_f5c922a34f6d7d0243051b3f": "CANCELLED",
+  "plan_f8af4bad6713a6184e7ef146": "TRIGGERED",
+  "plan_f94e73decba4b7ddd8ad7005": "WAITING",
+  "plan_fc97de01108975ab9ffaeba7": "WAITING",
+  "plan_fd0edd2dcd32452b0a2ffe67": "TRIGGERED",
+  "plan_ff5840d2701db972c8f72f68": "VIEW_CHANGED"
+ },
+ "max_export_age_minutes": 10,
+ "not_posted": [
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-7083fcc0f935afff2a828e8b30743ce1"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-769e790e2d16946dfd90340368555707"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-78236d46a1d5f3efd06447ace20d3af3"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-07a4366e582a0f75b638b890322e420c"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-0fff22c7f31885f5ccbca12b565bf4c8"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-c275820ce45b6323dd0b3695dfdbbdac"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-e14669297a595775f4cb15f81b720a1c"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-692a326bca965e241a1a1a872edb268f"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-2f91e42dfa3735ced86cce7afa56d6fe"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-c256ce756da8d3be6e6fce70cbb706de"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-25991b199496ded7d118f412966582e6"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-df032fdfa7d8edde5be6e7654074b0c3"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-288fe523cf30f01d540b4d4f3071adc2"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-2d4a2fd56601b68098b1e55b9df7ccfc"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-4a6f5701a5f17f1556001a6d477e0e74"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-b7f2dd536171c021607437ef4d1f3274"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-cb15c2cb43d0db21231c84a5fed533a0"
+  },
+  {
+   "cause": "FILL_CONFIRMATION_ALREADY_PUBLISHED_OR_PENDING",
+   "key": "plan-status-post-8e388e040f978aeb84b8f7111ee83305",
+   "prior_key": "plan-status-post-d7acdc21b157dbaf1ff481e9a37c6889"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-1ad59b210ffd6b57df25c4be5e8a0e70"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-7b4f0f89f06611da94f05ec618c75101"
+  }
+ ],
+ "status": "OK",
+ "transitions_read": 91,
+ "would_queue": [
+  {
+   "at_utc": "2026-11-05T16:23:18.602579Z",
+   "key": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "EURUSD",
+   "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "at_utc": "2026-11-05T16:56:21.035971Z",
+   "key": "plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "XAUUSD",
+   "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "at_utc": "2026-11-05T16:56:21.035971Z",
+   "key": "plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "USOIL",
+   "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "at_utc": "2026-11-05T18:00:29.285314Z",
+   "key": "plan-result-post-a8dc64408d816fc67f764a0aedd02bb9",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "BTCUSD",
+   "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "at_utc": "2026-11-06T06:05:17.984347Z",
+   "key": "plan-result-post-cef8beddd4a508e9fb45e81b95883ba4",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "USOIL",
+   "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "at_utc": "2026-11-06T06:05:17.984347Z",
+   "key": "plan-result-post-91e901549fa0f118686df4f9bc23f69a",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "XAUUSD",
+   "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "at_utc": "2026-11-06T08:20:18.529589Z",
+   "key": "plan-result-post-57d1814f092cfdd78ad52daa200892fc",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "EURUSD",
+   "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "at_utc": "2026-11-06T08:45:32.500209Z",
+   "key": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "USOIL",
+   "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "at_utc": "2026-11-09T23:50:00Z",
+   "key": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "EURUSD",
+   "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "at_utc": "2026-11-09T23:50:00Z",
+   "key": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+   "kind": "result",
+   "state": "RESULT",
+   "symbol": "USOIL",
+   "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  }
+ ]
+}
