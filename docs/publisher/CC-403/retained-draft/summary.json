@@ -1,0 +1,15 @@
+{
+  "status": "AGY_UNAVAILABLE",
+  "model": "gemini-3.8-flash-high",
+  "effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "started_at_utc": "2026-11-10T15:52:16.594346+00:00",
+  "ended_at_utc": "2026-11-10T15:54:17.627947+00:00",
+  "prompt_sha256": "c0a4cb25e2354eee9c664d599f03bf2c1d5ffca76490d284cb42828f73431734",
+  "output_sha256": "5b584d5e177b434b62d8278ae7f92cece4a446cac52744faedb9ca0ae0491636",
+  "artifact_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-403\\retained-draft\\daily-note-first-draft\\c0a4cb25e2354eee9c664d599f03bf2c1d5ffca76490d284cb42828f73431734\\result.json",
+  "checks": [],
+  "cause": "AGY_DAILY_DRAFT_TIMEOUT_120S",
+  "source_data_cutoff_utc": "2026-11-09T08:18:07.657913Z",
+  "publication_operation_created": false
+}

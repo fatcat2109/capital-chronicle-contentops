@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-11-10T15:52:16.590732+00:00",
+  "held_request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\desktop_request_write.json",
+  "held_request_sha256": "0bfac3d947d569ca31e50ecec89995258f1213d04621e37522059a05c4e0074d",
+  "data_cutoff_utc": "2026-11-09T08:18:07.657913Z",
+  "request_cutoff_utc": "2026-11-09T11:39:02.426922Z",
+  "reason": "Held 9 November public spans exercise the restored decision-114 first-draft consumer. CC-403's next-daily publication acceptance remains separate.",
+  "publication_operation_created": false,
+  "historical_request_changed": false
+}

@@ -1,5 +1,5 @@
 {
-  "observed_at_utc": "2026-11-10T15:52:05.761462+00:00",
+  "observed_at_utc": "2026-11-10T15:57:54.404752+00:00",
   "runs": [
     {
       "artifact": "tests-core-first.xml",
@@ -169,11 +169,50 @@
           "timestamp": "2026-11-10T22:51:04.628881+07:00"
         }
       ]
+    },
+    {
+      "artifact": "tests-final-consumers.xml",
+      "suites": [
+        {
+          "tests": "93",
+          "failures": "2",
+          "errors": "0",
+          "skipped": "0",
+          "time": "32.312",
+          "timestamp": "2026-11-10T22:55:10.730909+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-text-recovery-fixed.xml",
+      "suites": [
+        {
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "19.583",
+          "timestamp": "2026-11-10T22:56:32.419233+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-draft-fallback.xml",
+      "suites": [
+        {
+          "tests": "13",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "3.098",
+          "timestamp": "2026-11-10T22:57:27.487401+07:00"
+        }
+      ]
     }
   ],
-  "latest_unique_cases": 277,
+  "latest_unique_cases": 324,
   "latest_status_counts": {
-    "PASS": 274,
+    "PASS": 321,
     "SKIP": 3
   },
   "public_readback_acceptance": "PENDING_NEXT_ELIGIBLE_DAILY_NOTE"

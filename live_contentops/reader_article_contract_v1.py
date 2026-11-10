@@ -133,11 +133,10 @@ def words(text):
 
 def sentences(text):
     text = re.sub(r"\b(?:U\.S\.|U\.K\.|e\.g\.|i\.e\.)", lambda m: m[0].replace(".", ""), text)
-    for line in text.splitlines():
-        line = re.sub(r"^\s*(?:[-*+]\s+|\d+[.)]\s+)", "", line)
-        if not line.strip() or line.lstrip().startswith(("#", "|")):
-            continue
-        yield from (s.strip() for s in re.split(r"(?<=[.!?])\s+", line) if s.strip())
+    for paragraph in re.split(r"\n\s*\n", text):
+        lines = [re.sub(r"^\s*(?:[-*+]\s+|\d+[.)]\s+)", "", line).strip()
+                 for line in paragraph.splitlines() if line.strip() and not line.lstrip().startswith(("#", "|"))]
+        yield from (s.strip() for s in re.split(r"(?<=[.!?])\s+", " ".join(lines)) if s.strip())
 
 
 def numbers(text):
@@ -179,7 +178,7 @@ def check_article(article, documents, *, contract=None):
     if contract.get("data_cutoff_utc") != source_clock(documents, {"headline_id": contract.get("primary_document_id")}):
         errors.append("ARTICLE_DATA_CLOCK_CHANGED")
     body = visible(article.get("substack_body_markdown"))
-    text = "\n".join(visible(article.get(k)) for k in FIELDS)
+    text = "\n\n".join(visible(article.get(k)) for k in FIELDS)
     errors.extend(label_errors(text))
     first = next(iter(sentences(body)), "")
     if not re.match(r"^(?:We\b|Our\b)", first, re.I) or not re.search(

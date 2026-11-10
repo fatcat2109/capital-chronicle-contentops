@@ -7,6 +7,7 @@ import pytest
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from live_contentops.contentops_editorial_desk_v1 import record_native_article_review
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
 from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, require_current_final_visual_review
 from live_contentops.native_desktop_publication_v1 import prepare_native_publication
 from live_contentops.native_text_first_v1 import (
@@ -134,13 +135,15 @@ def test_text_first_publishes_through_existing_native_owner_to_every_destination
     assert prepared["skipped_derivative_destinations"] == []
     operation, executor, transport = composed(store, binding, rollout, monkeypatch)
     value, writes = finish(operation, executor)
-    assert value["publication"]["state"] == "RECONCILED"
-    assert set(writes + transport.calls) == DESTINATIONS | {"linkedin_company"}
+    barred = set(barred_browser_destinations())
+    assert value["publication"]["state"] == ("DISTRIBUTION_INCOMPLETE" if barred else "RECONCILED")
+    assert set(writes + transport.calls) == (DESTINATIONS | {"linkedin_company"}) - barred
     states = {d["destination"]: d for d in value["publication"]["destinations"]}
-    assert all(states[d]["reconciliation_status"] == "RECONCILED_CONFIRMED" for d in DESTINATIONS)
+    assert all(states[d]["reconciliation_status"] == "RECONCILED_CONFIRMED" for d in DESTINATIONS - barred)
+    assert all(states[d]["status"] == "DEFINITE_NO_WRITE" for d in barred)
     assert len(store.list_platform_dispatches()) == 10
     prior = len(store.list_platform_dispatches())
-    assert operation.resume()["publication"]["state"] == "RECONCILED"
+    assert operation.resume()["publication"]["state"] == value["publication"]["state"]
     assert len(store.list_platform_dispatches()) == prior
 
 
@@ -239,8 +242,9 @@ def test_text_first_unknown_write_reads_back_the_same_canonical_before_derivativ
     store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
         platform="substack", status="UNKNOWN_WRITE", public_object_id="controlled-article", public_object_url=CANONICAL)
     value, writes = finish(operation, executor)
-    assert value["publication"]["state"] == "RECONCILED"
-    assert "substack" not in writes and set(writes + transport.calls) == (DESTINATIONS - {"substack"}) | {"linkedin_company"}
+    barred = set(barred_browser_destinations())
+    assert value["publication"]["state"] == ("DISTRIBUTION_INCOMPLETE" if barred else "RECONCILED")
+    assert "substack" not in writes and set(writes + transport.calls) == ((DESTINATIONS - {"substack"}) | {"linkedin_company"}) - barred
     assert len(store.list_platform_dispatches()) == 10
 
 

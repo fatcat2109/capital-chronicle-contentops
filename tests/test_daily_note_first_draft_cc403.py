@@ -93,13 +93,15 @@ def native_turn(tmp_path):
     return store, turn
 
 
-def test_daily_request_consumes_agy_once_and_dispatches_one_light_editor(tmp_path, monkeypatch):
+@pytest.mark.parametrize("agy_available", [True, False])
+def test_daily_request_consumes_agy_once_and_dispatches_one_light_editor(tmp_path, monkeypatch, agy_available):
     _, turn = native_turn(tmp_path)
     calls = []
 
     def first(g, prompt, *, output_dir):
         calls.append(deepcopy(g))
-        return {"status": "DRAFT_CHECKS_PASS", "output": output(), "checks": [], "artifact_path": "fixture.json",
+        return {"status": "DRAFT_CHECKS_PASS" if agy_available else "AGY_UNAVAILABLE",
+                "output": output() if agy_available else None, "checks": [], "artifact_path": "fixture.json",
                 "prompt_sha256": "a" * 64, "provider_call_attempted": True}
 
     monkeypatch.setattr(draft, "prepare_first_draft", first)
@@ -111,7 +113,7 @@ def test_daily_request_consumes_agy_once_and_dispatches_one_light_editor(tmp_pat
         turn(**args)
     request = pending.value.request
     assert request["requested_reasoning_effort"] == "low"
-    assert request["governed_input"]["daily_note_first_draft"]["output"] == output()
+    assert request["governed_input"]["daily_note_first_draft"]["output"] == (output() if agy_available else None)
     assert GUIDANCE in request["prompt"]
     call = native_role_call(request, {"run_id": turn.run_id, "output_dir": str(tmp_path)}, binding_path="binding.json")
     assert call["arguments"]["reasoning_effort"] == "low"

@@ -133,6 +133,12 @@ def test_daily_limit_counts_prose_but_keeps_the_six_market_table():
     assert any(e.startswith("SENTENCE_TOO_LONG:36:") for e in check_article(article, docs))
 
 
+def test_soft_markdown_wrap_does_not_split_one_long_reader_sentence():
+    article, docs = daily()
+    article["substack_body_markdown"] += "\n\n" + " ".join(["word"] * 20) + "\n" + " ".join(["word"] * 20) + "."
+    assert any(e.startswith("SENTENCE_TOO_LONG:40:") for e in check_article(article, docs))
+
+
 @pytest.mark.parametrize("heading,reason", [("What changed since yesterday", "DAILY_CHANGE_SECTION_REQUIRED"),
                                            ("What we got wrong", "DAILY_ERROR_SECTION_REQUIRED"),
                                            ("So what", "SO_WHAT_LINE_REQUIRED")])
