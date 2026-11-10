@@ -1,0 +1,29 @@
+{
+  "receipt": {
+    "message_id": "native-story-preparation-d9a0047c3ef7dd128e2b580d651f6b18b0764b7fc336cb8ebba644125f2cffad",
+    "event_id": "bls-cpi-20261110",
+    "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+  },
+  "applied_at_utc": "2026-11-10T10:27:41.071920+00:00",
+  "operating_source_commit": "e3b3208c",
+  "consumer_documents": [
+    {
+      "document_id": "preview-background-bea5be481f7b96d1319cd4e70506343c023d0e67bf4c340d65817facfa86db84",
+      "publisher": "U.S. Bureau of Labor Statistics",
+      "text_characters": 795,
+      "sha256": "7d1782f600361eaf3d8f767aa325c14d51163631819837da6e7fea11a5291c93"
+    },
+    {
+      "document_id": "preview-consensus-d312e148adb709cd1af7bfdd020132421d7e3b6e63fcc2a68a4775880db32346",
+      "publisher": "investing",
+      "text_characters": 223,
+      "sha256": "74d44316ee4ef1b54e859c1f708e16b333e808f6f6880a3afd16369037dc8c10"
+    },
+    {
+      "document_id": "main-event-research-c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d",
+      "publisher": "Capital Chronicle",
+      "text_characters": 2531,
+      "sha256": "c40a8207a20af084582c6dda48fef56f983d8c52e2263a1f3455fcdf1185c31d"
+    }
+  ]
+}

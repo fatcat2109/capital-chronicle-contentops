@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-10T10:49:04.407664+00:00",
+  "trigger": "CPI calendar candidate supplied calendar plus unrelated AAPL/AUDUSD/BTCUSD identity records, excluding held CPI documents",
+  "repair": "The existing selected-context owner accepts its held CPI documents during media preparation, keeps the chosen CPI calendar source, and enriches the resulting event pack with official history before writing",
+  "new_source_requests": 0,
+  "native_selection_preserved": true,
+  "source_clocks_preserved": true,
+  "no_public_write": true
+}

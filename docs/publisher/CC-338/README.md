@@ -145,3 +145,9 @@ display, with no new estimate or freeze claim. The 16 focused event-record check
 pass in 6.61 seconds; Ruff passes. Source changes, invented excerpts and later
 known-at times are still refused. Publication and the later event review remain
 the item’s operating acceptance.
+
+The actual CPI calendar selection exposed an unrelated-identity source projection.
+The existing context attachment now accepts verified held CPI sources during
+media preparation, retains the selected topic documents and joins the official
+history before writing. Nineteen focused context checks pass in 18.02 seconds.
+The original native selection, source clocks and source budgets remain recorded.

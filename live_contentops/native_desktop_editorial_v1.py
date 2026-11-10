@@ -284,10 +284,12 @@ def admit_selected_story_context(turn, binding, response):
     turn._check_pause()
     selection, visual = turn.frozen_request("select"), turn.frozen_request("visual-edit")
     writer = turn.frozen_request("write")
+    preparation = turn.frozen_request("media-plan")
+    preparation_path = bool(not visual and not writer and preparation)
     short_path = bool(not visual and writer and writer["governed_input"].get("publication_speed_policy"))
-    reference = writer if short_path else visual
+    reference = preparation if preparation_path else writer if short_path else visual
     if (not selection or not turn._get("select", "response") or not reference
-            or (not short_path and not turn.visual_response())
+            or (not short_path and not preparation_path and not turn.visual_response())
             or response.get("expected_request_sha256") != reference["request_sha256"]
             or (writer and not short_path) or turn._get("write", "response")):
         raise ValueError("EXACT_UNWRITTEN_SELECTED_VISUAL_REQUEST_REQUIRED")
@@ -327,7 +329,8 @@ def admit_selected_story_context(turn, binding, response):
         verified_context = {d["document_id"]: d for d in admitted.get("evidence_documents", [])}
         research = additional
     walk = json.loads((turn.root / "simple_gemini_evidence_v1.json").read_bytes())
-    primary = (writer["governed_input"]["source_pack"] if short_path
+    primary = (preparation["governed_input"]["source_pack"] if preparation_path
+               else writer["governed_input"]["source_pack"] if short_path
                else visual["governed_input"]["source_packet"]["source_pack"])
     candidate = response.get("candidate_id")
     if (candidate != walk.get("selected_candidate_id") or not primary
@@ -335,6 +338,9 @@ def admit_selected_story_context(turn, binding, response):
             or walk.get("selected_source_pack") != primary
             or len({(d["document_id"], d["canonical_content_sha256"]) for d in primary}) + len(ids) > 10):
         raise ValueError("EXACT_QUALIFIED_SELECTED_SOURCE_PACK_REQUIRED")
+    kept = response.get("primary_context_document_ids")
+    if kept is not None and (not kept or not set(kept) <= {d["document_id"] for d in primary}):
+        raise ValueError("SELECTED_PRIMARY_CONTEXT_DOCUMENTS_REQUIRED")
     documents = []
     for item_id in ids:
         record = research.records.get(item_id)
@@ -347,7 +353,10 @@ def admit_selected_story_context(turn, binding, response):
             raise ValueError("CONTEXT_SOURCE_AFTER_FROZEN_CUTOFF")
         permission = record["source_permissions"]
         document = verified_context.get(item_id, record["document"])
-        if not permission.get("MODEL_INPUT_ALLOWED") or not document.get("public_claim_allowed"):
+        single_fact = (permission.get("scope") == "SINGLE_ATTRIBUTED_CONSENSUS_FACT_NO_TABLE_SERIES_OR_CHART"
+            and permission.get("authority_ref") == "JIM_DECISION_44_AND_HOST_RULE_7_CITATIONS"
+            and document.get("report_truth_only") is True)
+        if not single_fact and (not permission.get("MODEL_INPUT_ALLOWED") or not document.get("public_claim_allowed")):
             raise ValueError("CONTEXT_SOURCE_PERMISSION_REQUIRED")
         text = record["permitted_source_text"]
         documents.append({**document, "document_id": item_id,
@@ -361,9 +370,11 @@ def admit_selected_story_context(turn, binding, response):
         "pre_writer_context_attachment": True, "candidate_id": candidate,
         "selection_request_sha256": selection["request_sha256"],
         "source_request_sha256": reference["request_sha256"],
-        **({"superseded_unanswered_writer_sha256": writer["request_sha256"]} if short_path
+        **({"preparation_request_sha256": preparation["request_sha256"]} if preparation_path
+           else {"superseded_unanswered_writer_sha256": writer["request_sha256"]} if short_path
            else {"visual_request_sha256": visual["request_sha256"]}),
         "context_amendment_sha256": amendment_sha, "primary_source_pack_sha256": sha256_of(primary),
+        **({"primary_context_document_ids": kept} if kept is not None else {}),
         "supporting_headline_ids": ids, "context_documents": documents,
         "research_revision": research.revision, "cutoff_utc": input_cutoff,
         "admitted_at_utc": datetime.now(timezone.utc).isoformat(), "new_source_requests": 0,

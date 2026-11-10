@@ -147,6 +147,64 @@ def test_already_held_verified_context_can_join_before_writer_freeze(tmp_path, m
     assert result["new_source_requests"] == 0
 
 
+def test_context_can_reach_media_preparation_before_visual_editor(tmp_path, monkeypatch):
+    turn, binding, response, args = seeded(tmp_path, monkeypatch)
+    original_get = turn._get
+    primary = turn.frozen_request("visual-edit")["governed_input"]["source_packet"]["source_pack"]
+    preparation = {"request_sha256": "controlled-preparation", "stage": "media-plan",
+        "governed_input": {"source_pack": primary}}
+    turn._put("media-plan", "request", preparation)
+    monkeypatch.setattr(turn, "_get", lambda stage, kind:
+        None if stage == "visual-edit" else original_get(stage, kind))
+    response["expected_request_sha256"] = preparation["request_sha256"]
+    from live_contentops.native_desktop_editorial_v1 import admit_selected_story_context
+    result = admit_selected_story_context(turn, binding, response)
+    assert result["new_source_requests"] == 0
+    assert turn.source_recovery()["preparation_request_sha256"] == preparation["request_sha256"]
+    with pytest.raises(DesktopInputRequired) as pending:
+        run_v1_simple_gemini_newsroom(**args)
+    assert pending.value.request["stage"] == "media-plan"
+    assert len(pending.value.request["source_pack"]) == 2
+    assert pending.value.request["source_pack"][-1]["document_id"] == "prior-context"
+
+
+def test_jim44_single_attributed_fact_reaches_context_consumer(tmp_path, monkeypatch):
+    def consensus(record):
+        record["source_permissions"] = {
+            "scope": "SINGLE_ATTRIBUTED_CONSENSUS_FACT_NO_TABLE_SERIES_OR_CHART",
+            "authority_ref": "JIM_DECISION_44_AND_HOST_RULE_7_CITATIONS"}
+        record["document"].pop("public_claim_allowed")
+        record["document"]["report_truth_only"] = True
+    turn, binding, response, _ = seeded(tmp_path, monkeypatch, change=consensus)
+    result = entry().operation(binding, command="recover-sources", response=response)
+    assert result["new_source_requests"] == 0
+    assert turn.source_recovery()["context_documents"][0]["report_truth_only"] is True
+
+
+def test_selected_context_keeps_topic_sources_and_uses_prepared_event_history(tmp_path, monkeypatch):
+    def event_context(record):
+        record["document"]["preview_preparation"] = {"event_id": "controlled-cpi"}
+    turn, binding, response, args = seeded(tmp_path, monkeypatch, change=event_context, history_docs=3)
+    original = turn.frozen_request("visual-edit")["governed_input"]["source_packet"]["source_pack"]
+    response["primary_context_document_ids"] = [original[0]["document_id"]]
+    entry().operation(binding, command="recover-sources", response=response)
+    calls = []
+    def history(**kwargs):
+        docs = kwargs["source_pack"]
+        calls.append(docs)
+        return [*docs, *original[1:]] if len(calls) == 1 else docs
+    monkeypatch.setattr(turn, "release_history_sources", history)
+    _, photo, _ = controlled_release_packet(tmp_path / "controlled-topic-media")
+    turn.store.register_outbox_message(message_id="native-editorial-media-plan-" + sha256_of(turn.run_id),
+        work_item_id=turn.work, destination="internal:controlled-media", status="EDITORIAL_INTERNAL",
+        payload=canonical_bytes({"source_request_sha256": "controlled", "assets": [photo]}).decode())
+    with pytest.raises(DesktopInputRequired) as pending:
+        run_v1_simple_gemini_newsroom(**args)
+    docs = pending.value.request["governed_input"]["source_pack"]
+    assert len(docs) == 2 and docs[-1]["document_id"] == "prior-context"
+    assert len(calls) == 2 and calls[-1][-1]["preview_preparation"]["event_id"] == "controlled-cpi"
+
+
 def test_short_path_adds_held_context_to_unanswered_writer_without_visual_stage(tmp_path, monkeypatch):
     turn, binding, response, _ = seeded(tmp_path, monkeypatch)
     original_get = turn._get

@@ -3032,8 +3032,16 @@ def run_v1_simple_gemini_newsroom(
         contextual = _source_pack(selected_context["context_documents"])
         if len(contextual) != len(selected_context["supporting_headline_ids"]):
             raise SimpleGeminiNewsroomError("selected_story_context_source_missing")
+        if selected_context.get("primary_context_document_ids"):
+            kept = set(selected_context["primary_context_document_ids"])
+            source_pack = [d for d in source_pack if d["document_id"] in kept]
         source_pack = [*source_pack, *[{**d, "source_id": f"SOURCE_{len(source_pack) + i + 1}"}
                                      for i, d in enumerate(contextual)]]
+        if (any(d.get("preview_preparation") for d in contextual)
+                and not any(d.get("official_release_history") for d in source_pack)
+                and hasattr(llm_invoke, "release_history_sources")):
+            source_pack = llm_invoke.release_history_sources(source_pack=source_pack,
+                article_mode=selected_plan_entry["article_mode"], cutoff_utc=cutoff_utc)
         selected = {**selected, "evolving_story_context": [*selected.get("evolving_story_context", []),
                                                         selected_context["selected_story_context"]]}
     if selected is not None and native and getattr(llm_invoke, "weekly_call_sources", None):
