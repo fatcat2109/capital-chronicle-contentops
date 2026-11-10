@@ -641,8 +641,7 @@ class NativeNeoExecutor:
                     or result.get("observed_identity") != request.get("expected_identity")
                     or (not absent and (not result.get("public_object_id") or not result.get("public_object_url")))
                     or (request.get("public_object_id") and result["public_object_id"] != request["public_object_id"])
-                    or (request.get("public_object_url") and result["public_object_url"] != request["public_object_url"])
-                    or observation.get("native_invocation_id") != self.native_invocation_id):
+                    or (request.get("public_object_url") and result["public_object_url"] != request["public_object_url"])):
                 continue
             age = self.clock() - datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
             if timedelta(0) <= age <= timedelta(minutes=10):

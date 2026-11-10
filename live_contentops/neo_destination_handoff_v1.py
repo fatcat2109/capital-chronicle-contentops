@@ -343,6 +343,20 @@ class NeoDestinationHandoff:
                 if outcome.get("dispatch_id") == ids["dispatch_id"]:
                     attempted = datetime.fromisoformat(outcome["attempt_started_at_utc"].replace("Z", "+00:00"))
                     latest = max(latest, attempted)
+            with store.get_read_only_connection() as conn:
+                packets = conn.execute("SELECT payload FROM outbox_messages WHERE work_item_id=? AND destination=?",
+                    (intent["work_item_id"], "internal:native-neo-tool")).fetchall()
+            for row in packets:
+                packet = json.loads(row[0])
+                request = packet.get("request", {})
+                if (request.get("action") != "PUBLISH" or request.get("destination") != destination
+                        or request.get("dispatch_attempt_identity") != ids["dispatch_id"]):
+                    continue
+                key = "native-neo-" + sha256_of([packet.get("operation_id"), request.get("request_sha256"), "started"])
+                claim = store.get_outbox_message(key)
+                if claim:
+                    begun = json.loads(claim["payload"])["begun_at_utc"]
+                    latest = max(latest, datetime.fromisoformat(begun.replace("Z", "+00:00")))
             return dispatch, latest.isoformat()
         except (KeyError, ValueError, TypeError):
             return dispatch, None

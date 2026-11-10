@@ -159,6 +159,28 @@ def test_fresh_public_readback_survives_derived_receipt_hash_only(tmp_path):
     assert executor.fresh_readback_request(current) is None
 
 
+def test_exact_fresh_readback_is_used_by_the_next_executor(tmp_path):
+    from copy import deepcopy
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store,executor=setup(tmp_path)
+    request={"action":"READBACK","work_item_id":"work","destination":"substack_notes",
+        "expected_identity":"@capitalchronicle","latest_dispatch_attempt_at_utc":"2026-11-10T00:00:00Z",
+        "content_binding":{"expected_text_segments":["Exact approved copy."]}}
+    request['request_sha256']=sha256_of(request)
+    with pytest.raises(NativeNeoInputRequired) as waiting:executor(request)
+    executor.submit(request['request_sha256'],response(executor,waiting.value.request,
+        {"status":"SUCCESS","observed_identity":"@capitalchronicle","public_object_id":"c-123",
+         "public_object_url":"https://substack.com/@capitalchronicle/note/c-123","content_verified":True}))
+    next_executor=NativeNeoExecutor(store,operation_id='same-op',output_dir=tmp_path/'next',native_invocation_id='next-minute')
+    assert next_executor.fresh_readback_request(request)==request
+    changed=deepcopy(request);changed['latest_dispatch_attempt_at_utc']='2026-11-10T00:01:00Z'
+    assert next_executor.fresh_readback_request(changed) is None
+    changed=deepcopy(request);changed['expected_identity']='@deancapitalchronicle'
+    assert next_executor.fresh_readback_request(changed) is None
+    next_executor.clock=lambda:datetime.now(timezone.utc)+timedelta(minutes=11)
+    assert next_executor.fresh_readback_request(request) is None
+
+
 def test_observed_missing_public_image_stays_failed_without_a_readback_loop(tmp_path):
     store, executor = setup(tmp_path)
     adapter = NeoDestinationHandoff(native_executor=executor)

@@ -159,6 +159,22 @@ def test_proven_absence_clears_a_local_validation_failure_only(tmp_path,cause,re
     assert (c._destination_day_failure('substack_notes') is None) is resolved
 
 
+def test_absence_clock_includes_the_latest_actual_native_action_claim(tmp_path):
+    from datetime import datetime,timedelta
+    store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
+    dispatch=store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],
+        platform='substack_notes',status='UNKNOWN_WRITE')
+    begun=(datetime.fromisoformat(dispatch['dispatched_at'])+timedelta(minutes=2)).isoformat()
+    packet={'operation_id':value['work_item_id'],'request':{'action':'PUBLISH','destination':'substack_notes',
+        'request_sha256':'b'*64,'dispatch_attempt_identity':ids['dispatch_id']}}
+    store.register_outbox_message(message_id='actual-native-request',work_item_id=value['work_item_id'],
+        destination='internal:native-neo-tool',payload=json.dumps(packet),status='NATIVE_NEO_INTERNAL')
+    key='native-neo-'+sha256_of([value['work_item_id'],'b'*64,'started'])
+    store.register_outbox_message(message_id=key,work_item_id=value['work_item_id'],destination='internal:native-neo-tool',
+        payload=json.dumps({'begun_at_utc':begun}),status='NATIVE_NEO_INTERNAL')
+    assert NeoDestinationHandoff(store=store)._absence_dispatch_clock(value,'substack_notes')[1]==begun
+
+
 @pytest.mark.parametrize("actual,expected,authenticated", [
     ("@capitalchronicle", "@capitalchronicle", True),
     ("@deancapitalchronicle", "@capitalchronicle", False),
