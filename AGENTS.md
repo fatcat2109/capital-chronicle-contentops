@@ -1,5 +1,20 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## X posts again as before — 10 November 2026 (Jim's decision 112)
+
+Jim, 10 Nov 2026: "Cứ đăng X như cũ, không thay đổi gì." (keep posting to X as before, change nothing),
+and in Ops Product's chat: "Rủi ro Jim chấp nhận: luật của X cấm đăng tự động qua trình duyệt và
+nêu mức phạt là khóa tài khoản vĩnh viễn." He takes the risk that X's rules name.
+
+This overrides, for X only, the X parts of the three sections below: X's place in
+`NON_API_AUTOMATION_PROHIBITED`, X's removal from the required set, and the retirement
+of X's Neo probes, readbacks, agent requests and the status posts' X flags. CC-431
+restores them, tested, as they were before 10 Nov 00:36Z. Until CC-431 is live the code
+still records X as not posted; never work around it by hand in a browser.
+
+What stands: replies stay parked (CC-386); LinkedIn company, YouTube Community and
+Instagram browser edits stay barred (CC-393). The X list feed (CC-258) keeps running.
+
 ## Required derivatives and public notice — 10 November 2026 (CC-395; decision 109)
 
 Ops Product's CC-395 amendment, 10 November 09:11 GMT+7, makes the current required
