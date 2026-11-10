@@ -51,11 +51,11 @@ def test_pending_request_cannot_be_begun_after_route_is_barred(tmp_path, action)
     store.create_work_item(story_id="s", work_item_id="work", title="test", target_surface="test")
     executor = NativeNeoExecutor(store, operation_id="op", output_dir=tmp_path,
                                  native_invocation_id="controlled", allow_publish=True)
-    request = {"destination": "youtube", "action": action, "work_item_id": "work"}
+    request = {"destination": "linkedin", "action": action, "work_item_id": "work"}
     request["request_sha256"] = sha256_of(request)
     key = request["request_sha256"]
     executor._put(key, "request", {"request": request}, "work")
-    with pytest.raises(ValueError, match="YOUTUBE_NON_API_AUTOMATION_PROHIBITED"):
+    with pytest.raises(ValueError, match="LINKEDIN_NON_API_AUTOMATION_PROHIBITED"):
         executor.begin(key)
     assert executor._get(key, "started") is None
     assert executor(request)["definite_no_write"]
@@ -64,18 +64,18 @@ def test_pending_request_cannot_be_begun_after_route_is_barred(tmp_path, action)
     assert executor(request)["status"] == "UNKNOWN_WRITE"
 
 
-def test_live_coordinator_refuses_before_readiness_or_transport(tmp_path):
-    store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
-    store.create_work_item(story_id="s", work_item_id="work", title="test", target_surface="test")
-    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None, readiness_provider=fail)
-    intent = {"work_item_id": "work", "plan_hash": "p", "destination_plan": {"payload_hash": "h"}}
-    ids = coordinator._ids("work", "p", "youtube")
-    store.register_outbox_message(message_id=ids["message_id"], work_item_id="work",
-        destination="youtube", payload=json.dumps(intent), status="READY")
-    result = coordinator._dispatch_message(store.get_outbox_message(ids["message_id"]), canonical_url=None)
-    assert result["status"] == DEFINITE_NO_WRITE and result["publish_called"] is False
-    assert result["reason_code"] == "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"
-    assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == DEFINITE_NO_WRITE
+@pytest.mark.parametrize("destination", ["youtube", "linkedin_company"])
+def test_restored_article_route_reaches_live_coordinator_transport(tmp_path, destination):
+    from test_publication_coordinator_v1 import _coordinator, _quality_plan, _set_mode
+    store, transport, coordinator = _coordinator(tmp_path)
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    plan = _quality_plan()
+    row = next(r for r in coordinator.register_plan("work-1", plan)["registered"]
+        if r["destination"] == destination)
+    result = coordinator._dispatch_message(store.get_outbox_message(row["message_id"]),
+        canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert result["status"] == "DISPATCH_CONFIRMED"
+    assert transport.publish_calls == transport.readback_calls == [destination]
 
 
 def test_adapter_preserves_a_claimed_write_and_its_saved_return(tmp_path, monkeypatch):
@@ -83,7 +83,7 @@ def test_adapter_preserves_a_claimed_write_and_its_saved_return(tmp_path, monkey
     store.create_work_item(story_id="s", work_item_id="work", title="test", target_surface="test")
     executor = NativeNeoExecutor(store, operation_id="op", output_dir=tmp_path,
                                  native_invocation_id="controlled", allow_publish=True)
-    request = {"destination": "youtube", "action": "PUBLISH", "work_item_id": "work",
+    request = {"destination": "linkedin", "action": "PUBLISH", "work_item_id": "work",
                "dispatch_attempt_identity": "exact-dispatch"}
     request["request_sha256"] = sha256_of(request)
     key = request["request_sha256"]
@@ -91,7 +91,7 @@ def test_adapter_preserves_a_claimed_write_and_its_saved_return(tmp_path, monkey
     executor._put(key, "started", {"native_invocation_id": "earlier"}, "work")
     adapter = handoff.NeoDestinationHandoff(native_executor=executor)
     monkeypatch.setattr(adapter, "request", fail)
-    kwargs = dict(destination="youtube", intent={"work_item_id": "work"},
+    kwargs = dict(destination="linkedin", intent={"work_item_id": "work"},
                   authorization_context={"dispatch_attempt_identity": "exact-dispatch"})
     assert adapter.publish(**kwargs)["status"] == "UNKNOWN_WRITE"
     saved = {"status": "SUCCESS", "public_object_id": "old-observed-id"}
@@ -141,9 +141,9 @@ def test_review_has_sources_for_every_route_and_matches_the_live_bar_list():
             assert rule["source_ids"] and set(rule["source_ids"]) <= sources.keys()
             if rule["status"] == "NOT_FOUND":
                 assert rule["search_queries"]
-    # The dated decision-109 source review stays exact; decision 112 restores X.
+    # The dated decision-109 review stays exact; decisions 112/121 reopen routes.
     assert {k: v for k, v in record["enforcement"]["neo_barred_destinations"].items()
-            if k != "x"} == handoff.NON_API_AUTOMATION_PROHIBITED
+            if k not in {"x", "linkedin_company", "youtube"}} == handoff.NON_API_AUTOMATION_PROHIBITED
     assert record["consumer"]["owner"] == "Ops Product"
 
 

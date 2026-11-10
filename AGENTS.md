@@ -33,6 +33,22 @@ fix on this PC before CPI at 20:30 GMT+7. At the release the entry step uses mos
 - Full suites after 22:30 GMT+7.
 - Posts say only what the export says. A gold result that Guardian has not yet recognised is not posted.
 
+## Company LinkedIn and YouTube article posts — 11 November 2026 (CC-454; decision 121)
+
+Jim reopens `linkedin_company` and YouTube Community through their existing Neo
+article routes, accepting the platform risk recorded by CC-393. YouTube returns
+to the eight required article derivatives; the company page keeps its existing
+selection and reviewed LinkedIn copy. Member LinkedIn and Instagram use their
+official APIs and keep their Neo bars. Replies remain parked.
+
+Keep the previous article cadence. Add no plan-status posts or call cards to
+these routes. Start with the next work item; a dispatch closed as a barred
+no-write stays closed. Use the existing coordinator and CC-436 transport.
+On a restriction, checkpoint or identity-verification page, stop that destination,
+record its exact wording, and add only that route to
+`Runtime/ContentOps/control/suspended_routes.json`. Never click through or set
+the global KILL_SWITCH for a destination restriction.
+
 ## X posts again as before — 10 November 2026 (Jim's decision 112)
 
 Jim, 10 Nov 2026: "Cứ đăng X như cũ, không thay đổi gì." (keep posting to X as before, change nothing),

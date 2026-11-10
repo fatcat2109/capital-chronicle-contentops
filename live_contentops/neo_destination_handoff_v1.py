@@ -32,9 +32,9 @@ ROOTS = {"substack": "https://capitalchronicle.substack.com/", "substack_notes":
 TELEGRAM_PUBLIC_FEED = "https://t.me/s/CapitalChronicle"
 TELEGRAM_READ_RULE = ("Read only https://t.me/s/CapitalChronicle, with no sign-in. Never open, snapshot, read "
                       "or screenshot web.telegram.org or any signed-in Telegram view; it is Jim's personal account.")
-# Jim's decision 112 (10 Nov 2026), CC-431: restore the existing X Neo
-# publication/readback route. The other decision-109 browser bars stay in place;
-# replies remain parked under CC-386.
+# Jim's decisions 112/121 (10–11 Nov 2026), CC-431/454: X, LinkedIn company
+# and YouTube Community use their existing Neo article routes again. Member
+# LinkedIn and Instagram keep their official APIs; their Neo bars remain.
 # CC-393, Jim decision 109 item 3, read 10 Nov 2026: LinkedIn User Agreement 8.2 prohibits unauthorized
 # automated posting; YouTube Terms, Permissions and Restrictions 2, require prior
 # written permission for automated access. No such platform permission is held.
@@ -42,8 +42,6 @@ TELEGRAM_READ_RULE = ("Read only https://t.me/s/CapitalChronicle, with no sign-i
 # Sources and the remaining routes: docs/publisher/CC-393/platform-rules.json.
 NON_API_AUTOMATION_PROHIBITED = {
     "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
-    "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
-    "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
     "instagram_business": "INSTAGRAM_NON_API_AUTOMATION_PROHIBITED",
 }
 
@@ -66,6 +64,22 @@ def suspended_routes():
     if not isinstance(value, dict) or not all(isinstance(k, str) and isinstance(v, str) for k, v in value.items()):
         raise ValueError("SUSPENDED_ROUTES_FILE_INVALID")
     return value
+
+
+def suspend_route(destination, cause):
+    """Decision 121: persist a platform objection on this destination only."""
+    if destination not in {"linkedin_company", "youtube"}:
+        raise ValueError("ARTICLE_ROUTE_REQUIRED")
+    routes = suspended_routes()
+    routes[destination] = str(cause)
+    SUSPENDED_ROUTES_FILE.parent.mkdir(parents=True, exist_ok=True)
+    from uuid import uuid4
+    temporary = SUSPENDED_ROUTES_FILE.with_name(SUSPENDED_ROUTES_FILE.name + "." + uuid4().hex + ".tmp")
+    try:
+        temporary.write_text(json.dumps(routes, indent=2) + "\n", encoding="utf-8")
+        temporary.replace(SUSPENDED_ROUTES_FILE)
+    finally:
+        temporary.unlink(missing_ok=True)
 
 
 def _prohibited_write(destination):
