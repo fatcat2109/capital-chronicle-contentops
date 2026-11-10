@@ -1,0 +1,93 @@
+{
+  "recorded_at_utc": "2026-11-10T13:28:46.085142+00:00",
+  "source_check_commit": "c2e14defc1192adeb49a7b351f13a0f7a98aa9b3",
+  "remote_branch_at_first_push": "c2e14defc1192adeb49a7b351f13a0f7a98aa9b3",
+  "operating_integration_commit": "1679e29db22cd37c9251fbeff8e4a3b60b243f1a",
+  "preserved_ops_notice_commit": "4c58186a1aeca170720fc864fb00264c52d0cbe9",
+  "installed_files": [
+    {
+      "path": "docs/publisher/CC-124/run-20261110-2014/README.md",
+      "installed_sha256": "90bc3c34211de2bce5e61b285f2183d7569e6e19d1a1b55eed1666439a6f20b8",
+      "matches_builder_and_git_blob_after_line_ending_normalization": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261110-2014/inspect_run.py",
+      "installed_sha256": "834a4f8e5a1b0c405587bc6247d5ae92a81c10a8f7c93db5bac4d0991732f89b",
+      "matches_builder_and_git_blob_after_line_ending_normalization": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261110-2014/preserved-work.json",
+      "installed_sha256": "a39232c33d430101ca33d30c95efe71b87709d9b623452b9fd0d53fcbfecb501",
+      "matches_builder_and_git_blob_after_line_ending_normalization": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261110-2014/publication-status-expanded.json",
+      "installed_sha256": "2f1d73080006243d4064f1ff49bc8f0dcb161cd58f6e498e95ee1bc4eae14d64",
+      "matches_builder_and_git_blob_after_line_ending_normalization": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261110-2014/publication-status.json",
+      "installed_sha256": "0c1518f2b455975f80adc3c953fca2421afe5ebdd3a51f597fc660894cc5f29f",
+      "matches_builder_and_git_blob_after_line_ending_normalization": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261110-2014/result.json",
+      "installed_sha256": "042d08b45ef732d9b2d2b3bf56b7ab7e1a38df8352b24680089a2c832692d4e8",
+      "matches_builder_and_git_blob_after_line_ending_normalization": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261110-2014/source-comparison.json",
+      "installed_sha256": "c85feb4fb4857f107288bc507e19854b8f579676fd60450fbc5e49d6c05cd433",
+      "matches_builder_and_git_blob_after_line_ending_normalization": true
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261110-2014/verification.json",
+      "installed_sha256": "c0813bebc3628b139d614f386208ef54b3a7a6036ad9fcaeeb6ddaab73d30367",
+      "matches_builder_and_git_blob_after_line_ending_normalization": true
+    }
+  ],
+  "inherited_work": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "08ef53d04931acecda1f78484e8f0e559f7f1a335ba0b4568ebe5ba47982167c",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "6033f1540040738e1a58f14405b9df80f59d5ee8f756cb8ae4c103481961bedc",
+      "unchanged": true
+    }
+  ],
+  "scope": "Run evidence only; the standing article item remains OPEN. No runtime implementation or schedule changed.",
+  "verification": "Actual installed source/export/register consumers and existing publication projection were read; no new public article is claimed."
+}

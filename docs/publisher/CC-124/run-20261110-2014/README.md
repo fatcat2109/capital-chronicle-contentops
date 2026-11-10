@@ -38,7 +38,7 @@ The launch configured `gpt-6.1-sol/max`, labelled `CONFIGURED_NOT_OBSERVED` beca
 actual runtime telemetry is unavailable. Inherited modified files remain outside
 this item's commits; their preserved hashes are in [the work snapshot](preserved-work.json).
 
-The source inspection initially encountered an unnamed asset row in the public
-plan export. Sorting the evidence summary by its string representation resolved
-that local reporting error. The original work snapshot was preserved and the
-same bounded check then completed.
+Source-check commit `c2e14def` is pushed and integrated into the operating root
+at `1679e29d`. [Integration readback](integration.json) verifies all eight installed
+files against their Git blobs and preserves all eight inherited modified files.
+This integrates the run evidence; CC-124 remains OPEN.
