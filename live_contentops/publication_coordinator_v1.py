@@ -1827,7 +1827,7 @@ class DurablePublicationCoordinator:
         """Summarize exact durable destination records, independently of the latest callback."""
         canonical = dict(outcomes.get("substack") or {})
         canonical_real = cls._confirmed_public_object(canonical, destination="substack")
-        derivatives = {d: dict(o) for d, o in outcomes.items() if d != "substack"
+        derivatives = {d: dict(o) for d, o in outcomes.items() if d not in {"substack", "x"}
             and (not full_v1 or d in V1_REQUIRED_DERIVATIVE_DESTINATIONS)}
         additional = {d: dict(o) for d, o in outcomes.items() if d != "substack" and d not in derivatives}
         confirmed = {d for d, o in derivatives.items() if cls._confirmed_public_object(o, destination=d)}
@@ -1863,7 +1863,7 @@ class DurablePublicationCoordinator:
             **({"additional_destinations": additional,
                 "additional_confirmed_count": sum(cls._confirmed_public_object(o, destination=d) for d, o in additional.items()),
                 "additional_recovery_required_destinations": sorted(d for d, o in additional.items()
-                    if not cls._confirmed_public_object(o, destination=d))} if additional else {}),
+                    if d != "x" and not cls._confirmed_public_object(o, destination=d))} if additional else {}),
         }
 
     def publication_state(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
@@ -1876,9 +1876,12 @@ class DurablePublicationCoordinator:
         company = self._ids(work_item_id, plan_hash, "linkedin_company")
         if self.store.get_outbox_message(company["message_id"]):
             destinations.append({"destination": "linkedin_company"})
+        x = self._ids(work_item_id, plan_hash, "x")
+        if self.store.get_outbox_message(x["message_id"]) and not any(r.get("destination") == "x" for r in destinations):
+            destinations.append({"destination": "x"})
         for item in destinations:
             destination = str(item.get("destination") or "")
-            if destination not in {*V1_REQUIRED_PUBLICATION_DESTINATIONS, "linkedin_company"}:
+            if destination not in {*V1_REQUIRED_PUBLICATION_DESTINATIONS, "linkedin_company", "x"}:
                 continue
             ids = self._ids(work_item_id, plan_hash, destination)
             message = self.store.get_outbox_message(ids["message_id"])
@@ -1896,6 +1899,7 @@ class DurablePublicationCoordinator:
                 "public_object_id": dispatch.get("public_object_id"),
                 "public_object_url": dispatch.get("public_object_url"),
                 "publish_called": False,
+                **({"reason_code": "X_NON_API_AUTOMATION_PROHIBITED"} if destination == "x" and dispatch.get("status") == DEFINITE_NO_WRITE else {}),
             }
         result = {"per_destination": outcomes, **self.publication_totals(
             outcomes, full_v1=self._full_v1_distribution_required(plan))}
@@ -1906,10 +1910,10 @@ class DurablePublicationCoordinator:
     def _full_v1_distribution_preflight(
         self, work_item_id: str, plan: Mapping[str, Any]
     ) -> dict[str, Any]:
-        """Validate nine-surface structure and JIT only canonical Substack before its write.
+        """Validate current required destination structure and JIT only canonical Substack before its write.
 
         Derivative readiness is intentionally deferred until after canonical confirmation.  The
-        exact eight destination identities/packages remain structural requirements, but a local
+        exact required destination identities/packages remain structural requirements, but a local
         derivative outage is a hold/recovery obligation rather than a canonical veto.
         """
 
@@ -1939,9 +1943,9 @@ class DurablePublicationCoordinator:
         permitted_skips = permitted_derivative_skips(plan)
         structural_blockers = {
             "missing_destinations": sorted(required - observed),
-            "unexpected_destinations": sorted(observed - required),
+            "unexpected_destinations": sorted(observed - required - {"x"}),
             "duplicate_destinations": duplicate_destinations,
-            "skipped_derivative_destinations": [d for d in skipped if d not in permitted_skips],
+            "skipped_derivative_destinations": [d for d in skipped if d not in permitted_skips and d != "x"],
             "pre_substack_blockers": sorted(
                 str(value) for value in (plan.get("pre_substack_blockers") or [])
                 if str(value)
@@ -2069,7 +2073,12 @@ class DurablePublicationCoordinator:
         registered = []
         from live_contentops.native_newsroom_volume_v1 import registration_skips
         permitted_skips = registration_skips(plan)
-        for item in sorted(plan.get("destinations") or [], key=lambda row: (
+        items = list(plan.get("destinations") or [])
+        if self._full_v1_distribution_required(plan) and not any(row.get("destination") == "x" for row in items):
+            x = registration_for_destination("x")
+            items.append({"destination": "x", "surface": x.surface,
+                "transport_type": x.transport_type, "not_posted_reason": "X_NON_API_AUTOMATION_PROHIBITED"})
+        for item in sorted(items, key=lambda row: (
             0 if str(row.get("destination")) == "substack" else 1,
             str(row.get("destination")),
         )):
@@ -2186,9 +2195,50 @@ class DurablePublicationCoordinator:
                 destination=destination, payload=payload, status="READY",
             )
             registered.append({"destination": destination, **ids})
+            if destination == "x":
+                self._settle_x_no_write(self.store.get_outbox_message(ids["message_id"]))
             if destination == "linkedin" and plan.get("full_v1_distribution_required") is True:
                 registered.append(self._register_routine_company_copy(work_item_id, plan_hash, intent, ids))
         return {"plan_hash": plan_hash, "registered": registered, "outbox_count": len(registered)}
+
+    def _settle_x_no_write(self, message):
+        """Decision 109: one local no-write; never rewrite a possibly sent post."""
+        intent = json.loads(str(message["payload"]))
+        ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), "x")
+        existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        if existing and (existing.get("public_object_id") or existing.get("status") in {
+                DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING, *OWNER_RETIRED_STATUSES}):
+            return {"destination": "x", "status": existing["status"], "publish_called": False,
+                "reason_code": "X_EXISTING_WRITE_PRESERVED_OFFICIAL_API_READBACK_REQUIRED"}
+        from live_contentops.destination_transport_registry_v1 import X_NOT_POSTED
+        if not existing:
+            self.store.register_platform_dispatch(dispatch_id=ids["dispatch_id"],
+                message_id=ids["message_id"], platform="x", status=DEFINITE_NO_WRITE)
+        elif existing.get("status") != DEFINITE_NO_WRITE:
+            self.store.set_dispatch_status(ids["dispatch_id"], DEFINITE_NO_WRITE)
+        if message.get("status") != DEFINITE_NO_WRITE:
+            self.store.set_outbox_status(ids["message_id"], DEFINITE_NO_WRITE)
+        prior = next((r for r in self.store.get_reconciliations_for_work_item(intent["work_item_id"])
+            if r["reconciliation_id"] == ids["reconciliation_id"]), None)
+        if not prior:
+            self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+                work_item_id=intent["work_item_id"], status=X_NOT_POSTED)
+        elif prior["status"] != X_NOT_POSTED:
+            self.store.set_reconciliation_status(ids["reconciliation_id"], X_NOT_POSTED)
+        return {"destination": "x", "status": DEFINITE_NO_WRITE, "reason_code": X_NOT_POSTED,
+            "dispatch_id": ids["dispatch_id"], "publish_called": False, "public_write_performed": False}
+
+    def retire_x_browser_distribution(self):
+        """Apply decision 109 to held X intents only, without running other destinations."""
+        outcomes = []
+        for message in self.store.list_outbox_messages(destination="x"):
+            intent = json.loads(str(message["payload"]))
+            if intent.get("work_item_id") and intent.get("plan_hash"):
+                outcomes.append(self._settle_x_no_write(message))
+        return {"status": "X_BROWSER_DISTRIBUTION_RETIRED", "public_write_performed": False,
+            "not_posted_count": sum(row["status"] == DEFINITE_NO_WRITE for row in outcomes),
+            "preserved_count": sum(row["status"] != DEFINITE_NO_WRITE for row in outcomes),
+            "outcomes": outcomes}
 
     def _register_routine_company_copy(self, work_item_id, plan_hash, member_intent, member_ids):
         """The Capital Chronicle company page gets the same reviewed LinkedIn copy.
@@ -2223,6 +2273,11 @@ class DurablePublicationCoordinator:
             if resolved["payload"] != original_message["payload"]:
                 intent = json.loads(resolved["payload"])
         destination = str(dispatch["platform"])
+        if destination == "x":
+            # Keep prior proof/ambiguity intact; Neo X readbacks are retired.
+            rows = self.store.get_reconciliations_for_work_item(str(intent["work_item_id"]))
+            key = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
+            return next((r["status"] for r in rows if r["reconciliation_id"] == key), RECONCILIATION_PENDING)
         object_id = str(dispatch.get("public_object_id") or "") or None
         awaiting_owner = destination == "substack" and dispatch.get("status") == "SUBSTACK_DRAFT_AWAITING_OWNER"
         if awaiting_owner:
@@ -2384,6 +2439,8 @@ class DurablePublicationCoordinator:
         message = self._effective_message(message)
         intent = json.loads(str(message["payload"]))
         destination = str(message["destination"])
+        if destination == "x":
+            return self._settle_x_no_write(message)
         item = dict(intent["destination_plan"])
         registration = self._intent_registration(destination, intent)
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
@@ -3448,7 +3505,8 @@ class DurablePublicationCoordinator:
         derivatives = {
             destination: outcome
             for destination, outcome in outcomes.items()
-            if destination != "substack"
+            if destination != "substack" and destination != "x"
+            and (not self._full_v1_distribution_required(plan) or destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS)
         }
         full_distribution_required = self._full_v1_distribution_required(plan)
         derivative_confirmed = sum(
@@ -3500,7 +3558,7 @@ class DurablePublicationCoordinator:
         if canonical_real and full_distribution_required:
             distribution_status = (
                 FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
-                if not recovery_destinations and len(derivatives) == 8
+                if not recovery_destinations and len(derivatives) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
                 else PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
             )
         elif canonical_real:
@@ -3629,6 +3687,9 @@ class DurablePublicationCoordinator:
                 )
                 continue
             dispatch = dispatch_by_message.get(str(message["message_id"]))
+            if message["destination"] == "x":
+                summary["per_destination"]["x"] = self._settle_x_no_write(message)
+                continue
             quarantine = self._dispatch_quarantine(dispatch)
             if quarantine:
                 summary.setdefault("quarantined_dispatches", []).append(quarantine)
@@ -3880,6 +3941,8 @@ class DurablePublicationCoordinator:
             if dispatch and dispatch.get("status") in OWNER_RETIRED_STATUSES:
                 continue
             destination = str(message["destination"])
+            if destination == "x" and (not dispatch or dispatch.get("status") not in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}):
+                continue
             if dispatch and dispatch.get("status") == NATIVE_NEO_PENDING:
                 remaining_destinations.append(destination)
                 remaining_obligations.append({"work_item_id": str(intent["work_item_id"]),

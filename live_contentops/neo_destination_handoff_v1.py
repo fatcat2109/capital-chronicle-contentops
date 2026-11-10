@@ -265,6 +265,8 @@ class NeoDestinationHandoff:
 
     def request(self, *, destination, action, intent, authorization_context=None,
                 public_object_id=None, public_object_url=None):
+        if destination == "x" and action == "READBACK":
+            raise ValueError("X_NON_API_AUTOMATION_PROHIBITED")
         if action in {"PUBLISH", "EDIT_EXISTING"}:
             refused = _prohibited_write(destination)
             if refused is not None:
@@ -493,6 +495,9 @@ class NeoDestinationHandoff:
         return result
 
     def readback(self, *, destination, intent, public_object_id, public_object_url):
+        if destination == "x":
+            return {"status": "SKIPPED", "verified": False, "write_absent": False,
+                "reason_code": "X_NON_API_AUTOMATION_PROHIBITED"}
         request = self.request(destination=destination, action="READBACK", intent=intent,
             public_object_id=public_object_id, public_object_url=public_object_url)
         if destination == "substack":
@@ -622,10 +627,11 @@ class NeoDestinationHandoff:
         from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE
         payload = request.get("native_payload") or {}
         title = _text(payload.get("title")) if isinstance(payload, dict) else ""
+        notices = (PUBLIC_NOTICE, "Analysis, not financial advice.")
         canonical_present = bool(destination == "substack" and not intent.get("daily_digest")
             and identity_exists and title and title in observed_text
-            and _text(PUBLIC_NOTICE) in observed_text
-            and any(_text(PUBLIC_NOTICE) in _text(s) for s in segments))
+            and any(_text(notice) in observed_text and any(_text(notice) in _text(s) for s in segments)
+                for notice in notices))
         absent = False
         if not public_object_id and not public_object_url and result.get("target_post_absent") is True:
             dispatch, latest_attempt = self._absence_dispatch_clock(intent, destination)

@@ -163,7 +163,7 @@ _SURFACES = (
 
 SURFACE_REGISTRY = {row.surface: row for row in _SURFACES}
 TIER1_SURFACES = (
-    "SUBSTACK_ARTICLE", "X_THREAD", "LINKEDIN_POST", "YOUTUBE_COMMUNITY_POST",
+    "SUBSTACK_ARTICLE", "LINKEDIN_POST", "YOUTUBE_COMMUNITY_POST",
     "TELEGRAM_CHANNEL_POST", "DISCORD_ANNOUNCEMENT", "FACEBOOK_PAGE_POST",
     "INSTAGRAM_BUSINESS_POST", "THREADS_POST",
 )
@@ -181,11 +181,12 @@ DESTINATION_TO_SURFACE = {
 OWNER_SELECTED_DESTINATION_TO_SURFACE = {"linkedin_company": "LINKEDIN_COMPANY_POST",
                                          "substack_notes": "SUBSTACK_NOTE"}
 
-# Quality-probation V1 is one canonical article plus these exact eight derivative
+# Decision 109: X is not required until an official API route is enabled.
+X_NOT_POSTED = "X_NON_API_AUTOMATION_PROHIBITED"
+# Quality-probation V1 is one canonical article plus these seven derivative
 # surfaces. YouTube here means Community; video/Short surfaces remain V2-only.
 V1_REQUIRED_DERIVATIVE_DESTINATIONS = (
     "telegram",
-    "x",
     "discord",
     "linkedin",
     "facebook_page",
@@ -234,7 +235,7 @@ def validate_registry() -> None:
         raise RuntimeError("duplicate_surface_transport_registration")
     if set(TIER1_SURFACES) - set(SURFACE_REGISTRY):
         raise RuntimeError("tier1_surface_transport_missing")
-    if set(V1_REQUIRED_PUBLICATION_DESTINATIONS) != set(DESTINATION_TO_SURFACE):
+    if set(V1_REQUIRED_PUBLICATION_DESTINATIONS) != set(DESTINATION_TO_SURFACE) - {"x"}:
         raise RuntimeError("v1_required_publication_destination_mismatch")
     for surface in TIER1_SURFACES:
         row = SURFACE_REGISTRY[surface]
@@ -611,6 +612,10 @@ class DestinationReadinessManager:
     def probe_surface(self, surface: str) -> dict[str, Any]:
         """Active exact-surface verification. Never call this from idle/global refresh."""
         registration = SURFACE_REGISTRY[surface]
+        if registration.platform == "x":
+            return _base_row(registration, state="CAPABILITY_UNSUPPORTED", identity=None,
+                identity_match=False, probe_kind="JIM_DECISION_109",
+                detail={"reason_code": X_NOT_POSTED, "external_probe_performed": False})
         if registration.transport_type == "BROWSEROS_NEO_MCP":
             # An old Edge/cache result never proves this Neo account. Native observation
             # must establish the current authenticated identity before any future write.
@@ -666,6 +671,8 @@ class DestinationReadinessManager:
         """Local/process/cached-metadata readiness only; never opens or navigates a page."""
 
         registration = SURFACE_REGISTRY[surface]
+        if registration.platform == "x":
+            return self._persist(self.probe_surface(surface), persist=persist)
         if registration.transport_type == "BROWSEROS_NEO_MCP":
             return self._persist(_base_row(registration, state="STALE_NEEDS_JIT_VERIFICATION",
                 identity=None, identity_match=False, probe_kind="PASSIVE_NEO_NOT_VERIFIED",
@@ -827,6 +834,8 @@ class DestinationReadinessManager:
         """Ensure Edge only for exact browser readback; do not perform an auth/global probe."""
 
         registration = registration_for_destination(destination)
+        if destination == "x":
+            return {"status": X_NOT_POSTED, "external_probe_performed": False}
         if registration.transport_type == "BROWSEROS_NEO_MCP":
             return {"status": "NATIVE_NEO_READBACK_EXECUTOR_REQUIRED", "external_probe_performed": False}
         if registration.transport_type != "EDGE_CDP":
