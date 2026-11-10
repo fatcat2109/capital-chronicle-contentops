@@ -181,6 +181,27 @@ def test_exact_fresh_readback_is_used_by_the_next_executor(tmp_path):
     assert next_executor.fresh_readback_request(request) is None
 
 
+def test_fresh_absence_uses_current_attempt_clock_without_discarding_valid_evidence(tmp_path):
+    from copy import deepcopy
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store,executor=setup(tmp_path)
+    now=datetime.now(timezone.utc)
+    request={"action":"READBACK","work_item_id":"work","destination":"substack_notes",
+        "expected_identity":"@capitalchronicle","entry_url":"https://substack.com/@capitalchronicle",
+        "latest_dispatch_attempt_at_utc":(now-timedelta(minutes=40)).isoformat(),"content_binding":{}}
+    request['request_sha256']=sha256_of(request)
+    with pytest.raises(NativeNeoInputRequired) as waiting:executor(request)
+    executor.submit(request['request_sha256'],response(executor,waiting.value.request,
+        {"status":"SUCCESS","observed_identity":"@capitalchronicle","authenticated":True,
+         "observed_profile_url":request['entry_url'],"activity_feed_loaded":True,"target_post_absent":True,
+         "observed_text":"Loaded own profile, no Note."}))
+    current=deepcopy(request);current['latest_dispatch_attempt_at_utc']=(now-timedelta(minutes=20)).isoformat()
+    next_executor=NativeNeoExecutor(store,operation_id='same-op',output_dir=tmp_path/'next',native_invocation_id='next-minute')
+    assert next_executor.fresh_readback_request(current)==request
+    current['latest_dispatch_attempt_at_utc']=now.isoformat()
+    assert next_executor.fresh_readback_request(current) is None
+
+
 def test_observed_missing_public_image_stays_failed_without_a_readback_loop(tmp_path):
     store, executor = setup(tmp_path)
     adapter = NeoDestinationHandoff(native_executor=executor)

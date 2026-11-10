@@ -614,7 +614,7 @@ class NativeNeoExecutor:
 
     def fresh_readback_request(self, request):
         """Keep an exact successful observation across a ten-minute bucket change."""
-        ignored = {"request_sha256", "observation_epoch", "native_invocation_id",
+        ignored = {"request_sha256", "observation_epoch", "native_invocation_id", "latest_dispatch_attempt_at_utc",
                    "supersedes_incomplete_readback_sha256"}
         def public_binding(value):
             # CC-124, 5 Nov: rebuilding the derived delivery receipt changed its hash
@@ -635,7 +635,10 @@ class NativeNeoExecutor:
                 continue
             result = (self._get(prior["request_sha256"], "response") or {}).get("result") or {}
             observation = result.get("native_tool_observation") or {}
-            absent = _readback_absence_evidence(prior, result)
+            absent = _readback_absence_evidence(request, result)
+            if (prior.get("latest_dispatch_attempt_at_utc") != request.get("latest_dispatch_attempt_at_utc")
+                    and not absent):
+                continue
             if (result.get("status") != "SUCCESS" or (result.get("content_verified") is not True and not absent)
                     or _incomplete_readback_evidence(prior, result)
                     or result.get("observed_identity") != request.get("expected_identity")
