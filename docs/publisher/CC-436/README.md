@@ -53,6 +53,10 @@ results do not prove the two-minute live requirement.
   sizes. Overflow DOM results are read from Neo's documented, bounded local
   output file; neither image bytes nor whole DOM files are printed.
 - Final feature checks: 18 passed in 15.43 seconds.
+- After merging the newer live suspension guard, the final feature and route
+  guard run passed 21 tests in 18.55 seconds. The copied-store Python child
+  explicitly uses an isolated control-file path, so tests never read the live
+  suspension control.
 - Coordinator, composed-return and CLI regressions: 124 passed in 133.97 seconds.
 - Composed-return, plan distribution and restored-X checks: 49 passed in 48.80
   seconds. A historical test fixture's required destinations were aligned with
@@ -66,8 +70,14 @@ reported **Profile not found**. Neo showed the signed-in business profile
 `@capitalchronicle`. The executor preserves the stored binding and never
 switches accounts or silently publishes as another handle.
 
-Ops Product's prepared action: restore the registered Notes account/session or
-bind its verified successor through the existing identity owner. Then observe
+The operating root subsequently advanced to `8cf4caec`, which records Substack's
+account suspension on 10 November at 18:17 UTC. At 11 November 03:54 GMT+7,
+the existing runtime control `control/suspended_routes.json` contained exactly
+`{"substack_notes":"SUBSTACK_ACCOUNT_SUSPENDED"}`. CC-436 includes this newer
+route guard; it leaves X available and prevents a new Notes write.
+
+Ops Product's prepared action: resolve Substack's account suspension and restore
+the verified Notes identity through the existing owner. Then observe
 the next natural X and Notes confirmations against their Telegram twins. This
 run's controlled endpoint results and old-object readback do not establish the
 two-minute live acceptance test.

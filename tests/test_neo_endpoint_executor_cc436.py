@@ -184,7 +184,9 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
 from live_contentops.neo_endpoint_executor_v1 import NeoMcpClient
 from live_contentops import llm_operator_control_v1
+from live_contentops import neo_destination_handoff_v1
 llm_operator_control_v1.assert_llm_operator_execution_enabled=lambda:None
+neo_destination_handoff_v1.SUSPENDED_ROUTES_FILE=Path(sys.argv[1]).parent/'fixture-suspended-routes-absent.json'
 s=ContentOpsDurableStore(Path(sys.argv[1]),auto_migrate=False)
 class ImageHttp:
  def get(self,url,**kwargs):
@@ -360,3 +362,18 @@ def test_expired_claimed_step_still_reads_back_without_another_click(tmp_path):
         assert result['requests'][0]['status']!='PLAN_STATUS_X_STALE_NOT_POSTED'
         assert not state['posts']
         assert any(name=='run' and '"phase": "readback"' in args['code'] for name,args in state['calls'])
+
+
+def test_live_route_suspension_prevents_endpoint_calls_and_leaves_x_available(tmp_path,monkeypatch):
+    from live_contentops import neo_destination_handoff_v1 as handoff
+    control=tmp_path/'suspended_routes.json'
+    control.write_text(json.dumps({'substack_notes':'SUBSTACK_ACCOUNT_SUSPENDED'}),encoding='utf-8')
+    monkeypatch.setattr(handoff,'SUSPENDED_ROUTES_FILE',control)
+    store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
+    with endpoint() as (url,state):
+        c,_=bound(store,tmp_path,value['work_item_id'],url)
+        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='DEFINITE_NO_WRITE',result
+        assert result['reason_code']=='SUBSTACK_ACCOUNT_SUSPENDED'
+        assert not state['calls']
+        assert handoff._prohibited_write('x') is None

@@ -1579,6 +1579,7 @@ class DurablePublicationCoordinator:
                 or request.get("work_item_id") != message["work_item_id"]
                 or request.get("intent_sha256") != sha256_of(intent)
                 or request.get("request_sha256") != request_hash or result.get("request_sha256") != request_hash
+                or observed.get("surface") not in SURFACE_TOOLS
                 or observed.get("tool_name") != SURFACE_TOOLS.get(observed.get("surface"))
                 or not executor._claim(request_hash, observed.get("native_invocation_id"))
                 or not result.get("native_tool_return_sha256")
