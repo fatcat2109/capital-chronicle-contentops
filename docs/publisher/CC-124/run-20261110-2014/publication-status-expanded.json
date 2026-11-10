@@ -1,0 +1,122 @@
+{
+  "observed_at_utc": "2026-11-10T13:27:32.641897+00:00",
+  "cli_output_reference": {
+    "path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\CapitalChronicle\\tool-output\\20c0ce5d4ed16bf984c8c6ab08a9c1ae0d0991c13722dd878c85dd26a5da6962.json",
+    "size_bytes": 15487,
+    "sha256": "20c0ce5d4ed16bf984c8c6ab08a9c1ae0d0991c13722dd878c85dd26a5da6962",
+    "kind": "json"
+  },
+  "projection": {
+    "run_id": "cc338-cpi-preview-20261110-v1",
+    "article_identity": "b5c0907e4cab111856750e8ff84c4cafc62ac26e4c20d56a111df99f91565406",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 6,
+    "derivative_attempted_count": 7,
+    "derivative_unknown_count": 0,
+    "derivative_absent_safe_to_retry_count": 1,
+    "derivative_failed_count": 0,
+    "recovery_required_destinations": [
+      "linkedin"
+    ],
+    "unknown_write_count": 0,
+    "additional_confirmed_count": 0,
+    "state": "DISTRIBUTION_INCOMPLETE",
+    "destinations": [
+      {
+        "destination": "substack",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "224293572",
+        "public_object_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+        "first_cause": null,
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "last_error": null
+      },
+      {
+        "destination": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "136",
+        "public_object_url": "https://t.me/CapitalChronicle/136",
+        "first_cause": null,
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "last_error": null
+      },
+      {
+        "destination": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "1569687377679745110",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569687377679745110",
+        "first_cause": null,
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "last_error": null
+      },
+      {
+        "destination": "x",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "2120129873830388070",
+        "public_object_url": "https://x.com/Capitalnicle/status/2120129873830388070",
+        "first_cause": null,
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "last_error": null
+      },
+      {
+        "destination": "linkedin",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "first_cause": null,
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "last_error": null
+      },
+      {
+        "destination": "facebook_page",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "106091951705748_1450849443900138",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1450849443900138",
+        "first_cause": null,
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "last_error": null
+      },
+      {
+        "destination": "instagram_business",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "18118649638820551",
+        "public_object_url": "https://www.instagram.com/p/Dfj5h_nj32E/",
+        "first_cause": null,
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "last_error": null
+      },
+      {
+        "destination": "threads",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "18189728134418285",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfj42NGlE4E",
+        "first_cause": null,
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "last_error": null
+      },
+      {
+        "destination": "youtube",
+        "status": "DEFINITE_NO_WRITE",
+        "public_object_id": null,
+        "public_object_url": null,
+        "first_cause": null,
+        "reconciliation_status": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+        "last_error": null
+      },
+      {
+        "destination": "linkedin_company",
+        "status": "DEFINITE_NO_WRITE",
+        "public_object_id": null,
+        "public_object_url": null,
+        "first_cause": null,
+        "reconciliation_status": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+        "last_error": null
+      }
+    ],
+    "pending_native_request_count": 0
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "operating_modules": {
+    "live_contentops.plan_status_posts_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+    "live_contentops.published_content_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_content_v1.py",
+    "live_contentops.published_images_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py"
+  },
+  "preview_request_hash_valid": true,
+  "preview_research_hash_valid": true,
+  "publication_status_cli_succeeded": true,
+  "new_operations": 0,
+  "model_calls": 0,
+  "public_writes": 0,
+  "test_processes": 0,
+  "chat_messages": 0,
+  "schedule_changes": 0,
+  "feed_unchanged": true,
+  "inherited_work_unchanged": true
+}
