@@ -1,6 +1,6 @@
 {
   "item": "CC-406",
-  "observed_at_utc": "2026-11-10T19:47:04.184631+00:00",
+  "observed_at_utc": "2026-11-10T19:56:12.410512+00:00",
   "base_sha": "7a7f49b61c5076a174ae4c0f39a7988a6dbb5258",
   "base_choice": "Current Publisher operating root includes fresh origin/master and 840 installed commits. This preserves the operating changes.",
   "launch": {
@@ -73,11 +73,12 @@
   ],
   "remaining_acceptance": "Three real trading mornings from 13 November 2026, ready on the desk by 07:30 GMT+7. The early 11 November delivery is excluded.",
   "public_write_performed": false,
-  "installed_sha": "4d71ccb46e72a0b2019226eba6412a5790bd36e4",
+  "installed_sha": "f51bfc257ea566a75bdd2823051ffa1a74a26e70",
   "live_artifacts": [
     "native-delivery.json",
     "installed-desk-consumer.json",
     "cached-desk-readback.json",
-    "browser-readback.json"
+    "browser-readback.json",
+    "integration.json"
   ]
 }
