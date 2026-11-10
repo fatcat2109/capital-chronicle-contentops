@@ -883,6 +883,17 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
                                    for row in result.get("not_posted") or []]}
     if "scorecard" in result:
         line["scorecard"] = result["scorecard"]
+    if "event_timestamp" in result:
+        line["event_timestamp"] = result["event_timestamp"]
+    if "event_packs" in result:
+        line["event_packs"] = {"status": result["event_packs"].get("status"), "events": []}
+        for event in result["event_packs"].get("events") or []:
+            publication = event.get("publication") or {}
+            per = (event.get("status") or {}).get("per_destination", {})
+            line["event_packs"]["events"].append({
+                **{k:event[k] for k in ("event_id", "identity", "stage", "cause") if k in event},
+                "publication_state": publication.get("state") or publication.get("status"),
+                "per_destination": {d:v.get("status") for d,v in per.items()}})
     analysis = (result.get("publication") or {}).get("analysis_distribution")
     if analysis is not None:
         line["analysis_links"] = []

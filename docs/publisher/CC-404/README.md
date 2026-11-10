@@ -54,10 +54,10 @@ cannot establish that NFP's file was independently timestamped before release.
 The first returned proof is `CALENDAR_PENDING`; Bitcoin verification is false.
 The proof and exact public source are in this item's media folder.
 
-The final focused tests cover 476 distinct cases across the recorded runs:
+The final focused tests cover 477 distinct cases across the recorded runs:
 [event-tests.xml](event-tests.xml), [reader-event-tests.xml](reader-event-tests.xml),
 [publication-regression.xml](publication-regression.xml) and
-[stamp-tests.xml](stamp-tests.xml). The 272-case publication regression includes
+[stamp-tests.xml](stamp-tests.xml), and [minute-consumer-tests.xml](minute-consumer-tests.xml). The 272-case publication regression includes
 the real coordinator, native Neo executor and canonical entrypoint. Full PPI
 acceptance still requires the 13 November source freeze, Bitcoin confirmation,
 independent CLI/site verification and actual preview/arrival/review readbacks.

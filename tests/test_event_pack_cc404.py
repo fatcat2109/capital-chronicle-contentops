@@ -266,3 +266,17 @@ def test_arrival_attach_cli_supplies_the_existing_minute_consumer(tmp_path, monk
     assert Path(latest["event_arrival_record"]["path"]).is_relative_to(tmp_path/"runtime-packs")
     result = packs.run_due_packs(f.tracker.store, now=now, root=tmp_path/"pack-output")
     assert result["events"][0]["stage"] == "arrival"
+
+
+def test_existing_pythonw_run_record_keeps_event_identity_and_omits_native_payload(tmp_path):
+    from live_contentops.plan_status_posts_v1 import record_run
+    result = {"status": "OK", "event_timestamp": {"status": "CALENDAR_PENDING"},
+        "event_packs": {"status": "EVENT_PACK_PASS", "events": [{"identity": "event-pack-controlled-preview",
+            "stage": "preview", "status": {"per_destination": {"substack": {"status": "NOT_STARTED"}}},
+            "publication": {"state": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": {"body": "large retained native payload"}}}]}}
+    path = record_run(result, tmp_path/"runs", now=PREVIEW)
+    line = json.loads(path.read_text(encoding='utf-8').splitlines()[-1])
+    assert line["event_timestamp"]["status"] == "CALENDAR_PENDING"
+    event = line["event_packs"]["events"][0]
+    assert event["identity"] == "event-pack-controlled-preview" and event["publication_state"] == "NATIVE_NEO_TOOL_PENDING"
+    assert "large retained" not in path.read_text(encoding='utf-8')
