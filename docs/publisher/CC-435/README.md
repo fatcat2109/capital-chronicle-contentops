@@ -22,8 +22,10 @@ in a Main run produces an updated LinkedIn index snapshot; an unchanged snapshot
 reuses its identity. Repeated ticks skip fully reconciled links. Missing parents
 remain destination-local and never turn into an unrelated root.
 
-Static parsing and the focused Ruff correctness check are the first validation
-step. The added regression file exercises the actual status-post entry and real
+Static parsing passes on all eight changed Python files. The focused Ruff
+correctness check passes on seven feature/test files; the shared transport has
+six unchanged baseline unused-import findings and no new finding, as recorded in
+[validation.json](validation.json). The added regression file exercises the actual status-post entry and real
 coordinator with controlled transports for all eight routes, duplicate resumes,
 Facebook/Instagram comments, changed parents, X text limits, Notes link-card
 readback and LinkedIn run binding. It has not been executed yet. Jim's instruction

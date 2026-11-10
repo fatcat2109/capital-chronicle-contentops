@@ -1,7 +1,7 @@
 {
   "recorded_at_utc": "2026-11-10T14:02:44.680323+00:00",
   "static_parse": "PASS",
-  "ruff_correctness": "PASS",
+  "ruff_correctness": "PASS_ON_SEVEN_FEATURE_AND_TEST_FILES; SHARED_TRANSPORT_HAS_6_UNCHANGED_BASELINE_F401",
   "ruff_select": [
     "F",
     "E9"
@@ -23,5 +23,44 @@
     "scripts/plan_analysis_pages.py",
     "tests/test_plan_analysis_distribution_cc435.py",
     "tests/test_plan_call_cards_cc399.py"
-  ]
+  ],
+  "shared_transport_lint": {
+    "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+    "baseline_commit": "17c49b960d54a7dc6e090ab048fb047bd6c04a89",
+    "baseline_exit_code": 1,
+    "current_exit_code": 1,
+    "new_diagnostics": 0,
+    "unchanged_diagnostics": [
+      {
+        "code": "F401",
+        "line": 14,
+        "message": "`os` imported but unused"
+      },
+      {
+        "code": "F401",
+        "line": 48,
+        "message": "`live_contentops.cloudinary_delivery_media_v1.NOT_REQUIRED` imported but unused"
+      },
+      {
+        "code": "F401",
+        "line": 56,
+        "message": "`live_contentops.media_manifest_authority_v1.select_primary_delivery_media` imported but unused"
+      },
+      {
+        "code": "F401",
+        "line": 2678,
+        "message": "`live_contentops.facebook_page_adapter_v6.execute_facebook_photo` imported but unused"
+      },
+      {
+        "code": "F401",
+        "line": 2679,
+        "message": "`live_contentops.instagram_adapter_v6.execute_instagram_post` imported but unused"
+      },
+      {
+        "code": "F401",
+        "line": 3908,
+        "message": "`live_contentops.destination_transport_registry_v1.DESTINATION_TO_SURFACE` imported but unused"
+      }
+    ]
+  }
 }
