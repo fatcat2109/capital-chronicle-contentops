@@ -389,6 +389,19 @@ def test_reopened_note_runs_the_repaired_transport_through_its_original_coordina
         assert result['public_object_url']=='https://substack.com/@capitalchronicle/note/c-456'
 
 
+def test_endpoint_names_a_preclaim_validation_failure_without_a_browser_action(tmp_path,monkeypatch):
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
+    with endpoint() as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url)
+        def refused(request_hash):raise ValueError('NATIVE_NEO_EXACT_COORDINATOR_PENDING_DISPATCH_REQUIRED')
+        monkeypatch.setattr(e,'begin',refused)
+        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='DEFINITE_NO_WRITE',json.dumps(result)
+        assert result['safe_error_classification']=='NATIVE_NEO_EXACT_COORDINATOR_PENDING_DISPATCH_REQUIRED'
+        assert not any(name=='run' for name,args in state['calls'])
+
+
 def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(tmp_path):
     store=copied_store(tmp_path);ids,value=message(store,'x')
     c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'issued',

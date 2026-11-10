@@ -145,6 +145,20 @@ def test_composer_refusal_never_poses_as_a_platform_outage(tmp_path, status):
         assert coordinator._destination_day_failure("substack_notes") is None
 
 
+@pytest.mark.parametrize("cause,resolved", [("ValueError",True),("TRANSPORT_TIMEOUT",False)])
+def test_proven_absence_clears_a_local_validation_failure_only(tmp_path,cause,resolved):
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],
+        platform='substack_notes',status='RECONCILED_ABSENT_SAFE_TO_RETRY')
+    store.register_reconciliation(reconciliation_id=ids['reconciliation_id'],work_item_id=value['work_item_id'],
+        status='RECONCILED_ABSENT_SAFE_TO_RETRY')
+    c=DurablePublicationCoordinator(store=store,transport_runtime=None)
+    c._record_destination_day_failure(value,'substack_notes',{'dispatch_id':ids['dispatch_id'],
+        'status':'UNKNOWN_WRITE','safe_error_classification':cause})
+    assert (c._destination_day_failure('substack_notes') is None) is resolved
+
+
 @pytest.mark.parametrize("actual,expected,authenticated", [
     ("@capitalchronicle", "@capitalchronicle", True),
     ("@deancapitalchronicle", "@capitalchronicle", False),

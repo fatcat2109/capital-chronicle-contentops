@@ -2591,6 +2591,12 @@ class DurablePublicationCoordinator:
                     confirmed = bool(dispatch and dispatch["status"] == DISPATCH_CONFIRMED
                         and dispatch["public_object_id"] and dispatch["public_object_url"]
                         and reconciliation and reconciliation["status"] == RECONCILED_CONFIRMED)
+                    if (dispatch and dispatch["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+                            and reconciliation and reconciliation["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
+                            and failure.get("safe_error_classification") == "ValueError"):
+                        # CC-453: fresh authenticated absence resolves the old
+                        # local validation exception; keep its exact retry budget.
+                        local = True
                 if not resolved and not local and not confirmed:
                     return incident_id, day, failure
                 # Preserve the original incident. A policy refusal before HTTP

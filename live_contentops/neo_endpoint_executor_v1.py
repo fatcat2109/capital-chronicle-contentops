@@ -586,12 +586,20 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         request_hash=request["request_sha256"]
         try:
             packet=self.begin(request_hash)
-        except ValueError:
+        except ValueError as exc:
             # Another worker owns a write claim. It can only be read back.
             if self._get(request_hash,"started"):
                 return {"status":"UNKNOWN_WRITE","retry_permitted":False,
                     "reason_code":"NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN"}
-            raise
+            # begin() has not returned and no native action claim exists. No
+            # browser action has run; preserve the actual local validation cause.
+            cause=str(exc)
+            if not re.fullmatch(r"[A-Z][A-Z0-9_]{2,150}",cause):
+                cause="LOCAL_VALIDATION_ERROR"
+            return {"status":"FAILED_BEFORE_WRITE","definite_no_write":True,
+                "public_write_performed":False,"stage":"BEFORE_PUBLISH_CLICK",
+                "reason_code":cause,"request_sha256":request_hash,
+                "observed_identity":request["expected_identity"],"identity_observed":False}
         try:
             observed=NeoBrowserDriver(self.client).perform(packet)
             result={"request_sha256":request_hash,**observed["result"],"neo_executor_revision":self.executor_revision}
