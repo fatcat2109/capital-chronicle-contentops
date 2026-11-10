@@ -615,7 +615,7 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None):
         if ref:
             if destination in {"telegram", "threads"}:
                 payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"))
-            elif destination == "discord":
+            elif destination == "discord" and _discord_threads_available():
                 payload.update(discord_thread_parent_id=str(ref["thread_parent_id"]),
                     discord_thread_name="Calls · " + _clock(row["registered_at_utc"]),
                     **({"reply_to_id": str(ref["public_object_id"])} if row["kind"] != "setup" else {}))
@@ -725,6 +725,13 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS, **ig
         "continuations": [], "deferred_destinations": deferred}
 
 
+def _discord_threads_available():
+    """A call thread needs a Discord bot. With only the webhook, the card posts in the channel instead
+    (Ops Product, 10 Nov 2026: a thread request without a bot token skipped Discord for a whole ET day)."""
+    from .secret_store_v1 import read_secret
+    return bool(read_secret("DISCORD_BOT_TOKEN"))
+
+
 def validate_parent_intent(store, row, intent):
     destination = intent["destination_plan"]["destination"]
     if row["kind"] == "setup" and row.get("time_exit_utc") and datetime.now(timezone.utc) >= posts._utc(row["time_exit_utc"]):
@@ -742,7 +749,7 @@ def validate_parent_intent(store, row, intent):
     if destination == "instagram_business" and row["kind"] == "setup" and (
             not payload.get("reuse_run_carousel") or str(ref["public_object_id"]) != payload.get("carousel_parent_id")):
         raise posts.PlanPostError("PLAN_CARD_CAROUSEL_PARENT_CHANGED")
-    if destination == "discord":
+    if destination == "discord" and payload.get("discord_thread_parent_id"):
         root = _reference(store, row.get("run_key") or row["parent_key"], destination)
         if not root or str(root["public_object_id"]) != payload.get("discord_thread_parent_id"):
             raise posts.PlanPostError("PLAN_CARD_DISCORD_THREAD_CHANGED")
