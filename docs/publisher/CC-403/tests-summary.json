@@ -1,5 +1,5 @@
 {
-  "observed_at_utc": "2026-11-10T16:00:24.317229+00:00",
+  "observed_at_utc": "2026-11-10T16:01:59.203350+00:00",
   "runs": [
     {
       "artifact": "tests-core-first.xml",
@@ -241,5 +241,13 @@
     "PASS": 330,
     "SKIP": 3
   },
-  "public_readback_acceptance": "PENDING_NEXT_ELIGIBLE_DAILY_NOTE"
+  "public_readback_acceptance": "PENDING_NEXT_ELIGIBLE_DAILY_NOTE",
+  "operating_final": {
+    "artifact": "tests-operating-final.xml",
+    "tests": 91,
+    "failures": 0,
+    "errors": 0,
+    "duration_seconds": 14.17,
+    "source_commit": "a7aca972f0dc4320464fab088511a21ae0c99592"
+  }
 }

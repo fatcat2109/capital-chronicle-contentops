@@ -1,5 +1,9 @@
 # CC-403 — reader copy, daily notes and the data clock
 
+The implementation is pushed and integrated into `A:\Capital Chronicle\ContentOps` at `a7aca972f0dc4320464fab088511a21ae0c99592`. **91 operating-root tests pass in 14.17 seconds**, and all twelve changed source/contract files match their committed blobs. The nine inherited modified files retain their original hashes. See [integration evidence](integration.json). No runtime restart, public write, chat message or schedule change was performed.
+
+CC-403 remains **BLOCKED until the next eligible daily note**: decision 98 bars a second wrap on 10 November, whose CPI preview is already published. The next pre-US daily note is **11 November, 18:30 GMT+7**. Its existing CC-124 operation must supply the clean-title Substack readback and the observed publication within 60 minutes of its real data cutoff. Code and controlled readback tests do not substitute for that acceptance.
+
 The existing native writer and sole publication coordinator now consume the
 reader contract. New requests lead with our call in first person, use clean
 titles, carry one Main-sourced scenario set and a "So what" line, and limit
@@ -62,7 +66,7 @@ Implementation owners:
   [existing editor review](../../../live_contentops/contentops_editorial_desk_v1.py)
   and [publication timing](../../../live_contentops/native_publication_latency_v1.py).
 
-Validation: **330 distinct test cases pass**, with three preview-host cases skipped under decision 83. The [test summary](tests-summary.json) preserves failed runs and their corrected results. Parameter variants retained from the earlier test name are counted as distinct there; they are not additional model calls. Runs use at most three targeted files, one pytest process at a time, without parallel workers; no full suite ran. No test started before **10 November 22:30 GMT+7**.
+Targeted validation has no unresolved failures. The test history records 330 passing case identities across its revisions, with three preview-host cases skipped under decision 83; the final installed-source run has 91 passing tests. The [test summary](tests-summary.json) preserves failed runs and their corrected results. Parameter variants retained from the earlier test name are counted as distinct there; they are not additional model calls. Runs use at most three targeted files, one pytest process at a time, without parallel workers; no full suite ran. No test started before **10 November 22:30 GMT+7**.
 
 Regression checks exposed two owned handoff defects: a newly compiled destination count was not updated, and final visual review still requested a removed destination. The handoff now records its actual count and reviews its compiled variants; frozen originals are unchanged. Definite no-writes caused by platform rules are excluded from the timing target with their exact cause; uncertain writes still require recovery and remain in the timing result. Older text fixtures use decision 109's current public notice and current transport-return semantics. The final recovery cases prove allowed destinations receive the copy while barred browser routes retain a definite no-write.
 
