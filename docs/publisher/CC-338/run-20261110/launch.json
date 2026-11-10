@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-10T10:25:56.558377+00:00",
+  "worker_pid": 39060,
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "model_effort_evidence": "CONFIGURED_NOT_OBSERVED",
+  "base_commit": "a7f2c6cd2ab95273ca4bf7effc4b05349a474d46",
+  "branch": "backlog/cc-338-cpi-preview-20261110",
+  "inherited_tracked_dirty_paths": [
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+    "live_contentops/agy_editorial_assist_v1.py"
+  ]
+}

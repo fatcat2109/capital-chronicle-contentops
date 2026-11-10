@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
+from decimal import Decimal
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -114,6 +115,56 @@ def attach_research_records(records, spec, *, event_id, event_time_utc, cutoff_u
     _attach_context(records, document, event_id=event_id, article_type=article_type)
 
 
+def attach_main_research_context(records, spec, *, event_id, cutoff_utc, article_type):
+    """Carry exact Main research excerpts and decimal-to-percent display conversions.
+
+    The backlog-named research supplies the analysis. This neither creates a freeze
+    record nor replaces Main's later file; the two retain their own bytes/clocks.
+    """
+    raw = Path(spec["path"]).read_bytes()
+    if sha256(raw).hexdigest() != spec["sha256"]:
+        raise ValueError("MAIN_RESEARCH_CONTEXT_BYTES_CHANGED")
+    if utc(spec["known_at_utc"]) > utc(cutoff_utc):
+        raise ValueError("MAIN_RESEARCH_CONTEXT_AFTER_CUTOFF")
+    original = raw.decode("utf-8-sig")
+    excerpts = spec["excerpts"]
+    if not excerpts or any(not text.strip() or text not in original for text in excerpts):
+        raise ValueError("MAIN_RESEARCH_CONTEXT_EXCERPT_CHANGED")
+    displays = []
+    for row in spec.get("probability_rows", []):
+        if row not in original:
+            raise ValueError("MAIN_RESEARCH_CONTEXT_EXCERPT_CHANGED")
+        cells = [cell.strip().replace("**", "") for cell in row.strip().strip("|").split("|")]
+        # The explicitly named Desk p column of the supplied scenario table.
+        probability = Decimal(cells[2])
+        if not 0 <= probability <= 1:
+            raise ValueError("MAIN_RESEARCH_CONTEXT_PROBABILITY_INVALID")
+        percent = format(probability * 100, "f")
+        if "." in percent:
+            percent = percent.rstrip("0").rstrip(".")
+        displays.append(f"Capital Chronicle model estimate: {cells[0]} (core CPI {cells[1]}% m/m), {percent}%.")
+    text = "\n\n".join([*excerpts, *displays])
+    from tools.product.desk_record_projection_v1 import public_text_problems
+    if len(text) > 4000 or public_text_problems(text):
+        raise ValueError("MAIN_RESEARCH_CONTEXT_PUBLIC_EXCERPTS_REQUIRED")
+    digest = sha256(text.encode()).hexdigest()
+    document = {"document_id": "main-event-research-" + digest,
+        "context_title": "Main's retained event scenario research",
+        "source_url": "urn:cc-public-report:event-research:" + digest,
+        "publisher": "Capital Chronicle", "published_at_utc": spec.get("authored_at_utc"),
+        "known_at_utc": spec["known_at_utc"], "canonical_content_text": text,
+        "canonical_content_sha256": digest, "raw_sha256": spec["sha256"],
+        "public_claim_allowed": True, "content_truncated": False,
+        "source_authority_class": "governed_capital_chronicle_report_only",
+        "report_lineage": {"source_path": spec["path"], "source_sha256": spec["sha256"],
+            "known_at_utc": spec["known_at_utc"], "authority_ref": spec["authority_ref"],
+            "probability_display_transform": "Desk p decimal multiplied by 100; no new estimate"},
+        "source_reuse_constraints": {"scope": "CAPITAL_CHRONICLE_OWN_MAIN_RESEARCH_EXCERPTS",
+            "authority_ref": spec["authority_ref"], "public_expression_reuse_allowed": True,
+            "MODEL_INPUT_ALLOWED": True, "LLM_INPUT_ALLOWED": True, "INTERNAL_ANALYSIS_ALLOWED": True}}
+    _attach_context(records, document, event_id=event_id, article_type=article_type)
+
+
 def _attach_context(records, document, *, event_id, article_type):
     identity = document["document_id"]
     template = deepcopy(next(iter(records.values())))
@@ -121,7 +172,7 @@ def _attach_context(records, document, *, event_id, article_type):
         row["supporting_headline_ids"] = [*row.get("supporting_headline_ids", []), identity]
     rights = document["source_reuse_constraints"]
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
-    template.update(headline_id=identity, headline_text="Main's frozen public conditional reaction map",
+    template.update(headline_id=identity, headline_text=document.get("context_title") or "Main's frozen public conditional reaction map",
         text_sha256=document["canonical_content_sha256"], context_only=True,
         source_identity="Capital Chronicle", source_account="Capital Chronicle",
         source_url=document["source_url"], official_source_urls=[],

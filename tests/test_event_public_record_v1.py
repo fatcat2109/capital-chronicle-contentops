@@ -77,6 +77,72 @@ def test_exact_file_and_converted_freeze_time_reach_real_preview_writer(tmp_path
     assert "CC338_FROZEN_PUBLIC_RECORD" in guidance and "naive_release_beta" in guidance
 
 
+def test_held_main_research_reaches_existing_preview_writer(tmp_path, monkeypatch):
+    f = feed(tmp_path)
+    _, packet, _ = prepare(f.tracker.store, tmp_path)
+    excerpt = "Main's conditional scenario: gold rises when underlying inflation is soft."
+    probability = "| B: soft | 0.1 | **0.15** |"
+    path = tmp_path / "main-research.md"
+    path.write_text(excerpt + "\n" + probability, encoding="utf-8")
+    spec = {"path": str(path), "sha256": sha256(path.read_bytes()).hexdigest(),
+        "known_at_utc": FROZEN, "authored_at_utc": FROZEN, "excerpts": [excerpt],
+        "probability_rows": [probability], "authority_ref": "BACKLOG_CC338_NAMED_MAIN_RESEARCH"}
+    record_pre_event_preparation(f.tracker.store, {**packet, "main_research_context": spec})
+    f.pointer["preview_event_id"] = EVENT
+    monkeypatch.setattr(f, "pending", lambda **_: [])
+    donor = controlled_writer([])
+    observed = []
+    class WriterReached(Exception):
+        pass
+    def invoke(**kwargs):
+        governed = kwargs["governed_input"]
+        if "candidates" in governed:
+            return donor(**kwargs)
+        observed.extend(governed["source_pack"])
+        raise WriterReached
+    with pytest.raises(WriterReached):
+        f.opportunity(output_dir=tmp_path / "out", cutoff_utc=NOW, run_id="cc338-held-research-consumer",
+            rolling_input={"headlines": []}, llm_invoke=invoke,
+            editorial_request="Use the existing Main research for this event preview.")
+    doc = next(d for d in observed if d["document_id"].startswith("main-event-research-"))
+    assert excerpt in doc["canonical_content_text"]
+    assert "15%." in doc["canonical_content_text"]
+    assert doc["report_lineage"]["source_sha256"] == spec["sha256"]
+    assert not doc.get("frozen_public_record")
+
+
+@pytest.mark.parametrize("change,cause", [("bytes", "BYTES_CHANGED"), ("excerpt", "EXCERPT_CHANGED"),
+                                         ("clock", "AFTER_CUTOFF")])
+def test_main_research_retains_source_bytes_spans_and_clocks(tmp_path, change, cause):
+    from live_contentops.event_public_record_v1 import attach_main_research_context
+    path = tmp_path / "main-research.md"
+    path.write_text("Capital Chronicle's exact retained conditional analysis.", encoding="utf-8")
+    spec = {"path": str(path), "sha256": sha256(path.read_bytes()).hexdigest(),
+        "known_at_utc": FROZEN, "excerpts": [path.read_text()], "authority_ref": "BACKLOG_CC338"}
+    if change == "bytes":
+        path.write_text("Changed source", encoding="utf-8")
+    elif change == "excerpt":
+        spec["excerpts"] = ["Not in Main's original"]
+    else:
+        spec["known_at_utc"] = RELEASE
+    with pytest.raises(ValueError, match=cause):
+        attach_main_research_context({}, spec, event_id=EVENT, cutoff_utc=NOW, article_type="EVENT_PREVIEW")
+
+
+def test_main_probability_display_preserves_integer_one_hundred_percent(tmp_path):
+    from live_contentops.event_public_record_v1 import attach_main_research_context
+    path = tmp_path / "main-research.md"
+    text = "Main's controlled complete-probability scenario."
+    row = "| Controlled | 0.2 | **1** |"
+    path.write_text(text + "\n" + row, encoding="utf-8")
+    spec = {"path": str(path), "sha256": sha256(path.read_bytes()).hexdigest(),
+        "known_at_utc": FROZEN, "excerpts": [text], "probability_rows": [row], "authority_ref": "BACKLOG_CC338"}
+    records = {"controlled": {"supporting_headline_ids": []}}
+    attach_main_research_context(records, spec, event_id=EVENT, cutoff_utc=NOW, article_type="EVENT_PREVIEW")
+    doc = next(r["document"] for r in records.values() if r.get("document"))
+    assert "100%." in doc["canonical_content_text"]
+
+
 @pytest.mark.parametrize("change,cause", [
     ({"event_id": "different-event"}, "EVENT_OR_SCHEMA"),
     ({"frozen_at_utc": RELEASE}, "CLOCK_INVALID"),

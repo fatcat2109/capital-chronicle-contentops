@@ -133,3 +133,15 @@ and its single cited consensus fact. It still has no G05 frozen public file.
 No public write, model call, chat message, schedule change or process restart was
 performed. This is integrated code and an applied input repair; CC-338 remains
 BLOCKED on the Main-owned G05 file and the subsequent real public acceptance.
+
+## CPI run, 10 November
+
+The current run retains the operating-root base `a7f2c6cd` and the inherited dirty
+files. Its launch is `gpt-6.1-sol/max`, CONFIGURED_NOT_OBSERVED. The preparation
+now uses the 10 November Investing.com core monthly forecast rather than the
+old annual forecast. The named Main research reaches the existing preview writer
+as exact hash-bound excerpts; its Desk p decimals have a deterministic percent
+display, with no new estimate or freeze claim. The 16 focused event-record checks
+pass in 6.61 seconds; Ruff passes. Source changes, invented excerpts and later
+known-at times are still refused. Publication and the later event review remain
+the item’s operating acceptance.

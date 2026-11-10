@@ -1,0 +1,9 @@
+{
+  "receipt": {
+    "message_id": "native-story-preparation-e7e1826fe84f767fec27ce9463f77062770189d0f0f9846e293b4ff41e0e14eb",
+    "event_id": "bls-cpi-20261110",
+    "source_admission_state": "HASH_BOUND_BACKGROUND_AVAILABLE_FOR_PREVIEW"
+  },
+  "source_path": "A:\\Capital Chronicle\\ResearchRuns\\cc-068-release-consensus\\root\\daily\\2026-11-10\\US_CPI_20261110.json",
+  "selected_fact": "Investing.com core CPI forecast +0.2% m/m; observed before release"
+}

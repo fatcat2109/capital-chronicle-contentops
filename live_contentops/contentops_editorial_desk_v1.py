@@ -303,6 +303,10 @@ def preview_preparation_research(store, *, event_id, cutoff_utc, article_type="E
         # Context belongs to this preview's source pack, never its own candidate.
         template["research_metadata"] = {"event_id": event_id, "context_only": True}
         records[identity] = template
+    if packet.get("main_research_context"):
+        from live_contentops.event_public_record_v1 import attach_main_research_context
+        attach_main_research_context(records, packet["main_research_context"], event_id=event_id,
+            cutoff_utc=cutoff_utc, article_type=article_type)
     if packet.get("frozen_public_record"):
         from live_contentops.event_public_record_v1 import attach_research_records, attach_scorecard_record
         attach_research_records(records, packet["frozen_public_record"], event_id=event_id,
