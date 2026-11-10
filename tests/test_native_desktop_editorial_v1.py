@@ -93,6 +93,17 @@ def test_neo_is_coordinator_only_canonical_first_and_ambiguous_return():
     assert ambiguous.publish(destination="substack", intent=intent, authorization_context=auth)["status"] == "UNKNOWN_WRITE"
 
 
+def test_local_neo_payload_failure_does_not_claim_an_external_write(monkeypatch):
+    called = []
+    adapter = NeoDestinationHandoff(native_executor=lambda request: called.append(request))
+    monkeypatch.setattr(adapter, "_prohibited_or_prior", lambda *args: None)
+    def invalid_request(**kwargs):
+        raise ValueError("CONTROLLED_LOCAL_CAPTION_OVERFLOW")
+    monkeypatch.setattr(adapter, "request", invalid_request)
+    result = adapter.publish(destination="substack", intent={}, authorization_context={})
+    assert result["definite_no_write"] and result["public_write_performed"] is False and not called
+
+
 def test_presence_is_not_validity_instagram_fallback_and_linkedin_expiry(tmp_path):
     (tmp_path / "auth_metadata_v1.json").write_text(json.dumps({"access_token_expires_at_utc": "2026-10-12T14:54:01Z"}))
     (tmp_path / "linkedin_member_credentials.dpapi").write_bytes(b"not-decrypted")

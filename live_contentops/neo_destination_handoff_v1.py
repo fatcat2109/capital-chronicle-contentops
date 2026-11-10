@@ -474,8 +474,15 @@ class NeoDestinationHandoff:
         refused = self._prohibited_or_prior(destination, "PUBLISH", intent, authorization_context)
         if refused is not None:
             return refused
-        request = self.request(destination=destination, action="PUBLISH", intent=intent,
-                               authorization_context=authorization_context)
+        try:
+            request = self.request(destination=destination, action="PUBLISH", intent=intent,
+                                    authorization_context=authorization_context)
+        except ValueError as exc:
+            # Local payload compilation precedes the native executor. It cannot
+            # have clicked a public write; record its real pre-write failure.
+            return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                "public_write_performed": False, "reason_code": str(exc),
+                "observed_identity": IDENTITIES[destination]}
         if self.native_executor is None:
             return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                     "reason_code": "NEO_NATIVE_EXECUTOR_NOT_BOUND", "request": request,

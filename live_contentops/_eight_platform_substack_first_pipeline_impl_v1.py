@@ -696,6 +696,12 @@ def build_native_derivative_payloads(
             if posts
             else [str(payload.get("text") or payload.get("full_text") or "")]
         )
+        if destination == "telegram" and limit and any(len(t) > limit for t in texts):
+            for field in ("text", "full_text", "caption"):
+                if payload.get(field):
+                    payload[field] = "\n\n".join(p for p in str(payload[field]).split("\n\n")
+                        if not p.startswith("What to watch:"))
+            texts = [str(payload.get("text") or payload.get("full_text") or "")]
         if limit and any(len(t) > limit for t in texts):
             raise ValueError(
                 "NATIVE_EDITORIAL_CREDIT_EXCEEDS_PLATFORM_LIMIT:" + destination

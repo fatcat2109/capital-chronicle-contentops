@@ -1540,7 +1540,7 @@ def publication_dispatch_locks_media(store, run_id, work_item_id):
     with store.get_read_only_connection() as conn:
         return conn.execute("SELECT 1 FROM platform_dispatches d JOIN outbox_messages o "
             "ON d.message_id=o.message_id WHERE o.work_item_id IN (?,?) "
-            "AND (d.status != 'DEFINITE_NO_WRITE' OR d.public_object_id IS NOT NULL "
+            "AND (d.status NOT IN ('DEFINITE_NO_WRITE','RECONCILED_ABSENT_SAFE_TO_RETRY') OR d.public_object_id IS NOT NULL "
             "OR d.public_object_url IS NOT NULL) LIMIT 1", (run_id, work_item_id)).fetchone() is not None
 
 
@@ -1727,7 +1727,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     # are retired; any uncertain/actual write above keeps its exact package.
     retired = []
     for message in store.list_outbox_messages(work_item_id=run_id):
-        if message["status"] == "READY":
+        if message["status"] in {"READY", "RECONCILED_ABSENT_SAFE_TO_RETRY"}:
             store.set_outbox_status(message["message_id"], "UNSENT_MEDIA_SUPERSEDED")
             retired.append(message["message_id"])
     if retired:

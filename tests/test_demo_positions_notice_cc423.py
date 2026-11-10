@@ -34,6 +34,20 @@ def test_telegram_keeps_scenarios_and_notices_before_optional_dek(monkeypatch):
     assert all(line in text for line in article["social_scenarios"].values())
 
 
+def test_telegram_final_credit_retains_both_scenarios(monkeypatch):
+    watch = "What to watch: " + "The source detail matters. " * 9
+    payloads = {"telegram": {"text": "Conditional headline\n\n" + watch + "\n\nhttps://example.com/story", "platform_limit": 620}}
+    monkeypatch.setattr(pipeline, "_build_native_derivative_payloads", lambda **_: payloads)
+    article = {"social_scenarios": {"base_case": "Base case: model estimate 44%.", "alternative": "Alternative: model estimate 31%."},
+        "native_destination_media": {"telegram": ["controlled"]},
+        "native_destination_credits": {"telegram": "Chart: TradingView. " + "Exact bound credit. " * 6}}
+    result = pipeline.build_native_derivative_payloads(article=article, selection={}, canonical_url="https://example.com/story",
+        media_asset_ids=["controlled"])
+    text = result["telegram"]["text"]
+    assert len(text) <= 620 and watch not in text and "Chart: TradingView." in text
+    assert all(line in text for line in article["social_scenarios"].values())
+
+
 def test_status_post_and_each_destination_use_the_exact_notice(export, main_root):
     row = rows_by(export, main_root)[("XAUUSD", "WAITING")]
     row.update(posts.compose(row))

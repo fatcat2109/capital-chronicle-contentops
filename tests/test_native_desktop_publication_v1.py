@@ -33,7 +33,7 @@ CANONICAL = "https://capitalchronicle.substack.com/p/controlled-goal32"
 
 
 @pytest.mark.parametrize("status,identity,locked", [
-    ("DEFINITE_NO_WRITE", None, False), ("UNKNOWN_WRITE", None, True),
+    ("DEFINITE_NO_WRITE", None, False), ("RECONCILED_ABSENT_SAFE_TO_RETRY", None, False), ("UNKNOWN_WRITE", None, True),
     ("NATIVE_NEO_TOOL_PENDING", None, True), ("DISPATCH_CONFIRMED", "post", True),
     ("DEFINITE_NO_WRITE", "post", True),
 ])
@@ -45,6 +45,20 @@ def test_media_refresh_keeps_actual_or_uncertain_dispatches_immutable(tmp_path, 
     store.register_platform_dispatch(dispatch_id="dispatch", message_id="message", platform="substack",
         status=status, public_object_id=identity)
     assert publication_dispatch_locks_media(store, "controlled", "editorial") is locked
+
+
+@pytest.mark.parametrize("status,kept", [(None, False), ("DEFINITE_NO_WRITE", False),
+    ("RECONCILED_ABSENT_SAFE_TO_RETRY", False), ("UNKNOWN_WRITE", True)])
+def test_superseded_unsent_media_is_not_a_recovery_obligation(tmp_path, status, kept):
+    store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
+    store.create_work_item(story_id="controlled", work_item_id="controlled", title="Controlled", target_surface="test")
+    store.register_outbox_message(message_id="outbox_controlled", work_item_id="controlled", destination="substack",
+        payload="{}", status="UNSENT_MEDIA_SUPERSEDED")
+    if status:
+        store.register_platform_dispatch(dispatch_id="dispatch_controlled", message_id="outbox_controlled",
+            platform="substack", status=status)
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    assert bool(coordinator._recovery_messages()) is kept
 
 
 def seeded(tmp_path, monkeypatch, *, manual=False, final_visual=True, site_first=False):

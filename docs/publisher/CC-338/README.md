@@ -164,3 +164,5 @@ No public freeze file was present at 17:50 GMT+7; the item’s explicit CPI no-h
 fallback is recorded in `run-20261110/freeze-cutoff-choice.json`.
 
 10 Nov continuation: 19de5364's focused Telegram test passed before 18:30 GMT+7. Runtime exposed the brief layout's optional watch paragraph and the workspace's second desk validation; the existing operation now compiles one qualified article with verified mixed-source claims. No tests started after 18:30. Exact writer/editor artifacts remain under the same operation; the two-hour preview deadline was missed and publication continues with the true clock.
+
+Continuation at 18:52 GMT+7: live intent consumer now packs Telegram at 803/1024 characters including both exact scenarios, notices and TradingView credit. Earlier local caption compilation threw before a native publish request existed; the coordinator's recorded uncertainty is being read back before retry. Changes add local-before-executor certainty, current-channel media and safe unsent-package supersession. New targeted regression cases are authored but remain unrun under the 18:30-22:30 test blackout.

@@ -3865,7 +3865,7 @@ class DurablePublicationCoordinator:
         for message in messages:
             if message["status"] == "UNSENT_MEDIA_SUPERSEDED":
                 dispatch = self.store.get_platform_dispatch("dispatch_" + str(message["message_id"]).removeprefix("outbox_"))
-                if not dispatch or (dispatch["status"] == DEFINITE_NO_WRITE
+                if not dispatch or (dispatch["status"] in {DEFINITE_NO_WRITE, RECONCILED_ABSENT_SAFE_TO_RETRY}
                         and not dispatch.get("public_object_id") and not dispatch.get("public_object_url")):
                     continue
             result.append(message)
