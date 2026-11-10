@@ -598,6 +598,9 @@ def build_native_derivative_payloads(
                     dek = str(article.get("dek") or "")
                     if dek:
                         payload[field] = "\n\n".join(p for p in payload[field].split("\n\n") if p != dek)
+                    if len(payload[field]) > limit:
+                        payload[field] = "\n\n".join(p for p in payload[field].split("\n\n")
+                            if not p.startswith("What to watch:"))
                 if limit and len(payload[field]) > limit:
                     raise ValueError("PUBLICATION_NOTICES_EXCEED_PLATFORM_LIMIT:" + destination)
     telegram = payloads.get("telegram") or {}

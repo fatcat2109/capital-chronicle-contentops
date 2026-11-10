@@ -683,7 +683,10 @@ def run_report_editorial_cycle(
             if selected_desk:
                 from live_contentops.capital_chronicle_desk_record_source_v1 import validate_article_citations
                 try:
-                    result["desk_record_validation"] = validate_article_citations(article, args["capital_chronicle_context"]["desk_record_sources"])
+                    validated = _artifact(root, "simple_gemini_validation_v1.json")
+                    result["desk_record_validation"] = validate_article_citations(article,
+                        args["capital_chronicle_context"]["desk_record_sources"],
+                        supported_material_claims=validated.get("supported_material_claims", ()))
                 except ValueError as exc:
                     raise LatestReportConsumerError(str(exc)) from exc
                 cited = {c["citation"].split("/", 1)[0] for c in article["desk_record_citations"]}

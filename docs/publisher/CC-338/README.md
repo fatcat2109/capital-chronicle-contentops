@@ -162,3 +162,5 @@ Four selected images pass the published-image register's exact/perceptual checks
 The source installed at `d39b94be` matches the builder across six changed modules.
 No public freeze file was present at 17:50 GMT+7; the item’s explicit CPI no-hash
 fallback is recorded in `run-20261110/freeze-cutoff-choice.json`.
+
+10 Nov continuation: 19de5364's focused Telegram test passed before 18:30 GMT+7. Runtime exposed the brief layout's optional watch paragraph and the workspace's second desk validation; the existing operation now compiles one qualified article with verified mixed-source claims. No tests started after 18:30. Exact writer/editor artifacts remain under the same operation; the two-hour preview deadline was missed and publication continues with the true clock.
