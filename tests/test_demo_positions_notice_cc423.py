@@ -20,6 +20,19 @@ from test_event_public_record_v1 import frozen_file, source as frozen_source
 EXPECTED = "Positions we mention are model positions on a demo account."
 
 
+def test_telegram_keeps_scenarios_and_notices_before_optional_dek(monkeypatch):
+    dek = "Optional standfirst. " * 30
+    payloads = {"telegram": {"text": "Conditional headline\n\n" + dek + "\n\nhttps://example.com/story", "platform_limit": 1024}}
+    monkeypatch.setattr(pipeline, "_build_native_derivative_payloads", lambda **_: payloads)
+    article = {"dek": dek, "social_scenarios": {"base_case": "Base case: model estimate 44%. " * 5,
+        "alternative": "Alternative: model estimate 31%. " * 5}}
+    result = pipeline.build_native_derivative_payloads(article=article, selection={}, canonical_url="https://example.com/story")
+    text = result["telegram"]["text"]
+    assert len(text) <= 1024 and dek not in text
+    assert PUBLIC_NOTICE in text and EXPECTED in text
+    assert all(line in text for line in article["social_scenarios"].values())
+
+
 def test_status_post_and_each_destination_use_the_exact_notice(export, main_root):
     row = rows_by(export, main_root)[("XAUUSD", "WAITING")]
     row.update(posts.compose(row))

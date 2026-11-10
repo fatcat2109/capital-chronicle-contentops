@@ -592,6 +592,12 @@ def build_native_derivative_payloads(
                 text = str(payload[field])
                 missing = [notice for notice in notices if notice.casefold() not in text.casefold()]
                 payload[field] = "\n\n".join([text, *missing])
+                if destination == "telegram" and limit and len(payload[field]) > limit:
+                    # The headline, both authored scenarios, notices and link
+                    # take priority over the optional duplicate standfirst.
+                    dek = str(article.get("dek") or "")
+                    if dek:
+                        payload[field] = "\n\n".join(p for p in payload[field].split("\n\n") if p != dek)
                 if limit and len(payload[field]) > limit:
                     raise ValueError("PUBLICATION_NOTICES_EXCEED_PLATFORM_LIMIT:" + destination)
     telegram = payloads.get("telegram") or {}
