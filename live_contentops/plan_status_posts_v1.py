@@ -41,7 +41,7 @@ TITLES = {"XAUUSD": "Gold", "US500": "S&P 500", "EURUSD": "EUR/USD", "USDJPY": "
           "USOIL": "US crude oil", "BTCUSD": "Bitcoin"}
 KINDS = {"WAITING": "setup", "TRIGGERED": "triggered", "FILLED": "triggered", "CANCELLED": "cancelled",
          "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
-# Decision 106 permits confirming a model position, but account, exact fill price, size and P&L stay private.
+# Decisions 106 and 117 permit confirming a position; account, exact fill price, size and P&L stay private.
 # Section 4.4: none of these may reach a reader.
 INTERNAL = re.compile(
     r"\b(?:frozen|committee|fixture|export|admission|deterministic|watch_runtime|plan_[0-9a-f]{6,}|"
@@ -538,10 +538,8 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
         # condition, or a resting order's fill, mapped in rows_from_export). An order placed ahead of price stays
         # WAITING, so this post never fires on placement again (9 Nov: EUR/USD and WTI were posted 20 pips and
         # 2.7 dollars away). The words say what happened, since Jim read "now active" as a touch.
-        # Jim's decision 106 (9 Nov): the second post confirms the fill and that Capital Chronicle holds the
-        # position. "Model position": the book is the DEMO account, so the words never claim real money; size,
-        # account, the exact fill price and P&L stay private (decision 40).
-        lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's model"
+        # Decisions 106 and 117: confirm the fill and position without account, size, exact fill price or P&L.
+        lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's"
                  " position is open.", f"It is invalidated if {invalid}."]
         if len(plan.get("entries") or []) > 1 or any(e["kind"] == "BREAKOUT" for e in plan.get("entries") or []):
             # Main's idea-level fill does not identify which leg filled. Never assert the limit zone did.
@@ -875,7 +873,13 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
             "export_age_seconds": result.get("export_age_seconds"),
             "max_export_age_minutes": result.get("max_export_age_minutes"),
             "queued": len(result.get("queued") or []), "not_posted": len(result.get("not_posted") or []),
-            "publication": (result.get("publication") or {}).get("status"), "posts_by_status": published}
+            "publication": (result.get("publication") or {}).get("status"), "posts_by_status": published,
+            # CC-437: pythonw has no stdout. Counts hid the exact cards that
+            # repeatedly failed preparation or waited behind a parent/limit.
+            "posts": [{k: post[k] for k in ("key", "status", "cause", "per_destination",
+                "destination_causes", "deferred_destinations") if k in post} for post in posts],
+            "not_posted_details": [{k: row[k] for k in ("key", "plan_id", "cause") if k in row}
+                                   for row in result.get("not_posted") or []]}
     if "scorecard" in result:
         line["scorecard"] = result["scorecard"]
     folder = Path(folder)
@@ -923,12 +927,10 @@ def _row_payload(store, key: str) -> dict:
 
 
 def _split(text: str) -> tuple[str, str]:
-    from .event_article_guard_v1 import LEGACY_CONFLICTS_NOTICE
-    body, _, notices = text.partition("\n\n")
+    body, _, notices = text.rpartition("\n\n")
     # Already-frozen posts retain the disclosure they were issued with.
-    if notices.strip() not in {f"{analysis} {conflicts}"
-            for analysis in (PUBLIC_NOTICE, "Analysis, not financial advice.")
-            for conflicts in (CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE)}:
+    if notices.strip() not in {f"{analysis} {CONFLICTS_NOTICE}"
+            for analysis in (PUBLIC_NOTICE, "Analysis, not financial advice.")}:
         raise PlanPostError("PLAN_STATUS_POST_NOTICES_REQUIRED")
     return body.strip(), notices.strip()
 
@@ -1012,9 +1014,14 @@ def _short_reasons(row: Mapping[str, Any], room: int) -> str:
     if available < 40 and row.get("format") == 3:
         # Both entry conditions, horizon, invalidation and instrument survive the short destination.
         tail = ""
+        if len(lead) > room:
+            lead = lead.replace(f"{title}: new plan.", f"{title}.", 1)
         available = room - len(lead) - len(" Why: ")
+        if len(lead) > room:
+            raise PlanPostError("PLAN_STATUS_SHORT_CONDITION_TOO_LONG")
         if available < 15:
             return lead
+        return lead + " Why: " + _excerpt(" ".join(picks), available)
     if available < 40:
         raise PlanPostError("PLAN_STATUS_SHORT_CONDITION_TOO_LONG")
     return lead + " Why: " + _excerpt(" ".join(picks), available) + tail
@@ -1371,9 +1378,10 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
     if row.get("format") == 4:
-        from .plan_call_cards_v1 import compose as card_copy, validate_parent_intent
-        if card_copy(row)["text"] != row["text"]:
-            raise PlanPostError("PLAN_CARD_COPY_CHANGED")
+        # Frozen copy is the authority. A later formatter or disclosure change
+        # cannot rewrite it or make an exact historical intent fail comparison.
+        # The intent/parent equality and current public-copy checks below stay.
+        from .plan_call_cards_v1 import validate_parent_intent
         validate_parent_intent(store, row, intent)
     elif row.get("kind") == "result":
         expected = compose_result({**row, "plan": row["levels"]})["text"]
@@ -1526,15 +1534,26 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
             results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
             continue
         per = {d: (o or {}).get("status") for d, o in (outcome.get("per_destination") or {}).items()}
+        causes = destination_causes(outcome)
         done = all(per.get(d) == "DISPATCH_CONFIRMED" for d in API_DESTINATIONS)
         store.set_outbox_status(key, "PUBLISHED" if done else "PUBLISHING")
-        results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING", "per_destination": per})
+        results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING", "per_destination": per,
+                        "destination_causes": causes})
     from .plan_call_cards_v1 import publish_ready as publish_cards
     card_results = publish_cards(store, now=now, latest_states=latest_states, root=root,
                                  host=host, coordinator_for=coordinator_for, limit=limit)
     from .plan_analysis_pages_v1 import distribute_links
     links = distribute_links(store)
     return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links}
+
+
+def destination_causes(outcome: Mapping[str, Any]) -> dict:
+    """Retain fixed pre-write/recovery causes, without copy, credentials or tool returns."""
+    return {destination: str(value.get("reason_code") or value.get("blocker")
+        or value.get("safe_error_classification") or value.get("reconciliation_status")
+        or value.get("status") or "DESTINATION_OUTCOME_UNAVAILABLE")[:200]
+        for destination, value in (outcome.get("per_destination") or {}).items()
+        if isinstance(value, Mapping) and value.get("status") != "DISPATCH_CONFIRMED"}
 
 
 def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None = None, root: Path = POST_ROOT,

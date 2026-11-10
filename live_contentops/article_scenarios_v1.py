@@ -4,7 +4,7 @@ from __future__ import annotations
 from hashlib import sha256
 import re
 
-from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE
+from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
 
 MARKETS = ("XAUUSD", "US500", "EURUSD", "USDJPY", "USOIL", "BTCUSD")
 MODEL_LABEL = "Capital Chronicle model estimate"
@@ -105,7 +105,7 @@ def validate_article_scenarios(article, documents):
         if _normal(MODEL_LABEL) not in visible:
             raise ValueError("SCENARIO_MODEL_ESTIMATE_LABEL_REQUIRED")
     if (_normal(PUBLIC_NOTICE) not in _normal(body)
-            or not any(_normal(n) in _normal(body) for n in (CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE))):
+            or _normal(CONFLICTS_NOTICE) not in _normal(body)):
         raise ValueError("SCENARIO_NOTICES_REQUIRED")
     social = article.get("social_scenarios") or {}
     base = next(s for s in scenarios if s["role"] == "base_case")

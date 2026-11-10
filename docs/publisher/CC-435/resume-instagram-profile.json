@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-10T17:34:20.176418+00:00",
+  "profile_url": "https://www.instagram.com/official.capitalchronicle/",
+  "page_id": 213,
+  "profile_analysis_link_visible": false,
+  "method": "BrowserOS Neo public profile read, profile header before the Posts grid",
+  "public_header": "official.capitalchronicle; Capital Chronicle; Entrepreneur; Threads official.capitalchronicle; Edit profile; View archive. No website link shown.",
+  "prepared_action": {
+    "owner": "Ops Product",
+    "action": "Add https://capitalchronicle.substack.com to the Instagram profile website using its owned bio/about route; then read back the public profile."
+  },
+  "browser_edit_performed": false
+}

@@ -29,6 +29,10 @@ def text_revision(result):
 
 def speed_policy(governed):
     """Freeze the short path in new writer requests; preserve already-issued ones."""
+    from live_contentops.reader_article_contract_v1 import article_format
+    if article_format(governed) == "DAILY_NOTE":
+        return {"policy": SPEED_POLICY, "dispatch_target_minutes": DISPATCH_MINUTES,
+            "path": "WRITER_ONE_EDITOR_CHECK_PUBLISH", "post_text_visual_review": "AUTOMATED_LOAD_SIZE_LOG_ONCE"}
     if governed.get("article_mode") in LONG_FORM_MODES:
         return None
     if governed.get("article_mode") in TIME_SENSITIVE_MODES or governed.get("selected_candidate", {}).get("event_id"):
@@ -351,6 +355,8 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
             "attempted_at_utc": claim.get("begun_at_utc"), "dispatched_at_utc": sent,
             "status": response.get("status", "PENDING_NATIVE_RETURN"),
             "timing_basis": "NATIVE_ACTION_OBSERVED" if observation.get("dispatched_at_utc") else "NATIVE_RETURN_OBSERVED_UPPER_BOUND"})
+    from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
+    barred = barred_browser_destinations()
     channels = []
     for entry in destinations:
         actual = [v for v in observations if v["destination"] == entry["destination"]
@@ -374,6 +380,7 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
         confirmed = entry.get("reconciliation_status") == "RECONCILED_CONFIRMED" and entry["status"] == "DISPATCH_CONFIRMED"
         finished = bool(confirmed and elapsed is not None and 0 <= elapsed <= FINISHED_PIECE_MINUTES * 60
             and image_elapsed is not None and 0 <= image_elapsed <= FINISHED_PIECE_MINUTES * 60)
+        policy_no_write = entry["status"] == "DEFINITE_NO_WRITE" and entry["destination"] in barred
         channels.append({"destination": entry["destination"], "status": entry["status"],
             "attempted_at_utc": chosen.get("attempted_at_utc"), "dispatched_at_utc": clock,
             "timing_basis": "VERIFIED_READBACK_UPPER_BOUND" if upper_bound else chosen.get("timing_basis"),
@@ -382,11 +389,39 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
             "readback_seconds_after_text_approval": readback_elapsed,
             "image_verified_readback_at_utc": image_readback.isoformat() if image_readback else None,
             "finished_piece_within_30_minutes": finished,
-            "skipped": entry["status"].startswith("SKIPPED_")})
+            "skipped": entry["status"].startswith("SKIPPED_") or policy_no_write,
+            **({"excluded_from_timing_due_to": barred[entry["destination"]]} if policy_no_write else {})})
     required = [c for c in channels if not c["skipped"]]
     complete = bool(required) and all(c["within_target"] is True for c in required)
     overdue = bool(deadline and (now or datetime.now(timezone.utc)) > deadline and not complete)
+    data_timing = {}
+    if latest.get("reader_article_contract"):
+        from live_contentops.reader_article_contract_v1 import publication_timing as source_timing
+        canonical = next((e for e in destinations if e["destination"] == "substack"), {})
+        actual = []
+        for row in readbacks:
+            if not canonical.get("dispatch_id") or row.get("dispatch_id") != canonical["dispatch_id"]:
+                continue
+            data = json.loads(row["readback_data"])
+            proof = data.get("readback", data)
+            if (proof.get("verified") is True and proof.get("identity_match") is True
+                    and canonical.get("public_object_id")
+                    and str(proof.get("observed_public_object_id")) == str(canonical["public_object_id"])
+                    and proof.get("observed_published_at_utc")):
+                actual.append(proof["observed_published_at_utc"])
+        upper_bound, _ = _verified_readback_clocks(readbacks, canonical)
+        published = min(actual, key=_utc) if actual else None
+        data_timing = source_timing({"reader_article_contract": latest["reader_article_contract"]},
+                                    published_at_utc=published)
+        data_timing["timing_basis"] = "OBSERVED_PUBLICATION_CLOCK" if actual else "VERIFIED_READBACK_UPPER_BOUND" if upper_bound else None
+        if not actual and upper_bound:
+            cutoff = data_timing["data_cutoff_utc"]
+            elapsed = (upper_bound - _utc(cutoff)).total_seconds() if cutoff else None
+            data_timing["publication_upper_bound_utc"] = upper_bound.isoformat()
+            data_timing["seconds_from_data_upper_bound"] = elapsed
+            data_timing["within_60_minutes"] = True if elapsed is not None and 0 <= elapsed <= 3600 else None
     return {"policy": SPEED_POLICY, "target_minutes": DISPATCH_MINUTES, "text_approved_at_utc": approved,
+        **({"data_to_publication": data_timing} if data_timing else {}),
         "dispatch_deadline_utc": deadline.isoformat() if deadline else None,
         "channels": channels, "all_channels_dispatched_within_target": complete,
         "finished_piece_acceptance": {"item": "CC-199", "target_minutes": FINISHED_PIECE_MINUTES,

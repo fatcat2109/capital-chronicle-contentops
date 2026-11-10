@@ -787,6 +787,8 @@ def record_native_article_review(store, *, run_id, article_identity, decision, r
             from live_contentops.native_publication_latency_v1 import text_revision, text_approval
             approved_at = datetime.now(timezone.utc).isoformat()
             note["text_revision_sha256"] = text_revision(value)
+            if value.get("article", {}).get("reader_article_contract"):
+                note["reader_article_contract"] = value["article"]["reader_article_contract"]
             if decision == "KEEP":
                 history = [dict(r) for r in conn.execute("SELECT * FROM review_records WHERE work_item_id=? ORDER BY rowid",
                     (row["work_item_id"],))]

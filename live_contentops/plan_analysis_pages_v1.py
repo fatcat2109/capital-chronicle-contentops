@@ -32,7 +32,7 @@ SECTIONS = (
 RIGHTS = {"CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", "PUBLIC_DOMAIN_OFFICIAL_FACT", "SINGLE_ATTRIBUTED_FACT"}
 _PRIVATE = re.compile(
     r"\b(?:demo|mt[45]|exness[\w-]*|metatrader|account\s+(?:id|number|balance|equity)|"
-    r"position\s+siz(?:e|ing)|risk\s+(?:allocation|per trade)|(?:our|my)\s+(?:balance|equity|capital)|"
+    r"model[\s-]+positions?|position\s+siz(?:e|ing)|risk\s+(?:allocation|per trade)|(?:our|my)\s+(?:balance|equity|capital)|"
     r"ticket(?:\s+id)?|p\s*&\s*l|realised profit|realized profit|lot\s+size|HALF_PLAN_RISK)\b|"
     r"\b\d+(?:\.\d+)?\s*(?:standard\s+|mini\s+|micro\s+)?lots?\b|"
     r"\b(?:279805139|279779602)\b", re.I)
@@ -99,8 +99,7 @@ def public_filter(text, *, rights="CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", source_
         line = " ".join(str(private).casefold().split())
         if len(line) >= 24 and line in normal:
             raise ValueError("PLAN_ANALYSIS_PRIVATE_X_LIST_FORBIDDEN")
-    # CC-423's exact public disclosure conveys no account identity or size.
-    if _PRIVATE.search(text.replace(CONFLICTS_NOTICE, "")) or _MONEY.search(text):
+    if _PRIVATE.search(text) or _MONEY.search(text):
         raise ValueError("PLAN_ANALYSIS_PRIVATE_ACCOUNT_OR_SIZE_FORBIDDEN")
     if _MODELS.search(text):
         raise ValueError("PLAN_ANALYSIS_DESK_AI_LABEL_FORBIDDEN")
@@ -418,7 +417,7 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
     return {"publication": result, **page_status(store, packet), "pending_requests": executor.pending()}
 
 
-def structured_summary(packet, destination, canonical_url, authored_summary=None):
+def structured_summary(packet, destination, canonical_url, authored_summary=None, *, version=1):
     """Keep all seven headings and the real URL; spend remaining room on detail."""
     limits = {"telegram": 4096, "discord": 2000, "threads": 500, "facebook_page": 60000,
               "instagram_business": 2200, "x": 10000, "substack_notes": 10000, "linkedin": 3000}
@@ -442,7 +441,15 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
         # their caveat or manufacturing a compressed causal claim.
         for index, (key, _) in enumerate(SECTIONS) if destination != "x" else []:
             for paragraph in packet["manuscript"]["sections"][key]["paragraphs"]:
-                candidate = labels[key] + ": " + paragraph["text"]
+                detail = paragraph["text"]
+                if version == 1:
+                    candidate = labels[key] + ": " + detail
+                else:
+                    if detail in lines[index]:
+                        continue
+                    previous = lines[index].removeprefix(labels[key] + ": ")
+                    candidate = (labels[key] + ": " + detail if previous in detail
+                                 else lines[index] + " " + detail)
                 proposed = [*lines[:index], candidate, *lines[index+1:]]
                 if len(lead+'\n'+'\n'.join(proposed)+'\n'+footer) <= limit and len(candidate)>len(lines[index]):
                     lines = proposed
@@ -451,8 +458,14 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
         budget = limit - len(lead) - len(footer) - 2
         # Threads has little room after the notice and URL. Section names
         # remain explicit; the full page supplies the detailed qualifications.
-        lines = [posts._excerpt(line, max(0, (budget-6)//7)) for line in summaries]
-        lines = [line for line in lines if line]
+        if version == 1:
+            lines = [posts._excerpt(line, max(0, (budget-6)//7)) for line in summaries]
+            lines = [line for line in lines if line]
+        else:
+            headings = [labels[key] + ": " for key, _ in SECTIONS]
+            available = budget - sum(map(len, headings)) - len(headings) + 1
+            lines = [heading + posts._excerpt(packet["summary"][key], max(0, available // len(headings)))
+                     for heading, (key, _) in zip(headings, SECTIONS)]
     text = lead+'\n'+'\n'.join(lines)+'\n'+footer
     if len(text)>limit:
         raise ValueError("PLAN_ANALYSIS_SUMMARY_LIMIT:"+destination)
@@ -460,7 +473,7 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
     return text
 
 
-def _link_payload(packet, destination, text, canonical_url, parent):
+def _link_payload(packet, destination, text, canonical_url, parent, *, discord_delivery=None):
     payload = {"destination": destination, "text": text, "full_text": text, "media_asset_ids": []}
     if parent:
         payload.update(reply_to_id=str(parent["public_object_id"]), reply_to_url=parent["public_object_url"])
@@ -479,8 +492,13 @@ def _link_payload(packet, destination, text, canonical_url, parent):
             reply_texts=chunks[1:], posts=[{"text": part, "order": i,
                 "role": "root" if i == 0 else "reply", "media_asset_ids": []} for i, part in enumerate(chunks)])
     if destination == "discord":
-        payload.update(discord_thread_parent_id=str(parent["public_object_id"]),
-                       discord_thread_name="Full plan analysis")
+        if discord_delivery == "channel":
+            payload.pop("reply_to_id", None)
+            payload.pop("reply_to_url", None)
+            payload["discord_channel_post"] = True
+        else:
+            payload.update(discord_thread_parent_id=str(parent["public_object_id"]),
+                           discord_thread_name="Full plan analysis")
     return payload
 
 
@@ -513,6 +531,10 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
         return {"state":"PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED", "destination":destination}
     if destination not in {"telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"}:
         raise ValueError("PLAN_ANALYSIS_LINK_DESTINATION_INVALID")
+    identity = ("plan-analysis-root-" if original_analysis_root else "plan-analysis-link-")+packet["plan_id"]+'-'+destination
+    prior = store.get_outbox_message(identity)
+    if prior and not authored_summary:
+        return json.loads(prior["payload"])
     parent = None if destination == "substack_notes" else _analysis_parent(store, original_key, packet["plan_id"], destination)
     if original_analysis_root:
         # Decision 113 explicitly asks for today's original plan analysis. An
@@ -526,12 +548,12 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
             raise ValueError("PLAN_ANALYSIS_CANONICAL_IMAGE_REQUIRED")
     elif not parent and destination != "substack_notes":
         return {"state":"PLAN_ANALYSIS_PARENT_NOT_CONFIRMED", "destination":destination, "original_key":original_key}
-    identity = ("plan-analysis-root-" if original_analysis_root else "plan-analysis-link-")+packet["plan_id"]+'-'+destination
-    prior = store.get_outbox_message(identity)
-    if prior and not authored_summary:
-        return json.loads(prior["payload"])
-    text = structured_summary(packet, destination, status["canonical_url"],authored_summary)
-    payload = _link_payload(packet, destination, text, status["canonical_url"], parent)
+    original = store.get_outbox_message(original_key) or {}
+    discord_delivery = (json.loads(original.get("payload") or "{}").get("discord_delivery")
+                        if destination == "discord" else None)
+    text = structured_summary(packet, destination, status["canonical_url"],authored_summary, version=2)
+    payload = _link_payload(packet, destination, text, status["canonical_url"], parent,
+                            discord_delivery=discord_delivery)
     if original_analysis_root:
         payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]], image_url=canonical_image_url)
     registration = registration_for_destination(destination)
@@ -544,7 +566,8 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     plan["plan_hash"] = sha256_of(plan)
     value={"link_id":identity, "page_id":packet["page_id"], "plan_id":packet["plan_id"], "original_key":original_key,
            "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"],
-           "original_analysis_root":original_analysis_root,
+           "original_analysis_root":original_analysis_root, "summary_version": 2,
+           **({"discord_delivery": discord_delivery} if discord_delivery else {}),
            **({'authored_summary':authored_summary} if authored_summary else {})}
     store.create_work_item(story_id=identity,work_item_id=identity,title="Full plan analysis link",target_surface="MULTI_PLATFORM")
     if prior:
@@ -594,8 +617,10 @@ def validate_link_plan(store, work_item_id, plan):
         parent=_analysis_parent(store,value["original_key"],value["plan_id"],value["destination"])
         if not parent or parent!=value["parent"]:
             raise ValueError("PLAN_ANALYSIS_LINK_PARENT_CHANGED")
-    expected=structured_summary(packet,value["destination"],value["canonical_url"],value.get('authored_summary'))
-    expected_payload = _link_payload(packet, value["destination"], expected, value["canonical_url"], value.get("parent"))
+    expected=structured_summary(packet,value["destination"],value["canonical_url"],value.get('authored_summary'),
+                                version=value.get("summary_version", 1))
+    expected_payload = _link_payload(packet, value["destination"], expected, value["canonical_url"], value.get("parent"),
+                                     discord_delivery=value.get("discord_delivery"))
     if value.get("original_analysis_root"):
         expected_payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]],
                                 image_url=value["native_payload"]["image_url"])
@@ -642,11 +667,12 @@ def link_status(store, value):
     from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
     ids = Coordinator._ids(value["link_id"], value["plan"]["plan_hash"], value["destination"])
     dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+    message = store.get_outbox_message(ids["message_id"]) or {}
     reconciliation = next((r for r in store.get_reconciliations_for_work_item(value["link_id"])
                            if r["reconciliation_id"] == ids["reconciliation_id"]), {})
     return {"confirmed": dispatch.get("status") == "DISPATCH_CONFIRMED"
                         and reconciliation.get("status") == "RECONCILED_CONFIRMED",
-            "status": dispatch.get("status"), "public_object_id": dispatch.get("public_object_id"),
+            "status": dispatch.get("status") or message.get("status"), "public_object_id": dispatch.get("public_object_id"),
             "public_object_url": dispatch.get("public_object_url")}
 
 
@@ -654,7 +680,8 @@ def _resume_link(store, value, publish):
     if not value.get("link_id"):
         return value
     status = link_status(store, value)
-    return status if status["confirmed"] or not publish else publish_link(store, value)
+    from .plan_call_cards_v1 import SETTLED_DISPATCHES
+    return status if status["confirmed"] or status["status"] in SETTLED_DISPATCHES or not publish else publish_link(store, value)
 
 
 def _run_link_text(packets, urls):
@@ -726,11 +753,14 @@ def distribute_links(store, *, limit=None, publish=True):
     Frozen links are resumed, not rewritten. A later page in the same Main run
     creates one new complete index snapshot, rather than editing a sent object.
     """
-    cards = {}
+    cards, confirmed_runs = {}, []
+    from .plan_call_cards_v1 import _reference
     for row in store.list_outbox_messages(destination=posts.DESTINATION):
         item = json.loads(row["payload"])
         if item.get("kind") == "setup" or item.get("state") == "WAITING":
             cards.setdefault(item.get("plan_id"), row["message_id"])
+        if item.get("kind") == "run" and _reference(store, row["message_id"], "linkedin"):
+            confirmed_runs.append({a["canonical_url"] for a in item.get("analysis_publications", [])})
     pages, runs, results = [], {}, []
     for row in store.list_outbox_messages(destination=DESTINATION):
         packet = json.loads(row["payload"])
@@ -750,9 +780,68 @@ def distribute_links(store, *, limit=None, publish=True):
         runs.setdefault(packet["source_plan"]["run_id"], []).append(packet)
     for packets in runs.values():
         try:
+            urls = {page_status(store, p)["canonical_url"] for p in packets}
+            if any(urls <= confirmed for confirmed in confirmed_runs):
+                results.append({"destination": "linkedin", "state": "CONFIRMED_IN_RUN_POST"})
+                continue
             value = register_run_link(store, packets)
             outcome = _resume_link(store, value, publish)
             results.append({"destination": "linkedin", "link_id": value.get("link_id"), "outcome": outcome})
         except (OSError, ValueError, KeyError, TypeError) as exc:
             results.append({"destination": "linkedin", "state": "NOT_STARTED", "cause": str(exc)[:200]})
     return {"status": "OK", "links": results}
+
+
+def resume_discord_links(store, *, latest_states, now, limit=5, coordinator_for=None):
+    """CC-437: the existing minute consumer also drains registered Discord links.
+
+    Do not change a registered copy or its thread binding. Retire an unattempted
+    link after its plan ends; uncertain/identified attempts keep exact recovery.
+    """
+    from .publication_coordinator_v1 import DurablePublicationCoordinator, CanonicalDestinationTransportRuntimeV1
+    from . import plan_status_posts_v1 as posts
+    results = []
+    candidates = []
+    for message in store.list_outbox_messages(destination="discord"):
+        if message["status"] != "READY":
+            continue
+        intent = json.loads(message["payload"])
+        key = intent.get("plan_analysis_link")
+        if key:
+            candidates.append((message, key))
+    for message, key in candidates[:limit]:
+        try:
+            value = json.loads(store.get_outbox_message(key)["payload"])
+            plan = value["plan"]
+            if coordinator_for is None:
+                coordinator = DurablePublicationCoordinator(store=store,
+                    transport_runtime=CanonicalDestinationTransportRuntimeV1())
+            else:
+                coordinator = coordinator_for(key, Path(plan["output_dir"]))
+            posts.scope_to_post(coordinator, key, plan)
+            ids = coordinator._ids(key, plan["plan_hash"], "discord")
+            dispatch = store.get_platform_dispatch(ids["dispatch_id"])
+            state = latest_states.get(value["plan_id"])
+            original = posts._row_payload(store, value["original_key"])
+            until = original.get("time_exit_utc") or (original.get("levels") or {}).get("valid_until_utc")
+            ended = state in {"CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED", "RESULT"}
+            expired = bool(until and now >= posts._utc(until))
+            if not dispatch and (ended or expired):
+                coordinator._expire_stale_derivative(message, None)
+                results.append({"key": key, "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+                    "cause": "PLAN_ALREADY_" + str(state) if ended else "PLAN_VALIDITY_ENDED",
+                    "per_destination": {"discord": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"}})
+                continue
+            if not dispatch and state not in posts.ACTIVE:
+                results.append({"key": key, "status": "WAITING", "cause": "CURRENT_PLAN_STATE_NOT_IN_EXPORT"})
+                continue
+            outcome = coordinator.execute_plan(key, plan)
+            per = outcome.get("per_destination") or {}
+            state = (per.get("discord") or {}).get("status", "NOT_STARTED")
+            results.append({"key": key, "status": state,
+                "per_destination": {"discord": state}, "destination_causes": posts.destination_causes(outcome)})
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
+    for _, key in candidates[limit:]:
+        results.append({"key": key, "status": "WAITING", "cause": "ANALYSIS_LINK_WORK_LIMIT_THIS_RUN"})
+    return results

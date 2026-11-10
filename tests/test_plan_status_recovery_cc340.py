@@ -77,7 +77,14 @@ def test_late_recovery_requires_validity_and_is_bounded_to_24_hours(tmp_path, ma
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     gold = plan("gold", "XAUUSD", "BEARISH", 4033, 4085, invalid=4110, deadline=deadline)
     folder = write_export(tmp_path / "export", [gold], [event("gold", "TRIGGERED", at)])
-    assert queue(store, folder, main_root)["queued"] == []
+    result = queue(store, folder, main_root)
+    if deadline is None:
+        # CC-400 rejects an invalid expiry before recovery evaluates its age.
+        assert result["status"] == "EXPORT_CONTRACT_REJECTED"
+        assert result["failed_field"] == "status.plans[0].expires_at_utc"
+    else:
+        assert result["queued"] == []
+    assert store.list_outbox_messages(destination=posts.DESTINATION) == []
 
 
 def test_repaired_composer_refusal_recovers_only_latest_active_state(tmp_path, main_root):

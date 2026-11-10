@@ -1240,6 +1240,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                    if document.get("underlying_reuse_classification") == "governed_government_public_domain"
                    and document.get("rights_evidence_sha256") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
+                **{k: document[k] for k in ("data_cutoff_utc", "data_clock_binding") if k in document},
                 **({"preview_preparation": dict(document["preview_preparation"])} if document.get("preview_preparation") else {}),
                 **({k: document[k] for k in ("official_release_history", "release_component_effects",
                     "newsroom_desk_projection") if k in document}
@@ -1556,7 +1557,9 @@ def _editorial_growth_edge_blockers(
     public_copy = _public_copy(article)
     blockers: list[str] = []
     if mode in {"CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING"}:
-        if not _EXPLICIT_CC_INFERENCE_RE.search(public_copy):
+        first_person_view = ((article.get("reader_article_contract") or {}).get("policy") == "CC403_READER_ARTICLE_V1"
+            and re.search(r"\b(?:we think|we expect|our view|our analysis|we see|we favour|we favor)\b", public_copy, re.I))
+        if not _EXPLICIT_CC_INFERENCE_RE.search(public_copy) and not first_person_view:
             blockers.append("house_mode_qualitative_inference_not_explicitly_labeled")
     reserved = [m for m in _RESERVED_CC_NUMERIC_AUTHORITY_RE.finditer(public_copy)
         if not re.search(r"\b(?:not|rather than)\s+(?:(?:the )?release result or )?(?:a |the )?$",
@@ -1609,6 +1612,9 @@ def _epistemic_copy_blockers(
     if not isinstance(epistemic_state, Mapping) or not epistemic_state:
         return []
     blockers = list(validate_epistemic_state(epistemic_state))
+    own_reader_voice = ((article.get("reader_article_contract") or {}).get("policy") == "CC403_READER_ARTICLE_V1"
+        and epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT"
+        and epistemic_state.get("primary_reporting_publisher") == "Capital Chronicle")
     desk_only = bool(source_pack) and all(d.get("desk_record_binding") for d in source_pack)
     own_public_excerpts = bool(source_pack) and all(_verified_own_public_excerpts(d) for d in source_pack)
     from live_contentops.event_public_record_v1 import verified_main_research_excerpts
@@ -1632,6 +1638,8 @@ def _epistemic_copy_blockers(
         # substantive limits from an older frozen packet, without requiring its
         # internal label to appear in reader-facing prose.
         notice_forms = {notice, notice.replace("dated Main report", "dated review")}
+        if own_reader_voice:
+            notice_forms.add("Our dated analysis does not independently confirm events or establish a performance record.")
         if not notice or not any(form in str(article.get("substack_body_markdown") or "") for form in notice_forms):
             blockers.append("report_horizon_proxy_cost_limits_missing")
     if blockers:
@@ -1665,13 +1673,13 @@ def _epistemic_copy_blockers(
         # Own public excerpts already carry source-bound reader wording. A ritual
         # prefix/footer must not rewrite that wording (CC-341; decisions 62/98).
         # New wording still needs the normal uncertainty/attribution checks.
-        if not exact_public_wording(title) and not any(token in _normal(title) for token in attribution_tokens):
+        if not own_reader_voice and not exact_public_wording(title) and not any(token in _normal(title) for token in attribution_tokens):
             blockers.append("epistemic_title_attribution_or_uncertainty_missing")
-        if label.casefold() not in dek.casefold() and not any(
+        if not own_reader_voice and label.casefold() not in dek.casefold() and not any(
             token in _normal(dek) for token in attribution_tokens
         ):
             blockers.append("epistemic_dek_attribution_or_label_missing")
-        if not exact_public_wording(first) and label.casefold() not in first.casefold() and not any(
+        if not own_reader_voice and not exact_public_wording(first) and label.casefold() not in first.casefold() and not any(
             token in _normal(first) for token in attribution_tokens
         ):
             blockers.append("epistemic_opening_reporting_state_missing")
@@ -1684,7 +1692,9 @@ def _epistemic_copy_blockers(
         event_terms = _peg_terms(epistemic_state.get("event_proposition"))
         for field in _PUBLIC_METADATA_FIELDS:
             value = str(article.get(field) or "")
-            if len(event_terms.intersection(_peg_terms(value))) >= 2 and not any(
+            own_conditional_view = own_reader_voice and re.search(
+                r"\b(?:if|would|could|may|might|we think|we expect|our view)\b", value, re.I)
+            if not own_conditional_view and len(event_terms.intersection(_peg_terms(value))) >= 2 and not any(
                 token in _normal(value) for token in attribution_tokens
             ):
                 blockers.append(f"epistemic_certainty_inflation:{field}")
@@ -1756,6 +1766,11 @@ def _validate_article_against_source_pack(
     article.pop("public_research_descriptors", None)
     article.pop("frozen_public_record", None)  # Main's exact source, never writer-authored attachment metadata.
     article.pop("weekly_scored_calls", None)
+    from live_contentops.reader_article_contract_v1 import validate_article as validate_reader_article
+    try:
+        validate_reader_article(article, source_pack)
+    except ValueError as exc:
+        raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", [str(exc)]) from exc
     from live_contentops.public_instruments_v1 import validate_article as validate_public_instruments
     try:
         validate_public_instruments(article)
@@ -2067,7 +2082,8 @@ def _reader_safe_native_article(
         (epistemic_state or {}).get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT"
         and publisher and re.search(r"(?<!\w)" + re.escape(publisher) + r"(?!\w)", title, re.IGNORECASE)
     )
-    if not reader_first and not attributed_main_review and label and label.casefold() not in title.casefold():
+    reader_contract = article.get("reader_article_contract") or {}
+    if not reader_contract and not reader_first and not attributed_main_review and label and label.casefold() not in title.casefold():
         title = f"{label} | {title}"
     notice = str(article.get("source_date_notice") or "")
     if notice and not reader_first and legacy_presentation:
@@ -2097,7 +2113,7 @@ def _reader_safe_native_article(
             result["editorial_scope_notice"], *article.get("desk_record_source_notices", []))))
     for key in ("scenario_analysis", "social_scenarios", "market_asset", "article_type", "release_analysis",
                 "lead_image_asset_id", "publication_quality_policy", "valid_until_utc", "weekly_scored_calls",
-                "public_instrument_policy"):
+                "public_instrument_policy", "reader_article_contract"):
         if key in article:
             result[key] = article[key]
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
@@ -3062,6 +3078,14 @@ def run_v1_simple_gemini_newsroom(
     if selected is not None and native and getattr(llm_invoke, "weekly_call_sources", None):
         source_pack = llm_invoke.weekly_call_sources(source_pack=source_pack,
             selected_candidate=selected, cutoff_utc=cutoff_utc)
+    if native and (issued := getattr(llm_invoke, "frozen_request", lambda _: None)("write")):
+        # The new source-clock metadata must not rewrite an older issued packet.
+        # Only these two added fields may differ; all source bytes/rights stay exact.
+        strip_clock = lambda pack: [{k: v for k, v in d.items() if k not in {"data_cutoff_utc", "data_clock_binding"}}
+                                    for d in pack]
+        original_sources = issued["governed_input"].get("source_pack", [])
+        if strip_clock(source_pack) == strip_clock(original_sources):
+            source_pack = original_sources
     evidence_artifact = {
         "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
         "status": "PASS" if selected is not None else "BLOCKED",

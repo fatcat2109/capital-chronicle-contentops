@@ -63,7 +63,12 @@ def test_installed_status_run_distributes_all_eight_and_resumes_without_duplicat
     intents = [json.loads(r["payload"]) for d in cards.DESTINATIONS for r in store.list_outbox_messages(destination=d)
                if json.loads(r["payload"]).get("plan_analysis_link")]
     assert len(intents) == 8
-    assert all(packet["summary"]["macro"] in i["native_payload"]["full_text"] for i in intents)
+    assert all(packet["summary"]["macro"] in i["native_payload"]["full_text"] for i in intents
+               if i["native_payload"]["destination"] != "threads")
+    thread = next(i["native_payload"]["text"] for i in intents if i["native_payload"]["destination"] == "threads")
+    assert len(thread) <= 500
+    assert all(label + ":" in thread for label in ("Macro", "Fundamental", "Technical", "Geopolitical",
+                                                   "Priced in", "Scenarios", "Desk review"))
     assert all("https://capitalchronicle.substack.com/p/full-original-plan" in i["native_payload"]["full_text"] for i in intents)
     posts.publish_ready(store, now=datetime.now(timezone.utc), root=tmp_path / "posts")
     assert len(runtime.publish_calls) == 8
@@ -124,12 +129,11 @@ def test_note_needs_its_own_visible_canonical_link_card(ready, card):
     assert result["verified"] is (card == "correct")
 
 
-def test_parent_change_never_turns_an_analysis_comment_into_a_new_root(ready):
+def test_parent_change_never_turns_an_analysis_comment_into_a_new_root(ready, monkeypatch):
     store, packet, original = ready
     value = pages.register_link(store, packet, original_key=original, destination="facebook_page")
-    ids = Coordinator._ids(original, sha256(("plan-status-post:" + original).encode()).hexdigest(), "facebook_page")
-    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform="facebook_page",
-        status="DISPATCH_CONFIRMED", public_object_id="wrong-parent", public_object_url="https://example.test/wrong")
+    monkeypatch.setattr(pages, "_analysis_parent", lambda *a: {
+        **value["parent"], "public_object_id": "wrong-parent"})
     with pytest.raises(ValueError, match="LINK_PARENT_CHANGED"):
         pages.validate_link_plan(store, value["link_id"], value["plan"])
 
@@ -165,3 +169,46 @@ def test_new_instagram_run_caption_and_linkedin_run_have_the_confirmed_links():
     assert "link in our profile" in payloads["instagram_business"]["text"]
     assert run["analysis_publications"][0]["canonical_url"] in payloads["linkedin"]["text"]
     assert "Macro: Rates drive the view." in payloads["linkedin"]["text"]
+    assert "Full analysis:" in payloads["x"]["full_text"]
+    assert "Macro: Rates drive the view." in payloads["x"]["full_text"]
+
+
+def test_new_discord_analysis_inherits_confirmed_card_channel_route(ready):
+    store, packet, original = ready
+    row = store.get_outbox_message(original)
+    value = json.loads(row["payload"])
+    value["discord_delivery"] = "channel"
+    # This fixture declares the delivery route before creating its link.
+    with store.get_connection() as connection:
+        connection.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?",
+                           (json.dumps(value), original))
+    link = pages.register_link(store, packet, original_key=original, destination="discord")
+    assert link["native_payload"]["discord_channel_post"] is True
+    assert "discord_thread_parent_id" not in link["native_payload"]
+    assert "reply_to_id" not in link["native_payload"]
+    assert pages.validate_link_plan(store, link["link_id"], link["plan"]) == link
+
+
+def test_retired_analysis_link_is_not_published_again(ready, monkeypatch):
+    store, packet, original = ready
+    link = pages.register_link(store, packet, original_key=original, destination="discord")
+    Coordinator(store=store, transport_runtime=None).register_plan(link["link_id"], link["plan"])
+    ids = Coordinator._ids(link["link_id"], link["plan"]["plan_hash"], "discord")
+    store.set_outbox_status(ids["message_id"], "DERIVATIVE_EXPIRED_STALE_NO_WRITE")
+    monkeypatch.setattr(pages, "publish_link", lambda *a: pytest.fail("retired link was republished"))
+    assert pages._resume_link(store, link, True)["status"] == "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+
+
+def test_confirmed_linkedin_run_does_not_get_a_duplicate_analysis_index(ready):
+    store, packet, _ = ready
+    key = "confirmed-run"
+    url = pages.page_status(store, packet)["canonical_url"]
+    store.create_work_item(story_id=key, work_item_id=key, title="Run", target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(message_id=key, work_item_id=key, destination=posts.DESTINATION,
+        payload=json.dumps({"kind": "run", "analysis_publications": [{"canonical_url": url}]}), status="PUBLISHED")
+    confirm(store, key, sha256(("plan-status-post:" + key).encode()).hexdigest(), "linkedin", "run-li",
+            "https://www.linkedin.com/feed/update/urn:li:share:123")
+    result = pages.distribute_links(store, publish=False)
+    assert next(r for r in result["links"] if r["destination"] == "linkedin")["state"] == "CONFIRMED_IN_RUN_POST"
+    assert not any(json.loads(r["payload"]).get("kind") == "run"
+                   for r in store.list_outbox_messages(destination=pages.DESTINATION))

@@ -1,0 +1,253 @@
+{
+  "observed_at_utc": "2026-11-10T16:01:59.203350+00:00",
+  "runs": [
+    {
+      "artifact": "tests-core-first.xml",
+      "suites": [
+        {
+          "tests": "93",
+          "failures": "2",
+          "errors": "0",
+          "skipped": "0",
+          "time": "14.906",
+          "timestamp": "2026-11-10T22:30:18.481792+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-core-fixed.xml",
+      "suites": [
+        {
+          "tests": "82",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "9.763",
+          "timestamp": "2026-11-10T22:31:25.497400+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-native-regression.xml",
+      "suites": [
+        {
+          "tests": "46",
+          "failures": "3",
+          "errors": "0",
+          "skipped": "0",
+          "time": "9.578",
+          "timestamp": "2026-11-10T22:33:19.499069+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-native-fixed.xml",
+      "suites": [
+        {
+          "tests": "24",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "10.747",
+          "timestamp": "2026-11-10T22:35:47.921300+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-publication-regression.xml",
+      "suites": [
+        {
+          "tests": "113",
+          "failures": "5",
+          "errors": "0",
+          "skipped": "0",
+          "time": "38.385",
+          "timestamp": "2026-11-10T22:36:50.353560+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-publication-fixed.xml",
+      "suites": [
+        {
+          "tests": "69",
+          "failures": "3",
+          "errors": "0",
+          "skipped": "0",
+          "time": "23.879",
+          "timestamp": "2026-11-10T22:38:44.252306+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-latency-fixed.xml",
+      "suites": [
+        {
+          "tests": "16",
+          "failures": "3",
+          "errors": "0",
+          "skipped": "0",
+          "time": "23.363",
+          "timestamp": "2026-11-10T22:40:44.101993+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-latency-notice-fixed.xml",
+      "suites": [
+        {
+          "tests": "16",
+          "failures": "3",
+          "errors": "0",
+          "skipped": "0",
+          "time": "53.132",
+          "timestamp": "2026-11-10T22:42:05.611357+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-latency-clock.xml",
+      "suites": [
+        {
+          "tests": "1",
+          "failures": "1",
+          "errors": "0",
+          "skipped": "0",
+          "time": "10.560",
+          "timestamp": "2026-11-10T22:43:45.760342+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-latency-cause.xml",
+      "suites": [
+        {
+          "tests": "1",
+          "failures": "1",
+          "errors": "0",
+          "skipped": "0",
+          "time": "10.362",
+          "timestamp": "2026-11-10T22:44:11.572094+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-latency-dispatch-fixed.xml",
+      "suites": [
+        {
+          "tests": "3",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "31.385",
+          "timestamp": "2026-11-10T22:45:39.600921+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-reader-final.xml",
+      "suites": [
+        {
+          "tests": "60",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "8.182",
+          "timestamp": "2026-11-10T22:50:49.804377+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-latency-remaining.xml",
+      "suites": [
+        {
+          "tests": "26",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "3",
+          "time": "29.958",
+          "timestamp": "2026-11-10T22:51:04.628881+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-final-consumers.xml",
+      "suites": [
+        {
+          "tests": "93",
+          "failures": "2",
+          "errors": "0",
+          "skipped": "0",
+          "time": "32.312",
+          "timestamp": "2026-11-10T22:55:10.730909+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-text-recovery-fixed.xml",
+      "suites": [
+        {
+          "tests": "2",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "19.583",
+          "timestamp": "2026-11-10T22:56:32.419233+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-draft-fallback.xml",
+      "suites": [
+        {
+          "tests": "13",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "3.098",
+          "timestamp": "2026-11-10T22:57:27.487401+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-operating-root.xml",
+      "suites": [
+        {
+          "tests": "89",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "11.760",
+          "timestamp": "2026-11-10T22:58:28.319212+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-qualification.xml",
+      "suites": [
+        {
+          "tests": "58",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "5.613",
+          "timestamp": "2026-11-10T22:59:46.537587+07:00"
+        }
+      ]
+    }
+  ],
+  "latest_unique_cases": 333,
+  "latest_status_counts": {
+    "PASS": 330,
+    "SKIP": 3
+  },
+  "public_readback_acceptance": "PENDING_NEXT_ELIGIBLE_DAILY_NOTE",
+  "operating_final": {
+    "artifact": "tests-operating-final.xml",
+    "tests": 91,
+    "failures": 0,
+    "errors": 0,
+    "duration_seconds": 14.17,
+    "source_commit": "a7aca972f0dc4320464fab088511a21ae0c99592"
+  }
+}

@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
-from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE
+from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
 
 from live_contentops.edge_cdp_publishing_adapter_v1 import (
     audit_public_substack_article_via_edge,
@@ -82,6 +82,7 @@ SUCCESS_STATUSES = {"SUCCESS", "ALREADY_SUCCESSFUL_IDEMPOTENT"}
 # These outcomes can occur after a platform has accepted a write but before a
 # permalink is recovered. A later retry of the same payload could duplicate it.
 UNKNOWN_WRITE_STATUSES = {
+    "UNKNOWN_WRITE",
     "FAILED_SUBSTACK_PUBLIC_URL_READBACK",
     "FAILED_X_PERMALINK_READBACK",
     "FAILED_LINKEDIN_PERMALINK_READBACK",
@@ -553,13 +554,7 @@ def build_native_derivative_payloads(
     include_social_scenarios(payloads, article)
     notices = (PUBLIC_NOTICE, CONFLICTS_NOTICE)
     for destination, payload in payloads.items():
-        # New compiled copies use CC-423; source records and frozen packages stay intact.
-        for field in ("text", "root_text", "full_text", "caption", "body_markdown"):
-            if isinstance(payload.get(field), str):
-                payload[field] = payload[field].replace(LEGACY_CONFLICTS_NOTICE, CONFLICTS_NOTICE)
         posts = payload.get("posts") or []
-        for post in posts:
-            post["text"] = str(post.get("text") or "").replace(LEGACY_CONFLICTS_NOTICE, CONFLICTS_NOTICE)
         limit = int(payload.get("platform_limit") or
                     (280 if destination == "x" else 500 if destination == "threads" else 0))
         if posts:
@@ -1591,7 +1586,8 @@ def _classification(results: Mapping[str, Mapping[str, Any]]) -> str:
         if canonical_status in UNKNOWN_WRITE_STATUSES:
             return "FAILED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
         return "BLOCKED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
-    if any(str(result.get("status") or "") in UNKNOWN_WRITE_STATUSES for result in results.values()):
+    if any(str(result.get("status") or "") in UNKNOWN_WRITE_STATUSES
+           for platform, result in results.items() if platform not in barred_browser_destinations()):
         return "FAILED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
     successful = [platform for platform, result in results.items() if str(result.get("status")) in SUCCESS_STATUSES]
     if all(platform in successful for platform in TEXT_IMAGE_PASS_DESTINATIONS):
@@ -1710,6 +1706,10 @@ _RELEASE_PREPARATION_ARTIFACTS = (
 def _release_account_preflight(cdp_port: int) -> dict[str, Any]:
     rows: dict[str, Any] = {}
     for platform in ("substack", "x", "linkedin", "youtube"):
+        if platform in barred_browser_destinations():
+            rows[platform] = {"platform": platform, "status": "NOT_POSTED",
+                              "reason_code": barred_browser_destinations()[platform]}
+            continue
         try:
             rows[platform] = probe_authenticated_platform_session(cdp_port, platform)
         except Exception as exc:
@@ -1823,6 +1823,8 @@ def _prepare_text_image_release_candidate(
     blockers: list[str] = []
     account_preflight = _release_account_preflight(cdp_port)
     for platform in ("substack", "x", "linkedin", "youtube"):
+        if platform in barred_browser_destinations():
+            continue
         if not bool((account_preflight.get(platform) or {}).get("authenticated")):
             blockers.append(f"{platform}_canonical_edge_session_not_authenticated")
     x_identity = str((account_preflight.get("x") or {}).get("destination_identity") or "")
@@ -1849,8 +1851,6 @@ def _prepare_text_image_release_candidate(
             blockers.append(f"{platform}_semantic_layout_failed")
     if len(payloads["telegram"]["text"]) > int(payloads["telegram"]["platform_limit"]):
         blockers.append("telegram_caption_limit_exceeded")
-    if len(payloads["youtube"]["text"]) > int(payloads["youtube"]["platform_limit"]):
-        blockers.append("youtube_community_limit_exceeded")
     platform_limits = {"linkedin": 3000, "discord": 2000, "instagram_business": 2200}
     for platform, limit in platform_limits.items():
         if len(payloads[platform]["text"]) > limit:
@@ -7477,6 +7477,30 @@ def _resume_eight_platform_derivatives(
         evidence["resume_blocker"] = "canonical_substack_public_url_required_before_derivative_resume"
         _write_json(evidence_path, evidence)
         return evidence
+    requested = set(platforms or ())
+    allowed = {"telegram", "discord", "x", "threads", "linkedin", "facebook_page", "instagram_business", "youtube", "tiktok"}
+    if requested - allowed:
+        raise ValueError("resume_platform_not_supported_by_derivative_resume")
+    proposed_targets = requested or (set(EXPECTED_DESTINATIONS) - {"substack"})
+    barred = {destination: cause for destination, cause in barred_browser_destinations().items()
+              if destination in (requested or allowed)}
+    evidence["derivative_resume_not_posted"] = {
+        destination: {"status": "NOT_POSTED", "reason_code": cause}
+        for destination, cause in barred.items()
+    }
+    proposed_targets -= set(barred)
+    if not proposed_targets:
+        # Decision 109: preserve confirmed identities and uncertain attempts;
+        # a retired browser route gets no new probe, readback or write.
+        evidence["results"] = results
+        evidence["classification"] = _classification(results)
+        evidence["derivative_resume"] = {
+            "resumed_at": _utc_now(), "targets": [], "canonical_republished": False,
+            "substack_adapter_called": False, "successful_destinations_frozen": True,
+            "youtube_video_or_short_adapter_called": False,
+        }
+        _write_json(evidence_path, evidence)
+        return evidence
     doctor = browser_doctor()
     if doctor.get("status") != "READY_TO_ATTACH" or doctor.get("recommended_cdp_port") != cdp_port:
         evidence["classification"] = "PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
@@ -7518,11 +7542,6 @@ def _resume_eight_platform_derivatives(
     )
     _write_json(output_dir / "native_payloads_v1.json", payloads)
     ledger_path = output_dir / "platform_dispatch_ledger_v1.jsonl"
-    requested = set(platforms or ())
-    allowed = {"telegram", "discord", "x", "threads", "linkedin", "facebook_page", "instagram_business", "youtube", "tiktok"}
-    if requested - allowed:
-        raise ValueError("resume_platform_not_supported_by_derivative_resume")
-    proposed_targets = requested or set(allowed)
     targets = set()
     for platform in proposed_targets:
         prior = results.get(platform) or {}

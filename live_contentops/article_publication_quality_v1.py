@@ -154,6 +154,22 @@ def before_article_write(coordinator, intent, destination):
             lead_asset_id=assets[0]["asset_id"], now=coordinator._clock(),
             canonical_url=intent.get("canonical_url"), enforce_cap=False)
     article, assets, documents = article_inputs(intent)
+    from live_contentops.reader_article_contract_v1 import (
+        validate_article as validate_reader_article, validate_payload as validate_reader_payload,
+        validate_publication_clock,
+    )
+    validate_reader_article(article, documents)
+    validate_publication_clock(article, now=coordinator._clock(), destination=destination)
+    payload = intent.get("native_payload")
+    if payload is None and article.get("reader_article_contract"):
+        if destination == "substack":
+            payload = {"title": article.get("title"), "subtitle": article.get("subtitle") or article.get("dek"),
+                       "body_markdown": article.get("substack_body_markdown")}
+        else:
+            from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+            payload = _durable_intent_inputs(intent)["payloads"][destination]
+    if payload is not None:
+        validate_reader_payload(article, payload)
     from live_contentops.public_instruments_v1 import validate_article, validate_payload
     validate_article(article)
     assets = [a for a in assets if a.get("article_inclusion") is not False

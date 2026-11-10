@@ -1,0 +1,111 @@
+{
+  "at_utc": "2026-11-10T16:11:00.385563+00:00",
+  "operating_head": "284942f220cb8e893ac5a141a91c7064ca411023",
+  "installed_source": [
+    {
+      "path": "live_contentops/plan_call_cards_v1.py",
+      "matches_branch": true
+    },
+    {
+      "path": "live_contentops/plan_analysis_pages_v1.py",
+      "matches_branch": true
+    },
+    {
+      "path": "live_contentops/plan_status_posts_v1.py",
+      "matches_branch": true
+    },
+    {
+      "path": "scripts/plan_status_posts.py",
+      "matches_branch": true
+    }
+  ],
+  "wip": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "matches_before": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "matches_before": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "live_contentops/agy_editorial_assist_v1.py",
+      "sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+      "matches_before": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "matches_before": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "matches_before": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "matches_before": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "matches_before": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "42e5972611cb4387e23da4b2e4e438570d4e60ad92f1154e508b385525348247",
+      "matches_before": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "4fde5d5cddda8cc662c9902342e2339e780f71db9ffeb1fe59dc21001bdcffa6",
+      "matches_before": true
+    }
+  ],
+  "schedule_changed": false,
+  "processes_restarted": false,
+  "observed_consumer": {
+    "process_id": 39912,
+    "started_at_utc": "2026-11-10T16:11:26.372942Z",
+    "executable": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "task_name": "CapitalChronicle-PlanStatusPosts-V1",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "scheduled_task_changed": false
+  },
+  "installed_ast_parse": "PASS",
+  "followup": {
+    "operating_head": "320523f4d6faf2d306c0f2a5c6a6dfae4ef7e658",
+    "installed_at_utc": "2026-11-10T16:22:17.6316094Z",
+    "live_consumer_evidence": "live-consumer.json",
+    "observed_fresh_consumer": {
+      "process_id": 22604,
+      "started_at_utc": "2026-11-10T16:26:26.504754Z",
+      "arguments": "-B scripts\\plan_status_posts.py --publish"
+    },
+    "accepted_at_utc": "2026-11-10T16:29:17.325637+00:00",
+    "acceptance": {
+      "discord_rows_from_10_nov_ready_without_cause": 0,
+      "next_main_run": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "new_run_confirmed_on_discord": true,
+      "new_cards_confirmed_on_discord": 4,
+      "latest_completed_minute_run_at_utc": "2026-11-10T16:29:02.539401Z",
+      "latest_not_started": 0,
+      "waiting_cards_with_key_and_cause": 25,
+      "unnamed_not_started_or_waiting": 0
+    }
+  }
+}

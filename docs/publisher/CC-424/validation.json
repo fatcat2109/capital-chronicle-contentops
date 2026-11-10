@@ -1,0 +1,151 @@
+{
+  "validated_at_utc": "2026-11-10T17:16:38.741958+00:00",
+  "checks": {
+    "inventory_unique": true,
+    "all_inventory_items_covered": true,
+    "all_15_required_items": true,
+    "each_row_has_url_or_named_gap": true,
+    "table_rows_equal_findings": true,
+    "no_duplicate_findings": true,
+    "cpi_et_clock_public": true,
+    "cpi_public_copy_no_forbidden_times": true,
+    "cpi_scenario_probabilities": true,
+    "nfp_dated_consensus": true,
+    "api_observation_count": true,
+    "api_strict_success_count": true,
+    "only_two_observed_threads_render_differences": true,
+    "scorecard_exact_main_projection": true,
+    "scorecard_stored_readback_exact": true,
+    "scorecard_latency_under_hour": true,
+    "scorecard_same_one_object": true,
+    "scorecard_public_text_matches_api": true,
+    "no_cross_article_exact_image_reuse": true,
+    "bound_published_card_bytes": true,
+    "card_values_bound_to_public_article": true,
+    "original_agy_failure_preserved": true,
+    "no_false_frozen_file_claim": true,
+    "read_only_api_routes": true,
+    "all_9_existing_wip_files_unchanged": true,
+    "no_inline_image_data_or_secret_urls": true,
+    "python_scripts_compile": true,
+    "new_plan_why_public": true,
+    "five_public_posts_have_images": true,
+    "cpi_public_instruments": true,
+    "cpi_no_demo_book_symbols": true,
+    "historical_cpi_footer_discrepancy_recorded": true
+  },
+  "check_count": 32,
+  "passed": 32,
+  "pre_existing_work": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\live_contentops\\agy_editorial_assist_v1.py",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    }
+  ],
+  "pytest_processes_started": 0,
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "chat_messages_sent": 0,
+  "model_calls": 0,
+  "counts": {
+    "items": 40,
+    "PASS": 10,
+    "GAP": 30
+  },
+  "artifact_sha256_lf": [
+    {
+      "path": "api-readbacks.json",
+      "bytes_lf": 28840,
+      "sha256_lf": "80c4305a013d569fe3173ceffa3a3e77f22c293b9cd5bd245f97bc74840bfb25"
+    },
+    {
+      "path": "article-bindings.json",
+      "bytes_lf": 206119,
+      "sha256_lf": "2f920803b67d4e253acc9a6e4f1ea60276c9295c0e52fbebd5342ca9617c112b"
+    },
+    {
+      "path": "capture_api_readbacks.py",
+      "bytes_lf": 4777,
+      "sha256_lf": "eb4b262f0c2898b11fb75fe05fee31c9add32b2b051c3d9bb7d05f4772f3dc20"
+    },
+    {
+      "path": "capture_consumer_evidence.py",
+      "bytes_lf": 5493,
+      "sha256_lf": "dec32acef524b7d4712fa40ef64248da9009265f1e1e136cdefa5d33736150d6"
+    },
+    {
+      "path": "consumer-evidence.json",
+      "bytes_lf": 9541,
+      "sha256_lf": "fe23542b7de92d885897a111df04e0cc1239dfce9f871593ea56f8939951510f"
+    },
+    {
+      "path": "findings.json",
+      "bytes_lf": 24396,
+      "sha256_lf": "e810e432dc22b8e206936b50ec4b5ce30b861da0363f25882722c994ab010c67"
+    },
+    {
+      "path": "inventory.json",
+      "bytes_lf": 45234,
+      "sha256_lf": "bfd53da039260d7e111596862aa52a4bf99610f8f5a7dcfbaa00d526e561e0ed"
+    },
+    {
+      "path": "launch.json",
+      "bytes_lf": 2641,
+      "sha256_lf": "4529225734866c1e78272f75033f86f8533eca572e26841d096b742fe650dc25"
+    },
+    {
+      "path": "pinned-scorecard-readback.json",
+      "bytes_lf": 10816,
+      "sha256_lf": "4c2bc847419f0c69c1cb3e37df336c8212d4d79c5a63172dee45bd26e6c54708"
+    },
+    {
+      "path": "public-readbacks.json",
+      "bytes_lf": 108539,
+      "sha256_lf": "5f109ba44778eda9b410f24edbe6710695c9a4210838d705d660a0e69b969702"
+    },
+    {
+      "path": "README.md",
+      "bytes_lf": 23249,
+      "sha256_lf": "3b6f8599b9586f81c42e6f09935c3ce77042aca16f64fad77877160b7318ebac"
+    }
+  ],
+  "artifact_hash_basis": "UTF-8 repository text, CRLF normalized to LF. Referenced external source hashes retain their exact original raw-byte basis.",
+  "integration_check": {
+    "operating_audit_head": "39e08ce958cf9cd1c820f2fdd1386938d9584d68",
+    "installed_repository_text_matches": true,
+    "consumer_table_rows": 40,
+    "all_nine_pre_existing_wip_unchanged": true
+  }
+}

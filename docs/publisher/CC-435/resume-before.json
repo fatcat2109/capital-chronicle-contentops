@@ -1,0 +1,354 @@
+{
+  "observed_at_utc": "2026-11-10T17:30:24.148874+00:00",
+  "analysis_objects": [
+    {
+      "key": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+      "kind": null,
+      "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "run_id": "request-b52501d84c88f7bf",
+      "destination": null,
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "substack",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "platform": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "224269633",
+          "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+      "kind": null,
+      "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "run_id": "shock-20261110T024042Z",
+      "destination": null,
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "224271738",
+          "public_object_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-plan_829c6d5505eb74877d962853",
+      "kind": null,
+      "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "run_id": "shock-20261110T024042Z",
+      "destination": null,
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "224272189",
+          "public_object_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+      "kind": null,
+      "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "run_id": "shock-20261110T024042Z",
+      "destination": null,
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "224272832",
+          "public_object_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+      "kind": null,
+      "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "run_id": "shock-20261110T024042Z",
+      "destination": null,
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "substack",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "224274628",
+          "public_object_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-telegram",
+      "kind": null,
+      "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "run_id": null,
+      "destination": "telegram",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "129",
+          "public_object_url": "https://t.me/CapitalChronicle/129"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-discord",
+      "kind": null,
+      "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "run_id": null,
+      "destination": "discord",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": []
+    },
+    {
+      "key": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-threads",
+      "kind": null,
+      "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "run_id": null,
+      "destination": "threads",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18635996629007906",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjbwtLlCrY"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-telegram",
+      "kind": null,
+      "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "run_id": null,
+      "destination": "telegram",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "130",
+          "public_object_url": "https://t.me/CapitalChronicle/130"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-discord",
+      "kind": null,
+      "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "run_id": null,
+      "destination": "discord",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": []
+    },
+    {
+      "key": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-threads",
+      "kind": null,
+      "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "run_id": null,
+      "destination": "threads",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18108307151366500",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfjbyr2lB6u"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_829c6d5505eb74877d962853-telegram",
+      "kind": null,
+      "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "run_id": null,
+      "destination": "telegram",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "131",
+          "public_object_url": "https://t.me/CapitalChronicle/131"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_829c6d5505eb74877d962853-discord",
+      "kind": null,
+      "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "run_id": null,
+      "destination": "discord",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": []
+    },
+    {
+      "key": "plan-analysis-link-plan_829c6d5505eb74877d962853-threads",
+      "kind": null,
+      "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "run_id": null,
+      "destination": "threads",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "17929665075431215",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjflvNFPEI"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-telegram",
+      "kind": null,
+      "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "run_id": null,
+      "destination": "telegram",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "132",
+          "public_object_url": "https://t.me/CapitalChronicle/132"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-discord",
+      "kind": null,
+      "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "run_id": null,
+      "destination": "discord",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": []
+    },
+    {
+      "key": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-threads",
+      "kind": null,
+      "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "run_id": null,
+      "destination": "threads",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18115739320872841",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfjfnr7lCEB"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-telegram",
+      "kind": null,
+      "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "run_id": null,
+      "destination": "telegram",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "133",
+          "public_object_url": "https://t.me/CapitalChronicle/133"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-discord",
+      "kind": null,
+      "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "run_id": null,
+      "destination": "discord",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": []
+    },
+    {
+      "key": "plan-analysis-root-plan_8b7c1dd880206079033b6efe-threads",
+      "kind": null,
+      "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "run_id": null,
+      "destination": "threads",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18154401742501167",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjgiOeFOGD"
+        }
+      ]
+    },
+    {
+      "key": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-threads",
+      "kind": null,
+      "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "run_id": null,
+      "destination": "threads",
+      "status": "EDITORIAL_INTERNAL",
+      "links": null,
+      "dispatches": [
+        {
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18121628239769207",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjgrEelO6G"
+        }
+      ]
+    }
+  ]
+}

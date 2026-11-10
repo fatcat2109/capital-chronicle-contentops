@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-11-10T16:23:03.083823+00:00",
+  "targeted_only": true,
+  "one_pytest_process_at_a_time": true,
+  "selected_runs": [
+    {
+      "path": "tests-routing.xml",
+      "passed": 62,
+      "sha256": "123568e18cf5737465e616f49f606e4d4184b52645cd3e9cfe26150af17b2692"
+    },
+    {
+      "path": "tests-status-consumer-fixed.xml",
+      "passed": 46,
+      "sha256": "1d94a5a3af41cd2c0546f6c570a0c55070d0c137fbc6bab5f413f07f840da2f8"
+    },
+    {
+      "path": "tests-observed-failures.xml",
+      "passed": 58,
+      "sha256": "8f5fe4dc9081249b63a7dfabf5081b0c337c605c99ccc476a3cd4d139271cc8b"
+    },
+    {
+      "path": "tests-adapter-cause.xml",
+      "passed": 1,
+      "sha256": "8b7a735bb8b247d4712cfde8e85819e1f15b8e1815c29bb37058b4dcdc5b4df0"
+    }
+  ],
+  "distinct_passing_cases": 128,
+  "initial_status_consumer_failure": "Null expiry expectation predates the CC-400 schema rejection; fixed without removing the expiry check."
+}

@@ -19,6 +19,7 @@ beside the store.
 from __future__ import annotations
 
 import argparse
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import sys
@@ -108,6 +109,9 @@ def main(argv=None) -> int:
                                                   python=child_python())
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                                                        active_recoveries=result.get("active_recoveries"))
+            from live_contentops.plan_analysis_pages_v1 import resume_discord_links
+            result["publication"].setdefault("posts", []).extend(resume_discord_links(store,
+                latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))
         if not args.dry_run:
             # pythonw has no stdout: each run's status, the export's age and any refusal go to the run record.
             try:

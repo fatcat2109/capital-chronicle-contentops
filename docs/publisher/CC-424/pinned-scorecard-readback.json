@@ -1,0 +1,171 @@
+{
+  "observed_at_utc": "2026-11-10T17:01:27.503731+00:00",
+  "route": "official Bot API getChat; read-only",
+  "message_id": 134,
+  "text": "Capital Chronicle | Public call results\nResults: 20 | HIT: 0 | STOPPED: 3 | EXPIRED: 17 | NOT TRIGGERED: 0\nScored: 4; unscored expiries: 16.\n\n2026-11-10 ET | Euro (EUR.USD spot) | original direction was bullish | entry zone 1.12175–1.12215 (plan levels) | STOPPED\n2026-11-10 ET | Micro gold (MGC futures, Dec 2026) | original direction was bullish | entry zone 4,101–4,104 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro gold (MGC futures, Dec 2026) | original direction was bullish | entry zone 4,104–4,110 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro WTI crude oil (MCL futures, Dec 2026) | original direction was bearish | entry zone 86.3–86.7 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Euro (EUR.USD spot) | original direction was bullish | entry zone 1.1201–1.1205 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro Bitcoin (MBT futures, Nov 2026) | original direction was bearish | entry zone 75,250–75,340 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro WTI crude oil (MCL futures, Dec 2026) | original direction was bearish | entry zone 85.95–86.05 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro E-mini S&P 500 (MES futures, Dec 2026) | original direction was bullish | entry zone 7,500–7,506 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro E-mini S&P 500 (MES futures, Dec 2026) | original direction was bullish | entry zone 7,520–7,530 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro Bitcoin (MBT futures, Nov 2026) | original direction was bearish | entry zone 75,150–75,300 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro WTI crude oil (MCL futures, Dec 2026) | original direction was bearish | entry zone 85.9–86.05 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro E-mini S&P 500 (MES futures, Dec 2026) | original direction was bullish | entry zone 7,522–7,528 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Euro (EUR.USD spot) | original direction was bullish | entry zone 1.12165–1.12195 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro WTI crude oil (MCL futures, Dec 2026) | original direction was bearish | entry zone 84.85–85.2 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-10 ET | Micro gold (MGC futures, Dec 2026) | original direction was bullish | entry zone 4,100–4,104 (plan levels) | STOPPED\n2026-11-09 ET | Euro (EUR.USD spot) | original direction was bullish | entry zone 1.1166–1.117 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-09 ET | Micro WTI crude oil (MCL futures, Dec 2026) | original direction was bearish | entry zone 90.2–90.45 (plan levels) | EXPIRED (untriggered; not scored)\n2026-11-08 ET | Micro gold (MGC futures, Dec 2026) | original direction was bearish | entry zone 4,033.406–4,085.1955 (plan levels) | STOPPED\n2026-11-06 ET | Euro (EUR.USD spot) | original direction was bearish | entry zone 1.1187–1.1191 (plan levels) | EXPIRED\n2026-10-27 ET | Euro (EUR.USD spot) | original direction was bearish | entry zone 1.11332–1.11342 (plan levels) | EXPIRED (untriggered; not scored)\n\nNewest results first; the weekly wrap keeps the complete record. Results describe resolved conditional model calls.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+  "sent_at_unix": 1794305070,
+  "edited_at_unix": 1794317489,
+  "is_pinned": true,
+  "chat_username": "CapitalChronicle",
+  "source_export": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+    "content_hash": "abc1cec9151e91cef3476fe6079b20d5b6b82113bf094a38fec73d7196426c6b",
+    "generated_at_utc": "2026-11-10T17:05:06.162690Z",
+    "scored_calls": [
+      {
+        "asset_id": "EURUSD",
+        "content_hash": "8565f30fd655545aa746fabd0ddb5d799d78a185ee04e62d8ce62072d1d2662b",
+        "corrects_outcome_id": null,
+        "decision_record_id": "decision:request-563c1412ec555cbb:EURUSD",
+        "direction": "BEARISH",
+        "frozen_at_utc": "2026-11-06T08:19:10.958219Z",
+        "horizon_end_utc": "2026-11-06T13:15:00Z",
+        "outcome_id": "outcome_559ce8f4f2f9ef1132bae8990a694d4a",
+        "plan_id": "plan_5eb033547e64c256929ab849",
+        "public_call_id": "call_7fa4eb6b58280159c7a86db7",
+        "resolved_at_utc": "2026-11-06T13:17:15.917000Z",
+        "result": "EXPIRED",
+        "score_basis": "PRECOMMITTED_EXPIRY_OR_TIME_EXIT",
+        "scored_at_utc": "2026-11-09T10:52:03.594981Z",
+        "source_hash": "cc3e2adad16d0c247c12fdee952528003775172c4e9c081cf71ea1b57b3dc120",
+        "source_plan_hash": "88436fda8844dc72fece7462ed602dcaea75a2e78ee9f30669cbef40e4c4295b",
+        "triggered_at_utc": "2026-11-06T08:32:25.128000Z"
+      },
+      {
+        "asset_id": "XAUUSD",
+        "content_hash": "21db193f246d7e7c43cb486c26b9fede18336611b89d705715bbb2f49519eade",
+        "corrects_outcome_id": null,
+        "decision_record_id": "decision:dossier-20261106T093133Z:XAUUSD",
+        "direction": "BEARISH",
+        "frozen_at_utc": "2026-11-06T10:03:17.220079Z",
+        "horizon_end_utc": "2026-11-09T09:00:00Z",
+        "outcome_id": "outcome_81b601c488019eb62aecbbcd96152433",
+        "plan_id": "plan_f8af4bad6713a6184e7ef146",
+        "public_call_id": "call_79298173614b3f79197dc943",
+        "resolved_at_utc": "2026-11-09T01:00:05.820000Z",
+        "result": "STOPPED",
+        "score_basis": "BROKER_STOP_LOSS",
+        "scored_at_utc": "2026-11-09T10:52:03.594981Z",
+        "source_hash": "223824f154856aa8e5cce9121fdbde629194e29ff7f88c374e51c2ce53d76bef",
+        "source_plan_hash": "db7a64e21bf6043c61b9ea75d300db0b72f11002d11ae735637548eb7982304a",
+        "triggered_at_utc": "2026-11-06T13:33:46.032000Z"
+      },
+      {
+        "asset_id": "XAUUSD",
+        "content_hash": "feaa374afccac1cf7bf68065e1084cb4ab0b757b3de1566fcde7685faca5a590",
+        "corrects_outcome_id": null,
+        "decision_record_id": "decision:request-caddf8cbb6c3311b:XAUUSD",
+        "direction": "BULLISH",
+        "frozen_at_utc": "2026-11-10T06:23:34.112918Z",
+        "horizon_end_utc": "2026-11-16T21:00:00Z",
+        "outcome_id": "outcome_bd6a2fbc1c270ece6bbea043961b496f",
+        "plan_id": "plan_795515a9284ce4344425e7f5",
+        "public_call_id": "call_bd31561cf21b2c11af279f06",
+        "resolved_at_utc": "2026-11-10T10:20:05.506000Z",
+        "result": "STOPPED",
+        "score_basis": "BROKER_STOP_LOSS",
+        "scored_at_utc": "2026-11-10T10:51:08.701630Z",
+        "source_hash": "26d445c63062de0c1b850e6d4130b6343d2f4dab4c049a918697fc2992514cf3",
+        "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+        "triggered_at_utc": "2026-11-10T09:00:11.992000Z"
+      },
+      {
+        "asset_id": "EURUSD",
+        "content_hash": "df7982daad79741cf648c2fb315455c0dffdad480caeed62d7f743590f05f93d",
+        "corrects_outcome_id": null,
+        "decision_record_id": "decision:shock-20261110T063042Z:EURUSD",
+        "direction": "BULLISH",
+        "frozen_at_utc": "2026-11-10T06:52:02.810088Z",
+        "horizon_end_utc": "2026-11-12T20:00:00Z",
+        "outcome_id": "outcome_5d144bd437d79aff7ee8c0a6c863ae95",
+        "plan_id": "plan_fd2cd4630839022f15ebca85",
+        "public_call_id": "call_1e13cbf65554f7b0a4786fda",
+        "resolved_at_utc": "2026-11-10T13:30:01.589000Z",
+        "result": "STOPPED",
+        "score_basis": "BROKER_STOP_LOSS",
+        "scored_at_utc": "2026-11-10T13:31:06.891137Z",
+        "source_hash": "03ebe5690950ff3b55801d4eb626eb12670028fceb1958de7528c6524b55384c",
+        "source_plan_hash": "17972524ada0b24d00df760d1d92364a117970a4f2b76582cd54dfc3afb85934",
+        "triggered_at_utc": "2026-11-10T10:11:03.766000Z"
+      }
+    ]
+  },
+  "retained_revisions": [
+    {
+      "message_id": "134",
+      "destination": "internal:pinned-result-scorecard-readback",
+      "status": "CONFIRMED",
+      "created_at": "2026-11-10T13:31:31.499338+00:00",
+      "chat_username": "CapitalChronicle",
+      "observed_at_utc": "2026-11-10T13:31:31.498651+00:00",
+      "pinned": true
+    },
+    {
+      "message_id": "134",
+      "destination": "internal:pinned-result-scorecard-readback",
+      "status": "CONFIRMED",
+      "created_at": "2026-11-10T13:30:31.933762+00:00",
+      "chat_username": "CapitalChronicle",
+      "observed_at_utc": "2026-11-10T13:30:31.933054+00:00",
+      "pinned": true
+    },
+    {
+      "message_id": "134",
+      "destination": "internal:pinned-result-scorecard-readback",
+      "status": "CONFIRMED",
+      "created_at": "2026-11-10T13:19:31.861666+00:00",
+      "chat_username": "CapitalChronicle",
+      "observed_at_utc": "2026-11-10T13:19:31.860516+00:00",
+      "pinned": true
+    },
+    {
+      "message_id": "134",
+      "destination": "internal:pinned-result-scorecard-readback",
+      "status": "CONFIRMED",
+      "created_at": "2026-11-10T13:00:32.370800+00:00",
+      "chat_username": "CapitalChronicle",
+      "observed_at_utc": "2026-11-10T13:00:32.370037+00:00",
+      "pinned": true
+    },
+    {
+      "message_id": "134",
+      "destination": "internal:pinned-result-scorecard-readback",
+      "status": "CONFIRMED",
+      "created_at": "2026-11-10T10:51:32.868335+00:00",
+      "chat_username": "CapitalChronicle",
+      "observed_at_utc": "2026-11-10T10:51:32.867103+00:00",
+      "pinned": true
+    },
+    {
+      "message_id": "134",
+      "destination": "internal:pinned-result-scorecard-readback",
+      "status": "CONFIRMED",
+      "created_at": "2026-11-10T10:30:33.710093+00:00",
+      "chat_username": "CapitalChronicle",
+      "observed_at_utc": "2026-11-10T10:30:33.709311+00:00",
+      "pinned": true
+    },
+    {
+      "message_id": "134",
+      "destination": "internal:pinned-result-scorecard-readback",
+      "status": "CONFIRMED",
+      "created_at": "2026-11-10T10:04:32.339331+00:00",
+      "chat_username": "CapitalChronicle",
+      "observed_at_utc": "2026-11-10T10:04:28.678710+00:00",
+      "pinned": true
+    },
+    {
+      "message_id": "134",
+      "destination": "internal:pinned-result-scorecard-object",
+      "status": "BOUND",
+      "created_at": "2026-11-10T10:04:30.790302+00:00",
+      "public_url": "https://t.me/CapitalChronicle/134"
+    },
+    {
+      "message_id": "pinned-result-scorecard-v1-anchor",
+      "destination": "internal:pinned-result-scorecard-anchor",
+      "status": "BOUND",
+      "created_at": "2026-11-10T10:04:29.692740+00:00"
+    }
+  ]
+}

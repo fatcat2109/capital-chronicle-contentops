@@ -49,7 +49,11 @@ def rows(store):
 
 
 @pytest.fixture
-def five(tmp_path, main_root):
+def five(tmp_path, main_root, monkeypatch):
+    # These cases exercise the existing bot-thread contract. CC-437 separately
+    # covers new cards on the webhook-only channel route.
+    from live_contentops import secret_store_v1
+    monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: "fixture-bot" if name == "DISCORD_BOT_TOKEN" else None)
     seed = ContentOpsDurableStore(tmp_path / "seed.sqlite")
     copied = tmp_path / "copy.sqlite"
     with sqlite3.connect(seed.db_path) as source, sqlite3.connect(copied) as target:

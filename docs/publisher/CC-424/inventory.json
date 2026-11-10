@@ -1,0 +1,368 @@
+{
+  "backlog_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG.md",
+  "backlog_sha256": "ea53236d91171e900772743bdd3c6d9a40598960f4000d3e95ed92d48af51548",
+  "items": [
+    {
+      "item": "CC-264",
+      "title": "CC-264 · Articles cite the consensus with its source and carry our model outputs (Codex Publisher; Jim's decision 72 b)",
+      "status": "IN_PROGRESS (live at e2c8fcb8; the NFP and CPI previews prove it)",
+      "owner_line": "- Owner: Claude Builder (Opus 5.5, after CC-262) · Effort: max · Risk: content · Due: Fri 6 Nov 2026 12:00 · Status: IN_PROGRESS (live at e2c8fcb8; the NFP and CPI previews prove it)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance: the NFP preview (Fri 6 Nov) prints the consensus figure with its source and date; the CPI preview (Tue 10 Nov) also carries at least one model output from the export with its label; guard tests pass those citations and refuse a DEMO identifier, a raw consensus table and a Kalshi number.",
+      "retained_result": "- Branch: — · Result: —"
+    },
+    {
+      "item": "CC-043",
+      "title": "CC-043 · P3: Main's export as a first-party source",
+      "status": "BUILT_UNMERGED (retained export consumed live; recurring CC-014 producer binding pending)",
+      "owner_line": "- Owner: ContentOps lane (Product; Claude session local_eb97be5c) · Risk: content · Due: Fri 6 Nov 2026 · Status: BUILT_UNMERGED (retained export consumed live; recurring CC-014 producer binding pending)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: built against the CC-014 schema v1 fixture; reviewed articles cite our event cards and dossiers; numbers match the export exactly.",
+      "retained_result": "- Branch: backlog/cc-043-on-cc042 - Result: CC-177 tag contentops-live-20261105-cc177 / fd9fcd49; schemas 1.0-1.3 accepted, 82 public records from exact retained export consumed in production feed; Ops/Main bind recurring finished-run export after NFP; docs/publisher/CC-177/resume-20261105/README.md."
+    },
+    {
+      "item": "CC-171",
+      "title": "CC-171 · Publish today's finished drafts (Jim's decision 52)",
+      "status": "PAUSED (Ops Product, 6 Nov 01:25 GMT+7: Jim's decisions 88 and 89, news stopped until he reopens it; was BLOCKED: MIDTERM_PREVIEW_DEADLINE_EXPIRED)",
+      "owner_line": "- Owner: Codex Publisher · Risk: content · Due: Tue 3 Nov 2026 · Effort: max · Status: PAUSED (Ops Product, 6 Nov 01:25 GMT+7: Jim's decisions 88 and 89, news stopped until he reopens it; was BLOCKED: MIDTERM_PREVIEW_DEADLINE_EXPIRED)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: each post read back as live, or recorded as PENDING_JIM_EMAIL_CODE with its draft and tab; the dispatches in the store.",
+      "retained_result": "- Branch: backlog/cc-171-publish-resume-20261104 · Result: c7a62f8e live: jobs Threads + FOMC Threads/IG confirmed; CC-179 ff2ecc21591b05a223c78261b15a89ec1e97743c recovery live, FOMC LinkedIn/YouTube absent; midterm preview expired (Ops disposition), CPI repairs CC-247; docs/publisher/CC-179/recovery-20261105/README.md."
+    },
+    {
+      "item": "CC-177",
+      "title": "CC-177 · Publisher integrates its own built work (Jim's decisions 39 and 50)",
+      "status": "BLOCKED (Main weekly digest readers absent; recurring CC-014 and CC-136/site binding pending)",
+      "owner_line": "- Owner: Codex Publisher · Risk: content · Due: Wed 4 Nov 2026 · Status: BLOCKED (Main weekly digest readers absent; recurring CC-014 and CC-136/site binding pending)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: each item DONE with its tag, or SUPERSEDED with its cause.",
+      "retained_result": "- Branch: backlog/cc-177-consumer-integration-20261105 · Result: fd9fcd49 pushed/live, tag contentops-live-20261105-cc177; 104 schema/desk + 96 initial installed + 29 final installed checks PASS; 82 desk records and 5 X counter objects consumed; Ops/Main wire weekly digest, recurring CC-014 and CC-136/site (GIT_CHECKOUT_CONTROL_CHANGED); docs/publisher/CC-177/resume-20261105/README.md."
+    },
+    {
+      "item": "CC-107",
+      "title": "CC-107 · Event preview and review articles",
+      "status": "BLOCKED: DATED_NFP_REVIEW_TIMELINE_AND_CPI_DOSSIER_PENDING",
+      "owner_line": "- Owner: Codex Publisher · Risk: content · Due: templates and guard Wed 4 Nov 2026 · Effort: max · Status: BLOCKED: DATED_NFP_REVIEW_TIMELINE_AND_CPI_DOSSIER_PENDING",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: on a branch from the operating root's live tag:\n  - the two templates and a public-output guard with tests that refuse the private fields above;\n  - private drafts for the midterms (from PREVIEW.md of 3 Nov) and for NFP.\n  Each article of a new type is published only after Jim's yes, until he gives a standing yes.",
+      "retained_result": "- Branch: backlog/cc-107-event-resolution-20261106 · Result: 36a45540 live; NFP preview/digest verified; YouTube image absent (kept exact post to avoid duplicate); dated review/CPI inputs pending; docs/publisher/CC-107/run-20261106/RESULT.md."
+    },
+    {
+      "item": "CC-124",
+      "title": "CC-124 · Standing article production (decision 39)",
+      "status": "OPEN (next due 11 Nov 2026 02:14 GMT+7)",
+      "owner_line": "- Owner: Codex Publisher · Risk: content · Due: standing · Effort: max · Cadence: 360 min, at most 2 articles a day · Status: OPEN (next due 11 Nov 2026 02:14 GMT+7)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: published articles with readback, counted daily in the production-day record and the 07:00 digest (CC-122).",
+      "retained_result": "- Branch: backlog/cc-124-main-check-20261110 · Result: +0: CPI preview is today's wrap (decision 98); at 20:22 GMT+7 no post-CPI Main review yet; chose next Main review, no filler (89); pushed/live 218b4b26; no tests in blackout; evidence docs/publisher/CC-124/run-20261110-2014/README.md."
+    },
+    {
+      "item": "CC-135",
+      "title": "CC-135 · One record per published piece (ContentOps)",
+      "status": "BUILT_UNMERGED (producer live; CC-136/CC-014/site consumers pending)",
+      "owner_line": "- Owner: Codex Publisher · Risk: content · Due: Thu 5 Nov 2026 · Status: BUILT_UNMERGED (producer live; CC-136/CC-014/site consumers pending)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: tests (append-only, one line per piece, no duplicates, the decision 35 and 40 guards), the backfill run, and the FOMC piece present with its five confirmed outlets. Decision 39: Publisher integrates it itself.",
+      "retained_result": "- Branch: backlog/cc-135-published-content · Result: CC-177 tag contentops-live-20261105-cc177 / fd9fcd49; 5 valid sealed pieces, FOMC 5 confirmed outlets; Ops/Main integrate CC-136 (GIT_CHECKOUT_CONTROL_CHANGED) and wire CC-014/site consumers; docs/publisher/CC-177/resume-20261105/README.md."
+    },
+    {
+      "item": "CC-142",
+      "title": "CC-142 · Charts for data-release analysis (Jim's decision 41)",
+      "status": "BLOCKED: NEXT_DATA_ANALYSIS_READBACK_PENDING",
+      "owner_line": "- Owner: Codex Publisher · Risk: content · Due: Wed 4 Nov 2026 12:00 · Status: BLOCKED: NEXT_DATA_ANALYSIS_READBACK_PENDING",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: the CPI post read back with its charts, each chart's lineage recorded, tests for (2) and (3), and the next data analysis (the NFP preview or review) going out with charts. Decision 39: Publisher integrates it itself.",
+      "retained_result": "- Branch: backlog/cc-142-data-release-charts (base contentops-live-20261103-d41, 25f6cfdd) · Result: e9e5221e pushed; integrated contentops-live-20261103-cc142; CPI 223246940 charts/photo confirmed; tests PASS: tests/evidence/cc-142/final-validation.json; next Publisher: NFP publication with charts and readback."
+    },
+    {
+      "item": "CC-143",
+      "title": "CC-143 · Web-first publishing and one daily email digest (Jim's decision 42)",
+      "status": "IN_PROGRESS (Ops Product, 5 Nov 11:20 GMT+7: route live; first real run tonight at 19:15 GMT+7)",
+      "owner_line": "- Owner: Claude Builder (background agent of Ops Product); Ops Product installs the schedule · Risk: content · Due: Thu 5 Nov 2026 19:00 GMT+7 · Status: IN_PROGRESS (Ops Product, 5 Nov 11:20 GMT+7: route live; first real run tonight at 19:15 GMT+7)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: one web-only post read back, one digest sent with readback, and tests for the publish mode and the digest's selection (each article once, no duplicate). Decision 39: Publisher integrates it itself.",
+      "retained_result": "- Branch: backlog/cc-143-digest-delivery-20261105 · Result: 77046547 pushed/live; tests pass; digest 223570288 web-confirmed, email unconfirmed; task Disabled; Ops Product supplies 19:00 route; docs/publisher/CC-143/run-20261105-1016/result.json."
+    },
+    {
+      "item": "CC-144",
+      "title": "CC-144 · A visual on every post (Jim's decision 42)",
+      "status": "IN_PROGRESS (live; next two pieces pending)",
+      "owner_line": "- Owner: Codex Publisher · Risk: content · Due: Thu 5 Nov 2026 (before the NFP preview) · Status: IN_PROGRESS (live; next two pieces pending)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance: tests that every publication path has an image; the next 5 posts with images (data cards or charts, and photos where lawful); and the data card's numbers traced to the post's facts. Decision 39: Publisher integrates it itself.",
+      "retained_result": "- Branch: backlog/cc-144-live-integration · Result: dc14eb78 pushed/live (cc144-source-cards); 120 current-base +29 installed checks PASS; CC-145 series feeds writer; next two genuine image-post readbacks pending per Ops 4 Nov21:01; docs/publisher/CC-144/README.md."
+    },
+    {
+      "item": "CC-267",
+      "title": "CC-267 · A post with no public fact still publishes, with a title card (CC-144's defect T2)",
+      "status": "IN_PROGRESS (live at 35eb1b5f; first real title-card post pending: Challenger, Thu 5 Nov 19:30 GMT+7)",
+      "owner_line": "- Owner: ContentOps lane (Product; Claude session local_eb97be5c, started by Ops Product) · Risk: content · Due: Thu 5 Nov 2026 12:00 · Status: IN_PROGRESS (live at 35eb1b5f; first real title-card post pending: Challenger, Thu 5 Nov 19:30 GMT+7)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - an ISM-only NEWS fixture runs through `run_v1_simple_gemini_newsroom` to a post whose one card shows the title and date and no survey figure;\n  - T2, T3 and T4 pass on the live head, and the post-visual and native-editorial test files pass;\n  - the fix is integrated into the ContentOps operating root with a live tag and a rollback tag, as babd311d was.\n  Never run the full suite in the live root: it rewrites 56 tracked files.",
+      "retained_result": "- Branch: ContentOps 26bbea64 and 35eb1b5f · Result: live 5 Nov 04:00 and 04:14 GMT+7; tests/test_post_title_card_cc267.py with 23 headline cases plus a dek fallback; T2, T3 and T4 pass; with the post-visual and CC-245 card files, 94 pass on the rebased head; focused 25 files show no new failure; docs/publisher/CC-267/README.md, renders/ism-title-card-1080x1350.png and renders/challenger-fallback-title-card-1080x1350.png."
+    },
+    {
+      "item": "CC-290",
+      "title": "CC-290 · The fact card reads cleanly: a quieter hero and one aligned grid (Jim, 5 Nov)",
+      "status": "IN_PROGRESS (live at 1b2b732b; the next published piece proves it)",
+      "owner_line": "- Owner: Claude Builder (Opus 5.5 max, background agent of Ops Product) · Risk: content (public visuals) · Due: Fri 6 Nov 2026 12:00 (before the NFP piece) · Status: IN_PROGRESS (live at 1b2b732b; the next published piece proves it)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - before and after renders, side by side, for the Southwest filing, a CPI or PPI release, a digest and a CC-267 title card, at 1080x1350 and the X size;\n  - focused tests, including a single left edge across blocks and a figure chosen over a date;\n  - integrated into the ContentOps root with a live tag and a rollback tag; the next published piece carries the new card.",
+      "retained_result": "- Branch: backlog/cc-290-card-redesign; live ContentOps 1b2b732b · Result: renders in docs/publisher/CC-290/; tests/test_fact_card_design_cc290.py (38 cases); 452 pass across 17 card files, 3 old failures unchanged."
+    },
+    {
+      "item": "CC-297",
+      "title": "CC-297 · Platform keys leave the user environment: ContentOps reads Windows Credential Manager, and one script moves the rest",
+      "status": "IN_PROGRESS (moved; DONE after the next piece posts on every destination)",
+      "owner_line": "- Owner: Claude Builder (Opus 5.5 max, background agent of Ops Product) · Risk: content (credentials) · Due: Thu 5 Nov 2026 18:00 · Status: IN_PROGRESS (moved; DONE after the next piece posts on every destination)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - tests: the reader order; a missing key fails by name; nothing printed;\n  - integrated in the ContentOps root with live and rollback tags;\n  - with Jim's Threads values in Credential Manager and the two names gone from the environment, the Threads probe reads READY_NON_BROWSER_BINDING (its API-surface ready state);\n  - after Jim's move-script run, the user environment holds none of the ContentOps names, and the next piece posts on every destination.",
+      "retained_result": "- Branch: — · Result: —"
+    },
+    {
+      "item": "CC-304",
+      "title": "CC-304 · Quiet-day explainers and week-ahead pieces are possible again",
+      "status": "PAUSED (Ops Product, 6 Nov 01:25 GMT+7: Jim's decisions 88 and 89, news stopped until he reopens it; was IN_PROGRESS (live at 499ec7ba; the first real piece proves it))",
+      "owner_line": "- Owner: Ops Product checks the proof (built by the ContentOps lane, live at 499ec7ba) · Risk: content · Due: Mon 9 Nov 2026 12:00 · Status: PAUSED (Ops Product, 6 Nov 01:25 GMT+7: Jim's decisions 88 and 89, news stopped until he reopens it; was IN_PROGRESS (live at 499ec7ba; the first real piece proves it))",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - registry tests: a general public event can take each mode, a breaking event still prefers the brief, and a mode without its evidence is refused;\n  - integrated with live and rollback tags;\n  - one real piece in either mode goes out within a week.",
+      "retained_result": "- Branch: — · Result: —"
+    },
+    {
+      "item": "CC-306",
+      "title": "CC-306 · One post per change of plan state for the six markets (decision 79, P3)",
+      "status": "IN_PROGRESS (API posts live; the --publish run time is being fixed; X through the agent route)",
+      "owner_line": "- Owner: ContentOps lane (Product; Claude session local_eb97be5c) builds the trigger and templates; Codex Publisher posts · Risk: content (publication path) · Due: after CC-305 · Status: IN_PROGRESS (API posts live; the --publish run time is being fixed; X through the agent route)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance: one real plan's change produces one post per working destination, read back.",
+      "retained_result": "- Branch: — · Result: —"
+    },
+    {
+      "item": "CC-314",
+      "title": "CC-314 · Asset posts carry a TradingView chart snapshot (Jim's decision 82)",
+      "status": "IN_PROGRESS (live for status posts at 2dcc74ee; the first post after CC-315 proves it; levels wait for a signed-in chart)",
+      "owner_line": "- Owner: ContentOps lane (Product; Claude session local_eb97be5c) · Risk: content (public visuals, publication path) · Due: Fri 6 Nov 2026 12:00 GMT+7 (before the NFP pieces) · Status: IN_PROGRESS (live for status posts at 2dcc74ee; the first post after CC-315 proves it; levels wait for a signed-in chart)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - tests:\n    - a status post's package holds a TradingView snapshot for the right symbol and timeframe, with the attribution visible;\n    - the fallback carries the plan's numbers;\n    - no target level is drawn.\n  - The lane reads the first real snapshot, before it posts, for any account name or private panel.\n  - The next real six-market status post goes out with the snapshot on Telegram, Discord and Threads, and on X through the agent route, all read back.\n  - The next six-market daily piece carries it on every destination that takes images.\n  - Integrated into the ContentOps operating root with a live tag and a rollback tag.",
+      "retained_result": "- Branch: — · Result: —"
+    },
+    {
+      "item": "CC-315",
+      "title": "CC-315 · No post links to the preview or any borrowed host (Jim's decision 83, hard rule)",
+      "status": "IN_PROGRESS (live at 037d0e6c and 6a926d2a; the next status post's readback closes it)",
+      "owner_line": "- Owner: ContentOps lane (Product; Claude session local_eb97be5c), ahead of CC-314 · Risk: content (publication path) · Due: Fri 6 Nov 2026 06:00 GMT+7 · Status: IN_PROGRESS (live at 037d0e6c and 6a926d2a; the next status post's readback closes it)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - tests: each route's payload has no borrowed-host link, and the guard refuses one planted in each destination's text;\n  - integrated with a live tag and a rollback tag;\n  - Ops Product re-enables CapitalChronicle-PlanStatusPosts-V1, and the next status post reads back with no site link;\n  - the profile check is reported.",
+      "retained_result": "- Branch: — · Result: —"
+    },
+    {
+      "item": "CC-322",
+      "title": "CC-322 · Conditional calls scored in public: a result post when a plan ends (RU-8, decision 84)",
+      "status": "BLOCKED (FIRST_ELIGIBLE_POST_INTEGRATION_RESULT_PENDING; decision 106; 10 Nov 2026 20:34 GMT+7)",
+      "owner_line": "- Owner: Codex Publisher · Effort: high · Risk: content (publication path) · Due: Wed 11 Nov 2026 12:00 GMT+7 · Status: BLOCKED (FIRST_ELIGIBLE_POST_INTEGRATION_RESULT_PENDING; decision 106; 10 Nov 2026 20:34 GMT+7)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - tests: one result post per ended plan, exactly-once; the count is right; no claim wording passes;\n  - the first plan that ends after integration gives one result post per working destination, read back;\n  - integrated with a live tag and a rollback tag.",
+      "retained_result": "- Branch: backlog/cc-322-result-readback-20261110 · Result: 5e276fe23717f5f3dde778aad6b61521732954f7 pushed/integrated; 4 scored calls, 2 new stops inside decision-106 loss limit; docs/publisher/CC-322/readback-20261110.json; preserved CC-399 queue, no sends/tests; Publisher reads next eligible hit/correction or loss after 16 Nov 23:17 GMT+7; gpt-6.1-sol/high CONFIGURED_NOT_OBSERVED."
+    },
+    {
+      "item": "CC-326",
+      "title": "CC-326 · Every public post gives times in New York time, ET (Jim's decision 90)",
+      "status": "IN_PROGRESS (integrated; next article ET readback pending, 6 Nov 2026 14:23 GMT+7)",
+      "owner_line": "- Owner: Codex Publisher · Effort: high · Risk: content (public copy) · Due: Sat 7 Nov 2026 12:00 GMT+7 · Status: IN_PROGRESS (integrated; next article ET readback pending, 6 Nov 2026 14:23 GMT+7)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - tests: each public builder renders ET, and a guard test refuses a final payload containing \"GMT+7\" or \"UTC+7\";\n  - the next article read back shows ET only;\n  - integrated with a live tag and a rollback tag.",
+      "retained_result": "- Branch: backlog/cc-326-public-times-et · Result: ET/DST under decision 90; 9d860ab200ceb12950b4a6924395e90139adda6d pushed and integrated; live tag contentops-live-20261106-cc326, rollback contentops-rollback-20261106-cc326; 148+78 builder checks, 214 regression checks plus all 13 editorial rechecks, 55 operating-root checks passed; next ordinary article public readback pending; evidence docs/publisher/CC-326/README.md; WIP preserved."
+    },
+    {
+      "item": "CC-333",
+      "title": "CC-333 · A new image for every piece, fewer and deeper pieces, scenarios in every post (Jim's decision 93)",
+      "status": "IN_PROGRESS (live at d489e3b5; reading 1 of 2 passed on the weekend wrap, reading 2 is CC-124's pre-US wrap)",
+      "owner_line": "- Owner: Codex Publisher · Effort: max · Risk: content (publication path) · Due: Sat 7 Nov 2026 18:00 GMT+7 · Status: IN_PROGRESS (live at d489e3b5; reading 1 of 2 passed on the weekend wrap, reading 2 is CC-124's pre-US wrap)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - tests: a reused, near-duplicate or missing lead image is refused; the scenarios section is required in the article and in each social copy; the daily cap holds;\n  - the next two published pieces each carry an image never used before and a scenarios section, read back on Substack and the social destinations;\n  - integrated with a live tag and a rollback tag.",
+      "retained_result": "- Branch: backlog/cc-333-image-scenarios-cap · Result: d489e3b5 pushed/live; consumer read PASS, 0/2 readbacks; chose retained NFP over invented probabilities; Main supplies complete scenarios; docs/publisher/CC-333/README.md; Sol 6.1 MAX CONFIGURED_NOT_OBSERVED."
+    },
+    {
+      "item": "CC-336",
+      "title": "CC-336 · Decision 95 for ContentOps: stress-test every built tool on real events, then wire it or retire it",
+      "status": "IN_PROGRESS (7 of 11 wired; the 2 WIRE_NOW tools are proven by CC-333's next two pieces; re-test after CPI)",
+      "owner_line": "- Owner: Claude Builder (background agent of Ops Product, Opus; decision 97 spends the weekly quota to 98%) · Risk: content · Due: Mon 9 Nov 2026 12:00 GMT+7 · Status: IN_PROGRESS (7 of 11 wired; the 2 WIRE_NOW tools are proven by CC-333's next two pieces; re-test after CPI)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: the results table covers every tool above, each with its event evidence; each tool is wired (a real-event piece shows it in use) or retired with its reason. A paper pass does not count (decision 95).",
+      "retained_result": "- Branch: — · Result: —"
+    },
+    {
+      "item": "CC-338",
+      "title": "CC-338 · G06: the CPI preview carries its hash and freeze time; the review publishes the file; the scorecard keeps every call",
+      "status": "BLOCKED (G05_FROZEN_PUBLIC_FILE_NOT_ISSUED; PPI fallback 13 Nov)",
+      "owner_line": "- Owner: Codex Publisher (Ops Live writes the hash) · Effort: max · Risk: content (public record) · Due: Tue 10 Nov 2026 12:00 GMT+7 · Status: BLOCKED (G05_FROZEN_PUBLIC_FILE_NOT_ISSUED; PPI fallback 13 Nov)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance: the CPI preview (Tue 10 Nov) carries hash and freeze time; the review's published file matches the hash; the scorecard shows every call. If CPI is missed, PPI (Fri 13 Nov) instead.",
+      "retained_result": "- Branch: backlog/cc-338-cpi-preview-20261110 · Result: 86734614 pushed/live; CPI posted 19:09 GMT+7 (late), six social copies; 17 CPI/36 total calls; PPI hash/review pending, LinkedIn TLS; docs/publisher/CC-338/run-20261110/FINAL.json; gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED."
+    },
+    {
+      "item": "CC-216",
+      "title": "CC-216 · NFP, CPI and PPI previews written the day before; the frozen dossier adds only its scenarios (red-tape synthesis S07)",
+      "status": "BLOCKED: FROZEN_EVENT_DOSSIERS_NOT_YET_CREATED (CC-107; first due 6 Nov 2026 18:00 GMT+7)",
+      "owner_line": "- Owner: Codex Publisher · Risk: content · Due: Thu 5 Nov 2026 18:00 · Effort: max · Status: BLOCKED: FROZEN_EVENT_DOSSIERS_NOT_YET_CREATED (CC-107; first due 6 Nov 2026 18:00 GMT+7)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - The NFP preview background passes MAX review by Fri 6 Nov 12:00 GMT+7.\n  - After the 12:30Z freeze, the scenarios are added and the piece reaches Substack and every authorized destination before 13:30Z (20:30 GMT+7), with approval and dispatch clocks recorded.\n  - The same holds for CPI (10 Nov) and PPI (13 Nov).",
+      "retained_result": "- Branch: backlog/cc-216-early-event-previews · Result: f97eddbe pushed/live; 3 MAX-reviewed backgrounds and 54 renders accepted; writer reuse verified; CC-107 awaits frozen dossiers (first 6 Nov 18:00 GMT+7)."
+    },
+    {
+      "item": "CC-245",
+      "title": "CC-245 · Fact cards look like the release, not a blank page (Jim, 4 Nov: the SEC image)",
+      "status": "IN_PROGRESS (ContentOps V1 lane, from 4 Nov 22:35 GMT+7)",
+      "owner_line": "- Owner: Claude ContentOps V1 lane (follow-up and regression; Codex Publisher's next piece proves acceptance) · Risk: content (public visuals) · Due: Thu 5 Nov 2026 18:00 · Status: IN_PROGRESS (ContentOps V1 lane, from 4 Nov 22:35 GMT+7)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance: cards for SEC, CPI and the 4 Nov digest rendered side by side at Instagram and X sizes, checked against the old ones; tests for the content binding; the next published piece carries the new card.",
+      "retained_result": "- Branch: ContentOps operating root a9acc6b5 · Result: 1b97e66b live (tag contentops-live-20261104-cc245-fact-cards); renders docs/publisher/CC-245/renders; new SEC card in its run media; acceptance (the next piece carries the new card) pending."
+    },
+    {
+      "item": "CC-247",
+      "title": "CC-247 · CPI and SEC carry the right image on every platform (Jim, 4 Nov: delete and repost)",
+      "status": "PAUSED (Ops Product, 6 Nov 01:25 GMT+7: Jim's decisions 88 and 89, news stopped until he reopens it; was BLOCKED (JIM_DELETIONS_PENDING; DISCORD_MESSAGE_NOT_FOUND))",
+      "owner_line": "- Owner: Codex Publisher · Order: first (Jim deleted the old posts) · Risk: content (public posts) · Due: Thu 5 Nov 2026 12:00 · Status: PAUSED (Ops Product, 6 Nov 01:25 GMT+7: Jim's decisions 88 and 89, news stopped until he reopens it; was BLOCKED (JIM_DELETIONS_PENDING; DISCORD_MESSAGE_NOT_FOUND))",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: each CPI and SEC destination above shows the approved chart or the new card when opened live (links in Result); no destination has two copies; Threads follows the token.",
+      "retained_result": "- Branch: backlog/cc-247-media-recovery · Result: fe113be54e1facb7a27a141c8db5bde9f4daf0c7 pushed/live; 12 repairs verified, targeted tests PASS: [readbacks](A:/Capital Chronicle/Worktrees/ContentOps/codex-publisher-exec/tests/evidence/cc-247/LIVE_READBACKS.md); deletions seen CPI IG + SEC IG/FB/TG/YT; pending CPI FB 1443815231270226 + SEC X 2117784321562124568; Jim removes Discord 1567217600877039648 + 1567341152611467389 (edits NOT_FOUND)."
+    },
+    {
+      "item": "CC-355",
+      "title": "CC-355 · The public plan export carries the committee's why, in labelled fields (Jim, 9 Nov; feeds CC-353)",
+      "status": "BUILT_UNMERGED (live live-20261109-cc355-170323; consumer readback pending)",
+      "owner_line": "- Owner: Codex Main (Ops Live integrates; public level Ops Product) · Risk: content (unpinned export; public fields) · Due: Tue 10 Nov 2026 09:00Z (before the CPI dossier) · Status: BUILT_UNMERGED (live live-20261109-cc355-170323; consumer readback pending)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - Tests on the three rows of ResearchRuns/claude-main-research/daily-research-portfolio-279805139/requests/request-91a0ed68b1eb799e: each field matches owner-native.json, with numbers kept and no target or R:R.\n  - invalidation_text is non-null on all three.\n  - After integration, the next plan-status export (the CPI dossier's branch plans on Tue 10 Nov count) carries the fields, and Codex Publisher's CC-353 composer prints a why block from them on one real post.\n  - Nothing here changes a plan, a gate or an entry.\n  Also seen (not this item): BTCUSD's levels came from D1 bars only. Its rationale says the H1 and M15 rows \"sit in the native-intraday row that no role read\". The cost summary live at live-20261109-costsummary-092349 fits every read under 40,000 B; Ops Live checks that tomorrow's roles read the intraday rows.",
+      "retained_result": "- Branch: backlog/cc-355-public-plan-reasons · Result: 302a0f981 pushed; reused scenario_analysis for current consumers; 172 tests + 3 clock checks, Ruff and 3-plan/33-field desk/composer replay PASS: tests/evidence/cc-355/validation.json; Ops integrate then verify natural export/CC-353 post (composer omissions recorded); gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED."
+    },
+    {
+      "item": "CC-377",
+      "title": "CC-377 · The 19:00 digest goes out when it has an article: a skipped legacy row no longer holds it (CC-143)",
+      "status": "IN_PROGRESS (integrated; 10 Nov 2026 19:00 GMT+7 acceptance pending)",
+      "owner_line": "- Owner: Codex Publisher · Effort: high · Risk: content (publication path) · Due: Tue 10 Nov 2026 15:00 GMT+7 · Status: IN_PROGRESS (integrated; 10 Nov 2026 19:00 GMT+7 acceptance pending)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - A test with one skipped legacy row and an empty backlog raises the publish request.\n  - The 10 Nov 19:00 GMT+7 run (the Claude task `cc-contentops-digest-1900-bp`) reaches NATIVE_REQUEST_READY, publishes and reads back, with 9 Nov's article in it.",
+      "retained_result": "- Branch: backlog/cc-377-digest-recovery · Result: 52adbf3442645a1ffc2fd098eaf85b942baaa6cc integrated; scoped recovery/query; 77 tests PASS (docs/publisher/CC-377); NATIVE_REQUEST_READY in 5.839s; missed article retained once; scheduled publish/readback pending."
+    },
+    {
+      "item": "CC-378",
+      "title": "CC-378 · Antigravity writes the light text and a first-pass claim check for each article (decision 105)",
+      "status": "BLOCKED (until 10 Nov 2026 20:45 GMT+7: CPI night, light work only; reopened by decision 114, 10 Nov 2026 18:04 GMT+7)",
+      "owner_line": "- Owner: Codex Publisher · Effort: high · Risk: content (publication path) · Due: Fri 13 Nov 2026 12:00 GMT+7 · Status: BLOCKED (until 10 Nov 2026 20:45 GMT+7: CPI night, light work only; reopened by decision 114, 10 Nov 2026 18:04 GMT+7)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - Tests with a recorded agy output and with a forced failure.\n  - The next two CC-124 pieces' run records show agy's claim list, alt text and variants, and Publisher's decision on each flag; the published alt text and variants read back.",
+      "retained_result": "- Branch: backlog/cc-378-agy-editorial-assist · Result: 7f073cff pushed and integrated in ContentOps; 119 targeted tests + 16 operating-root PASS; chose native submit/compiler reuse; AGY calls and exact hashes verified; next two CC-124 alt/copy readbacks pending (today 2/2); evidence docs/publisher/CC-378/README.md."
+    },
+    {
+      "item": "CC-379",
+      "title": "CC-379 · The weekend wrap lists every scored call of the week, wins and losses (Jim's decision 106)",
+      "status": "BLOCKED (until 14 Nov 2026 12:00 GMT+7: 9-13 Nov ET week incomplete; weekend Substack readback pending)",
+      "owner_line": "- Owner: Codex Publisher · Effort: high · Risk: content (public record) · Due: Sun 15 Nov 2026 12:00 GMT+7 · Status: BLOCKED (until 14 Nov 2026 12:00 GMT+7: 9-13 Nov ET week incomplete; weekend Substack readback pending)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: the next weekend wrap (Sat 14 or Sun 15 Nov) lists each scored call of 9-13 Nov exactly as the export records it, read back on Substack.",
+      "retained_result": "- Branch: backlog/cc-379-weekly-scored-calls · Result: 7ad363a5 pushed and integrated; 227 targeted + 25 operating-root tests PASS; chose existing source/writer/readback path to retain every outcome; 14-15 Nov Substack acceptance pending; docs/publisher/CC-379/README.md."
+    },
+    {
+      "item": "CC-382",
+      "title": "CC-382 · Articles and wraps name the instruments European and US readers know, and avoid CFDs (Jim's decision 107)",
+      "status": "DONE",
+      "owner_line": "- Owner: Codex Publisher · Effort: high · Risk: content (public copy) · Due: Wed 11 Nov 2026 12:00 GMT+7 · Status: DONE",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - The next CC-124 article and the next wrap name at least one futures or ETF instrument for each market they cover.\n  - Their copy holds no \"CFD\" and no DEMO-book symbol, checked by a test on the article package.\n  - Their charts are the decision-107 feeds. All read back on Substack.",
+      "retained_result": "- Branch: backlog/cc-382-public-readback-20261110 · Result: 17c49b96 pushed/live; chose CPI preview as article/wrap (98): six-market names, forbidden-copy and decision-107 chart Substack readback PASS; no tests (blackout); docs/publisher/CC-382/public-readback-20261110.json."
+    },
+    {
+      "item": "CC-384",
+      "title": "CC-384 · The first post states both entries and names the public instrument, with its levels (decisions 106-107; CC-383's fields)",
+      "status": "BLOCKED (CC383_LIVE_EXPORT_FIELDS_PENDING)",
+      "owner_line": "- Owner: Codex Publisher · Effort: high · Risk: content (publication path) · Due: Thu 12 Nov 2026 12:00 GMT+7 · Status: BLOCKED (CC383_LIVE_EXPORT_FIELDS_PENDING)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - Tests on rows of CC-383's declared shape: two entries give one first post per destination, within each destination's limit; a single-entry row reads as today; null levels keep the plan's levels.\n  - The first real post after CC-383 integrates carries the instrument, and both entries when the plan has two, read back on Telegram, Discord and Threads.\n  - Integrated live by Codex Publisher (decision 39), before CC-383 lands.",
+      "retained_result": "- Branch: backlog/cc-384-public-plan-entries · Result: c57e27d9413eb3569e5c2d4fff970fa15efcdb15 pushed/live; 97 regression + 20 item + 20 installed PASS; chose one conditional with both alternatives to fit one post; CC-383 live fields absent (0/47 plans); Ops Live integrates CC-383, then Publisher reads back first Telegram/Discord/Threads post; docs/publisher/CC-384/README.md."
+    },
+    {
+      "item": "CC-394",
+      "title": "CC-394 · One public scorecard: every result the same day, wins and losses in one form",
+      "status": "BLOCKED (FIRST_NEW_EXPORTED_MAIN_RESULT_PENDING; implementation live)",
+      "owner_line": "- Owner: Codex Publisher · Effort: max (gpt-6.1-sol; Jim, 10 Nov) · Risk: content (public record) · Due: Thu 12 Nov 2026 12:00 GMT+7 · Status: BLOCKED (FIRST_NEW_EXPORTED_MAIN_RESULT_PENDING; implementation live)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - A test renders a win and a loss in the same form, and fits the message limit with the totals.\n  - The next result Main scores is on the pinned message within 60 minutes, read back through the Bot API and on https://t.me/s/CapitalChronicle.\n  - No extra feed post appears for it.",
+      "retained_result": "- Branch: backlog/cc-394-pinned-results-scorecard · Result: a7f2c6cd2ab95273ca4bf7effc4b05349a474d46 pushed/live; 333 targeted + 56 installed + 30 final PASS; Telegram #134 pinned, Bot/public exact; reused minute job to preserve feed cadence; next exported score's 60-minute readback pending; docs/publisher/CC-394/acceptance.json; gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED."
+    },
+    {
+      "item": "CC-395",
+      "title": "CC-395 · X leaves the required destinations cleanly, and the notice reads Jim's line",
+      "status": "BLOCKED: NEXT_LIVE_ARTICLE_READBACK_PENDING (CC-124)",
+      "owner_line": "- Owner: Codex Publisher · Effort: high · Risk: content (publication path) · Due: Wed 11 Nov 2026 12:00 GMT+7 · Status: BLOCKED: NEXT_LIVE_ARTICLE_READBACK_PENDING (CC-124)",
+      "required_explicitly": true,
+      "acceptance": "- Acceptance:\n  - A copied-store run of one article distributes to seven derivatives, with X recorded once as not posted, no retry and no incident.\n  - The next live article reaches full distribution.\n  - The next live post carries the new notice.\n  - The bio list is written here.",
+      "retained_result": "- Branch: backlog/cc-395-seven-destinations-notice · Result: Integrated/pushed ab4790e8a8bb64bdc995e34e6a65df2ccb4be1d1; 6 required derivatives derived from browser bar map; 82+5 targeted passes and copied-store replay passed; live local X/YouTube no-writes applied. Evidence/bios: docs/publisher/CC-395/README.md, bios.md. Next: normal CC-124 article/post exact live readbacks; no newer article exists in held final/canonical outputs."
+    },
+    {
+      "item": "CC-401",
+      "title": "CC-401 · Discord and Threads stop filing an alarm on every post, and a destination that really fails is skipped for the day with one incident (upgrade plan P-8)",
+      "status": "BLOCKED (until 11 Nov 2026 12:00 GMT+7: NEXT_FULL_ET_DAY_NOT_ELAPSED)",
+      "owner_line": "- Owner: Codex Publisher · Effort: max (gpt-6.1-sol; Jim, 10 Nov) · Risk: content (publication path) · Due: Wed 11 Nov 2026 18:00 GMT+7 · Status: BLOCKED (until 11 Nov 2026 12:00 GMT+7: NEXT_FULL_ET_DAY_NOT_ELAPSED)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - A copied-store test: a confirmed Discord or Threads write files no incident, and a failing destination files one incident a day.\n  - Live: the next full day shows 0 UNKNOWN_WRITE incidents for Discord and Threads posts that were confirmed.",
+      "retained_result": "- Branch: backlog/cc-401-api-confirmation-daily-failures · Result: ec925d2b95ba45bc350007495ef3c35fbbf63b91 pushed and live; 278 broad-run passes, both repairs in 14/14 affected passes; copied-live replay PASS; 3 stale/unclaimed Notes not posted, 0 pending; full-day audit due 11 Nov 12:00 GMT+7; evidence docs/publisher/CC-401/README.md."
+    },
+    {
+      "item": "CC-403",
+      "title": "CC-403 · Text a reader wants: first person, the call first, no internal labels, a short daily note, a weekly review of our own calls, out within the hour of its data (upgrade plan P-4, P-5)",
+      "status": "BLOCKED (until 11 Nov 2026 18:30 GMT+7: decision 98 bars a second CPI-day wrap; next daily Substack/60-minute acceptance pending)",
+      "owner_line": "- Owner: Codex Publisher · Effort: max (editorial; gpt-6.1-sol; Jim, 10 Nov) · Risk: content (public copy) · Due: titles and the checks Thu 12 Nov 2026 12:00 GMT+7; the note's shape and timing Thu 3 Dec 2026 · Status: BLOCKED (until 11 Nov 2026 18:30 GMT+7: decision 98 bars a second CPI-day wrap; next daily Substack/60-minute acceptance pending)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - The next daily note passes the checks and reads back on Substack with a clean title.\n  - Its publish time is within 60 minutes of its data.\n  - A test shows a text with an internal label refused, with the phrase named.",
+      "retained_result": "- Branch: backlog/cc-403-reader-first-notes · Result: 753c678d pushed/live; 91 operating-root tests PASS; chose existing native/coordinator path; AGY timeout retained with Codex fallback; next daily Substack/60-minute proof pending (decision 98); docs/publisher/CC-403/README.md."
+    },
+    {
+      "item": "CC-417",
+      "title": "CC-417 · Reaction tables for the CPI page (plan P-10, point 5)",
+      "status": "BUILT_UNMERGED (live data-live-cc-417-20261110T083053; consumer readback pending)",
+      "owner_line": "- Owner: Codex Data (gpt-6.1-sol, effort max) · Effort: max (gpt-6.1-sol; Jim, 10 Nov) · Consumer: Codex Publisher · Risk: content data · Due: Wed 11 Nov 2026 12:00Z · Status: BUILT_UNMERGED (live data-live-cc-417-20261110T083053; consumer readback pending)",
+      "required_explicitly": false,
+      "acceptance": "",
+      "retained_result": "- Branch: backlog/cc-417-cpi-reactions · Result: 866a8ed7e7ea0b0ca2780e70aeaf883f3207ed06 pushed; 24 targeted PASS; Publisher reads 33 releases/378 moves, 414 gaps; chose existing daily job for one owner; CC-170 VALIDATED_NOT_APPLIED; data/research/cc-417/delivery.json; CPI map/result pending; gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED."
+    },
+    {
+      "item": "CC-423",
+      "title": "CC-423 · Every post says what our positions are: model positions on a demo account (scan file 06, section 9)",
+      "status": "BLOCKED (NEXT_LIVE_POST_READBACK_PENDING; 0 new eligible Main posts, 10 Nov 2026 16:40 GMT+7)",
+      "owner_line": "- Owner: Codex Publisher · Effort: max (gpt-6.1-sol; Jim, 10 Nov) · Risk: content (public copy) · Due: Wed 11 Nov 2026 12:00 GMT+7 · Status: BLOCKED (NEXT_LIVE_POST_READBACK_PENDING; 0 new eligible Main posts, 10 Nov 2026 16:40 GMT+7)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: a test renders the new line on a status post, a card and an article footer; the next live post reads back with it.",
+      "retained_result": "- Branch: backlog/cc-423-demo-positions-notice · Result: 8e7b6f51 integrated/pushed; 264 targeted + 13 installed checks pass; docs/publisher/CC-423/verification.json; About verified; Publisher next reads back the first new live post."
+    },
+    {
+      "item": "CC-353",
+      "title": "CC-353 · Every plan-status post says why: scenario, mechanism, positioning and level reasons (Jim, 9 Nov)",
+      "status": "BLOCKED: AWAITING_NEW_MAIN_PLAN_TRANSITION",
+      "owner_line": "- Owner: Codex Publisher · Effort: high · Risk: content (publication path) · Due: Mon 9 Nov 2026 18:00 GMT+7 · Status: BLOCKED: AWAITING_NEW_MAIN_PLAN_TRANSITION",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance:\n  - tests: a row with `scenario_analysis` composes the why block on each destination within its length limit; no target, R:R, size, fill or P&L reaches the copy; a row without `scenario_analysis` still posts;\n  - the next new-plan post carries the why block on every destination, read back;\n  - integrated with live and rollback tags.",
+      "retained_result": "- Branch: backlog/cc-353-plan-rationale · Result: be174696 integrated and pushed with live/rollback tags; 291 + 32 PASS; evidence docs/publisher/CC-353/live-consumer-verification.json; 0 eligible new transitions, 6 already confirmed: preserved them to prevent duplicate posts; Publisher resumes all-destination readback on the next Main new plan."
+    },
+    {
+      "item": "CC-339",
+      "title": "CC-339 · G24: event replays from Main's reports (P6)",
+      "status": "PAUSED (until Fri 13 Nov 2026 22:30 GMT+7; it needs CC-338)",
+      "owner_line": "- Owner: Codex Publisher · Effort: max · Risk: content · Due: Fri 14 Nov 2026 · Status: PAUSED (until Fri 13 Nov 2026 22:30 GMT+7; it needs CC-338)",
+      "required_explicitly": false,
+      "acceptance": "- Acceptance: one replay per event, published and read back.",
+      "retained_result": "- Branch: — · Result: —"
+    },
+    {
+      "item": "CC-357",
+      "title": "CC-357 · The private desk refreshes within a minute of a change, not every 20 minutes (private-desk lane, line 4)",
+      "status": "IN_PROGRESS (Ops Product, 9 Nov 19:34 GMT+7: runner patch live, CPI-day reading left)",
+      "owner_line": "- Owner: Codex Web · Effort: high · Risk: process (private desk runner) · Due: Tue 10 Nov 2026 12:00 GMT+7 · Status: IN_PROGRESS (Ops Product, 9 Nov 19:34 GMT+7: runner patch live, CPI-day reading left)",
+      "acceptance": "- Acceptance:\n  - copy proof: a touched producer file triggers one refresh within 60 s; a second touch inside the gap waits; an unchanged store is not copied again; the 20-minute backstop still runs;\n  - on CPI day (Tue 10 Nov, release 13:30Z) the desk's CPI page shows the admitted print within 60 s of its admission readback, and the arrival result within 60 s of its RESULT.md.",
+      "retained_result": "- Branch: backlog/cc-357-private-desk-change-refresh · Result: 0769673401 pushed; 7 PASS, fixture touch to consumer 13.8 s, unchanged store copied 0 bytes; reused CC-284 to bound disk work; tests/evidence/cc-357/VALIDATION.md; Ops patch application and 10 Nov CPI live readback pending.",
+      "required_explicitly": false
+    }
+  ],
+  "captured_at_utc": "2026-11-10T16:56:20.146466+00:00",
+  "selection": "All 15 explicitly named items, plus non-terminal Product items whose status names an upcoming public piece/event, first/next proof, published-object readback or its stated live dependency; paused/future dependencies are identified, not resumed. Web CC-357 is included because its status explicitly awaits a CPI-day reading; public posts cannot prove its private desk consumer."
+}

@@ -1,0 +1,1262 @@
+{
+  "captured_at_utc": "2026-11-10T16:38:11.425972+00:00",
+  "base": "fea72e84924e2ca5bee3af379d751f88af2591c5",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_process_id": 29948,
+  "launch_started_at_utc": "2026-11-10T16:30:54.402000+00:00",
+  "pre_existing_work": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "live_contentops/agy_editorial_assist_v1.py",
+      "bytes": 19186,
+      "sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 1291826,
+      "sha256": "fe3f225efd629914c94cfaf9a043750c280688d15811823a18bd208693b267a1"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 55376,
+      "sha256": "0582b0d989a9c90238cc0fa2400ee5650e35bdeaf6e6df0c158dc75baa35a8e8"
+    }
+  ],
+  "before_integration": {
+    "at_utc": "2026-11-10T16:42:49.063841+00:00",
+    "latest_dispatch_at": "2026-11-10T16:38:48.850882+00:00"
+  },
+  "tests": [
+    {
+      "files": 6,
+      "passed": 145,
+      "failed": 20,
+      "seconds": 27.62,
+      "artifact": "tests-before.txt"
+    },
+    {
+      "files": 5,
+      "passed": 204,
+      "failed": 0,
+      "seconds": 31.19,
+      "artifact": "tests-notice.txt"
+    },
+    {
+      "files": 6,
+      "passed": 172,
+      "failed": 1,
+      "seconds": 24.81,
+      "artifact": "tests-acceptance-first.txt"
+    },
+    {
+      "files": 6,
+      "passed": 173,
+      "failed": 0,
+      "seconds": 26.16,
+      "artifact": "tests-acceptance.txt"
+    },
+    {
+      "files": 3,
+      "passed": 43,
+      "failed": 0,
+      "seconds": 14.75,
+      "artifact": "tests-policy.txt"
+    }
+  ],
+  "integration": {
+    "at_utc": "2026-11-10T16:44:56.645904+00:00",
+    "method": "git merge --ff-only",
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "operating_head": "22745e28196faeaedd828e585073eda4c58e303f",
+    "source_paths": [
+      {
+        "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+        "sha256": "3620d07ed7754ca54b7c1c64bf4f46f96ac241394396b9224ac32ae6e84a6420",
+        "matches_tested_branch": true
+      },
+      {
+        "path": "live_contentops/article_scenarios_v1.py",
+        "sha256": "99d8289a7a353a1a37bafce8b72f250b1e4236e64293525e82f38e4e683cfbe6",
+        "matches_tested_branch": true
+      },
+      {
+        "path": "live_contentops/capital_chronicle_desk_record_source_v1.py",
+        "sha256": "795dd572a56be7771e658b9eb2a4c7fc22213d6d0671ce3451691f1d8188e0cf",
+        "matches_tested_branch": true
+      },
+      {
+        "path": "live_contentops/event_article_guard_v1.py",
+        "sha256": "32cf68f38c5a1819c075d51c5687a2635ec09a9ddad07f91306b719add992d15",
+        "matches_tested_branch": true
+      },
+      {
+        "path": "live_contentops/event_public_record_v1.py",
+        "sha256": "c5221cb5a455c2cc00a477689288edaa130a4f27ff8eec9f1ef3d9d3e94b87d9",
+        "matches_tested_branch": true
+      },
+      {
+        "path": "live_contentops/native_desktop_editorial_v1.py",
+        "sha256": "fda19d48a43a3eeb02a8248503119ed47bf71111f8cdff4f06cc571706ed036f",
+        "matches_tested_branch": true
+      },
+      {
+        "path": "live_contentops/plan_analysis_pages_v1.py",
+        "sha256": "a271c4c6d494e664e13a8db2b7a83c7cb3e00013fbe781096a3830a0e1117295",
+        "matches_tested_branch": true
+      },
+      {
+        "path": "live_contentops/plan_status_posts_v1.py",
+        "sha256": "78ba65ca5dd9bc82e6d2da45ebb2eac42e203cf9a7456c8ea616656875d42c9a",
+        "matches_tested_branch": true
+      }
+    ],
+    "task_name": "CapitalChronicle-PlanStatusPosts-V1",
+    "schedules_changed": false,
+    "processes_restarted": false
+  },
+  "preservation_readback": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "preserved": true,
+      "runtime_appended": false,
+      "current_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "preserved": true,
+      "runtime_appended": false,
+      "current_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "live_contentops/agy_editorial_assist_v1.py",
+      "bytes": 19186,
+      "sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+      "preserved": true,
+      "runtime_appended": false,
+      "current_sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "preserved": true,
+      "runtime_appended": false,
+      "current_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "preserved": true,
+      "runtime_appended": false,
+      "current_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "preserved": true,
+      "runtime_appended": false,
+      "current_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "preserved": true,
+      "runtime_appended": false,
+      "current_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 1291826,
+      "sha256": "fe3f225efd629914c94cfaf9a043750c280688d15811823a18bd208693b267a1",
+      "preserved": true,
+      "runtime_appended": true,
+      "current_sha256": "0c326f6e60acd9c01a7416bb4d63794d68f6278b81fd0a38a0d16ddff84a0f67"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 55376,
+      "sha256": "0582b0d989a9c90238cc0fa2400ee5650e35bdeaf6e6df0c158dc75baa35a8e8",
+      "preserved": true,
+      "runtime_appended": true,
+      "current_sha256": "c3824f360bcb707e6cb66ea34b988db2be9d2d8de1de488d0d0372a5b24f13a5"
+    }
+  ],
+  "live_export_preview": {
+    "status": "OK",
+    "validation": "PASS",
+    "format": 4,
+    "contract_version": "legacy/schema-1.0.0",
+    "export_generated_at_utc": "2026-11-10T16:44:05.828715Z",
+    "export_age_seconds": 16.2,
+    "dry_run": true
+  },
+  "scheduled_consumer": {
+    "read_at_utc": "2026-11-10T16:45:45.847061+00:00",
+    "run_file": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261110.jsonl",
+    "latest_run": {
+      "at_utc": "2026-11-10T16:45:32.398236Z",
+      "cause": null,
+      "contract_version": "legacy/schema-1.0.0",
+      "export_age_seconds": 20.9,
+      "export_generated_at_utc": "2026-11-10T16:45:06.199451Z",
+      "failed_field": null,
+      "incident_id": null,
+      "max_export_age_minutes": 10,
+      "not_posted": 23,
+      "not_posted_details": [
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-7083fcc0f935afff2a828e8b30743ce1"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-769e790e2d16946dfd90340368555707"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-78236d46a1d5f3efd06447ace20d3af3"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-07a4366e582a0f75b638b890322e420c"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-0fff22c7f31885f5ccbca12b565bf4c8"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-c275820ce45b6323dd0b3695dfdbbdac"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-e14669297a595775f4cb15f81b720a1c"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-692a326bca965e241a1a1a872edb268f"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-2f91e42dfa3735ced86cce7afa56d6fe"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-status-post-c256ce756da8d3be6e6fce70cbb706de"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-status-post-25991b199496ded7d118f412966582e6"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-status-post-df032fdfa7d8edde5be6e7654074b0c3"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-status-post-288fe523cf30f01d540b4d4f3071adc2"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-2d4a2fd56601b68098b1e55b9df7ccfc"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-4a6f5701a5f17f1556001a6d477e0e74"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-status-post-b7f2dd536171c021607437ef4d1f3274"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-cb15c2cb43d0db21231c84a5fed533a0"
+        },
+        {
+          "cause": "FILL_CONFIRMATION_ALREADY_PUBLISHED_OR_PENDING",
+          "key": "plan-status-post-8e388e040f978aeb84b8f7111ee83305"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-status-post-1ad59b210ffd6b57df25c4be5e8a0e70"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-status-post-7b4f0f89f06611da94f05ec618c75101"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-7538d12492aa074c31c7c78a443ce482"
+        },
+        {
+          "cause": "PLAN_NEVER_ANNOUNCED",
+          "key": "plan-result-post-3146555dc07bb4e02af912e48e610ea8"
+        },
+        {
+          "cause": "FILL_CONFIRMATION_ALREADY_PUBLISHED_OR_PENDING",
+          "key": "plan-status-post-26bd52f86de6ef9d3801b9ce1ee49761"
+        }
+      ],
+      "posts": [
+        {
+          "deferred_destinations": [],
+          "destination_causes": {
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+          "per_destination": {
+            "discord": "DISPATCH_CONFIRMED",
+            "facebook_page": "DISPATCH_CONFIRMED",
+            "instagram_business": "DISPATCH_CONFIRMED",
+            "telegram": "DISPATCH_CONFIRMED",
+            "threads": "DISPATCH_CONFIRMED",
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "status": "PUBLISHING"
+        },
+        {
+          "deferred_destinations": [],
+          "destination_causes": {
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+          "per_destination": {
+            "discord": "DISPATCH_CONFIRMED",
+            "facebook_page": "DISPATCH_CONFIRMED",
+            "instagram_business": "DISPATCH_CONFIRMED",
+            "telegram": "DISPATCH_CONFIRMED",
+            "threads": "DISPATCH_CONFIRMED",
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "status": "PUBLISHING"
+        },
+        {
+          "deferred_destinations": [],
+          "destination_causes": {
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "key": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+          "per_destination": {
+            "discord": "DISPATCH_CONFIRMED",
+            "facebook_page": "DISPATCH_CONFIRMED",
+            "instagram_business": "DISPATCH_CONFIRMED",
+            "telegram": "DISPATCH_CONFIRMED",
+            "threads": "DISPATCH_CONFIRMED",
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "status": "PUBLISHING"
+        },
+        {
+          "deferred_destinations": [],
+          "destination_causes": {
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "key": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+          "per_destination": {
+            "discord": "DISPATCH_CONFIRMED",
+            "facebook_page": "DISPATCH_CONFIRMED",
+            "instagram_business": "DISPATCH_CONFIRMED",
+            "telegram": "DISPATCH_CONFIRMED",
+            "threads": "DISPATCH_CONFIRMED",
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "status": "PUBLISHING"
+        },
+        {
+          "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "telegram",
+              "parent_key": "plan-status-post-eb86375e30461310fb15e19f298f1b75"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "discord",
+              "parent_key": "plan-status-post-eb86375e30461310fb15e19f298f1b75"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "threads",
+              "parent_key": "plan-status-post-eb86375e30461310fb15e19f298f1b75"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-eb86375e30461310fb15e19f298f1b75"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-eb86375e30461310fb15e19f298f1b75"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-eb86375e30461310fb15e19f298f1b75"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-eb86375e30461310fb15e19f298f1b75"
+            }
+          ],
+          "key": "plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "telegram",
+              "parent_key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "discord",
+              "parent_key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "threads",
+              "parent_key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb"
+            }
+          ],
+          "key": "plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "telegram",
+              "parent_key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "discord",
+              "parent_key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "threads",
+              "parent_key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35"
+            }
+          ],
+          "key": "plan-result-post-a8dc64408d816fc67f764a0aedd02bb9",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "telegram",
+              "parent_key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "discord",
+              "parent_key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "threads",
+              "parent_key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f"
+            }
+          ],
+          "key": "plan-result-post-cef8beddd4a508e9fb45e81b95883ba4",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "telegram",
+              "parent_key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "discord",
+              "parent_key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "threads",
+              "parent_key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab"
+            }
+          ],
+          "key": "plan-result-post-91e901549fa0f118686df4f9bc23f69a",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "telegram",
+              "parent_key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "discord",
+              "parent_key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "threads",
+              "parent_key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3"
+            }
+          ],
+          "key": "plan-result-post-57d1814f092cfdd78ad52daa200892fc",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+              "destination": "telegram",
+              "parent_key": "plan-status-post-8f03278909eef336308a22926f653fa7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-8f03278909eef336308a22926f653fa7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-8f03278909eef336308a22926f653fa7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-8f03278909eef336308a22926f653fa7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-8f03278909eef336308a22926f653fa7"
+            }
+          ],
+          "key": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-1f11a20a3fef3687d422ce4f810fe9b7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-1f11a20a3fef3687d422ce4f810fe9b7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-1f11a20a3fef3687d422ce4f810fe9b7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-1f11a20a3fef3687d422ce4f810fe9b7"
+            }
+          ],
+          "key": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-28c2459d80110d5878532f9dce9c064a"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-28c2459d80110d5878532f9dce9c064a"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-28c2459d80110d5878532f9dce9c064a"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-28c2459d80110d5878532f9dce9c064a"
+            }
+          ],
+          "key": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393"
+            }
+          ],
+          "key": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+          "status": "WAITING"
+        },
+        {
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c"
+            },
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c"
+            }
+          ],
+          "destination_causes": {
+            "discord": "DEFINITE_NO_WRITE",
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "key": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+          "per_destination": {
+            "discord": "DEFINITE_NO_WRITE",
+            "telegram": "DISPATCH_CONFIRMED",
+            "threads": "DISPATCH_CONFIRMED",
+            "x": "NATIVE_NEO_TOOL_PENDING"
+          },
+          "status": "PUBLISHING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "threads",
+              "parent_key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7"
+            }
+          ],
+          "key": "plan-result-post-6c9969838ea89afe7842aa9548fa05fb",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea"
+            }
+          ],
+          "key": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826"
+            }
+          ],
+          "key": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "facebook_page",
+              "parent_key": "plan-status-post-89c48cff2f36ad2516753dd0364cea71"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "instagram_business",
+              "parent_key": "plan-status-post-89c48cff2f36ad2516753dd0364cea71"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-89c48cff2f36ad2516753dd0364cea71"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-89c48cff2f36ad2516753dd0364cea71"
+            }
+          ],
+          "key": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "discord",
+              "parent_key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+            }
+          ],
+          "key": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+          "status": "WAITING"
+        },
+        {
+          "cause": "BROWSER_WORK_LIMIT_THIS_RUN",
+          "key": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "discord",
+              "parent_key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+            }
+          ],
+          "key": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+          "status": "WAITING"
+        },
+        {
+          "cause": "BROWSER_WORK_LIMIT_THIS_RUN",
+          "key": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+              "destination": "discord",
+              "parent_key": "plan-status-post-cb6298d12706adf6753e1bbef978090e"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-cb6298d12706adf6753e1bbef978090e"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-cb6298d12706adf6753e1bbef978090e"
+            }
+          ],
+          "key": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            }
+          ],
+          "key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            }
+          ],
+          "key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            }
+          ],
+          "key": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            }
+          ],
+          "key": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+            }
+          ],
+          "key": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+            }
+          ],
+          "key": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-07e17d29c783da2869b0edae669bc714"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-07e17d29c783da2869b0edae669bc714"
+            }
+          ],
+          "key": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-074c47181a90a973118c3f48e0c8d271"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-074c47181a90a973118c3f48e0c8d271"
+            }
+          ],
+          "key": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-074c47181a90a973118c3f48e0c8d271"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-074c47181a90a973118c3f48e0c8d271"
+            }
+          ],
+          "key": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-074c47181a90a973118c3f48e0c8d271"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-074c47181a90a973118c3f48e0c8d271"
+            }
+          ],
+          "key": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-run-post-074c47181a90a973118c3f48e0c8d271"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-run-post-074c47181a90a973118c3f48e0c8d271"
+            }
+          ],
+          "key": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+          "status": "WAITING"
+        },
+        {
+          "cause": "CARD_PARENT_NOT_CONFIRMED",
+          "deferred_destinations": [
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "x",
+              "parent_key": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0"
+            },
+            {
+              "cause": "CARD_PARENT_NOT_CONFIRMED",
+              "destination": "substack_notes",
+              "parent_key": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0"
+            }
+          ],
+          "key": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+          "status": "WAITING"
+        }
+      ],
+      "posts_by_status": {
+        "PUBLISHING": 5,
+        "WAITING": 31
+      },
+      "publication": "OK",
+      "queued": 0,
+      "scorecard": {
+        "characters": 3495,
+        "counts": {
+          "EXPIRED": 17,
+          "HIT": 0,
+          "NOT_TRIGGERED": 0,
+          "STOPPED": 3,
+          "scored": 4,
+          "total": 20
+        },
+        "created_messages": 0,
+        "edited_messages": 0,
+        "extra_result_feed_posts": 0,
+        "message_id": "134",
+        "public_url": "https://t.me/CapitalChronicle/134",
+        "revision": "pinned-result-scorecard-v1-7051e7cbe3ca36860450b2d03e22b55768baf589785becf2deff214eea8a7bfd",
+        "shown": 20,
+        "status": "CONFIRMED"
+      },
+      "status": "OK"
+    },
+    "task_action": {
+      "execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+      "arguments": "-B scripts\\plan_status_posts.py --publish",
+      "working_directory": "A:\\Capital Chronicle\\ContentOps",
+      "unchanged": true
+    }
+  },
+  "public_notice_readback": {
+    "artifact": "public-notice-readback.json",
+    "public_url": "https://t.me/CapitalChronicle/158",
+    "published_at_utc": "2026-11-10T16:38:45.016640+00:00",
+    "approved_notice_present": true,
+    "revoked_wording_present": false,
+    "published_before_integration": true
+  },
+  "acceptance": {
+    "six_requested_test_files_pass": true,
+    "six_file_pass_count": 173,
+    "platform_policy_regressions_pass": 43,
+    "integrated_into_operating_root": true,
+    "live_consumer_after_integration_ok": true,
+    "live_main_export_validation": "PASS",
+    "approved_notice_verified_on_public_post": true
+  }
+}

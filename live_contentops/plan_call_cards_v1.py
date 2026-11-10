@@ -22,6 +22,11 @@ API_DESTINATIONS = ("telegram", "discord", "threads", "facebook_page", "instagra
 DESTINATIONS = (*API_DESTINATIONS, "x", "substack_notes")
 TERMINAL = {"CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED"}
 NOTICES = f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
+# A definite no-write is a settled destination, not work that can consume every
+# minute's first five card slots forever. Uncertain sends remain recovery work.
+SETTLED_DISPATCHES = frozenset({"DISPATCH_CONFIRMED", "DEFINITE_NO_WRITE",
+    "DERIVATIVE_EXPIRED_STALE_NO_WRITE", "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+    "EXTERNAL_REMOVAL_REPORTED_NO_RETRY", "UNSENT_MEDIA_SUPERSEDED"})
 GLOSSARY = {
     "DXY": "the US dollar index", "COT": "the futures positioning report",
     "M15": "short-interval", "M5": "short-interval", "H1": "hourly",
@@ -247,6 +252,8 @@ def compose(row):
                 "invalidation": f"price moves {side} {level(plan['invalidation_level'], plan)}"}
         calls = [call]
         lead = f"{identity} · {direction} idea\n" + conditional_call_text(call)
+        if row.get("delayed_at_utc"):
+            lead = "Delayed update to the plan registered " + _clock(registered) + ":\n" + lead
         extra = []
         target = plan.get("target")
         if target:
@@ -409,7 +416,21 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     for row in sorted(source_rows, key=lambda r: posts._utc(r["at_utc"])):
         if row["symbol"] in posts.MARKETS:
             latest[row["plan_id"]] = row
+    current_states = {pid: row["to"] for pid, row in latest.items()}
+    # CC-322 omits untriggered expiry transitions from the post list, because
+    # the result card replaces them. The exported current state still decides
+    # whether an older setup/link is current; that omission cannot revive it.
+    current_states.update({pid: raw["status"] for pid, raw in sources.items()
+                           if raw.get("status") in TERMINAL})
+    outcomes = _result_rows(export)
+    ended_plans = {r["plan_id"] for r in outcomes}
+    current_states.update({pid: "RESULT" for pid in ended_plans if current_states.get(pid) not in TERMINAL})
     payloads, skipped, already = [], [], []
+    from .secret_store_v1 import read_secret
+    # Freeze the route on NEW rows only. The registered announcement channel
+    # cannot create threads through a webhook; Discord permits that only on
+    # forum/media channels. Existing cards keep their original thread binding.
+    discord_delivery = "bot_thread" if read_secret("DISCORD_BOT_TOKEN") else "channel"
 
     def payload(row, kind):
         raw = sources[row["plan_id"]]
@@ -424,14 +445,18 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 "source_content_hash": export["status"].get("content_hash"),
                 "source_contract_version": version,
                 "source_plan_hash": raw.get("registration_hash"), "reasons": [],
-                "analysis_distribution_version": 1}
+                "discord_delivery": discord_delivery, "analysis_distribution_version": 1}
+        if kind != "setup" and row["plan_id"] in cards:
+            item["discord_delivery"] = cards[row["plan_id"]].get("discord_delivery", "bot_thread")
+        if kind == "setup" and (now - posts._utc(row["at_utc"])).total_seconds() > window_minutes * 60:
+            item["delayed_at_utc"] = now.isoformat().replace("+00:00", "Z")
         analysis, cause = analysis_publication(raw)
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
         return item
 
     groups = {}
     for pid, row in latest.items():
-        if pid in cards or row["to"] not in posts.ACTIVE or row.get("superseded_by_fill"):
+        if pid in cards or current_states.get(pid) not in posts.ACTIVE or row.get("superseded_by_fill"):
             continue
         raw = sources[pid]
         until = card_plan(raw).get("time_exit_utc")
@@ -469,8 +494,6 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         payloads.extend(members)
         cards.update({m["plan_id"]: m for m in members})
 
-    outcomes = _result_rows(export)
-    ended_plans = {r["plan_id"] for r in outcomes}
     confirmed_fills = {json.loads(r["payload"]).get("plan_id"): r["message_id"] for r in existing_rows
                       if json.loads(r["payload"]).get("state") in {"TRIGGERED", "FILLED"}
                       and r["status"] in {"PUBLISHING", "PUBLISHED"}}
@@ -545,29 +568,72 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             "contract_version": version, "source_content_hash": export["status"].get("content_hash"),
             **({"rendered_posts": rendered, "rendered_count": len(rendered)} if render_all else {}),
             "max_export_age_minutes": posts.EXPORT_MAX_AGE_MINUTES, "transitions_read": len(source_rows),
-            "latest_states": {p: r["to"] for p, r in latest.items()}, "active_recoveries": {},
+            "latest_states": current_states, "active_recoveries": {},
             "would_queue" if dry_run else "queued": queued, "already_queued": already, "not_posted": skipped}
 
 
-def _reference(store, key, destination):
+def _dispatch(store, key, destination):
     from .publication_coordinator_v1 import DurablePublicationCoordinator
     plan_hash = hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest()
     ids = DurablePublicationCoordinator._ids(key, plan_hash, destination)
-    row = store.get_platform_dispatch(ids["dispatch_id"])
+    return store.get_platform_dispatch(ids["dispatch_id"])
+
+
+def _reference(store, key, destination):
+    row = _dispatch(store, key, destination)
     if row and row["status"] == "DISPATCH_CONFIRMED" and row.get("public_object_id"):
         return {k: row.get(k) for k in ("public_object_id", "public_object_url", "dispatch_id")}
     return None
+
+
+def _ready_destinations(store, row):
+    """A settled/parent-waiting copy cannot starve unrelated cards of a slot."""
+    ready = []
+    for destination in destinations_for(row):
+        dispatch = _dispatch(store, row["key"], destination)
+        if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
+            # Decision 112's exact former X policy no-write remains resumable.
+            # Other definite no-writes retain their original terminal cause.
+            if (destination == "x" and dispatch["status"] == "DEFINITE_NO_WRITE"
+                    and not dispatch.get("public_object_id") and not dispatch.get("public_object_url")):
+                reconciliation_id = "reconciliation_" + str(dispatch.get("dispatch_id") or "").removeprefix("dispatch_")
+                if any(r["reconciliation_id"] == reconciliation_id and r["status"] == "X_NON_API_AUTOMATION_PROHIBITED"
+                        for r in store.get_reconciliations_for_work_item(row["key"])):
+                    ready.append(destination)
+            continue
+        if (dispatch or not row.get("parent_key") or _reference(store, row["parent_key"], destination)
+                or (destination == "discord" and row.get("discord_delivery") == "channel")):
+            ready.append(destination)
+    return ready
+
+
+def _can_retire_unstarted(store, row):
+    """Keep confirmed and possibly sent copies with their exact recovery owner."""
+    for destination in destinations_for(row):
+        dispatch = _dispatch(store, row["key"], destination)
+        if dispatch and (dispatch.get("public_object_id") or dispatch.get("public_object_url")
+                or dispatch.get("status") not in SETTLED_DISPATCHES - {"DISPATCH_CONFIRMED"}):
+            return False
+    return True
 
 
 def _parents(store, row, destinations, previous):
     parents = dict(previous or {})
     deferred = []
     for destination in destinations:
+        if destination == "discord" and row.get("discord_delivery") == "channel":
+            # A channel post needs no run/thread parent. Its route was frozen
+            # when this new card entered the existing outbox.
+            parents[destination] = {"delivery_mode": "channel"}
+            continue
         if destination in parents or not row.get("parent_key"):
             continue
         ref = _reference(store, row["parent_key"], destination)
         if not ref:
-            deferred.append({"destination": destination, "cause": "CARD_PARENT_NOT_CONFIRMED",
+            parent_dispatch = _dispatch(store, row["parent_key"], destination) or {}
+            cause = ("CARD_PARENT_" + parent_dispatch["status"] if
+                parent_dispatch.get("status") in SETTLED_DISPATCHES else "CARD_PARENT_NOT_CONFIRMED")
+            deferred.append({"destination": destination, "cause": cause,
                              "parent_key": row["parent_key"]})
             continue
         parent = {**ref, "parent_key": row["parent_key"]}
@@ -614,7 +680,7 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None):
             result[destination] = payload
             continue
         room = limits[destination] - len(NOTICES) - 2
-        body = text.split("\n\n", 1)[0]
+        body = text.rsplit("\n\n", 1)[0]
         if len(body) > room:
             # The full card image retains every supplied field. Short copies
             # keep the conditional call, its id and the structured levels first.
@@ -651,7 +717,9 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None):
         if destination == "instagram_business" and row["kind"] == "run" and carousel:
             payload.update(carousel_images=carousel, media_asset_ids=[a["asset_id"] for a in carousel])
         ref = (parents or {}).get(destination)
-        if ref:
+        if destination == "discord" and row.get("discord_delivery") == "channel":
+            payload["discord_channel_post"] = True
+        elif ref:
             if destination in {"telegram", "threads"}:
                 payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"))
             elif destination == "discord":
@@ -771,8 +839,13 @@ def validate_parent_intent(store, row, intent):
         raise posts.PlanPostError("PLAN_CARD_ALREADY_ENDED_BEFORE_WRITE")
     if not row.get("parent_key"):
         return
-    ref = _reference(store, row["parent_key"], destination)
     payload = intent["native_payload"]
+    if destination == "discord" and row.get("discord_delivery") == "channel":
+        if (payload.get("discord_channel_post") is not True
+                or any(payload.get(k) for k in ("discord_thread_parent_id", "reply_to_id", "discord_thread_name"))):
+            raise posts.PlanPostError("PLAN_CARD_DISCORD_CHANNEL_ROUTE_CHANGED")
+        return
+    ref = _reference(store, row["parent_key"], destination)
     if not ref:
         raise posts.PlanPostError("CARD_PARENT_NOT_CONFIRMED")
     reply_destination = destination in {"telegram", "threads", "substack_notes", "facebook_page"} or (
@@ -824,26 +897,28 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         if row.get("format") == FORMAT and outbox["status"] in {posts.READY, "PUBLISHING"}:
             pending.append((outbox, row))
     def priority(pair):
-        row = pair[1]
-        api_done = all(_reference(store, row["key"], d) for d in API_DESTINATIONS if d in destinations_for(row))
-        return (0 if row["kind"] == "run" else 4 if api_done else
+        outbox, row = pair
+        api_done = all((_dispatch(store, row["key"], d) or {}).get("status") in SETTLED_DISPATCHES
+                       for d in API_DESTINATIONS if d in destinations_for(row))
+        return (0 if row["kind"] == "run" else 5 if api_done else 4 if outbox["status"] == "PUBLISHING" else
                 {"setup": 1, "update": 2, "result": 3}[row["kind"]], row["at_utc"])
     pending.sort(key=priority)
     results, calls, browser_only = [], 0, 0
     for outbox, row in pending:
         key = row["key"]
-        api_done = all(_reference(store, key, d) for d in API_DESTINATIONS if d in destinations_for(row))
-        if api_done:
-            if browser_only >= limit:
+        if row["kind"] == "run" and outbox["status"] == posts.READY and latest_states is not None:
+            try:
+                members = [posts._row_payload(store, child) for child in row["card_keys"]]
+            except (OSError, ValueError, KeyError, TypeError) as exc:
+                results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
                 continue
-            browser_only += 1
-        elif row["kind"] != "run":
-            if calls >= limit:
+            if members and all(latest_states.get(child["plan_id"]) in TERMINAL | {"RESULT"}
+                    or (child.get("time_exit_utc") and now >= posts._utc(child["time_exit_utc"]))
+                    for child in members):
+                store.set_outbox_status(key, posts.SUPERSEDED)
+                results.append({"key": key, "status": posts.SUPERSEDED, "cause": "RUN_HAS_NO_CURRENT_CARDS"})
                 continue
-            calls += 1
-        # An unstarted setup cannot be backfilled after its idea has ended.
-        # Once a send is uncertain, the coordinator owns recovery of its exact
-        # immutable bytes. Later state/ending records remain owed.
+        # An ended setup is retired before it can consume a fresh-card slot.
         if row["kind"] == "setup" and outbox["status"] == posts.READY:
             current = (latest_states or {}).get(row["plan_id"])
             if (current in TERMINAL or current == "RESULT"
@@ -851,10 +926,37 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 store.set_outbox_status(key, posts.SUPERSEDED)
                 results.append({"key": key, "status": posts.SUPERSEDED, "cause": "PLAN_ALREADY_ENDED"})
                 continue
+        if (row["kind"] == "update" and outbox["status"] == posts.READY
+                and row.get("state") in posts.ACTIVE
+                and (latest_states or {}).get(row["plan_id"]) in TERMINAL | {"RESULT"}
+                and _can_retire_unstarted(store, row)):
+            store.set_outbox_status(key, posts.SUPERSEDED)
+            results.append({"key": key, "status": posts.SUPERSEDED,
+                "cause": "PLAN_UPDATE_SUPERSEDED_BY_" + latest_states[row["plan_id"]]})
+            continue
+        ready = _ready_destinations(store, row)
+        if not ready:
+            _, deferred = _parents(store, row, DESTINATIONS, {})
+            results.append({"key": key, "status": "WAITING" if deferred else "SETTLED",
+                "cause": deferred[0]["cause"] if deferred else "ALL_DESTINATIONS_SETTLED",
+                "deferred_destinations": deferred})
+            continue
+        api_done = not any(d in API_DESTINATIONS for d in ready)
+        if api_done:
+            if browser_only >= limit:
+                results.append({"key": key, "status": "WAITING", "cause": "BROWSER_WORK_LIMIT_THIS_RUN"})
+                continue
+            browser_only += 1
+        elif row["kind"] != "run":
+            if calls >= limit:
+                results.append({"key": key, "status": "WAITING", "cause": "CARD_WORK_LIMIT_THIS_RUN"})
+                continue
+            calls += 1
         try:
             plan = prepare_post(store, key, root=root, host=host)
             if not plan["destinations"]:
                 results.append({"key": key, "status": "WAITING_FOR_CARD_PARENT",
+                                "cause": (plan["deferred_destinations"] or [{}])[0].get("cause", "CARD_PARENT_NOT_CONFIRMED"),
                                 "deferred_destinations": plan["deferred_destinations"]})
                 continue
             store.create_work_item(story_id=key, title="Call run" if row["kind"] == "run" else "Call card",
@@ -870,7 +972,17 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             store.set_outbox_status(key, "PUBLISHED" if done else "PUBLISHING")
             results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING",
                 "per_destination": states, "confirmed_destinations": sorted(confirmed),
+                "destination_causes": posts.destination_causes(outcome),
                 "deferred_destinations": plan["deferred_destinations"]})
         except (OSError, ValueError, KeyError, TypeError) as exc:
-            results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
+            cause = str(exc)[:200]
+            status = "NOT_STARTED"
+            if (cause == "PRIVATE_OR_EXECUTION_COPY_FORBIDDEN" and outbox["status"] == posts.READY
+                    and _can_retire_unstarted(store, row)):
+                # Old queued disclosures can identify the private DEMO account.
+                # Preserve their bytes and close the unsent copy with its real
+                # public-output refusal instead of spending every minute on it.
+                status = posts.SUPERSEDED
+                store.set_outbox_status(key, status)
+            results.append({"key": key, "status": status, "cause": cause})
     return {"status": "OK", "posts": results}

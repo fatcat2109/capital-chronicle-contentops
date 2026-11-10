@@ -1,4 +1,4 @@
-"""CC-423: the live composers render Jim's exact demo-position disclosure."""
+"""CC-451 / decision 117: live composers use Jim's exact positions notice."""
 from pathlib import Path
 
 import pytest
@@ -8,7 +8,7 @@ from live_contentops import plan_analysis_pages_v1 as pages
 from live_contentops import plan_call_cards_v1 as cards
 from live_contentops import plan_status_posts_v1 as posts
 from live_contentops.event_article_guard_v1 import (
-    CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE, PUBLIC_NOTICE,
+    CONFLICTS_NOTICE, PUBLIC_NOTICE,
     check_publication_copy, public_execution_copy_forbidden,
 )
 from test_plan_analysis_pages_cc432 import source  # noqa: F401
@@ -39,6 +39,7 @@ def test_telegram_final_credit_retains_both_scenarios(monkeypatch):
     payloads = {"telegram": {"text": "Conditional headline\n\n" + watch + "\n\nhttps://example.com/story", "platform_limit": 620}}
     monkeypatch.setattr(pipeline, "_build_native_derivative_payloads", lambda **_: payloads)
     article = {"social_scenarios": {"base_case": "Base case: model estimate 44%.", "alternative": "Alternative: model estimate 31%."},
+        "tradingview_snapshot_asset_ids": ["controlled"],
         "native_destination_media": {"telegram": ["controlled"]},
         "native_destination_credits": {"telegram": "Chart: TradingView. " + "Exact bound credit. " * 6}}
     result = pipeline.build_native_derivative_payloads(article=article, selection={}, canonical_url="https://example.com/story",
@@ -55,7 +56,9 @@ def test_status_post_and_each_destination_use_the_exact_notice(export, main_root
     assert row["text"].endswith(EXPECTED)
     for destination, payload in posts.destination_payloads(row, card_id="controlled-card").items():
         parts = payload.get("posts") or [{"text": payload["text"]}]
-        assert EXPECTED in "\n\n".join(p["text"] for p in parts), destination
+        visible = "\n\n".join(p["text"] for p in parts)
+        assert EXPECTED in visible, destination
+        assert "model position" not in visible.casefold() and "demo account" not in visible.casefold()
         assert all(len(p["text"]) <= posts.LIMITS[destination] for p in parts)
 
 
@@ -113,8 +116,22 @@ def test_exact_disclosure_never_exempts_adjacent_private_details(private):
         pages.public_filter(text)
 
 
+@pytest.mark.parametrize("private", [
+    "Capital Chronicle's model position is open.",
+    "Positions we mention are model positions on a demo account.",
+    "Model\npositions remain open.", "A MODEL-POSITION remains open.",
+])
+def test_decision_117_rejects_revoked_position_wording(private):
+    text = PUBLIC_NOTICE + " " + EXPECTED + " " + private
+    assert public_execution_copy_forbidden(text)
+    with pytest.raises(ValueError):
+        check_publication_copy({"body": text})
+    with pytest.raises(ValueError, match="PRIVATE_ACCOUNT_OR_SIZE"):
+        pages.public_filter(text)
+
+
 def test_derivative_notice_overflow_keeps_complete_sentences_within_limits(monkeypatch):
-    payloads = {d: {"text": "A source-qualified report. " + LEGACY_CONFLICTS_NOTICE, "platform_limit": 1000}
+    payloads = {d: {"text": "A source-qualified report. " + EXPECTED, "platform_limit": 1000}
                 for d in pipeline.EXPECTED_DESTINATIONS}
     for destination, limit in (("x", 280), ("threads", 500)):
         body = "The report is source-qualified. " * 8
@@ -125,19 +142,20 @@ def test_derivative_notice_overflow_keeps_complete_sentences_within_limits(monke
         canonical_url="https://capitalchronicle.substack.com/p/exact", media_asset_ids=[])
     for destination, payload in result.items():
         parts = payload.get("posts") or [{"text": payload["text"]}]
-        assert EXPECTED in "\n\n".join(p["text"] for p in parts)
-        assert LEGACY_CONFLICTS_NOTICE not in "\n\n".join(p["text"] for p in parts)
+        visible = "\n\n".join(p["text"] for p in parts)
+        assert visible.count(EXPECTED) == 1
+        assert visible.count(PUBLIC_NOTICE) == 1
         assert all(len(p["text"]) <= payload["platform_limit"] for p in parts)
         assert all(p["text"].rstrip().endswith(".") for p in parts)
 
 
 def test_frozen_public_source_keeps_its_original_notice_and_exact_bytes(tmp_path):
-    spec, _ = frozen_file(tmp_path, conflicts_notice=LEGACY_CONFLICTS_NOTICE)
+    spec, _ = frozen_file(tmp_path, conflicts_notice=EXPECTED)
     before = Path(spec["path"]).read_bytes()
     assert frozen_source(spec)["frozen_public_record"]["sha256"] == spec["sha256"]
     assert Path(spec["path"]).read_bytes() == before
-    text = "A frozen post.\n\n" + PUBLIC_NOTICE + " " + LEGACY_CONFLICTS_NOTICE
-    assert posts._split(text)[1].endswith(LEGACY_CONFLICTS_NOTICE)
+    text = "A frozen post.\n\n" + PUBLIC_NOTICE + " " + EXPECTED
+    assert posts._split(text)[1].endswith(EXPECTED)
 
 
 def test_new_frozen_source_notice_does_not_hide_private_source_text(tmp_path):
@@ -146,12 +164,16 @@ def test_new_frozen_source_notice_does_not_hide_private_source_text(tmp_path):
         frozen_source(spec)
 
 
-def test_held_scenario_article_accepts_both_dated_and_current_disclosures():
+def test_held_scenario_article_retains_the_approved_notice_and_source_bindings():
     from test_article_publication_quality_cc333 import scenario_article
     from live_contentops.article_scenarios_v1 import validate_article_scenarios
     article, documents = scenario_article()
     assert validate_article_scenarios(article, documents) == article["social_scenarios"]
-    article["substack_body_markdown"] = article["substack_body_markdown"].replace(CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE)
+    assert EXPECTED in article["substack_body_markdown"]
+    article["substack_body_markdown"] = article["substack_body_markdown"].replace(EXPECTED, "")
+    with pytest.raises(ValueError, match="SCENARIO_NOTICES_REQUIRED"):
+        validate_article_scenarios(article, documents)
+    article["substack_body_markdown"] += "\n\n" + EXPECTED
     assert validate_article_scenarios(article, documents) == article["social_scenarios"]
 
 
