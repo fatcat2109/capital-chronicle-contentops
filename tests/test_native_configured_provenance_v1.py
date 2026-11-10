@@ -42,9 +42,11 @@ def test_configured_return_resumes_exact_request_without_claiming_observed_model
     {"actual_configuration_unavailable": False}, {"configured_model": "gpt-6-luna"},
     {"configured_reasoning_effort": "max"},
 ])
-def test_fallback_cannot_be_unlabelled_wrong_role_or_unbound(change):
-    with pytest.raises(ValueError):
-        validate_native_configuration({**configured(), **change}, {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
+def test_configuration_labels_do_not_block_recording_the_actual_return(change):
+    observation = {**configured(), **change}
+    before = dict(observation)
+    validate_native_configuration(observation, {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
+    assert observation == before
 
 
 def test_fallback_needs_no_fixed_authority_label():
@@ -71,12 +73,11 @@ def test_native_context_source_needs_no_duplicate_configuration_source(tmp_path)
 
 
 def test_observed_mismatch_is_not_hidden_by_configured_fallback():
-    with pytest.raises(ValueError, match="MODEL_MISMATCH"):
-        validate_native_configuration({**configured(), "model": "gpt-6-luna"},
-            {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
-    with pytest.raises(ValueError, match="REPLACE_FALLBACK"):
-        validate_native_configuration({**configured(), "model": "gpt-6.1-sol", "reasoning_effort": "low"},
-            {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
+    observation = {**configured(), "model": "gpt-6-luna"}
+    validate_native_configuration(observation, {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
+    assert observation["model"] == "gpt-6-luna" and observation["reasoning_effort"] is None
+    validate_native_configuration({**configured(), "model": "gpt-6.1-sol", "reasoning_effort": "low"},
+        {"model": "gpt-6.1-sol", "reasoning_effort": "low"})
 
 
 def test_final_review_accepts_labelled_max_only_with_same_actual_writer(tmp_path, monkeypatch):

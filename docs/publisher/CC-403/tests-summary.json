@@ -1,0 +1,36 @@
+{
+  "observed_at_utc": "2026-11-10T15:33:05.985657+00:00",
+  "runs": [
+    {
+      "artifact": "tests-core-first.xml",
+      "suites": [
+        {
+          "tests": "93",
+          "failures": "2",
+          "errors": "0",
+          "skipped": "0",
+          "time": "14.906",
+          "timestamp": "2026-11-10T22:30:18.481792+07:00"
+        }
+      ]
+    },
+    {
+      "artifact": "tests-core-fixed.xml",
+      "suites": [
+        {
+          "tests": "82",
+          "failures": "0",
+          "errors": "0",
+          "skipped": "0",
+          "time": "9.763",
+          "timestamp": "2026-11-10T22:31:25.497400+07:00"
+        }
+      ]
+    }
+  ],
+  "latest_unique_cases": 93,
+  "latest_status_counts": {
+    "PASS": 93
+  },
+  "public_readback_acceptance": "PENDING_NEXT_ELIGIBLE_DAILY_NOTE"
+}

@@ -1,0 +1,24 @@
+{
+  "observed_at_utc": "2026-11-10T15:29:19.095317+00:00",
+  "syntax": "PASS",
+  "paths": [
+    "live_contentops/reader_article_contract_v1.py",
+    "live_contentops/daily_note_first_draft_v1.py",
+    "live_contentops/native_desktop_editorial_v1.py",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py",
+    "live_contentops/article_publication_quality_v1.py",
+    "live_contentops/codex_desktop_newsroom_operator_v1.py",
+    "live_contentops/contentops_editorial_desk_v1.py",
+    "live_contentops/native_publication_latency_v1.py",
+    "live_contentops/main_report_projection_source_v1.py",
+    "live_contentops/weekly_scored_calls_v1.py",
+    "tests/test_reader_article_contract_cc403.py",
+    "tests/test_daily_note_first_draft_cc403.py",
+    "tests/test_main_report_projection_source_v1.py",
+    "tests/test_native_role_configuration_v1.py",
+    "tests/test_native_configured_provenance_v1.py",
+    "docs/publisher/CC-403/record_retained_draft.py"
+  ],
+  "modules_imported": false,
+  "pytest_started": false
+}

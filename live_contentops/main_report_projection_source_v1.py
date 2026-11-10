@@ -65,8 +65,9 @@ def verify_projection(spec):
     passages = spec.get("passages")
     if not isinstance(passages, list) or not 1 <= len(passages) <= 40:
         raise ValueError("MAIN_REPORT_EXACT_PASSAGES_REQUIRED")
-    texts, sources = [], {}
-    for passage in passages:
+    texts, sources, clock_bindings = [], {}, []
+    lead_data_clock = None
+    for passage_index, passage in enumerate(passages):
         path = Path(passage["source_path"]).resolve()
         if not _allowed_report_path(path) or not path.is_file() or path.stat().st_size > 1_000_000:
             raise ValueError("MAIN_REPORT_SOURCE_PATH_INVALID")
@@ -90,6 +91,28 @@ def verify_projection(spec):
             extracted.append(text.strip())
         texts.append(" ".join(extracted))
         sources[str(path)] = digest
+        if path.name == "owner-native.json":
+            capture = path.parent / "capture.json"
+            if capture.is_file():
+                binding = {"path": str(capture), "field": "/known_at_utc"}
+                try:
+                    if capture.stat().st_size > 16_000_000:
+                        raise ValueError("MAIN_REPORT_DATA_CLOCK_CAPTURE_TOO_LARGE")
+                    capture_raw = capture.read_bytes()
+                    binding["sha256"] = sha256(capture_raw).hexdigest()
+                    clock = json.loads(capture_raw).get("known_at_utc")
+                    if not clock:
+                        raise ValueError("MAIN_REPORT_DATA_CLOCK_ABSENT")
+                    if _time(clock) > _time(spec["known_at_utc"]):
+                        raise ValueError("MAIN_REPORT_DATA_CLOCK_AFTER_REPORT")
+                    binding["value"] = clock
+                    if passage_index == 0:
+                        lead_data_clock = clock
+                except (OSError, ValueError, TypeError, AttributeError) as exc:
+                    # A clock gap never discards otherwise verified public prose.
+                    # Only the new canonical's explicit data deadline needs it.
+                    binding["cause"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
+                clock_bindings.append(binding)
     text = "\n\n".join(texts)
     check_publication_copy({"text": text, "title": spec["headline_text"]}, require_notice=False)
     if _time(spec["known_at_utc"]) > _time(spec["revision_at_utc"]):
@@ -114,6 +137,12 @@ def verify_projection(spec):
         "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS",
         "report_lineage": {"report_id": spec["headline_id"], "report_projection_sha256": capture_hash,
             "origin": "RETAINED_MAIN_REPORT_EXACT_SPANS", "independent_confirmation": False}}
+    if lead_data_clock:
+        # The first admitted Main passage is this projection's lead source.
+        # Dated context keeps its own clock and cannot age or refresh that lead.
+        document["data_cutoff_utc"] = lead_data_clock
+    if clock_bindings:
+        document["data_clock_binding"] = clock_bindings
     return {"headline_id": spec["headline_id"], "headline_text": spec["headline_text"],
         "text_sha256": sha256(spec["headline_text"].encode()).hexdigest(),
         "source_identity": spec["headline_id"], "source_account": "Capital Chronicle",

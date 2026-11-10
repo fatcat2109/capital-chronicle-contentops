@@ -10,7 +10,6 @@ import json
 import re
 from pathlib import Path
 from typing import Any, Mapping
-from uuid import UUID
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of, _private
 from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
@@ -70,33 +69,22 @@ def role_assignment(role: str, agent: str = "codex") -> dict[str, str]:
 
 
 def validate_native_configuration(observation, target, *, required=True):
-    """Keep actual values separate from Jim's explicitly labelled configured fallback."""
-    model, effort = observation.get("model"), observation.get("reasoning_effort")
-    if model not in {None, target["model"]}:
-        raise ValueError("NATIVE_DESKTOP_MODEL_MISMATCH")
-    if effort not in {None, target["reasoning_effort"]}:
-        raise ValueError("NATIVE_DESKTOP_ROLE_EFFORT_MISMATCH")
-    if observation.get("configuration_status") == CONFIGURED_NOT_OBSERVED:
-        if (observation.get("configured_model") != target["model"]
-                or observation.get("configured_reasoning_effort") != target["reasoning_effort"]
-                or observation.get("actual_configuration_unavailable") is not True):
-            raise ValueError("EXACT_LABELLED_NATIVE_CONFIGURATION_REQUIRED")
-        # A fully observed return must use its actual configuration instead.
-        if model is not None and effort is not None:
-            raise ValueError("OBSERVED_CONFIGURATION_MUST_REPLACE_FALLBACK")
-        if observation.get("surface") == "CODEX_DESKTOP_CONVERSATION":
-            # An app default cannot identify a thread created with an override.
-            if observation.get("configuration_source_kind") not in {
-                    "SUPPORTED_THREAD_SETTINGS", "JIM_CONFIRMED_THREAD_SETTINGS",
-                    "JIM_CONFIRMED_PERIOD_DEFAULT"}:
-                raise ValueError("THREAD_SPECIFIC_NATIVE_CONFIGURATION_REQUIRED")
-            try:
-                UUID(observation.get("configuration_thread_id", ""))
-            except (ValueError, TypeError, AttributeError) as exc:
-                raise ValueError("EXACT_NATIVE_CONFIGURATION_THREAD_REQUIRED") from exc
-        return
-    if required and (model is None or effort is None):
-        raise ValueError("ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED")
+    """Record actual/configured values; labels never veto sourced work (decision 60).
+
+    Dispatch still explicitly requests Jim's assigned roles. The caller retains
+    this observation verbatim, including unknown or different runtime values.
+    Source identity, rights, public-copy and exactly-once checks are separate.
+    """
+    return None
+
+
+def request_role_assignment(request):
+    target = role_assignment(native_role(request["stage"]), editorial_agent_of(request))
+    contract = request.get("governed_input", {}).get("reader_article_contract") or {}
+    if (contract.get("policy") == "CC403_READER_ARTICLE_V1" and contract.get("format") == "DAILY_NOTE"
+            and editorial_agent_of(request) == "codex" and native_role(request["stage"]) in {"write", "revise"}):
+        return {"model": MODEL, "reasoning_effort": "low"}
+    return target
 
 
 def native_role(stage):
@@ -117,7 +105,8 @@ def validate_native_role_dispatch(call):
     """Reject inherited settings before the conversation executes a role call."""
     role = native_role(call.get("native_stage", ""))
     agent = editorial_agent_of(call)
-    target = role_assignment(role, agent)
+    target = request_role_assignment({"stage": call["native_stage"], "editorial_agent": agent,
+        "governed_input": {"reader_article_contract": call.get("reader_article_contract")}})
     arguments = call.get("arguments") or {}
     if agent == "claude" or call.get("tool") == "claude.session":
         # The same Claude Code session runs the stage itself; its family and labels are fixed.
@@ -1147,9 +1136,21 @@ class NativeDesktopTurn:
                             "placement_after", "transform_sha256", "computed_values", "license_url") if k in a}
                         for a in media_plan["assets"]], "full_exact_packet_retained_in_governed_input": True}
             kwargs["prompt"] += "\nEXACT_ADMITTED_EDITORIAL_MEDIA_PLAN: " + canonical_bytes(prompt_media).decode()
+        from live_contentops.reader_article_contract_v1 import GUIDANCE as READER_GUIDANCE, contract_for
+        reader_contract = None
+        if stage in {"write", "revise"}:
+            issued = self.frozen_request(stage) or self.frozen_request("write")
+            if issued:
+                reader_contract = issued["governed_input"].get("reader_article_contract")
+            elif "source_pack" in kwargs["governed_input"]:
+                reader_contract = contract_for(kwargs["governed_input"], self.run_id)
+            if reader_contract:
+                kwargs["governed_input"] = {**kwargs["governed_input"], "reader_article_contract": reader_contract}
         role = native_role(stage)
         agent = getattr(self, "editorial_agent", "codex")
         target = role_assignment(role, agent)
+        if agent == "codex" and reader_contract and reader_contract["format"] == "DAILY_NOTE":
+            target = {"model": "gpt-6.1-sol", "reasoning_effort": "low"}
         frozen = self.frozen_request(stage)
         volume_guidance = ("\nDATED J8: A source-sufficient genuine NEWS/POLICY brief may use no photo and no assets, "
             "with Instagram explicitly skipped. Analysis keeps its lawful photo and useful charts. "
@@ -1253,6 +1254,15 @@ class NativeDesktopTurn:
                 request_prompt += "\nCC107_EVENT_RESOLUTION_FRAME\n" + issued
         if publication_speed:
             request_prompt = frozen_writer["prompt"] if frozen_writer else request_prompt + publication_guidance
+        if reader_contract and not frozen:
+            request_prompt += "\n" + READER_GUIDANCE
+            if stage == "write" and reader_contract["format"] == "DAILY_NOTE":
+                from live_contentops.daily_note_first_draft_v1 import prepare_first_draft
+                draft = prepare_first_draft(kwargs["governed_input"], request_prompt, output_dir=self.root)
+                kwargs["governed_input"] = {**kwargs["governed_input"], "daily_note_first_draft": draft}
+                request_prompt += ("\nDAILY_NOTE_EDITOR_PASS: edit this first draft once against the complete source pack. "
+                    "Fix every named code-check finding. If AGY_UNAVAILABLE, write the note in this same light pass.\n"
+                    + canonical_bytes(draft).decode())
         negative_contract = role in {"select", "visual-edit", "write"} and (
             frozen is None or "pre_writer_outcome_contract" in frozen)
         negative_template = {**PRE_WRITER_RETURN_CONTRACT,
@@ -1328,6 +1338,8 @@ class NativeDesktopTurn:
             # Bind compiler policy to the issued request, not a writer assertion.
             # Keep the saved native return and all historical request bytes exact.
             output = {**output, "article": {**output["article"], "public_instrument_policy": INSTRUMENT_POLICY}}
+        if reader_contract and output.get("article"):
+            output = {**output, "article": {**output["article"], "reader_article_contract": reader_contract}}
         return output, {
             "provider": EDITORIAL_AGENTS[editorial_agent_of(request)]["owner"], "selected_model": observation.get("model"),
             "reasoning_effort": observation.get("reasoning_effort"),
@@ -1453,11 +1465,17 @@ class NativeDesktopTurn:
                         for q, r in responses]
         ids = {r["invocation_id"] for r in observations if r.get("invocation_id")}
         family = EDITORIAL_AGENTS[getattr(self, "editorial_agent", "codex")]
+        assignments = {role: dict(value) for role, value in family["assignments"].items()}
+        for request in requests:
+            assignments[native_role(request["stage"])] = {
+                "model": request["requested_model"], "reasoning_effort": request["requested_reasoning_effort"]}
+        drafts = {d["prompt_sha256"]: d for q in requests
+                  if (d := q.get("governed_input", {}).get("daily_note_first_draft")) and d.get("prompt_sha256")}
         return {
             "owner": family["owner"],
             "requested_model": MODEL if family["owner"] == OWNER else CLAUDE_MODEL,
             "requested_reasoning_effort": EFFORT if family["owner"] == OWNER else "max",
-            "role_assignments": family["assignments"],
+            "role_assignments": assignments,
             "observed_models": sorted({o["model"] for o in observations if o.get("model")}),
             "observed_efforts": sorted({o["reasoning_effort"] for o in observations if o.get("reasoning_effort")}),
             "configured_not_observed_count": sum(o.get("configuration_status") == CONFIGURED_NOT_OBSERVED for o in observations),
@@ -1467,7 +1485,11 @@ class NativeDesktopTurn:
             "native_invocation_count_observed": len(ids) if ids else None,
             "native_invocation_identity_unknown_count": sum(not o.get("invocation_id") for o in observations),
             "semantic_response_count": len(responses),
-            "maximum_repair_count": 1, "external_provider_attempt_count": 0,
+            "maximum_repair_count": 1,
+            "external_provider_attempt_count": sum(d.get("provider_call_attempted") is True for d in drafts.values()),
+            **({"daily_note_first_drafts": [{k: d.get(k) for k in ("status", "model", "effort", "configuration_status",
+                "provider_call_attempted", "started_at_utc", "ended_at_utc", "prompt_sha256", "output_sha256", "artifact_path")}
+                for d in drafts.values()]} if drafts else {}),
             "usage_tokens": None, "cost_usd": None,
             "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
             "observations": observations,

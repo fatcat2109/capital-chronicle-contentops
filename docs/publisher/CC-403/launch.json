@@ -1,0 +1,12 @@
+{
+  "item": "CC-403",
+  "pid": 29400,
+  "parent_pid": 25432,
+  "started_at_utc": "2026-11-10T14:34:35.1749680Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "configuration_source": "Read back only the model and effort arguments of the exact CC-403 codex.exe process through Win32_Process; actual runtime model telemetry is unavailable.",
+  "test_start_embargo_until_utc": "2026-11-10T15:30:00Z",
+  "scope": "CC-403 only; no schedule or chat actions"
+}

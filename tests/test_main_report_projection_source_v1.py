@@ -89,6 +89,47 @@ def test_changed_main_bytes_cannot_replace_frozen_evidence(tmp_path, monkeypatch
     assert research.gaps[0]["state"] == "MAIN_REPORT_SOURCE_BYTES_CHANGED"
 
 
+def test_native_data_capture_clock_reaches_the_actual_writer_source_pack(tmp_path, monkeypatch):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+    from live_contentops.reader_article_contract_v1 import contract_for
+    root, report, spec = retained(tmp_path, monkeypatch, native=True)
+    capture = report.parent / "capture.json"
+    capture.write_text(json.dumps({"known_at_utc": "2026-10-18T14:00:00Z", "private_value": "never projected"}), encoding="utf-8")
+    research = RetainedSourceResearch(root)
+    docs = _source_pack(research.evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)["evidence_documents"])
+    contract = contract_for({"source_pack": docs})
+    assert contract["data_cutoff_utc"] == "2026-10-18T14:00:00+00:00"
+    assert docs[0]["published_at_utc"] == "2026-10-18T15:00:00Z"
+    assert docs[0]["data_clock_binding"][0]["sha256"] == sha256(capture.read_bytes()).hexdigest()
+    assert "private_value" not in json.dumps(docs) and "never projected" not in json.dumps(docs)
+
+
+def test_dated_main_context_keeps_its_clock_without_replacing_the_lead_cutoff(tmp_path, monkeypatch):
+    from copy import deepcopy
+    _, report, spec = retained(tmp_path, monkeypatch, native=True)
+    (report.parent / "capture.json").write_text('{"known_at_utc":"2026-10-18T14:00:00Z"}', encoding="utf-8")
+    older = report.parent / "older/owner-native.json"
+    older.parent.mkdir()
+    older.write_bytes(report.read_bytes())
+    (older.parent / "capture.json").write_text('{"known_at_utc":"2026-10-18T13:00:00Z"}', encoding="utf-8")
+    passage = deepcopy(spec["passages"][0])
+    passage.update(source_path=str(older), source_sha256=sha256(older.read_bytes()).hexdigest())
+    spec["passages"].append(passage)
+    doc = projection.verify_projection(spec)["document"]
+    assert doc["data_cutoff_utc"] == "2026-10-18T14:00:00Z"
+    assert [v["value"] for v in doc["data_clock_binding"]] == ["2026-10-18T14:00:00Z", "2026-10-18T13:00:00Z"]
+
+
+@pytest.mark.parametrize("raw", ['{"known_at_utc":"2026-10-18T16:00:00Z"}', 'bad json', '{}'])
+def test_a_clock_gap_does_not_wall_off_held_main_analysis(tmp_path, monkeypatch, raw):
+    _, report, spec = retained(tmp_path, monkeypatch, native=True)
+    (report.parent / "capture.json").write_text(raw, encoding="utf-8")
+    doc = projection.verify_projection(spec)["document"]
+    assert "Equities and Bitcoin rose." in doc["canonical_content_text"]
+    assert doc["data_clock_binding"][0]["cause"]
+    assert "data_cutoff_utc" not in doc
+
+
 def test_own_report_facts_feed_existing_public_card_renderer(tmp_path, monkeypatch):
     from live_contentops.post_visuals_v1 import build_post_data_card, validate_post_data_card
     from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
@@ -201,7 +242,8 @@ def test_all_derivatives_display_public_review_notice_without_changing_frozen_pr
                "substack_body_markdown": "Capital Chronicle reviews competing mechanisms.\n\n" + old.replace("dated Main report", "dated review")}
     bundle, intents = _native_preview_bundle(article=article, article_mode="DATA_OR_DOCUMENT_LENS",
         article_identity="f" * 64, epistemic_state=state)
-    assert len(intents) == 8
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    assert {intent["destination"] for intent in intents} == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     for package in bundle["packages"].values():
         assert "dated Main report" not in json.dumps(package)
         assert "dated review" in json.dumps(package)
