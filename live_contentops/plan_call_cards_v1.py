@@ -857,7 +857,11 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
     for outbox, row in pending:
         key = row["key"]
         if row["kind"] == "run" and outbox["status"] == posts.READY and latest_states is not None:
-            members = [posts._row_payload(store, child) for child in row["card_keys"]]
+            try:
+                members = [posts._row_payload(store, child) for child in row["card_keys"]]
+            except (OSError, ValueError, KeyError, TypeError) as exc:
+                results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
+                continue
             if members and all(latest_states.get(child["plan_id"]) in TERMINAL | {"RESULT"}
                     or (child.get("time_exit_utc") and now >= posts._utc(child["time_exit_utc"]))
                     for child in members):

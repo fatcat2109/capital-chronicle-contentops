@@ -605,8 +605,8 @@ def resume_discord_links(store, *, latest_states, now, limit=5, coordinator_for=
         intent = json.loads(message["payload"])
         key = intent.get("plan_analysis_link")
         if key:
-            candidates.append((message, intent, key))
-    for message, intent, key in candidates[:limit]:
+            candidates.append((message, key))
+    for message, key in candidates[:limit]:
         try:
             value = json.loads(store.get_outbox_message(key)["payload"])
             plan = value["plan"]
@@ -639,6 +639,6 @@ def resume_discord_links(store, *, latest_states, now, limit=5, coordinator_for=
                 "per_destination": {"discord": state}, "destination_causes": posts.destination_causes(outcome)})
         except (OSError, ValueError, KeyError, TypeError) as exc:
             results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
-    for _, _, key in candidates[limit:]:
+    for _, key in candidates[limit:]:
         results.append({"key": key, "status": "WAITING", "cause": "ANALYSIS_LINK_WORK_LIMIT_THIS_RUN"})
     return results
