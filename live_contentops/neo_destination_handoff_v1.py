@@ -125,6 +125,18 @@ def _substack_rendered_text(value):
     return _text("\n".join(lines))
 
 
+def _note_rendered_text(value, canonical, links, public_url):
+    """Notes renders the pasted URL as its card and bare host names as links."""
+    value = str(value).replace(canonical, "")
+    for link in links:
+        host = urlsplit(str(link.get("url") or "")).hostname
+        label = str(link.get("text") or "").strip()
+        if (host and label.casefold() == host.casefold()
+                and link.get("public_object_url") == public_url):
+            value = re.sub(re.escape(label), host.casefold(), value, flags=re.I)
+    return _text(value)
+
+
 def _x_reader_text(value, links, public_object_url, canonical):
     text = _text(value)
     for link in links:
@@ -664,6 +676,14 @@ class NeoDestinationHandoff:
             card.get("url") == binding["expected_link_card_url"] and card.get("card_visible") is True
             and card.get("public_object_url") == result.get("public_object_url")
             for card in result.get("observed_link_cards", []))
+        if destination == "substack_notes" and binding.get("expected_link_card_url") and link_card_match:
+            canonical = binding["expected_link_card_url"]
+            links = result.get("observed_links") or []
+            comparison = _note_rendered_text(observed_text, canonical, links, result.get("public_object_url"))
+            text_match = bool(segments) and all(
+                _note_rendered_text(s, canonical, links, result.get("public_object_url")) in comparison for s in segments) \
+                and all(_note_rendered_text(s, canonical, links, result.get("public_object_url")) not in comparison
+                        for s in binding.get("excluded_text_segments", []))
         verified = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == IDENTITIES[destination]
             and (not public_object_id or result.get("public_object_id") == public_object_id)

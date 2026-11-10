@@ -133,7 +133,7 @@ def test_x_analysis_readback_requires_the_original_card_parent(parent):
     assert result["verified"] is (parent == "correct")
 
 
-@pytest.mark.parametrize("card", ["correct", "wrong", "missing"])
+@pytest.mark.parametrize("card", ["correct", "wrong", "missing", "rendered", "changed_number"])
 def test_note_needs_its_own_visible_canonical_link_card(ready, card):
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff, IDENTITIES
     store, packet, original = ready
@@ -145,15 +145,20 @@ def test_note_needs_its_own_visible_canonical_link_card(ready, card):
     url = "https://substack.com/@deancapitalchronicle/note/c-12345"
 
     def observed(request):
+        text = value["native_payload"]["text"]
+        if card in {"rendered", "changed_number"}:
+            text = text.replace(value["canonical_url"], "")
+        if card == "changed_number":
+            text = text.replace("55%", "56%")
         return {"request_sha256": request["request_sha256"], "status": "SUCCESS",
             "observed_identity": IDENTITIES["substack_notes"], "public_object_id": "c-12345", "public_object_url": url,
-            "content_verified": True, "observed_text": value["native_payload"]["text"],
-            "observed_link_cards": [] if card == "missing" else [{"url": value["canonical_url"] if card == "correct" else
+            "content_verified": True, "observed_text": text,
+            "observed_link_cards": [] if card == "missing" else [{"url": value["canonical_url"] if card != "wrong" else
                 "https://capitalchronicle.substack.com/p/wrong-plan", "public_object_url": url, "card_visible": True}]}
 
     result = NeoDestinationHandoff(native_executor=observed, store=store).readback(destination="substack_notes",
         intent=intent, public_object_id="c-12345", public_object_url=url)
-    assert result["verified"] is (card == "correct")
+    assert result["verified"] is (card in {"correct", "rendered"})
 
 
 def test_parent_change_never_turns_an_analysis_comment_into_a_new_root(ready, monkeypatch):
@@ -311,3 +316,11 @@ def test_link_resume_returns_the_already_queued_native_request(ready, monkeypatc
     result = pages.continue_link(store, value, invocation_id="test-native-turn")
     assert result["pending_requests"] == pending
     assert result["distribution_status"] == "RECOVERY_REQUIRED"
+
+
+def test_note_host_case_rendering_requires_the_exact_objects_observed_link():
+    from live_contentops.neo_destination_handoff_v1 import _note_rendered_text
+    public = "https://substack.com/@deancapitalchronicle/note/c-12345"
+    links = [{"text": "investing.com", "url": "https://investing.com/", "public_object_url": public}]
+    assert _note_rendered_text("Investing.com: 0.3%", "unused", links, public) == "investing.com: 0.3%"
+    assert _note_rendered_text("Investing.com: 0.3%", "unused", links, "other-object") == "Investing.com: 0.3%"
