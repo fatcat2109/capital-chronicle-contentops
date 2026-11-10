@@ -279,6 +279,31 @@ def test_edited_object_readback_uses_accepted_revision_before_confirmation(chang
     assert json.loads(message["payload"]) == original
 
 
+def test_confirmed_edit_adds_image_fingerprints_without_rewriting_publication_clock(social, tmp_path):
+    from datetime import datetime, timezone
+    from live_contentops import article_publication_quality_v1 as quality
+
+    store, run, result, _, reference = social
+    assets = result["media_assets"]
+    intent = {"work_item_id": run, "media_assets": assets, "reader_presentation_review": reference}
+    co = SimpleNamespace(store=store, published_content_path=tmp_path / "published.jsonl",
+        _clock=lambda: datetime(2026, 11, 10, 13, 0, tzinfo=timezone.utc))
+    register = quality.image_register(co)
+    url = "https://capitalchronicle.substack.com/p/retained"
+    original_clock, edit_clock = "2026-11-10T12:09:49Z", "2026-11-10T12:49:06Z"
+    images = [{"asset_id": a["asset_id"], "path": a["path"]} for a in assets]
+    register.seed(piece_id=quality.piece_id(store, intent), canonical_url=url, images=images[:1],
+        published_at=original_clock, observation_ref="original")
+    dispatch = {"platform": "substack", "dispatch_id": "existing", "dispatched_at": original_clock}
+    for _ in range(2):
+        quality.observe_published_images(co, intent, dispatch, observed_url=url, published_at_utc=edit_clock)
+    rows = register.records()
+    assert len(rows) == 2 and rows[0]["published_at_utc"] == original_clock
+    assert len(rows[1]["images"]) == len(assets)
+    assert rows[1]["published_at_utc"] == edit_clock and not rows[1]["counts_as_article"]
+    assert rows[1]["publication_clock_basis"] == "OBSERVED_PRESENTATION_EDIT_CLOCK"
+
+
 def test_auth_failure_does_not_overwrite_reviewed_original_intent(social, monkeypatch):
     store, run, _, revision, _ = social
     co, ref = continuation(social, monkeypatch)

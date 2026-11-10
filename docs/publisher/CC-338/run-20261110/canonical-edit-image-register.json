@@ -1,0 +1,16 @@
+{
+  "record_id": "5eabb59932fc24ffb62f494a71a34bac69b8b8a58ed6031597d8c4db62d52bad",
+  "state": "PUBLISHED",
+  "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+  "published_at_utc": "2026-11-10T12:49:06.396Z",
+  "publication_clock_basis": "OBSERVED_PRESENTATION_EDIT_CLOCK",
+  "counts_as_article": false,
+  "observation_ref": "coordinator:dispatch_9aab37332626d663aadd8d8a631c300e:edit:1ca02f92da1d1df79c736a4a952399a659c05703d073cb882e1b71945c229032",
+  "registered_image_sha256": [
+    "7e79e5205e765377d8f90acbf3e54893599df82d920f1b6805f04e03c6ddec94",
+    "0815a2466f617958b9e02315bed1c939abb9e17ed52d39526bdae01ef9de98eb",
+    "6b79784ce603b53826749b3d362eae4af46eb97576add921a75ee0f409ca3e1a",
+    "9f9eaae546137b196dfb9bd0391f10678866ca3139088a2714dfc9c90a424c42",
+    "f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd"
+  ]
+}

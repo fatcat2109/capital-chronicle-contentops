@@ -1075,6 +1075,14 @@ class DurablePublicationCoordinator:
             readback_data=_canonical_json({"action": "EDIT_EXISTING", "result": raw, "readback": observed}))
         if verified:
             self.store.set_outbox_status(key, "PRESENTATION_EDIT_CONFIRMED")
+            from live_contentops.article_publication_quality_v1 import observe_published_images
+            try:
+                observe_published_images(self, intent, dispatch, observed_url=dispatch["public_object_url"],
+                    published_at_utc=observed.get("observed_at_utc") or self._clock().isoformat())
+            except (ValueError, OSError, KeyError, TypeError) as error:
+                self.store.register_incident(incident_id="image-register-edit-" + sha256_of([key, review_reference]),
+                    work_item_id=intent["work_item_id"], severity="IMAGE_REGISTER_SYNC",
+                    description=_canonical_json({"policy": "JIM_DECISION_93", "cause": type(error).__name__}))
         return {"status": "PRESENTATION_EDIT_CONFIRMED" if verified else "UNKNOWN_EDIT_READBACK_REQUIRED",
             "edit_called": not attempted, "verified": verified, "new_post_calls": 0, "readback": observed}
 

@@ -229,10 +229,15 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
         return
     # The canonical reservation already binds its fingerprints and uncertain
     # clock interval. Extra observations must not erase that clock distinction.
-    if dispatch["platform"] == "substack" and applies(coordinator, intent):
+    edited = bool(intent.get("reader_presentation_review"))
+    if dispatch["platform"] == "substack" and applies(coordinator, intent) and not edited:
         return
+    reference = "coordinator:" + dispatch["dispatch_id"]
+    if edited:
+        reference += ":edit:" + sha256(json.dumps(intent["reader_presentation_review"], sort_keys=True).encode()).hexdigest()
     image_register(coordinator).seed(piece_id=piece_id(coordinator.store, intent),
         canonical_url=observed_url if dispatch["platform"] == "substack" else intent.get("canonical_url"),
         images=[{"asset_id": a["asset_id"], "path": a.get("path") or a.get("absolute_local_source_path")} for a in assets],
-        published_at=published_at_utc or dispatch["dispatched_at"], observation_ref="coordinator:" + dispatch["dispatch_id"],
-        counts_as_article=False, clock_basis="OBSERVED_PUBLICATION_CLOCK" if published_at_utc else "RETAINED_COORDINATOR_DISPATCH_CLOCK")
+        published_at=published_at_utc or dispatch["dispatched_at"], observation_ref=reference,
+        counts_as_article=False, clock_basis="OBSERVED_PRESENTATION_EDIT_CLOCK" if edited else
+        "OBSERVED_PUBLICATION_CLOCK" if published_at_utc else "RETAINED_COORDINATOR_DISPATCH_CLOCK")
