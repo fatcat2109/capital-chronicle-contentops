@@ -257,3 +257,25 @@ def test_original_analysis_root_is_dated_source_bound_and_exactly_once(source, t
     assert pages._analysis_parent(store,'unsent',packet['plan_id'],'threads')['public_object_id'] == '42'
     with pytest.raises(ValueError,match='ORIGINAL_ROOT_NOT_REQUIRED'):
         pages.register_link(store,packet,original_key='unsent',destination='threads',original_analysis_root=True,authored_summary='Original plan.',canonical_image_url=image)
+
+
+def test_long_telegram_call_routes_full_text_and_owned_card_preview(monkeypatch, tmp_path):
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    text = 'Source-bound analysis. ' * 100
+    preview = 'https://res.cloudinary.com/capital/image/upload/card.png'
+    native = {'text': text, 'reply_to_id': '115', 'telegram_text_with_card_preview': True}
+    data = {'output_dir':tmp_path,'article':{},'selection':{},'payloads':{'telegram':native},
+            'canonical_url':'https://capitalchronicle.substack.com/p/full-plan','media_assets':[],
+            'local_media':'card.png','delivery_local_media':'','public_image_url':preview,'primary_media':{}}
+    monkeypatch.setattr(pipeline, '_durable_intent_inputs', lambda intent: data)
+    calls = []
+    monkeypatch.setattr(pipeline, '_publish_telegram_text_verified', lambda **kw: calls.append(kw) or {'status':'SUCCESS'})
+    intent = {'work_item_id':'call','package_identity':'bound','attempt_identity':'attempt'}
+    pipeline._publish_one_destination_from_durable_intent(destination='telegram',intent=intent,
+        authorization_context={'operating_mode':'AUTONOMOUS_DEFAULT','dispatch_attempt_identity':'attempt'})
+    assert calls[0]['text'] == text and calls[0]['preview_image_url'] == preview
+    assert calls[0]['reply_to_message_id'] == '115'
+    data['public_image_url'] = ''
+    result = pipeline._publish_one_destination_from_durable_intent(destination='telegram',intent=intent,
+        authorization_context={'operating_mode':'AUTONOMOUS_DEFAULT','dispatch_attempt_identity':'attempt'})
+    assert result['definite_no_write'] and len(calls) == 1

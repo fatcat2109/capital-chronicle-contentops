@@ -408,7 +408,9 @@ def test_cc432_summary_and_confirmed_page_replace_short_reasons(five, main_root)
         assert "https://capitalchronicle.substack.com/p/the-analysis" in payload["full_text"]
         if destination == "x":
             assert all(posts._x_length(part["text"]) <= 280 for part in payload["posts"])
-        assert len(payload["text"]) <= (500 if destination == "threads" else 1024 if destination == "telegram" else 60000)
+        assert len(payload["text"]) <= (500 if destination == "threads" else 4096 if destination == "telegram" else 60000)
+        if destination == "telegram" and len(payload["text"]) > 1024:
+            assert payload["telegram_text_with_card_preview"]
 
 
 @pytest.mark.parametrize("fault,cause", [("identity", "CC432_PLAN_BINDING_MISMATCH"),

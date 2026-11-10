@@ -1280,6 +1280,7 @@ def _publish_telegram_photo_verified(
 def _publish_telegram_text_verified(
     *, run_id: str, topic_hash: str, text: str, canonical_url: str,
     reply_to_message_id: str | None = None,
+    preview_image_url: str | None = None,
 ) -> dict[str, Any]:
     from live_contentops.telegram_live_adapter_v6 import execute_telegram_post
 
@@ -1294,6 +1295,8 @@ def _publish_telegram_text_verified(
     raw = execute_telegram_post(
         message=text, parse_mode=None, dry_run=False,
         **({"reply_to_message_id":reply_to_message_id} if reply_to_message_id else {}),
+        **({"link_preview_options":{"url":preview_image_url,"prefer_large_media":True}}
+           if preview_image_url else {}),
         approval_context={
             "operator_approval_marker": marker,
             "run_id": run_id,
@@ -1317,6 +1320,7 @@ def _publish_telegram_text_verified(
         and canonical_url in visible
         and visible == text
         and (not reply_to_message_id or str((message.get("reply_to_message") or {}).get("message_id")) == str(reply_to_message_id))
+        and (not preview_image_url or (message.get("link_preview_options") or {}).get("url") == preview_image_url)
     )
     public_url = f"https://t.me/CapitalChronicle/{message_id}" if message_id else None
     if verified:
@@ -1332,7 +1336,7 @@ def _publish_telegram_text_verified(
         "provider_readback_verified": verified,
         "readback": {"status": "SUCCESS" if verified else "FAILED_TELEGRAM_STRICT_READBACK",
                      "visible_body_text": visible, "substack_url_visible": canonical_url in visible,
-                     "meaningful_media_visible": False},
+                     "meaningful_media_visible": bool(preview_image_url and verified)},
     }
 
 
@@ -4614,13 +4618,18 @@ def _publish_one_destination_from_durable_intent(
             public_screenshot_path=output_dir / "public_youtube_community_readback.png",
         )
     if destination == "telegram":
-        if not image_path:
+        long_card = payloads[destination].get("telegram_text_with_card_preview")
+        if long_card and not data.get("public_image_url"):
+            return {"status":"FAILED_BEFORE_WRITE","definite_no_write":True,
+                    "reason_code":"PLAN_ANALYSIS_TELEGRAM_CARD_PREVIEW_UNAVAILABLE"}
+        if not image_path or long_card:
             return _publish_telegram_text_verified(
                 run_id=str(intent.get("work_item_id") or ""),
                 topic_hash=_sha256(str(intent.get("package_identity") or "")),
                 text=text, canonical_url=canonical_url,
                 **({"reply_to_message_id": payloads[destination]["reply_to_id"]}
                    if payloads[destination].get("reply_to_id") else {}),
+                **({"preview_image_url":data["public_image_url"]} if long_card else {}),
             )
         return _publish_telegram_photo_verified(
             run_id=str(intent.get("work_item_id") or ""),

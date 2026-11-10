@@ -524,6 +524,10 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None):
     result = {}
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000}
+    if (row.get("analysis_publication") or {}).get("canonical_url"):
+        # Decision 113: use Telegram's text allowance with the hosted card as
+        # its explicit large preview, rather than the photo caption allowance.
+        limits["telegram"] = 4096
     for destination in DESTINATIONS:
         text = row["text"]
         if destination == "x":
@@ -573,6 +577,8 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None):
         check_publication_copy({"body": text}, conditional_calls=row.get("conditional_calls") or [])
         payload = {"destination": destination, "text": text, "full_text": text,
                    "media_asset_ids": [card_id]}
+        if destination == "telegram" and len(text) > 1024:
+            payload["telegram_text_with_card_preview"] = True
         if destination == "instagram_business" and row["kind"] == "run" and carousel:
             payload.update(carousel_images=carousel, media_asset_ids=[a["asset_id"] for a in carousel])
         ref = (parents or {}).get(destination)
