@@ -212,25 +212,9 @@ def _public_geometry(plan, run):
 
 def _card(plan, run, folder, manuscript):
     """One new owned diagram of this run's levels; no later price history."""
-    from . import plan_call_cards_v1 as cards
-    from .plan_call_card_media_v1 import render as render_card
+    from .plan_analysis_media_v1 import render as render_card
     candidate, _, _ = _owner_candidate(plan, run)
-    levels = cards.card_plan(plan)
-    # Explicitly show the original plan's coordinates, never a guessed mapping
-    # to the listed public instrument. All values come from this owner output.
-    levels.update(target=[candidate["take_profit"]], price_basis="plan")
-    row = {"key": "analysis-card-" + plan["plan_id"], "kind": "setup", "levels": levels,
-           "short_id": levels["short_id"], "instrument_title": posts.TITLES.get(plan["asset_id"], plan["asset_id"]),
-           "at_utc": run["freeze"]["frozen_at_utc"], "registered_at_utc": plan["registered_at_utc"],
-           "time_exit_utc": levels["time_exit_utc"], "entry_deadline_utc": levels.get("entry_deadline_utc"),
-           "price_basis": "plan", "source_content_hash": plan["analysis_result_hash"],
-           "analysis_publication": {"summary": {k: manuscript["sections"][k]["summary"] for k, _ in SECTIONS}}}
-    row.update(cards.compose(row))
-    card = render_card(row, folder / "media")
-    card.update(media_role="article", delivery_only=False, article_inclusion=True, canonical_article_media=True,
-                placement_after="introduction", alt_text="Original conditional plan: " + row["lead"],
-                caption="Capital Chronicle's original conditional plan. Levels use the plan's prices; this is a level diagram, not price history.")
-    return card
+    return render_card(plan,candidate,folder / 'media',frozen_at=run['freeze']['frozen_at_utc'])
 
 
 def _assemble(plan, manuscript, run):
@@ -289,7 +273,9 @@ def register_page(store, packet):
         held = json.loads(previous["payload"])
         if held["registration_hash"] != packet["registration_hash"] or held["native_payload"] != packet["native_payload"]:
             raise ValueError("PLAN_ANALYSIS_EXISTING_PAGE_CHANGED")
-        return held
+        if held.get("media_assets") == packet.get("media_assets"):
+            return held
+        return replace_unpublished_media(store,held,packet)
     body = packet["native_payload"]["body_markdown"]
     registration = registration_for_destination("substack")
     plan = {"schema_version": "contentops.publication_plan.v1", "plan_analysis_page": identity,
@@ -306,6 +292,37 @@ def register_page(store, packet):
     store.register_outbox_message(message_id=identity, work_item_id=identity, destination=DESTINATION,
                                  payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
     return value
+
+
+def replace_unpublished_media(store, held, packet):
+    """Keep the same page/text while correcting media before any native send.
+
+    A prior local failed attempt first needs exact absence reconciliation. Old
+    packets/intents remain retained; a revised media hash gets its own dispatch.
+    """
+    if held["native_payload"]!=packet["native_payload"] or held["registration_hash"]!=packet["registration_hash"]:
+        raise ValueError("PLAN_ANALYSIS_EXISTING_PAGE_CHANGED")
+    for row in store.list_outbox_messages(work_item_id=held["page_id"]):
+        if row["destination"]=="internal:native-neo-tool":
+            if json.loads(row["payload"]).get("request",{}).get("action") in {"PUBLISH","EDIT_EXISTING"}:
+                raise ValueError("PLAN_ANALYSIS_MEDIA_REVISION_NATIVE_WRITE_ALREADY_ISSUED")
+        if row["destination"]=="substack":
+            with store.get_read_only_connection() as conn:
+                dispatch=conn.execute("SELECT status FROM platform_dispatches WHERE message_id=?",(row["message_id"],)).fetchone()
+            if dispatch and dispatch["status"] not in {"DEFINITE_NO_WRITE","RECONCILED_ABSENT_SAFE_TO_RETRY"}:
+                raise ValueError("PLAN_ANALYSIS_MEDIA_REVISION_READBACK_REQUIRED")
+    plan={**held["plan"],"analysis_media_sha256":[a["sha256"] for a in packet.get("media_assets",[])]}
+    plan.pop("plan_hash",None);plan["plan_hash"]=sha256_of(plan)
+    revised={**packet,"page_id":held["page_id"],"plan":plan}
+    store.register_outbox_message(message_id=held["page_id"]+"-prior-media-"+held["plan"]["plan_hash"],
+        work_item_id=held["page_id"],destination="internal:plan-analysis-revision",
+        payload=canonical_bytes(held).decode(),status="EDITORIAL_INTERNAL")
+    store.finalize_outbox_payload_before_dispatch(message_id=held["page_id"],payload=canonical_bytes(revised).decode(),status="EDITORIAL_INTERNAL")
+    for row in store.list_outbox_messages(work_item_id=held["page_id"],destination="substack"):
+        intent=json.loads(row["payload"])
+        if intent.get("plan_hash")!=plan["plan_hash"]:
+            store.set_outbox_status(row["message_id"],"SUPERSEDED_UNSENT_MEDIA_REVISION")
+    return revised
 
 
 def validate_plan(store, work_item_id, plan):
@@ -325,6 +342,14 @@ def validate_plan(store, work_item_id, plan):
     for asset in packet.get("media_assets", []):
         if sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]:
             raise ValueError("PLAN_ANALYSIS_MEDIA_BYTES_CHANGED")
+        if packet["source_plan"].get("zone"):
+            candidate, _, _ = _owner_candidate(packet["source_plan"], run)
+            expected = {key:{field:candidate["directional_entries"][key].get(field)
+                            for field in ("entry_bounds","stop_level","target_level","structure")}
+                        for key in ("pullback","breakout")}
+            if (asset.get("provenance_status") != "VERIFIED_CAPITAL_CHRONICLE_PLAN_EXPORT"
+                    or (asset.get("chart_spec") or {}).get("legs") != expected):
+                raise ValueError("PLAN_ANALYSIS_MEDIA_SOURCE_GEOMETRY_CHANGED")
     public_filter(json.dumps(packet["native_payload"], ensure_ascii=False))
     return packet
 

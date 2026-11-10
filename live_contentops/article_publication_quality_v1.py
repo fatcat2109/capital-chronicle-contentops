@@ -137,6 +137,10 @@ def before_article_write(coordinator, intent, destination):
         assets = packet.get("media_assets") or []
         if not assets:
             raise ImagePolicyError("IMAGE_MISSING")
+        assets = [{**a, "owned_diagram_data_sha256":sha256(json.dumps({"asset":packet["source_plan"]["asset_id"],
+            "legs":{key:{k:v for k,v in leg.items() if k != "structure"}
+                    for key,leg in a["chart_spec"]["legs"].items()}},sort_keys=True).encode()).hexdigest()}
+                  for a in assets]
         return image_register(coordinator).reserve(piece_id=piece_id(coordinator.store, intent), assets=assets,
             lead_asset_id=assets[0]["asset_id"], now=coordinator._clock(),
             canonical_url=intent.get("canonical_url"), enforce_cap=False)

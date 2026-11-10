@@ -70,8 +70,15 @@ def fingerprint(path):
 
 
 def near(left, right):
-    return (left["sha256"] == right["sha256"] or
-            (int(left["perceptual_hash"], 16) ^ int(right["perceptual_hash"], 16)).bit_count() <= NEAR_DISTANCE)
+    if left["sha256"] == right["sha256"]:
+        return True
+    # Two original numerical diagrams can have the same low-frequency shape
+    # while showing different source-bound data. Their verified data identity
+    # distinguishes that case; photos and unbound charts retain the pixel rule.
+    if left.get("owned_diagram_data_sha256") and right.get("owned_diagram_data_sha256"):
+        if left["owned_diagram_data_sha256"] != right["owned_diagram_data_sha256"]:
+            return False
+    return (int(left["perceptual_hash"], 16) ^ int(right["perceptual_hash"], 16)).bit_count() <= NEAR_DISTANCE
 
 
 def _read(raw):
@@ -128,6 +135,8 @@ class PublishedImages:
             if asset.get("sha256") and item["sha256"] != asset["sha256"]:
                 raise ImagePolicyError("IMAGE_BYTES_CHANGED")
             images.append({"asset_id": asset["asset_id"], **item})
+            if asset.get("owned_diagram_data_sha256"):
+                images[-1]["owned_diagram_data_sha256"] = asset["owned_diagram_data_sha256"]
         with _locked_feed(self.path) as handle:
             rows = _read(handle.read())
             active = _active(rows)
@@ -143,6 +152,9 @@ class PublishedImages:
             record_id = sha256(canonical([piece_id, [i["sha256"] for i in images]])).hexdigest()
             existing = next((r for r in own if r["record_id"] == record_id), None)
             if existing:
+                if existing["images"] != images:
+                    existing = {**existing, "images": images, "recorded_at_utc": now.astimezone(timezone.utc).isoformat()}
+                    _append(handle, existing)
                 if existing["state"] == "RESERVED" and existing["day"] != day_of(now):
                     existing = {**existing, "day": day_of(now),
                                 "recorded_at_utc": now.astimezone(timezone.utc).isoformat()}

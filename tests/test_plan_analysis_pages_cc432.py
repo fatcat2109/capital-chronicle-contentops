@@ -183,3 +183,26 @@ def test_structured_summaries_respect_limits_keep_link_and_filter(source,tmp_pat
         text=pages.structured_summary(packet,destination,url)
         assert len(text)<=limit and url in text
         assert 'Macro' in text and 'Scenarios' in text and 'Desk review' in text
+
+
+def test_owned_figures_with_different_verified_data_are_not_photo_reuse():
+    from live_contentops.published_images_v1 import near
+    left={'sha256':'a'*64,'perceptual_hash':'0'*16,'owned_diagram_data_sha256':'c'*64}
+    right={'sha256':'b'*64,'perceptual_hash':'0'*16,'owned_diagram_data_sha256':'d'*64}
+    assert not near(left,right)
+    assert near(left,{**right,'owned_diagram_data_sha256':'c'*64})
+    assert near(left,{k:v for k,v in right.items() if k!='owned_diagram_data_sha256'})
+    assert near(left,{**right,'sha256':left['sha256']})
+
+
+def test_media_revision_preserves_prior_and_refuses_possible_native_send(source,tmp_path):
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    packet=pages.register_page(store,rendered(source,tmp_path))
+    next_packet={**packet,'media_assets':[{'sha256':'a'*64}]}
+    revised=pages.replace_unpublished_media(store,packet,next_packet)
+    assert revised['plan']['plan_hash']!=packet['plan']['plan_hash']
+    assert store.list_outbox_messages(destination='internal:plan-analysis-revision')
+    store.register_outbox_message(message_id='possible',work_item_id=packet['page_id'],destination='internal:native-neo-tool',
+        payload=json.dumps({'request':{'action':'PUBLISH'}}),status='NATIVE_NEO_TOOL_PENDING')
+    with pytest.raises(ValueError,match='NATIVE_WRITE_ALREADY_ISSUED'):
+        pages.replace_unpublished_media(store,revised,{**revised,'media_assets':[]})
