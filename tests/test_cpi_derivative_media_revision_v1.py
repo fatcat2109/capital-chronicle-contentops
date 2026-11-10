@@ -243,6 +243,42 @@ def test_native_publish_begin_uses_current_accepted_media(social, monkeypatch):
     assert seen == [accepted]
 
 
+@pytest.mark.parametrize("changed_hash", [False, True])
+def test_edited_object_readback_uses_accepted_revision_before_confirmation(changed_hash):
+    from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+
+    original = {"text": "Retained text", "media": ["original"]}
+    revised = {"text": "Retained text", "media": ["reaction-card", "original"]}
+    reference = {"request_sha256": "e" * 64}
+    request = {"action": "READBACK", "destination": "substack", "work_item_id": "retained",
+        "public_object_id": "123", "reader_presentation_review": reference,
+        "intent_sha256": "f" * 64 if changed_hash else sha256_of(revised)}
+    message = {"work_item_id": "retained", "destination": "substack", "payload": json.dumps(original)}
+    dispatch = {"platform": "substack", "public_object_id": "123", "message_id": "canonical"}
+    pub = NativeReviewedPublication.__new__(NativeReviewedPublication)
+    pub.binding = {"run_id": "retained"}
+    pub.store = SimpleNamespace(get_dispatches_for_work_item=lambda run: [dispatch],
+        get_outbox_message=lambda key: message)
+    pub._authorize_and_bind = lambda: None
+    observed = []
+
+    def accepted(current, review):
+        observed.append((current, review))
+        return revised, None, None, None
+
+    pub.coordinator = SimpleNamespace(_reader_presentation_intent=accepted,
+        _effective_message=lambda row: row)
+    pub.executor = SimpleNamespace(_get=lambda *args: {"request": request},
+        begin=lambda key: {"begun": key})
+    if changed_hash:
+        with pytest.raises(ValueError, match="EXACT_EXISTING_READBACK_REQUIRED"):
+            pub.tool("begin", request_hash="CONTROLLED_READBACK")
+    else:
+        assert pub.tool("begin", request_hash="CONTROLLED_READBACK") == {"begun": "CONTROLLED_READBACK"}
+    assert observed == [(message, reference)]
+    assert json.loads(message["payload"]) == original
+
+
 def test_auth_failure_does_not_overwrite_reviewed_original_intent(social, monkeypatch):
     store, run, _, revision, _ = social
     co, ref = continuation(social, monkeypatch)

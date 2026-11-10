@@ -773,6 +773,11 @@ class NativeReviewedPublication:
                     restored = restore_intent(self.store, dispatch["dispatch_id"])
                     if restored["approved_presentation_restore"] == request["approved_presentation_restore"]:
                         intent = restored
+                if request.get("reader_presentation_review"):
+                    # An accepted exact-object edit needs its revised readback
+                    # before the effective message can become CONFIRMED.
+                    intent, _, _, _ = self.coordinator._reader_presentation_intent(
+                        message, request["reader_presentation_review"])
                 if sha256_of(intent) != request["intent_sha256"]:
                     intent = json.loads(self.coordinator._effective_message(message)["payload"])
                 if sha256_of(intent) == request["intent_sha256"]:

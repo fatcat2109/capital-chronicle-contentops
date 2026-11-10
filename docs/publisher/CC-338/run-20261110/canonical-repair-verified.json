@@ -1,0 +1,43 @@
+{
+  "run_id": "cc338-cpi-preview-20261110-v1",
+  "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+  "post_id": "224293572",
+  "status": "PRESENTATION_EDIT_CONFIRMED",
+  "edit_called": true,
+  "verified": true,
+  "new_post_calls": 0,
+  "observed_at_utc": "2026-11-10T12:49:06.396Z",
+  "observed_media_sha256": [
+    "7e79e5205e765377d8f90acbf3e54893599df82d920f1b6805f04e03c6ddec94",
+    "0815a2466f617958b9e02315bed1c939abb9e17ed52d39526bdae01ef9de98eb",
+    "6b79784ce603b53826749b3d362eae4af46eb97576add921a75ee0f409ca3e1a",
+    "9f9eaae546137b196dfb9bd0391f10678866ca3139088a2714dfc9c90a424c42",
+    "f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd"
+  ],
+  "exact_body_unchanged": true,
+  "reaction_card_first": true,
+  "tradingview_second": true,
+  "tests": "Two regression cases authored; unrun during 18:30-22:30 GMT+7 blackout on 10 Nov.",
+  "artifacts": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\media-order-revision.json",
+      "bytes": 20750,
+      "sha256": "e6abbe743911376b1a54956c0a9601d58b09b71e794788b2584789f121be3e55"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\media-order-review-reference.json",
+      "bytes": 300,
+      "sha256": "3d33d8789ff233d625b029a6403365c11f69ace95bdaa550b9f7f7ee6c94fdda"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\reaction-card-pixel-check.json",
+      "bytes": 2399,
+      "sha256": "b61aceed29b933f9b62edfaae10419592b8e42f8aa9230eaa36fdaa7bcb83fdc"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\repair-identity-observation-correction.json",
+      "bytes": 493,
+      "sha256": "2e1a85230cfcebc8484a28d35db9e8f7961019cf580401d04de8a7ca907de577"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{'sha256': '7e79e5205e765377d8f90acbf3e54893599df82d920f1b6805f04e03c6ddec94', 'bytes': 112480, 'bound': True}
+{'sha256': '0815a2466f617958b9e02315bed1c939abb9e17ed52d39526bdae01ef9de98eb', 'bytes': 73201, 'bound': True}
+{'sha256': '6b79784ce603b53826749b3d362eae4af46eb97576add921a75ee0f409ca3e1a', 'bytes': 119522, 'bound': True}
+{'sha256': '9f9eaae546137b196dfb9bd0391f10678866ca3139088a2714dfc9c90a424c42', 'bytes': 68890, 'bound': True}
+{'sha256': 'f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd', 'bytes': 9455424, 'bound': True}
+{'exact_body': True, 'image_count': 5, 'card_first': True, 'snapshot_second': True}
