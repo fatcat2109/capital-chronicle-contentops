@@ -61,6 +61,23 @@ def test_pending_response_restart_and_mismatched_binding(tmp_path):
     assert restarted.telemetry()["external_provider_attempt_count"] == 0
 
 
+def test_writer_replays_issued_prompt_after_template_change(tmp_path):
+    store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
+    work = "cc-opportunity-" + sha256_of("writer-template")
+    store.create_work_item(story_id=work, work_item_id=work, title="test", target_surface="CONTENTOPS_EDITORIAL_ONLY")
+    turn = NativeDesktopTurn(store, run_id="writer-template", output_dir=tmp_path, owner_manual_validation=True)
+    args = dict(logical_invocation_id="writer-template:write", prompt="old template", governed_input={"context": "exact"},
+                validator=lambda raw: (True, None, json.loads(raw), None))
+    with pytest.raises(DesktopInputRequired) as pending:
+        turn(**args)
+    request = pending.value.request
+    turn._put("write", "response", {"request_sha256": request["request_sha256"], "output": {"controlled": True},
+        "invocation_observation": {"invocation_id": "controlled", "model": "gpt-6.1-sol", "reasoning_effort": "max"}})
+    assert turn(**{**args, "prompt": "updated template"})[0] == {"controlled": True}
+    with pytest.raises(ValueError, match="CONFLICT"):
+        turn(**{**args, "governed_input": {"context": "changed"}})
+
+
 def test_neo_is_coordinator_only_canonical_first_and_ambiguous_return():
     adapter = NeoDestinationHandoff()
     intent = {"work_item_id": "work", "package_identity": "pkg", "destination_plan": {"payload_hash": "hash"}}

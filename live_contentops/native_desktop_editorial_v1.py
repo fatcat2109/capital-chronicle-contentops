@@ -1261,6 +1261,11 @@ class NativeDesktopTurn:
             request_prompt += ("\nA terminal pre-writer refusal is valid without any media or positive article fields. "
                 "Use this alternative exact typed outcome and retain the actual first cause and source budget:\n"
                 + canonical_bytes(negative_template).decode())
+        if (stage == "write" and frozen
+                and kwargs["governed_input"] == frozen["governed_input"]):
+            # A completed native writer replays its issued prompt after a
+            # compatible template update. Changed source input still conflicts.
+            request_prompt = frozen["prompt"]
         request = {
             "schema_version": SCHEMA, "stage": stage, "run_id": self.run_id,
             "role": role, "role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2",
