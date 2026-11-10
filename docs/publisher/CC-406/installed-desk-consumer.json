@@ -1,0 +1,24 @@
+{
+  "observed_at_utc": "2026-11-10T19:49:30.516627+00:00",
+  "consumer_path": "A:\\Capital Chronicle\\PrivateApp\\builder\\tools\\product\\private_desk_overview_v1.py",
+  "consumer_sha256": "05957c6ab59c1f503881664aad69b27701d4ac7b79abf9c055c2d4916f33128c",
+  "consumer_schema": "PrivateDeskOverviewV1",
+  "note_state": "READ",
+  "date": "2026-11-11",
+  "text_source": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-11.md",
+    "href": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/gold-notes/2026-11-11.md"
+  },
+  "chart_source": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\gold-notes\\2026-11-11.png",
+    "href": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/gold-notes/2026-11-11.png"
+  },
+  "text_sha256": "ccdd2fac4535cc7a4249e5d378ecda5c56b5e71375f5b3a860a08a92d82e8019",
+  "exact_dated_file_read": true,
+  "effects": {
+    "source_writes": 0,
+    "network_calls": 0,
+    "broker_calls": 0,
+    "model_calls": 0
+  }
+}

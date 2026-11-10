@@ -246,6 +246,8 @@ def prepare(store, *, output_root, now=None, day=None, report_root=NATIVE_MAIN_R
             "stage": "gold-note", "request_path": pending.request["request_path"],
             "request_sha256": pending.request["request_sha256"], "requested_model": "gpt-6.1-sol",
             "requested_reasoning_effort": "max", "public_write_performed": False,
+            "next_command": {"command": "gold-note-submit", "note_date": day.isoformat(),
+                "response": "<authored-response.json>", "rollout": "<same applied rollout>"},
             "continuation_required": "Read the exact request, write in this native MAX context, gold-note-submit, inspect its PNG, then gold-note-accept; do not end with an executable pending note."}
     validate_note(output, context)
     preview = turn.root / "gold-note"
@@ -255,7 +257,10 @@ def prepare(store, *, output_root, now=None, day=None, report_root=NATIVE_MAIN_R
         "text_path": str(preview.with_suffix(".md")), "text_sha256": sha256(preview.with_suffix(".md").read_bytes()).hexdigest(),
         "chart_path": str(preview.with_suffix(".png")), "chart_sha256": chart,
         "word_count": len(output["text"].split()), "source_pack_sha256": context["source_pack_sha256"],
-        "telemetry": telemetry, "public_write_performed": False}
+        "telemetry": telemetry, "public_write_performed": False,
+        "next_command": {"command": "gold-note-accept", "note_date": day.isoformat(),
+            "response": "<exact render review.json>", "rollout": "<same applied rollout>"},
+        "continuation_required": "Inspect the exact PNG and note in the writing context, save the review with text_sha256, chart_sha256, accepted and findings, then gold-note-accept in this same turn."}
 
 
 def render_chart(context, path):

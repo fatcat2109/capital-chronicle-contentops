@@ -141,6 +141,7 @@ def native_note(tmp_path, monkeypatch):
     args = {"output_root": tmp_path / "output", "notes_root": tmp_path / "gold-notes", "now": NOW, "report_root": root}
     pending = gold.prepare(store, **args)
     assert pending["state"] == "GOLD_NOTE_NATIVE_INPUT_REQUIRED"
+    assert pending["next_command"]["command"] == "gold-note-submit"
     turn = gold._turn(store, args["output_root"], NOW.astimezone(gold.LOCAL).date())
     request = turn.frozen_request("gold-note")
     assert request["requested_model"] == "gpt-6.1-sol" and request["requested_reasoning_effort"] == "max"
@@ -154,6 +155,7 @@ def native_note(tmp_path, monkeypatch):
     turn.submit("gold-note", response)
     preview = gold.prepare(store, **args)
     assert preview["state"] == "GOLD_NOTE_RENDER_REVIEW_REQUIRED"
+    assert preview["next_command"]["command"] == "gold-note-accept"
     return store, args, preview, request, response
 
 
