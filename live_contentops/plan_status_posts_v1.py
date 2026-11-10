@@ -1471,7 +1471,7 @@ def _api_confirmed(store, key: str, *, root: Path = POST_ROOT) -> bool:
 
 
 def publish_ready(store, *, latest_states=None, active_recoveries=None, now: datetime | None = None, coordinator_for=None,
-                  root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None) -> dict:
+                  root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None, automatic_neo=False) -> dict:
     """Post fresh rows to the API destinations (Telegram, Discord, Threads) through the sole
     coordinator, and exit. Never waits on agent work: X is not in this plan (see start_x).
 
@@ -1487,7 +1487,7 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
             from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
             coordinator, _ = bind_native_neo_coordinator(
                 store, operation_id=key, output_dir=folder / "native-neo",
-                native_invocation_id="plan-status-posts-cc306", allow_publish=True, automatic=True)
+                native_invocation_id="plan-status-posts-cc306", allow_publish=True, automatic=automatic_neo)
             return coordinator
     results = []
     candidates = []
@@ -1568,7 +1568,7 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
     card_results = publish_cards(store, now=now, latest_states=latest_states, root=root,
                                  host=host, coordinator_for=coordinator_for, limit=limit)
     from .plan_analysis_pages_v1 import distribute_links
-    links = distribute_links(store)
+    links = distribute_links(store, **({"automatic_neo": True} if automatic_neo else {}))
     return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links}
 
 

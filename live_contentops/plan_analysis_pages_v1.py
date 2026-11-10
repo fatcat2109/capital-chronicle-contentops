@@ -638,12 +638,12 @@ def validate_link_intent(store, intent):
 
 
 def continue_link(store, value, *, invocation_id="plan-analysis-links-cc435", command="resume",
-                  request_hash=None, response=None):
+                  request_hash=None, response=None, automatic_neo=False):
     from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
     coordinator, executor = bind_native_neo_coordinator(store, operation_id=value["link_id"],
         output_dir=Path(value["plan"]["output_dir"]) / value["link_id"] / "native-neo",
         native_invocation_id=invocation_id, allow_publish=True,
-        automatic=command in {"resume", "readback"})
+        automatic=automatic_neo and command in {"resume", "readback"})
     coordinator.allow_prior_confirmed_distribution=True
     coordinator.recovery_scope={"work_item_id":value["link_id"],"plan":value["plan"],"exact_work_item_only":True}
     try:
@@ -670,8 +670,8 @@ def continue_link(store, value, *, invocation_id="plan-analysis-links-cc435", co
         return {"state": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request}
 
 
-def publish_link(store, value):
-    return continue_link(store, value)
+def publish_link(store, value, *, automatic_neo=False):
+    return continue_link(store, value, automatic_neo=automatic_neo)
 
 
 def link_status(store, value):
@@ -687,12 +687,14 @@ def link_status(store, value):
             "public_object_url": dispatch.get("public_object_url")}
 
 
-def _resume_link(store, value, publish):
+def _resume_link(store, value, publish, *, automatic_neo=False):
     if not value.get("link_id"):
         return value
     status = link_status(store, value)
     from .plan_call_cards_v1 import SETTLED_DISPATCHES
-    return status if status["confirmed"] or status["status"] in SETTLED_DISPATCHES or not publish else publish_link(store, value)
+    if status["confirmed"] or status["status"] in SETTLED_DISPATCHES or not publish:
+        return status
+    return publish_link(store, value, **({"automatic_neo": True} if automatic_neo else {}))
 
 
 def _run_link_text(packets, urls):
@@ -758,7 +760,7 @@ def _validate_run_link(store, value):
     return value
 
 
-def distribute_links(store, *, limit=None, publish=True):
+def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
     """The installed status-post run consumes confirmed pages in its own store.
 
     Frozen links are resumed, not rewritten. A later page in the same Main run
@@ -782,7 +784,7 @@ def distribute_links(store, *, limit=None, publish=True):
         for destination in ("telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"):
             try:
                 value = register_link(store, packet, original_key=original, destination=destination)
-                outcome = _resume_link(store, value, publish)
+                outcome = _resume_link(store, value, publish, automatic_neo=automatic_neo)
                 results.append({"page_id": packet["page_id"], "destination": destination,
                                 "link_id": value.get("link_id"), "outcome": outcome})
             except (OSError, ValueError, KeyError, TypeError) as exc:
@@ -796,7 +798,7 @@ def distribute_links(store, *, limit=None, publish=True):
                 results.append({"destination": "linkedin", "state": "CONFIRMED_IN_RUN_POST"})
                 continue
             value = register_run_link(store, packets)
-            outcome = _resume_link(store, value, publish)
+            outcome = _resume_link(store, value, publish, automatic_neo=automatic_neo)
             results.append({"destination": "linkedin", "link_id": value.get("link_id"), "outcome": outcome})
         except (OSError, ValueError, KeyError, TypeError) as exc:
             results.append({"destination": "linkedin", "state": "NOT_STARTED", "cause": str(exc)[:200]})

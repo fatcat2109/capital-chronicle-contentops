@@ -26,6 +26,12 @@ def endpoint(*, fault=None):
     state = {"calls":[],"posts":{},"composer":{},"fault":fault,"uploads":[]}
     class Handler(BaseHTTPRequestHandler):
         def log_message(self,*args): pass
+        def do_GET(self):
+            path=state['uploads'][0] if state['uploads'] else None
+            if not path: self.send_response(404);self.end_headers();return
+            data=Path(path).read_bytes()
+            self.send_response(200);self.send_header('Content-Type','image/png');self.send_header('Content-Length',str(len(data)))
+            self.end_headers();self.wfile.write(data)
         def do_POST(self):
             request=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
             method=request['method']; params=request.get('params',{})
@@ -61,7 +67,9 @@ def endpoint(*, fault=None):
                                 number='123' if page==1 else 'c-456'
                                 url='https://x.com/Capitalnicle/status/123' if page==1 else 'https://substack.com/@deancapitalchronicle/note/c-456'
                                 state['posts'][dest]={"public_object_id":number,"public_object_url":url,
-                                    "observed_text":'\n\n'.join(actual),"links":[],"public_image_urls":[]}
+                                    "observed_text":'\n\n'.join(actual),"links":[],"public_image_urls":
+                                    (['https://pbs.twimg.com/media/card.png'] if dest=='x' else
+                                     ['https://substack-post-media.s3.amazonaws.com/public/images/card.png']) if state['uploads'] else []}
                                 if fault=='lost_return':
                                     self.send_response(503);self.end_headers();return
                                 value={"status":"CLICKED","pre_click_posts":actual,"stage":"PUBLISH_CLICK_ATTEMPTED",
@@ -160,9 +168,17 @@ def test_lost_publish_return_recovers_by_readback_without_reposting(tmp_path):
 def test_copied_store_runs_in_plain_python_child_with_no_codex_dispatch(tmp_path):
     store=copied_store(tmp_path)
     for destination in ('x','substack_notes'):message(store,destination)
+    card=tmp_path/'media'/'card.png';card.parent.mkdir()
+    Image.new('RGB',(256,256),'navy').save(card)
+    for destination in ('x','substack_notes'):
+        row=store.list_outbox_messages(destination=destination)[0]
+        value=json.loads(row['payload'])
+        value['media_assets']=[{'asset_id':'card','path':str(card),'sha256':sha256(card.read_bytes()).hexdigest()}]
+        store.finalize_outbox_payload_before_dispatch(message_id=row['message_id'],payload=json.dumps(value),status='READY')
     with endpoint() as (url,state):
         code='''
 import json,sys
+import requests
 from pathlib import Path
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
@@ -170,11 +186,16 @@ from live_contentops.neo_endpoint_executor_v1 import NeoMcpClient
 from live_contentops import llm_operator_control_v1
 llm_operator_control_v1.assert_llm_operator_execution_enabled=lambda:None
 s=ContentOpsDurableStore(Path(sys.argv[1]),auto_migrate=False)
+class ImageHttp:
+ def get(self,url,**kwargs):
+  assert url.startswith(('https://pbs.twimg.com/media/','https://substack-post-media.s3.amazonaws.com/'))
+  return requests.get(sys.argv[2].replace('/mcp','/card.png'),**kwargs)
 for destination in ('x','substack_notes'):
  row=s.list_outbox_messages(destination=destination)[0]
  value=json.loads(row['payload'])
+ client=NeoMcpClient(sys.argv[2]);client.image_http=ImageHttp()
  c,e=bind_native_neo_coordinator(s,operation_id=value['work_item_id'],output_dir=Path(sys.argv[1]).parent/destination,
-  native_invocation_id='plain-python',allow_publish=True,automatic=True,endpoint_client=NeoMcpClient(sys.argv[2]))
+  native_invocation_id='plain-python',allow_publish=True,automatic=True,endpoint_client=client)
  result=c._dispatch_message(row,canonical_url=value['canonical_url'])
  assert result['status']=='DISPATCH_CONFIRMED',result
  assert result['reconciliation_status']=='RECONCILED_CONFIRMED',result
@@ -184,16 +205,18 @@ print('X_AND_NOTE_CONFIRMED_WITHOUT_MODEL_OR_CODEX_CHILD')
         assert result.returncode==0,result.stderr+result.stdout
         assert 'X_AND_NOTE_CONFIRMED_WITHOUT_MODEL_OR_CODEX_CHILD' in result.stdout
         assert state['posts'].keys()=={'x','substack_notes'}
+        assert state['uploads']==[str(card),str(card)]
 
 
 def test_local_endpoint_only():
     with pytest.raises(ValueError,match='NEO_LOCAL_ENDPOINT_REQUIRED'): neo.NeoMcpClient('https://example.com/mcp')
 
 
-def test_public_pixel_comparison_accepts_compression_and_rejects_changed_level(tmp_path):
+@pytest.mark.parametrize('font_size',[12,18,34])
+def test_public_pixel_comparison_accepts_compression_and_rejects_changed_level(tmp_path,font_size):
     image=Image.new('RGB',(512,320),'white'); draw=ImageDraw.Draw(image)
     draw.rectangle((10,10,490,300),outline='black',width=3)
-    draw.text((30,80),'CALL LEVEL 1234',fill='black',font_size=34)
+    draw.text((30,80),'CALL LEVEL 1234',fill='black',font_size=font_size)
     path=tmp_path/'card.png';image.save(path)
     source_hash=sha256(path.read_bytes()).hexdigest()
     request={'destination':'x','content_binding':{'media_manifest':[{'path':str(path),'sha256':source_hash}]}}
@@ -209,7 +232,7 @@ def test_public_pixel_comparison_accepts_compression_and_rejects_changed_level(t
             return Response()
     good=neo.compare_public_images(request,observed,http=Http(image))
     assert good['media_comparisons'][0]['source_pixels_match'] is True
-    altered=image.copy();d=ImageDraw.Draw(altered);d.rectangle((30,80,330,120),fill='white');d.text((30,80),'CALL LEVEL 1284',fill='black',font_size=34)
+    altered=image.copy();d=ImageDraw.Draw(altered);d.rectangle((30,80,330,120),fill='white');d.text((30,80),'CALL LEVEL 1284',fill='black',font_size=font_size)
     bad=neo.compare_public_images(request,observed,http=Http(altered))
     assert bad['media_comparisons'][0]['source_pixels_match'] is False
 
@@ -225,7 +248,115 @@ def test_status_minute_consumer_selects_automatic_executor(tmp_path,monkeypatch)
         seen.append(executor)
         return {'posts':[]}
     monkeypatch.setattr(cards,'publish_ready',publish_cards)
-    monkeypatch.setattr(pages,'distribute_links',lambda store:{'links':[]})
-    posts.publish_ready(store,root=tmp_path,now=datetime.now(timezone.utc))
+    monkeypatch.setattr(pages,'distribute_links',lambda store,**kw:{'links':[]})
+    posts.publish_ready(store,root=tmp_path,now=datetime.now(timezone.utc),automatic_neo=True)
     assert isinstance(seen[0],neo.EndpointNeoExecutor)
     assert seen[0].identity_at_action is True
+
+
+def test_transient_endpoint_outage_keeps_exact_unclaimed_request_pending(tmp_path,monkeypatch):
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+    store=copied_store(tmp_path);ids,value=message(store,'x')
+    with endpoint() as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url)
+        original=e.client.initialize
+        monkeypatch.setattr(e.client,'initialize',lambda: (_ for _ in ()).throw(neo.NeoEndpointError('OFFLINE')))
+        first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert first['status']=='NATIVE_NEO_TOOL_PENDING',first
+        request=first['native_tool_request']['request']
+        assert e._get(request['request_sha256'],'started') is None
+        monkeypatch.setattr(e.client,'initialize',original)
+        second=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert second['status']=='DISPATCH_CONFIRMED',second
+        assert e._get(request['request_sha256'],'response') is not None
+
+
+def test_default_manual_binding_never_calls_browser_endpoint(tmp_path,monkeypatch):
+    from live_contentops.native_neo_executor_v1 import NativeNeoExecutor
+    store=copied_store(tmp_path);ids,value=message(store,'x')
+    monkeypatch.setattr(neo.NeoMcpClient,'initialize',lambda: pytest.fail('manual binding touched real browser'))
+    c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'manual',
+        native_invocation_id='manual',allow_publish=True)
+    assert type(e) is NativeNeoExecutor
+    result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+    assert result['status']=='NATIVE_NEO_TOOL_PENDING'
+
+
+def test_shortened_link_readback_requires_its_exact_bound_destination():
+    request={'destination':'x','canonical_url':'https://capitalchronicle.substack.com/p/right-plan'}
+    text='Read https://capitalchronicle.substack.com/p/right-plan'
+    observed={'observed_text':'Read capitalchronicle.substack.com/p/right-plan',
+        'public_object_url':'https://x.com/Capitalnicle/status/123','links':[{
+            'text':'capitalchronicle.substack.com/p/right-plan','url':'https://t.co/a',
+            'expanded_url':'https://capitalchronicle.substack.com/p/right-plan'}]}
+    assert neo.NeoBrowserDriver._matches(request,text,observed)
+    observed['links'][0]['expanded_url']='https://capitalchronicle.substack.com/p/wrong-plan'
+    assert not neo.NeoBrowserDriver._matches(request,text,observed)
+
+
+def test_cli_publish_passes_automatic_transport_to_the_real_consumer(tmp_path,monkeypatch,capsys):
+    from scripts import plan_status_posts as cli
+    from live_contentops import plan_status_posts_v1 as posts,plan_analysis_pages_v1 as pages
+    from live_contentops import pinned_result_scorecard_v1,event_timestamp_v1,event_pack_v1
+    store=copied_store(tmp_path);seen=[]
+    monkeypatch.setattr(cli,'queue_posts',lambda *a,**kw:{'status':'OK','latest_states':{},'active_recoveries':{}})
+    monkeypatch.setattr(pinned_result_scorecard_v1,'refresh_scorecard',lambda *a,**kw:{'status':'CONFIRMED'})
+    monkeypatch.setattr(pages,'resume_discord_links',lambda *a,**kw:[])
+    monkeypatch.setattr(event_timestamp_v1,'maintain_timestamps',lambda:{'status':'OK'})
+    monkeypatch.setattr(event_pack_v1,'run_due_packs',lambda *a,**kw:{'status':'OK'})
+    monkeypatch.setattr(posts,'publish_ready',lambda s,**kw:seen.append((s.db_path,kw)) or {'posts':[]})
+    assert cli.main(['--store',str(store.db_path),'--publish'])==0
+    assert seen[0][0]==store.db_path
+    assert seen[0][1]['automatic_neo'] is True
+
+
+def test_larger_neo_dom_result_reads_only_documented_local_output(tmp_path,monkeypatch):
+    folder=tmp_path/'.browseros'/'tool-output';folder.mkdir(parents=True)
+    path=folder/'evaluate_in_page-test.txt'
+    data={'tweets':[{'observed_text':'Bound public copy'}],'notes':[]}
+    path.write_text('[UNTRUSTED_PAGE_CONTENT nonce=test]\n'+json.dumps(data)+'\n[END_UNTRUSTED_PAGE_CONTENT nonce=test]',encoding='utf-8')
+    c=neo.NeoMcpClient()
+    monkeypatch.setattr(c,'call',lambda *a,**kw:{'structuredContent':{'ok':True,'value':{'neo_output_file':str(path)}}})
+    assert c.run(1,'readback')==data
+    monkeypatch.setattr(c,'call',lambda *a,**kw:{'structuredContent':{'ok':True,'value':{'neo_output_file':str(tmp_path/'outside.txt')}}})
+    with pytest.raises(neo.NeoEndpointError,match='NEO_DOM_OUTPUT_PATH_INVALID'):c.run(1,'readback')
+
+
+def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(tmp_path):
+    store=copied_store(tmp_path);ids,value=message(store,'x')
+    c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'issued',
+        native_invocation_id='earlier-agent',allow_publish=True)
+    first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+    packet=first['native_tool_request'];request_hash=packet['request']['request_sha256']
+    original=e._get(request_hash,'request')
+    store.register_outbox_message(message_id=value['work_item_id'],work_item_id=value['work_item_id'],
+        destination='internal:plan-status-post',payload=json.dumps({'kind':'result','at_utc':datetime.now(timezone.utc).isoformat()}),
+        status='PUBLISHED')
+    with endpoint() as (url,state):
+        result=neo.resume_stored_requests(store,client=neo.NeoMcpClient(url),output_root=tmp_path/'resumed')
+        assert result['requests'][0]['status']=='RECONCILED_CONFIRMED',result
+        assert result['requests'][0]['request_sha256']==request_hash
+        assert e._get(request_hash,'request')==original
+        assert store.get_outbox_message(value['work_item_id'])['status']=='PUBLISHED'
+        count=len(state['calls'])
+        again=neo.resume_stored_requests(store,client=neo.NeoMcpClient(url),output_root=tmp_path/'resumed')
+        assert again['requests']==[]
+        assert len(state['calls'])==count
+        assert state['posts'].keys()=={'x'}
+
+
+def test_expired_claimed_step_still_reads_back_without_another_click(tmp_path):
+    store=copied_store(tmp_path);ids,value=message(store,'x')
+    c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'issued',
+        native_invocation_id='lost-agent',allow_publish=True)
+    first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+    request_hash=first['native_tool_request']['request']['request_sha256']
+    e.begin(request_hash)
+    store.register_outbox_message(message_id=value['work_item_id'],work_item_id=value['work_item_id'],
+        destination='internal:plan-status-post',payload=json.dumps({'kind':'setup','at_utc':'2026-01-01T00:00:00Z'}),status='PUBLISHED')
+    with endpoint() as (url,state):
+        result=neo.resume_stored_requests(store,client=neo.NeoMcpClient(url),output_root=tmp_path/'resumed')
+        assert result['requests']
+        assert result['requests'][0]['status']!='PLAN_STATUS_X_STALE_NOT_POSTED'
+        assert not state['posts']
+        assert any(name=='run' and '"phase": "readback"' in args['code'] for name,args in state['calls'])

@@ -1541,6 +1541,7 @@ class DurablePublicationCoordinator:
         """Consume an actual completed native write return; this never calls publish."""
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         from live_contentops.neo_destination_handoff_v1 import _public_url, IDENTITIES
+        from live_contentops.native_neo_executor_v1 import SURFACE_TOOLS
         dispatch = self.store.get_platform_dispatch(dispatch_id) or {}
         message = self.store.get_outbox_message(dispatch.get("message_id", ""))
         executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
@@ -1578,7 +1579,7 @@ class DurablePublicationCoordinator:
                 or request.get("work_item_id") != message["work_item_id"]
                 or request.get("intent_sha256") != sha256_of(intent)
                 or request.get("request_sha256") != request_hash or result.get("request_sha256") != request_hash
-                or observed.get("tool_name") != "mcp__browseros_neo__run"
+                or observed.get("tool_name") != SURFACE_TOOLS.get(observed.get("surface"))
                 or not executor._claim(request_hash, observed.get("native_invocation_id"))
                 or not result.get("native_tool_return_sha256")
                 or result.get("observed_identity") != request.get("expected_identity")

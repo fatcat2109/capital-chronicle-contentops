@@ -1,7 +1,9 @@
-"""Durable tool requests for the active Codex Desktop Neo executor.
+"""Durable tool requests for Neo executors.
 
-Python does not call MCP. The active conversation begins the exact persisted request,
+The conversation path begins the exact persisted request,
 executes BrowserOS Neo, submits the observed return, and resumes the same coordinator.
+CC-436's minute consumer may select the endpoint transport for X and Notes; it
+uses this same request/claim/return owner and records its true execution surface.
 Requests, action claims and returns use the existing outbox. A claimed publish with no
 return is ambiguous and can only enter the coordinator's readback/recovery path.
 """

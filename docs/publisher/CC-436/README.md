@@ -29,6 +29,49 @@ Live timing acceptance is pending: record the next genuinely new X and Notes
 confirmations against their Telegram twins. Old pending objects and fixture
 results do not prove the two-minute live requirement.
 
+## Completed transport verification
+
+- The installed entry, `scripts/plan_status_posts.py --publish`, opts into the
+  endpoint transport. Other/manual callers retain their existing request/return
+  path. Tests use isolated stores and a fixture endpoint.
+- The same entry also consumes already-issued status/link requests whose API
+  parent has completed. It preserves the original request hash and never
+  rebuilds that frozen package. Expired claimed writes still get readback.
+- Transient endpoint failure before an action claim keeps the exact request
+  pending for the next existing tick. Wrong identity or preparation failure
+  before the click is a definite no-write. A lost click/return stays uncertain
+  until the coordinator reads it back.
+- The real X composer retained two exact posts and a bound card, and the real
+  Notes composer retained its exact text and bound upload. Both preparation
+  checks stopped before Publish, and their temporary composers were dismissed.
+- Real readback of [X object 2120129873830388070](https://x.com/Capitalnicle/status/2120129873830388070)
+  found all five posts. Neo independently resolved its shortened canonical
+  link. Both source-bound images matched X's public original representations:
+  the chart's luminance delta was 30 (RMS 1.5315), and the TradingView PNG was
+  byte-identical. Display thumbnails are not compared as source originals.
+- The pixel check also rejects a changed level at 12, 18 and 34 pixel font
+  sizes. Overflow DOM results are read from Neo's documented, bounded local
+  output file; neither image bytes nor whole DOM files are printed.
+- Final feature checks: 18 passed in 15.43 seconds.
+- Coordinator, composed-return and CLI regressions: 124 passed in 133.97 seconds.
+- Composed-return, plan distribution and restored-X checks: 49 passed in 48.80
+  seconds. A historical test fixture's required destinations were aligned with
+  that fixture's enabled destinations; production restrictions stay intact.
+
+## Remaining live condition
+
+The stored Notes identity is `@deancapitalchronicle`. At
+`2026-11-10T20:26:17Z`, its live profile was unavailable; the page subsequently
+reported **Profile not found**. Neo showed the signed-in business profile
+`@capitalchronicle`. The executor preserves the stored binding and never
+switches accounts or silently publishes as another handle.
+
+Ops Product's prepared action: restore the registered Notes account/session or
+bind its verified successor through the existing identity owner. Then observe
+the next natural X and Notes confirmations against their Telegram twins. This
+run's controlled endpoint results and old-object readback do not establish the
+two-minute live acceptance test.
+
 Launch arguments observed on PID 41068 at the original entry:
 `--model gpt-6.1-sol`, `model_reasoning_effort="max"`;
 `CONFIGURED_NOT_OBSERVED` (no runtime model/effort telemetry).

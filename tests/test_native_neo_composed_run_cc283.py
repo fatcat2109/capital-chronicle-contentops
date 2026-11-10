@@ -176,6 +176,11 @@ def test_a_failure_after_the_click_stays_unknown_write(tmp_path, monkeypatch):
 
 def test_the_deferred_proof_lives_only_inside_a_publishing_run(tmp_path, monkeypatch):
     store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    # The historical protocol fixture enables all destinations. Keep the
+    # registry's required set consistent with that fixture, not the live bans.
+    from live_contentops import destination_transport_registry_v1 as registry
+    monkeypatch.setattr(registry,"V1_REQUIRED_PUBLICATION_DESTINATIONS",
+        tuple(set(registry.DESTINATION_TO_SURFACE)-set(registry.barred_browser_destinations())))
     manager = DestinationReadinessManager(store=store, neo_readiness_provider=executor.publication_readiness)
     row = manager.probe_surface(SURFACE)
     # Nothing was observed yet (the row stores identity_match as False); the coordinator's

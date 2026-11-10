@@ -110,10 +110,12 @@ def main(argv=None) -> int:
             result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,
                                                   python=child_python())
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
-                                                       active_recoveries=result.get("active_recoveries"))
+                                                       active_recoveries=result.get("active_recoveries"), automatic_neo=True)
             from live_contentops.plan_analysis_pages_v1 import resume_discord_links
             result["publication"].setdefault("posts", []).extend(resume_discord_links(store,
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))
+            from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
+            result["publication"]["neo_stored_requests"] = resume_stored_requests(store)
         if not args.dry_run:
             from live_contentops.event_timestamp_v1 import maintain_timestamps
             try:
