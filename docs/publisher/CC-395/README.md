@@ -65,3 +65,19 @@ removing X does not grant one. Therefore a fresh article cannot currently prove
 all seven destinations live. The next real article and its new notice need exact
 coordinator readbacks before CC-395 can be DONE. Ops Product owns the platform-route
 choice and profile-setting changes. No schedule or chat was changed or messaged.
+
+
+## Operating-root application
+
+Code commit `2025916d5a6aaeb70c9360095492cff3ceef4686` was fast-forwarded into
+`A:\Capital Chronicle\ContentOps`. A fresh process imported the actual operating
+module, read the seven required destinations and exact new notice, then used the
+existing coordinator to settle seven held X intents locally. Twenty confirmed X
+posts, five owner-removed records and one UNKNOWN_WRITE retained their identities
+and status. A second application made no change. `live-consumer.json` records the
+result and the initial smoke's over-strict assertion about new local no-write rows.
+All six pre-existing modified operating-root files are byte-preserved. No user app
+was restarted. The existing PlanStatusPosts task already calls this operating root;
+its schedule was not changed. The remaining live acceptance is still outside the
+lane: the current YouTube route is prohibited and its replacement is Ops Product's
+choice; no next live article or post was fabricated for acceptance.

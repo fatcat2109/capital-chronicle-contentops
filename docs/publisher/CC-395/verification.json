@@ -75,5 +75,23 @@
     "executable": "pythonw.exe",
     "action_references_operating_root": true,
     "schedule_changed": false
+  },
+  "integration": {
+    "code_commit": "2025916d5a6aaeb70c9360095492cff3ceef4686",
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "consumer_evidence": "live-consumer.json",
+    "result": "Fast-forwarded into operating root; fresh-process imports prove actual root path, required set and notice. Existing PlanStatusPosts task already references this root. No application restarted.",
+    "existing_wip": "All six pre-existing operating-root modified files hash-match operating-wip-before.json; the exec worktree retains only its two original dirty ledger files."
+  },
+  "runtime_application": {
+    "action": "Existing coordinator retire_x_browser_distribution on production store",
+    "no_write_count": 7,
+    "preserved": {
+      "DISPATCH_CONFIRMED": 20,
+      "EXTERNAL_REMOVAL_REPORTED_NO_RETRY": 5,
+      "UNKNOWN_WRITE": 1
+    },
+    "external_calls": 0,
+    "second_application_idempotent": true
   }
 }

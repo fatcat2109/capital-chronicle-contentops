@@ -1,0 +1,34 @@
+{
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "head": "2025916d5a6aaeb70c9360095492cff3ceef4686",
+  "consumer_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+  "required_derivatives": [
+    "telegram",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "youtube"
+  ],
+  "public_notice": "Capital Chronicle offers analysis only, not financial advice or recommendations.",
+  "x_retirement": {
+    "status": "X_BROWSER_DISTRIBUTION_RETIRED",
+    "public_write_performed": false,
+    "not_posted_count": 7,
+    "preserved_count": 26
+  },
+  "x_dispatch_identities_preserved": true,
+  "idempotent_second_application": true,
+  "x_status_counts": {
+    "DEFINITE_NO_WRITE": 7,
+    "DISPATCH_CONFIRMED": 20,
+    "EXTERNAL_REMOVAL_REPORTED_NO_RETRY": 5,
+    "UNKNOWN_WRITE": 1
+  },
+  "external_calls": 0,
+  "public_write_performed": false,
+  "next_live_article_observed": false,
+  "next_live_notice_observed": false,
+  "initial_smoke_limit": "First application created local no-write dispatches for held X intents with no dispatch; a too-strict no-new-dispatch assertion failed after application. Confirmed, removed and unknown identities were checked unchanged. Second application is fully idempotent."
+}
