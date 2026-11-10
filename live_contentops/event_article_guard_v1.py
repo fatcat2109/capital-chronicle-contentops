@@ -211,6 +211,12 @@ def conditional_call_text(call: Mapping[str, Any]) -> str:
             f"over {call['horizon']}. Invalidated if {call['invalidation']}.")
 
 
+def reader_conditional_call_text(call: Mapping[str, Any]) -> str:
+    """The same five bound fields in decision 98's first-person reader form."""
+    return (f"We are {call['direction']} on {call['market']} if {call['condition']}. "
+            f"Our horizon is {call['horizon']}. Our view is invalidated if {call['invalidation']}.")
+
+
 def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
                            require_notice: bool = True, require_call_text: bool = True) -> dict[str, Any]:
     """Shared Substack/feed gate: decision 35 as amended by decision 40.
@@ -254,9 +260,10 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         if call["condition"].strip().casefold() in {"always", "true", "none", "n/a", "no condition", "unconditional"}:
             _fail("CALL_CONDITION_OR_INVALIDATION_INVALID", "conditional_calls")
         wording = conditional_call_text(call)
-        if require_call_text and wording not in combined:
+        reader_wording = reader_conditional_call_text(call)
+        if require_call_text and not any(w in combined for w in (wording, reader_wording)):
             _fail("CONDITIONAL_CALL_NOT_IN_AUTHORED_COPY", "conditional_calls")
-        remainder = remainder.replace(wording, "")
+        remainder = remainder.replace(wording, "").replace(reader_wording, "")
     if calls and CONFLICTS_NOTICE not in combined:
         _fail("CONFLICTS_NOTICE_REQUIRED", "copy")
     # CC-379 / decision 106: a dated, resolved call is a record of the original

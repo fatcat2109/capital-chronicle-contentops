@@ -197,7 +197,7 @@ def _payload_binding(intent, destination):
         resolved = _durable_intent_inputs(intent)
         article = dict(resolved.get("article") or {})
         if destination == "substack":
-            payload = (intent["native_payload"] if intent.get("plan_analysis_page") else
+            payload = (intent["native_payload"] if intent.get("plan_analysis_page") or intent.get("event_pack") else
                        {"title": article.get("title"), "subtitle": article.get("subtitle"),
                         "body_markdown": article.get("substack_body_markdown")})
         else:
@@ -252,6 +252,7 @@ def _payload_binding(intent, destination):
     if destination == "substack" and article.get("frozen_public_record"):
         from live_contentops.event_public_record_v1 import attachments_for_article
         binding["event_public_record"] = {"article_type": article.get("article_type"),
+                                         **({"event_pack_stage": article["event_pack_stage"]} if article.get("event_pack_stage") else {}),
                                          "frozen_public_record": article["frozen_public_record"]}
         attachments = attachments_for_article(article, media_dir=root / "media" / "public-record")
         if attachments:

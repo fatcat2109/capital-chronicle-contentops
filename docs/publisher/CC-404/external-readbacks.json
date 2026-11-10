@@ -1,0 +1,29 @@
+{
+  "observed_at_utc": "2026-11-10T19:10:29.984562+00:00",
+  "opentimestamps": {
+    "url": "https://opentimestamps.org/",
+    "file_sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4",
+    "status": "BITCOIN_TRANSACTION_UNCONFIRMED",
+    "file_digest_recognised": true,
+    "bitcoin_verified": false,
+    "proof_sha256": "5017c7eedda1531b626d830cfbcc1f8321150753b62410921226e3edcafc8a49"
+  },
+  "substack": {
+    "url": "https://substack.com/@deancapitalchronicle",
+    "status": "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION",
+    "publication_removed_from_public_view": true,
+    "appeal_url": "https://substack.com/appeals",
+    "appeal_submitted": false
+  },
+  "production_control": {
+    "operating_mode": "KILL_SWITCH",
+    "state_version": 41,
+    "control_source": "CC435_SUBSTACK_SUSPENDED_IMPERSONATION"
+  },
+  "ppi_frozen_file_issued": false,
+  "issued_public_freezes": [
+    "bls-emsit-20261106.json"
+  ],
+  "public_posts_in_this_run": 0,
+  "schedule_changes": 0
+}

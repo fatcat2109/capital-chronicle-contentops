@@ -349,21 +349,41 @@ def attachments_for_article(article, *, media_dir, timestamp_root=None):
     spec = article.get("frozen_public_record")
     existing = attachment_for_article(article, media_dir=media_dir)
     assets = [existing] if existing else []
-    if not spec:
+    if not spec or not article.get("event_pack_stage"):
         return assets
+    folder = Path(media_dir)
+    folder.mkdir(parents=True, exist_ok=True)
+    manifest = folder / "event-attachments.json"
+    if manifest.is_file():
+        bound = json.loads(manifest.read_bytes())
+        if bound["frozen_sha256"] != spec["sha256"]:
+            raise ValueError("EVENT_ATTACHMENT_FREEZE_CHANGED")
+        for asset in bound["assets"]:
+            if (not Path(asset["path"]).resolve().is_relative_to(folder.resolve())
+                    or sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]):
+                raise ValueError("EVENT_ATTACHMENT_BYTES_CHANGED")
+        return bound["assets"]
+    if not assets:
+        assets = [attachment_for_article({**article, "article_type": "EVENT_REVIEW"}, media_dir=media_dir)]
+    ledger_spec = article.get("calls_ledger_record")
+    if ledger_spec:
+        from live_contentops.event_pack_v1 import public_ledger
+        from live_contentops.event_timestamp_v1 import _retain
+        public_ledger(ledger_spec)
+        target = folder / ("calls-ledger-"+ledger_spec["sha256"]+".json")
+        _retain(target, Path(ledger_spec["path"]).read_bytes())
+        assets.append({"path": str(target), "sha256": ledger_spec["sha256"], "bytes": target.stat().st_size,
+                       "media_type": "application/json", "filename": target.name})
     state_path = (Path(timestamp_root or ROOT) / spec["event_id"] / spec["sha256"] / "timestamp.json")
-    if not state_path.is_file():
+    if not state_path.is_file() or not json.loads(state_path.read_bytes()).get("proof_path"):
+        manifest.write_text(json.dumps({"frozen_sha256": spec["sha256"], "assets": assets}), encoding="utf-8")
         return assets
     state = json.loads(state_path.read_bytes())
-    if not state.get("proof_path"):
-        return assets
     retained = Path(state["path"])
     proof = Path(state["proof_path"])
     summary = inspect(retained, proof)
     if summary["file_sha256"] != spec["sha256"]:
         raise ValueError("OTS_PROOF_FILE_DIGEST_MISMATCH")
-    folder = Path(media_dir)
-    folder.mkdir(parents=True, exist_ok=True)
     if not assets:
         # A preview publishes the committed bytes too, so the reader can verify
         # the .ots without trusting a filename or a later review's availability.
@@ -377,6 +397,18 @@ def attachments_for_article(article, *, media_dir, timestamp_root=None):
     _retain(target, proof.read_bytes())
     assets.append({"path": str(target), "sha256": summary["proof_sha256"], "bytes": target.stat().st_size,
                    "media_type": "application/octet-stream", "filename": target.name})
+    if ledger_spec:
+        ledger_state = Path(timestamp_root or ROOT) / (spec["event_id"]+"-ledger") / ledger_spec["sha256"] / "timestamp.json"
+        if ledger_state.is_file():
+            bound = json.loads(ledger_state.read_bytes())
+            if bound.get("proof_path"):
+                proof = Path(bound["proof_path"])
+                summary = inspect(Path(ledger_spec["path"]), proof)
+                target = folder / (summary["proof_sha256"]+".ots")
+                _retain(target, proof.read_bytes())
+                assets.append({"path": str(target), "sha256": summary["proof_sha256"], "bytes": target.stat().st_size,
+                    "media_type": "application/octet-stream", "filename": target.name})
+    manifest.write_text(json.dumps({"frozen_sha256": spec["sha256"], "assets": assets}), encoding="utf-8")
     return assets
 
 

@@ -1,0 +1,33 @@
+{
+  "card": {
+    "asset_id": "event-pack-bls-emsit-20261106-preview-card",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-404\\rendered-final\\event-pack-bls-emsit-20261106-preview\\media\\event-map.png",
+    "sha256": "6efcf3652eb1954522265930c43862edf1374c4163f9719f057849a4f2606831",
+    "modality": "data_card",
+    "rights_status": "CC_OWN_ANALYSIS",
+    "caption": "Capital Chronicle model estimate",
+    "alt_text": "We are bearish on XAUUSD if nonfarm payroll change surprise z is at least 1 and unemployment rate surprise z is at most 0.5. Our horizon is by 2026-11-09 04:00:00 ET. Our view is invalidated if XAUUSD above 4110. 0.984329781872516%",
+    "source_sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4",
+    "card_facts": [
+      {
+        "label": "Our conditional map",
+        "text": "We are bearish on XAUUSD if nonfarm payroll change surprise z is at least 1 and unemployment rate surprise z is at most 0.5. Our horizon is by 2026-11-09 04:00:00 ET. Our view is invalidated if XAUUSD above 4110."
+      },
+      {
+        "label": "Minimum move",
+        "text": "0.984329781872516%"
+      }
+    ],
+    "source_bindings": [
+      {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-404\\rendered-final\\event-pack-bls-emsit-20261106-preview\\sources\\957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4.json",
+        "sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4"
+      }
+    ]
+  },
+  "rendered_at_utc": "2026-11-10T19:07:59.772669+00:00",
+  "historical_source_cutoff_utc": "2026-11-06T10:05:00+00:00",
+  "input_sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4",
+  "public_write_performed": false,
+  "note": "Retained NFP public map only; no later ledger or fact is attached."
+}

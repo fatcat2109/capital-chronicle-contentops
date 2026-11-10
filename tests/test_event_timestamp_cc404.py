@@ -113,6 +113,7 @@ def test_preview_and_review_transport_attach_original_file_and_exact_proof(tmp_p
     monkeypatch.setattr(ots, "ROOT", tmp_path / "retained")
     for kind in ("EVENT_PREVIEW", "EVENT_REVIEW"):
         copy = article(spec, kind=kind)
+        copy["event_pack_stage"] = "preview" if kind == "EVENT_PREVIEW" else "review"
         copy["frozen_public_record"] = records.validate_article_record(copy, [source(spec)])
         assets = records.attachments_for_article(copy, media_dir=tmp_path / kind / "media")
         assert len(assets) == 2
@@ -120,6 +121,34 @@ def test_preview_and_review_transport_attach_original_file_and_exact_proof(tmp_p
         assert Path(assets[0]["path"]).read_bytes() == Path(spec["path"]).read_bytes()
         assert assets[1]["sha256"] == value["proof_sha256"]
         assert not records.attachment_readback_matches(assets, [], "https://example.com/p/event")
+
+
+def test_issued_article_keeps_its_proof_after_local_upgrade(tmp_path, monkeypatch):
+    from live_contentops import event_public_record_v1 as records
+    from tests.test_event_public_record_v1 import article, source
+    value, spec, client = stamp(tmp_path)
+    monkeypatch.setattr(ots, "inspect", lambda s, p, **kw: INSPECT(s, p, runner=client))
+    monkeypatch.setattr(ots, "ROOT", tmp_path / "retained")
+    copy = article(spec)
+    copy["event_pack_stage"] = "preview"
+    copy["frozen_public_record"] = records.validate_article_record(copy, [source(spec)])
+    before = records.attachments_for_article(copy, media_dir=tmp_path / "media")
+    RETAIN(spec, event_id=EVENT, frozen_at_utc=FROZEN, event_time_utc=RELEASE, root=tmp_path / "retained",
+        now=NOW+timedelta(hours=7), runner=client, upgrade=True)
+    after = records.attachments_for_article(copy, media_dir=tmp_path / "media")
+    assert before == after
+    assert after[1]["sha256"] == value["proof_sha256"]
+    assert Path(after[1]["path"]).read_bytes() == b"pending proof"
+
+
+def test_historical_unstamped_preview_keeps_its_original_upload_contract(tmp_path, monkeypatch):
+    from live_contentops import event_public_record_v1 as records
+    from tests.test_event_public_record_v1 import article, source
+    _, spec, _ = stamp(tmp_path)
+    monkeypatch.setattr(ots, "ROOT", tmp_path / "retained")
+    copy = article(spec)
+    copy["frozen_public_record"] = records.validate_article_record(copy, [source(spec)])
+    assert records.attachments_for_article(copy, media_dir=tmp_path / "media") == []
 
 
 def test_attach_freeze_consumer_stamps_before_saving_existing_packet(tmp_path, monkeypatch, capsys):
@@ -131,6 +160,8 @@ def test_attach_freeze_consumer_stamps_before_saving_existing_packet(tmp_path, m
     spec, _ = frozen_file(tmp_path)
     client = Client()
     monkeypatch.setattr(ots, "retain_and_stamp", lambda spec, **kw: RETAIN(spec, **kw, runner=client))
+    from live_contentops import event_pack_v1 as packs
+    monkeypatch.setattr(packs, "freeze_ledger", lambda p: p)
     assert cli.main(["--store", str(f.tracker.store.db_path), "--attach-freeze", EVENT,
         "--freeze-file", spec["path"], "--freeze-sha256", spec["sha256"],
         "--timestamp-root", str(tmp_path / "retained")]) == 0

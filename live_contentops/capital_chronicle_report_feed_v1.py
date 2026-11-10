@@ -540,6 +540,16 @@ class MainReportFeed:
         input_key = "native-current-input-" + sha256_of(run_id)
         frozen_row = self.tracker.store.get_outbox_message(input_key)
         frozen_input = json.loads(frozen_row["payload"]) if frozen_row else None
+        event_id = self.pointer.get("preview_event_id") or self.pointer.get("review_event_id")
+        if event_id and not frozen_input:
+            stage = "review" if self.pointer.get("review_event_id") else "preview"
+            owned = self.tracker.store.get_outbox_message("event-pack-"+event_id+"-"+stage)
+            if owned:
+                # The same event slot has a structured public record. Continue
+                # it through CC-404; do not author a second canonical preview.
+                return {"classification": "EXISTING_EVENT_PACK", "qualified_article_count": 0,
+                    "derivative_intent_count": 0, "event_pack_identity": owned["message_id"],
+                    "public_write_performed": False, "exact_next_blocker": None}
         scan = frozen_input["feed_scan"] if frozen_input else self.poll(cutoff_utc=cutoff_utc)
         if frozen_input and frozen_input.get("research"):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch

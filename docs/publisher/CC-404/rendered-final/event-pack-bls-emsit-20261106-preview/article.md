@@ -1,0 +1,29 @@
+# Our reaction map: November employment
+
+We are bearish on XAUUSD if nonfarm payroll change surprise z is at least 1 and unemployment rate surprise z is at most 0.5. Our horizon is by 2026-11-09 04:00:00 ET. Our view is invalidated if XAUUSD above 4110.
+
+
+
+Our map (Capital Chronicle model estimate)
+
+Minimum move: 0.984329781872516%.
+
+> Naive release beta: -0.984329781872516% per signed normal spread of nonfarm payroll change; equivalent to (-0.984329781872516 / 88956)% per jobs; D1 close-to-close includes other news
+
+We are bullish on EURUSD if nonfarm payroll change surprise z is at most -1 and unemployment rate surprise z is at least -0.5. Our horizon is by 2026-11-09 04:00:00 ET. Our view is invalidated if EURUSD below 1.1148.
+
+Minimum move: 0.1359535631427738%.
+
+> Naive release beta: -0.1359535631427738% per signed normal spread of nonfarm payroll change; equivalent to (-0.1359535631427738 / 88956)% per jobs; D1 close-to-close includes other news
+
+
+
+So what: the conditions and invalidations above define how we judge this map.
+
+Frozen 2026-11-06 05:03:37 ET. SHA-256: 957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4.
+
+
+
+Capital Chronicle offers analysis only, not financial advice or recommendations.
+
+Capital Chronicle may hold positions in the markets it covers.

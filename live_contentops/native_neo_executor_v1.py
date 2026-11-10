@@ -286,6 +286,8 @@ class NativeNeoExecutor:
             if request["action"] == "PUBLISH":
                 from live_contentops.event_public_record_v1 import require_preview_deadline
                 require_preview_deadline(content.get("event_public_record") or {}, now_utc=self.clock().isoformat())
+                from live_contentops.event_pack_v1 import require_action_clock
+                require_action_clock(content.get("event_public_record") or {}, now=self.clock().isoformat())
             # Fresh native account proof is rechecked at the action boundary, after any
             # pending Desktop delay. A configured login/executor flag grants no write.
             # CC-283: a composed publish checks the account inside the same run, just before

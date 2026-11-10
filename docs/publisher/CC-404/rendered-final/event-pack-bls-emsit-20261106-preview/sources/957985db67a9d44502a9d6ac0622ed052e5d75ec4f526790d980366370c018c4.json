@@ -1,0 +1,37 @@
+{
+  "conflicts_notice": "Capital Chronicle may hold positions in the markets it covers.",
+  "estimate_label": "Capital Chronicle model estimate",
+  "event_id": "bls-emsit-20261106",
+  "event_time_utc": "2026-11-06T13:30:00Z",
+  "frozen_at_utc": "2026-11-06T10:03:37Z",
+  "notice": "Analysis, not financial advice.",
+  "q1_probabilities": [],
+  "reaction_map": [
+    {
+      "condition": "nonfarm payroll change surprise z is at least 1 and unemployment rate surprise z is at most 0.5",
+      "direction": "bearish",
+      "horizon": "by 2026-11-09 04:00:00 ET",
+      "invalidation": "XAUUSD above 4110",
+      "known_at_utc": "2026-11-06T10:03:37Z",
+      "market": "XAUUSD",
+      "minimum_move": "0.984329781872516%",
+      "naive_release_beta": "-0.984329781872516% per signed normal spread of nonfarm payroll change; equivalent to (-0.984329781872516 / 88956)% per jobs; D1 close-to-close includes other news",
+      "source_ref": "event-pair-freeze.json#/branches/0; freeze_sha256=14bca1cde8e7aaaac2f303947249d76034ec9f3aa162986f1665b6315ca35bb5; frozen-plan candidate 0 (exit and invalidation); plan_sha256=bed1ab2e0fee3f6bf0ed703220c6197f5a87a98e6d3f7b80ef66d4cfa53b88aa; plan_exit_utc=2026-11-09T09:00:00Z; CC-011 US_NFP/XAUUSD/consensus:investing/NFP_PAYROLL_CHANGE; betas_sha256=b5b51f2affc3c204a58a132e3a5c88d916c5f565d68c6d6cd66b43d6708cdf50; minimum_move_pct=abs(beta_per_native_unit * z_threshold * frozen_spread); beta_per_native_unit=(-0.984329781872516 * 1) / 88956; z_threshold=1; frozen_spread=88956 jobs; naive_signed_move_pct=-0.984329781872516; first qualifying tail drives magnitude; all branch inequalities qualify the call; D1 close-to-close includes other news",
+      "source_sha256": "14bca1cde8e7aaaac2f303947249d76034ec9f3aa162986f1665b6315ca35bb5"
+    },
+    {
+      "condition": "nonfarm payroll change surprise z is at most -1 and unemployment rate surprise z is at least -0.5",
+      "direction": "bullish",
+      "horizon": "by 2026-11-09 04:00:00 ET",
+      "invalidation": "EURUSD below 1.1148",
+      "known_at_utc": "2026-11-06T10:03:37Z",
+      "market": "EURUSD",
+      "minimum_move": "0.1359535631427738%",
+      "naive_release_beta": "-0.1359535631427738% per signed normal spread of nonfarm payroll change; equivalent to (-0.1359535631427738 / 88956)% per jobs; D1 close-to-close includes other news",
+      "source_ref": "event-pair-freeze.json#/branches/1; freeze_sha256=14bca1cde8e7aaaac2f303947249d76034ec9f3aa162986f1665b6315ca35bb5; frozen-plan candidate 1 (exit and invalidation); plan_sha256=bed1ab2e0fee3f6bf0ed703220c6197f5a87a98e6d3f7b80ef66d4cfa53b88aa; plan_exit_utc=2026-11-09T09:00:00Z; CC-011 US_NFP/EURUSD/consensus:investing/NFP_PAYROLL_CHANGE; betas_sha256=b5b51f2affc3c204a58a132e3a5c88d916c5f565d68c6d6cd66b43d6708cdf50; minimum_move_pct=abs(beta_per_native_unit * z_threshold * frozen_spread); beta_per_native_unit=(-0.1359535631427738 * 1) / 88956; z_threshold=-1; frozen_spread=88956 jobs; naive_signed_move_pct=0.1359535631427738; first qualifying tail drives magnitude; all branch inequalities qualify the call; D1 close-to-close includes other news",
+      "source_sha256": "14bca1cde8e7aaaac2f303947249d76034ec9f3aa162986f1665b6315ca35bb5"
+    }
+  ],
+  "resolution_rule": "Evaluate every branch inequality against the official first-release values, using z = (actual minus the frozen expectation) / frozen spread. A call triggers only when all its conditions hold. Measure the directional percent move from the first recorded price at or after the release through the frozen plan exit. Resolve a hit only if the minimum move occurs before invalidation and by that exit; otherwise resolve invalidated, not reached, or not triggered as applicable. Missing prices or unknown ordering remain unresolved. The naive baseline uses CC-011 D1 close-to-close percent betas, includes the day's other news, and is not rescaled to the plan horizon.",
+  "schema_version": "capital_chronicle.frozen_public_calls.v1"
+}

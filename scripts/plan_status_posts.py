@@ -122,6 +122,8 @@ def main(argv=None) -> int:
                     ("status", "event_id", "proof_sha256", "bitcoin_verified", "cause") if k in proof}
             except (OSError, ValueError) as exc:
                 result["event_timestamp"] = {"status": "STAMP_ERROR", "cause": type(exc).__name__}
+            from live_contentops.event_pack_v1 import run_due_packs
+            result["event_packs"] = run_due_packs(store, publish=args.publish)
             # pythonw has no stdout: each run's status, the export's age and any refusal go to the run record.
             try:
                 result["run_record"] = str(posts.record_run(result, args.store.parent / posts.RUN_RECORD_FOLDER))

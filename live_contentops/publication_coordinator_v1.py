@@ -850,6 +850,8 @@ class DurablePublicationCoordinator:
         return {**original, "payload": _canonical_json(intent)}
 
     def _reader_presentation_intent(self, message, reference):
+        from live_contentops.event_pack_v1 import require_mutable
+        require_mutable(json.loads(message["payload"]))
         from live_contentops.native_desktop_editorial_v1 import reader_presentation_acceptance
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
         revision, view, acceptance = reader_presentation_acceptance(self.store,
@@ -1000,6 +1002,8 @@ class DurablePublicationCoordinator:
         if self._mode() != "AUTONOMOUS_DEFAULT":
             raise ValueError("APPROVED_PRESENTATION_LIVE_MODE_REQUIRED")
         intent = restore_intent(self.store, dispatch_id)
+        from live_contentops.event_pack_v1 import require_mutable
+        require_mutable(intent)
         dispatch = self.store.get_platform_dispatch(dispatch_id)
         authorization = {"schema_version": "contentops.canonical_machine_authorization.v1",
             "operating_mode": self._mode(), "work_item_id": intent["work_item_id"],
@@ -2101,6 +2105,9 @@ class DurablePublicationCoordinator:
         if plan.get("plan_analysis_link"):
             from live_contentops.plan_analysis_pages_v1 import validate_link_plan
             validate_link_plan(self.store, work_item_id, plan)
+        if plan.get("event_pack"):
+            from live_contentops.event_pack_v1 import validate_plan
+            validate_plan(self.store, work_item_id, plan)
         if self.published_content_path is not None and not plan.get("daily_digest") and not plan.get("plan_analysis_page") and not plan.get("plan_analysis_link") and not plan.get("plan_status_post") and not plan.get("sourced_reply"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             article_metadata(plan, require_notice=False)
@@ -2238,6 +2245,14 @@ class DurablePublicationCoordinator:
                     intent["plan_status_part"] = packet["part"]
                 intent["native_payload"] = packet["payloads"][destination]
                 intent.pop("published_content_export", None)
+            if plan.get("event_pack"):
+                from live_contentops.event_pack_v1 import validate_plan
+                packet = validate_plan(self.store, work_item_id, plan)
+                intent["event_pack"] = packet["identity"]
+                intent["native_payload"] = (packet["payloads"][destination] if packet.get("payloads") else packet["native_payload"])
+                intent["media_assets"] = packet["media_assets"]
+                if packet.get("canonical_parent"):
+                    intent.pop("published_content_export", None)
             if plan.get("sourced_reply"):
                 from live_contentops.sourced_replies_v1 import validate_plan, payload as reply_payload
                 row = validate_plan(self.store, work_item_id, plan)
@@ -2815,6 +2830,9 @@ class DurablePublicationCoordinator:
             row = validate_intent(self.store, intent)
             read_target(row)
             reserve(self.store, row, datetime.now(timezone.utc))
+        if intent.get("event_pack"):
+            from live_contentops.event_pack_v1 import validate_intent
+            validate_intent(self.store, intent)
         if intent.get("plan_status_post"):
             from live_contentops.plan_status_posts_v1 import validate_status_post_intent
             validate_status_post_intent(self.store, intent)
@@ -3328,6 +3346,8 @@ class DurablePublicationCoordinator:
             "plan_hash": intent["plan_hash"], "destinations": [intent["destination_plan"]]})
         if not self._confirmed_public_object(state["per_destination"].get(destination) or {}, destination=destination):
             return {"status": "PHOTO_ATTRIBUTION_CURRENT_READBACK_REQUIRED", "edit_called": False}
+        from live_contentops.event_pack_v1 import require_mutable
+        require_mutable(intent)
         canonical = self._confirmed_canonical_url_for_work_item(str(intent["work_item_id"]), plan_hash=str(intent["plan_hash"]))
         if not canonical or intent.get("canonical_url") != canonical or self._mode() != "AUTONOMOUS_DEFAULT":
             return {"status": "PHOTO_ATTRIBUTION_CURRENT_LIVE_CANONICAL_REQUIRED", "edit_called": False}
@@ -4411,6 +4431,8 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def amend_reader_presentation(self, *, destination, intent, public_object_id, public_object_url,
                                   authorization_context):
+        from live_contentops.event_pack_v1 import require_mutable
+        require_mutable(intent)
         if (authorization_context.get("action") != "EDIT_EXISTING" or not intent.get("reader_presentation_review")
                 or authorization_context.get("destination") != destination
                 or authorization_context.get("payload_hash") != intent.get("destination_plan", {}).get("payload_hash")):
@@ -4449,6 +4471,8 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def amend_photo_attribution(self, *, destination, intent, public_object_id, text, repair_missing_media=False):
         """Use existing exact-message edit adapters; never create or replace a public post."""
+        from live_contentops.event_pack_v1 import require_mutable
+        require_mutable(intent)
         canonical = str(intent["canonical_url"])
         if destination == "telegram":
             from live_contentops.telegram_live_adapter_v6 import execute_telegram_caption_edit
