@@ -10,12 +10,12 @@ monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001C366766FD0&g
         _set_mode(store, "AUTONOMOUS_DEFAULT")
         queued = queue(store, export, main_root)
         originals = {row["message_id"]: row["payload"] for row in store.list_outbox_messages(destination=posts.DESTINATION)}
-    
+
         class Recorded(FixtureTransport):
             def __init__(self):
                 super().__init__()
                 self.intents = []
-    
+
             def publish(self, *, destination, intent, authorization_context):
                 self.publish_calls.append(destination)
                 self.intents.append(intent)
@@ -23,7 +23,7 @@ monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001C366766FD0&g
                 if destination == "instagram_business" and intent["native_payload"].get("reuse_run_carousel"):
                     number = intent["native_payload"]["carousel_parent_id"]
                 return {"status": "SUCCESS", "id": number, "public_url": f"https://example.test/{destination}/{number}"}
-    
+
         runtime = Recorded()
         coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
             readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED" if d in {"x", "substack_notes"}

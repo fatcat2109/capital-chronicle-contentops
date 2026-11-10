@@ -100,5 +100,87 @@
   "next_action": "The existing Main run and minute Publisher consumer supply new cards; resume CC-432 for exact Discord card/link readback.",
   "public_writes_performed": false,
   "schedule_changed": false,
-  "main_or_guardian_changed": false
+  "main_or_guardian_changed": false,
+  "integration": {
+    "observed_at_utc": "2026-11-10T21:36:42.297130+00:00",
+    "root": "A:\\Capital Chronicle\\ContentOps",
+    "commit": "b963696405ae7d1a19387d36618e899873045696",
+    "method": "fast-forward existing operating branch",
+    "sources": [
+      {
+        "path": "live_contentops/plan_analysis_pages_v1.py",
+        "sha256": "b8f7e99f07b2d5d3b076ffa8554810250cfc55d27dd758317aad42ba84cc64d9",
+        "matches_tested_source": true
+      },
+      {
+        "path": "live_contentops/discord_live_adapter_v6.py",
+        "sha256": "a64997834b58139be6b50d6e18f82a511c5d7b000c6ccd1e3508abe2d98429f7",
+        "matches_tested_source": true
+      },
+      {
+        "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+        "sha256": "592119d79d15d8cd8a12b2aa57cfb293e0fd5ffaf3cbb0a20e1c5b0bb31507fd",
+        "matches_tested_source": true
+      }
+    ],
+    "preexisting_operating_edits": [
+      {
+        "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+        "sha256_before": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "sha256_after": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+        "sha256_before": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "sha256_after": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+        "sha256_before": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "sha256_after": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+        "sha256_before": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "sha256_after": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+        "sha256_before": "cdead3afe1e57c4b1da1ea35fe23b25fec72a6633fa09d114b6dd33b6801053e",
+        "sha256_after": "cdead3afe1e57c4b1da1ea35fe23b25fec72a6633fa09d114b6dd33b6801053e",
+        "unchanged": true
+      },
+      {
+        "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+        "sha256_before": "f8041d42018f81f9b0d88944889bf7fd974802241e75f4b6efbe119faf5ad5a9",
+        "sha256_after": "f8041d42018f81f9b0d88944889bf7fd974802241e75f4b6efbe119faf5ad5a9",
+        "unchanged": true
+      }
+    ]
+  },
+  "validation": {
+    "targeted_test_count": 90,
+    "failures": 0,
+    "junit": "docs/publisher/CC-432/resume-20261111/discord-final-tests.xml",
+    "real_coordinator_and_api_adapter": "PASS with isolated stores and simulated API responses; no live send",
+    "frozen_existing_link_validation": "5 PASS in the operating root"
+  },
+  "live_task_observation": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "last_run_at_utc": "2026-11-10T21:36:26Z",
+    "last_task_result": 0,
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "executable": "pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "run_record_at_utc": "2026-11-10T21:36:48.693584Z",
+    "run_record_status": "OK",
+    "queued": 0,
+    "schedule_changed": false,
+    "ran_after_source_install": false
+  },
+  "final_state": "BLOCKED: NEXT_MAIN_RUN_NOT_YET_AVAILABLE_AFTER_BOT_JOIN"
 }

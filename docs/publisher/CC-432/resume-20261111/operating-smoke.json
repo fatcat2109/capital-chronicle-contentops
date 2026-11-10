@@ -1,0 +1,41 @@
+{
+  "observed_at_utc": "2026-11-10T21:36:44.295648+00:00",
+  "imported_page_owner": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_analysis_pages_v1.py",
+  "retained_discord_links": [
+    {
+      "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-discord",
+      "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+      "exact_packet_valid": true
+    },
+    {
+      "link_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-discord",
+      "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+      "exact_packet_valid": true
+    },
+    {
+      "link_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-discord",
+      "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+      "exact_packet_valid": true
+    },
+    {
+      "link_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-discord",
+      "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+      "exact_packet_valid": true
+    },
+    {
+      "link_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-discord",
+      "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+      "exact_packet_valid": true
+    }
+  ],
+  "ready_discord_intents": [
+    {
+      "work_item_id": "plan-status-why-674384b914b1125797c3699771c9bc47-part-1",
+      "plan_analysis_link": null,
+      "plan_status_post": "plan-status-why-674384b914b1125797c3699771c9bc47",
+      "kind": null,
+      "parent_key": null
+    }
+  ],
+  "public_writes_performed": false
+}
