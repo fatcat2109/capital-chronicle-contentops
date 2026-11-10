@@ -59,6 +59,17 @@ def test_public_source_date_label_does_not_expose_internal_clock_basis():
     assert native_source_reader_label({"publisher": "Retained", "published_at_source": "UNESTABLISHED"}) == "Retained"
 
 
+def test_current_registered_channels_and_frozen_legacy_choices_remain_valid():
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    value = decision()
+    assert validate_visual_decision(value) == value
+    value["channel_media"] = {d: value["channel_media"][d] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+    assert validate_visual_decision(value) == value
+    value["channel_media"].pop("telegram")
+    with pytest.raises(ValueError, match="MAX_CHANNEL_MEDIA_CHOICES_REQUIRED"):
+        validate_visual_decision(value)
+
+
 def chart_packet():
     text = "Comparable 2025 revenue 100 USD million; 2026 revenue 120 USD million."
     doc = {

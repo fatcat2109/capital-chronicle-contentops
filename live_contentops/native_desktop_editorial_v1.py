@@ -265,7 +265,9 @@ def validate_visual_decision(value, *, dropped_after_repair=False):
     if not isinstance(photo_ids, list) or len(photo_ids) > 2 or len(set(photo_ids)) != len(photo_ids):
         raise ValueError("BOUNDED_CONTEXTUAL_PHOTO_CHOICES_REQUIRED")
     channels = value.get("channel_media")
-    if not isinstance(channels, dict) or set(channels) != destinations:
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    current_destinations = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    if not isinstance(channels, dict) or set(channels) not in (destinations, current_destinations):
         raise ValueError("EXACT_EIGHT_MAX_CHANNEL_MEDIA_CHOICES_REQUIRED")
     for choices in channels.values():
         if (not isinstance(choices, list) or len(set(choices)) != len(choices)
@@ -1824,8 +1826,10 @@ def validate_release_media(result, *, require_pixel_review=True, prewriter=False
             validate_post_data_card(card, article, result.get("evidence") or [])
         allowed = {a["asset_id"] for a in assets}
         from live_contentops.post_visuals_v1 import DESTINATIONS
+        from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
         choices = article.get("post_visual_destination_media") or {}
-        if set(choices) != set(DESTINATIONS) or any(not ids or not set(ids) <= allowed for ids in choices.values()):
+        if (set(choices) not in (set(DESTINATIONS), set(V1_REQUIRED_DERIVATIVE_DESTINATIONS))
+                or any(not ids or not set(ids) <= allowed for ids in choices.values())):
             raise ValueError("EVERY_DESTINATION_IMAGE_REQUIRED")
     return {"standard": "DATA_JOURNALISM_V1" if reader_first else "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
             "photo_count": len(photos), "chart_count": len(quantitative_charts),
