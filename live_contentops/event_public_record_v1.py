@@ -187,6 +187,46 @@ def _attach_context(records, document, *, event_id, article_type):
     records[identity] = template
 
 
+def verified_main_research_excerpts(document):
+    """Recheck the admitted Main bytes and every public span at consumption."""
+    lineage = document.get("report_lineage") or {}
+    rights = document.get("source_reuse_constraints") or {}
+    text = document.get("canonical_content_text") or ""
+    digest = sha256(text.encode()).hexdigest()
+    if (rights.get("scope") != "CAPITAL_CHRONICLE_OWN_MAIN_RESEARCH_EXCERPTS"
+            or rights.get("public_expression_reuse_allowed") is not True
+            or not str(lineage.get("authority_ref", "")).startswith("BACKLOG_CC338_")
+            or rights.get("authority_ref") != lineage.get("authority_ref")
+            or document.get("canonical_content_sha256") != digest
+            or (document.get("url") or document.get("source_url")) != "urn:cc-public-report:event-research:" + digest):
+        return False
+    try:
+        raw = Path(lineage["source_path"]).read_bytes()
+        if sha256(raw).hexdigest() != lineage.get("source_sha256"):
+            return False
+        original = raw.decode("utf-8-sig")
+        displays = set()
+        for row in original.splitlines():
+            if not row.strip().startswith("|"):
+                continue
+            cells = [c.strip().replace("**", "") for c in row.strip().strip("|").split("|")]
+            try:
+                probability = Decimal(cells[2])
+                if not 0 <= probability <= 1:
+                    continue
+                percent = format(probability * 100, "f")
+                if "." in percent:
+                    percent = percent.rstrip("0").rstrip(".")
+                displays.add(f"Capital Chronicle model estimate: {cells[0]} (core CPI {cells[1]}% m/m), {percent}%.")
+            except (ArithmeticError, IndexError, ValueError):
+                continue
+        from tools.product.desk_record_projection_v1 import public_text_problems
+        return bool(text and len(text) <= 4000 and not public_text_problems(text)
+            and all(span in original or span in displays for span in text.split("\n\n")))
+    except (OSError, KeyError, UnicodeError):
+        return False
+
+
 def attach_scorecard_record(records, store, *, cutoff_utc, feed_path=None):
     from live_contentops.public_call_scorecard_v1 import build_scorecard, render_scorecard
     from live_contentops.published_content_v1 import DEFAULT_FEED

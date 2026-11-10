@@ -108,6 +108,16 @@ def test_held_main_research_reaches_existing_preview_writer(tmp_path, monkeypatc
     assert excerpt in doc["canonical_content_text"]
     assert "15%." in doc["canonical_content_text"]
     assert doc["report_lineage"]["source_sha256"] == spec["sha256"]
+    from live_contentops.event_public_record_v1 import verified_main_research_excerpts
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _carries_model_estimates, _verified_own_public_excerpts
+    assert verified_main_research_excerpts(doc)
+    assert _carries_model_estimates(doc) and _verified_own_public_excerpts(doc)
+    changed = {**doc, "canonical_content_text": doc["canonical_content_text"].replace("15%.", "99%.")}
+    changed["canonical_content_sha256"] = sha256(changed["canonical_content_text"].encode()).hexdigest()
+    changed["url"] = "urn:cc-public-report:event-research:" + changed["canonical_content_sha256"]
+    assert not verified_main_research_excerpts(changed)
+    path.write_text("changed Main source", encoding="utf-8")
+    assert not verified_main_research_excerpts(doc)
     assert not doc.get("frozen_public_record")
 
 

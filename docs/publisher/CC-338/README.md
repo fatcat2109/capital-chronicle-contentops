@@ -151,3 +151,14 @@ The existing context attachment now accepts verified held CPI sources during
 media preparation, retains the selected topic documents and joins the official
 history before writing. Nineteen focused context checks pass in 18.02 seconds.
 The original native selection, source clocks and source budgets remain recorded.
+
+The 10 November run also preserves unknown source publication time separately from
+known-at time, retains typed first-print history and discards the superseded single
+annual consensus from the new context. Editorial preparation uses its operation
+lease while public dispatch retains the shared newsroom lease. The bound imminent
+EVENT_PREVIEW uses decision 53's one actual editor KEEP and the automated image
+load/dimension check; the frozen WEEK_AHEAD_OR_WATCH writer request is unchanged.
+Four selected images pass the published-image register's exact/perceptual checks.
+The source installed at `d39b94be` matches the builder across six changed modules.
+No public freeze file was present at 17:50 GMT+7; the item’s explicit CPI no-hash
+fallback is recorded in `run-20261110/freeze-cutoff-choice.json`.

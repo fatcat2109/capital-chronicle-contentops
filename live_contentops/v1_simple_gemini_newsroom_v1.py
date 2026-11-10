@@ -726,7 +726,7 @@ def _validate_worker_text(text: str) -> tuple[bool, str | None, Any, str | None]
     claims = value.get("material_claim_bindings")
     if not isinstance(article, Mapping) or _required_article_fields(article):
         return False, "structured_output_schema_invalid", None, "article_required_fields_missing"
-    limit = 6 if article.get("reader_first_version") == "DATA_JOURNALISM_V1" else 3
+    limit = 10 if article.get("reader_first_version") == "DATA_JOURNALISM_V1" else 3
     if not isinstance(sources, list) or not 1 <= len(sources) <= limit:
         return False, "structured_output_schema_invalid", None, "cited_source_count_invalid"
     if not isinstance(claims, list) or not claims:
@@ -1539,6 +1539,9 @@ def _public_copy_integrity_blockers(
 def _carries_model_estimates(document: Mapping[str, Any]) -> bool:
     """A source the owner admitted as Capital Chronicle model estimates (Jim's decision 72 b, CC-262): a desk-record
     projection with CC_MODEL_ESTIMATE fields, or a document whose reuse constraints name that rights class."""
+    from live_contentops.event_public_record_v1 import verified_main_research_excerpts
+    if verified_main_research_excerpts(document):
+        return "Capital Chronicle model estimate:" in document["canonical_content_text"]
     if (document.get("source_reuse_constraints") or {}).get("rights_class") == "CC_MODEL_ESTIMATE":
         return True
     desk = document.get("desk_record_binding") or {}
@@ -1578,6 +1581,9 @@ def _first_body_paragraph(body: str) -> str:
 
 
 def _verified_own_public_excerpts(document: Mapping[str, Any]) -> bool:
+    from live_contentops.event_public_record_v1 import verified_main_research_excerpts
+    if verified_main_research_excerpts(document):
+        return True
     lineage = document.get("report_lineage") or {}
     digest = lineage.get("report_projection_sha256")
     rights = document.get("source_reuse_constraints") or {}
@@ -1605,6 +1611,9 @@ def _epistemic_copy_blockers(
     blockers = list(validate_epistemic_state(epistemic_state))
     desk_only = bool(source_pack) and all(d.get("desk_record_binding") for d in source_pack)
     own_public_excerpts = bool(source_pack) and all(_verified_own_public_excerpts(d) for d in source_pack)
+    from live_contentops.event_public_record_v1 import verified_main_research_excerpts
+    event_research = article.get("article_type") == "EVENT_PREVIEW" and any(
+        verified_main_research_excerpts(d) for d in source_pack)
 
     def exact_public_wording(value):
         text = _normal(_SOURCE_MARKER_RE.sub("", str(value or "")))
@@ -1617,7 +1626,7 @@ def _epistemic_copy_blockers(
         except (ValueError, KeyError, TypeError) as exc:
             blockers.append(str(exc))
     if (epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT"
-            and not desk_only and not own_public_excerpts):
+            and not desk_only and not own_public_excerpts and not event_research):
         notice = str(epistemic_state.get("report_scope_notice") or "")
         # The public equivalent omits the internal producer name. Preserve all
         # substantive limits from an older frozen packet, without requiring its
@@ -1815,7 +1824,7 @@ def _validate_article_against_source_pack(
         # Keep the normal exact-excerpt check above; preserve typed-claim checks
         # for every original report envelope.
         span_digest = report_lineage.get("report_projection_sha256")
-        span_projection = (report_lineage.get("origin") == "RETAINED_MAIN_REPORT_EXACT_SPANS"
+        span_projection = _verified_own_public_excerpts(document) or (report_lineage.get("origin") == "RETAINED_MAIN_REPORT_EXACT_SPANS"
             and re.fullmatch(r"[a-f0-9]{64}", str(span_digest or ""))
             and document.get("url") == "urn:cc-public-report:main-retained:" + span_digest
             and (document.get("source_reuse_constraints") or {}).get("scope") == "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
