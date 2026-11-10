@@ -39,6 +39,8 @@
       "result": "PASS on explicit changed paths"
     }
   ],
-  "runtime_installation": "Recorded in live-consumer.json after integration; no restart, public write, schedule change or X source transition.",
-  "remaining": "Ops Product must read record and write its candidate pick; explicit CC-258 transition remains 11 Nov after CPI. No claim of that review or choice."
+  "runtime_installation": "Fast-forwarded Publisher operating root to code commit; fresh-process coordinator and adapter use that root (live-consumer.json), no browser/public write or production store mutation.",
+  "remaining": "Ops Product must read record and write its candidate pick; explicit CC-258 transition remains 11 Nov after CPI. No claim of that review or choice.",
+  "code_commit": "9b7a91dfbce584c86503ad14efb557ac1d7a2cf2",
+  "smoke_cleanup": "Initial isolated SQLite cleanup had WinError 32 after passing assertions; removed exact disposable directory after process exit. A clean second fresh-process refusal/hash check passed."
 }

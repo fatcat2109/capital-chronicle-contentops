@@ -1,0 +1,39 @@
+{
+  "observed_at_utc": "2026-11-10T01:24:13.529330+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "loaded_handoff": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\neo_destination_handoff_v1.py",
+  "loaded_coordinator": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+  "handoff_sha256": "6cf74e4ee437656f0e9e6a8473ff756e543c8df07f780b2cfc3204bf33bbcbd4",
+  "prohibited_routes": {
+    "x": "X_NON_API_AUTOMATION_PROHIBITED",
+    "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+    "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+    "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+    "instagram_business": "INSTAGRAM_NON_API_AUTOMATION_PROHIBITED"
+  },
+  "coordinator_youtube": {
+    "status": "DEFINITE_NO_WRITE",
+    "definite_no_write": true,
+    "reason_code": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+    "public_write_performed": false,
+    "destination": "youtube",
+    "dispatch_id": "dispatch_ec1226afb942bf5ad76f88d818c7de1f",
+    "publish_called": false
+  },
+  "official_linkedin_member_transport": "OFFICIAL_MEMBER_API",
+  "state": "LIVE_ROOT_FRESH_PROCESS_CONSUMER_VERIFIED",
+  "production_store_touched": false,
+  "browser_calls": 0,
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "process_restarts": 0,
+  "long_lived_loaded_module_state": "NOT_OBSERVED; no active worker or server was restarted",
+  "x_list_feed": "No source/process change under explicit CC-258 through-CPI instruction; transition remains Ops Product 11 Nov",
+  "initial_smoke_cleanup": "SQLite connection left open caused WinError 32 after successful assertions; disposable directory removed after process exit; no production store involved.",
+  "post_cleanup_fresh_process": {
+    "at_utc": "2026-11-10T01:25:16.149506+00:00",
+    "result": "PASS",
+    "routes": 5,
+    "source_hash_unchanged": true
+  }
+}
