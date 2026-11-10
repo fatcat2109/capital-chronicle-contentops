@@ -894,6 +894,13 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
                 **{k:event[k] for k in ("event_id", "identity", "stage", "cause") if k in event},
                 "publication_state": publication.get("state") or publication.get("status"),
                 "per_destination": {d:v.get("status") for d,v in per.items()}})
+    neo = (result.get("publication") or {}).get("neo_stored_requests")
+    if neo is not None:
+        # CC-436: the installed pythonw tick has no stdout. Preserve its exact
+        # drain outcome in the existing run record, without request copy/media.
+        line["neo_stored_requests"] = {"status":neo.get("status"),"requests":[
+            {k:row[k] for k in ("operation_id","destination","request_sha256","status","cause") if k in row}
+            for row in neo.get("requests") or []]}
     analysis = (result.get("publication") or {}).get("analysis_distribution")
     if analysis is not None:
         line["analysis_links"] = []

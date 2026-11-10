@@ -377,3 +377,14 @@ def test_live_route_suspension_prevents_endpoint_calls_and_leaves_x_available(tm
         assert result['reason_code']=='SUBSTACK_ACCOUNT_SUSPENDED'
         assert not state['calls']
         assert handoff._prohibited_write('x') is None
+
+
+def test_existing_minute_record_keeps_exact_safe_drain_result(tmp_path):
+    from live_contentops import plan_status_posts_v1 as posts
+    request={'operation_id':'same-post','destination':'x','request_sha256':'a'*64,
+        'status':'RECONCILED_CONFIRMED','native_payload':'never in the run record'}
+    path=posts.record_run({'status':'OK','publication':{'status':'OK',
+        'neo_stored_requests':{'status':'OK','requests':[request]}}},tmp_path)
+    row=json.loads(path.read_text(encoding='utf-8'))
+    assert row['neo_stored_requests']['requests']==[{k:v for k,v in request.items() if k!='native_payload'}]
+    assert 'never in the run record' not in path.read_text(encoding='utf-8')

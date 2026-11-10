@@ -57,6 +57,9 @@ results do not prove the two-minute live requirement.
   guard run passed 21 tests in 18.55 seconds. The copied-store Python child
   explicitly uses an isolated control-file path, so tests never read the live
   suspension control.
+- Final run-record verification: 22 feature/route tests passed in 16.95 seconds.
+  The existing minute log now retains each drained operation, destination,
+  request hash, outcome and cause, without public payload/media bytes.
 - Coordinator, composed-return and CLI regressions: 124 passed in 133.97 seconds.
 - Composed-return, plan distribution and restored-X checks: 49 passed in 48.80
   seconds. A historical test fixture's required destinations were aligned with
