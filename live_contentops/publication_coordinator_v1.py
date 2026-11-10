@@ -396,6 +396,10 @@ def normalize_readback_result(
     return normalized
 
 
+# Refusals made locally, before any platform call; they never skip a destination for the ET day (CC-401).
+LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({"DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"})
+
+
 class DurablePublicationCoordinator:
     """Exactly-one write owner for all Final Daily App destinations."""
 
@@ -2583,6 +2587,9 @@ class DurablePublicationCoordinator:
     def _record_destination_day_failure(self, intent, destination, detail, instant=None):
         # CC-401: reuse the incident table as the daily circuit, with first cause
         # retained by its idempotent insert. No new queue, ledger or scheduler.
+        # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
+        if (detail.get("reason_code") or detail.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES:
+            return
         incident_id, day = self._destination_failure_key(destination, instant)
         with self.store.get_read_only_connection() as conn:
             if conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone():
