@@ -1,5 +1,17 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## CPI night — 10 November 2026 (Ops Product; ends 22:30 GMT+7)
+
+Guardian has been BLOCKED since the gold stop (about 17:20 GMT+7), and Ops Live must replay and bind its
+fix on this PC before CPI at 20:30 GMT+7. At the release the entry step uses most of its 45 seconds.
+
+- Until 20:45 GMT+7: no test suite, no install into PrivateApp, no desk rebuild by hand, no copied-state replay.
+  Read, write code and drafts, and post what the export already says. CC-338 (the CPI preview with its hash)
+  is the one exception, and runs only the tests it needs.
+- From 20:45 to 22:30 GMT+7: targeted tests only, at most three files, one run at a time.
+- Full suites after 22:30 GMT+7.
+- Posts say only what the export says. A gold result that Guardian has not yet recognised is not posted.
+
 ## X posts again as before — 10 November 2026 (Jim's decision 112)
 
 Jim, 10 Nov 2026: "Cứ đăng X như cũ, không thay đổi gì." (keep posting to X as before, change nothing),
