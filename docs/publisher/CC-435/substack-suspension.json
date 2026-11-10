@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-10 18:18:01 UTC",
+  "profile_url": "https://substack.com/@deancapitalchronicle",
+  "page_id": 215,
+  "observed_notice": "Your account is currently suspended. We've removed your publication from public view due to a violation of Substack's Impersonation policy.",
+  "appeals_url": "https://substack.com/appeals",
+  "method": "BrowserOS Neo read of the current own-profile public UI; authenticated view, not anonymous visibility proof",
+  "fresh_link_sends_stopped": true,
+  "prepared_action": {
+    "owner": "Ops Product",
+    "action": "Review the Substack suspension and the existing publication identity in the Appeals Center; submit an owner appeal through the allowed person step before public visibility is claimed or new canonical links are sent."
+  },
+  "appeal_submitted": false
+}

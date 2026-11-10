@@ -1,0 +1,13 @@
+{
+ "request_sha256": "9eb9eb27551e6706e0f944f8fe5554dab85fdd7cfa89520f369aa69748d31c83",
+ "tool_return_sha256": "d5256ca77758eac670b73b3100fef85062c60779522c1fef96c6b299ad19d37d",
+ "completed_write_reconciliation": {
+  "dispatch_id": "dispatch_41889e98b54a1b0fc4c2ec8b37ce96ea",
+  "destination": "substack_notes",
+  "public_object_id": "c-383937440",
+  "public_object_url": "https://substack.com/@deancapitalchronicle/note/c-383937440",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "publish_called": false,
+  "public_write_performed": false
+ }
+}

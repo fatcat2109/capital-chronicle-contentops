@@ -1,0 +1,50 @@
+{
+ "plan_hash": "ca52bb47d694d168d3c55fc62217acab9e78ef4301bba8e43011eba2a2ca1bda",
+ "registered": [],
+ "outbox_count": 0,
+ "per_destination": {},
+ "canonical_article_status": "NOT_STARTED",
+ "canonical_article_real_published": false,
+ "canonical_url": null,
+ "canonical_publication_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
+ "distribution_status": "BLOCKED_SAFE_RECOVERY_BACKLOG_REMAINS",
+ "recovery_preflight": {
+  "safe_resumes": 1,
+  "safely_attempted": 1,
+  "stale_expired": 0,
+  "marked_unknown": 0,
+  "readbacks": 0,
+  "publish_calls": 0,
+  "readiness_probe_performed": false,
+  "per_destination": {
+   "linkedin": {
+    "destination": "linkedin",
+    "status": "DESTINATION_FAILED_ET_DAY_SKIP",
+    "publish_called": false,
+    "reason_code": "DESTINATION_FAILED_ET_DAY_SKIP",
+    "first_failure": {
+     "attempt_started_at_utc": "2026-11-10T13:05:56.457238+00:00",
+     "destination": "linkedin",
+     "dispatch_id": "dispatch_a8caf1f5b27c984a67401420dea1c26f",
+     "et_day": "2026-11-10",
+     "safe_error_classification": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+     "status": "DEFINITE_NO_WRITE",
+     "write_outcome_certainty": "DEFINITE_NO_WRITE"
+    }
+   }
+  },
+  "recovery_attempt_budget": 9,
+  "backlog_remaining": 1,
+  "legacy_noncanonical_rows_skipped": 1,
+  "backlog_remaining_by_destination": [
+   "linkedin"
+  ],
+  "backlog_remaining_obligations": [],
+  "recovery_quarantined_obligations": [],
+  "recovery_quarantined_obligation_count": 0,
+  "backlog_blocking_new_publication": true,
+  "backlog_blocking_current_article": true
+ },
+ "public_write_performed": false,
+ "unknown_write_detected": false
+}

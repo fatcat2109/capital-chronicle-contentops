@@ -1,5 +1,5 @@
 {
-  "recorded_at_utc": "2026-11-10T17:44:33.158258+00:00",
+  "recorded_at_utc": "2026-11-10T18:25:01.434031+00:00",
   "runs": [
     {
       "artifact": "resume-targeted-pass.xml",
@@ -20,11 +20,32 @@
       "artifact": "native-route-pass.xml",
       "passed": 142,
       "failed": 0
+    },
+    {
+      "artifact": "analysis-run-record-pass.xml",
+      "passed": 44,
+      "failed": 0
+    },
+    {
+      "artifact": "native-continuation-pass.xml",
+      "passed": 25,
+      "failed": 0
+    },
+    {
+      "artifact": "rendered-note-final.xml",
+      "passed": 28,
+      "failed": 0
+    },
+    {
+      "artifact": "final-native-verification.xml",
+      "passed": 147,
+      "failed": 0
     }
   ],
-  "unique_passing_cases": 357,
+  "unique_passing_cases": 362,
   "unresolved_failed_cases": [],
+  "serial_targeted_only": true,
   "production_store_used_by_tests": false,
-  "single_pytest_process_at_a_time": true,
-  "schedules_changed": false
+  "lint": "PASS: F,E9 on changed feature/test modules, F811 fixture-shadow exemption; shared large transport retains its baseline findings",
+  "source_diff_check": "PASS for changed code; historical evidence retains exact bytes"
 }

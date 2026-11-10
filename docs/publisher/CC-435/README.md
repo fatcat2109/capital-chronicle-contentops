@@ -1,5 +1,63 @@
 # CC-435 - analysis links on every plan distribution route
 
+Current result, 11 November 2026, 01:24 GMT+7: **BLOCKED —
+SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION**. The implementation is pushed and
+integrated into `A:\Capital Chronicle\ContentOps` at
+`fafe798c626867c966fbf408c845b8928b4820e0`. Its existing minute task consumes it;
+the 01:24 GMT+7 run records all 37 analysis-link outcomes. The installed export
+dry run passes. Eight-route next-run publication acceptance is incomplete.
+
+The final native/analysis selection passes 147 tests. Across the targeted runs,
+362 distinct cases passed and every earlier failure has a later passing result.
+The current code also preserves CC-437's channel/thread choice and retirement
+behavior, keeps each confirmed canonical link in multi-plan run copies, and
+uses Threads' existing reply chain when the full index exceeds one post. X
+analysis replies bind their original card at readback; Notes verifies its visible
+canonical card and the platform's rendered URL/host presentation. An Instagram
+profile CTA is emitted only after an official API readback verifies the publication
+index in that profile; otherwise its comment links continue without that claim.
+
+The live trial confirmed EUR/USD, Gold and WTI Notes, each with its complete
+structured summary and visible canonical link card. Exact identities are
+`c-383931164`, `c-383937440` and `c-383939699`; their bound returns and coordinator
+confirmation files are retained here. After the S&P 500 Note's single publish
+click, no public identity was established. Its return and read-only recovery
+retain `UNKNOWN_WRITE` / `RECONCILIATION_PENDING`, with no retry. Bitcoin and the
+X analysis reply remain pending and were not sent in this run.
+
+At 01:17 GMT+7 the refreshed Substack profile reported that the account was
+suspended and the publication removed from public view for its Impersonation
+policy. A read-only check at 01:23 GMT+7 confirmed the same notice. This is the
+outside cause that prevents finishing publication acceptance. Earlier confirmed
+readbacks stay as observed; they do not prove current anonymous visibility.
+The existing ContentOps control was set to `KILL_SWITCH`, state version 41,
+at 01:18 GMT+7, with source `CC435_SUBSTACK_SUSPENDED_IMPERSONATION`.
+No schedule or application was changed. Readback and reconciliation remain available.
+
+Ops Product's prepared action is to review the existing publication identity
+and suspension at [Substack Appeals Center](https://substack.com/appeals), then
+complete the owner appeal. No appeal was submitted. After reinstatement, verify
+the exact canonical/Note identities, reconcile the uncertain S&P Note before
+any retry, and resume the retained destinations through the same coordinator.
+Other recorded route causes are Instagram's absent profile website, missing
+Facebook/Instagram parent cards for the retained pages, the existing LinkedIn
+daily stop after `TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE`, and the old Discord
+links already retired under CC-437. Newly queued Discord channel links use
+that installed route; no credential is invented or older binding replaced.
+
+Evidence: [final live consumer and preserved work](final-live-evidence.json),
+[test results](resume-validation.json), [suspension readback](suspension-readback.json),
+[publication halt](publication-halt.json) and
+[S&P readback response](spx-readback-response.json). Actual browser-click and
+readback clocks are separate from the store's original dispatch-attempt clock.
+The configured top-level launch is `gpt-6.1-sol/max`,
+`CONFIGURED_NOT_OBSERVED`; this deterministic continuation made no new editorial
+model calls. All three user-named worktree changes and operating-root WIP remain
+outside this item's commits; live telemetry may append to its original bytes.
+
+The following records the earlier prepared state and is superseded by the
+current result above.
+
 Implementation is prepared on `backlog/cc-435-all-platform-analysis-links` from
 operating HEAD `17c49b960d54a7dc6e090ab048fb047bd6c04a89`. The fresh remote default
 branch predates the installed Publisher changes, so the new branch was first

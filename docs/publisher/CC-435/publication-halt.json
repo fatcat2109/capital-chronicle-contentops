@@ -1,0 +1,21 @@
+{
+  "observed_at_utc": "2026-11-10T18:18:33.412373+00:00",
+  "reason": "Substack reports account suspended and publication removed from public view under Impersonation policy; stop fresh canonical-dependent public writes",
+  "before": {
+    "singleton_id": 1,
+    "operating_mode": "AUTONOMOUS_DEFAULT",
+    "state_version": 40,
+    "updated_at_utc": "2026-10-30T23:43:49.392869+00:00",
+    "control_source": "JIM_CC051A_CC042_RESUME_20261031"
+  },
+  "after": {
+    "singleton_id": 1,
+    "operating_mode": "KILL_SWITCH",
+    "state_version": 41,
+    "updated_at_utc": "2026-11-10T18:18:33.406319+00:00",
+    "control_source": "CC435_SUBSTACK_SUSPENDED_IMPERSONATION"
+  },
+  "schedules_changed": false,
+  "applications_stopped": false,
+  "existing_readback_and_reconciliation_preserved": true
+}
