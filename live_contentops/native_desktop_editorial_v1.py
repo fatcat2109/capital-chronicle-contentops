@@ -1184,9 +1184,15 @@ class NativeDesktopTurn:
             "or turn a risk-neutral valuation probability into a win rate. Shared-release copies and "
             "Main recirculation do not independently confirm a claim. Review windows are not forecasts.\n"
         ) if stage in {"write", "revise"} else ""
+        from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE
+        positions_notice = (LEGACY_CONFLICTS_NOTICE if frozen and LEGACY_CONFLICTS_NOTICE in frozen["prompt"]
+                            else CONFLICTS_NOTICE)
         public_notice = "Every reader-facing piece must say: Capital Chronicle offers analysis only, not financial advice or recommendations."
         if native_guidance and (not frozen or public_notice in frozen["prompt"]):
             native_guidance += "\n" + public_notice + "\n"
+            positions_instruction = "Every reader-facing piece also carries this exact positions notice: " + CONFLICTS_NOTICE
+            if not frozen or positions_instruction in frozen["prompt"]:
+                native_guidance += positions_instruction + "\n"
         if (native_guidance and '"desk_record_binding"' in canonical_bytes(kwargs.get("governed_input", {})).decode()
                 and (not frozen or "MAIN_DESK_RECORD_FIELDS" in frozen["prompt"])):
             # CC-264 (Jim's decision 72 b): new requests may carry the cited consensus and our labelled model
@@ -1194,7 +1200,7 @@ class NativeDesktopTurn:
             public_line = ("Never publish it. A consensus figure or official expectation appears as one cited fact "
                 "with its source and date; our model estimates (scenario weights, the surprise against consensus, "
                 "betas, the modelled GEX regime and levels) say 'Capital Chronicle model estimate' and carry "
-                "'Capital Chronicle offers analysis only, not financial advice or recommendations.' and 'Capital Chronicle may hold positions in the markets it covers.' "
+                "'Capital Chronicle offers analysis only, not financial advice or recommendations.' and '" + positions_notice + "' "
                 "Never state a DEMO detail, an entry, stop or target level, a size or a prediction-market number. ")
             if frozen and "Never publish it or state a consensus judgement" in frozen["prompt"]:
                 public_line = ("Never publish it or state a consensus judgement, trading level, GEX interpretation "

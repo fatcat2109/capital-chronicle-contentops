@@ -13,7 +13,7 @@ from pathlib import Path
 import re
 
 from live_contentops.event_article_guard_v1 import (
-    CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy,
+    CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy,
 )
 from live_contentops.public_call_scorecard_v1 import public_time
 from live_contentops.published_content_v1 import load_json, utc
@@ -40,7 +40,7 @@ def load_record(spec, *, event_id, event_time_utc, cutoff_utc):
             or doc.get("event_id") != event_id or utc(doc["event_time_utc"]) != utc(event_time_utc)):
         raise ValueError("FROZEN_PUBLIC_RECORD_EVENT_OR_SCHEMA_INVALID")
     if (doc["estimate_label"] != "Capital Chronicle model estimate" or doc["notice"] != PUBLIC_NOTICE
-            or doc["conflicts_notice"] != CONFLICTS_NOTICE):
+            or doc["conflicts_notice"] not in {CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE}):
         raise ValueError("FROZEN_PUBLIC_MODEL_LABEL_AND_NOTICES_REQUIRED")
     frozen = utc(doc["frozen_at_utc"])
     if frozen >= utc(event_time_utc) or frozen > utc(cutoff_utc):
@@ -75,7 +75,9 @@ def load_record(spec, *, event_id, event_time_utc, cutoff_utc):
     check_publication_copy(copy, conditional_calls=calls, require_call_text=False)
     # Source references are provenance, but still may not contain private text or secrets.
     from tools.product.desk_record_projection_v1 import public_text_problems
-    if public_text_problems(json.dumps(doc, ensure_ascii=False)):
+    # The conflicts field was checked against the exact approved notices above.
+    # Scan every other source field; never rewrite the bound download bytes.
+    if public_text_problems(json.dumps({k: v for k, v in doc.items() if k != "conflicts_notice"}, ensure_ascii=False)):
         raise ValueError("FROZEN_PUBLIC_RECORD_TEXT_FORBIDDEN")
     return {"path": str(path.resolve()), "sha256": digest, "bytes": len(raw),
             "event_id": event_id, "event_time_utc": doc["event_time_utc"],

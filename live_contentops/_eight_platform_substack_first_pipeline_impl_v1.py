@@ -19,6 +19,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
+from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE
+
 from live_contentops.edge_cdp_publishing_adapter_v1 import (
     audit_public_substack_article_via_edge,
     capture_public_destination_screenshot_via_edge,
@@ -395,8 +397,8 @@ def _concise_semantic_sentence(value: str, *, maximum: int) -> str:
 def _publication_notice_only(post: Mapping[str, Any]) -> bool:
     paragraphs = [text.strip() for text in str(post.get("text") or "").split("\n\n") if text.strip()]
     return bool(post.get("publication_notice_only") and paragraphs and set(paragraphs) <= {
-        "Capital Chronicle offers analysis only, not financial advice or recommendations.",
-        "Capital Chronicle may hold positions in the markets it covers.",
+        PUBLIC_NOTICE,
+        CONFLICTS_NOTICE,
     })
 
 
@@ -549,10 +551,15 @@ def build_native_derivative_payloads(
     apply_variants(payloads, article, canonical_url, thread_quality=_thread_quality)
     from live_contentops.article_scenarios_v1 import include_social_scenarios
     include_social_scenarios(payloads, article)
-    notices = ("Capital Chronicle offers analysis only, not financial advice or recommendations.",
-               "Capital Chronicle may hold positions in the markets it covers.")
+    notices = (PUBLIC_NOTICE, CONFLICTS_NOTICE)
     for destination, payload in payloads.items():
+        # New compiled copies use CC-423; source records and frozen packages stay intact.
+        for field in ("text", "root_text", "full_text", "caption", "body_markdown"):
+            if isinstance(payload.get(field), str):
+                payload[field] = payload[field].replace(LEGACY_CONFLICTS_NOTICE, CONFLICTS_NOTICE)
         posts = payload.get("posts") or []
+        for post in posts:
+            post["text"] = str(post.get("text") or "").replace(LEGACY_CONFLICTS_NOTICE, CONFLICTS_NOTICE)
         limit = int(payload.get("platform_limit") or
                     (280 if destination == "x" else 500 if destination == "threads" else 0))
         if posts:

@@ -1,0 +1,11 @@
+{
+  "status": "OK",
+  "validation": "PASS",
+  "contract_version": "legacy/schema-1.0.0",
+  "export_generated_at_utc": "2026-11-10T09:32:05.077525Z",
+  "source_content_hash": "6466a683f837002250a76ce0941f6f1435e941daece4a361a7e95c3b8ffe8a55",
+  "rendered_count": 21,
+  "transitions_read": 99,
+  "would_queue_count": 0,
+  "artifact_sha256": "061dc803c5f78eda0415038dcab5c560dc108e95f94b7f723dc22781c83c9e17"
+}

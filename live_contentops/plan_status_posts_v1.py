@@ -919,9 +919,12 @@ def _row_payload(store, key: str) -> dict:
 
 
 def _split(text: str) -> tuple[str, str]:
+    from .event_article_guard_v1 import LEGACY_CONFLICTS_NOTICE
     body, _, notices = text.partition("\n\n")
-    if notices.strip() not in {f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}",
-            f"Analysis, not financial advice. {CONFLICTS_NOTICE}"}:
+    # Already-frozen posts retain the disclosure they were issued with.
+    if notices.strip() not in {f"{analysis} {conflicts}"
+            for analysis in (PUBLIC_NOTICE, "Analysis, not financial advice.")
+            for conflicts in (CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE)}:
         raise PlanPostError("PLAN_STATUS_POST_NOTICES_REQUIRED")
     return body.strip(), notices.strip()
 

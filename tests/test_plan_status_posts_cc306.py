@@ -288,6 +288,7 @@ def test_a_resting_order_fill_posts_once_as_price_reaching_the_zone(tmp_path, ma
     text = result["queued"][1]["text"]
     assert text.startswith("EUR/USD: the 1.1166–1.117 entry zone filled at Thu 5 Nov, 07:10 ET, and Capital"
                            " Chronicle's model position is open.")
-    assert not re.search(r"\b(?:order|lots?|size|demo|account)\b", text, re.I)  # decision 106: the fill is public
+    # CC-423 permits only the exact demo-position notice; execution details stay private.
+    assert not re.search(r"\b(?:order|lots?|size|demo|account)\b", text.replace(CONFLICTS_NOTICE, ""), re.I)
     assert queue(store, folder, main_root)["queued"] == []
 

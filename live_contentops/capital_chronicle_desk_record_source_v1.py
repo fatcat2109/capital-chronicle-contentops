@@ -10,7 +10,10 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import _load, _time, sha256_of
-from live_contentops.event_article_guard_v1 import NAMED_NUMBER, cited_date_pattern, iso_day
+from live_contentops.event_article_guard_v1 import (
+    CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE, PUBLIC_NOTICE,
+    NAMED_NUMBER, cited_date_pattern, iso_day,
+)
 from tools.product.desk_record_projection_v1 import (
     CITED_FACT, MODEL_ESTIMATE, MODEL_ESTIMATE_LABEL, MODEL_ESTIMATE_NOTICES, RECORD_LISTS, check_clocks,
     check_public_text, check_references, is_field, project, public_text_problems,
@@ -230,7 +233,11 @@ def validate_article_citations(article, records):
             or any(source.get("rights_class") == MODEL_ESTIMATE for source in required_sources.values())):
         if MODEL_ESTIMATE_LABEL.casefold() not in folded:
             raise ValueError("DESK_ARTICLE_MODEL_ESTIMATE_LABEL_REQUIRED")
-        if any(notice.casefold() not in folded for notice in MODEL_ESTIMATE_NOTICES):
+        # CC-423 updates new copy; retained articles keep their original notice.
+        analysis_notices = (PUBLIC_NOTICE, MODEL_ESTIMATE_NOTICES[0])
+        conflicts_notices = (CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE)
+        if (not any(notice.casefold() in folded for notice in analysis_notices)
+                or not any(notice.casefold() in folded for notice in conflicts_notices)):
             raise ValueError("DESK_ARTICLE_MODEL_ESTIMATE_NOTICES_REQUIRED")
     # A consensus figure or an official expectation is one fact with its source and date: the export's observed_on or
     # released_on beside it, else the day its source was known. Its source's attribution is required above.
@@ -250,7 +257,9 @@ def validate_article_citations(article, records):
     # forecast, beat, miss, surprise and gamma are ordinary words.
     prose = " ".join(str(article.get(k) or "") for k in (
         "title", "dek", "search_title", "meta_description", "substack_body_markdown", "social_hook", "social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"))
-    problems = public_text_problems(prose)
+    # Decision 111 approves the exact disclosure; scan all remaining prose for
+    # private identities, sizes, raw third-party data and secrets as before.
+    problems = public_text_problems(prose.replace(CONFLICTS_NOTICE, ""))
     if problems:
         raise ValueError("DESK_ARTICLE_PRIVATE_OR_RAW_TEXT: " + "; ".join(problems))
     if not any(notice in folded for notice in ("analysis, not financial advice",

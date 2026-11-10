@@ -1,0 +1,65 @@
+{
+  "item": "CC-423",
+  "recorded_at_utc": "2026-11-10T09:36:37.655755+00:00",
+  "branch": "backlog/cc-423-demo-positions-notice",
+  "base_sha": "a94f3b1000383a4ec514727774dd6efedb00d5d8",
+  "base_reason": "Current Publisher operating HEAD; the freshly fetched remote default is its ancestor, preserving the installed CC-399/CC-432/CC-400 consumers.",
+  "notice": "Positions we mention are model positions on a demo account.",
+  "launch": {
+    "pid": 27164,
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "evidence": "Process launch arguments read back by PID and start time",
+    "telemetry_state": "CONFIGURED_NOT_OBSERVED",
+    "editorial_model_calls": 0
+  },
+  "tests": {
+    "distinct_passed": 264,
+    "runs": [
+      {
+        "artifact": "final-render-tests.xml",
+        "passed": 91
+      },
+      {
+        "artifact": "final-editorial-path-tests.xml",
+        "passed": 161
+      },
+      {
+        "artifact": "notice-and-scenario-tests.xml",
+        "passed": 23
+      }
+    ]
+  },
+  "visual_review": {
+    "method": "view_image of locally rendered binary fixtures",
+    "findings": "Exact notice is readable within both footer bounds; no clipping or overlapping text.",
+    "artifacts": [
+      "media/disclosure-card.jpg",
+      "media/disclosure-geometry.png",
+      "previews/article.html"
+    ]
+  },
+  "dry_run": {
+    "status": "OK",
+    "validation": "PASS",
+    "contract_version": "legacy/schema-1.0.0",
+    "export_generated_at_utc": "2026-11-10T09:32:05.077525Z",
+    "source_content_hash": "6466a683f837002250a76ce0941f6f1435e941daece4a361a7e95c3b8ffe8a55",
+    "rendered_count": 21,
+    "transitions_read": 99,
+    "would_queue_count": 0,
+    "artifact_sha256": "061dc803c5f78eda0415038dcab5c560dc108e95f94b7f723dc22781c83c9e17"
+  },
+  "preserved_work": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "342c9018118b08889ea1c8ca89097c7eef18f05bd53a629453f02b8dd96b9798",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "a8edab6266bcd19e53f927fad8543bc7a15c1600becd1b80f491ae4cf36753f8",
+    "live_contentops/agy_editorial_assist_v1.py": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7"
+  },
+  "integration": {
+    "state": "PENDING"
+  },
+  "next_live_post_readback": {
+    "state": "PENDING",
+    "cause": "No new eligible status transition in the current live export; public posts read before integration retain their original notices."
+  }
+}

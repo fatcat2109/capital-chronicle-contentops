@@ -16,6 +16,7 @@ def render(row, folder):
     packet = {k: row.get(k) for k in ("key", "kind", "instrument_title", "short_id", "levels", "reasons",
         "record_line", "time_exit_utc", "entry_deadline_utc", "card_keys", "text", "at_utc", "source_content_hash", "analysis_publication")}
     packet["renderer"] = "CC399_CALL_CARD_JPEG_V1"
+    packet["notices"] = [PUBLIC_NOTICE, CONFLICTS_NOTICE]
     digest = hashlib.sha256(json.dumps(packet, sort_keys=True).encode()).hexdigest()
     path = Path(folder).resolve() / "media_assets" / f"call-card-{digest[:20]}.jpg"
     path.parent.mkdir(parents=True, exist_ok=True)

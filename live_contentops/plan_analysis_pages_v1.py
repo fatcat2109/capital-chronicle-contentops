@@ -100,7 +100,8 @@ def public_filter(text, *, rights="CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", source_
         line = " ".join(str(private).casefold().split())
         if len(line) >= 24 and line in normal:
             raise ValueError("PLAN_ANALYSIS_PRIVATE_X_LIST_FORBIDDEN")
-    if _PRIVATE.search(text) or _MONEY.search(text):
+    # CC-423's exact public disclosure conveys no account identity or size.
+    if _PRIVATE.search(text.replace(CONFLICTS_NOTICE, "")) or _MONEY.search(text):
         raise ValueError("PLAN_ANALYSIS_PRIVATE_ACCOUNT_OR_SIZE_FORBIDDEN")
     if _MODELS.search(text):
         raise ValueError("PLAN_ANALYSIS_DESK_AI_LABEL_FORBIDDEN")

@@ -10,11 +10,12 @@ def render(plan, candidate, folder, *, frozen_at):
     from matplotlib import pyplot as plt
     from matplotlib.ticker import FuncFormatter
     from .public_time_v1 import public_timestamp
-    from .event_article_guard_v1 import PUBLIC_NOTICE
+    from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
     pair=candidate['directional_entries']
     data={key:{field:pair[key].get(field) for field in ('entry_bounds','stop_level','target_level','structure')}
           for key in ('pullback','breakout')}
-    binding={'plan_id':plan['plan_id'],'registration_hash':plan['registration_hash'],'legs':data,'frozen_at':frozen_at}
+    binding={'plan_id':plan['plan_id'],'registration_hash':plan['registration_hash'],'legs':data,'frozen_at':frozen_at,
+             'notices':[PUBLIC_NOTICE,CONFLICTS_NOTICE]}
     digest=sha256(json.dumps(binding,sort_keys=True).encode()).hexdigest()
     folder=Path(folder);folder.mkdir(parents=True,exist_ok=True)
     path=folder/('plan-geometry-'+digest[:20]+'.png')
@@ -44,6 +45,7 @@ def render(plan, candidate, folder, *, frozen_at):
         ax.text(0,-.14,label,transform=ax.transAxes,fontsize=10,color='#354950',wrap=True)
     fig.text(.07,.09,"Levels use the original plan's prices. This diagram shows conditions, not price history.",fontsize=12,color='#4e626a')
     fig.text(.07,.045,PUBLIC_NOTICE,fontsize=11,color='#4e626a')
+    fig.text(.07,.02,CONFLICTS_NOTICE,fontsize=11,color='#4e626a')
     fig.savefig(path,facecolor=fig.get_facecolor());plt.close(fig)
     return {'asset_id':'analysis-geometry-'+digest[:20],'path':str(path.resolve()),'sha256':sha256(path.read_bytes()).hexdigest(),
             'width':2100,'height':1200,'mime_type':'image/png','modality':'plan_fact_card','media_role':'article',

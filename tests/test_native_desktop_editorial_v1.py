@@ -226,4 +226,5 @@ def x_neo_bar_lifted_for_the_sample(monkeypatch):
     company and YouTube still use. In production no X write goes through Neo (X's rules; Jim's scan answers, item 3),
     and that bar has its own tests in test_x_no_website_automation.py."""
     from live_contentops import neo_destination_handoff_v1
-    monkeypatch.setattr(neo_destination_handoff_v1, "NON_API_AUTOMATION_PROHIBITED", {})
+    monkeypatch.setattr(neo_destination_handoff_v1, "NON_API_AUTOMATION_PROHIBITED",
+        {k: v for k, v in neo_destination_handoff_v1.NON_API_AUTOMATION_PROHIBITED.items() if k != "x"})

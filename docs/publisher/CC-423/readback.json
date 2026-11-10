@@ -1,0 +1,19 @@
+{
+  "about": {
+    "url": "https://capitalchronicle.substack.com/about",
+    "method": "BrowserOS Neo public page read",
+    "exact_notice": "Positions we mention are model positions on a demo account.",
+    "notice_present": true,
+    "write_performed": false,
+    "recorded_at_utc": "2026-11-10T09:27:48.730127+00:00"
+  },
+  "public_posts_before_integration": {
+    "url": "https://t.me/s/CapitalChronicle",
+    "method": "BrowserOS Neo public unsigned channel page",
+    "recorded_at_utc": "2026-11-10T09:31:58.869688+00:00",
+    "new_notice_present": false,
+    "latest_loaded_post_time": "15:40 on 10 November 2026 (Telegram page display)",
+    "latest_piece_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+    "write_performed": false
+  }
+}

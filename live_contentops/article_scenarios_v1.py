@@ -4,9 +4,11 @@ from __future__ import annotations
 from hashlib import sha256
 import re
 
+from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE
+
 MARKETS = ("XAUUSD", "US500", "EURUSD", "USDJPY", "USOIL", "BTCUSD")
 MODEL_LABEL = "Capital Chronicle model estimate"
-NOTICES = ("Capital Chronicle offers analysis only, not financial advice or recommendations.", "Capital Chronicle may hold positions in the markets it covers.")
+NOTICES = (PUBLIC_NOTICE, CONFLICTS_NOTICE)
 PREPARATION_GUIDANCE = (
     "JIM DECISION 93 PREPARATION: prepare the held full Main reports/dossiers for 2-3 scenarios, "
     "including each supplied probability, confirmation, six-market implications and invalidation. "
@@ -102,7 +104,8 @@ def validate_article_scenarios(article, documents):
                 raise ValueError("SCENARIO_NOT_IN_ARTICLE")
         if _normal(MODEL_LABEL) not in visible:
             raise ValueError("SCENARIO_MODEL_ESTIMATE_LABEL_REQUIRED")
-    if any(_normal(n) not in _normal(body) for n in NOTICES):
+    if (_normal(PUBLIC_NOTICE) not in _normal(body)
+            or not any(_normal(n) in _normal(body) for n in (CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE))):
         raise ValueError("SCENARIO_NOTICES_REQUIRED")
     social = article.get("social_scenarios") or {}
     base = next(s for s in scenarios if s["role"] == "base_case")

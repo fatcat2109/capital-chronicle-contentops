@@ -33,8 +33,8 @@ def test_every_derivative_carries_notices_and_overflow_remains_a_valid_thread(mo
         canonical_url="https://capitalchronicle.substack.com/p/exact", media_asset_ids=["card"])
     for destination, payload in result.items():
         visible = payload.get("full_text") or payload["text"]
-        assert "Analysis, not financial advice." in visible
-        assert "Capital Chronicle may hold positions in the markets it covers." in visible
+        assert pipeline.PUBLIC_NOTICE in visible
+        assert "Positions we mention are model positions on a demo account." in visible
         if destination in {"x", "threads"}:
             assert payload["text"] == payload["root_text"] == payload["posts"][0]["text"]
             assert payload["reply_texts"] == [post["text"] for post in payload["posts"][1:]]
@@ -67,7 +67,7 @@ def test_bound_chart_credit_reflows_into_live_native_thread_without_losing_copy(
             "reply_texts": [], "posts": [{"text": root, "order": 0, "role": "root",
                                           "media_asset_ids": ["chart"]}], "platform_limit": limit}
     monkeypatch.setattr(pipeline, "_build_native_derivative_payloads", lambda **kwargs: payloads)
-    choices = {d: ["chart"] for d in EXPECTED_DESTINATIONS}
+    choices = {d: ["chart"] for d in V1_REQUIRED_PUBLICATION_DESTINATIONS if d != "substack"}
     article = {**_article(), "reader_first_version": "DATA_JOURNALISM_V1",
         "native_destination_media": choices, "native_destination_credits": {d: source for d in choices}}
     result = build_native_derivative_payloads(article=article, selection={},
@@ -79,8 +79,8 @@ def test_bound_chart_credit_reflows_into_live_native_thread_without_losing_copy(
         assert url in payload["root_text"]
         assert source in payload["root_text"]
         assert "The jobs report can ease rate pressure while weakening the earnings outlook." in payload["full_text"]
-        assert "Analysis, not financial advice." in payload["full_text"]
-        assert "Capital Chronicle may hold positions in the markets it covers." in payload["full_text"]
+        assert pipeline.PUBLIC_NOTICE in payload["full_text"]
+        assert "Positions we mention are model positions on a demo account." in payload["full_text"]
         assert payload["posts"][0]["media_asset_ids"] == ["chart"]
         assert all(not post["media_asset_ids"] for post in payload["posts"][1:])
         assert payload["text"] == payload["root_text"] == payload["posts"][0]["text"]

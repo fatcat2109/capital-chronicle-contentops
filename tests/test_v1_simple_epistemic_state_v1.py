@@ -481,8 +481,9 @@ def test_unconfirmed_native_preview_uses_complete_conditional_watch_sentences():
     replies = bundle["packages"]["x"]["reply_texts"]
     assert any(reply.endswith("Watch: Independent confirmation or denial is the next watch point.")
                for reply in replies)
-    assert replies[-1].endswith("Capital Chronicle may hold positions in the markets it covers.")
-    assert len(intents) == 8
+    assert replies[-1].endswith("Positions we mention are model positions on a demo account.")
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    assert len(intents) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
 
 
 @pytest.mark.parametrize("destination", ["x", "threads"])

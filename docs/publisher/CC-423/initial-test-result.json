@@ -1,0 +1,11 @@
+{
+  "tests": "tests/test_demo_positions_notice_cc423.py tests/test_plan_analysis_pages_cc432.py tests/test_plan_call_cards_cc399.py tests/test_plan_status_posts_cc306.py tests/test_event_public_record_v1.py",
+  "passed": 83,
+  "failed": 7,
+  "duration_seconds": 50.25,
+  "causes": [
+    "An older test bans demo/account including the newly approved exact notice.",
+    "The frozen-record generic scanner rejects the exact new notice."
+  ],
+  "artifact": "targeted-tests.xml"
+}

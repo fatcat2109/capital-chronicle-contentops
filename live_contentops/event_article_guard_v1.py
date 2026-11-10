@@ -31,7 +31,9 @@ SCHEMA = "contentops.event_article.v1"
 EVIDENCE_SCHEMA = "contentops.event_article_evidence.v1"
 DISCLAIMER = "Capital Chronicle offers analysis only, not financial advice or recommendations."
 PUBLIC_NOTICE = "Capital Chronicle offers analysis only, not financial advice or recommendations."
-CONFLICTS_NOTICE = "Capital Chronicle may hold positions in the markets it covers."
+CONFLICTS_NOTICE = "Positions we mention are model positions on a demo account."
+# Frozen source records and already-published objects retain their original bytes.
+LEGACY_CONFLICTS_NOTICE = "Capital Chronicle may hold positions in the markets it covers."
 # Decision 72 b: the rights classes of a cited third-party figure and of our computed outputs (schema 1.4, CC-262).
 CITED_FACT = "CITED_THIRD_PARTY_FACT"
 MODEL_ESTIMATE = "CC_MODEL_ESTIMATE"
@@ -194,6 +196,8 @@ class PublicOutputError(ValueError):
 
 def public_execution_copy_forbidden(text: str) -> bool:
     """Keep position calls private while allowing a central bank's policy target."""
+    # CC-423 / decision 111 approves this exact disclosure, not account details.
+    text = text.replace(CONFLICTS_NOTICE, "")
     if _PRIVATE_TEXT.search(text):
         return True
     for match in _INSTRUCTION.finditer(text):
@@ -257,7 +261,7 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         if require_call_text and wording not in combined:
             _fail("CONDITIONAL_CALL_NOT_IN_AUTHORED_COPY", "conditional_calls")
         remainder = remainder.replace(wording, "")
-    if calls and CONFLICTS_NOTICE not in combined:
+    if calls and not any(notice in combined for notice in (CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE)):
         _fail("CONFLICTS_NOTICE_REQUIRED", "copy")
     # CC-379 / decision 106: a dated, resolved call is a record of the original
     # direction, not a new unconditional call. Only the complete closed result
@@ -492,8 +496,9 @@ def check_public_event_article(article: Mapping[str, Any], *,
             model_estimate_bound = True
     if any(len(figures) > CITED_FACTS_PER_SOURCE_LIMIT for figures in cited_by_source.values()):
         _fail("THIRD_PARTY_TABLE_OR_SERIES_FORBIDDEN", "article.numeric_bindings")
-    if model_estimate_bound and CONFLICTS_NOTICE not in "\n".join(
-            re.sub(r"[`*_]", "", _text(value)) for value in texts.values()):
+    if model_estimate_bound and not any(notice in "\n".join(
+            re.sub(r"[`*_]", "", _text(value)) for value in texts.values())
+            for notice in (CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE)):
         _fail("CONFLICTS_NOTICE_REQUIRED", "copy")
     for path, text in texts.items():
         # Work on original offsets; normalisation above must not move span bounds.
