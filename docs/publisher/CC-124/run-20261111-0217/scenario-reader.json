@@ -1,0 +1,44 @@
+{
+  "observed_at_utc": "2026-11-10T19:22:46.929897Z",
+  "export_generated_at_utc": "2026-11-10T19:22:06.032923Z",
+  "export_content_hash": "2346321c0d73a9742f937997166ae2efc3b997c04d1a1337fe836660fdd3760d",
+  "latest_six_market_scenarios": [
+    {
+      "asset_id": "XAUUSD",
+      "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "base_probability_pct": 50.0,
+      "alternative_probability_pct": 40.0
+    },
+    {
+      "asset_id": "US500",
+      "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+      "base_probability_pct": 52.0,
+      "alternative_probability_pct": 38.0
+    },
+    {
+      "asset_id": "EURUSD",
+      "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "base_probability_pct": 55.0,
+      "alternative_probability_pct": 35.0
+    },
+    {
+      "asset_id": "USDJPY",
+      "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "base_probability_pct": 55.0,
+      "alternative_probability_pct": 30.0
+    },
+    {
+      "asset_id": "USOIL",
+      "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+      "base_probability_pct": 55.0,
+      "alternative_probability_pct": 35.0
+    },
+    {
+      "asset_id": "BTCUSD",
+      "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+      "base_probability_pct": 52.0,
+      "alternative_probability_pct": 38.0
+    }
+  ],
+  "interpretation": "Main supplied post-CPI probabilities for four markets; two rows remain pre-release. These held estimates enter the source assessment. Export generation and plan registration do not refresh the report's data capture."
+}

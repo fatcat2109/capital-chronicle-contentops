@@ -1,0 +1,149 @@
+{
+  "observed_at_utc": "2026-11-10T19:22:46.929897Z",
+  "spec": {
+    "authority_ref": "JIM_DECISION_89",
+    "source_url": "urn:cc-public-report:cc124-post-cpi-20261110",
+    "headline_id": "cc124-post-cpi-main-20261110",
+    "headline_text": "Main's post-CPI review",
+    "known_at_utc": "2026-11-10T16:17:41.480434+00:00",
+    "revision_at_utc": "2026-11-10T19:22:46.929897Z",
+    "candidate_catalyst_tags": [
+      "CPI",
+      "POST_RELEASE_REVIEW"
+    ],
+    "passages": [
+      {
+        "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-9f7c39e808aef09c\\owner-native.json",
+        "source_sha256": "bd8e89e4b814cf9597e5a42b75624137ffe72bc2a6fbc5bf4883c3aaff5fa2a8",
+        "source_json_pointer": "/summary/0/text",
+        "fragments": [
+          {
+            "start": 0,
+            "end": 422
+          }
+        ]
+      }
+    ]
+  },
+  "verified_projection": {
+    "headline_id": "cc124-post-cpi-main-20261110",
+    "headline_text": "Main's post-CPI review",
+    "text_sha256": "958468db4aec4d6ae85c277201285249bf71ed15e1290cff908ae49efb3d56db",
+    "source_identity": "cc124-post-cpi-main-20261110",
+    "source_account": "Capital Chronicle",
+    "source_platform": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+    "source_url": "urn:cc-public-report:main-retained:09385c4a0c802cb02ac0f40e39d71862daed6cc3f86f78cb316d8be93f99ee37",
+    "official_source_urls": [],
+    "source_timestamp_utc": "2026-11-10T16:17:41.480434+00:00",
+    "headline_timestamp": "2026-11-10T16:17:41.480434+00:00",
+    "known_at_utc": "2026-11-10T16:17:41.480434+00:00",
+    "retrieval_time_utc": "2026-11-10T19:22:46.929897Z",
+    "revision_at_utc": "2026-11-10T19:22:46.929897Z",
+    "rights_state": "MAIN_PUBLIC_REPORT_PROJECTION",
+    "rights_evidence_sha256": "7591e327db90428a0c083f234dd401be1fb00bce48eb055631d92f83b22e8a23",
+    "source_capture_sha256": "09385c4a0c802cb02ac0f40e39d71862daed6cc3f86f78cb316d8be93f99ee37",
+    "source_permission_record_sha256": "7591e327db90428a0c083f234dd401be1fb00bce48eb055631d92f83b22e8a23",
+    "source_permissions": {
+      "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+      "authority_ref": "JIM_DECISION_89",
+      "provider_safe": true,
+      "MODEL_INPUT_ALLOWED": true,
+      "LLM_INPUT_ALLOWED": true,
+      "INTERNAL_ANALYSIS_ALLOWED": true,
+      "permitted_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "attribution_required": true,
+      "public_expression_reuse_allowed": true,
+      "underlying_event_truth_granted": false,
+      "source_capture_sha256": "09385c4a0c802cb02ac0f40e39d71862daed6cc3f86f78cb316d8be93f99ee37"
+    },
+    "candidate_catalyst_tags": [
+      "CPI",
+      "POST_RELEASE_REVIEW"
+    ],
+    "originality": "MAIN_ORIGIN_RECIRCULATION",
+    "correction_of": null,
+    "document": {
+      "document_id": "cc124-post-cpi-main-20261110",
+      "title": "Main's post-CPI review",
+      "publisher": "Capital Chronicle",
+      "source_identity": "cc124-post-cpi-main-20261110",
+      "source_url": "urn:cc-public-report:main-retained:09385c4a0c802cb02ac0f40e39d71862daed6cc3f86f78cb316d8be93f99ee37",
+      "reader_source_url": "urn:cc-public-report:main-retained:09385c4a0c802cb02ac0f40e39d71862daed6cc3f86f78cb316d8be93f99ee37",
+      "source_authority_class": "governed_capital_chronicle_report_only",
+      "source_adapter_family": "capital_chronicle_main_report",
+      "published_at_utc": "2026-11-10T16:17:41.480434+00:00",
+      "known_at_utc": "2026-11-10T16:17:41.480434+00:00",
+      "published_at_source": "RETAINED_MAIN_REPORT_KNOWN_AT_NOT_PUBLICATION_CLOCK",
+      "canonical_content_text": "October CPI printed hot at 13:30Z: CPI-U +0.4% m/m (SA index 336.298 to 337.476, +0.350%) and core +0.3% (338.896 to 339.900, +0.296%) against captured consensus of 0.3 and 0.2 (investing and myfxbook, known 08:40-09:35Z), the third straight 0.3% core; no 12-month change was published because October 2025 was not collected. Consensus rows carry no median or range, so the surprise in standard deviations is not observed.",
+      "canonical_content_sha256": "b195f9ed0c7f70943ff7f95937e94a2d9c408449f8cddcb97150e7c12246ebb5",
+      "source_capture_sha256": "09385c4a0c802cb02ac0f40e39d71862daed6cc3f86f78cb316d8be93f99ee37",
+      "source_reuse_constraints": {
+        "scope": "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS",
+        "authority_ref": "JIM_DECISION_89",
+        "provider_safe": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "permitted_consumers": [
+          "internal_research",
+          "narrative_context"
+        ],
+        "attribution_required": true,
+        "public_expression_reuse_allowed": true,
+        "underlying_event_truth_granted": false,
+        "source_capture_sha256": "09385c4a0c802cb02ac0f40e39d71862daed6cc3f86f78cb316d8be93f99ee37"
+      },
+      "public_claim_allowed": true,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "retrieval_method": "EXACT_RETAINED_MAIN_REPORT_PUBLIC_SPANS",
+      "report_lineage": {
+        "report_id": "cc124-post-cpi-main-20261110",
+        "report_projection_sha256": "09385c4a0c802cb02ac0f40e39d71862daed6cc3f86f78cb316d8be93f99ee37",
+        "origin": "RETAINED_MAIN_REPORT_EXACT_SPANS",
+        "independent_confirmation": false
+      },
+      "data_cutoff_utc": "2026-11-10T15:05:09.411694Z",
+      "data_clock_binding": [
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-9f7c39e808aef09c\\capture.json",
+          "field": "/known_at_utc",
+          "sha256": "9a880aa09afbcd46569f3e005621e23df29f6df236ae63587e1bb94085d73d7a",
+          "value": "2026-11-10T15:05:09.411694Z"
+        }
+      ]
+    },
+    "source_chart": null,
+    "permitted_source_text": "October CPI printed hot at 13:30Z: CPI-U +0.4% m/m (SA index 336.298 to 337.476, +0.350%) and core +0.3% (338.896 to 339.900, +0.296%) against captured consensus of 0.3 and 0.2 (investing and myfxbook, known 08:40-09:35Z), the third straight 0.3% core; no 12-month change was published because October 2025 was not collected. Consensus rows carry no median or range, so the surprise in standard deviations is not observed.",
+    "supporting_headline_ids": [],
+    "research_metadata": {
+      "source_hashes": {
+        "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-9f7c39e808aef09c\\owner-native.json": "bd8e89e4b814cf9597e5a42b75624137ffe72bc2a6fbc5bf4883c3aaff5fa2a8"
+      },
+      "authority_ref": "JIM_DECISION_89",
+      "independent_event_confirmation": false
+    }
+  },
+  "reader_contract": {
+    "policy": "CC403_READER_ARTICLE_V1",
+    "format": "ARTICLE",
+    "source_pack_sha256": "4a251db3117017ef8ac46edce06baeeb7b9427324895f49d455bdda5809a41b4",
+    "primary_document_id": "cc124-post-cpi-main-20261110",
+    "data_cutoff_utc": "2026-11-10T15:05:09.411694+00:00",
+    "max_sentence_words": 35,
+    "daily_prose_words": 350,
+    "publication_target_minutes": 60
+  },
+  "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:15457s",
+  "original_capture": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-9f7c39e808aef09c\\capture.json",
+    "bytes": 9423433,
+    "sha256": "9a880aa09afbcd46569f3e005621e23df29f6df236ae63587e1bb94085d73d7a",
+    "modified_at_utc": "2026-11-10T15:06:43.795182+00:00",
+    "known_at_utc": "2026-11-10T15:05:09.411694Z"
+  },
+  "publication_deadline_utc": "2026-11-10T16:05:09.411694+00:00"
+}

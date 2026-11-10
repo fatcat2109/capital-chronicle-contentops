@@ -1,0 +1,27 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-10T19:22:46.929897Z",
+  "actual_entry_utc": "2026-11-10T19:17:07.698754Z",
+  "new_articles": 0,
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "published_canonicals_today": [],
+  "active_leases": [],
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:15457s",
+  "choice": "Use the new post-CPI Main report as dated context; do not start a canonical article whose original data cutoff already exceeds the root CC-403 60-minute limit. Consume the next fresh Main report through the existing owners. No second CPI-day wrap or filler.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "standing_status": "OPEN",
+  "next_due_gmt7": "11 Nov 2026 08:17 GMT+7",
+  "next_daily_wrap_gmt7": "11 Nov 2026 18:30 GMT+7",
+  "configured_launch": {
+    "process_id": 41060,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "state": "CONFIGURED_NOT_OBSERVED"
+  },
+  "acceptance": "Source-check sub-step verified using installed consumers; no new publication or standing-item publication acceptance claimed."
+}

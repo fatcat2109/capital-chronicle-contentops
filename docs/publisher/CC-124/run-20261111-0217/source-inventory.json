@@ -1,0 +1,476 @@
+{
+  "observed_at_utc": "2026-11-10T19:22:46.929897Z",
+  "retained_reports": [
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-9f7c39e808aef09c\\owner-native.json",
+      "bytes": 103816,
+      "sha256": "bd8e89e4b814cf9597e5a42b75624137ffe72bc2a6fbc5bf4883c3aaff5fa2a8",
+      "modified_at_utc": "2026-11-10T16:17:41.480434+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261110-cpi\\dossier-20261110T093056Z\\owner-native.json",
+      "bytes": 68463,
+      "sha256": "8d25e61544520b04ea95766db8c0ed6454aede662fdc74df924ec93d8f0aba11",
+      "modified_at_utc": "2026-11-10T10:25:20.991775+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-caddf8cbb6c3311b\\owner-native.json",
+      "bytes": 62479,
+      "sha256": "4b0f2d8a56e9773ee7a7858d3c8dedba317e84078dfb71868c1fd23c85af1bca",
+      "modified_at_utc": "2026-11-10T06:22:59.562286+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\owner-native.json",
+      "bytes": 100563,
+      "sha256": "b13888558ba9d9dcc298ed1ee558ebfc73641151271936462c30cd173c21a458",
+      "modified_at_utc": "2026-11-10T01:33:53.285659+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+      "bytes": 65198,
+      "sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+      "modified_at_utc": "2026-11-09T09:10:57.375677+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261106-nfp\\dossier-20261106T093133Z\\owner-native.json",
+      "bytes": 27039,
+      "sha256": "a56d2c52ba4ed163ee6ff75d594eae2cc07d46d3806877d99c77256fb97291cc",
+      "modified_at_utc": "2026-11-06T10:03:03.723281+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+      "bytes": 40752,
+      "sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+      "modified_at_utc": "2026-11-06T08:18:47.782128+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+      "bytes": 50392,
+      "sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+      "modified_at_utc": "2026-11-06T06:03:38.600291+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-c8bba0c593d99fb8\\owner-native.json",
+      "bytes": 43780,
+      "sha256": "17082bbfba405e93ea0ae42c167bbb8989d1e83c04a1c2b563d51c68c53910a2",
+      "modified_at_utc": "2026-11-05T16:54:50.041907+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-45c4fbea254c0def\\owner-native.json",
+      "bytes": 50926,
+      "sha256": "e7e06616a1c44689d84741f769c9b1e242277d787e3c1940ca78eefa6b93a6b3",
+      "modified_at_utc": "2026-11-05T16:21:56.958702+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261105T150045Z\\synthesis-attempt-2\\owner-native.json",
+      "bytes": 58709,
+      "sha256": "24a8814188e38749a009ec78dad8bb585340e999f8e9d06912a5c50e1d6db114",
+      "modified_at_utc": "2026-11-05T16:11:52.819399+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261105T150045Z\\synthesis-attempt-1\\owner-native.json",
+      "bytes": 62462,
+      "sha256": "dbd8c4e7e93db150658b7e19b475391c42c22f9bdf6c199b30df7750f2c447d1",
+      "modified_at_utc": "2026-11-05T16:00:17.041226+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d232ac540a32a050\\owner-native.json",
+      "bytes": 49228,
+      "sha256": "34a8884208741350c679779d7ee5825b221d047e918c76c7428d071b82879406",
+      "modified_at_utc": "2026-11-05T11:12:27.155965+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74cef2ab0eda597b\\owner-native.json",
+      "bytes": 39672,
+      "sha256": "6d4053538c3a2fe4dcc6e011d07e105de6cda04a76d42769134f8b9c14d04e27",
+      "modified_at_utc": "2026-11-05T08:56:59.538917+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-2cb47ca5fa1d0dd4\\owner-native.json",
+      "bytes": 44401,
+      "sha256": "d20d1953c33b40e0f0ccdf47f379d6bc4be25fed5c40502e3d484a25b7db7f7c",
+      "modified_at_utc": "2026-11-05T05:52:03.876255+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-e9ea28a3f2bd2bfa\\owner-native.json",
+      "bytes": 44178,
+      "sha256": "afa968ddba9827552c1a37313e799056644b71cbbf603dc195f1485593d30fb8",
+      "modified_at_utc": "2026-11-05T01:44:44.180025+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-51273dc20d4c181e\\owner-native.json",
+      "bytes": 48858,
+      "sha256": "353561201c8f33500077cfd91dcae2a9f7b21a7b8e5579447940881f30b45b13",
+      "modified_at_utc": "2026-11-04T23:50:48.074826+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-d76f8099aa98eb40\\owner-native.json",
+      "bytes": 50187,
+      "sha256": "98c22420685bf51201cc1998d420579b968c19d4cebb104585f382696c59f879",
+      "modified_at_utc": "2026-11-04T21:03:53.576707+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b685c54776119d2a\\owner-native.json",
+      "bytes": 50575,
+      "sha256": "c24e486c857f774fc51b5f2b0bf44951a99bbf7961d79b8c594237d887ed4ebf",
+      "modified_at_utc": "2026-11-04T17:36:23.939322+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-ca1d8e92cdca3250\\owner-native.json",
+      "bytes": 31698,
+      "sha256": "af5251fc6b215738465d3ecfe6b5dfc4f3adc59aca8af2d3b1a5b0a321e45e9f",
+      "modified_at_utc": "2026-11-04T16:00:56.447072+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-3de3b71343111c7b\\owner-native.json",
+      "bytes": 33196,
+      "sha256": "40f79dad5e50cc4d9b589bd524a58907c32c0d7a7bed3b46bd6bc6db149173f0",
+      "modified_at_utc": "2026-11-03T06:26:01.435925+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f178a4640c2aa3de\\owner-native.json",
+      "bytes": 35261,
+      "sha256": "443d431fb4a48cb3c58e85198414ea28ef476efcd9b23a76060dfb2d2f93126f",
+      "modified_at_utc": "2026-11-02T06:34:43.926204+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-6d24a481c7c3783a\\owner-native.json",
+      "bytes": 30446,
+      "sha256": "4d8088fcec492b1b54e101467aac7c66a537ac4a873cecd06c0a262a09ff5be2",
+      "modified_at_utc": "2026-10-31T11:19:55.046611+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261030-eci\\arrival-20261030T1222Z\\owner-native.json",
+      "bytes": 40909,
+      "sha256": "ff0f8419dd157bd4c593116d3d143a4bbc8b86409083f7603e1031529fd827ba",
+      "modified_at_utc": "2026-10-30T13:51:18.941371+00:00"
+    },
+    {
+      "kind": "Main owner return",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-74753dcb175dba34\\owner-native.json",
+      "bytes": 27997,
+      "sha256": "fc111ddfc1026236ac26b2792f46bb489365d670ef1e653552c4007e4d0831c8",
+      "modified_at_utc": "2026-10-29T18:02:58.373203+00:00"
+    },
+    {
+      "kind": "T2 output",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261110T144009Z\\t2-output.json",
+      "bytes": 4892,
+      "sha256": "214ec5122016d719efe376631eef3e36c36a400dfc2db3bddcffa273a5f516b8",
+      "modified_at_utc": "2026-11-10T14:49:13.396008+00:00"
+    },
+    {
+      "kind": "T2 output",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261110T074506Z\\t2-output.json",
+      "bytes": 6481,
+      "sha256": "47dd0647da0415b63a6d1f5c4eba1bee03278ace4d46039da175732f89885080",
+      "modified_at_utc": "2026-11-10T07:52:57.004530+00:00"
+    },
+    {
+      "kind": "T2 output",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261110T044504Z\\t2-output.json",
+      "bytes": 6041,
+      "sha256": "767eeb450fde996ee7df401b13be99112a4f053df2080031a4c2b5a2ca26c40e",
+      "modified_at_utc": "2026-11-10T04:54:05.553688+00:00"
+    },
+    {
+      "kind": "T2 output",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261109T144044Z\\t2-output.json",
+      "bytes": 5565,
+      "sha256": "60aa8b127eb5b04e42e5909153c2d6b6ec897a0788921abb08f804a84dd8be18",
+      "modified_at_utc": "2026-11-09T14:50:37.296703+00:00"
+    },
+    {
+      "kind": "T2 output",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261109T120600Z\\t2-output.json",
+      "bytes": 6159,
+      "sha256": "393e2f1b6bb935c016f176cf4a308d5223f235236a7ce4a12689a4d33e238bb2",
+      "modified_at_utc": "2026-11-09T12:16:07.413082+00:00"
+    },
+    {
+      "kind": "T2 output",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261109T074555Z\\t2-output.json",
+      "bytes": 5930,
+      "sha256": "bbf4fa7f8cfde3bfeada2a2a6c678f2c97ef20ea67b9f87d911b288afcf0d24a",
+      "modified_at_utc": "2026-11-09T07:52:07.183005+00:00"
+    }
+  ],
+  "additional_held_outputs": [
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+      "exists": true,
+      "latest_files": [
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-1320-arrival-cpi\\run.json",
+          "bytes": 7087,
+          "sha256": "07a0cf88af502e08d51c6e84b61b3527fe3693225049820e39a703a75c473914",
+          "modified_at_utc": "2026-11-10T13:33:10.311507+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-1320-arrival-cpi\\RESULT.md",
+          "bytes": 3946,
+          "sha256": "6341cf224dc483aec12d2bd1fdc16442b340ae0da5da9caa8f7bd2ceb1c2ba2d",
+          "modified_at_utc": "2026-11-10T13:32:50.055831+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-1320-arrival-cpi\\event-post-release.json",
+          "bytes": 1996,
+          "sha256": "2caf10298586932e1f24ca86607c651ced58f6c3e9a73660735c7e9e764af0d1",
+          "modified_at_utc": "2026-11-10T13:32:23.149659+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-1320-arrival-cpi\\entry-health.json",
+          "bytes": 1242,
+          "sha256": "0b2a076349ad09e6e02746374dc7598982777bf5c4eea8e22e37c313fee008a3",
+          "modified_at_utc": "2026-11-10T13:32:22.107657+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-1320-arrival-cpi\\event-pair-selection-20261110T133202Z.json",
+          "bytes": 4797,
+          "sha256": "6c66176d93f748e521bc779f9dcc77e0273bfb2f66b42e7b8fb702b255cdb06c",
+          "modified_at_utc": "2026-11-10T13:32:05.657391+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-1320-arrival-cpi\\admitted-release\\official-release-admission\\admission-readback.json",
+          "bytes": 1979,
+          "sha256": "0b99a96048e96839adc9612011b4848b1ebdbe3c712424e4a8dbb0b8fc922e12",
+          "modified_at_utc": "2026-11-10T13:32:04.295959+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy",
+      "exists": true,
+      "latest_files": [
+        {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\PARKED.md",
+          "bytes": 5526,
+          "sha256": "84ddb697c8f527a71e4556ad59a0a1463600eabd946880a2b07e7a9b77074654",
+          "modified_at_utc": "2026-11-10T12:15:20.479757+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\notes\\AUDIENCE_BASELINE.md",
+          "bytes": 4479,
+          "sha256": "45bf165ac5595867caf41efc078c93c8ba5aad8bc37b3a42709edc65f887a029",
+          "modified_at_utc": "2026-11-09T19:16:04.066935+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\GROWTH_AND_PRODUCTS.md",
+          "bytes": 11758,
+          "sha256": "a876b430f4a049ac7059d4c9805e4cd68439a13f7ec625bebf7019dcd7bd7d64",
+          "modified_at_utc": "2026-11-09T18:33:55.759482+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\LANES_20261109.md",
+          "bytes": 17581,
+          "sha256": "82b513677e637c517145612cb141d57e0528e7982cb050c638d46638f4a636fe",
+          "modified_at_utc": "2026-11-09T08:12:08.301875+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109_R2_SCENARIOS.md",
+          "bytes": 11906,
+          "sha256": "edbdad3496c5f81c3d889513201032af7aac9a99ccfaf5ff36dc38c95ad63c1e",
+          "modified_at_utc": "2026-11-08T23:23:00.536899+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\WEEKEND_WRAP_20261109.md",
+          "bytes": 38536,
+          "sha256": "eeb7de4ba013be6f8f418dd2ed454f77a21e0ab31042c5df17f8544aac7812fb",
+          "modified_at_utc": "2026-11-08T18:17:41.595345+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research",
+      "exists": true,
+      "latest_files": [
+        {
+          "path": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research\\cc-125\\ca-policy-minutes-snapshot-20261110\\validation.json",
+          "bytes": 2668,
+          "sha256": "62b65b6e71bf27f165f875ba4ef438997830331e8af99517c5c39354b16da106",
+          "modified_at_utc": "2026-11-07T08:45:56.229296+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research\\cc-125\\ca-policy-minutes-snapshot-20261110\\README.md",
+          "bytes": 1720,
+          "sha256": "adbf1c632a2ce2ab834eff538fd76391b1a79836f23daaf4d164ab62569b3578",
+          "modified_at_utc": "2026-11-07T08:45:26.980611+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research\\cc-125\\ca-policy-minutes-snapshot-20261110\\held-input-search.json",
+          "bytes": 9339,
+          "sha256": "608eb24ac7aee4f97e47cf6ac92557a0ca902664ae97cc98ecbb6dc7a5fe92f1",
+          "modified_at_utc": "2026-11-07T08:44:31.907643+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research\\cc-125\\ca-policy-minutes-snapshot-20261110\\selection.json",
+          "bytes": 1492,
+          "sha256": "08b10d236bb41f6620093684cb7a720d012f7d5ac61e7a76e83e3931b38e4d96",
+          "modified_at_utc": "2026-11-07T08:44:31.907643+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research\\cc-125\\ca-policy-minutes-snapshot-20261110\\market-snapshot.json",
+          "bytes": 3149,
+          "sha256": "06d1ea307be628e75ef4d14eb5a224b004428b44c18256ecf334fbd0ff2d2d02",
+          "modified_at_utc": "2026-11-07T08:44:31.906612+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research\\cc-125\\us-cpi-snapshot-20261110\\validation.json",
+          "bytes": 2287,
+          "sha256": "2ec7c1de3d419e1ed5cb123f2883cb52559763e677a69da4ff72c8c8abe55fc4",
+          "modified_at_utc": "2026-11-07T08:35:05.643947+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\data\\research",
+      "exists": false,
+      "latest_files": []
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps\\data\\research",
+      "exists": false,
+      "latest_files": []
+    }
+  ],
+  "backlog_search": [
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG.md",
+      "bytes": 1086323,
+      "sha256": "488fca44ced666d6bbd7933941cac2000472825d089100fa404e33471cf16d2b",
+      "modified_at_utc": "2026-11-10T19:18:46.671893+00:00",
+      "match_count": 36,
+      "matches": [
+        {
+          "line": 2431,
+          "text": "- Ops Product, 5 Nov 14:13 GMT+7: the card-facts fix is live at ContentOps 33beb6cb (CC-290). A card fact now uses the article's own sentence holding its numbers, and the publication view keeps the IBM card (a live smoke test from the root). Codex Publisher is told, under CC-124, to pass the written article to the card step."
+        },
+        {
+          "line": 2664,
+          "text": "  - On 4 Nov a web-only publish asked for no code, yet BrowserOS Neo returned an inbox snapshot into the session (CC-124 run-20261104-0722), against \"agents never read Gmail\"."
+        },
+        {
+          "line": 3303,
+          "text": "  - R3: applied (runner patch live; `Cadence: 120 min` on CC-124)."
+        },
+        {
+          "line": 3824,
+          "text": "- Ops Live, 9 Nov 06:35 GMT+7: prompt side fixed, two fields added. In the live export, 32 of 38 plans had no base probability and 38 of 38 had no alternative probability. The daily prompt asked for a base case and its probability, but not in the form _scenarios parses. The SYNTHESIS line now asks for the first line `Base case (NN%): <move>. Mechanism: ... Confirmations: <1-3 items>. Invalidation: <level or event>.` and the last line `Main alternative (NN%): <move>.` (live 384c8c8e9 tag live-20261109-d93scenario-233252, then 2a1925d5a tag live-20261109-d93labels-233451; both PROMPT_READY). A parse check through the export's own helpers gives 68/25 with both moves. Today's 12:08 GMT+7 run is the first to carry them. Codex Main, one follow-up in plan_status_export_v1._scenarios: export `scenario_analysis.confirmations` and `scenario_analysis.invalidation_text` from those two labels, using "
+        },
+        {
+          "line": 4666,
+          "text": "  - For each CC-124 article and wrap, it saves beside the package:"
+        },
+        {
+          "line": 4677,
+          "text": "  - The next two CC-124 pieces' run records show agy's claim list, alt text and variants, and Publisher's decision on each flag; the published alt text and variants read back."
+        },
+        {
+          "line": 4680,
+          "text": "- Branch: backlog/cc-378-agy-editorial-assist \u00b7 Result: 7f073cff pushed and integrated in ContentOps; 119 targeted tests + 16 operating-root PASS; chose native submit/compiler reuse; AGY calls and exact hashes verified; next two CC-124 alt/copy readbacks pending (today 2/2); evidence docs/publisher/CC-378/README.md."
+        },
+        {
+          "line": 4683,
+          "text": "- Outcome: decision 106 posts exits selectively. A hit posts; a loss posts at most once a week; an exit at the end of the window does not post. So that the feed's selection never hides a loss, the weekend wrap (CC-124's weekly piece, or the CC-341 wrap) carries the week's whole record."
+        },
+        {
+          "line": 4759,
+          "text": "- Outcome: Codex Publisher's pieces (CC-124 articles, the wraps, CC-338's previews and reviews) speak in the instruments European and US readers trade. This is decision 107 point 3: more content on those instruments."
+        },
+        {
+          "line": 4772,
+          "text": "  - The next CC-124 article and the next wrap name at least one futures or ETF instrument for each market they cover."
+        },
+        {
+          "line": 5108,
+          "text": "- Owner: Codex Publisher \u00b7 Effort: high \u00b7 Risk: content (publication path) \u00b7 Due: Wed 11 Nov 2026 12:00 GMT+7 \u00b7 Status: BLOCKED: NEXT_LIVE_ARTICLE_READBACK_PENDING (CC-124)"
+        },
+        {
+          "line": 5109,
+          "text": "- Branch: backlog/cc-395-seven-destinations-notice \u00b7 Result: Integrated/pushed ab4790e8a8bb64bdc995e34e6a65df2ccb4be1d1; 6 required derivatives derived from browser bar map; 82+5 targeted passes and copied-store replay passed; live local X/YouTube no-writes applied. Evidence/bios: docs/publisher/CC-395/README.md, bios.md. Next: normal CC-124 article/post exact live readbacks; no newer article exists in held final/canonical outputs."
+        },
+        {
+          "line": 5286,
+          "text": "## CC-403 \u00b7 Text a reader wants: first person, the call first, no internal labels, a short daily note, a weekly review of our own calls, out within the hour of its data (upgrade plan P-4, P-5)"
+        },
+        {
+          "line": 5312,
+          "text": "- Branch: backlog/cc-403-reader-first-notes \u00b7 Result: 753c678d pushed/live; 91 operating-root tests PASS; chose existing native/coordinator path; AGY timeout retained with Codex fallback; next daily Substack/60-minute proof pending (decision 98); docs/publisher/CC-403/README.md."
+        },
+        {
+          "line": 5345,
+          "text": "    - Lines join only once true: \"the target\" in the ideas line, and \"Every idea's result, win or loss, in the same form, on one public scorecard.\" once CC-399 and CC-394 are live; \"A short note before the US session on trading days, and a weekly review of our own calls.\" once CC-403 is live."
+        },
+        {
+          "line": 5352,
+          "text": "  - Titles without internal labels are CC-403."
+        },
+        {
+          "line": 5486,
+          "text": "  - **Consumer:** Codex Publisher publishes one Substack post from it, \"What gold, the euro and the S&P did after each CPI since 2024\", under CC-403's text rules, and the CPI review cites it. Ops Product reads the table before the first post."
+        },
+        {
+          "line": 5561,
+          "text": "  - Publish it as one Substack post, \"What gold, the euro and the S&P did after each CPI since 2024\", under CC-403's text rules, and link it from the CPI review. The table refreshes after each CPI."
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG_ARCHIVE.md",
+      "bytes": 390932,
+      "sha256": "161a4857ca67a5b567226ee0d71dbe7beda77cded15090465049888cfd61e509",
+      "modified_at_utc": "2026-11-04T03:59:37.195361+00:00",
+      "match_count": 6,
+      "matches": [
+        {
+          "line": 726,
+          "text": "- Owner: Codex Publisher \u00b7 Risk: content \u00b7 Due: after its start condition \u00b7 Status: DONE (Ops, 3 Nov 01:51 GMT+7: FOMC piece published and read back; derivative recovery with CC-123; further pieces are CC-124)"
+        },
+        {
+          "line": 1191,
+          "text": "- Ops, 2 Nov 23:15 GMT+7: folded into CC-124, whose article list includes these retrospectives."
+        },
+        {
+          "line": 1192,
+          "text": "- Owner: Codex Publisher \u00b7 Risk: content \u00b7 Due: Fri 6 Nov 2026 \u00b7 Status: SUPERSEDED (Ops, 2 Nov 23:15 GMT+7: by CC-124)"
+        },
+        {
+          "line": 1213,
+          "text": "  - A standing-operation binding with publication authority, so one CC-124 run can take one article from selection to publication and readback outside the windows, under the same coordinator, leases and guards."
+        },
+        {
+          "line": 1215,
+          "text": "  - Last step: set CC-124 OPEN."
+        },
+        {
+          "line": 1216,
+          "text": "- Acceptance: each step's targeted tests pass, and one real publication with readback goes through the new path (the first CC-124 article, or a ready piece). Unchanged: decision 35, the public-output guard, the KILL_SWITCH, the approved model."
+        }
+      ]
+    }
+  ]
+}
