@@ -27,6 +27,7 @@ TOOL = "mcp__browseros_neo__run"
 CODEX_SURFACES = frozenset({"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT", "CODEX_EXEC"})
 CLAUDE_CODE_SURFACE = "CLAUDE_CODE_SESSION"
 SURFACE_TOOLS = {**{surface: TOOL for surface in CODEX_SURFACES}, CLAUDE_CODE_SURFACE: "mcp__browseros-neo__run"}
+SURFACE_TOOLS["NEO_ENDPOINT_EXECUTOR"] = "browseros-neo/run"
 
 
 def expected_posts(request: Mapping[str, Any]) -> list[str]:
@@ -228,7 +229,12 @@ class NativeNeoExecutor:
                 raise ValueError("NATIVE_NEO_PUBLIC_WRITE_NOT_AUTHORIZED")
             dispatch = self.store.get_platform_dispatch(request["dispatch_attempt_identity"])
             expected_status = "DISPATCH_CONFIRMED" if request["action"] == "EDIT_EXISTING" else PENDING
-            if not dispatch or dispatch["status"] != expected_status:
+            allowed_statuses = {expected_status}
+            if request["action"] == "PUBLISH" and getattr(self, "inline_transport", False):
+                # CC-436: the sole coordinator already atomically owns this
+                # dispatch and is still inside its synchronous transport call.
+                allowed_statuses.add("DISPATCH_ATTEMPT_STARTED")
+            if not dispatch or dispatch["status"] not in allowed_statuses:
                 raise ValueError("NATIVE_NEO_EXACT_COORDINATOR_PENDING_DISPATCH_REQUIRED")
             if request["action"] == "PUBLISH":
                 # A pending request can outlive the first coordinator call. Apply
@@ -757,16 +763,22 @@ class NativeNeoExecutor:
 
 
 def bind_native_neo_coordinator(store, *, operation_id, output_dir, native_invocation_id,
-                                allow_publish=False):
+                                allow_publish=False, automatic=False, endpoint_client=None):
     """One concrete supported composition; existing API routes and sole owner are reused."""
     from live_contentops.destination_transport_registry_v1 import DestinationReadinessManager
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
     from live_contentops.publication_coordinator_v1 import (
         CanonicalDestinationTransportRuntimeV1, DurablePublicationCoordinator,
     )
-    executor = NativeNeoExecutor(store, operation_id=operation_id, output_dir=output_dir,
+    executor_type = NativeNeoExecutor
+    options = {}
+    if automatic:
+        from live_contentops.neo_endpoint_executor_v1 import EndpointNeoExecutor
+        executor_type = EndpointNeoExecutor
+        options["client"] = endpoint_client
+    executor = executor_type(store, operation_id=operation_id, output_dir=output_dir,
                                  native_invocation_id=native_invocation_id, allow_publish=allow_publish,
-                                 identity_at_action=allow_publish)
+                                 identity_at_action=allow_publish, **options)
     runtime = CanonicalDestinationTransportRuntimeV1(neo_transport=NeoDestinationHandoff(native_executor=executor, store=store))
     readiness = DestinationReadinessManager(store=store, neo_readiness_provider=executor.publication_readiness)
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime, readiness_manager=readiness)

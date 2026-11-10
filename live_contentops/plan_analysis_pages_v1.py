@@ -642,7 +642,8 @@ def continue_link(store, value, *, invocation_id="plan-analysis-links-cc435", co
     from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
     coordinator, executor = bind_native_neo_coordinator(store, operation_id=value["link_id"],
         output_dir=Path(value["plan"]["output_dir"]) / value["link_id"] / "native-neo",
-        native_invocation_id=invocation_id, allow_publish=True)
+        native_invocation_id=invocation_id, allow_publish=True,
+        automatic=command in {"resume", "readback"})
     coordinator.allow_prior_confirmed_distribution=True
     coordinator.recovery_scope={"work_item_id":value["link_id"],"plan":value["plan"],"exact_work_item_only":True}
     try:

@@ -1487,7 +1487,7 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
             from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
             coordinator, _ = bind_native_neo_coordinator(
                 store, operation_id=key, output_dir=folder / "native-neo",
-                native_invocation_id="plan-status-posts-cc306", allow_publish=True)
+                native_invocation_id="plan-status-posts-cc306", allow_publish=True, automatic=True)
             return coordinator
     results = []
     candidates = []

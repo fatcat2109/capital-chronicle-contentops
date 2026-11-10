@@ -1,0 +1,231 @@
+"""CC-436: copied-store consumer -> local MCP -> publish/readback, without a model."""
+from contextlib import contextmanager
+from datetime import datetime, timezone
+from hashlib import sha256
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from io import BytesIO
+import json
+from pathlib import Path
+import sqlite3
+import subprocess
+import sys
+from threading import Thread
+
+from PIL import Image, ImageDraw
+import pytest
+import requests
+
+from live_contentops import neo_endpoint_executor_v1 as neo
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
+from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+
+
+@contextmanager
+def endpoint(*, fault=None):
+    state = {"calls":[],"posts":{},"composer":{},"fault":fault,"uploads":[]}
+    class Handler(BaseHTTPRequestHandler):
+        def log_message(self,*args): pass
+        def do_POST(self):
+            request=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
+            method=request['method']; params=request.get('params',{})
+            if method == 'initialize': result={"protocolVersion":"2025-03-26","serverInfo":{"name":"fixture-neo"}}
+            elif method == 'notifications/initialized':
+                self.send_response(202); self.end_headers(); return
+            else:
+                name=params['name']; args=params['arguments']; state['calls'].append((name,args))
+                value=None
+                if name=='tabs': text='opened page '+('1' if 'x.com' in args.get('url','') else '2') if args['action']=='new' else ''
+                elif name=='tab_groups': text='[task] "codex/cc436-automatic-posts" (pink) pages: '
+                elif name=='act':
+                    if args['kind']=='fill': state['composer'].setdefault(args['page'],[]).append(args['value'])
+                    text='ok'
+                elif name=='upload': state['uploads'].extend(args['files']); text='ok'
+                elif name=='run':
+                    code=args['code']; page=1 if 'browser.page(1)' in code else 2; dest='x' if page==1 else 'substack_notes'
+                    if not code.startswith('const input='):
+                        value={"refs":[{"role":"button","name":n,"ref":"e"+str(i)} for i,n in enumerate(
+                            ['New post','Comment','Post','Add post','Choose Files','CC436 image upload'])]+
+                            [{"role":"textbox","name":"Post text" if page==1 else "What's on your mind?","ref":"edit"}],
+                            "url":"https://x.com/Capitalnicle" if page==1 else "https://substack.com/@deancapitalchronicle","text":"fixture"}
+                    else:
+                        args_in=json.loads(code.split('const input=',1)[1].split(';\n',1)[0]); phase=args_in['phase']
+                        if phase=='identity': value={"authenticated":fault!='account',"observed_identity":args_in['expected_identity'] if fault!='account' else None,
+                            "observed_at_utc":datetime.now(timezone.utc).isoformat()}
+                        elif phase=='publish':
+                            actual=state['composer'].get(page,[])
+                            if actual!=args_in['posts'] or fault=='composer':
+                                value={"status":"FAILED_BEFORE_WRITE","definite_no_write":True,"stage":"BEFORE_PUBLISH_CLICK",
+                                    "reason_code":"NEO_COMPOSER_PAYLOAD_MISMATCH"}
+                            else:
+                                number='123' if page==1 else 'c-456'
+                                url='https://x.com/Capitalnicle/status/123' if page==1 else 'https://substack.com/@deancapitalchronicle/note/c-456'
+                                state['posts'][dest]={"public_object_id":number,"public_object_url":url,
+                                    "observed_text":'\n\n'.join(actual),"links":[],"public_image_urls":[]}
+                                if fault=='lost_return':
+                                    self.send_response(503);self.end_headers();return
+                                value={"status":"CLICKED","pre_click_posts":actual,"stage":"PUBLISH_CLICK_ATTEMPTED",
+                                    "dispatched_at_utc":datetime.now(timezone.utc).isoformat()}
+                        elif phase=='readback':
+                            value={"tweets":[state['posts']['x']] if 'x' in state['posts'] else [],
+                                "notes":[state['posts']['substack_notes']] if 'substack_notes' in state['posts'] else []}
+                        else: value={"ready":True}
+                    result={"content":[{"type":"text","text":"ok\nreturn: "+json.dumps({"ok":True,"logs":[],"value":value})}]}
+                else: text='ok'
+                if name!='run': result={"content":[{"type":"text","text":text}]}
+            data=('data: \nid: 0\n\ndata: '+json.dumps({"jsonrpc":"2.0","id":request.get('id'),"result":result})+'\n\n').encode()
+            self.send_response(200);self.send_header('Content-Type','text/event-stream');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
+    server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
+    thread=Thread(target=server.serve_forever,daemon=True);thread.start()
+    try: yield f'http://127.0.0.1:{server.server_port}/mcp',state
+    finally: server.shutdown();server.server_close();thread.join()
+
+
+def copied_store(tmp_path):
+    seed=ContentOpsDurableStore(tmp_path/'seed.sqlite3')
+    control=seed.get_operating_control()
+    seed.update_operating_control(operating_mode='AUTONOMOUS_DEFAULT',expected_state_version=control['state_version'],control_source='CONTROLLED_TEST')
+    path=tmp_path/'copied.sqlite3'
+    with sqlite3.connect(seed.db_path) as source,sqlite3.connect(path) as target: source.backup(target)
+    return ContentOpsDurableStore(path)
+
+
+def message(store,destination):
+    work='card-'+destination
+    store.create_work_item(story_id=work,work_item_id=work,title='Bound source copy',target_surface='MULTI_PLATFORM')
+    value={"work_item_id":work,"plan_hash":"plan","package_identity":"pkg",
+        "canonical_url":"https://capitalchronicle.substack.com/p/original-call",
+        "payload":"The original conditional call remains in force.",
+        "native_payload":{"text":"The original conditional call remains in force."},
+        "destination_plan":{"payload_hash":"hash","surface":"X_POST" if destination=='x' else 'SUBSTACK_NOTE'}}
+    ids=Coordinator._ids(work,'plan',destination)
+    store.register_outbox_message(message_id=ids['message_id'],work_item_id=work,destination=destination,payload=json.dumps(value),status='READY')
+    return ids,value
+
+
+def bound(store,tmp_path,work,url):
+    return bind_native_neo_coordinator(store,operation_id=work,output_dir=tmp_path/work,
+        native_invocation_id='fixture-parent',allow_publish=True,automatic=True,endpoint_client=neo.NeoMcpClient(url))
+
+
+@pytest.fixture(autouse=True)
+def isolated_control(monkeypatch):
+    monkeypatch.setattr('live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled',lambda:None)
+
+
+@pytest.mark.parametrize('destination',['x','substack_notes'])
+def test_copied_store_posts_and_reconciles_through_endpoint_once(tmp_path,destination):
+    store=copied_store(tmp_path);ids,value=message(store,destination)
+    with endpoint() as (url,state):
+        coordinator,executor=bound(store,tmp_path,value['work_item_id'],url)
+        result=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='DISPATCH_CONFIRMED',result
+        assert result['reconciliation_status']=='RECONCILED_CONFIRMED',result
+        again=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert again['publish_called'] is False
+        clicks=[args for name,args in state['calls'] if name=='run' and '"phase": "publish"' in args['code']]
+        assert len(clicks)==1
+        assert destination in state['posts']
+        assert executor.pending()==[]
+        response=next(json.loads(row['payload']) for row in store.list_outbox_messages(destination='internal:native-neo-tool')
+            if 'native_tool_observation' in json.loads(row['payload']).get('result',{}))
+        assert response['result']['native_tool_observation']['surface']=='NEO_ENDPOINT_EXECUTOR'
+
+
+@pytest.mark.parametrize('fault',['account','composer'])
+def test_wrong_account_or_changed_composer_makes_no_public_post(tmp_path,fault):
+    store=copied_store(tmp_path);ids,value=message(store,'x')
+    with endpoint(fault=fault) as (url,state):
+        c,_=bound(store,tmp_path,value['work_item_id'],url)
+        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='DEFINITE_NO_WRITE',result
+        assert not state['posts']
+
+
+def test_lost_publish_return_recovers_by_readback_without_reposting(tmp_path):
+    store=copied_store(tmp_path);ids,value=message(store,'x')
+    with endpoint(fault='lost_return') as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url)
+        first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert state['posts'].keys()=={'x'}
+        # The lost click observation is never repeated; the coordinator's first
+        # recovery read may already have confirmed it in this same invocation.
+        c2,e2=bound(store,tmp_path,value['work_item_id'],url)
+        recovered=c2.readback_existing_dispatch(ids['dispatch_id'])
+        assert store.get_platform_dispatch(ids['dispatch_id'])['status']=='DISPATCH_CONFIRMED',recovered
+        clicks=[a for n,a in state['calls'] if n=='run' and '"phase": "publish"' in a['code']]
+        assert len(clicks)==1
+
+
+def test_copied_store_runs_in_plain_python_child_with_no_codex_dispatch(tmp_path):
+    store=copied_store(tmp_path)
+    for destination in ('x','substack_notes'):message(store,destination)
+    with endpoint() as (url,state):
+        code='''
+import json,sys
+from pathlib import Path
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
+from live_contentops.neo_endpoint_executor_v1 import NeoMcpClient
+from live_contentops import llm_operator_control_v1
+llm_operator_control_v1.assert_llm_operator_execution_enabled=lambda:None
+s=ContentOpsDurableStore(Path(sys.argv[1]),auto_migrate=False)
+for destination in ('x','substack_notes'):
+ row=s.list_outbox_messages(destination=destination)[0]
+ value=json.loads(row['payload'])
+ c,e=bind_native_neo_coordinator(s,operation_id=value['work_item_id'],output_dir=Path(sys.argv[1]).parent/destination,
+  native_invocation_id='plain-python',allow_publish=True,automatic=True,endpoint_client=NeoMcpClient(sys.argv[2]))
+ result=c._dispatch_message(row,canonical_url=value['canonical_url'])
+ assert result['status']=='DISPATCH_CONFIRMED',result
+ assert result['reconciliation_status']=='RECONCILED_CONFIRMED',result
+print('X_AND_NOTE_CONFIRMED_WITHOUT_MODEL_OR_CODEX_CHILD')
+'''
+        result=subprocess.run([sys.executable,'-c',code,str(store.db_path),url],capture_output=True,text=True,timeout=35)
+        assert result.returncode==0,result.stderr+result.stdout
+        assert 'X_AND_NOTE_CONFIRMED_WITHOUT_MODEL_OR_CODEX_CHILD' in result.stdout
+        assert state['posts'].keys()=={'x','substack_notes'}
+
+
+def test_local_endpoint_only():
+    with pytest.raises(ValueError,match='NEO_LOCAL_ENDPOINT_REQUIRED'): neo.NeoMcpClient('https://example.com/mcp')
+
+
+def test_public_pixel_comparison_accepts_compression_and_rejects_changed_level(tmp_path):
+    image=Image.new('RGB',(512,320),'white'); draw=ImageDraw.Draw(image)
+    draw.rectangle((10,10,490,300),outline='black',width=3)
+    draw.text((30,80),'CALL LEVEL 1234',fill='black',font_size=34)
+    path=tmp_path/'card.png';image.save(path)
+    source_hash=sha256(path.read_bytes()).hexdigest()
+    request={'destination':'x','content_binding':{'media_manifest':[{'path':str(path),'sha256':source_hash}]}}
+    observed={'public_object_url':'https://x.com/Capitalnicle/status/123','public_image_urls':['https://pbs.twimg.com/media/card.jpg']}
+    class Http:
+        def __init__(self,img): self.img=img
+        def get(self,*args,**kwargs):
+            buffer=BytesIO();self.img.save(buffer,format='JPEG',quality=95)
+            class Response:
+                status_code=200
+                def raise_for_status(self):pass
+                def iter_content(self,size):yield buffer.getvalue()
+            return Response()
+    good=neo.compare_public_images(request,observed,http=Http(image))
+    assert good['media_comparisons'][0]['source_pixels_match'] is True
+    altered=image.copy();d=ImageDraw.Draw(altered);d.rectangle((30,80,330,120),fill='white');d.text((30,80),'CALL LEVEL 1284',fill='black',font_size=34)
+    bad=neo.compare_public_images(request,observed,http=Http(altered))
+    assert bad['media_comparisons'][0]['source_pixels_match'] is False
+
+
+def test_status_minute_consumer_selects_automatic_executor(tmp_path,monkeypatch):
+    from live_contentops import plan_status_posts_v1 as posts,plan_call_cards_v1 as cards,plan_analysis_pages_v1 as pages
+    # The consumer passes this factory to the actual card owner. Exercise that
+    # factory, rather than duplicating the production binding in the assertion.
+    store=copied_store(tmp_path);seen=[]
+    def publish_cards(store,**kw):
+        coordinator=kw['coordinator_for']('fresh-card',tmp_path/'fresh-card')
+        executor=coordinator.transport_runtime._neo_transport.native_executor
+        seen.append(executor)
+        return {'posts':[]}
+    monkeypatch.setattr(cards,'publish_ready',publish_cards)
+    monkeypatch.setattr(pages,'distribute_links',lambda store:{'links':[]})
+    posts.publish_ready(store,root=tmp_path,now=datetime.now(timezone.utc))
+    assert isinstance(seen[0],neo.EndpointNeoExecutor)
+    assert seen[0].identity_at_action is True

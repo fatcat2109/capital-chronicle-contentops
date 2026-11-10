@@ -911,7 +911,7 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         def coordinator_for(key, folder):
             from .native_neo_executor_v1 import bind_native_neo_coordinator
             return bind_native_neo_coordinator(store, operation_id=key, output_dir=folder / "native-neo",
-                native_invocation_id="plan-status-posts-cc399", allow_publish=True)[0]
+                native_invocation_id="plan-status-posts-cc399", allow_publish=True, automatic=True)[0]
     pending = []
     for outbox in store.list_outbox_messages(destination=posts.DESTINATION):
         row = json.loads(outbox["payload"])

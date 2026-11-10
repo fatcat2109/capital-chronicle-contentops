@@ -642,7 +642,7 @@ class NeoDestinationHandoff:
         expected_media.discard(None)
         media_match = expected_media <= set(result.get("observed_media_sha256") or [])
         reviewed_photo_edit = bool(intent.get("reader_presentation_review")) and destination in {"instagram_business", "youtube"}
-        if (destination in {"linkedin", "linkedin_company", "x", "youtube", "threads", "telegram"} or reviewed_photo_edit) and not media_match:
+        if (destination in {"linkedin", "linkedin_company", "x", "youtube", "threads", "telegram", "substack_notes"} or reviewed_photo_edit) and not media_match:
             comparisons = result.get("media_comparisons") or []
             def platform_image(url):
                 host = urlsplit(str(url or "")).hostname or ""
@@ -652,6 +652,8 @@ class NeoDestinationHandoff:
                     or (destination == "youtube" and host == "yt3.ggpht.com")
                     or (destination == "threads" and (host.endswith(".cdninstagram.com") or host.endswith(".fbcdn.net")))
                     or (destination == "telegram" and host.endswith(".telegram-cdn.org"))
+                    or (destination == "substack_notes" and (host == "substack-post-media.s3.amazonaws.com"
+                        or host == "substackcdn.com" or host.endswith(".substackcdn.com")))
                     or (destination == "instagram_business" and (host.endswith(".cdninstagram.com") or host.endswith(".fbcdn.net"))))
             source_matches = {m.get("source_asset_sha256") for m in comparisons
                 if m.get("pixels_inspected") is True and m.get("source_pixels_match") is True
