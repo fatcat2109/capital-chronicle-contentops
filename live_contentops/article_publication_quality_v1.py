@@ -122,6 +122,15 @@ def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=No
                     if event else [snapshot_asset["asset_id"]]) + [i for i in ids if i in available]))[:5]
                    for d, ids in choices.items()}
         article.update(post_visual_destination_media=choices, native_destination_media=choices)
+    decision = article.get("visual_editorial_decision")
+    if decision and decision.get("tradingview_snapshot_asset_ids") != [snapshot_asset["asset_id"]]:
+        from copy import deepcopy
+        decision = deepcopy(decision)
+        old_ids = set(decision.get("tradingview_snapshot_asset_ids", []))
+        decision["tradingview_snapshot_asset_ids"] = [snapshot_asset["asset_id"]]
+        decision["channel_media"] = {d: list(dict.fromkeys(snapshot_asset["asset_id"] if i in old_ids else i for i in ids))
+            for d, ids in decision["channel_media"].items()}
+        article["visual_editorial_decision"] = decision
     return article, ordered
 
 

@@ -1535,6 +1535,15 @@ def resume_completed_native_revision(store, turn, result, *, run_id):
     return json.loads(store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))["payload"])
 
 
+def publication_dispatch_locks_media(store, run_id, work_item_id):
+    """A definite no-write cannot freeze an unsent article's media."""
+    with store.get_read_only_connection() as conn:
+        return conn.execute("SELECT 1 FROM platform_dispatches d JOIN outbox_messages o "
+            "ON d.message_id=o.message_id WHERE o.work_item_id IN (?,?) "
+            "AND (d.status != 'DEFINITE_NO_WRITE' OR d.public_object_id IS NOT NULL "
+            "OR d.public_object_url IS NOT NULL) LIMIT 1", (run_id, work_item_id)).fetchone() is not None
+
+
 def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None,
                          final_visual_repair=None, corrected_worker_output=None, drop_failed_visuals=False,
                          completed_revision_request_sha256=None):
@@ -1574,11 +1583,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     if any(r["work_item_id"] == row["work_item_id"] and r["reviewer_ref"] == "NATIVE_DESKTOP_ARTICLE_REVIEW" for r in read_reviews(store)):
         if expected_package_revision != native_review_revision(result):
             raise ValueError("MEDIA_BINDING_REQUIRES_EXACT_REVIEWED_REVISION")
-        with store.get_read_only_connection() as conn:
-            dispatched = conn.execute("SELECT 1 FROM platform_dispatches d JOIN outbox_messages o "
-                "ON d.message_id=o.message_id WHERE o.work_item_id IN (?,?) LIMIT 1",
-                (run_id,row["work_item_id"])).fetchone()
-        if dispatched:
+        if publication_dispatch_locks_media(store, run_id, row["work_item_id"]):
             raise ValueError("REVIEWED_MEDIA_IMMUTABLE_AFTER_PUBLICATION_DISPATCH")
     if completed_revision_request_sha256:
         registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
@@ -1689,6 +1694,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
             payload=canonical_bytes({**final_visual_repair, "corrected_worker_output": corrected_worker_output}).decode(), status="EDITORIAL_INTERNAL")
     updated = {**result, "article": article, "article_identity": article_identity, "media_assets": assets, "previews": previews,
+        **({"visual_editorial_decision": article["visual_editorial_decision"]} if article.get("visual_editorial_decision") else {}),
         **({"visual_repair_disposition": disposition} if disposition else {}),
         **({"visual_editorial_decision": article["visual_editorial_decision"]} if drop_failed_visuals and article.get("visual_editorial_decision") else {}),
         "media_preview_binding_sha256": sha256_of(previews),
@@ -1717,6 +1723,19 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             **({"revision_performed": True} if completed_revision_request_sha256 else {})}
         if completed_revision_request_sha256:
             updated["completed_native_revision_request_sha256"] = completed_revision_request_sha256
+    # Earlier prepared bytes remain history. Only never-attempted READY messages
+    # are retired; any uncertain/actual write above keeps its exact package.
+    retired = []
+    for message in store.list_outbox_messages(work_item_id=run_id):
+        if message["status"] == "READY":
+            store.set_outbox_status(message["message_id"], "DEFINITE_NO_WRITE")
+            retired.append(message["message_id"])
+    if retired:
+        store.register_outbox_message(message_id=key + "-media-supersession-" + sha256_of(retired),
+            work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
+            payload=canonical_bytes({"reason": "UNSENT_MEDIA_REFRESH", "retired_messages": retired,
+                "prior_revision": native_review_revision(result), "new_revision": native_review_revision(updated)}).decode(),
+            status="EDITORIAL_INTERNAL")
     store.finalize_outbox_payload_before_dispatch(message_id=key, payload=canonical_bytes(updated).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 
@@ -2474,7 +2493,7 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
         if r["destination"] == "internal:native-publication-binding"
         and json.loads(r["payload"]).get("run_id") == run_id]
     message_ids = {r["message_id"] for r in rows if r["work_item_id"] == run_id}
-    if bindings and any(d["message_id"] in message_ids for d in store.list_platform_dispatches()):
+    if bindings and publication_dispatch_locks_media(store, run_id, row["work_item_id"]):
         from hashlib import sha256
         binding = bindings[-1]
         prepared = [json.loads(r["payload"]) for r in store.list_outbox_messages()

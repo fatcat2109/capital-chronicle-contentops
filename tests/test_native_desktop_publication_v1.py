@@ -32,6 +32,21 @@ PROOF = ROOT / "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018"
 CANONICAL = "https://capitalchronicle.substack.com/p/controlled-goal32"
 
 
+@pytest.mark.parametrize("status,identity,locked", [
+    ("DEFINITE_NO_WRITE", None, False), ("UNKNOWN_WRITE", None, True),
+    ("NATIVE_NEO_TOOL_PENDING", None, True), ("DISPATCH_CONFIRMED", "post", True),
+    ("DEFINITE_NO_WRITE", "post", True),
+])
+def test_media_refresh_keeps_actual_or_uncertain_dispatches_immutable(tmp_path, status, identity, locked):
+    from live_contentops.native_desktop_editorial_v1 import publication_dispatch_locks_media
+    store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
+    store.create_work_item(story_id="controlled", work_item_id="controlled", title="Controlled", target_surface="test")
+    store.register_outbox_message(message_id="message", work_item_id="controlled", destination="substack", payload="{}")
+    store.register_platform_dispatch(dispatch_id="dispatch", message_id="message", platform="substack",
+        status=status, public_object_id=identity)
+    assert publication_dispatch_locks_media(store, "controlled", "editorial") is locked
+
+
 def seeded(tmp_path, monkeypatch, *, manual=False, final_visual=True, site_first=False):
     """Retain exact Goal31 prose/evidence/media bytes; relocate only this test packet."""
     if not site_first:
