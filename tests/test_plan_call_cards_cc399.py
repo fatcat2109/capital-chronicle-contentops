@@ -2,6 +2,7 @@
 from datetime import datetime, timezone
 import json
 from pathlib import Path
+import sqlite3
 import sys
 
 import pytest
@@ -46,7 +47,11 @@ def rows(store):
 
 @pytest.fixture
 def five(tmp_path, main_root):
-    store = ContentOpsDurableStore(tmp_path / "copy.sqlite")
+    seed = ContentOpsDurableStore(tmp_path / "seed.sqlite")
+    copied = tmp_path / "copy.sqlite"
+    with sqlite3.connect(seed.db_path) as source, sqlite3.connect(copied) as target:
+        source.backup(target)
+    store = ContentOpsDurableStore(copied)
     plans = [call(f"id{i:07}") for i in range(5)]
     events = [event(p["plan_id"], "WAITING", p["registered_at_utc"]) for p in plans]
     folder = write(tmp_path / "export", plans, events)
@@ -178,3 +183,131 @@ def test_rendered_chart_is_bound_to_exact_call_levels_and_source(five, main_root
     assert asset["chart_spec"]["price_history"] is False
     assert asset["chart_spec"]["levels"]["target"] == [1.12406]
     assert asset["delivery_only"] and Path(asset["path"]).stat().st_size > 10000
+
+
+def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main_root, tmp_path):
+    from test_publication_coordinator_v1 import FixtureTransport, _set_mode
+    from test_plan_status_publication_cc306 import fake_host
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    class Recorded(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.intents = []
+        def publish(self, *, destination, intent, authorization_context):
+            self.publish_calls.append(destination)
+            self.intents.append(intent)
+            number = str(1000 + len(self.intents))
+            return {"status": "SUCCESS", "id": number, "public_url": f"https://example.test/{destination}/{number}"}
+
+    store, folder, plans, events = five
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    runtime = Recorded()
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED" if d == "substack_notes" else "READY_NON_BROWSER_BINDING"})
+    queued = queue(store, folder, main_root)
+    result = posts.publish_ready(store, now=NOW, latest_states=queued["latest_states"],
+        root=tmp_path / "posts", host=fake_host, coordinator_for=lambda key, folder: coordinator)
+    assert len(result["posts"]) == 6, result
+    assert all(r["status"] == "PUBLISHED" for r in result["posts"]), result
+    assert len(runtime.intents) == 36
+    run = next(r for r in rows(store) if r["kind"] == "run")
+    card = next(r for r in rows(store) if r["kind"] == "setup")
+    for destination in ("telegram", "threads", "substack_notes"):
+        first = next(i for i in runtime.intents if i["work_item_id"] == card["key"] and i["destination_plan"]["destination"] == destination)
+        assert first["native_payload"]["reply_to_id"] == cards._reference(store, run["key"], destination)["public_object_id"]
+    again = posts.publish_ready(store, now=NOW, root=tmp_path / "posts", host=fake_host,
+                                 coordinator_for=lambda key, folder: coordinator)
+    assert again["posts"] == [] and len(runtime.intents) == 36
+    pid = card["plan_id"]
+    raw = next(p for p in plans if p["plan_id"] == pid)
+    raw["status"] = "FILLED"
+    raw["outcome"] = {"state": "SCORED", "result": "EXPIRED", "outcome_id": "outcome-time",
+        "score": {"plan_id": pid, "asset_id": raw["asset_id"], "outcome_id": "outcome-time",
+                  "result": "EXPIRED", "resolved_at_utc": "2026-11-10T07:59:00Z", "direction_correct": True}}
+    events.append(event(pid, "FILLED", "2026-11-10T07:50:00Z"))
+    write(folder, plans, events)
+    queue(store, folder, main_root)
+    ended = posts.publish_ready(store, now=NOW, root=tmp_path / "posts", host=fake_host,
+                                coordinator_for=lambda key, folder: coordinator)
+    assert len(ended["posts"]) == 2 and all(r["status"] == "PUBLISHED" for r in ended["posts"]), ended
+    assert len(runtime.intents) == 48
+    for intent in runtime.intents[36:]:
+        destination = intent["destination_plan"]["destination"]
+        package = intent["native_payload"]
+        assert package["reply_to_id"] == cards._reference(store, card["key"], destination)["public_object_id"]
+        if destination == "discord":
+            assert package["discord_thread_parent_id"] == cards._reference(store, run["key"], destination)["public_object_id"]
+        posts.validate_status_post_intent(store, intent)
+
+
+def test_unconfirmed_parent_defers_only_its_destination(five, main_root, tmp_path, monkeypatch):
+    from test_plan_status_publication_cc306 import fake_host
+    store, folder, _, _ = five
+    queue(store, folder, main_root)
+    card = next(r for r in rows(store) if r["kind"] == "setup")
+    monkeypatch.setattr(cards, "_reference", lambda s, k, d: None if d == "discord" else {
+        "public_object_id": "12345", "public_object_url": "https://example.test/12345"})
+    prepared = posts.prepare_post(store, card["key"], root=tmp_path / "posts", host=fake_host)
+    assert {d["destination"] for d in prepared["destinations"]} == set(cards.DESTINATIONS) - {"discord"}
+    assert prepared["deferred_destinations"] == [{"destination": "discord", "cause": "CARD_PARENT_NOT_CONFIRMED", "parent_key": card["parent_key"]}]
+
+
+def test_discord_threads_use_official_bot_route_and_exact_card_reference(monkeypatch):
+    from live_contentops import discord_live_adapter_v6 as adapter, live_telemetry_v6
+    requests = []
+    channel = "1519311669216673802"
+    def send(req, **kwargs):
+        requests.append(req)
+        if "webhooks" in req.full_url:
+            value = {"channel_id": channel}
+        elif req.get_method() == "GET":
+            value = {"id": "12345", "parent_id": channel, "type": 11, "thread_metadata": {"archived": False}}
+        else:
+            value = {"id": "67890", "channel_id": "12345", "content": "exact ending",
+                     "message_reference": {"message_id": "98765"}}
+        class Response:
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def read(self): return json.dumps(value).encode()
+        return Response()
+    monkeypatch.setattr(adapter, "read_secret", lambda name: "test-token")
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", send)
+    monkeypatch.setattr(live_telemetry_v6, "classify_and_record_dispatch", lambda *a, **kw: None)
+    result = adapter.execute_discord_post("exact ending", webhook_url="https://discord.com/api/webhooks/1/test",
+        thread_parent_id="12345", thread_name="Calls", reply_to_message_id="98765")
+    assert result["id"] == "67890"
+    post = requests[-1]
+    assert post.full_url == "https://discord.com/api/v10/channels/12345/messages"
+    assert json.loads(post.data)["message_reference"]["message_id"] == "98765"
+    assert len([r for r in requests if r.get_method() == "POST"]) == 1
+
+
+def test_missing_discord_bot_token_is_definite_no_write(monkeypatch):
+    from live_contentops import discord_live_adapter_v6 as adapter
+    monkeypatch.setattr(adapter, "read_secret", lambda name: None)
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", lambda *a, **kw: pytest.fail("must not send"))
+    result = adapter.execute_discord_post("exact", webhook_url="https://discord.com/api/webhooks/1/test",
+                                         thread_parent_id="12345")
+    assert result["definite_no_write"]
+    assert result["reason_code"] == "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"
+
+
+@pytest.mark.parametrize("destination,field", [("facebook_page", "message"), ("instagram_business", "text")])
+def test_own_card_comments_read_back_from_their_exact_parent(monkeypatch, destination, field):
+    from live_contentops import facebook_page_adapter_v6 as facebook, instagram_adapter_v6 as instagram
+    adapter = facebook if destination == "facebook_page" else instagram
+    monkeypatch.setattr(adapter, "_get_json", lambda url, data: {"data": [{"id": "comment-1", field: "exact ending"}]})
+    result = cards.readback_own_comment(destination, "comment-1", "our-card-1", "exact ending")
+    assert result["verified"] and result["reply_parent_verified"]
+    assert not cards.readback_own_comment(destination, "different-comment", "our-card-1", "exact ending")["verified"]
+
+
+def test_note_request_opens_exact_parent_and_never_creates_an_unrelated_note():
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    parent_url = "https://substack.com/@deancapitalchronicle/note/c-12345"
+    payload = {"text": "Our ending. " + cards.NOTICES, "reply_to_id": "c-12345", "reply_to_url": parent_url}
+    request = NeoDestinationHandoff().request(destination="substack_notes", action="READBACK",
+        intent={"native_payload": payload, "payload": payload["text"], "work_item_id": "card-ending"})
+    assert request["entry_url"] == parent_url and request["reply_parent"]["public_object_id"] == "c-12345"
+    assert any("Never create a top-level note" in step for step in request["steps"])

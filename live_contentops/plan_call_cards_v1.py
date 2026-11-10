@@ -277,8 +277,7 @@ def _result_rows(export, source_rows):
     return result
 
 
-def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, root=None, reason_runner=None, **reader):
-    root = Path(root or posts.POST_ROOT)
+def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **reader):
     try:
         export = posts.read_export(export_dir, **reader)
         freshness = posts.export_freshness(export, now)
@@ -294,6 +293,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, roo
     cards = {}
     for r in existing_rows:
         p = json.loads(r["payload"])
+        p.setdefault("key", r["message_id"])
         if p.get("kind") == "setup" or (p.get("state") == "WAITING" and not p.get("why_follow_up")):
             if r["status"] in {posts.READY, "PUBLISHING", "PUBLISHED"}:
                 cards.setdefault(p.get("plan_id"), p)
@@ -392,3 +392,226 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, roo
             "max_export_age_minutes": posts.EXPORT_MAX_AGE_MINUTES, "transitions_read": len(source_rows),
             "latest_states": {p: r["to"] for p, r in latest.items()}, "active_recoveries": {},
             "would_queue" if dry_run else "queued": queued, "already_queued": already, "not_posted": skipped}
+
+
+def _reference(store, key, destination):
+    from .publication_coordinator_v1 import DurablePublicationCoordinator
+    plan_hash = hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest()
+    ids = DurablePublicationCoordinator._ids(key, plan_hash, destination)
+    row = store.get_platform_dispatch(ids["dispatch_id"])
+    if row and row["status"] == "DISPATCH_CONFIRMED" and row.get("public_object_id"):
+        return {k: row.get(k) for k in ("public_object_id", "public_object_url", "dispatch_id")}
+    return None
+
+
+def _parents(store, row, destinations, previous):
+    parents = dict(previous or {})
+    deferred = []
+    for destination in destinations:
+        if destination in parents or not row.get("parent_key"):
+            continue
+        ref = _reference(store, row["parent_key"], destination)
+        if not ref:
+            deferred.append({"destination": destination, "cause": "CARD_PARENT_NOT_CONFIRMED",
+                             "parent_key": row["parent_key"]})
+            continue
+        parent = {**ref, "parent_key": row["parent_key"]}
+        if destination == "discord":
+            root = _reference(store, row.get("run_key") or row["parent_key"], destination)
+            if not root:
+                deferred.append({"destination": destination, "cause": "RUN_PARENT_NOT_CONFIRMED"})
+                continue
+            parent["thread_parent_id"] = root["public_object_id"]
+            parent["thread_parent_url"] = root.get("public_object_url")
+        parents[destination] = parent
+    return parents, deferred
+
+
+def destination_payloads(row, *, card_id, parents=None):
+    result = {}
+    limits = {"telegram": 1024, "discord": 2000, "threads": 500,
+              "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000}
+    for destination in DESTINATIONS:
+        text = row["text"]
+        room = limits[destination] - len(NOTICES) - 2
+        body = text.split("\n\n", 1)[0]
+        if len(body) > room:
+            # The full card image retains every supplied field. Short copies
+            # keep the conditional call, its id and the structured levels first.
+            body = row["lead"]
+            for line in row.get("detail_lines") or []:
+                if len(body) + len(line) + 1 <= room:
+                    body += "\n" + line
+            for line in (row.get("record_line"), *("• " + r for r in row.get("reasons") or [])):
+                if line and len(body) + len(line) + 1 <= room:
+                    body += "\n" + line
+            text = body + "\n\n" + NOTICES
+        if len(text) > limits[destination]:
+            raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:" + destination)
+        check_publication_copy({"body": text}, conditional_calls=row.get("conditional_calls") or [])
+        payload = {"destination": destination, "text": text, "full_text": text,
+                   "media_asset_ids": [card_id]}
+        ref = (parents or {}).get(destination)
+        if ref:
+            if destination in {"telegram", "threads"}:
+                payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"))
+            elif destination == "discord":
+                payload.update(discord_thread_parent_id=str(ref["thread_parent_id"]),
+                    discord_thread_name="Calls · " + _clock(row["registered_at_utc"]),
+                    **({"reply_to_id": str(ref["public_object_id"])} if row["kind"] != "setup" else {}))
+            elif destination in {"facebook_page", "instagram_business"}:
+                if row["kind"] != "setup":
+                    payload.update(reply_to_id=str(ref["public_object_id"]),
+                                   reply_to_url=ref.get("public_object_url"), own_call_comment=True)
+            elif destination == "substack_notes":
+                payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"))
+        result[destination] = payload
+    return result
+
+
+def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS, **ignored):
+    from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
+    from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
+    from .plan_call_card_media_v1 import render
+    row = posts._row_payload(store, key)
+    folder = Path(root) / key
+    context_path = folder / "run_context_v1.json"
+    previous = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
+    parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
+    chosen = [d for d in destinations if not row.get("parent_key") or d in parents]
+    if not chosen:
+        return {"destinations": [], "deferred_destinations": deferred, "output_dir": str(folder.resolve())}
+    existing_assets = (previous.get("media") or {}).get("assets") or []
+    card = existing_assets[0] if existing_assets else render(row, folder)
+    if not Path(card["path"]).is_file() or hashlib.sha256(Path(card["path"]).read_bytes()).hexdigest() != card["sha256"]:
+        raise posts.PlanPostError("PLAN_CARD_IMAGE_BYTES_CHANGED")
+    title = (row["lead"] if row["kind"] == "run" else
+             f"{row['instrument_title']} · #{row['short_id']} · "
+             + (ending_words(row) if row["kind"] == "result" else "call card" if row["kind"] == "setup" else "update"))
+    article = {"title": title, "dek": row["lead"], "body": row["text"],
+               "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
+    manifest_path = folder / "delivery_media_manifest_v1.json"
+    if not posts._hosted(manifest_path, card):
+        if host is None:
+            from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
+        delivery = host(work_item_id=key, delivery_only_assets=[card], existing_manifest=None,
+                        article_assets=[], article=article, source_documents=[])
+        if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
+            raise posts.PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
+        manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))
+    context = {"schema_version": "contentops.plan_status_post_context.v1", "article": article,
+        "selection": {}, "media": {"assets": [card]}, "plan_status_post": key, "chart_credit": False,
+        "status_post_parents": parents}
+    context_path.write_bytes(canonical_bytes(context))
+    payloads = destination_payloads(row, card_id=card["asset_id"], parents=parents)
+    plan_rows = []
+    for destination in chosen:
+        registration = registration_for_destination(destination)
+        text = payloads[destination]["full_text"]
+        plan_rows.append({"destination": destination, "platform": registration.platform,
+            "surface": registration.surface, "transport_type": registration.transport_type,
+            "transport_registry_version": REGISTRY_VERSION, "payload": text,
+            "payload_hash": hashlib.sha256(text.encode()).hexdigest(), "canonical_url": None,
+            "expected_destination_identity": registration.expected_identity})
+    return {"schema_version": "contentops.publication_plan.v1", "plan_status_post": key,
+        "plan_hash": hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest(),
+        "story_identity": key, "article_identity": key, "package_identity": key,
+        "publication_window": {"window_identity": key}, "output_dir": str(folder.resolve()),
+        "status_post_card_id": card["asset_id"], "transport_registry_version": REGISTRY_VERSION,
+        "policy_mode_version": "AUTONOMOUS_DEFAULT:cc399.v1", "destinations": plan_rows,
+        "continuations": [], "deferred_destinations": deferred}
+
+
+def validate_parent_intent(store, row, intent):
+    destination = intent["destination_plan"]["destination"]
+    if not row.get("parent_key"):
+        return
+    ref = _reference(store, row["parent_key"], destination)
+    payload = intent["native_payload"]
+    if not ref:
+        raise posts.PlanPostError("CARD_PARENT_NOT_CONFIRMED")
+    reply_destination = destination in {"telegram", "threads", "substack_notes"} or (
+        destination in {"facebook_page", "instagram_business"} and row["kind"] != "setup")
+    if reply_destination and str(ref["public_object_id"]) != payload.get("reply_to_id"):
+        raise posts.PlanPostError("PLAN_CARD_REPLY_PARENT_CHANGED")
+    if destination == "discord":
+        root = _reference(store, row.get("run_key") or row["parent_key"], destination)
+        if not root or str(root["public_object_id"]) != payload.get("discord_thread_parent_id"):
+            raise posts.PlanPostError("PLAN_CARD_DISCORD_THREAD_CHANGED")
+        if row["kind"] != "setup" and str(ref["public_object_id"]) != payload.get("reply_to_id"):
+            raise posts.PlanPostError("PLAN_CARD_REPLY_PARENT_CHANGED")
+
+
+def readback_own_comment(destination, comment_id, parent_id, text):
+    """Read the exact comment in its confirmed business card's comment list."""
+    if destination == "facebook_page":
+        from . import facebook_page_adapter_v6 as adapter
+        token, field = adapter._facebook_token(), "message"
+    elif destination == "instagram_business":
+        from . import instagram_adapter_v6 as adapter
+        token, field = adapter._instagram_token(), "text"
+    else:
+        raise posts.PlanPostError("PLAN_CARD_COMMENT_DESTINATION_INVALID")
+    try:
+        data = adapter._get_json(f"https://graph.facebook.com/{adapter.GRAPH_VERSION}/{parent_id}/comments",
+                                {"access_token": token, "fields": f"id,{field}", "limit": 100})
+        match = next((r for r in data.get("data") or [] if str(r.get("id")) == str(comment_id)), None)
+        verified = bool(match and match.get(field) == text)
+        return {"status": "SUCCESS" if verified else "READBACK_UNAVAILABLE", "verified": verified,
+                "public_object_id": comment_id, "body_text_visible": verified, "reply_parent_verified": bool(match)}
+    except Exception as exc:
+        return {"status": "READBACK_UNAVAILABLE", "verified": False,
+                "safe_error_classification": type(exc).__name__}
+
+
+def publish_ready(store, *, now, latest_states=None, root, host=None, coordinator_for=None, limit=5):
+    if coordinator_for is None:
+        def coordinator_for(key, folder):
+            from .native_neo_executor_v1 import bind_native_neo_coordinator
+            return bind_native_neo_coordinator(store, operation_id=key, output_dir=folder / "native-neo",
+                native_invocation_id="plan-status-posts-cc399", allow_publish=True)[0]
+    pending = []
+    for outbox in store.list_outbox_messages(destination=posts.DESTINATION):
+        row = json.loads(outbox["payload"])
+        if row.get("format") == FORMAT and outbox["status"] in {posts.READY, "PUBLISHING"}:
+            pending.append((outbox, row))
+    pending.sort(key=lambda pair: ({"run": 0, "setup": 1, "update": 2, "result": 3}[pair[1]["kind"]], pair[1]["at_utc"]))
+    results, calls = [], 0
+    for outbox, row in pending:
+        key = row["key"]
+        if row["kind"] != "run":
+            if calls >= limit:
+                break
+            calls += 1
+        # An unstarted setup cannot be backfilled after its idea has ended.
+        # Once a send is uncertain, the coordinator owns recovery of its exact
+        # immutable bytes. Later state/ending records remain owed.
+        if row["kind"] == "setup" and outbox["status"] == posts.READY:
+            current = (latest_states or {}).get(row["plan_id"])
+            if (current in TERMINAL or current == "RESULT"
+                    or (row.get("time_exit_utc") and now >= posts._utc(row["time_exit_utc"]))):
+                store.set_outbox_status(key, posts.SUPERSEDED)
+                results.append({"key": key, "status": posts.SUPERSEDED, "cause": "PLAN_ALREADY_ENDED"})
+                continue
+        try:
+            plan = prepare_post(store, key, root=root, host=host)
+            if not plan["destinations"]:
+                results.append({"key": key, "status": "WAITING_FOR_CARD_PARENT",
+                                "deferred_destinations": plan["deferred_destinations"]})
+                continue
+            store.create_work_item(story_id=key, title="Call run" if row["kind"] == "run" else "Call card",
+                                   target_surface="MULTI_PLATFORM", work_item_id=key)
+            coordinator = coordinator_for(key, Path(plan["output_dir"]))
+            posts.scope_to_post(coordinator, key, plan)
+            coordinator.register_plan(key, plan)
+            outcome = coordinator.execute_plan(key, plan)
+            states = {d: (o or {}).get("status") for d, o in (outcome.get("per_destination") or {}).items()}
+            confirmed = {d for d in DESTINATIONS if _reference(store, key, d)}
+            done = len(confirmed) == len(DESTINATIONS)
+            store.set_outbox_status(key, "PUBLISHED" if done else "PUBLISHING")
+            results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING",
+                "per_destination": states, "confirmed_destinations": sorted(confirmed),
+                "deferred_destinations": plan["deferred_destinations"]})
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
+    return {"status": "OK", "posts": results}

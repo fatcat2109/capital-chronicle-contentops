@@ -894,7 +894,8 @@ def _row_payload(store, key: str) -> dict:
     if not row or row["destination"] != DESTINATION:
         raise PlanPostError("PLAN_STATUS_POST_ROW_REQUIRED")
     payload = json.loads(row["payload"])
-    if payload.get("schema_version") != SCHEMA or payload.get("key") != key or payload.get("symbol") not in MARKETS:
+    multi = payload.get("format") == 4 and payload.get("kind") == "run" and payload.get("symbol") == "MULTI"
+    if payload.get("schema_version") != SCHEMA or payload.get("key") != key or not (multi or payload.get("symbol") in MARKETS):
         raise PlanPostError("PLAN_STATUS_POST_ROW_INVALID")
     return payload
 
@@ -1036,6 +1037,9 @@ def _x_pack(text: str, limit: int, *, preserve_lines: bool = False) -> list[str]
 def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: bool = False) -> dict:
     """The exact copy per destination: the post and the notices, no link (decision 83). With a
     TradingView snapshot, "Chart: TradingView" follows the post (Terms section 4, decision 82)."""
+    if row.get("format") == 4:
+        from .plan_call_cards_v1 import destination_payloads as card_payloads
+        return card_payloads(row, card_id=card_id)
     body, notices = _split(row["text"])
     link = CHART_CREDIT if chart_credit else ""
     payloads = {}
@@ -1232,6 +1236,11 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from live_contentops.destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     row = _row_payload(store, key)
+    if row.get("format") == 4:
+        from .plan_call_cards_v1 import prepare_post as card_post, DESTINATIONS as card_destinations
+        if destinations == POST_DESTINATIONS:
+            destinations = card_destinations
+        return card_post(store, key, root=root, host=host, destinations=destinations)
     if row.get("kind") == "result":
         if any(d not in API_DESTINATIONS for d in destinations):
             if destinations != POST_DESTINATIONS:
@@ -1303,6 +1312,9 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     if context.get("plan_status_post") != key:
         raise PlanPostError("PLAN_STATUS_POST_PACKAGE_MISMATCH")
     card_id = context["media"]["assets"][0]["asset_id"]
+    if row.get("format") == 4:
+        from .plan_call_cards_v1 import destination_payloads as card_payloads
+        return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"))
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
                               chart_credit=bool(context.get("chart_credit"))), part)
 
@@ -1326,7 +1338,12 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     key = str(intent.get("plan_status_post") or "")
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
-    if row.get("kind") == "result":
+    if row.get("format") == 4:
+        from .plan_call_cards_v1 import compose as card_copy, validate_parent_intent
+        if card_copy(row)["text"] != row["text"]:
+            raise PlanPostError("PLAN_CARD_COPY_CHANGED")
+        validate_parent_intent(store, row, intent)
+    elif row.get("kind") == "result":
         expected = compose_result({**row, "plan": row["levels"]})["text"]
         if row["text"] != expected:
             raise PlanPostError("PLAN_RESULT_COPY_CHANGED")
@@ -1345,6 +1362,8 @@ STALE = "STALE_NOT_POSTED"
 def freshness_limit_minutes(payload) -> int:
     """60 minutes for a new post; a later state of an announced plan keeps LATE_STATE_HOURS. A why follow-up
     stays postable while its plan is valid, up to LATE_STATE_HOURS; a change of the plan's state supersedes it."""
+    if payload.get("format") == 4 and payload.get("kind") in {"result", "update"}:
+        return float("inf")  # An announced call's dated updates and ending remain owed.
     if payload.get("kind") == "result":
         return float("inf")  # Dated results remain owed; age never turns them into a fresh call.
     if payload.get("why_follow_up"):
@@ -1411,6 +1430,8 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
         if row["status"] not in {READY, "PUBLISHING"}:
             continue
         payload = json.loads(row["payload"])
+        if payload.get("format") == 4:
+            continue  # CC-399 uses run -> card -> later-post dependency ordering below.
         recovered = _recoverable(payload, active_recoveries, now)
         freshness = LATE_STATE_HOURS * 60 if recovered else freshness_limit_minutes(payload)
         if row["status"] == READY:
@@ -1476,7 +1497,10 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
         done = all(per.get(d) == "DISPATCH_CONFIRMED" for d in API_DESTINATIONS)
         store.set_outbox_status(key, "PUBLISHED" if done else "PUBLISHING")
         results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING", "per_destination": per})
-    return {"status": "OK", "posts": results}
+    from .plan_call_cards_v1 import publish_ready as publish_cards
+    card_results = publish_cards(store, now=now, latest_states=latest_states, root=root,
+                                 host=host, coordinator_for=coordinator_for, limit=limit)
+    return {"status": "OK", "posts": results + card_results["posts"]}
 
 
 def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None = None, root: Path = POST_ROOT,

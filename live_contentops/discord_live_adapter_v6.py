@@ -36,6 +36,9 @@ def execute_discord_post(
     embeds: list[dict[str, Any]] | None = None,
     dry_run: bool = False,
     image_path: str | None = None,
+    thread_parent_id: str | None = None,
+    thread_name: str | None = None,
+    reply_to_message_id: str | None = None,
 ) -> dict[str, Any]:
     """Publishes a message or announcement to a Discord channel via Webhook."""
     target_webhook = webhook_url or _get_default_webhook_url()
@@ -73,7 +76,23 @@ def execute_discord_post(
     query["wait"] = "true"
     post_url = urllib.parse.urlunsplit(parts._replace(query=urllib.parse.urlencode(query)))
 
+    bot_token = None
+    if thread_parent_id:
+        bot_token = read_secret("DISCORD_BOT_TOKEN")
+        if not bot_token:
+            return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
+                    "reason_code": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE", "platform": "discord"}
+        thread = _ensure_call_thread(target_webhook, str(thread_parent_id), thread_name, bot_token)
+        if thread.get("status") != "READY":
+            return thread
+        post_url = f"https://discord.com/api/v10/channels/{thread_parent_id}/messages"
+
     payload: dict[str, Any] = {"content": message}
+    if thread_parent_id:
+        payload["allowed_mentions"] = {"parse": []}
+        if reply_to_message_id:
+            payload["message_reference"] = {"message_id": str(reply_to_message_id),
+                                             "channel_id": str(thread_parent_id), "fail_if_not_exists": True}
     if embeds:
         payload["embeds"] = embeds
 
@@ -108,6 +127,8 @@ def execute_discord_post(
         data = json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(post_url, data=data, method="POST")
     req.add_header("Content-Type", content_type)
+    if bot_token:
+        req.add_header("Authorization", "Bot " + bot_token)
     req.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
 
     try:
@@ -153,6 +174,53 @@ def execute_discord_post(
     return result
 
 
+def _ensure_call_thread(webhook, parent_id, name, token):
+    """A Discord thread uses its starter message id. Read it before creating it.
+
+    The webhook identifies the approved announcement channel. Bot access is
+    needed only for the official create-thread endpoint and replies in it.
+    A lost thread-create response is recovered by its deterministic channel id;
+    no call message has been sent by this helper.
+    """
+    def request(url, data=None, method=None):
+        req = urllib.request.Request(url, data=json.dumps(data).encode() if data else None,
+                                     method=method or ("POST" if data else "GET"))
+        req.add_header("Content-Type", "application/json")
+        req.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+        if not url.startswith(webhook):
+            req.add_header("Authorization", "Bot " + token)
+        with urllib.request.urlopen(req, timeout=15) as response:
+            return json.loads(response.read().decode())
+    try:
+        metadata = request(webhook.split("?", 1)[0])
+        channel = str(metadata.get("channel_id") or "")
+        from .destination_transport_registry_v1 import registration_for_destination
+        expected = registration_for_destination("discord").expected_stable_id
+        if channel != expected or not parent_id.isdigit():
+            return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
+                    "reason_code": "DISCORD_CALL_THREAD_WRONG_CHANNEL", "platform": "discord"}
+        try:
+            thread = request(f"https://discord.com/api/v10/channels/{parent_id}")
+        except urllib.error.HTTPError as exc:
+            if exc.code != 404:
+                raise
+            thread = request(f"https://discord.com/api/v10/channels/{channel}/messages/{parent_id}/threads",
+                             {"name": str(name or "Capital Chronicle calls")[:100], "auto_archive_duration": 1440})
+        if (str(thread.get("id")) != parent_id or str(thread.get("parent_id")) != channel
+                or thread.get("type") not in {10, 11, 12}):
+            return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
+                    "reason_code": "DISCORD_CALL_THREAD_IDENTITY_MISMATCH", "platform": "discord"}
+        if (thread.get("thread_metadata") or {}).get("archived"):
+            thread = request(f"https://discord.com/api/v10/channels/{parent_id}", {"archived": False}, "PATCH")
+            if (thread.get("thread_metadata") or {}).get("archived"):
+                return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
+                        "reason_code": "DISCORD_CALL_THREAD_ARCHIVED", "platform": "discord"}
+        return {"status": "READY", "id": parent_id}
+    except Exception as exc:
+        return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True, "platform": "discord",
+                "reason_code": "DISCORD_CALL_THREAD_UNAVAILABLE", "safe_error_classification": type(exc).__name__}
+
+
 def readback_discord_post(
     *,
     message_id: str,
@@ -160,14 +228,22 @@ def readback_discord_post(
     canonical_url: str,
     webhook_url: str | None = None,
     expected_image_sha256: str | None = None,
+    thread_id: str | None = None,
+    expected_parent_id: str | None = None,
 ) -> dict[str, Any]:
     """Read one exact webhook message without exposing the webhook credential."""
     target_webhook = webhook_url or _get_default_webhook_url()
     if not target_webhook or not str(message_id or "").isdigit():
         return {"status": "READBACK_UNAVAILABLE", "verified": False}
-    request = urllib.request.Request(
-        f"{target_webhook.rstrip('/')}/messages/{message_id}", method="GET"
-    )
+    url = f"{target_webhook.rstrip('/')}/messages/{message_id}"
+    token = read_secret("DISCORD_BOT_TOKEN") if thread_id else None
+    if thread_id:
+        if not token or not str(thread_id).isdigit():
+            return {"status": "READBACK_UNAVAILABLE", "verified": False}
+        url = f"https://discord.com/api/v10/channels/{thread_id}/messages/{message_id}"
+    request = urllib.request.Request(url, method="GET")
+    if token:
+        request.add_header("Authorization", "Bot " + token)
     request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
@@ -217,7 +293,9 @@ def readback_discord_post(
             except (OSError, ValueError):
                 continue
         media_verified = image_hash_match
-    verified = bool(exact_identity and text_verified and canonical_verified and media_verified)
+    thread_verified = not thread_id or channel_id == str(thread_id)
+    parent_verified = not expected_parent_id or str((payload.get("message_reference") or {}).get("message_id")) == str(expected_parent_id)
+    verified = bool(exact_identity and text_verified and canonical_verified and media_verified and thread_verified and parent_verified)
     public_url = (
         f"https://discord.com/channels/{guild_id}/{channel_id}/{message_id}"
         if guild_id and channel_id
@@ -237,6 +315,7 @@ def readback_discord_post(
         "meaningful_media_visible": media_verified,
         "attached_article_visual": bool(attachments),
         "image_sha256_match": image_hash_match,
+        "thread_verified": thread_verified, "reply_parent_verified": parent_verified,
     }
 
 

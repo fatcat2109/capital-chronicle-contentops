@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import textwrap
 
-from .fact_card_design_v1 import _font
+from .fact_card_design_v1 import _font, PAPER, INK, MUTED, RULE, YELLOW
 from .plan_call_cards_v1 import level, _clock, ending_words
 from .event_article_guard_v1 import PUBLIC_NOTICE
 
@@ -18,9 +18,9 @@ def render(row, folder):
     digest = hashlib.sha256(json.dumps(packet, sort_keys=True).encode()).hexdigest()
     path = Path(folder).resolve() / "media_assets" / f"call-card-{digest[:20]}.png"
     path.parent.mkdir(parents=True, exist_ok=True)
-    image = Image.new("RGB", (1440, 1440), "#101e2e")
+    image = Image.new("RGB", (1440, 1440), PAPER)
     draw = ImageDraw.Draw(image)
-    ink, muted, cyan, gold = "#f4f5f1", "#acbecd", "#6bdbd1", "#f6d38a"
+    ink, muted, cyan, gold = INK, MUTED, "#23635c", "#735b00"
 
     def text(x, y, value, size=30, color=ink, weight="regular", width=80):
         lines = textwrap.wrap(str(value), width=width, break_long_words=False) or [""]
@@ -29,7 +29,7 @@ def render(row, folder):
             y += int(size * 1.4)
         return y
 
-    draw.rectangle((0, 0, 1440, 12), fill=cyan)
+    draw.rectangle((72, 0, 304, 12), fill=YELLOW)
     text(72, 55, "CAPITAL CHRONICLE", 28, cyan, width=60)
     if row["kind"] == "run":
         text(72, 160, row["lead"], 64, width=30)
@@ -61,13 +61,13 @@ def render(row, folder):
             draw.line((115, 385, 115, 760), fill=muted, width=2)
             if low is not None and high is not None:
                 first, last = min(y(low), y(high)), max(y(low), y(high))
-                draw.rectangle((115, first - 4, 810, last + 4), fill="#1f6969")
+                draw.rectangle((115, first - 4, 810, last + 4), fill="#a4d4ca")
                 text(850, (first + last) // 2 - 18, "Entry zone", 26, cyan, width=30)
                 text(850, (first + last) // 2 + 22, f"{level(low, plan)}–{level(high, plan)}", 27, cyan, width=30)
             for name, value in values.items():
                 if value is None:
                     continue
-                color = "#f2a7aa" if name == "Invalidation" else gold
+                color = "#a33440" if name == "Invalidation" else gold
                 draw.line((115, y(value), 810, y(value)), fill=color, width=4)
                 text(850, y(value) - 18, f"{name}: {level(value, plan)}", 27, color, width=29)
         line = 800
@@ -83,7 +83,7 @@ def render(row, folder):
             line = text(72, line + 8, "• " + reason, 25, width=89)
         if row.get("record_line"):
             text(72, 1240, row["record_line"], 24, muted, width=95)
-    draw.line((72, 1324, 1368, 1324), fill="#476074", width=2)
+    draw.line((72, 1324, 1368, 1324), fill=RULE, width=2)
     text(72, 1344, PUBLIC_NOTICE, 23, muted, width=100)
     image.save(path, format="PNG", optimize=True)
     return {"asset_id": "call-card-" + digest[:20], "path": str(path),

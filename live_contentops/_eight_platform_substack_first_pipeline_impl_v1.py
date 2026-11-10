@@ -1333,7 +1333,8 @@ def _publish_telegram_text_verified(
 
 
 def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str | None, title: str,
-                              image_path: str | None = None) -> dict[str, Any]:
+                              image_path: str | None = None, thread_parent_id: str | None = None,
+                              thread_name: str | None = None, reply_to_message_id: str | None = None) -> dict[str, Any]:
     from live_contentops.discord_live_adapter_v6 import execute_discord_post, readback_discord_post
 
     # A post with no link (a status post, decision 83) has an embed without a url.
@@ -1341,7 +1342,11 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
     if image_url:
         embeds[0]["image"] = {"url": image_url}
     raw = execute_discord_post(message=text, embeds=embeds, dry_run=False,
-                               **({"image_path": image_path} if image_path else {}))
+                               **({"image_path": image_path} if image_path else {}),
+                               **({"thread_parent_id": thread_parent_id, "thread_name": thread_name,
+                                   "reply_to_message_id": reply_to_message_id} if thread_parent_id else {}))
+    if raw.get("definite_no_write"):
+        return raw
     response = raw.get("response") if isinstance(raw.get("response"), Mapping) else {}
     message_id = str(raw.get("id") or response.get("id") or "")
     channel_id = str(response.get("channel_id") or "")
@@ -1361,14 +1366,15 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
     if image_path and raw.get("status") == "SUCCESS" and message_id:
         try:
             observed = readback_discord_post(message_id=message_id, expected_text=text,
-                canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path))
+                canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path),
+                **({"thread_id": thread_parent_id, "expected_parent_id": reply_to_message_id} if thread_parent_id else {}))
         except Exception as exc:
             observed = {"status": "READBACK_UNAVAILABLE", "verified": False,
                         "safe_error_classification": type(exc).__name__}
         # The webhook's message ID confirms the write; content/media verification
         # remains a separate reconciliation and can never undo provider acceptance.
         return {**raw,
-                "public_url": observed.get("public_url"), "destination_identity": f"discord_channel:{channel_id}",
+                "public_url": observed.get("public_url"), "destination_identity": f"discord_channel:{'1519311669216673802' if thread_parent_id else channel_id}",
                 "provider_readback_verified": bool(observed.get("verified")), "readback": observed}
     public_url = f"https://discord.com/channels/{guild_id}/{channel_id}/{message_id}" if guild_id and channel_id and message_id else None
     return {
@@ -4627,14 +4633,25 @@ def _publish_one_destination_from_durable_intent(
             image_url=public_image_url if image_path else None,
             title=str(article.get("title") or ""),
             image_path=image_path or None,
+            **({"thread_parent_id": payloads[destination]["discord_thread_parent_id"],
+                "thread_name": payloads[destination].get("discord_thread_name"),
+                "reply_to_message_id": payloads[destination].get("reply_to_id")}
+               if payloads[destination].get("discord_thread_parent_id") else {}),
         )
     if destination == "facebook_page":
+        if intent.get("plan_status_post") and payloads[destination].get("own_call_comment"):
+            from .facebook_page_adapter_v6 import execute_facebook_comment
+            raw = execute_facebook_comment(post_id=payloads[destination]["reply_to_id"], message=text)
+            return {**raw, "destination_identity": "106091951705748"}
         if not image_path:
             return _publish_facebook_text_verified(text=text, canonical_url=canonical_url)
         return _publish_facebook_photo_verified(
             text=text, canonical_url=canonical_url, media=data["primary_media"],
         )
     if destination == "instagram_business":
+        if intent.get("plan_status_post") and payloads[destination].get("own_call_comment"):
+            from .instagram_adapter_v6 import execute_instagram_comment
+            return execute_instagram_comment(media_id=payloads[destination]["reply_to_id"], message=text)
         if not data["primary_media"] or not public_image_url:
             return {
                 "status": "DEFINITE_NO_WRITE",
@@ -4673,7 +4690,7 @@ def _publish_one_destination_from_durable_intent(
             root_readback = readback_threads_post(
                 post_id=root_id, expected_text=str((payloads.get("threads") or {}).get("root_text") or text),
                 canonical_url=canonical_url, expected_media_local_path=image_path or None,
-                **({"expected_parent_id":payloads[destination]["reply_to_id"]} if intent.get("sourced_reply") else {}),
+                **({"expected_parent_id":payloads[destination]["reply_to_id"]} if payloads[destination].get("reply_to_id") else {}),
             )
             expected_replies = (payloads.get("threads") or {}).get("reply_texts") or []
             chain = readback_threads_chain(
@@ -4753,6 +4770,9 @@ def _readback_one_destination_from_durable_intent(
             canonical_url=canonical_url,
             expect_media=bool(image_path),
         )
+    elif destination in {"facebook_page", "instagram_business"} and public_object_id and (payloads.get(destination) or {}).get("own_call_comment"):
+        from .plan_call_cards_v1 import readback_own_comment
+        result = readback_own_comment(destination, public_object_id, payloads[destination]["reply_to_id"], text)
     elif destination == "facebook_page" and public_object_id:
         from live_contentops.facebook_page_adapter_v6 import readback_facebook_post
         result = readback_facebook_post(
@@ -4778,6 +4798,9 @@ def _readback_one_destination_from_durable_intent(
             message_id=public_object_id,
             expected_text=text,
             canonical_url=canonical_url,
+            **({"thread_id": payloads[destination]["discord_thread_parent_id"],
+                "expected_parent_id": payloads[destination].get("reply_to_id")}
+               if payloads[destination].get("discord_thread_parent_id") else {}),
         )
     elif destination == "threads" and public_object_id:
         from live_contentops.threads_adapter_v6 import readback_threads_chain, readback_threads_post
@@ -4785,7 +4808,7 @@ def _readback_one_destination_from_durable_intent(
         result = readback_threads_post(
             post_id=public_object_id, expected_text=str(package.get("root_text") or text), canonical_url=canonical_url,
             expected_media_local_path=image_path or None,
-            **({"expected_parent_id":payloads[destination]["reply_to_id"]} if intent.get("sourced_reply") else {}),
+            **({"expected_parent_id":payloads[destination]["reply_to_id"]} if payloads[destination].get("reply_to_id") else {}),
         )
         reply_texts = package.get("reply_texts") or []
         if reply_texts:

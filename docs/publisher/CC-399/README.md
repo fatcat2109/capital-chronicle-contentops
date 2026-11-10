@@ -19,5 +19,20 @@ The run is configured as `gpt-6.1-sol` / `max`, read from the parent launch
 arguments and labelled `CONFIGURED_NOT_OBSERVED`. No editorial model call is
 part of this deterministic implementation.
 
-Initial sub-step: 10 focused source/composition/render checks passed on
-10 November 2026. Integration and public readback are still pending.
+The copied-store acceptance makes one run announcement and five cards, then
+dispatches a fill and an ending to their exact card through the real
+coordinator with controlled transports. Parent identities are checked again
+at the write boundary. An unavailable parent defers only that destination.
+The bounded Notes request opens the exact parent and requires parent readback.
+
+Discord threads use the official create-thread endpoint and a bot credential;
+the thread's id is its starter message id. Read-before-create prevents a lost
+thread-create return from creating another thread. Messages use an exact card
+reference. Without `DISCORD_BOT_TOKEN`, the child message is a definite no-write
+with `DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE`; other destinations continue.
+
+28 targeted composition, coordinator-consumption and Discord adapter checks
+passed. See [card-and-thread-tests.xml](card-and-thread-tests.xml). The binary
+visual example was inspected for zone, invalidation, target and ET window
+legibility. Integration and the next natural morning/ending readbacks are
+still pending.

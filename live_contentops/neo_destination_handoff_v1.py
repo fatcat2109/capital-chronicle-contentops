@@ -11,6 +11,7 @@ import re
 from hashlib import sha256
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Mapping
 from urllib.parse import urlsplit, unquote
 
 
@@ -342,6 +343,17 @@ class NeoDestinationHandoff:
             # No signed-in view at all: the public channel page is the only Telegram surface.
             value["steps"][1] = "read " + TELEGRAM_PUBLIC_FEED + " with no sign-in; match the channel name @CapitalChronicle"
             value["forbidden"] = value["forbidden"] + ["web.telegram.org", "signed_in_telegram_view"]
+        if destination == "substack_notes" and isinstance(native_payload, Mapping) and native_payload.get("reply_to_id"):
+            parent_id, parent_url = native_payload["reply_to_id"], native_payload.get("reply_to_url")
+            if not _public_url(destination, parent_url, parent_id):
+                raise ValueError("SUBSTACK_NOTE_REPLY_PARENT_URL_INVALID")
+            value["entry_url"] = parent_url
+            value["reply_parent"] = {"public_object_id": parent_id, "public_object_url": parent_url}
+            value["steps"].insert(3,
+                "Open the exact reply_parent note and use its reply composer. Never create a top-level note for "
+                "this request. If the reply composer cannot attach the bound card image, return a definite "
+                "no-write with SUBSTACK_NOTE_REPLY_IMAGE_UNSUPPORTED. Return observed_reply_parent_id and "
+                "observed_reply_parent_url from the published reply's visible parent; READBACK verifies both.")
         if destination == "linkedin" and auth.get("linkedin_api_prewrite_failure"):
             value["linkedin_api_prewrite_failure"] = auth["linkedin_api_prewrite_failure"]
         if destination == "substack" and action in {"PUBLISH", "EDIT_EXISTING"} and content_binding["media_manifest"]:
@@ -468,6 +480,11 @@ class NeoDestinationHandoff:
         if (result.get("request_sha256") != request["request_sha256"]
                 or result.get("observed_identity") != IDENTITIES[destination]):
             return {"status": "UNKNOWN_WRITE", "reason_code": "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}
+        parent = request.get("reply_parent")
+        if parent and (result.get("observed_reply_parent_id") != parent["public_object_id"]
+                       or result.get("observed_reply_parent_url") != parent["public_object_url"]):
+            return {**result, "status": "UNKNOWN_WRITE", "reason_code": "SUBSTACK_NOTE_REPLY_PARENT_UNVERIFIED",
+                    "retry_permitted": False}
         policy = request.get("substack_delivery_policy")
         if policy and str(result.get("status", "")).upper() in {"SUCCESS", "PUBLISHED", "DISPATCH_CONFIRMED"}:
             observed = result.get("delivery_observation") or {}
@@ -618,6 +635,10 @@ class NeoDestinationHandoff:
             and (not public_object_url or result.get("public_object_url") == public_object_url)
             and _public_url(destination, result.get("public_object_url"), result.get("public_object_id"))
             and result.get("content_verified") is True and text_match and media_match and thread_match and attachments_match)
+        parent = request.get("reply_parent")
+        if parent:
+            verified = verified and result.get("observed_reply_parent_id") == parent["public_object_id"] \
+                and result.get("observed_reply_parent_url") == parent["public_object_url"]
         identity_exists = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == IDENTITIES[destination]
             and bool(public_object_id) and result.get("public_object_id") == public_object_id
