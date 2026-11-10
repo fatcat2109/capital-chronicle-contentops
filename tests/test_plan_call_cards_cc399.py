@@ -1,0 +1,180 @@
+"""CC-399 acceptance: the existing outbox consumes Main calls without new analytics."""
+from datetime import datetime, timezone
+import json
+from pathlib import Path
+import sys
+
+import pytest
+
+from live_contentops import plan_call_cards_v1 as cards
+from live_contentops import plan_status_posts_v1 as posts
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from test_plan_status_posts_cc306 import main_root, plan, event  # noqa: F401
+
+NOW = datetime(2026, 11, 10, 8, tzinfo=timezone.utc)
+
+
+def call(pid, asset="EURUSD", **changes):
+    value = plan(pid, asset, "BULLISH", 1.12017, 1.12054, invalid=1.11824,
+                 deadline="2026-11-10T15:00:00Z")
+    value.update(run_id="morning-run", registered_at_utc="2026-11-10T07:45:00Z",
+                 target=1.12406, tick_size=.0001, public_call_id="call_" + pid,
+                 reader_reasons=["A weaker dollar supports the idea.", "The entry waits for a pullback."],
+                 scenario_analysis={"horizon_end_utc": "2026-11-10T21:00:00Z",
+                                    "base_case": {"probability_pct": 55}})
+    value.update(changes)
+    return value
+
+
+def write(folder, plans, events, **fields):
+    folder.mkdir(parents=True, exist_ok=True)
+    status = {"generated_at_utc": NOW.isoformat(), "plans": plans, "content_hash": "a" * 64,
+              "record_summary": {"judged_count": 12, "right_count": 7, "trend_rule_right_count": 5}, **fields}
+    (folder / "plan-status.public.json").write_text(json.dumps(status), encoding="utf-8")
+    (folder / "plan-transitions.public.json").write_text(json.dumps({"status_content_hash": "a" * 64,
+        "transitions": events}), encoding="utf-8")
+    return folder
+
+
+def queue(store, folder, main_root, **kwargs):
+    return posts.queue_posts(store, folder, now=NOW, main_root=main_root, python=sys.executable, **kwargs)
+
+
+def rows(store):
+    return [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=posts.DESTINATION)]
+
+
+@pytest.fixture
+def five(tmp_path, main_root):
+    store = ContentOpsDurableStore(tmp_path / "copy.sqlite")
+    plans = [call(f"id{i:07}") for i in range(5)]
+    events = [event(p["plan_id"], "WAITING", p["registered_at_utc"]) for p in plans]
+    folder = write(tmp_path / "export", plans, events)
+    return store, folder, plans, events
+
+
+def test_five_plans_make_one_run_and_five_cards_once(five, main_root):
+    store, folder, _, _ = five
+    first = queue(store, folder, main_root)
+    assert first["status"] == "OK"
+    payloads = rows(store)
+    run = next(r for r in payloads if r["kind"] == "run")
+    calls = [r for r in payloads if r["kind"] == "setup"]
+    assert len(payloads) == 6 and len(calls) == 5 and len(run["card_keys"]) == 5
+    assert "run: 5." in run["text"]
+    assert all(r["parent_key"] == run["key"] for r in calls)
+    assert queue(store, folder, main_root)["queued"] == []
+    assert len(rows(store)) == 6
+
+
+def test_card_uses_target_tick_real_time_exit_chance_and_three_short_reasons(five, main_root):
+    store, folder, _, _ = five
+    queue(store, folder, main_root)
+    card = next(r for r in rows(store) if r["kind"] == "setup")
+    assert "Model target level: 1.1241." in card["text"]
+    assert "1.1202–1.1205" in card["text"] and "1.1182" in card["text"]
+    assert "Time exit: 10 Nov 16:00 ET" in card["text"]
+    assert "Entry window to 10 Nov 10:00 ET" in card["text"]
+    assert "55% (Capital Chronicle model estimate)" in card["text"]
+    assert "12 calls judged, 7 right; trend rule: 5 right" in card["text"]
+    assert len(card["reasons"]) == 2 and all(len(r) <= 200 for r in card["reasons"])
+    assert "1.12017" not in card["text"]
+
+
+def test_fill_and_winning_time_exit_keep_their_own_card_parent(five, main_root):
+    store, folder, plans, events = five
+    queue(store, folder, main_root)
+    original = next(r for r in rows(store) if r["kind"] == "setup")
+    store.set_outbox_status(original["key"], "PUBLISHED")
+    pid = original["plan_id"]
+    raw = next(p for p in plans if p["plan_id"] == pid)
+    raw["status"] = "FILLED"
+    raw["outcome"] = {"state": "SCORED", "result": "EXPIRED", "outcome_id": "outcome-time",
+                      "score": {"plan_id": pid, "asset_id": raw["asset_id"], "outcome_id": "outcome-time",
+                                "result": "EXPIRED", "resolved_at_utc": "2026-11-10T07:59:00Z",
+                                "direction_correct": True}}
+    events.append(event(pid, "FILLED", "2026-11-10T07:50:00Z"))
+    write(folder, plans, events)
+    queue(store, folder, main_root)
+    later = [r for r in rows(store) if r["plan_id"] == pid and r["kind"] in {"update", "result"}]
+    assert {r["kind"] for r in later} == {"update", "result"}
+    assert all(r["parent_key"] == original["key"] for r in later)
+    ending = next(r for r in later if r["kind"] == "result")
+    assert "closed at its time exit, on our side of the entry" in ending["text"]
+    assert "expired" not in ending["text"].lower() and "Scored calls:" not in ending["text"]
+
+
+def test_unfilled_ending_is_owed_only_for_a_posted_setup(five, main_root):
+    store, folder, plans, events = five
+    queue(store, folder, main_root)
+    original = next(r for r in rows(store) if r["kind"] == "setup")
+    store.set_outbox_status(original["key"], "PUBLISHED")
+    raw = next(p for p in plans if p["plan_id"] == original["plan_id"])
+    raw["status"] = "EXPIRED"
+    raw["outcome"] = {"state": "NOT_SCORED_UNTRIGGERED"}
+    events.append(event(raw["plan_id"], "EXPIRED", "2026-11-10T07:59:00Z"))
+    never = call("never_seen", status="EXPIRED", registered_at_utc="2026-11-08T00:00:00Z")
+    plans.append(never)
+    events += [event(never["plan_id"], "WAITING", "2026-11-08T00:00:00Z"),
+               event(never["plan_id"], "EXPIRED", "2026-11-10T07:59:00Z")]
+    write(folder, plans, events)
+    queue(store, folder, main_root)
+    endings = [r for r in rows(store) if r["kind"] == "result"]
+    assert len(endings) == 1 and "not triggered" in endings[0]["text"]
+    assert "our way" not in endings[0]["text"]  # not supplied by Main
+
+
+def test_main_scorer_supplies_untriggered_direction_without_publisher_inference():
+    assert cards.ending_words({"untriggered": True, "direction_correct": True}) == "not triggered; price then went our way"
+    assert cards.ending_words({"untriggered": True, "direction_correct": False}) == "not triggered; price then went against us"
+    assert cards.ending_words({"triggered_not_traded": True}) == "triggered, not traded"
+
+
+def test_missing_fields_do_not_hide_available_inputs(five, main_root):
+    store, folder, plans, events = five
+    for p in plans:
+        p.pop("target")
+    write(folder, plans, events)
+    queue(store, folder, main_root)
+    calls = [r for r in rows(store) if r["kind"] == "setup"]
+    assert len(calls) == 5 and all("Model target level" not in r["text"] for r in calls)
+    assert all("55%" in r["text"] and "Time exit" in r["text"] for r in calls)
+
+
+def test_mapped_instrument_does_not_borrow_book_target_or_tick():
+    p = call("mapped", public_instrument={"name": "Euro FX", "symbol": "6E", "kind": "FUT",
+        "direction": "BULLISH", "zone_low": 1.12, "zone_high": 1.121, "invalidation_level": 1.118,
+        "entries": []})
+    mapped = cards.card_plan(p)
+    assert mapped["price_basis"] == "instrument"
+    assert mapped["target"] is None and mapped["tick_size"] is None
+
+
+def test_bad_reason_number_or_length_yields_no_reasons():
+    assert cards.checked_reasons(["Support at 9999."], {"mechanism": "Support at 1.1200."}) == []
+    assert len(cards.checked_reasons(["a " * 110], {})[0]) <= 200
+
+
+def test_reasons_use_three_source_lines_and_fixed_glossary_without_a_model():
+    raw = call("one", reader_reasons=[], scenario_analysis={
+        "mechanism": "DXY weakness supports a rebound.", "priced": "Risk-off sentiment is priced.",
+        "positioning": "COT points to crowded positioning.", "driver": "Never the fourth reason."})
+    source = cards._reason_source(raw)
+    reasons = cards.checked_reasons(cards.source_reasons(raw), source)
+    assert len(reasons) == 3
+    assert "dollar index" in reasons[0] and "futures positioning report" in reasons[2]
+    assert "fourth" not in " ".join(reasons)
+
+
+def test_rendered_chart_is_bound_to_exact_call_levels_and_source(five, main_root, tmp_path):
+    from live_contentops.plan_call_card_media_v1 import render
+    from PIL import Image
+    store, folder, _, _ = five
+    queue(store, folder, main_root)
+    card = next(r for r in rows(store) if r["kind"] == "setup")
+    asset = render(card, tmp_path / "render")
+    assert Image.open(asset["path"]).size == (1440, 1440)
+    assert asset["chart_spec"]["source_content_hash"] == "a" * 64
+    assert asset["chart_spec"]["price_history"] is False
+    assert asset["chart_spec"]["levels"]["target"] == [1.12406]
+    assert asset["delivery_only"] and Path(asset["path"]).stat().st_size > 10000

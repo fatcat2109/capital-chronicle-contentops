@@ -100,7 +100,7 @@ def read_export(export_dir: Path = EXPORT_DIR, *, main_root: Path = MAIN_ROOT, p
         raise PlanPostError("PLAN_EXPORT_UNREADABLE:" + re.sub(r"[^A-Za-z0-9_]", "", name)[:80])
 
 
-def rows_from_export(export: Mapping[str, Any]) -> list[dict]:
+def rows_from_export(export: Mapping[str, Any], *, include_results: bool = True) -> list[dict]:
     plans = {p["plan_id"]: p for p in export["status"].get("plans", []) if p.get("plan_id")}
     events = export["transitions"].get("transitions", [])
     filled = {e.get("plan_id"): _utc(e["at_utc"]) for e in events if e.get("status") == "FILLED"}
@@ -126,7 +126,7 @@ def rows_from_export(export: Mapping[str, Any]) -> list[dict]:
                 and _utc(row["at_utc"]) != filled[event["plan_id"]]):
             row["superseded_by_fill"] = True
         rows.append(row)
-    return rows + result_rows_from_export(export)
+    return rows + (result_rows_from_export(export) if include_results else [])
 
 
 def result_rows_from_export(export: Mapping[str, Any]) -> list[dict]:
@@ -672,6 +672,10 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     nothing is queued, and the caller posts nothing in that run.
     """
     now = now or datetime.now(timezone.utc)
+    from live_contentops import plan_call_cards_v1 as cards
+    if now >= cards.EFFECTIVE:
+        return cards.queue_posts(store, export_dir, now=now, window_minutes=window_minutes,
+                                 dry_run=dry_run, **reader)
     limit = EXPORT_MAX_AGE_MINUTES
     freshness = {}
     try:
