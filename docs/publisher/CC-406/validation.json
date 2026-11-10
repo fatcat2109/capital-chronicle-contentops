@@ -1,6 +1,6 @@
 {
   "item": "CC-406",
-  "observed_at_utc": "2026-11-10T19:43:18.690340+00:00",
+  "observed_at_utc": "2026-11-10T19:47:04.184631+00:00",
   "base_sha": "7a7f49b61c5076a174ae4c0f39a7988a6dbb5258",
   "base_choice": "Current Publisher operating root includes fresh origin/master and 840 installed commits. This preserves the operating changes.",
   "launch": {
@@ -14,6 +14,17 @@
       "command": "python -B -m pytest -q tests/test_vietnamese_gold_note_cc406.py",
       "passed": 15,
       "seconds": 4.42
+    },
+    {
+      "command": "python -B -m pytest -q tests/test_native_desktop_editorial_v1.py tests/test_native_configured_provenance_v1.py tests/test_daily_note_first_draft_cc403.py",
+      "passed": 37,
+      "seconds": 12.56
+    },
+    {
+      "command": "python -B -m pytest -q tests/test_vietnamese_gold_note_cc406.py",
+      "passed": 17,
+      "seconds": 4.1,
+      "covers": "Held official-source fallback, Main number disagreement, exact native replay, dated desk files, rendered review binding, late/future clocks and normal-entry housekeeping."
     }
   ],
   "preserved_wip": [

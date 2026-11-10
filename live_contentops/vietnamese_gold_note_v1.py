@@ -83,6 +83,32 @@ def _latest_report(root, now):
     return max(reports, key=lambda row: (row[0], str(row[1])))[1]
 
 
+def _official_cpi(report_path, cutoff):
+    """Reuse the newest held official release known by Main's capture."""
+    paths = [report_path.with_name("role-evidence.json"),
+             *sorted(report_path.parent.parent.glob("*/role-evidence.json"))]
+    options = []
+    for path in dict.fromkeys(paths):
+        if not path.is_file():
+            continue
+        raw = path.read_bytes()
+        evidence = json.loads(raw)
+        rows = evidence if isinstance(evidence, list) else evidence.get("rows", [])
+        for row in rows:
+            if not isinstance(row, dict) or not isinstance(row.get("content"), dict):
+                continue
+            content = row["content"]
+            rights = row.get("rights_state") or {}
+            rights = rights.get("rights_state") if isinstance(rights, dict) else rights
+            if (content.get("source_url") == "https://www.bls.gov/news.release/cpi.nr0.htm"
+                    and rights == "PUBLIC_DOMAIN_ATTRIBUTION_REQUIRED" and content.get("official_text")
+                    and row.get("known_at_utc") and utc(row["known_at_utc"]) <= cutoff):
+                options.append((row, {"path": str(path), "sha256": sha256(raw).hexdigest()}))
+    if not options:
+        raise ValueError("GOLD_NOTE_HELD_OFFICIAL_CPI_RELEASE_ABSENT")
+    return max(options, key=lambda option: utc(option[0]["known_at_utc"]))
+
+
 def source_context(*, now, report_root=NATIVE_MAIN_REPORT_ROOT):
     """Reuse the exact public-span adapter. No execution row enters native input."""
     path = _latest_report(report_root, now)
@@ -123,26 +149,7 @@ def source_context(*, now, report_root=NATIVE_MAIN_REPORT_ROOT):
     verified = verify_projection(spec)
     # Main already holds the official release. Retain only two exact BLS spans,
     # not the full evidence file or its private neighbouring rows.
-    evidence_path = path.with_name("role-evidence.json")
-    evidence_raw = evidence_path.read_bytes()
-    evidence = json.loads(evidence_raw)
-    rows = evidence if isinstance(evidence, list) else evidence.get("rows", [])
-    options = []
-    for row in rows:
-        if not isinstance(row, dict):
-            continue
-        content = row.get("content") or {}
-        if not isinstance(content, dict):
-            continue
-        rights = row.get("rights_state") or {}
-        rights = rights.get("rights_state") if isinstance(rights, dict) else rights
-        if (content.get("source_url") == "https://www.bls.gov/news.release/cpi.nr0.htm"
-                and rights == "PUBLIC_DOMAIN_ATTRIBUTION_REQUIRED" and content.get("official_text")
-                and row.get("known_at_utc") and utc(row["known_at_utc"]) <= cutoff):
-            options.append(row)
-    if not options:
-        raise ValueError("GOLD_NOTE_HELD_OFFICIAL_CPI_RELEASE_ABSENT")
-    official = max(options, key=lambda row: utc(row["known_at_utc"]))
+    official, evidence_binding = _official_cpi(path, cutoff)
     content = official["content"]
     text = content["official_text"]
     patterns = [
@@ -150,10 +157,16 @@ def source_context(*, now, report_root=NATIVE_MAIN_REPORT_ROOT):
         ("core", "CPI lõi", r"The index for all items less food and energy (?:increased|rose) ([\d.]+) percent"),
     ]
     facts = []
+    main_summary = " ".join(row.get("text", "") for row in report.get("summary", []) if isinstance(row, dict))
+    main_patterns = {"headline": r"\b(?:CPI-U|headline CPI|CPI)\s+\+?(\d+(?:\.\d+)?)%",
+                     "core": r"\bcore(?: CPI)?\s+\+?(\d+(?:\.\d+)?)%"}
     for identity, label, pattern in patterns:
         match = re.search(pattern, text)
         if not match:
             raise ValueError("GOLD_NOTE_OFFICIAL_CPI_FIELD_ABSENT:" + identity)
+        main_value = re.search(main_patterns[identity], main_summary, re.I)
+        if main_value and float(main_value[1]) != float(match[1]):
+            raise ValueError("GOLD_NOTE_OFFICIAL_NUMBER_DIFFERS_FROM_MAIN:" + identity)
         value = float(match[1])
         facts.append({"fact_id": identity, "label": label, "value": value, "display": match[1] + "%",
             "unit": "percent_month_on_month_seasonally_adjusted", "period": content["reference_period"],
@@ -166,7 +179,7 @@ def source_context(*, now, report_root=NATIVE_MAIN_REPORT_ROOT):
         "main_source": {"path": str(path), "sha256": digest, "projection_sha256": sha256_of(verified),
             "known_at_utc": known.isoformat(), "capture_path": str(capture), "capture_sha256": sha256(capture_raw).hexdigest()},
         "gold_view": gold, "six_market_table": table, "official_facts": facts,
-        "official_evidence": {"path": str(evidence_path), "sha256": sha256(evidence_raw).hexdigest()},
+        "official_evidence": evidence_binding,
         "public_date_et": cutoff.astimezone(ET).date().isoformat(),
         "notice": NOTICE, "chart": {"kind": "bar", "series": "BLS CPI monthly change", "fact_ids": ["headline", "core"]}}
     context["source_pack_sha256"] = sha256_of(context)
@@ -193,7 +206,7 @@ def validate_note(output, context):
     # Dates may be used as dated context; no new price, probability or forecast.
     allowed |= numbers(context["public_date_et"])
     for row in context["official_facts"]:
-        allowed |= numbers(str(row["period"]))
+        allowed |= numbers(str(row["period"]).replace("-M", "-"))
     if numbers(text) - allowed:
         raise ValueError("GOLD_NOTE_NUMBER_NOT_IN_BOUND_OFFICIAL_SOURCE")
     return output
@@ -332,6 +345,8 @@ def command(rollout, action, *, response=None, day=None, now=None, notes_root=RO
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
     now = now or datetime.now(timezone.utc)
     day = day or now.astimezone(LOCAL).date()
+    if day > now.astimezone(LOCAL).date():
+        raise ValueError("GOLD_NOTE_FUTURE_DAY_FORBIDDEN")
     if action == "gold-note-status":
         return status(notes_root=notes_root, day=day)
     store = ContentOpsDurableStore(rollout["store_path"], auto_migrate=False)

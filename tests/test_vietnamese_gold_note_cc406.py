@@ -27,7 +27,8 @@ def fixture_context(tmp_path, monkeypatch):
     folder.mkdir(parents=True)
     monkeypatch.setattr(projection, "NATIVE_MAIN_REPORT_ROOT", root)
     stamp = "2026-11-12T22:00:00Z"
-    report = {"candidates": [{"candidate_id": "cand_macro_" + aliases[0],
+    report = {"summary": [{"text": "BLS headline CPI +0.4% and core CPI +0.3% month on month."}],
+        "candidates": [{"candidate_id": "cand_macro_" + aliases[0],
         "rationale": "Base case: a dated market view. Mechanism: rates.\nPriced: private detail.\nPlan: private detail."}
         for aliases in gold.MARKETS.values()]}
     path = folder / "owner-native.json"
@@ -70,14 +71,18 @@ def test_context_uses_latest_capture_and_exact_public_spans_without_private_rows
     ("future_official", "HELD_OFFICIAL_CPI_RELEASE_ABSENT"),
     ("private_rights", "HELD_OFFICIAL_CPI_RELEASE_ABSENT"),
     ("absent_gold", "MAIN_GOLD_VIEW_ABSENT"),
+    ("main_mismatch", "OFFICIAL_NUMBER_DIFFERS_FROM_MAIN"),
 ])
 def test_source_failure_names_the_actual_fact_right_or_gold_gap(tmp_path, monkeypatch, change, cause):
     _, root = fixture_context(tmp_path, monkeypatch)
     folder = root / "request-current"
-    if change == "absent_gold":
+    if change in {"absent_gold", "main_mismatch"}:
         path = folder / "owner-native.json"
         value = json.loads(path.read_bytes())
-        value["candidates"] = value["candidates"][1:]
+        if change == "absent_gold":
+            value["candidates"] = value["candidates"][1:]
+        else:
+            value["summary"][0]["text"] = "Main records headline CPI +0.9% and core CPI +0.3%."
     else:
         path = folder / "role-evidence.json"
         value = json.loads(path.read_bytes())
@@ -86,10 +91,28 @@ def test_source_failure_names_the_actual_fact_right_or_gold_gap(tmp_path, monkey
         else:
             value[1]["rights_state"]["rights_state"] = "PUBLIC_REDISTRIBUTION_NOT_LICENSED"
     path.write_bytes(canonical_bytes(value))
-    if change == "absent_gold":
+    if change in {"absent_gold", "main_mismatch"}:
         os.utime(path, (NOW.timestamp() - 3600, NOW.timestamp() - 3600))
     with pytest.raises(ValueError, match=cause):
         gold.source_context(now=NOW, report_root=root)
+
+
+def test_held_release_is_used_when_the_latest_report_does_not_repeat_it(tmp_path, monkeypatch):
+    _, root = fixture_context(tmp_path, monkeypatch)
+    current = root / "request-current"
+    earlier = root / "request-earlier"
+    earlier.mkdir()
+    retained = earlier / "role-evidence.json"
+    retained.write_bytes((current / "role-evidence.json").read_bytes())
+    (current / "role-evidence.json").write_text("[]", encoding="utf-8")
+    path = current / "owner-native.json"
+    report = json.loads(path.read_bytes())
+    report["summary"] = [{"text": "The gold view remains conditional on the dollar and rates."}]
+    path.write_bytes(canonical_bytes(report))
+    os.utime(path, (NOW.timestamp() - 3600, NOW.timestamp() - 3600))
+    context = gold.source_context(now=NOW, report_root=root)
+    assert context["official_evidence"]["path"] == str(retained)
+    assert [fact["display"] for fact in context["official_facts"]] == ["0.4%", "0.3%"]
 
 
 @pytest.mark.parametrize("change,cause", [
