@@ -84,61 +84,68 @@
     "PASS": 10,
     "GAP": 30
   },
-  "artifact_sha256": [
+  "artifact_sha256_lf": [
     {
       "path": "api-readbacks.json",
-      "bytes": 29326,
-      "sha256": "0d36e2146e8eb11f6554d95a38825f633a4a89e999979835903f75e3a95ca614"
+      "bytes_lf": 28840,
+      "sha256_lf": "80c4305a013d569fe3173ceffa3a3e77f22c293b9cd5bd245f97bc74840bfb25"
     },
     {
       "path": "article-bindings.json",
-      "bytes": 209405,
-      "sha256": "a2f3c5781d6a609f1419796472ac86008c3af6f453575f1f4f0a018f0235fb3f"
+      "bytes_lf": 206119,
+      "sha256_lf": "2f920803b67d4e253acc9a6e4f1ea60276c9295c0e52fbebd5342ca9617c112b"
     },
     {
       "path": "capture_api_readbacks.py",
-      "bytes": 4777,
-      "sha256": "eb4b262f0c2898b11fb75fe05fee31c9add32b2b051c3d9bb7d05f4772f3dc20"
+      "bytes_lf": 4777,
+      "sha256_lf": "eb4b262f0c2898b11fb75fe05fee31c9add32b2b051c3d9bb7d05f4772f3dc20"
     },
     {
       "path": "capture_consumer_evidence.py",
-      "bytes": 5493,
-      "sha256": "dec32acef524b7d4712fa40ef64248da9009265f1e1e136cdefa5d33736150d6"
+      "bytes_lf": 5493,
+      "sha256_lf": "dec32acef524b7d4712fa40ef64248da9009265f1e1e136cdefa5d33736150d6"
     },
     {
       "path": "consumer-evidence.json",
-      "bytes": 9699,
-      "sha256": "6b6e2d437841f12dab518c782be0ad3d574af98a062a098d4f995b59d75cd2b1"
+      "bytes_lf": 9541,
+      "sha256_lf": "fe23542b7de92d885897a111df04e0cc1239dfce9f871593ea56f8939951510f"
     },
     {
       "path": "findings.json",
-      "bytes": 24806,
-      "sha256": "f9a7650f7e82e50bc890750af1ad110800d75e9d6f5d94eac9abf32f59c34d16"
+      "bytes_lf": 24396,
+      "sha256_lf": "e810e432dc22b8e206936b50ec4b5ce30b861da0363f25882722c994ab010c67"
     },
     {
       "path": "inventory.json",
-      "bytes": 45602,
-      "sha256": "6f38d574dae5e76277a506cfdfa4d67bed5002cbfb937869cf6cc41441e5cf56"
+      "bytes_lf": 45234,
+      "sha256_lf": "bfd53da039260d7e111596862aa52a4bf99610f8f5a7dcfbaa00d526e561e0ed"
     },
     {
       "path": "launch.json",
-      "bytes": 2689,
-      "sha256": "ba40c142af7ae45bcf2f9bcefa1cc0b901a046654dd44469bd858458e8ba940b"
+      "bytes_lf": 2641,
+      "sha256_lf": "4529225734866c1e78272f75033f86f8533eca572e26841d096b742fe650dc25"
     },
     {
       "path": "pinned-scorecard-readback.json",
-      "bytes": 10987,
-      "sha256": "a20abdb875e2b94d24f68499e7c37ff36ec3a130b65599e63c8bc5db09212dbc"
+      "bytes_lf": 10816,
+      "sha256_lf": "4c2bc847419f0c69c1cb3e37df336c8212d4d79c5a63172dee45bd26e6c54708"
     },
     {
       "path": "public-readbacks.json",
-      "bytes": 109198,
-      "sha256": "38988c82684fc38d27f27ecd2f073562088fe1df9c9a40d7bdae085d9d580fe4"
+      "bytes_lf": 108539,
+      "sha256_lf": "5f109ba44778eda9b410f24edbe6710695c9a4210838d705d660a0e69b969702"
     },
     {
       "path": "README.md",
-      "bytes": 23307,
-      "sha256": "b89cb7035a769c904701f76085908f6515bd771e3d49dfc0cb4203e01c6fa700"
+      "bytes_lf": 23249,
+      "sha256_lf": "3b6f8599b9586f81c42e6f09935c3ce77042aca16f64fad77877160b7318ebac"
     }
-  ]
+  ],
+  "artifact_hash_basis": "UTF-8 repository text, CRLF normalized to LF. Referenced external source hashes retain their exact original raw-byte basis.",
+  "integration_check": {
+    "operating_audit_head": "39e08ce958cf9cd1c820f2fdd1386938d9584d68",
+    "installed_repository_text_matches": true,
+    "consumer_table_rows": 40,
+    "all_nine_pre_existing_wip_unchanged": true
+  }
 }
