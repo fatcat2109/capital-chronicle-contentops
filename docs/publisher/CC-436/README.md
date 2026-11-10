@@ -68,6 +68,8 @@ results do not prove the two-minute live requirement.
 - The MCP client reads SSE until its exact JSON-RPC reply, closes that response
   and enforces a deadline. A keepalive stream cannot hold the minute worker
   indefinitely. A regression rejects reading beyond a completed reply.
+- Final closeout checks: 27 feature/route tests passed in 20.39 seconds. An old
+  read request for a settled definite no-write consumes no browser/drain slot.
 - Coordinator, composed-return and CLI regressions: 124 passed in 133.97 seconds.
 - Composed-return, plan distribution and restored-X checks: 49 passed in 48.80
   seconds. A historical test fixture's required destinations were aligned with
@@ -90,6 +92,12 @@ returns were retained. During the repair, Neo's snapshot on the separate
 preparation tab also failed to return; that tab and the identified blocked
 preparation helper were closed. No app or schedule was restarted, and no helper
 was left running. Fresh live X timing remains unobserved.
+
+The subsequent normal tick completed at `2026-11-10T21:21:19.076831Z` with
+`status=OK` and the endpoint drain present in the existing log. It retained
+stale/no-write and uncertain-readback outcomes rather than claiming a post.
+The final source import was read back from the operating root; both task and
+operating branches are pushed. The BACKLOG Result holds the final source SHA.
 
 The stored Notes identity is `@deancapitalchronicle`. At
 `2026-11-10T20:26:17Z`, its live profile was unavailable; the page subsequently

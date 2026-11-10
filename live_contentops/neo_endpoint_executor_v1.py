@@ -641,6 +641,11 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
         dispatch=store.get_platform_dispatch(ids["dispatch_id"])
         if not dispatch:
             continue
+        if (dispatch["status"]=="DEFINITE_NO_WRITE" and not dispatch.get("public_object_id")
+                and not dispatch.get("public_object_url")):
+            # A settled no-write has nothing to read back. Repeated old read
+            # requests must not spend the bounded drain slots every minute.
+            continue
         coordinator.recovery_scope={"work_item_id":request["work_item_id"],"exact_work_item_only":True}
         coordinator.allow_prior_confirmed_distribution=True
         try:

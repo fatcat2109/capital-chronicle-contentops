@@ -460,3 +460,20 @@ def test_existing_beforeunload_is_cleared_before_running_a_page_script():
         def snapshot(self,page):pytest.fail('SDK script attempted in a page with a blocking browser dialog')
     client=Client();client.clear_task_draft(1)
     assert client.actions==[(1,'dialog_accept')]
+
+
+def test_settled_no_write_readback_does_not_consume_the_next_minute_slot(tmp_path):
+    store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
+    c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'old-note',
+        native_invocation_id='old-note',allow_publish=True)
+    first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+    # An earlier read request can survive after its account route settles as a
+    # definite no-write. It is retained, but is not an observable public object.
+    c.readback_existing_dispatch(ids['dispatch_id'])
+    store.set_dispatch_status(ids['dispatch_id'],'DEFINITE_NO_WRITE')
+    store.register_outbox_message(message_id=value['work_item_id'],work_item_id=value['work_item_id'],
+        destination='internal:plan-status-post',payload=json.dumps({'kind':'result','at_utc':datetime.now(timezone.utc).isoformat()}),status='PUBLISHED')
+    with endpoint() as (url,state):
+        result=neo.resume_stored_requests(store,client=neo.NeoMcpClient(url),output_root=tmp_path/'resumed')
+        assert result['requests']==[]
+        assert not state['calls']
