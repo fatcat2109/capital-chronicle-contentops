@@ -11,9 +11,17 @@ from another price basis. Missing values stay absent. Ending words use Main's
 scorer; a time exit is never called an expired trade. Untriggered direction is
 shown only when Main supplies it.
 
-Decision 110's amended CC-399 instruction replaces Antigravity with the first
-three source reasons, at most 200 characters each, and a fixed glossary. No
-model is called. Every number is compared with that call's own source reasons.
+Decision 113 replaces the three short reasons with CC-432's structured summary
+and full-analysis link. The consumer accepts an optional `analysis_publication`
+on its plan: `plan_id`, the matching `registration_hash`, a confirmed
+`canonical_url` under `https://capitalchronicle.substack.com/p/`, and `summary`.
+The summary has the public fields `macro`, `fundamental`, `technical`,
+`geopolitical`, `priced_in`, `scenarios` and `desk_process`. Each destination
+retains the link and uses the available room for the structured summary.
+CC-432 owns the filtered page and this publication result; CC-399 reads no Main
+run folder. No model is called. Until that result exists, the held source
+reasons remain the available explanation, using decision 110's fixed glossary
+and number check. This fallback is not full-analysis acceptance.
 
 The run is configured as `gpt-6.1-sol` / `max`, read from the parent launch
 arguments and labelled `CONFIGURED_NOT_OBSERVED`. No editorial model call is
@@ -53,3 +61,9 @@ Threads copy exceeds 500 characters after the notice change, and an X test
 expects the retired X request route. `9b94d318` reproduces the former; `begin_x`
 is byte-for-byte unchanged for the latter. CC-431 owns X restoration. Those
 legacy failures do not describe format-4 card dispatch.
+
+The final summary/parent checks passed 26 tests in 22.94 seconds. The live-export
+dry run read Main's own contract reader, used the existing production outbox
+identities and returned OK without a store or public write. See
+[summary-and-parent-tests.xml](summary-and-parent-tests.xml) and
+[current-export-dry-run.json](current-export-dry-run.json).

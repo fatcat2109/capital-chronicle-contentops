@@ -355,3 +355,55 @@ def test_watch_ending_does_not_claim_an_open_trade_closed():
 
 def test_hit_at_time_exit_uses_time_exit_words_not_a_target_claim():
     assert cards.ending_words({"result": "HIT", "score_basis": "BROKER_TIME_EXIT", "direction_correct": True}) == "closed at its time exit, on our side of the entry"
+
+
+def test_announced_results_only_pending_unpublished_setup_gets_no_ending(five, main_root):
+    store, folder, plans, events = five
+    queue(store, folder, main_root)
+    raw = plans[0]
+    raw.update(status="EXPIRED", outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+    events.append(event(raw["plan_id"], "EXPIRED", "2026-11-10T07:59:00Z"))
+    write(folder, plans, events)
+    result = queue(store, folder, main_root)
+    assert not any(r["kind"] == "result" for r in rows(store))
+    assert any(r["cause"] == "PLAN_NEVER_ANNOUNCED" for r in result["not_posted"])
+
+
+def test_cc432_summary_and_confirmed_page_replace_short_reasons(five, main_root):
+    store, folder, plans, events = five
+    for raw in plans:
+        raw["registration_hash"] = "b" * 64
+        raw["analysis_publication"] = {"plan_id": raw["plan_id"], "registration_hash": "b" * 64,
+            "canonical_url": "https://capitalchronicle.substack.com/p/the-analysis",
+            "summary": {"macro": "A weaker dollar is the economic driver.",
+                        "fundamental": "The rate differential supports the view.",
+                        "technical": "The idea waits for a pullback.",
+                        "geopolitical": "No new event is confirmed.",
+                        "priced_in": "Positioning leaves room for a reversal.",
+                        "scenarios": "The alternative is a stronger dollar.",
+                        "desk_process": "The critic challenged the timing; the final view kept a conditional entry."}}
+    write(folder, plans, events)
+    queue(store, folder, main_root)
+    card = next(r for r in rows(store) if r["kind"] == "setup")
+    assert "Macro: A weaker dollar" in card["text"]
+    assert "How the desk reached its view:" in card["text"]
+    assert "Full analysis: https://capitalchronicle.substack.com/p/the-analysis" in card["text"]
+    assert "• A weaker dollar supports the idea." not in card["text"]
+    for destination, payload in cards.destination_payloads(card, card_id="card").items():
+        assert "https://capitalchronicle.substack.com/p/the-analysis" in payload["text"]
+        assert len(payload["text"]) <= (500 if destination == "threads" else 1024 if destination == "telegram" else 60000)
+
+
+@pytest.mark.parametrize("fault,cause", [("identity", "CC432_PLAN_BINDING_MISMATCH"),
+    ("preview", "CC432_CONFIRMED_ANALYSIS_URL_REQUIRED"), ("private", "CC432_PUBLIC_SUMMARY_FILTER_FAILED")])
+def test_cc432_envelope_cannot_mix_plans_preview_hosts_or_private_summary(fault, cause):
+    raw = call("one", registration_hash="b" * 64)
+    raw["analysis_publication"] = {"plan_id": "one", "registration_hash": "b" * 64,
+        "canonical_url": "https://capitalchronicle.substack.com/p/the-analysis", "summary": {"macro": "A weaker dollar supports the view."}}
+    if fault == "identity":
+        raw["analysis_publication"]["plan_id"] = "another"
+    elif fault == "preview":
+        raw["analysis_publication"]["canonical_url"] = "https://example.github.io/the-analysis"
+    else:
+        raw["analysis_publication"]["summary"]["macro"] = "The desk is AI-run by Opus."
+    assert cards.analysis_publication(raw) == ({}, cause)

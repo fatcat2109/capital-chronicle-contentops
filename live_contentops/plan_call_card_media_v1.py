@@ -14,7 +14,7 @@ from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
 def render(row, folder):
     from PIL import Image, ImageDraw
     packet = {k: row.get(k) for k in ("key", "kind", "instrument_title", "short_id", "levels", "reasons",
-        "record_line", "time_exit_utc", "entry_deadline_utc", "card_keys", "text", "at_utc", "source_content_hash")}
+        "record_line", "time_exit_utc", "entry_deadline_utc", "card_keys", "text", "at_utc", "source_content_hash", "analysis_publication")}
     packet["renderer"] = "CC399_CALL_CARD_JPEG_V1"
     digest = hashlib.sha256(json.dumps(packet, sort_keys=True).encode()).hexdigest()
     path = Path(folder).resolve() / "media_assets" / f"call-card-{digest[:20]}.jpg"
@@ -80,8 +80,10 @@ def render(row, folder):
             line = text(72, line, "Entry window to " + _clock(row["entry_deadline_utc"]), 25, muted, width=80)
         if plan.get("chance_pct") is not None:
             line = text(72, line, f"{plan['chance_label']}: {plan['chance_pct']:g}% (model estimate)", 27, gold)
-        for reason in row.get("reasons") or []:
+        for reason in ([] if row.get("analysis_publication") else row.get("reasons") or []):
             line = text(72, line + 8, "• " + reason, 23, width=102)
+        if row.get("analysis_publication"):
+            text(72, line + 20, "The structured summary and full analysis accompany this card.", 25, muted, width=90)
         if row.get("record_line"):
             text(72, 1240, row["record_line"], 24, muted, width=95)
     draw.line((72, 1324, 1368, 1324), fill=RULE, width=2)

@@ -1,0 +1,19 @@
+{
+  "status": "OK",
+  "dry_run": true,
+  "format": 4,
+  "export_generated_at_utc": "2026-11-10T03:58:03.836783Z",
+  "export_age_seconds": 46.7,
+  "max_export_age_minutes": 10,
+  "transitions_read": 91,
+  "at_utc": "2026-11-10T03:58:51.155641+00:00",
+  "source_root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+  "rows_would_queue": 10,
+  "already_queued": 5,
+  "not_posted_causes": [
+    "FILL_CONFIRMATION_ALREADY_PUBLISHED_OR_PENDING",
+    "PLAN_NEVER_ANNOUNCED"
+  ],
+  "public_write_performed": false,
+  "shared_store_written": false
+}

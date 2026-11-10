@@ -125,8 +125,11 @@ def record_line(status):
     if clocks:
         at = min(map(posts._utc, clocks)).astimezone(posts.PUBLIC_TZ)
         since = f"Since {at.day} {at:%b}: "
-    hits = sum(s["result"] == "HIT" for s in scores.values())
-    return f"{since}{len(scores)} calls judged, {hits} hit their target."
+    counts = {result: sum(s["result"] == result for s in scores.values())
+              for result in ("HIT", "STOPPED", "EXPIRED", "NOT_TRIGGERED")}
+    labels = {"HIT": "HIT", "STOPPED": "STOPPED", "EXPIRED": "time exits", "NOT_TRIGGERED": "not triggered"}
+    parts = [f"{count} {labels[result]}" for result, count in counts.items() if count]
+    return f"{since}{len(scores)} calls judged: " + ", ".join(parts) + "."
 
 
 def checked_reasons(values, source):
@@ -170,6 +173,52 @@ def _reason_source(raw):
             (*posts.REASON_FIELDS, "invalidation_text", "reader_reasons", "freeze_reasons")}
 
 
+ANALYSIS_SECTIONS = (
+    ("macro", "Macro"), ("fundamental", "Fundamental"), ("technical", "Technical"),
+    ("geopolitical", "Geopolitical"), ("priced_in", "What is priced in"),
+    ("scenarios", "Scenarios"), ("desk_process", "How the desk reached its view"),
+)
+
+
+def analysis_publication(raw):
+    """CC-432's published result, bound to this exact plan; no run-folder read.
+
+    A page's renderer supplies this optional envelope in the plan export. The
+    card consumer does not write that page or estimate any of its contents.
+    """
+    value = raw.get("analysis_publication")
+    if not isinstance(value, Mapping):
+        return {}, "CC432_ANALYSIS_PUBLICATION_NOT_SUPPLIED"
+    if value.get("plan_id") != raw["plan_id"] or not raw.get("registration_hash") \
+            or value.get("registration_hash") != raw["registration_hash"]:
+        return {}, "CC432_PLAN_BINDING_MISMATCH"
+    url = value.get("canonical_url")
+    if not isinstance(url, str) or not re.fullmatch(r"https://capitalchronicle\.substack\.com/p/[a-z0-9-]+", url):
+        return {}, "CC432_CONFIRMED_ANALYSIS_URL_REQUIRED"
+    sections = value.get("summary") or {}
+    if not isinstance(sections, Mapping):
+        return {}, "CC432_STRUCTURED_SUMMARY_INVALID"
+    clean = {}
+    for key, _ in ANALYSIS_SECTIONS:
+        text = sections.get(key)
+        if not isinstance(text, str) or not text.strip():
+            continue
+        text = " ".join(text.split())
+        # CC-432 supplies already filtered public copy. Recheck the protections
+        # common to every destination; no shortening invents a new claim.
+        if posts.INTERNAL.search(text) or posts.INTERNAL_RATIONALE.search(text) \
+                or re.search(r"\b(?:AI[- ]run|AI[- ]native|GPT|Claude|Opus|Gemini|Luna|Antigravity)\b", text, re.I):
+            return {}, "CC432_PUBLIC_SUMMARY_FILTER_FAILED"
+        try:
+            check_publication_copy({"body": text}, require_notice=False)
+        except ValueError:
+            return {}, "CC432_PUBLIC_SUMMARY_FILTER_FAILED"
+        clean[key] = text
+    if not clean:
+        return {}, "CC432_STRUCTURED_SUMMARY_EMPTY"
+    return {"canonical_url": url, "summary": clean, "registration_hash": raw["registration_hash"]}, None
+
+
 def compose(row):
     kind = row["kind"]
     if kind == "run":
@@ -188,6 +237,8 @@ def compose(row):
         side = "below" if Decimal(str(plan["invalidation_level"])) < Decimal(str(plan["zone_low"])) else "above"
         display = {**plan, **{k: Decimal(level(plan[k], plan).replace(",", ""))
                               for k in ("zone_low", "zone_high", "invalidation_level")}}
+        display["entries"] = [{k: Decimal(level(v, plan).replace(",", "")) if k != "kind" and v is not None else v
+                               for k, v in entry.items()} for entry in plan.get("entries") or []]
         entry = posts._entry_condition(display)
         horizon = row.get("time_exit_utc") or plan.get("valid_until_utc")
         call = {"condition": entry, "direction": plan["direction"], "market": title,
@@ -220,7 +271,15 @@ def compose(row):
                      "INVALIDATED": "the idea's invalidation condition was reached",
                      "EXPIRED": "the entry window ended"}.get(row["state"], "the state changed")
             lead = prefix + f"{words} at {_clock(row['at_utc'])}."
-    lines = [lead, *extra, *("• " + reason for reason in row.get("reasons") or [])]
+    analysis = row.get("analysis_publication") or {}
+    summary = analysis.get("summary") or {}
+    lines = [lead, *extra]
+    if summary:
+        lines.extend(label + ": " + summary[key] for key, label in ANALYSIS_SECTIONS if summary.get(key))
+    else:
+        lines.extend("• " + reason for reason in row.get("reasons") or [])
+    if analysis.get("canonical_url"):
+        lines.append("Full analysis: " + analysis["canonical_url"])
     if row.get("record_line"):
         lines.append(row["record_line"])
     text = "\n".join(lines) + "\n\n" + NOTICES
@@ -324,6 +383,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
                 "time_exit_utc": plan.get("time_exit_utc"), "entry_deadline_utc": plan.get("entry_deadline_utc"),
                 "source_content_hash": export["status"].get("content_hash"),
                 "source_plan_hash": raw.get("registration_hash"), "reasons": []}
+        analysis, cause = analysis_publication(raw)
+        item.update(analysis_publication=analysis, analysis_first_cause=cause)
         return item
 
     groups = {}
@@ -386,6 +447,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
         if row["key"] == card["key"] or row.get("superseded_by_fill"):
             continue
         kind = "result" if row["to"] == "RESULT" else "update"
+        if kind == "result" and not any(r["message_id"] == card["key"] and r["status"] in {"PUBLISHED", "PUBLISHING"}
+                                        for r in existing_rows):
+            skipped.append({"key": row["key"], "cause": "PLAN_NEVER_ANNOUNCED"})
+            continue
         item = payload(row, kind)
         if kind == "result":
             item.update({k: v for k, v in row.items() if k not in {"key", "plan_id", "symbol", "to", "at_utc", "kind"}})
@@ -461,12 +526,27 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None):
             # The full card image retains every supplied field. Short copies
             # keep the conditional call, its id and the structured levels first.
             body = row["lead"]
+            analysis = row.get("analysis_publication") or {}
+            link = "Full analysis: " + analysis["canonical_url"] if analysis.get("canonical_url") else ""
+            content_room = room - len(link) - (1 if link else 0)
             for line in row.get("detail_lines") or []:
-                if len(body) + len(line) + 1 <= room:
+                if len(body) + len(line) + 1 <= content_room:
                     body += "\n" + line
-            for line in (row.get("record_line"), *("• " + r for r in row.get("reasons") or [])):
-                if line and len(body) + len(line) + 1 <= room:
+            sections = [label + ": " + analysis["summary"][key] for key, label in ANALYSIS_SECTIONS
+                        if (analysis.get("summary") or {}).get(key)]
+            if sections:
+                available = content_room - len(body) - len(sections)
+                for line in sections:
+                    excerpt = posts._excerpt(line, max(0, available // len(sections)))
+                    if excerpt:
+                        body += "\n" + excerpt
+            for line in (row.get("record_line"), *("• " + r for r in row.get("reasons") or [] if not sections)):
+                if line and len(body) + len(line) + 1 <= content_room:
                     body += "\n" + line
+            if link:
+                if len(body) + len(link) + 1 > room:
+                    raise posts.PlanPostError("PLAN_CARD_CONDITIONAL_AND_ANALYSIS_LINK_TOO_LONG:" + destination)
+                body += "\n" + link
             text = body + "\n\n" + NOTICES
         if len(text) > limits[destination]:
             raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:" + destination)
