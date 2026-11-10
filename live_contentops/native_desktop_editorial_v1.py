@@ -1728,7 +1728,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     retired = []
     for message in store.list_outbox_messages(work_item_id=run_id):
         if message["status"] == "READY":
-            store.set_outbox_status(message["message_id"], "DEFINITE_NO_WRITE")
+            store.set_outbox_status(message["message_id"], "UNSENT_MEDIA_SUPERSEDED")
             retired.append(message["message_id"])
     if retired:
         store.register_outbox_message(message_id=key + "-media-supersession-" + sha256_of(retired),

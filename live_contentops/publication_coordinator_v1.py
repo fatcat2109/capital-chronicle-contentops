@@ -3858,8 +3858,18 @@ class DurablePublicationCoordinator:
             # Digest recovery must neither send nor be held by another article's
             # lifecycle. Exact dispatch/readback checks still protect this digest.
             # Query before loading payloads: retained history can be very large.
-            return self.store.list_outbox_messages(work_item_id=scope["work_item_id"])
-        return self.store.list_outbox_messages()
+            messages = self.store.list_outbox_messages(work_item_id=scope["work_item_id"])
+        else:
+            messages = self.store.list_outbox_messages()
+        result = []
+        for message in messages:
+            if message["status"] == "UNSENT_MEDIA_SUPERSEDED":
+                dispatch = self.store.get_platform_dispatch("dispatch_" + str(message["message_id"]).removeprefix("outbox_"))
+                if not dispatch or (dispatch["status"] == DEFINITE_NO_WRITE
+                        and not dispatch.get("public_object_id") and not dispatch.get("public_object_url")):
+                    continue
+            result.append(message)
+        return result
 
     def recover_pending(self) -> dict[str, Any]:
         """Reconcile every ambiguity, then spend one bounded freshness-safe recovery budget."""
