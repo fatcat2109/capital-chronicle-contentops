@@ -8,15 +8,16 @@ import textwrap
 
 from .fact_card_design_v1 import _font, PAPER, INK, MUTED, RULE, YELLOW
 from .plan_call_cards_v1 import level, _clock, ending_words
-from .event_article_guard_v1 import PUBLIC_NOTICE
+from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
 
 
 def render(row, folder):
     from PIL import Image, ImageDraw
     packet = {k: row.get(k) for k in ("key", "kind", "instrument_title", "short_id", "levels", "reasons",
         "record_line", "time_exit_utc", "entry_deadline_utc", "card_keys", "text", "at_utc", "source_content_hash")}
+    packet["renderer"] = "CC399_CALL_CARD_JPEG_V1"
     digest = hashlib.sha256(json.dumps(packet, sort_keys=True).encode()).hexdigest()
-    path = Path(folder).resolve() / "media_assets" / f"call-card-{digest[:20]}.png"
+    path = Path(folder).resolve() / "media_assets" / f"call-card-{digest[:20]}.jpg"
     path.parent.mkdir(parents=True, exist_ok=True)
     image = Image.new("RGB", (1440, 1440), PAPER)
     draw = ImageDraw.Draw(image)
@@ -80,15 +81,16 @@ def render(row, folder):
         if plan.get("chance_pct") is not None:
             line = text(72, line, f"{plan['chance_label']}: {plan['chance_pct']:g}% (model estimate)", 27, gold)
         for reason in row.get("reasons") or []:
-            line = text(72, line + 8, "• " + reason, 25, width=89)
+            line = text(72, line + 8, "• " + reason, 23, width=102)
         if row.get("record_line"):
             text(72, 1240, row["record_line"], 24, muted, width=95)
     draw.line((72, 1324, 1368, 1324), fill=RULE, width=2)
     text(72, 1344, PUBLIC_NOTICE, 23, muted, width=100)
-    image.save(path, format="PNG", optimize=True)
+    text(72, 1383, CONFLICTS_NOTICE, 22, muted, width=105)
+    image.save(path, format="JPEG", quality=95, subsampling=0, optimize=True)
     return {"asset_id": "call-card-" + digest[:20], "path": str(path),
         "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "width": 1440, "height": 1440,
-        "mime_type": "image/png", "modality": "plan_fact_card", "card_kind": "PLAN_FACT_CARD",
+        "mime_type": "image/jpeg", "modality": "plan_fact_card", "card_kind": "PLAN_FACT_CARD",
         "media_role": "delivery_only", "role": "plan_facts", "delivery_only": True,
         "article_inclusion": False, "canonical_article_media": False,
         "provenance_status": "VERIFIED_CAPITAL_CHRONICLE_PLAN_EXPORT",

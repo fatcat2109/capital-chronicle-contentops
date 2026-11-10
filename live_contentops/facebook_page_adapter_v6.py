@@ -355,6 +355,7 @@ def execute_facebook_comment(
     access_token: str | None = None,
     message: str = "",
     dry_run: bool = False,
+    image_url: str | None = None,
 ) -> dict[str, Any]:
     """Executes a POST request to graph.facebook.com to publish a comment on a post."""
     access_token = _facebook_token(access_token)
@@ -364,6 +365,8 @@ def execute_facebook_comment(
 
     url = f"https://graph.facebook.com/{GRAPH_VERSION}/{post_id}/comments"
     payload = {"message": message}
+    if image_url:
+        payload["attachment_url"] = image_url
 
     if dry_run:
         return {

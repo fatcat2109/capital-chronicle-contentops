@@ -398,6 +398,77 @@ def find_recent_instagram_media(
     }
 
 
+def execute_instagram_carousel(*, caption, images):
+    """CC-399: one run post carries its exact call-card images, once."""
+    if not 1 <= len(images) <= 20:
+        return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                "reason_code": "INSTAGRAM_CALL_CAROUSEL_IMAGE_COUNT_INVALID"}
+    if len(images) == 1:
+        return execute_instagram_post(image_url=images[0]["url"], caption=caption,
+                                       expected_media_sha256=images[0]["sha256"])
+    account, token = _instagram_id(), _instagram_token()
+    if not account or not token:
+        return _validation_failed([name for name, value in (("ig_id", account), ("access_token", token)) if not value])
+    public_write_started = False
+    try:
+        for image in images:
+            if sha256_bytes(read_public_image_bytes(image["url"])) != image["sha256"]:
+                return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                        "reason_code": "INSTAGRAM_CALL_CAROUSEL_HASH_MISMATCH"}
+        children = []
+        for image in images:
+            child, _ = _post_form(f"https://graph.facebook.com/{GRAPH_VERSION}/{account}/media",
+                {"image_url": image["url"], "is_carousel_item": "true", "access_token": token})
+            cid = str(child.get("id") or "")
+            if not cid or _wait_for_instagram_container(container_id=cid, access_token=token).get("ready") is not True:
+                return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                        "reason_code": "INSTAGRAM_CALL_CAROUSEL_CHILD_NOT_READY"}
+            children.append(cid)
+        parent, _ = _post_form(f"https://graph.facebook.com/{GRAPH_VERSION}/{account}/media",
+            {"media_type": "CAROUSEL", "children": ",".join(children), "caption": caption, "access_token": token})
+        cid = str(parent.get("id") or "")
+        if not cid or _wait_for_instagram_container(container_id=cid, access_token=token).get("ready") is not True:
+            return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                    "reason_code": "INSTAGRAM_CALL_CAROUSEL_NOT_READY"}
+        public_write_started = True
+        response, _ = _post_form(f"https://graph.facebook.com/{GRAPH_VERSION}/{account}/media_publish",
+                                 {"creation_id": cid, "access_token": token})
+        return {"status": "SUCCESS", "id": response.get("id"), "container_id": cid,
+                "response": response, "public_write_started": True}
+    except Exception as exc:
+        return {"status": "UNKNOWN_WRITE" if public_write_started else "FAILED_BEFORE_WRITE",
+                "definite_no_write": not public_write_started, "public_write_started": public_write_started,
+                "safe_error_classification": type(exc).__name__}
+
+
+def readback_call_carousel(*, media_id, expected_images, expected_caption=None):
+    """Check exact card slots and account; reusing a slot never writes a post."""
+    try:
+        value = _get_json(f"https://graph.facebook.com/{GRAPH_VERSION}/{media_id}", {
+            "fields": "id,caption,media_type,media_url,permalink,username,children{id,media_type,media_url}",
+            "access_token": _instagram_token()})
+        children = (value.get("children") or {}).get("data") or ([value] if value.get("media_type") == "IMAGE" else [])
+        matched = bool(expected_images)
+        for index, expected in enumerate(expected_images):
+            slot = expected.get("index", index)
+            if not isinstance(slot, int) or isinstance(slot, bool) or not 0 <= slot < len(children):
+                matched = False
+                break
+            similarity = visual_similarity_to_local_file(read_public_image_bytes(children[slot]["media_url"]), expected["path"])
+            matched = matched and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
+        caption_match = expected_caption is None or " ".join(expected_caption.split()) == " ".join(str(value.get("caption") or "").split())
+        identity = str(value.get("username") or "").casefold() == "official.capitalchronicle" and str(value.get("id")) == str(media_id)
+        verified = bool(identity and matched and caption_match and value.get("permalink"))
+        return {"status": "SUCCESS" if verified else "READBACK_UNAVAILABLE", "verified": verified,
+            "provider_readback_verified": verified, "public_object_id": str(media_id),
+            "public_url": value.get("permalink"), "destination_identity": value.get("username"),
+            "account_identity_verified": identity, "meaningful_media_visible": matched,
+            "body_text_visible": caption_match, "visible_body_text": value.get("caption"),
+            "carousel_card_slots_verified": [e.get("index", i) for i, e in enumerate(expected_images)] if matched else []}
+    except Exception as exc:
+        return {"status": "READBACK_UNAVAILABLE", "verified": False, "safe_error_classification": type(exc).__name__}
+
+
 def execute_instagram_comment(
     media_id: str,
     access_token: str | None = None,

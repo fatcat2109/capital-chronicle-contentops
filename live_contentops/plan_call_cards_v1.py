@@ -216,7 +216,10 @@ def compose(row):
         elif row["state"] in {"TRIGGERED", "FILLED"}:
             lead = prefix + f"an entry filled at {_clock(row['at_utc'])}; the model position is open."
         else:
-            lead = prefix + f"state changed at {_clock(row['at_utc'])}."
+            words = {"CANCELLED": "the plan was withdrawn", "VIEW_CHANGED": "the view changed",
+                     "INVALIDATED": "the idea's invalidation condition was reached",
+                     "EXPIRED": "the entry window ended"}.get(row["state"], "the state changed")
+            lead = prefix + f"{words} at {_clock(row['at_utc'])}."
     lines = [lead, *extra, *("• " + reason for reason in row.get("reasons") or [])]
     if row.get("record_line"):
         lines.append(row["record_line"])
@@ -233,6 +236,8 @@ def ending_words(row):
         return ("not triggered; price then went our way" if direction is True else
                 "not triggered; price then went against us" if direction is False else "not triggered")
     if row.get("result") == "HIT":
+        if "TIME_EXIT" in str(row.get("score_basis") or ""):
+            return "closed at its time exit" + (", on our side of the entry" if row.get("direction_correct") is True else "")
         return "hit its target"
     if row.get("result") == "STOPPED":
         return "stopped at its invalidation level"
@@ -243,7 +248,7 @@ def ending_words(row):
     return "ended"
 
 
-def _result_rows(export, source_rows):
+def _result_rows(export):
     result = []
     events = export["transitions"].get("transitions", [])
     for raw in export["status"].get("plans", []):
@@ -252,7 +257,7 @@ def _result_rows(export, source_rows):
         outcome = raw.get("outcome") or {}
         score = outcome.get("score") or {}
         ended = [e for e in events if e.get("plan_id") == raw["plan_id"] and e.get("status") in TERMINAL]
-        scored = outcome.get("state") == "SCORED" and bool(score)
+        scored = outcome.get("state") in {"SCORED", "SCORED_UNTRIGGERED"} and bool(score)
         if not scored and not ended:
             continue
         if scored and (score.get("plan_id") != raw["plan_id"] or score.get("asset_id") != raw["asset_id"]
@@ -260,20 +265,22 @@ def _result_rows(export, source_rows):
             raise posts.PlanPostError("PLAN_RESULT_SCORE_BINDING_INVALID")
         at = score.get("resolved_at_utc") if scored else max(ended, key=lambda e: posts._utc(e["at_utc"]))["at_utc"]
         untriggered = (outcome.get("state") in {"NOT_SCORED_UNTRIGGERED", "SCORED_UNTRIGGERED"}
-                       or score.get("triggered") is False or score.get("result") == "NOT_TRIGGERED"
-                       or (not scored and not any(e.get("plan_id") == raw["plan_id"]
-                           and e.get("status") in {"TRIGGERED", "FILLED"} for e in events)))
+                       or score.get("triggered") is False or score.get("result") == "NOT_TRIGGERED")
+        not_traded = (score.get("execution_state") == "TRIGGERED_NOT_TRADED"
+                      or outcome.get("first_cause") == "TRIGGERED_NOT_TRADED")
+        if not scored and not untriggered and not not_traded:
+            continue  # A watch ending does not establish that an open model trade closed.
         correction = score.get("corrects_outcome_id")
         identity = f"{raw['plan_id']}|RESULT" + (f"|{score.get('outcome_id')}" if correction else "")
         result.append({"key": "plan-result-post-" + hashlib.sha256(identity.encode()).hexdigest()[:32],
             "plan_id": raw["plan_id"], "symbol": raw["asset_id"], "to": "RESULT", "at_utc": at,
             "kind": "result", "untriggered": untriggered,
-            "triggered_not_traded": score.get("execution_state") == "TRIGGERED_NOT_TRADED"
-                or outcome.get("first_cause") == "TRIGGERED_NOT_TRADED",
+            "triggered_not_traded": not_traded,
             "direction_correct": score.get("direction_correct", score.get("went_our_way")),
             "result": outcome.get("result") or score.get("result") or "NOT_TRIGGERED",
             "scored": scored, "outcome_id": outcome.get("outcome_id"),
-            "corrects_outcome_id": correction, "score_hash": score.get("content_hash")})
+            "corrects_outcome_id": correction, "score_hash": score.get("content_hash"),
+            "score_basis": score.get("score_basis")})
     return result
 
 
@@ -294,7 +301,9 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
     for r in existing_rows:
         p = json.loads(r["payload"])
         p.setdefault("key", r["message_id"])
-        if p.get("kind") == "setup" or (p.get("state") == "WAITING" and not p.get("why_follow_up")):
+        is_card = p.get("kind") == "setup" or (p.get("state") == "WAITING" and not p.get("why_follow_up")) \
+            or (p.get("state") in {"TRIGGERED", "FILLED"} and p.get("conditional_calls"))
+        if is_card:
             if r["status"] in {posts.READY, "PUBLISHING", "PUBLISHED"}:
                 cards.setdefault(p.get("plan_id"), p)
     latest = {}
@@ -338,7 +347,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
         groups.setdefault(run_key, []).append(item)
 
     for run_key, members in groups.items():
-        for item in members:
+        for index, item in enumerate(members):
+            item["carousel_index"] = index
             source = _reason_source(sources[item["plan_id"]])
             proposed = source_reasons(sources[item["plan_id"]])
             item["reasons"] = checked_reasons(proposed, source)
@@ -353,12 +363,21 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
         payloads.extend(members)
         cards.update({m["plan_id"]: m for m in members})
 
-    for row in sorted(source_rows + _result_rows(export, source_rows), key=lambda r: posts._utc(r["at_utc"])):
+    outcomes = _result_rows(export)
+    ended_plans = {r["plan_id"] for r in outcomes}
+    confirmed_fills = {json.loads(r["payload"]).get("plan_id"): r["message_id"] for r in existing_rows
+                      if json.loads(r["payload"]).get("state") in {"TRIGGERED", "FILLED"}
+                      and r["status"] in {"PUBLISHING", "PUBLISHED"}}
+    for row in sorted(source_rows + outcomes, key=lambda r: posts._utc(r["at_utc"])):
         pid = row["plan_id"]
-        if pid not in sources or row["to"] in {"WAITING", *TERMINAL}:
+        if pid not in sources or row["to"] == "WAITING" or (row["to"] in TERMINAL and pid in ended_plans):
             continue
         if row["key"] in prior:
             already.append(row["key"])
+            continue
+        if row["to"] in {"TRIGGERED", "FILLED"} and pid in confirmed_fills:
+            skipped.append({"key": row["key"], "cause": "FILL_CONFIRMATION_ALREADY_PUBLISHED_OR_PENDING",
+                            "prior_key": confirmed_fills[pid]})
             continue
         card = cards.get(pid)
         if not card:
@@ -374,6 +393,9 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
         # Later posts preserve the exact card's public identity, rather than a
         # newly supplied alias or revised short id.
         item["short_id"] = card.get("short_id", item["short_id"])
+        if card.get("format") == FORMAT:
+            for field in ("levels", "instrument_title", "price_basis", "registered_at_utc"):
+                item[field] = card.get(field)
         item.update(compose(item))
         payloads.append(item)
 
@@ -427,7 +449,7 @@ def _parents(store, row, destinations, previous):
     return parents, deferred
 
 
-def destination_payloads(row, *, card_id, parents=None):
+def destination_payloads(row, *, card_id, parents=None, carousel=None):
     result = {}
     limits = {"telegram": 1024, "discord": 2000, "threads": 500,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000}
@@ -451,6 +473,8 @@ def destination_payloads(row, *, card_id, parents=None):
         check_publication_copy({"body": text}, conditional_calls=row.get("conditional_calls") or [])
         payload = {"destination": destination, "text": text, "full_text": text,
                    "media_asset_ids": [card_id]}
+        if destination == "instagram_business" and row["kind"] == "run" and carousel:
+            payload.update(carousel_images=carousel, media_asset_ids=[a["asset_id"] for a in carousel])
         ref = (parents or {}).get(destination)
         if ref:
             if destination in {"telegram", "threads"}:
@@ -459,8 +483,14 @@ def destination_payloads(row, *, card_id, parents=None):
                 payload.update(discord_thread_parent_id=str(ref["thread_parent_id"]),
                     discord_thread_name="Calls · " + _clock(row["registered_at_utc"]),
                     **({"reply_to_id": str(ref["public_object_id"])} if row["kind"] != "setup" else {}))
-            elif destination in {"facebook_page", "instagram_business"}:
-                if row["kind"] != "setup":
+            elif destination == "facebook_page":
+                payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"),
+                    own_call_comment=True, comment_card_image=row["kind"] == "setup")
+            elif destination == "instagram_business":
+                if row["kind"] == "setup":
+                    payload.update(reuse_run_carousel=True, carousel_index=row.get("carousel_index", 0),
+                        carousel_parent_id=str(ref["public_object_id"]), carousel_parent_url=ref.get("public_object_url"))
+                else:
                     payload.update(reply_to_id=str(ref["public_object_id"]),
                                    reply_to_url=ref.get("public_object_url"), own_call_comment=True)
             elif destination == "substack_notes":
@@ -499,11 +529,48 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS, **ig
         if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
             raise posts.PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
         manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))
+    assets, carousel = [card], []
+    if row["kind"] == "run":
+        if host is None:
+            from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
+        for child_key in row["card_keys"]:
+            child = posts._row_payload(store, child_key)
+            child_folder = Path(root) / child_key
+            child_card = render(child, child_folder)
+            child_manifest_path = child_folder / "delivery_media_manifest_v1.json"
+            try:
+                if not posts._hosted(child_manifest_path, child_card):
+                    delivery = host(work_item_id=child_key, delivery_only_assets=[child_card], existing_manifest=None,
+                                    article_assets=[], article={"title": child["lead"]}, source_documents=[])
+                    if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
+                        raise posts.PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
+                    child_manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))
+            except (OSError, ValueError, KeyError, TypeError) as exc:
+                chosen = [d for d in chosen if d != "instagram_business"]
+                deferred.append({"destination": "instagram_business", "cause": "CAROUSEL_CARD_MEDIA_UNAVAILABLE",
+                                 "card_key": child_key, "detail": str(exc)[:160]})
+                break
+            child_manifest = json.loads(child_manifest_path.read_bytes())
+            hosted = next(a for a in child_manifest["assets"] if a["sha256"] == child_card["sha256"])
+            carousel.append({"asset_id": child_card["asset_id"], "path": child_card["path"],
+                "sha256": child_card["sha256"], "url": hosted["verified_public_delivery_url"]})
+            assets.append(child_card)
+        # The ordinary transport resolves the selected first carousel image
+        # through the same existing delivery manifest as all other platforms.
+        root_manifest = json.loads(manifest_path.read_bytes())
+        known = {a["media_asset_id"] for a in root_manifest["assets"]}
+        for child_key in row["card_keys"]:
+            child_manifest_file = Path(root) / child_key / "delivery_media_manifest_v1.json"
+            if not child_manifest_file.is_file():
+                continue
+            child_manifest = json.loads(child_manifest_file.read_bytes())
+            root_manifest["assets"].extend(a for a in child_manifest["assets"] if a["media_asset_id"] not in known)
+        manifest_path.write_bytes(canonical_bytes(root_manifest))
     context = {"schema_version": "contentops.plan_status_post_context.v1", "article": article,
-        "selection": {}, "media": {"assets": [card]}, "plan_status_post": key, "chart_credit": False,
-        "status_post_parents": parents}
+        "selection": {}, "media": {"assets": assets}, "plan_status_post": key, "chart_credit": False,
+        "status_post_parents": parents, "status_post_instagram_carousel": carousel}
     context_path.write_bytes(canonical_bytes(context))
-    payloads = destination_payloads(row, card_id=card["asset_id"], parents=parents)
+    payloads = destination_payloads(row, card_id=card["asset_id"], parents=parents, carousel=carousel)
     plan_rows = []
     for destination in chosen:
         registration = registration_for_destination(destination)
@@ -524,16 +591,21 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS, **ig
 
 def validate_parent_intent(store, row, intent):
     destination = intent["destination_plan"]["destination"]
+    if row["kind"] == "setup" and row.get("time_exit_utc") and datetime.now(timezone.utc) >= posts._utc(row["time_exit_utc"]):
+        raise posts.PlanPostError("PLAN_CARD_ALREADY_ENDED_BEFORE_WRITE")
     if not row.get("parent_key"):
         return
     ref = _reference(store, row["parent_key"], destination)
     payload = intent["native_payload"]
     if not ref:
         raise posts.PlanPostError("CARD_PARENT_NOT_CONFIRMED")
-    reply_destination = destination in {"telegram", "threads", "substack_notes"} or (
-        destination in {"facebook_page", "instagram_business"} and row["kind"] != "setup")
+    reply_destination = destination in {"telegram", "threads", "substack_notes", "facebook_page"} or (
+        destination == "instagram_business" and row["kind"] != "setup")
     if reply_destination and str(ref["public_object_id"]) != payload.get("reply_to_id"):
         raise posts.PlanPostError("PLAN_CARD_REPLY_PARENT_CHANGED")
+    if destination == "instagram_business" and row["kind"] == "setup" and (
+            not payload.get("reuse_run_carousel") or str(ref["public_object_id"]) != payload.get("carousel_parent_id")):
+        raise posts.PlanPostError("PLAN_CARD_CAROUSEL_PARENT_CHANGED")
     if destination == "discord":
         root = _reference(store, row.get("run_key") or row["parent_key"], destination)
         if not root or str(root["public_object_id"]) != payload.get("discord_thread_parent_id"):
@@ -575,13 +647,23 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         row = json.loads(outbox["payload"])
         if row.get("format") == FORMAT and outbox["status"] in {posts.READY, "PUBLISHING"}:
             pending.append((outbox, row))
-    pending.sort(key=lambda pair: ({"run": 0, "setup": 1, "update": 2, "result": 3}[pair[1]["kind"]], pair[1]["at_utc"]))
-    results, calls = [], 0
+    def priority(pair):
+        row = pair[1]
+        api_done = all(_reference(store, row["key"], d) for d in API_DESTINATIONS)
+        return (0 if row["kind"] == "run" else 4 if api_done else
+                {"setup": 1, "update": 2, "result": 3}[row["kind"]], row["at_utc"])
+    pending.sort(key=priority)
+    results, calls, browser_only = [], 0, 0
     for outbox, row in pending:
         key = row["key"]
-        if row["kind"] != "run":
+        api_done = all(_reference(store, key, d) for d in API_DESTINATIONS)
+        if api_done:
+            if browser_only >= limit:
+                continue
+            browser_only += 1
+        elif row["kind"] != "run":
             if calls >= limit:
-                break
+                continue
             calls += 1
         # An unstarted setup cannot be backfilled after its idea has ended.
         # Once a send is uncertain, the coordinator owns recovery of its exact

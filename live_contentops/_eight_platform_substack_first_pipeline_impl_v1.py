@@ -4641,7 +4641,8 @@ def _publish_one_destination_from_durable_intent(
     if destination == "facebook_page":
         if intent.get("plan_status_post") and payloads[destination].get("own_call_comment"):
             from .facebook_page_adapter_v6 import execute_facebook_comment
-            raw = execute_facebook_comment(post_id=payloads[destination]["reply_to_id"], message=text)
+            raw = execute_facebook_comment(post_id=payloads[destination]["reply_to_id"], message=text,
+                **({"image_url": public_image_url} if payloads[destination].get("comment_card_image") else {}))
             return {**raw, "destination_identity": "106091951705748"}
         if not image_path:
             return _publish_facebook_text_verified(text=text, canonical_url=canonical_url)
@@ -4649,6 +4650,18 @@ def _publish_one_destination_from_durable_intent(
             text=text, canonical_url=canonical_url, media=data["primary_media"],
         )
     if destination == "instagram_business":
+        if intent.get("plan_status_post") and payloads[destination].get("carousel_images"):
+            from .instagram_adapter_v6 import execute_instagram_carousel
+            return execute_instagram_carousel(caption=text, images=payloads[destination]["carousel_images"])
+        if intent.get("plan_status_post") and payloads[destination].get("reuse_run_carousel"):
+            from .instagram_adapter_v6 import readback_call_carousel
+            observed = readback_call_carousel(media_id=payloads[destination]["carousel_parent_id"],
+                expected_images=[{"path": image_path, "index": payloads[destination]["carousel_index"]}])
+            if observed.get("verified"):
+                return {**observed, "status": "SUCCESS", "id": payloads[destination]["carousel_parent_id"],
+                        "public_write_performed": False, "card_in_parent_carousel": True}
+            return {**observed, "status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
+                    "reason_code": "INSTAGRAM_RUN_CAROUSEL_CARD_NOT_VERIFIED", "public_write_performed": False}
         if intent.get("plan_status_post") and payloads[destination].get("own_call_comment"):
             from .instagram_adapter_v6 import execute_instagram_comment
             return execute_instagram_comment(media_id=payloads[destination]["reply_to_id"], message=text)
@@ -4770,6 +4783,13 @@ def _readback_one_destination_from_durable_intent(
             canonical_url=canonical_url,
             expect_media=bool(image_path),
         )
+    elif destination == "instagram_business" and public_object_id and (
+            (payloads.get(destination) or {}).get("carousel_images") or (payloads.get(destination) or {}).get("reuse_run_carousel")):
+        from .instagram_adapter_v6 import readback_call_carousel
+        package = payloads[destination]
+        result = readback_call_carousel(media_id=public_object_id,
+            expected_images=package.get("carousel_images") or [{"path": image_path, "index": package["carousel_index"]}],
+            expected_caption=text if package.get("carousel_images") else None)
     elif destination in {"facebook_page", "instagram_business"} and public_object_id and (payloads.get(destination) or {}).get("own_call_comment"):
         from .plan_call_cards_v1 import readback_own_comment
         result = readback_own_comment(destination, public_object_id, payloads[destination]["reply_to_id"], text)

@@ -311,3 +311,47 @@ def test_note_request_opens_exact_parent_and_never_creates_an_unrelated_note():
         intent={"native_payload": payload, "payload": payload["text"], "work_item_id": "card-ending"})
     assert request["entry_url"] == parent_url and request["reply_parent"]["public_object_id"] == "c-12345"
     assert any("Never create a top-level note" in step for step in request["steps"])
+
+
+def test_instagram_run_creates_one_carousel_and_cards_do_not_publish_again(monkeypatch):
+    from live_contentops import instagram_adapter_v6 as adapter
+    sent = []
+    images = [{"url": f"https://example.test/{i}.jpg", "sha256": adapter.sha256_bytes(b"fixture")} for i in range(5)]
+    monkeypatch.setattr(adapter, "_instagram_id", lambda *a: "business-1")
+    monkeypatch.setattr(adapter, "_instagram_token", lambda *a: "test-token")
+    monkeypatch.setattr(adapter, "read_public_image_bytes", lambda url: b"fixture")
+    monkeypatch.setattr(adapter, "_wait_for_instagram_container", lambda **kw: {"ready": True})
+    def send(url, payload):
+        sent.append((url, payload))
+        return {"id": "media-1" if url.endswith("/media_publish") else str(len(sent))}, 100
+    monkeypatch.setattr(adapter, "_post_form", send)
+    result = adapter.execute_instagram_carousel(caption="This run: five.", images=images)
+    assert result["id"] == "media-1"
+    assert len([s for s in sent if s[0].endswith("/media_publish")]) == 1
+    parent = next(p for _, p in sent if p.get("media_type") == "CAROUSEL")
+    assert parent["children"] == "1,2,3,4,5"
+    assert len([p for _, p in sent if p.get("is_carousel_item") == "true"]) == 5
+
+
+def test_carousel_card_readback_checks_own_identity_exact_slot_and_pixels(monkeypatch):
+    from live_contentops import instagram_adapter_v6 as adapter
+    monkeypatch.setattr(adapter, "_get_json", lambda url, data: {"id": "media-1", "username": "official.capitalchronicle",
+        "permalink": "https://www.instagram.com/p/our-run/", "media_type": "CAROUSEL_ALBUM",
+        "caption": "This run: five.", "children": {"data": [{"media_url": "https://example.test/0.jpg"},
+                                                                   {"media_url": "https://example.test/1.jpg"}]}})
+    monkeypatch.setattr(adapter, "read_public_image_bytes", lambda url: url.encode())
+    monkeypatch.setattr(adapter, "visual_similarity_to_local_file", lambda data, path: 1 if data.endswith(b"1.jpg") and path == "card-1.jpg" else 0)
+    result = adapter.readback_call_carousel(media_id="media-1", expected_images=[{"path": "card-1.jpg", "index": 1}])
+    assert result["verified"] and result["carousel_card_slots_verified"] == [1]
+    assert not adapter.readback_call_carousel(media_id="media-1", expected_images=[{"path": "card-1.jpg", "index": 0}])["verified"]
+
+
+def test_watch_ending_does_not_claim_an_open_trade_closed():
+    raw = call("open", status="FILLED", outcome={"state": "UNAVAILABLE"})
+    export = {"status": {"plans": [raw]}, "transitions": {"transitions": [
+        event("open", "FILLED", "2026-11-10T07:50:00Z"), event("open", "VIEW_CHANGED", "2026-11-10T07:59:00Z")]}}
+    assert cards._result_rows(export) == []
+
+
+def test_hit_at_time_exit_uses_time_exit_words_not_a_target_claim():
+    assert cards.ending_words({"result": "HIT", "score_basis": "BROKER_TIME_EXIT", "direction_correct": True}) == "closed at its time exit, on our side of the entry"
