@@ -337,6 +337,14 @@ def test_crash_after_saved_readback_preserves_the_first_observation(live, monkey
     assert live[2].count("sendMessage") == 1 and live[2].count("editMessageText") == 0
 
 
+def test_readback_clock_is_observation_time_separate_from_source_cutoff(live):
+    observed = NOW + timedelta(seconds=17)
+    live[1]._clock = lambda: observed
+    result = update(live, export(call("win")))
+    readback = live[0].get_outbox_message(result["revision"] + "-readback")
+    assert json.loads(readback["payload"])["observed_at_utc"] == observed.isoformat()
+
+
 @pytest.mark.parametrize("switch_after", ["getChat", "sendMessage"])
 def test_kill_switch_changed_during_network_io_is_checked_before_next_write(live, switch_after, monkeypatch):
     original = live[2].call

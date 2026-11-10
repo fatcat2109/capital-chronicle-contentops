@@ -265,7 +265,7 @@ def update_scorecard(coordinator, export, *, now=None, api=None):
                 continue
             expected = json.loads(pending["payload"])["text"]
             if _message_matches(pinned, expected, object_id):
-                _confirm(store, pending["message_id"], object_id, pinned, now)
+                _confirm(store, pending["message_id"], object_id, pinned, coordinator._clock())
             elif any(r["status"] == "CONFIRMED" and _message_matches(
                     pinned, json.loads(r["payload"])["text"], object_id) for r in revisions):
                 store.set_outbox_status(pending["message_id"], "RECONCILED_ABSENT_SAFE_TO_RETRY")
@@ -298,7 +298,7 @@ def update_scorecard(coordinator, export, *, now=None, api=None):
         if not _message_matches(pinned, record["text"], object_id):
             return {"status": "PIN_READBACK_REQUIRED", "message_id": object_id}
         if (store.get_outbox_message(revision) or {}).get("status") != "CONFIRMED":
-            _confirm(store, revision, object_id, pinned, now)
+            _confirm(store, revision, object_id, pinned, coordinator._clock())
         return {"status": "CONFIRMED", "message_id": object_id,
                 "public_url": "https://t.me/CapitalChronicle/" + object_id,
                 "counts": record["counts"], "shown": record["shown"], "characters": text_length(record["text"]),
