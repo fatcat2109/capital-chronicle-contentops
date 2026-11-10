@@ -387,6 +387,12 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     for row in sorted(source_rows, key=lambda r: posts._utc(r["at_utc"])):
         if row["symbol"] in posts.MARKETS:
             latest[row["plan_id"]] = row
+    current_states = {pid: row["to"] for pid, row in latest.items()}
+    # CC-322 omits untriggered expiry transitions from the post list, because
+    # the result card replaces them. The exported current state still decides
+    # whether an older setup/link is current; that omission cannot revive it.
+    current_states.update({pid: raw["status"] for pid, raw in sources.items()
+                           if raw.get("status") in TERMINAL})
     payloads, skipped, already = [], [], []
     from .secret_store_v1 import read_secret
     # Freeze the route on NEW rows only. The registered announcement channel
@@ -418,7 +424,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
 
     groups = {}
     for pid, row in latest.items():
-        if pid in cards or row["to"] not in posts.ACTIVE or row.get("superseded_by_fill"):
+        if pid in cards or current_states.get(pid) not in posts.ACTIVE or row.get("superseded_by_fill"):
             continue
         raw = sources[pid]
         until = card_plan(raw).get("time_exit_utc")
@@ -530,7 +536,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             "contract_version": version, "source_content_hash": export["status"].get("content_hash"),
             **({"rendered_posts": rendered, "rendered_count": len(rendered)} if render_all else {}),
             "max_export_age_minutes": posts.EXPORT_MAX_AGE_MINUTES, "transitions_read": len(source_rows),
-            "latest_states": {p: r["to"] for p, r in latest.items()}, "active_recoveries": {},
+            "latest_states": current_states, "active_recoveries": {},
             "would_queue" if dry_run else "queued": queued, "already_queued": already, "not_posted": skipped}
 
 

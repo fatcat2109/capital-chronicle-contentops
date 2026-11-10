@@ -11,7 +11,7 @@ from live_contentops import plan_call_cards_v1 as cards, plan_status_posts_v1 as
 from live_contentops import plan_analysis_pages_v1 as pages
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
-from test_plan_call_cards_cc399 import five, main_root, queue, rows, NOW  # noqa: F401
+from test_plan_call_cards_cc399 import five, main_root, queue, rows, write, NOW  # noqa: F401
 from test_plan_status_publication_cc306 import fake_host
 from test_publication_coordinator_v1 import FixtureTransport, _set_mode
 
@@ -216,3 +216,15 @@ def test_delayed_new_card_keeps_its_original_registration_clock(five, main_root)
     copy = cards.compose(row)
     assert "Delayed update to the plan registered 10 Nov 02:45 ET" in copy["text"]
     assert "10 Nov 05:00 ET" not in copy["text"]
+
+
+def test_expiry_omitted_from_post_events_does_not_revive_a_setup(five, main_root):
+    store, export, plans, events = five
+    raw = plans[0]
+    raw.update(status="EXPIRED", outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+    from test_plan_status_posts_cc306 import event
+    events.append(event(raw["plan_id"], "EXPIRED", "2026-11-10T07:59:00Z"))
+    write(export, plans, events)
+    result = queue(store, export, main_root)
+    assert result["latest_states"][raw["plan_id"]] == "EXPIRED"
+    assert not any(row["kind"] == "setup" and row["plan_id"] == raw["plan_id"] for row in rows(store))

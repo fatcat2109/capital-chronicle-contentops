@@ -16,5 +16,7 @@
     "plan_analysis_pages_v1.py:9 F401 datetime/timezone",
     "plan_analysis_pages_v1.py:316 E702",
     "test_plan_call_cards_cc399.py F811 imported pytest fixture parameters"
-  ]
+  ],
+  "resumed_at_utc": "2026-11-10T14:32:15.746971+00:00",
+  "static_follow_up": "PASS: exported terminal states override omitted expiry post events"
 }
