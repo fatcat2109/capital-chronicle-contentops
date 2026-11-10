@@ -98,6 +98,30 @@ def test_reopening_policy_never_releases_a_different_or_ambiguous_attempt(tmp_pa
         policy_no_write_cause="SUBSTACK_ACCOUNT_SUSPENDED")
 
 
+@pytest.mark.parametrize("reconciled", [False, True])
+def test_destination_failure_consumes_the_current_exact_readback(tmp_path, reconciled):
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    store = copied_store(tmp_path)
+    ids, value = message(store, "substack_notes")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack_notes", status="DISPATCH_CONFIRMED", public_object_id="c-123",
+        public_object_url="https://substack.com/@capitalchronicle/note/c-123")
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+        work_item_id=value["work_item_id"], status="RECONCILED_CONFIRMED" if reconciled else "RECONCILIATION_PENDING")
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    detail = {"dispatch_id": ids["dispatch_id"], "status": "UNKNOWN_WRITE"}
+    coordinator._record_destination_day_failure(value, "substack_notes", detail)
+    incident_id, _ = coordinator._destination_failure_key("substack_notes")
+    with store.get_read_only_connection() as conn:
+        original = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()[0]
+    failure = coordinator._destination_day_failure("substack_notes")
+    assert (failure is None) is reconciled
+    if failure:
+        assert failure["dispatch_id"] == ids["dispatch_id"]
+    with store.get_read_only_connection() as conn:
+        assert conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()[0] == original
+
+
 @pytest.mark.parametrize("actual,expected,authenticated", [
     ("@capitalchronicle", "@capitalchronicle", True),
     ("@deancapitalchronicle", "@capitalchronicle", False),

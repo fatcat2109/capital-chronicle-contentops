@@ -2578,10 +2578,21 @@ class DurablePublicationCoordinator:
                 row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
                 failure = json.loads(row["description"]) if row else None
                 local = failure and (failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
-                if not resolved and not local:
+                confirmed = False
+                if failure and failure.get("dispatch_id"):
+                    dispatch_id = failure["dispatch_id"]
+                    dispatch = conn.execute("SELECT status,public_object_id,public_object_url FROM platform_dispatches WHERE dispatch_id=? AND platform=?",
+                        (dispatch_id, destination)).fetchone()
+                    reconciliation = conn.execute("SELECT status FROM reconciliations WHERE reconciliation_id=?",
+                        ("reconciliation_" + dispatch_id.removeprefix("dispatch_"),)).fetchone()
+                    confirmed = bool(dispatch and dispatch["status"] == DISPATCH_CONFIRMED
+                        and dispatch["public_object_id"] and dispatch["public_object_url"]
+                        and reconciliation and reconciliation["status"] == RECONCILED_CONFIRMED)
+                if not resolved and not local and not confirmed:
                     return incident_id, day, failure
                 # Preserve the original incident. A policy refusal before HTTP
-                # cannot consume the official API's platform-failure circuit.
+                # or an exact subsequently confirmed write cannot consume the
+                # destination's current failure circuit.
                 incident_id += "_after_local_prewrite_repair"
 
     def _destination_day_failure(self, destination):
