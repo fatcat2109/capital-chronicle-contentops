@@ -230,6 +230,7 @@ def readback_discord_post(
     expected_image_sha256: str | None = None,
     thread_id: str | None = None,
     expected_parent_id: str | None = None,
+    require_media: bool = True,
 ) -> dict[str, Any]:
     """Read one exact webhook message without exposing the webhook credential."""
     target_webhook = webhook_url or _get_default_webhook_url()
@@ -295,7 +296,9 @@ def readback_discord_post(
         media_verified = image_hash_match
     thread_verified = not thread_id or channel_id == str(thread_id)
     parent_verified = not expected_parent_id or str((payload.get("message_reference") or {}).get("message_id")) == str(expected_parent_id)
-    verified = bool(exact_identity and text_verified and canonical_verified and media_verified and thread_verified and parent_verified)
+    verified = bool(exact_identity and text_verified and canonical_verified
+                    and (media_verified or (not require_media and not expected_image_sha256))
+                    and thread_verified and parent_verified)
     public_url = (
         f"https://discord.com/channels/{guild_id}/{channel_id}/{message_id}"
         if guild_id and channel_id

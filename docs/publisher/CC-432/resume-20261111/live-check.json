@@ -1,0 +1,104 @@
+{
+  "item": "CC-432",
+  "recorded_at_utc": "2026-11-10T21:34:57.226667+00:00",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_observation": "CONFIGURED_NOT_OBSERVED",
+  "launch_evidence": {
+    "pid": 32136,
+    "started_gmt7": "2026-11-11T04:23:35.24339+07:00",
+    "source": "Win32_Process launch arguments, model and effort extracted only"
+  },
+  "branch_base": "bc0867985975bec341a64c8d71d2692010e9b64c",
+  "base_choice": "Current ContentOps operating HEAD contains the installed CC-432/CC-437 consumers; remote master predates them.",
+  "discord": {
+    "bot_token_available": true,
+    "expected_channel_id": "1519311669216673802",
+    "channel": {
+      "id": "1519311669216673802",
+      "guild_id": "1519310996030750782",
+      "name": "announcements",
+      "type": 0
+    },
+    "member_of_expected_guild": true
+  },
+  "original_pages": [
+    {
+      "asset": "EURUSD",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "canonical_confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+      "discord_link": {
+        "confirmed": false,
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+        "public_object_id": null,
+        "public_object_url": null
+      },
+      "frozen_link_sha256": "c24457ec41a09f0157d92f1a5d4b80a6ad82b651b040c22e8955afe70555ca66"
+    },
+    {
+      "asset": "XAUUSD",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "canonical_confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+      "discord_link": {
+        "confirmed": false,
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+        "public_object_id": null,
+        "public_object_url": null
+      },
+      "frozen_link_sha256": "a399eb8ddee1aabf84fdad68d232d7587921db7d9ef1b407ccc7030e4e14a691"
+    },
+    {
+      "asset": "USOIL",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "canonical_confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+      "discord_link": {
+        "confirmed": false,
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+        "public_object_id": null,
+        "public_object_url": null
+      },
+      "frozen_link_sha256": "202e46921f9b703cf63dd63f488c2b701ab1e6388ab91d3ec53c61cfca500823"
+    },
+    {
+      "asset": "US500",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "canonical_confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+      "discord_link": {
+        "confirmed": false,
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+        "public_object_id": null,
+        "public_object_url": null
+      },
+      "frozen_link_sha256": "df7664ea3e2db75c513814c2c06562167cdaa95771a3a74906543a2c646c96a0"
+    },
+    {
+      "asset": "BTCUSD",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "canonical_confirmed": true,
+      "canonical_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+      "discord_link": {
+        "confirmed": false,
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+        "public_object_id": null,
+        "public_object_url": null
+      },
+      "frozen_link_sha256": "5f20b7733345b72647bf204dd93d580cab64f523b921f80048963e59937eba5f"
+    }
+  ],
+  "main_export_generated_at_utc": "2026-11-10T21:34:05.929199Z",
+  "latest_main_plan_registration_utc": "2026-11-10T16:18:25.849991Z",
+  "bot_join_observed_by_ops_utc": "2026-11-10T20:50:00Z",
+  "plans_registered_after_bot_join": [],
+  "discord_ready_rows": 1,
+  "live_acceptance": "WAITING_FOR_NEXT_MAIN_RUN",
+  "first_cause": "NEXT_MAIN_RUN_NOT_YET_AVAILABLE_AFTER_BOT_JOIN",
+  "choice": "Fix the new run-thread route and text-only link readback; preserve the five retired Discord intents instead of reposting ended calls.",
+  "next_action": "The existing Main run and minute Publisher consumer supply new cards; resume CC-432 for exact Discord card/link readback.",
+  "public_writes_performed": false,
+  "schedule_changed": false,
+  "main_or_guardian_changed": false
+}

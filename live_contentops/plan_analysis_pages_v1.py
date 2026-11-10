@@ -473,7 +473,8 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
     return text
 
 
-def _link_payload(packet, destination, text, canonical_url, parent, *, discord_delivery=None):
+def _link_payload(packet, destination, text, canonical_url, parent, *, discord_delivery=None,
+                  discord_thread_parent_id=None):
     payload = {"destination": destination, "text": text, "full_text": text, "media_asset_ids": []}
     if parent:
         payload.update(reply_to_id=str(parent["public_object_id"]), reply_to_url=parent["public_object_url"])
@@ -497,7 +498,7 @@ def _link_payload(packet, destination, text, canonical_url, parent, *, discord_d
             payload.pop("reply_to_url", None)
             payload["discord_channel_post"] = True
         else:
-            payload.update(discord_thread_parent_id=str(parent["public_object_id"]),
+            payload.update(discord_thread_parent_id=str(discord_thread_parent_id or parent["public_object_id"]),
                            discord_thread_name="Full plan analysis")
     return payload
 
@@ -520,6 +521,18 @@ def _analysis_parent(store, original_key, plan_id, destination):
     if dispatch.get("status") == "DISPATCH_CONFIRMED" and dispatch.get("public_object_id"):
         return {k: dispatch.get(k) for k in ("public_object_id", "public_object_url", "dispatch_id")}
     return None
+
+
+def _discord_analysis_thread(store, original, parent):
+    """A bot card already lives in its run thread; Discord has no nested threads."""
+    from .plan_call_cards_v1 import _reference
+    run_key = original.get("run_key") or original.get("parent_key")
+    if not run_key:
+        return str(parent["public_object_id"])
+    run = _reference(store, run_key, "discord")
+    if not run:
+        raise ValueError("PLAN_ANALYSIS_RUN_PARENT_NOT_CONFIRMED")
+    return str(run["public_object_id"])
 
 
 def register_link(store, packet, *, original_key, destination, authored_summary=None,
@@ -549,11 +562,14 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     elif not parent and destination != "substack_notes":
         return {"state":"PLAN_ANALYSIS_PARENT_NOT_CONFIRMED", "destination":destination, "original_key":original_key}
     original = store.get_outbox_message(original_key) or {}
-    discord_delivery = (json.loads(original.get("payload") or "{}").get("discord_delivery")
+    original_payload = json.loads(original.get("payload") or "{}")
+    discord_delivery = (original_payload.get("discord_delivery")
                         if destination == "discord" else None)
+    thread_parent = (_discord_analysis_thread(store, original_payload, parent)
+                     if destination == "discord" and discord_delivery != "channel" else None)
     text = structured_summary(packet, destination, status["canonical_url"],authored_summary, version=2)
     payload = _link_payload(packet, destination, text, status["canonical_url"], parent,
-                            discord_delivery=discord_delivery)
+                            discord_delivery=discord_delivery, discord_thread_parent_id=thread_parent)
     if original_analysis_root:
         payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]], image_url=canonical_image_url)
     registration = registration_for_destination(destination)
@@ -568,6 +584,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
            "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"],
            "original_analysis_root":original_analysis_root, "summary_version": 2,
            **({"discord_delivery": discord_delivery} if discord_delivery else {}),
+           **({"discord_thread_parent_id": thread_parent} if thread_parent else {}),
            **({'authored_summary':authored_summary} if authored_summary else {})}
     store.create_work_item(story_id=identity,work_item_id=identity,title="Full plan analysis link",target_surface="MULTI_PLATFORM")
     if prior:
@@ -619,8 +636,14 @@ def validate_link_plan(store, work_item_id, plan):
             raise ValueError("PLAN_ANALYSIS_LINK_PARENT_CHANGED")
     expected=structured_summary(packet,value["destination"],value["canonical_url"],value.get('authored_summary'),
                                 version=value.get("summary_version", 1))
+    thread_parent = value.get("discord_thread_parent_id")
+    if thread_parent:
+        original = json.loads(store.get_outbox_message(value["original_key"])["payload"])
+        if (value["destination"] != "discord" or value.get("discord_delivery") == "channel"
+                or thread_parent != _discord_analysis_thread(store, original, value["parent"])):
+            raise ValueError("PLAN_ANALYSIS_DISCORD_THREAD_CHANGED")
     expected_payload = _link_payload(packet, value["destination"], expected, value["canonical_url"], value.get("parent"),
-                                     discord_delivery=value.get("discord_delivery"))
+                                     discord_delivery=value.get("discord_delivery"), discord_thread_parent_id=thread_parent)
     if value.get("original_analysis_root"):
         expected_payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]],
                                 image_url=value["native_payload"]["image_url"])

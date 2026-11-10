@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="4.562" timestamp="2026-11-11T04:33:24.300195+07:00" hostname="J-P"><testcase classname="tests.test_discord_queue_cc437" name="test_new_webhook_only_cards_confirm_through_coordinator_and_keep_their_route" time="3.989"><failure message="AssertionError: {'analysis_distribution': {'links': [], 'status': 'OK'}, 'posts': [{'confirmed_destinations': ['discord', 'facebook_pa...D_BEFORE_WRITE', 'key': 'plan-status-post-f6a24f9ee7fd27bdfe14b988ea3beef9', 'status': 'NOT_STARTED'}], 'status': 'OK'}&#10;assert False&#10; +  where False = all(&lt;generator object test_new_webhook_only_cards_confirm_through_coordinator_and_keep_their_route.&lt;locals&gt;.&lt;genexpr&gt; at 0x000001C3660E5700&gt;)">five = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000001C3667D8E10&gt;, WindowsPath('C:/U...'WAITING'}, {'at_utc': '2026-11-10T07:45:00Z', 'plan_id': 'id0000004', 'reason_code': 'WAITING', 'status': 'WAITING'}])
+main_root = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-1692/test_new_webhook_only_cards_co0/main')
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-1692/test_new_webhook_only_cards_co0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001C366766FD0&gt;
+
+    def test_new_webhook_only_cards_confirm_through_coordinator_and_keep_their_route(five, main_root, tmp_path, monkeypatch):
+        from live_contentops import secret_store_v1
+        monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: None)
+        store, export, _, _ = five
+        _set_mode(store, "AUTONOMOUS_DEFAULT")
+        queued = queue(store, export, main_root)
+        originals = {row["message_id"]: row["payload"] for row in store.list_outbox_messages(destination=posts.DESTINATION)}
+    
+        class Recorded(FixtureTransport):
+            def __init__(self):
+                super().__init__()
+                self.intents = []
+    
+            def publish(self, *, destination, intent, authorization_context):
+                self.publish_calls.append(destination)
+                self.intents.append(intent)
+                number = str(1000 + len(self.intents))
+                if destination == "instagram_business" and intent["native_payload"].get("reuse_run_carousel"):
+                    number = intent["native_payload"]["carousel_parent_id"]
+                return {"status": "SUCCESS", "id": number, "public_url": f"https://example.test/{destination}/{number}"}
+    
+        runtime = Recorded()
+        coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+            readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED" if d in {"x", "substack_notes"}
+                                         else "READY_NON_BROWSER_BINDING"})
+        result = posts.publish_ready(store, now=NOW, latest_states=queued["latest_states"], root=tmp_path / "posts",
+            host=fake_host, coordinator_for=lambda key, folder: coordinator)
+&gt;       assert all(row["status"] == "PUBLISHED" for row in result["posts"]), result
+E       AssertionError: {'analysis_distribution': {'links': [], 'status': 'OK'}, 'posts': [{'confirmed_destinations': ['discord', 'facebook_pa...D_BEFORE_WRITE', 'key': 'plan-status-post-f6a24f9ee7fd27bdfe14b988ea3beef9', 'status': 'NOT_STARTED'}], 'status': 'OK'}
+E       assert False
+E        +  where False = all(&lt;generator object test_new_webhook_only_cards_confirm_through_coordinator_and_keep_their_route.&lt;locals&gt;.&lt;genexpr&gt; at 0x000001C3660E5700&gt;)
+
+tests\test_discord_queue_cc437.py:46: AssertionError</failure></testcase></testsuite></testsuites>

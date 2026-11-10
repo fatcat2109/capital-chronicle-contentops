@@ -18,6 +18,14 @@ from test_publication_coordinator_v1 import FixtureTransport, _set_mode
 
 def test_new_webhook_only_cards_confirm_through_coordinator_and_keep_their_route(five, main_root, tmp_path, monkeypatch):
     from live_contentops import secret_store_v1
+
+    class Clock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return NOW.astimezone(tz)
+
+    # The write-boundary expiry check uses the same clock as this copied run.
+    monkeypatch.setattr(cards, "datetime", Clock)
     monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: None)
     store, export, _, _ = five
     _set_mode(store, "AUTONOMOUS_DEFAULT")

@@ -1361,7 +1361,8 @@ def _publish_telegram_text_verified(
 
 def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str | None, title: str,
                               image_path: str | None = None, thread_parent_id: str | None = None,
-                              thread_name: str | None = None, reply_to_message_id: str | None = None) -> dict[str, Any]:
+                              thread_name: str | None = None, reply_to_message_id: str | None = None,
+                              require_media: bool = True) -> dict[str, Any]:
     from live_contentops.discord_live_adapter_v6 import execute_discord_post, readback_discord_post
 
     # A post with no link (a status post, decision 83) has an embed without a url.
@@ -1394,6 +1395,7 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
         try:
             observed = readback_discord_post(message_id=message_id, expected_text=text,
                 canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path) if image_path else None,
+                **({"require_media": False} if not require_media else {}),
                 **({"thread_id": thread_parent_id, "expected_parent_id": reply_to_message_id} if thread_parent_id else {}))
         except Exception as exc:
             observed = {"status": "READBACK_UNAVAILABLE", "verified": False,
@@ -4676,6 +4678,7 @@ def _publish_one_destination_from_durable_intent(
             image_url=public_image_url if image_path else None,
             title=str(article.get("title") or ""),
             image_path=image_path or None,
+            **({"require_media": False} if intent.get("plan_analysis_link") and not image_path else {}),
             **({"thread_parent_id": payloads[destination]["discord_thread_parent_id"],
                 "thread_name": payloads[destination].get("discord_thread_name"),
                 "reply_to_message_id": payloads[destination].get("reply_to_id")}
@@ -4861,6 +4864,7 @@ def _readback_one_destination_from_durable_intent(
             message_id=public_object_id,
             expected_text=text,
             canonical_url=canonical_url,
+            **({"require_media": False} if intent.get("plan_analysis_link") and not data["primary_media"] else {}),
             **({"thread_id": payloads[destination]["discord_thread_parent_id"],
                 "expected_parent_id": payloads[destination].get("reply_to_id")}
                if payloads[destination].get("discord_thread_parent_id") else {}),
