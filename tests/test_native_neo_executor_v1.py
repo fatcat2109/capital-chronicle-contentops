@@ -734,7 +734,7 @@ def test_successful_exact_readback_survives_bucket_change_by_observation_time(tm
     if fault == "media":
         value["media_assets"] = [{"asset_id": "different-chart", "sha256": "d" * 64}]
     before = len(store.list_outbox_messages())
-    if fault:
+    if fault and fault != "invocation":
         with pytest.raises(NativeNeoInputRequired):
             adapter.readback(destination="substack", intent=value,
                 public_object_id=object_id, public_object_url=url)

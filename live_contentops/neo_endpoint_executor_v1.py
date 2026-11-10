@@ -676,6 +676,13 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
         dispatch=store.get_platform_dispatch(ids["dispatch_id"])
         if not dispatch:
             continue
+        if dispatch["status"] == "DISPATCH_CONFIRMED":
+            reconciliation = next((r for r in store.get_reconciliations_for_work_item(request["work_item_id"])
+                if r["reconciliation_id"] == ids["reconciliation_id"]), {})
+            if reconciliation.get("status") == "RECONCILED_CONFIRMED":
+                # The exact object already consumed this intent. Retained old
+                # account requests cannot take slots from new minute work.
+                continue
         if (dispatch["status"]=="DEFINITE_NO_WRITE" and not dispatch.get("public_object_id")
                 and not dispatch.get("public_object_url")):
             # A settled no-write has nothing to read back. Repeated old read

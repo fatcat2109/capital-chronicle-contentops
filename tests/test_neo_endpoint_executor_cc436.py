@@ -566,7 +566,8 @@ def test_existing_beforeunload_is_cleared_before_running_a_page_script():
     assert client.actions==[(1,'dialog_accept')]
 
 
-def test_settled_no_write_readback_does_not_consume_the_next_minute_slot(tmp_path):
+@pytest.mark.parametrize('settled',['DEFINITE_NO_WRITE','DISPATCH_CONFIRMED'])
+def test_settled_no_write_readback_does_not_consume_the_next_minute_slot(tmp_path,settled):
     store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
     c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'old-note',
         native_invocation_id='old-note',allow_publish=True)
@@ -574,7 +575,15 @@ def test_settled_no_write_readback_does_not_consume_the_next_minute_slot(tmp_pat
     # An earlier read request can survive after its account route settles as a
     # definite no-write. It is retained, but is not an observable public object.
     c.readback_existing_dispatch(ids['dispatch_id'])
-    store.set_dispatch_status(ids['dispatch_id'],'DEFINITE_NO_WRITE')
+    store.set_dispatch_status(ids['dispatch_id'],settled)
+    if settled=='DISPATCH_CONFIRMED':
+        store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],platform='substack_notes',
+            status=settled,public_object_id='c-123',public_object_url='https://substack.com/@capitalchronicle/note/c-123')
+        prior=store.get_reconciliations_for_work_item(value['work_item_id'])
+        if prior:
+            store.set_reconciliation_status(ids['reconciliation_id'],'RECONCILED_CONFIRMED')
+        else:
+            store.register_reconciliation(reconciliation_id=ids['reconciliation_id'],work_item_id=value['work_item_id'],status='RECONCILED_CONFIRMED')
     store.register_outbox_message(message_id=value['work_item_id'],work_item_id=value['work_item_id'],
         destination='internal:plan-status-post',payload=json.dumps({'kind':'result','at_utc':datetime.now(timezone.utc).isoformat()}),status='PUBLISHED')
     with endpoint() as (url,state):
