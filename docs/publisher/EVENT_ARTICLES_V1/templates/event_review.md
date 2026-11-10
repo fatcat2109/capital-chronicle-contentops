@@ -38,7 +38,7 @@ The native Sol 6.1 MAX writer authors the following `copy` sections:
 | `prediction_market_comparison` | How did it compare with the market-only baseline? |
 | `market_reactions` | What actually moved across rates, the dollar, gold, oil, indices and exposed sectors? |
 | `lesson` | What was wrong, what remains uncertain, and what should change in the next research view? |
-| `disclaimer` | This is general market analysis, not financial advice. |
+| `disclaimer` | Capital Chronicle offers analysis only, not financial advice or recommendations. |
 
 `market_reactions` has exactly `rates`, `dollar`, `gold`, `oil`, `indices` and
 `sectors`. Separate first-hour from first-day windows and observed price changes
@@ -61,8 +61,7 @@ comparison, retain the gap internally and publish the supported review.
 
 Use natural source attribution, a serious countercase and a useful lesson. This
 format permits decision 40's structured, impersonal conditional calls and scores the earlier calls using Main's admitted output. Each
-call carries its condition, direction, horizon and invalidation, "Analysis, not
-financial advice." and "Capital Chronicle may hold positions in the markets it
+call carries its condition, direction, horizon and invalidation, "Capital Chronicle offers analysis only, not financial advice or recommendations." and "Capital Chronicle may hold positions in the markets it
 covers." Use the optional root `conditional_calls` array and include
 `conditional_call_text(call)` verbatim in authored copy; the event checker applies
 the shared `check_publication_copy` gate. Unconditional calls, sizes, profit

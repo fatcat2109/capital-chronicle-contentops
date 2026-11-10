@@ -36,7 +36,7 @@ def _check_copy(article):
             r"|\b(?:buy|sell|go\s+long|go\s+short)\s+(?:at|above|below|now)\b",
             copy, re.I)):
         raise ValueError("TEXT_FIRST_PUBLIC_OUTPUT_GUARD")
-    if "Analysis, not financial advice. Readers decide whether to trade." not in copy:
+    if "Capital Chronicle offers analysis only, not financial advice or recommendations." not in copy:
         raise ValueError("TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED")
     return copy
 

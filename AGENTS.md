@@ -1,5 +1,19 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Seven required derivatives and public notice — 10 November 2026 (CC-395; decision 109)
+
+The current required derivative set is Telegram, Discord, LinkedIn, Facebook Page,
+Instagram Business, Threads and YouTube Community. X is recorded once as not posted,
+`X_NON_API_AUTOMATION_PROHIBITED`; it receives no retry, incident, readiness probe or
+Neo readback. Confirmed X identities and unresolved prior attempts remain preserved.
+The status posts' X agent flags are retired. The remaining platform prohibitions
+below still apply; seven required destinations do not grant a prohibited transport.
+
+New public pieces, cards and pages carrying the notice use: **Capital Chronicle
+offers analysis only, not financial advice or recommendations.** Historical posted
+objects and frozen requests retain their exact wording and hashes. Bio/about changes
+belong to Ops Product; the read-only inventory is `docs/publisher/CC-395/bios.md`.
+
 ## Platform automation restrictions — 10 November 2026 (CC-393; decision 109)
 
 The platforms' own rules bind. LinkedIn member/company posts and edits, YouTube

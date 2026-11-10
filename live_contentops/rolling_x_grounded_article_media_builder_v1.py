@@ -487,14 +487,14 @@ def _render_text_card(
     facts = [(str(label or ""), str(value or "")) for label, value in body_lines]
     title = " ".join(str(line) for line in title_lines if line).strip() or str(header or "")
     footers = [str(line) for line in footer_lines if line]
-    notice_lines = [line for line in footers if line.startswith("Analysis, not financial advice")]
-    others = [line for line in footers if not line.startswith("Analysis, not financial advice")]
+    notice_lines = [line for line in footers if line.startswith(("Analysis, not financial advice", "Capital Chronicle offers analysis only"))]
+    others = [line for line in footers if not line.startswith(("Analysis, not financial advice", "Capital Chronicle offers analysis only"))]
     key_label, key_value = key if key is not None else key_from_facts(facts)
     spec = CardSpec(title=title, facts=facts,
         kicker=kicker if kicker is not None else ("" if str(header).upper() == "CAPITAL CHRONICLE" else str(header)),
         key_label=key_label, key_value=key_value, source_line=others[0] if others else "",
         dated_line=dated_line if dated_line is not None else " · ".join(others[1:]),
-        notice="Analysis, not financial advice." if notice_lines or not others else "")
+        notice="Capital Chronicle offers analysis only, not financial advice or recommendations." if notice_lines or not others else "")
     path.parent.mkdir(parents=True, exist_ok=True)
     render_fact_card(path, spec, size=size or X_SIZE)
 
@@ -1060,7 +1060,7 @@ def build_source_fact_card(document, *, packet, asset_id, placement_after, outpu
     _render_text_card(path=path, header="CAPITAL CHRONICLE", title_lines=[packet["title"]],
         body_lines=rows, kicker=document["publisher"], dated_line=dated_line or "Capital Chronicle",
         footer_lines=["Source: " + document["publisher"] + (", announced " + announced if announced else ""),
-            "Analysis, not financial advice."])
+            "Capital Chronicle offers analysis only, not financial advice or recommendations."])
     if path != final_path:
         if _sha256_file(path) == _sha256_file(final_path):
             path.unlink()
@@ -1176,7 +1176,7 @@ def build_post_image_card(article, *, output_dir, accepted_evidence_sha256):
         body_lines=display_content["body_lines"],
         kicker="" if label == "Capital Chronicle" else label, dated_line=dated_line,
         footer_lines=["Source: " + label + (", " + source_date if source_date else ""),
-            "Analysis, not financial advice. Readers decide whether to trade."], wrap_body=True)
+            "Capital Chronicle offers analysis only, not financial advice or recommendations."], wrap_body=True)
     return {"asset_id": "post-card-" + sha256_of(binding)[:20], "path": str(path.resolve()),
         "sha256": _sha256_file(path), "width": 1600, "height": 900,
         "modality": "source_backed_chart", "media_role": "editorial_data_journalism",

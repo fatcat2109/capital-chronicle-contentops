@@ -1021,7 +1021,7 @@ class NativeDesktopTurn:
                 "analysis_scope_reason and may use the charts that serve its argument, or none. A missing optional contextual photo never holds analysis; "
                 "use a relevant public-domain or licensed image when available. Missing analysis charts require source recovery; never "
                 "relabel analysis, manufacture data or pad panels. Choose contextual_photo_ids and exact "
-                "media subsets for all eight keys telegram,discord,x,linkedin,facebook_page,instagram_business,"
+                "media subsets for all seven keys telegram,discord,linkedin,facebook_page,instagram_business,"
             "threads,youtube. Empty choices receive the deterministic post data card before final review, including Instagram. "
                 "A terminal editorial refusal requires no photo or chart. If evidence or photo identity is "
                 "missing, retain the gap for retrieval; do not invent an ID or claim acceptance. Preserve "
@@ -1184,7 +1184,7 @@ class NativeDesktopTurn:
             "or turn a risk-neutral valuation probability into a win rate. Shared-release copies and "
             "Main recirculation do not independently confirm a claim. Review windows are not forecasts.\n"
         ) if stage in {"write", "revise"} else ""
-        public_notice = "Every reader-facing piece must say: Analysis, not financial advice. Readers decide whether to trade."
+        public_notice = "Every reader-facing piece must say: Capital Chronicle offers analysis only, not financial advice or recommendations."
         if native_guidance and (not frozen or public_notice in frozen["prompt"]):
             native_guidance += "\n" + public_notice + "\n"
         if (native_guidance and '"desk_record_binding"' in canonical_bytes(kwargs.get("governed_input", {})).decode()
@@ -1194,7 +1194,7 @@ class NativeDesktopTurn:
             public_line = ("Never publish it. A consensus figure or official expectation appears as one cited fact "
                 "with its source and date; our model estimates (scenario weights, the surprise against consensus, "
                 "betas, the modelled GEX regime and levels) say 'Capital Chronicle model estimate' and carry "
-                "'Analysis, not financial advice.' and 'Capital Chronicle may hold positions in the markets it covers.' "
+                "'Capital Chronicle offers analysis only, not financial advice or recommendations.' and 'Capital Chronicle may hold positions in the markets it covers.' "
                 "Never state a DEMO detail, an entry, stop or target level, a size or a prediction-market number. ")
             if frozen and "Never publish it or state a consensus judgement" in frozen["prompt"]:
                 public_line = ("Never publish it or state a consensus judgement, trading level, GEX interpretation "

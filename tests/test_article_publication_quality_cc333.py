@@ -331,7 +331,7 @@ def test_real_eight_channel_compiler_carries_both_authored_scenarios():
     article, _ = scenario_article()
     bundle, _ = _native_preview_bundle(article=article, article_mode="STANDARD_NEWS_ANALYSIS",
                                      article_identity="a" * 64, media_asset_ids=["image-1"])
-    assert len(bundle["packages"]) == 8
+    assert len(bundle["packages"]) == 7
     for payload in bundle["packages"].values():
         validate_social_scenarios(article, payload)
         assert "60%" in payload_text(payload) and "40%" in payload_text(payload)
@@ -352,8 +352,11 @@ def test_social_copy_must_carry_both_cases_in_delivered_text(destination):
                                             "unused_metadata": article["social_scenarios"]["alternative"]})
 
 
-@pytest.mark.parametrize("destination", ["telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"])
-def test_coordinator_refuses_social_copy_missing_alternative_before_transport(tmp_path, destination):
+@pytest.mark.parametrize("destination", ["telegram", "discord", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"])
+def test_coordinator_refuses_social_copy_missing_alternative_before_transport(tmp_path, monkeypatch, destination):
+    # Controlled transport permissions exercise copy validation; production bars are tested in CC-393.
+    from live_contentops import neo_destination_handoff_v1 as neo
+    monkeypatch.setattr(neo, "NON_API_AUTOMATION_PROHIBITED", {"x": "X_NON_API_AUTOMATION_PROHIBITED"})
     article, _ = scenario_article()
     _, runtime, coordinator, message, *_ = publication(tmp_path, destination=destination,
         social_payload={"text": article["social_scenarios"]["base_case"], "media_asset_ids": ["image-1"]})

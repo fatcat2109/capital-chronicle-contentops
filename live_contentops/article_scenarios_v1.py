@@ -6,7 +6,7 @@ import re
 
 MARKETS = ("XAUUSD", "US500", "EURUSD", "USDJPY", "USOIL", "BTCUSD")
 MODEL_LABEL = "Capital Chronicle model estimate"
-NOTICES = ("Analysis, not financial advice.", "Capital Chronicle may hold positions in the markets it covers.")
+NOTICES = ("Capital Chronicle offers analysis only, not financial advice or recommendations.", "Capital Chronicle may hold positions in the markets it covers.")
 PREPARATION_GUIDANCE = (
     "JIM DECISION 93 PREPARATION: prepare the held full Main reports/dossiers for 2-3 scenarios, "
     "including each supplied probability, confirmation, six-market implications and invalidation. "

@@ -73,17 +73,9 @@ from live_contentops.substack_first_north_star_pipeline_loop_v1 import (
 TASK_LABEL = "TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1"
 SCHEMA_VERSION = "contentops.eight_platform_substack_first_pipeline.v1"
 OUTPUT_ROOT = Path("docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1")
-EXPECTED_DESTINATIONS = (
-    "substack",
-    "telegram",
-    "x",
-    "discord",
-    "linkedin",
-    "facebook_page",
-    "instagram_business",
-    "threads",
-    "youtube",
-)
+from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_PUBLICATION_DESTINATIONS
+EXPECTED_DESTINATIONS = V1_REQUIRED_PUBLICATION_DESTINATIONS
+
 SUCCESS_STATUSES = {"SUCCESS", "ALREADY_SUCCESSFUL_IDEMPOTENT"}
 # These outcomes can occur after a platform has accepted a write but before a
 # permalink is recovered. A later retry of the same payload could duplicate it.
@@ -403,7 +395,7 @@ def _concise_semantic_sentence(value: str, *, maximum: int) -> str:
 def _publication_notice_only(post: Mapping[str, Any]) -> bool:
     paragraphs = [text.strip() for text in str(post.get("text") or "").split("\n\n") if text.strip()]
     return bool(post.get("publication_notice_only") and paragraphs and set(paragraphs) <= {
-        "Analysis, not financial advice.",
+        "Capital Chronicle offers analysis only, not financial advice or recommendations.",
         "Capital Chronicle may hold positions in the markets it covers.",
     })
 
@@ -469,7 +461,7 @@ def _semantic_thread_layout(
     policy_text = _concise_semantic_sentence(policy, maximum=110 if platform == "x" else 240)
     cross_text = _concise_semantic_sentence(cross_asset, maximum=105 if platform == "x" else 190)
     context = f"Policy context: {policy_text} Cross-asset context: {cross_text}"
-    caveat = "For informational purposes only; not financial advice."
+    caveat = "Capital Chronicle offers analysis only, not financial advice or recommendations."
     if len(mechanism_text) <= len(context) and len(mechanism_text + "\n\n" + caveat) <= limit:
         mechanism_text = mechanism_text + "\n\n" + caveat
     elif len(context + "\n\n" + caveat) <= limit:
@@ -551,11 +543,13 @@ def build_native_derivative_payloads(
         canonical_url=canonical_url,
         media_asset_ids=media_asset_ids,
     )
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    payloads = {d: payloads[d] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS if d in payloads}
     from live_contentops.agy_editorial_assist_v1 import apply_variants
     apply_variants(payloads, article, canonical_url, thread_quality=_thread_quality)
     from live_contentops.article_scenarios_v1 import include_social_scenarios
     include_social_scenarios(payloads, article)
-    notices = ("Analysis, not financial advice.",
+    notices = ("Capital Chronicle offers analysis only, not financial advice or recommendations.",
                "Capital Chronicle may hold positions in the markets it covers.")
     for destination, payload in payloads.items():
         posts = payload.get("posts") or []
@@ -608,8 +602,8 @@ def build_native_derivative_payloads(
     if article.get("reader_first_version") != "DATA_JOURNALISM_V1" and not article.get("tradingview_snapshot_asset_ids"):
         return payloads
     choices = article.get("native_destination_media")
-    if not isinstance(choices, Mapping) or set(choices) != set(payloads):
-        raise ValueError("EXACT_EIGHT_MAX_DESTINATION_MEDIA_CHOICES_REQUIRED")
+    if not isinstance(choices, Mapping) or set(choices) - {"x"} != set(payloads):
+        raise ValueError("REQUIRED_MAX_DESTINATION_MEDIA_CHOICES_REQUIRED")
     allowed = set(media_asset_ids)
     # Reviewed order: the first admitted asset is the post's default image.
     default_media = [asset_id for asset_id in media_asset_ids if asset_id][:1]
@@ -917,7 +911,7 @@ def _build_native_derivative_payloads(
     x_mechanism = " ".join(str(article.get("social_mechanism_summary") or mechanism).split())
     x_policy = " ".join(str(article.get("social_policy_summary") or policy).split())
     x_cross_asset = " ".join(str(article.get("social_cross_asset_summary") or cross_asset).split())
-    caveat = "For informational purposes only; not financial advice."
+    caveat = "Capital Chronicle offers analysis only, not financial advice or recommendations."
     x_thread = _semantic_thread_layout(title=title, dek=x_dek, mechanism=x_mechanism, policy=x_policy, cross_asset=x_cross_asset, canonical_url=canonical_url, platform="x", limit=280, media_asset_ids=media_asset_ids)
     threads_thread = _semantic_thread_layout(title=title, dek=dek, mechanism=mechanism, policy=policy, cross_asset=cross_asset, canonical_url=canonical_url, platform="threads", limit=500, media_asset_ids=media_asset_ids)
     return {
@@ -3901,7 +3895,7 @@ def _build_rolling_x_publication_plan(
     skipped_derivatives: list[dict[str, Any]] = []
     pre_substack_blockers: list[str] = []
     readiness_rows = dict(readiness.get("destinations") or {})
-    for destination in sorted(DESTINATION_TO_SURFACE):
+    for destination in sorted(V1_REQUIRED_PUBLICATION_DESTINATIONS):
         row = dict(readiness_rows.get(destination) or {})
         state = str(row.get("status") or row.get("readiness_state") or "READINESS_MISSING")
         registration = registration_for_destination(destination)

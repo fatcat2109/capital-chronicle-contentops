@@ -10,7 +10,7 @@ all cited material against the already-retrieved bytes. One bounded Gemini revis
 only semantic retry.
 
 The module never performs a public write. It persists one qualified zero-write article
-record plus exactly eight undispatched derivative intents. The existing durable publication
+record plus exactly seven undispatched derivative intents. The existing durable publication
 coordinator remains the sole public-write owner in a separately authorized later phase.
 """
 from __future__ import annotations
@@ -2091,7 +2091,7 @@ def _reader_safe_native_article(
         result["editorial_scope_notice"] += " " + " ".join(notices)
     # Preserve the writer's explicit public notice in every derivative package.
     # Older sealed articles without it remain unchanged; no source claim is added.
-    analysis_notice = "Analysis, not financial advice. Readers decide whether to trade."
+    analysis_notice = "Capital Chronicle offers analysis only, not financial advice or recommendations."
     retrospective_notice = re.search(
         r"Retrospective analysis, written on \d{1,2} [A-Z][a-z]+ \d{4} \((?:ET|GMT\+7)\)", raw_body)
     if retrospective_notice:
@@ -2303,12 +2303,12 @@ def _native_preview_bundle(
             if key in {"text", "full_text", "root_text"})
 
     expected = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
-    if len(payloads) != 8 or set(payloads) != expected:
+    if len(payloads) != len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) or set(payloads) != expected:
         raise SimpleGeminiNewsroomError(
-            "exact_eight_native_preview_package_contract_failed"
+            "required_native_preview_package_contract_failed"
         )
     quality_blockers: list[str] = []
-    for destination in ("x", "threads"):
+    for destination in (d for d in ("x", "threads") if d in expected):
         payload = dict(payloads.get(destination) or {})
         metrics = dict(payload.get("quality_metrics") or {})
         limit = int(payload.get("platform_limit") or 0)
@@ -3479,10 +3479,10 @@ def run_v1_simple_gemini_newsroom(
         "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
     }
-    if len(intents) != 8 or {row["destination"] for row in intents} != set(
+    if len(intents) != len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) or {row["destination"] for row in intents} != set(
         V1_REQUIRED_DERIVATIVE_DESTINATIONS
     ):
-        raise SimpleGeminiNewsroomError("exact_eight_derivative_intent_contract_failed")
+        raise SimpleGeminiNewsroomError("required_derivative_intent_contract_failed")
     persist(root / "derivative_intents_v1.json", intents_artifact)
 
     accepted_documents = [

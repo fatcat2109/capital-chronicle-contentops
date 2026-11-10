@@ -215,8 +215,8 @@ def qualify_zero_write_article(
     if rehearsal.get("classification") != "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL":
         blockers.append("release_candidate_rehearsal_not_pass")
     required = tuple(str(value) for value in V1_REQUIRED_DERIVATIVE_DESTINATIONS)
-    if set(payloads) != set(required) or len(payloads) != 8:
-        blockers.append("exactly_eight_derivative_packages_not_persisted")
+    if set(payloads) != set(required) or len(payloads) != len(V1_REQUIRED_DERIVATIVE_DESTINATIONS):
+        blockers.append("required_derivative_packages_not_persisted")
     if tuple(str(value) for value in plan.get("required_derivative_destinations") or ()) != required:
         blockers.append("publication_plan_derivative_contract_mismatch")
     destinations = [
@@ -301,7 +301,7 @@ def qualify_zero_write_article(
             }
             for destination in required
         ],
-        "derivative_package_intent_count": 8,
+        "derivative_package_intent_count": len(required),
         "public_write_performed": False,
         "unknown_write_count": 0,
         "qualification_blockers": sorted(set(blockers)),
@@ -360,7 +360,7 @@ def build_current_zero_write_qualified_article_record(
         blockers.append("current_v1_editorial_reasoning_effort_not_high")
     if int(logical_model_invocation_count) not in {2, 3}:
         blockers.append("current_v1_logical_model_invocation_count_invalid")
-    if len(intents) != 8 or {str(row.get("destination") or "") for row in intents} != set(required):
+    if len(intents) != len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) or {str(row.get("destination") or "") for row in intents} != set(required):
         blockers.append("exactly_eight_derivative_intents_required")
     if any(str(row.get("dispatch_state") or "") != "UNDISPATCHED" for row in intents):
         blockers.append("derivative_intent_dispatch_state_invalid")
@@ -414,7 +414,7 @@ def build_current_zero_write_qualified_article_record(
             "public_write_attempted": False,
         },
         "derivative_package_intents": intents,
-        "derivative_package_intent_count": 8,
+        "derivative_package_intent_count": len(intents),
         "public_write_performed": False,
         "unknown_write_count": 0,
         "qualification_blockers": sorted(set(blockers)),
@@ -444,14 +444,19 @@ def persist_qualified_article_record(output_dir: str | Path, record: Mapping[str
 
 def _valid_record(record: Mapping[str, Any]) -> bool:
     material = {key: value for key, value in record.items() if key != "record_sha256"}
+    intents = record.get("derivative_package_intents") or []
+    destinations = {str(row.get("destination") or "") for row in intents}
+    expected = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    # Frozen eight-destination records remain readable with their original hashes.
+    valid_destinations = destinations in (expected, expected | {"x"}) and len(intents) == len(destinations)
     return bool(
         record.get("schema_version") == "contentops.newsroom_qualified_article.v1"
         and record.get("qualified") is True
         and not record.get("qualification_blockers")
         and record.get("public_write_performed") is False
         and int(record.get("unknown_write_count") or 0) == 0
-        and int(record.get("derivative_package_intent_count") or 0) == 8
-        and len(record.get("derivative_package_intents") or []) == 8
+        and int(record.get("derivative_package_intent_count") or 0) == len(intents)
+        and valid_destinations
         and str(record.get("record_sha256") or "") == _logical_hash(material)
     )
 

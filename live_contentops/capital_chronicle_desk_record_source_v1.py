@@ -253,7 +253,8 @@ def validate_article_citations(article, records):
     problems = public_text_problems(prose)
     if problems:
         raise ValueError("DESK_ARTICLE_PRIVATE_OR_RAW_TEXT: " + "; ".join(problems))
-    if "analysis, not financial advice" not in folded:
+    if not any(notice in folded for notice in ("analysis, not financial advice",
+            "capital chronicle offers analysis only, not financial advice or recommendations.")):
         raise ValueError("DESK_ARTICLE_ANALYSIS_NOTICE_REQUIRED")
     numbers = re.compile(r"(?<![A-Za-z0-9])[-+]?\d+(?:[.,]\d+)*")
     allowed = {n for cite in citations for n in numbers.findall(cite["display"])}

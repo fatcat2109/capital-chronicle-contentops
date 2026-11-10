@@ -82,7 +82,7 @@ def revision_view(store, *, run_id, result, revision):
     article = revision["article"]
     if (article["title"] != result["article"]["title"] or article.get("news_item_kind") != "ANALYSIS"
             or not article["substack_body_markdown"].strip()
-            or "Analysis, not financial advice. Readers decide whether to trade." not in article["substack_body_markdown"]):
+            or "Capital Chronicle offers analysis only, not financial advice or recommendations." not in article["substack_body_markdown"]):
         raise ValueError("CHART_REVISION_SAME_ARTICLE_AND_PUBLIC_SCOPE_REQUIRED")
     history = revision["official_history"]
     observed = load_cc010_history(history["archive_root"],

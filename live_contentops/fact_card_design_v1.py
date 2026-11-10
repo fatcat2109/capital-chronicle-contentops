@@ -82,7 +82,7 @@ class CardSpec:
     key_value: str = ""
     source_line: str = ""
     dated_line: str = ""
-    notice: str = "Analysis, not financial advice."
+    notice: str = "Capital Chronicle offers analysis only, not financial advice or recommendations."
     image_path: str = ""   # an admitted chart image (e.g. a CC-144 series mini chart)
     extra: dict = field(default_factory=dict)
     # A bound editorial chart asset (its packet and the owner's computed values). When
@@ -646,16 +646,23 @@ def render_fact_card(path: str | Path, spec: CardSpec, *, size: tuple[int, int] 
     # Footer, on the bottom margin: the full source line, then the card's own date and the
     # notice; an ink rule above it closes the body.
     source_lines = list(_wrap(spec.source_line, "bold", 22, content))[:2] if spec.source_line else []
+    notice_lines = list(_wrap(spec.notice, "regular", 22, content)) if spec.notice else []
+    separate_date = bool(spec.dated_line and notice_lines and (
+        len(notice_lines) > 1 or _ink_width(spec.dated_line, "regular", 22)
+        + _ink_width(spec.notice, "regular", 22) + 2 * UNIT > content))
     pitch, last_baseline = 30, height - MARGIN
-    first_baseline = last_baseline - pitch * len(source_lines)
+    bottom_rows = max(1, len(notice_lines)) + int(separate_date)
+    first_baseline = last_baseline - pitch * (len(source_lines) + bottom_rows - 1)
     footer_rule = round(first_baseline - _cap("regular", 22) - 2.5 * UNIT - 2)
     draw.rectangle((left, footer_rule, right - 1, footer_rule + 1), fill=INK)
     for index, line in enumerate(source_lines):
         _set(draw, left, first_baseline + index * pitch, line, "bold", 22, INK)
     if spec.dated_line:
-        _set(draw, left, last_baseline, spec.dated_line, "regular", 22, MUTED)
-    if spec.notice:
-        _set(draw, right, last_baseline, spec.notice, "regular", 22, MUTED, align="right")
+        date_baseline = first_baseline + pitch * len(source_lines) if separate_date else last_baseline
+        _set(draw, left, date_baseline, spec.dated_line, "regular", 22, MUTED)
+    for index, line in enumerate(notice_lines):
+        _set(draw, right, last_baseline - pitch * (len(notice_lines) - index - 1),
+             line, "regular", 22, MUTED, align="right")
     blocks.append({"name": "footer", "box": [left, footer_rule, right, last_baseline]})
     body_bottom = footer_rule - 5 * UNIT
 

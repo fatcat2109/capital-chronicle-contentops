@@ -29,8 +29,8 @@ from zoneinfo import ZoneInfo
 
 SCHEMA = "contentops.event_article.v1"
 EVIDENCE_SCHEMA = "contentops.event_article_evidence.v1"
-DISCLAIMER = "This is general market analysis, not financial advice."
-PUBLIC_NOTICE = "Analysis, not financial advice."
+DISCLAIMER = "Capital Chronicle offers analysis only, not financial advice or recommendations."
+PUBLIC_NOTICE = "Capital Chronicle offers analysis only, not financial advice or recommendations."
 CONFLICTS_NOTICE = "Capital Chronicle may hold positions in the markets it covers."
 # Decision 72 b: the rights classes of a cited third-party figure and of our computed outputs (schema 1.4, CC-262).
 CITED_FACT = "CITED_THIRD_PARTY_FACT"
@@ -237,7 +237,7 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
 
     collect(copy)
     combined = "\n".join(texts)
-    if require_notice and not re.search(r"analysis,?\s+not financial advice", combined, re.I):
+    if require_notice and not re.search(r"(?:analysis,?\s+not financial advice|Capital Chronicle offers analysis only, not financial advice or recommendations\.)", combined, re.I):
         _fail("PUBLIC_ANALYSIS_NOTICE_REQUIRED", "copy")
     remainder = combined
     for call in calls:

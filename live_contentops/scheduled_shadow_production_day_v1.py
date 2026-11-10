@@ -1081,7 +1081,7 @@ def run_scheduled_shadow_production_day(
 
     packages = list(derivative_packages or [])
     destinations = [str(row.get("destination") or "") for row in packages]
-    if len(packages) != 8 or set(destinations) != set(V1_REQUIRED_DERIVATIVE_DESTINATIONS):
+    if len(packages) != len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) or set(destinations) != set(V1_REQUIRED_DERIVATIVE_DESTINATIONS):
         return _fail(result, MISMATCH, "derivative_package_destination_set_invalid")
     if any(str(row.get("status") or "") != "SHADOW_READY" or len(str(row.get("payload_sha256") or "")) != 64 for row in packages):
         return _fail(result, MISSING, "derivative_package_payload_or_status_missing")

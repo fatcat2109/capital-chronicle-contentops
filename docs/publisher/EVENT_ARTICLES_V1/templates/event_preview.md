@@ -34,7 +34,7 @@ The native Sol 6.1 MAX writer authors the following `copy` sections:
 | `probability_basis` | Whose probabilities are these, measured when, by which method, with which limits? |
 | `market_reactions` | What would each branch mean for rates, the dollar, gold, oil, indices and exposed sectors? |
 | `view_changes` | Which observation would change the interpretation? |
-| `disclaimer` | This is general market analysis, not financial advice. |
+| `disclaimer` | Capital Chronicle offers analysis only, not financial advice or recommendations. |
 
 `market_reactions` has exactly `rates`, `dollar`, `gold`, `oil`, `indices` and
 `sectors`. Explain conditional mechanisms and competing influences; do not assert
@@ -59,7 +59,7 @@ permission to invent a number, recycle consensus, or pad a public gap notice.
 
 Use natural source attribution, a serious countercase and a clear next observation.
 Decision 40 permits structured, impersonal conditional calls: condition, direction,
-horizon and invalidation, with "Analysis, not financial advice." and "Capital Chronicle may
+horizon and invalidation, with "Capital Chronicle offers analysis only, not financial advice or recommendations." and "Capital Chronicle may
 hold positions in the markets it covers." Use the optional root `conditional_calls`
 array and include `conditional_call_text(call)` verbatim in authored copy; the event
 checker applies the shared `check_publication_copy` gate. Unconditional calls,

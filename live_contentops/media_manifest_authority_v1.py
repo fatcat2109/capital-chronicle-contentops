@@ -193,7 +193,7 @@ def build_delivery_only_editorial_card(
     _render_text_card(path=target, header="CAPITAL CHRONICLE", title_lines=[display_title],
         body_lines=display_content["body_lines"] if display_content else [],
         kicker="Newsroom brief", dated_line=piece_dated_line(article) if article else "Capital Chronicle",
-        footer_lines=[source_text, "Analysis, not financial advice. Readers decide whether to trade."],
+        footer_lines=[source_text, "Capital Chronicle offers analysis only, not financial advice or recommendations."],
         wrap_body=True, size=INSTAGRAM_SIZE)
     metadata = image_metadata_from_file(target)
     return {

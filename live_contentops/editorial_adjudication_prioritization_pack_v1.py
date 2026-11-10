@@ -549,7 +549,7 @@ def verify_editorial_adjudication_prioritization_pack(pack: Mapping[str, Any]) -
         if matrix.get("aggregate_score_created") is not False or matrix.get("audience_score_created") is not False or matrix.get("forecast_score_created") is not False:
             return False
         packages = pack.get("claim_to_eight_derivatives") or []
-        if pack.get("classification") == "SHADOW_CONFIRMED" and ({row.get("destination") for row in packages} != set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) or len(packages) != 8):
+        if pack.get("classification") == "SHADOW_CONFIRMED" and ({row.get("destination") for row in packages} != set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) or len(packages) != len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)):
             return False
         for row in pack.get("candidate_adjudications") or []:
             if row.get("decision") not in DECISIONS or not _valid_hashes(row.get("source_hashes") or []):

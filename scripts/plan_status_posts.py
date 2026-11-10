@@ -44,35 +44,34 @@ def main(argv=None) -> int:
     parser.add_argument("--window-minutes", type=int, default=POSTING_WINDOW_MINUTES)
     parser.add_argument("--main-root", type=Path, default=MAIN_ROOT)
     parser.add_argument("--publish", action="store_true",
-                        help="after queueing, post queued rows through the coordinator (X waits for an agent turn)")
-    parser.add_argument("--pending-x", action="store_true", help="list status posts' X requests for an agent")
+                        help="after queueing, post queued rows through the coordinator")
     parser.add_argument("--pending-notes", action="store_true", help="list status posts' Substack Notes requests")
     parser.add_argument("--notes-start", metavar="KEY", help="register this post's full Substack Note through Neo")
-    parser.add_argument("--x-start", metavar="KEY", help="agent route: register and issue a fresh post's X copy")
-    parser.add_argument("--x-begin", nargs=2, metavar=("KEY", "REQUEST_SHA256"))
-    parser.add_argument("--x-submit", nargs=3, metavar=("KEY", "REQUEST_SHA256", "RESPONSE_JSON"))
+    parser.add_argument("--notes-begin", nargs=2, metavar=("KEY", "REQUEST_SHA256"))
+    parser.add_argument("--notes-submit", nargs=3, metavar=("KEY", "REQUEST_SHA256", "RESPONSE_JSON"))
     parser.add_argument("--native-invocation-id", default="")
     args = parser.parse_args(argv)
     store = ContentOpsDurableStore(str(args.store), auto_migrate=False)
     from live_contentops import plan_status_posts_v1 as posts
-    if args.pending_x or args.pending_notes or args.x_start or args.notes_start or args.x_begin or args.x_submit:
-        if args.pending_x or args.pending_notes:
-            destination = "substack_notes" if args.pending_notes else "x"
+    if args.pending_notes or args.notes_start or args.notes_begin or args.notes_submit:
+        if args.pending_notes:
+            destination = "substack_notes"
             result = {"status": "OK", "pending_" + destination: posts.pending_x(store, destination=destination)}
         elif not args.native_invocation_id:
             result = {"status": "NATIVE_INVOCATION_ID_REQUIRED"}
-        elif args.x_start or args.notes_start:
-            result = {"status": "OK", "start": posts.start_x(store, args.x_start or args.notes_start,
-                destination="substack_notes" if args.notes_start else "x",
+        elif args.notes_start:
+            result = {"status": "OK", "start": posts.start_x(store, args.notes_start,
+                destination="substack_notes",
                 native_invocation_id=args.native_invocation_id)}
-        elif args.x_begin:
-            result = {"status": "OK", "begin": posts.begin_x(store, *args.x_begin,
-                                                             native_invocation_id=args.native_invocation_id)}
+        elif args.notes_begin:
+            result = {"status": "OK", "begin": posts.begin_x(store, *args.notes_begin,
+                native_invocation_id=args.native_invocation_id)}
         else:
-            key, request_hash, response = args.x_submit
-            result = {"status": "OK", "submit": posts.submit_x(
-                store, key, request_hash, json.loads(Path(response).read_text(encoding="utf-8")),
+            key, request_hash, response = args.notes_submit
+            result = {"status": "OK", "submit": posts.submit_x(store, key, request_hash,
+                json.loads(Path(response).read_text(encoding="utf-8")),
                 native_invocation_id=args.native_invocation_id)}
+
     else:
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
                              main_root=args.main_root, python=child_python())

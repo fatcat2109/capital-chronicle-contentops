@@ -1,0 +1,32 @@
+{
+  "store_copy": "C:\\Users\\bullw\\AppData\\Local\\Temp\\cc395-copied-store-qh7s7wg3\\copied.sqlite3",
+  "method": "SQLite backup including committed WAL; exact new replay work item in production-store copy",
+  "held_canonical": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar",
+  "transport": "CONTROLLED_FIXTURE_NO_EXTERNAL_CALLS",
+  "required_derivatives": 7,
+  "distribution_status": "FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED",
+  "x": {
+    "destination": "x",
+    "dispatch_id": "dispatch_d632154a4bcb9725f8e4f0829df64157",
+    "dispatch_recorded": true,
+    "status": "DEFINITE_NO_WRITE",
+    "reconciliation_status": "X_NON_API_AUTOMATION_PROHIBITED",
+    "public_object_id": null,
+    "public_object_url": null,
+    "publish_called": false,
+    "reason_code": "X_NON_API_AUTOMATION_PROHIBITED"
+  },
+  "dispatch_failure_incidents": 0,
+  "publish_calls": [
+    "substack",
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "linkedin_company",
+    "telegram",
+    "threads",
+    "youtube"
+  ],
+  "live_publication_proof": false
+}

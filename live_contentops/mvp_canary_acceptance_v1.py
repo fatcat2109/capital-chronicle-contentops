@@ -254,10 +254,10 @@ def build_mvp_canary_launch_gate_record(
         == "PASS_BOUND_XHIGH_EDITORIAL_RETURN",
         "exactly_eight_derivative_package_intents": derivative_set
         == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
-        and len(tuple(derivative_destinations)) == 8,
+        and len(tuple(derivative_destinations)) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS),
         "exactly_nine_publication_plan_destinations": publication_set
         == set(V1_REQUIRED_PUBLICATION_DESTINATIONS)
-        and len(tuple(publication_plan_destinations)) == 9,
+        and len(tuple(publication_plan_destinations)) == len(V1_REQUIRED_PUBLICATION_DESTINATIONS),
         "jit_nine_surface_identity_and_readiness": jit_preflight.get("status") == "READY"
         and jit_preflight.get("all_required_destinations_ready") is True,
         "rights_safe_or_zero_media": bool(rights_or_zero_media_pass),
