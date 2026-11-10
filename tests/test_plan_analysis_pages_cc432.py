@@ -279,3 +279,17 @@ def test_long_telegram_call_routes_full_text_and_owned_card_preview(monkeypatch,
     result = pipeline._publish_one_destination_from_durable_intent(destination='telegram',intent=intent,
         authorization_context={'operating_mode':'AUTONOMOUS_DEFAULT','dispatch_attempt_identity':'attempt'})
     assert result['definite_no_write'] and len(calls) == 1
+
+
+def test_telegram_success_with_wrong_parent_is_not_confirmed(monkeypatch):
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    from live_contentops import telegram_live_adapter_v6 as adapter
+    text = 'Original plan analysis: https://capitalchronicle.substack.com/p/full-plan'
+    monkeypatch.setattr(pipeline, 'load_public_dispatch_hashes', lambda path: {})
+    monkeypatch.setattr(adapter, 'execute_telegram_post', lambda **kw: {'status':'SUCCESS', 'id':'129',
+        'response':{'result':{'message_id':129,'chat':{'username':'CapitalChronicle'},'text':text,
+                              'reply_to_message':{'message_id':999}}}})
+    result = pipeline._publish_telegram_text_verified(run_id='test',topic_hash='a'*64,text=text,
+        canonical_url='https://capitalchronicle.substack.com/p/full-plan',reply_to_message_id='115')
+    assert result['status'] == 'FAILED_TELEGRAM_STRICT_READBACK'
+    assert not result['provider_readback_verified']

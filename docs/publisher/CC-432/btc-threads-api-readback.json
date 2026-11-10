@@ -1,0 +1,23 @@
+{
+ "status": "SUCCESS",
+ "platform": "threads",
+ "post_id": "18121628239769207",
+ "public_url": "https://www.threads.com/@official.capitalchronicle/post/DfjgrEelO6G",
+ "destination_identity": "official.capitalchronicle",
+ "account_identity_verified": true,
+ "visible_body_text": "Full reasoning for the original Bitcoin plan: macro and fundamentals, technical levels, geopolitical limits, what was priced in, scenarios and the critic's rebound objection. Full analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+ "body_text_visible": true,
+ "substack_url_visible": true,
+ "meaningful_media_visible": false,
+ "expected_chart_visual_similarity": null,
+ "media_type": "TEXT_POST",
+ "content_binding_checks": {
+  "text_match": true,
+  "reply_parent_match": true,
+  "media_match": true,
+  "canonical_link_match": true,
+  "account_match": true,
+  "public_url_match": true,
+  "object_id_match": true
+ }
+}

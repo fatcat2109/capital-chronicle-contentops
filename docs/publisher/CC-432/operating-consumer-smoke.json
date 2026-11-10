@@ -1,0 +1,91 @@
+{
+ "observed_at_utc": "2026-11-10T08:50:59.725757+00:00",
+ "imported_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_analysis_pages_v1.py",
+ "plans": [
+  {
+   "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+   "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+   "consumer_seven_sections": true,
+   "image_sha256": "b9f450d241e23f760ba471f4ad58e504eefb514eb9f4a91aed23a893b8ca37fe",
+   "plan_hash": "d7f17ccd29fad23c2e205eb1d6b38130a6a80aec036d69c2a1a106fff8d542bb",
+   "dispatch": {
+    "dispatch_id": "dispatch_e0fa87cefd6b1a8de728d4d45deac667",
+    "message_id": "outbox_e0fa87cefd6b1a8de728d4d45deac667",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-10T07:19:45.688743+00:00",
+    "public_object_id": "224269633",
+    "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+    "public_object_url_hash": "0725b110e926acfd4e531a38eadca2055b3953871788d67bb8e1b71b0bd639fb"
+   }
+  },
+  {
+   "plan_id": "plan_f45a45412d7fb675b4db238d",
+   "canonical_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+   "consumer_seven_sections": true,
+   "image_sha256": "11ba827cacbdbb155cea3a672b16bd427b96b57dd325247b133cc1cfedd3a682",
+   "plan_hash": "0163a34da903ad8868c444e58c900cc9b75854608de287a0b07bc318d84a54fe",
+   "dispatch": {
+    "dispatch_id": "dispatch_c5f47f80dfd3ec405c98d62c9b594ff2",
+    "message_id": "outbox_c5f47f80dfd3ec405c98d62c9b594ff2",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-10T07:23:04.273111+00:00",
+    "public_object_id": "224271738",
+    "public_object_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+    "public_object_url_hash": "317464d07e1830f58fd532c27282454e46e8f6858189d15b5657fa7168b7eb73"
+   }
+  },
+  {
+   "plan_id": "plan_829c6d5505eb74877d962853",
+   "canonical_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+   "consumer_seven_sections": true,
+   "image_sha256": "8fe87325c51496aa5b66e94ae7f234e1afa077f53431ca9cde410dc2da9d5307",
+   "plan_hash": "e26d6590b37f80264047d03c927e234c72f63b505d38f9e60ea04747cf5fed52",
+   "dispatch": {
+    "dispatch_id": "dispatch_05ba3e29ec281fb4eb8baff20ace3b0f",
+    "message_id": "outbox_05ba3e29ec281fb4eb8baff20ace3b0f",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-10T07:19:46.741897+00:00",
+    "public_object_id": "224272189",
+    "public_object_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+    "public_object_url_hash": "7893b731e10f60be29a2776a12539f437d57fbb1c931ab4036f21d21963dd5de"
+   }
+  },
+  {
+   "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+   "canonical_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+   "consumer_seven_sections": true,
+   "image_sha256": "24cf5132345625e9c6f48c9939ebfe627da8c1962d96f2c245202bb6f5e65596",
+   "plan_hash": "bf4eec11ed28f9983c3364b18bbfca32564b1127a1ad42d22d5c73602660b871",
+   "dispatch": {
+    "dispatch_id": "dispatch_d0853d6a97c1bbed6f1bac55d6026274",
+    "message_id": "outbox_d0853d6a97c1bbed6f1bac55d6026274",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-10T07:23:04.815265+00:00",
+    "public_object_id": "224272832",
+    "public_object_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+    "public_object_url_hash": "3ec237770c5890d87e07427b86a5862b5413b042484fa8e2c4ae8f39ae614a4d"
+   }
+  },
+  {
+   "plan_id": "plan_8b7c1dd880206079033b6efe",
+   "canonical_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+   "consumer_seven_sections": true,
+   "image_sha256": "22216f28055c36c77ae889fc53ff0340e13a1c766d482fa4ebee5fb2c7c42618",
+   "plan_hash": "3e8ae774032500ace915d7555c5e8af661f878efff656aef0a5148e84b1cea75",
+   "dispatch": {
+    "dispatch_id": "dispatch_af9553b2042ba3ac2fd5dcc79e51c78d",
+    "message_id": "outbox_af9553b2042ba3ac2fd5dcc79e51c78d",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-10T07:23:05.319233+00:00",
+    "public_object_id": "224274628",
+    "public_object_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+    "public_object_url_hash": "d79a777efaf3dd1b0679ca8c2199b297d61311e26ab119e2f2000ec734454fd8"
+   }
+  }
+ ]
+}

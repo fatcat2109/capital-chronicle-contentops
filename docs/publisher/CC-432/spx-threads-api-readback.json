@@ -1,0 +1,23 @@
+{
+ "status": "SUCCESS",
+ "platform": "threads",
+ "post_id": "18115739320872841",
+ "public_url": "https://www.threads.com/@official.capitalchronicle/post/Dfjfnr7lCEB",
+ "destination_identity": "official.capitalchronicle",
+ "account_identity_verified": true,
+ "visible_body_text": "S&P 500 original view. Macro: weaker dollar; fundamental: no valuation refresh; technical: recovery held; geopolitics: unconfirmed; priced in: rebound; scenarios: 55% base, 45% alternative (model estimates); review: renewed selling risk. Full analysis: https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+ "body_text_visible": true,
+ "substack_url_visible": true,
+ "meaningful_media_visible": false,
+ "expected_chart_visual_similarity": null,
+ "media_type": "TEXT_POST",
+ "content_binding_checks": {
+  "text_match": true,
+  "reply_parent_match": true,
+  "media_match": true,
+  "canonical_link_match": true,
+  "account_match": true,
+  "public_url_match": true,
+  "object_id_match": true
+ }
+}

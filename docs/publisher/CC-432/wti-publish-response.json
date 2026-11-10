@@ -1,0 +1,23 @@
+{
+ "tool_request_sha256": "d193ae015b858b3b34529cf1beba09c8225d1f5c7cb26ab6dd4a4ad885ac669c",
+ "tool_observation": {
+  "tool_name": "mcp__browseros_neo__run",
+  "surface": "CODEX_EXEC",
+  "native_invocation_id": "cc432-p1960-20261110",
+  "observation_source": "BROWSEROS_NEO_ACTUAL_TOOL_RETURN",
+  "observed_at_utc": "2026-11-10T08:09:03.674Z",
+  "dispatched_at_utc": "2026-11-10T08:03:49.479Z"
+ },
+ "result": {
+  "status": "SUCCESS",
+  "request_sha256": "6154a551fe33bcebbd01e87cf9db22a8db00e061b08e59c4e52f75441e5d91ee",
+  "observed_identity": "capitalchronicle.substack.com",
+  "public_object_id": "224272189",
+  "public_object_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+  "delivery_observation": {
+   "email_send_enabled": false,
+   "web_publish_enabled": true,
+   "evidence_ref": "Actual unchecked email control and Publish on web only confirmation; share centre reached on the same tab."
+  }
+ }
+}

@@ -1,0 +1,85 @@
+{
+ "status": "PASS",
+ "observed_at_utc": "2026-11-10T08:46:28.843237+00:00",
+ "copied_store_from": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+ "copy_bytes": 557760512,
+ "copy_sha256": "f00567cc64e03d2e0e78f54bf5122ad70097fcd029ec3393f6242df1b78ff856",
+ "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+ "sections": [
+  "desk_process",
+  "fundamental",
+  "geopolitical",
+  "macro",
+  "priced_in",
+  "scenarios",
+  "technical"
+ ],
+ "paragraph_bindings": 22,
+ "numeric_values": 44,
+ "every_paragraph_source_bound": true,
+ "exact_copy_matches_published_native_payload": true,
+ "live_card_consumer_uses_confirmed_page": true,
+ "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+ "source_manifest": {
+  "role-pack.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\role-pack.json",
+   "sha256": "7343e22f12ebf35280ccfdc1522efcae7939ee414693402019381b8b4efc48c4",
+   "bytes": 536781
+  },
+  "role-evidence.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\role-evidence.json",
+   "sha256": "4e26a911caf850c579e8ffa8c8a56348fd2bd38d25397354a9a70ef729cf355b",
+   "bytes": 1871174
+  },
+  "critic-note.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\critic-note.json",
+   "sha256": "97bc76de0845cc83bb7b2116b8748aacb845eea6056be5b31e8ba4c10b9a7c39",
+   "bytes": 12727
+  },
+  "integrated-owner-record.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\integrated-owner-record.json",
+   "sha256": "c66053fe8e199f75cf843af17472af1207a150c5f39d7ea5e4c4e379649d2607",
+   "bytes": 7087169
+  },
+  "plan-geometry.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\plan-geometry.json",
+   "sha256": "01d24eb60d4649b8d337fcfd440f2fa394283f7d566585add64759c5fe2f0aa7",
+   "bytes": 8096
+  },
+  "options-context.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\options-context.json",
+   "sha256": "e5a65a0465dd685362678f75217438cca6f91c08b3ad601b95b565db8dc286c6",
+   "bytes": 34972
+  },
+  "final-decision-freeze.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\final-decision-freeze.json",
+   "sha256": "d520b7029eb3f1a50a531839334845badc51c8bd654a750b7a2919b0fcb6d37c",
+   "bytes": 1886
+  },
+  "desktop-manual-result.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\desktop-manual-result.json",
+   "sha256": "123e5532fb0f2c0aad7a3467c82d742a3e993df49f943afdfdfb77486eca8f09",
+   "bytes": 465541
+  },
+  "primary-native.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\primary-native.json",
+   "sha256": "1dc261a687ffaab0a2699a5e938d76eb58ed1ca4db62bd9b018dbd59e234aff6",
+   "bytes": 82147
+  },
+  "critical-native.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\critical-native.json",
+   "sha256": "4e7c6a4fe5d40fae9aa1ca762213a076633321b33f66c576c5e7d8bba9080e56",
+   "bytes": 62128
+  },
+  "owner-native.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\owner-native.json",
+   "sha256": "b13888558ba9d9dcc298ed1ee558ebfc73641151271936462c30cd173c21a458",
+   "bytes": 100563
+  },
+  "market-context.json": {
+   "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\market-context.json",
+   "sha256": "9c7e1279c2aab10367a11d054749264353b19cbdbff01ee670deb3a7710e237b",
+   "bytes": 22563
+  }
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "plan_hash": "bd649d94db42c24ca6e027a89b16e903d61572f52eb8cf6c2daeb61fe935503b",
+ "registered": [
+  {
+   "destination": "threads",
+   "message_id": "outbox_ad9354a602f82a38f4d0736f5fc26fd7",
+   "dispatch_id": "dispatch_ad9354a602f82a38f4d0736f5fc26fd7",
+   "reconciliation_id": "reconciliation_ad9354a602f82a38f4d0736f5fc26fd7"
+  }
+ ],
+ "outbox_count": 1,
+ "per_destination": {
+  "threads": {
+   "destination": "threads",
+   "status": "DISPATCH_CONFIRMED",
+   "publish_called": true,
+   "public_object_id": "18635996629007906",
+   "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjbwtLlCrY",
+   "reconciliation_status": "RECONCILED_CONFIRMED",
+   "safe_error_classification": null,
+   "dispatch_id": "dispatch_ad9354a602f82a38f4d0736f5fc26fd7",
+   "dispatch_recorded": true
+  }
+ },
+ "canonical_article_status": "NOT_CONFIRMED",
+ "canonical_article_real_published": false,
+ "canonical_url": null,
+ "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+ "distribution_status": "CANONICAL_NOT_CONFIRMED",
+ "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+ "quality_preflight": null,
+ "delivery_media_preparation": {
+  "status": "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+  "provider_calls": 0,
+  "public_write_performed": false
+ },
+ "recovery_required_destinations": [],
+ "readback_limitation_destinations": [],
+ "metrics_availability_independent_from_publication_confirmation": true,
+ "derivative_attempted_count": 1,
+ "derivative_confirmed_count": 1,
+ "derivative_skipped_count": 0,
+ "derivative_failed_count": 0,
+ "derivative_unknown_count": 0,
+ "public_write_performed": true,
+ "retired_browser_unknown_count": 0,
+ "retired_x_unknown_count": 0,
+ "unknown_write_detected": false,
+ "derivative_absent_safe_to_retry_count": 0,
+ "derivative_never_attempted_count": 0,
+ "unknown_write_count": 0
+}

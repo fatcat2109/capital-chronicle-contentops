@@ -1,0 +1,103 @@
+{
+ "publication": {
+  "plan_hash": "0163a34da903ad8868c444e58c900cc9b75854608de287a0b07bc318d84a54fe",
+  "registered": [
+   {
+    "destination": "substack",
+    "message_id": "outbox_c5f47f80dfd3ec405c98d62c9b594ff2",
+    "dispatch_id": "dispatch_c5f47f80dfd3ec405c98d62c9b594ff2",
+    "reconciliation_id": "reconciliation_c5f47f80dfd3ec405c98d62c9b594ff2"
+   }
+  ],
+  "outbox_count": 1,
+  "per_destination": {
+   "substack": {
+    "destination": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "publish_called": false,
+    "public_object_id": "224271738",
+    "public_object_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "dispatch_id": "dispatch_c5f47f80dfd3ec405c98d62c9b594ff2",
+    "dispatch_recorded": true
+   }
+  },
+  "canonical_article_status": "REAL_PUBLISHED",
+  "canonical_article_real_published": true,
+  "canonical_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+  "canonical_publication_status": "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE",
+  "distribution_status": "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE",
+  "transaction_classification": "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE",
+  "quality_preflight": null,
+  "delivery_media_preparation": {
+   "status": "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+   "provider_calls": 0,
+   "public_write_performed": false
+  },
+  "recovery_required_destinations": [],
+  "readback_limitation_destinations": [],
+  "metrics_availability_independent_from_publication_confirmation": true,
+  "derivative_attempted_count": 0,
+  "derivative_confirmed_count": 0,
+  "derivative_skipped_count": 0,
+  "derivative_failed_count": 0,
+  "derivative_unknown_count": 0,
+  "public_write_performed": false,
+  "retired_browser_unknown_count": 0,
+  "retired_x_unknown_count": 0,
+  "unknown_write_detected": false,
+  "derivative_absent_safe_to_retry_count": 0,
+  "derivative_never_attempted_count": 0,
+  "unknown_write_count": 0
+ },
+ "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+ "plan_id": "plan_f45a45412d7fb675b4db238d",
+ "confirmed": true,
+ "canonical_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+ "dispatch": {
+  "dispatch_id": "dispatch_c5f47f80dfd3ec405c98d62c9b594ff2",
+  "message_id": "outbox_c5f47f80dfd3ec405c98d62c9b594ff2",
+  "platform": "substack",
+  "status": "DISPATCH_CONFIRMED",
+  "dispatched_at": "2026-11-10T07:23:04.273111+00:00",
+  "public_object_id": "224271738",
+  "public_object_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+  "public_object_url_hash": "317464d07e1830f58fd532c27282454e46e8f6858189d15b5657fa7168b7eb73"
+ },
+ "reconciliation": {
+  "reconciliation_id": "reconciliation_c5f47f80dfd3ec405c98d62c9b594ff2",
+  "work_item_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+  "status": "RECONCILED_CONFIRMED",
+  "reconciled_at": "2026-11-10T08:01:55.762977+00:00"
+ },
+ "pending_requests": [
+  {
+   "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+   "operation_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+   "public_write_authorized": false,
+   "request": {
+    "action": "VERIFY_IDENTITY",
+    "destination": "substack",
+    "entry_url": "https://capitalchronicle.substack.com/",
+    "expected_identity": "capitalchronicle.substack.com",
+    "forbidden": [
+     "login",
+     "account_switch",
+     "public_write",
+     "saved_draft",
+     "private_storage"
+    ],
+    "native_invocation_id": "cc432-p1960-20261110",
+    "probe_epoch": 5980990,
+    "request_sha256": "7f789b42c98185e3e8773b6406c949925a5150744039f11961163d2feaaf006a",
+    "schema_version": "contentops.neo_identity_probe.v1",
+    "surface": "SUBSTACK_ARTICLE",
+    "work_item_id": "native-neo-operation-a8341bcb5280087773d7fd492ea3b434118e9744a08d9f2085e9ccacca8cf254"
+   },
+   "required_tool": "mcp__browseros_neo__run",
+   "schema_version": "contentops.native_neo_tool_request.v1",
+   "tool_request_sha256": "1e3f29a7d28998a5761a1ec47d654f74d5a252a89628f5b1b4498571e4ff9865",
+   "action_claimed": false
+  }
+ ]
+}

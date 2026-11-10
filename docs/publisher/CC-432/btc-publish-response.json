@@ -1,0 +1,23 @@
+{
+ "tool_request_sha256": "de81529e7674459f18bb99cd2c6346af86f525fd95e7ba2efaa52db03e28056f",
+ "tool_observation": {
+  "tool_name": "mcp__browseros_neo__run",
+  "surface": "CODEX_EXEC",
+  "native_invocation_id": "cc432-p1960-20261110",
+  "observation_source": "BROWSEROS_NEO_ACTUAL_TOOL_RETURN",
+  "observed_at_utc": "2026-11-10T08:38:16.526Z",
+  "dispatched_at_utc": "2026-11-10T08:36:43.939Z"
+ },
+ "result": {
+  "status": "SUCCESS",
+  "request_sha256": "f2676a1b704d8b3cf5a1485b1ea8aff4093f2505559f542f76ec6ef37c37cf78",
+  "observed_identity": "capitalchronicle.substack.com",
+  "public_object_id": "224274628",
+  "public_object_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+  "delivery_observation": {
+   "email_send_enabled": false,
+   "web_publish_enabled": true,
+   "evidence_ref": "Actual unchecked email control and Publish on web only confirmation; share centre reached on the same tab."
+  }
+ }
+}

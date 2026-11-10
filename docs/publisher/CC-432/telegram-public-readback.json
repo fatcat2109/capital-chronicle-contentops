@@ -1,0 +1,45 @@
+{
+ "observed_at_utc": "2026-11-10T08:41:57.413Z",
+ "checks": [
+  {
+   "object": "CapitalChronicle/129",
+   "full_text_match": true,
+   "parent": "https://t.me/CapitalChronicle/115",
+   "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+   "chars": 3550,
+   "text_sha256": "00fceef46651c29d8d4675b31d27a4e0b807a5be9993071bb319905bad70fdcd"
+  },
+  {
+   "object": "CapitalChronicle/130",
+   "full_text_match": true,
+   "parent": "https://t.me/CapitalChronicle/121",
+   "canonical_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+   "chars": 3023,
+   "text_sha256": "41158cb3f8d8aac407aca3e58af051a070ce535786e6f3e923e9902521a9309c"
+  },
+  {
+   "object": "CapitalChronicle/131",
+   "full_text_match": true,
+   "parent": "https://t.me/CapitalChronicle/119",
+   "canonical_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+   "chars": 2880,
+   "text_sha256": "38296591f73b32ef27722527296158aa98abcd976b170b40372c8b0618e35af1"
+  },
+  {
+   "object": "CapitalChronicle/132",
+   "full_text_match": true,
+   "parent": "https://t.me/CapitalChronicle/118",
+   "canonical_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+   "chars": 2648,
+   "text_sha256": "970cda6234a3421c557eebc24c5adf1088f17cd4baee4c28afa10d4a49ee8ec3"
+  },
+  {
+   "object": "CapitalChronicle/133",
+   "full_text_match": true,
+   "parent": "https://t.me/CapitalChronicle/120",
+   "canonical_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+   "chars": 2724,
+   "text_sha256": "fb605da55f58f6b8b2f7f912969bdb795fa1c8558a318dc42c039635413b6850"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "publication": {
+  "plan_hash": "d7f17ccd29fad23c2e205eb1d6b38130a6a80aec036d69c2a1a106fff8d542bb",
+  "registered": [
+   {
+    "destination": "substack",
+    "message_id": "outbox_e0fa87cefd6b1a8de728d4d45deac667",
+    "dispatch_id": "dispatch_e0fa87cefd6b1a8de728d4d45deac667",
+    "reconciliation_id": "reconciliation_e0fa87cefd6b1a8de728d4d45deac667"
+   }
+  ],
+  "outbox_count": 1,
+  "per_destination": {
+   "substack": {
+    "destination": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "publish_called": false,
+    "public_object_id": "224269633",
+    "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "dispatch_id": "dispatch_e0fa87cefd6b1a8de728d4d45deac667",
+    "dispatch_recorded": true
+   }
+  },
+  "canonical_article_status": "REAL_PUBLISHED",
+  "canonical_article_real_published": true,
+  "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+  "canonical_publication_status": "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE",
+  "distribution_status": "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE",
+  "transaction_classification": "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE",
+  "quality_preflight": null,
+  "delivery_media_preparation": {
+   "status": "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+   "provider_calls": 0,
+   "public_write_performed": false
+  },
+  "recovery_required_destinations": [],
+  "readback_limitation_destinations": [],
+  "metrics_availability_independent_from_publication_confirmation": true,
+  "derivative_attempted_count": 0,
+  "derivative_confirmed_count": 0,
+  "derivative_skipped_count": 0,
+  "derivative_failed_count": 0,
+  "derivative_unknown_count": 0,
+  "public_write_performed": false,
+  "retired_browser_unknown_count": 0,
+  "retired_x_unknown_count": 0,
+  "unknown_write_detected": false,
+  "derivative_absent_safe_to_retry_count": 0,
+  "derivative_never_attempted_count": 0,
+  "unknown_write_count": 0
+ },
+ "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+ "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+ "confirmed": true,
+ "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+ "dispatch": {
+  "dispatch_id": "dispatch_e0fa87cefd6b1a8de728d4d45deac667",
+  "message_id": "outbox_e0fa87cefd6b1a8de728d4d45deac667",
+  "platform": "substack",
+  "status": "DISPATCH_CONFIRMED",
+  "dispatched_at": "2026-11-10T07:19:45.688743+00:00",
+  "public_object_id": "224269633",
+  "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+  "public_object_url_hash": "0725b110e926acfd4e531a38eadca2055b3953871788d67bb8e1b71b0bd639fb"
+ },
+ "reconciliation": {
+  "reconciliation_id": "reconciliation_e0fa87cefd6b1a8de728d4d45deac667",
+  "work_item_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+  "status": "RECONCILED_CONFIRMED",
+  "reconciled_at": "2026-11-10T07:54:03.192003+00:00"
+ },
+ "pending_requests": []
+}

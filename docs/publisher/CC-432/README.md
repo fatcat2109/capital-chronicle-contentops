@@ -1,0 +1,29 @@
+# CC-432 - full original-plan analysis
+
+Five source-bound Substack pages are live, web only, with no email. Each has all seven requested sections and a diagram of the original pullback and breakout geometry. Full public text, image bytes, captions and alt text were checked. Each page has a confirmed reply beneath its own plan on Telegram and Threads.
+
+**Remaining blocker: DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE.** The current secret-store lookup returns no bot credential. Discord webhooks cannot create the required call threads without that credential. The existing destination-day failure record remains in force. The five original Discord identities and exact link intents are retained; no alternate destination or duplicate root was posted. CC-432 remains BLOCKED because live acceptance requires Discord too.
+
+| Plan | Full page | Telegram reply | Threads reply |
+| --- | --- | --- | --- |
+| EURUSD | [Read](https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis) | [Read](https://t.me/CapitalChronicle/129) | [Read](https://www.threads.com/@official.capitalchronicle/post/DfjbwtLlCrY) |
+| XAUUSD | [Read](https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong) | [Read](https://t.me/CapitalChronicle/130) | [Read](https://www.threads.com/@official.capitalchronicle/post/Dfjbyr2lB6u) |
+| USOIL | [Read](https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the) | [Read](https://t.me/CapitalChronicle/131) | [Read](https://www.threads.com/@official.capitalchronicle/post/DfjflvNFPEI) |
+| US500 | [Read](https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held) | [Read](https://t.me/CapitalChronicle/132) | [Read](https://www.threads.com/@official.capitalchronicle/post/Dfjfnr7lCEB) |
+| BTCUSD | [Read](https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the) | [Read](https://t.me/CapitalChronicle/133) | [Read](https://www.threads.com/@official.capitalchronicle/post/DfjgrEelO6G) |
+
+Bitcoin had no sent same-plan Threads setup. The official own-post readback and store showed that its legacy setup was never dispatched there. The chosen repair was a clearly dated "original plan of 9 Nov ET" post, using the exact image verified on its canonical page, followed by the full-analysis reply. Its root is [here](https://www.threads.com/@official.capitalchronicle/post/DfjgiOeFOGD). This preserves the original view and does not present it as a fresh call.
+
+The page owner reads the sealed Main run, its analyst/critic/owner outputs, evidence, geometry, options context and freeze. It joins the result hash and registration, binds each paragraph and numeric value to source pointers, checks public rights and privacy, and passes the exact approved copy through DurablePublicationCoordinator. The prose was authored and reviewed in this native MAX run. Launch configuration was gpt-6.1-sol/max, CONFIGURED_NOT_OBSERVED; actual-model telemetry was unavailable. No additional model API was called.
+
+Public omissions follow the rights and privacy decisions: private X-list text, account/size/money figures, licensed raw data and model names are filtered. A retained dataset is distinguished from what the original roles actually used. Unstated scenario probabilities are not manufactured. The figures are level diagrams from the two frozen entry structures, not later price history.
+
+The existing call-card queue reads the Publisher-owned confirmed-page projection for each exact Main registration. New first posts carry its structured sections and canonical link; later thread updates retain the link. Telegram uses its 4,096-character text allowance with the hosted card as a large preview when the summary exceeds the 1,024-character photo caption allowance. Other destinations retain their platform limits. New pages use an authored manuscript; the renderer formats and checks that writing, and does not write substitute analysis.
+
+Installed in A:\Capital Chronicle\ContentOps by a fast-forward on its existing operating branch. The six unrelated operating edits were hashed before and after integration and preserved. The existing PlanStatusPosts task ran from that root at 15:53:26 GMT+7 with result 0 after installation. No schedule, application process, Main state or chat was changed.
+
+Validation: copied-store EUR/USD rendering passed with seven sections, 22 source-bound paragraphs and 44 numeric bindings; its payload matched the published page and the real call-card consumer accepted the confirmed projection. Focused page/quality tests passed 72 cases before the final transport additions. The final page/card/Telegram tests passed 56 cases. Public Telegram readbacks matched all five complete replies and parents; official Threads API readbacks confirmed all five replies, links and parent edges.
+
+Evidence: [live result](live-result.json), [copied-store acceptance](copied-store-eurusd-acceptance.json), [operating consumer](operating-consumer-smoke.json), [Telegram public readbacks](telegram-public-readback.json), [Threads readbacks](threads-live-readbacks.json), [quality tests](page-quality-final-tests.xml), [final consumer tests](live-consumer-tests.xml). The production store retains exact native requests, action claims, observed returns, original absence reconciliation and image revisions. Screenshots and image bytes are not embedded in these records.
+
+Prepared outside action: Ops Product installs the existing authorized Discord bot credential as DISCORD_BOT_TOKEN with thread creation, thread send and readback access. Then resume the five retained Discord link plans through publish_link in live_contentops.plan_analysis_pages_v1 once the existing destination-day circuit allows them. Their IDs are plan-analysis-link-<plan_id>-discord; use the five plan IDs in live-result.json. All other required live work is complete.

@@ -1,0 +1,30 @@
+{
+ "publication": {
+  "dispatch_id": "dispatch_af9553b2042ba3ac2fd5dcc79e51c78d",
+  "destination": "substack",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "public_write_performed": false,
+  "publish_called": false
+ },
+ "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+ "plan_id": "plan_8b7c1dd880206079033b6efe",
+ "confirmed": true,
+ "canonical_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+ "dispatch": {
+  "dispatch_id": "dispatch_af9553b2042ba3ac2fd5dcc79e51c78d",
+  "message_id": "outbox_af9553b2042ba3ac2fd5dcc79e51c78d",
+  "platform": "substack",
+  "status": "DISPATCH_CONFIRMED",
+  "dispatched_at": "2026-11-10T07:23:05.319233+00:00",
+  "public_object_id": "224274628",
+  "public_object_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+  "public_object_url_hash": "d79a777efaf3dd1b0679ca8c2199b297d61311e26ab119e2f2000ec734454fd8"
+ },
+ "reconciliation": {
+  "reconciliation_id": "reconciliation_af9553b2042ba3ac2fd5dcc79e51c78d",
+  "work_item_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+  "status": "RECONCILED_CONFIRMED",
+  "reconciled_at": "2026-11-10T08:39:16.382495+00:00"
+ },
+ "pending_requests": []
+}

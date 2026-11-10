@@ -1,0 +1,528 @@
+{
+ "item": "CC-432",
+ "recorded_at_utc": "2026-11-10T08:54:05.571304+00:00",
+ "implementation_commit": "c23d19fb17ee77dadad141f50f4853a11b395a86",
+ "operating_root": "A:\\Capital Chronicle\\ContentOps",
+ "status": "BLOCKED",
+ "first_cause": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE",
+ "discord_token_present": false,
+ "model_provenance": {
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "observation": "CONFIGURED_NOT_OBSERVED",
+  "native_invocation_id": "cc432-p1960-20261110",
+  "source": "Launch arguments read at item entry; no supported actual-model telemetry returned."
+ },
+ "live_task_observation": {
+  "task": "CapitalChronicle-PlanStatusPosts-V1",
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "command": "pythonw.exe -B scripts\\plan_status_posts.py --publish",
+  "last_run_utc": "2026-11-10T08:53:26Z",
+  "last_task_result": 0,
+  "schedule_changed": false
+ },
+ "plans": [
+  {
+   "asset": "EURUSD",
+   "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+   "run_id": "request-b52501d84c88f7bf",
+   "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+   "canonical_confirmed": true,
+   "web_only": true,
+   "source_manifest": {
+    "critic-note.json": {
+     "bytes": 12727,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\critic-note.json",
+     "sha256": "97bc76de0845cc83bb7b2116b8748aacb845eea6056be5b31e8ba4c10b9a7c39"
+    },
+    "critical-native.json": {
+     "bytes": 62128,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\critical-native.json",
+     "sha256": "4e7c6a4fe5d40fae9aa1ca762213a076633321b33f66c576c5e7d8bba9080e56"
+    },
+    "desktop-manual-result.json": {
+     "bytes": 465541,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\desktop-manual-result.json",
+     "sha256": "123e5532fb0f2c0aad7a3467c82d742a3e993df49f943afdfdfb77486eca8f09"
+    },
+    "final-decision-freeze.json": {
+     "bytes": 1886,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\final-decision-freeze.json",
+     "sha256": "d520b7029eb3f1a50a531839334845badc51c8bd654a750b7a2919b0fcb6d37c"
+    },
+    "integrated-owner-record.json": {
+     "bytes": 7087169,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\integrated-owner-record.json",
+     "sha256": "c66053fe8e199f75cf843af17472af1207a150c5f39d7ea5e4c4e379649d2607"
+    },
+    "market-context.json": {
+     "bytes": 22563,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\market-context.json",
+     "sha256": "9c7e1279c2aab10367a11d054749264353b19cbdbff01ee670deb3a7710e237b"
+    },
+    "options-context.json": {
+     "bytes": 34972,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\options-context.json",
+     "sha256": "e5a65a0465dd685362678f75217438cca6f91c08b3ad601b95b565db8dc286c6"
+    },
+    "owner-native.json": {
+     "bytes": 100563,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\owner-native.json",
+     "sha256": "b13888558ba9d9dcc298ed1ee558ebfc73641151271936462c30cd173c21a458"
+    },
+    "plan-geometry.json": {
+     "bytes": 8096,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\plan-geometry.json",
+     "sha256": "01d24eb60d4649b8d337fcfd440f2fa394283f7d566585add64759c5fe2f0aa7"
+    },
+    "primary-native.json": {
+     "bytes": 82147,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\primary-native.json",
+     "sha256": "1dc261a687ffaab0a2699a5e938d76eb58ed1ca4db62bd9b018dbd59e234aff6"
+    },
+    "role-evidence.json": {
+     "bytes": 1871174,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\role-evidence.json",
+     "sha256": "4e26a911caf850c579e8ffa8c8a56348fd2bd38d25397354a9a70ef729cf355b"
+    },
+    "role-pack.json": {
+     "bytes": 536781,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\role-pack.json",
+     "sha256": "7343e22f12ebf35280ccfdc1522efcae7939ee414693402019381b8b4efc48c4"
+    }
+   },
+   "image_sha256": "b9f450d241e23f760ba471f4ad58e504eefb514eb9f4a91aed23a893b8ca37fe",
+   "paragraph_bindings": 22,
+   "destinations": {
+    "telegram": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://t.me/CapitalChronicle/129",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_fd01d41a51cd1fab6b0f048076a571b9",
+      "public_object_id": "115",
+      "public_object_url": "https://t.me/CapitalChronicle/115"
+     },
+     "chars": 3550
+    },
+    "discord": {
+     "status": "DEFINITE_NO_WRITE",
+     "url": null,
+     "reconciliation": null,
+     "parent": {
+      "dispatch_id": "dispatch_9cfc52a70a079ebd71d85bf4c675d109",
+      "public_object_id": "1569527291086766194",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527291086766194"
+     },
+     "chars": 1949,
+     "cause": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"
+    },
+    "threads": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://www.threads.com/@official.capitalchronicle/post/DfjbwtLlCrY",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_1966d4b0b74a36f62590d6d28092594c",
+      "public_object_id": "18115572677141347",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfiv-4wo9Up"
+     },
+     "chars": 454
+    }
+   }
+  },
+  {
+   "asset": "XAUUSD",
+   "plan_id": "plan_f45a45412d7fb675b4db238d",
+   "run_id": "shock-20261110T024042Z",
+   "canonical_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+   "canonical_confirmed": true,
+   "web_only": true,
+   "source_manifest": {
+    "analysis-native.json": {
+     "bytes": 76779,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\analysis-native.json",
+     "sha256": "23f8202b2bfdff8ccc673bf5e84e1e8c5a657360390a6cdff58e730790d3446e"
+    },
+    "critic-note.json": {
+     "bytes": 7768,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\critic-note.json",
+     "sha256": "a8fded2408fa1f2dad5561b884056e5e68af81ab4d304de1a3250060a81c3d9f"
+    },
+    "desktop-manual-result.json": {
+     "bytes": 166952,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\desktop-manual-result.json",
+     "sha256": "1dc7d7f65e239dfc73f48bd4318d76785ccb2ed569e278b88ad7f6e5e3431ee6"
+    },
+    "final-decision-freeze.json": {
+     "bytes": 1886,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\final-decision-freeze.json",
+     "sha256": "8fc87da7488eea67f0606f05eb3998da497e515116f88b828dcd02fd6d20bed4"
+    },
+    "integrated-owner-record.json": {
+     "bytes": 4568612,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\integrated-owner-record.json",
+     "sha256": "aae6bce0be74889e4e79533ea27fdf48b26f7cc8af01f9b5a42a81ab7f54c8f3"
+    },
+    "options-context.json": {
+     "bytes": 34973,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\options-context.json",
+     "sha256": "2ad54f26406a02f8a3aeea5c795403e2c23e107e88f8593a41ba40aa42f194b9"
+    },
+    "plan-geometry.json": {
+     "bytes": 4592,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\plan-geometry.json",
+     "sha256": "46ab55808a0921dd60f4076e4e4598bad22ddb75ee030558d91935638dc1af99"
+    },
+    "role-evidence.json": {
+     "bytes": 2123172,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\role-evidence.json",
+     "sha256": "32b5193cb575516ec0a7ad5bf3a6d7420c51c8eda5c0ccf113566aac08c8109a"
+    },
+    "role-pack.json": {
+     "bytes": 681707,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\role-pack.json",
+     "sha256": "7191251862c0ebd2221cab8c7ca5e615e9f74ba26ef230d5cef7d5c32e5c4ba9"
+    },
+    "shock-pack.json": {
+     "bytes": 733231,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\shock-pack.json",
+     "sha256": "8597b685e5f3974671b4ec3b7e4d9b6e8b3ec174d36d3d396cc0cb2710d7005b"
+    }
+   },
+   "image_sha256": "11ba827cacbdbb155cea3a672b16bd427b96b57dd325247b133cc1cfedd3a682",
+   "paragraph_bindings": 22,
+   "destinations": {
+    "telegram": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://t.me/CapitalChronicle/130",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_41aa5fb68369db11611b7095af7f5b4f",
+      "public_object_id": "121",
+      "public_object_url": "https://t.me/CapitalChronicle/121"
+     },
+     "chars": 3023
+    },
+    "discord": {
+     "status": "DEFINITE_NO_WRITE",
+     "url": null,
+     "reconciliation": null,
+     "parent": {
+      "dispatch_id": "dispatch_1d792f304434916cb1696ab7f99d9b76",
+      "public_object_id": "1569551758584315964",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551758584315964"
+     },
+     "chars": 1951,
+     "cause": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"
+    },
+    "threads": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://www.threads.com/@official.capitalchronicle/post/Dfjbyr2lB6u",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_d496b03b9626ff2205d3ecb6ecbe31de",
+      "public_object_id": "18115764947139383",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7FyWow5n"
+     },
+     "chars": 483
+    }
+   }
+  },
+  {
+   "asset": "USOIL",
+   "plan_id": "plan_829c6d5505eb74877d962853",
+   "run_id": "shock-20261110T024042Z",
+   "canonical_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+   "canonical_confirmed": true,
+   "web_only": true,
+   "source_manifest": {
+    "analysis-native.json": {
+     "bytes": 76779,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\analysis-native.json",
+     "sha256": "23f8202b2bfdff8ccc673bf5e84e1e8c5a657360390a6cdff58e730790d3446e"
+    },
+    "critic-note.json": {
+     "bytes": 7768,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\critic-note.json",
+     "sha256": "a8fded2408fa1f2dad5561b884056e5e68af81ab4d304de1a3250060a81c3d9f"
+    },
+    "desktop-manual-result.json": {
+     "bytes": 166952,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\desktop-manual-result.json",
+     "sha256": "1dc7d7f65e239dfc73f48bd4318d76785ccb2ed569e278b88ad7f6e5e3431ee6"
+    },
+    "final-decision-freeze.json": {
+     "bytes": 1886,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\final-decision-freeze.json",
+     "sha256": "8fc87da7488eea67f0606f05eb3998da497e515116f88b828dcd02fd6d20bed4"
+    },
+    "integrated-owner-record.json": {
+     "bytes": 4568612,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\integrated-owner-record.json",
+     "sha256": "aae6bce0be74889e4e79533ea27fdf48b26f7cc8af01f9b5a42a81ab7f54c8f3"
+    },
+    "options-context.json": {
+     "bytes": 34973,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\options-context.json",
+     "sha256": "2ad54f26406a02f8a3aeea5c795403e2c23e107e88f8593a41ba40aa42f194b9"
+    },
+    "plan-geometry.json": {
+     "bytes": 4592,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\plan-geometry.json",
+     "sha256": "46ab55808a0921dd60f4076e4e4598bad22ddb75ee030558d91935638dc1af99"
+    },
+    "role-evidence.json": {
+     "bytes": 2123172,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\role-evidence.json",
+     "sha256": "32b5193cb575516ec0a7ad5bf3a6d7420c51c8eda5c0ccf113566aac08c8109a"
+    },
+    "role-pack.json": {
+     "bytes": 681707,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\role-pack.json",
+     "sha256": "7191251862c0ebd2221cab8c7ca5e615e9f74ba26ef230d5cef7d5c32e5c4ba9"
+    },
+    "shock-pack.json": {
+     "bytes": 733231,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\shock-pack.json",
+     "sha256": "8597b685e5f3974671b4ec3b7e4d9b6e8b3ec174d36d3d396cc0cb2710d7005b"
+    }
+   },
+   "image_sha256": "8fe87325c51496aa5b66e94ae7f234e1afa077f53431ca9cde410dc2da9d5307",
+   "paragraph_bindings": 22,
+   "destinations": {
+    "telegram": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://t.me/CapitalChronicle/131",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_928e1116526628f62f9adfc44e6f3854",
+      "public_object_id": "119",
+      "public_object_url": "https://t.me/CapitalChronicle/119"
+     },
+     "chars": 2880
+    },
+    "discord": {
+     "status": "DEFINITE_NO_WRITE",
+     "url": null,
+     "reconciliation": null,
+     "parent": {
+      "dispatch_id": "dispatch_ebfad4bf2e3b20d6e594afc39d69b6c4",
+      "public_object_id": "1569551566317297685",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551566317297685"
+     },
+     "chars": 1968,
+     "cause": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"
+    },
+    "threads": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://www.threads.com/@official.capitalchronicle/post/DfjflvNFPEI",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_6ca16b3f1c187df324b15607f663f92a",
+      "public_object_id": "17969547744196235",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7AT1I4pD"
+     },
+     "chars": 470
+    }
+   }
+  },
+  {
+   "asset": "US500",
+   "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+   "run_id": "shock-20261110T024042Z",
+   "canonical_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+   "canonical_confirmed": true,
+   "web_only": true,
+   "source_manifest": {
+    "analysis-native.json": {
+     "bytes": 76779,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\analysis-native.json",
+     "sha256": "23f8202b2bfdff8ccc673bf5e84e1e8c5a657360390a6cdff58e730790d3446e"
+    },
+    "critic-note.json": {
+     "bytes": 7768,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\critic-note.json",
+     "sha256": "a8fded2408fa1f2dad5561b884056e5e68af81ab4d304de1a3250060a81c3d9f"
+    },
+    "desktop-manual-result.json": {
+     "bytes": 166952,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\desktop-manual-result.json",
+     "sha256": "1dc7d7f65e239dfc73f48bd4318d76785ccb2ed569e278b88ad7f6e5e3431ee6"
+    },
+    "final-decision-freeze.json": {
+     "bytes": 1886,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\final-decision-freeze.json",
+     "sha256": "8fc87da7488eea67f0606f05eb3998da497e515116f88b828dcd02fd6d20bed4"
+    },
+    "integrated-owner-record.json": {
+     "bytes": 4568612,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\integrated-owner-record.json",
+     "sha256": "aae6bce0be74889e4e79533ea27fdf48b26f7cc8af01f9b5a42a81ab7f54c8f3"
+    },
+    "options-context.json": {
+     "bytes": 34973,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\options-context.json",
+     "sha256": "2ad54f26406a02f8a3aeea5c795403e2c23e107e88f8593a41ba40aa42f194b9"
+    },
+    "plan-geometry.json": {
+     "bytes": 4592,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\plan-geometry.json",
+     "sha256": "46ab55808a0921dd60f4076e4e4598bad22ddb75ee030558d91935638dc1af99"
+    },
+    "role-evidence.json": {
+     "bytes": 2123172,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\role-evidence.json",
+     "sha256": "32b5193cb575516ec0a7ad5bf3a6d7420c51c8eda5c0ccf113566aac08c8109a"
+    },
+    "role-pack.json": {
+     "bytes": 681707,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\role-pack.json",
+     "sha256": "7191251862c0ebd2221cab8c7ca5e615e9f74ba26ef230d5cef7d5c32e5c4ba9"
+    },
+    "shock-pack.json": {
+     "bytes": 733231,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\shock-pack.json",
+     "sha256": "8597b685e5f3974671b4ec3b7e4d9b6e8b3ec174d36d3d396cc0cb2710d7005b"
+    }
+   },
+   "image_sha256": "24cf5132345625e9c6f48c9939ebfe627da8c1962d96f2c245202bb6f5e65596",
+   "paragraph_bindings": 23,
+   "destinations": {
+    "telegram": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://t.me/CapitalChronicle/132",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_64c87b663e6694e8441f38b31e85a1ff",
+      "public_object_id": "118",
+      "public_object_url": "https://t.me/CapitalChronicle/118"
+     },
+     "chars": 2648
+    },
+    "discord": {
+     "status": "DEFINITE_NO_WRITE",
+     "url": null,
+     "reconciliation": null,
+     "parent": {
+      "dispatch_id": "dispatch_d12587a7837c4953e50c9f68f4031bee",
+      "public_object_id": "1569551436633866330",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551436633866330"
+     },
+     "chars": 1848,
+     "cause": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"
+    },
+    "threads": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://www.threads.com/@official.capitalchronicle/post/Dfjfnr7lCEB",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_7e1711e51a0a6729c8b070c7e5f0abbe",
+      "public_object_id": "18117394688464368",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfi68kMI-eR"
+     },
+     "chars": 469
+    }
+   }
+  },
+  {
+   "asset": "BTCUSD",
+   "plan_id": "plan_8b7c1dd880206079033b6efe",
+   "run_id": "shock-20261110T024042Z",
+   "canonical_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+   "canonical_confirmed": true,
+   "web_only": true,
+   "source_manifest": {
+    "analysis-native.json": {
+     "bytes": 76779,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\analysis-native.json",
+     "sha256": "23f8202b2bfdff8ccc673bf5e84e1e8c5a657360390a6cdff58e730790d3446e"
+    },
+    "critic-note.json": {
+     "bytes": 7768,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\critic-note.json",
+     "sha256": "a8fded2408fa1f2dad5561b884056e5e68af81ab4d304de1a3250060a81c3d9f"
+    },
+    "desktop-manual-result.json": {
+     "bytes": 166952,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\desktop-manual-result.json",
+     "sha256": "1dc7d7f65e239dfc73f48bd4318d76785ccb2ed569e278b88ad7f6e5e3431ee6"
+    },
+    "final-decision-freeze.json": {
+     "bytes": 1886,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\final-decision-freeze.json",
+     "sha256": "8fc87da7488eea67f0606f05eb3998da497e515116f88b828dcd02fd6d20bed4"
+    },
+    "integrated-owner-record.json": {
+     "bytes": 4568612,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\integrated-owner-record.json",
+     "sha256": "aae6bce0be74889e4e79533ea27fdf48b26f7cc8af01f9b5a42a81ab7f54c8f3"
+    },
+    "options-context.json": {
+     "bytes": 34973,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\options-context.json",
+     "sha256": "2ad54f26406a02f8a3aeea5c795403e2c23e107e88f8593a41ba40aa42f194b9"
+    },
+    "plan-geometry.json": {
+     "bytes": 4592,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\plan-geometry.json",
+     "sha256": "46ab55808a0921dd60f4076e4e4598bad22ddb75ee030558d91935638dc1af99"
+    },
+    "role-evidence.json": {
+     "bytes": 2123172,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\role-evidence.json",
+     "sha256": "32b5193cb575516ec0a7ad5bf3a6d7420c51c8eda5c0ccf113566aac08c8109a"
+    },
+    "role-pack.json": {
+     "bytes": 681707,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\role-pack.json",
+     "sha256": "7191251862c0ebd2221cab8c7ca5e615e9f74ba26ef230d5cef7d5c32e5c4ba9"
+    },
+    "shock-pack.json": {
+     "bytes": 733231,
+     "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261110T024042Z\\shock-pack.json",
+     "sha256": "8597b685e5f3974671b4ec3b7e4d9b6e8b3ec174d36d3d396cc0cb2710d7005b"
+    }
+   },
+   "image_sha256": "22216f28055c36c77ae889fc53ff0340e13a1c766d482fa4ebee5fb2c7c42618",
+   "paragraph_bindings": 23,
+   "destinations": {
+    "telegram": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://t.me/CapitalChronicle/133",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_cc8948d4c65e60aad82a18e8d036a62e",
+      "public_object_id": "120",
+      "public_object_url": "https://t.me/CapitalChronicle/120"
+     },
+     "chars": 2724
+    },
+    "discord": {
+     "status": "DEFINITE_NO_WRITE",
+     "url": null,
+     "reconciliation": null,
+     "parent": {
+      "dispatch_id": "dispatch_bcb9e62d427fd84bf171883298811769",
+      "public_object_id": "1569551689134899240",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551689134899240"
+     },
+     "chars": 1888,
+     "cause": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"
+    },
+    "threads": {
+     "status": "DISPATCH_CONFIRMED",
+     "url": "https://www.threads.com/@official.capitalchronicle/post/DfjgrEelO6G",
+     "reconciliation": "RECONCILED_CONFIRMED",
+     "parent": {
+      "dispatch_id": "dispatch_b11cf652096a635135eec8a249c6c385",
+      "public_object_id": "18154401742501167",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjgiOeFOGD"
+     },
+     "chars": 409
+    }
+   }
+  }
+ ],
+ "prepared_external_action": "Ops Product installs the existing authorized Discord bot credential as DISCORD_BOT_TOKEN, with thread creation, thread send and readback access; resume the five retained Discord link plans through the coordinator after the existing destination-day circuit allows dispatch.",
+ "choice": "Bitcoin had no sent same-plan Threads parent; published a dated original-plan analysis with its verified canonical image, then attached the full-page reply."
+}

@@ -1,0 +1,23 @@
+{
+ "tool_request_sha256": "058c2186e4cd4de0152b53e30c44ba5300e9335b6f0b1a5377fb1bda46bcc5c8",
+ "tool_observation": {
+  "tool_name": "mcp__browseros_neo__run",
+  "surface": "CODEX_EXEC",
+  "native_invocation_id": "cc432-p1960-20261110",
+  "observation_source": "BROWSEROS_NEO_ACTUAL_TOOL_RETURN",
+  "observed_at_utc": "2026-11-10T08:32:44.649Z",
+  "dispatched_at_utc": "2026-11-10T08:13:23.952Z"
+ },
+ "result": {
+  "status": "SUCCESS",
+  "request_sha256": "21dc9f81649d4058adf16eb8319bc94e47b428d651997dec235c73b13937f7b3",
+  "observed_identity": "capitalchronicle.substack.com",
+  "public_object_id": "224272832",
+  "public_object_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+  "delivery_observation": {
+   "email_send_enabled": false,
+   "web_publish_enabled": true,
+   "evidence_ref": "Actual unchecked email control and Publish on web only confirmation; share centre reached on the same tab."
+  }
+ }
+}

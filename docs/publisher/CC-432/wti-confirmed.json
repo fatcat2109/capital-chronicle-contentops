@@ -1,0 +1,30 @@
+{
+ "publication": {
+  "dispatch_id": "dispatch_05ba3e29ec281fb4eb8baff20ace3b0f",
+  "destination": "substack",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "public_write_performed": false,
+  "publish_called": false
+ },
+ "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+ "plan_id": "plan_829c6d5505eb74877d962853",
+ "confirmed": true,
+ "canonical_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+ "dispatch": {
+  "dispatch_id": "dispatch_05ba3e29ec281fb4eb8baff20ace3b0f",
+  "message_id": "outbox_05ba3e29ec281fb4eb8baff20ace3b0f",
+  "platform": "substack",
+  "status": "DISPATCH_CONFIRMED",
+  "dispatched_at": "2026-11-10T07:19:46.741897+00:00",
+  "public_object_id": "224272189",
+  "public_object_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+  "public_object_url_hash": "7893b731e10f60be29a2776a12539f437d57fbb1c931ab4036f21d21963dd5de"
+ },
+ "reconciliation": {
+  "reconciliation_id": "reconciliation_05ba3e29ec281fb4eb8baff20ace3b0f",
+  "work_item_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+  "status": "RECONCILED_CONFIRMED",
+  "reconciled_at": "2026-11-10T08:12:23.086580+00:00"
+ },
+ "pending_requests": []
+}

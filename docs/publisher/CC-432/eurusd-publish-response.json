@@ -1,0 +1,23 @@
+{
+ "tool_request_sha256": "fad2310d15eea950ab17d0e29a8cd6af802d3c6394cafec9eb4fec9b9018c4dd",
+ "tool_observation": {
+  "tool_name": "mcp__browseros_neo__run",
+  "surface": "CODEX_EXEC",
+  "native_invocation_id": "cc432-p1960-20261110",
+  "observation_source": "BROWSEROS_NEO_ACTUAL_TOOL_RETURN",
+  "observed_at_utc": "2026-11-10T07:52:20.763Z",
+  "dispatched_at_utc": "2026-11-10T07:50:24.584Z"
+ },
+ "result": {
+  "status": "SUCCESS",
+  "request_sha256": "184fa66361b961b9301d26ce787a0b5fe491ab815edfc1e24393d975c6b1f74b",
+  "observed_identity": "capitalchronicle.substack.com",
+  "public_object_id": "224269633",
+  "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+  "delivery_observation": {
+   "email_send_enabled": false,
+   "web_publish_enabled": true,
+   "evidence_ref": "Actual unchecked email control and Publish on web only confirmation; share centre reached on the same tab."
+  }
+ }
+}

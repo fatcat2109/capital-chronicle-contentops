@@ -1330,7 +1330,9 @@ def _publish_telegram_text_verified(
             canonical_url=canonical_url, media_url=None, status="SUCCESS",
         )
     return {
-        "status": "SUCCESS" if verified else str(raw.get("status") or "FAILED_TELEGRAM_STRICT_READBACK"),
+        "status": "SUCCESS" if verified else (
+            "FAILED_TELEGRAM_STRICT_READBACK" if raw.get("status") == "SUCCESS"
+            else str(raw.get("status") or "FAILED_TELEGRAM_STRICT_READBACK")),
         "platform": "telegram", "action": "post", "id": message_id or None,
         "public_url": public_url, "destination_identity": f"@{username}" if username else None,
         "provider_readback_verified": verified,

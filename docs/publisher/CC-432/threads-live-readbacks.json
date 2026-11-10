@@ -1,0 +1,62 @@
+[
+ {
+  "label": "eurusd",
+  "status": "SUCCESS",
+  "public_object_id": "18635996629007906",
+  "url": "https://www.threads.com/@official.capitalchronicle/post/DfjbwtLlCrY",
+  "parent": {
+   "dispatch_id": "dispatch_1966d4b0b74a36f62590d6d28092594c",
+   "public_object_id": "18115572677141347",
+   "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfiv-4wo9Up"
+  },
+  "canonical": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis"
+ },
+ {
+  "label": "gold",
+  "status": "SUCCESS",
+  "public_object_id": "18108307151366500",
+  "url": "https://www.threads.com/@official.capitalchronicle/post/Dfjbyr2lB6u",
+  "parent": {
+   "dispatch_id": "dispatch_d496b03b9626ff2205d3ecb6ecbe31de",
+   "public_object_id": "18115764947139383",
+   "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7FyWow5n"
+  },
+  "canonical": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong"
+ },
+ {
+  "label": "wti",
+  "status": "SUCCESS",
+  "public_object_id": "17929665075431215",
+  "url": "https://www.threads.com/@official.capitalchronicle/post/DfjflvNFPEI",
+  "parent": {
+   "dispatch_id": "dispatch_6ca16b3f1c187df324b15607f663f92a",
+   "public_object_id": "17969547744196235",
+   "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7AT1I4pD"
+  },
+  "canonical": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the"
+ },
+ {
+  "label": "spx",
+  "status": "SUCCESS",
+  "public_object_id": "18115739320872841",
+  "url": "https://www.threads.com/@official.capitalchronicle/post/Dfjfnr7lCEB",
+  "parent": {
+   "dispatch_id": "dispatch_7e1711e51a0a6729c8b070c7e5f0abbe",
+   "public_object_id": "18117394688464368",
+   "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfi68kMI-eR"
+  },
+  "canonical": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held"
+ },
+ {
+  "label": "btc",
+  "status": "SUCCESS",
+  "public_object_id": "18121628239769207",
+  "url": "https://www.threads.com/@official.capitalchronicle/post/DfjgrEelO6G",
+  "parent": {
+   "dispatch_id": "dispatch_b11cf652096a635135eec8a249c6c385",
+   "public_object_id": "18154401742501167",
+   "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfjgiOeFOGD"
+  },
+  "canonical": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the"
+ }
+]

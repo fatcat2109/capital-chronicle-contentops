@@ -1,0 +1,30 @@
+{
+ "publication": {
+  "dispatch_id": "dispatch_d0853d6a97c1bbed6f1bac55d6026274",
+  "destination": "substack",
+  "reconciliation_status": "RECONCILED_CONFIRMED",
+  "public_write_performed": false,
+  "publish_called": false
+ },
+ "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+ "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+ "confirmed": true,
+ "canonical_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+ "dispatch": {
+  "dispatch_id": "dispatch_d0853d6a97c1bbed6f1bac55d6026274",
+  "message_id": "outbox_d0853d6a97c1bbed6f1bac55d6026274",
+  "platform": "substack",
+  "status": "DISPATCH_CONFIRMED",
+  "dispatched_at": "2026-11-10T07:23:04.815265+00:00",
+  "public_object_id": "224272832",
+  "public_object_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+  "public_object_url_hash": "3ec237770c5890d87e07427b86a5862b5413b042484fa8e2c4ae8f39ae614a4d"
+ },
+ "reconciliation": {
+  "reconciliation_id": "reconciliation_d0853d6a97c1bbed6f1bac55d6026274",
+  "work_item_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+  "status": "RECONCILED_CONFIRMED",
+  "reconciled_at": "2026-11-10T08:34:10.859722+00:00"
+ },
+ "pending_requests": []
+}
