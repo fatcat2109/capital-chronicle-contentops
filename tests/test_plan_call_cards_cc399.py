@@ -72,6 +72,16 @@ def test_five_plans_make_one_run_and_five_cards_once(five, main_root):
     assert len(rows(store)) == 6
 
 
+def test_upgrade_reuses_legacy_shared_work_item_genesis(five, main_root):
+    store, folder, _, _ = five
+    original = store.create_work_item(story_id=posts.WORK_ITEM_ID, title="Plan status posts (decision 79)",
+        target_surface="MULTI_PLATFORM", work_item_id=posts.WORK_ITEM_ID)
+    result = queue(store, folder, main_root)
+    assert result["status"] == "OK" and len(result["queued"]) == 6
+    current = store.get_work_item(posts.WORK_ITEM_ID)
+    assert current["created_at"] == original["created_at"] and current["title"] == original["title"]
+
+
 def test_card_uses_target_tick_real_time_exit_chance_and_three_short_reasons(five, main_root):
     store, folder, _, _ = five
     queue(store, folder, main_root)

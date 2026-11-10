@@ -470,7 +470,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
             already.append(item["key"])
             continue
         if not dry_run:
-            store.create_work_item(story_id=posts.WORK_ITEM_ID, title="Call cards and their threads",
+            store.create_work_item(story_id=posts.WORK_ITEM_ID, title="Plan status posts (decision 79)",
                                    target_surface="MULTI_PLATFORM", work_item_id=posts.WORK_ITEM_ID)
             store.register_outbox_message(message_id=item["key"], work_item_id=posts.WORK_ITEM_ID,
                 destination=posts.DESTINATION, payload=json.dumps(item, sort_keys=True, ensure_ascii=False), status=posts.READY)
