@@ -32,6 +32,20 @@ ROOTS = {"substack": "https://capitalchronicle.substack.com/", "substack_notes":
 TELEGRAM_PUBLIC_FEED = "https://t.me/s/CapitalChronicle"
 TELEGRAM_READ_RULE = ("Read only https://t.me/s/CapitalChronicle, with no sign-in. Never open, snapshot, read "
                       "or screenshot web.telegram.org or any signed-in Telegram view; it is Jim's personal account.")
+# X's developer guidelines (docs.x.com/developer-guidelines) and automation rules (help.x.com, x-automation), read
+# on 9 Nov 2026 by the weakness scan (evidence W, section 2) and by CC-386: non-API automation, meaning scripting or
+# driving the website in a browser, "results in permanent suspension". Jim, 10 Nov 2026 (scan answers, item 3): X's
+# own rules bind. So no write to X goes through Neo: a publish or an edit there is a definite no-write, before any
+# request reaches a browser. X returns only through X's official API.
+NON_API_AUTOMATION_PROHIBITED = {"x": "X_NON_API_AUTOMATION_PROHIBITED"}
+
+
+def _prohibited_write(destination):
+    cause = NON_API_AUTOMATION_PROHIBITED.get(destination)
+    if cause is None:
+        return None
+    return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True, "reason_code": cause,
+            "public_write_performed": False}
 
 
 def _canonical(url):
@@ -391,6 +405,9 @@ class NeoDestinationHandoff:
         return value
 
     def publish(self, *, destination, intent, authorization_context):
+        refused = _prohibited_write(destination)
+        if refused is not None:
+            return refused
         request = self.request(destination=destination, action="PUBLISH", intent=intent,
                                authorization_context=authorization_context)
         if self.native_executor is None:
@@ -420,6 +437,9 @@ class NeoDestinationHandoff:
         return result
 
     def amend_existing(self, *, destination, intent, public_object_id, public_object_url, authorization_context):
+        refused = _prohibited_write(destination)
+        if refused is not None:
+            return refused
         request = self.request(destination=destination, action="EDIT_EXISTING", intent=intent,
             public_object_id=public_object_id, public_object_url=public_object_url,
             authorization_context=authorization_context)

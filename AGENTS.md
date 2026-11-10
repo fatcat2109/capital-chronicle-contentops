@@ -1,5 +1,17 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## No posting on X through a browser — 10 November 2026 (Jim's scan answers, item 3)
+
+X's developer guidelines and automation rules say non-API automation, meaning scripting or driving the
+website in a browser, "results in permanent suspension" (read 9 Nov 2026; Tower
+`fork_weakness_scan_20261110/evidence/W_TERMS_AND_VIETNAM_RULES.md`, section 2, and
+`docs/publisher/CC-386/platform-rules.json`). Jim's answer: X's own rules bind, and automated replies are
+not used. So no agent posts, replies, quotes, edits, likes or follows on x.com through BrowserOS Neo,
+Chrome, CDP or any other browser, for any item. The coordinator records every X write as a definite
+no-write, `X_NON_API_AUTOMATION_PROHIBITED`, before any request reaches a browser. Count X as not posted
+and go on with the other destinations; never work around it by hand in a browser. X returns only through
+X's official API, by a BACKLOG item.
+
 ## Temporary weekend load — 7–8 November 2026 (decision 94)
 
 Until 9 November 01:00 GMT+7, CC-124 checks every twelve hours and publishes

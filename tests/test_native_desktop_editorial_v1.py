@@ -219,3 +219,11 @@ def test_public_source_date_guidance_preserves_frozen_legacy_requests(tmp_path, 
     assert resumed.value.request['prompt'] == prior.value.request['prompt']
     with pytest.raises(ValueError, match='CONFLICT'):
         legacy(**{**args, 'logical_invocation_id':'legacy-date-policy:write', 'prompt':'Changed controlled request'})
+
+@pytest.fixture(autouse=True)
+def x_neo_bar_lifted_for_the_sample(monkeypatch):
+    """These tests use X as the sample destination for the Neo publishing machinery, which Substack, LinkedIn
+    company and YouTube still use. In production no X write goes through Neo (X's rules; Jim's scan answers, item 3),
+    and that bar has its own tests in test_x_no_website_automation.py."""
+    from live_contentops import neo_destination_handoff_v1
+    monkeypatch.setattr(neo_destination_handoff_v1, "NON_API_AUTOMATION_PROHIBITED", {})

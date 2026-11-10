@@ -139,3 +139,11 @@ def test_an_in_run_readback_with_its_media_check_pending_is_not_reused(tmp_path,
         NeoDestinationHandoff(native_executor=executor).readback(
             destination=packet["request"]["destination"], intent=value, public_object_id=OBJECT_ID,
             public_object_url=OBJECT_URL)
+
+@pytest.fixture(autouse=True)
+def x_neo_bar_lifted_for_the_sample(monkeypatch):
+    """These tests use X as the sample destination for the Neo publishing machinery, which Substack, LinkedIn
+    company and YouTube still use. In production no X write goes through Neo (X's rules; Jim's scan answers, item 3),
+    and that bar has its own tests in test_x_no_website_automation.py."""
+    from live_contentops import neo_destination_handoff_v1
+    monkeypatch.setattr(neo_destination_handoff_v1, "NON_API_AUTOMATION_PROHIBITED", {})

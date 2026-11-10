@@ -240,3 +240,11 @@ def test_only_a_marked_pre_click_failure_is_a_definite_no_write(tmp_path, monkey
     coordinator._dispatch_message(store.get_outbox_message(ids["message_id"]), canonical_url=value["canonical_url"])
     status = store.get_platform_dispatch(ids["dispatch_id"])["status"]
     assert (status == UNKNOWN_WRITE) is (expected == "UNKNOWN_WRITE")
+
+@pytest.fixture(autouse=True)
+def x_neo_bar_lifted_for_the_sample(monkeypatch):
+    """These tests use X as the sample destination for the Neo publishing machinery, which Substack, LinkedIn
+    company and YouTube still use. In production no X write goes through Neo (X's rules; Jim's scan answers, item 3),
+    and that bar has its own tests in test_x_no_website_automation.py."""
+    from live_contentops import neo_destination_handoff_v1
+    monkeypatch.setattr(neo_destination_handoff_v1, "NON_API_AUTOMATION_PROHIBITED", {})
