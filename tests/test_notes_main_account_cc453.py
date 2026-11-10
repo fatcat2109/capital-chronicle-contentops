@@ -62,6 +62,42 @@ def test_uncertain_secondary_note_never_uses_new_accounts_empty_feed(tmp_path):
     assert store.get_outbox_message("frozen-old-request")["payload"] == before
 
 
+@pytest.mark.parametrize("destination,cause", [
+    ("x", "X_NON_API_AUTOMATION_PROHIBITED"),
+    ("substack", "SUBSTACK_ACCOUNT_SUSPENDED"),
+    ("substack_notes", "SUBSTACK_ACCOUNT_SUSPENDED"),
+])
+def test_reopened_policy_claim_is_atomic_and_preserves_original_bytes(tmp_path, destination, cause):
+    store = copied_store(tmp_path)
+    ids, value = message(store, destination)
+    before = store.get_outbox_message(ids["message_id"])["payload"]
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform=destination, status="DEFINITE_NO_WRITE")
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+        work_item_id=value["work_item_id"], status=cause)
+    claim = dict(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform=destination,
+                 expected_status="DEFINITE_NO_WRITE", policy_no_write_cause=cause)
+    assert store.claim_platform_dispatch_attempt(**claim)
+    assert not store.claim_platform_dispatch_attempt(**claim)
+    assert store.get_outbox_message(ids["message_id"])["payload"] == before
+
+
+@pytest.mark.parametrize("protected", ["different_cause", "public_object", "uncertain"])
+def test_reopening_policy_never_releases_a_different_or_ambiguous_attempt(tmp_path, protected):
+    store = copied_store(tmp_path)
+    ids, value = message(store, "substack_notes")
+    status = "UNKNOWN_WRITE" if protected == "uncertain" else "DEFINITE_NO_WRITE"
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack_notes", status=status,
+        public_object_id="c-123" if protected == "public_object" else None)
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+        work_item_id=value["work_item_id"],
+        status="OTHER_FAILURE" if protected == "different_cause" else "SUBSTACK_ACCOUNT_SUSPENDED")
+    assert not store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
+        message_id=ids["message_id"], platform="substack_notes", expected_status=status,
+        policy_no_write_cause="SUBSTACK_ACCOUNT_SUSPENDED")
+
+
 @pytest.mark.parametrize("actual,expected,authenticated", [
     ("@capitalchronicle", "@capitalchronicle", True),
     ("@deancapitalchronicle", "@capitalchronicle", False),

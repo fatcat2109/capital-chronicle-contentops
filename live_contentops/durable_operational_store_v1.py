@@ -1337,13 +1337,18 @@ class ContentOpsDurableStore:
         with self.get_connection() as conn:
             conn.execute("BEGIN IMMEDIATE")
             row = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)).fetchone()
-            restored_x_no_write = False
-            if (row is not None and platform == "x" and expected_status == "DEFINITE_NO_WRITE"
-                    and policy_no_write_cause == "X_NON_API_AUTOMATION_PROHIBITED"
+            restored_policy_no_write = False
+            restorable_causes = {
+                "x": {"X_NON_API_AUTOMATION_PROHIBITED"},
+                "substack": {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION"},
+                "substack_notes": {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION"},
+            }
+            if (row is not None and expected_status == "DEFINITE_NO_WRITE"
+                    and policy_no_write_cause in restorable_causes.get(platform, set())
                     and not row["public_object_id"] and not row["public_object_url"]):
                 cause = conn.execute("SELECT status FROM reconciliations WHERE reconciliation_id=?",
                     ("reconciliation_" + dispatch_id.removeprefix("dispatch_"),)).fetchone()
-                restored_x_no_write = bool(cause and cause[0] == policy_no_write_cause)
+                restored_policy_no_write = bool(cause and cause[0] == policy_no_write_cause)
             if row is None:
                 if expected_status is not None:
                     conn.execute("COMMIT")
@@ -1354,7 +1359,7 @@ class ContentOpsDurableStore:
                     or expected_status is None or row["status"] != expected_status
                     or (expected_status not in {"NATIVE_NEO_TOOL_PENDING", "RECONCILED_ABSENT_SAFE_TO_RETRY",
                         "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE", "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
-                        "DISPATCH_CONFIRMED"} and not restored_x_no_write)):
+                        "DISPATCH_CONFIRMED"} and not restored_policy_no_write)):
                 conn.execute("COMMIT")
                 return False
             else:

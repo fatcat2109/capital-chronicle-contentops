@@ -2651,6 +2651,7 @@ class DurablePublicationCoordinator:
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         restored_x_no_write = False
+        restored_substack_no_write = False
         # CC-393: a forbidden fresh Neo route is settled before readiness can
         # request a browser identity probe. Existing attempts keep recovery.
         if existing is None and registration.transport_type == "BROWSEROS_NEO_MCP":
@@ -2665,6 +2666,8 @@ class DurablePublicationCoordinator:
                             "publish_called": False, "reason_code": "EXACT_DISPATCH_ALREADY_CLAIMED"}
                 self.store.set_dispatch_status(ids["dispatch_id"], DEFINITE_NO_WRITE)
                 self.store.set_outbox_status(ids["message_id"], DEFINITE_NO_WRITE)
+                self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+                    work_item_id=intent["work_item_id"], status=refused["reason_code"])
                 return {**refused, "status": DEFINITE_NO_WRITE, "destination": destination,
                         "dispatch_id": ids["dispatch_id"], "publish_called": False}
         if intent.get("distribution_policy") == "SITE_FIRST_V1":
@@ -2725,6 +2728,17 @@ class DurablePublicationCoordinator:
                 and (destination != "substack" or recovery_object_id)
             )
             retry_eligible = retry_eligible or restored_x_no_write
+            # CC-453 / decision 119: an owner reopening the account's route
+            # releases only its definite pre-send suspension refusal. A prior
+            # ambiguous attempt or known public object still follows readback.
+            from .neo_destination_handoff_v1 import _prohibited_write
+            restored_substack_no_write = bool(
+                destination in {"substack", "substack_notes"}
+                and existing.get("status") == DEFINITE_NO_WRITE
+                and not existing.get("public_object_id") and not existing.get("public_object_url")
+                and reconciliation_status in {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION"}
+                and _prohibited_write(destination) is None)
+            retry_eligible = retry_eligible or restored_substack_no_write
             correction_retry_eligible = bool(
                 explicit_transport_correction_retry
                 and (
@@ -2793,7 +2807,8 @@ class DurablePublicationCoordinator:
         if dependency and not (canonical_url or intent.get("canonical_url")):
             return {"destination": destination, "status": "WAITING_CANONICAL_URL", "publish_called": False}
         if dependency and canonical_url:
-            if explicit_reconciled_absent_retry or explicit_transport_correction_retry or native_pending_resume:
+            if (explicit_reconciled_absent_retry or explicit_transport_correction_retry or native_pending_resume
+                    or restored_substack_no_write):
                 # The original attempt already froze exact canonical-bound bytes before its
                 # dispatch marker. Recovery must reuse them byte-for-byte, never mutate them.
                 if str(intent.get("canonical_url") or "") != canonical_url:
@@ -2909,7 +2924,8 @@ class DurablePublicationCoordinator:
         claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
             message_id=ids["message_id"], platform=destination,
             expected_status=existing.get("status") if existing else None,
-            **({"policy_no_write_cause": "X_NON_API_AUTOMATION_PROHIBITED"} if restored_x_no_write else {}))
+            **({"policy_no_write_cause": "X_NON_API_AUTOMATION_PROHIBITED"} if restored_x_no_write else
+               {"policy_no_write_cause": reconciliation_status} if restored_substack_no_write else {}))
         if not claimed:
             actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
             return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),

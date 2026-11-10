@@ -131,7 +131,7 @@ def test_copied_store_posts_and_reconciles_through_endpoint_once(tmp_path,destin
     with endpoint() as (url,state):
         coordinator,executor=bound(store,tmp_path,value['work_item_id'],url)
         result=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
-        assert result['status']=='DISPATCH_CONFIRMED',result
+        assert result['status']=='DISPATCH_CONFIRMED',json.dumps(result,indent=2)
         assert result['reconciliation_status']=='RECONCILED_CONFIRMED',result
         again=coordinator._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
         assert again['publish_called'] is False
@@ -381,6 +381,30 @@ def test_live_route_suspension_prevents_endpoint_calls_and_leaves_x_available(tm
         assert result['reason_code']=='SUBSTACK_ACCOUNT_SUSPENDED'
         assert not state['calls']
         assert handoff._prohibited_write('x') is None
+        control.write_text('{}', encoding='utf-8')
+        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='DISPATCH_CONFIRMED',json.dumps({
+            'outcome':result,'reconciliation':[r['status'] for r in store.get_reconciliations_for_work_item(value['work_item_id'])]},indent=2)
+        assert result['public_object_url']=='https://substack.com/@capitalchronicle/note/c-456'
+        c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        clicks=[args for name,args in state['calls'] if name=='run' and '"phase": "publish"' in args.get('code','')]
+        assert len(clicks)==1
+
+
+def test_reopening_suspended_route_never_retries_an_uncertain_note(tmp_path,monkeypatch):
+    from live_contentops import neo_destination_handoff_v1 as handoff
+    control=tmp_path/'suspended_routes.json'
+    control.write_text('{}',encoding='utf-8')
+    monkeypatch.setattr(handoff,'SUSPENDED_ROUTES_FILE',control)
+    store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],
+        platform='substack_notes',status='UNKNOWN_WRITE')
+    store.set_outbox_status(ids['message_id'],'UNKNOWN_WRITE')
+    with endpoint() as (url,state):
+        c,_=bound(store,tmp_path,value['work_item_id'],url)
+        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='UNKNOWN_WRITE',result
+        assert not any(name=='run' and '"phase": "publish"' in args.get('code','') for name,args in state['calls'])
 
 
 def test_existing_minute_record_keeps_exact_safe_drain_result(tmp_path):
