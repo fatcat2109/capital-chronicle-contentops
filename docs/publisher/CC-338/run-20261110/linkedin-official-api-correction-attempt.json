@@ -1,0 +1,9 @@
+{
+  "destination": "linkedin",
+  "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+  "publish_called": true,
+  "public_object_id": null,
+  "public_object_url": null,
+  "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+  "safe_error_classification": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+}

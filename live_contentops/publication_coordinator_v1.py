@@ -397,7 +397,9 @@ def normalize_readback_result(
 
 
 # Refusals made locally, before any platform call; they never skip a destination for the ET day (CC-401).
-LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({"DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"})
+LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({
+    "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE", "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+})
 
 
 class DurablePublicationCoordinator:
@@ -2541,16 +2543,23 @@ class DurablePublicationCoordinator:
         day = (instant or datetime.now(timezone.utc)).astimezone(ZoneInfo("America/New_York")).date().isoformat()
         return "incident_destination_day_" + _hash(destination + ":" + day)[:32], day
 
-    def _destination_day_failure(self, destination):
-        incident_id, _ = self._destination_failure_key(destination)
-        conn = self.store.get_connection()
-        try:
-            while conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone():
+    def _destination_failure_cursor(self, destination, instant=None):
+        incident_id, day = self._destination_failure_key(destination, instant)
+        with self.store.get_read_only_connection() as conn:
+            while True:
+                resolved = conn.execute("SELECT 1 FROM incidents WHERE incident_id=?",
+                    (incident_id + "_local_prewrite_resolved",)).fetchone()
+                row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
+                failure = json.loads(row["description"]) if row else None
+                local = failure and (failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+                if not resolved and not local:
+                    return incident_id, day, failure
+                # Preserve the original incident. A policy refusal before HTTP
+                # cannot consume the official API's platform-failure circuit.
                 incident_id += "_after_local_prewrite_repair"
-            row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
-            return json.loads(row["description"]) if row else None
-        finally:
-            conn.close()
+
+    def _destination_day_failure(self, destination):
+        return self._destination_failure_cursor(destination)[2]
 
     def resolve_local_neo_prewrite_failure(self, destination):
         """Keep a repaired local builder error from posing as a failed platform.
@@ -2593,10 +2602,7 @@ class DurablePublicationCoordinator:
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
         if (detail.get("reason_code") or detail.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES:
             return
-        incident_id, day = self._destination_failure_key(destination, instant)
-        with self.store.get_read_only_connection() as conn:
-            while conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone():
-                incident_id += "_after_local_prewrite_repair"
+        incident_id, day, _ = self._destination_failure_cursor(destination, instant)
         self.store.register_incident(incident_id=incident_id,
             work_item_id=intent["work_item_id"], severity="DISPATCH_FAILURE",
             description=_canonical_json({**detail, "destination": destination, "et_day": day}))
@@ -4503,6 +4509,13 @@ class CanonicalDestinationTransportRuntimeV1:
             return self._neo_transport.publish(destination=destination, intent=intent,
                                                 authorization_context=authorization_context)
         if destination == "linkedin":
+            from live_contentops.neo_destination_handoff_v1 import NON_API_AUTOMATION_PROHIBITED
+            if destination in NON_API_AUTOMATION_PROHIBITED:
+                # Decision 109 bars browser writes, while the registered official
+                # API remains allowed. An old TLS fallback must not pin retries
+                # to the now-prohibited browser route.
+                return self._linkedin_transport.publish(
+                    intent=intent, authorization_context=authorization_context)
             fallback = self.linkedin_prewrite_fallback(intent)
             if fallback:
                 return self._neo_transport.publish(destination=destination, intent=intent,

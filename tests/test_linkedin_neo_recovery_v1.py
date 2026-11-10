@@ -14,7 +14,7 @@ from live_contentops.native_desktop_editorial_v1 import (
 )
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired
 from live_contentops.neo_destination_handoff_v1 import (
-    NeoDestinationHandoff, IDENTITIES, ROOTS, _public_url, destination_setup_projection,
+    NeoDestinationHandoff, IDENTITIES, ROOTS, NON_API_AUTOMATION_PROHIBITED, _public_url, destination_setup_projection,
 )
 from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
 from test_dated_distribution_recovery_v1 import setup_recovery, accepted_recovery, CANONICAL
@@ -447,7 +447,9 @@ def test_normal_linkedin_runtime_keeps_api_and_only_explicit_recovery_routes_neo
 
 
 @pytest.mark.parametrize("outcome", ["tls_before_http", "ambiguous", "rejected", "accepted"])
-def test_member_api_falls_back_only_for_proven_pre_http_tls_failure(outcome):
+def test_member_api_falls_back_only_for_proven_pre_http_tls_failure(outcome, monkeypatch):
+    # The historical fallback applies only when browser writes are permitted.
+    monkeypatch.delitem(NON_API_AUTOMATION_PROHIBITED, "linkedin", raising=False)
     from live_contentops.linkedin_official_member_api_v1 import LinkedInAmbiguousWriteError
     called = []
     def publish(**_):
@@ -473,6 +475,7 @@ def test_member_api_falls_back_only_for_proven_pre_http_tls_failure(outcome):
 
 
 def test_pre_http_fallback_restart_reuses_one_exact_native_action(tmp_path, monkeypatch):
+    monkeypatch.delitem(NON_API_AUTOMATION_PROHIBITED, "linkedin", raising=False)
     store, binding, result, co, _, recovery, ids = linkedin_recovery(tmp_path, monkeypatch)
     accepted_recovery(store, binding, result, recovery, tmp_path)
     store.set_dispatch_status(ids["dispatch_id"], "RECONCILED_ABSENT_SAFE_TO_RETRY")
@@ -498,6 +501,42 @@ def test_pre_http_fallback_restart_reuses_one_exact_native_action(tmp_path, monk
     changed = json.loads(original)
     changed["payload"] = "unreviewed change"
     assert runtime.linkedin_prewrite_fallback(changed) is None
+
+
+@pytest.mark.parametrize("tls_failure", [False, True])
+def test_browser_prohibition_keeps_official_api_retries_available(tls_failure):
+    calls = []
+    result = {"status": "DEFINITE_NO_WRITE", "definite_no_write": True,
+        "reason_code": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"} if tls_failure else {"status": "SUCCESS"}
+    api = SimpleNamespace(publish=lambda **kw: calls.append("api") or result)
+    neo = SimpleNamespace(publish=lambda **kw: calls.append("neo") or {})
+    runtime = CanonicalDestinationTransportRuntimeV1(linkedin_transport=api, neo_transport=neo)
+    runtime.linkedin_prewrite_fallback = lambda intent: "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+    for _ in range(2):
+        assert runtime.publish(destination="linkedin", intent={"work_item_id": "controlled"},
+            authorization_context={}) == result
+    assert calls == ["api", "api"]
+
+
+def test_policy_refusal_cannot_consume_official_api_failure_circuit(tmp_path):
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    store = ContentOpsDurableStore(tmp_path / "isolated.sqlite3")
+    store.create_work_item(story_id="retained", title="Retained", target_surface="MULTI_PLATFORM", work_item_id="retained")
+    co = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    incident, _ = co._destination_failure_key("linkedin")
+    policy = {"safe_error_classification": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED"}
+    store.register_incident(incident_id=incident, work_item_id="retained", severity="DISPATCH_FAILURE",
+        description=json.dumps(policy))
+    assert co._destination_day_failure("linkedin") is None
+    co._record_destination_day_failure({"work_item_id": "retained"}, "linkedin", policy)
+    actual = {"safe_error_classification": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"}
+    co._record_destination_day_failure({"work_item_id": "retained"}, "linkedin", actual)
+    assert co._destination_day_failure("linkedin")["safe_error_classification"] == actual["safe_error_classification"]
+    with store.get_read_only_connection() as conn:
+        assert json.loads(conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident,)).fetchone()[0]) == policy
+        assert conn.execute("SELECT count(*) FROM incidents").fetchone()[0] == 2
     monkeypatch.setattr(executor, "readiness", lambda _: {"authenticated": True,
         "native_executor_bound": True, "proof_fresh": True, "public_handle": IDENTITIES["linkedin"]})
     packet = first["native_tool_request"]
