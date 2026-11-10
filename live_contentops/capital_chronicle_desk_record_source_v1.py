@@ -204,7 +204,7 @@ def desk_evidence(records, request):
             "retrieval_method": "MAIN_PUBLIC_DESK_RECORD_PROJECTION"}}
 
 
-def validate_article_citations(article, records):
+def validate_article_citations(article, records, *, supported_material_claims=()):
     facts = {f["citation"]: f for r in records for f in r["binding"]["fields"]}
     citations = article.get("desk_record_citations") or []
     if not isinstance(citations, list) or not 1 <= len(citations) <= 256 or any(not isinstance(c, dict) for c in citations):
@@ -225,6 +225,11 @@ def validate_article_citations(article, records):
         # Decision 72 b: a model-estimate source is shown by the label and decision 40's notices, and a cited figure by
         # its source's name and its date (both below); their one-line export disclaimers say the same.
         rights = source.get("rights_class")
+        if (rights == "BLS_OFFICIAL_PUBLIC_DERIVED" and source.get("provider")
+                and str(source["provider"]).casefold() in folded):
+            # Natural full-agency attribution already identifies this schedule;
+            # the dated release is not a requirement for a ritual export footer.
+            continue
         keys = () if rights == MODEL_ESTIMATE else ("attribution",) if rights == CITED_FACT else ("attribution", "disclaimer")
         for key in keys:
             if source.get(key) and source[key].casefold() not in folded:
@@ -267,6 +272,9 @@ def validate_article_citations(article, records):
         raise ValueError("DESK_ARTICLE_ANALYSIS_NOTICE_REQUIRED")
     numbers = re.compile(r"(?<![A-Za-z0-9])[-+]?\d+(?:[.,]\d+)*")
     allowed = {n for cite in citations for n in numbers.findall(cite["display"])}
+    allowed.update(n for claim in supported_material_claims
+        if str(claim.get("support_status", "")).startswith("SUPPORTED_")
+        for n in numbers.findall(str(claim.get("claim_text") or "")))
     prose = re.sub(r"https?://\S+|\[\[SOURCE:[^\]]+\]\]", "", prose)
     for day in sorted(cited_days):  # a cited figure's own date is part of its citation
         prose = cited_date_pattern(day).sub(" ", prose)

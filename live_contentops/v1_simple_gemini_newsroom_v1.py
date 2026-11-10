@@ -3373,7 +3373,8 @@ def run_v1_simple_gemini_newsroom(
     if article.get("desk_record_citations"):
         from live_contentops.capital_chronicle_desk_record_source_v1 import validate_article_citations
         desk_records = [{"binding": d["desk_record_binding"]} for d in source_pack if d.get("desk_record_binding")]
-        desk_validation = validate_article_citations(article, desk_records)
+        desk_validation = validate_article_citations(article, desk_records,
+            supported_material_claims=validation["supported_material_claims"])
         article["fixture"] = desk_validation["fixture"]
         required = set(desk_validation["required_source_ids"])
         notices = []

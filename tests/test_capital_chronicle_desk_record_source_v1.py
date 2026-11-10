@@ -46,6 +46,18 @@ def test_exact_fixture_is_public_projected_before_record_candidates():
     assert any("eci_civilian_compensation_12m_nsa/actual" in f["citation"] for r in records for f in r["binding"]["fields"])
 
 
+def test_mixed_article_uses_only_already_verified_other_source_numbers():
+    value = article()
+    value["substack_body_markdown"] += " Another admitted source supplies 15 percent."
+    with pytest.raises(ValueError, match="UNBOUND_OR_CHANGED_NUMBER"):
+        validate_article_citations(value, sources())
+    claim = {"claim_text": "Another admitted source supplies 15 percent.",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"}
+    assert validate_article_citations(value, sources(), supported_material_claims=[claim])["citation_count"] == 1
+    with pytest.raises(ValueError, match="UNBOUND_OR_CHANGED_NUMBER"):
+        validate_article_citations(value, sources(), supported_material_claims=[{**claim, "support_status": "UNVERIFIED"}])
+
+
 @pytest.mark.parametrize("change,error", [
     ({"sha256": "0" * 64}, "DESK_EXPORT_BYTES_MISMATCH"),
     ({"allow_fixture_private_preview": False}, "DESK_FIXTURE_PRIVATE_PREVIEW_ONLY"),
