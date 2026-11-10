@@ -574,7 +574,12 @@ def operation(binding, **kwargs):
         # window's lease. Keep this operation's lease and all native claim,
         # identity and content checks; begin/resume still take the newsroom lock.
         records_tool_return = command == "publication-tool-submit"
-        with (newsroom_lease(store) if not (binding.get("owner_manual_validation") or records_tool_return)
+        prepares_editorial = command in {"advance", "newsroom", "standing", "scheduled", "next-candidate",
+            "submit", "recover-sources", "media", "media-plan", "final-visual-review", "review", "handoff"}
+        # Editorial work has its own operation lease and sends nothing publicly.
+        # An unrelated scorecard/publication must not hold a timely article's preparation.
+        with (newsroom_lease(store) if not (binding.get("owner_manual_validation") or records_tool_return
+                                          or prepares_editorial)
               else nullcontext()):
             lease = store.acquire_lease("internal:native-editorial:" + binding["run_id"], owner, ttl_seconds=900)
             try:
