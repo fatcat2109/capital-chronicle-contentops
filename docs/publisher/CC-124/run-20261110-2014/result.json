@@ -1,0 +1,32 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-10T13:22:19.378856Z",
+  "new_articles": 0,
+  "production_date": "2026-11-10",
+  "daily_article_limit": 2,
+  "published_canonicals": [
+    "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+  ],
+  "active_leases": [],
+  "operating_head": "4c58186a1aeca170720fc864fb00264c52d0cbe9",
+  "builder_head_before_evidence": "86734614ffb961b0d89beae5a0dfa52a57df26fb",
+  "remote_default_head": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "configured_launch": {
+    "process_id": 22544,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "state": "CONFIGURED_NOT_OBSERVED"
+  },
+  "choice": "Today's CPI preview already serves as the decision-98 wrap. Choose the next useful piece as a Main-sourced post-CPI review rather than a second pre-release wrap; decision 89 requires Main reports and no filler.",
+  "first_cause": "CPI_NOT_RELEASED_AND_POST_RELEASE_MAIN_REVIEW_NOT_YET_AVAILABLE",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_98"
+  ],
+  "release_time_utc": "2026-11-10T13:30:00+00:00",
+  "standing_status": "OPEN",
+  "next_due_gmt7": "11 Nov 2026 02:14 GMT+7",
+  "next_action": "At the next eligible run, consume the Main post-CPI report through the existing source-review and publication owners; keep the two-article cap and the published preview's exact identity.",
+  "acceptance": "This source-check sub-step is verified; no new published article or CC-124 publication acceptance is claimed.",
+  "tests": "No tests started during the 10 November 18:30-22:30 GMT+7 blackout. No runtime code changed."
+}

@@ -1,0 +1,398 @@
+{
+  "observed_at_utc": "2026-11-10T13:22:19.378856Z",
+  "latest_daily_and_cpi_reports": [
+    {
+      "kind": "daily",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-caddf8cbb6c3311b\\owner-native.json",
+      "bytes": 62479,
+      "sha256": "4b0f2d8a56e9773ee7a7858d3c8dedba317e84078dfb71868c1fd23c85af1bca",
+      "modified_at_utc": "2026-11-10T06:22:59.562286+00:00",
+      "modified_after_preview_publication": false
+    },
+    {
+      "kind": "daily",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-b52501d84c88f7bf\\owner-native.json",
+      "bytes": 100563,
+      "sha256": "b13888558ba9d9dcc298ed1ee558ebfc73641151271936462c30cd173c21a458",
+      "modified_at_utc": "2026-11-10T01:33:53.285659+00:00",
+      "modified_after_preview_publication": false
+    },
+    {
+      "kind": "daily",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-91a0ed68b1eb799e\\owner-native.json",
+      "bytes": 65198,
+      "sha256": "5fdb2d27e4f4b44d2c853566509d43daa5a479ceddfae445b6d371258bdfa2ce",
+      "modified_at_utc": "2026-11-09T09:10:57.375677+00:00",
+      "modified_after_preview_publication": false
+    },
+    {
+      "kind": "daily",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-563c1412ec555cbb\\owner-native.json",
+      "bytes": 40752,
+      "sha256": "6178d21df000f325b8abead78374234c6bc90218132ac29492f71c50347560d0",
+      "modified_at_utc": "2026-11-06T08:18:47.782128+00:00",
+      "modified_after_preview_publication": false
+    },
+    {
+      "kind": "daily",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-87f4c99c6f5b6302\\owner-native.json",
+      "bytes": 50392,
+      "sha256": "96320aed2d5398e268ffbff752de4aacccb2b1940d88f0281817621e0adeba63",
+      "modified_at_utc": "2026-11-06T06:03:38.600291+00:00",
+      "modified_after_preview_publication": false
+    },
+    {
+      "kind": "daily",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-c8bba0c593d99fb8\\owner-native.json",
+      "bytes": 43780,
+      "sha256": "17082bbfba405e93ea0ae42c167bbb8989d1e83c04a1c2b563d51c68c53910a2",
+      "modified_at_utc": "2026-11-05T16:54:50.041907+00:00",
+      "modified_after_preview_publication": false
+    },
+    {
+      "kind": "CPI dossier",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261110-cpi\\dossier-20261110T093056Z\\owner-native.json",
+      "bytes": 68463,
+      "sha256": "8d25e61544520b04ea95766db8c0ed6454aede662fdc74df924ec93d8f0aba11",
+      "modified_at_utc": "2026-11-10T10:25:20.991775+00:00",
+      "modified_after_preview_publication": false
+    }
+  ],
+  "additional_held_outputs_searched": [
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs",
+      "exists": true,
+      "selected_files": [
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261105T150045Z\\synthesis-attempt-2\\owner-native.json",
+          "bytes": 58709,
+          "sha256": "24a8814188e38749a009ec78dad8bb585340e999f8e9d06912a5c50e1d6db114",
+          "modified_at_utc": "2026-11-05T16:11:52.819399+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261105T150045Z\\synthesis-attempt-1\\owner-native.json",
+          "bytes": 62462,
+          "sha256": "dbd8c4e7e93db150658b7e19b475391c42c22f9bdf6c199b30df7750f2c447d1",
+          "modified_at_utc": "2026-11-05T16:00:17.041226+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs",
+      "exists": true,
+      "selected_files": [
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261110T074506Z\\t2-output.json",
+          "bytes": 6481,
+          "sha256": "47dd0647da0415b63a6d1f5c4eba1bee03278ace4d46039da175732f89885080",
+          "modified_at_utc": "2026-11-10T07:52:57.004530+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261110T044504Z\\t2-output.json",
+          "bytes": 6041,
+          "sha256": "767eeb450fde996ee7df401b13be99112a4f053df2080031a4c2b5a2ca26c40e",
+          "modified_at_utc": "2026-11-10T04:54:05.553688+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261109T144044Z\\t2-output.json",
+          "bytes": 5565,
+          "sha256": "60aa8b127eb5b04e42e5909153c2d6b6ec897a0788921abb08f804a84dd8be18",
+          "modified_at_utc": "2026-11-09T14:50:37.296703+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261109T120600Z\\t2-output.json",
+          "bytes": 6159,
+          "sha256": "393e2f1b6bb935c016f176cf4a308d5223f235236a7ce4a12689a4d33e238bb2",
+          "modified_at_utc": "2026-11-09T12:16:07.413082+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261109T074555Z\\t2-output.json",
+          "bytes": 5930,
+          "sha256": "bbf4fa7f8cfde3bfeada2a2a6c678f2c97ef20ea67b9f87d911b288afcf0d24a",
+          "modified_at_utc": "2026-11-09T07:52:07.183005+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261109T044556Z\\t2-output.json",
+          "bytes": 6042,
+          "sha256": "9b350f61f4132c91e46d491efb7713ed8d7ac9dd4c34638ccfcce4890aa58200",
+          "modified_at_utc": "2026-11-09T04:53:21.898373+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+      "exists": true,
+      "selected_files": []
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\data\\research",
+      "exists": false,
+      "selected_files": []
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps\\data\\research",
+      "exists": false,
+      "selected_files": []
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog\\data\\research",
+      "exists": true,
+      "selected_files": []
+    }
+  ],
+  "backlog_search": [
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG.md",
+      "sha256": "6364392493297335d8b4b8c5b2c7e382610590d26fa64d55de5b034cde6eb5c3",
+      "match_count": 69,
+      "matches": [
+        {
+          "line": 3182,
+          "text": "- Ops, 4 Nov 22:41 GMT+7: the X, Telegram and Discord repost-after-removal path is live in the ContentOps operating root at d41e363f (tag contentops-live-20261104-cc247-repost; rollback c7a62f8e; branch backlog/cc-247-repost-after-removal; built by the ContentOps V1 lane). Ops ran its 7 tests: pass (tests/test_repost_after_removal_cc247.py). Use it once per removed object: (1) record Jim's deletion with coordinator.reconcile_owner_removed_object(<original dispatch_id>, disposition=\"EXTERNAL_REMOVAL_REPORTED_NO_RETRY\", observation={destination, public_object_id, authority_ref: \"Jim, 4 Nov ~21:05 GMT+7, via Ops\", observation_ref, observed_at_utc, observation_basis, exact_object_absence_verified: true}); (2) run_native_desktop_editorial.py publication-repost-after-removal --binding <run bindi"
+        },
+        {
+          "line": 3228,
+          "text": "- Outcome: tests/test_event_pair_v1.py::test_review_body_fixes_dossier_at_0930_read_only_capture_role_snapshot_and_arrival_states and tests/test_event_pair_cpi_v1.py::test_the_bodies_commands_run_as_written fail on the live HEAD 98150b81d: Codex Main's CC-214 live step (b448a44c8, 4 Nov 20:58) changed the NFP arrival body's `--admission-run NRUN\\event-pair-admission` to `--admission-run NRUN`, and the CPI bodies changed with it. Decide from the event_pair_v1 code whether the new path is right: if it is, update the tests; if not, restore the admission folder in the bodies. The NFP arrival run (6 Nov 13:20Z) arms only through that admission."
+        },
+        {
+          "line": 3254,
+          "text": "    - two rows with no input row, outside their article's reviewed visual decision, became delivery-only: SEC's cc245 card and CPI's cpi-annual-history-r3. This was the lane's call, and Ops Product accepts it."
+        },
+        {
+          "line": 3255,
+          "text": "  - The reader on the live feed, read-only at 03:16Z (the lane's run; Ops Product did not re-run it), now admits FOMC, CPI and SEC: 5 articles, up from 2. The preview shows them at the next natural append."
+        },
+        {
+          "line": 3771,
+          "text": "- Owner: Codex Main (CC-008 restack on the live head and the slim pack); Claude Builder R (the single-pass shock prompt); Claude Builder E (review, replay, binding proof); Ops Live binds \u00b7 Risk: order-path (CC-008 pins 5 files) \u00b7 Due: Mon 9 Nov 2026 12:00 (before CPI on 10 Nov) \u00b7 Status: BUILT_UNMERGED (Claude R/E prompt and replay; Ops pinned binding pending)"
+        },
+        {
+          "line": 3824,
+          "text": "- Ops Live, 9 Nov 06:35 GMT+7: prompt side fixed, two fields added. In the live export, 32 of 38 plans had no base probability and 38 of 38 had no alternative probability. The daily prompt asked for a base case and its probability, but not in the form _scenarios parses. The SYNTHESIS line now asks for the first line `Base case (NN%): <move>. Mechanism: ... Confirmations: <1-3 items>. Invalidation: <level or event>.` and the last line `Main alternative (NN%): <move>.` (live 384c8c8e9 tag live-20261109-d93scenario-233252, then 2a1925d5a tag live-20261109-d93labels-233451; both PROMPT_READY). A parse check through the export's own helpers gives 68/25 with both moves. Today's 12:08 GMT+7 run is the first to carry them. Codex Main, one follow-up in plan_status_export_v1._scenarios: export `scen"
+        },
+        {
+          "line": 3868,
+          "text": "- Outcome: Ops Product's CC-338 (the CPI preview, Tue 10 Nov) attaches Ops Live's frozen public file and its hash with `scripts/event_public_record.py --attach-freeze`. The contract is in ContentOps docs/publisher/CC-338/README.md (`capital_chronicle.frozen_public_calls.v1`: schema_version, event_id, event_time_utc, frozen_at_utc; reaction_map rows of condition, market, direction, minimum_move, horizon, invalidation and naive_release_beta; q1_probabilities rows; resolution_rule; the fixed estimate, notice and conflicts texts; each row with source_ref, source_sha256 and known_at_utc). Build tools/product/frozen_public_calls_v1.py (unpinned). It reads an event dossier's event-pair-freeze.json and its frozen branch plans plus the CC-011 release betas, and writes ResearchRuns/frozen-public-cal"
+        },
+        {
+          "line": 3917,
+          "text": "- Ops Live, 9 Nov 16:25 GMT+7: done by Builder gamma (report C:/CapitalChronicleScratch/ResearchRuns/claude-builder-cc345-exit-20261109/REPORT.md). The replay covered 152 held release trades (41 NFP, CPI and PPI releases, Apr 2024 to 6 Nov 2026, 5 Tier 1 assets), with entries identical in every variant. Results per trade:"
+        },
+        {
+          "line": 4609,
+          "text": "  - Delivered as a tested commit on the desk branch (builder and `refresh.ps1`), plus a patch for `lane_runner.ps1`'s trigger split. Ops Product reviews it, applies the runner patch and installs, after CC-357's CPI reading."
+        },
+        {
+          "line": 4666,
+          "text": "  - For each CC-124 article and wrap, it saves beside the package:"
+        },
+        {
+          "line": 4683,
+          "text": "- Outcome: decision 106 posts exits selectively. A hit posts; a loss posts at most once a week; an exit at the end of the window does not post. So that the feed's selection never hides a loss, the weekend wrap (CC-124's weekly piece, or the CC-341 wrap) carries the week's whole record."
+        },
+        {
+          "line": 4759,
+          "text": "- Outcome: Codex Publisher's pieces (CC-124 articles, the wraps, CC-338's previews and reviews) speak in the instruments European and US readers trade. This is decision 107 point 3: more content on those instruments."
+        },
+        {
+          "line": 4772,
+          "text": "  - The next CC-124 article and the next wrap name at least one futures or ETF instrument for each market they cover."
+        },
+        {
+          "line": 4969,
+          "text": "- Ops Live, 10 Nov 18:14 GMT+7 (gold review): also cluster by scenario. Plans that lose in the same branch of a first-rank release inside their hold count as one cluster, whatever their return correlation. On 10 Nov the gold, S&P and EURUSD longs were one \"CPI not hot\" bet, and gold's 20-day correlation to the other two was low."
+        },
+        {
+          "line": 5315,
+          "text": "- Outcome: the CPI preview carries its hash and freeze time (CC-338, tonight). But \"frozen before the release\" still rests on our own clock: a hash proves which text, not when."
+        },
+        {
+          "line": 5486,
+          "text": "  - **Consumer:** Codex Publisher publishes one Substack post from it, \"What gold, the euro and the S&P did after each CPI since 2024\", under CC-403's text rules, and the CPI review cites it. Ops Product reads the table before the first post."
+        },
+        {
+          "line": 5501,
+          "text": "  - Build on the live desk. If CC-374, CC-376 or CC-385 touch the same files, rebase onto them once installed: Ops Product reviews and installs them after the CPI freeze tonight."
+        },
+        {
+          "line": 5550,
+          "text": "- Outcome: many Product items wait on \"the next published piece proves it\". Tonight's CPI brings a preview, an arrival post, plan posts and the next article."
+        },
+        {
+          "line": 5561,
+          "text": "  - Publish it as one Substack post, \"What gold, the euro and the S&P did after each CPI since 2024\", under CC-403's text rules, and link it from the CPI review. The table refreshes after each CPI."
+        },
+        {
+          "line": 5564,
+          "text": "- Acceptance: the post reads back on Substack, every number in it matches CC-417's file, and the CPI review links it."
+        }
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG_ARCHIVE.md",
+      "sha256": "161a4857ca67a5b567226ee0d71dbe7beda77cded15090465049888cfd61e509",
+      "match_count": 10,
+      "matches": [
+        {
+          "line": 276,
+          "text": "- Ops review, 31 Oct 00:34 GMT+7, of the stack at 3258bebd3 (four Opus lenses and one skeptic; repro scripts in Ops' scratchpad; Ops re-read the HIGH ones in code). Tests pass: 112 passed, 1 xfailed on the changed files; the related existing files give 58 passed in both 34c0aa351 and the stack. Fix before integration (Builder R): (1) Five event bodies (the NFP and PPI dossiers, and the NFP, CPI and PPI arrivals) tell the run to copy the PRIMARY, CRITICAL and SYNTHESIS prompts from the live root's working-tree `cc-main-frontier-brain-4h.md`. That bypasses the committed snapshot: resolve that body too and read the roles from its snapshot. (2) Run every resolver Git call with replace objects off (`GIT_NO_REPLACE_OBJECTS=1`). (3) Refuse, as a software or process defect, when the live root has "
+        },
+        {
+          "line": 315,
+          "text": "- Branch: `backlog/cc-007-arm-steps` (on CC-006) \u00b7 Result: Ops review fixed 31 Oct 00:51 GMT+7: 02f0add78 on `backlog/cc-007-arm-steps-34c0aa351`: (1) an EVENT run with no official rows is refused OFFICIAL_ROWS_NOT_LIVE:NO_OFFICIAL_ROWS (data missing); (2) run kind from the recorded trigger, ARM_RUN_KIND_MISMATCH otherwise; (3) planned exit at least 5 trading sessions after the cutoff, stated in the daily synthesis prompt; (4) DAILY applies decision 20 to every official row; (5) the 24-hour rule reads the cited releases when recorded, else all, and says which; (6) unreadable = data missing. 102 passed, 1 xfailed. Weekly gate removed at 00:16 GMT+7 (Jim, 30 Oct: 85% applies to the five-hour window only): 4d6177fce on `backlog/cc-007-arm-steps-34c0aa351`, and the same change on cc-011 311ac6"
+        },
+        {
+          "line": 356,
+          "text": "- Ops review, 31 Oct 00:34 GMT+7, of the stack at 3258bebd3 (four Opus lenses and one skeptic; repro scripts in Ops' scratchpad; Ops re-read the HIGH ones in code). Tests pass: 112 passed, 1 xfailed on the changed files; the related existing files give 58 passed in both 34c0aa351 and the stack. Fix before integration (Builder R): (1) Admit before arming: the pair arms on `check_api` and `api-admit` runs after it, and a failed admission leaves the arm in place (\"nothing already armed changes\"). Run the admission inside `select` (ECI's admit took 35 s, within the 120 s budget) and pass its live selection to `arm_opens` so CC-007's gate sees LIVE rows; a failed admission arms nothing. (2) `freeze()` accepts role-written `other_modelled_release_ids`, so listing CA_LFS_20261106 removes the CAD "
+        },
+        {
+          "line": 358,
+          "text": "- Ops re-review, 31 Oct 04:18 GMT+7, of the integration candidate 6660545cd, now pushed as `backlog/cc-062-integration-candidate-20261031` (8c9d35a67 + CC-027 c89428182 + CC-076 1f84fb3e6, clean merges; the older local 87a1a0a1a lacks the review fixes and is not used). Four Opus lenses and one skeptic; Ops re-read the HIGH ones in code. INT-04: the NFP, CPI and PPI dossiers choose 2 assets from a list that includes US500, USTEC and US30. Only BTCUSD, EURUSD, XAUUSD and USDJPY have accepted cost schedules today, and the entry owner refuses the others at the arm (COST_SCHEDULE_MISSING), so a dossier that picks one wastes a slot. Fix before integration (Builder R, same branch): the `event_pair` freeze refuses a symbol without an accepted schedule before T0 (data missing, labelled), reading th"
+        },
+        {
+          "line": 361,
+          "text": "- Branch: `backlog/cc-033-nfp-event-pair` (CC-007 7b19a6a3c with the CC-006 fixes, and CC-011, merged in) \u00b7 Result: Builder R, 31 Oct: on `backlog/cc-062-integration-candidate-20261031`: 00963c79f INT-04 (freeze refuses a symbol without an accepted cost schedule, data missing; dossiers offer only ELIGIBLE), aa3d8bdf3 INT-R3/R4 (step 1 assets from ELIGIBLE; an unreadable accepted list is a recorded refusal). Earlier: Ops review fixed 31 Oct 00:51 GMT+7: 77d318523 on `backlog/cc-033-nfp-event-pair-34c0aa351` (with the CC-006/CC-007 fixes): (1) select admits the release before arming and passes the live selection, a failed admission arms nothing; (2) role-written other_modelled_release_ids refused; (3) BRANCH_SELECTED_NOT_ARMED with the first cause; (4) NFP and CPI dossiers at 09:30Z (renamed"
+        },
+        {
+          "line": 368,
+          "text": "- Ops review, 31 Oct 00:34 GMT+7, of the stack at 3258bebd3 (four Opus lenses and one skeptic; repro scripts in Ops' scratchpad; Ops re-read the HIGH ones in code). Tests pass: 112 passed, 1 xfailed on the changed files; the related existing files give 58 passed in both 34c0aa351 and the stack. Fix before integration (Builder R): CC-033's fixes (1), (3), (4) and (6) apply to the PPI pair too; the 13 Nov PPI is the case that showed (6). Also hash the recorded API fixture's committed blob, not the checkout bytes (with core.autocrlf the bytes differ), or mark the fixtures -text. Sound: the admission change is additive for ECI, NFP and CPI; WPSFD4 with half-up rounding reproduces the published figures; only the arrival calls the live BLS API."
+        },
+        {
+          "line": 518,
+          "text": "- Branch: `backlog/cc-011-release-betas` (from 1f7d8b755, new files only) \u00b7 Result: Carried the CC-006 and CC-007 review fixes: f74d02cc4 on `backlog/cc-011-release-betas-34c0aa351` (76 passed). Re-stacked 30 Oct 22:36-22:37 GMT+7 (commit times) on live tag 34c0aa351 (one linear stack, cherry-picks, no force-push): cc-006 -> cc-007 -> cc-011 -> cc-033 -> cc-064. Review this branch: `backlog/cc-011-release-betas-34c0aa351` tip 7298169ba. Each tip's tree equals the old head plus the tag's two CC-005 test files; on the cc-064 tip the full set (the earlier commands plus test_demo_sprint_native_inputs_v1, test_hybrid_trigger_decision_convergence_v1, test_claude_native_route_v1) gives 230 passed, 1 xfailed (CC-062). The old branch below is history. head 592fe3fe3 (8e5aa884b plus the decision 18 "
+        },
+        {
+          "line": 622,
+          "text": "- Owner: CC Desk \u00b7 Status: DONE (Ops, 2 Nov 01:22 GMT+7: reviewed by Ops 1 Nov 23:07; ended 2 Nov 01:00; replaced by G-20261102-1) \u00b7 Result: Replacement note acknowledged 2026-11-01T16:16:39Z [Jim-pasted Ops note in this Desk chat]: new G-20261102-1 is to start Mon2Nov01:00GMT+7 and replace this goal; no early dispatch or renewal of the prior autonomous-day decision exception. Current BACKLOG contains Ops23:06/23:07 item reviews but NO goal header/card G-20261102-1. Under Job3 Ops writes the goal; Desk must not invent its card, steps or Done-when. Next owner Ops: add the card and synchronize CC-042/CC-081 eligibility with the authorized next actions, retaining other source/time/private-draft holds. Existing single wake cc-desk-ops-handoff-check-2-nov-01-20 UPDATED in place, display name CC"
+        },
+        {
+          "line": 696,
+          "text": "- Outcome: decision 19 b (Jim, 30 Oct). Retrospective analysis of past events from Main's event history (FOMC, CPI, NFP, Tier 1 quarterly reports), written by the ContentOps editorial roles in idle time, without the newsroom's daily quota:"
+        },
+        {
+          "line": 1047,
+          "text": "- Ops, 2 Nov 16:56 GMT+7: queued to Builder J (diagnosis after its CC-049 report, before the CPI pair)."
+        }
+      ]
+    }
+  ],
+  "published_preview": {
+    "content_id": "substack:224293572",
+    "title": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate",
+    "published_at_utc": "2026-11-10T12:09:49.251000+00:00"
+  },
+  "preview_research_binding": {
+    "authority_ref": "BACKLOG_CC338_OPS_PRODUCT_20261109_NAMED_CPI_PREVIEW_RESEARCH",
+    "known_at_utc": "2026-11-10T10:25:56.557103+00:00",
+    "probability_display_transform": "Desk p decimal multiplied by 100; no new estimate",
+    "source_path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\report_upgrade_review_20261105\\strategy\\CPI_20261110_PREVIEW_RESEARCH.md",
+    "source_sha256": "04772f9d3cfef1614bdcf4c09b3f056506cda30c77e73c49746cb422df69b754"
+  },
+  "preview_writer_request": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_request_write.json",
+    "bytes": 1412209,
+    "sha256": "3e448b5e3ad747ca10b9c44bb65db572d3d3ff320f929e7b2d30326328a12661",
+    "modified_at_utc": "2026-11-10T11:32:05.225319+00:00"
+  },
+  "preview_binding": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\binding.json",
+    "bytes": 4562,
+    "sha256": "c7b95623b202a5a1dcc0e5737fe471622d1001b910f801a5d1ecb845b8e798ee",
+    "modified_at_utc": "2026-11-10T10:30:17.385915+00:00"
+  },
+  "main_export_generated_at_utc": "2026-11-10T13:22:05.913188Z",
+  "latest_public_plan_scenarios": [
+    {
+      "asset_id": "AUDUSD",
+      "registered_at_utc": "2026-11-06T06:04:32.094304Z",
+      "base_probability_pct": null,
+      "alternative_probability_pct": null,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "BTCUSD",
+      "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+      "base_probability_pct": 52.0,
+      "alternative_probability_pct": 38.0,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "ETHUSD",
+      "registered_at_utc": "2026-11-05T01:45:36.858782Z",
+      "base_probability_pct": null,
+      "alternative_probability_pct": null,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "EURUSD",
+      "registered_at_utc": "2026-11-10T06:52:30.899358Z",
+      "base_probability_pct": null,
+      "alternative_probability_pct": null,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "LMT",
+      "registered_at_utc": "2026-11-04T21:04:33.028543Z",
+      "base_probability_pct": null,
+      "alternative_probability_pct": null,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": null,
+      "registered_at_utc": null,
+      "base_probability_pct": null,
+      "alternative_probability_pct": null,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "US500",
+      "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+      "base_probability_pct": 52.0,
+      "alternative_probability_pct": 38.0,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "USDJPY",
+      "registered_at_utc": "2026-11-09T09:11:59.987233Z",
+      "base_probability_pct": 55.0,
+      "alternative_probability_pct": 35.0,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "USOIL",
+      "registered_at_utc": "2026-11-10T06:52:30.899358Z",
+      "base_probability_pct": null,
+      "alternative_probability_pct": null,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "USTEC",
+      "registered_at_utc": "2026-11-05T16:55:38.049733Z",
+      "base_probability_pct": 57.0,
+      "alternative_probability_pct": null,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "XAGUSD",
+      "registered_at_utc": "2026-11-05T11:13:10.023081Z",
+      "base_probability_pct": null,
+      "alternative_probability_pct": null,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "XAUUSD",
+      "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+      "base_probability_pct": 55.0,
+      "alternative_probability_pct": 35.0,
+      "scenario_first_cause": null
+    },
+    {
+      "asset_id": "XNGUSD",
+      "registered_at_utc": "2026-11-10T01:35:01.740774Z",
+      "base_probability_pct": 52.0,
+      "alternative_probability_pct": 38.0,
+      "scenario_first_cause": null
+    }
+  ],
+  "interpretation": "The newest daily and CPI dossier returns precede the published preview. CPI is still in the future at this observation; no post-release Main review can yet describe its outcome. Older pre-release analysis remains usable, with its original date, and was considered for this choice."
+}
