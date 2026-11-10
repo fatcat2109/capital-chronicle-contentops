@@ -41,7 +41,7 @@ TITLES = {"XAUUSD": "Gold", "US500": "S&P 500", "EURUSD": "EUR/USD", "USDJPY": "
           "USOIL": "US crude oil", "BTCUSD": "Bitcoin"}
 KINDS = {"WAITING": "setup", "TRIGGERED": "triggered", "FILLED": "triggered", "CANCELLED": "cancelled",
          "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
-# Decision 106 permits confirming a model position, but account, exact fill price, size and P&L stay private.
+# Decisions 106 and 117 permit confirming a position; account, exact fill price, size and P&L stay private.
 # Section 4.4: none of these may reach a reader.
 INTERNAL = re.compile(
     r"\b(?:frozen|committee|fixture|export|admission|deterministic|watch_runtime|plan_[0-9a-f]{6,}|"
@@ -538,10 +538,8 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
         # condition, or a resting order's fill, mapped in rows_from_export). An order placed ahead of price stays
         # WAITING, so this post never fires on placement again (9 Nov: EUR/USD and WTI were posted 20 pips and
         # 2.7 dollars away). The words say what happened, since Jim read "now active" as a touch.
-        # Jim's decision 106 (9 Nov): the second post confirms the fill and that Capital Chronicle holds the
-        # position. "Model position": the book is the DEMO account, so the words never claim real money; size,
-        # account, the exact fill price and P&L stay private (decision 40).
-        lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's model"
+        # Decisions 106 and 117: confirm the fill and position without account, size, exact fill price or P&L.
+        lines = [f"{title}: the {zone} entry zone filled at {_when(row['at_utc'])}, and Capital Chronicle's"
                  " position is open.", f"It is invalidated if {invalid}."]
         if len(plan.get("entries") or []) > 1 or any(e["kind"] == "BREAKOUT" for e in plan.get("entries") or []):
             # Main's idea-level fill does not identify which leg filled. Never assert the limit zone did.
@@ -929,12 +927,10 @@ def _row_payload(store, key: str) -> dict:
 
 
 def _split(text: str) -> tuple[str, str]:
-    from .event_article_guard_v1 import LEGACY_CONFLICTS_NOTICE
     body, _, notices = text.partition("\n\n")
     # Already-frozen posts retain the disclosure they were issued with.
-    if notices.strip() not in {f"{analysis} {conflicts}"
-            for analysis in (PUBLIC_NOTICE, "Analysis, not financial advice.")
-            for conflicts in (CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE)}:
+    if notices.strip() not in {f"{analysis} {CONFLICTS_NOTICE}"
+            for analysis in (PUBLIC_NOTICE, "Analysis, not financial advice.")}:
         raise PlanPostError("PLAN_STATUS_POST_NOTICES_REQUIRED")
     return body.strip(), notices.strip()
 
@@ -1018,9 +1014,14 @@ def _short_reasons(row: Mapping[str, Any], room: int) -> str:
     if available < 40 and row.get("format") == 3:
         # Both entry conditions, horizon, invalidation and instrument survive the short destination.
         tail = ""
+        if len(lead) > room:
+            lead = lead.replace(f"{title}: new plan.", f"{title}.", 1)
         available = room - len(lead) - len(" Why: ")
+        if len(lead) > room:
+            raise PlanPostError("PLAN_STATUS_SHORT_CONDITION_TOO_LONG")
         if available < 15:
             return lead
+        return lead + " Why: " + _excerpt(" ".join(picks), available)
     if available < 40:
         raise PlanPostError("PLAN_STATUS_SHORT_CONDITION_TOO_LONG")
     return lead + " Why: " + _excerpt(" ".join(picks), available) + tail

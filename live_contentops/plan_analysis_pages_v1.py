@@ -33,7 +33,7 @@ SECTIONS = (
 RIGHTS = {"CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", "PUBLIC_DOMAIN_OFFICIAL_FACT", "SINGLE_ATTRIBUTED_FACT"}
 _PRIVATE = re.compile(
     r"\b(?:demo|mt[45]|exness[\w-]*|metatrader|account\s+(?:id|number|balance|equity)|"
-    r"position\s+siz(?:e|ing)|risk\s+(?:allocation|per trade)|(?:our|my)\s+(?:balance|equity|capital)|"
+    r"model[\s-]+positions?|position\s+siz(?:e|ing)|risk\s+(?:allocation|per trade)|(?:our|my)\s+(?:balance|equity|capital)|"
     r"ticket(?:\s+id)?|p\s*&\s*l|realised profit|realized profit|lot\s+size|HALF_PLAN_RISK)\b|"
     r"\b\d+(?:\.\d+)?\s*(?:standard\s+|mini\s+|micro\s+)?lots?\b|"
     r"\b(?:279805139|279779602)\b", re.I)
@@ -100,8 +100,7 @@ def public_filter(text, *, rights="CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", source_
         line = " ".join(str(private).casefold().split())
         if len(line) >= 24 and line in normal:
             raise ValueError("PLAN_ANALYSIS_PRIVATE_X_LIST_FORBIDDEN")
-    # CC-423's exact public disclosure conveys no account identity or size.
-    if _PRIVATE.search(text.replace(CONFLICTS_NOTICE, "")) or _MONEY.search(text):
+    if _PRIVATE.search(text) or _MONEY.search(text):
         raise ValueError("PLAN_ANALYSIS_PRIVATE_ACCOUNT_OR_SIZE_FORBIDDEN")
     if _MODELS.search(text):
         raise ValueError("PLAN_ANALYSIS_DESK_AI_LABEL_FORBIDDEN")

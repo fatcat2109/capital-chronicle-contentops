@@ -1,0 +1,65 @@
+{
+  "captured_at_utc": "2026-11-10T16:38:11.425972+00:00",
+  "base": "fea72e84924e2ca5bee3af379d751f88af2591c5",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_process_id": 29948,
+  "launch_started_at_utc": "2026-11-10T16:30:54.402000+00:00",
+  "pre_existing_work": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "live_contentops/agy_editorial_assist_v1.py",
+      "bytes": 19186,
+      "sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "bytes": 1291826,
+      "sha256": "fe3f225efd629914c94cfaf9a043750c280688d15811823a18bd208693b267a1"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "bytes": 55376,
+      "sha256": "0582b0d989a9c90238cc0fa2400ee5650e35bdeaf6e6df0c158dc75baa35a8e8"
+    }
+  ]
+}

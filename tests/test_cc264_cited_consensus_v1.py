@@ -15,7 +15,7 @@ import pytest
 
 from live_contentops.capital_chronicle_desk_record_source_v1 import read_export, validate_article_citations
 from live_contentops.event_article_guard_v1 import (
-    CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE, PublicOutputError, check_public_event_article, cited_date_pattern,
+    CONFLICTS_NOTICE, PublicOutputError, check_public_event_article, cited_date_pattern,
     public_execution_copy_forbidden,
 )
 from tests.test_event_article_guard_v1 import packet
@@ -151,7 +151,7 @@ def test_the_us500_gex_regime_reaches_an_article_with_its_model_estimate_label_a
 
 @pytest.mark.parametrize("change,error", [
     (("Capital Chronicle model estimate: the", "The"), "DESK_ARTICLE_MODEL_ESTIMATE_LABEL_REQUIRED"),
-    ((LEGACY_CONFLICTS_NOTICE, ""), "DESK_ARTICLE_MODEL_ESTIMATE_NOTICES_REQUIRED"),
+    ((CONFLICTS_NOTICE, ""), "DESK_ARTICLE_MODEL_ESTIMATE_NOTICES_REQUIRED"),
 ])
 def test_a_model_output_without_its_label_or_notices_is_refused(records, change, error):
     body = " ".join((NFP_PARAGRAPH, REGIME_SENTENCE.replace(*change), NOTES))
@@ -159,10 +159,10 @@ def test_a_model_output_without_its_label_or_notices_is_refused(records, change,
         validate_article_citations(desk_article(records, body, NFP_CONSENSUS, US500_REGIME), records)
 
 
-def test_cc423_new_notice_uses_the_held_model_output_without_changing_its_source(records):
-    body = " ".join((NFP_PARAGRAPH, REGIME_SENTENCE, NOTES)).replace(LEGACY_CONFLICTS_NOTICE, CONFLICTS_NOTICE)
+def test_approved_notice_uses_the_held_model_output_without_changing_its_source(records):
+    body = " ".join((NFP_PARAGRAPH, REGIME_SENTENCE, NOTES))
     assert validate_article_citations(desk_article(records, body, NFP_CONSENSUS, US500_REGIME), records)["citation_count"] == 2
-    assert field(records, US500_REGIME)["notices"][-1] == LEGACY_CONFLICTS_NOTICE
+    assert field(records, US500_REGIME)["notices"][-1] == CONFLICTS_NOTICE
     with pytest.raises(ValueError, match="DESK_ARTICLE_PRIVATE_OR_RAW_TEXT"):
         validate_article_citations(desk_article(records, body + " Account number 279805139.", NFP_CONSENSUS, US500_REGIME), records)
 
@@ -418,7 +418,7 @@ def test_a_new_desk_record_writer_request_carries_decision_72b_wording(tmp_path)
     assert "A consensus figure or official expectation appears as one cited fact with its source and date" in prompt
     assert "say 'Capital Chronicle model estimate'" in prompt
     assert CONFLICTS_NOTICE in prompt
-    assert LEGACY_CONFLICTS_NOTICE not in prompt
+    assert "model positions on a demo account" not in prompt.casefold()
     assert "state a consensus judgement" not in prompt
     with pytest.raises(DesktopInputRequired) as resumed:
         turn(**args)
@@ -441,7 +441,7 @@ def test_cc423_resumes_a_pre_amendment_writer_request_without_changing_its_hash(
         turn(**args)
     frozen = {k: v for k, v in first.value.request.items() if k != "request_path"}
     instruction = "Every reader-facing piece also carries this exact positions notice: " + CONFLICTS_NOTICE + "\n"
-    frozen["prompt"] = frozen["prompt"].replace(instruction, "").replace(CONFLICTS_NOTICE, LEGACY_CONFLICTS_NOTICE)
+    frozen["prompt"] = frozen["prompt"].replace(instruction, "")
     frozen["request_sha256"] = sha256_of({k: v for k, v in frozen.items() if k != "request_sha256"})
     get = turn._get
     monkeypatch.setattr(turn, "_get", lambda stage, kind: frozen if (stage, kind) == ("write", "request") else get(stage, kind))
