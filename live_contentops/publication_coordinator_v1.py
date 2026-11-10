@@ -862,7 +862,7 @@ class DurablePublicationCoordinator:
         intent = json.loads(self._dated_distribution_message(message)["payload"])
         from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
         retained_media = _durable_intent_inputs(intent).get("media_assets", [])
-        if revision.get("policy") in {"JIM_DECISION_41_RELEASE_CHART_EDIT", "JIM_CC179_REVIEWED_CPI_DERIVATIVE_MEDIA", "JIM_CC247_REVIEWED_MEDIA_REPAIR"}:
+        if revision.get("policy") in {"JIM_DECISION_41_RELEASE_CHART_EDIT", "JIM_CC179_REVIEWED_CPI_DERIVATIVE_MEDIA", "JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"}:
             retained_media = view.get("media_assets", [])
         if destination == "substack":
             from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article

@@ -87,6 +87,15 @@ def reject_private_survey_visual(document, context=""):
 
 def public_visual_source(document):
     reject_private_survey_visual(document)
+    from live_contentops.event_public_record_v1 import verified_main_research_excerpts
+    if verified_main_research_excerpts(document):
+        return "capital_chronicle_own_report"
+    desk = document.get("desk_record_binding") or {}
+    sources = desk.get("sources") or []
+    if (sources and all(s.get("rights_class") == "BLS_OFFICIAL_PUBLIC_DERIVED"
+            and str(s.get("url") or "").startswith("https://www.bls.gov/")
+            and re.fullmatch(r"[a-f0-9]{64}", str(s.get("raw_sha256") or "")) for s in sources)):
+        return "public_domain"
     constraints = document.get("source_reuse_constraints") or {}
     lineage = document.get("report_lineage") or {}
     digest = lineage.get("report_projection_sha256")
@@ -120,10 +129,20 @@ def _bound_fact(claim, article, documents):
     body = _normal(" ".join(str(article.get(k) or "") for k in (
         "title", "dek", "substack_body_markdown", "social_hook", "search_title", "seo_title", "meta_description")))
     canonical = str(source.get("canonical_content_text") or "")
+    allowed_numbers = set(_NUMBERS.findall(_normal(canonical)))
+    for field in (source.get("desk_record_binding") or {}).get("fields", []):
+        value = str(field.get("value") or "")
+        if field.get("citation") in excerpt and value in canonical and re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ", value):
+            from live_contentops.public_time_v1 import public_timestamp
+            allowed_numbers.update(_NUMBERS.findall(public_timestamp(value)))
     if (not text or not excerpt or text not in body or excerpt not in _normal(canonical)
-            or not set(_NUMBERS.findall(text)) <= set(_NUMBERS.findall(_normal(canonical)))):
+            or not set(_NUMBERS.findall(text)) <= allowed_numbers):
         raise ValueError("DATA_CARD_FACT_OR_NUMBER_NOT_IN_POST_AND_SOURCE")
     url = source.get("url") or source.get("source_url")
+    publisher = source.get("publisher")
+    desk_sources = (source.get("desk_record_binding") or {}).get("sources") or []
+    if rights == "public_domain" and not str(url or "").startswith("https://") and desk_sources:
+        url, publisher = desk_sources[0]["url"], desk_sources[0]["provider"]
     if (not str(url or "").startswith("https://") and rights != "capital_chronicle_own_report") or not source.get("publisher"):
         raise ValueError("DATA_CARD_PUBLIC_ATTRIBUTION_REQUIRED")
     return {"claim_id": claim.get("claim_id"), "text": text, "source_id": claim["source_id"],
@@ -131,7 +150,7 @@ def _bound_fact(claim, article, documents):
         "source_content_sha256": sha256(canonical.encode()).hexdigest(), "rights_class": rights,
         "rights_binding_sha256": sha256_of({k: source.get(k) for k in (
             "underlying_reuse_classification", "rights_evidence_sha256", "source_reuse_constraints")}),
-        "publisher": source["publisher"], "url": url}
+        "publisher": publisher, "url": url}
 
 
 def _render_card(packet, path, mini_chart=None):
@@ -152,7 +171,7 @@ def _render_card(packet, path, mini_chart=None):
     key_label, key_value = ("", "") if mini_chart else key_from_facts(facts)
     if display:
         key_label, key_value = display["key_label"], display["key_value"]
-    if all(fact.get("rights_class") == "capital_chronicle_own_report" for fact in packet["facts"]):
+    if not display and all(fact.get("rights_class") == "capital_chronicle_own_report" for fact in packet["facts"]):
         from live_contentops.fact_card_design_v1 import full_number_text, main_review_figure
         # Display formatting only: the packet retains the admitted source words.
         # A Main review leads with its count, rather than a period or compact suffix.

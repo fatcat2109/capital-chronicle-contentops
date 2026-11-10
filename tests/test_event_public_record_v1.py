@@ -112,6 +112,8 @@ def test_held_main_research_reaches_existing_preview_writer(tmp_path, monkeypatc
     from live_contentops.v1_simple_gemini_newsroom_v1 import _carries_model_estimates, _verified_own_public_excerpts
     assert verified_main_research_excerpts(doc)
     assert _carries_model_estimates(doc) and _verified_own_public_excerpts(doc)
+    from live_contentops.post_visuals_v1 import public_visual_source
+    assert public_visual_source(doc) == "capital_chronicle_own_report"
     changed = {**doc, "canonical_content_text": doc["canonical_content_text"].replace("15%.", "99%.")}
     changed["canonical_content_sha256"] = sha256(changed["canonical_content_text"].encode()).hexdigest()
     changed["url"] = "urn:cc-public-report:event-research:" + changed["canonical_content_sha256"]

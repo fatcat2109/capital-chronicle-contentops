@@ -2039,6 +2039,10 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
     row = store.get_outbox_message(native_artifact_key(store, run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
+    from live_contentops.event_media_order_repair_v1 import POLICY as ORDER_POLICY, build as order_revision
+    if proposal.get("policy") == ORDER_POLICY:
+        return order_revision(store, run_id=run_id, result=result, owner_authority_ref=owner_authority_ref,
+            reaction_card=proposal.get("reaction_card"))
     from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY, build_revision
     if proposal.get("policy") in {CHART_REVISION_POLICY, DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY}:
         return build_revision(store, run_id=run_id, proposal=proposal,
@@ -2091,6 +2095,9 @@ def build_reader_presentation_revision(store, *, run_id, proposal, owner_authori
 
 
 def reader_presentation_revision_view(store, *, run_id, result, revision):
+    from live_contentops.event_media_order_repair_v1 import POLICY as ORDER_POLICY, revision_view as order_view
+    if revision.get("policy") == ORDER_POLICY:
+        return order_view(store, run_id=run_id, result=result, revision=revision)
     from copy import deepcopy
     from live_contentops.v1_simple_gemini_newsroom_v1 import READER_ATTRIBUTION_POLICY
     from live_contentops.release_chart_revision_v1 import POLICY as CHART_REVISION_POLICY, DERIVATIVE_POLICY, MEDIA_REPAIR_POLICY, revision_view
@@ -2153,7 +2160,8 @@ def final_visual_binding(result, *, renders, destinations=None, verify_render_so
         _final_visual_file(asset)
     by_id = {a["asset_id"]: a for a in assets}
     previews = {p["destination"]: p["payload"] for p in result.get("previews", [])}
-    if set(previews) != FINAL_VISUAL_CHANNELS - {"substack"}:
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    if set(previews) not in (FINAL_VISUAL_CHANNELS - {"substack"}, set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)):
         raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
     scope = FINAL_VISUAL_CHANNELS if destinations is None else set(destinations)
     if destinations is not None and scope not in (
@@ -2242,7 +2250,8 @@ def request_final_visual_review(turn, *, renders, distribution_recovery=None, re
         if reader_presentation_revision is not None else dated_distribution_destinations(distribution_recovery)
         if distribution_recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import uses_short_path
-    media_only_repair = (reader_presentation_revision or {}).get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR"
+    media_only_repair = (reader_presentation_revision or {}).get("policy") in {
+        "JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"}
     agent = getattr(turn, "editorial_agent", "codex")
     # CC-300: the reviewer is named by its own family's label, never another's.
     editor = role_assignment("final-visual", agent)
@@ -2339,8 +2348,8 @@ def validate_final_visual_return(turn, request, response):
     scope = ({"linkedin" if d == "linkedin_company" else d for d in revision["objects"]} if revision is not None
         else dated_distribution_destinations(recovery) if recovery is not None else None)
     from live_contentops.native_publication_latency_v1 import SPEED_POLICY, uses_short_path
-    if (recovery is not None or (revision or {}).get("policy") == "JIM_CC247_REVIEWED_MEDIA_REPAIR") and binding.get("review_policy") == SPEED_POLICY:
-        if (((revision or {}).get("policy") != "JIM_CC247_REVIEWED_MEDIA_REPAIR" and not uses_short_path(turn.store, run_id=turn.run_id, result=result))
+    if (recovery is not None or (revision or {}).get("policy") in {"JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"}) and binding.get("review_policy") == SPEED_POLICY:
+        if (((revision or {}).get("policy") not in {"JIM_CC247_REVIEWED_MEDIA_REPAIR", "JIM_DECISION_93_EVENT_MEDIA_ORDER"} and not uses_short_path(turn.store, run_id=turn.run_id, result=result))
                 or _distribution_editor_check_binding(result, scope, agent=agent) != binding):
             raise ValueError("DISTRIBUTION_EDITOR_CHECK_COPY_OR_MEDIA_CHANGED")
         if (output.get("decision") not in {"ACCEPT", "REPAIR_REQUIRED"}
