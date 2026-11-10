@@ -393,6 +393,9 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     # whether an older setup/link is current; that omission cannot revive it.
     current_states.update({pid: raw["status"] for pid, raw in sources.items()
                            if raw.get("status") in TERMINAL})
+    outcomes = _result_rows(export)
+    ended_plans = {r["plan_id"] for r in outcomes}
+    current_states.update({pid: "RESULT" for pid in ended_plans if current_states.get(pid) not in TERMINAL})
     payloads, skipped, already = [], [], []
     from .secret_store_v1 import read_secret
     # Freeze the route on NEW rows only. The registered announcement channel
@@ -460,8 +463,6 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         payloads.extend(members)
         cards.update({m["plan_id"]: m for m in members})
 
-    outcomes = _result_rows(export)
-    ended_plans = {r["plan_id"] for r in outcomes}
     confirmed_fills = {json.loads(r["payload"]).get("plan_id"): r["message_id"] for r in existing_rows
                       if json.loads(r["payload"]).get("state") in {"TRIGGERED", "FILLED"}
                       and r["status"] in {"PUBLISHING", "PUBLISHED"}}
@@ -573,6 +574,16 @@ def _ready_destinations(store, row):
                 or (destination == "discord" and row.get("discord_delivery") == "channel")):
             ready.append(destination)
     return ready
+
+
+def _can_retire_unstarted(store, row):
+    """Keep confirmed and possibly sent copies with their exact recovery owner."""
+    for destination in DESTINATIONS:
+        dispatch = _dispatch(store, row["key"], destination)
+        if dispatch and (dispatch.get("public_object_id") or dispatch.get("public_object_url")
+                or dispatch.get("status") not in SETTLED_DISPATCHES - {"DISPATCH_CONFIRMED"}):
+            return False
+    return True
 
 
 def _parents(store, row, destinations, previous):
@@ -876,6 +887,14 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 store.set_outbox_status(key, posts.SUPERSEDED)
                 results.append({"key": key, "status": posts.SUPERSEDED, "cause": "PLAN_ALREADY_ENDED"})
                 continue
+        if (row["kind"] == "update" and outbox["status"] == posts.READY
+                and row.get("state") in posts.ACTIVE
+                and (latest_states or {}).get(row["plan_id"]) in TERMINAL | {"RESULT"}
+                and _can_retire_unstarted(store, row)):
+            store.set_outbox_status(key, posts.SUPERSEDED)
+            results.append({"key": key, "status": posts.SUPERSEDED,
+                "cause": "PLAN_UPDATE_SUPERSEDED_BY_" + latest_states[row["plan_id"]]})
+            continue
         ready = _ready_destinations(store, row)
         if not ready:
             _, deferred = _parents(store, row, DESTINATIONS, {})
@@ -916,5 +935,14 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 "destination_causes": posts.destination_causes(outcome),
                 "deferred_destinations": plan["deferred_destinations"]})
         except (OSError, ValueError, KeyError, TypeError) as exc:
-            results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
+            cause = str(exc)[:200]
+            status = "NOT_STARTED"
+            if (cause == "PRIVATE_OR_EXECUTION_COPY_FORBIDDEN" and outbox["status"] == posts.READY
+                    and _can_retire_unstarted(store, row)):
+                # Old queued disclosures can identify the private DEMO account.
+                # Preserve their bytes and close the unsent copy with its real
+                # public-output refusal instead of spending every minute on it.
+                status = posts.SUPERSEDED
+                store.set_outbox_status(key, status)
+            results.append({"key": key, "status": status, "cause": cause})
     return {"status": "OK", "posts": results}

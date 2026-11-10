@@ -73,3 +73,24 @@ The fresh read-only queue snapshot is `resume-before.json`: five Discord
 analysis links remain READY; other 10 November rows already have terminal
 outcomes. Runtime integration and the unchanged minute consumer are checked
 separately below in the final integration evidence.
+
+The first installed minute run finished at 23:12:44 GMT+7. It closed all five
+Discord links as `PLAN_ALREADY_EXPIRED`, leaving zero READY Discord rows.
+Every one of its 31 NOT_STARTED/WAITING entries had a key and cause. It also
+exposed three preparation failures, retained in `first-installed-runs.json`.
+
+The follow-up keeps scored endings in the current-state map and retires an
+unattempted fill update when that call has ended. A frozen card is checked
+against its actual intent and parent, rather than being recomposed with a
+later formatter. Exact intent equality and public-data checks stay active.
+An entirely unsent frozen copy containing the old private DEMO disclosure is
+closed with `PRIVATE_OR_EXECUTION_COPY_FORBIDDEN`; confirmed and uncertain
+copies remain with their original recovery owner. Original bytes stay intact.
+The run record also keeps the coordinator's `safe_error_classification`.
+
+These observed-failure repairs pass 58 targeted tests, plus the focused
+adapter-cause recording test. The live secret owner reports that the Discord
+bot route is not configured. Existing registered thread cards retain that
+route; only newly queued cards select webhook channel delivery. Their
+credential constraint is separate from the cleared READY queue and visible
+run causes. No fresh Discord card confirmation is claimed by these tests.

@@ -1377,9 +1377,10 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
     if row.get("format") == 4:
-        from .plan_call_cards_v1 import compose as card_copy, validate_parent_intent
-        if card_copy(row)["text"] != row["text"]:
-            raise PlanPostError("PLAN_CARD_COPY_CHANGED")
+        # Frozen copy is the authority. A later formatter or disclosure change
+        # cannot rewrite it or make an exact historical intent fail comparison.
+        # The intent/parent equality and current public-copy checks below stay.
+        from .plan_call_cards_v1 import validate_parent_intent
         validate_parent_intent(store, row, intent)
     elif row.get("kind") == "result":
         expected = compose_result({**row, "plan": row["levels"]})["text"]
@@ -1546,7 +1547,8 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
 def destination_causes(outcome: Mapping[str, Any]) -> dict:
     """Retain fixed pre-write/recovery causes, without copy, credentials or tool returns."""
     return {destination: str(value.get("reason_code") or value.get("blocker")
-        or value.get("reconciliation_status") or value.get("status") or "DESTINATION_OUTCOME_UNAVAILABLE")[:200]
+        or value.get("safe_error_classification") or value.get("reconciliation_status")
+        or value.get("status") or "DESTINATION_OUTCOME_UNAVAILABLE")[:200]
         for destination, value in (outcome.get("per_destination") or {}).items()
         if isinstance(value, Mapping) and value.get("status") != "DISPATCH_CONFIRMED"}
 

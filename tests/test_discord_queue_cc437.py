@@ -136,6 +136,18 @@ def test_run_record_retains_card_keys_preparation_errors_and_each_wait(tmp_path)
     assert line["posts_by_status"] == {"NOT_STARTED": 1, "WAITING_FOR_CARD_PARENT": 1, "WAITING": 1, "PUBLISHING": 1}
 
 
+def test_run_record_keeps_the_coordinators_safe_adapter_error(tmp_path):
+    outcome = {"per_destination": {"discord": {"status": "DEFINITE_NO_WRITE",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "safe_error_classification": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"}}}
+    post = {"key": "legacy-card", "status": "PUBLISHING",
+            "destination_causes": posts.destination_causes(outcome)}
+    path = posts.record_run({"status": "OK", "publication": {"posts": [post]}}, tmp_path, now=NOW)
+    line = json.loads(path.read_text(encoding="utf-8"))
+    assert line["posts"][0]["destination_causes"] == {
+        "discord": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"}
+
+
 def test_unstarted_run_is_retired_when_all_its_cards_have_ended(five, main_root, tmp_path, monkeypatch):
     store, export, _, _ = five
     queue(store, export, main_root)
@@ -228,3 +240,78 @@ def test_expiry_omitted_from_post_events_does_not_revive_a_setup(five, main_root
     result = queue(store, export, main_root)
     assert result["latest_states"][raw["plan_id"]] == "EXPIRED"
     assert not any(row["kind"] == "setup" and row["plan_id"] == raw["plan_id"] for row in rows(store))
+
+
+def test_frozen_copy_survives_a_formatter_change_but_changed_intents_and_private_copy_do_not(monkeypatch):
+    row = {"format": 4, "kind": "update", "key": "frozen-update", "conditional_calls": [],
+           "text": "Gold: the model position is open.\n\n" + cards.NOTICES}
+    native = {"full_text": row["text"]}
+    monkeypatch.setattr(posts, "_expected", lambda *a: (row, {"discord": native}))
+    monkeypatch.setattr(cards, "compose", lambda *a: pytest.fail("frozen text must not be recomposed"))
+    intent = {"plan_status_post": row["key"], "work_item_id": row["key"],
+              "destination_plan": {"destination": "discord"}, "native_payload": dict(native)}
+    posts.validate_status_post_intent(None, intent)
+    with pytest.raises(posts.PlanPostError, match="INTENT_COPY_CHANGED"):
+        posts.validate_status_post_intent(None, {**intent, "native_payload": {"full_text": "Changed copy"}})
+    row["text"] = "Positions we mention are model positions on a demo account.\n\n" + cards.NOTICES
+    native["full_text"] = row["text"]
+    with pytest.raises(ValueError, match="PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"):
+        posts.validate_status_post_intent(None, {**intent, "native_payload": dict(native)})
+
+
+def _pending_update(tmp_path):
+    store = ContentOpsDurableStore(tmp_path / "pending.sqlite3")
+    row = {"schema_version": posts.SCHEMA, "key": "pending-update", "format": 4,
+           "kind": "update", "symbol": "EURUSD", "plan_id": "our-plan", "state": "TRIGGERED",
+           "at_utc": NOW.isoformat(), "text": "Exact retained copy"}
+    store.create_work_item(story_id=row["key"], title="Call update", target_surface="MULTI_PLATFORM",
+                           work_item_id=row["key"])
+    store.register_outbox_message(message_id=row["key"], work_item_id=row["key"],
+        destination=posts.DESTINATION, payload=json.dumps(row), status=posts.READY)
+    return store, row
+
+
+def test_ended_unstarted_fill_update_retires_before_preparation_without_changing_bytes(tmp_path, monkeypatch):
+    store, row = _pending_update(tmp_path)
+    before = store.get_outbox_message(row["key"])["payload"]
+    monkeypatch.setattr(cards, "prepare_post", lambda *a, **kw: pytest.fail("an ended fill is not current news"))
+    result = cards.publish_ready(store, now=NOW, latest_states={row["plan_id"]: "RESULT"}, root=tmp_path)
+    assert result["posts"] == [{"key": row["key"], "status": posts.SUPERSEDED,
+                                "cause": "PLAN_UPDATE_SUPERSEDED_BY_RESULT"}]
+    assert store.get_outbox_message(row["key"])["payload"] == before
+    assert store.get_outbox_message(row["key"])["status"] == posts.SUPERSEDED
+
+
+@pytest.mark.parametrize("dispatch_status", [None, "UNKNOWN_WRITE", "DISPATCH_CONFIRMED"])
+def test_private_frozen_copy_closes_only_when_no_send_needs_recovery(tmp_path, monkeypatch, dispatch_status):
+    store, row = _pending_update(tmp_path)
+    before = store.get_outbox_message(row["key"])["payload"]
+    if dispatch_status:
+        ids = DurablePublicationCoordinator._ids(row["key"], sha256(("plan-status-post:" + row["key"]).encode()).hexdigest(), "discord")
+        store.register_outbox_message(message_id=ids["message_id"], work_item_id=row["key"], destination="discord",
+            payload="{}", status=dispatch_status)
+        store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+            platform="discord", status=dispatch_status)
+
+    def refused(*args, **kwargs):
+        raise posts.PlanPostError("PRIVATE_OR_EXECUTION_COPY_FORBIDDEN")
+
+    monkeypatch.setattr(cards, "prepare_post", refused)
+    result = cards.publish_ready(store, now=NOW, latest_states={row["plan_id"]: "TRIGGERED"}, root=tmp_path)
+    expected = "NOT_STARTED" if dispatch_status else posts.SUPERSEDED
+    assert result["posts"][0]["status"] == expected
+    assert result["posts"][0]["cause"] == "PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"
+    assert store.get_outbox_message(row["key"])["payload"] == before
+    if dispatch_status:
+        assert store.get_platform_dispatch(ids["dispatch_id"])["status"] == dispatch_status
+        assert store.get_outbox_message(row["key"])["status"] == posts.READY
+
+
+def test_current_scored_ending_prevents_an_old_fill_from_becoming_a_new_setup(five, main_root, monkeypatch):
+    store, export, plans, _ = five
+    pid = plans[0]["plan_id"]
+    monkeypatch.setattr(cards, "_result_rows", lambda export: [{"plan_id": pid, "key": "ending",
+        "to": "RESULT", "at_utc": NOW.isoformat(), "symbol": "EURUSD"}])
+    result = queue(store, export, main_root)
+    assert result["latest_states"][pid] == "RESULT"
+    assert not any(row["kind"] == "setup" and row["plan_id"] == pid for row in rows(store))
