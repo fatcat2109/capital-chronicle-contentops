@@ -6,7 +6,6 @@ then renders them; it does not invent an explanation or a missing scenario.
 """
 from __future__ import annotations
 
-from datetime import datetime, timezone
 from decimal import Decimal
 from hashlib import sha256
 from html import escape
@@ -421,7 +420,8 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
 
 def structured_summary(packet, destination, canonical_url, authored_summary=None):
     """Keep all seven headings and the real URL; spend remaining room on detail."""
-    limits = {"telegram": 4096, "discord": 2000, "threads": 500, "facebook_page": 60000, "instagram_business": 2200}
+    limits = {"telegram": 4096, "discord": 2000, "threads": 500, "facebook_page": 60000,
+              "instagram_business": 2200, "x": 10000, "substack_notes": 10000, "linkedin": 3000}
     limit = limits[destination]
     lead = packet["native_payload"]["title"]
     footer = "Full analysis: " + canonical_url + "\n" + PUBLIC_NOTICE + " " + CONFLICTS_NOTICE
@@ -440,7 +440,7 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
         lines = summaries
         # Add whole source-bound sentences, in section order, without losing
         # their caveat or manufacturing a compressed causal claim.
-        for index, (key, _) in enumerate(SECTIONS):
+        for index, (key, _) in enumerate(SECTIONS) if destination != "x" else []:
             for paragraph in packet["manuscript"]["sections"][key]["paragraphs"]:
                 candidate = labels[key] + ": " + paragraph["text"]
                 proposed = [*lines[:index], candidate, *lines[index+1:]]
@@ -458,6 +458,30 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
         raise ValueError("PLAN_ANALYSIS_SUMMARY_LIMIT:"+destination)
     public_filter(text)
     return text
+
+
+def _link_payload(packet, destination, text, canonical_url, parent):
+    payload = {"destination": destination, "text": text, "full_text": text, "media_asset_ids": []}
+    if parent:
+        payload.update(reply_to_id=str(parent["public_object_id"]), reply_to_url=parent["public_object_url"])
+    if destination in {"facebook_page", "instagram_business"}:
+        payload["own_call_comment"] = True
+    if destination == "substack_notes":
+        # Notes is its own link-card post, not a reply to an unrelated Note.
+        payload.update(link_card_url=canonical_url)
+    if destination == "x":
+        body = text.rsplit("\n" + PUBLIC_NOTICE, 1)[0]
+        notices = PUBLIC_NOTICE + " " + CONFLICTS_NOTICE
+        chunks = posts._x_pack(body, 280, preserve_lines=True) + [notices]
+        if any(posts._x_length(chunk) > 280 for chunk in chunks):
+            raise ValueError("PLAN_ANALYSIS_X_COPY_TOO_LONG")
+        payload.update(text=chunks[0], root_text=chunks[0], full_text="\n\n".join(chunks),
+            reply_texts=chunks[1:], posts=[{"text": part, "order": i,
+                "role": "root" if i == 0 else "reply", "media_asset_ids": []} for i, part in enumerate(chunks)])
+    if destination == "discord":
+        payload.update(discord_thread_parent_id=str(parent["public_object_id"]),
+                       discord_thread_name="Full plan analysis")
+    return payload
 
 
 def _analysis_parent(store, original_key, plan_id, destination):
@@ -487,7 +511,9 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     status = page_status(store, packet)
     if not status["confirmed"]:
         return {"state":"PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED", "destination":destination}
-    parent = _analysis_parent(store, original_key, packet["plan_id"], destination)
+    if destination not in {"telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"}:
+        raise ValueError("PLAN_ANALYSIS_LINK_DESTINATION_INVALID")
+    parent = None if destination == "substack_notes" else _analysis_parent(store, original_key, packet["plan_id"], destination)
     if original_analysis_root:
         # Decision 113 explicitly asks for today's original plan analysis. An
         # unsent legacy setup is not a new live call: publish a dated analysis
@@ -498,27 +524,23 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
             raise ValueError("PLAN_ANALYSIS_DATED_ORIGINAL_COPY_REQUIRED")
         if not canonical_image_url or not canonical_image_url.startswith("https://substack-post-media.s3.amazonaws.com/public/images/"):
             raise ValueError("PLAN_ANALYSIS_CANONICAL_IMAGE_REQUIRED")
-    elif not parent:
+    elif not parent and destination != "substack_notes":
         return {"state":"PLAN_ANALYSIS_PARENT_NOT_CONFIRMED", "destination":destination, "original_key":original_key}
     identity = ("plan-analysis-root-" if original_analysis_root else "plan-analysis-link-")+packet["plan_id"]+'-'+destination
     prior = store.get_outbox_message(identity)
     if prior and not authored_summary:
         return json.loads(prior["payload"])
     text = structured_summary(packet, destination, status["canonical_url"],authored_summary)
-    payload = {"destination":destination, "text":text, "full_text":text, "media_asset_ids":[]}
-    if parent:
-        payload.update(reply_to_id=str(parent["public_object_id"]), reply_to_url=parent["public_object_url"])
+    payload = _link_payload(packet, destination, text, status["canonical_url"], parent)
     if original_analysis_root:
         payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]], image_url=canonical_image_url)
-    if destination=="discord":
-        payload.update(discord_thread_parent_id=str(parent["public_object_id"]), discord_thread_name="Full plan analysis")
     registration = registration_for_destination(destination)
     plan = {"schema_version":"contentops.publication_plan.v1", "plan_analysis_link":identity,
             "story_identity":identity, "article_identity":identity, "package_identity":identity,
             "output_dir":packet["output_dir"], "transport_registry_version":REGISTRY_VERSION,
             "policy_mode_version":"AUTONOMOUS_DEFAULT:JIM_DECISION_113", "publication_window":{"window_identity":identity},
             "destinations":[{"destination":destination, "surface":registration.surface, "transport_type":registration.transport_type,
-                "payload":text, "payload_hash":sha256(text.encode()).hexdigest(), "canonical_url":status["canonical_url"]}]}
+                "payload":payload["full_text"], "payload_hash":sha256(payload["full_text"].encode()).hexdigest(), "canonical_url":status["canonical_url"]}]}
     plan["plan_hash"] = sha256_of(plan)
     value={"link_id":identity, "page_id":packet["page_id"], "plan_id":packet["plan_id"], "original_key":original_key,
            "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"],
@@ -539,6 +561,8 @@ def validate_link_plan(store, work_item_id, plan):
     value=json.loads(row["payload"]) if row else {}
     if value.get("link_id")!=work_item_id or value.get("plan")!=plan:
         raise ValueError("PLAN_ANALYSIS_EXACT_LINK_REQUIRED")
+    if value.get("kind") == "run":
+        return _validate_run_link(store, value)
     packet=json.loads(store.get_outbox_message(value["page_id"])["payload"])
     validate_plan(store,packet["page_id"],packet["plan"])
     if page_status(store,packet)["canonical_url"]!=value["canonical_url"]:
@@ -563,12 +587,19 @@ def validate_link_plan(store, work_item_id, plan):
                 observed=True
         if not observed:
             raise ValueError("PLAN_ANALYSIS_CANONICAL_IMAGE_NOT_OBSERVED")
+    elif value["destination"] == "substack_notes":
+        if value.get("parent") or value["native_payload"].get("link_card_url") != value["canonical_url"]:
+            raise ValueError("PLAN_ANALYSIS_NOTE_LINK_CARD_CHANGED")
     else:
         parent=_analysis_parent(store,value["original_key"],value["plan_id"],value["destination"])
         if not parent or parent!=value["parent"]:
             raise ValueError("PLAN_ANALYSIS_LINK_PARENT_CHANGED")
     expected=structured_summary(packet,value["destination"],value["canonical_url"],value.get('authored_summary'))
-    if value["native_payload"]["text"]!=expected:
+    expected_payload = _link_payload(packet, value["destination"], expected, value["canonical_url"], value.get("parent"))
+    if value.get("original_analysis_root"):
+        expected_payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]],
+                                image_url=value["native_payload"]["image_url"])
+    if value["native_payload"] != expected_payload:
         raise ValueError("PLAN_ANALYSIS_LINK_COPY_CHANGED")
     return value
 
@@ -581,9 +612,147 @@ def validate_link_intent(store, intent):
     return value
 
 
-def publish_link(store, value):
-    from .publication_coordinator_v1 import DurablePublicationCoordinator, CanonicalDestinationTransportRuntimeV1
-    coordinator=DurablePublicationCoordinator(store=store,transport_runtime=CanonicalDestinationTransportRuntimeV1())
+def continue_link(store, value, *, invocation_id="plan-analysis-links-cc435", command="resume",
+                  request_hash=None, response=None):
+    from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
+    coordinator, executor = bind_native_neo_coordinator(store, operation_id=value["link_id"],
+        output_dir=Path(value["plan"]["output_dir"]) / value["link_id"] / "native-neo",
+        native_invocation_id=invocation_id, allow_publish=True)
     coordinator.allow_prior_confirmed_distribution=True
     coordinator.recovery_scope={"work_item_id":value["link_id"],"plan":value["plan"],"exact_work_item_only":True}
-    return coordinator.publish_plan(value["link_id"],value["plan"])
+    try:
+        if command in {"begin", "submit"}:
+            packet = executor._get(request_hash, "request") or {}
+            if packet.get("operation_id") != value["link_id"]:
+                raise ValueError("PLAN_ANALYSIS_LINK_TOOL_REQUEST_MISMATCH")
+            return executor.begin(request_hash) if command == "begin" else executor.submit(request_hash, response)
+        if command == "readback":
+            ids = coordinator._ids(value["link_id"], value["plan"]["plan_hash"], value["destination"])
+            return coordinator.readback_existing_dispatch(ids["dispatch_id"])
+        return coordinator.publish_plan(value["link_id"], value["plan"])
+    except NativeNeoInputRequired as pending:
+        return {"state": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request}
+
+
+def publish_link(store, value):
+    return continue_link(store, value)
+
+
+def link_status(store, value):
+    from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+    ids = Coordinator._ids(value["link_id"], value["plan"]["plan_hash"], value["destination"])
+    dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+    reconciliation = next((r for r in store.get_reconciliations_for_work_item(value["link_id"])
+                           if r["reconciliation_id"] == ids["reconciliation_id"]), {})
+    return {"confirmed": dispatch.get("status") == "DISPATCH_CONFIRMED"
+                        and reconciliation.get("status") == "RECONCILED_CONFIRMED",
+            "status": dispatch.get("status"), "public_object_id": dispatch.get("public_object_id"),
+            "public_object_url": dispatch.get("public_object_url")}
+
+
+def _resume_link(store, value, publish):
+    if not value.get("link_id"):
+        return value
+    status = link_status(store, value)
+    return status if status["confirmed"] or not publish else publish_link(store, value)
+
+
+def _run_link_text(packets, urls):
+    from .plan_call_cards_v1 import _run_summary
+    analyses = [{"title": p["native_payload"]["title"], "canonical_url": url, "summary": p["summary"]}
+                for p, url in zip(packets, urls)]
+    notice = PUBLIC_NOTICE + " " + CONFLICTS_NOTICE
+    text = _run_summary({"analysis_publications": analyses}, "The original run: full plan analyses",
+                        3000 - len(notice) - 2) + "\n\n" + notice
+    public_filter(text)
+    return text
+
+
+def register_run_link(store, packets):
+    """One official LinkedIn member run post containing every available page."""
+    from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
+    packets = sorted(packets, key=lambda p: p["plan_id"])
+    run_ids = {p["source_plan"]["run_id"] for p in packets}
+    if not packets or len(run_ids) != 1:
+        raise ValueError("PLAN_ANALYSIS_RUN_BINDING_REQUIRED")
+    statuses = [page_status(store, p) for p in packets]
+    if not all(s["confirmed"] for s in statuses):
+        return {"state": "PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED", "destination": "linkedin"}
+    urls = [s["canonical_url"] for s in statuses]
+    identity = "plan-analysis-run-" + sha256_of({"run_id": next(iter(run_ids)), "pages": urls})[:32] + "-linkedin"
+    prior = store.get_outbox_message(identity)
+    if prior:
+        return json.loads(prior["payload"])
+    text = _run_link_text(packets, urls)
+    registration = registration_for_destination("linkedin")
+    plan = {"schema_version": "contentops.publication_plan.v1", "plan_analysis_link": identity,
+        "story_identity": identity, "article_identity": identity, "package_identity": identity,
+        "output_dir": packets[0]["output_dir"], "transport_registry_version": REGISTRY_VERSION,
+        "policy_mode_version": "AUTONOMOUS_DEFAULT:CC435", "publication_window": {"window_identity": identity},
+        "destinations": [{"destination": "linkedin", "surface": registration.surface,
+            "transport_type": registration.transport_type, "payload": text,
+            "payload_hash": sha256(text.encode()).hexdigest(), "canonical_url": urls[0]}]}
+    plan["plan_hash"] = sha256_of(plan)
+    value = {"link_id": identity, "kind": "run", "run_id": next(iter(run_ids)), "destination": "linkedin",
+        "page_ids": [p["page_id"] for p in packets], "canonical_urls": urls, "canonical_url": urls[0],
+        "native_payload": {"destination": "linkedin", "text": text, "full_text": text, "media_asset_ids": []}, "plan": plan}
+    store.create_work_item(story_id=identity, work_item_id=identity, title="Full run analyses", target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(message_id=identity, work_item_id=identity, destination=DESTINATION,
+        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
+    return value
+
+
+def _validate_run_link(store, value):
+    packets = []
+    for page_id in value["page_ids"]:
+        packet = json.loads(store.get_outbox_message(page_id)["payload"])
+        validate_plan(store, page_id, packet["plan"])
+        packets.append(packet)
+    if value["destination"] != "linkedin" or any(p["source_plan"]["run_id"] != value["run_id"] for p in packets):
+        raise ValueError("PLAN_ANALYSIS_RUN_BINDING_CHANGED")
+    urls = [page_status(store, p)["canonical_url"] for p in packets]
+    if urls != value["canonical_urls"] or value["canonical_url"] != urls[0]:
+        raise ValueError("PLAN_ANALYSIS_RUN_CANONICAL_CHANGED")
+    expected = {"destination": "linkedin", "text": _run_link_text(packets, urls),
+                "full_text": _run_link_text(packets, urls), "media_asset_ids": []}
+    if value["native_payload"] != expected or value["plan"]["destinations"][0]["payload"] != expected["text"]:
+        raise ValueError("PLAN_ANALYSIS_RUN_COPY_CHANGED")
+    return value
+
+
+def distribute_links(store, *, limit=None, publish=True):
+    """The installed status-post run consumes confirmed pages in its own store.
+
+    Frozen links are resumed, not rewritten. A later page in the same Main run
+    creates one new complete index snapshot, rather than editing a sent object.
+    """
+    cards = {}
+    for row in store.list_outbox_messages(destination=posts.DESTINATION):
+        item = json.loads(row["payload"])
+        if item.get("kind") == "setup" or item.get("state") == "WAITING":
+            cards.setdefault(item.get("plan_id"), row["message_id"])
+    pages, runs, results = [], {}, []
+    for row in store.list_outbox_messages(destination=DESTINATION):
+        packet = json.loads(row["payload"])
+        if row["message_id"] == packet.get("page_id") and page_status(store, packet)["confirmed"]:
+            pages.append(packet)
+    for packet in pages if limit is None else pages[-limit:]:
+        original = cards.get(packet["plan_id"], packet["page_id"])
+        for destination in ("telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"):
+            try:
+                value = register_link(store, packet, original_key=original, destination=destination)
+                outcome = _resume_link(store, value, publish)
+                results.append({"page_id": packet["page_id"], "destination": destination,
+                                "link_id": value.get("link_id"), "outcome": outcome})
+            except (OSError, ValueError, KeyError, TypeError) as exc:
+                results.append({"page_id": packet["page_id"], "destination": destination,
+                                "state": "NOT_STARTED", "cause": str(exc)[:200]})
+        runs.setdefault(packet["source_plan"]["run_id"], []).append(packet)
+    for packets in runs.values():
+        try:
+            value = register_run_link(store, packets)
+            outcome = _resume_link(store, value, publish)
+            results.append({"destination": "linkedin", "link_id": value.get("link_id"), "outcome": outcome})
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            results.append({"destination": "linkedin", "state": "NOT_STARTED", "cause": str(exc)[:200]})
+    return {"status": "OK", "links": results}

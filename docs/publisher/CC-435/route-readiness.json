@@ -1,0 +1,13 @@
+{
+  "linkedin": {
+    "state": "READY_OFFICIAL_MEMBER_API",
+    "authenticated": true,
+    "expiry_at_utc": "2026-12-19T12:31:13.032712Z",
+    "days_remaining": 38,
+    "safe_identity": "Jim Pham",
+    "person_urn": "urn:li:person:woQvypKRGB",
+    "readback_capability": "READBACK_CAPABILITY_LIMITED",
+    "secure_store_binding": "WINDOWS_DPAPI_CURRENT_USER:contentops.linkedin.member.v1"
+  },
+  "discord_bot_credential_present": false
+}

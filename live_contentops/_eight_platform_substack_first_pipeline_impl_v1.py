@@ -4681,7 +4681,7 @@ def _publish_one_destination_from_durable_intent(
                if payloads[destination].get("discord_thread_parent_id") else {}),
         )
     if destination == "facebook_page":
-        if intent.get("plan_status_post") and payloads[destination].get("own_call_comment"):
+        if (intent.get("plan_status_post") or intent.get("plan_analysis_link")) and payloads[destination].get("own_call_comment"):
             from .facebook_page_adapter_v6 import execute_facebook_comment
             raw = execute_facebook_comment(post_id=payloads[destination]["reply_to_id"], message=text,
                 **({"image_url": public_image_url} if payloads[destination].get("comment_card_image") else {}))
@@ -4704,7 +4704,7 @@ def _publish_one_destination_from_durable_intent(
                         "public_write_performed": False, "card_in_parent_carousel": True}
             return {**observed, "status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                     "reason_code": "INSTAGRAM_RUN_CAROUSEL_CARD_NOT_VERIFIED", "public_write_performed": False}
-        if intent.get("plan_status_post") and payloads[destination].get("own_call_comment"):
+        if (intent.get("plan_status_post") or intent.get("plan_analysis_link")) and payloads[destination].get("own_call_comment"):
             from .instagram_adapter_v6 import execute_instagram_comment
             return execute_instagram_comment(media_id=payloads[destination]["reply_to_id"], message=text)
         if not data["primary_media"] or not public_image_url:

@@ -1,0 +1,27 @@
+{
+  "recorded_at_utc": "2026-11-10T14:02:44.680323+00:00",
+  "static_parse": "PASS",
+  "ruff_correctness": "PASS",
+  "ruff_select": [
+    "F",
+    "E9"
+  ],
+  "ruff_ignore": [
+    "F811"
+  ],
+  "ignore_reason": "Existing imported pytest fixtures shadow their parameter names.",
+  "diff_check_exit_code": 0,
+  "pytest": "NOT_RUN_CC035_TEST_EMBARGO_UNTIL_2026-11-10T15:30:00Z",
+  "integration": "NOT_APPLIED",
+  "public_writes": 0,
+  "files": [
+    "live_contentops/plan_analysis_pages_v1.py",
+    "live_contentops/plan_call_cards_v1.py",
+    "live_contentops/plan_status_posts_v1.py",
+    "live_contentops/neo_destination_handoff_v1.py",
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+    "scripts/plan_analysis_pages.py",
+    "tests/test_plan_analysis_distribution_cc435.py",
+    "tests/test_plan_call_cards_cc399.py"
+  ]
+}

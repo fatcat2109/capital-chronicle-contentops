@@ -18,7 +18,7 @@ from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publi
 
 EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 FORMAT = 4
-API_DESTINATIONS = ("telegram", "discord", "threads", "facebook_page", "instagram_business")
+API_DESTINATIONS = ("telegram", "discord", "threads", "facebook_page", "instagram_business", "linkedin")
 DESTINATIONS = (*API_DESTINATIONS, "x", "substack_notes")
 TERMINAL = {"CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED"}
 NOTICES = f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
@@ -225,7 +225,8 @@ def compose(row):
         at = posts._utc(row["at_utc"]).astimezone(posts.PUBLIC_TZ)
         count = len(row["card_keys"])
         lead = f"Calls from our {at.day} {at:%b %H:%M} ET run: {count}."
-        return {"lead": lead, "text": lead + "\n\n" + NOTICES, "conditional_calls": []}
+        body = _run_summary(row, lead, 60000 - len(NOTICES) - 2)
+        return {"lead": lead, "text": body + "\n\n" + NOTICES, "conditional_calls": []}
     plan = row["levels"]
     title = row["instrument_title"]
     identity = f"#{row['short_id']}"
@@ -285,6 +286,34 @@ def compose(row):
     text = "\n".join(lines) + "\n\n" + NOTICES
     check_publication_copy({"body": text}, conditional_calls=calls)
     return {"lead": lead, "text": text, "conditional_calls": calls, "detail_lines": extra}
+
+
+def destinations_for(row):
+    # LinkedIn receives the run and its links, rather than one duplicate root
+    # for every card in that run (CC-435).
+    return tuple(d for d in DESTINATIONS if d != "linkedin" or (
+        row["kind"] == "run" and row.get("analysis_distribution_version")))
+
+
+def _run_summary(row, lead, limit):
+    analyses = row.get("analysis_publications") or []
+    if not analyses:
+        return lead
+    # Reserve every canonical link before allocating prose. Never shorten a URL
+    # or silently drop one market from the run's index.
+    blocks = [a["title"] + "\nFull analysis: " + a["canonical_url"] for a in analyses]
+    base = lead + "\n\n" + "\n\n".join(blocks)
+    if len(base) > limit:
+        raise posts.PlanPostError("PLAN_RUN_ANALYSIS_LINKS_TOO_LONG")
+    for key, label in ANALYSIS_SECTIONS:
+        for index, analysis in enumerate(analyses):
+            if not (analysis.get("summary") or {}).get(key):
+                continue
+            line = label + ": " + analysis["summary"][key]
+            candidate = [*blocks[:index], blocks[index] + "\n" + line, *blocks[index + 1:]]
+            if len(lead + "\n\n" + "\n\n".join(candidate)) <= limit:
+                blocks = candidate
+    return lead + "\n\n" + "\n\n".join(blocks)
 
 
 def ending_words(row):
@@ -394,7 +423,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 "time_exit_utc": plan.get("time_exit_utc"), "entry_deadline_utc": plan.get("entry_deadline_utc"),
                 "source_content_hash": export["status"].get("content_hash"),
                 "source_contract_version": version,
-                "source_plan_hash": raw.get("registration_hash"), "reasons": []}
+                "source_plan_hash": raw.get("registration_hash"), "reasons": [],
+                "analysis_distribution_version": 1}
         analysis, cause = analysis_publication(raw)
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
         return item
@@ -431,7 +461,9 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             run = {"schema_version": posts.SCHEMA, "format": FORMAT, "key": run_key, "kind": "run",
                    "symbol": "MULTI", "plan_id": run_key, "state": "RUN", "at_utc": min(m["at_utc"] for m in members),
                    "card_keys": [m["key"] for m in members], "source_content_hash": export["status"].get("content_hash"),
-                   "source_contract_version": version}
+                   "source_contract_version": version, "analysis_distribution_version": 1,
+                   "analysis_publications": [{"title": m["instrument_title"], **m["analysis_publication"]}
+                                             for m in members if m.get("analysis_publication")]}
             run.update(compose(run))
             payloads.append(run)
         payloads.extend(members)
@@ -553,13 +585,20 @@ def _parents(store, row, destinations, previous):
 def destination_payloads(row, *, card_id, parents=None, carousel=None):
     result = {}
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
-              "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000}
+              "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000,
+              "linkedin": 3000}
     if (row.get("analysis_publication") or {}).get("canonical_url"):
         # Decision 113: use Telegram's text allowance with the hosted card as
         # its explicit large preview, rather than the photo caption allowance.
         limits["telegram"] = 4096
-    for destination in DESTINATIONS:
+    for destination in destinations_for(row):
         text = row["text"]
+        if row["kind"] == "run" and row.get("analysis_publications") and destination != "x":
+            text = _run_summary(row, row["lead"], limits[destination] - len(NOTICES) - 2) + "\n\n" + NOTICES
+        if destination == "instagram_business" and row["kind"] == "run" and row.get("analysis_publications"):
+            caption = "Full analysis: link in our profile; each plan's link is in the comments."
+            body = _run_summary(row, row["lead"], limits[destination] - len(NOTICES) - len(caption) - 3)
+            text = body + "\n" + caption + "\n\n" + NOTICES
         if destination == "x":
             body, notices = posts._split(text)
             chunks = posts._x_pack(body, limits["x"], preserve_lines=True) + [notices]
@@ -640,6 +679,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS, **ig
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     from .plan_call_card_media_v1 import render
     row = posts._row_payload(store, key)
+    destinations = tuple(d for d in destinations if d in destinations_for(row))
     folder = Path(root) / key
     context_path = folder / "run_context_v1.json"
     previous = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
@@ -785,14 +825,14 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             pending.append((outbox, row))
     def priority(pair):
         row = pair[1]
-        api_done = all(_reference(store, row["key"], d) for d in API_DESTINATIONS)
+        api_done = all(_reference(store, row["key"], d) for d in API_DESTINATIONS if d in destinations_for(row))
         return (0 if row["kind"] == "run" else 4 if api_done else
                 {"setup": 1, "update": 2, "result": 3}[row["kind"]], row["at_utc"])
     pending.sort(key=priority)
     results, calls, browser_only = [], 0, 0
     for outbox, row in pending:
         key = row["key"]
-        api_done = all(_reference(store, key, d) for d in API_DESTINATIONS)
+        api_done = all(_reference(store, key, d) for d in API_DESTINATIONS if d in destinations_for(row))
         if api_done:
             if browser_only >= limit:
                 continue
@@ -824,8 +864,9 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             coordinator.register_plan(key, plan)
             outcome = coordinator.execute_plan(key, plan)
             states = {d: (o or {}).get("status") for d, o in (outcome.get("per_destination") or {}).items()}
-            confirmed = {d for d in DESTINATIONS if _reference(store, key, d)}
-            done = len(confirmed) == len(DESTINATIONS)
+            required = destinations_for(row)
+            confirmed = {d for d in required if _reference(store, key, d)}
+            done = len(confirmed) == len(required)
             store.set_outbox_status(key, "PUBLISHED" if done else "PUBLISHING")
             results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING",
                 "per_destination": states, "confirmed_destinations": sorted(confirmed),

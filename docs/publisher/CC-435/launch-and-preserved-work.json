@@ -1,0 +1,23 @@
+{
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "evidence": "CONFIGURED_NOT_OBSERVED",
+    "pid": 22608
+  },
+  "base": "17c49b960d54a7dc6e090ab048fb047bd6c04a89",
+  "preserved_work": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    {
+      "path": "live_contentops/agy_editorial_assist_v1.py",
+      "sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7"
+    }
+  ]
+}

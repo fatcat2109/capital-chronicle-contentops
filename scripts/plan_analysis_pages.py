@@ -16,8 +16,10 @@ from live_contentops.plan_status_posts_v1 import read_export
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["render", "register", "status", "resume", "readback", "begin", "submit"])
-    parser.add_argument("--plan-id", required=True)
+    parser.add_argument("command", choices=["render", "register", "status", "resume", "readback", "begin", "submit",
+                                          "links", "link-resume", "link-readback", "link-begin", "link-submit"])
+    parser.add_argument("--plan-id")
+    parser.add_argument("--link-id")
     parser.add_argument("--manuscript", type=Path)
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--store", type=Path, default=PRODUCTION_STORE)
@@ -28,7 +30,18 @@ def main(argv=None):
     parser.add_argument("--rollout", type=Path, default=Path("config/native_desktop_rollout_v1.json"))
     args = parser.parse_args(argv)
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
-    if args.command in {"render", "register"}:
+    if args.command == "links":
+        result = pages.distribute_links(store)
+    elif args.command.startswith("link-"):
+        if not args.link_id:
+            parser.error("--link-id is required for a link action")
+        value = json.loads(store.get_outbox_message(args.link_id)["payload"])
+        result = pages.continue_link(store, value, invocation_id=args.native_invocation_id,
+            command=args.command.removeprefix("link-"), request_hash=args.request_hash,
+            response=json.loads(args.response.read_bytes()) if args.response else None)
+    elif not args.plan_id:
+        parser.error("--plan-id is required for a page action")
+    elif args.command in {"render", "register"}:
         plan = next(p for p in read_export()["status"]["plans"] if p["plan_id"] == args.plan_id)
         folder = args.output_dir or args.store.parent / "daily_app_outputs" / "owner-manual" / ("plan-analysis-" + args.plan_id)
         packet = pages.render(plan, json.loads(args.manuscript.read_bytes()), output_dir=folder)

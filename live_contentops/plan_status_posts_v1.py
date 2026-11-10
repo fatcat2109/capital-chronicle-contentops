@@ -1532,7 +1532,9 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
     from .plan_call_cards_v1 import publish_ready as publish_cards
     card_results = publish_cards(store, now=now, latest_states=latest_states, root=root,
                                  host=host, coordinator_for=coordinator_for, limit=limit)
-    return {"status": "OK", "posts": results + card_results["posts"]}
+    from .plan_analysis_pages_v1 import distribute_links
+    links = distribute_links(store)
+    return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links}
 
 
 def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None = None, root: Path = POST_ROOT,

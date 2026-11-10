@@ -235,6 +235,8 @@ def _payload_binding(intent, destination):
                 row["placement_after"] = placements[str(row["asset_id"])]
     binding = {"expected_text_segments": texts, "expected_thread_texts": thread_texts, "thread_post_count": len(posts),
                "media_manifest": media, "artifact_manifest": artifacts}
+    if destination == "substack_notes" and isinstance(payload, dict) and payload.get("link_card_url"):
+        binding["expected_link_card_url"] = payload["link_card_url"]
     if destination == "substack" and article.get("frozen_public_record"):
         from live_contentops.event_public_record_v1 import attachment_for_article
         binding["event_public_record"] = {"article_type": article.get("article_type"),
@@ -367,6 +369,11 @@ class NeoDestinationHandoff:
                 "observed_reply_parent_url from the published reply's visible parent; READBACK verifies both.")
         if destination == "linkedin" and auth.get("linkedin_api_prewrite_failure"):
             value["linkedin_api_prewrite_failure"] = auth["linkedin_api_prewrite_failure"]
+        if content_binding.get("expected_link_card_url"):
+            value["steps"].append(
+                "Keep the canonical URL as a visible link card on this exact Note. Return observed_link_cards "
+                "with url, card_visible=true and this Note's public_object_url from actual readback. "
+                "Plain text containing the URL does not prove the card is present.")
         if destination == "substack" and action in {"PUBLISH", "EDIT_EXISTING"} and content_binding["media_manifest"]:
             value["substack_media_placement"] = (
                 "Place each media_manifest image in the body where its placement_after names: after the "
@@ -647,12 +654,16 @@ class NeoDestinationHandoff:
         if destination == "x" and binding["thread_post_count"] > 1:
             thread_match = _x_thread_matches(binding, thread, result.get("observed_link_resolutions") or [],
                 str(intent.get("canonical_url") or ""))
+        link_card_match = not binding.get("expected_link_card_url") or any(
+            card.get("url") == binding["expected_link_card_url"] and card.get("card_visible") is True
+            and card.get("public_object_url") == result.get("public_object_url")
+            for card in result.get("observed_link_cards", []))
         verified = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == IDENTITIES[destination]
             and (not public_object_id or result.get("public_object_id") == public_object_id)
             and (not public_object_url or result.get("public_object_url") == public_object_url)
             and _public_url(destination, result.get("public_object_url"), result.get("public_object_id"))
-            and result.get("content_verified") is True and text_match and media_match and thread_match and attachments_match)
+            and result.get("content_verified") is True and text_match and media_match and thread_match and attachments_match and link_card_match)
         parent = request.get("reply_parent")
         if parent:
             verified = verified and result.get("observed_reply_parent_id") == parent["public_object_id"] \
@@ -714,7 +725,8 @@ class NeoDestinationHandoff:
                 "write_exists": bool(identity_exists), "write_absent": bool(absent),
                 "meaningful_media_visible": bool(expected_media and media_match),
                 "canonical_publication_verified": canonical_present,
-                "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match}}
+                "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match,
+                                           "link_card_match": bool(link_card_match)}}
 
 
 def destination_setup_projection(*, env=None, now=None, linkedin_root=None):

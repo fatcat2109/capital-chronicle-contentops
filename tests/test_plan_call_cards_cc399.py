@@ -225,7 +225,10 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
         root=tmp_path / "posts", host=fake_host, coordinator_for=lambda key, folder: coordinator)
     assert len(result["posts"]) == 6, result
     assert all(r["status"] == "PUBLISHED" for r in result["posts"]), result
-    assert len(runtime.intents) == 6 * len(cards.DESTINATIONS)
+    first_count = len(cards.DESTINATIONS) + 5 * (len(cards.DESTINATIONS) - 1)
+    assert len(runtime.intents) == first_count
+    assert [i["work_item_id"] for i in runtime.intents if i["destination_plan"]["destination"] == "linkedin"] == [
+        next(r["key"] for r in rows(store) if r["kind"] == "run")]
     instagram_card_ids = {cards._reference(store, c["key"], "instagram_business")["public_object_id"]
                           for c in rows(store) if c["kind"] == "setup"}
     assert len(instagram_card_ids) == 1  # all five verified slots belong to one published run object
@@ -236,7 +239,7 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
         assert first["native_payload"]["reply_to_id"] == cards._reference(store, run["key"], destination)["public_object_id"]
     again = posts.publish_ready(store, now=NOW, root=tmp_path / "posts", host=fake_host,
                                  coordinator_for=lambda key, folder: coordinator)
-    assert again["posts"] == [] and len(runtime.intents) == 6 * len(cards.DESTINATIONS)
+    assert again["posts"] == [] and len(runtime.intents) == first_count
     pid = card["plan_id"]
     raw = next(p for p in plans if p["plan_id"] == pid)
     raw["status"] = "FILLED"
@@ -249,8 +252,8 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
     ended = posts.publish_ready(store, now=NOW, root=tmp_path / "posts", host=fake_host,
                                 coordinator_for=lambda key, folder: coordinator)
     assert len(ended["posts"]) == 2 and all(r["status"] == "PUBLISHED" for r in ended["posts"]), ended
-    assert len(runtime.intents) == 8 * len(cards.DESTINATIONS)
-    for intent in runtime.intents[6 * len(cards.DESTINATIONS):]:
+    assert len(runtime.intents) == first_count + 2 * (len(cards.DESTINATIONS) - 1)
+    for intent in runtime.intents[first_count:]:
         destination = intent["destination_plan"]["destination"]
         package = intent["native_payload"]
         assert package["reply_to_id"] == cards._reference(store, card["key"], destination)["public_object_id"]
@@ -267,7 +270,7 @@ def test_unconfirmed_parent_defers_only_its_destination(five, main_root, tmp_pat
     monkeypatch.setattr(cards, "_reference", lambda s, k, d: None if d == "discord" else {
         "public_object_id": "12345", "public_object_url": "https://example.test/12345"})
     prepared = posts.prepare_post(store, card["key"], root=tmp_path / "posts", host=fake_host)
-    assert {d["destination"] for d in prepared["destinations"]} == set(cards.DESTINATIONS) - {"discord"}
+    assert {d["destination"] for d in prepared["destinations"]} == set(cards.destinations_for(card)) - {"discord"}
     assert prepared["deferred_destinations"] == [{"destination": "discord", "cause": "CARD_PARENT_NOT_CONFIRMED", "parent_key": card["parent_key"]}]
 
 
