@@ -1,0 +1,30 @@
+{
+  "source_sha256": "9a53994df90ca5d88a50dae7c4080a96d542a0888305b7c8efb79adc44c85e91",
+  "runtime": "Node async Neo SDK fixture; no browser or network calls",
+  "checks": [
+    {
+      "destination": "linkedin_company",
+      "composer_changed": false,
+      "clicks": 1,
+      "status": "CLICKED"
+    },
+    {
+      "destination": "linkedin_company",
+      "composer_changed": true,
+      "clicks": 0,
+      "status": "FAILED_BEFORE_WRITE"
+    },
+    {
+      "destination": "youtube",
+      "composer_changed": false,
+      "clicks": 1,
+      "status": "CLICKED"
+    },
+    {
+      "destination": "youtube",
+      "composer_changed": true,
+      "clicks": 0,
+      "status": "FAILED_BEFORE_WRITE"
+    }
+  ]
+}

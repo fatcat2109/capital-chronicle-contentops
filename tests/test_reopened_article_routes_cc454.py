@@ -87,7 +87,11 @@ def local_controls(tmp_path, monkeypatch):
     monkeypatch.setattr("live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled", lambda: None)
     # The source/compiler is covered by the native publication suite. These
     # transport tests supply its already-approved output at the same data seam.
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    original_inputs = pipeline._durable_intent_inputs
     def source_inputs(intent):
+        if intent.get("output_dir"):
+            return original_inputs(intent)
         payload = intent.get("native_payload") or {"text": intent["payload"]}
         return {"output_dir": tmp_path, "article": {}, "media_assets": [],
             "payloads": {d: payload for d in ("youtube", "linkedin_company")},
@@ -165,3 +169,43 @@ def test_suspension_preserves_other_platforms_and_optional_premium_is_not_a_chec
     original = client.snapshot
     client.snapshot = lambda page: {**original(page), "text": "Verify with Premium"}
     assert endpoint.NeoBrowserDriver(client).article_guard({"destination": "linkedin_company"}, 1) is None
+
+
+def test_native_article_consumer_keeps_manual_requests_on_its_parent_invocation(tmp_path, monkeypatch):
+    from test_native_desktop_publication_v1 import seeded
+    from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+    store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+    operation = NativeReviewedPublication(store, binding, rollout=rollout,
+        native_invocation_id="actual-parent-turn")
+    operation._authorize_and_bind()
+    assert isinstance(operation.executor, endpoint.EndpointNeoExecutor)
+    assert operation.executor.automatic_destinations == {"linkedin_company", "youtube"}
+    assert operation.executor.native_invocation_id == operation.native_invocation_id
+    assert operation.executor.operation_id == binding["run_id"]
+    assert operation.coordinator.store is store
+
+
+def test_article_only_executor_leaves_other_native_steps_pending_without_endpoint_calls(tmp_path):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+    store, _, _ = _coordinator(tmp_path)
+    browser = ArticleBrowser("youtube")
+    _, first = bind_native_neo_coordinator(store, operation_id="work-1", output_dir=tmp_path / "native",
+        native_invocation_id="actual-parent-turn", allow_publish=True, automatic_articles=True, endpoint_client=browser)
+    request = {"destination": "substack", "action": "VERIFY_IDENTITY", "work_item_id": "work-1",
+        "surface": "SUBSTACK_ARTICLE", "expected_identity": handoff.IDENTITIES["substack"]}
+    request["request_sha256"] = sha256_of(request)
+    with pytest.raises(NativeNeoInputRequired):
+        first(request)
+    packet = first.begin(request["request_sha256"])
+    _, resumed = bind_native_neo_coordinator(store, operation_id="work-1", output_dir=tmp_path / "native",
+        native_invocation_id="actual-parent-turn", allow_publish=True, automatic_articles=True, endpoint_client=browser)
+    response = {"tool_request_sha256": packet["tool_request_sha256"],
+        "tool_observation": {"tool_name": "mcp__browseros_neo__run", "surface": "CODEX_NATIVE_SUBAGENT",
+            "native_invocation_id": "actual-parent-turn", "observation_source": "CONTROLLED_TEST",
+            "observed_at_utc": datetime.now(timezone.utc).isoformat()},
+        "result": {"request_sha256": request["request_sha256"], "status": "SUCCESS",
+            "observed_identity": handoff.IDENTITIES["substack"], "authenticated": True}}
+    resumed.submit(request["request_sha256"], response)
+    assert resumed(request)["authenticated"] is True
+    assert browser.calls == []

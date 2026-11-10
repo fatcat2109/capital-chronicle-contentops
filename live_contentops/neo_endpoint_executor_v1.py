@@ -660,7 +660,11 @@ class EndpointNeoExecutor(NativeNeoExecutor):
     """The existing sole publisher calls this synchronously; no model is involved."""
     inline_transport = True
     def __init__(self,*args,client=None,automatic_destinations=None,**kwargs):
-        kwargs["native_invocation_id"] = "neo-endpoint:" + uuid4().hex
+        # Article-only composition still returns Substack/X actions to its
+        # native parent. Keep that parent's id across their begin/submit calls.
+        # Standalone fully automatic callers retain the endpoint's own id.
+        if automatic_destinations is None:
+            kwargs["native_invocation_id"] = "neo-endpoint:" + uuid4().hex
         super().__init__(*args,**kwargs)
         self.client=client or endpoint_client()
         self.automatic_destinations = (set(automatic_destinations) if automatic_destinations is not None

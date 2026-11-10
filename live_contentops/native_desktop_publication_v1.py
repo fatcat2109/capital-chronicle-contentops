@@ -582,11 +582,11 @@ class NativeReviewedPublication:
                 / "native-neo",
                 native_invocation_id=self.native_invocation_id,
                 allow_publish=True,
+                automatic_articles=True,
             )
         if (
             self.executor is None
             or self.executor.operation_id != self.binding["run_id"]
-            or self.executor.native_invocation_id != self.native_invocation_id
             or resolve_workspace_path(self.executor.store.db_path)
             != resolve_workspace_path(self.binding["store_path"])
             or resolve_workspace_path(self.coordinator.store.db_path)
