@@ -2282,7 +2282,8 @@ class DurablePublicationCoordinator:
         """Decision 109: one local barred-route no-write; preserve possibly sent posts."""
         intent = json.loads(str(message["payload"]))
         destination = str(message["destination"])
-        cause = barred_browser_destinations()[destination]
+        from .neo_destination_handoff_v1 import suspended_routes
+        cause = {**suspended_routes(), **barred_browser_destinations()}[destination]
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         if existing and (existing.get("public_object_id") or existing.get("status") in {

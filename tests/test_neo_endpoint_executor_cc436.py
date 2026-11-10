@@ -368,7 +368,8 @@ def test_expired_claimed_step_still_reads_back_without_another_click(tmp_path):
         assert any(name=='run' and '"phase": "readback"' in args['code'] for name,args in state['calls'])
 
 
-def test_live_route_suspension_prevents_endpoint_calls_and_leaves_x_available(tmp_path,monkeypatch):
+@pytest.mark.parametrize('historical_without_cause',[False,True])
+def test_live_route_suspension_prevents_endpoint_calls_and_leaves_x_available(tmp_path,monkeypatch,historical_without_cause):
     from live_contentops import neo_destination_handoff_v1 as handoff
     control=tmp_path/'suspended_routes.json'
     control.write_text(json.dumps({'substack_notes':'SUBSTACK_ACCOUNT_SUSPENDED'}),encoding='utf-8')
@@ -376,7 +377,12 @@ def test_live_route_suspension_prevents_endpoint_calls_and_leaves_x_available(tm
     store=copied_store(tmp_path);ids,value=message(store,'substack_notes')
     with endpoint() as (url,state):
         c,_=bound(store,tmp_path,value['work_item_id'],url)
-        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        if historical_without_cause:
+            store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],
+                platform='substack_notes',status='DEFINITE_NO_WRITE')
+            result=c._settle_barred_browser_no_write(store.get_outbox_message(ids['message_id']))
+        else:
+            result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
         assert result['status']=='DEFINITE_NO_WRITE',result
         assert result['reason_code']=='SUBSTACK_ACCOUNT_SUSPENDED'
         assert not state['calls']
