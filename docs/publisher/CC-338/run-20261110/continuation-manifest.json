@@ -1,0 +1,76 @@
+{
+  "operation_id": "cc338-cpi-preview-20261110-v1",
+  "artifacts": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\binding.json",
+      "bytes": 4562,
+      "sha256": "c7b95623b202a5a1dcc0e5737fe471622d1001b910f801a5d1ecb845b8e798ee"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_request_select.json",
+      "bytes": 294160,
+      "sha256": "6ed8724f0554e07039cb52e7fa0674926561c9ffa587fed5b10a5dc6f2fa1777"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_response_select.json",
+      "bytes": 3361,
+      "sha256": "86c004d28bbedbf8203ffad5abcaf1f89700cea52498baa8777a22d9075a36a2"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_request_media-plan.json",
+      "bytes": 19602,
+      "sha256": "8ac45beeea28565e122e834e40d32f824c834206dd61792cc2fadaa350cf2f46"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_response_media-plan.json",
+      "bytes": 5207,
+      "sha256": "cbef97540abe4d71fe8441a706a2cfbd38d0123a35ef00d029f667a258909a82"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_request_visual-edit.json",
+      "bytes": 1117753,
+      "sha256": "0543eddc648270ec0362e806fbab86014ddc55587eb999c3dcf033eddf7fc9e4"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_response_visual-edit.json",
+      "bytes": 18300,
+      "sha256": "1b082e9979223324b3a00135e3ae490c32f561c21d0a703682f04d542a64eb42"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_request_write.json",
+      "bytes": 1412209,
+      "sha256": "3e448b5e3ad747ca10b9c44bb65db572d3d3ff320f929e7b2d30326328a12661"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_response_write.json",
+      "bytes": 87231,
+      "sha256": "b4853aa82e2298844db27e6dca189446a987d5c47b51a0e535ad52d2c722e8cb"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_request_revise.json",
+      "bytes": 1602278,
+      "sha256": "de0a37c94eab365dc0fc4bc544fb370fc2ed5a4d6fe2d48c508d5bf56e83d4ed"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_response_revise.json",
+      "bytes": 87311,
+      "sha256": "1e0622b023e8faf94b2efd45b055f5300fac6b2f51fd076ef529a9b27c1c3849"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\final-editor-check.json",
+      "bytes": 5282,
+      "sha256": "e33482f6be253e878eba9c61c546c9d286656426308653e8c55dc96193127bf2"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\review-input-refresh.json",
+      "bytes": 662,
+      "sha256": "4cbf198aa8d1a826c50e8287dd7ac28e804b3aabf359885d232ec0464ba0bcbe"
+    }
+  ],
+  "model_effort": "gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED",
+  "test_blackout": "No test started 18:30-22:30 GMT+7 10 Nov",
+  "preview_deadline_utc": "2026-11-10T11:30:00Z",
+  "deadline_met": false,
+  "public_freeze_record_at_deadline": "NOT_ISSUED",
+  "choice": "Authorized no-hash CPI preview; public hash record starts at PPI"
+}

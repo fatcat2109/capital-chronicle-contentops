@@ -145,7 +145,8 @@ def test_native_request_carries_every_paragraph_and_bound_card_without_article_c
     assert request['content_binding']['expected_text_segments'] == list(packet['native_payload'].values())
 
 
-def test_local_prewrite_resolution_preserves_real_failure_circuit_and_exact_unknown(source, tmp_path):
+@pytest.mark.parametrize("failure_kind", ["KeyError", "ValueError"])
+def test_local_prewrite_resolution_preserves_real_failure_circuit_and_exact_unknown(source, tmp_path, failure_kind):
     store = ContentOpsDurableStore(tmp_path / 'store.sqlite3')
     packet = pages.register_page(store, rendered(source, tmp_path))
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
@@ -153,10 +154,13 @@ def test_local_prewrite_resolution_preserves_real_failure_circuit_and_exact_unkn
     intent = json.loads(store.list_outbox_messages(destination='substack')[0]['payload'])
     ids = coordinator._ids(packet['page_id'],packet['plan']['plan_hash'],'substack')
     store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],platform='substack',status='UNKNOWN_WRITE')
-    coordinator._record_destination_day_failure(intent,'substack',{'dispatch_id':ids['dispatch_id'],'safe_error_classification':'KeyError'})
+    coordinator._record_destination_day_failure(intent,'substack',{'dispatch_id':ids['dispatch_id'],'safe_error_classification':failure_kind})
     coordinator.resolve_local_neo_prewrite_failure('substack')
     assert coordinator._destination_day_failure('substack') is None
     assert store.get_platform_dispatch(ids['dispatch_id'])['status'] == 'UNKNOWN_WRITE'
+    coordinator._record_destination_day_failure(intent,'substack',{'dispatch_id':ids['dispatch_id'],'safe_error_classification':'ValueError'})
+    coordinator.resolve_local_neo_prewrite_failure('substack')
+    assert coordinator._destination_day_failure('substack') is None
     coordinator._record_destination_day_failure(intent,'substack',{'dispatch_id':ids['dispatch_id'],'safe_error_classification':'TimeoutError'})
     assert coordinator._destination_day_failure('substack')['safe_error_classification'] == 'TimeoutError'
 

@@ -2545,8 +2545,7 @@ class DurablePublicationCoordinator:
         incident_id, _ = self._destination_failure_key(destination)
         conn = self.store.get_connection()
         try:
-            resolved = conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone()
-            if resolved:
+            while conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone():
                 incident_id += "_after_local_prewrite_repair"
             row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
             return json.loads(row["description"]) if row else None
@@ -2561,13 +2560,16 @@ class DurablePublicationCoordinator:
         this only resolves the unrelated destination-wide daily circuit.
         """
         incident_id, _ = self._destination_failure_key(destination)
+        with self.store.get_read_only_connection() as conn:
+            while conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone():
+                incident_id += "_after_local_prewrite_repair"
         failure = self._destination_day_failure(destination)
-        if not failure or failure.get("safe_error_classification") != "KeyError":
+        if not failure or failure.get("safe_error_classification") not in {"KeyError", "ValueError"}:
             raise ValueError("LOCAL_NEO_PREWRITE_KEY_ERROR_REQUIRED")
         dispatch = self.store.get_platform_dispatch(failure["dispatch_id"]) or {}
         message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
         intent = json.loads(message["payload"]) if message else {}
-        if not intent.get("plan_analysis_page") or destination != "substack":
+        if not intent.get("work_item_id") or destination != "substack":
             raise ValueError("EXACT_PLAN_PAGE_PREWRITE_FAILURE_REQUIRED")
         for row in self.store.list_outbox_messages(destination="internal:native-neo-tool", work_item_id=intent["work_item_id"]):
             request = json.loads(row["payload"]).get("request", {})
@@ -2575,12 +2577,13 @@ class DurablePublicationCoordinator:
                 raise ValueError("NATIVE_WRITE_REQUEST_EXISTS_READBACK_REQUIRED")
         from .plan_analysis_pages_v1 import validate_intent
         from .neo_destination_handoff_v1 import NeoDestinationHandoff
-        validate_intent(self.store, intent)
+        if intent.get("plan_analysis_page"):
+            validate_intent(self.store, intent)
         # Exercise the repaired builder without a native executor or a write.
         NeoDestinationHandoff().request(destination=destination, action="READBACK", intent=intent)
         return self.store.register_incident(incident_id=incident_id + "_local_prewrite_resolved",
             work_item_id=intent["work_item_id"], severity="RESOLVED_LOCAL_PREWRITE",
-            description=_canonical_json({"cause":"PLAN_PAGE_INCORRECTLY_ENTERED_ARTICLE_COMPILER",
+            description=_canonical_json({"cause":"LOCAL_PAYLOAD_COMPILATION_BEFORE_NATIVE_EXECUTOR",
                 "dispatch_id":dispatch["dispatch_id"], "browser_write_request_issued":False,
                 "exact_dispatch_still_requires_readback":True}))
 
@@ -2592,7 +2595,7 @@ class DurablePublicationCoordinator:
             return
         incident_id, day = self._destination_failure_key(destination, instant)
         with self.store.get_read_only_connection() as conn:
-            if conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone():
+            while conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone():
                 incident_id += "_after_local_prewrite_repair"
         self.store.register_incident(incident_id=incident_id,
             work_item_id=intent["work_item_id"], severity="DISPATCH_FAILURE",
