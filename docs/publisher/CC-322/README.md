@@ -74,3 +74,40 @@ and consumes held data now; this observation does not gate publication. No
 post-integration terminal Main outcome was present during this run. The existing
 minute route will consume the next one; Publisher then reads back its three
 copies. No new schedule, watcher or polling loop was added.
+
+
+## Continuation readback, 10 November 2026
+
+`readback-20261110.json` records one current read through Main's validated
+export reader and a read-only query of the production coordinator store.
+The fresh export contains 63 plans and four scored calls. New post-integration
+stops exist for gold and EUR/USD; the previous statement that no new terminal
+outcome exists describes the earlier run only.
+
+Neither new stop satisfies this item's 9 November acceptance amendment:
+decision 106 allows one loss post in seven days, and the confirmed gold loss
+was queued on 9 November at 16:17 UTC. Its next loss slot is 16 November at
+23:17 GMT+7. A new hit or explicit correction can qualify earlier. There is
+no new hit or correction in this source snapshot. Each new stop is counted
+with `LOSS_POST_LIMIT_DECISION_106` in the audit. This is the item's eligibility
+assessment, not a claim that today's separate card consumer refused it.
+
+CC-399 now owns the live queue via `plan_call_cards_v1.queue_posts`, effective
+10 November at 09:11 GMT+7. Its newer backlog direction gives every announced
+card an ending. The readback preserves this installed route: gold's new result
+already has a READY_FOR_PUBLISHER card row, and EUR/USD's latest result has no
+outbox row at this observation. Neither has a confirmed result dispatch.
+No pending card was removed, rewritten or sent by this run. The minute route's
+latest recorded run and its source clocks are retained in the audit.
+
+The existing six confirmed historical result copies remain in the coordinator
+store with readbacks. They do not satisfy the amended prospective acceptance.
+CC-322 therefore remains `FIRST_ELIGIBLE_POST_INTEGRATION_RESULT_PENDING`;
+Publisher's next action is one readback when the existing consumer processes
+an eligible result, without a new watcher or schedule.
+
+This continuation changes evidence only. No tests were rerun: source is
+unchanged and Jim bars test starts until 22:30 GMT+7 on 10 November. The prior
+33-test result remains historical evidence. Launch PID 15344 explicitly
+configured gpt-6.1-sol/high, recorded as CONFIGURED_NOT_OBSERVED. No editorial
+model was called, no public write was made, and no runtime state was changed.
