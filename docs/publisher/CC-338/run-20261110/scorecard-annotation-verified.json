@@ -1,0 +1,68 @@
+{
+  "run_id": "cc338-cpi-preview-20261110-v1",
+  "confirmed_post_id": "224293572",
+  "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+  "published_at_utc": "2026-11-10T12:09:49.251Z",
+  "scorecard_as_of_utc": "2026-11-10T12:51:00Z",
+  "total_public_calls": 36,
+  "cpi_forecasts": 17,
+  "cpi_market_counts": {
+    "BTCUSD": 3,
+    "EURUSD": 3,
+    "US500": 3,
+    "USDJPY": 3,
+    "XAUUSD": 5
+  },
+  "count_method": {
+    "source_call_groups": 4,
+    "main_gold_reaction_outcomes": 2,
+    "scenario_groups": 3,
+    "scenario_directional_market_projections": 15,
+    "directional_market_calls_total": 17,
+    "scenario_covered_market_entries": 18,
+    "wti_no_direction_entries_excluded": 3,
+    "rates_and_dollar_directional_confirmation_projections": 4,
+    "all_directional_forecast_and_confirmation_projections_preserved": 21,
+    "independent_event_sample_count": null,
+    "distinct_condition_groups": 5,
+    "verbatim_source_passages": 4
+  },
+  "independent_sample_count": null,
+  "all_cpi_scores": [
+    "None"
+  ],
+  "call_ids": [
+    "cc338-reaction-gold-hot",
+    "cc338-reaction-gold-soft",
+    "cc338-bin-in-line-gold",
+    "cc338-bin-in-line-sp500",
+    "cc338-bin-in-line-eurusd",
+    "cc338-bin-in-line-usdjpy",
+    "cc338-bin-in-line-bitcoin",
+    "cc338-bin-hot-gold",
+    "cc338-bin-hot-sp500",
+    "cc338-bin-hot-eurusd",
+    "cc338-bin-hot-usdjpy",
+    "cc338-bin-hot-bitcoin",
+    "cc338-bin-soft-gold",
+    "cc338-bin-soft-sp500",
+    "cc338-bin-soft-eurusd",
+    "cc338-bin-soft-usdjpy",
+    "cc338-bin-soft-bitcoin"
+  ],
+  "historical_feed_rewritten": false,
+  "public_text_edited": false,
+  "existing_consumer": "scripts/event_public_record.py and EVENT_REVIEW attach_scorecard_record",
+  "artifact": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\public-call-annotation.json",
+    "bytes": 156832,
+    "sha256": "3d98fb40ddcc2a58ca209bf93cce3f6d2dba5ef4d6e70d0096e2b9f9704611cd"
+  },
+  "scorecard_json": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-338\\run-20261110\\scorecard-live-final\\public-call-scorecard.json",
+    "bytes": 182719,
+    "sha256": "5ce89a9e3540e32a26d5beaec34ea8f67d30eb2433927469c751dae9724e12fc"
+  },
+  "test_status": "Seven targeted annotation cases authored but unrun under the 10 Nov 18:30-22:30 GMT+7 blackout. Live feed/outbox projection executed.",
+  "model_effort": "gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED"
+}

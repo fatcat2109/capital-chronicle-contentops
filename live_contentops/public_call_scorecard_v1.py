@@ -22,6 +22,53 @@ SINCE = "2026-11-06T05:00:00Z"  # 6 November, 00:00 ET (decision 90)
 SCHEMA = "contentops.public_call_scorecard.v1"
 PUBLIC_STATES = {"WAITING", "TRIGGERED", "INVALIDATED", "CANCELLED", "EXPIRED", "VIEW_CHANGED"}
 CONFIRMED = ("DISPATCH_CONFIRMED", "EXTERNAL_REMOVAL_REPORTED_NO_RETRY")
+ANNOTATIONS = "internal:public-call-annotation"
+
+
+def record_article_call_annotation(store, annotation, *, feed_path=DEFAULT_FEED):
+    """Add exact published spans in the existing outbox; never rewrite a sealed feed."""
+    from pathlib import Path
+    from live_contentops.neo_destination_handoff_v1 import _text
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, canonical_bytes
+    published = next((r for r in read_records(feed_path)
+        if r["content_id"] == "substack:" + str(annotation.get("confirmed_post_id"))), None)
+    if (not published or not any(o["name"] == "substack" and o["url"] == annotation.get("canonical_url")
+            for o in published["outlets"]) or published["conditional_calls"]):
+        raise ValueError("CALL_ANNOTATION_EXACT_CONFIRMED_UNANNOTATED_ARTICLE_REQUIRED")
+    dispatches = [d for d in store.get_dispatches_for_work_item(annotation["run_id"])
+        if d["platform"] == "substack" and d["status"] in CONFIRMED
+        and d.get("public_object_id") == annotation["confirmed_post_id"]]
+    if len(dispatches) != 1:
+        raise ValueError("CALL_ANNOTATION_CONFIRMED_OBJECT_REQUIRED")
+    intent = json.loads(store.get_outbox_message(dispatches[0]["message_id"])["payload"])
+    root = Path(intent["output_dir"])
+    context = json.loads((root / "run_context_v1.json").read_bytes())
+    article = json.loads((root / "article_manifest_v1.json").read_bytes())
+    if annotation["article_identity"] != sha256(article["substack_body_markdown"].encode()).hexdigest():
+        raise ValueError("CALL_ANNOTATION_AUTHORED_BODY_CHANGED")
+    operation = json.loads(store.get_outbox_message("native-operation-binding-" + sha256_of(annotation["run_id"]))["payload"])
+    public_path = Path(operation["output_dir"]) / "public-readback-dom.json"
+    if sha256(public_path.read_bytes()).hexdigest() != annotation["public_dom_sha256"]:
+        raise ValueError("CALL_ANNOTATION_PUBLIC_OBSERVATION_CHANGED")
+    public = json.loads(public_path.read_bytes())["body"]
+    documents = {d["document_id"]: d for d in context["source_documents"]}
+    calls = annotation["calls"]
+    if not calls or len(calls) != annotation["allcall_count"] or len({c["call_id"] for c in calls}) != len(calls):
+        raise ValueError("CALL_ANNOTATION_FULL_UNIQUE_COUNT_REQUIRED")
+    for call in calls:
+        span, binding = call["public_span"], call["material_claim_binding"]
+        text = call["original_text"]
+        document = documents.get(binding["document_id"], {})
+        if (public[span["start"]:span["end"]] != text or span["text"] != text
+                or _text(text) not in _text(article["substack_body_markdown"])
+                or _text(binding["support_excerpt"]) not in _text(document.get("canonical_content_text", ""))):
+            raise ValueError("CALL_ANNOTATION_PUBLIC_SPAN_OR_MAIN_SOURCE_CHANGED")
+    value = {"schema_version": "contentops.confirmed_call_annotation.v1", "content_id": published["content_id"],
+        "annotation": deepcopy(annotation), "published_at_utc": published["published_at_utc"],
+        "outlets": published["outlets"], "article_body_sha256": annotation["article_identity"]}
+    return store.register_outbox_message(message_id="public-call-annotation-" + sha256_of(published["content_id"]),
+        work_item_id=annotation["run_id"], destination=ANNOTATIONS,
+        payload=canonical_bytes(value).decode(), status="EDITORIAL_INTERNAL")
 
 
 def public_time(value):
@@ -67,6 +114,18 @@ def build_scorecard(store, *, feed_path=DEFAULT_FEED, since_utc=SINCE, as_of_utc
         for index, call in enumerate(record["conditional_calls"]):
             identity = call.get("call_id") or [record["content_id"], index]
             add(identity, call, record["published_at_utc"], record["outlets"])
+
+    for message in store.list_outbox_messages(destination=ANNOTATIONS):
+        value = json.loads(message["payload"])
+        at = value["published_at_utc"]
+        if not start <= utc(at) <= end:
+            continue
+        for call in value["annotation"]["calls"]:
+            key = sha256(canonical([value["content_id"], call["call_id"]])).hexdigest()
+            entries[key] = {"call_id": "call-" + key[:24], "call": deepcopy(call),
+                "original_text": call["original_text"], "market": call["market"],
+                "annotation_source": message["message_id"], "first_published_at_utc": at, "call_known_at_utc": at,
+                "publications": value["outlets"], "public_history": [], "state": "UNRESOLVED", "score": None}
 
     with store.get_read_only_connection() as conn:
         conn.execute("BEGIN")  # One read snapshot while normal publication continues.
@@ -146,7 +205,9 @@ def render_scorecard(scorecard):
              f"As of {public_time(scorecard['as_of_utc'])}. Total calls: {scorecard['total_calls']}.",
              "", "| First published (ET) | Original call | Public state |", "| --- | --- | --- |"]
     for row in scorecard["calls"]:
-        wording = conditional_call_text(row["call"]).replace("|", "&#124;").replace("\n", " ")
+        wording = (row.get("original_text") or conditional_call_text(row["call"])).replace("|", "&#124;").replace("\n", " ")
+        if row.get("market"):
+            wording = row["market"] + ": " + wording
         when = public_time(row["first_published_at_utc"]) if row["first_published_at_utc"] else "Time not retained"
         lines.append(f"| {when} | {wording} | {row['state'].lower().replace('_', ' ')} |")
     lines.extend(["", scorecard["scoring_note"], "", PUBLIC_NOTICE, CONFLICTS_NOTICE])

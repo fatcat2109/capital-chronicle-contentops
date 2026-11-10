@@ -1,11 +1,12 @@
 from copy import deepcopy
+from hashlib import sha256
 import json
 import sqlite3
 
 import pytest
 
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
-from live_contentops.public_call_scorecard_v1 import build_scorecard, render_scorecard
+from live_contentops.public_call_scorecard_v1 import build_scorecard, record_article_call_annotation, render_scorecard
 
 AT = "2026-11-06T08:20:00Z"
 END = "2026-11-07T00:00:00Z"
@@ -130,3 +131,80 @@ def test_post_event_and_pre_population_calls_do_not_change_as_of_denominator(cor
     post(corpus, "future", plan="future", at="2026-11-08T08:20:00Z")
     post(corpus, "before", plan="before", at="2026-11-05T08:20:00Z")
     assert snapshot(corpus)["total_calls"] == 1
+
+
+@pytest.fixture
+def article_annotation(corpus, tmp_path):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE
+    from live_contentops.published_content_v1 import SCHEMA, append_record, canonical
+
+    store, _, feed = corpus
+    run, url = "article-run", "https://capitalchronicle.substack.com/p/retained"
+    body = "If inflation rises, gold falls and the dollar rises."
+    store.create_work_item(story_id=run, title="Retained article", target_surface="MULTI_PLATFORM", work_item_id=run)
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({"source_documents": [{
+        "document_id": "held-main", "canonical_content_text": body}]}))
+    (tmp_path / "article_manifest_v1.json").write_text(json.dumps({"substack_body_markdown": body}))
+    public = tmp_path / "public-readback-dom.json"
+    public.write_text(json.dumps({"body": body}))
+    for key, payload in [("canonical", {"output_dir": str(tmp_path)}),
+            ("native-operation-binding-" + sha256_of(run), {"output_dir": str(tmp_path)})]:
+        store.register_outbox_message(message_id=key, work_item_id=run, destination="substack",
+            payload=json.dumps(payload), status="SENT")
+    store.register_platform_dispatch(dispatch_id="article-dispatch", message_id="canonical", platform="substack",
+        status="DISPATCH_CONFIRMED", public_object_id="123", public_object_url=url)
+    record = {"schema_version": SCHEMA, "content_id": "substack:123", "type": "EVENT_PREVIEW",
+        "title": "Conditional inflation map", "standfirst": "A retained public conditional map.",
+        "published_at_utc": AT, "recorded_at_utc": AT, "outlets": [{"name": "substack", "url": url}],
+        "event_id": "held-event", "conditional_calls": [], "rights_class": "CC_OWN_ANALYSIS",
+        "visibility": "public", "disclaimer": PUBLIC_NOTICE, "conflicts_notice": CONFLICTS_NOTICE}
+    record["content_sha256"] = sha256(canonical(record)).hexdigest()
+    append_record(feed, record)
+    calls = [{"call_id": market, "market": market, "direction": direction, "original_text": body,
+        "horizon": None, "invalidation": None,
+        "public_span": {"start": 0, "end": len(body), "text": body},
+        "material_claim_binding": {"document_id": "held-main", "support_excerpt": body}}
+        for market, direction in [("XAUUSD", "DOWN"), ("DXY", "UP")]]
+    return {"run_id": run, "confirmed_post_id": "123", "canonical_url": url,
+        "article_identity": sha256(body.encode()).hexdigest(),
+        "public_dom_sha256": sha256(public.read_bytes()).hexdigest(), "allcall_count": 2, "calls": calls}
+
+
+def test_confirmed_span_annotation_reaches_scorecard_without_rewriting_feed(corpus, article_annotation):
+    before = corpus[2].read_bytes()
+    first = record_article_call_annotation(corpus[0], article_annotation, feed_path=corpus[2])
+    repeated = record_article_call_annotation(corpus[0], article_annotation, feed_path=corpus[2])
+    post(corpus, "separate-plan")
+    result = snapshot(corpus)
+    rows = [r for r in result["calls"] if r.get("annotation_source")]
+    assert first["message_id"] == repeated["message_id"]
+    assert result["total_calls"] == 3 and len(rows) == 2
+    assert {r["market"] for r in rows} == {"XAUUSD", "DXY"}
+    assert all(r["first_published_at_utc"] == AT and r["score"] is None for r in rows)
+    assert all(r["call"]["horizon"] is None and r["call"]["invalidation"] is None for r in rows)
+    assert render_scorecard(result).count(article_annotation["calls"][0]["original_text"]) == 2
+    assert corpus[2].read_bytes() == before
+    assert build_scorecard(corpus[0], feed_path=corpus[2],
+        as_of_utc="2026-11-06T08:19:00Z")["total_calls"] == 0
+
+
+@pytest.mark.parametrize("fault", ["body", "span", "source", "duplicate", "count", "public_hash"])
+def test_annotation_rejects_changed_public_words_sources_or_denominator(corpus, article_annotation, fault):
+    changed = deepcopy(article_annotation)
+    if fault == "body":
+        changed["article_identity"] = "f" * 64
+    elif fault == "span":
+        changed["calls"][0]["original_text"] += " New words."
+    elif fault == "source":
+        changed["calls"][0]["material_claim_binding"]["support_excerpt"] = "Unsupported source."
+    elif fault == "duplicate":
+        changed["calls"][1]["call_id"] = changed["calls"][0]["call_id"]
+    elif fault == "count":
+        changed["allcall_count"] = 1
+    else:
+        changed["public_dom_sha256"] = "f" * 64
+    before = corpus[0].list_outbox_messages()
+    with pytest.raises(ValueError, match="CALL_ANNOTATION_"):
+        record_article_call_annotation(corpus[0], changed, feed_path=corpus[2])
+    assert corpus[0].list_outbox_messages() == before
