@@ -1,0 +1,90 @@
+{
+  "observed_at_utc": "2026-11-10T05:55:42.787696+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "head": "542f83c61183ca8a0e4cfd6fb8885fccad562357",
+  "installed_coordinator": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+  "installed_status_consumer": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+  "required_derivatives": [
+    "telegram",
+    "x",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads"
+  ],
+  "barred_browser_destinations": {
+    "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+    "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"
+  },
+  "code": {
+    "live_contentops/neo_destination_handoff_v1.py": {
+      "sha256": "9131161f864d2ec390cbca06b3db8758f0faa4f87a0c840843e3957a93b9f2d3",
+      "source_matches_after_crlf_normalization": true
+    },
+    "live_contentops/destination_transport_registry_v1.py": {
+      "sha256": "65ffcb996ba74cd10321779f0c23af0eaaff623d54e2fc0563cc5543688bde22",
+      "source_matches_after_crlf_normalization": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "sha256": "c4776e9868e8022fd2463b47667e7b1b552aa82ee8b9bff979786137041f5bb6",
+      "source_matches_after_crlf_normalization": true
+    },
+    "live_contentops/plan_status_posts_v1.py": {
+      "sha256": "cac39a26186c8fa6ab900232c97c7aa6b695866429327aa958f0aa0d32f4dab4",
+      "source_matches_after_crlf_normalization": true
+    },
+    "live_contentops/native_neo_executor_v1.py": {
+      "sha256": "c07a26942ef05a77aaebeb30ee627b14721391fbfb5dbcb6a3d9d686370ddd3b",
+      "source_matches_after_crlf_normalization": true
+    },
+    "live_contentops/durable_operational_store_v1.py": {
+      "sha256": "079c3c44a50620af466f321b2b0a95acfcc4771c9219ec32dcd89b7ed46b05c0",
+      "source_matches_after_crlf_normalization": true
+    },
+    "live_contentops/plan_call_cards_v1.py": {
+      "sha256": "2fa236b6c363bad2265ab7bc54407144d71291f79de6378b0f865beb395f653c",
+      "source_matches_after_crlf_normalization": true
+    },
+    "scripts/plan_status_posts.py": {
+      "sha256": "00f0ec1ad0decb468cfb65f1cb2298796e251b79737e84f63e29f9e54cb56b84",
+      "source_matches_after_crlf_normalization": true
+    }
+  },
+  "live_x_dispatches": [
+    {
+      "dispatch_id": "dispatch_e76f7645c9e448c7b1d827435e1b65ff",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2120014234310541324",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120014234310541324",
+      "dispatched_at": "2026-11-10T01:39:06.021064+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_d0ea1d54fecb4c60977fa06f4ce3cbc8",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2120015650529964275",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120015650529964275",
+      "dispatched_at": "2026-11-10T01:41:44.157599+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_b112bcee11331ab19440c923fb72aede",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2120031752936923332",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120031752936923332",
+      "dispatched_at": "2026-11-10T01:42:12.842234+00:00",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    }
+  ],
+  "operating_wip_preserved": true,
+  "lane_wip_preserved": true,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "remaining_cc431_recoveries": 0,
+  "existing_scheduled_consumer": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "script": "scripts/plan_status_posts.py"
+  }
+}
