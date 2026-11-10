@@ -1,0 +1,160 @@
+{
+  "observed_at_utc": "2026-11-10T16:01:09.431439+00:00",
+  "base": "17c49b960d54a7dc6e090ab048fb047bd6c04a89",
+  "source_commit": "a7aca972f0dc4320464fab088511a21ae0c99592",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_commit": "a7aca972f0dc4320464fab088511a21ae0c99592",
+  "integration_method": "fast-forward own Publisher item",
+  "source_checks": [
+    {
+      "path": "AGENTS.md",
+      "committed_blob": "808df775aa903e8e9e6a42f4c3213233795ae5b3",
+      "installed_blob": "808df775aa903e8e9e6a42f4c3213233795ae5b3",
+      "matches": true,
+      "installed_bytes": 45438,
+      "installed_sha256": "2ce6e80d1c3a2a3f3b22d3761569133d4cd0e6c01b85c2b93068eb054499e8ab"
+    },
+    {
+      "path": "live_contentops/article_publication_quality_v1.py",
+      "committed_blob": "b6eef121280fa8ead6471f624a80e909d3afb5a7",
+      "installed_blob": "b6eef121280fa8ead6471f624a80e909d3afb5a7",
+      "matches": true,
+      "installed_bytes": 15953,
+      "installed_sha256": "4d37fe1a9e31abc7decee30dc5b2d2fb5f869de5df649c0abaf481db5985599e"
+    },
+    {
+      "path": "live_contentops/codex_desktop_newsroom_operator_v1.py",
+      "committed_blob": "94cb380a833938819cdaf80938d1e6e28063a2f1",
+      "installed_blob": "94cb380a833938819cdaf80938d1e6e28063a2f1",
+      "matches": true,
+      "installed_bytes": 117937,
+      "installed_sha256": "9b831df14c22d8f94de8e02f63bdcd55b8389beccecf63716519627760d96262"
+    },
+    {
+      "path": "live_contentops/contentops_editorial_desk_v1.py",
+      "committed_blob": "fc849d6f2719c060d77e59f55d54ce914e4105b0",
+      "installed_blob": "fc849d6f2719c060d77e59f55d54ce914e4105b0",
+      "matches": true,
+      "installed_bytes": 65073,
+      "installed_sha256": "5c9f2d81d0a111c78a56a6aab087fcb7db66547706e5e57b9dd8363a72b7ef95"
+    },
+    {
+      "path": "live_contentops/daily_note_first_draft_v1.py",
+      "committed_blob": "67ea1c7a416f935c4c6fdc34b412dab725200cf8",
+      "installed_blob": "67ea1c7a416f935c4c6fdc34b412dab725200cf8",
+      "matches": true,
+      "installed_bytes": 4561,
+      "installed_sha256": "3cc7c9a28a11fc0d35ddb1d7123603dd9352a537f2376c6c6432ed18ff43773c"
+    },
+    {
+      "path": "live_contentops/main_report_projection_source_v1.py",
+      "committed_blob": "54de1bd3f733bb09ec1780e69e93df8b332090b9",
+      "installed_blob": "54de1bd3f733bb09ec1780e69e93df8b332090b9",
+      "matches": true,
+      "installed_bytes": 12033,
+      "installed_sha256": "13fcf3f08453f21b6d0945071b705d957bf7b81c0d05c09dbed90618ee0be08c"
+    },
+    {
+      "path": "live_contentops/native_desktop_editorial_v1.py",
+      "committed_blob": "bb81541b13664b5b3b5c877db7f4e018a616b936",
+      "installed_blob": "bb81541b13664b5b3b5c877db7f4e018a616b936",
+      "matches": true,
+      "installed_bytes": 188601,
+      "installed_sha256": "d695c81ddd12d8e7c9b2813be5ad510c0b295644a5adaa23eecfdcf3db00b1f8"
+    },
+    {
+      "path": "live_contentops/native_publication_latency_v1.py",
+      "committed_blob": "ca496543b7845287548b678864e06732debc0a1f",
+      "installed_blob": "ca496543b7845287548b678864e06732debc0a1f",
+      "matches": true,
+      "installed_bytes": 27631,
+      "installed_sha256": "5028e820f798fd1dd8d5e4902450aadcf2215083d03bf84b6a0b75c2d0b07b82"
+    },
+    {
+      "path": "live_contentops/newsroom_production_day_v1.py",
+      "committed_blob": "2fb25c401d426ef13d85a4d09fede55e2c24b527",
+      "installed_blob": "2fb25c401d426ef13d85a4d09fede55e2c24b527",
+      "matches": true,
+      "installed_bytes": 30143,
+      "installed_sha256": "6d44a270001331e61601d0a7e6d8377df71c7506ed84e6dcd9811013f1f01a6b"
+    },
+    {
+      "path": "live_contentops/reader_article_contract_v1.py",
+      "committed_blob": "fec9aef7af6cc521e6db0b38919f464962669029",
+      "installed_blob": "fec9aef7af6cc521e6db0b38919f464962669029",
+      "matches": true,
+      "installed_bytes": 15553,
+      "installed_sha256": "035947b71482aadaa417f6caedb24ab4906e767dbd1c0510204748fd4234528c"
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "committed_blob": "24f62a063bbb4e0f407241df31c3191197daeb25",
+      "installed_blob": "24f62a063bbb4e0f407241df31c3191197daeb25",
+      "matches": true,
+      "installed_bytes": 200505,
+      "installed_sha256": "96f5d52a57faa3df70972af8231c491c6c7d484f2663e9ec7c231172ad7f5b03"
+    },
+    {
+      "path": "live_contentops/weekly_scored_calls_v1.py",
+      "committed_blob": "c1ed64fbd50fd54f0a34b20781651f4f8242a00e",
+      "installed_blob": "c1ed64fbd50fd54f0a34b20781651f4f8242a00e",
+      "matches": true,
+      "installed_bytes": 11231,
+      "installed_sha256": "fc5f835a2b057fd3db52808fe1dfe059334c7d8c6ea981a001f9c6075abb5e5a"
+    }
+  ],
+  "preserved_work": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "matches_original": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "matches_original": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\live_contentops\\agy_editorial_assist_v1.py",
+      "sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+      "matches_original": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "matches_original": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "matches_original": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "matches_original": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "matches_original": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "42e5972611cb4387e23da4b2e4e438570d4e60ad92f1154e508b385525348247",
+      "matches_original": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "4fde5d5cddda8cc662c9902342e2339e780f71db9ffeb1fe59dc21001bdcffa6",
+      "matches_original": true
+    }
+  ],
+  "live_consumer": "New native CLI processes launched from A:/Capital Chronicle/ContentOps import the installed request, validator, compiler, qualification and coordinator checks.",
+  "operating_test_artifact": "tests-operating-final.xml",
+  "current_test_scope": "Reader contract, AGY first-draft/native request and complete weekly scored-call consumer",
+  "runtime_restart_performed": false,
+  "schedule_changed": false,
+  "public_write_performed": false,
+  "pending_acceptance": "Next eligible daily note: clean-title Substack readback and actual data-to-publication clock <=60 minutes; decision 98 bars a second 10 November wrap."
+}

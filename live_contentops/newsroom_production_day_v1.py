@@ -347,10 +347,8 @@ def build_current_zero_write_qualified_article_record(
         blockers.append("article_body_or_title_missing")
     native = provider == "NATIVE_CODEX_DESKTOP"
     if native:
-        if model not in {"gpt-6.1-sol", "UNOBSERVED"}:
-            blockers.append("native_desktop_model_mismatch")
-        if effort not in {"LOW", "MEDIUM", "HIGH", "MAX", "UNOBSERVED"}:
-            blockers.append("native_desktop_effort_invalid")
+        # Native dispatch requests the assigned role. Qualification records the
+        # returned values without a second label veto (decisions 60 and 86).
         if not native_execution_observation or not native_execution_observation.get("observations"):
             blockers.append("native_desktop_observation_missing")
     elif provider != "9router":

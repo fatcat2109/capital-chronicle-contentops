@@ -63,8 +63,9 @@ def test_same_writer_requires_its_configuration_not_just_its_name(tmp_path, stag
         "next_native_call": call})["action"] == "EXECUTE_AND_COLLECT_NATIVE_ROLES"
     wrong = deepcopy(call)
     wrong["continuation_observation"].update(configured_model="gpt-6-astra", configured_reasoning_effort="ultra")
-    with pytest.raises(ValueError, match="EXACT_LABELLED_NATIVE_CONFIGURATION_REQUIRED"):
-        next_editorial_action({"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "next_native_call": wrong})
+    assert next_editorial_action({"classification": "NATIVE_DESKTOP_INPUT_REQUIRED",
+        "next_native_call": wrong})["action"] == "EXECUTE_AND_COLLECT_NATIVE_ROLES"
+    assert wrong["continuation_observation"]["configured_model"] == "gpt-6-astra"
 
 
 @pytest.mark.parametrize("change", [
@@ -89,17 +90,16 @@ def test_dated_social_review_does_not_follow_a_retained_writer(tmp_path):
 
 
 @pytest.mark.parametrize("source_kind", ["JIM_CONFIRMED_THREAD_SETTINGS", "JIM_CONFIRMED_PERIOD_DEFAULT"])
-def test_parent_app_default_requires_a_scoped_owner_confirmation(source_kind):
+def test_parent_app_settings_are_recorded_without_a_label_gate(source_kind):
     observation = {**configured(effort="max"), "surface": "CODEX_DESKTOP_CONVERSATION"}
     target = {"model": "gpt-6.1-sol", "reasoning_effort": "max"}
-    with pytest.raises(ValueError, match="THREAD_SPECIFIC_NATIVE_CONFIGURATION_REQUIRED"):
-        validate_native_configuration(observation, target)
+    validate_native_configuration(observation, target)
     observation.update(configuration_source_kind=source_kind,
         configuration_thread_id="01a18b78-45a3-73a3-90d1-539b3fc45eae")
     validate_native_configuration(observation, target)
     observation["configuration_thread_id"] = "app-default"
-    with pytest.raises(ValueError, match="EXACT_NATIVE_CONFIGURATION_THREAD_REQUIRED"):
-        validate_native_configuration(observation, target)
+    validate_native_configuration(observation, target)
+    assert observation["configuration_thread_id"] == "app-default"
 
 
 @pytest.mark.parametrize("dated_social_review", [False, True])
@@ -136,5 +136,6 @@ def test_cli_continues_only_the_saved_approved_writer_configuration(tmp_path, mo
     if dated_social_review:
         assert module.operation(local)["next_native_call"]["tool"] == "collaboration.spawn_agent"
     else:
-        with pytest.raises(ValueError, match="EXACT_LABELLED_NATIVE_CONFIGURATION_REQUIRED"):
-            module.operation(local)
+        call = module.operation(local)["next_native_call"]
+        assert call["arguments"]["target"] == observation["invocation_id"]
+        assert call["continuation_observation"]["configured_model"] == "gpt-6-astra"

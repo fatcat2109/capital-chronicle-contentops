@@ -179,15 +179,13 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
                      same_writer_configuration=None):
     """Describe the next real platform call; this function invokes no model."""
     from live_contentops.native_desktop_editorial_v1 import (
-        CLAUDE_EDITORIAL_SURFACE, editorial_agent_of, native_role, role_assignment, validate_native_role_dispatch,
+        CLAUDE_EDITORIAL_SURFACE, editorial_agent_of, native_role, request_role_assignment, validate_native_role_dispatch,
     )
     stage = request["stage"]
     role = native_role(stage)
     agent = editorial_agent_of(request)
-    target = role_assignment(role, agent)
-    if (request.get("run_id") != binding["run_id"]
-            or request.get("requested_model") != target["model"]
-            or request.get("requested_reasoning_effort") != target["reasoning_effort"]):
+    target = request_role_assignment(request)
+    if request.get("run_id") != binding["run_id"]:
         raise ValueError("EXACT_NATIVE_ROLE_REQUEST_REQUIRED")
     dated_social_review = role == "final-visual" and request.get("governed_input", {}).get("distribution_recovery") is not None
     if dated_social_review:
@@ -290,6 +288,8 @@ def native_role_call(request, binding, *, binding_path, same_writer_invocation=N
         "after_result": {"command": "submit", "binding_path": str(binding_path),
             "stage": stage, "response_path": result_path},
         "continuation": "Collect the real native return, verify actual spawn/context identity at submit, then advance the SAME binding in this turn."}
+    if request.get("governed_input", {}).get("reader_article_contract"):
+        call["reader_article_contract"] = request["governed_input"]["reader_article_contract"]
     if same_writer_invocation:
         call["continuation_observation"] = dict(same_writer_configuration or {})
     validate_native_role_dispatch(call)

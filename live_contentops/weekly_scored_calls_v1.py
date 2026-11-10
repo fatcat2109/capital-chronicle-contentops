@@ -32,7 +32,7 @@ WRITER_GUIDANCE = (
 
 
 def is_wrap(candidate, run_id=""):
-    text = " ".join(str(candidate.get(k) or "") for k in ("title", "headline", "article_type"))
+    text = " ".join(str(candidate.get(k) or "") for k in ("title", "headline", "headline_text", "article_type"))
     tags = set(candidate.get("candidate_catalyst_tags") or [])
     return bool(candidate.get("weekly_call_record") is True or tags & {"WEEKLY_WRAP", "WEEKEND_WRAP"} or re.search(
         r"\b(?:weekend[ -]wrap|weekly[ -](?:wrap|review|roundup)|week in review)\b",

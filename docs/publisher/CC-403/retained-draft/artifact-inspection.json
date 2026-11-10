@@ -1,0 +1,36 @@
+{
+  "artifact_metadata": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-403\\retained-draft\\daily-note-first-draft\\c0a4cb25e2354eee9c664d599f03bf2c1d5ffca76490d284cb42828f73431734\\output.txt",
+      "bytes": 1523,
+      "sha256": "5b584d5e177b434b62d8278ae7f92cece4a446cac52744faedb9ca0ae0491636",
+      "image_base64": false,
+      "secret_pattern": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-403\\retained-draft\\daily-note-first-draft\\c0a4cb25e2354eee9c664d599f03bf2c1d5ffca76490d284cb42828f73431734\\stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "image_base64": false,
+      "secret_pattern": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-403\\retained-draft\\daily-note-first-draft\\c0a4cb25e2354eee9c664d599f03bf2c1d5ffca76490d284cb42828f73431734\\prompt.txt",
+      "bytes": 48780,
+      "sha256": "32fde0317ad16ac663b190221298588f316760f30dcfc8e0704e9ee999a983a8",
+      "image_base64": false,
+      "secret_pattern": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-403\\retained-draft\\daily-note-first-draft\\c0a4cb25e2354eee9c664d599f03bf2c1d5ffca76490d284cb42828f73431734\\result.json",
+      "bytes": 910,
+      "sha256": "a9d928644b13d34783c927f60ddaeca82cf3df1ee7927e0763669d346b4fd1ce",
+      "image_base64": false,
+      "secret_pattern": false
+    }
+  ],
+  "event_counts": {
+    "init": 1,
+    "step_update": 1
+  }
+}

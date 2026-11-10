@@ -1,5 +1,26 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
+## Reader copy — CC-403; decisions 98 and 114, 10 November 2026
+
+New native article requests carry `CC403_READER_ARTICLE_V1`. Lead the first sentence
+with our call in first person. Use clean editorial titles, natural attribution,
+one Main-sourced scenario set, a "So what" line and sentences of at most 35 words.
+Every public number must occur in its bound source. Keep source markers and
+internal labels out of public copy; retain the exact provenance in metadata.
+
+The daily note has one six-market table, at most 350 words outside it, "What changed
+since yesterday" and "What we got wrong". Decision 114 supplies Antigravity's first
+draft through the existing bounded text CLI, then one Codex light editorial pass.
+A failed AGY call returns to that Codex pass. The weekly review keeps one strong
+Codex pass and CC-379's complete call record. Cards keep their separate contract.
+
+Publish within 60 minutes of the source's data cutoff;
+publication/readback records report the observed publication clock separately.
+Retained Main reports use their original data-capture clock, not report generation,
+retrieval, text approval or media refresh. Historical issued requests and public
+objects keep their exact bytes; readback and derivative recovery remain available.
+Decision 98 still makes the CPI/PPI preview that day's wrap, with no second wrap.
+
 ## CPI night — 10 November 2026 (Ops Product; ends 22:30 GMT+7)
 
 Guardian has been BLOCKED since the gold stop (about 17:20 GMT+7), and Ops Live must replay and bind its

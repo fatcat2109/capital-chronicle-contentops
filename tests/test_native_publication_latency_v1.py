@@ -8,6 +8,7 @@ import pytest
 from PIL import Image
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
+from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
 from live_contentops.contentops_editorial_desk_v1 import record_native_article_review, read_reviews
 from live_contentops.native_desktop_editorial_v1 import bind_editorial_media, native_review_revision, require_current_final_visual_review
 from live_contentops.native_publication_latency_v1 import (
@@ -78,7 +79,7 @@ def test_completed_native_revision_reaches_existing_assembly_without_another_wri
     actual = current(store, binding["run_id"])
     assert actual["article"]["substack_body_markdown"] == worker["article"]["substack_body_markdown"]
     assert actual["simple_result"]["revision_performed"] is True
-    assert len(actual["previews"]) == 8
+    assert len(actual["previews"]) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert actual["evidence"] == before["evidence"]
     assert turn._get("write", "response")["output"] != worker
     assert turn._get("revise", "response") == response
@@ -158,7 +159,7 @@ def test_pre_writer_repair_counts_and_failed_asset_drops_with_source_bound_copy_
     assert updated["evidence"] == result["evidence"]
     assert updated["visual_repair_disposition"]["repair_rounds"] == 1
     assert [a["modality"] for a in updated["media_assets"]] == ["source_backed_chart"]
-    assert len(updated["previews"]) == 8
+    assert len(updated["previews"]) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert updated["article"]["post_visual_destination_media"] == repair["channel_media_after_drop"]
     assert all(not {a["asset_id"] for a in updated["visual_repair_disposition"]["dropped_assets"]}
         & set(p["payload"].get("media_asset_ids", [])) for p in updated["previews"])
@@ -275,7 +276,9 @@ def test_time_sensitive_writer_one_editor_publishes_without_screenshot_review(tm
     timing = value["publication"]["timing"]
     # Decision 83: no site link, so the plan takes its Substack route: Substack first, then
     # the social copies linking the confirmed Substack post, all inside the target.
-    assert timing["state"] == "WITHIN_15_MINUTES"
+    assert timing["state"] == "WITHIN_15_MINUTES", [
+        {k: c.get(k) for k in ("destination", "status", "within_target", "timing_basis", "seconds_after_text_approval")}
+        for c in timing["channels"] if c["within_target"] is not True and not c["skipped"]]
     assert timing["all_channels_dispatched_within_target"]
     assert next(c for c in timing["channels"] if c["destination"] == "substack")["dispatched_at_utc"]
     assert all(c["within_target"] is True for c in timing["channels"]

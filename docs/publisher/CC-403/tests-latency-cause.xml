@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="10.362" timestamp="2026-11-10T22:44:11.572094+07:00" hostname="J-P"><testcase classname="tests.test_native_publication_latency_v1" name="test_time_sensitive_writer_one_editor_publishes_without_screenshot_review[None]" time="9.642"><failure message="AssertionError: [{'destination': 'youtube', 'seconds_after_text_approval': None, 'status': 'DEFINITE_NO_WRITE', 'timing_basis': None, ...n': 'linkedin_company', 'seconds_after_text_approval': None, 'status': 'DEFINITE_NO_WRITE', 'timing_basis': None, ...}]&#10;assert 'DISPATCH_NOW' == 'WITHIN_15_MINUTES'&#10;  &#10;  - WITHIN_15_MINUTES&#10;  + DISPATCH_NOW">tests\test_native_publication_latency_v1.py:279: in test_time_sensitive_writer_one_editor_publishes_without_screenshot_review
+    assert timing["state"] == "WITHIN_15_MINUTES", [
+E   AssertionError: [{'destination': 'youtube', 'seconds_after_text_approval': None, 'status': 'DEFINITE_NO_WRITE', 'timing_basis': None, ...n': 'linkedin_company', 'seconds_after_text_approval': None, 'status': 'DEFINITE_NO_WRITE', 'timing_basis': None, ...}]
+E   assert 'DISPATCH_NOW' == 'WITHIN_15_MINUTES'
+E     
+E     - WITHIN_15_MINUTES
+E     + DISPATCH_NOW</failure></testcase></testsuite></testsuites>
