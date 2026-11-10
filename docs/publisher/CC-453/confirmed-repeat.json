@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-10T23:01:19.128947+00:00",
+  "before_claim_count": 2,
+  "after_claim_count": 2,
+  "no_additional_native_write_claim": true,
+  "status": {
+    "confirmed": true,
+    "status": "DISPATCH_CONFIRMED",
+    "public_object_id": "c-384157466",
+    "public_object_url": "https://substack.com/@capitalchronicle/note/c-384157466"
+  },
+  "result_status": null,
+  "per_destination": {
+    "substack_notes": {
+      "destination": "substack_notes",
+      "status": "DISPATCH_CONFIRMED",
+      "publish_called": false,
+      "public_object_id": "c-384157466",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-384157466",
+      "reconciliation_status": "RECONCILED_CONFIRMED"
+    }
+  }
+}

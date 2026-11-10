@@ -1,0 +1,24 @@
+{
+  "request_sha256": "9d2ad42fb43f7b4214c0a4d93d15686e8de9344b58a998d2de2d3896f2a36c57",
+  "work_item_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-substack_notes",
+  "public_object_id": "c-384157466",
+  "public_object_url": "https://substack.com/@capitalchronicle/note/c-384157466",
+  "observed_identity": "@capitalchronicle",
+  "content_verified": true,
+  "observed_text_characters": 7207,
+  "observed_link_cards": [
+    {
+      "card_visible": true,
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-384157466",
+      "url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the"
+    }
+  ],
+  "native_tool_observation": {
+    "native_invocation_id": "neo-endpoint:0f12c32b98fa4389833042e08a77c220",
+    "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+    "observed_at_utc": "2026-11-10T22:58:24.235893+00:00",
+    "surface": "NEO_ENDPOINT_EXECUTOR",
+    "tool_name": "browseros-neo/run"
+  },
+  "store": "A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3"
+}

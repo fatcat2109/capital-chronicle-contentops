@@ -1,0 +1,15 @@
+{
+  "observation": {
+    "changed": false,
+    "page": 242,
+    "settled": false,
+    "value": {
+      "body_characters": 7889,
+      "loaded_images": 2,
+      "title": "If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate",
+      "url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+    }
+  },
+  "observed_at_utc": "2026-11-10T22:05:27.777Z",
+  "page": 242
+}

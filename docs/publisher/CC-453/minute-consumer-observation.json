@@ -1,0 +1,30 @@
+{
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261110.jsonl",
+  "last_run": {
+    "at_utc": "2026-11-10T23:06:20.330695Z",
+    "status": "OK",
+    "cause": null,
+    "event_packs": {
+      "events": [],
+      "status": "NO_EVENT_PACK_DUE"
+    },
+    "neo_stored_requests": {
+      "requests": [
+        {
+          "destination": "substack_notes",
+          "operation_id": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+          "request_sha256": "bcb58c1695b0ec9b25e4512c605dc0aabbf4b6e6fd00071a9a886b245dad569c",
+          "status": "PLAN_STATUS_X_STALE_NOT_POSTED"
+        },
+        {
+          "cause": "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN",
+          "destination": "substack_notes",
+          "operation_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-substack_notes",
+          "request_sha256": "41c4c0a5bdaede9b7f061f289bb7ba47d225206ba98daaa60415301f7f8b35a7",
+          "status": "RECONCILED_CONFIRMED"
+        }
+      ],
+      "status": "OK"
+    }
+  }
+}

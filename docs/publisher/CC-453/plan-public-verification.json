@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-10T22:05:32.209141+00:00",
+  "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+  "public_object_id": "224269633",
+  "verified": true,
+  "content_binding_checks": {
+    "text_match": true,
+    "media_match": true,
+    "thread_match": true
+  },
+  "image_proof": "plan-image-verification.json",
+  "scope": "Independent current public readback through the installed handoff comparison; original coordinator confirmation and publication clock retained."
+}

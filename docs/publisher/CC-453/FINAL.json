@@ -1,0 +1,200 @@
+{
+  "item": "CC-453",
+  "status": "BLOCKED",
+  "first_blocking_cause": "SUBSTACK_ORIGINAL_PROFILE_NOT_FOUND",
+  "observed_at_utc": "2026-11-10T23:08:49.920962+00:00",
+  "branch": "backlog/cc-453-main-substack-account",
+  "implementation_commit": "2a7751dc057e5cadb3ce027228d46c1086b9ab3d",
+  "operating_root": "A:/Capital Chronicle/ContentOps",
+  "operating_head": "2a7751dc057e5cadb3ce027228d46c1086b9ab3d",
+  "integrated": true,
+  "live_consumers": [
+    "CapitalChronicle-PlanStatusPosts-V1: pythonw -B scripts/plan_status_posts.py --publish from the operating root",
+    "Sole DurablePublicationCoordinator and existing native Neo endpoint executor"
+  ],
+  "publication_host_unchanged": "capitalchronicle.substack.com",
+  "new_notes_identity": "@capitalchronicle",
+  "plan_page": {
+    "confirmed": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+    "dispatch_id": "dispatch_e0fa87cefd6b1a8de728d4d45deac667"
+  },
+  "article_public_readback": "article-public-observation.json",
+  "main_note": {
+    "confirmed": true,
+    "status": "DISPATCH_CONFIRMED",
+    "public_object_id": "c-384157466",
+    "public_object_url": "https://substack.com/@capitalchronicle/note/c-384157466"
+  },
+  "repeat_proof": "confirmed-repeat.json",
+  "routes": {},
+  "retained_confirmed_analysis_link_count": 10,
+  "current_public_telegram_readback": "telegram-public-readback.json",
+  "old_spx_note": {
+    "confirmed": false,
+    "status": "UNKNOWN_WRITE",
+    "public_object_id": null,
+    "public_object_url": null
+  },
+  "old_spx_profile_readback": "spx-current-observation.json",
+  "old_spx_retry_performed": false,
+  "cc404_continuation": {
+    "events": [],
+    "status": "NO_EVENT_PACK_DUE"
+  },
+  "tests": {
+    "final_protocol_passed": 179,
+    "distinct_passed": 279,
+    "suites": [
+      {
+        "path": "docs/publisher/CC-453/final-protocol-tests.xml",
+        "passed": 179,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/consumer-tests.xml",
+        "passed": 67,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/account-tests.xml",
+        "passed": 56,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/final-guard-tests.xml",
+        "passed": 23,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/main-account-final-tests.xml",
+        "passed": 18,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/recovery-focused-tests.xml",
+        "passed": 3,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/long-note-final-tests.xml",
+        "passed": 49,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/composer-circuit-tests.xml",
+        "passed": 12,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/claimed-author-tests.xml",
+        "passed": 23,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/repaired-coordinator-tests.xml",
+        "passed": 1,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/preclaim-recovery-tests.xml",
+        "passed": 4,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/shared-readback-tests.xml",
+        "passed": 3,
+        "failures": 0
+      },
+      {
+        "path": "docs/publisher/CC-453/current-clock-readback-tests.xml",
+        "passed": 2,
+        "failures": 0
+      }
+    ]
+  },
+  "preserved_initial_work": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "cdead3afe1e57c4b1da1ea35fe23b25fec72a6633fa09d114b6dd33b6801053e",
+      "preserved": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "f8041d42018f81f9b0d88944889bf7fd974802241e75f4b6efbe119faf5ad5a9",
+      "preserved": true
+    }
+  ],
+  "publication_return_limit": "The main Note has a durable native write claim and exact confirmed public readback. Its immediate publish return did not complete binding; it was not replaced with an invented successful return.",
+  "next_action": {
+    "owner": "Jim existing Substack appeal, then Codex Publisher",
+    "action": "Restore visibility of the original secondary profile, then read back the exact uncertain S&P Note before considering a retry."
+  },
+  "model_configuration": {
+    "original_exec_pid": 43944,
+    "resumed_exec_pid": 20024,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "new_editorial_model_calls": 0
+  },
+  "schedules_changed": false,
+  "application_restarts": false,
+  "other_chats_messaged": false,
+  "account_settings_changed": false,
+  "user_named_work_excluded_from_all_delivery_commits": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "current_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "touched_by_this_run": false
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "current_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "touched_by_this_run": false
+    },
+    {
+      "path": "live_contentops/agy_editorial_assist_v1.py",
+      "current_sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+      "touched_by_this_run": false
+    }
+  ]
+}
