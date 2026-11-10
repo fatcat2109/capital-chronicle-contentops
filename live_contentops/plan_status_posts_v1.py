@@ -875,7 +875,13 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
             "export_age_seconds": result.get("export_age_seconds"),
             "max_export_age_minutes": result.get("max_export_age_minutes"),
             "queued": len(result.get("queued") or []), "not_posted": len(result.get("not_posted") or []),
-            "publication": (result.get("publication") or {}).get("status"), "posts_by_status": published}
+            "publication": (result.get("publication") or {}).get("status"), "posts_by_status": published,
+            # CC-437: pythonw has no stdout. Counts hid the exact cards that
+            # repeatedly failed preparation or waited behind a parent/limit.
+            "posts": [{k: post[k] for k in ("key", "status", "cause", "per_destination",
+                "destination_causes", "deferred_destinations") if k in post} for post in posts],
+            "not_posted_details": [{k: row[k] for k in ("key", "plan_id", "cause") if k in row}
+                                   for row in result.get("not_posted") or []]}
     if "scorecard" in result:
         line["scorecard"] = result["scorecard"]
     folder = Path(folder)
@@ -1526,13 +1532,23 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
             results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
             continue
         per = {d: (o or {}).get("status") for d, o in (outcome.get("per_destination") or {}).items()}
+        causes = destination_causes(outcome)
         done = all(per.get(d) == "DISPATCH_CONFIRMED" for d in API_DESTINATIONS)
         store.set_outbox_status(key, "PUBLISHED" if done else "PUBLISHING")
-        results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING", "per_destination": per})
+        results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING", "per_destination": per,
+                        "destination_causes": causes})
     from .plan_call_cards_v1 import publish_ready as publish_cards
     card_results = publish_cards(store, now=now, latest_states=latest_states, root=root,
                                  host=host, coordinator_for=coordinator_for, limit=limit)
     return {"status": "OK", "posts": results + card_results["posts"]}
+
+
+def destination_causes(outcome: Mapping[str, Any]) -> dict:
+    """Retain fixed pre-write/recovery causes, without copy, credentials or tool returns."""
+    return {destination: str(value.get("reason_code") or value.get("blocker")
+        or value.get("reconciliation_status") or value.get("status") or "DESTINATION_OUTCOME_UNAVAILABLE")[:200]
+        for destination, value in (outcome.get("per_destination") or {}).items()
+        if isinstance(value, Mapping) and value.get("status") != "DISPATCH_CONFIRMED"}
 
 
 def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None = None, root: Path = POST_ROOT,

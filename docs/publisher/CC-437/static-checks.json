@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-11-10T14:23:57.184997+00:00",
+  "ast_parse": "PASS",
+  "files": [
+    "live_contentops/plan_status_posts_v1.py",
+    "live_contentops/plan_call_cards_v1.py",
+    "live_contentops/plan_analysis_pages_v1.py",
+    "scripts/plan_status_posts.py",
+    "tests/test_discord_queue_cc437.py",
+    "tests/test_plan_call_cards_cc399.py"
+  ],
+  "diff_check": "PASS",
+  "pytest": "NOT_RUN_BEFORE_CC035_22_30_GMT7",
+  "ruff_changed_implementation_and_new_test": "PASS",
+  "existing_lint": [
+    "plan_analysis_pages_v1.py:9 F401 datetime/timezone",
+    "plan_analysis_pages_v1.py:316 E702",
+    "test_plan_call_cards_cc399.py F811 imported pytest fixture parameters"
+  ]
+}

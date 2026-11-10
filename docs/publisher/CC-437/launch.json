@@ -1,0 +1,9 @@
+{
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "status": "CONFIGURED_NOT_OBSERVED",
+  "process_id": 44236,
+  "launch_created_at_utc": "2026-11-10T14:05:46Z",
+  "base": "17c49b960d54a7dc6e090ab048fb047bd6c04a89",
+  "reason": "Publisher operating HEAD contains the live consumers; origin/master predates them."
+}

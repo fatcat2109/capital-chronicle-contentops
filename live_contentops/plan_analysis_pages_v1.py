@@ -587,3 +587,58 @@ def publish_link(store, value):
     coordinator.allow_prior_confirmed_distribution=True
     coordinator.recovery_scope={"work_item_id":value["link_id"],"plan":value["plan"],"exact_work_item_only":True}
     return coordinator.publish_plan(value["link_id"],value["plan"])
+
+
+def resume_discord_links(store, *, latest_states, now, limit=5, coordinator_for=None):
+    """CC-437: the existing minute consumer also drains registered Discord links.
+
+    Do not change a registered copy or its thread binding. Retire an unattempted
+    link after its plan ends; uncertain/identified attempts keep exact recovery.
+    """
+    from .publication_coordinator_v1 import DurablePublicationCoordinator, CanonicalDestinationTransportRuntimeV1
+    from . import plan_status_posts_v1 as posts
+    results = []
+    candidates = []
+    for message in store.list_outbox_messages(destination="discord"):
+        if message["status"] != "READY":
+            continue
+        intent = json.loads(message["payload"])
+        key = intent.get("plan_analysis_link")
+        if key:
+            candidates.append((message, intent, key))
+    for message, intent, key in candidates[:limit]:
+        try:
+            value = json.loads(store.get_outbox_message(key)["payload"])
+            plan = value["plan"]
+            if coordinator_for is None:
+                coordinator = DurablePublicationCoordinator(store=store,
+                    transport_runtime=CanonicalDestinationTransportRuntimeV1())
+            else:
+                coordinator = coordinator_for(key, Path(plan["output_dir"]))
+            posts.scope_to_post(coordinator, key, plan)
+            ids = coordinator._ids(key, plan["plan_hash"], "discord")
+            dispatch = store.get_platform_dispatch(ids["dispatch_id"])
+            state = latest_states.get(value["plan_id"])
+            original = posts._row_payload(store, value["original_key"])
+            until = original.get("time_exit_utc") or (original.get("levels") or {}).get("valid_until_utc")
+            ended = state in {"CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED", "RESULT"}
+            expired = bool(until and now >= posts._utc(until))
+            if not dispatch and (ended or expired):
+                coordinator._expire_stale_derivative(message, None)
+                results.append({"key": key, "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE",
+                    "cause": "PLAN_ALREADY_" + str(state) if ended else "PLAN_VALIDITY_ENDED",
+                    "per_destination": {"discord": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"}})
+                continue
+            if not dispatch and state not in posts.ACTIVE:
+                results.append({"key": key, "status": "WAITING", "cause": "CURRENT_PLAN_STATE_NOT_IN_EXPORT"})
+                continue
+            outcome = coordinator.execute_plan(key, plan)
+            per = outcome.get("per_destination") or {}
+            state = (per.get("discord") or {}).get("status", "NOT_STARTED")
+            results.append({"key": key, "status": state,
+                "per_destination": {"discord": state}, "destination_causes": posts.destination_causes(outcome)})
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            results.append({"key": key, "status": "NOT_STARTED", "cause": str(exc)[:200]})
+    for _, _, key in candidates[limit:]:
+        results.append({"key": key, "status": "WAITING", "cause": "ANALYSIS_LINK_WORK_LIMIT_THIS_RUN"})
+    return results
