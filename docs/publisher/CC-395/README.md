@@ -59,3 +59,14 @@ actual article/post readbacks remain for the item's live acceptance.** The norma
 CC-124 producer must supply its next source-qualified article; source code, a copied
 store and a repeated old post are not that evidence. The installed path is ready to
 record six required confirmations and the new notice when that operation runs.
+
+
+The current six-destination code is integrated at
+`f46f613bc333e31ff62a27946598139afd651220`. `live-six-consumer.json` proves a
+fresh operating-root import and local retirement through the existing coordinator:
+7 X and 6 YouTube no-writes; 67 existing confirmed/removed/uncertain records preserved;
+second application idempotent; zero external calls. Five targeted canonical coordinator tests passed, as recorded in the XML.
+The remaining status is `BLOCKED: NEXT_LIVE_ARTICLE_READBACK_PENDING` for normal
+CC-124 production. No new source-qualified article has been produced since the
+already-published pre-US wrap; the retained final results and current canonical
+intents are documented in `next-live-article-observation.json`.

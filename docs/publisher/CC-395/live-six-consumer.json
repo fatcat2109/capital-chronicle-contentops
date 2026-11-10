@@ -1,0 +1,47 @@
+{
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "head": "f46f613bc333e31ff62a27946598139afd651220",
+  "consumer_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+  "required_derivatives": [
+    "telegram",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads"
+  ],
+  "barred_browser_destinations": {
+    "x": "X_NON_API_AUTOMATION_PROHIBITED",
+    "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+    "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"
+  },
+  "public_notice": "Capital Chronicle offers analysis only, not financial advice or recommendations.",
+  "local_retirement": {
+    "status": "BARRED_BROWSER_DISTRIBUTION_RETIRED",
+    "public_write_performed": false,
+    "not_posted_count": 13,
+    "preserved_count": 67
+  },
+  "dispatch_status_counts": {
+    "x": {
+      "DEFINITE_NO_WRITE": 7,
+      "DISPATCH_CONFIRMED": 20,
+      "EXTERNAL_REMOVAL_REPORTED_NO_RETRY": 5,
+      "UNKNOWN_WRITE": 1
+    },
+    "linkedin_company": {
+      "DISPATCH_CONFIRMED": 18
+    },
+    "youtube": {
+      "DEFINITE_NO_WRITE": 6,
+      "DISPATCH_CONFIRMED": 17,
+      "EXTERNAL_REMOVAL_REPORTED_NO_RETRY": 6
+    }
+  },
+  "historical_identities_and_uncertainty_preserved": true,
+  "second_application_idempotent": true,
+  "external_calls": 0,
+  "public_write_performed": false,
+  "next_live_article_observed": false,
+  "next_live_notice_observed": false
+}

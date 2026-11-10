@@ -118,5 +118,22 @@
         "result": "6 required confirmations; X and YouTube each one local no-write; no retries/incidents"
       }
     ]
-  }
+  },
+  "current_integration": {
+    "code_commit": "f46f613bc333e31ff62a27946598139afd651220",
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "consumer_evidence": "live-six-consumer.json",
+    "required_derivative_count": 6,
+    "copied_store_replay": "copied-store-six-replay.json",
+    "local_dispositions": {
+      "x": 7,
+      "youtube": 6
+    },
+    "existing_public_objects_and_unknown_state_preserved": true,
+    "second_application_idempotent": true,
+    "external_calls": 0
+  },
+  "final_status": "BLOCKED: NEXT_LIVE_ARTICLE_READBACK_PENDING (normal CC-124 production)",
+  "supersession": "The 09:11 GMT+7 amendment and six-* evidence supersede the earlier seven-destination count and YouTube-route blocker.",
+  "operating_root_wip_hashes_preserved": 6
 }
