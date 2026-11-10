@@ -1,0 +1,26 @@
+........F.....................................                           [100%]
+================================== FAILURES ===================================
+_ test_late_recovery_requires_validity_and_is_bounded_to_24_hours[None-2026-11-06T13:33:46.424024Z] _
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-1562/test_late_recovery_requires_va2')
+main_root = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-1562/test_late_recovery_requires_va2/main')
+deadline = None, at = '2026-11-06T13:33:46.424024Z'
+
+    @pytest.mark.parametrize("deadline,at", [
+        ("2026-11-06T14:35:00Z", AT),  # expired exactly now
+        ("2026-11-06T14:34:59Z", AT),
+        (None, AT),
+        ("2026-11-07T15:00:00Z", "2026-11-05T14:34:59Z"),  # older than 24 h
+    ])
+    def test_late_recovery_requires_validity_and_is_bounded_to_24_hours(tmp_path, main_root, deadline, at):
+        store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+        gold = plan("gold", "XAUUSD", "BEARISH", 4033, 4085, invalid=4110, deadline=deadline)
+        folder = write_export(tmp_path / "export", [gold], [event("gold", "TRIGGERED", at)])
+>       assert queue(store, folder, main_root)["queued"] == []
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'queued'
+
+tests\test_plan_status_recovery_cc340.py:80: KeyError
+=========================== short test summary info ===========================
+FAILED tests/test_plan_status_recovery_cc340.py::test_late_recovery_requires_validity_and_is_bounded_to_24_hours[None-2026-11-06T13:33:46.424024Z]
+1 failed, 45 passed in 50.20s

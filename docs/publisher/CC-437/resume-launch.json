@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-11-10T16:09:46.680876+00:00",
+  "process_id": 27148,
+  "started_at_gmt7": "2026-11-10T23:02:46.204440+07:00",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_evidence": "Observed Win32_Process launch arguments: exec --model gpt-6.1-sol -c model_reasoning_effort=max",
+  "runtime_model_effort_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "editorial_model_calls": 0,
+  "base_operating_head": "753c678d7f92e3b3da986324411ba8a9ea3a39e2",
+  "resume_branch": "backlog/cc-437-discord-queue-causes",
+  "test_embargo_ended_gmt7": "2026-11-10T22:30:00+07:00"
+}

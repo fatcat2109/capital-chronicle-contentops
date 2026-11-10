@@ -55,3 +55,21 @@ and the status-export/CLI regression in serial targeted runs (under one minute
 each until 23:00). Then forward-integrate this branch into the Publisher operating
 root, observe the unchanged minute task once, and retain its exact Discord
 confirmations and per-card causes before closing acceptance.
+
+Resume, 10 November 2026, 23:10 GMT+7: the operating root had advanced to
+`753c678d7f92e3b3da986324411ba8a9ea3a39e2`. That exact commit was merged into
+this item's existing branch, preserving all nine tracked work-in-progress
+paths across the two checkouts. The launch explicitly configured
+gpt-6.1-sol/max; supported actual model telemetry remains
+`CONFIGURED_NOT_OBSERVED`. No editorial model call was made.
+
+The routing, card and analysis-page selection passes 62 tests. The status
+recovery, export-age and CLI/contract selection passes 46 tests. Its initial
+run found one outdated expectation: CC-400 rejects a null expiry before the
+recovery window is evaluated. The regression now asserts that exact field
+rejection and an empty outbox, retaining the real stale-post safeguard.
+
+The fresh read-only queue snapshot is `resume-before.json`: five Discord
+analysis links remain READY; other 10 November rows already have terminal
+outcomes. Runtime integration and the unchanged minute consumer are checked
+separately below in the final integration evidence.
