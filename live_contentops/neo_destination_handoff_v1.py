@@ -48,8 +48,28 @@ NON_API_AUTOMATION_PROHIBITED = {
 }
 
 
+# A platform that suspends our account stops that account's routes only (Ops Product, 11 Nov 2026: Substack's
+# suspension had halted every platform through KILL_SWITCH). The runtime file maps a destination to its cause,
+# for example {"substack": "SUBSTACK_ACCOUNT_SUSPENDED"}; Ops Product removes the entry when the account is back.
+SUSPENDED_ROUTES_FILE = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\suspended_routes.json")
+_LIVE_SUSPENDED_ROUTES_FILE = SUSPENDED_ROUTES_FILE
+
+
+def suspended_routes():
+    import sys
+    if SUSPENDED_ROUTES_FILE == _LIVE_SUSPENDED_ROUTES_FILE and "_pytest" in sys.modules:
+        return {}  # a test never reads the live control file
+    try:
+        value = json.loads(SUSPENDED_ROUTES_FILE.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return {}
+    if not isinstance(value, dict) or not all(isinstance(k, str) and isinstance(v, str) for k, v in value.items()):
+        raise ValueError("SUSPENDED_ROUTES_FILE_INVALID")
+    return value
+
+
 def _prohibited_write(destination):
-    cause = NON_API_AUTOMATION_PROHIBITED.get(destination)
+    cause = NON_API_AUTOMATION_PROHIBITED.get(destination) or suspended_routes().get(destination)
     if cause is None:
         return None
     return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True, "reason_code": cause,
