@@ -115,6 +115,13 @@ def main(argv=None) -> int:
             result["publication"].setdefault("posts", []).extend(resume_discord_links(store,
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))
         if not args.dry_run:
+            from live_contentops.event_timestamp_v1 import maintain_timestamps
+            try:
+                proof = maintain_timestamps()
+                result["event_timestamp"] = {k: proof.get(k) for k in
+                    ("status", "event_id", "proof_sha256", "bitcoin_verified", "cause") if k in proof}
+            except (OSError, ValueError) as exc:
+                result["event_timestamp"] = {"status": "STAMP_ERROR", "cause": type(exc).__name__}
             # pythonw has no stdout: each run's status, the export's age and any refusal go to the run record.
             try:
                 result["run_record"] = str(posts.record_run(result, args.store.parent / posts.RUN_RECORD_FOLDER))

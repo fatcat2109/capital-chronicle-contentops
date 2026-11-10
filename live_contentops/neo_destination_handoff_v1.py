@@ -250,12 +250,12 @@ def _payload_binding(intent, destination):
     if destination == "substack_notes" and isinstance(payload, dict) and payload.get("link_card_url"):
         binding["expected_link_card_url"] = payload["link_card_url"]
     if destination == "substack" and article.get("frozen_public_record"):
-        from live_contentops.event_public_record_v1 import attachment_for_article
+        from live_contentops.event_public_record_v1 import attachments_for_article
         binding["event_public_record"] = {"article_type": article.get("article_type"),
                                          "frozen_public_record": article["frozen_public_record"]}
-        attachment = attachment_for_article(article, media_dir=root / "media" / "public-record")
-        if attachment:
-            binding["attachment_manifest"] = [attachment]
+        attachments = attachments_for_article(article, media_dir=root / "media" / "public-record")
+        if attachments:
+            binding["attachment_manifest"] = attachments
     if intent.get("reader_presentation_review"):
         binding["excluded_text_segments"] = intent["removed_reader_text"]
     return payload, binding

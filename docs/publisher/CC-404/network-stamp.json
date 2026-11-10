@@ -1,0 +1,32 @@
+{
+  "bitcoin_attestations": [],
+  "bitcoin_verified": false,
+  "calendars": [
+    "https://alice.btc.calendar.opentimestamps.org",
+    "https://bob.btc.calendar.opentimestamps.org",
+    "https://finney.calendar.eternitywall.com"
+  ],
+  "event_id": "bls-emsit-20261106",
+  "event_time_utc": "2026-11-06T13:30:00Z",
+  "file_matches": true,
+  "file_sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4",
+  "first_attempt_at_utc": "2026-11-10T18:34:55.657093+00:00",
+  "frozen_at_utc": "2026-11-06T10:03:37Z",
+  "last_attempt_at_utc": "2026-11-10T18:34:55.657093+00:00",
+  "last_client_result": {
+    "returncode": 0,
+    "stderr": "Submitting to remote calendar https://alice.btc.calendar.opentimestamps.org\nSubmitting to remote calendar https://bob.btc.calendar.opentimestamps.org\nSubmitting to remote calendar https://finney.calendar.eternitywall.com\n",
+    "stdout": ""
+  },
+  "next_attempt_at_utc": "2026-11-11T00:34:55.657093+00:00",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\event-public-records\\bls-emsit-20261106\\957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4\\frozen-public.json",
+  "proof_bytes": 689,
+  "proof_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\event-public-records\\bls-emsit-20261106\\957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4\\frozen-public.json.ots",
+  "proof_sha256": "5017c7eedda1531b626d830cfbcc1f8321150753b62410921226e3edcafc8a49",
+  "schema_version": "contentops.event_timestamp.v1",
+  "sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4",
+  "status": "CALENDAR_PENDING",
+  "submission_before_release": false,
+  "submitted_at_utc": "2026-11-10T18:34:55.657093+00:00",
+  "verification_note": "Verify the upgraded proof with ots and opentimestamps.org; calendar acceptance is not Bitcoin confirmation."
+}

@@ -1,0 +1,4 @@
+# Isolated, no wallet or paid service. See docs/publisher/CC-404/README.md.
+opentimestamps-client==0.8.0
+opentimestamps==0.5.0
+python-bitcoinlib==0.12.2

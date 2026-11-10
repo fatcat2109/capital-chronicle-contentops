@@ -40,7 +40,12 @@ def load_record(spec, *, event_id, event_time_utc, cutoff_utc):
     if (not isinstance(doc, dict) or set(doc) != ROOT_KEYS or doc.get("schema_version") != SCHEMA
             or doc.get("event_id") != event_id or utc(doc["event_time_utc"]) != utc(event_time_utc)):
         raise ValueError("FROZEN_PUBLIC_RECORD_EVENT_OR_SCHEMA_INVALID")
-    if (doc["estimate_label"] != "Capital Chronicle model estimate" or doc["notice"] != PUBLIC_NOTICE
+    notices = {PUBLIC_NOTICE}
+    # Previously issued public files retain decision 109's original wording.
+    # New article copy still uses PUBLIC_NOTICE in the checks below.
+    if utc(doc["frozen_at_utc"]) < utc("2026-11-10T02:11:00Z"):
+        notices.add("Analysis, not financial advice.")
+    if (doc["estimate_label"] != "Capital Chronicle model estimate" or doc["notice"] not in notices
             or doc["conflicts_notice"] != CONFLICTS_NOTICE):
         raise ValueError("FROZEN_PUBLIC_MODEL_LABEL_AND_NOTICES_REQUIRED")
     frozen = utc(doc["frozen_at_utc"])
@@ -332,6 +337,47 @@ def require_preview_deadline(article, *, now_utc=None):
         now = utc(now_utc) if now_utc else datetime.now(timezone.utc)
         if now > utc(spec["preview_deadline_utc"]):
             raise ValueError("CC338_PREVIEW_TWO_HOUR_DEADLINE_MISSED_USE_NEXT_EVENT")
+
+
+def attachments_for_article(article, *, media_dir, timestamp_root=None):
+    """Bind downloadable proof bytes to the same public file, including previews.
+
+    Proof upgrades never edit an issued post. A later review may carry the new
+    proof; its original and all public attachment identities remain intact.
+    """
+    from live_contentops.event_timestamp_v1 import ROOT, inspect
+    spec = article.get("frozen_public_record")
+    existing = attachment_for_article(article, media_dir=media_dir)
+    assets = [existing] if existing else []
+    if not spec:
+        return assets
+    state_path = (Path(timestamp_root or ROOT) / spec["event_id"] / spec["sha256"] / "timestamp.json")
+    if not state_path.is_file():
+        return assets
+    state = json.loads(state_path.read_bytes())
+    if not state.get("proof_path"):
+        return assets
+    retained = Path(state["path"])
+    proof = Path(state["proof_path"])
+    summary = inspect(retained, proof)
+    if summary["file_sha256"] != spec["sha256"]:
+        raise ValueError("OTS_PROOF_FILE_DIGEST_MISMATCH")
+    folder = Path(media_dir)
+    folder.mkdir(parents=True, exist_ok=True)
+    if not assets:
+        # A preview publishes the committed bytes too, so the reader can verify
+        # the .ots without trusting a filename or a later review's availability.
+        target = folder / (spec["sha256"] + ".json")
+        from live_contentops.event_timestamp_v1 import _retain
+        _retain(target, retained.read_bytes())
+        assets.append({"path": str(target), "sha256": spec["sha256"], "bytes": target.stat().st_size,
+                       "media_type": "application/json", "filename": target.name})
+    target = folder / (summary["proof_sha256"] + ".ots")
+    from live_contentops.event_timestamp_v1 import _retain
+    _retain(target, proof.read_bytes())
+    assets.append({"path": str(target), "sha256": summary["proof_sha256"], "bytes": target.stat().st_size,
+                   "media_type": "application/octet-stream", "filename": target.name})
+    return assets
 
 
 def attachment_readback_matches(expected, observed, public_object_url):
