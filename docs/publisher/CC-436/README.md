@@ -60,12 +60,36 @@ results do not prove the two-minute live requirement.
 - Final run-record verification: 22 feature/route tests passed in 16.95 seconds.
   The existing minute log now retains each drained operation, destination,
   request hash, outcome and cause, without public payload/media bytes.
+- Post-installation repairs: 26 feature/route tests passed in 19.88 seconds.
+  X's dialog waits require the actual editable textbox; a replaced/covered
+  thread editor is re-observed and filled through Neo's focus/type actions.
+  An executor-owned unsent draft is dismissed before navigation, including its
+  Save/Discard or browser beforeunload prompt. No public object is edited.
+- The MCP client reads SSE until its exact JSON-RPC reply, closes that response
+  and enforces a deadline. A keepalive stream cannot hold the minute worker
+  indefinitely. A regression rejects reading beyond a completed reply.
 - Coordinator, composed-return and CLI regressions: 124 passed in 133.97 seconds.
 - Composed-return, plan distribution and restored-X checks: 49 passed in 48.80
   seconds. A historical test fixture's required destinations were aligned with
   that fixture's enabled destinations; production restrictions stay intact.
 
 ## Remaining live condition
+
+The existing task was read back with unchanged command
+`pythonw.exe -B scripts/plan_status_posts.py --publish`, working directory
+`A:\Capital Chronicle\ContentOps`, and `IgnoreNew`. Its normal
+11 November 04:03:26 GMT+7 invocation (PID 42172) produced endpoint-labelled
+returns and completed an existing minute log at `2026-11-10T21:05:08.529564Z`:
+
+`A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan_status_post_runs\runs-20261110.jsonl`
+
+That proves the installed consumer reached this transport without a Codex
+step. It does not prove publication: the first X attempts returned exact
+pre-click preparation failures, which led to the repairs above. Their immutable
+returns were retained. During the repair, Neo's snapshot on the separate
+preparation tab also failed to return; that tab and the identified blocked
+preparation helper were closed. No app or schedule was restarted, and no helper
+was left running. Fresh live X timing remains unobserved.
 
 The stored Notes identity is `@deancapitalchronicle`. At
 `2026-11-10T20:26:17Z`, its live profile was unavailable; the page subsequently

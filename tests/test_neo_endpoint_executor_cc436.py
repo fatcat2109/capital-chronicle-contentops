@@ -44,8 +44,11 @@ def endpoint(*, fault=None):
                 if name=='tabs': text='opened page '+('1' if 'x.com' in args.get('url','') else '2') if args['action']=='new' else ''
                 elif name=='tab_groups': text='[task] "codex/cc436-automatic-posts" (pink) pages: '
                 elif name=='act':
+                    if args['kind']=='dialog_accept':state['beforeunload_dismissed']=True
                     if args['kind']=='fill': state['composer'].setdefault(args['page'],[]).append(args['value'])
                     text='ok'
+                elif name=='navigate' and fault=='beforeunload' and not state.get('beforeunload_dismissed'):
+                    text='[page 1 dialog open] beforeunload: "" - use act kind="dialog_accept"'
                 elif name=='upload': state['uploads'].extend(args['files']); text='ok'
                 elif name=='run':
                     code=args['code']; page=1 if 'browser.page(1)' in code else 2; dest='x' if page==1 else 'substack_notes'
@@ -80,7 +83,8 @@ def endpoint(*, fault=None):
                         else: value={"ready":True}
                     result={"content":[{"type":"text","text":"ok\nreturn: "+json.dumps({"ok":True,"logs":[],"value":value})}]}
                 else: text='ok'
-                if name!='run': result={"content":[{"type":"text","text":text}]}
+                if name!='run': result={"content":[{"type":"text","text":text}],
+                    **({'isError':True} if 'beforeunload:' in text else {})}
             data=('data: \nid: 0\n\ndata: '+json.dumps({"jsonrpc":"2.0","id":request.get('id'),"result":result})+'\n\n').encode()
             self.send_response(200);self.send_header('Content-Type','text/event-stream');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data)
     server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
@@ -388,3 +392,71 @@ def test_existing_minute_record_keeps_exact_safe_drain_result(tmp_path):
     row=json.loads(path.read_text(encoding='utf-8'))
     assert row['neo_stored_requests']['requests']==[{k:v for k,v in request.items() if k!='native_payload'}]
     assert 'never in the run record' not in path.read_text(encoding='utf-8')
+
+
+def test_own_task_beforeunload_finishes_navigation_without_duplicate_publish(tmp_path):
+    store=copied_store(tmp_path);ids,value=message(store,'x')
+    with endpoint(fault='beforeunload') as (url,state):
+        c,_=bound(store,tmp_path,value['work_item_id'],url)
+        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='DISPATCH_CONFIRMED',result
+        assert state['beforeunload_dismissed'] is True
+        clicks=[a for n,a in state['calls'] if n=='run' and '"phase": "publish"' in a['code']]
+        assert len(clicks)==1
+
+
+def test_sse_transport_stops_at_matching_reply_without_waiting_for_stream_close():
+    class Response:
+        headers={'Content-Type':'text/event-stream'}
+        closed=False
+        def raise_for_status(self):pass
+        def close(self):self.closed=True
+        def iter_lines(self,**kw):
+            yield 'data: '
+            yield 'data: '+json.dumps({'jsonrpc':'2.0','id':1,'result':{'accepted':True}})
+            pytest.fail('read beyond the matching SSE reply')
+    response=Response()
+    class Session:
+        headers={}
+        def post(self,*args,**kw):
+            assert kw['stream'] is True
+            return response
+    client=neo.NeoMcpClient(session=Session())
+    assert client.rpc('fixture')=={'accepted':True}
+    assert response.closed is True
+
+
+def test_covered_thread_editor_uses_neo_focus_and_types_only_bound_copy():
+    class Client:
+        def __init__(self):self.actions=[];self.actual=[];self.last_error={}
+        def call(self,*args,**kwargs):return {}
+        def wait(self,*args):pass
+        def snapshot(self,page):return {'refs':[{'role':'textbox','name':'Post text','ref':'editor'}]}
+        def run(self,page,phase):
+            assert phase=='composer'
+            return self.actual
+        def act(self,page,kind,**values):
+            self.actions.append((kind,values))
+            if kind=='fill':
+                self.last_error={'classification':'CONTROL_COVERED'}
+                raise neo.NeoEndpointError('NEO_CONTROL_COVERED_ACT')
+            if kind=='type':self.actual=[values['text']]
+    client=Client()
+    request={'destination':'x','native_payload':{'text':'The bound original call.'},'content_binding':{}}
+    assert neo.NeoBrowserDriver(client).prepare(request,1)==['The bound original call.']
+    assert client.actual==['The bound original call.']
+    assert [kind for kind,_ in client.actions]==['fill','focus','press','type']
+    assert all(kind!='click' for kind,_ in client.actions)
+
+
+def test_existing_beforeunload_is_cleared_before_running_a_page_script():
+    class Client(neo.NeoMcpClient):
+        def __init__(self):self.actions=[]
+        def call(self,name,args):
+            assert name=='snapshot'
+            self.last_error={'classification':'BEFOREUNLOAD'}
+            raise neo.NeoEndpointError('NEO_BEFOREUNLOAD_SNAPSHOT')
+        def act(self,page,kind,**kw):self.actions.append((page,kind))
+        def snapshot(self,page):pytest.fail('SDK script attempted in a page with a blocking browser dialog')
+    client=Client();client.clear_task_draft(1)
+    assert client.actions==[(1,'dialog_accept')]

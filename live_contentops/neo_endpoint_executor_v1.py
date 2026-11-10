@@ -41,20 +41,35 @@ class NeoMcpClient:
         self.initialized = False
 
     def rpc(self, method, params=None):
+        import time
         self.sequence += 1
         payload = {"jsonrpc": "2.0", "id": self.sequence, "method": method, "params": params or {}}
         try:
-            response = self.http.post(self.endpoint, json=payload, timeout=(3, 35))
+            response = self.http.post(self.endpoint, json=payload, timeout=(3, 35),stream=True)
             response.raise_for_status()
             response.encoding = "utf-8"
             if response.headers.get("Mcp-Session-Id"):
                 self.http.headers["Mcp-Session-Id"] = response.headers["Mcp-Session-Id"]
             try:
-                value = response.json()
-            except ValueError:
-                values = [json.loads(line[5:].strip()) for line in response.text.splitlines()
-                          if line.startswith("data:") and line[5:].strip()]
-                value = next(v for v in values if v.get("id") == self.sequence)
+                if "text/event-stream" in response.headers.get("Content-Type",""):
+                    deadline=time.monotonic()+40
+                    value=None
+                    # SSE may remain open after the reply, and keepalive frames
+                    # prevent a socket read timeout. Stop at our exact JSON-RPC
+                    # reply; never wait for the connection itself to close.
+                    for line in response.iter_lines(chunk_size=1,decode_unicode=True):
+                        if time.monotonic()>deadline:
+                            raise NeoEndpointError("NEO_RPC_DEADLINE_EXCEEDED")
+                        if line.startswith("data:") and line[5:].strip():
+                            candidate=json.loads(line[5:].strip())
+                            if candidate.get("id")==self.sequence:
+                                value=candidate
+                                break
+                    if value is None: raise NeoEndpointError("NEO_RPC_REPLY_MISSING")
+                else:
+                    value=response.json()
+            finally:
+                response.close()
             if value.get("error"):
                 raise NeoEndpointError("NEO_RPC_ERROR")
             return value["result"]
@@ -76,12 +91,32 @@ class NeoMcpClient:
     def call(self, name, arguments):
         self.initialize()
         arguments = dict(arguments)
+        if name=="navigate" and arguments.get("page") in getattr(self,"pages",{}).values():
+            self.clear_task_draft(arguments["page"])
         if self.task_session:
             arguments["session"] = self.task_session
         result = self.rpc("tools/call", {"name": name, "arguments": arguments})
         self.task_session = result.get("_meta", {}).get("com.browseros.neo/session") or self.task_session
         if result.get("isError"):
-            raise NeoEndpointError("NEO_TOOL_ERROR_" + name.upper())
+            detail=self.text(result).lower()
+            classification=next((code for marker,code in (
+                ('beforeunload:','BEFOREUNLOAD'),('covered by','CONTROL_COVERED'),
+                ('did not retain','FIELD_NORMALIZED_OR_REJECTED'),('stale','STALE_REFERENCE'),
+                ('not found','CONTROL_NOT_FOUND'),('not a method','UNSUPPORTED_SDK_METHOD')) if marker in detail),
+                'TOOL_ERROR')
+            self.last_error={"tool":name,"kind":arguments.get("kind"),"classification":classification}
+            # A previous pre-click failure may leave this executor's own draft
+            # in its task tab. Accept only its browser beforeunload prompt so
+            # the requested navigation can finish; never a file/account dialog.
+            page=arguments.get("page")
+            if (name=="navigate" and page in getattr(self,"pages",{}).values()
+                    and "beforeunload:" in self.text(result)):
+                accepted=self.rpc("tools/call",{"name":"act","arguments":{
+                    "page":page,"kind":"dialog_accept","diff":"none",
+                    **({"session":self.task_session} if self.task_session else {})}})
+                if not accepted.get("isError"):
+                    return accepted
+            raise NeoEndpointError("NEO_" + classification + "_" + name.upper())
         return result
 
     @staticmethod
@@ -132,6 +167,41 @@ class NeoMcpClient:
         if not result or not result.get("ok"):
             raise NeoEndpointError("NEO_SNAPSHOT_UNAVAILABLE")
         return result["value"]
+
+    def clear_task_draft(self,page):
+        """Discard only this executor's unpublished composer before navigation.
+
+        X holds navigation while a beforeunload prompt is open, so waiting for
+        the navigation RPC to fail cannot handle that prompt in time.
+        """
+        try:
+            # The granular tool reports a browser dialog immediately; an SDK
+            # script cannot execute in a page while its dialog is blocking it.
+            self.call("snapshot",{"page":page})
+            snapshot=self.snapshot(page)
+        except NeoEndpointError:
+            if (getattr(self,"last_error",{}).get("classification")=="BEFOREUNLOAD"):
+                self.act(page,"dialog_accept")
+            return
+        discard=next((r for r in snapshot["refs"] if r["role"]=="button" and r["name"]=="Discard"),None)
+        if discard and 'alertdialog "Save post?"' in snapshot.get("text",""):
+            self.act(page,"click",ref=discard["ref"])
+            return
+        composer=("/compose/post" in snapshot.get("url","")
+            or 'dialog "New note"' in snapshot.get("text",""))
+        if not composer:
+            return
+        close=next((r for r in snapshot["refs"] if r["role"]=="button" and r["name"] in {"Close","Cancel"}),None)
+        if close:
+            dirty=("/compose/post" in snapshot.get("url","")
+                and any(text.strip() for text in self.run(page,"composer")))
+            self.act(page,"click",ref=close["ref"])
+            if dirty:
+                self.wait(page,'[role="alertdialog"]')
+            follow=self.snapshot(page)
+            discard=next((r for r in follow["refs"] if r["role"]=="button" and r["name"]=="Discard"),None)
+            if discard:
+                self.act(page,"click",ref=discard["ref"])
 
     @staticmethod
     def text(result):
@@ -363,7 +433,8 @@ class NeoBrowserDriver:
         parent = request.get("reply_parent")
         if destination == "x":
             self.client.call("navigate",{"page":page,"url": parent["public_object_url"] if parent else "https://x.com/compose/post"})
-            self.client.wait(page,'[contenteditable="true"][role="textbox"]')
+            editor='[data-testid="tweetTextarea_0"][contenteditable="true"][role="textbox"]'
+            self.client.wait(page,editor if parent else '[role="dialog"] '+editor)
         else:
             if parent:
                 self.client.call("navigate",{"page":page,"url":parent["public_object_url"]})
@@ -376,10 +447,16 @@ class NeoBrowserDriver:
         for index,text in enumerate(posts):
             if index:
                 self.client.act(page,"click",ref=self._ref(page,"button",{"Add post"},last=True))
-                self.client.wait(page,f'[role="dialog"] [data-testid="tweetTextarea_{index}"]')
-            refs = [r for r in self.client.snapshot(page)["refs"] if r["role"] == "textbox"
-                and (r["name"].startswith("Post text") or r["name"] in {
-                    "Post your reply","What's on your mind?","Write a reply...","Add a comment..."})]
+                self.client.wait(page,f'[role="dialog"] [data-testid="tweetTextarea_{index}"][contenteditable="true"][role="textbox"]')
+            def editor_refs():
+                return [r for r in self.client.snapshot(page)["refs"] if r["role"] == "textbox"
+                    and (r["name"].startswith("Post text") or r["name"] in {
+                        "Post your reply","What's on your mind?","Write a reply...","Add a comment..."})]
+            refs = editor_refs()
+            if not refs:
+                # The DOM signal can precede the accessibility update by a
+                # render. Re-observe once; never use a loading-page ref.
+                refs=editor_refs()
             if not refs: raise NeoEndpointError("NEO_EXPECTED_COMPOSER_MISSING")
             ref=refs[-1]["ref"]
             try:
@@ -391,7 +468,21 @@ class NeoBrowserDriver:
                 actual = self.client.run(page,"composer")
                 from live_contentops.native_neo_executor_v1 import _post_texts
                 if len(actual) <= index or _post_texts([actual[index]]) != _post_texts([text]):
-                    raise
+                    # A new X thread editor may replace its first AX node as
+                    # focus arrives. Refill only this task's exact editor using
+                    # a newly observed ref. This is pre-click and reversible.
+                    refs=editor_refs()
+                    if len(refs)<=index:
+                        raise
+                    if getattr(self.client,"last_error",{}).get("classification")=="CONTROL_COVERED":
+                        # X's sticky thread toolbar can cover a composer's
+                        # click point. Focus the exact observed editor, then
+                        # type through Neo's supported keyboard action.
+                        self.client.act(page,"focus",ref=refs[index]["ref"])
+                        self.client.act(page,"press",key="Control+a")
+                        self.client.act(page,"type",text=text)
+                    else:
+                        self.client.act(page,"fill",ref=refs[index]["ref"],value=text)
             # The lead card belongs to the first post, including a thread.
             if media and index == 0:
                 if destination == "substack_notes":
