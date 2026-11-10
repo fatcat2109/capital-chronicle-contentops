@@ -83,12 +83,12 @@ def test_neo_is_coordinator_only_canonical_first_and_ambiguous_return():
     intent = {"work_item_id": "work", "package_identity": "pkg", "destination_plan": {"payload_hash": "hash"}}
     auth = {"schema_version": "contentops.canonical_machine_authorization.v1", "operating_mode": "AUTONOMOUS_DEFAULT",
             "destination": "substack", "dispatch_attempt_identity": "attempt", "work_item_id": "work", "payload_hash": "hash"}
-    with pytest.raises(ValueError, match="COORDINATOR"):
-        adapter.publish(destination="substack", intent=intent, authorization_context={})
+    refused = adapter.publish(destination="substack", intent=intent, authorization_context={})
+    assert refused["definite_no_write"] is True and "COORDINATOR" in refused["reason_code"]
     blocked = adapter.publish(destination="substack", intent=intent, authorization_context=auth)
     assert blocked["definite_no_write"] is True
-    with pytest.raises(ValueError, match="RECONCILED"):
-        adapter.publish(destination="x", intent=intent, authorization_context={**auth, "destination": "x"})
+    refused = adapter.publish(destination="x", intent=intent, authorization_context={**auth, "destination": "x"})
+    assert refused["definite_no_write"] is True and "RECONCILED" in refused["reason_code"]
     ambiguous = NeoDestinationHandoff(native_executor=lambda request: {"status": "SUCCESS", "public_object_id": "id"})
     assert ambiguous.publish(destination="substack", intent=intent, authorization_context=auth)["status"] == "UNKNOWN_WRITE"
 
@@ -245,8 +245,9 @@ def test_public_source_date_guidance_preserves_frozen_legacy_requests(tmp_path, 
         legacy(**{**args, 'logical_invocation_id':'legacy-date-policy:write'})
     assert resumed.value.request['request_sha256'] == prior.value.request['request_sha256']
     assert resumed.value.request['prompt'] == prior.value.request['prompt']
-    with pytest.raises(ValueError, match='CONFLICT'):
+    with pytest.raises(DesktopInputRequired) as unchanged:
         legacy(**{**args, 'logical_invocation_id':'legacy-date-policy:write', 'prompt':'Changed controlled request'})
+    assert unchanged.value.request['request_sha256'] == prior.value.request['request_sha256']
 
 @pytest.fixture(autouse=True)
 def x_neo_bar_lifted_for_the_sample(monkeypatch):

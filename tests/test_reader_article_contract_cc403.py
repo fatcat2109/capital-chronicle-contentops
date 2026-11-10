@@ -275,6 +275,15 @@ def test_existing_publication_status_separates_exact_clock_from_readback_upper_b
         assert timing["seconds_from_data"] is None
 
 
+@pytest.mark.parametrize("status,excluded", [("DEFINITE_NO_WRITE", True), ("UNKNOWN_WRITE", False)])
+def test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target(status, excluded):
+    from live_contentops.native_publication_latency_v1 import publication_timing as status_timing
+    entry = {"destination": "youtube", "status": status, "dispatch_id": "attempt", "public_object_id": None}
+    result = status_timing([], [], run_id="note", destinations=[entry])
+    assert result["channels"][0]["status"] == status
+    assert result["channels"][0]["skipped"] is excluded
+
+
 @pytest.mark.parametrize("fault", [None, "internal_title", "missing_error"])
 def test_substack_readback_checks_the_clean_title_and_daily_note_text(tmp_path, fault):
     from test_native_neo_executor_v1 import setup, intent, pending_readback, response

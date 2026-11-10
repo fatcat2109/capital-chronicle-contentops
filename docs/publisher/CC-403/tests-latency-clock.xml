@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="10.560" timestamp="2026-11-10T22:43:45.760342+07:00" hostname="J-P"><testcase classname="tests.test_native_publication_latency_v1" name="test_time_sensitive_writer_one_editor_publishes_without_screenshot_review[None]" time="9.833"><failure message="AssertionError: [{'destination': 'substack', 'seconds_after_text_approval': 2.221652, 'status': 'DISPATCH_CONFIRMED', 'timing_basis': ...econds_after_text_approval': 4.514621, 'status': 'DISPATCH_CONFIRMED', 'timing_basis': 'API_TRANSPORT_CALL', ...}, ...]&#10;assert 'DISPATCH_NOW' == 'WITHIN_15_MINUTES'&#10;  &#10;  - WITHIN_15_MINUTES&#10;  + DISPATCH_NOW">tests\test_native_publication_latency_v1.py:279: in test_time_sensitive_writer_one_editor_publishes_without_screenshot_review
+    assert timing["state"] == "WITHIN_15_MINUTES", [
+E   AssertionError: [{'destination': 'substack', 'seconds_after_text_approval': 2.221652, 'status': 'DISPATCH_CONFIRMED', 'timing_basis': ...econds_after_text_approval': 4.514621, 'status': 'DISPATCH_CONFIRMED', 'timing_basis': 'API_TRANSPORT_CALL', ...}, ...]
+E   assert 'DISPATCH_NOW' == 'WITHIN_15_MINUTES'
+E     
+E     - WITHIN_15_MINUTES
+E     + DISPATCH_NOW</failure></testcase></testsuite></testsuites>

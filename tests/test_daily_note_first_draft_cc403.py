@@ -140,6 +140,16 @@ def test_weekly_role_remains_strong_and_no_agy_daily_call_is_allocated(tmp_path,
     assert call["arguments"]["reasoning_effort"] == "max"
 
 
+def test_older_bound_operation_keeps_its_original_editorial_epoch():
+    from live_contentops.reader_article_contract_v1 import new_request_contract
+    g = governed()
+    g.pop("reader_article_contract")
+    g["cutoff_utc"] = "2026-10-30T10:00:00Z"
+    assert new_request_contract(g) is None
+    g["cutoff_utc"] = "2026-11-10T14:00:00Z"
+    assert new_request_contract(g)["format"] == "DAILY_NOTE"
+
+
 @pytest.mark.parametrize("observation", [
     {"model": "gpt-6-astra", "reasoning_effort": "ultra"},
     {"model": None, "reasoning_effort": None},

@@ -1136,14 +1136,14 @@ class NativeDesktopTurn:
                             "placement_after", "transform_sha256", "computed_values", "license_url") if k in a}
                         for a in media_plan["assets"]], "full_exact_packet_retained_in_governed_input": True}
             kwargs["prompt"] += "\nEXACT_ADMITTED_EDITORIAL_MEDIA_PLAN: " + canonical_bytes(prompt_media).decode()
-        from live_contentops.reader_article_contract_v1 import GUIDANCE as READER_GUIDANCE, contract_for
+        from live_contentops.reader_article_contract_v1 import GUIDANCE as READER_GUIDANCE, new_request_contract
         reader_contract = None
         if stage in {"write", "revise"}:
             issued = self.frozen_request(stage) or self.frozen_request("write")
             if issued:
                 reader_contract = issued["governed_input"].get("reader_article_contract")
             elif "source_pack" in kwargs["governed_input"]:
-                reader_contract = contract_for(kwargs["governed_input"], self.run_id)
+                reader_contract = new_request_contract(kwargs["governed_input"], self.run_id)
             if reader_contract:
                 kwargs["governed_input"] = {**kwargs["governed_input"], "reader_article_contract": reader_contract}
         role = native_role(stage)
@@ -2185,7 +2185,7 @@ def final_visual_binding(result, *, renders, destinations=None, verify_render_so
     from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
     if set(previews) not in (FINAL_VISUAL_CHANNELS - {"substack"}, set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)):
         raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
-    scope = FINAL_VISUAL_CHANNELS if destinations is None else set(destinations)
+    scope = ({"substack", *previews} if destinations is None else set(destinations))
     if destinations is not None and scope not in (
             DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS,
             {"substack"}, FINAL_VISUAL_CHANNELS,
@@ -2579,6 +2579,7 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
         resolve_workspace_path(output_dir) / "qualified_article_record_v1.json").read_bytes())
     # Same article/source/worker identity; only the pre-publication package/media binding changes.
     record["derivative_package_intents"] = intents
+    record["derivative_package_intent_count"] = len(intents)
     # The qualified-record hash uses the existing owner's canonical JSON convention.
     from live_contentops.newsroom_production_day_v1 import _logical_hash
     record["record_sha256"] = _logical_hash({k:v for k,v in record.items() if k != "record_sha256"})

@@ -12,6 +12,7 @@ import re
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
 
 POLICY = "CC403_READER_ARTICLE_V1"
+EFFECTIVE_FROM = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 MAX_SENTENCE_WORDS = 35
 DAILY_WORDS = 350
 DATA_TO_PUBLICATION_MINUTES = 60
@@ -105,6 +106,16 @@ def contract_for(governed, run_id=""):
             "data_cutoff_utc": source_clock(documents, candidate),
             "max_sentence_words": MAX_SENTENCE_WORDS, "daily_prose_words": DAILY_WORDS,
             "publication_target_minutes": DATA_TO_PUBLICATION_MINUTES}
+
+
+def new_request_contract(governed, run_id=""):
+    """Older bound operations retain their epoch, including unfinished stages."""
+    if governed.get("reader_article_contract"):
+        return governed["reader_article_contract"]
+    cutoff = governed.get("cutoff_utc")
+    if cutoff and utc(cutoff) < EFFECTIVE_FROM:
+        return None
+    return contract_for(governed, run_id)
 
 
 def visible(text):

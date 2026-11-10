@@ -84,7 +84,7 @@ def test_image_required_skip_is_local_to_instagram_without_media(monkeypatch, sk
         article_identity="a" * 64, epistemic_state={"reader_visible_epistemic_label": "CONFIRMED"})
     if skip_destination == "instagram_business":
         previews, intents = _native_preview_bundle(**kwargs)
-        assert len(intents) == len(previews["packages"]) == 8
+        assert len(intents) == len(previews["packages"]) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
         assert previews["packages"][skip_destination]["delivery_state"] == "SKIPPED_IMAGE_REQUIRED"
     else:
         with pytest.raises(SimpleGeminiNewsroomError, match="native_preview_epistemic_state_missing"):
@@ -982,7 +982,7 @@ def test_existing_story_context_reaches_one_selector_and_one_writer_with_chain_i
     native = json.loads(
         (tmp_path / "native_derivative_previews_v1.json").read_text()
     )
-    assert native["package_count"] == 8
+    assert native["package_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert set(native["packages"]) == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert native["dispatch_state"] == "PREVIEW_ONLY_UNDISPATCHED"
     assert native["canonical_url_state"] == "PENDING_NON_DISPATCHABLE"

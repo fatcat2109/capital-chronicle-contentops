@@ -60,9 +60,11 @@ Implementation owners:
   [existing editor review](../../../live_contentops/contentops_editorial_desk_v1.py)
   and [publication timing](../../../live_contentops/native_publication_latency_v1.py).
 
-Core validation: **93 distinct tests pass** after correcting two test fixtures: the observed Substack text now represents rendered table cells, and the older derivative test uses the registered required set. The initial failure and corrected run remain in the [test summary](tests-summary.json). Each process took under 16 seconds. Canonical regressions and operating-root verification follow before integration is reported.
+Validation so far: **274 distinct tests pass**, with 3 preview-host cases skipped under decision 83. The [test summary](tests-summary.json) preserves every failed run and its corrected result. Runs use at most three targeted files, one pytest process at a time, without parallel workers; no suite ran. No test started before **10 November 22:30 GMT+7**.
 
-The syntax-only read of 16 Python files passed without importing or executing them. No pytest process ran before **10 November 22:30 GMT+7**. Targeted files run sequentially, without parallel workers.
+Regression checks exposed two owned handoff defects: the newly compiled destination count was not updated, and final visual review still requested a removed destination. The handoff now records its actual count and reviews its compiled variants; frozen originals are unchanged. Definite no-writes caused by platform rules are excluded from the timing target with their exact cause; uncertain writes still require recovery and remain in the timing result. Older text fixtures now use decision 109's current public notice and current transport-return semantics.
+
+The syntax-only read of 16 Python files passed without imports. The new policy also keeps an older bound operation's epoch, including its unfinished stages. Operating-root verification and the actual decision-114 draft result follow before integration is reported.
 
 The [launch record](launch.json) reads back `gpt-6.1-sol/max`, labelled
 `CONFIGURED_NOT_OBSERVED`; actual runtime telemetry is unavailable. The

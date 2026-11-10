@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="16" time="23.363" timestamp="2026-11-10T22:40:44.101993+07:00" hostname="J-P"><testcase classname="tests.test_native_publication_latency_v1" name="test_bound_event_preview_uses_one_editor_check_without_rewriting_writer" time="2.409" /><testcase classname="tests.test_native_publication_latency_v1" name="test_completed_native_revision_reaches_existing_assembly_without_another_writer[None]" time="1.952" /><testcase classname="tests.test_native_publication_latency_v1" name="test_completed_native_revision_reaches_existing_assembly_without_another_writer[return]" time="1.259" /><testcase classname="tests.test_native_publication_latency_v1" name="test_completed_native_revision_reaches_existing_assembly_without_another_writer[source]" time="1.232" /><testcase classname="tests.test_native_publication_latency_v1" name="test_one_visual_repair_then_drop_only_failed_visual_keep_facts_and_passed_chart" time="2.275" /><testcase classname="tests.test_native_publication_latency_v1" name="test_editor_keep_preserves_original_text_clock_across_media_review" time="1.157" /><testcase classname="tests.test_native_publication_latency_v1" name="test_pre_writer_repair_counts_and_failed_asset_drops_with_source_bound_copy_alignment" time="1.744" /><testcase classname="tests.test_native_publication_latency_v1" name="test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_history[False]" time="1.615" /><testcase classname="tests.test_native_publication_latency_v1" name="test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_history[True]" time="1.827" /><testcase classname="tests.test_native_publication_latency_v1" name="test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_history[revised_preview]" time="1.853" /><testcase classname="tests.test_native_publication_latency_v1" name="test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_history[analysis]" time="1.344" /><testcase classname="tests.test_native_publication_latency_v1" name="test_current_policy_adopts_unchanged_legacy_text_without_rewriting_native_history[long]" time="1.233" /><testcase classname="tests.test_native_publication_latency_v1" name="test_text_clock_excludes_visual_metadata_but_binds_every_copy_change" time="0.003" /><testcase classname="tests.test_native_publication_latency_v1" name="test_time_sensitive_writer_one_editor_publishes_without_screenshot_review[None]" time="0.674"><failure message="ValueError: TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED">tests\test_native_publication_latency_v1.py:246: in test_time_sensitive_writer_one_editor_publishes_without_screenshot_review
+    store, binding, rollout, result, _, _ = brief_packet(tmp_path, monkeypatch)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_text_first_v1.py:55: in brief_packet
+    semantic = run_v1_simple_gemini_newsroom(output_dir=root, cutoff_utc=cutoff,
+live_contentops\v1_simple_gemini_newsroom_v1.py:3393: in run_v1_simple_gemini_newsroom
+    article = bind_validated_article(article, request=getattr(llm_invoke, "frozen_request", lambda _: None)("write") or {},
+live_contentops\native_text_first_v1.py:53: in bind_validated_article
+    copy = _check_copy(article)
+           ^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_text_first_v1.py:40: in _check_copy
+    raise ValueError("TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED")
+E   ValueError: TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED</failure></testcase><testcase classname="tests.test_native_publication_latency_v1" name="test_time_sensitive_writer_one_editor_publishes_without_screenshot_review[saved_configuration1]" time="0.622"><failure message="ValueError: TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED">tests\test_native_publication_latency_v1.py:246: in test_time_sensitive_writer_one_editor_publishes_without_screenshot_review
+    store, binding, rollout, result, _, _ = brief_packet(tmp_path, monkeypatch)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_text_first_v1.py:55: in brief_packet
+    semantic = run_v1_simple_gemini_newsroom(output_dir=root, cutoff_utc=cutoff,
+live_contentops\v1_simple_gemini_newsroom_v1.py:3393: in run_v1_simple_gemini_newsroom
+    article = bind_validated_article(article, request=getattr(llm_invoke, "frozen_request", lambda _: None)("write") or {},
+live_contentops\native_text_first_v1.py:53: in bind_validated_article
+    copy = _check_copy(article)
+           ^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_text_first_v1.py:40: in _check_copy
+    raise ValueError("TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED")
+E   ValueError: TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED</failure></testcase><testcase classname="tests.test_native_publication_latency_v1" name="test_time_sensitive_writer_one_editor_publishes_without_screenshot_review[saved_configuration2]" time="0.667"><failure message="ValueError: TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED">tests\test_native_publication_latency_v1.py:246: in test_time_sensitive_writer_one_editor_publishes_without_screenshot_review
+    store, binding, rollout, result, _, _ = brief_packet(tmp_path, monkeypatch)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_native_text_first_v1.py:55: in brief_packet
+    semantic = run_v1_simple_gemini_newsroom(output_dir=root, cutoff_utc=cutoff,
+live_contentops\v1_simple_gemini_newsroom_v1.py:3393: in run_v1_simple_gemini_newsroom
+    article = bind_validated_article(article, request=getattr(llm_invoke, "frozen_request", lambda _: None)("write") or {},
+live_contentops\native_text_first_v1.py:53: in bind_validated_article
+    copy = _check_copy(article)
+           ^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_text_first_v1.py:40: in _check_copy
+    raise ValueError("TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED")
+E   ValueError: TEXT_FIRST_PUBLIC_ANALYSIS_NOTICE_REQUIRED</failure></testcase></testsuite></testsuites>

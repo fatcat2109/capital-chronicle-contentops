@@ -355,6 +355,8 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
             "attempted_at_utc": claim.get("begun_at_utc"), "dispatched_at_utc": sent,
             "status": response.get("status", "PENDING_NATIVE_RETURN"),
             "timing_basis": "NATIVE_ACTION_OBSERVED" if observation.get("dispatched_at_utc") else "NATIVE_RETURN_OBSERVED_UPPER_BOUND"})
+    from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
+    barred = barred_browser_destinations()
     channels = []
     for entry in destinations:
         actual = [v for v in observations if v["destination"] == entry["destination"]
@@ -378,6 +380,7 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
         confirmed = entry.get("reconciliation_status") == "RECONCILED_CONFIRMED" and entry["status"] == "DISPATCH_CONFIRMED"
         finished = bool(confirmed and elapsed is not None and 0 <= elapsed <= FINISHED_PIECE_MINUTES * 60
             and image_elapsed is not None and 0 <= image_elapsed <= FINISHED_PIECE_MINUTES * 60)
+        policy_no_write = entry["status"] == "DEFINITE_NO_WRITE" and entry["destination"] in barred
         channels.append({"destination": entry["destination"], "status": entry["status"],
             "attempted_at_utc": chosen.get("attempted_at_utc"), "dispatched_at_utc": clock,
             "timing_basis": "VERIFIED_READBACK_UPPER_BOUND" if upper_bound else chosen.get("timing_basis"),
@@ -386,7 +389,8 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
             "readback_seconds_after_text_approval": readback_elapsed,
             "image_verified_readback_at_utc": image_readback.isoformat() if image_readback else None,
             "finished_piece_within_30_minutes": finished,
-            "skipped": entry["status"].startswith("SKIPPED_")})
+            "skipped": entry["status"].startswith("SKIPPED_") or policy_no_write,
+            **({"excluded_from_timing_due_to": barred[entry["destination"]]} if policy_no_write else {})})
     required = [c for c in channels if not c["skipped"]]
     complete = bool(required) and all(c["within_target"] is True for c in required)
     overdue = bool(deadline and (now or datetime.now(timezone.utc)) > deadline and not complete)

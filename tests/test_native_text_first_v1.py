@@ -68,8 +68,9 @@ def brief_packet(tmp_path, monkeypatch, *, bad_fact=False, source_missing=False,
                 assert stage in {"write", "revise"}, stage
                 output = deepcopy(writer_output) if writer_output is not None else _article_output(bad_excerpt=bad_fact)
                 output["article"]["news_item_kind"] = "NEWS"
+                from live_contentops.event_article_guard_v1 import PUBLIC_NOTICE
                 output["article"]["substack_body_markdown"] += (
-                    "\n\nAnalysis, not financial advice. Readers decide whether to trade. [[SOURCE:SOURCE_1]]")
+                    "\n\n" + PUBLIC_NOTICE + " [[SOURCE:SOURCE_1]]")
             turn.submit(stage, {"request_sha256": request["request_sha256"], "output": output,
                 "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol",
                     "reasoning_effort": "low" if stage == "select" else "max",
