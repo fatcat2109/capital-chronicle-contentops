@@ -168,3 +168,42 @@ fallback is recorded in `run-20261110/freeze-cutoff-choice.json`.
 Continuation at 18:52 GMT+7: live intent consumer now packs Telegram at 803/1024 characters including both exact scenarios, notices and TradingView credit. Earlier local caption compilation threw before a native publish request existed; the coordinator's recorded uncertainty is being read back before retry. Changes add local-before-executor certainty, current-channel media and safe unsent-package supersession. New targeted regression cases are authored but remain unrun under the 18:30-22:30 test blackout.
 
 Canonical confirmed: https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher, post 224293572, published 10 Nov 12:09:49.251Z. Exact body and four original image hashes match. Telegram136, Discord1569687377679745110, Facebook1450849443900138, ThreadsDfj42NGlE4E, X2120129873830388070 (five posts) and InstagramDfj5h_nj32E are confirmed. LinkedIn official API failed at TLS handshake and browser fallback stays barred. Final audit found no rendered reaction card ahead of TradingView; same MAX selected its exact existing conditional claims and BLS calendar time, inspected the rendered card and accepted the one canonical repair. Existing text and four images stay, with a new source-bound reaction card first. The actual native acceptance is recorded; post-blackout regression tests remain unrun.
+
+
+Final 10 November run: the canonical preview published at **19:09:49 GMT+7**,
+39 minutes after the 18:30 preview deadline. The original approval time, 18:32:49,
+was retained; the 15-minute distribution target was also missed. Substack and six
+social destinations are confirmed. LinkedIn's official API reached a fresh TLS
+handshake failure before sending content. Its browser route remains prohibited.
+The old local browser refusal no longer consumes the official API failure circuit.
+There are zero uncertain writes and no pending native browser requests.
+
+The one accepted canonical repair is read back on post 224293572: the reaction
+card is first, TradingView second, the original text is exact and all five image
+hashes match. The existing image register now retains the new card and the four
+original images, with the edit observation clock separate from first publication.
+No second post or additional article count was created.
+
+The operating-root scorecard exports **36 calls, including all 17 CPI directional
+forecasts**: two headline reaction outcomes and fifteen market forecasts across
+three scenarios. Their shared event and confirmation conditions remain explicit;
+17 is not an independent-event sample count. All CPI numerical scores remain
+unresolved. The append-only annotation binds exact public spans to the existing
+Main source, and the original article and sealed publication feed are unchanged.
+The existing event-review source attachment consumes this same scorecard.
+See the [operating export](run-20261110/scorecard-operating-final/public-call-scorecard.md)
+and [final evidence](run-20261110/FINAL.json).
+
+Code through `fd01f5831d09c6482a69c29fd70313c90be8abb9` is pushed and integrated
+into the Publisher operating root. Source comparisons match after line-ending
+normalization. New regression cases were authored but not run during the
+18:30-22:30 GMT+7 test blackout. Actual consumer exports, public readbacks and
+image-register application completed. Inherited dirty files remain excluded.
+
+CC-338 remains **BLOCKED: G05_FROZEN_PUBLIC_FILE_NOT_ISSUED**. The named public
+CPI freeze file was absent at the 17:50 cutoff and at the final read. The preview
+used the item's authorized no-hash wording; the matching public hash/file/review
+record moves to PPI on 13 November. Ops Live supplies that Main-owned file and
+hash; the next authorized CC-338 run attaches it and completes the public review
+and full scorecard with Main's scored output. No chat was messaged and no schedule
+was changed. Launch/model labels remain `gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED`.

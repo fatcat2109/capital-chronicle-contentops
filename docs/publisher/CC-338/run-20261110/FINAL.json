@@ -1,0 +1,287 @@
+{
+  "run_id": "cc338-cpi-preview-20261110-v1",
+  "recorded_at_utc": "2026-11-10T13:11:46.891187+00:00",
+  "item_status": "BLOCKED",
+  "outside_cause": "G05_FROZEN_PUBLIC_FILE_NOT_ISSUED",
+  "choice": "Published the authorized no-hash CPI preview; the verifiable hash/file/review record moves to PPI on 13 Nov, per CC-338.",
+  "public_freeze_path": "A:\\Capital Chronicle\\ResearchRuns\\frozen-public-calls\\bls-cpi-20261110.json",
+  "public_freeze_present_at_final_read": false,
+  "fallback_event_id": "bls-ppi-20261113",
+  "code_commit": "fd01f5831d09c6482a69c29fd70313c90be8abb9",
+  "branch": "backlog/cc-338-cpi-preview-20261110",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "source_verification": [
+    {
+      "path": "live_contentops/native_desktop_publication_v1.py",
+      "sha256": "44e49086ab8fa0364559455526c14c3a9bac65bae4ad018939b1f25e1c4b6b94",
+      "builder_matches_operating_and_commit": true,
+      "builder_operating_raw_bytes_match": true,
+      "git_blob_sha1": "4bf744693bf81a8b525819c26dd04721637f75e6",
+      "comparison": "Exact source bytes after LF/CRLF normalization; raw source SHA256 retained."
+    },
+    {
+      "path": "live_contentops/public_call_scorecard_v1.py",
+      "sha256": "4da5bd4a62c90c9fed5651c64b6bfd64ff294d27f3f4c8f066b92baeb4277c91",
+      "builder_matches_operating_and_commit": true,
+      "builder_operating_raw_bytes_match": true,
+      "git_blob_sha1": "2794c470dcd17248638573e09235fde011ffcb34",
+      "comparison": "Exact source bytes after LF/CRLF normalization; raw source SHA256 retained."
+    },
+    {
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "sha256": "ba8d2e32938cd797533013af78262e0c9b832975ad8de015816186a717447b0d",
+      "builder_matches_operating_and_commit": true,
+      "builder_operating_raw_bytes_match": true,
+      "git_blob_sha1": "fad6dc71b98dd2b532b9f7199f5c2398a8c540ad",
+      "comparison": "Exact source bytes after LF/CRLF normalization; raw source SHA256 retained."
+    },
+    {
+      "path": "live_contentops/article_publication_quality_v1.py",
+      "sha256": "f23d4e726ba15adcc8cb66ef8c34ca13b19fe6d9ecdc6498070df465f55f3744",
+      "builder_matches_operating_and_commit": true,
+      "builder_operating_raw_bytes_match": true,
+      "git_blob_sha1": "6a59f64f08be7fdfd9458b8cb95059c34f425e80",
+      "comparison": "Exact source bytes after LF/CRLF normalization; raw source SHA256 retained."
+    }
+  ],
+  "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+  "canonical_post_id": "224293572",
+  "published_at_utc": "2026-11-10T12:09:49.251000+00:00",
+  "preview_deadline_utc": "2026-11-10T11:30:00Z",
+  "preview_deadline_met": false,
+  "text_approved_at_utc": "2026-11-10T11:32:49.375897+00:00",
+  "fifteen_minute_dispatch_target_met": false,
+  "destinations": [
+    {
+      "destination": "substack",
+      "transport": "BROWSEROS_NEO_MCP",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "224293572",
+      "public_object_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+    },
+    {
+      "destination": "telegram",
+      "transport": "BOT_API",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "136",
+      "public_object_url": "https://t.me/CapitalChronicle/136"
+    },
+    {
+      "destination": "discord",
+      "transport": "WEBHOOK_API",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1569687377679745110",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569687377679745110"
+    },
+    {
+      "destination": "x",
+      "transport": "BROWSEROS_NEO_MCP",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2120129873830388070",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120129873830388070"
+    },
+    {
+      "destination": "linkedin",
+      "transport": "OFFICIAL_MEMBER_API",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "destination": "facebook_page",
+      "transport": "META_GRAPH_API",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1450849443900138",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1450849443900138"
+    },
+    {
+      "destination": "instagram_business",
+      "transport": "META_GRAPH_API",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18118649638820551",
+      "public_object_url": "https://www.instagram.com/p/Dfj5h_nj32E/"
+    },
+    {
+      "destination": "threads",
+      "transport": "THREADS_API",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18189728134418285",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfj42NGlE4E"
+    },
+    {
+      "destination": "youtube",
+      "transport": "BROWSEROS_NEO_MCP",
+      "status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "destination": "linkedin_company",
+      "transport": "BROWSEROS_NEO_MCP",
+      "status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null
+    }
+  ],
+  "confirmed_social_destinations": 6,
+  "unknown_writes": 0,
+  "pending_native_requests": 0,
+  "linkedin": {
+    "route": "OFFICIAL_MEMBER_API",
+    "result": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+    "write_certainty": "DEFINITE_NO_WRITE",
+    "repair": "Policy refusals no longer consume the official API failure circuit; prohibited browser fallback is not used."
+  },
+  "canonical_edit": {
+    "run_id": "cc338-cpi-preview-20261110-v1",
+    "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+    "post_id": "224293572",
+    "status": "PRESENTATION_EDIT_CONFIRMED",
+    "edit_called": true,
+    "verified": true,
+    "new_post_calls": 0,
+    "observed_at_utc": "2026-11-10T12:49:06.396Z",
+    "observed_media_sha256": [
+      "7e79e5205e765377d8f90acbf3e54893599df82d920f1b6805f04e03c6ddec94",
+      "0815a2466f617958b9e02315bed1c939abb9e17ed52d39526bdae01ef9de98eb",
+      "6b79784ce603b53826749b3d362eae4af46eb97576add921a75ee0f409ca3e1a",
+      "9f9eaae546137b196dfb9bd0391f10678866ca3139088a2714dfc9c90a424c42",
+      "f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd"
+    ],
+    "exact_body_unchanged": true,
+    "reaction_card_first": true,
+    "tradingview_second": true,
+    "tests": "Two regression cases authored; unrun during 18:30-22:30 GMT+7 blackout on 10 Nov.",
+    "artifacts": [
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\media-order-revision.json",
+        "bytes": 20750,
+        "sha256": "e6abbe743911376b1a54956c0a9601d58b09b71e794788b2584789f121be3e55"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\media-order-review-reference.json",
+        "bytes": 300,
+        "sha256": "3d33d8789ff233d625b029a6403365c11f69ace95bdaa550b9f7f7ee6c94fdda"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\reaction-card-pixel-check.json",
+        "bytes": 2399,
+        "sha256": "b61aceed29b933f9b62edfaae10419592b8e42f8aa9230eaa36fdaa7bcb83fdc"
+      },
+      {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\repair-identity-observation-correction.json",
+        "bytes": 493,
+        "sha256": "2e1a85230cfcebc8484a28d35db9e8f7961019cf580401d04de8a7ca907de577"
+      }
+    ]
+  },
+  "image_register": {
+    "record_id": "5eabb59932fc24ffb62f494a71a34bac69b8b8a58ed6031597d8c4db62d52bad",
+    "state": "PUBLISHED",
+    "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+    "published_at_utc": "2026-11-10T12:49:06.396Z",
+    "publication_clock_basis": "OBSERVED_PRESENTATION_EDIT_CLOCK",
+    "counts_as_article": false,
+    "observation_ref": "coordinator:dispatch_9aab37332626d663aadd8d8a631c300e:edit:1ca02f92da1d1df79c736a4a952399a659c05703d073cb882e1b71945c229032",
+    "registered_image_sha256": [
+      "7e79e5205e765377d8f90acbf3e54893599df82d920f1b6805f04e03c6ddec94",
+      "0815a2466f617958b9e02315bed1c939abb9e17ed52d39526bdae01ef9de98eb",
+      "6b79784ce603b53826749b3d362eae4af46eb97576add921a75ee0f409ca3e1a",
+      "9f9eaae546137b196dfb9bd0391f10678866ca3139088a2714dfc9c90a424c42",
+      "f5fdfc303580d6f09ea695da62e144ceb078b1749cfe3c04ed99c2d13e7145fd"
+    ]
+  },
+  "scorecard": {
+    "as_of_utc": "2026-11-10T13:07:15.590734+00:00",
+    "total_calls": 36,
+    "cpi_forecasts": 17,
+    "counts": {
+      "source_call_groups": 4,
+      "main_gold_reaction_outcomes": 2,
+      "scenario_groups": 3,
+      "scenario_directional_market_projections": 15,
+      "directional_market_calls_total": 17,
+      "scenario_covered_market_entries": 18,
+      "wti_no_direction_entries_excluded": 3,
+      "rates_and_dollar_directional_confirmation_projections": 4,
+      "all_directional_forecast_and_confirmation_projections_preserved": 21,
+      "independent_event_sample_count": null,
+      "distinct_condition_groups": 5,
+      "verbatim_source_passages": 4
+    },
+    "all_cpi_scores_unresolved": true,
+    "consumer": "Operating-root scripts/event_public_record.py; existing EVENT_REVIEW source attachment consumes the same projection.",
+    "historical_feed_conditional_calls": [],
+    "historical_feed_rewritten": false,
+    "markdown": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-338\\run-20261110\\scorecard-operating-final\\public-call-scorecard.md",
+      "bytes": 11947,
+      "sha256": "82b5fa9f91781c0d063b41b9533fba238b7ee6f8bd6c24a23e1fd463d868857f"
+    },
+    "json": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-338\\run-20261110\\scorecard-operating-final\\public-call-scorecard.json",
+      "bytes": 182731,
+      "sha256": "f88fdf81eaefddde4dbb22ac1a8b7f83954bd0984a8cf28a11d35c4e185c0cbd"
+    }
+  },
+  "model_effort": "gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED",
+  "validation": {
+    "new_regression_cases": "Authored, not run during the 10 Nov 18:30-22:30 GMT+7 blackout.",
+    "files": [
+      "tests/test_public_call_scorecard_v1.py",
+      "tests/test_cpi_derivative_media_revision_v1.py",
+      "tests/test_linkedin_neo_recovery_v1.py"
+    ],
+    "completed": "Operating consumer export, exact-object public readback, five image hash bindings, image-register application, source parsing and git diff --check.",
+    "prior_targeted_checks": "See README.md and the earlier JUnit artifacts; no test run started after 18:30 GMT+7."
+  },
+  "held_work_preserved": {
+    "builder_uncommitted": [
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "live_contentops/agy_editorial_assist_v1.py"
+    ],
+    "excluded_from_commits": true
+  },
+  "next_action": "Ops Live supplies the PPI frozen public file and SHA256; next CC-338 run attaches it with scripts/event_public_record.py --attach-freeze bls-ppi-20261113, then publishes the source-matching preview/review and the complete scorecard using Main scores when issued.",
+  "chat_messages_sent": 0,
+  "schedules_changed": 0,
+  "native_file_dialog_opened": false,
+  "artifacts": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\binding.json",
+      "bytes": 4562,
+      "sha256": "c7b95623b202a5a1dcc0e5737fe471622d1001b910f801a5d1ecb845b8e798ee"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\public-readback-dom.json",
+      "bytes": 9753,
+      "sha256": "1b572d838a3956306891d0164bd9fdf0e0ba599c3e70576f4fb729f6074f0c49"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\public-call-annotation.json",
+      "bytes": 156832,
+      "sha256": "3d98fb40ddcc2a58ca209bf93cce3f6d2dba5ef4d6e70d0096e2b9f9704611cd"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\repair-identity-observation-correction.json",
+      "bytes": 493,
+      "sha256": "2e1a85230cfcebc8484a28d35db9e8f7961019cf580401d04de8a7ca907de577"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_response_write.json",
+      "bytes": 87231,
+      "sha256": "b4853aa82e2298844db27e6dca189446a987d5c47b51a0e535ad52d2c722e8cb"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_response_revise.json",
+      "bytes": 87311,
+      "sha256": "1e0622b023e8faf94b2efd45b055f5300fac6b2f51fd076ef529a9b27c1c3849"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\desktop_response_final-visual-2550e7490d54865f4eae03c919085a52046585ca8133ca5134a7e9818a1ab0fb.json",
+      "bytes": 1542,
+      "sha256": "1e47c60b6f4d46ca3df0fa3ffc2fb121499a6f6af239e10b38942ef82fabf82d"
+    }
+  ]
+}
