@@ -32,18 +32,15 @@ ROOTS = {"substack": "https://capitalchronicle.substack.com/", "substack_notes":
 TELEGRAM_PUBLIC_FEED = "https://t.me/s/CapitalChronicle"
 TELEGRAM_READ_RULE = ("Read only https://t.me/s/CapitalChronicle, with no sign-in. Never open, snapshot, read "
                       "or screenshot web.telegram.org or any signed-in Telegram view; it is Jim's personal account.")
-# X's developer guidelines (docs.x.com/developer-guidelines) and automation rules (help.x.com, x-automation), read
-# on 9 Nov 2026 by the weakness scan (evidence W, section 2) and by CC-386: non-API automation, meaning scripting or
-# driving the website in a browser, "results in permanent suspension". Jim, 10 Nov 2026 (scan answers, item 3): X's
-# own rules bind. So no write to X goes through Neo: a publish or an edit there is a definite no-write, before any
-# request reaches a browser. X returns only through X's official API.
+# Jim's decision 112 (10 Nov 2026), CC-431: restore the existing X Neo
+# publication/readback route. The other decision-109 browser bars stay in place;
+# replies remain parked under CC-386.
 # CC-393, Jim decision 109 item 3, read 10 Nov 2026: LinkedIn User Agreement 8.2 prohibits unauthorized
 # automated posting; YouTube Terms, Permissions and Restrictions 2, require prior
 # written permission for automated access. No such platform permission is held.
 # Official API transports remain separate; this map applies to the Neo path only.
 # Sources and the remaining routes: docs/publisher/CC-393/platform-rules.json.
 NON_API_AUTOMATION_PROHIBITED = {
-    "x": "X_NON_API_AUTOMATION_PROHIBITED",
     "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
     "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
     "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",

@@ -192,7 +192,7 @@ def fixture_platform_permissions(monkeypatch):
     """
     from live_contentops import neo_destination_handoff_v1 as handoff
     monkeypatch.setattr(handoff, "NON_API_AUTOMATION_PROHIBITED", {
-        "x": "X_NON_API_AUTOMATION_PROHIBITED", "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"})
+        "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"})
 
 from live_contentops.destination_transport_registry_v1 import (
     REGISTRY_VERSION,

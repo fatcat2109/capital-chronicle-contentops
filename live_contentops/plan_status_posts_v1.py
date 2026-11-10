@@ -1486,7 +1486,7 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
                     and all((outcome.get("per_destination", {}).get(d) or {}).get("status") == "DISPATCH_CONFIRMED"
                             for d in API_DESTINATIONS)):
                 browser_plan = prepare_post(store, key, root=root, host=host,
-                    destinations=("substack_notes",), snapshot=snapshot)
+                    destinations=("x", "substack_notes"), snapshot=snapshot)
                 scope_to_post(coordinator, key, browser_plan)
                 coordinator.register_plan(key, browser_plan)
                 browser_result = coordinator.execute_plan(key, browser_plan)
@@ -1506,9 +1506,7 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
 
 def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None = None, root: Path = POST_ROOT,
             host=None, snapshot=None, destination: str = "x") -> dict:
-    """Substack Notes uses the retained agent seam; the X route is retired."""
-    if destination == "x":
-        return {"key": key, "x": {"status": "DEFINITE_NO_WRITE", "reason_code": "X_NON_API_AUTOMATION_PROHIBITED", "publish_called": False}}
+    """Register and issue a status post's X or Substack Notes copy through Neo."""
     from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
     now = now or datetime.now(timezone.utc)
     payload = _row_payload(store, key)
@@ -1528,9 +1526,7 @@ def start_x(store, key: str, *, native_invocation_id: str, now: datetime | None 
 
 
 def pending_x(store, *, now: datetime | None = None, destination: str = "x") -> list[dict]:
-    """Only active Substack Notes requests remain available to an agent."""
-    if destination == "x":
-        return []
+    """Status posts' pending browser requests, freshest first."""
     from live_contentops.native_neo_executor_v1 import NativeNeoExecutor
     now = now or datetime.now(timezone.utc)
     pending = []
@@ -1559,7 +1555,7 @@ def begin_x(store, key: str, request_sha256: str, *, native_invocation_id: str, 
                                  native_invocation_id=native_invocation_id, allow_publish=True,
                                  identity_at_action=True)
     packet = executor._get(request_sha256, "request")
-    if not packet or packet["request"].get("destination") != "substack_notes":
+    if not packet or packet["request"].get("destination") not in {"x", "substack_notes"}:
         raise PlanPostError("PLAN_STATUS_X_REQUEST_REQUIRED")
     if (packet["request"]["action"] == "PUBLISH"
             and _age_minutes(payload, now) > _x_freshness_limit(payload, now)):

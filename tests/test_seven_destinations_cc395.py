@@ -1,4 +1,4 @@
-"""Decision 109: exercise the coordinator, recovery and public copy consumers."""
+"""Decisions 109/112: exercise the restored X consumer and remaining browser bars."""
 import json
 import subprocess
 import sys
@@ -20,8 +20,8 @@ def fail(*args, **kwargs):
 
 
 def test_full_article_and_repeated_recovery_use_seven_derivatives(tmp_path, monkeypatch):
-    # Other destination permissions are simulated; X uses the real decision 109 policy.
-    monkeypatch.setattr(neo, "NON_API_AUTOMATION_PROHIBITED", {"x": "X_NON_API_AUTOMATION_PROHIBITED", "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"})
+    # Official routes are simulated; X uses the restored decision-112 Neo policy.
+    monkeypatch.setattr(neo, "NON_API_AUTOMATION_PROHIBITED", {"youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"})
     store, transport, coordinator = _coordinator(tmp_path)
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     plan = _quality_plan()
@@ -29,22 +29,22 @@ def test_full_article_and_repeated_recovery_use_seven_derivatives(tmp_path, monk
     state = coordinator.publication_state("work-1", plan)
     assert state["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert not state["recovery_required_destinations"]
-    assert set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) == {"telegram", "discord", "linkedin", "facebook_page", "instagram_business", "threads"}
+    assert set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) == {"telegram", "x", "discord", "linkedin", "facebook_page", "instagram_business", "threads"}
     for _ in range(3):
         assert coordinator.recover_pending()["backlog_remaining"] == 0
     x = store.list_outbox_messages(destination="x")
-    assert len(x) == 1 and x[0]["status"] == DEFINITE_NO_WRITE
-    assert "x" not in transport.publish_calls and "x" not in transport.readback_calls
+    assert len(x) == 1 and x[0]["status"] == DISPATCH_CONFIRMED
+    assert transport.publish_calls.count("x") == 1 and transport.readback_calls.count("x") == 1
     assert len([d for d in store.list_platform_dispatches() if d["platform"] == "x"]) == 1
     assert len(store.list_outbox_messages(destination="youtube")) == 1
     assert "youtube" not in transport.publish_calls and "youtube" not in transport.readback_calls
     with store.get_read_only_connection() as conn:
         assert conn.execute("SELECT count(*) FROM incidents WHERE severity='DISPATCH_FAILURE'").fetchone()[0] == 0
-    assert any(r["status"] == "X_NON_API_AUTOMATION_PROHIBITED" for r in store.get_reconciliations_for_work_item("work-1"))
+    assert not any(r["status"] == "X_NON_API_AUTOMATION_PROHIBITED" for r in store.get_reconciliations_for_work_item("work-1"))
 
 
 @pytest.mark.parametrize("status", [DISPATCH_CONFIRMED, UNKNOWN_WRITE])
-@pytest.mark.parametrize("destination", ["x", "youtube"])
+@pytest.mark.parametrize("destination", ["youtube"])
 def test_existing_x_identity_and_uncertainty_survive_without_neo(tmp_path, status, destination):
     store, transport, coordinator = _coordinator(tmp_path)
     plan = _plan(destination)
@@ -60,17 +60,21 @@ def test_existing_x_identity_and_uncertainty_survive_without_neo(tmp_path, statu
     assert not transport.publish_calls and not transport.readback_calls
 
 
-def test_x_probes_readback_and_status_agent_route_are_retired():
-    manager = DestinationReadinessManager(neo_readiness_provider=fail)
+def test_x_probes_and_status_agent_flags_are_restored():
+    calls = []
+    def probe(surface):
+        calls.append(surface)
+        return {"authenticated": True, "public_handle": "@Capitalnicle",
+                "native_executor_bound": True, "proof_fresh": True, "observation_sha256": "a" * 64}
+    manager = DestinationReadinessManager(neo_readiness_provider=probe)
     for surface in ("X_POST", "X_THREAD"):
-        assert manager.probe_surface(surface)["sanitized_detail"]["reason_code"] == "X_NON_API_AUTOMATION_PROHIBITED"
-    assert neo.NeoDestinationHandoff(native_executor=fail).readback(destination="x", intent={}, public_object_id="1", public_object_url=None)["verified"] is False
-    assert posts.pending_x(None) == []
-    assert posts.start_x(None, "key", native_invocation_id="test")["x"]["reason_code"] == "X_NON_API_AUTOMATION_PROHIBITED"
+        assert manager.probe_surface(surface)["readiness_state"] == "READY_AUTHENTICATED"
+    assert calls == ["X_POST", "X_THREAD"]
     cli = Path(__file__).parents[1] / "scripts/plan_status_posts.py"
     result = subprocess.run([sys.executable, str(cli), "--help"], capture_output=True, text=True)
     assert result.returncode == 0
-    assert not any(flag in result.stdout for flag in ("--pending-x", "--x-start", "--x-begin", "--x-submit"))
+    assert all(flag in result.stdout for flag in ("--pending-x", "--x-start", "--x-begin", "--x-submit",
+                                                 "--pending-notes", "--notes-start"))
 
 
 def test_notice_reaches_public_copy_and_fact_card():
@@ -110,7 +114,7 @@ def test_quality_pack_maps_seven_and_detects_a_missing_destination():
 
 
 @pytest.mark.parametrize("action", ["READBACK", "VERIFY_IDENTITY"])
-def test_saved_x_browser_request_never_reaches_an_agent(tmp_path, action):
+def test_saved_x_browser_request_is_available_to_the_agent(tmp_path, action):
     from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, SCHEMA
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     store, _, _ = _coordinator(tmp_path)
@@ -118,29 +122,28 @@ def test_saved_x_browser_request_never_reaches_an_agent(tmp_path, action):
         native_invocation_id="controlled", allow_publish=True)
     request = {"destination": "x", "action": action, "work_item_id": "work-1"}
     key = request["request_sha256"] = sha256_of(request)
-    executor._put(key, "request", {"schema_version": SCHEMA, "operation_id": "op", "request": request}, "work-1")
-    assert executor.pending() == []
-    with pytest.raises(ValueError, match="X_NON_API_AUTOMATION_PROHIBITED"):
-        executor.begin(key)
-    assert executor(request)["reason_code"] == "X_NON_API_AUTOMATION_PROHIBITED"
-    assert executor._get(key, "started") is None
+    executor._put(key, "request", {"schema_version": SCHEMA, "operation_id": "op", "request": request, "tool_request_sha256": key}, "work-1")
+    assert [p["request"]["request_sha256"] for p in executor.pending()] == [key]
+    assert executor.begin(key)["request"]["request_sha256"] == key
+    assert executor._get(key, "started") is not None
 
 
-def test_retired_x_uncertainty_does_not_veto_seven_destination_confirmation():
+def test_restored_x_uncertainty_requires_exact_readback():
     outcomes = {d: {"status": DISPATCH_CONFIRMED, "reconciliation_status": "RECONCILED_CONFIRMED",
         "public_object_id": d + "-real", "public_object_url": "https://capitalchronicle.substack.com/p/exact"}
         for d in V1_REQUIRED_PUBLICATION_DESTINATIONS}
     outcomes["x"] = {"status": UNKNOWN_WRITE, "public_object_id": "unchanged-id"}
     result = DurablePublicationCoordinator.publication_totals(outcomes)
-    assert result["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) and not result["recovery_required_destinations"]
-    assert result["retired_x_unknown_count"] == 1 and result["unknown_write_count"] == 0
-    assert not result["unknown_write_detected"]
+    assert result["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) - 1
+    assert "x" in result["recovery_required_destinations"]
+    assert result["retired_x_unknown_count"] == 0 and result["unknown_write_count"] == 1
+    assert result["unknown_write_detected"]
 
 
 def test_required_set_tracks_barred_transports_and_keeps_official_apis(monkeypatch):
     from dataclasses import replace
     from live_contentops import destination_transport_registry_v1 as registry
-    assert registry.required_derivative_destinations() == ("telegram", "discord", "linkedin", "facebook_page", "instagram_business", "threads")
+    assert registry.required_derivative_destinations() == ("telegram", "x", "discord", "linkedin", "facebook_page", "instagram_business", "threads")
     assert "linkedin" not in registry.barred_browser_destinations()
     assert "instagram_business" not in registry.barred_browser_destinations()
     monkeypatch.setitem(registry.SURFACE_REGISTRY, "THREADS_POST",

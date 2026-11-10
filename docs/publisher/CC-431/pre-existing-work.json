@@ -1,0 +1,14 @@
+{
+  "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": {
+    "size": 965015,
+    "sha256": "773a06f9f2f689a32855a0b100846d5d104d227e5129128b92a08edf1d42a204"
+  },
+  "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": {
+    "size": 7457,
+    "sha256": "0e72d11322d8bf710063b44ed758b89aa83ec4eda9845ec5a9cebf8dc5e91db4"
+  },
+  "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\live_contentops\\agy_editorial_assist_v1.py": {
+    "size": 19186,
+    "sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7"
+  }
+}

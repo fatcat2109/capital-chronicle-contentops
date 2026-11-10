@@ -1,0 +1,8 @@
+{
+  "process_id": 31564,
+  "started_local_gmt7": "2026-11-10T11:11:53+07:00",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "evidence_state": "CONFIGURED_NOT_OBSERVED",
+  "evidence": "Live codex process arguments; no supported actual-model runtime telemetry"
+}

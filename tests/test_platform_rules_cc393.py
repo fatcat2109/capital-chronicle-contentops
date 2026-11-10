@@ -141,7 +141,9 @@ def test_review_has_sources_for_every_route_and_matches_the_live_bar_list():
             assert rule["source_ids"] and set(rule["source_ids"]) <= sources.keys()
             if rule["status"] == "NOT_FOUND":
                 assert rule["search_queries"]
-    assert record["enforcement"]["neo_barred_destinations"] == handoff.NON_API_AUTOMATION_PROHIBITED
+    # The dated decision-109 source review stays exact; decision 112 restores X.
+    assert {k: v for k, v in record["enforcement"]["neo_barred_destinations"].items()
+            if k != "x"} == handoff.NON_API_AUTOMATION_PROHIBITED
     assert record["consumer"]["owner"] == "Ops Product"
 
 

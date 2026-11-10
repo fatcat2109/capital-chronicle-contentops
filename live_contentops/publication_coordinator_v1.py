@@ -1862,7 +1862,8 @@ class DurablePublicationCoordinator:
             "readback_limitation_destinations": sorted(d for d, o in derivatives.items()
                 if o.get("reconciliation_status") == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE),
             "retired_browser_unknown_count": sum(o.get("status") == UNKNOWN_WRITE for d,o in outcomes.items() if d in barred_browser_destinations()),
-            "retired_x_unknown_count": int((outcomes.get("x") or {}).get("status") == UNKNOWN_WRITE),
+            "retired_x_unknown_count": int("x" in barred_browser_destinations()
+                and (outcomes.get("x") or {}).get("status") == UNKNOWN_WRITE),
             "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d not in barred_browser_destinations()),
             "unknown_write_count": sum(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d not in barred_browser_destinations()),
             **({"additional_destinations": additional,
@@ -3695,7 +3696,8 @@ class DurablePublicationCoordinator:
                 for o in outcomes.values()
             ),
             "retired_browser_unknown_count": sum(o.get("status") == UNKNOWN_WRITE for d,o in outcomes.items() if d in barred_browser_destinations()),
-            "retired_x_unknown_count": int((outcomes.get("x") or {}).get("status") == UNKNOWN_WRITE),
+            "retired_x_unknown_count": int("x" in barred_browser_destinations()
+                and (outcomes.get("x") or {}).get("status") == UNKNOWN_WRITE),
             "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d not in barred_browser_destinations()),
         }
 
