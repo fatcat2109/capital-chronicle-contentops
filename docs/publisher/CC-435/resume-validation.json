@@ -1,0 +1,30 @@
+{
+  "recorded_at_utc": "2026-11-10T17:44:33.158258+00:00",
+  "runs": [
+    {
+      "artifact": "resume-targeted-pass.xml",
+      "passed": 63,
+      "failed": 0
+    },
+    {
+      "artifact": "coordinator-discord-regression.xml",
+      "passed": 128,
+      "failed": 2
+    },
+    {
+      "artifact": "final-consumer-regression.xml",
+      "passed": 101,
+      "failed": 0
+    },
+    {
+      "artifact": "native-route-pass.xml",
+      "passed": 142,
+      "failed": 0
+    }
+  ],
+  "unique_passing_cases": 357,
+  "unresolved_failed_cases": [],
+  "production_store_used_by_tests": false,
+  "single_pytest_process_at_a_time": true,
+  "schedules_changed": false
+}

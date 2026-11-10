@@ -244,7 +244,7 @@ def test_expiry_omitted_from_post_events_does_not_revive_a_setup(five, main_root
 
 def test_frozen_copy_survives_a_formatter_change_but_changed_intents_and_private_copy_do_not(monkeypatch):
     row = {"format": 4, "kind": "update", "key": "frozen-update", "conditional_calls": [],
-           "text": "Gold: the model position is open.\n\n" + cards.NOTICES}
+           "text": "Gold: the call is active.\n\n" + cards.NOTICES}
     native = {"full_text": row["text"]}
     monkeypatch.setattr(posts, "_expected", lambda *a: (row, {"discord": native}))
     monkeypatch.setattr(cards, "compose", lambda *a: pytest.fail("frozen text must not be recomposed"))

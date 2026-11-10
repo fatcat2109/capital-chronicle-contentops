@@ -356,17 +356,22 @@ class NeoDestinationHandoff:
             # No signed-in view at all: the public channel page is the only Telegram surface.
             value["steps"][1] = "read " + TELEGRAM_PUBLIC_FEED + " with no sign-in; match the channel name @CapitalChronicle"
             value["forbidden"] = value["forbidden"] + ["web.telegram.org", "signed_in_telegram_view"]
-        if destination == "substack_notes" and isinstance(native_payload, Mapping) and native_payload.get("reply_to_id"):
+        if (destination == "substack_notes" or destination == "x" and intent.get("plan_analysis_link")) \
+                and isinstance(native_payload, Mapping) and native_payload.get("reply_to_id"):
             parent_id, parent_url = native_payload["reply_to_id"], native_payload.get("reply_to_url")
             if not _public_url(destination, parent_url, parent_id):
-                raise ValueError("SUBSTACK_NOTE_REPLY_PARENT_URL_INVALID")
+                raise ValueError("X_REPLY_PARENT_URL_INVALID" if destination == "x" else "SUBSTACK_NOTE_REPLY_PARENT_URL_INVALID")
             value["entry_url"] = parent_url
             value["reply_parent"] = {"public_object_id": parent_id, "public_object_url": parent_url}
-            value["steps"].insert(3,
+            value["steps"].insert(3, (
+                "Open the exact reply_parent call card and use its reply composer. The first post replies to that "
+                "card, and later posts continue that reply thread. Return observed_reply_parent_id and "
+                "observed_reply_parent_url from the first reply's visible parent; READBACK verifies both."
+                if destination == "x" else
                 "Open the exact reply_parent note and use its reply composer. Never create a top-level note for "
                 "this request. If the reply composer cannot attach the bound card image, return a definite "
                 "no-write with SUBSTACK_NOTE_REPLY_IMAGE_UNSUPPORTED. Return observed_reply_parent_id and "
-                "observed_reply_parent_url from the published reply's visible parent; READBACK verifies both.")
+                "observed_reply_parent_url from the published reply's visible parent; READBACK verifies both."))
         if destination == "linkedin" and auth.get("linkedin_api_prewrite_failure"):
             value["linkedin_api_prewrite_failure"] = auth["linkedin_api_prewrite_failure"]
         if content_binding.get("expected_link_card_url"):
@@ -508,7 +513,8 @@ class NeoDestinationHandoff:
         parent = request.get("reply_parent")
         if parent and (result.get("observed_reply_parent_id") != parent["public_object_id"]
                        or result.get("observed_reply_parent_url") != parent["public_object_url"]):
-            return {**result, "status": "UNKNOWN_WRITE", "reason_code": "SUBSTACK_NOTE_REPLY_PARENT_UNVERIFIED",
+            return {**result, "status": "UNKNOWN_WRITE", "reason_code": (
+                    "X_REPLY_PARENT_UNVERIFIED" if destination == "x" else "SUBSTACK_NOTE_REPLY_PARENT_UNVERIFIED"),
                     "retry_permitted": False}
         policy = request.get("substack_delivery_policy")
         if policy and str(result.get("status", "")).upper() in {"SUCCESS", "PUBLISHED", "DISPATCH_CONFIRMED"}:
@@ -726,7 +732,7 @@ class NeoDestinationHandoff:
                 "meaningful_media_visible": bool(expected_media and media_match),
                 "canonical_publication_verified": canonical_present,
                 "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match,
-                                           "link_card_match": bool(link_card_match)}}
+                    **({"link_card_match": bool(link_card_match)} if binding.get("expected_link_card_url") else {})}}
 
 
 def destination_setup_projection(*, env=None, now=None, linkedin_root=None):

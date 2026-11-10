@@ -98,8 +98,10 @@ def main(argv=None) -> int:
             python=child_python(), dry_run=args.dry_run)}
         result["status"] = "OK" if result["scorecard"]["status"] in {"CONFIRMED", "PREVIEW"} else "SCORECARD_NOT_CONFIRMED"
     else:
+        from live_contentops.instagram_adapter_v6 import readback_analysis_profile_link
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
                              render_all=args.dry_run,
+                             instagram_profile_reader=readback_analysis_profile_link if args.publish and not args.dry_run else None,
                              main_root=args.main_root, python=child_python())
         if args.dry_run:
             result["validation"] = "PASS" if result["status"] == "OK" else "FAIL"

@@ -299,7 +299,7 @@ def destinations_for(row):
     # LinkedIn receives the run and its links, rather than one duplicate root
     # for every card in that run (CC-435).
     return tuple(d for d in DESTINATIONS if d != "linkedin" or (
-        row["kind"] == "run" and row.get("analysis_distribution_version")))
+        row.get("kind") == "run" and row.get("analysis_distribution_version")))
 
 
 def _run_summary(row, lead, limit):
@@ -379,7 +379,8 @@ def _result_rows(export):
     return result
 
 
-def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, render_all=False, **reader):
+def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, render_all=False,
+                instagram_profile_reader=None, **reader):
     if render_all and not dry_run:
         raise ValueError("PLAN_EXPORT_REPLAY_REQUIRES_DRY_RUN")
     try:
@@ -455,6 +456,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         return item
 
     groups = {}
+    profile_link = None
     for pid, row in latest.items():
         if pid in cards or current_states.get(pid) not in posts.ACTIVE or row.get("superseded_by_fill"):
             continue
@@ -483,10 +485,15 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             item["reasons_cause"] = None if item["reasons"] else "PUBLIC_REASONS_NOT_SUPPLIED_OR_NUMBER_MISMATCH"
             item.update(compose(item))
         if run_key not in prior:
+            if profile_link is None:
+                profile_link = ({"verified": False, "cause": "INSTAGRAM_PROFILE_ANALYSIS_LINK_NOT_VERIFIED"}
+                                if instagram_profile_reader is None else instagram_profile_reader())
             run = {"schema_version": posts.SCHEMA, "format": FORMAT, "key": run_key, "kind": "run",
                    "symbol": "MULTI", "plan_id": run_key, "state": "RUN", "at_utc": min(m["at_utc"] for m in members),
                    "card_keys": [m["key"] for m in members], "source_content_hash": export["status"].get("content_hash"),
                    "source_contract_version": version, "analysis_distribution_version": 1,
+                   "instagram_profile_link_verified": profile_link.get("verified") is True,
+                   "instagram_profile_link_cause": profile_link.get("cause"),
                    "analysis_publications": [{"title": m["instrument_title"], **m["analysis_publication"]}
                                              for m in members if m.get("analysis_publication")]}
             run.update(compose(run))
@@ -653,16 +660,30 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None):
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000,
               "linkedin": 3000}
-    if (row.get("analysis_publication") or {}).get("canonical_url"):
+    if (row.get("analysis_publication") or {}).get("canonical_url") or row.get("analysis_publications"):
         # Decision 113: use Telegram's text allowance with the hosted card as
         # its explicit large preview, rather than the photo caption allowance.
         limits["telegram"] = 4096
     for destination in destinations_for(row):
         text = row["text"]
+        if destination == "threads" and row["kind"] == "run" and row.get("analysis_publications"):
+            root = row["lead"] + "\n\n" + NOTICES
+            replies = [_run_summary({"analysis_publications": [analysis]}, "",
+                                    500 - len(NOTICES) - 2).lstrip() + "\n\n" + NOTICES
+                       for analysis in row["analysis_publications"]]
+            for part in (root, *replies):
+                check_publication_copy({"body": part}, conditional_calls=[])
+                if len(part) > 500:
+                    raise posts.PlanPostError("PLAN_CARD_COPY_TOO_LONG:threads")
+            result[destination] = {"destination": destination, "text": root, "root_text": root,
+                "reply_texts": replies, "full_text": "\n\n".join([root, *replies]), "media_asset_ids": [card_id]}
+            continue
         if row["kind"] == "run" and row.get("analysis_publications") and destination != "x":
             text = _run_summary(row, row["lead"], limits[destination] - len(NOTICES) - 2) + "\n\n" + NOTICES
         if destination == "instagram_business" and row["kind"] == "run" and row.get("analysis_publications"):
-            caption = "Full analysis: link in our profile; each plan's link is in the comments."
+            caption = ("Full analysis: link in our profile; each plan's link is in the comments."
+                       if row.get("instagram_profile_link_verified") else
+                       "Each plan's full-analysis link is in the comments.")
             body = _run_summary(row, row["lead"], limits[destination] - len(NOTICES) - len(caption) - 3)
             text = body + "\n" + caption + "\n\n" + NOTICES
         if destination == "x":

@@ -674,7 +674,7 @@ def _recoverable(payload, recoveries, now) -> bool:
 
 def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = None,
                 window_minutes: int = POSTING_WINDOW_MINUTES, dry_run: bool = False,
-                render_all: bool = False, **reader) -> dict:
+                render_all: bool = False, instagram_profile_reader=None, **reader) -> dict:
     """Register one outbox row per new transition for the six markets; repeats change nothing.
 
     The export carries every plan's whole history (back to 27 Oct on 5 Nov). A status post is
@@ -689,7 +689,8 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     from live_contentops import plan_call_cards_v1 as cards
     if now >= cards.EFFECTIVE:
         return cards.queue_posts(store, export_dir, now=now, window_minutes=window_minutes,
-                                 dry_run=dry_run, render_all=render_all, **reader)
+                                 dry_run=dry_run, render_all=render_all,
+                                 instagram_profile_reader=instagram_profile_reader, **reader)
     limit = EXPORT_MAX_AGE_MINUTES
     freshness = {}
     try:

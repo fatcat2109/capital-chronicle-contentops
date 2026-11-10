@@ -12,6 +12,7 @@ from live_contentops import plan_status_posts_v1 as posts
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
 from test_plan_analysis_pages_cc432 import source, rendered  # noqa: F401
+from test_plan_call_cards_cc399 import five, main_root  # noqa: F401
 
 
 def confirm(store, key, plan_hash, destination, number, url):
@@ -106,6 +107,32 @@ def test_x_reply_thread_keeps_all_sections_links_and_weighted_limits(ready):
     assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
 
 
+@pytest.mark.parametrize("parent", ["correct", "wrong", "missing"])
+def test_x_analysis_readback_requires_the_original_card_parent(parent):
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff, IDENTITIES
+    parent_id, parent_url = "2120015650529964275", "https://x.com/Capitalnicle/status/2120015650529964275"
+    post_id, post_url = "2120015650529964299", "https://x.com/Capitalnicle/status/2120015650529964299"
+    intent = {"work_item_id": "analysis-reply", "plan_analysis_link": "analysis-reply",
+        "canonical_url": "https://capitalchronicle.substack.com/p/full-plan",
+        "native_payload": {"text": "The original plan analysis", "full_text": "The original plan analysis",
+                           "reply_to_id": parent_id, "reply_to_url": parent_url}}
+    requests = []
+    def observed(request):
+        requests.append(request)
+        result = {"request_sha256": request["request_sha256"], "status": "SUCCESS", "observed_identity": IDENTITIES["x"],
+            "public_object_id": post_id, "public_object_url": post_url, "content_verified": True,
+            "observed_text": intent["native_payload"]["text"]}
+        if parent != "missing":
+            result.update(observed_reply_parent_id=parent_id if parent == "correct" else "wrong",
+                          observed_reply_parent_url=parent_url)
+        return result
+    result = NeoDestinationHandoff(native_executor=observed).readback(destination="x", intent=intent,
+        public_object_id=post_id, public_object_url=post_url)
+    assert requests[0]["entry_url"] == parent_url
+    assert requests[0]["reply_parent"] == {"public_object_id": parent_id, "public_object_url": parent_url}
+    assert result["verified"] is (parent == "correct")
+
+
 @pytest.mark.parametrize("card", ["correct", "wrong", "missing"])
 def test_note_needs_its_own_visible_canonical_link_card(ready, card):
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff, IDENTITIES
@@ -162,7 +189,8 @@ def test_linkedin_index_keeps_all_links_with_source_bound_summary_and_no_duplica
 
 def test_new_instagram_run_caption_and_linkedin_run_have_the_confirmed_links():
     run = {"kind": "run", "at_utc": "2026-11-10T13:00:00Z", "card_keys": ["one"],
-        "analysis_distribution_version": 1, "analysis_publications": [{"title": "EUR/USD", "summary": {"macro": "Rates drive the view."},
+        "analysis_distribution_version": 1, "instagram_profile_link_verified": True,
+        "analysis_publications": [{"title": "EUR/USD", "summary": {"macro": "Rates drive the view."},
             "canonical_url": "https://capitalchronicle.substack.com/p/the-original-view"}]}
     run.update(cards.compose(run))
     payloads = cards.destination_payloads(run, card_id="card")
@@ -171,6 +199,50 @@ def test_new_instagram_run_caption_and_linkedin_run_have_the_confirmed_links():
     assert "Macro: Rates drive the view." in payloads["linkedin"]["text"]
     assert "Full analysis:" in payloads["x"]["full_text"]
     assert "Macro: Rates drive the view." in payloads["x"]["full_text"]
+    run["instagram_profile_link_verified"] = False
+    caption = cards.destination_payloads(run, card_id="card")["instagram_business"]["text"]
+    assert "link in our profile" not in caption
+    assert "link is in the comments" in caption
+
+
+@pytest.mark.parametrize("website,username,verified", [
+    ("https://capitalchronicle.substack.com/", "official.capitalchronicle", True),
+    ("https://capitalchronicle.substack.com/archive", "official.capitalchronicle", True),
+    ("", "official.capitalchronicle", False),
+    ("https://capitalchronicle.substack.com/p/one-article", "official.capitalchronicle", False),
+    ("https://capitalchronicle.substack.com.evil.test/", "official.capitalchronicle", False),
+    ("https://capitalchronicle.substack.com/", "someone_else", False),
+])
+def test_profile_caption_uses_an_official_identity_and_publication_index(monkeypatch, website, username, verified):
+    from live_contentops import instagram_adapter_v6 as adapter
+    monkeypatch.setattr(adapter, "_instagram_token", lambda: "fixture")
+    monkeypatch.setattr(adapter, "_instagram_id", lambda: "account-fixture")
+    monkeypatch.setattr(adapter, "_get_json", lambda *a: {"website": website, "username": username})
+    assert adapter.readback_analysis_profile_link()["verified"] is verified
+
+
+def test_scheduled_queue_binds_profile_readback_and_keeps_all_run_links(five, main_root):
+    from test_plan_call_cards_cc399 import write, queue, rows
+    store, folder, plans, events = five
+    for index, raw in enumerate(plans):
+        raw["registration_hash"] = "b" * 64
+        raw["analysis_publication"] = {"plan_id": raw["plan_id"], "registration_hash": "b" * 64,
+            "canonical_url": "https://capitalchronicle.substack.com/p/the-full-original-analysis-for-plan-" + str(index),
+            "summary": {key: "The source-bound explanation remains conditional." for key, _ in pages.SECTIONS}}
+    write(folder, plans, events)
+    calls = []
+    def profile():
+        calls.append(True)
+        return {"verified": True, "cause": None}
+    queue(store, folder, main_root, instagram_profile_reader=profile)
+    assert calls == [True]
+    run = next(r for r in rows(store) if r["kind"] == "run")
+    assert run["instagram_profile_link_verified"] is True
+    payloads = cards.destination_payloads(run, card_id="run-card")
+    assert len(payloads["threads"]["reply_texts"]) == len(plans)
+    assert all(len(text) <= 500 for text in [payloads["threads"]["text"], *payloads["threads"]["reply_texts"]])
+    for payload in payloads.values():
+        assert all(raw["analysis_publication"]["canonical_url"] in payload["full_text"] for raw in plans)
 
 
 def test_new_discord_analysis_inherits_confirmed_card_channel_route(ready):

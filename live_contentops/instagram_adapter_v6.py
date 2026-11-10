@@ -70,6 +70,24 @@ def _get_json(url: str, payload: dict[str, Any]) -> dict[str, Any]:
         return json.loads(response.read().decode("utf-8"))
 
 
+def readback_analysis_profile_link() -> dict[str, Any]:
+    """Read the public website through the authorized API; never edit the profile."""
+    token, account = _instagram_token(), _instagram_id()
+    if not token or not account:
+        return {"verified": False, "cause": "INSTAGRAM_PROFILE_API_BINDING_UNAVAILABLE"}
+    try:
+        value = _get_json(f"https://graph.facebook.com/{GRAPH_VERSION}/{account}",
+            {"fields": "id,username,website", "access_token": token})
+    except Exception as error:
+        return {"verified": False, "cause": "INSTAGRAM_PROFILE_READBACK_UNAVAILABLE",
+                "error_class": type(error).__name__}
+    url = urllib.parse.urlsplit(str(value.get("website") or ""))
+    verified = (str(value.get("username") or "").casefold() == "official.capitalchronicle"
+                and url.scheme == "https" and url.hostname == "capitalchronicle.substack.com"
+                and url.path.rstrip("/") in {"", "/archive"} and not url.username and not url.password)
+    return {"verified": verified, "cause": None if verified else "INSTAGRAM_PROFILE_ANALYSIS_LINK_MISSING"}
+
+
 def compile_instagram_media_payload(image_url: str, caption: str) -> dict[str, Any]:
     """Compiles the payload for creating an Instagram media container."""
     return {"image_url": image_url, "caption": caption}
