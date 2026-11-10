@@ -16,7 +16,7 @@ import pytest
 
 from live_contentops import plan_status_posts_v1 as posts
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
-from test_plan_status_posts_cc306 import export, main_root  # noqa: F401
+from test_plan_status_posts_cc306 import export, main_root, write_export  # noqa: F401
 
 WRITTEN = datetime(2026, 11, 5, 12, 29, 50, tzinfo=timezone.utc)
 
@@ -109,10 +109,7 @@ def test_a_refused_unreadable_export_is_recorded_too(tmp_path, main_root, monkey
     cli = cli_module()
     store_path = tmp_path / "store.sqlite3"
     ContentOpsDurableStore(store_path)
-    folder = tmp_path / "bad"
-    folder.mkdir()
-    (folder / "plan-status.public.json").write_text(json.dumps({"tampered": True}), encoding="utf-8")
-    (folder / "plan-transitions.public.json").write_text("{}", encoding="utf-8")
+    folder = write_export(tmp_path / "bad", [], [], tampered=True)
     code, result = run_cli(monkeypatch, cli, store_path, folder, main_root, WRITTEN)
     assert code == 1 and result["status"] == "EXPORT_UNREADABLE"
     [line] = records(store_path)
@@ -137,10 +134,7 @@ def test_the_x_route_reads_the_export_with_the_limit_and_a_stale_file_extends_no
 
 
 def test_a_broken_export_still_stops_the_x_route(tmp_path, main_root, monkeypatch):
-    folder = tmp_path / "bad"
-    folder.mkdir()
-    (folder / "plan-status.public.json").write_text(json.dumps({"tampered": True}), encoding="utf-8")
-    (folder / "plan-transitions.public.json").write_text("{}", encoding="utf-8")
+    folder = write_export(tmp_path / "bad", [], [], tampered=True)
     monkeypatch.setattr(posts, "EXPORT_DIR", folder)
     monkeypatch.setattr(posts, "MAIN_ROOT", main_root)
     with pytest.raises(posts.PlanPostError, match="PLAN_EXPORT_UNREADABLE"):

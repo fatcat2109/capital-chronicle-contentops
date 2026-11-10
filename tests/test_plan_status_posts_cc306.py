@@ -71,9 +71,11 @@ def event(plan_id, status, at, reason=None):
 
 def write_export(folder, plans, events, *, tampered=False):
     folder.mkdir(parents=True, exist_ok=True)
-    status = {"generated_at_utc": "2026-11-05T12:29:50Z", "plans": plans, "content_hash": "s" * 64,
+    status = {"schema": "CapitalChroniclePlanStatusV1", "schema_version": "1.0.0",
+              "generated_at_utc": "2026-11-05T12:29:50Z", "plans": plans, "content_hash": "s" * 64,
               **({"tampered": True} if tampered else {})}
-    transitions = {"generated_at_utc": status["generated_at_utc"], "status_content_hash": "s" * 64,
+    transitions = {"schema": "CapitalChroniclePlanTransitionsV1", "schema_version": "1.0.0",
+                   "generated_at_utc": status["generated_at_utc"], "status_content_hash": "s" * 64,
                    "transitions": events}
     (folder / "plan-status.public.json").write_text(json.dumps(status), encoding="utf-8")
     (folder / "plan-transitions.public.json").write_text(json.dumps(transitions), encoding="utf-8")

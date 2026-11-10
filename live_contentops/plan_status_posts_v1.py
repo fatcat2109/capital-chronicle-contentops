@@ -19,6 +19,10 @@ import re
 import unicodedata
 from typing import Any, Mapping
 
+from .plan_status_export_contract_v1 import (
+    PlanExportContractError, rejected_export, validate_export_contract,
+)
+
 from live_contentops.event_article_guard_v1 import (
     CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy, conditional_call_text,
     public_execution_copy_forbidden,
@@ -87,12 +91,18 @@ def read_export(export_dir: Path = EXPORT_DIR, *, main_root: Path = MAIN_ROOT, p
     """Both export documents, validated and joined by CC-307's own read_public_transitions."""
     import subprocess
     import sys
+    # Diagnose consumer field/version changes before the producer's generic
+    # schema/hash refusal. Validate the actual returned snapshot again below.
+    validate_export_contract({"status": json.loads((Path(export_dir) / "plan-status.public.json").read_bytes()),
+                              "transitions": json.loads((Path(export_dir) / "plan-transitions.public.json").read_bytes())})
     flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
     for attempt in (1, 2):
         done = subprocess.run([python or sys.executable, "-B", "-c", _READER, str(export_dir)], cwd=str(main_root),
                               capture_output=True, text=True, encoding="utf-8", timeout=120, creationflags=flags)
         if done.returncode == 0:
-            return json.loads(done.stdout)
+            export = json.loads(done.stdout)
+            validate_export_contract(export)
+            return export
         cause = (done.stderr.strip().splitlines() or ["PLAN_EXPORT_READER_FAILED"])[-1]
         # The two files are replaced one after the other each minute: one bounded reread.
         if attempt == 1 and "SNAPSHOT_MISMATCH" in cause:
@@ -663,7 +673,8 @@ def _recoverable(payload, recoveries, now) -> bool:
 
 
 def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = None,
-                window_minutes: int = POSTING_WINDOW_MINUTES, dry_run: bool = False, **reader) -> dict:
+                window_minutes: int = POSTING_WINDOW_MINUTES, dry_run: bool = False,
+                render_all: bool = False, **reader) -> dict:
     """Register one outbox row per new transition for the six markets; repeats change nothing.
 
     The export carries every plan's whole history (back to 27 Oct on 5 Nov). A status post is
@@ -673,14 +684,18 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
     nothing is queued, and the caller posts nothing in that run.
     """
     now = now or datetime.now(timezone.utc)
+    if render_all and not dry_run:
+        raise ValueError("PLAN_EXPORT_REPLAY_REQUIRES_DRY_RUN")
     from live_contentops import plan_call_cards_v1 as cards
     if now >= cards.EFFECTIVE:
         return cards.queue_posts(store, export_dir, now=now, window_minutes=window_minutes,
-                                 dry_run=dry_run, **reader)
+                                 dry_run=dry_run, render_all=render_all, **reader)
     limit = EXPORT_MAX_AGE_MINUTES
     freshness = {}
     try:
         rows = read_transitions(export_dir, now=now, max_age_minutes=limit, freshness=freshness, **reader)
+    except PlanExportContractError as exc:
+        return rejected_export(store, exc, dry_run=dry_run)
     except (OSError, ValueError, KeyError, TypeError) as exc:
         cause = str(exc) if isinstance(exc, PlanPostError) else type(exc).__name__
         if cause.startswith(STALE_EXPORT):
@@ -852,6 +867,8 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
         published[post.get("status")] = published.get(post.get("status"), 0) + 1
     line = {"at_utc": now.isoformat().replace("+00:00", "Z"), "status": result.get("status"),
             "cause": result.get("cause"),
+            "contract_version": result.get("contract_version"), "failed_field": result.get("failed_field"),
+            "incident_id": result.get("incident_id"),
             "export_generated_at_utc": result.get("export_generated_at_utc"),
             "export_age_seconds": result.get("export_age_seconds"),
             "max_export_age_minutes": result.get("max_export_age_minutes"),

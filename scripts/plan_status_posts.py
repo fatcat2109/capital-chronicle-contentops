@@ -5,8 +5,11 @@
 
 Reads Main's plan-status export through CC-307's own reader (read_public_status and
 read_public_transitions, run in Main's live root) and registers one READY_FOR_PUBLISHER outbox
-row per new transition in the ContentOps store. Repeats change nothing. --dry-run writes no
-shared state and prints the rows it would queue. No public write here.
+row per new transition in the ContentOps store. Repeats change nothing. --publish continues
+through the existing coordinator. --dry-run uses SQLite read-only access, renders each
+candidate and retained format-4 post through the destination compiler, and reports
+validation PASS/FAIL with a failing field path. It queues, publishes and records nothing,
+including when --publish is also supplied.
 
 An export written more than 10 minutes before the run is refused (EXPORT_STALE): nothing is
 queued or posted in that run. Every run except a dry run appends one line (status, cause, the
@@ -29,6 +32,11 @@ from live_contentops.plan_status_posts_v1 import (  # noqa: E402
 from live_contentops.published_content_v1 import PRODUCTION_STORE  # noqa: E402
 
 
+class _ReadOnlyStore(ContentOpsDurableStore):
+    """Reuse the existing store's reads with SQLite enforcing no writes."""
+    get_connection = ContentOpsDurableStore.get_read_only_connection
+
+
 def child_python() -> str:
     # Under pythonw the reader child still needs a console-less interpreter with jsonschema.
     here = Path(sys.executable)
@@ -38,7 +46,7 @@ def child_python() -> str:
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--dry-run", action="store_true", help="validate the export and render posts without writes")
     parser.add_argument("--export-dir", type=Path, default=EXPORT_DIR)
     parser.add_argument("--store", type=Path, default=PRODUCTION_STORE)
     parser.add_argument("--window-minutes", type=int, default=POSTING_WINDOW_MINUTES)
@@ -55,8 +63,12 @@ def main(argv=None) -> int:
     parser.add_argument("--notes-submit", nargs=3, metavar=("KEY", "REQUEST_SHA256", "RESPONSE_JSON"))
     parser.add_argument("--native-invocation-id", default="")
     args = parser.parse_args(argv)
-    store = ContentOpsDurableStore(str(args.store), auto_migrate=False)
+    store_type = _ReadOnlyStore if args.dry_run else ContentOpsDurableStore
+    store = store_type(args.store, auto_migrate=False)
     from live_contentops import plan_status_posts_v1 as posts
+    if args.dry_run and (args.pending_x or args.x_start or args.x_begin or args.x_submit
+                         or args.pending_notes or args.notes_start or args.notes_begin or args.notes_submit):
+        parser.error("--dry-run renders the export; use it without agent request actions")
     if (args.pending_x or args.x_start or args.x_begin or args.x_submit
             or args.pending_notes or args.notes_start or args.notes_begin or args.notes_submit):
         if args.pending_x or args.pending_notes:
@@ -79,7 +91,10 @@ def main(argv=None) -> int:
 
     else:
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
+                             render_all=args.dry_run,
                              main_root=args.main_root, python=child_python())
+        if args.dry_run:
+            result["validation"] = "PASS" if result["status"] == "OK" else "FAIL"
         if args.publish and not args.dry_run and result["status"] == "OK":
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                                                        active_recoveries=result.get("active_recoveries"))

@@ -1,0 +1,10 @@
+{
+ "cause": "PLAN_EXPORT_CONTRACT_FIELD_INVALID: status.plans[0].zone: missing required field; contract=legacy/schema-1.0.0",
+ "contract_version": "legacy/schema-1.0.0",
+ "dry_run": true,
+ "failed_field": "status.plans[0].zone",
+ "incident_id": "plan-export-contract-d3a5b0b8c2690f70fc5c32d8b39b8b28",
+ "incident_recorded": false,
+ "status": "EXPORT_CONTRACT_REJECTED",
+ "validation": "FAIL"
+}

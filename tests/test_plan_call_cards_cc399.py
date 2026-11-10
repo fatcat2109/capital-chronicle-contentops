@@ -29,10 +29,13 @@ def call(pid, asset="EURUSD", **changes):
 
 def write(folder, plans, events, **fields):
     folder.mkdir(parents=True, exist_ok=True)
-    status = {"generated_at_utc": NOW.isoformat(), "plans": plans, "content_hash": "a" * 64,
+    status = {"schema": "CapitalChroniclePlanStatusV1", "schema_version": "1.0.0",
+              "generated_at_utc": NOW.isoformat(), "plans": plans, "content_hash": "a" * 64,
               "record_summary": {"judged_count": 12, "right_count": 7, "trend_rule_right_count": 5}, **fields}
     (folder / "plan-status.public.json").write_text(json.dumps(status), encoding="utf-8")
-    (folder / "plan-transitions.public.json").write_text(json.dumps({"status_content_hash": "a" * 64,
+    (folder / "plan-transitions.public.json").write_text(json.dumps({
+        "schema": "CapitalChroniclePlanTransitionsV1", "schema_version": "1.0.0",
+        "generated_at_utc": status["generated_at_utc"], "status_content_hash": "a" * 64,
         "transitions": events}), encoding="utf-8")
     return folder
 

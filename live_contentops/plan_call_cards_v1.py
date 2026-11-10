@@ -343,9 +343,12 @@ def _result_rows(export):
     return result
 
 
-def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **reader):
+def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, render_all=False, **reader):
+    if render_all and not dry_run:
+        raise ValueError("PLAN_EXPORT_REPLAY_REQUIRES_DRY_RUN")
     try:
         export = posts.read_export(export_dir, **reader)
+        version = posts.validate_export_contract(export)
         freshness = posts.export_freshness(export, now)
         if freshness["export_age_seconds"] > posts.EXPORT_MAX_AGE_MINUTES * 60:
             return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
@@ -358,6 +361,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
                    (publication := confirmed_publication(store, raw)) else {})}
                    for pid, raw in sources.items()}
         records = record_line(export["status"])
+    except posts.PlanExportContractError as exc:
+        return posts.rejected_export(store, exc, dry_run=dry_run)
     except (OSError, ValueError, KeyError, TypeError) as exc:
         return {"status": "EXPORT_UNREADABLE", "cause": str(exc) if isinstance(exc, posts.PlanPostError) else type(exc).__name__}
     existing_rows = store.list_outbox_messages(destination=posts.DESTINATION)
@@ -388,6 +393,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
                 "registered_at_utc": plan.get("registered_at_utc") or row["at_utc"],
                 "time_exit_utc": plan.get("time_exit_utc"), "entry_deadline_utc": plan.get("entry_deadline_utc"),
                 "source_content_hash": export["status"].get("content_hash"),
+                "source_contract_version": version,
                 "source_plan_hash": raw.get("registration_hash"), "reasons": []}
         analysis, cause = analysis_publication(raw)
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
@@ -424,7 +430,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
         if run_key not in prior:
             run = {"schema_version": posts.SCHEMA, "format": FORMAT, "key": run_key, "kind": "run",
                    "symbol": "MULTI", "plan_id": run_key, "state": "RUN", "at_utc": min(m["at_utc"] for m in members),
-                   "card_keys": [m["key"] for m in members], "source_content_hash": export["status"].get("content_hash")}
+                   "card_keys": [m["key"] for m in members], "source_content_hash": export["status"].get("content_hash"),
+                   "source_contract_version": version}
             run.update(compose(run))
             payloads.append(run)
         payloads.extend(members)
@@ -470,8 +477,29 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
         item.update(compose(item))
         payloads.append(item)
 
-    queued = []
-    for item in payloads:
+    queued, rendered = [], []
+    render_items = []
+    if render_all:
+        # Render the frozen cards too, without altering the queue's duplicate,
+        # parent or fill decisions. A preview must never invent a new setup
+        # for an already-announced plan whose latest transition is a fill.
+        retained = [json.loads(row["payload"]) for row in existing_rows]
+        retained = [row for row in retained if row.get("format") == FORMAT]
+        card_keys = {row["key"] for row in retained if row.get("plan_id") in sources}
+        render_items = [row for row in retained if row["key"] in card_keys or
+                        (row.get("kind") == "run" and card_keys.intersection(row.get("card_keys") or []))]
+    items = {item["key"]: item for item in [*render_items, *payloads]}
+    for item in items.values():
+        if render_all:
+            try:
+                item = {**item, **compose(item)}
+                copies = destination_payloads(item, card_id="dry-run-" + item["key"])
+            except posts.PlanPostError as exc:
+                return {"status": "RENDER_FAILED", "cause": str(exc),
+                        "failed_field": "posts." + item["key"] + ".destinations",
+                        "contract_version": version}
+            rendered.append({"key": item["key"], "kind": item["kind"], "text": item["text"],
+                             "destinations": copies})
         if item["key"] in prior:
             already.append(item["key"])
             continue
@@ -482,6 +510,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, **r
                 destination=posts.DESTINATION, payload=json.dumps(item, sort_keys=True, ensure_ascii=False), status=posts.READY)
         queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text")})
     return {"status": "OK", "dry_run": dry_run, "format": FORMAT, **freshness,
+            "contract_version": version, "source_content_hash": export["status"].get("content_hash"),
+            **({"rendered_posts": rendered, "rendered_count": len(rendered)} if render_all else {}),
             "max_export_age_minutes": posts.EXPORT_MAX_AGE_MINUTES, "transitions_read": len(source_rows),
             "latest_states": {p: r["to"] for p, r in latest.items()}, "active_recoveries": {},
             "would_queue" if dry_run else "queued": queued, "already_queued": already, "not_posted": skipped}

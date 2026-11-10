@@ -1,0 +1,2019 @@
+{
+ "active_recoveries": {},
+ "already_queued": [
+  "plan-status-post-75c71303cc66652abed6a2f06ee59536",
+  "plan-status-post-8cbf9fb0b4cfc1bbbc886b71ba16cb52",
+  "plan-status-post-bfa6c39bd61d07e98351a77a2f4a2fbb",
+  "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+  "plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048",
+  "plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3",
+  "plan-result-post-a8dc64408d816fc67f764a0aedd02bb9",
+  "plan-result-post-cef8beddd4a508e9fb45e81b95883ba4",
+  "plan-result-post-91e901549fa0f118686df4f9bc23f69a",
+  "plan-result-post-57d1814f092cfdd78ad52daa200892fc",
+  "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+  "plan-result-post-cbea6a9037c9470ba5ed3f949b3e1665",
+  "plan-result-post-2da6b8e0185e7615a8a4e308bddf8be8",
+  "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+  "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+  "plan-status-post-8b6c626e80328a3961f2f02e6e387303",
+  "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+  "plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048",
+  "plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3",
+  "plan-result-post-a8dc64408d816fc67f764a0aedd02bb9",
+  "plan-result-post-cef8beddd4a508e9fb45e81b95883ba4",
+  "plan-result-post-91e901549fa0f118686df4f9bc23f69a",
+  "plan-result-post-57d1814f092cfdd78ad52daa200892fc",
+  "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+  "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+  "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+  "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+  "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+  "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+  "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+  "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+  "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+  "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+  "plan-status-post-db646ed3d49d25c3cdad42ee1155fb30",
+  "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+  "plan-status-post-8b6c626e80328a3961f2f02e6e387303",
+  "plan-status-post-ee2f674c376652d6ad4258e959eb8a82"
+ ],
+ "contract_version": "legacy/schema-1.0.0",
+ "dry_run": true,
+ "export_age_seconds": 61.2,
+ "export_generated_at_utc": "2026-11-10T09:14:04.635467Z",
+ "format": 4,
+ "latest_states": {
+  "plan_09125dacd06e67f5030fcba6": "VIEW_CHANGED",
+  "plan_1150f22c3ee156366aee910f": "EXPIRED",
+  "plan_12955d4b3962415396e851cc": "WAITING",
+  "plan_1b731dfb43d0baa7c04e3eb6": "VIEW_CHANGED",
+  "plan_1dfad1e7f425faf5960f3d08": "INVALIDATED",
+  "plan_1dfbc3e31e7901e2630b9f38": "VIEW_CHANGED",
+  "plan_204b49986f5608a251ee7699": "VIEW_CHANGED",
+  "plan_260016d7357fac80f5e83378": "CANCELLED",
+  "plan_26cb1eb8c72cbb8b45ce1396": "WAITING",
+  "plan_27f48ab340502cd04e337244": "WAITING",
+  "plan_2cb803e758d4bf9e74de0ddb": "TRIGGERED",
+  "plan_2f8b85fc74a7054ec917bdd4": "WAITING",
+  "plan_3611d41461b5c25546568841": "VIEW_CHANGED",
+  "plan_509c186b2f272a801714acef": "INVALIDATED",
+  "plan_535119732122292be6375d68": "INVALIDATED",
+  "plan_54212ef910bd51753de3c78c": "WAITING",
+  "plan_5484e97382bbb0b3a0b6f2c4": "WAITING",
+  "plan_56cc8d7cf7887df00014e859": "WAITING",
+  "plan_5a9b1a69ac72f3a7c23064a2": "VIEW_CHANGED",
+  "plan_5eb033547e64c256929ab849": "TRIGGERED",
+  "plan_6bb2866a1c81fd03600e8553": "WAITING",
+  "plan_6ce7b6d137920d09843f61db": "WAITING",
+  "plan_71f0701d5f0d78b138829a4d": "VIEW_CHANGED",
+  "plan_7676aac16455086193912626": "WAITING",
+  "plan_795515a9284ce4344425e7f5": "TRIGGERED",
+  "plan_79ec7bb46eb37b474f0f2c04": "WAITING",
+  "plan_829c6d5505eb74877d962853": "WAITING",
+  "plan_8b7c1dd880206079033b6efe": "WAITING",
+  "plan_98d27db8a03c16e8a765ab2d": "VIEW_CHANGED",
+  "plan_9edb25c11821e26c2bdce16f": "WAITING",
+  "plan_9efa90f940d37e632b24126c": "WAITING",
+  "plan_a43713db7a7b44d25d426478": "VIEW_CHANGED",
+  "plan_a4e853272f83b1cca81ab1d1": "WAITING",
+  "plan_a7224c6e6d3164849bf027db": "VIEW_CHANGED",
+  "plan_b249fe5400f1c040d11a58f2": "WAITING",
+  "plan_ba8b17735f371081a6863387": "WAITING",
+  "plan_c43599eb4f150b968e73d7bb": "VIEW_CHANGED",
+  "plan_d5cb0613c2c869bd40891a38": "VIEW_CHANGED",
+  "plan_dca968b0fc4ff30f3f204fc7": "INVALIDATED",
+  "plan_e0055c9f89c401e87bd7d3cf": "INVALIDATED",
+  "plan_e4fa3d0e39425f3090df5011": "CANCELLED",
+  "plan_e51226117aef037a534579e0": "WAITING",
+  "plan_f45a45412d7fb675b4db238d": "WAITING",
+  "plan_f5c922a34f6d7d0243051b3f": "CANCELLED",
+  "plan_f8af4bad6713a6184e7ef146": "TRIGGERED",
+  "plan_f94e73decba4b7ddd8ad7005": "WAITING",
+  "plan_fc97de01108975ab9ffaeba7": "WAITING",
+  "plan_fd0edd2dcd32452b0a2ffe67": "TRIGGERED",
+  "plan_fd2cd4630839022f15ebca85": "WAITING",
+  "plan_ff5840d2701db972c8f72f68": "VIEW_CHANGED"
+ },
+ "max_export_age_minutes": 10,
+ "not_posted": [
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-7083fcc0f935afff2a828e8b30743ce1"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-769e790e2d16946dfd90340368555707"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-78236d46a1d5f3efd06447ace20d3af3"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-07a4366e582a0f75b638b890322e420c"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-0fff22c7f31885f5ccbca12b565bf4c8"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-c275820ce45b6323dd0b3695dfdbbdac"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-e14669297a595775f4cb15f81b720a1c"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-692a326bca965e241a1a1a872edb268f"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-2f91e42dfa3735ced86cce7afa56d6fe"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-c256ce756da8d3be6e6fce70cbb706de"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-25991b199496ded7d118f412966582e6"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-df032fdfa7d8edde5be6e7654074b0c3"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-288fe523cf30f01d540b4d4f3071adc2"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-2d4a2fd56601b68098b1e55b9df7ccfc"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-4a6f5701a5f17f1556001a6d477e0e74"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-b7f2dd536171c021607437ef4d1f3274"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-result-post-cb15c2cb43d0db21231c84a5fed533a0"
+  },
+  {
+   "cause": "FILL_CONFIRMATION_ALREADY_PUBLISHED_OR_PENDING",
+   "key": "plan-status-post-8e388e040f978aeb84b8f7111ee83305",
+   "prior_key": "plan-status-post-d7acdc21b157dbaf1ff481e9a37c6889"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-1ad59b210ffd6b57df25c4be5e8a0e70"
+  },
+  {
+   "cause": "PLAN_NEVER_ANNOUNCED",
+   "key": "plan-status-post-7b4f0f89f06611da94f05ec618c75101"
+  }
+ ],
+ "rendered_count": 21,
+ "rendered_posts": [
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-8b919d4086be22b5c1340bded822ab69"
+     ],
+     "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-8b919d4086be22b5c1340bded822ab69"
+     ],
+     "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-8b919d4086be22b5c1340bded822ab69"
+     ],
+     "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-8b919d4086be22b5c1340bded822ab69"
+     ],
+     "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-8b919d4086be22b5c1340bded822ab69"
+     ],
+     "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-8b919d4086be22b5c1340bded822ab69"
+     ],
+     "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-8b919d4086be22b5c1340bded822ab69"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-8b919d4086be22b5c1340bded822ab69"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+   "kind": "result",
+   "text": "Euro (EUR.USD spot) long of 5 Nov (#4a172316): not triggered. Ended 5 Nov 11:23 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048",
+   "kind": "result",
+   "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#58fd4856): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3",
+   "kind": "result",
+   "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 5 Nov (#00e20d8f): not triggered. Ended 5 Nov 11:56 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-a8dc64408d816fc67f764a0aedd02bb9"
+     ],
+     "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-a8dc64408d816fc67f764a0aedd02bb9"
+     ],
+     "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-a8dc64408d816fc67f764a0aedd02bb9"
+     ],
+     "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-a8dc64408d816fc67f764a0aedd02bb9"
+     ],
+     "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-a8dc64408d816fc67f764a0aedd02bb9"
+     ],
+     "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-a8dc64408d816fc67f764a0aedd02bb9"
+     ],
+     "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-a8dc64408d816fc67f764a0aedd02bb9"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-a8dc64408d816fc67f764a0aedd02bb9"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-a8dc64408d816fc67f764a0aedd02bb9",
+   "kind": "result",
+   "text": "iShares Bitcoin Trust (IBIT ETF) short of 5 Nov (#85d26490): not triggered. Ended 5 Nov 13:00 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-cef8beddd4a508e9fb45e81b95883ba4"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-cef8beddd4a508e9fb45e81b95883ba4"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-cef8beddd4a508e9fb45e81b95883ba4"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-cef8beddd4a508e9fb45e81b95883ba4"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-cef8beddd4a508e9fb45e81b95883ba4"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-cef8beddd4a508e9fb45e81b95883ba4"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-cef8beddd4a508e9fb45e81b95883ba4"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-cef8beddd4a508e9fb45e81b95883ba4"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-cef8beddd4a508e9fb45e81b95883ba4",
+   "kind": "result",
+   "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 5 Nov (#51edb61c): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-91e901549fa0f118686df4f9bc23f69a"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-91e901549fa0f118686df4f9bc23f69a"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-91e901549fa0f118686df4f9bc23f69a"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-91e901549fa0f118686df4f9bc23f69a"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-91e901549fa0f118686df4f9bc23f69a"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-91e901549fa0f118686df4f9bc23f69a"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-91e901549fa0f118686df4f9bc23f69a"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-91e901549fa0f118686df4f9bc23f69a"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-91e901549fa0f118686df4f9bc23f69a",
+   "kind": "result",
+   "text": "Micro gold (MGC futures, Dec 2026) long of 5 Nov (#6a2b9aee): not triggered. Ended 6 Nov 01:05 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-57d1814f092cfdd78ad52daa200892fc"
+     ],
+     "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-57d1814f092cfdd78ad52daa200892fc"
+     ],
+     "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-57d1814f092cfdd78ad52daa200892fc"
+     ],
+     "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-57d1814f092cfdd78ad52daa200892fc"
+     ],
+     "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-57d1814f092cfdd78ad52daa200892fc"
+     ],
+     "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-57d1814f092cfdd78ad52daa200892fc"
+     ],
+     "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-57d1814f092cfdd78ad52daa200892fc"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-57d1814f092cfdd78ad52daa200892fc"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-57d1814f092cfdd78ad52daa200892fc",
+   "kind": "result",
+   "text": "Euro (6E futures, Nov 2026) short of 5 Nov (#50672832): not triggered. Ended 6 Nov 03:20 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+   "kind": "result",
+   "text": "Micro WTI crude oil (MCL futures, Dec 2026) long of 6 Nov (#49dfdd72): not triggered. Ended 6 Nov 03:45 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712"
+     ],
+     "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712"
+     ],
+     "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712"
+     ],
+     "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712"
+     ],
+     "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712"
+     ],
+     "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712"
+     ],
+     "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+   "kind": "result",
+   "text": "Euro (EUR.USD spot) long of 9 Nov (#ddf94be7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-f50b10cd1c83ffa2eed584803a6beb58"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-f50b10cd1c83ffa2eed584803a6beb58"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-f50b10cd1c83ffa2eed584803a6beb58"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-f50b10cd1c83ffa2eed584803a6beb58"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-f50b10cd1c83ffa2eed584803a6beb58"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-f50b10cd1c83ffa2eed584803a6beb58"
+     ],
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-result-post-f50b10cd1c83ffa2eed584803a6beb58"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-result-post-f50b10cd1c83ffa2eed584803a6beb58"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+   "kind": "result",
+   "text": "Micro WTI crude oil (MCL futures, Dec 2026) short of 9 Nov (#5820e1f7): not triggered. Ended 9 Nov 18:50 ET.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+     ],
+     "text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+     ],
+     "text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+     ],
+     "text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+     ],
+     "text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+     ],
+     "text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+     ],
+     "text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-run-post-0f7373b56ee14adff33cc0d1b78326cc"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Calls from our 10 Nov 01:23 ET run: 5."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Calls from our 10 Nov 01:23 ET run: 5.",
+     "text": "Calls from our 10 Nov 01:23 ET run: 5."
+    }
+   },
+   "key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+   "kind": "run",
+   "text": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+     ],
+     "text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+     ],
+     "text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+     ],
+     "text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+     ],
+     "text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+     ],
+     "text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+     ],
+     "text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\n\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Base-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 2,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Base-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.",
+     "text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET."
+    }
+   },
+   "key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+   "kind": "setup",
+   "text": "#1396db9b · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+     ],
+     "text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+     ],
+     "text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+     ],
+     "text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+     ],
+     "text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+     ],
+     "text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+     ],
+     "text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\n\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-status-post-34a7c39e7cacdabe466393fb1868f3a9"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Base-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 2,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Base-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.",
+     "text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET."
+    }
+   },
+   "key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+   "kind": "setup",
+   "text": "#f6da00b4 · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-e5c701475be18b01f394d84a6426cd94"
+     ],
+     "text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-e5c701475be18b01f394d84a6426cd94"
+     ],
+     "text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-e5c701475be18b01f394d84a6426cd94"
+     ],
+     "text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-e5c701475be18b01f394d84a6426cd94"
+     ],
+     "text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-e5c701475be18b01f394d84a6426cd94"
+     ],
+     "text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-e5c701475be18b01f394d84a6426cd94"
+     ],
+     "text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\n\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-e5c701475be18b01f394d84a6426cd94"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-status-post-e5c701475be18b01f394d84a6426cd94"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Base-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 2,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Base-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.",
+     "text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET."
+    }
+   },
+   "key": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+   "kind": "setup",
+   "text": "#bd31561c · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8"
+     ],
+     "text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8"
+     ],
+     "text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8"
+     ],
+     "text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8"
+     ],
+     "text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8"
+     ],
+     "text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8"
+     ],
+     "text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\n\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Base-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 2,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Base-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.",
+     "text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET."
+    }
+   },
+   "key": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+   "kind": "setup",
+   "text": "#b7fd4247 · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-3f75cd104701fc96b423adf1df539be9"
+     ],
+     "text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-3f75cd104701fc96b423adf1df539be9"
+     ],
+     "text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-3f75cd104701fc96b423adf1df539be9"
+     ],
+     "text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-3f75cd104701fc96b423adf1df539be9"
+     ],
+     "text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-3f75cd104701fc96b423adf1df539be9"
+     ],
+     "text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-3f75cd104701fc96b423adf1df539be9"
+     ],
+     "text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\n\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-3f75cd104701fc96b423adf1df539be9"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-status-post-3f75cd104701fc96b423adf1df539be9"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Base-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 2,
+       "role": "reply",
+       "text": "• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 3,
+       "role": "reply",
+       "text": "• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 4,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Base-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.",
+      "• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.",
+      "• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.",
+     "text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET."
+    }
+   },
+   "key": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+   "kind": "setup",
+   "text": "#6845d7ba · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n• a global risk impulse from US-Iran de-escalation and lower oil.\n• 1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.\n• E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+     ],
+     "text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+     ],
+     "text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+     ],
+     "text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+     ],
+     "text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+     ],
+     "text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+     ],
+     "text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Calls from our 10 Nov 01:52 ET run: 2."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Calls from our 10 Nov 01:52 ET run: 2.",
+     "text": "Calls from our 10 Nov 01:52 ET run: 2."
+    }
+   },
+   "key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+   "kind": "run",
+   "text": "Calls from our 10 Nov 01:52 ET run: 2.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-db646ed3d49d25c3cdad42ee1155fb30"
+     ],
+     "text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-db646ed3d49d25c3cdad42ee1155fb30"
+     ],
+     "text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-db646ed3d49d25c3cdad42ee1155fb30"
+     ],
+     "text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-db646ed3d49d25c3cdad42ee1155fb30"
+     ],
+     "text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-db646ed3d49d25c3cdad42ee1155fb30"
+     ],
+     "text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-db646ed3d49d25c3cdad42ee1155fb30"
+     ],
+     "text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\n\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-db646ed3d49d25c3cdad42ee1155fb30"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-status-post-db646ed3d49d25c3cdad42ee1155fb30"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Levels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 2,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Levels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.",
+     "text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET."
+    }
+   },
+   "key": "plan-status-post-db646ed3d49d25c3cdad42ee1155fb30",
+   "kind": "setup",
+   "text": "#dee497de · short idea\nIf price trades into 84.85–85.2, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 12 Nov 15:00 ET. Invalidated if price moves above 85.7.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-cb6298d12706adf6753e1bbef978090e"
+     ],
+     "text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-cb6298d12706adf6753e1bbef978090e"
+     ],
+     "text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-cb6298d12706adf6753e1bbef978090e"
+     ],
+     "text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-cb6298d12706adf6753e1bbef978090e"
+     ],
+     "text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-cb6298d12706adf6753e1bbef978090e"
+     ],
+     "text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-cb6298d12706adf6753e1bbef978090e"
+     ],
+     "text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\n\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-cb6298d12706adf6753e1bbef978090e"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-status-post-cb6298d12706adf6753e1bbef978090e"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Since 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 2,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Since 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.",
+     "text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices."
+    }
+   },
+   "key": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+   "kind": "setup",
+   "text": "#1e13cbf6 · long idea\nIf price trades into 1.12175–1.12215, the desk is bullish on Euro (EUR.USD spot) over the period to 12 Nov 15:00 ET. Invalidated if price moves below 1.1199.\nEntry window to 10 Nov 05:30 ET.\nTime exit: 12 Nov 15:00 ET.\nLevels use the plan's prices.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8b6c626e80328a3961f2f02e6e387303"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8b6c626e80328a3961f2f02e6e387303"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8b6c626e80328a3961f2f02e6e387303"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8b6c626e80328a3961f2f02e6e387303"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8b6c626e80328a3961f2f02e6e387303"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8b6c626e80328a3961f2f02e6e387303"
+     ],
+     "text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-8b6c626e80328a3961f2f02e6e387303"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-status-post-8b6c626e80328a3961f2f02e6e387303"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+     "text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+    }
+   },
+   "key": "plan-status-post-8b6c626e80328a3961f2f02e6e387303",
+   "kind": "update",
+   "text": "Micro gold (MGC futures, Dec 2026) long of 10 Nov (#bd31561c): an entry filled at 10 Nov 04:00 ET; the model position is open.\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  },
+  {
+   "destinations": {
+    "discord": {
+     "destination": "discord",
+     "full_text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-ee2f674c376652d6ad4258e959eb8a82"
+     ],
+     "text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "facebook_page": {
+     "destination": "facebook_page",
+     "full_text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-ee2f674c376652d6ad4258e959eb8a82"
+     ],
+     "text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "instagram_business": {
+     "destination": "instagram_business",
+     "full_text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-ee2f674c376652d6ad4258e959eb8a82"
+     ],
+     "text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "substack_notes": {
+     "destination": "substack_notes",
+     "full_text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-ee2f674c376652d6ad4258e959eb8a82"
+     ],
+     "text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "telegram": {
+     "destination": "telegram",
+     "full_text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-ee2f674c376652d6ad4258e959eb8a82"
+     ],
+     "telegram_text_with_card_preview": true,
+     "text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "threads": {
+     "destination": "threads",
+     "full_text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-ee2f674c376652d6ad4258e959eb8a82"
+     ],
+     "text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "x": {
+     "destination": "x",
+     "full_text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\n\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\n\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\n\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "media_asset_ids": [
+      "dry-run-plan-status-post-ee2f674c376652d6ad4258e959eb8a82"
+     ],
+     "posts": [
+      {
+       "media_asset_ids": [
+        "dry-run-plan-status-post-ee2f674c376652d6ad4258e959eb8a82"
+       ],
+       "order": 0,
+       "role": "root",
+       "text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 1,
+       "role": "reply",
+       "text": "Levels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 2,
+       "role": "reply",
+       "text": "What is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the"
+      },
+      {
+       "media_asset_ids": [],
+       "order": 3,
+       "role": "reply",
+       "text": "Since 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits."
+      },
+      {
+       "media_asset_ids": [],
+       "order": 4,
+       "role": "reply",
+       "text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      }
+     ],
+     "reply_texts": [
+      "Levels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.",
+      "What is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+      "Since 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.",
+      "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "root_text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.",
+     "text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET."
+    }
+   },
+   "key": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+   "kind": "setup",
+   "text": "#4685f25f · short idea\nIf price trades into 75,250–75,340, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 17 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 11 Nov 22:00 ET.\nTime exit: 17 Nov 16:00 ET.\nLevels use the plan's prices.\nMacro: Bitcoin lagged the equity recovery.\nFundamental: No new confirmed flow explained the weakness.\nTechnical: Bounce 75250–75340; break 73600; invalidation above 75700.\nGeopolitical: No verified geopolitical cause was established.\nWhat is priced in: An extended decline left short-covering risk.\nScenarios: Base about 55%; first analyst's upside alternative about 45%.\nHow the desk reached its view: The owner kept the structural case and the unnamed-cause limitation.\nFull analysis: https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the\nSince 6 Nov: 2 calls judged: 1 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+  }
+ ],
+ "source_content_hash": "70dab2bfd273f302619bbd86ca7685ea6439138402f09a55dbc27da5469fda48",
+ "status": "OK",
+ "transitions_read": 99,
+ "validation": "PASS",
+ "would_queue": []
+}
