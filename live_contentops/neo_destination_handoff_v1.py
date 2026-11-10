@@ -185,8 +185,9 @@ def _payload_binding(intent, destination):
         resolved = _durable_intent_inputs(intent)
         article = dict(resolved.get("article") or {})
         if destination == "substack":
-            payload = {"title": article.get("title"), "subtitle": article.get("subtitle"),
-                       "body_markdown": article.get("substack_body_markdown")}
+            payload = (intent["native_payload"] if intent.get("plan_analysis_page") else
+                       {"title": article.get("title"), "subtitle": article.get("subtitle"),
+                        "body_markdown": article.get("substack_body_markdown")})
         else:
             payload = resolved["payloads"][destination]
         assets = resolved["media_assets"]

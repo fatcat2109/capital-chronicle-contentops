@@ -1279,6 +1279,7 @@ def _publish_telegram_photo_verified(
 
 def _publish_telegram_text_verified(
     *, run_id: str, topic_hash: str, text: str, canonical_url: str,
+    reply_to_message_id: str | None = None,
 ) -> dict[str, Any]:
     from live_contentops.telegram_live_adapter_v6 import execute_telegram_post
 
@@ -1292,6 +1293,7 @@ def _publish_telegram_text_verified(
     )
     raw = execute_telegram_post(
         message=text, parse_mode=None, dry_run=False,
+        **({"reply_to_message_id":reply_to_message_id} if reply_to_message_id else {}),
         approval_context={
             "operator_approval_marker": marker,
             "run_id": run_id,
@@ -1313,6 +1315,8 @@ def _publish_telegram_text_verified(
         raw.get("status") == "SUCCESS" and message_id
         and username.casefold() == "capitalchronicle"
         and canonical_url in visible
+        and visible == text
+        and (not reply_to_message_id or str((message.get("reply_to_message") or {}).get("message_id")) == str(reply_to_message_id))
     )
     public_url = f"https://t.me/CapitalChronicle/{message_id}" if message_id else None
     if verified:
@@ -1363,10 +1367,10 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
         raw.get("status") == "SUCCESS" and message_id and canonical_url in content
         and (embed_image if image_url else True)
     )
-    if image_path and raw.get("status") == "SUCCESS" and message_id:
+    if (image_path or thread_parent_id) and raw.get("status") == "SUCCESS" and message_id:
         try:
             observed = readback_discord_post(message_id=message_id, expected_text=text,
-                canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path),
+                canonical_url=canonical_url, expected_image_sha256=_sha256_file(image_path) if image_path else None,
                 **({"thread_id": thread_parent_id, "expected_parent_id": reply_to_message_id} if thread_parent_id else {}))
         except Exception as exc:
             observed = {"status": "READBACK_UNAVAILABLE", "verified": False,
@@ -4115,7 +4119,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
     output_dir = Path(str(intent.get("output_dir") or ""))
     if not output_dir.is_dir():
         raise RuntimeError("durable_intent_output_dir_unavailable")
-    if intent.get("sourced_reply") and not (intent.get("native_payload") or {}).get("media_asset_ids"):
+    if (intent.get("sourced_reply") or intent.get("plan_analysis_link")) and not (intent.get("native_payload") or {}).get("media_asset_ids"):
         destination = str(intent["destination_plan"]["destination"])
         return {"output_dir":output_dir,"article":{},"selection":{},"media_assets":[],
             "delivery_only_assets":[],"payloads":{destination:intent["native_payload"]},
@@ -4193,7 +4197,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
             decision["channel_media"] = {d: [i for i in ids if i in available] for d, ids in decision["channel_media"].items()}
     # CC-306: a plan-state post is not an article; it carries its validated copy per
     # destination (frozen below), so the article compiler has nothing to compile.
-    payloads = {} if intent.get("plan_status_post") or intent.get("sourced_reply") else build_native_derivative_payloads(
+    payloads = {} if intent.get("plan_status_post") or intent.get("sourced_reply") or intent.get("plan_analysis_page") else build_native_derivative_payloads(
         article=article,
         selection=selection,
         canonical_url=canonical_url or "https://capitalchronicle.substack.com/p/pending-publication",
@@ -4402,7 +4406,7 @@ def _publish_one_destination_from_durable_intent(
             raise
         return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                 "public_write_performed": False, "reason_code": str(exc)}
-    if destination in {"discord", "facebook_page", "instagram_business", "threads"}:
+    if destination in {"discord", "facebook_page", "instagram_business", "threads"} and not intent.get("plan_analysis_link"):
         from live_contentops.post_visuals_v1 import require_publication_image
         try:
             require_publication_image(destination, data)
@@ -4612,6 +4616,8 @@ def _publish_one_destination_from_durable_intent(
                 run_id=str(intent.get("work_item_id") or ""),
                 topic_hash=_sha256(str(intent.get("package_identity") or "")),
                 text=text, canonical_url=canonical_url,
+                **({"reply_to_message_id": payloads[destination]["reply_to_id"]}
+                   if payloads[destination].get("reply_to_id") else {}),
             )
         return _publish_telegram_photo_verified(
             run_id=str(intent.get("work_item_id") or ""),

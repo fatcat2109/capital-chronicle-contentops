@@ -40,17 +40,19 @@ _PRIVATE = re.compile(
 _MONEY = re.compile(r"\b(?:balance|equity|capital|allocation|size|sizing|risk budget|profit|loss)\b.{0,35}"
                     r"(?:[$€£]\s*\d|\d[\d,.]*\s*(?:USD|EUR|dollars|lots|%))", re.I)
 _MODELS = re.compile(r"\b(?:GPT(?:[- .]?\d[\w.-]*)?|ChatGPT|Claude|Opus|Gemini|Luna|Sol\s*6|Antigravity|"
-                     r"AI[- ](?:run|native|powered|driven)|(?:run|written|generated|operated)\s+by\s+AI)\b", re.I)
+                     r"AI[- ](?:run|native|powered|driven)|(?:run|written|generated|operated|powered)\s+by\s+AI|"
+                     r"(?:our|the)\s+(?:AI|artificial intelligence)\s+(?:desk|analysts?|team))\b", re.I)
 _X = re.compile(r"(?:https?://(?:www\.)?(?:x|twitter)\.com/|JIM_X_LIST|PRIVATE_X_LIST|X[-_ ]list)", re.I)
 _SECRET = re.compile(r"(?:sk-[A-Za-z0-9]{16,}|access[_ -]?token\s*[:=]|api[_ -]?key\s*[:=]|password\s*[:=])", re.I)
-_NUM = re.compile(r"(?<![\w.])[+−-]?\d+(?:,\d{3})*(?:\.\d+)?%?(?![\w.])")
+_NUM = re.compile(r"(?<![\w.])[+−-]?\d+(?:,\d{3})*(?:\.\d+)?%?(?!\w|\.\d)")
 
 
 def _numbers(text):
     # A sign and a percentage are material. A scalar probability of 55 can
     # support '55%' but never a made-up complement or a changed magnitude.
-    return {str(Decimal(m.group().replace(',', '').replace('−', '-').rstrip('%')))
-            for m in _NUM.finditer(str(text))}
+    from .event_article_guard_v1 import NAMED_NUMBER
+    return {format(Decimal(m.group().replace(',', '').replace('−', '-').rstrip('%')).normalize(), 'f')
+            for m in _NUM.finditer(NAMED_NUMBER.sub('', str(text)))}
 
 
 def _pointer(value, pointer):
@@ -72,6 +74,7 @@ def load_run(plan, *, run_root=RUN_ROOT):
              "plan-geometry.json", "options-context.json", "final-decision-freeze.json", "desktop-manual-result.json"]
     names += (["analysis-native.json"] if (folder / "analysis-native.json").is_file()
               else ["primary-native.json", "critical-native.json", "owner-native.json"])
+    names += [name for name in ("market-context.json", "shock-pack.json") if (folder / name).is_file()]
     documents, manifest = {}, {}
     for name in names:
         raw = (folder / name).read_bytes()
@@ -103,6 +106,8 @@ def public_filter(text, *, rights="CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", source_
         raise ValueError("PLAN_ANALYSIS_DESK_AI_LABEL_FORBIDDEN")
     if _SECRET.search(text):
         raise ValueError("PLAN_ANALYSIS_SECRET_FORBIDDEN")
+    if re.search(r"\b(?:buy now|sell now|you should (?:buy|sell)|we recommend (?:buying|selling))\b", text, re.I):
+        raise ValueError("PLAN_ANALYSIS_RECOMMENDATION_FORBIDDEN")
     from .preview_link_guard_v1 import find_forbidden_link
     if find_forbidden_link(text):
         raise ValueError("PREVIEW_HOST_LINK_FORBIDDEN")
@@ -134,6 +139,15 @@ def validate_manuscript(plan, manuscript, run):
         raise ValueError("PLAN_ANALYSIS_EXACT_PLAN_REQUIRED")
     if set(manuscript.get("sections", {})) != {key for key, _ in SECTIONS}:
         raise ValueError("PLAN_ANALYSIS_ALL_SEVEN_SECTIONS_REQUIRED")
+    private_texts = []
+    for name in ("market-context.json", "shock-pack.json"):
+        document = run["documents"].get(name, {})
+        items = document.get("items", []) if name == "market-context.json" else document.get("headlines", {}).get("rows", [])
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            if name == "shock-pack.json" or _X.search(json.dumps(item)):
+                private_texts.extend(item[k] for k in ("headline", "text", "body", "title") if isinstance(item.get(k), str))
     bound = []
     for key, _ in SECTIONS:
         section = manuscript["sections"][key]
@@ -147,37 +161,106 @@ def validate_manuscript(plan, manuscript, run):
             public_filter(text, rights=paragraph.get("rights", ""),
                           source_name=paragraph.get("source_name", ""),
                           source_locator=paragraph.get("source_locator", ""),
-                          private_texts=manuscript.get("private_x_texts", []))
+                          private_texts=private_texts)
             source = "\n".join(_source_text(run, ref) for ref in refs)
             if _numbers(text) - _numbers(source):
                 raise ValueError("PLAN_ANALYSIS_UNBOUND_NUMBER:" + key + ":" + str(index))
             bound.append({"section": key, "paragraph": index, "public_sha256": sha256(text.encode()).hexdigest(),
                           "numbers": sorted(_numbers(text)), "refs": refs})
-        public_filter(section["summary"])
+        public_filter(section["summary"], private_texts=private_texts)
         if _numbers(section["summary"]) - _numbers(" ".join(p["text"] for p in section["paragraphs"])):
             raise ValueError("PLAN_ANALYSIS_UNBOUND_SUMMARY_NUMBER:" + key)
     for field in ("title", "subtitle", "introduction"):
-        public_filter(manuscript[field])
+        public_filter(manuscript[field], private_texts=private_texts)
         if _numbers(manuscript[field]) - _numbers(" ".join(p["text"] for s in manuscript["sections"].values() for p in s["paragraphs"])):
             raise ValueError("PLAN_ANALYSIS_UNBOUND_HEADING_NUMBER")
     return bound
+
+
+def _owner_candidate(plan, run):
+    documents = run["documents"]
+    owner = documents.get("analysis-native.json", {}).get("native_synthesis") or documents["owner-native.json"]
+    cid = {"XAUUSD": "cand_macro_gold", "USOIL": "cand_macro_wti", "US500": "cand_macro_spx",
+           "BTCUSD": "cand_macro_btcusd", "EURUSD": "cand_macro_eurusd", "USDJPY": "cand_macro_usdjpy"}.get(plan["asset_id"])
+    index = next(i for i,c in enumerate(owner["candidates"]) if c["candidate_id"] == cid)
+    combined = "analysis-native.json" in documents
+    return owner["candidates"][index], ("analysis-native.json" if combined else "owner-native.json"), ("/native_synthesis" if combined else "") + f"/candidates/{index}"
+
+
+def _public_geometry(plan, run):
+    if not plan.get("zone"):
+        return [], []
+    candidate, filename, pointer = _owner_candidate(plan, run)
+    lines, bindings = [], []
+    for key in ("pullback", "breakout"):
+        leg = (candidate.get("directional_entries") or {}).get(key, {})
+        bounds = leg.get("entry_bounds") or {}
+        fields = (bounds.get("minimum"), bounds.get("maximum"), leg.get("stop_level"), leg.get("target_level"))
+        if any(v is None for v in fields):
+            lines.append(key.capitalize() + " geometry was not fully priced in the original record; no missing level has been inferred.")
+            continue
+        low, high, stop, target = map(posts._level, fields)
+        text = f"Original {key} condition: price reaches {low}–{high}. Invalidation level: {stop}. Capital Chronicle model objective: {target}."
+        public_filter(text)
+        lines.append(text)
+        refs = [{"file": filename, "pointer": pointer + f"/directional_entries/{key}/" + path}
+                for path in ("entry_bounds/minimum", "entry_bounds/maximum", "stop_level", "target_level")]
+        bindings.append({"section": "technical", "paragraph": "structured_" + key,
+                         "public_sha256": sha256(text.encode()).hexdigest(), "numbers": sorted(_numbers(text)), "refs": refs})
+    return lines, bindings
+
+
+def _card(plan, run, folder, manuscript):
+    """One new owned diagram of this run's levels; no later price history."""
+    from . import plan_call_cards_v1 as cards
+    from .plan_call_card_media_v1 import render as render_card
+    candidate, _, _ = _owner_candidate(plan, run)
+    levels = cards.card_plan(plan)
+    # Explicitly show the original plan's coordinates, never a guessed mapping
+    # to the listed public instrument. All values come from this owner output.
+    levels.update(target=[candidate["take_profit"]], price_basis="plan")
+    row = {"key": "analysis-card-" + plan["plan_id"], "kind": "setup", "levels": levels,
+           "short_id": levels["short_id"], "instrument_title": posts.TITLES.get(plan["asset_id"], plan["asset_id"]),
+           "at_utc": run["freeze"]["frozen_at_utc"], "registered_at_utc": plan["registered_at_utc"],
+           "time_exit_utc": levels["time_exit_utc"], "entry_deadline_utc": levels.get("entry_deadline_utc"),
+           "price_basis": "plan", "source_content_hash": plan["analysis_result_hash"],
+           "analysis_publication": {"summary": {k: manuscript["sections"][k]["summary"] for k, _ in SECTIONS}}}
+    row.update(cards.compose(row))
+    card = render_card(row, folder / "media")
+    card.update(media_role="article", delivery_only=False, article_inclusion=True, canonical_article_media=True,
+                placement_after="introduction", alt_text="Original conditional plan: " + row["lead"],
+                caption="Capital Chronicle's original conditional plan. Levels use the plan's prices; this is a level diagram, not price history.")
+    return card
+
+
+def _assemble(plan, manuscript, run):
+    freeze = run["freeze"]
+    timestamp = public_timestamp(freeze["frozen_at_utc"])
+    cutoff = public_timestamp(freeze.get("decision_cutoff_utc", freeze["frozen_at_utc"]))
+    audit = f"Evidence cutoff: {cutoff}. The view was fixed at {timestamp}. Analysis fingerprint: {freeze['immutable_hash']}."
+    geometry, geometry_bindings = _public_geometry(plan, run)
+    paragraphs = [manuscript["introduction"]]
+    for key, title in SECTIONS:
+        paragraphs += ["## " + title, *[p["text"] for p in manuscript["sections"][key]["paragraphs"]]]
+        if key == "technical":
+            paragraphs += geometry
+    paragraphs += [audit, PUBLIC_NOTICE, CONFLICTS_NOTICE]
+    body = "\n\n".join(paragraphs)
+    public_filter(body)
+    payload = {"title": manuscript["title"], "subtitle": manuscript["subtitle"], "body_markdown": body}
+    return payload, paragraphs, geometry_bindings
 
 
 def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT):
     run = load_run(plan, run_root=run_root)
     bindings = validate_manuscript(plan, manuscript, run)
     freeze = run["freeze"]
-    timestamp = public_timestamp(freeze["frozen_at_utc"])
-    audit = f"The view was fixed at {timestamp}. Analysis fingerprint: {freeze['immutable_hash']}."
-    paragraphs = [manuscript["introduction"]]
-    for key, title in SECTIONS:
-        paragraphs += ["## " + title, *[p["text"] for p in manuscript["sections"][key]["paragraphs"]]]
-    paragraphs += [audit, PUBLIC_NOTICE, CONFLICTS_NOTICE]
-    body = "\n\n".join(paragraphs)
-    public_filter(body)
-    payload = {"title": manuscript["title"], "subtitle": manuscript["subtitle"], "body_markdown": body}
+    payload, paragraphs, geometry_bindings = _assemble(plan, manuscript, run)
+    bindings += geometry_bindings
+    body = payload["body_markdown"]
     folder = Path(output_dir)
     folder.mkdir(parents=True, exist_ok=True)
+    card = _card(plan, run, folder, manuscript) if plan.get("asset_id") in posts.MARKETS and plan.get("zone") else None
     (folder / "article.md").write_text("# " + payload["title"] + "\n\n" + body, encoding="utf-8")
     html = '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
     html += '<style>body{font:18px/1.65 Georgia,serif;max-width:760px;margin:36px auto;padding:0 22px;color:#18252b}h1{line-height:1.2}h2{font:600 24px/1.3 system-ui;margin-top:2em}p{overflow-wrap:anywhere}</style>'
@@ -191,7 +274,9 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT):
               "source_manifest": run["manifest"], "numeric_bindings": bindings,
               "freeze": {k: freeze[k] for k in ("frozen_at_utc", "immutable_hash")},
               "authorship": manuscript.get("authorship", {}), "manuscript": manuscript, "run_root": str(Path(run_root)),
-              "source_plan": plan, "media_assets": [], "output_dir": str(folder.resolve())}
+              "source_plan": plan, "media_assets": [card] if card else [], "output_dir": str(folder.resolve())}
+    (folder / "run_context_v1.json").write_bytes(canonical_bytes({"article": {"title": payload["title"], "body": body},
+        "selection": {}, "media": {"assets": packet["media_assets"]}}))
     (folder / "page.json").write_bytes(canonical_bytes(packet))
     return packet
 
@@ -232,6 +317,14 @@ def validate_plan(store, work_item_id, plan):
     if run["manifest"] != packet["source_manifest"]:
         raise ValueError("PLAN_ANALYSIS_SOURCE_BYTES_CHANGED")
     validate_manuscript(packet["source_plan"], packet["manuscript"], run)
+    expected, _, _ = _assemble(packet["source_plan"], packet["manuscript"], run)
+    if expected != packet["native_payload"]:
+        raise ValueError("PLAN_ANALYSIS_RENDERED_COPY_CHANGED")
+    if packet["summary"] != {k: packet["manuscript"]["sections"][k]["summary"] for k, _ in SECTIONS}:
+        raise ValueError("PLAN_ANALYSIS_SUMMARY_CHANGED")
+    for asset in packet.get("media_assets", []):
+        if sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]:
+            raise ValueError("PLAN_ANALYSIS_MEDIA_BYTES_CHANGED")
     public_filter(json.dumps(packet["native_payload"], ensure_ascii=False))
     return packet
 
@@ -291,3 +384,105 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
     except NativeNeoInputRequired as pending:
         return {"state": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request}
     return {"publication": result, **page_status(store, packet), "pending_requests": executor.pending()}
+
+
+def structured_summary(packet, destination, canonical_url):
+    """Keep all seven headings and the real URL; spend remaining room on detail."""
+    limits = {"telegram": 4096, "discord": 2000, "threads": 500, "facebook_page": 60000, "instagram_business": 2200}
+    limit = limits[destination]
+    lead = packet["native_payload"]["title"]
+    footer = "Full analysis: " + canonical_url + "\n" + PUBLIC_NOTICE + " " + CONFLICTS_NOTICE
+    labels = {"macro":"Macro", "fundamental":"Fundamental", "technical":"Technical", "geopolitical":"Geopolitical",
+              "priced_in":"Priced in", "scenarios":"Scenarios", "desk_process":"Desk review"}
+    summaries = [labels[k] + ": " + packet["summary"][k] for k, _ in SECTIONS]
+    if len(lead + '\n' + '\n'.join(summaries) + '\n' + footer) <= limit:
+        lines = summaries
+        # Add whole source-bound sentences, in section order, without losing
+        # their caveat or manufacturing a compressed causal claim.
+        for index, (key, _) in enumerate(SECTIONS):
+            for paragraph in packet["manuscript"]["sections"][key]["paragraphs"]:
+                candidate = labels[key] + ": " + paragraph["text"]
+                proposed = [*lines[:index], candidate, *lines[index+1:]]
+                if len(lead+'\n'+'\n'.join(proposed)+'\n'+footer) <= limit and len(candidate)>len(lines[index]):
+                    lines = proposed
+    else:
+        lead = "Original plan: " + packet["source_plan"]["asset_id"]
+        budget = limit - len(lead) - len(footer) - 2
+        # Threads has little room after the notice and URL. Section names
+        # remain explicit; the full page supplies the detailed qualifications.
+        lines = [posts._excerpt(line, max(0, (budget-6)//7)) for line in summaries]
+        lines = [line for line in lines if line]
+    text = lead+'\n'+'\n'.join(lines)+'\n'+footer
+    if len(text)>limit:
+        raise ValueError("PLAN_ANALYSIS_SUMMARY_LIMIT:"+destination)
+    public_filter(text)
+    return text
+
+
+def register_link(store, packet, *, original_key, destination):
+    from .plan_call_cards_v1 import _reference
+    from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
+    status = page_status(store, packet)
+    if not status["confirmed"]:
+        return {"state":"PLAN_ANALYSIS_CANONICAL_NOT_CONFIRMED", "destination":destination}
+    parent = _reference(store, original_key, destination)
+    if not parent:
+        return {"state":"PLAN_ANALYSIS_PARENT_NOT_CONFIRMED", "destination":destination, "original_key":original_key}
+    identity = "plan-analysis-link-"+packet["plan_id"]+'-'+destination
+    prior = store.get_outbox_message(identity)
+    if prior:
+        return json.loads(prior["payload"])
+    text = structured_summary(packet, destination, status["canonical_url"])
+    payload = {"destination":destination, "text":text, "full_text":text, "media_asset_ids":[],
+               "reply_to_id":str(parent["public_object_id"]), "reply_to_url":parent["public_object_url"]}
+    if destination=="discord":
+        payload.update(discord_thread_parent_id=str(parent["public_object_id"]), discord_thread_name="Full plan analysis")
+    registration = registration_for_destination(destination)
+    plan = {"schema_version":"contentops.publication_plan.v1", "plan_analysis_link":identity,
+            "story_identity":identity, "article_identity":identity, "package_identity":identity,
+            "output_dir":packet["output_dir"], "transport_registry_version":REGISTRY_VERSION,
+            "policy_mode_version":"AUTONOMOUS_DEFAULT:JIM_DECISION_113", "publication_window":{"window_identity":identity},
+            "destinations":[{"destination":destination, "surface":registration.surface, "transport_type":registration.transport_type,
+                "payload":text, "payload_hash":sha256(text.encode()).hexdigest(), "canonical_url":status["canonical_url"]}]}
+    plan["plan_hash"] = sha256_of(plan)
+    value={"link_id":identity, "page_id":packet["page_id"], "plan_id":packet["plan_id"], "original_key":original_key,
+           "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"]}
+    store.create_work_item(story_id=identity,work_item_id=identity,title="Full plan analysis link",target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(message_id=identity,work_item_id=identity,destination=DESTINATION,
+                                 payload=canonical_bytes(value).decode(),status="EDITORIAL_INTERNAL")
+    return value
+
+
+def validate_link_plan(store, work_item_id, plan):
+    from .plan_call_cards_v1 import _reference
+    row=store.get_outbox_message(work_item_id)
+    value=json.loads(row["payload"]) if row else {}
+    if value.get("link_id")!=work_item_id or value.get("plan")!=plan:
+        raise ValueError("PLAN_ANALYSIS_EXACT_LINK_REQUIRED")
+    packet=json.loads(store.get_outbox_message(value["page_id"])["payload"])
+    validate_plan(store,packet["page_id"],packet["plan"])
+    if page_status(store,packet)["canonical_url"]!=value["canonical_url"]:
+        raise ValueError("PLAN_ANALYSIS_LINK_CANONICAL_CHANGED")
+    parent=_reference(store,value["original_key"],value["destination"])
+    if not parent or parent!=value["parent"]:
+        raise ValueError("PLAN_ANALYSIS_LINK_PARENT_CHANGED")
+    expected=structured_summary(packet,value["destination"],value["canonical_url"])
+    if value["native_payload"]["text"]!=expected:
+        raise ValueError("PLAN_ANALYSIS_LINK_COPY_CHANGED")
+    return value
+
+
+def validate_link_intent(store, intent):
+    value=json.loads(store.get_outbox_message(intent["work_item_id"])["payload"])
+    value=validate_link_plan(store,intent["work_item_id"],value["plan"])
+    if intent.get("native_payload")!=value["native_payload"] or intent.get("canonical_url")!=value["canonical_url"]:
+        raise ValueError("PLAN_ANALYSIS_LINK_INTENT_CHANGED")
+    return value
+
+
+def publish_link(store, value):
+    from .publication_coordinator_v1 import DurablePublicationCoordinator, CanonicalDestinationTransportRuntimeV1
+    coordinator=DurablePublicationCoordinator(store=store,transport_runtime=CanonicalDestinationTransportRuntimeV1())
+    coordinator.allow_prior_confirmed_distribution=True
+    coordinator.recovery_scope={"work_item_id":value["link_id"],"plan":value["plan"],"exact_work_item_only":True}
+    return coordinator.publish_plan(value["link_id"],value["plan"])

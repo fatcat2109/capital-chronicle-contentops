@@ -1,0 +1,1414 @@
+{
+  "title": "EUR/USD before CPI: the dollar thesis and its weak link",
+  "subtitle": "A full account of the conditional euro view: the dollar driver, crowded positioning, price structure and the critic's rates objection.",
+  "introduction": "This is the analysis behind the euro plan fixed before the US inflation release. The case was conditional: a weaker dollar could carry the euro higher, provided the breakout base held and inflation did not restore demand for the dollar. The strongest objection was causal: the currency move was clearer than the explanation for it. All levels and chances below belong to that original view; publication of this page does not refresh them.",
+  "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+  "registration_hash": "d4a2b59a9dba6fed6c5c4ef4c6332c2a7c1513f88b31fbb070a4889786ff0ab9",
+  "sections": {
+    "macro": {
+      "paragraphs": [
+        {
+          "text": "The desk identified a US dollar leg rather than an isolated euro move. EUR/USD moved with sterling and the New Zealand dollar while the dollar index weakened. Capital Chronicle's own twenty-day calculation put EUR/USD's correlation with the dollar index at -0.966 and its beta at -1.09. These measures described a close recent relationship; they did not establish that a change in US interest rates caused the move.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The first analyst proposed an oil-led easing of inflation pressure: cheaper energy could reduce inflation concern, weaken the dollar and support the euro. The critic challenged the middle of that chain. The run did not contain a current admitted US ten-year Treasury yield observation supporting falling rates, while the rates context pointed in the opposite direction. The final owner retained the observed dollar weakness and downgraded the claim about its cause. A correlated move is evidence of a common channel, not proof of a particular policy repricing.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The regime remained sensitive to US inflation and the next policy decision. A core inflation surprise could revive the dollar even after the previous session's reversal. The useful test was therefore the inflation figure followed by the joint reaction of EUR/USD and the dollar index, rather than treating the preceding rally as a permanent change of regime.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "A shared dollar move, with the rates explanation challenged."
+    },
+    "fundamental": {
+      "paragraphs": [
+        {
+          "text": "For a currency pair, the fundamental question is the relative path of policy and growth. The original analysis considered euro-area inflation and a potentially firmer European Central Bank response as possible euro support. It did not establish a fresh, comparable euro versus US rate differential. The final view consequently placed more weight on the demonstrated dollar channel than on a quantified interest-rate advantage for the euro.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "That distinction changes the quality of the thesis. A view backed by a measured rate differential can survive some short-term currency noise. This view needed the dollar's decline to persist after the US data. A reversal in US inflation expectations would weaken the argument even if euro-area policy remained relatively firm. The desk did not turn background policy discussion into a confirmed central-bank commitment.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "Relative policy mattered; no fresh rate differential proved the case."
+    },
+    "technical": {
+      "paragraphs": [
+        {
+          "text": "The pullback entry zone was 1.12010–1.12050. The owner located it at the previous session's breakout base, rather than at an arbitrary distance from the latest price. The distinct breakout zone was 1.12270–1.12300, beyond the nearby resistance at 1.12250. These were two conditional expressions of the same direction: a return to support or evidence that resistance had been cleared.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The pullback's stop was 1.11820; the breakout's separate stop was 1.12140. The common model target was 1.12640, set below the earlier overhead resistance discussed in the run. Different stops mattered because the breakout rested on a different, nearer structure. The target was part of the frozen analytical geometry, not an assurance about a future price or an instruction to a reader.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The volatility context made chasing less attractive. The desk's pricing assessment described a move of 1.38 average true ranges from the earlier close and a one-day volatility-normalised move of 2.18. Its twenty-day mean was 1.11934, fifty-day mean 1.12796 and two-hundred-day mean 1.15026. The euro could have positive short-term momentum while remaining below longer-term reference points. The plan therefore relied on its own support and resistance conditions rather than a blanket claim that every trend measure agreed.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The fourteen-day daily average true range in the run was 0.00581071. This was the desk's volatility calculation, not an observed future range. The owner also preserved the warning that an inflation-release move could cross a stop abruptly; a level that invalidates the idea does not guarantee execution at that level.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "Pullback 1.12010–1.12050; breakout 1.12270–1.12300; objective 1.12640."
+    },
+    "geopolitical": {
+      "paragraphs": [
+        {
+          "text": "The analytical mechanism was an unwind in energy and haven demand that could weaken the dollar. The run also carried unconfirmed event explanations. Those event details are not reproduced here: the public case rests on the observed currency relationship and the desk's conditional interpretation, not on treating an unverified report as an established geopolitical outcome.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The countermechanism was straightforward. Renewed demand for the dollar, whether from a change in inflation expectations or a reversal in risk appetite, could overwhelm the euro's support. The final owner retained that vulnerability instead of presenting de-escalation, cheaper energy and a weaker dollar as a single proven sequence.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "Haven and energy channels remained interpretations."
+    },
+    "priced_in": {
+      "paragraphs": [
+        {
+          "text": "The inflation comparison used the held consensus capture: Investing.com supplied a headline monthly CPI expectation of 0.3%, and the core monthly expectation in the captured consensus record was 0.2%. These are attributed comparison figures from the original run, not a reproduced forecast table or a later update. The plan's adverse event condition was a core reading of 0.3% or more with a renewed dollar bid.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "Positioning came from the CFTC commitments report dated 3 November and released 6 November: the retained analysis cited a euro non-commercial net short of 157,791 contracts. The owner viewed a break of nearby resistance as a possible short-covering catalyst. That was an interpretation of a dated positioning figure, not an observation of current dealer orders or a claim that all of those contracts would be bought back.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The desk explicitly called the prior-pricing assessment ambiguous. The run did not establish a fresh, source-bound option-implied move. Realised volatility, distance from moving averages and a crowded position can describe the market's starting point; none can be silently substituted for an options market's expected release move.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "Captured CPI consensus and dated CFTC positioning framed the risk."
+    },
+    "scenarios": {
+      "paragraphs": [
+        {
+          "text": "Base case — 55% (Capital Chronicle model estimate, uncalibrated): EUR/USD holds above 1.1200 and extends through the 1.1225 high within three sessions. Confirmation requires the dollar weakness to survive the inflation release and the plan's own support conditions to hold. The two entry zones provide the pullback and breakout versions of this case.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "Downside alternative — 35% (Capital Chronicle model estimate, uncalibrated): a hot core inflation reading restores the dollar bid and takes EUR/USD below 1.1186. The owner described an analytical reversal condition combining core CPI of at least 0.3%, EUR/USD below 1.11860 and the dollar index above 102.0. The explicit price stops remain 1.11820 for the pullback and 1.12140 for the breakout.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "Upside extension and a sideways outcome were not assigned separate point probabilities in the final record. Clearing 1.12250 would support the continuation toward the stated 1.12640 objective; failure to clear resistance could leave the view unresolved. The page does not allocate an invented remainder to either outcome. The stated chances are judgments from this run and are not a calibrated record of success.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "Base 55%; downside alternative 35%; no invented third chance."
+    },
+    "desk_process": {
+      "paragraphs": [
+        {
+          "text": "The first analyst's base case was 58%, with a 32% main alternative. The critic reduced the base case to about 55% and raised the alternative to about 35%, stressing pre-release position adjustment, the unresolved interest-rate explanation and the risk around the nearer breakout stop. The owner adopted the 55% and 35% judgments and kept the direction conditional.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The committee's evidence combined same-session currency relationships, the desk's correlation and volatility calculations, the dated CFTC figure and the captured inflation consensus. The hourly and shorter-interval observations were already known before the run's cutoff. Their exact file locations, hashes and paragraph-level numeric references are retained with this page. No later observation was used to make the original case look stronger.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The final response to the critic was to separate what the desk could observe from what it could explain. Dollar weakness and the structural levels survived; the assertion that lower US yields caused them did not become a confirmed fact. The page retains that dissent because it identifies the condition under which the attractive chart could still be wrong. The freeze time and fingerprint below identify the exact decision version.",
+          "refs": [
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/directional_thesis"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/mechanism_and_transmission"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/invalidation"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/material_counterevidence"
+            },
+            {
+              "file": "primary-native.json",
+              "pointer": "/candidate_evaluations/0/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/rationale"
+            },
+            {
+              "file": "critical-native.json",
+              "pointer": "/candidate_reviews/0/dissent"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/rationale"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/invalidation"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/entry"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/stop_loss"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/take_profit"
+            },
+            {
+              "file": "owner-native.json",
+              "pointer": "/candidates/0/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            },
+            {
+              "file": "plan-geometry.json",
+              "pointer": "/symbols/EURUSD/atr"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "The critic reduced the first analyst's confidence; the owner kept the dissent."
+    }
+  },
+  "authorship": {
+    "surface": "CODEX_EXEC",
+    "process_id": 1960,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED",
+    "preparation": "deterministic exact-run extraction; no X filtering needed",
+    "writer_and_editor": "same active native Codex run",
+    "new_editorial_model_calls": 0
+  }
+}

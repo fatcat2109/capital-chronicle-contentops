@@ -2079,7 +2079,10 @@ class DurablePublicationCoordinator:
         if plan.get("plan_analysis_page"):
             from live_contentops.plan_analysis_pages_v1 import validate_plan
             validate_plan(self.store, work_item_id, plan)
-        if self.published_content_path is not None and not plan.get("daily_digest") and not plan.get("plan_analysis_page") and not plan.get("plan_status_post") and not plan.get("sourced_reply"):
+        if plan.get("plan_analysis_link"):
+            from live_contentops.plan_analysis_pages_v1 import validate_link_plan
+            validate_link_plan(self.store, work_item_id, plan)
+        if self.published_content_path is not None and not plan.get("daily_digest") and not plan.get("plan_analysis_page") and not plan.get("plan_analysis_link") and not plan.get("plan_status_post") and not plan.get("sourced_reply"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             article_metadata(plan, require_notice=False)
             if self.published_content_path.exists():
@@ -2196,6 +2199,12 @@ class DurablePublicationCoordinator:
                 intent["media_assets"] = packet.get("media_assets", [])
                 # Decision 113: these plan records are web-only pages, outside
                 # the ordinary newsletter's article quota and email digest.
+                intent.pop("published_content_export", None)
+            if plan.get("plan_analysis_link"):
+                from live_contentops.plan_analysis_pages_v1 import validate_link_plan
+                packet = validate_link_plan(self.store, work_item_id, plan)
+                intent["plan_analysis_link"] = packet["link_id"]
+                intent["native_payload"] = packet["native_payload"]
                 intent.pop("published_content_export", None)
             if plan.get("plan_status_post"):
                 # CC-306: a plan-state post freezes its validated copy per destination, as the
@@ -2524,15 +2533,52 @@ class DurablePublicationCoordinator:
         incident_id, _ = self._destination_failure_key(destination)
         conn = self.store.get_connection()
         try:
+            resolved = conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone()
+            if resolved:
+                incident_id += "_after_local_prewrite_repair"
             row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
             return json.loads(row["description"]) if row else None
         finally:
             conn.close()
 
+    def resolve_local_neo_prewrite_failure(self, destination):
+        """Keep a repaired local builder error from posing as a failed platform.
+
+        No browser PUBLISH request means the native adapter never reached its
+        executor. The exact dispatch still needs normal absence reconciliation;
+        this only resolves the unrelated destination-wide daily circuit.
+        """
+        incident_id, _ = self._destination_failure_key(destination)
+        failure = self._destination_day_failure(destination)
+        if not failure or failure.get("safe_error_classification") != "KeyError":
+            raise ValueError("LOCAL_NEO_PREWRITE_KEY_ERROR_REQUIRED")
+        dispatch = self.store.get_platform_dispatch(failure["dispatch_id"]) or {}
+        message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
+        intent = json.loads(message["payload"]) if message else {}
+        if not intent.get("plan_analysis_page") or destination != "substack":
+            raise ValueError("EXACT_PLAN_PAGE_PREWRITE_FAILURE_REQUIRED")
+        for row in self.store.list_outbox_messages(destination="internal:native-neo-tool", work_item_id=intent["work_item_id"]):
+            request = json.loads(row["payload"]).get("request", {})
+            if request.get("action") in {"PUBLISH", "EDIT_EXISTING"}:
+                raise ValueError("NATIVE_WRITE_REQUEST_EXISTS_READBACK_REQUIRED")
+        from .plan_analysis_pages_v1 import validate_intent
+        from .neo_destination_handoff_v1 import NeoDestinationHandoff
+        validate_intent(self.store, intent)
+        # Exercise the repaired builder without a native executor or a write.
+        NeoDestinationHandoff().request(destination=destination, action="READBACK", intent=intent)
+        return self.store.register_incident(incident_id=incident_id + "_local_prewrite_resolved",
+            work_item_id=intent["work_item_id"], severity="RESOLVED_LOCAL_PREWRITE",
+            description=_canonical_json({"cause":"PLAN_PAGE_INCORRECTLY_ENTERED_ARTICLE_COMPILER",
+                "dispatch_id":dispatch["dispatch_id"], "browser_write_request_issued":False,
+                "exact_dispatch_still_requires_readback":True}))
+
     def _record_destination_day_failure(self, intent, destination, detail, instant=None):
         # CC-401: reuse the incident table as the daily circuit, with first cause
         # retained by its idempotent insert. No new queue, ledger or scheduler.
         incident_id, day = self._destination_failure_key(destination, instant)
+        with self.store.get_read_only_connection() as conn:
+            if conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident_id + "_local_prewrite_resolved",)).fetchone():
+                incident_id += "_after_local_prewrite_repair"
         self.store.register_incident(incident_id=incident_id,
             work_item_id=intent["work_item_id"], severity="DISPATCH_FAILURE",
             description=_canonical_json({**detail, "destination": destination, "et_day": day}))
@@ -2743,6 +2789,9 @@ class DurablePublicationCoordinator:
         elif intent.get("plan_analysis_page"):
             from live_contentops.plan_analysis_pages_v1 import validate_intent
             validate_intent(self.store, intent)
+        elif intent.get("plan_analysis_link"):
+            from live_contentops.plan_analysis_pages_v1 import validate_link_intent
+            validate_link_intent(self.store, intent)
         elif self.published_content_path is not None and not intent.get("daily_digest") and not intent.get("sourced_reply"):
             from live_contentops.published_content_v1 import article_metadata, read_records
             from live_contentops.event_article_guard_v1 import check_publication_copy
@@ -4466,6 +4515,12 @@ class CanonicalDestinationTransportRuntimeV1:
         )
         finalized = dict(intent)
         finalized["canonical_url"] = canonical_url
+        if intent.get("plan_analysis_link"):
+            # The confirmed plan-page reply already binds its complete copy,
+            # canonical URL and exact original parent. No article recompilation.
+            if canonical_url != intent.get("canonical_url"):
+                raise ValueError("PLAN_ANALYSIS_LINK_CANONICAL_CHANGED")
+            return finalized
         if destination == "linkedin_company" and intent.get("dated_distribution_recovery"):
             if (canonical_url != intent.get("canonical_url")
                     or intent.get("destination_plan", {}).get("payload_hash_kind")

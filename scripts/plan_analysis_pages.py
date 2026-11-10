@@ -24,6 +24,7 @@ def main(argv=None):
     parser.add_argument("--native-invocation-id", default="")
     parser.add_argument("--request-hash")
     parser.add_argument("--response", type=Path)
+    parser.add_argument("--result", type=Path, help="save full native request/result; print identifiers only")
     parser.add_argument("--rollout", type=Path, default=Path("config/native_desktop_rollout_v1.json"))
     args = parser.parse_args(argv)
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
@@ -45,7 +46,14 @@ def main(argv=None):
                 response=json.loads(args.response.read_bytes()) if args.response else None)
     if sys.stdout:
         sys.stdout.reconfigure(encoding="utf-8")
-        print(json.dumps(result, ensure_ascii=False, indent=1, default=str))
+        if args.result:
+            args.result.write_text(json.dumps(result, ensure_ascii=False, indent=1, default=str),encoding="utf-8")
+            requests = ([result["native_tool_request"]] if result.get("native_tool_request") else result.get("pending_requests", []))
+            print(json.dumps({"result_path":str(args.result),"state":result.get("state"),"confirmed":result.get("confirmed"),
+                "pending":[{"request_sha256":r["request"]["request_sha256"],"action":r["request"]["action"],
+                            "path":r.get("request_path")} for r in requests]},indent=1))
+        else:
+            print(json.dumps(result, ensure_ascii=False, indent=1, default=str))
     return 0
 
 

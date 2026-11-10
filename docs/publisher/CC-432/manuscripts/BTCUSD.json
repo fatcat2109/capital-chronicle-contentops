@@ -1,0 +1,1398 @@
+{
+  "title": "Bitcoin: relative weakness after the equity recovery",
+  "subtitle": "The lower-high sequence behind the conditional downward case, and why an equity-led squeeze remained a serious countercase.",
+  "introduction": "The Bitcoin plan was based on relative weakness and a series of lower highs. The desk did not identify an admitted new fundamental cause. Its case therefore depended on clear price conditions, while the possibility of a broader risk recovery remained the main challenge.",
+  "plan_id": "plan_8b7c1dd880206079033b6efe",
+  "registration_hash": "aa9226e644a051df385a1c91f9b6840d0bba02b7e081f5109b21e8291e6e50fd",
+  "sections": {
+    "macro": {
+      "paragraphs": [
+        {
+          "text": "The key comparison was with equities. The index had recovered toward its prior high while Bitcoin failed to follow through. The desk interpreted that divergence as crypto-specific weakness rather than evidence that all risk assets were moving together. A shared risk-appetite story could not explain the difference on its own.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "Capital Chronicle's calculations described a decline of about 2.4 daily average true ranges from the earlier reference point. That extension supported the observation of weakness but also increased the risk of a rebound. The owner kept a conditional downward case instead of treating a large completed decline as proof of an unlimited continuation.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The run did not establish a fresh US ten-year yield, a measured liquidity shock or an independently confirmed macro event that named the cause of Bitcoin's latest move. The critical test was whether equities could extend their recovery and pull Bitcoin back through its lower highs.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "Bitcoin lagged the equity recovery."
+    },
+    "fundamental": {
+      "paragraphs": [
+        {
+          "text": "For Bitcoin, the relevant fundamental question in this run was flows: who was adding or removing demand, and whether the divergence from equities had a measurable cause. The roles did not cite a new confirmed fund-flow series or a quantified on-chain flow explaining the decline. The owner explicitly kept the cause unnamed.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The page therefore does not relabel price weakness as proven institutional outflow. A relative-performance observation is useful, but it cannot identify the buyer or seller behind a move. The downward case was a structural judgment, while a return of broad risk demand remained a viable opposing mechanism.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "That distinction also limits the horizon. The plan can be tested against its own conditions and invalidation, but the run does not establish a lasting deterioration in adoption or a new long-term valuation. A reader should not infer either from the shorter-term setup.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "No new confirmed flow explained the weakness."
+    },
+    "technical": {
+      "paragraphs": [
+        {
+          "text": "The lower-high sequence was the primary structure. The run cited hourly highs at 75511.91, 75492.84 and 75354.13. The pullback zone at 75250–75340 lay beneath the latest lower high. The separate breakout condition was 73600, below the prior low at 73653.94.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The recorded invalidation was a completed short-interval close above 75700, beyond the lower-high structure. The plan's model target was 73700. The nearby weekend low at 73328 was a reason to treat further downside as contested terrain, not an empty space into which a target could be extended at will.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The latest acceptance was not decisive. The analysis described a slow drift below the Asian low rather than a large new impulsive break. That distinction explained why the owner required a bounce into resistance or a fresh break of the prior low, rather than presenting the current price as sufficient confirmation.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The review did not establish a full twenty-, fifty- and two-hundred-day trend comparison. Its momentum evidence was the lower-high sequence, relative weakness and the desk's daily volatility assessment. The average true range described the completed move; it was not an option-implied forecast.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "Bounce 75250–75340; break 73600; invalidation above 75700."
+    },
+    "geopolitical": {
+      "paragraphs": [
+        {
+          "text": "The run did not establish a verified geopolitical event as the cause of this Bitcoin move. The relevant analytical channel was indirect: a change in broad appetite for risk could either reinforce crypto weakness or pull it back toward the equity recovery. The page excludes the private event leads rather than treating them as independent corroboration.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "This left price and relative performance as the falsifiable tests. If equities extended and Bitcoin reclaimed the lower highs, the main countercase would gain support even without a new geopolitical explanation. The owner did not require a convenient news story before recognising that risk.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "No verified geopolitical cause was established."
+    },
+    "priced_in": {
+      "paragraphs": [
+        {
+          "text": "The desk saw an already extended move: about 2.4 daily average true ranges from the earlier reference point. That starting point made the next downside break less attractive to chase and left room for short covering if risk appetite improved.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The shock roles did not cite current CFTC positioning, a fresh option-implied move or a confirmed new flow number. Possible pressure on shorts above the lower highs was the desk's interpretation of structure, not a measured current position count. No proprietary series or unsupported flow estimate is reproduced here.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The competing thresholds were explicit. The downward continuation used 73600 below the prior low; the wider reversal condition was above 75700. The equity recovery mattered because it supplied a plausible force that could carry Bitcoin back through its own resistance rather than allowing the divergence to persist indefinitely.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "An extended decline left short-covering risk."
+    },
+    "scenarios": {
+      "paragraphs": [
+        {
+          "text": "Base case — about 55% (Capital Chronicle model estimate, uncalibrated): Bitcoin stays below the 75512 area and revisits roughly 73654 within six sessions. The recorded conditions were the bounce zone at 75250–75340 or the distinct break at 73600. The owner kept the view conditional because the run had not established a named cause.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "Upside alternative — about 45% in the first analyst's scenario (Capital Chronicle model estimate, uncalibrated): an equity-led recovery and short covering take Bitcoin through 75512. The completed short-interval close above 75700 invalidates the plan. The critic retained the danger of a rebound after the already extended decline.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "A separate accelerated-downside case was not assigned its own probability. A break of the prior low would confirm continuation, while the nearby weekend low would still have to be confronted. The page does not invent a third chance or extend the frozen 73700 target to make the case look more attractive.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "Base about 55%; first analyst's upside alternative about 45%."
+    },
+    "desk_process": {
+      "paragraphs": [
+        {
+          "text": "The first analyst proposed a downward case from the lower highs and failure to join the equity recovery. The critic accepted that structure while preserving three weaknesses: no named cause, an extended decline and the possibility that a stronger equity market could lift Bitcoin. The owner kept the approximate 55% judgment and a conditional plan.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The committee cited the lower-high sequence, the earlier low, the equity comparison and the desk's volatility context. Each was held before the decision cutoff. The original role outputs and exact geometry are bound to this page, while no later price action is used to rewrite what the desk knew then.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        },
+        {
+          "text": "The depth of the process lies in the distinction between observation and explanation. Relative weakness was observable; its underlying flow cause was unresolved. The final decision retained the structural test and the countercase instead of filling that gap with an unsupported narrative. The freeze time and fingerprint below identify that version.",
+          "refs": [
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/directional_thesis"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/mechanism_and_transmission"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/material_counterevidence"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/primary_analysis/candidate_evaluations/3/next_observable_or_activation_trigger"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/critical_review/candidate_reviews/3/dissent"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/rationale"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/invalidation"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/entry"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/stop_loss"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/take_profit"
+            },
+            {
+              "file": "analysis-native.json",
+              "pointer": "/native_synthesis/candidates/3/planned_exit_at_utc"
+            },
+            {
+              "file": "final-decision-freeze.json",
+              "pointer": "/frozen_at_utc",
+              "transform": "ET"
+            }
+          ],
+          "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+          "source_name": "Capital Chronicle original run analysis"
+        }
+      ],
+      "summary": "The owner kept the structural case and the unnamed-cause limitation."
+    }
+  },
+  "authorship": {
+    "surface": "CODEX_EXEC",
+    "process_id": 1960,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED",
+    "preparation": "deterministic exact-run extraction; no X filtering needed",
+    "writer_and_editor": "same active native Codex run",
+    "new_editorial_model_calls": 0
+  }
+}

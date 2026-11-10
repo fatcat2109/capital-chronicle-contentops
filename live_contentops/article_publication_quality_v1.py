@@ -31,7 +31,7 @@ def applies(coordinator, intent):
     return (coordinator.published_content_path is not None
             and coordinator._clock() >= EFFECTIVE_FROM
             and not intent.get("plan_status_post") and not intent.get("daily_digest")
-            and not intent.get("sourced_reply"))
+            and not intent.get("sourced_reply") and not intent.get("plan_analysis_link"))
 
 
 def article_inputs(intent):
@@ -128,6 +128,18 @@ def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=No
 def before_article_write(coordinator, intent, destination):
     if not applies(coordinator, intent):
         return None
+    if intent.get("plan_analysis_page"):
+        # Decision 113 defines a per-plan record, with its own exact-run
+        # scenarios and levels. It is web-only and does not spend the ordinary
+        # newsletter's two-article budget. Keep source, rights and image checks.
+        from .plan_analysis_pages_v1 import validate_intent
+        packet = validate_intent(coordinator.store, intent)
+        assets = packet.get("media_assets") or []
+        if not assets:
+            raise ImagePolicyError("IMAGE_MISSING")
+        return image_register(coordinator).reserve(piece_id=piece_id(coordinator.store, intent), assets=assets,
+            lead_asset_id=assets[0]["asset_id"], now=coordinator._clock(),
+            canonical_url=intent.get("canonical_url"), enforce_cap=False)
     article, assets, documents = article_inputs(intent)
     from live_contentops.public_instruments_v1 import validate_article, validate_payload
     validate_article(article)

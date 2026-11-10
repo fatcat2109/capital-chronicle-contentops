@@ -119,6 +119,7 @@ def execute_telegram_post(
     parse_mode: str | None = "HTML",
     dry_run: bool = False,
     approval_context: Mapping[str, Any] | None = None,
+    reply_to_message_id: str | None = None,
 ) -> dict[str, Any]:
     """Publishes a message to a Telegram channel or chat via Bot API."""
     if dry_run:
@@ -165,6 +166,8 @@ def execute_telegram_post(
         "chat_id": target_chat,
         "text": message,
     }
+    if reply_to_message_id:
+        payload["reply_parameters"] = {"message_id": int(reply_to_message_id), "allow_sending_without_reply": False}
     if parse_mode:
         payload["parse_mode"] = parse_mode
     data = json.dumps(payload).encode("utf-8")

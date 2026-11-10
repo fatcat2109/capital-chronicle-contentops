@@ -131,3 +131,55 @@ def test_mutated_source_and_mutated_intent_cannot_reach_write(source, tmp_path):
     (folder / 'options-context.json').write_text('{"changed":true}')
     with pytest.raises(ValueError, match='SOURCE_BYTES_CHANGED'):
         coordinator.register_plan(packet['page_id'], packet['plan'])
+
+
+def test_native_request_carries_every_paragraph_and_bound_card_without_article_compiler(source, tmp_path):
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    store = ContentOpsDurableStore(tmp_path / 'store.sqlite3')
+    packet = pages.register_page(store, rendered(source, tmp_path))
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(packet['page_id'], packet['plan'])
+    intent = json.loads(store.list_outbox_messages(destination='substack')[0]['payload'])
+    request = NeoDestinationHandoff().request(destination='substack', action='READBACK', intent=intent)
+    assert request['native_payload'] == packet['native_payload']
+    assert request['content_binding']['expected_text_segments'] == list(packet['native_payload'].values())
+
+
+def test_local_prewrite_resolution_preserves_real_failure_circuit_and_exact_unknown(source, tmp_path):
+    store = ContentOpsDurableStore(tmp_path / 'store.sqlite3')
+    packet = pages.register_page(store, rendered(source, tmp_path))
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None)
+    coordinator.register_plan(packet['page_id'], packet['plan'])
+    intent = json.loads(store.list_outbox_messages(destination='substack')[0]['payload'])
+    ids = coordinator._ids(packet['page_id'],packet['plan']['plan_hash'],'substack')
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],platform='substack',status='UNKNOWN_WRITE')
+    coordinator._record_destination_day_failure(intent,'substack',{'dispatch_id':ids['dispatch_id'],'safe_error_classification':'KeyError'})
+    coordinator.resolve_local_neo_prewrite_failure('substack')
+    assert coordinator._destination_day_failure('substack') is None
+    assert store.get_platform_dispatch(ids['dispatch_id'])['status'] == 'UNKNOWN_WRITE'
+    coordinator._record_destination_day_failure(intent,'substack',{'dispatch_id':ids['dispatch_id'],'safe_error_classification':'TimeoutError'})
+    assert coordinator._destination_day_failure('substack')['safe_error_classification'] == 'TimeoutError'
+
+
+def test_local_resolution_refuses_any_issued_native_write_request(source, tmp_path):
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    packet=pages.register_page(store,rendered(source,tmp_path))
+    c=DurablePublicationCoordinator(store=store,transport_runtime=None)
+    c.register_plan(packet['page_id'],packet['plan'])
+    intent=json.loads(store.list_outbox_messages(destination='substack')[0]['payload'])
+    ids=c._ids(packet['page_id'],packet['plan']['plan_hash'],'substack')
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],platform='substack',status='UNKNOWN_WRITE')
+    c._record_destination_day_failure(intent,'substack',{'dispatch_id':ids['dispatch_id'],'safe_error_classification':'KeyError'})
+    store.register_outbox_message(message_id='issued',work_item_id=packet['page_id'],destination='internal:native-neo-tool',
+        payload=json.dumps({'request':{'action':'PUBLISH'}}),status='NATIVE_NEO_TOOL_PENDING')
+    with pytest.raises(ValueError,match='NATIVE_WRITE_REQUEST_EXISTS'):
+        c.resolve_local_neo_prewrite_failure('substack')
+
+
+def test_structured_summaries_respect_limits_keep_link_and_filter(source,tmp_path):
+    packet=rendered(source,tmp_path)
+    url='https://capitalchronicle.substack.com/p/full-original-plan-analysis'
+    for destination,limit in [('telegram',4096),('discord',2000),('threads',500),('facebook_page',60000),('instagram_business',2200)]:
+        text=pages.structured_summary(packet,destination,url)
+        assert len(text)<=limit and url in text
+        assert 'Macro' in text and 'Scenarios' in text and 'Desk review' in text
