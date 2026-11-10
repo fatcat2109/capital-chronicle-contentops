@@ -305,9 +305,21 @@ class NeoDestinationHandoff:
                 rows = conn.execute("SELECT payload FROM outbox_messages WHERE work_item_id=? AND destination=?",
                     (intent["work_item_id"], "internal:native-neo-tool")).fetchall()
             for row in rows:
-                request = json.loads(row[0]).get("request", {})
+                packet = json.loads(row[0])
+                request = packet.get("request", {})
                 if (request.get("action") == "PUBLISH" and request.get("destination") == destination
                         and request.get("intent_sha256") == sha256_of(intent)):
+                    def saved(kind):
+                        key = "native-neo-" + sha256_of([packet.get("operation_id"), request.get("request_sha256"), kind])
+                        return store.get_outbox_message(key)
+                    if not saved("started"):
+                        continue  # An issued request is not an attempted write.
+                    response = saved("response")
+                    result = (json.loads(response["payload"]).get("result") or {}) if response else {}
+                    if (result.get("status") == "FAILED_BEFORE_WRITE" and result.get("definite_no_write") is True
+                            and result.get("public_write_performed") is False
+                            and not (result.get("native_tool_observation") or {}).get("dispatched_at_utc")):
+                        continue
                     identities.add(request["expected_identity"])
         if len(identities) > 1 or identities - allowed:
             raise ValueError("SUBSTACK_NOTE_ORIGINAL_AUTHOR_AMBIGUOUS")

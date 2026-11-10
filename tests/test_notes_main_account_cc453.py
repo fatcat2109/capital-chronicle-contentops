@@ -47,18 +47,24 @@ def test_exact_historical_note_keeps_url_author_and_content(identity):
     assert result["public_object_url"] == url
 
 
-def test_uncertain_secondary_note_never_uses_new_accounts_empty_feed(tmp_path):
+@pytest.mark.parametrize("claimed", [False, True])
+def test_uncertain_secondary_note_never_uses_new_accounts_empty_feed(tmp_path, claimed):
     store = copied_store(tmp_path)
     _, value = message(store, "substack_notes")
-    packet = {"request": {"destination": "substack_notes", "action": "PUBLISH",
-        "expected_identity": "@deancapitalchronicle", "intent_sha256": sha256_of(value)}}
+    packet = {"operation_id":value["work_item_id"], "request": {"destination": "substack_notes", "action": "PUBLISH",
+        "request_sha256":"a"*64, "expected_identity": "@deancapitalchronicle", "intent_sha256": sha256_of(value)}}
     store.register_outbox_message(message_id="frozen-old-request", work_item_id=value["work_item_id"],
         destination="internal:native-neo-tool", payload=json.dumps(packet), status="NATIVE_NEO_INTERNAL")
     before = store.get_outbox_message("frozen-old-request")["payload"]
+    if claimed:
+        key="native-neo-"+sha256_of([value["work_item_id"],"a"*64,"started"])
+        store.register_outbox_message(message_id=key,work_item_id=value["work_item_id"],
+            destination="internal:native-neo-tool",payload=json.dumps({"native_invocation_id":"original"}),status="NATIVE_NEO_INTERNAL")
     request = NeoDestinationHandoff(store=store).request(destination="substack_notes", action="READBACK",
         intent=value)
-    assert request["expected_identity"] == "@deancapitalchronicle"
-    assert request["entry_url"] == "https://substack.com/@deancapitalchronicle"
+    expected="@deancapitalchronicle" if claimed else "@capitalchronicle"
+    assert request["expected_identity"] == expected
+    assert request["entry_url"] == "https://substack.com/"+expected
     assert store.get_outbox_message("frozen-old-request")["payload"] == before
 
 
