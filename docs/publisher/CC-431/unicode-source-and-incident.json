@@ -1,0 +1,46 @@
+{
+  "source_url": "https://raw.githubusercontent.com/twitter/twitter-text/master/config/v3.json",
+  "config": {
+    "version": 3,
+    "maxWeightedTweetLength": 280,
+    "scale": 100,
+    "defaultWeight": 200,
+    "emojiParsingEnabled": true,
+    "transformedURLLength": 23,
+    "ranges": [
+      {
+        "start": 0,
+        "end": 4351,
+        "weight": 100
+      },
+      {
+        "start": 8192,
+        "end": 8205,
+        "weight": 100
+      },
+      {
+        "start": 8208,
+        "end": 8223,
+        "weight": 100
+      },
+      {
+        "start": 8242,
+        "end": 8247,
+        "weight": 100
+      }
+    ]
+  },
+  "measured_failure": "WTI frozen thread post 3 undercounted Unicode bullets; X highlighted overflow and disabled Post all. Attempted disabled control produced no submission; own-profile readback showed no WTI root.",
+  "repair": "Whole-word reflow of the same complete text, with unchanged source numbers/claims/media and original request bytes. The existing request/readback owner verifies the full ordered text across post boundaries.",
+  "tests": {
+    "unicode_reflow": {
+      "passed": 19,
+      "seconds": 20.34
+    },
+    "native_regression": {
+      "passed": 130,
+      "seconds": 91.78,
+      "machine_load_limit_overrun": true
+    }
+  }
+}

@@ -69,3 +69,25 @@ def test_atomic_claim_accepts_only_the_exact_unwritten_x_bar(tmp_path, cause, pu
     assert store.claim_platform_dispatch_attempt(**kwargs) is allowed
     if allowed:
         assert store.claim_platform_dispatch_attempt(**kwargs) is False
+
+
+def test_x_weighted_length_and_reflow_preserve_all_frozen_words():
+    from live_contentops.neo_destination_handoff_v1 import _x_thread_matches
+    assert posts._x_length("•") == 2
+    assert posts._x_length("数据") == 4
+    assert posts._x_length("e\u0301") == posts._x_length("é") == 1
+    assert posts._x_length("https://example.com/a-long-link") == 23
+    text = "• Base case " + "unchanged words " * 35
+    parts = posts._x_pack(text, 280)
+    assert all(posts._x_length(part) <= 280 for part in parts)
+    assert " ".join(" ".join(parts).split()) == " ".join(text.split())
+    expected = ["Root condition 86.3 to 86.7.", "• Model estimate 55% alternative 35%.", "Invalidation above 88.35."]
+    reflow = [expected[0], "• Model estimate 55%", "alternative 35%. " + expected[2]]
+    thread = [{"public_object_id": str(i+1), "public_object_url": f"https://x.com/Capitalnicle/status/{i+1}",
+               "observed_text": t} for i,t in enumerate(reflow)]
+    binding = {"expected_thread_texts": expected}
+    assert _x_thread_matches(binding, thread, [], "")
+    thread[1]["observed_text"] = "• Model estimate 56%"
+    assert not _x_thread_matches(binding, thread, [], "")
+    thread[1]["observed_text"] = "• Model estimate"
+    assert not _x_thread_matches(binding, thread, [], "")

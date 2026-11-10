@@ -15,6 +15,19 @@ PPI_THREAD = {"text": "September PPI: energy drove the goods surge as services r
                                  "advice.\n\nReaders decide whether to trade.", "media_asset_ids": []}]}
 
 
+def test_exact_whole_text_reflow_is_recorded_without_losing_a_word(tmp_path, monkeypatch):
+    store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
+    packet = pending_publish(coordinator, store, ids, value, executor)
+    key = packet["request"]["request_sha256"]
+    executor.begin(key)
+    original = expected_posts(packet["request"])
+    words = original[0].split()
+    reflow = [words[0], " ".join(words[1:]), *original[1:]]
+    executor.submit(key, composed_response(packet, identity=MATCHED, result=PUBLISHED,
+        readback=True, pre_click_posts=reflow))
+    assert executor._get(key, "response")["result"]["pre_click_verification"] == "MATCHED_REFLOWED_THREAD"
+
+
 def test_the_run_checks_every_post_before_the_click(tmp_path, monkeypatch):
     store, executor, coordinator, ids, value = composed_setup(tmp_path, monkeypatch)
     packet = pending_publish(coordinator, store, ids, value, executor)

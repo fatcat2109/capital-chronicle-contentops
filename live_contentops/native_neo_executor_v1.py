@@ -519,6 +519,11 @@ class NativeNeoExecutor:
                              "composer texts read before the click; if they were not read, submit nothing")
         result["pre_click_verification"] = (
             "MATCHED" if _post_texts(posts) == _post_texts(expected_posts(request)) else "DIFFERED")
+        if request.get("destination") == "x" and result["pre_click_verification"] == "DIFFERED":
+            from live_contentops.plan_status_posts_v1 import _x_length
+            if (all(_x_length(p) <= 280 for p in posts)
+                    and _post_texts([" ".join(posts)]) == _post_texts([" ".join(expected_posts(request))])):
+                result["pre_click_verification"] = "MATCHED_REFLOWED_THREAD"
         if not dispatched:
             result["click_clock"] = "NOT_RETURNED"
         # CC-199, 5 Nov IBM: no browser return carried its in-run readback (step 5), so each

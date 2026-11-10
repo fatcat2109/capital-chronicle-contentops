@@ -1,0 +1,25 @@
+{
+  "after_click": "- heading \"To view keyboard shortcuts, press question mark View keyboard shortcuts\" [level=2]\n  - link \"View keyboard shortcuts\" [ref=e1] [url=\"https://x.com/i/keyboard_shortcuts\"]\n- button \"Grok\" [ref=e2]\n- button \"Chat\" [ref=e3]\n- dialog\n  - group [ref=e4] [cursor=pointer]\n    - generic [ref=e5] [cursor=pointer]\n    - dialog",
+  "dispatched_at_utc": "2026-11-10T04:53:40.633Z",
+  "identity": {
+    "authenticated": true,
+    "evidence": "Account menu: Log out @Capitalnicle",
+    "observed_at_utc": "2026-11-10T04:53:38.364Z",
+    "observed_identity": "@Capitalnicle"
+  },
+  "observed_at_utc": "2026-11-10T04:53:53.488Z",
+  "pre_click_posts": [
+    "Micro WTI crude oil (MCL futures, Dec 2026): new plan.\n\nLevels use the plan's prices.\n\nIf price trades into 86.3–86.7, the desk is bearish on US crude oil (WTI) over the period to Thu 12 Nov, 07:00 ET. Invalidated if price moves above 88.35.\n\nWhy:",
+    "• Base case 55% (Capital Chronicle model estimate): WTI keeps unwinding its Iran risk premium, sells off from any retest of the broken 86.0-86.7 shelf and breaks below the 9 Nov low of 84.24 within three sessions.",
+    "• Main alternative 35% (Capital Chronicle model estimate): stalled US-Iran talks or Hormuz tanker incidents restore the supply premium and squeeze WTI back above 88.2.\n\n• Mechanism: the supply-premium channel, clear for oil. The D1 bars fell from 104.04 (30 Oct high) to 84.237 (9",
+    "Nov low), each bounce failed (91.449 on 6 Nov and 90.464 on 9 Nov were sold), and 9 Nov opened at 89.50 and closed at 85.547, below the 5 Nov low of 86.02, on US-Iran deal hopes and the Hormuz framework report. WTI is a net receiver in the connectedness row and its 20-day",
+    "correlation with the S&P 500 is -0.55.",
+    "• What is priced: drift -1.00 ATR from the 6 Nov close of 89.483 to the 85.584 capture; 5-day -2.62 ATR (-10.7%); 10-day -15.4%; 20-day mean 96.72 (z -2.09), 50-day 94.36 (z -1.87), 200-day 88.74; 20-day range 84.24-104.04; prior pricing AMBIGUOUS.",
+    "• Positioning: speculators net long 80,289, only 4.2% of 1,908,732 open interest (COT as of 3 Nov, before the fall from 95.8 to 84.2), modest fuel below 84.2; shorts cover above 88.2.\n\n• Today's driver: clear, the Iran premium, and the D1 bars agree.",
+    "• Reaction so far: accepted; the 9 Nov close of 85.547 sits near the 84.237 low and below 86.02, and Asia steadies near 85.6.\n\n• Why this zone: pullback zone 86.30-86.70 at the broken shelf of the 5 Nov D1 low 86.02 (bar open 2026-11-05T00:00Z) and the 4 Nov low 86.59; breakout",
+    "zone 83.95-84.10 below the nearest support, the 9 Nov D1 low of 84.237 (bar open 2026-11-09T00:00Z); both known 2026-11-10T00:24:18.044Z.",
+    "• What confirms it: (1) the repeated bounce failures at 91.449 and 90.464 and the close below 86.02 in the D1 bars; (2) the -0.55 the S&P 500 correlation in the WTI quant card, consistent with a supply rather than a demand move.",
+    "• Alternative mechanism: stalled talks or Hormuz incidents restore the supply premium; which may be an escalation headline.\n\n• Invalidation: a completed H1 close above 88.35, or official confirmation of strikes that disrupt supply or a Hormuz closure.",
+    "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers."
+  ]
+}

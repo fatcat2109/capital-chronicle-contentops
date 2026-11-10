@@ -16,6 +16,7 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import unicodedata
 from typing import Any, Mapping
 
 from live_contentops.event_article_guard_v1 import (
@@ -909,7 +910,13 @@ def _split(text: str) -> tuple[str, str]:
 
 
 def _x_length(text: str) -> int:
-    return len(re.sub(r"https://\S+", "x" * X_URL_LENGTH, text))
+    # twitter/twitter-text config/v3.json: common ranges weigh one, the rest
+    # two, and a transformed URL weighs 23. CC-431's live WTI composer exposed
+    # the old len() undercount for bullets. Counting each emoji code point is
+    # an upper bound for multi-code-point emoji sequences, never an undercount.
+    text = re.sub(r"https?://\S+", "x" * X_URL_LENGTH, unicodedata.normalize("NFC", text))
+    ranges = ((0, 4351), (8192, 8205), (8208, 8223), (8242, 8247))
+    return sum(1 if any(start <= ord(char) <= end for start, end in ranges) else 2 for char in text)
 
 
 def _excerpt(text: str, room: int) -> str:

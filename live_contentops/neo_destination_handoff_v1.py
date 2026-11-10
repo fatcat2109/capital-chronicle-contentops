@@ -140,7 +140,20 @@ def _x_reader_text(value, links, public_object_url, canonical):
 
 def _x_thread_matches(binding, thread, links, canonical):
     expected = binding["expected_thread_texts"]
-    if len(thread) < len(expected) or len({p.get("public_object_id") for p in thread}) != len(thread):
+    if not thread or len({p.get("public_object_id") for p in thread}) != len(thread):
+        return False
+    if not all(_public_url("x", p.get("public_object_url"), p.get("public_object_id")) for p in thread):
+        return False
+    # CC-431: an older frozen request can undercount Unicode characters. A
+    # word-boundary reflow retains the entire exact copy; no claim, number or
+    # paragraph may disappear or change. Reader metadata around the unchanged
+    # root is handled as in the existing post-by-post comparison below.
+    observed = [_x_reader_text(p.get("observed_text"), links, p.get("public_object_url"), canonical) for p in thread]
+    if expected and _text(expected[0]) in observed[0]:
+        observed[0] = _text(expected[0])
+        if _text(" ".join(expected)) == _text(" ".join(observed)):
+            return True
+    if len(thread) < len(expected):
         return False
     # A partial reply can be completed in the same thread when the platform has
     # no edit control. Extra text must be a complete fragment of approved copy;
