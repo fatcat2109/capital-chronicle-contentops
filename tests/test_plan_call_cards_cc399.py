@@ -54,6 +54,11 @@ def five(tmp_path, main_root, monkeypatch):
     # covers new cards on the webhook-only channel route.
     from live_contentops import secret_store_v1
     monkeypatch.setattr(secret_store_v1, "read_secret", lambda name: "fixture-bot" if name == "DISCORD_BOT_TOKEN" else None)
+    class FixtureClock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return NOW.astimezone(tz) if tz else NOW.replace(tzinfo=None)
+    monkeypatch.setattr(cards, "datetime", FixtureClock)
     seed = ContentOpsDurableStore(tmp_path / "seed.sqlite")
     copied = tmp_path / "copy.sqlite"
     with sqlite3.connect(seed.db_path) as source, sqlite3.connect(copied) as target:
@@ -330,7 +335,7 @@ def test_own_card_comments_read_back_from_their_exact_parent(monkeypatch, destin
 
 def test_note_request_opens_exact_parent_and_never_creates_an_unrelated_note():
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
-    parent_url = "https://substack.com/@deancapitalchronicle/note/c-12345"
+    parent_url = "https://substack.com/@capitalchronicle/note/c-12345"
     payload = {"text": "Our ending. " + cards.NOTICES, "reply_to_id": "c-12345", "reply_to_url": parent_url}
     request = NeoDestinationHandoff().request(destination="substack_notes", action="READBACK",
         intent={"native_payload": payload, "payload": payload["text"], "work_item_id": "card-ending"})

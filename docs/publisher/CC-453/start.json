@@ -1,0 +1,55 @@
+{
+  "item": "CC-453",
+  "observed_at_utc": "2026-11-10T21:47:05.930108+00:00",
+  "base_commit": "6df166df521a4c51f2b0414ccfdd1d7cbdaa97e5",
+  "base_choice": "Existing Publisher operating HEAD; fresh origin/master is its ancestor, 854 commits behind; retains installed fixes and unrelated WIP.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "model_observation": "CONFIGURED_NOT_OBSERVED",
+  "worktrees": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "head": "6df166df521a4c51f2b0414ccfdd1d7cbdaa97e5",
+      "unrelated_files": [
+        {
+          "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+          "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+        },
+        {
+          "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+          "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "head": "6df166df521a4c51f2b0414ccfdd1d7cbdaa97e5",
+      "unrelated_files": [
+        {
+          "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+          "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+        },
+        {
+          "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+          "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+        },
+        {
+          "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+          "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+        },
+        {
+          "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+          "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+        },
+        {
+          "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+          "sha256": "cdead3afe1e57c4b1da1ea35fe23b25fec72a6633fa09d114b6dd33b6801053e"
+        },
+        {
+          "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+          "sha256": "f8041d42018f81f9b0d88944889bf7fd974802241e75f4b6efbe119faf5ad5a9"
+        }
+      ]
+    }
+  ]
+}

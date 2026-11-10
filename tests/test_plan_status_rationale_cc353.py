@@ -133,9 +133,9 @@ def test_long_full_text_uses_bounded_parts_with_all_reasons(tmp_path, main_root)
 
 
 def test_note_url_must_name_our_exact_public_object():
-    assert _public_url("substack_notes", "https://substack.com/@deancapitalchronicle/note/c-123", "c-123")
+    assert _public_url("substack_notes", "https://substack.com/@capitalchronicle/note/c-123", "c-123")
     assert not _public_url("substack_notes", "https://substack.com/@other/note/c-123", "c-123")
-    assert not _public_url("substack_notes", "https://substack.com/@deancapitalchronicle/note/c-123", "c-456")
+    assert not _public_url("substack_notes", "https://substack.com/@capitalchronicle/note/c-123", "c-456")
 
 
 @pytest.mark.parametrize("long", [False, True])
@@ -168,8 +168,8 @@ def test_notes_uses_existing_neo_request_and_exact_public_readback():
              "destination_plan": {"payload_hash": "f" * 64}}
     handoff = NeoDestinationHandoff()
     request = handoff.request(destination="substack_notes", action="READBACK", intent=value,
-        public_object_id="c-123", public_object_url="https://substack.com/@deancapitalchronicle/note/c-123")
-    assert request["expected_identity"] == "@deancapitalchronicle"
+        public_object_id="c-123", public_object_url="https://substack.com/@capitalchronicle/note/c-123")
+    assert request["expected_identity"] == "@capitalchronicle"
     assert request["surface"] == "SUBSTACK_NOTE"
     assert request["content_binding"]["expected_text_segments"] == [value["native_payload"]["text"]]
 

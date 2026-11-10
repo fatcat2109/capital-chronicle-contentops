@@ -17,6 +17,7 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 import requests
 
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired, expected_posts
+from live_contentops.neo_destination_handoff_v1 import ROOTS
 
 ENDPOINT_SURFACE = "NEO_ENDPOINT_EXECUTOR"
 ENDPOINT_TOOL = "browseros-neo/run"
@@ -361,11 +362,11 @@ class NeoBrowserDriver:
         if url:
             self.client.call("navigate", {"page": page, "url": url})
         else:
-            root = "https://x.com/Capitalnicle/with_replies" if destination == "x" else "https://substack.com/@deancapitalchronicle"
+            root = ROOTS["x"] + "/with_replies" if destination == "x" else request["entry_url"]
             self.client.call("navigate", {"page": page, "url": root})
         selector = 'article[data-testid="tweet"]' if destination == "x" else 'main .FeedProseMirror'
         self.client.wait(page, selector)
-        data = self.client.run(page, "readback")
+        data = self.client.run(page, "readback", expected_identity=request["expected_identity"])
         candidates = data["tweets" if destination == "x" else "notes"]
         self._resolve_links(request,candidates)
         texts = posts or expected_posts(request)
@@ -381,7 +382,7 @@ class NeoBrowserDriver:
         if not url:
             self.client.call("navigate", {"page":page,"url":root["public_object_url"]})
             self.client.wait(page, selector)
-            data = self.client.run(page,"readback")
+            data = self.client.run(page,"readback", expected_identity=request["expected_identity"])
             candidates = data["tweets" if destination == "x" else "notes"]
             self._resolve_links(request,candidates)
             root = next((r for r in candidates if r["public_object_url"] == root["public_object_url"]), root)
@@ -389,7 +390,7 @@ class NeoBrowserDriver:
             # X delivers replies after the root. Wait for the expected final
             # post, rather than accepting the root-only loading snapshot.
             self.client.wait_text(page,texts[-1].splitlines()[0][:100])
-            data=self.client.run(page,"readback")
+            data=self.client.run(page,"readback",expected_identity=request["expected_identity"])
             candidates=data["tweets" if destination=="x" else "notes"]
             self._resolve_links(request,candidates)
             root=next((r for r in candidates if r["public_object_url"]==root["public_object_url"]),root)
@@ -494,7 +495,7 @@ class NeoBrowserDriver:
     def perform(self, packet):
         request = packet["request"]
         destination = request["destination"]
-        profile = "https://x.com/Capitalnicle" if destination == "x" else "https://substack.com/@deancapitalchronicle"
+        profile = request["entry_url"] if request["action"] == "READBACK" else ROOTS[destination]
         identity={"authenticated":False,"observed_identity":None,
             "observed_at_utc":datetime.now(timezone.utc).isoformat()}
         try:

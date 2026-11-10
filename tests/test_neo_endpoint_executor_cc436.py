@@ -56,7 +56,7 @@ def endpoint(*, fault=None):
                         value={"refs":[{"role":"button","name":n,"ref":"e"+str(i)} for i,n in enumerate(
                             ['New post','Comment','Post','Add post','Choose Files','CC436 image upload'])]+
                             [{"role":"textbox","name":"Post text" if page==1 else "What's on your mind?","ref":"edit"}],
-                            "url":"https://x.com/Capitalnicle" if page==1 else "https://substack.com/@deancapitalchronicle","text":"fixture"}
+                            "url":"https://x.com/Capitalnicle" if page==1 else "https://substack.com/@capitalchronicle","text":"fixture"}
                     else:
                         args_in=json.loads(code.split('const input=',1)[1].split(';\n',1)[0]); phase=args_in['phase']
                         if phase=='identity': value={"authenticated":fault!='account',"observed_identity":args_in['expected_identity'] if fault!='account' else None,
@@ -68,7 +68,7 @@ def endpoint(*, fault=None):
                                     "reason_code":"NEO_COMPOSER_PAYLOAD_MISMATCH"}
                             else:
                                 number='123' if page==1 else 'c-456'
-                                url='https://x.com/Capitalnicle/status/123' if page==1 else 'https://substack.com/@deancapitalchronicle/note/c-456'
+                                url='https://x.com/Capitalnicle/status/123' if page==1 else 'https://substack.com/@capitalchronicle/note/c-456'
                                 state['posts'][dest]={"public_object_id":number,"public_object_url":url,
                                     "observed_text":'\n\n'.join(actual),"links":[],"public_image_urls":
                                     (['https://pbs.twimg.com/media/card.png'] if dest=='x' else

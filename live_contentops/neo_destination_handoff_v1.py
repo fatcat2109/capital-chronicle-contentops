@@ -16,11 +16,11 @@ from urllib.parse import urlsplit, unquote
 
 
 SCHEMA = "contentops.neo_destination_handoff.v1"
-IDENTITIES = {"substack": "capitalchronicle.substack.com", "substack_notes": "@deancapitalchronicle", "x": "@Capitalnicle",
+IDENTITIES = {"substack": "capitalchronicle.substack.com", "substack_notes": "@capitalchronicle", "x": "@Capitalnicle",
               "youtube": "@CapitalChronicleYouTube", "linkedin": "linkedin:jimcc",
               "linkedin_company": "linkedin:company:143198922", "instagram_business": "official.capitalchronicle",
               "telegram": "@CapitalChronicle", "threads": "official.capitalchronicle"}
-ROOTS = {"substack": "https://capitalchronicle.substack.com/", "substack_notes": "https://substack.com/@deancapitalchronicle", "x": "https://x.com/Capitalnicle",
+ROOTS = {"substack": "https://capitalchronicle.substack.com/", "substack_notes": "https://substack.com/@capitalchronicle", "x": "https://x.com/Capitalnicle",
          "youtube": "https://www.youtube.com/@CapitalChronicleYouTube/posts",
          "linkedin": "https://www.linkedin.com/in/jimcc/recent-activity/all/",
           "linkedin_company": "https://www.linkedin.com/company/143198922/admin/page-posts/published/",
@@ -90,7 +90,7 @@ def _social_canonical(url):
     return _canonical(url)
 
 
-def _public_url(destination, url, object_id=None):
+def _public_url(destination, url, object_id=None, *, expected_identity=None):
     p = urlsplit(str(url or ""))
     # LinkedIn's company publish receipt includes its exact acting company.
     # Keep that durable receipt URL; no other query or account is admitted.
@@ -101,7 +101,8 @@ def _public_url(destination, url, object_id=None):
     if destination == "substack":
         return _canonical(url)
     if destination == "substack_notes":
-        match = re.fullmatch(r"/@deancapitalchronicle/note/(c-\d+)/?", p.path, re.I)
+        identity = expected_identity or IDENTITIES[destination]
+        match = re.fullmatch(r"/" + re.escape(identity) + r"/note/(c-\d+)/?", p.path, re.I)
         return bool(p.hostname == "substack.com" and match
                     and (not object_id or match[1] == str(object_id)))
     if destination == "x":
@@ -289,6 +290,29 @@ class NeoDestinationHandoff:
         self.native_executor = native_executor
         self.store = store
 
+    def _readback_identity(self, destination, intent, public_object_url):
+        """Keep an issued Note's author; a new account's empty feed proves no absence."""
+        if destination != "substack_notes":
+            return IDENTITIES[destination]
+        allowed = {IDENTITIES[destination], "@deancapitalchronicle"}
+        for identity in allowed:
+            if public_object_url and _public_url(destination, public_object_url, expected_identity=identity):
+                return identity
+        store = self.store or getattr(self.native_executor, "store", None)
+        identities = set()
+        if store is not None:
+            with store.get_read_only_connection() as conn:
+                rows = conn.execute("SELECT payload FROM outbox_messages WHERE work_item_id=? AND destination=?",
+                    (intent["work_item_id"], "internal:native-neo-tool")).fetchall()
+            for row in rows:
+                request = json.loads(row[0]).get("request", {})
+                if (request.get("action") == "PUBLISH" and request.get("destination") == destination
+                        and request.get("intent_sha256") == sha256_of(intent)):
+                    identities.add(request["expected_identity"])
+        if len(identities) > 1 or identities - allowed:
+            raise ValueError("SUBSTACK_NOTE_ORIGINAL_AUTHOR_AMBIGUOUS")
+        return next(iter(identities), IDENTITIES[destination])
+
     def _absence_dispatch_clock(self, intent, destination):
         """Absence must follow the latest write attempt, including a bounded API retry."""
         from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
@@ -359,9 +383,13 @@ class NeoDestinationHandoff:
             require_public_time(*posted_values(intent), native_payload, public_media_text(intent.get("media_assets")),
                                 public_media_text(content_binding.get("media_manifest")))
         telegram_rule = ({"telegram_read_rule": TELEGRAM_READ_RULE} if destination == "telegram" else {})
+        identity = (self._readback_identity(destination, intent, public_object_url)
+                    if action == "READBACK" else IDENTITIES[destination])
+        entry_url = ("https://substack.com/" + identity if destination == "substack_notes"
+                     else ROOTS[destination])
         value = {"schema_version": SCHEMA, "destination": destination, "action": action,
-            "expected_identity": IDENTITIES[destination],
-            "entry_url": TELEGRAM_PUBLIC_FEED if destination == "telegram" else ROOTS[destination],
+            "expected_identity": identity,
+            "entry_url": TELEGRAM_PUBLIC_FEED if destination == "telegram" else entry_url,
             "intent_sha256": sha256_of(intent), "work_item_id": intent.get("work_item_id"),
             "package_identity": intent.get("package_identity"),
             "payload_hash": intent.get("destination_plan", {}).get("payload_hash"),
@@ -392,7 +420,8 @@ class NeoDestinationHandoff:
         if (destination == "substack_notes" or destination == "x" and intent.get("plan_analysis_link")) \
                 and isinstance(native_payload, Mapping) and native_payload.get("reply_to_id"):
             parent_id, parent_url = native_payload["reply_to_id"], native_payload.get("reply_to_url")
-            if not _public_url(destination, parent_url, parent_id):
+            if not _public_url(destination, parent_url, parent_id,
+                    expected_identity=identity if action == "READBACK" else None):
                 raise ValueError("X_REPLY_PARENT_URL_INVALID" if destination == "x" else "SUBSTACK_NOTE_REPLY_PARENT_URL_INVALID")
             value["entry_url"] = parent_url
             value["reply_parent"] = {"public_object_id": parent_id, "public_object_url": parent_url}
@@ -599,9 +628,9 @@ class NeoDestinationHandoff:
         # its shortened links and transcoded media to that exact public URL.
         # A known object never changes identity during recovery.
         if (not public_object_id and not public_object_url
-                and result.get("observed_identity") == IDENTITIES[destination]
+                and result.get("observed_identity") == request["expected_identity"]
                 and result.get("public_object_id")
-                and _public_url(destination, result.get("public_object_url"), result["public_object_id"])):
+                and _public_url(destination, result.get("public_object_url"), result["public_object_id"], expected_identity=request["expected_identity"])):
             public_object_id = result["public_object_id"]
             public_object_url = result["public_object_url"]
         binding = request["content_binding"]
@@ -689,7 +718,7 @@ class NeoDestinationHandoff:
         thread_match = (binding["thread_post_count"] <= 1 or (
             len(thread) == binding["thread_post_count"]
             and all(_text(text) in _text(post.get("observed_text"))
-                    and _public_url(destination, post.get("public_object_url"), post.get("public_object_id"))
+                    and _public_url(destination, post.get("public_object_url"), post.get("public_object_id"), expected_identity=request["expected_identity"])
                     for text, post in zip(binding["expected_thread_texts"], thread))
             and len({p.get("public_object_id") for p in thread}) == len(thread)))
         if destination == "x" and binding["thread_post_count"] > 1:
@@ -708,20 +737,20 @@ class NeoDestinationHandoff:
                 and all(_note_rendered_text(s, canonical, links, result.get("public_object_url")) not in comparison
                         for s in binding.get("excluded_text_segments", []))
         verified = (result.get("request_sha256") == request["request_sha256"]
-            and result.get("observed_identity") == IDENTITIES[destination]
+            and result.get("observed_identity") == request["expected_identity"]
             and (not public_object_id or result.get("public_object_id") == public_object_id)
             and (not public_object_url or result.get("public_object_url") == public_object_url)
-            and _public_url(destination, result.get("public_object_url"), result.get("public_object_id"))
+            and _public_url(destination, result.get("public_object_url"), result.get("public_object_id"), expected_identity=request["expected_identity"])
             and result.get("content_verified") is True and text_match and media_match and thread_match and attachments_match and link_card_match)
         parent = request.get("reply_parent")
         if parent:
             verified = verified and result.get("observed_reply_parent_id") == parent["public_object_id"] \
                 and result.get("observed_reply_parent_url") == parent["public_object_url"]
         identity_exists = (result.get("request_sha256") == request["request_sha256"]
-            and result.get("observed_identity") == IDENTITIES[destination]
+            and result.get("observed_identity") == request["expected_identity"]
             and bool(public_object_id) and result.get("public_object_id") == public_object_id
             and result.get("public_object_url") == public_object_url
-            and _public_url(destination, public_object_url, public_object_id)
+            and _public_url(destination, public_object_url, public_object_id, expected_identity=request["expected_identity"])
             and bool(observed_text))
         # Publication and exact copy equality are separate observations. A
         # later credit/caption edit cannot unpublish an otherwise identified
@@ -749,10 +778,10 @@ class NeoDestinationHandoff:
             feed_read = (result.get("observed_profile_url") == TELEGRAM_PUBLIC_FEED
                          if destination == "telegram" else
                          result.get("authenticated") is True
-                         and result.get("observed_profile_url") == ROOTS[destination])
+                         and result.get("observed_profile_url") == request["entry_url"])
             absent = (elapsed >= 600 and feed_read
                 and result.get("activity_feed_loaded") is True and bool(observed_text)
-                and result.get("observed_identity") == IDENTITIES[destination]
+                and result.get("observed_identity") == request["expected_identity"]
                 and result.get("request_sha256") == request["request_sha256"]
                 and dispatch.get("status") in {"UNKNOWN_WRITE", "DISPATCH_ATTEMPT_STARTED", "NATIVE_NEO_TOOL_PENDING",
                     "RECONCILED_ABSENT_SAFE_TO_RETRY", "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",

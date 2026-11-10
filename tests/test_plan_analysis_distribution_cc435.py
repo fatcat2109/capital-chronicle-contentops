@@ -142,7 +142,7 @@ def test_note_needs_its_own_visible_canonical_link_card(ready, card):
     row = store.list_outbox_messages(work_item_id=value["link_id"], destination="substack_notes")[0]
     intent = json.loads(row["payload"])
     assert "reply_to_id" not in intent["native_payload"]
-    url = "https://substack.com/@deancapitalchronicle/note/c-12345"
+    url = "https://substack.com/@capitalchronicle/note/c-12345"
 
     def observed(request):
         text = value["native_payload"]["text"]
@@ -320,7 +320,7 @@ def test_link_resume_returns_the_already_queued_native_request(ready, monkeypatc
 
 def test_note_host_case_rendering_requires_the_exact_objects_observed_link():
     from live_contentops.neo_destination_handoff_v1 import _note_rendered_text
-    public = "https://substack.com/@deancapitalchronicle/note/c-12345"
+    public = "https://substack.com/@capitalchronicle/note/c-12345"
     links = [{"text": "investing.com", "url": "https://investing.com/", "public_object_url": public}]
     assert _note_rendered_text("Investing.com: 0.3%", "unused", links, public) == "investing.com: 0.3%"
     assert _note_rendered_text("Investing.com: 0.3%", "unused", links, "other-object") == "Investing.com: 0.3%"

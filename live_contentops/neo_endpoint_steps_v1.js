@@ -15,7 +15,8 @@ if (input.phase === 'identity') {
   const correct = input.destination === 'x'
     ? /link "Profile"[^\n]*url="https:\/\/x.com\/Capitalnicle"/.test(s.text)
       && !!find(s, 'link', 'Edit profile')
-    : /@deancapitalchronicle/.test(s.text) && !!find(s, 'button', 'Edit profile');
+    : s.url === 'https://substack.com/' + input.expected_identity
+      && !!find(s, 'link', input.expected_identity) && !!find(s, 'button', 'Edit profile');
   return {authenticated: correct, observed_identity: correct ? input.expected_identity : null,
     observed_at_utc: new Date().toISOString()};
 }
@@ -60,7 +61,7 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
 if (input.phase === 'readback') {
   // AX/read omit note paragraphs and do not expose image URLs or original clocks.
   // Read only the rendered object; never fetch a private endpoint in the page.
-  return unwrap(await page.evaluateInPage(() => {
+  return unwrap(await page.evaluateInPage((identity) => {
     const visible = e => !!e && e.getClientRects().length > 0;
     const links = e => Array.from(e.querySelectorAll('a[href]')).map(a => ({text:a.innerText,url:a.href,
       expanded_url:a.getAttribute('title'), card_visible:visible(a) && !!a.querySelector('[class*="previewCardContent"]')}));
@@ -79,13 +80,18 @@ if (input.phase === 'readback') {
     const notes = Array.from(document.querySelectorAll('main .FeedProseMirror')).filter(visible).map(e => {
       const root = e.closest('article,[class*="feedPermalinkUnit"]') || e.parentElement?.parentElement?.parentElement;
       const ancestors = [root,root.parentElement,root.parentElement?.parentElement].filter(Boolean);
-      const owner = ancestors.find(a=>a.querySelector('a[href*="/@deancapitalchronicle/note/c-"]')) || root;
-      const url = links(owner).find(a=>/^https:\/\/substack.com\/@deancapitalchronicle\/note\/c-\d+$/.test(a.url))?.url
-        || (/^https:\/\/substack.com\/@deancapitalchronicle\/note\/c-\d+$/.test(location.href) ? location.href : null);
+      const noteUrl = value => {
+        const u = new URL(value);
+        return u.origin === 'https://substack.com' && !u.search && !u.hash
+          && u.pathname.startsWith('/' + identity + '/note/') && /\/note\/c-\d+$/.test(u.pathname);
+      };
+      const owner = ancestors.find(a=>links(a).some(l=>noteUrl(l.url))) || root;
+      const url = links(owner).find(a=>noteUrl(a.url))?.url
+        || (noteUrl(location.href) ? location.href : null);
       return {public_object_url:url,public_object_id:url?.match(/note\/(c-\d+)/)?.[1],
         observed_text:e.innerText, links:links(owner), public_image_urls:imageUrls(owner)};
     }).filter(e=>e.public_object_url);
     return {url:location.href,tweets,notes};
-  }));
+  }, input.expected_identity));
 }
 throw new Error('NEO_UNSUPPORTED_PHASE');

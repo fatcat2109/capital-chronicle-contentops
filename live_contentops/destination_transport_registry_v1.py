@@ -79,8 +79,8 @@ _SURFACES = (
     SurfaceTransport(
         "SUBSTACK_NOTE", "substack_notes", "BROWSEROS_NEO_MCP",
         "neo_destination_handoff_v1.NeoDestinationHandoff",
-        "substack_notes", "@deancapitalchronicle",
-        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@deancapitalchronicle",
+        "substack_notes", "@capitalchronicle",
+        expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@capitalchronicle",
     ),
     SurfaceTransport(
         "SUBSTACK_ARTICLE", "substack", "BROWSEROS_NEO_MCP",
