@@ -1,0 +1,79 @@
+{
+  "item_id": "CC-395",
+  "base": "8ed143702c115248d400d8977f95bd35494e981c",
+  "base_reason": "Remote master is behind the Publisher operating root; branch starts at remote master and fast-forwards to the current operating commit before implementation.",
+  "launch": {
+    "pid": 19400,
+    "start_time": "2026-11-10T01:47:35.4117050Z",
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "telemetry": "CONFIGURED_NOT_OBSERVED"
+  },
+  "checks": [
+    {
+      "artifact": "seven-destinations-tests.xml",
+      "result": "5 passed before subsequent consumer changes"
+    },
+    {
+      "artifact": "consumer-tests.xml",
+      "result": "105 passed",
+      "scope": "Seven-destination consumer, compiler/scenarios, card layout and newsroom qualification tests"
+    },
+    {
+      "artifact": "copied-store-replay.json",
+      "result": "Seven required derivatives confirmed; one X no-write; zero DISPATCH_FAILURE incidents; fake transports only"
+    },
+    {
+      "artifact": "media/landscape.png and media/portrait.png",
+      "result": "Actual rendered card pixels inspected; complete notice, no date/notice overlap"
+    },
+    {
+      "artifact": "AST parse",
+      "result": "23 changed Python files parsed"
+    },
+    {
+      "artifact": "bios.md and telegram-bio.json",
+      "result": "All eight requested public surfaces inventoried read-only; Telegram Bot API description empty"
+    },
+    {
+      "artifact": "git diff --check",
+      "result": "PASS"
+    },
+    {
+      "artifact": "coordinator-final-tests.xml",
+      "result": "138 passed; three old recovery fixture expectations require focused correction; original report retained"
+    },
+    {
+      "artifact": "corrected-recovery-tests.xml",
+      "result": "16 passed, 95 deselected",
+      "scope": "Retired X path, current destination correction, durable totals, native-record filtering, status notice limits, seven-package mapping and queued X tool retirement"
+    },
+    {
+      "artifact": "canonical coordinator full-file review",
+      "result": "Two pre-prohibition X transport-correction parameters retired; separate X preservation/no-retry tests replace them. The remaining native-internal-record expectation includes the explicit local X disposition."
+    },
+    {
+      "artifact": "final-route-tests.xml",
+      "result": "57 passed; one recorded-variant fixture still expected the old notice; corrected replay retained separately"
+    },
+    {
+      "artifact": "recorded-variants-tests.xml",
+      "result": "1 passed after updating the fixture to seven outputs and the new notice"
+    }
+  ],
+  "acceptance_remaining": [
+    "Next live article full distribution; blocked by YOUTUBE_NON_API_AUTOMATION_PROHIBITED with no authorized Community API transport",
+    "Exact next live post readback carrying the new notice"
+  ],
+  "next_actor": "Ops Product chooses an allowed publication route or revises the required set by its backlog decision; production run then supplies exact article/post readbacks.",
+  "public_write_performed": false,
+  "schedule_changed": false,
+  "chat_messaged": false,
+  "model_roles": "No editorial/model call made; exact owner-supplied notice is a deterministic literal change. Existing editorial role settings remain.",
+  "consumer_task": {
+    "name": "CapitalChronicle-PlanStatusPosts-V1",
+    "executable": "pythonw.exe",
+    "action_references_operating_root": true,
+    "schedule_changed": false
+  }
+}

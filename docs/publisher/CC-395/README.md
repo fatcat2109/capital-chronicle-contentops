@@ -6,6 +6,8 @@ one local `DEFINITE_NO_WRITE`, reconciled as `X_NON_API_AUTOMATION_PROHIBITED`.
 It spends no retry budget and creates no dispatch-failure incident. Confirmed,
 owner-removed and uncertain old X dispatches keep their status and identities.
 An uncertain old attempt remains uncertain; this change is not absence evidence.
+It is separately reported as retired X uncertainty and cannot veto a transaction
+that has no X write. Old queued X identity/readback requests never reach an agent.
 
 The seven destinations are Telegram, Discord, LinkedIn, Facebook Page, Instagram
 Business, Threads and YouTube Community. The historical
@@ -39,9 +41,15 @@ and `--pending-notes` route after the four X flags are removed.
   and coordinator; it is not a fresh public article or real platform delivery.
 - `consumer-tests.xml`: current compiler/scenarios, card layouts and production-day
   qualification. Initial failures were fixed; earlier attempt evidence remains.
-- `dispatch-tests.xml`: earlier broad coordinator replay before fixture updates;
-  retained failures include retired X/eight-destination expectations. Corrected
-  targeted replay is recorded separately.
+- `coordinator-final-tests.xml`: 138 passes and three older fixture expectations,
+  followed by `corrected-recovery-tests.xml` with 16 passes. The two pre-prohibition
+  X transport-correction parameters are retired in favor of explicit no-retry and
+  old-identity preservation tests. Native-record filtering expects the local X
+  disposition alongside the seven destinations.
+- `final-route-tests.xml`: final route and suggestion-consumer regression. The
+  recorded Light suggestion still retains its original X entry; the current
+  compiler consumes its other variants and emits seven outputs with the new notice.
+  `dispatch-tests.xml` retains the earlier pre-correction attempt.
 
 The [bio inventory](bios.md) covers all eight requested surfaces. LinkedIn's
 “AI-driven macro & market intelligence” is flagged, as is Discord's historical

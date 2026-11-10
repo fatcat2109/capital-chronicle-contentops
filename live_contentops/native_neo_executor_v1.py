@@ -148,6 +148,12 @@ class NativeNeoExecutor:
         request_hash = request.get("request_sha256")
         if request_hash != sha256_of({k: v for k, v in request.items() if k != "request_sha256"}):
             raise ValueError("NATIVE_NEO_REQUEST_HASH_INVALID")
+        if request.get("destination") == "x" and request.get("action") in {"READBACK", "VERIFY_IDENTITY"}:
+            response = self._get(request_hash, "response")
+            if response:
+                return dict(response["result"])
+            return {"status": "SKIPPED", "verified": False, "write_absent": False,
+                "reason_code": "X_NON_API_AUTOMATION_PROHIBITED", "request_sha256": request_hash}
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             from live_contentops.neo_destination_handoff_v1 import _prohibited_write
             refused = _prohibited_write(request.get("destination"))
@@ -195,6 +201,8 @@ class NativeNeoExecutor:
         if not packet:
             raise ValueError("NATIVE_NEO_REQUEST_NOT_FOUND")
         request = packet["request"]
+        if request.get("destination") == "x" and request.get("action") in {"READBACK", "VERIFY_IDENTITY"}:
+            raise ValueError("X_NON_API_AUTOMATION_PROHIBITED")
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             from live_contentops.neo_destination_handoff_v1 import _prohibited_write
             refused = _prohibited_write(request.get("destination"))
@@ -715,6 +723,8 @@ class NativeNeoExecutor:
             payload = json.loads(row["payload"])
             if payload.get("schema_version") != SCHEMA or payload.get("operation_id") != self.operation_id:
                 continue
+            if payload["request"].get("destination") == "x":
+                continue  # Decision 109 retires the entire X browser agent route.
             absence = payload["request"].get("owner_absence_context")
             if payload["request"]["action"] == "READBACK" and absence:
                 prior = self.store.get_platform_dispatch(absence.get("dispatch_id", "")) or {}

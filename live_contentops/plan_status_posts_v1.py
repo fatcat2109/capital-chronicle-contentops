@@ -867,8 +867,8 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
 # sole coordinator owns exactly-once, UNKNOWN_WRITE and readback. No Substack canonical: the
 # link is the market's page on the site (the preview until CC-305 publishes).
 # ---------------------------------------------------------------------------------------------
-POST_DESTINATIONS = ("telegram", "discord", "threads", "x", "substack_notes")
-# The minute task posts only these (no agent needed). X is registered by the agent route.
+POST_DESTINATIONS = ("telegram", "discord", "threads", "substack_notes")
+# The minute task posts only these; Substack Notes retains its native agent route.
 API_DESTINATIONS = ("telegram", "discord", "threads")
 # Jim's decision 83 (5 Nov): a status post carries no site link, only its text and image.
 POST_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\plan-status-posts")
@@ -897,7 +897,8 @@ def _row_payload(store, key: str) -> dict:
 
 def _split(text: str) -> tuple[str, str]:
     body, _, notices = text.partition("\n\n")
-    if notices.strip() != f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}":
+    if notices.strip() not in {f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}",
+            f"Analysis, not financial advice. {CONFLICTS_NOTICE}"}:
         raise PlanPostError("PLAN_STATUS_POST_NOTICES_REQUIRED")
     return body.strip(), notices.strip()
 

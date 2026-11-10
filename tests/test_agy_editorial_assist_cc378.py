@@ -70,17 +70,20 @@ def test_recorded_output_is_used_by_live_compiler(tmp_path):
     payloads = build_native_derivative_payloads(article=article, selection={}, canonical_url=canonical,
                                                media_asset_ids=["sample-chart"])
     for destination in agy.LIMITS:
+        if destination == "x":
+            assert destination not in payloads  # Decision 109 retires the recorded X suggestion's output.
+            continue
         payload = payloads[destination]
         visible = payload.get("full_text") or payload.get("text") or payload["root_text"]
         expected = recorded_output()["variants"][destination]
         assert (expected[0] if isinstance(expected, list) else expected) in visible
         assert canonical in visible
-        assert "Analysis, not financial advice." in visible
+        assert "Capital Chronicle offers analysis only, not financial advice or recommendations." in visible
         assert "Capital Chronicle may hold positions" in visible
         assert "Base case:" in visible and "Alternative:" in visible
         if destination in {"x", "threads"}:
             assert all(len(post["text"]) <= agy.LIMITS[destination] for post in payload["posts"])
-    assert len(payloads) == 8
+    assert len(payloads) == 7
 
 
 @pytest.mark.parametrize("failure", [FileNotFoundError("controlled missing agy"),

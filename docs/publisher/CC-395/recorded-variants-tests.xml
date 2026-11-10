@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="1.146" timestamp="2026-11-10T09:09:18.254000+07:00" hostname="J-P"><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_recorded_output_is_used_by_live_compiler" time="0.348" /></testsuite></testsuites>

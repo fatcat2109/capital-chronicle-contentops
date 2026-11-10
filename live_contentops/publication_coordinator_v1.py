@@ -1602,6 +1602,8 @@ class DurablePublicationCoordinator:
                 continue
             if self._dispatch_quarantine(dispatch):
                 continue
+            if dispatch.get("platform") == "x":
+                continue  # Decision 109: no X writes can participate in a new transaction.
             message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
             if message is not None:
                 if work_item_id is not None and message.get("work_item_id") != work_item_id:
@@ -1858,8 +1860,9 @@ class DurablePublicationCoordinator:
             "recovery_required_destinations": missing if canonical_real else [],
             "readback_limitation_destinations": sorted(d for d, o in derivatives.items()
                 if o.get("reconciliation_status") == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE),
-            "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for o in outcomes.values()),
-            "unknown_write_count": sum(o.get("status") == UNKNOWN_WRITE for o in outcomes.values()),
+            "retired_x_unknown_count": int((outcomes.get("x") or {}).get("status") == UNKNOWN_WRITE),
+            "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d != "x"),
+            "unknown_write_count": sum(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d != "x"),
             **({"additional_destinations": additional,
                 "additional_confirmed_count": sum(cls._confirmed_public_object(o, destination=d) for d, o in additional.items()),
                 "additional_recovery_required_destinations": sorted(d for d, o in additional.items()
@@ -3396,6 +3399,10 @@ class DurablePublicationCoordinator:
                      and json.loads(str(m["payload"])).get("routine_company_copy") is True))
             and json.loads(str(m["payload"])).get("plan_hash") == plan.get("plan_hash")]
         messages.sort(key=lambda m: (0 if m["destination"] == "substack" else 1, m["destination"]))
+        x_ids = self._ids(work_item_id, str(registration["plan_hash"]), "x")
+        x_message = self.store.get_outbox_message(x_ids["message_id"])
+        if x_message:
+            outcomes["x"] = self._settle_x_no_write(x_message)
         canonical_message = next(
             (message for message in messages if message["destination"] == "substack"),
             None,
@@ -3593,7 +3600,8 @@ class DurablePublicationCoordinator:
                 o.get("status") == DISPATCH_CONFIRMED and o.get("publish_called") is True
                 for o in outcomes.values()
             ),
-            "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for o in outcomes.values()),
+            "retired_x_unknown_count": int((outcomes.get("x") or {}).get("status") == UNKNOWN_WRITE),
+            "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d != "x"),
         }
 
     def _confirmed_canonical_url_for_work_item(
@@ -3941,7 +3949,11 @@ class DurablePublicationCoordinator:
             if dispatch and dispatch.get("status") in OWNER_RETIRED_STATUSES:
                 continue
             destination = str(message["destination"])
-            if destination == "x" and (not dispatch or dispatch.get("status") not in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}):
+            if destination == "x":
+                if dispatch and dispatch.get("status") in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}:
+                    summary.setdefault("retired_x_unresolved", []).append({
+                        "dispatch_id": dispatch["dispatch_id"], "status": dispatch["status"],
+                        "next_action": "Official API or person readback; no Neo readback or retry."})
                 continue
             if dispatch and dispatch.get("status") == NATIVE_NEO_PENDING:
                 remaining_destinations.append(destination)

@@ -327,6 +327,8 @@ def consume_assist(article, assets, *, output_dir, article_mode=None, epistemic_
 def apply_variants(payloads, article, canonical_url, *, thread_quality):
     """The existing compiler retains links, scenarios, notices and media ownership."""
     for destination, variant in (article.get("publisher_light_variants") or {}).items():
+        if destination == "x" and destination not in payloads:
+            continue  # Decision 109: retain frozen suggestions without a retired output.
         payload = payloads[destination]
         if destination in {"x", "threads"}:
             media = payload.get("media_asset_ids") or []

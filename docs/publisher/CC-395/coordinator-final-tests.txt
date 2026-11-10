@@ -1,0 +1,30 @@
+........................................................................ [ 51%]
+.........F..F................F.......................................    [100%]
+================================== FAILURES ===================================
+_ test_explicit_transport_correction_is_exact_and_one_shot[False-threads-DISPATCH_CONFIRMED-RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE] _
+tests\test_publication_coordinator_v1.py:1854: in test_explicit_transport_correction_is_exact_and_one_shot
+    assert blocked["status"] == "CORRECTION_BLOCKED_UNKNOWN_WRITE_PRESENT"
+E   AssertionError: assert 'CORRECTION_B...OT_AUTHORIZED' == 'CORRECTION_B...WRITE_PRESENT'
+E     
+E     - CORRECTION_BLOCKED_UNKNOWN_WRITE_PRESENT
+E     + CORRECTION_BLOCKED_DESTINATION_NOT_AUTHORIZED
+_ test_explicit_transport_correction_is_exact_and_one_shot[True-threads-DISPATCH_CONFIRMED-RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE] _
+tests\test_publication_coordinator_v1.py:1854: in test_explicit_transport_correction_is_exact_and_one_shot
+    assert blocked["status"] == "CORRECTION_BLOCKED_UNKNOWN_WRITE_PRESENT"
+E   AssertionError: assert 'CORRECTION_B...OT_AUTHORIZED' == 'CORRECTION_B...WRITE_PRESENT'
+E     
+E     - CORRECTION_BLOCKED_UNKNOWN_WRITE_PRESENT
+E     + CORRECTION_BLOCKED_DESTINATION_NOT_AUTHORIZED
+_______ test_native_internal_records_never_become_dispatch_destinations _______
+tests\test_publication_coordinator_v1.py:2060: in test_native_internal_records_never_become_dispatch_destinations
+    assert set(result["per_destination"]) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) | {"linkedin_company"}
+E   AssertionError: assert {'discord', '...ubstack', ...} == {'discord', '...ubstack', ...}
+E     
+E     Extra items in the left set:
+E     'x'
+E     Use -v to get more diff
+=========================== short test summary info ===========================
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_transport_correction_is_exact_and_one_shot[False-threads-DISPATCH_CONFIRMED-RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE]
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_transport_correction_is_exact_and_one_shot[True-threads-DISPATCH_CONFIRMED-RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE]
+FAILED tests/test_publication_coordinator_v1.py::test_native_internal_records_never_become_dispatch_destinations
+3 failed, 138 passed in 417.17s (0:06:57)

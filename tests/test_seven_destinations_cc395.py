@@ -50,7 +50,8 @@ def test_existing_x_identity_and_uncertainty_survive_without_neo(tmp_path, statu
         platform="x", status=status, public_object_id="existing-real-id", public_object_url="https://x.com/Capitalnicle/status/1")
     store.set_dispatch_status(registration["dispatch_id"], status)
     before = dict(store.get_platform_dispatch(registration["dispatch_id"]))
-    coordinator.recover_pending()
+    recovery = coordinator.recover_pending()
+    assert recovery["backlog_remaining"] == 0
     after = store.get_platform_dispatch(registration["dispatch_id"])
     assert after == before
     assert not transport.publish_calls and not transport.readback_calls
@@ -74,3 +75,60 @@ def test_notice_reaches_public_copy_and_fact_card():
     assert PUBLIC_NOTICE == "Capital Chronicle offers analysis only, not financial advice or recommendations."
     check_publication_copy({"notice": PUBLIC_NOTICE})
     assert CardSpec.__dataclass_fields__["notice"].default == PUBLIC_NOTICE
+
+
+def test_new_status_post_and_notes_keep_notice_within_platform_limits():
+    # Already admitted public fields: no Main process or external source.
+    row = {"symbol": "XAUUSD", "to": "WAITING", "at_utc": "2026-11-05T11:45:00Z",
+        "plan": {"direction": "bullish", "zone_low": 4070, "zone_high": 4085,
+            "invalidation_level": 4055, "valid_until_utc": "2026-11-06T12:45:00Z"}}
+    output = posts.compose(row)
+    if output.get("status") == "COMPOSED":
+        payloads = posts.destination_payloads(output, card_id="bound-card")
+        for destination in posts.API_DESTINATIONS:
+            parts = payloads[destination].get("parts") or [payloads[destination]["full_text"]]
+            assert PUBLIC_NOTICE in "\n".join(parts)
+            assert all(len(part) <= posts.LIMITS[destination] for part in parts)
+    else:
+        pytest.fail(str(output))
+
+
+def test_quality_pack_maps_seven_and_detects_a_missing_destination():
+    from live_contentops.editorial_traceability_quality_pack_v1 import _derivative_mapping
+    destinations = list(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    receipt = {"classification": "SHADOW_CONFIRMED", "derivative_shadow": {
+        "count": len(destinations), "destinations": destinations}}
+    packages = [{"destination": d, "payload_sha256": f"{i + 1:064x}", "public_write_performed": False}
+        for i, d in enumerate(destinations)]
+    mapping, blockers = _derivative_mapping(receipt, packages, ["claim"], ["a" * 64])
+    assert not blockers and len(mapping) == 7
+    _, blockers = _derivative_mapping(receipt, packages[:-1], ["claim"], ["a" * 64])
+    assert "derivative_count_or_destination_mismatch" in blockers
+
+
+@pytest.mark.parametrize("action", ["READBACK", "VERIFY_IDENTITY"])
+def test_saved_x_browser_request_never_reaches_an_agent(tmp_path, action):
+    from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, SCHEMA
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store, _, _ = _coordinator(tmp_path)
+    executor = NativeNeoExecutor(store, operation_id="op", output_dir=tmp_path,
+        native_invocation_id="controlled", allow_publish=True)
+    request = {"destination": "x", "action": action, "work_item_id": "work-1"}
+    key = request["request_sha256"] = sha256_of(request)
+    executor._put(key, "request", {"schema_version": SCHEMA, "operation_id": "op", "request": request}, "work-1")
+    assert executor.pending() == []
+    with pytest.raises(ValueError, match="X_NON_API_AUTOMATION_PROHIBITED"):
+        executor.begin(key)
+    assert executor(request)["reason_code"] == "X_NON_API_AUTOMATION_PROHIBITED"
+    assert executor._get(key, "started") is None
+
+
+def test_retired_x_uncertainty_does_not_veto_seven_destination_confirmation():
+    outcomes = {d: {"status": DISPATCH_CONFIRMED, "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_object_id": d + "-real", "public_object_url": "https://capitalchronicle.substack.com/p/exact"}
+        for d in V1_REQUIRED_PUBLICATION_DESTINATIONS}
+    outcomes["x"] = {"status": UNKNOWN_WRITE, "public_object_id": "unchanged-id"}
+    result = DurablePublicationCoordinator.publication_totals(outcomes)
+    assert result["derivative_confirmed_count"] == 7 and not result["recovery_required_destinations"]
+    assert result["retired_x_unknown_count"] == 1 and result["unknown_write_count"] == 0
+    assert not result["unknown_write_detected"]

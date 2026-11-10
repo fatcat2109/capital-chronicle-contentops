@@ -1,0 +1,10 @@
+..........................................F...............               [100%]
+================================== FAILURES ===================================
+________________ test_recorded_output_is_used_by_live_compiler ________________
+tests\test_agy_editorial_assist_cc378.py:81: in test_recorded_output_is_used_by_live_compiler
+    assert "Capital Chronicle offers analysis only, not financial advice or recommendations." in visible
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: assert 'Analysis, not financial advice.' in 'The source line reports 2 observations. The sample contains no current market claim.\n\nhttps://capitalchronicle.subs...lysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.'
+=========================== short test summary info ===========================
+FAILED tests/test_agy_editorial_assist_cc378.py::test_recorded_output_is_used_by_live_compiler
+1 failed, 57 passed in 27.10s
