@@ -326,8 +326,9 @@ def consume_assist(article, assets, *, output_dir, article_mode=None, epistemic_
 
 def apply_variants(payloads, article, canonical_url, *, thread_quality):
     """The existing compiler retains links, scenarios, notices and media ownership."""
+    from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
     for destination, variant in (article.get("publisher_light_variants") or {}).items():
-        if destination == "x" and destination not in payloads:
+        if destination in barred_browser_destinations() and destination not in payloads:
             continue  # Decision 109: retain frozen suggestions without a retired output.
         payload = payloads[destination]
         if destination in {"x", "threads"}:

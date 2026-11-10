@@ -13,7 +13,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
 
-from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _private
 
 SCHEMA = "contentops.neo_destination_handoff.v1"
 IDENTITIES = {"substack": "capitalchronicle.substack.com", "substack_notes": "@deancapitalchronicle", "x": "@Capitalnicle",
@@ -58,6 +57,8 @@ def _prohibited_write(destination):
     return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True, "reason_code": cause,
             "public_write_performed": False}
 
+
+from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _private
 
 def _canonical(url):
     p = urlsplit(str(url or ""))
@@ -265,8 +266,9 @@ class NeoDestinationHandoff:
 
     def request(self, *, destination, action, intent, authorization_context=None,
                 public_object_id=None, public_object_url=None):
-        if destination == "x" and action == "READBACK":
-            raise ValueError("X_NON_API_AUTOMATION_PROHIBITED")
+        from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
+        if destination in barred_browser_destinations() and action == "READBACK":
+            raise ValueError(barred_browser_destinations()[destination])
         if action in {"PUBLISH", "EDIT_EXISTING"}:
             refused = _prohibited_write(destination)
             if refused is not None:
@@ -495,9 +497,10 @@ class NeoDestinationHandoff:
         return result
 
     def readback(self, *, destination, intent, public_object_id, public_object_url):
-        if destination == "x":
+        from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
+        if destination in barred_browser_destinations():
             return {"status": "SKIPPED", "verified": False, "write_absent": False,
-                "reason_code": "X_NON_API_AUTOMATION_PROHIBITED"}
+                "reason_code": barred_browser_destinations()[destination]}
         request = self.request(destination=destination, action="READBACK", intent=intent,
             public_object_id=public_object_id, public_object_url=public_object_url)
         if destination == "substack":

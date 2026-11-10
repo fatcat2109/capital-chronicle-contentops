@@ -62,10 +62,10 @@
     }
   ],
   "acceptance_remaining": [
-    "Next live article full distribution; blocked by YOUTUBE_NON_API_AUTOMATION_PROHIBITED with no authorized Community API transport",
+    "Next actual CC-124 article full distribution to six required derivatives",
     "Exact next live post readback carrying the new notice"
   ],
-  "next_actor": "Ops Product chooses an allowed publication route or revises the required set by its backlog decision; production run then supplies exact article/post readbacks.",
+  "next_actor": "Normal CC-124 production supplies the next source-qualified article and exact live readbacks. No further platform decision is needed for the six-element set.",
   "public_write_performed": false,
   "schedule_changed": false,
   "chat_messaged": false,
@@ -93,5 +93,30 @@
     },
     "external_calls": 0,
     "second_application_idempotent": true
+  },
+  "amendment": {
+    "owner": "Ops Product",
+    "backlog_time_gmt7": "10 Nov 2026 09:11 GMT+7",
+    "required_derivative_count": 6,
+    "reason": "YouTube has no allowed browser/API write route; derive required set from the current bar map and registered transport.",
+    "barred_browser_destinations": [
+      "x",
+      "youtube",
+      "linkedin_company"
+    ],
+    "tests": [
+      {
+        "artifact": "six-destination-tests.xml",
+        "result": "82 passed"
+      },
+      {
+        "artifact": "six-coordinator-tests.xml",
+        "result": "5 passed, 124 deselected"
+      },
+      {
+        "artifact": "copied-store-six-replay.json",
+        "result": "6 required confirmations; X and YouTube each one local no-write; no retries/incidents"
+      }
+    ]
   }
 }

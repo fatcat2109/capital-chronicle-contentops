@@ -10,7 +10,7 @@ all cited material against the already-retrieved bytes. One bounded Gemini revis
 only semantic retry.
 
 The module never performs a public write. It persists one qualified zero-write article
-record plus exactly seven undispatched derivative intents. The existing durable publication
+record plus the current required undispatched derivative intents. The existing durable publication
 coordinator remains the sole public-write owner in a separately authorized later phase.
 """
 from __future__ import annotations

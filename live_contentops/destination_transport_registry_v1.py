@@ -181,23 +181,31 @@ DESTINATION_TO_SURFACE = {
 OWNER_SELECTED_DESTINATION_TO_SURFACE = {"linkedin_company": "LINKEDIN_COMPANY_POST",
                                          "substack_notes": "SUBSTACK_NOTE"}
 
-# Decision 109: X is not required until an official API route is enabled.
-X_NOT_POSTED = "X_NON_API_AUTOMATION_PROHIBITED"
-# Quality-probation V1 is one canonical article plus these seven derivative
-# surfaces. YouTube here means Community; video/Short surfaces remain V2-only.
-V1_REQUIRED_DERIVATIVE_DESTINATIONS = (
-    "telegram",
-    "discord",
-    "linkedin",
-    "facebook_page",
-    "instagram_business",
-    "threads",
-    "youtube",
+# Decision 109 and Ops Product's 10 Nov 09:11 amendment: only a barred
+# browser transport leaves the required set; LinkedIn member and Instagram APIs stay.
+V1_DERIVATIVE_DESTINATIONS = (
+    "telegram", "x", "discord", "linkedin", "facebook_page",
+    "instagram_business", "threads", "youtube",
 )
-V1_REQUIRED_PUBLICATION_DESTINATIONS = (
-    "substack",
-    *V1_REQUIRED_DERIVATIVE_DESTINATIONS,
-)
+
+
+def barred_browser_destinations():
+    from live_contentops.neo_destination_handoff_v1 import NON_API_AUTOMATION_PROHIBITED
+    mapping = {**DESTINATION_TO_SURFACE, **OWNER_SELECTED_DESTINATION_TO_SURFACE}
+    return {destination: cause for destination, cause in NON_API_AUTOMATION_PROHIBITED.items()
+        if destination in mapping and SURFACE_REGISTRY[mapping[destination]].transport_type == "BROWSEROS_NEO_MCP"}
+
+
+def required_derivative_destinations():
+    barred = barred_browser_destinations()
+    return tuple(d for d in V1_DERIVATIVE_DESTINATIONS if d not in barred)
+
+
+V1_REQUIRED_DERIVATIVE_DESTINATIONS = required_derivative_destinations()
+V1_REQUIRED_PUBLICATION_DESTINATIONS = ("substack", *V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+X_NOT_POSTED = "X_NON_API_AUTOMATION_PROHIBITED"  # Historical import compatibility.
+TIER1_SURFACES = tuple(s for s in TIER1_SURFACES
+    if SURFACE_REGISTRY[s].destination_key not in barred_browser_destinations())
 
 
 def canonical_transport_registry() -> dict[str, Any]:
@@ -235,7 +243,7 @@ def validate_registry() -> None:
         raise RuntimeError("duplicate_surface_transport_registration")
     if set(TIER1_SURFACES) - set(SURFACE_REGISTRY):
         raise RuntimeError("tier1_surface_transport_missing")
-    if set(V1_REQUIRED_PUBLICATION_DESTINATIONS) != set(DESTINATION_TO_SURFACE) - {"x"}:
+    if set(V1_REQUIRED_PUBLICATION_DESTINATIONS) != set(DESTINATION_TO_SURFACE) - set(barred_browser_destinations()):
         raise RuntimeError("v1_required_publication_destination_mismatch")
     for surface in TIER1_SURFACES:
         row = SURFACE_REGISTRY[surface]
@@ -612,10 +620,10 @@ class DestinationReadinessManager:
     def probe_surface(self, surface: str) -> dict[str, Any]:
         """Active exact-surface verification. Never call this from idle/global refresh."""
         registration = SURFACE_REGISTRY[surface]
-        if registration.platform == "x":
+        if registration.destination_key in barred_browser_destinations():
             return _base_row(registration, state="CAPABILITY_UNSUPPORTED", identity=None,
                 identity_match=False, probe_kind="JIM_DECISION_109",
-                detail={"reason_code": X_NOT_POSTED, "external_probe_performed": False})
+                detail={"reason_code": barred_browser_destinations()[registration.destination_key], "external_probe_performed": False})
         if registration.transport_type == "BROWSEROS_NEO_MCP":
             # An old Edge/cache result never proves this Neo account. Native observation
             # must establish the current authenticated identity before any future write.
@@ -671,7 +679,7 @@ class DestinationReadinessManager:
         """Local/process/cached-metadata readiness only; never opens or navigates a page."""
 
         registration = SURFACE_REGISTRY[surface]
-        if registration.platform == "x":
+        if registration.destination_key in barred_browser_destinations():
             return self._persist(self.probe_surface(surface), persist=persist)
         if registration.transport_type == "BROWSEROS_NEO_MCP":
             return self._persist(_base_row(registration, state="STALE_NEEDS_JIT_VERIFICATION",
@@ -834,8 +842,8 @@ class DestinationReadinessManager:
         """Ensure Edge only for exact browser readback; do not perform an auth/global probe."""
 
         registration = registration_for_destination(destination)
-        if destination == "x":
-            return {"status": X_NOT_POSTED, "external_probe_performed": False}
+        if destination in barred_browser_destinations():
+            return {"status": barred_browser_destinations()[destination], "external_probe_performed": False}
         if registration.transport_type == "BROWSEROS_NEO_MCP":
             return {"status": "NATIVE_NEO_READBACK_EXECUTOR_REQUIRED", "external_probe_performed": False}
         if registration.transport_type != "EDGE_CDP":

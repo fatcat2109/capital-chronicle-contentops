@@ -148,12 +148,13 @@ class NativeNeoExecutor:
         request_hash = request.get("request_sha256")
         if request_hash != sha256_of({k: v for k, v in request.items() if k != "request_sha256"}):
             raise ValueError("NATIVE_NEO_REQUEST_HASH_INVALID")
-        if request.get("destination") == "x" and request.get("action") in {"READBACK", "VERIFY_IDENTITY"}:
+        from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
+        if request.get("destination") in barred_browser_destinations() and request.get("action") in {"READBACK", "VERIFY_IDENTITY"}:
             response = self._get(request_hash, "response")
             if response:
                 return dict(response["result"])
             return {"status": "SKIPPED", "verified": False, "write_absent": False,
-                "reason_code": "X_NON_API_AUTOMATION_PROHIBITED", "request_sha256": request_hash}
+                "reason_code": barred_browser_destinations()[request["destination"]], "request_sha256": request_hash}
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             from live_contentops.neo_destination_handoff_v1 import _prohibited_write
             refused = _prohibited_write(request.get("destination"))
@@ -201,8 +202,9 @@ class NativeNeoExecutor:
         if not packet:
             raise ValueError("NATIVE_NEO_REQUEST_NOT_FOUND")
         request = packet["request"]
-        if request.get("destination") == "x" and request.get("action") in {"READBACK", "VERIFY_IDENTITY"}:
-            raise ValueError("X_NON_API_AUTOMATION_PROHIBITED")
+        from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
+        if request.get("destination") in barred_browser_destinations() and request.get("action") in {"READBACK", "VERIFY_IDENTITY"}:
+            raise ValueError(barred_browser_destinations()[request["destination"]])
         if request["action"] in {"PUBLISH", "EDIT_EXISTING"}:
             from live_contentops.neo_destination_handoff_v1 import _prohibited_write
             refused = _prohibited_write(request.get("destination"))
@@ -714,6 +716,7 @@ class NativeNeoExecutor:
                 "observation_sha256": result.get("native_tool_return_sha256"), "proof_fresh": current}
 
     def pending(self):
+        from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
         rows = []
         for row in self.store.list_outbox_messages(destination=DESTINATION):
             if row["destination"] != DESTINATION:
@@ -723,7 +726,7 @@ class NativeNeoExecutor:
             payload = json.loads(row["payload"])
             if payload.get("schema_version") != SCHEMA or payload.get("operation_id") != self.operation_id:
                 continue
-            if payload["request"].get("destination") == "x":
+            if payload["request"].get("destination") in barred_browser_destinations():
                 continue  # Decision 109 retires the entire X browser agent route.
             absence = payload["request"].get("owner_absence_context")
             if payload["request"]["action"] == "READBACK" and absence:

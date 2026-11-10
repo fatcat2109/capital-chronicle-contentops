@@ -73,7 +73,7 @@ from live_contentops.substack_first_north_star_pipeline_loop_v1 import (
 TASK_LABEL = "TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1"
 SCHEMA_VERSION = "contentops.eight_platform_substack_first_pipeline.v1"
 OUTPUT_ROOT = Path("docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1")
-from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_PUBLICATION_DESTINATIONS
+from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_PUBLICATION_DESTINATIONS, barred_browser_destinations
 EXPECTED_DESTINATIONS = V1_REQUIRED_PUBLICATION_DESTINATIONS
 
 SUCCESS_STATUSES = {"SUCCESS", "ALREADY_SUCCESSFUL_IDEMPOTENT"}
@@ -602,7 +602,7 @@ def build_native_derivative_payloads(
     if article.get("reader_first_version") != "DATA_JOURNALISM_V1" and not article.get("tradingview_snapshot_asset_ids"):
         return payloads
     choices = article.get("native_destination_media")
-    if not isinstance(choices, Mapping) or set(choices) - {"x"} != set(payloads):
+    if not isinstance(choices, Mapping) or set(choices) - set(barred_browser_destinations()) != set(payloads):
         raise ValueError("REQUIRED_MAX_DESTINATION_MEDIA_CHOICES_REQUIRED")
     allowed = set(media_asset_ids)
     # Reviewed order: the first admitted asset is the post's default image.

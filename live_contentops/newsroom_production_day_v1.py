@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo
 
 from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+    V1_DERIVATIVE_DESTINATIONS,
 )
 from live_contentops.editorial_portfolio_v1 import PublishedArticleRef
 from live_contentops.published_corpus_read_model_v1 import (
@@ -448,7 +449,7 @@ def _valid_record(record: Mapping[str, Any]) -> bool:
     destinations = {str(row.get("destination") or "") for row in intents}
     expected = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     # Frozen eight-destination records remain readable with their original hashes.
-    valid_destinations = destinations in (expected, expected | {"x"}) and len(intents) == len(destinations)
+    valid_destinations = expected <= destinations <= set(V1_DERIVATIVE_DESTINATIONS) and len(intents) == len(destinations)
     return bool(
         record.get("schema_version") == "contentops.newsroom_qualified_article.v1"
         and record.get("qualified") is True

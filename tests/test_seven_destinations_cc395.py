@@ -21,33 +21,36 @@ def fail(*args, **kwargs):
 
 def test_full_article_and_repeated_recovery_use_seven_derivatives(tmp_path, monkeypatch):
     # Other destination permissions are simulated; X uses the real decision 109 policy.
-    monkeypatch.setattr(neo, "NON_API_AUTOMATION_PROHIBITED", {"x": "X_NON_API_AUTOMATION_PROHIBITED"})
+    monkeypatch.setattr(neo, "NON_API_AUTOMATION_PROHIBITED", {"x": "X_NON_API_AUTOMATION_PROHIBITED", "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"})
     store, transport, coordinator = _coordinator(tmp_path)
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     plan = _quality_plan()
     result = coordinator.execute_plan("work-1", plan)
     state = coordinator.publication_state("work-1", plan)
-    assert state["derivative_confirmed_count"] == 7
+    assert state["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert not state["recovery_required_destinations"]
-    assert set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) == {"telegram", "discord", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"}
+    assert set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) == {"telegram", "discord", "linkedin", "facebook_page", "instagram_business", "threads"}
     for _ in range(3):
         assert coordinator.recover_pending()["backlog_remaining"] == 0
     x = store.list_outbox_messages(destination="x")
     assert len(x) == 1 and x[0]["status"] == DEFINITE_NO_WRITE
     assert "x" not in transport.publish_calls and "x" not in transport.readback_calls
     assert len([d for d in store.list_platform_dispatches() if d["platform"] == "x"]) == 1
+    assert len(store.list_outbox_messages(destination="youtube")) == 1
+    assert "youtube" not in transport.publish_calls and "youtube" not in transport.readback_calls
     with store.get_read_only_connection() as conn:
         assert conn.execute("SELECT count(*) FROM incidents WHERE severity='DISPATCH_FAILURE'").fetchone()[0] == 0
     assert any(r["status"] == "X_NON_API_AUTOMATION_PROHIBITED" for r in store.get_reconciliations_for_work_item("work-1"))
 
 
 @pytest.mark.parametrize("status", [DISPATCH_CONFIRMED, UNKNOWN_WRITE])
-def test_existing_x_identity_and_uncertainty_survive_without_neo(tmp_path, status):
+@pytest.mark.parametrize("destination", ["x", "youtube"])
+def test_existing_x_identity_and_uncertainty_survive_without_neo(tmp_path, status, destination):
     store, transport, coordinator = _coordinator(tmp_path)
-    plan = _plan("x")
+    plan = _plan(destination)
     registration = coordinator.register_plan("work-1", plan)["registered"][0]
     store.register_platform_dispatch(dispatch_id=registration["dispatch_id"], message_id=registration["message_id"],
-        platform="x", status=status, public_object_id="existing-real-id", public_object_url="https://x.com/Capitalnicle/status/1")
+        platform=destination, status=status, public_object_id="existing-real-id", public_object_url="https://x.com/Capitalnicle/status/1")
     store.set_dispatch_status(registration["dispatch_id"], status)
     before = dict(store.get_platform_dispatch(registration["dispatch_id"]))
     recovery = coordinator.recover_pending()
@@ -101,7 +104,7 @@ def test_quality_pack_maps_seven_and_detects_a_missing_destination():
     packages = [{"destination": d, "payload_sha256": f"{i + 1:064x}", "public_write_performed": False}
         for i, d in enumerate(destinations)]
     mapping, blockers = _derivative_mapping(receipt, packages, ["claim"], ["a" * 64])
-    assert not blockers and len(mapping) == 7
+    assert not blockers and len(mapping) == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     _, blockers = _derivative_mapping(receipt, packages[:-1], ["claim"], ["a" * 64])
     assert "derivative_count_or_destination_mismatch" in blockers
 
@@ -129,6 +132,19 @@ def test_retired_x_uncertainty_does_not_veto_seven_destination_confirmation():
         for d in V1_REQUIRED_PUBLICATION_DESTINATIONS}
     outcomes["x"] = {"status": UNKNOWN_WRITE, "public_object_id": "unchanged-id"}
     result = DurablePublicationCoordinator.publication_totals(outcomes)
-    assert result["derivative_confirmed_count"] == 7 and not result["recovery_required_destinations"]
+    assert result["derivative_confirmed_count"] == len(V1_REQUIRED_DERIVATIVE_DESTINATIONS) and not result["recovery_required_destinations"]
     assert result["retired_x_unknown_count"] == 1 and result["unknown_write_count"] == 0
     assert not result["unknown_write_detected"]
+
+
+def test_required_set_tracks_barred_transports_and_keeps_official_apis(monkeypatch):
+    from dataclasses import replace
+    from live_contentops import destination_transport_registry_v1 as registry
+    assert registry.required_derivative_destinations() == ("telegram", "discord", "linkedin", "facebook_page", "instagram_business", "threads")
+    assert "linkedin" not in registry.barred_browser_destinations()
+    assert "instagram_business" not in registry.barred_browser_destinations()
+    monkeypatch.setitem(registry.SURFACE_REGISTRY, "THREADS_POST",
+        replace(registry.SURFACE_REGISTRY["THREADS_POST"], transport_type="BROWSEROS_NEO_MCP"))
+    monkeypatch.setitem(neo.NON_API_AUTOMATION_PROHIBITED, "threads", "CONTROLLED_NEXT_PLATFORM_BAR")
+    assert "threads" not in registry.required_derivative_destinations()
+    assert registry.barred_browser_destinations()["threads"] == "CONTROLLED_NEXT_PLATFORM_BAR"

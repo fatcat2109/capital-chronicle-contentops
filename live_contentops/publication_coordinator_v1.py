@@ -23,6 +23,7 @@ from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
     V1_REQUIRED_PUBLICATION_DESTINATIONS,
     registration_for_destination,
+    barred_browser_destinations,
 )
 from live_contentops.browser_interaction_budget_v1 import browser_activity
 from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired, PENDING as NATIVE_NEO_PENDING
@@ -1602,7 +1603,7 @@ class DurablePublicationCoordinator:
                 continue
             if self._dispatch_quarantine(dispatch):
                 continue
-            if dispatch.get("platform") == "x":
+            if dispatch.get("platform") in barred_browser_destinations():
                 continue  # Decision 109: no X writes can participate in a new transaction.
             message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
             if message is not None:
@@ -1829,7 +1830,7 @@ class DurablePublicationCoordinator:
         """Summarize exact durable destination records, independently of the latest callback."""
         canonical = dict(outcomes.get("substack") or {})
         canonical_real = cls._confirmed_public_object(canonical, destination="substack")
-        derivatives = {d: dict(o) for d, o in outcomes.items() if d not in {"substack", "x"}
+        derivatives = {d: dict(o) for d, o in outcomes.items() if d != "substack" and d not in barred_browser_destinations()
             and (not full_v1 or d in V1_REQUIRED_DERIVATIVE_DESTINATIONS)}
         additional = {d: dict(o) for d, o in outcomes.items() if d != "substack" and d not in derivatives}
         confirmed = {d for d, o in derivatives.items() if cls._confirmed_public_object(o, destination=d)}
@@ -1860,13 +1861,14 @@ class DurablePublicationCoordinator:
             "recovery_required_destinations": missing if canonical_real else [],
             "readback_limitation_destinations": sorted(d for d, o in derivatives.items()
                 if o.get("reconciliation_status") == RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE),
+            "retired_browser_unknown_count": sum(o.get("status") == UNKNOWN_WRITE for d,o in outcomes.items() if d in barred_browser_destinations()),
             "retired_x_unknown_count": int((outcomes.get("x") or {}).get("status") == UNKNOWN_WRITE),
-            "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d != "x"),
-            "unknown_write_count": sum(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d != "x"),
+            "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d not in barred_browser_destinations()),
+            "unknown_write_count": sum(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d not in barred_browser_destinations()),
             **({"additional_destinations": additional,
                 "additional_confirmed_count": sum(cls._confirmed_public_object(o, destination=d) for d, o in additional.items()),
                 "additional_recovery_required_destinations": sorted(d for d, o in additional.items()
-                    if d != "x" and not cls._confirmed_public_object(o, destination=d))} if additional else {}),
+                    if d not in barred_browser_destinations() and not cls._confirmed_public_object(o, destination=d))} if additional else {}),
         }
 
     def publication_state(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
@@ -1879,12 +1881,13 @@ class DurablePublicationCoordinator:
         company = self._ids(work_item_id, plan_hash, "linkedin_company")
         if self.store.get_outbox_message(company["message_id"]):
             destinations.append({"destination": "linkedin_company"})
-        x = self._ids(work_item_id, plan_hash, "x")
-        if self.store.get_outbox_message(x["message_id"]) and not any(r.get("destination") == "x" for r in destinations):
-            destinations.append({"destination": "x"})
+        for destination in barred_browser_destinations():
+            ids = self._ids(work_item_id, plan_hash, destination)
+            if self.store.get_outbox_message(ids["message_id"]) and not any(r.get("destination") == destination for r in destinations):
+                destinations.append({"destination": destination})
         for item in destinations:
             destination = str(item.get("destination") or "")
-            if destination not in {*V1_REQUIRED_PUBLICATION_DESTINATIONS, "linkedin_company", "x"}:
+            if destination not in {*V1_REQUIRED_PUBLICATION_DESTINATIONS, "linkedin_company", *barred_browser_destinations()}:
                 continue
             ids = self._ids(work_item_id, plan_hash, destination)
             message = self.store.get_outbox_message(ids["message_id"])
@@ -1902,7 +1905,7 @@ class DurablePublicationCoordinator:
                 "public_object_id": dispatch.get("public_object_id"),
                 "public_object_url": dispatch.get("public_object_url"),
                 "publish_called": False,
-                **({"reason_code": "X_NON_API_AUTOMATION_PROHIBITED"} if destination == "x" and dispatch.get("status") == DEFINITE_NO_WRITE else {}),
+                **({"reason_code": barred_browser_destinations()[destination]} if destination in barred_browser_destinations() and dispatch.get("status") == DEFINITE_NO_WRITE else {}),
             }
         result = {"per_destination": outcomes, **self.publication_totals(
             outcomes, full_v1=self._full_v1_distribution_required(plan))}
@@ -1946,9 +1949,9 @@ class DurablePublicationCoordinator:
         permitted_skips = permitted_derivative_skips(plan)
         structural_blockers = {
             "missing_destinations": sorted(required - observed),
-            "unexpected_destinations": sorted(observed - required - {"x"}),
+            "unexpected_destinations": sorted(observed - required - set(barred_browser_destinations())),
             "duplicate_destinations": duplicate_destinations,
-            "skipped_derivative_destinations": [d for d in skipped if d not in permitted_skips and d != "x"],
+            "skipped_derivative_destinations": [d for d in skipped if d not in permitted_skips and d not in barred_browser_destinations()],
             "pre_substack_blockers": sorted(
                 str(value) for value in (plan.get("pre_substack_blockers") or [])
                 if str(value)
@@ -2077,10 +2080,13 @@ class DurablePublicationCoordinator:
         from live_contentops.native_newsroom_volume_v1 import registration_skips
         permitted_skips = registration_skips(plan)
         items = list(plan.get("destinations") or [])
-        if self._full_v1_distribution_required(plan) and not any(row.get("destination") == "x" for row in items):
-            x = registration_for_destination("x")
-            items.append({"destination": "x", "surface": x.surface,
-                "transport_type": x.transport_type, "not_posted_reason": "X_NON_API_AUTOMATION_PROHIBITED"})
+        if self._full_v1_distribution_required(plan):
+            for destination, cause in barred_browser_destinations().items():
+                if destination == "linkedin_company" or any(row.get("destination") == destination for row in items):
+                    continue
+                registration = registration_for_destination(destination)
+                items.append({"destination": destination, "surface": registration.surface,
+                    "transport_type": registration.transport_type, "not_posted_reason": cause})
         for item in sorted(items, key=lambda row: (
             0 if str(row.get("destination")) == "substack" else 1,
             str(row.get("destination")),
@@ -2198,25 +2204,26 @@ class DurablePublicationCoordinator:
                 destination=destination, payload=payload, status="READY",
             )
             registered.append({"destination": destination, **ids})
-            if destination == "x":
-                self._settle_x_no_write(self.store.get_outbox_message(ids["message_id"]))
+            if destination in barred_browser_destinations():
+                self._settle_barred_browser_no_write(self.store.get_outbox_message(ids["message_id"]))
             if destination == "linkedin" and plan.get("full_v1_distribution_required") is True:
                 registered.append(self._register_routine_company_copy(work_item_id, plan_hash, intent, ids))
         return {"plan_hash": plan_hash, "registered": registered, "outbox_count": len(registered)}
 
-    def _settle_x_no_write(self, message):
-        """Decision 109: one local no-write; never rewrite a possibly sent post."""
+    def _settle_barred_browser_no_write(self, message):
+        """Decision 109: one local barred-route no-write; preserve possibly sent posts."""
         intent = json.loads(str(message["payload"]))
-        ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), "x")
+        destination = str(message["destination"])
+        cause = barred_browser_destinations()[destination]
+        ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         if existing and (existing.get("public_object_id") or existing.get("status") in {
                 DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING, *OWNER_RETIRED_STATUSES}):
-            return {"destination": "x", "status": existing["status"], "publish_called": False,
-                "reason_code": "X_EXISTING_WRITE_PRESERVED_OFFICIAL_API_READBACK_REQUIRED"}
-        from live_contentops.destination_transport_registry_v1 import X_NOT_POSTED
+            return {"destination": destination, "status": existing["status"], "publish_called": False,
+                "reason_code": "BARRED_BROWSER_EXISTING_WRITE_PRESERVED_API_OR_PERSON_READBACK_REQUIRED"}
         if not existing:
             self.store.register_platform_dispatch(dispatch_id=ids["dispatch_id"],
-                message_id=ids["message_id"], platform="x", status=DEFINITE_NO_WRITE)
+                message_id=ids["message_id"], platform=destination, status=DEFINITE_NO_WRITE)
         elif existing.get("status") != DEFINITE_NO_WRITE:
             self.store.set_dispatch_status(ids["dispatch_id"], DEFINITE_NO_WRITE)
         if message.get("status") != DEFINITE_NO_WRITE:
@@ -2225,23 +2232,29 @@ class DurablePublicationCoordinator:
             if r["reconciliation_id"] == ids["reconciliation_id"]), None)
         if not prior:
             self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
-                work_item_id=intent["work_item_id"], status=X_NOT_POSTED)
-        elif prior["status"] != X_NOT_POSTED:
-            self.store.set_reconciliation_status(ids["reconciliation_id"], X_NOT_POSTED)
-        return {"destination": "x", "status": DEFINITE_NO_WRITE, "reason_code": X_NOT_POSTED,
+                work_item_id=intent["work_item_id"], status=cause)
+        elif prior["status"] != cause:
+            self.store.set_reconciliation_status(ids["reconciliation_id"], cause)
+        return {"destination": destination, "status": DEFINITE_NO_WRITE, "reason_code": cause,
             "dispatch_id": ids["dispatch_id"], "publish_called": False, "public_write_performed": False}
 
-    def retire_x_browser_distribution(self):
-        """Apply decision 109 to held X intents only, without running other destinations."""
+    def retire_barred_browser_distribution(self, *, destinations=None):
+        """Settle held barred intents locally without dispatching another destination."""
+        selected = set(destinations or barred_browser_destinations())
         outcomes = []
-        for message in self.store.list_outbox_messages(destination="x"):
-            intent = json.loads(str(message["payload"]))
-            if intent.get("work_item_id") and intent.get("plan_hash"):
-                outcomes.append(self._settle_x_no_write(message))
-        return {"status": "X_BROWSER_DISTRIBUTION_RETIRED", "public_write_performed": False,
+        for destination in sorted(selected & set(barred_browser_destinations())):
+            for message in self.store.list_outbox_messages(destination=destination):
+                intent = json.loads(str(message["payload"]))
+                if intent.get("work_item_id") and intent.get("plan_hash"):
+                    outcomes.append(self._settle_barred_browser_no_write(message))
+        return {"status": "BARRED_BROWSER_DISTRIBUTION_RETIRED", "public_write_performed": False,
             "not_posted_count": sum(row["status"] == DEFINITE_NO_WRITE for row in outcomes),
             "preserved_count": sum(row["status"] != DEFINITE_NO_WRITE for row in outcomes),
             "outcomes": outcomes}
+
+    def retire_x_browser_distribution(self):
+        """Compatibility for the first CC-395 application."""
+        return self.retire_barred_browser_distribution(destinations={"x"})
 
     def _register_routine_company_copy(self, work_item_id, plan_hash, member_intent, member_ids):
         """The Capital Chronicle company page gets the same reviewed LinkedIn copy.
@@ -2276,7 +2289,7 @@ class DurablePublicationCoordinator:
             if resolved["payload"] != original_message["payload"]:
                 intent = json.loads(resolved["payload"])
         destination = str(dispatch["platform"])
-        if destination == "x":
+        if destination in barred_browser_destinations():
             # Keep prior proof/ambiguity intact; Neo X readbacks are retired.
             rows = self.store.get_reconciliations_for_work_item(str(intent["work_item_id"]))
             key = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
@@ -2442,8 +2455,8 @@ class DurablePublicationCoordinator:
         message = self._effective_message(message)
         intent = json.loads(str(message["payload"]))
         destination = str(message["destination"])
-        if destination == "x":
-            return self._settle_x_no_write(message)
+        if destination in barred_browser_destinations():
+            return self._settle_barred_browser_no_write(message)
         item = dict(intent["destination_plan"])
         registration = self._intent_registration(destination, intent)
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
@@ -3399,10 +3412,11 @@ class DurablePublicationCoordinator:
                      and json.loads(str(m["payload"])).get("routine_company_copy") is True))
             and json.loads(str(m["payload"])).get("plan_hash") == plan.get("plan_hash")]
         messages.sort(key=lambda m: (0 if m["destination"] == "substack" else 1, m["destination"]))
-        x_ids = self._ids(work_item_id, str(registration["plan_hash"]), "x")
-        x_message = self.store.get_outbox_message(x_ids["message_id"])
-        if x_message:
-            outcomes["x"] = self._settle_x_no_write(x_message)
+        for destination in barred_browser_destinations():
+            ids = self._ids(work_item_id, str(registration["plan_hash"]), destination)
+            message = self.store.get_outbox_message(ids["message_id"])
+            if message:
+                outcomes[destination] = self._settle_barred_browser_no_write(message)
         canonical_message = next(
             (message for message in messages if message["destination"] == "substack"),
             None,
@@ -3512,7 +3526,7 @@ class DurablePublicationCoordinator:
         derivatives = {
             destination: outcome
             for destination, outcome in outcomes.items()
-            if destination != "substack" and destination != "x"
+            if destination != "substack" and destination not in barred_browser_destinations()
             and (not self._full_v1_distribution_required(plan) or destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS)
         }
         full_distribution_required = self._full_v1_distribution_required(plan)
@@ -3600,8 +3614,9 @@ class DurablePublicationCoordinator:
                 o.get("status") == DISPATCH_CONFIRMED and o.get("publish_called") is True
                 for o in outcomes.values()
             ),
+            "retired_browser_unknown_count": sum(o.get("status") == UNKNOWN_WRITE for d,o in outcomes.items() if d in barred_browser_destinations()),
             "retired_x_unknown_count": int((outcomes.get("x") or {}).get("status") == UNKNOWN_WRITE),
-            "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d != "x"),
+            "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d not in barred_browser_destinations()),
         }
 
     def _confirmed_canonical_url_for_work_item(
@@ -3695,8 +3710,8 @@ class DurablePublicationCoordinator:
                 )
                 continue
             dispatch = dispatch_by_message.get(str(message["message_id"]))
-            if message["destination"] == "x":
-                summary["per_destination"]["x"] = self._settle_x_no_write(message)
+            if message["destination"] in barred_browser_destinations():
+                summary["per_destination"][message["destination"]] = self._settle_barred_browser_no_write(message)
                 continue
             quarantine = self._dispatch_quarantine(dispatch)
             if quarantine:
@@ -3949,10 +3964,10 @@ class DurablePublicationCoordinator:
             if dispatch and dispatch.get("status") in OWNER_RETIRED_STATUSES:
                 continue
             destination = str(message["destination"])
-            if destination == "x":
+            if destination in barred_browser_destinations():
                 if dispatch and dispatch.get("status") in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}:
-                    summary.setdefault("retired_x_unresolved", []).append({
-                        "dispatch_id": dispatch["dispatch_id"], "status": dispatch["status"],
+                    summary.setdefault("retired_browser_unresolved", []).append({
+                        "dispatch_id": dispatch["dispatch_id"], "destination": destination, "status": dispatch["status"],
                         "next_action": "Official API or person readback; no Neo readback or retry."})
                 continue
             if dispatch and dispatch.get("status") == NATIVE_NEO_PENDING:

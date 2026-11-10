@@ -16,7 +16,8 @@ def fixture_platform_permissions(monkeypatch):
     are exercised with the production map by test_platform_rules_cc393.py.
     """
     from live_contentops import neo_destination_handoff_v1 as handoff
-    monkeypatch.setattr(handoff, "NON_API_AUTOMATION_PROHIBITED", {})
+    monkeypatch.setattr(handoff, "NON_API_AUTOMATION_PROHIBITED", {
+        "x": "X_NON_API_AUTOMATION_PROHIBITED", "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"})
 
 from live_contentops.destination_transport_registry_v1 import (
     REGISTRY_VERSION,
@@ -259,11 +260,11 @@ def test_registry_locks_surface_transport_and_browser_roles():
     assert registration_for_destination("youtube").transport_type == "BROWSEROS_NEO_MCP"
     assert V1_REQUIRED_DERIVATIVE_DESTINATIONS == (
         "telegram", "discord", "linkedin", "facebook_page",
-        "instagram_business", "threads", "youtube",
+        "instagram_business", "threads",
     )
     assert set(V1_REQUIRED_PUBLICATION_DESTINATIONS) == {
         "substack", "telegram", "discord", "linkedin", "facebook_page",
-        "instagram_business", "threads", "youtube",
+        "instagram_business", "threads",
     }
     assert not {"tiktok", "youtube_video", "youtube_short"}.intersection(
         V1_REQUIRED_PUBLICATION_DESTINATIONS
@@ -311,7 +312,7 @@ def test_quality_probation_derivative_readiness_hold_does_not_veto_canonical(
     assert result["outbox_count"] == 10  # nine V1 surfaces plus the LinkedIn company-page copy
     assert transport.publish_calls[0] == "substack"
     assert "threads" not in transport.publish_calls
-    assert len(transport.publish_calls) == 8  # seven derivatives plus the company-page copy, one held
+    assert len(transport.publish_calls) == 7  # six derivatives plus company, one held
     assert len(store.list_outbox_messages()) == 10
 
 
@@ -409,8 +410,8 @@ def test_quality_probation_full_nine_surface_confirmation(tmp_path):
 
     assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
     assert result["transaction_classification"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
-    assert result["derivative_attempted_count"] == 7
-    assert result["derivative_confirmed_count"] == 7
+    assert result["derivative_attempted_count"] == 6
+    assert result["derivative_confirmed_count"] == 6
     assert result["recovery_required_destinations"] == []
     assert transport.publish_calls[0] == "substack"
     # The LinkedIn company-page copy goes with the eight derivatives (4 Nov).
@@ -674,7 +675,7 @@ def test_recovery_delivery_media_ignores_only_owner_quarantined_unknown(tmp_path
     recovery = coordinator.recover_pending()
 
     assert recovery["backlog_remaining"] == 0
-    assert recovery["publish_calls"] == 8  # seven derivatives plus the company-page copy
+    assert recovery["publish_calls"] == 7  # six derivatives plus the company-page copy
     assert len(transport.prepare_calls) == 1
     assert transport.prepare_calls[0]["preconditions"]["unknown_write_count"] == 0
     assert store.get_platform_dispatch(legacy["dispatch_id"])["status"] == UNKNOWN_WRITE
@@ -771,7 +772,7 @@ def test_case_a_api_success_and_case_b_cdp_success(tmp_path):
 def test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once(tmp_path):
     destinations = (
         "substack", "telegram", "discord", "linkedin", "facebook_page",
-        "instagram_business", "threads", "youtube",
+        "instagram_business", "threads",
     )
     store, transport, coordinator = _coordinator(tmp_path)
 
@@ -781,8 +782,8 @@ def test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once(tmp_p
     assert result["canonical_article_real_published"] is True
     assert result["distribution_status"] == "CANONICAL_PUBLISHED_DISTRIBUTION_COMPLETE"
     assert set(result["per_destination"]) == set(destinations)
-    assert result["derivative_attempted_count"] == 7
-    assert result["derivative_confirmed_count"] == 7
+    assert result["derivative_attempted_count"] == 6
+    assert result["derivative_confirmed_count"] == 6
     assert transport.publish_calls.count("substack") == 1
     assert all(transport.publish_calls.count(destination) == 1 for destination in destinations)
     assert len(store.list_platform_dispatches()) == 8
@@ -2056,9 +2057,9 @@ def test_native_internal_records_never_become_dispatch_destinations(tmp_path):
     result = coordinator.execute_plan("work-1", plan)
     before = list(transport.publish_calls)
     assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
-    assert set(result["per_destination"]) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) | {"linkedin_company", "x"}
+    assert set(result["per_destination"]) == set(V1_REQUIRED_PUBLICATION_DESTINATIONS) | {"linkedin_company", "x", "youtube"}
     repeated = coordinator.execute_plan("work-1", plan)
-    assert repeated["derivative_confirmed_count"] == 7
+    assert repeated["derivative_confirmed_count"] == 6
     assert transport.publish_calls == before
     assert len(store.list_platform_dispatches()) == 10  # plus the company-page copy
 

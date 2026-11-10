@@ -1,83 +1,61 @@
-# CC-395 — seven required derivatives and Jim's notice
+# CC-395 — current six required derivatives and Jim's notice
 
-Decision 109 removes X from the required derivative set and retires X browser
-readiness/readback and status-post agent flags. The existing coordinator records
-one local `DEFINITE_NO_WRITE`, reconciled as `X_NON_API_AUTOMATION_PROHIBITED`.
-It spends no retry budget and creates no dispatch-failure incident. Confirmed,
-owner-removed and uncertain old X dispatches keep their status and identities.
-An uncertain old attempt remains uncertain; this change is not absence evidence.
-It is separately reported as retired X uncertainty and cannot veto a transaction
-that has no X write. Old queued X identity/readback requests never reach an agent.
+Ops Product amended this same item at 09:11 GMT+7 on 10 November 2026, after the
+seven-destination slice was integrated. **The current required set is six:**
+Telegram, Discord, LinkedIn member, Facebook Page, Instagram Business and Threads.
+The registry derives it from the existing `NON_API_AUTOMATION_PROHIBITED` map and
+the registered transport. Thus an Instagram/LinkedIn browser prohibition does not
+exclude their official API destinations. A future browser bar is consumed by the
+same registry/compiler/coordinator functions without another hard-coded count.
 
-The seven destinations are Telegram, Discord, LinkedIn, Facebook Page, Instagram
-Business, Threads and YouTube Community. The historical
-`FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED` status string stays as a compatibility
-identifier; required counts and confirmation use the actual seven-element set.
-The LinkedIn company copy remains an additional destination, outside those seven.
+X and YouTube each receive one local not-posted disposition with their exact bar
+cause, no retry, incident, readiness probe or Neo readback. The optional LinkedIn
+company browser copy follows the same map. Confirmed/removed/uncertain historical
+objects retain their identity and state. Uncertainty is reported separately for
+retired browser destinations and never becomes false absence evidence. The old
+`FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED` identifier remains for compatibility;
+its actual required count now comes from the six-element registry.
 
-The current compiler, quality/adjudication packs, newsroom qualification, prompts,
-publication accounting and production-day consumers use that set. Frozen old
-qualification records with eight packages retain their hashes and remain readable.
-Historical articles, native requests and published posts are not rewritten.
-
-New notices read: **Capital Chronicle offers analysis only, not financial advice
-or recommendations.** This reaches article guidance, event templates, canonical
-copy, social compilation, status posts, fact cards, digest/scorecard consumers and
-public-feed metadata through their existing owners. Landscape and portrait card
-renders in `media/` were visually inspected; the longer notice and date do not
-overlap. Old exact-object Substack readback accepts the old notice too.
-Substack Notes retains its own `--notes-start`, `--notes-begin`, `--notes-submit`
-and `--pending-notes` route after the four X flags are removed.
-
-## Verification
-
-- `seven-destinations-tests.xml`: the coordinator confirms seven derivatives,
-  repeats recovery without X calls or incidents, preserves old X identities and
-  uncertainty, refuses X probes and confirms the new notice and retired CLI flags.
-- `copied-store-replay.json`: SQLite backup of the existing production store;
-  an exact new controlled work item uses the held latest canonical identity and
-  simulated transports. Seven required derivatives confirm, X has one local
-  no-write, and no dispatch-failure incident occurs. This tests the copied store
-  and coordinator; it is not a fresh public article or real platform delivery.
-- `consumer-tests.xml`: current compiler/scenarios, card layouts and production-day
-  qualification. Initial failures were fixed; earlier attempt evidence remains.
-- `coordinator-final-tests.xml`: 138 passes and three older fixture expectations,
-  followed by `corrected-recovery-tests.xml` with 16 passes. The two pre-prohibition
-  X transport-correction parameters are retired in favor of explicit no-retry and
-  old-identity preservation tests. Native-record filtering expects the local X
-  disposition alongside the seven destinations.
-- `final-route-tests.xml`: final route and suggestion-consumer regression. The
-  recorded Light suggestion still retains its original X entry; the current
-  compiler consumes its other variants and emits seven outputs with the new notice.
-  `dispatch-tests.xml` retains the earlier pre-correction attempt.
+The new public notice is **Capital Chronicle offers analysis only, not financial
+advice or recommendations.** Existing canonical/social/card/digest/scorecard/feed
+consumers use it. Portrait and landscape renders in `media/` were inspected; the
+notice fits without overlapping the date. Frozen old packages and published posts
+are immutable, and old exact-object readback still recognizes the older notice.
+Status-post X flags are retired; Notes has its own start/begin/submit/pending flags.
 
 The [bio inventory](bios.md) covers all eight requested surfaces. LinkedIn's
-“AI-driven macro & market intelligence” is flagged, as is Discord's historical
-welcome description “AI-native content operations”. Telegram's official Bot API
-read independently confirms its channel description is empty. No account setting
-or historical public post was edited.
+“AI-driven macro & market intelligence” and Discord's historical welcome wording
+“AI-native content operations” are flagged. Telegram's official Bot API confirmed
+its description is empty. Ops Product owns profile edits; none was made here.
 
-## Live acceptance
+## Current evidence
 
-CC-393 still prohibits YouTube Community browser publication and LinkedIn company
-browser publication. No authorized YouTube Community API transport exists here;
-removing X does not grant one. Therefore a fresh article cannot currently prove
-all seven destinations live. The next real article and its new notice need exact
-coordinator readbacks before CC-395 can be DONE. Ops Product owns the platform-route
-choice and profile-setting changes. No schedule or chat was changed or messaged.
+- `six-destination-tests.xml`: 82 passes across coordinator, compiler, source-bound
+  scenarios, current Light-suggestion consumption, unknown-state preservation,
+  queued-tool retirement and a test that an added browser bar changes the required
+  set while official API routes remain included.
+- `copied-store-six-replay.json`: the existing production-store backup, with a new
+  exact controlled work item and fake transports. Six derivatives confirm, X and
+  YouTube have one not-posted record each, repeated recovery creates no call/retry
+  or DISPATCH_FAILURE incident. This is not real public delivery.
+- `six-coordinator-tests.xml`: selected canonical coordinator regressions for the
+  amended required set. Earlier seven-destination and corrected fixture reports
+  remain dated development evidence, not current acceptance counts.
+- `next-live-article-observation.json`: held current intents/results were searched
+  for the next real live acceptance. Already-published articles are not reposted,
+  and a frozen daily digest is not presented as a new six-destination article.
 
+## Integration and live acceptance
 
-## Operating-root application
+The first slice was integrated at `2025916d5a6aaeb70c9360095492cff3ceef4686`;
+`live-consumer.json` records that initial seven-destination application. The later
+six-destination amendment and fresh operating-root evidence supersede its required
+count. All six pre-existing modified operating-root files remain byte-preserved.
+The existing PlanStatusPosts task points to the operating root; no schedule or app
+lifetime was changed, and no chat was messaged.
 
-Code commit `2025916d5a6aaeb70c9360095492cff3ceef4686` was fast-forwarded into
-`A:\Capital Chronicle\ContentOps`. A fresh process imported the actual operating
-module, read the seven required destinations and exact new notice, then used the
-existing coordinator to settle seven held X intents locally. Twenty confirmed X
-posts, five owner-removed records and one UNKNOWN_WRITE retained their identities
-and status. A second application made no change. `live-consumer.json` records the
-result and the initial smoke's over-strict assertion about new local no-write rows.
-All six pre-existing modified operating-root files are byte-preserved. No user app
-was restarted. The existing PlanStatusPosts task already calls this operating root;
-its schedule was not changed. The remaining live acceptance is still outside the
-lane: the current YouTube route is prohibited and its replacement is Ops Product's
-choice; no next live article or post was fabricated for acceptance.
+Ops Product's amendment removes the earlier YouTube-route blocker. **Only the next
+actual article/post readbacks remain for the item's live acceptance.** The normal
+CC-124 producer must supply its next source-qualified article; source code, a copied
+store and a repeated old post are not that evidence. The installed path is ready to
+record six required confirmations and the new notice when that operation runs.

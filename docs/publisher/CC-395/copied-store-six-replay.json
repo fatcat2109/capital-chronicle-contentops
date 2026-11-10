@@ -1,0 +1,41 @@
+{
+  "store_copy": "C:\\Users\\bullw\\AppData\\Local\\Temp\\cc395-copied-store-qh7s7wg3\\copied.sqlite3",
+  "method": "Same SQLite production-store backup; new exact controlled replay work item",
+  "required_derivatives": [
+    "telegram",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads"
+  ],
+  "confirmed_count": 6,
+  "distribution_status": "FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED",
+  "not_posted": {
+    "x": {
+      "destination": "x",
+      "dispatch_id": "dispatch_b51a5122e374f331fbe59cce966d36e1",
+      "dispatch_recorded": true,
+      "status": "DEFINITE_NO_WRITE",
+      "reconciliation_status": "X_NON_API_AUTOMATION_PROHIBITED",
+      "public_object_id": null,
+      "public_object_url": null,
+      "publish_called": false,
+      "reason_code": "X_NON_API_AUTOMATION_PROHIBITED"
+    },
+    "youtube": {
+      "destination": "youtube",
+      "dispatch_id": "dispatch_36a1387370fdb297dd118fe7cfbce89f",
+      "dispatch_recorded": true,
+      "status": "DEFINITE_NO_WRITE",
+      "reconciliation_status": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+      "public_object_id": null,
+      "public_object_url": null,
+      "publish_called": false,
+      "reason_code": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"
+    }
+  },
+  "dispatch_failure_incidents": 0,
+  "transport": "CONTROLLED_FIXTURE_NO_EXTERNAL_CALLS",
+  "live_publication_proof": false
+}

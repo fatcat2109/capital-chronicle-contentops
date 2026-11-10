@@ -83,7 +83,7 @@ def test_recorded_output_is_used_by_live_compiler(tmp_path):
         assert "Base case:" in visible and "Alternative:" in visible
         if destination in {"x", "threads"}:
             assert all(len(post["text"]) <= agy.LIMITS[destination] for post in payload["posts"])
-    assert len(payloads) == 7
+    assert len(payloads) == 6
 
 
 @pytest.mark.parametrize("failure", [FileNotFoundError("controlled missing agy"),

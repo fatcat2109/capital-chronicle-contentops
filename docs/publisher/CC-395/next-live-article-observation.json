@@ -1,0 +1,191 @@
+{
+  "recent_retained_final_results": [
+    {
+      "work_item_id": "cc-opportunity-f96522c78b98e98a4f2bc58f57e89a2c19da9a138793b5ec82ff7472a54152e6",
+      "status": "EDITORIAL_INTERNAL",
+      "destination": "internal:cc-report-simple-result"
+    },
+    {
+      "work_item_id": "cc-opportunity-bb0bc52c0a7c4945f90850f7ee64264efb67b39c449efa7a86dcd16231a8221b",
+      "status": "EDITORIAL_INTERNAL",
+      "destination": "internal:cc-report-simple-result"
+    },
+    {
+      "work_item_id": "cc-opportunity-f81106955c1a0133388d0559dbfee166dd2f8ff483fc5d4f58a0a16691395c1b",
+      "status": "EDITORIAL_INTERNAL",
+      "destination": "internal:cc-report-simple-result"
+    },
+    {
+      "work_item_id": "cc-opportunity-4c86d2396a3cfa495ab6b4efc13082b92f75f7e68c2feebb5a766a5ca68dab88",
+      "status": "EDITORIAL_INTERNAL",
+      "destination": "internal:cc-report-simple-result"
+    },
+    {
+      "work_item_id": "cc-opportunity-b6c784da5ee3cd31ec5a83c17a06b8ec48ce62199d55769885bc14370490c4f4",
+      "status": "EDITORIAL_INTERNAL",
+      "destination": "internal:cc-report-simple-result"
+    },
+    {
+      "work_item_id": "cc-opportunity-f5944b390fb5c60faa12da875a484c2190ad185bcdc5a6d6afb47e1404fe239b",
+      "status": "EDITORIAL_INTERNAL",
+      "destination": "internal:cc-report-simple-result"
+    }
+  ],
+  "latest_canonical_intents": "Latest non-digest Substack intent is cc124-pre-us-wrap-20261109-v1, already DISPATCH_CONFIRMED. No later article has a canonical intent.",
+  "unpublished_digest": "cc143-digest-2026-11-09 is READY; this is an index, outside CC-395 article acceptance and retains its frozen request.",
+  "next_action": "CC-124 normal production must supply the next article and exact live readbacks; no new unrelated edition or historical repost is created.",
+  "recent_retained_final_summaries": [
+    {
+      "work_item_id": "cc-opportunity-f96522c78b98e98a4f2bc58f57e89a2c19da9a138793b5ec82ff7472a54152e6",
+      "classification": "INDEPENDENT_NEWS_DRAFT",
+      "qualified_article_count": 1,
+      "article_title": "Capital Chronicle pre-US wrap: dollar slips, oil premium fades",
+      "run_id": null,
+      "keys": [
+        "affected_drafts",
+        "article",
+        "article_identity",
+        "classification",
+        "compiled_derivative_count",
+        "draft_count",
+        "editorial_execution",
+        "evidence",
+        "exact_next_blocker",
+        "fixture_source_context",
+        "input",
+        "media_assets",
+        "media_preview_binding_sha256",
+        "media_reuse_count",
+        "model_execution_state",
+        "preview_count"
+      ]
+    },
+    {
+      "work_item_id": "cc-opportunity-bb0bc52c0a7c4945f90850f7ee64264efb67b39c449efa7a86dcd16231a8221b",
+      "classification": "INDEPENDENT_NEWS_DRAFT",
+      "qualified_article_count": 1,
+      "article_title": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week",
+      "run_id": null,
+      "keys": [
+        "affected_drafts",
+        "article",
+        "article_identity",
+        "classification",
+        "compiled_derivative_count",
+        "completed_native_revision_request_sha256",
+        "draft_count",
+        "editorial_execution",
+        "evidence",
+        "exact_next_blocker",
+        "fixture_source_context",
+        "input",
+        "media_assets",
+        "media_preview_binding_sha256",
+        "media_reuse_count",
+        "model_execution_state"
+      ]
+    },
+    {
+      "work_item_id": "cc-opportunity-f81106955c1a0133388d0559dbfee166dd2f8ff483fc5d4f58a0a16691395c1b",
+      "classification": "INDEPENDENT_NEWS_DRAFT",
+      "qualified_article_count": 1,
+      "article_title": "NFP preview: why a payroll beat needs help from unemployment",
+      "run_id": null,
+      "keys": [
+        "affected_drafts",
+        "article",
+        "article_identity",
+        "classification",
+        "compiled_derivative_count",
+        "draft_count",
+        "editorial_execution",
+        "evidence",
+        "exact_next_blocker",
+        "fixture_source_context",
+        "input",
+        "media_assets",
+        "media_preview_binding_sha256",
+        "media_reuse_count",
+        "model_execution_state",
+        "preview_count"
+      ]
+    },
+    {
+      "work_item_id": "cc-opportunity-4c86d2396a3cfa495ab6b4efc13082b92f75f7e68c2feebb5a766a5ca68dab88",
+      "classification": "INDEPENDENT_NEWS_DRAFT",
+      "qualified_article_count": 1,
+      "article_title": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test",
+      "run_id": null,
+      "keys": [
+        "affected_drafts",
+        "article",
+        "article_identity",
+        "classification",
+        "compiled_derivative_count",
+        "draft_count",
+        "editorial_execution",
+        "evidence",
+        "exact_next_blocker",
+        "fixture_source_context",
+        "input",
+        "media_assets",
+        "media_preview_binding_sha256",
+        "media_reuse_count",
+        "model_execution_state",
+        "preview_count"
+      ]
+    },
+    {
+      "work_item_id": "cc-opportunity-b6c784da5ee3cd31ec5a83c17a06b8ec48ce62199d55769885bc14370490c4f4",
+      "classification": "DRAFT_BLOCKED",
+      "qualified_article_count": 0,
+      "article_title": null,
+      "run_id": null,
+      "keys": [
+        "affected_drafts",
+        "article",
+        "classification",
+        "compiled_derivative_count",
+        "draft_count",
+        "editorial_execution",
+        "exact_next_blocker",
+        "input",
+        "model_execution_state",
+        "preview_count",
+        "previews",
+        "public_write_performed",
+        "qualified_article_count",
+        "receipt_id",
+        "report_id",
+        "report_version"
+      ]
+    },
+    {
+      "work_item_id": "cc-opportunity-f5944b390fb5c60faa12da875a484c2190ad185bcdc5a6d6afb47e1404fe239b",
+      "classification": "INDEPENDENT_NEWS_DRAFT",
+      "qualified_article_count": 1,
+      "article_title": "Capital Chronicle's pre-payrolls review: a dollar bid with different countercases",
+      "run_id": null,
+      "keys": [
+        "affected_drafts",
+        "article",
+        "article_identity",
+        "classification",
+        "compiled_derivative_count",
+        "completed_native_revision_request_sha256",
+        "draft_count",
+        "editorial_execution",
+        "evidence",
+        "exact_next_blocker",
+        "fixture_source_context",
+        "input",
+        "media_assets",
+        "media_preview_binding_sha256",
+        "media_reuse_count",
+        "model_execution_state"
+      ]
+    }
+  ],
+  "recorded_at_utc": "2026-11-10T02:21:10.718117+00:00",
+  "observation_window_gmt7": "10 Nov 2026 09:16-09:20 GMT+7; exact individual query instants were not instrumented"
+}
