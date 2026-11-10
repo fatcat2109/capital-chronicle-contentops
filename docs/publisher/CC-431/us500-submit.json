@@ -1,0 +1,16 @@
+{
+ "status": "OK",
+ "submit": {
+  "completed_write_reconciliation": {
+   "destination": "x",
+   "dispatch_id": "dispatch_e76f7645c9e448c7b1d827435e1b65ff",
+   "public_object_id": "2120014234310541324",
+   "public_object_url": "https://x.com/Capitalnicle/status/2120014234310541324",
+   "public_write_performed": false,
+   "publish_called": false,
+   "reconciliation_status": "RECONCILED_CONFIRMED"
+  },
+  "request_sha256": "125e3e43d8153eef6c9860945bc2e241cdf09b7224083fe49bb98a7103bf11bc",
+  "tool_return_sha256": "19fa8c0a6a032b3e827e70e659e54805607392e1e9678f1b293c8564079827a8"
+ }
+}

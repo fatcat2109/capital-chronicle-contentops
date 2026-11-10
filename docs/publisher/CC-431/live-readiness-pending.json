@@ -1,0 +1,58 @@
+[
+  {
+    "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+    "operation_id": "cc431-restore-x-neo",
+    "public_write_authorized": false,
+    "request": {
+      "action": "VERIFY_IDENTITY",
+      "destination": "x",
+      "entry_url": "https://x.com/Capitalnicle",
+      "expected_identity": "@Capitalnicle",
+      "forbidden": [
+        "login",
+        "account_switch",
+        "public_write",
+        "saved_draft",
+        "private_storage"
+      ],
+      "native_invocation_id": "cc431-codex-exec-31564",
+      "probe_epoch": 5980951,
+      "request_sha256": "58b90962b172909ed24fdd4d0ee2144a8a98a7269b73f3c6e75cda93bff86a68",
+      "schema_version": "contentops.neo_identity_probe.v1",
+      "surface": "X_THREAD",
+      "work_item_id": "native-neo-operation-73d182680b225c1a1d8cc4b8fb4c68be623e27d89df580812a85ab16a605caf2"
+    },
+    "required_tool": "mcp__browseros_neo__run",
+    "schema_version": "contentops.native_neo_tool_request.v1",
+    "tool_request_sha256": "418b63f6ec412b04547dc2316368bf5bbb37542df302f7db4e31a16aa08d6ef9",
+    "action_claimed": false
+  },
+  {
+    "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+    "operation_id": "cc431-restore-x-neo",
+    "public_write_authorized": false,
+    "request": {
+      "action": "VERIFY_IDENTITY",
+      "destination": "x",
+      "entry_url": "https://x.com/Capitalnicle",
+      "expected_identity": "@Capitalnicle",
+      "forbidden": [
+        "login",
+        "account_switch",
+        "public_write",
+        "saved_draft",
+        "private_storage"
+      ],
+      "native_invocation_id": "cc431-codex-exec-31564",
+      "probe_epoch": 5980951,
+      "request_sha256": "b48ab637306cb312709db54244c6c9a4682e04101cf3d4e05c89e990721fb2e2",
+      "schema_version": "contentops.neo_identity_probe.v1",
+      "surface": "X_POST",
+      "work_item_id": "native-neo-operation-73d182680b225c1a1d8cc4b8fb4c68be623e27d89df580812a85ab16a605caf2"
+    },
+    "required_tool": "mcp__browseros_neo__run",
+    "schema_version": "contentops.native_neo_tool_request.v1",
+    "tool_request_sha256": "601088ddc17e27162e5a8d1f283926fc41a33697fee7c1026dcf8c0031bdfbff",
+    "action_claimed": false
+  }
+]
