@@ -1,5 +1,13 @@
 # CC-423: demo-position disclosure
 
+Integrated into `A:\Capital Chronicle\ContentOps` at code commit
+`8de240b196219376670ef90f13fb0236d7225f35`. The installed dry run and
+13 installed disclosure tests pass. Status is **BLOCKED** only on
+`NEXT_LIVE_POST_READBACK_PENDING`: the live Main export supplies no new eligible
+post, and the refreshed public channel still ends at
+[post 133](https://t.me/CapitalChronicle/133), with the earlier wording.
+The next action is exact readback of the first newly composed live post.
+
 The active Publisher composers now use Jim's exact line:
 
 > Positions we mention are model positions on a demo account.

@@ -1,0 +1,14 @@
+{
+  "status": "OK",
+  "validation": "PASS",
+  "contract_version": "legacy/schema-1.0.0",
+  "export_generated_at_utc": "2026-11-10T09:36:04.670781Z",
+  "rendered_count": 21,
+  "transitions_read": 99,
+  "would_queue_count": 0,
+  "installed_constants": {
+    "conflicts_notice": "Positions we mention are model positions on a demo account.",
+    "card_notices": "Capital Chronicle offers analysis only, not financial advice or recommendations. Positions we mention are model positions on a demo account."
+  },
+  "raw_artifact_sha256": "f9bb076d30ea176a3e52642666ec1c15a3a77ab3f3ad80de5f09e605a472f967"
+}

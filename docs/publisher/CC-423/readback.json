@@ -15,5 +15,13 @@
     "latest_loaded_post_time": "15:40 on 10 November 2026 (Telegram page display)",
     "latest_piece_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
     "write_performed": false
+  },
+  "after_integration": {
+    "recorded_at_utc": "2026-11-10T09:39:32.951446+00:00",
+    "method": "BrowserOS Neo reload and content grep on the unsigned public Telegram channel",
+    "url": "https://t.me/s/CapitalChronicle",
+    "latest_post_url": "https://t.me/CapitalChronicle/133",
+    "new_notice_present": false,
+    "write_performed": false
   }
 }
