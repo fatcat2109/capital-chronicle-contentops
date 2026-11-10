@@ -57,6 +57,14 @@ def uses_short_path(store, *, run_id, result):
             result=json.loads(original["payload"])) == basis)
     turn = NativeDesktopTurn(store, run_id=run_id, output_dir=binding["output_dir"], owner_manual_validation=True)
     request = turn.frozen_request("write") or {}
+    # Decision 53 applies to a bound imminent event even when its retained
+    # selection used the general WEEK_AHEAD_OR_WATCH mode. Keep frozen requests
+    # intact; the actual editor KEEP and image-load check still own acceptance.
+    event_id = binding.get("preview_event_id")
+    if (event_id and result.get("article", {}).get("article_type") == "EVENT_PREVIEW"
+            and any(d.get("preview_preparation", {}).get("event_id") == event_id
+                    for d in request.get("governed_input", {}).get("source_pack", []))):
+        return True
     policy = request.get("governed_input", {}).get("publication_speed_policy")
     return bool(policy and policy == speed_policy(request["governed_input"]))
 

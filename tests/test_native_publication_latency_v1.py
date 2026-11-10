@@ -24,6 +24,31 @@ def current(store, run):
     return json.loads(store.get_outbox_message("cc-editorial-final-" + sha256_of(run))["payload"])
 
 
+def test_bound_event_preview_uses_one_editor_check_without_rewriting_writer(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+    monkeypatch.setattr("test_native_desktop_publication_v1.prepare_native_publication", lambda *a, **k: None)
+    store, binding, _, result, review = seeded(tmp_path, monkeypatch, final_visual=False)
+    run = binding["run_id"]
+    binding["preview_event_id"] = "controlled-cpi"
+    store.finalize_outbox_payload_before_dispatch(message_id="native-operation-binding-" + sha256_of(run),
+        payload=canonical_bytes(binding).decode(), status="EDITORIAL_INTERNAL")
+    result["article"]["article_type"] = "EVENT_PREVIEW"
+    store.finalize_outbox_payload_before_dispatch(message_id="cc-editorial-final-" + sha256_of(run),
+        payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
+    turn = NativeDesktopTurn(store, run_id=run, output_dir=binding["output_dir"], owner_manual_validation=True)
+    writer = copy.deepcopy(turn.frozen_request("write")) or {"governed_input": {"source_pack": [{}]}}
+    writer["governed_input"]["article_mode"] = "WEEK_AHEAD_OR_WATCH"
+    writer["governed_input"]["source_pack"][0]["preview_preparation"] = {"event_id": "controlled-cpi"}
+    monkeypatch.setattr(NativeDesktopTurn, "frozen_request", lambda self, stage: writer if stage == "write" else None)
+    before = copy.deepcopy(writer)
+    accepted = record_native_article_review(store, run_id=run, article_identity=result["article_identity"],
+        decision="KEEP", rationale="Controlled bound event preview has its one actual editor check.",
+        expected_review_id=review["review_id"])
+    assert accepted["publication_speed_policy"]["policy"] == SPEED_POLICY
+    assert accepted["automated_media_check"]["check"] == "IMAGE_LOAD_AND_SIZE_ONCE"
+    assert writer == before
+
+
 @pytest.mark.parametrize("mismatch", [None, "return", "source"])
 def test_completed_native_revision_reaches_existing_assembly_without_another_writer(tmp_path, monkeypatch, mismatch):
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, resume_completed_native_revision
