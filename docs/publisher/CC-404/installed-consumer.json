@@ -1,0 +1,74 @@
+{
+  "observed_at_utc": "2026-11-10T19:14:12.400976+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "source_commit": "b35c04df70678b260d8ce4c3469c27293bbcafcf",
+  "installed_modules": {
+    "event_pack": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\event_pack_v1.py",
+    "event_timestamp": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\event_timestamp_v1.py"
+  },
+  "source_hashes": {
+    "live_contentops/event_pack_v1.py": {
+      "installed_sha256": "28a19b4043120e2384ab31c38e07059f6ef80ace84d4dfac0eff17293188e445",
+      "worktree_sha256": "bf0287d095aa3acdea8a70501ac457d1f923fe7e051f989268b7cec019d4bf05",
+      "git_blob": "c38aa659fa2c7b4e75a3f9d846bfcadfd8a21300",
+      "matches_head": true,
+      "line_ending_normalised_equal": true
+    },
+    "live_contentops/event_timestamp_v1.py": {
+      "installed_sha256": "a9dc8d1a8876500b5fd448eb460d285cd5d00e99c630ce5d38cf84289977f1e1",
+      "worktree_sha256": "7c54aee01a08d93181a74597a9195448c8541dafb58c810c75d6830d9b7bcd30",
+      "git_blob": "abed3daeed503b1b4028061cd049998001ce2b50",
+      "matches_head": true,
+      "line_ending_normalised_equal": true
+    },
+    "scripts/plan_status_posts.py": {
+      "installed_sha256": "76a19dfbd19d7277195b4f055de878268c8b38c4f777c5ab652e576244877284",
+      "worktree_sha256": "76a19dfbd19d7277195b4f055de878268c8b38c4f777c5ab652e576244877284",
+      "git_blob": "53a707d42bb0151bfac9014234d9c2c315fe89c0",
+      "matches_head": true,
+      "line_ending_normalised_equal": true
+    },
+    "scripts/event_public_record.py": {
+      "installed_sha256": "3afa367791fb5440b533d1f28751b46cc13f6e05466c4838052469252d715791",
+      "worktree_sha256": "3afa367791fb5440b533d1f28751b46cc13f6e05466c4838052469252d715791",
+      "git_blob": "7e0b3457d9bc337c972a421d91c0872a47ac3389",
+      "matches_head": true,
+      "line_ending_normalised_equal": true
+    },
+    "scripts/opentimestamps_client.py": {
+      "installed_sha256": "0ae4f46de46c5e2ce2f2ff4504b2eeb1af3d78abca303a2a83e2789e13569c5a",
+      "worktree_sha256": "cc9d49fd451d0c42161ef6e58e45be21051f2a387c697509896a693fb314efc2",
+      "git_blob": "91f57f462d699cf0ec0444fc0238bee79a1ffe66",
+      "matches_head": true,
+      "line_ending_normalised_equal": true
+    }
+  },
+  "stamp_cli": {
+    "timestamp": {
+      "status": "CALENDAR_PENDING",
+      "proof_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\event-public-records\\bls-emsit-20261106\\957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4\\frozen-public.json.ots",
+      "proof_sha256": "5017c7eedda1531b626d830cfbcc1f8321150753b62410921226e3edcafc8a49",
+      "submitted_at_utc": "2026-11-10T18:34:55.657093+00:00",
+      "submission_before_release": false,
+      "bitcoin_verified": false,
+      "cause": null
+    },
+    "sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4"
+  },
+  "maintenance": {
+    "status": "NO_TIMESTAMP_DUE"
+  },
+  "events": {
+    "events": [],
+    "status": "NO_EVENT_PACK_DUE"
+  },
+  "operating_control": {
+    "operating_mode": "KILL_SWITCH",
+    "state_version": 41,
+    "control_source": "CC435_SUBSTACK_SUSPENDED_IMPERSONATION"
+  },
+  "control_unchanged": true,
+  "public_writes_performed": 0,
+  "schedule_changes": 0,
+  "source_checkout_note": "Git applies CRLF to source in the operating checkout; committed blobs and Python source after newline normalisation match. Public JSON and OTS bytes are checked without normalisation."
+}

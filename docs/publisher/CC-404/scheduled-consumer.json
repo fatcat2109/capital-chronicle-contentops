@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-10T19:14:55.177993+00:00",
+  "status": "OBSERVED",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261110.jsonl",
+  "run": {
+    "at_utc": "2026-11-10T19:14:33.325537Z",
+    "status": "OK",
+    "cause": null,
+    "event_timestamp": {
+      "status": "NO_TIMESTAMP_DUE"
+    },
+    "event_packs": {
+      "events": [],
+      "status": "NO_EVENT_PACK_DUE"
+    }
+  }
+}

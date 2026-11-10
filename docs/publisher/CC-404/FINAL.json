@@ -1,0 +1,113 @@
+{
+  "item": "CC-404",
+  "status": "BLOCKED",
+  "observed_at_utc": "2026-11-10T19:15:59.397173+00:00",
+  "implementation_commit": "b35c04df70678b260d8ce4c3469c27293bbcafcf",
+  "branch": "backlog/cc-404-verifiable-event-pack",
+  "integration": {
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "fast_forwarded_from": "6f7e4003a14ac679dcf199c69376aae75f252409",
+    "implementation_integrated": true,
+    "installed_consumer_evidence": "docs/publisher/CC-404/installed-consumer.json",
+    "scheduled_consumer_evidence": "docs/publisher/CC-404/scheduled-consumer.json",
+    "natural_minute_run_observed": true
+  },
+  "acceptance": {
+    "official_ots_client_installed": "0.8.0",
+    "smoke_calendar_submission": "CALENDAR_PENDING",
+    "smoke_file_hash_verified": true,
+    "smoke_submission_before_release": false,
+    "bitcoin_verified": false,
+    "ppi_freeze_issued": false,
+    "ppi_freeze_stamped": false,
+    "ppi_preview_read_back": false,
+    "ppi_arrival_read_back": false,
+    "ppi_review_read_back": false,
+    "phase_1_repetition_observed": false
+  },
+  "first_blocking_cause": "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION",
+  "other_outside_dependencies": [
+    "PPI_FROZEN_PUBLIC_FILE_NOT_ISSUED",
+    "OTS_BITCOIN_CONFIRMATION_PENDING"
+  ],
+  "prepared_next_actions": [
+    {
+      "owner": "Ops Product",
+      "action": "Resolve the existing Substack suspension through the owner appeal route.",
+      "url": "https://substack.com/appeals",
+      "submitted": false
+    },
+    {
+      "owner": "Ops Live",
+      "action": "Supply the exact PPI public freeze and SHA-256, then the explicit public arrival record. Use the existing event_public_record attach commands."
+    },
+    {
+      "owner": "Codex Publisher",
+      "action": "After access and event sources return, resume the existing event identities and finish client/site proof verification and the three stage readbacks."
+    }
+  ],
+  "tests": {
+    "distinct_cases_passed": 477,
+    "targeted_runs": [
+      {
+        "path": "docs\\publisher\\CC-404\\stamp-tests.xml",
+        "passed": 46,
+        "failures": 0
+      },
+      {
+        "path": "docs\\publisher\\CC-404\\reader-event-tests.xml",
+        "passed": 165,
+        "failures": 0
+      },
+      {
+        "path": "docs\\publisher\\CC-404\\publication-regression.xml",
+        "passed": 272,
+        "failures": 0
+      },
+      {
+        "path": "docs\\publisher\\CC-404\\event-tests.xml",
+        "passed": 48,
+        "failures": 0
+      },
+      {
+        "path": "docs\\publisher\\CC-404\\minute-consumer-tests.xml",
+        "passed": 41,
+        "failures": 0
+      }
+    ],
+    "no_parallel_pytest": true,
+    "whole_suite_run": false
+  },
+  "render": {
+    "evidence": "docs/publisher/CC-404/render-evidence.json",
+    "visually_inspected": true,
+    "scope": "Historical NFP public map at its original source cutoff; new render clock recorded separately."
+  },
+  "source_use": {
+    "calls_ledger_exists": true,
+    "consumer": "event_pack_v1.public_ledger -> structured stage -> existing coordinator -> exact downloadable ledger",
+    "review_population": "Every call matching the plan hashes bound in the frozen public map; unresolved and untriggered calls remain."
+  },
+  "public_posts_in_this_run": 0,
+  "schedules_changed": 0,
+  "apps_restarted": 0,
+  "other_chats_messaged": 0,
+  "publication_control": {
+    "operating_mode": "KILL_SWITCH",
+    "state_version": 41,
+    "control_source": "CC435_SUBSTACK_SUSPENDED_IMPERSONATION"
+  },
+  "control_unchanged": true,
+  "unrelated_wip_excluded": [
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+    "live_contentops/agy_editorial_assist_v1.py"
+  ],
+  "launch": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "evidence": "CONFIGURED_NOT_OBSERVED",
+    "editorial_model_calls": 0
+  },
+  "choice": "Extend the existing event preparation, minute entry and sole coordinator. Keep source files and issued public stages immutable; retain the suspension halt."
+}
