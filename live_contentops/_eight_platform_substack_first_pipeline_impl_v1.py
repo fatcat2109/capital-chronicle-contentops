@@ -4124,7 +4124,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         return {"output_dir":output_dir,"article":{},"selection":{},"media_assets":[],
             "delivery_only_assets":[],"payloads":{destination:intent["native_payload"]},
             "local_media":"","delivery_local_media":"","public_image_url":"",
-            "primary_media":{},"canonical_url":None}
+            "primary_media":{},"canonical_url":intent.get("canonical_url")}
     context = _read_json(output_dir / "run_context_v1.json")
     article = dict(context.get("article") or {})
     selection = dict(context.get("selection") or {})

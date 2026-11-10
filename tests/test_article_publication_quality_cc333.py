@@ -331,7 +331,8 @@ def test_real_eight_channel_compiler_carries_both_authored_scenarios():
     article, _ = scenario_article()
     bundle, _ = _native_preview_bundle(article=article, article_mode="STANDARD_NEWS_ANALYSIS",
                                      article_identity="a" * 64, media_asset_ids=["image-1"])
-    assert len(bundle["packages"]) == 6
+    from live_contentops.destination_transport_registry_v1 import required_derivative_destinations
+    assert set(bundle["packages"]) == set(required_derivative_destinations())
     for payload in bundle["packages"].values():
         validate_social_scenarios(article, payload)
         assert "60%" in payload_text(payload) and "40%" in payload_text(payload)

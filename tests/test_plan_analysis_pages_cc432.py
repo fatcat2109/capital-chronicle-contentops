@@ -195,6 +195,30 @@ def test_owned_figures_with_different_verified_data_are_not_photo_reuse():
     assert near(left,{**right,'sha256':left['sha256']})
 
 
+def test_authored_short_summary_keeps_whole_claims_and_rejects_new_numbers(source, tmp_path):
+    packet = rendered(source, tmp_path)
+    url = 'https://capitalchronicle.substack.com/p/full-plan'
+    text = pages.structured_summary(packet, 'threads', url, 'Base case 55%; alternative 35%.')
+    assert len(text) <= 500 and url in text and '55%' in text
+    with pytest.raises(ValueError, match='SOCIAL_NUMBER_UNBOUND'):
+        pages.structured_summary(packet, 'threads', url, 'The alternative is 45%.')
+    with pytest.raises(ValueError, match='DESK_AI_LABEL'):
+        pages.structured_summary(packet, 'threads', url, 'Our AI-run desk expects a rise.')
+
+
+def test_reply_transport_inputs_preserve_the_confirmed_canonical_and_parent(tmp_path):
+    from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+    native = {'destination': 'telegram', 'text': 'Full original analysis.', 'reply_to_id': '115'}
+    intent = {'plan_analysis_link': 'link', 'destination': 'telegram',
+              'destination_plan': {'destination': 'telegram'},
+              'output_dir': str(tmp_path), 'native_payload': native,
+              'canonical_url': 'https://capitalchronicle.substack.com/p/full-plan'}
+    inputs = _durable_intent_inputs(intent)
+    assert inputs['canonical_url'] == intent['canonical_url']
+    assert inputs['payloads']['telegram']['reply_to_id'] == '115'
+    assert inputs['media_assets'] == []
+
+
 def test_media_revision_preserves_prior_and_refuses_possible_native_send(source,tmp_path):
     store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
     packet=pages.register_page(store,rendered(source,tmp_path))

@@ -403,20 +403,35 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
         request = (executor._get(request_hash, "request") or {}).get("request", {})
         if request.get("work_item_id") not in {packet["page_id"], "native-neo-operation-" + sha256_of(packet["page_id"])}:
             raise ValueError("PLAN_ANALYSIS_TOOL_REQUEST_MISMATCH")
-        return executor.begin(request_hash) if command == "begin" else executor.submit(request_hash, response)
+        try:
+            return executor.begin(request_hash) if command == "begin" else executor.submit(request_hash, response)
+        except NativeNeoInputRequired as pending:
+            return {"state":"NATIVE_NEO_TOOL_PENDING","native_tool_request":pending.request}
     try:
-        result = coordinator.publish_plan(packet["page_id"], packet["plan"])
+        if command == "readback":
+            ids = coordinator._ids(packet["page_id"], packet["plan"]["plan_hash"], "substack")
+            result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
+        else:
+            result = coordinator.publish_plan(packet["page_id"], packet["plan"])
     except NativeNeoInputRequired as pending:
         return {"state": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request}
     return {"publication": result, **page_status(store, packet), "pending_requests": executor.pending()}
 
 
-def structured_summary(packet, destination, canonical_url):
+def structured_summary(packet, destination, canonical_url, authored_summary=None):
     """Keep all seven headings and the real URL; spend remaining room on detail."""
     limits = {"telegram": 4096, "discord": 2000, "threads": 500, "facebook_page": 60000, "instagram_business": 2200}
     limit = limits[destination]
     lead = packet["native_payload"]["title"]
     footer = "Full analysis: " + canonical_url + "\n" + PUBLIC_NOTICE + " " + CONFLICTS_NOTICE
+    if authored_summary:
+        public_filter(authored_summary)
+        if _numbers(authored_summary) - _numbers(packet['native_payload']['body_markdown']):
+            raise ValueError('PLAN_ANALYSIS_SOCIAL_NUMBER_UNBOUND')
+        text=authored_summary+'\n'+footer
+        if len(text)>limit:
+            raise ValueError('PLAN_ANALYSIS_SUMMARY_LIMIT:'+destination)
+        return text
     labels = {"macro":"Macro", "fundamental":"Fundamental", "technical":"Technical", "geopolitical":"Geopolitical",
               "priced_in":"Priced in", "scenarios":"Scenarios", "desk_process":"Desk review"}
     summaries = [labels[k] + ": " + packet["summary"][k] for k, _ in SECTIONS]
@@ -444,7 +459,7 @@ def structured_summary(packet, destination, canonical_url):
     return text
 
 
-def register_link(store, packet, *, original_key, destination):
+def register_link(store, packet, *, original_key, destination, authored_summary=None):
     from .plan_call_cards_v1 import _reference
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     status = page_status(store, packet)
@@ -455,9 +470,9 @@ def register_link(store, packet, *, original_key, destination):
         return {"state":"PLAN_ANALYSIS_PARENT_NOT_CONFIRMED", "destination":destination, "original_key":original_key}
     identity = "plan-analysis-link-"+packet["plan_id"]+'-'+destination
     prior = store.get_outbox_message(identity)
-    if prior:
+    if prior and not authored_summary:
         return json.loads(prior["payload"])
-    text = structured_summary(packet, destination, status["canonical_url"])
+    text = structured_summary(packet, destination, status["canonical_url"],authored_summary)
     payload = {"destination":destination, "text":text, "full_text":text, "media_asset_ids":[],
                "reply_to_id":str(parent["public_object_id"]), "reply_to_url":parent["public_object_url"]}
     if destination=="discord":
@@ -471,10 +486,14 @@ def register_link(store, packet, *, original_key, destination):
                 "payload":text, "payload_hash":sha256(text.encode()).hexdigest(), "canonical_url":status["canonical_url"]}]}
     plan["plan_hash"] = sha256_of(plan)
     value={"link_id":identity, "page_id":packet["page_id"], "plan_id":packet["plan_id"], "original_key":original_key,
-           "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"]}
+           "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"],
+           **({'authored_summary':authored_summary} if authored_summary else {})}
     store.create_work_item(story_id=identity,work_item_id=identity,title="Full plan analysis link",target_surface="MULTI_PLATFORM")
-    store.register_outbox_message(message_id=identity,work_item_id=identity,destination=DESTINATION,
-                                 payload=canonical_bytes(value).decode(),status="EDITORIAL_INTERNAL")
+    if prior:
+        store.finalize_outbox_payload_before_dispatch(message_id=identity,payload=canonical_bytes(value).decode(),status="EDITORIAL_INTERNAL")
+    else:
+        store.register_outbox_message(message_id=identity,work_item_id=identity,destination=DESTINATION,
+                                     payload=canonical_bytes(value).decode(),status="EDITORIAL_INTERNAL")
     return value
 
 
@@ -491,7 +510,7 @@ def validate_link_plan(store, work_item_id, plan):
     parent=_reference(store,value["original_key"],value["destination"])
     if not parent or parent!=value["parent"]:
         raise ValueError("PLAN_ANALYSIS_LINK_PARENT_CHANGED")
-    expected=structured_summary(packet,value["destination"],value["canonical_url"])
+    expected=structured_summary(packet,value["destination"],value["canonical_url"],value.get('authored_summary'))
     if value["native_payload"]["text"]!=expected:
         raise ValueError("PLAN_ANALYSIS_LINK_COPY_CHANGED")
     return value

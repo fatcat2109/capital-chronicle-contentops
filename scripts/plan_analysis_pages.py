@@ -16,7 +16,7 @@ from live_contentops.plan_status_posts_v1 import read_export
 
 def main(argv=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["render", "register", "status", "resume", "begin", "submit"])
+    parser.add_argument("command", choices=["render", "register", "status", "resume", "readback", "begin", "submit"])
     parser.add_argument("--plan-id", required=True)
     parser.add_argument("--manuscript", type=Path)
     parser.add_argument("--output-dir", type=Path)
