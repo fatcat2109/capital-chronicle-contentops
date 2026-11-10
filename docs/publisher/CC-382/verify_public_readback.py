@@ -114,7 +114,7 @@ for row in load(HERE / "integration.json")["files"]:
     source_checks.append({"path": rel, "normalized_sha256": sha256(installed).hexdigest(),
                           "installed_matches_builder_and_operating_commit": True})
 
-(HERE / "public-readback-20261110.md").write_text(public_article + "\n", encoding="utf-8")
+(HERE / "public-readback-20261110.md").write_text(public_article.rstrip() + "\n", encoding="utf-8")
 result = {
     "item": "CC-382", "observed_at_utc": now, "acceptance": "PASS",
     "run_id": request["run_id"], "canonical_url": publication["canonical_url"],

@@ -31,6 +31,12 @@ replay, editorial call, public write or schedule change ran during this closeout
 The launch explicitly configured `gpt-6.1-sol/high`, PID 29484;
 `CONFIGURED_NOT_OBSERVED` because actual model/effort telemetry is unavailable.
 
+The acceptance evidence is pushed and fast-forwarded into the Publisher operating
+root at `87e78b05f8e4739afaa1dd0a6c0487489db3de73`; the closeout section in
+[integration.json](integration.json) records the integration and exact hashes of
+all inherited tracked work. The existing source and public consumers already
+use the policy. CC-382's public text/chart acceptance is complete.
+
 The following records describe the implementation and earlier pending acceptance.
 
 Decision 107 reaches new native selection, visual preparation, writing and revision

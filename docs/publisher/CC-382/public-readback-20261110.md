@@ -96,4 +96,3 @@ Capital Chronicle offers analysis only, not financial advice or recommendations.
 [A shopper holds a milk carton beside a mobile phone showing a WIC approval check.](https://substackcdn.com/image/fetch/$s_!jWZE!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F31748ddc-1576-4a81-8382-ea4f860527f3_5472x3648.jpeg)
 
 A shopper checks WIC eligibility for milk at Papaya Supermarket, Dearborn, Michigan, June 2023. Archive context, not an observation of October 2026 prices.
-
