@@ -1,0 +1,72 @@
+{
+  "observed_at_utc": "2026-11-10T19:24:46.575632+00:00",
+  "source_check_commit": "15c802f634b4ab15dd1c1da3b7c8040905c70635",
+  "remote_branch_head": "15c802f634b4ab15dd1c1da3b7c8040905c70635",
+  "operating_head": "15c802f634b4ab15dd1c1da3b7c8040905c70635",
+  "installed_files": [
+    {
+      "path": "docs/publisher/CC-124/run-20261111-0217/README.md",
+      "git_blob": "23236dd63e08c51293cef4b2c6f16aa11959eda5",
+      "installed_blob": "23236dd63e08c51293cef4b2c6f16aa11959eda5",
+      "installed_bytes": 3161
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261111-0217/inspect_run.py",
+      "git_blob": "ed69f64a734050465c1454f12e9aac2ecfb09cb6",
+      "installed_blob": "ed69f64a734050465c1454f12e9aac2ecfb09cb6",
+      "installed_bytes": 10054
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261111-0217/preserved-work.json",
+      "git_blob": "b95c1209500f9d20ed4278398b7b3f969200052a",
+      "installed_blob": "b95c1209500f9d20ed4278398b7b3f969200052a",
+      "installed_bytes": 2154
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261111-0217/publication-status.json",
+      "git_blob": "ec8346afb3cb1b0c3fd1ffce40460f4adc0a5f0f",
+      "installed_blob": "ec8346afb3cb1b0c3fd1ffce40460f4adc0a5f0f",
+      "installed_bytes": 19718
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261111-0217/result.json",
+      "git_blob": "235339263a075968f2fe839d446d0c2de26cccda",
+      "installed_blob": "235339263a075968f2fe839d446d0c2de26cccda",
+      "installed_bytes": 1117
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261111-0217/scenario-reader.json",
+      "git_blob": "c8ec2a8a7869c44610d3cfcd649fcc374db6edb1",
+      "installed_blob": "c8ec2a8a7869c44610d3cfcd649fcc374db6edb1",
+      "installed_bytes": 1546
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261111-0217/source-inventory.json",
+      "git_blob": "64e2a51dcce47a14a0cc9d88a3cfacaf50d021b3",
+      "installed_blob": "64e2a51dcce47a14a0cc9d88a3cfacaf50d021b3",
+      "installed_bytes": 26490
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261111-0217/source-projection.json",
+      "git_blob": "18e2bd8b1fbac3ff36e55ff9a7078f4d79dfb7aa",
+      "installed_blob": "18e2bd8b1fbac3ff36e55ff9a7078f4d79dfb7aa",
+      "installed_bytes": 7742
+    },
+    {
+      "path": "docs/publisher/CC-124/run-20261111-0217/verification.json",
+      "git_blob": "7146eba788175fab2744c0be0aa74dc2e7f2e14d",
+      "installed_blob": "7146eba788175fab2744c0be0aa74dc2e7f2e14d",
+      "installed_bytes": 1004
+    }
+  ],
+  "inherited_modified_files_preserved": 8,
+  "live_consumers": {
+    "main_report_projection_source_v1": "13fcf3f08453f21b6d0945071b705d957bf7b81c0d05c09dbed90618ee0be08c",
+    "reader_article_contract_v1": "035947b71482aadaa417f6caedb24ab4906e767dbd1c0510204748fd4234528c",
+    "plan_status_posts_v1": "6a715058dd5fb41735fba0875a556c905eb3719414d860117eb5f197ba1a226b",
+    "published_images_v1": "8f4cccacc36b2cb1883da91d7984278df2f1c3ce46f323e14e29c8a09cf92813"
+  },
+  "new_articles": 0,
+  "standing_item_status": "OPEN",
+  "limit": "Integrates this source-check evidence; does not assert a new publication or CC-124 publication acceptance."
+}

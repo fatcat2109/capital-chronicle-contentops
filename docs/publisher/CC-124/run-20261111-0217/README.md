@@ -48,3 +48,9 @@ telemetry is unavailable.
 The branch starts from operating HEAD `8ec01b433743426f10474c557cca109356205fac`,
 which contains the freshly fetched remote master. Only this run's evidence is
 committed; the inherited work remains uncommitted and outside this item.
+
+Source-check commit `15c802f634b4ab15dd1c1da3b7c8040905c70635` is pushed and
+fast-forwarded into the Publisher operating root. [Integration readback](integration.json)
+verifies all nine installed files against their Git blobs and all eight preserved
+modified files against their initial hashes. This integrates run evidence;
+CC-124 remains OPEN.
