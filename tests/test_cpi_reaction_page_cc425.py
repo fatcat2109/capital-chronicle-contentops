@@ -179,6 +179,35 @@ def test_validated_revision_replaces_failed_receipt_and_retains_its_history(tmp_
         newsroom._write_json(path, changed)
 
 
+def test_cpi_tables_reach_canonical_html_with_every_cell_and_gap():
+    from html import unescape
+    from html.parser import HTMLParser
+    from live_contentops.article_rich_text_v1 import markdown_to_rich_text, rich_text_to_html, rich_text_to_plain_text
+    article = bind_tables({"title": "CPI history", "reader_first_version": "DATA_JOURNALISM_V1",
+        "substack_body_markdown": "We think each horizon needs its own sample.\n\n" + TOKEN}, pack())
+    reader = newsroom._reader_safe_native_article(article, article_mode="DATA_OR_DOCUMENT_LENS")
+    semantic = markdown_to_rich_text(reader["substack_body_markdown"])
+    rendered = rich_text_to_html(semantic)
+    expected = [[cell.strip() for cell in row.strip('|').split('|')]
+        for table in tables(reader["substack_body_markdown"]) for row in table.splitlines()[2:]]
+    class Cells(HTMLParser):
+        def __init__(self):
+            super().__init__(); self.rows=[]; self.row=None; self.cell=None
+        def handle_starttag(self, tag, attrs):
+            if tag=='tr': self.row=[]
+            if tag=='td': self.cell=''
+        def handle_data(self, data):
+            if self.cell is not None:self.cell+=data
+        def handle_endtag(self, tag):
+            if tag=='td':self.row.append(self.cell);self.cell=None
+            if tag=='tr' and self.row:self.rows.append(self.row)
+    parsed=Cells();parsed.feed(rendered)
+    assert rendered.count('<table>') == 2
+    assert parsed.rows == expected
+    assert "—" in rich_text_to_plain_text(semantic)
+    assert '[[SOURCE:' not in rendered and '|---' not in rendered
+
+
 def test_refresh_consumes_new_producer_cells_without_a_second_publisher():
     first = pack()
     value = record()
