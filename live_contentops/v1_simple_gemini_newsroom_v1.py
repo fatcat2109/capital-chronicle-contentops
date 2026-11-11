@@ -2097,7 +2097,7 @@ def _reader_safe_native_article(
     # are internal metadata, just like source markers, never reader-facing copy.
     body = re.sub(r"\[\[VISUAL:[A-Za-z0-9_.:-]+\]\]", "", body)
     body = re.sub(r"\n[ \t]*\n(?:[ \t]*\n)+", "\n\n", body).strip()
-    if not reader_first and not article.get("scenario_analysis"):
+    if not reader_first and not article.get("scenario_analysis") and not article.get("cpi_reaction_page"):
         body = re.sub(r"(?m)^#{1,6}\s+", "", body)
     title = str(article.get("title") or "")
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")

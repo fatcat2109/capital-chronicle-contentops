@@ -135,6 +135,7 @@ def test_native_compiler_retains_table_binding_and_removes_source_markers():
     compiled = newsroom._reader_safe_native_article(article, article_mode="DATA_OR_DOCUMENT_LENS")
     assert "[[SOURCE:" not in compiled["substack_body_markdown"]
     assert compiled["cpi_reaction_page"] == article["cpi_reaction_page"]
+    assert compiled["substack_body_markdown"].count("## ") == 2
     assert "RETAINED_LATER_OBSERVATION" not in compiled["substack_body_markdown"]
     assert "forecast retrieved later" in compiled["substack_body_markdown"]
     validate_bound_tables(compiled)

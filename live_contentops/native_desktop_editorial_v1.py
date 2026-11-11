@@ -1686,6 +1686,14 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
             validate_contextual_photo(asset)
             continue
+        if asset.get("editorial_data_packet", {}).get("cpi_reaction_source"):
+            # Our report has no external page URL. Its exact export, row, cell,
+            # rights and rendered bytes provide the source binding instead.
+            from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_source_value_chart
+            validate_source_value_chart(asset, result.get("evidence", []))
+            if not asset.get("caption") or not asset.get("alt_text"):
+                raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
+            continue
         urls = {asset.get("source_page_url")} | {s.get("source_url") for s in asset.get("source_lineage", [])}
         urls.discard(None)
         if (not urls or not urls <= allowed or not asset.get("caption") or not asset.get("alt_text")
