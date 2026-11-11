@@ -200,6 +200,15 @@ def test_signed_out_has_one_cause_without_drafting_or_touching_waiting_tabs(setu
     assert not neo.opened and not neo.closed
 
 
+def test_transport_waits_for_x_identity_instead_of_rejecting_first_loading_frame():
+    calls = []
+    client = SimpleNamespace(wait=lambda page, selector: calls.append("identity_wait"),
+        call=lambda name, args: calls.append(name) or {"ok": True, "value": {"authenticated": True}},
+        value=lambda r: r)
+    assert tabs.NeoReplyTabs(client).inspect(7)["authenticated"]
+    assert calls == ["identity_wait", "run"]
+
+
 def test_cadence_stays_disabled_until_real_refresh_is_saved(setup):
     store, _, root = setup
     assert run(setup, force=False)["status"] == "DISABLED"

@@ -143,6 +143,9 @@ class NeoReplyTabs:
         return result["value"]
 
     def inspect(self, page):
+        # X's first settled frame can still be its Loading screen. Wait on
+        # identity, never a sleep or a retry of the whole refresh.
+        self.client.wait(page, '[data-testid="AppTabBar_Profile_Link"], a[href="/login"]')
         code = f"const page=browser.page({int(page)});\n" + STEPS.read_text(encoding="utf-8")
         result = self.client.value(self.client.call("run", {"code": code}))
         if not result or not result.get("ok"):
@@ -172,6 +175,7 @@ class NeoReplyTabs:
             group = self.group()
             if not group:
                 raise NeoEndpointError("NEO_REPLY_GROUP_NOT_CREATED")
+        self.client.wait(page, '[contenteditable="true"][role="textbox"], a[href="/login"]')
         return page, group
 
     def close(self, page):
@@ -199,6 +203,7 @@ class NeoReplyTabs:
         self.client.call("tab_groups", {"action": "create", "pages": [page],
                                          "title": "codex/cc458-reply-readback"})
         try:
+            self.client.wait(page, 'article[data-testid="tweet"], [data-testid="emptyState"], a[href="/login"]')
             profile = self.inspect(page)
             own = [r for r in profile["rows"] if r["handle"].casefold() == "capitalnicle"]
             due = []
@@ -219,10 +224,12 @@ class NeoReplyTabs:
                     break
                 visited.add(row["tweet_id"])
                 self.client.call("navigate", {"page": page, "url": row["url"]})
+                self.client.wait(page, 'article a[href*="/status/' + row["tweet_id"] + '"] time, [data-testid="emptyState"]')
                 detail = self.inspect(page)
                 replies.extend(r for r in detail["rows"] if r["tweet_id"] == row["tweet_id"]
                                and r.get("in_reply_to_status_id") in targets)
             self.client.call("navigate", {"page": page, "url": "https://x.com/notifications/mentions"})
+            self.client.wait(page, 'article[data-testid="tweet"], [data-testid="emptyState"], a[href="/login"]')
             mentions = self.inspect(page)["rows"]
             reply_path, mention_path = Path(root) / "neo-replies.json", Path(root) / "neo-mentions.json"
             packs.save_json(reply_path, {"generated_at_utc": now.isoformat(), "rows": replies})
