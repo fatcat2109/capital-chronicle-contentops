@@ -1,0 +1,226 @@
+{
+  "purpose": "Prepared six-poll pack; not dispatched",
+  "destination_binding": "Existing DISCORD_ANNOUNCEMENT registry entry",
+  "opening_window_et": "2026-11-15 09:00-09:01 ET",
+  "forecast_start_utc": "2026-11-16T14:45:00Z",
+  "forecast_end_utc": "2026-11-20T17:00:00Z",
+  "dispatch_owner": "Existing DurablePublicationCoordinator with the existing Discord webhook transport",
+  "polls": [
+    {
+      "market": "XAUUSD",
+      "http_method": "POST",
+      "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
+      "body": {
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "allowed_mentions": {
+          "parse": []
+        },
+        "poll": {
+          "question": {
+            "text": "Gold: Up, Down or Flat over 16-20 November 2026, 09:45 Monday to 12:00 Friday ET?"
+          },
+          "answers": [
+            {
+              "poll_media": {
+                "text": "Up"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Down"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Flat"
+              }
+            }
+          ],
+          "duration": 24,
+          "allow_multiselect": false,
+          "layout_type": 1
+        }
+      }
+    },
+    {
+      "market": "US500",
+      "http_method": "POST",
+      "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
+      "body": {
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "allowed_mentions": {
+          "parse": []
+        },
+        "poll": {
+          "question": {
+            "text": "S&P 500: Up, Down or Flat over 16-20 November 2026, 09:45 Monday to 12:00 Friday ET?"
+          },
+          "answers": [
+            {
+              "poll_media": {
+                "text": "Up"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Down"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Flat"
+              }
+            }
+          ],
+          "duration": 24,
+          "allow_multiselect": false,
+          "layout_type": 1
+        }
+      }
+    },
+    {
+      "market": "EURUSD",
+      "http_method": "POST",
+      "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
+      "body": {
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "allowed_mentions": {
+          "parse": []
+        },
+        "poll": {
+          "question": {
+            "text": "EUR/USD: Up, Down or Flat over 16-20 November 2026, 09:45 Monday to 12:00 Friday ET?"
+          },
+          "answers": [
+            {
+              "poll_media": {
+                "text": "Up"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Down"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Flat"
+              }
+            }
+          ],
+          "duration": 24,
+          "allow_multiselect": false,
+          "layout_type": 1
+        }
+      }
+    },
+    {
+      "market": "USDJPY",
+      "http_method": "POST",
+      "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
+      "body": {
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "allowed_mentions": {
+          "parse": []
+        },
+        "poll": {
+          "question": {
+            "text": "USD/JPY: Up, Down or Flat over 16-20 November 2026, 09:45 Monday to 12:00 Friday ET?"
+          },
+          "answers": [
+            {
+              "poll_media": {
+                "text": "Up"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Down"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Flat"
+              }
+            }
+          ],
+          "duration": 24,
+          "allow_multiselect": false,
+          "layout_type": 1
+        }
+      }
+    },
+    {
+      "market": "USOIL",
+      "http_method": "POST",
+      "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
+      "body": {
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "allowed_mentions": {
+          "parse": []
+        },
+        "poll": {
+          "question": {
+            "text": "WTI: Up, Down or Flat over 16-20 November 2026, 09:45 Monday to 12:00 Friday ET?"
+          },
+          "answers": [
+            {
+              "poll_media": {
+                "text": "Up"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Down"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Flat"
+              }
+            }
+          ],
+          "duration": 24,
+          "allow_multiselect": false,
+          "layout_type": 1
+        }
+      }
+    },
+    {
+      "market": "BTCUSD",
+      "http_method": "POST",
+      "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
+      "body": {
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "allowed_mentions": {
+          "parse": []
+        },
+        "poll": {
+          "question": {
+            "text": "Bitcoin: Up, Down or Flat over 16-20 November 2026, 09:45 Monday to 12:00 Friday ET?"
+          },
+          "answers": [
+            {
+              "poll_media": {
+                "text": "Up"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Down"
+              }
+            },
+            {
+              "poll_media": {
+                "text": "Flat"
+              }
+            }
+          ],
+          "duration": 24,
+          "allow_multiselect": false,
+          "layout_type": 1
+        }
+      }
+    }
+  ]
+}
