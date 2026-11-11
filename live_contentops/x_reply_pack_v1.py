@@ -161,7 +161,8 @@ def held_sources(store, *, desk_message_id=None, call_message_id=None, include_d
     return sources
 
 
-def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mentions_path=None, now=None):
+def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mentions_path=None, now=None,
+            automated_mentions=False):
     now = now or utcnow()
     feed = read_json(feed_path)
     posts, causes = select_posts(feed, handles=target_handles(targets), now=now,
@@ -192,6 +193,12 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
         "PUBLIC_NOTICE": PUBLIC_NOTICE,
         "public_write_performed": False,
     }
+    if automated_mentions:
+        request["instructions"] += (
+            " Mention drafts can also be used by decision 122's official API responder. "
+            "Include 'Reply STOP to opt out.' within the 280-character limit on those drafts. "
+            "A browser-held mention without an official API binding stays for Jim's click."
+        )
     for source in sources:
         source["public_timestamp"] = public_timestamp(source["known_at_utc"])
     request["request_sha256"] = digest(request)

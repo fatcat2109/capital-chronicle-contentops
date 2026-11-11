@@ -55,7 +55,10 @@ def _row(store, key):
     return json.loads(r["payload"])
 
 
-def validate(row):
+def validate(row, *, store=None):
+    if row.get("x_api_mention"):
+        from live_contentops.x_mention_responder_v1 import validate_row
+        return validate_row(row, store=store)
     platform, text = row["platform"], row["text"]
     if platform not in {"x", "threads"}:
         raise ValueError("REPLY_PLATFORM_INVALID")
@@ -183,7 +186,7 @@ def plan_for(store, key, *, root=ROOT):
         registration_for_destination,
     )
 
-    row = validate(_row(store, key))
+    row = validate(_row(store, key), store=store)
     folder = Path(root) / key
     folder.mkdir(parents=True, exist_ok=True)
     if row.get("image"):
@@ -204,7 +207,10 @@ def plan_for(store, key, *, root=ROOT):
         encoding="utf-8",
     )
     r = registration_for_destination(row["platform"])
-    return {
+    if row.get("x_api_mention"):
+        from live_contentops.x_mention_responder_v1 import api_registration
+        r = api_registration()
+    plan = {
         "schema_version": "contentops.publication_plan.v1",
         "sourced_reply": key,
         "plan_hash": digest(row),
@@ -231,6 +237,11 @@ def plan_for(store, key, *, root=ROOT):
     }
 
 
+    if row.get("x_api_mention"):
+        plan["x_api_mention"] = row["x_api_mention"]
+    return plan
+
+
 def validate_plan(store, work_item_id, plan):
     key = plan["sourced_reply"]
     expected = plan_for(store, key, root=Path(plan["output_dir"]).parent)
@@ -240,7 +251,7 @@ def validate_plan(store, work_item_id, plan):
 
 
 def validate_intent(store, intent):
-    row = validate(_row(store, intent["sourced_reply"]))
+    row = validate(_row(store, intent["sourced_reply"]), store=store)
     if (
         intent["work_item_id"] != row["key"]
         or intent["native_payload"] != payload(row)
@@ -253,6 +264,10 @@ def validate_intent(store, intent):
 
 def reserve(store, row, now):
     """Count attempted replies as well as confirmed ones, under the existing store lease."""
+    if row.get("x_api_mention"):
+        from live_contentops.x_mention_responder_v1 import require_publishable
+        require_publishable(store, row, now)
+        return
     if row["platform"] == "x":
         raise ValueError(X_CAUSE)
     if any(r["platform"] == row["platform"] for r in _rows(store, WARNINGS)):
@@ -289,8 +304,10 @@ def reserve(store, row, now):
         store.release_lease(lease["lease_id"], row["key"], lease["fencing_token"])
 
 
-def read_target(row):
+def read_target(row, *, store=None):
     """Provider identity, permalink and claim must match before any new reply write."""
+    if row.get("x_api_mention"):
+        return validate(row, store=store)  # Official adapter re-reads the target before POST.
     if row["platform"] == "x":
         raise ValueError(X_CAUSE)
     from live_contentops.threads_adapter_v6 import (

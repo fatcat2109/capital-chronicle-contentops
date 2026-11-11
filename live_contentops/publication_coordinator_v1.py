@@ -1093,6 +1093,14 @@ class DurablePublicationCoordinator:
 
     def _intent_registration(self, destination, intent):
         registration = registration_for_destination(destination)
+        if destination == "x" and intent.get("x_api_mention"):
+            from live_contentops.sourced_replies_v1 import validate_intent
+            from live_contentops.x_mention_responder_v1 import api_registration
+            row = validate_intent(self.store, intent)
+            if (row.get("x_api_mention") != intent["x_api_mention"] or
+                    intent.get("destination_plan", {}).get("transport_type") != "X_OFFICIAL_API"):
+                raise ValueError("X_API_EXACT_MENTION_BINDING_REQUIRED")
+            return api_registration()
         if (destination == "linkedin_company" and intent.get("routine_company_copy") is True
                 and not intent.get("dated_distribution_recovery")
                 and not intent.get("reader_presentation_review")
@@ -2138,6 +2146,9 @@ class DurablePublicationCoordinator:
             if destination in permitted_skips:
                 continue
             registration = registration_for_destination(destination)
+            if destination == "x" and plan.get("x_api_mention"):
+                from live_contentops.x_mention_responder_v1 import api_registration
+                registration = api_registration()
             if str(item.get("surface") or "") != registration.surface:
                 raise ValueError(f"publication_plan_surface_mismatch:{destination}")
             if str(item.get("transport_type") or "") != registration.transport_type:
@@ -2260,6 +2271,8 @@ class DurablePublicationCoordinator:
                 from live_contentops.sourced_replies_v1 import validate_plan, payload as reply_payload
                 row = validate_plan(self.store, work_item_id, plan)
                 intent["sourced_reply"] = row["key"]
+                if row.get("x_api_mention"):
+                    intent["x_api_mention"] = row["x_api_mention"]
                 intent["native_payload"] = reply_payload(row)
                 intent.pop("published_content_export", None)
             payload = _canonical_json(intent)
@@ -2359,7 +2372,7 @@ class DurablePublicationCoordinator:
             if resolved["payload"] != original_message["payload"]:
                 intent = json.loads(resolved["payload"])
         destination = str(dispatch["platform"])
-        if destination in barred_browser_destinations():
+        if destination in barred_browser_destinations() and not intent.get("x_api_mention"):
             # Keep prior proof/ambiguity intact; Neo X readbacks are retired.
             rows = self.store.get_reconciliations_for_work_item(str(intent["work_item_id"]))
             key = "reconciliation_" + dispatch_id.removeprefix("dispatch_")
@@ -2868,7 +2881,10 @@ class DurablePublicationCoordinator:
         if intent.get("sourced_reply"):
             from live_contentops.sourced_replies_v1 import validate_intent, reserve, read_target
             row = validate_intent(self.store, intent)
-            read_target(row)
+            if row.get("x_api_mention"):
+                read_target(row, store=self.store)
+            else:
+                read_target(row)
             reserve(self.store, row, datetime.now(timezone.utc))
         if intent.get("event_pack"):
             from live_contentops.event_pack_v1 import validate_intent

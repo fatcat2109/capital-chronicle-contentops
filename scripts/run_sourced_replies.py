@@ -12,7 +12,8 @@ from live_contentops.sourced_replies_v1 import stage, publish, report, ROOT
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("command", choices=["stage", "publish", "status", "pack-prepare", "pack-build", "pack-status", "pack-observe", "pack-report"])
+    p.add_argument("command", choices=["stage", "publish", "status", "pack-prepare", "pack-build", "pack-status", "pack-observe", "pack-report",
+                                       "api-poll", "api-publish", "api-status"])
     p.add_argument("--store", required=True)
     p.add_argument("--candidate", type=Path)
     p.add_argument(
@@ -30,9 +31,25 @@ def main():
     p.add_argument("--output-root", type=Path)
     p.add_argument("--mentions-feed", type=Path)
     p.add_argument("--reply-feed", type=Path)
+    p.add_argument("--x-approval-ref")
     args = p.parse_args()
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
-    if args.command.startswith("pack-"):
+    if args.command.startswith("api-"):
+        from live_contentops import x_mention_responder_v1 as api
+        if args.command == "api-status":
+            result = {"cost": api.budget(store), "last_run": next(reversed(api._values(store, "internal:x-api-mention-run")), None)}
+        else:
+            options = {"feed_path": args.feed}
+            if args.output_root:
+                options["output_root"] = args.output_root
+            if args.command == "api-poll":
+                result = api.poll(store, mentions_path=args.mentions_feed, **options)
+            else:
+                if not args.request or not args.response or not args.mentions_feed:
+                    p.error("--request, --response and --mentions-feed required")
+                result = api.publish_from_request(store, request_path=args.request, response_path=args.response,
+                                                  mentions_path=args.mentions_feed, x_approval_ref=args.x_approval_ref, **options)
+    elif args.command.startswith("pack-"):
         from live_contentops import x_reply_pack_v1 as packs
 
         if args.command == "pack-report":
