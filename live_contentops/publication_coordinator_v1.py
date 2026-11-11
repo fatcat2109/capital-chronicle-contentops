@@ -508,6 +508,27 @@ class DurablePublicationCoordinator:
         if not self.allow_prior_confirmed_distribution:
             return remaining > 0
         messages = self._recovery_messages() if evidence_messages is None else evidence_messages
+        scope = self.recovery_scope or {}
+        if (plan.get("plan_status_post") == work_item_id and scope.get("exact_work_item_only")
+                and scope.get("work_item_id") == work_item_id):
+            # Status posts have no Substack canonical. A LinkedIn day skip or
+            # one uncertain destination must not hold their other copies.
+            # Each exact dispatch still owns its readback and atomic claim.
+            from live_contentops.plan_status_posts_v1 import _row_payload
+            try:
+                _row_payload(self.store, work_item_id)
+            except (ValueError, OSError, KeyError, TypeError):
+                pass
+            else:
+                intents = []
+                for message in messages:
+                    intent = json.loads(message["payload"])
+                    if intent.get("plan_hash"):
+                        intents.append(intent)
+                if intents and all(intent.get("plan_status_post") == work_item_id
+                        and intent.get("work_item_id") == work_item_id for intent in intents
+                ) and all(message["destination"] != "substack" for message in messages):
+                    return False
         confirmations = {}
         def canonical_resolved(intent):
             if intent.get("repost_of_dispatch_id"):
