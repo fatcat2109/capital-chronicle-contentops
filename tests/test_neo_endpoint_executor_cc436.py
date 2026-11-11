@@ -571,6 +571,23 @@ def test_notes_reply_uses_the_observed_editor_without_posting():
     assert client.actions==[('click',{'ref':'comment'}),('fill',{'ref':'reply','value':'The original conditional call.'})]
 
 
+def test_loading_composer_observes_its_exact_editor_before_filling():
+    class Client:
+        def __init__(self): self.exposed=False;self.actions=[]
+        def call(self,*args,**kwargs): return {}
+        def wait(self,*args): pass
+        def snapshot(self,page):
+            return {'refs':[{'role':'textbox','name':'CC436 post text 0' if self.exposed else '', 'ref':'exact-editor'}]}
+        def run(self,page,phase,**values):
+            assert phase=='expose_composer' and values=={'destination':'x'}
+            self.exposed=True
+        def act(self,page,kind,**values): self.actions.append((kind,values))
+    client=Client()
+    request={'destination':'x','native_payload':{'text':'The frozen call.'}}
+    assert neo.NeoBrowserDriver(client).prepare(request,1)==['The frozen call.']
+    assert client.actions==[('fill',{'ref':'exact-editor','value':'The frozen call.'})]
+
+
 @pytest.mark.parametrize('destination,button',[('substack_notes','Post'),('x','Reply')])
 def test_reply_validates_the_platforms_actual_submit_button(destination,button):
     # Run the production JS with the SDK/DOM observations from the live Notes

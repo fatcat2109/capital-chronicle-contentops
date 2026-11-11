@@ -147,6 +147,18 @@ if (input.phase === 'expose_note_upload') {
   }));
 }
 
+if (input.phase === 'expose_composer') {
+  return unwrap(await page.evaluateInPage(destination => {
+    const scope=document.querySelector('[role="dialog"]') || document;
+    const selector=destination==='x'
+      ? '[data-testid^="tweetTextarea_"][contenteditable="true"][role="textbox"]'
+      : '[contenteditable="true"][role="textbox"]';
+    const fields=Array.from(scope.querySelectorAll(selector)).filter(e=>e.getClientRects().length);
+    fields.forEach((e,i)=>e.setAttribute('aria-label','CC436 post text '+i));
+    return {ready:fields.length>0,count:fields.length};
+  },input.destination));
+}
+
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
   const s = await snap();
   const posts = input.posts;

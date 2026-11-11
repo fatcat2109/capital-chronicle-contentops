@@ -584,12 +584,14 @@ class NeoBrowserDriver:
                 self.client.wait(page,f'[role="dialog"] [data-testid="tweetTextarea_{index}"][contenteditable="true"][role="textbox"]')
             def editor_refs():
                 return [r for r in self.client.snapshot(page)["refs"] if r["role"] == "textbox"
-                    and (r["name"].startswith("Post text") or r["name"] in {
+                    and (r["name"].startswith(("Post text", "CC436 post text")) or r["name"] in {
                         "Post your reply","What's on your mind?","Write a reply...","Leave a reply...","Add a comment..."})]
             refs = editor_refs()
             if not refs:
-                # The DOM signal can precede the accessibility update by a
-                # render. Re-observe once; never use a loading-page ref.
+                # X can expose its editable DOM before its AX name appears.
+                # Name only the visible editor in this task's composer, then
+                # let Neo observe its ref. No text or submit state is changed.
+                self.client.run(page,"expose_composer",destination=destination)
                 refs=editor_refs()
             if not refs: raise NeoEndpointError("NEO_EXPECTED_COMPOSER_MISSING")
             ref=refs[-1]["ref"]
