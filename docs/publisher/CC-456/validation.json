@@ -1,0 +1,39 @@
+{
+  "item": "CC-456",
+  "validated_at_utc": "2026-11-11T01:56:28.957821+00:00",
+  "targeted_tests": [
+    {
+      "path": "docs\\publisher\\CC-456\\coordinator-regression.xml",
+      "tests": 111,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 253.269
+    },
+    {
+      "path": "docs\\publisher\\CC-456\\final-reply-regressions-v2.xml",
+      "tests": 63,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 108.267
+    }
+  ],
+  "passing_cases": 174,
+  "pytest_execution": "Serial processes; no shards or full suite",
+  "ruff": "PASS on all seven changed Python files",
+  "source_hashes": {
+    "live_contentops/x_mention_responder_v1.py": "a4bb529bc2a50111d66ca90677a14e2a5c56f85f75f4bcd9a29ccba6ca7e29c2",
+    "live_contentops/sourced_replies_v1.py": "7ba34147f6cf44abf4259cf42a9af28b3d3537c2390c1045c7100ffc05c24797",
+    "live_contentops/x_reply_pack_v1.py": "14def77fb35875604517a52b1786f93c2d72b1e0af4676b41a7819382e43c8f6",
+    "live_contentops/publication_coordinator_v1.py": "74f01b1029727481bb8fc7811fd3368bb0fa975b64330b722f002274daa45827",
+    "scripts/run_sourced_replies.py": "9169963fc3511fe58e8ddf2a74dcc916a221629c7ac51e84ad077c748aa943cb",
+    "scripts/set_x_api_keys.py": "3d98acfde0f9449678361544247276693d3ed045ad7b7a1df47da89c4844f3ac",
+    "tests/test_x_mention_responder_cc456.py": "d4dd4a66fafe833ea100c8971bcacc5811b44e77f1cf099a2decff55c8ce05a0"
+  },
+  "earlier_failure": {
+    "path": "final-reply-regressions.xml",
+    "cause": "One KILL_SWITCH assertion assumed a per-destination callback after an earlier recovery refusal; actual HTTP write count stayed zero",
+    "resolved_by": "kill-switch-final.xml, then final-reply-regressions-v2.xml"
+  },
+  "actual_worktree_no_key_proof": "worktree-first-api-call.json",
+  "live_consumer": "Installed one-shot sourced reply CLI; integration proof follows after fast-forward"
+}

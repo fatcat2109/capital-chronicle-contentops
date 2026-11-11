@@ -43,8 +43,10 @@ MENTIONS = "internal:x-api-mentions"
 CURSORS = "internal:x-api-mention-cursor"
 OPTOUTS = "internal:x-api-mention-opt-out"
 WARNINGS = "internal:x-api-mention-warning"
+ACCOUNTS = "internal:x-api-account-identity"
+APPROVALS = "internal:x-api-ai-reply-approval"
 ID = re.compile(r"[0-9]{1,19}")
-OPT_OUT = re.compile(r"\b(?:stop|unsubscribe|opt[ -]?out|do not reply|don't reply|no more replies)\b", re.I)
+OPT_OUT = re.compile(r"^\s*(?:@Capitalnicle\s+)?(?:stop|unsubscribe|opt[ -]?out)[.! ]*$|\b(?:do not reply|don't reply|no more replies|stop replying)\b", re.I)
 
 
 class ApiError(ValueError):
@@ -76,16 +78,21 @@ def budget(store, *, now=None):
             "invoice_cost_usd": None, "basis": "Published rates; no deduplication or Owned Read discount assumed for the cap"}
 
 
-def _reserve_cost(store, method, path, ceiling, now):
+def _reserve_cost(store, method, path, ceiling, now, *, scope_id=None):
     if not isinstance(ceiling, int) or not 0 < ceiling <= DAILY_LIMIT_MICRO_USD:
         raise ApiError("X_API_INVALID_COST_CEILING")
     request_id = "x-api-request-" + uuid4().hex
-    lease = store.acquire_lease("x-api-prepaid-budget", request_id, ttl_seconds=30)
+    from live_contentops.durable_operational_store_v1 import LeaseConflictError
+    try:
+        lease = store.acquire_lease("x-api-prepaid-budget", request_id, ttl_seconds=30)
+    except LeaseConflictError:
+        raise ApiError("X_API_BUDGET_BUSY") from None
     try:
         state = budget(store, now=now)
         if ceiling > state["remaining_micro_usd"]:
             raise ApiError("X_API_DAILY_050_USD_CAP")
         _save(store, COSTS, request_id, {"request_id": request_id, "method": method, "path": path,
+              "scope_id": scope_id,
               "reserved_at_utc": now.isoformat(), "spend_day_gmt7": state["spend_day_gmt7"],
               "upper_bound_micro_usd": ceiling}, "RESERVED")
     finally:
@@ -129,6 +136,16 @@ class XApiClient:
         self._account = None
         self.first_api_call = None
         self.network_calls = 0
+        self.scope_id = "x-api-poll-" + uuid4().hex
+
+    def _credentials(self):
+        try:
+            keys = tuple(self._secret_reader(name) for name in KEY_NAMES)
+        except Exception:
+            raise ApiError("X_API_SECRET_STORE_UNAVAILABLE") from None
+        if not all(keys):
+            raise ApiError("X_API_KEYS_NOT_SET")
+        return keys
 
     def request(self, method, path, *, params=None, body=None, max_posts=0, max_users=0,
                 summoned=False):
@@ -137,16 +154,11 @@ class XApiClient:
             raise ApiError("X_API_ROUTE_OUTSIDE_MENTION_RESPONDER")
         params = params or {}
         self.first_api_call = self.first_api_call or {"method": method, "path": path}
-        try:
-            keys = tuple(self._secret_reader(name) for name in KEY_NAMES)
-        except Exception:
-            raise ApiError("X_API_SECRET_STORE_UNAVAILABLE") from None
-        if not all(keys):
-            raise ApiError("X_API_KEYS_NOT_SET")
+        keys = self._credentials()
         now = self.now()
         has_url = bool(body and re.search(r"https?://", body.get("text", "")))
         ceiling = (URL_WRITE if has_url else WRITE_CEILING) if method == "POST" else max_posts * POST_READ + max_users * USER_READ
-        request_id = _reserve_cost(self.store, method, path, ceiling, now)
+        request_id = _reserve_cost(self.store, method, path, ceiling, now, scope_id=self.scope_id)
         url = API_ROOT + path
         headers = {"Authorization": oauth_header(method, url, params, keys,
                    nonce=secrets.token_hex(16), timestamp=int(now.timestamp())),
@@ -182,12 +194,29 @@ class XApiClient:
         except Exception as exc:
             raise ApiError("X_API_TRANSPORT_" + type(exc).__name__) from None
 
-    def account(self):
-        if self._account is None:
+    def account(self, *, fresh=False):
+        if self._account is None or fresh:
+            try:
+                keys = self._credentials()
+            except ApiError:
+                self.first_api_call = self.first_api_call or {"method": "GET", "path": "/2/users/me"}
+                raise
+            # This one-way binding invalidates a cache on credential rotation;
+            # no key value, OAuth header or signed URL is stored.
+            binding = hmac.new(keys[1].encode(), json.dumps([keys[0], keys[2], keys[3]]).encode(), hashlib.sha256).hexdigest()
+            today = self.now().date()
+            cached = next((v for v in reversed(_values(self.store, ACCOUNTS))
+                           if v["credential_binding"] == binding and clock(v["verified_at_utc"]).date() == today), None)
+            if cached and not fresh:
+                self._account = cached["account"]
+                return self._account
             data = self.request("GET", "/2/users/me", params={"user.fields": "username"}, max_users=1).get("data") or {}
             if str(data.get("username", "")).casefold() != HANDLE.casefold() or not ID.fullmatch(str(data.get("id", ""))):
                 raise ApiError("X_API_WRONG_ACCOUNT_EXPECTED_CAPITALNICLE")
             self._account = data
+            record = {"credential_binding": binding, "account": {"id": data["id"], "username": data["username"]},
+                      "verified_at_utc": self.now().isoformat()}
+            _save(self.store, ACCOUNTS, "x-api-account-" + digest(record), record)
         return self._account
 
     def post(self, post_id):
@@ -271,6 +300,8 @@ def poll(store, *, feed_path, output_root=ROOT, client=None, mentions_path=None,
                              "author_id": author_id, "is_retweet": False, "api_interaction": proof,
                              **({"quoted_author_handle": HANDLE} if proof["kind"] == "quote" else {})})
             except (ApiError, KeyError) as exc:
+                if isinstance(exc, ApiError) and str(exc).startswith(("X_API_HTTP_", "X_API_TRANSPORT_", "X_API_DAILY_", "X_API_KEYS_")):
+                    raise  # Keep the same cursor for the next bounded run after an API failure.
                 causes[str(exc) if isinstance(exc, ApiError) else "X_API_MENTION_FIELDS_MISSING"] += 1
         feed = {"generated_at_utc": now.isoformat(), "rows": rows, "account_id": account["id"],
                 "source": "X_OFFICIAL_API", "selection_causes": dict(causes)}
@@ -292,7 +323,8 @@ def poll(store, *, feed_path, output_root=ROOT, client=None, mentions_path=None,
                       selection_causes=dict(causes), editorial=preparation)
     except ApiError as exc:
         result.update(status=str(exc), first_api_call=client.first_api_call)
-    result.update(network_calls=client.network_calls, cost=budget(store, now=now), completed_at_utc=packs.utcnow().isoformat())
+    result.update(network_calls=client.network_calls, cost=budget(store, now=now),
+                  request_costs=request_costs(store, scope_ids={client.scope_id}), completed_at_utc=packs.utcnow().isoformat())
     key = "x-api-run-" + digest(result)
     _save(store, "internal:x-api-mention-run", key, result, result["status"])
     path = Path(output_root) / (key + ".json")
@@ -341,7 +373,21 @@ def stage_from_pack(store, *, request_path, response_path, mentions_path, pack_p
     if pack.get("request_sha256") != expected or pack.get("response_sha256") != digest(response):
         raise ApiError("X_API_EXACT_BUILT_PACK_REQUIRED")
     feed = packs.read_json(mentions_path)
+    if x_approval_ref:
+        approval_id = "x-api-ai-approval-" + digest(x_approval_ref)
+        if not store.get_outbox_message(approval_id):
+            _save(store, APPROVALS, approval_id,
+                  {"reference": x_approval_ref, "recorded_at_utc": now.isoformat()})
     staged = []
+    # A refreshed manual pack hides answered or uncertain interactions. Their
+    # immutable API rows still need readback, even after the draft becomes stale.
+    response_ids = {str(v.get("post_id")) for v in response.get("items", [])}
+    for target in feed["rows"]:
+        if target["tweet_id"] not in response_ids:
+            continue
+        prior = store.get_outbox_message("reply-x-api-mention-" + target["tweet_id"])
+        if prior:
+            staged.append(validate_row(json.loads(prior["payload"]), store=store))
     for item in pack["items"]:
         if item["kind"] != "mention":
             continue
@@ -354,7 +400,8 @@ def stage_from_pack(store, *, request_path, response_path, mentions_path, pack_p
         key = "reply-x-api-mention-" + item["post_id"]
         prior = store.get_outbox_message(key)
         if prior:
-            staged.append(json.loads(prior["payload"]))
+            if not any(v["key"] == key for v in staged):
+                staged.append(json.loads(prior["payload"]))
             continue
         row = {"key": key, "kind": "reply", "platform": "x", "target_id": item["post_id"],
                "target_url": item["post_url"], "target_author": item["author_handle"],
@@ -372,7 +419,7 @@ def stage_from_pack(store, *, request_path, response_path, mentions_path, pack_p
 
 def require_publishable(store, row, now):
     validate_row(row, store=store)
-    if not row.get("x_approval_ref"):
+    if not row.get("x_approval_ref") and not _values(store, APPROVALS):
         raise ApiError("X_AI_REPLY_PRIOR_WRITTEN_APPROVAL_REQUIRED")
     age = (now - clock(row["api_target"]["posted_utc"])).total_seconds()
     if not 0 <= age < 90 * 60:
@@ -398,8 +445,10 @@ class XApiMentionTransport:
                 authorization_context.get("work_item_id") != row["key"] or
                 not authorization_context.get("dispatch_attempt_identity")):
             raise ApiError("SOLE_COORDINATOR_MENTION_AUTHORIZATION_REQUIRED")
+        self.client.scope_id = row["key"]
         try:
             require_publishable(self.store, row, self.client.now())
+            self.client.account(fresh=True)
             current = self.client.post(row["target_id"])
             _eligibility(self.client, current)
             if current.get("author_id") != row["api_target"]["author_id"] or current.get("text") != row["api_target"]["text"]:
@@ -414,6 +463,8 @@ class XApiMentionTransport:
                                         "reply": {"in_reply_to_tweet_id": row["target_id"]}}, summoned=True)
         except ApiError as exc:
             cause = str(exc)
+            if cause in {"X_API_KEYS_NOT_SET", "X_API_SECRET_STORE_UNAVAILABLE", "X_API_DAILY_050_USD_CAP", "X_API_BUDGET_BUSY"}:
+                return {"status": "DEFINITE_NO_WRITE", "definite_no_write": True, "safe_error_classification": cause}
             if cause.startswith("X_API_HTTP_") and cause.rsplit("_", 1)[-1] in {"400", "401", "402", "403", "404", "429"}:
                 if cause.endswith(("403", "429")):
                     _save(self.store, WARNINGS, "x-api-mention-warning-" + uuid4().hex,
@@ -431,6 +482,7 @@ class XApiMentionTransport:
         row = validate_intent(self.store, intent)
         if destination != "x" or not row.get("x_api_mention"):
             raise ApiError("X_API_EXACT_MENTION_BINDING_REQUIRED")
+        self.client.scope_id = row["key"]
         account = self.client.account()
         if public_object_id:
             posts = [self.client.post(public_object_id)]
@@ -475,7 +527,7 @@ def publish_from_request(store, *, request_path, response_path, feed_path, menti
     from live_contentops.sourced_replies_v1 import publish
     now = now or packs.utcnow()
     built = packs.build(store, request_path=request_path, response_path=response_path,
-                        feed_path=feed_path, mentions_path=mentions_path, now=now)
+                        feed_path=feed_path, mentions_path=mentions_path, output_root=packs.PACK_ROOT, now=now)
     rows = stage_from_pack(store, request_path=request_path, response_path=response_path,
                            mentions_path=mentions_path, pack_path=built["pack_path"],
                            x_approval_ref=x_approval_ref, now=now)
@@ -488,10 +540,35 @@ def publish_from_request(store, *, request_path, response_path, feed_path, menti
             outcomes.append({"key": row["key"], **outcome})
         except ApiError as exc:
             outcomes.append({"key": row["key"], "status": str(exc)})
+    # Refresh Jim's current file after dispatch so an answered/ambiguous API
+    # interaction is no longer an actionable manual intent. Frozen outbox packs
+    # keep their original bytes.
+    built = packs.build(store, request_path=request_path, response_path=response_path,
+                        feed_path=feed_path, mentions_path=mentions_path, output_root=packs.PACK_ROOT, now=now)
     result = {"status": "MENTION_PUBLICATION_RUN", "pack": built, "replies": outcomes,
-              "cost": budget(store, now=now), "completed_at_utc": packs.utcnow().isoformat()}
+              "cost": budget(store, now=now), "request_costs": request_costs(store, scope_ids={row["key"] for row in rows}),
+              "completed_at_utc": packs.utcnow().isoformat()}
     key = "x-api-publish-run-" + digest(result)
     _save(store, "internal:x-api-mention-run", key, result)
     path = Path(output_root) / (key + ".json")
     packs.save_json(path, result)
     return {**result, "run_record": str(path), "run_message_id": key}
+
+
+def interaction_status(store, post_id):
+    """Hide a manual button only when an API attempt may already have posted."""
+    message = store.get_outbox_message("reply-x-api-mention-" + str(post_id))
+    if not message:
+        return None
+    row = json.loads(message["payload"])
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    ids = DurablePublicationCoordinator._ids(row["key"], digest(row), "x")
+    dispatch = store.get_platform_dispatch(ids["dispatch_id"])
+    if dispatch and dispatch["status"] not in {"DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}:
+        return dispatch["status"]
+    return None
+
+
+def request_costs(store, *, scope_ids):
+    settled = {v["request_id"]: v for v in _values(store, SETTLEMENTS)}
+    return [{**v, "result": settled.get(v["request_id"])} for v in _values(store, COSTS) if v.get("scope_id") in scope_ids]

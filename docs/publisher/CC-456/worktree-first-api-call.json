@@ -1,0 +1,34 @@
+{
+  "record_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\api\\x-api-run-dfadf1e60d64d73fb600fa0f392d22db450783f8480bcf106e03e630bd7c7b12.json",
+  "sha256": "4c5bdb802c9b43de0f4fdd3d5a325532e3f91674d507fa9a1d2f25000ffaf9eb",
+  "result": {
+    "started_at_utc": "2026-11-11T01:43:15.843868+00:00",
+    "public_write_performed": false,
+    "manual_fallback": {
+      "route": "CC455_JIM_CLICK",
+      "mention_count_in_held_feed": 0,
+      "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.json",
+      "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.html",
+      "selection_causes": {},
+      "next_action": "Use pack-prepare/pack-build with the held mentions feed; Jim reviews and posts each intent"
+    },
+    "status": "X_API_KEYS_NOT_SET",
+    "first_api_call": {
+      "method": "GET",
+      "path": "/2/users/me"
+    },
+    "network_calls": 0,
+    "cost": {
+      "spend_day_gmt7": "2026-11-11",
+      "daily_limit_usd": 0.5,
+      "cost_upper_bound_usd": 0.0,
+      "estimated_cost_usd": 0.0,
+      "unresolved_request_count": 0,
+      "remaining_micro_usd": 500000,
+      "invoice_cost_usd": null,
+      "basis": "Published rates; no deduplication or Owned Read discount assumed for the cap"
+    },
+    "completed_at_utc": "2026-11-11T01:43:15.898295+00:00"
+  },
+  "scope": "Actual worktree entry against production store; installed consumer proof follows integration"
+}

@@ -142,6 +142,9 @@ def test_official_mentions_native_pack_and_live_coordinator_use_exact_reply_edge
     costs = api.budget(store, now=NOW)
     assert 0 < costs["estimated_cost_usd"] <= costs["cost_upper_bound_usd"] <= 0.50
     assert costs["invoice_cost_usd"] is None
+    row_costs = api.request_costs(store, scope_ids={row["key"]})
+    assert sum(r["method"] == "POST" for r in row_costs) == 1
+    assert next(r for r in row_costs if r["method"] == "POST")["result"]["estimated_micro_usd"] == 10_000
     assert "fixture-secret" not in json.dumps(api._values(store, api.COSTS) + api._values(store, api.SETTLEMENTS))
 
 
@@ -238,9 +241,23 @@ def test_target_change_or_manual_answer_prevents_a_new_write(setup):
 def test_prior_x_written_approval_is_a_platform_requirement_not_a_model_label(setup):
     store, _, _, _, _ = setup
     *_, row = prepare(setup)
+    with store.get_connection() as conn:
+        conn.execute("DELETE FROM outbox_messages WHERE destination=?", (api.APPROVALS,))
     with pytest.raises(api.ApiError, match="PRIOR_WRITTEN_APPROVAL"):
         api.require_publishable(store, {**row, "x_approval_ref": None}, NOW)
     api.require_publishable(store, row, NOW)  # Different model/effort labels above are recorded and accepted.
+    api._save(store, api.APPROVALS, "approval-record", {"reference": "external-written-approval"})
+    api.require_publishable(store, {**row, "x_approval_ref": None}, NOW)  # A later approval resumes frozen drafts.
+
+
+def test_repeating_the_same_external_approval_preserves_its_original_record(setup):
+    store, _, _, _, _ = setup
+    result, _, response_path, built, row = prepare(setup)
+    before = api._values(store, api.APPROVALS)
+    resumed = api.stage_from_pack(store, request_path=result["editorial"]["request_path"], response_path=response_path,
+              mentions_path=result["mentions_feed_path"], pack_path=built["pack_path"],
+              x_approval_ref="controlled-X-written-approval", now=NOW + timedelta(minutes=1))
+    assert resumed == [row] and api._values(store, api.APPROVALS) == before
 
 
 def test_daily_cap_counts_unknown_requests_and_stops_before_network(setup):
@@ -253,12 +270,100 @@ def test_daily_cap_counts_unknown_requests_and_stops_before_network(setup):
     assert api.budget(store, now=NOW + timedelta(days=1))["remaining_micro_usd"] == 500_000
 
 
+def test_another_budget_reservation_cannot_send_or_create_unknown_spend(setup):
+    store, feed, root, server, client = setup
+    lease = store.acquire_lease("x-api-prepaid-budget", "other-reservation", ttl_seconds=30)
+    try:
+        result = api.poll(store, feed_path=feed, output_root=root, client=client, now=NOW)
+        assert result["status"] == "X_API_BUDGET_BUSY" and result["network_calls"] == 0
+        assert not server.calls and result["cost"]["cost_upper_bound_usd"] == 0
+    finally:
+        store.release_lease(lease["lease_id"], "other-reservation", lease["fencing_token"])
+
+
+def test_kill_switch_still_prevents_an_api_reply(setup):
+    store, _, root, server, client = setup
+    *_, row = prepare(setup)
+    control = store.get_operating_control()
+    store.update_operating_control(expected_state_version=control["state_version"], operating_mode="KILL_SWITCH",
+                                   control_source="CONTROLLED_TEST")
+    coordinator = api.bind_coordinator(store, client=client)
+    result = replies.publish(store, row["key"], coordinator=coordinator, root=root / "replies", now=NOW)
+    assert not server.writes
+    assert result["publication"]["public_write_performed"] is False
+    message = store.list_outbox_messages(destination="x")[0]
+    assert coordinator._dispatch_message(message, canonical_url=None)["status"] == "WRITE_BLOCKED_KILL_SWITCH"
+
+
 def test_empty_mentions_are_charged_per_returned_resource_not_per_poll(setup):
     store, feed, root, server, client = setup
     server.mentions, server.users, server.meta = [], [], {}
     result = api.poll(store, feed_path=feed, output_root=root, client=client, now=NOW)
     assert result["cost"]["cost_upper_bound_usd"] == 0.01  # One user identity; zero mentions.
     assert len(api._values(store, api.SETTLEMENTS)) == 2
+
+
+def test_daily_identity_cache_avoids_charging_a_user_read_for_every_empty_poll(setup):
+    store, feed, root, server, client = setup
+    server.mentions, server.users, server.meta = [], [], {}
+    api.poll(store, feed_path=feed, output_root=root, client=client, now=NOW)
+    second_client = api.XApiClient(store, secret_reader=lambda name: "fixture-secret-" + name, wire=server, now=lambda: NOW)
+    api.poll(store, feed_path=feed, output_root=root, client=second_client, now=NOW + timedelta(seconds=1))
+    assert sum(path == "/2/users/me" for _, path, _, _ in server.calls) == 1
+    assert api.budget(store, now=NOW)["cost_upper_bound_usd"] == 0.01
+    third = api.XApiClient(store, secret_reader=lambda name: "rotated-fixture-" + name, wire=server, now=lambda: NOW)
+    third.account()
+    assert sum(path == "/2/users/me" for _, path, _, _ in server.calls) == 2
+    assert "fixture-secret" not in json.dumps(api._values(store, api.ACCOUNTS))
+
+
+def test_fresh_prewrite_identity_detects_rotated_or_wrong_account_despite_cache(setup):
+    store, _, root, server, client = setup
+    *_, row = prepare(setup)
+    server.account["username"] = "WrongAccount"
+    result = replies.publish(store, row["key"], coordinator=api.bind_coordinator(store, client=client), root=root / "replies", now=NOW)
+    assert not server.writes
+    assert result["reply"]["readback_url"] is None
+
+
+@pytest.mark.parametrize("lost", [False, True])
+def test_api_runner_refreshes_manual_pack_to_avoid_a_second_jim_reply(setup, lost):
+    store, feed, root, server, client = setup
+    result, request, response_path, _, _ = prepare(setup)
+    server.lost_return = lost
+    server.readback_visible = not lost
+    outcome = api.publish_from_request(store, request_path=result["editorial"]["request_path"],
+              response_path=response_path, feed_path=feed, mentions_path=result["mentions_feed_path"],
+              output_root=root / "api", x_approval_ref="controlled-X-written-approval", client=client, now=NOW)
+    assert len(server.writes) == 1
+    assert outcome["pack"]["item_count"] == 0
+    pack = packs.read_json(outcome["pack"]["pack_path"])
+    assert pack["omissions"][0]["cause"] == "X_API_INTERACTION_ANSWERED_OR_READBACK_PENDING"
+    assert not pack["items"] and "Review reply on X" not in Path(outcome["pack"]["html_path"]).read_text(encoding="utf-8")
+    if lost:
+        # Hidden/stale manual drafts must not hide an outstanding API readback.
+        server.readback_visible = True
+        client.now = lambda: NOW + timedelta(hours=2)
+        resumed = api.publish_from_request(store, request_path=result["editorial"]["request_path"],
+                  response_path=response_path, feed_path=feed, mentions_path=result["mentions_feed_path"],
+                  output_root=root / "api", x_approval_ref="controlled-X-written-approval", client=client,
+                  now=NOW + timedelta(hours=2))
+        assert len(server.writes) == 1
+        assert resumed["replies"][0]["reply"]["readback_url"] == "https://x.com/Capitalnicle/status/456", resumed
+
+
+def test_stop_as_a_price_question_is_not_an_opt_out(setup):
+    store, feed, root, server, client = setup
+    server.mention["text"] = "@Capitalnicle what stop level would disprove your gold analysis?"
+    result = api.poll(store, feed_path=feed, output_root=root, client=client, now=NOW)
+    assert result["mention_count"] == 1
+
+
+def test_oauth_signature_matches_the_published_oauth1_reference_vector():
+    value = api.oauth_header("GET", "http://photos.example.net/photos", {"file": "vacation.jpg", "size": "original"},
+             ("dpf43f3p2l4k3l03", "kd94hf93k423kf44", "nnch734d00sl2jdk", "pfkkdhi9sl3r4s00"),
+             nonce="kllo9940pd9333jh", timestamp=1191242096)
+    assert 'oauth_signature="tR3%2BTy81lMeYAr%2FFid0kMTYa%2FWM%3D"' in value
 
 
 def test_opt_out_is_honored_across_future_polls(setup):

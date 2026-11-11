@@ -1,0 +1,111 @@
+{
+  "schema_version": "contentops.x_api_mention_pricing.v1",
+  "item_id": "CC-456",
+  "checked_at_utc": "2026-11-11T01:47:39.147278+00:00",
+  "source_access": {
+    "browser": "BrowserOS Neo",
+    "window": "existing window 1698403077",
+    "task_group": "B6E7175C32C56F79508C6008E04661C9",
+    "public_writes": 0,
+    "account_changes": 0,
+    "schedule_changes": 0,
+    "checkout": "Developer console redirects to /onboarding; no developer agreement submitted and no billing page reached"
+  },
+  "sources": [
+    {
+      "url": "https://docs.x.com/x-api/getting-started/pricing",
+      "read_at_utc": "2026-11-11T01:14:52Z",
+      "method": "BrowserOS Neo; saved complete main body in browser tool output",
+      "post_read_usd": 0.005,
+      "user_read_usd": 0.01,
+      "owned_read_usd": 0.001,
+      "summoned_write_usd": 0.01,
+      "ordinary_write_usd": 0.015,
+      "write_with_url_usd": 0.2,
+      "owned_condition": "Authenticated user owns the developer app and matches the mentions path id",
+      "deduplication": "Repeated resources generally deduplicated per UTC day; source calls this a soft guarantee",
+      "minimum_spend_usd": 0,
+      "minimum_purchase_usd": null,
+      "minimum_purchase_cause": "No purchase minimum published on reviewed primary page; console onboarding prevents observing checkout"
+    },
+    {
+      "url": "https://help.x.com/en/rules-and-policies/x-automation",
+      "read_at_utc": "2026-11-11T01:18:50Z",
+      "method": "BrowserOS Neo",
+      "requirements": [
+        "Recipient opt-in and easy opt-out",
+        "One automated reply per interaction",
+        "Prior written explicit X approval for AI reply bots"
+      ],
+      "implementation": "Official entity or verified quote plus target re-read; STOP in each draft; durable opt-out; one work item per post; external written-approval reference"
+    },
+    {
+      "url": "https://docs.x.com/x-api/users/get-mentions",
+      "read_at_utc": "2026-11-11T01:18:50Z",
+      "method": "BrowserOS Neo",
+      "contract": {
+        "path": "GET /2/users/{id}/mentions",
+        "max_results": 5,
+        "field_parameter": "post.fields",
+        "expansion": "author_id",
+        "pagination": "pagination_token and since_id; advance after final page"
+      }
+    },
+    {
+      "url": "https://docs.x.com/x-api/posts/create-post",
+      "read_at_utc": "2026-11-11T01:18:50Z",
+      "method": "BrowserOS Neo",
+      "contract": "POST /2/tweets"
+    },
+    {
+      "url": "https://docs.x.com/x-api/posts/manage-tweets/quickstart",
+      "method": "Primary web source reader; supplementary verification",
+      "contract": "User OAuth 1.0a supported; JSON reply.in_reply_to_tweet_id binds the parent"
+    },
+    {
+      "url": "https://docs.x.com/fundamentals/authentication/oauth-1-0a/authorizing-a-request",
+      "method": "Primary web source reader; supplementary verification",
+      "contract": "OAuth 1.0a HMAC-SHA1 signed request"
+    },
+    {
+      "url": "https://console.x.com/onboarding",
+      "method": "BrowserOS Neo",
+      "observed": "Developer application form with account name, use-case text, developer-terms checkbox and disabled Submit. No form input or submission performed.",
+      "read_return_between_utc": [
+        "2026-11-11T01:43:04Z",
+        "2026-11-11T01:45:17Z"
+      ]
+    }
+  ],
+  "projection": {
+    "days": 30,
+    "polls_per_day": 96,
+    "total_polls": 2880,
+    "observed_volume_scope": "Held CC-258 feed only, not an API account census",
+    "held_feed_mention_count": 0,
+    "empty_mentions_resources_usd_per_month": 0,
+    "daily_identity_upper_usd_per_month": 0.3,
+    "empty_poll_total_upper_usd_per_month": 0.3,
+    "one_new_mention_per_day": {
+      "owned_mentions_usd": 0.03,
+      "ordinary_mentions_usd": 0.15,
+      "author_expansions_usd": 0.3,
+      "identity_usd": 0.3,
+      "owned_total_usd": 0.63,
+      "ordinary_total_usd": 0.75
+    },
+    "extra_costs": "Reply creation, fresh prewrite identity, target checks, quoted-post checks and reply readbacks are additional; zero-return requests have zero returned-resource cost."
+  },
+  "cap": {
+    "daily_usd": 0.5,
+    "day": "GMT+7 local day; stored instants UTC",
+    "method": "Atomic pre-request reservation in existing durable outbox; ordinary read prices, no deduplication discount, 0.015 no-URL write ceiling or 0.200 with URL; retain uncertain reservations",
+    "invoice_cost_usd": null
+  },
+  "jim_actions": {
+    "setup": "SETUP.md",
+    "proposed_initial_credit_usd": 1,
+    "proposal_is_verified_minimum": false,
+    "label": "UNCHANGED_OFF_JIM_DECISIONS_109_122"
+  }
+}

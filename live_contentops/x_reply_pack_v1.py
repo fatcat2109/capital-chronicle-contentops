@@ -316,6 +316,10 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
                 raise ValueError("REPLY_TARGET_BYTES_CHANGED")
             if post_id in seen:
                 raise ValueError("REPLY_POST_SELECTED_TWICE")
+            if post["kind"] == "mention":
+                from live_contentops.x_mention_responder_v1 import interaction_status
+                if interaction_status(store, post_id):
+                    raise ValueError("X_API_INTERACTION_ANSWERED_OR_READBACK_PENDING")
             source = sources.get(draft.get("source_id"))
             bound = next((s for s in request["sources"] if s["source_id"] == draft.get("source_id")), None)
             if not source or not bound or source["store_payload_sha256"] != bound["store_payload_sha256"]:

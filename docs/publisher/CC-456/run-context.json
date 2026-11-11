@@ -54,5 +54,14 @@
       "sha256": "f8041d42018f81f9b0d88944889bf7fd974802241e75f4b6efbe119faf5ad5a9"
     }
   ],
-  "schedules_changed": false
+  "schedules_changed": false,
+  "resume": {
+    "at_utc": "2026-11-11T01:37:39Z",
+    "pid": 32984,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Observed Win32_Process exec resume command line; previous source commit e26ac365 was local and was pushed before continuing",
+    "thread_id": "01a1c827-0830-7ec2-9515-fe4bc73a724e"
+  }
 }

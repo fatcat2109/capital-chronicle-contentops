@@ -366,7 +366,12 @@ def publish(store, key, *, coordinator, root=ROOT, now=None):
             "reply": report_one(store, row),
         }
     plan = plan_for(store, key, root=root)
-    reserve(store, row, now or datetime.now(timezone.utc))
+    if row.get("x_api_mention"):
+        from live_contentops.x_mention_responder_v1 import interaction_status
+        if not interaction_status(store, row["target_id"]):
+            reserve(store, row, now or datetime.now(timezone.utc))
+    else:
+        reserve(store, row, now or datetime.now(timezone.utc))
     coordinator.allow_prior_confirmed_distribution = True
     coordinator.recovery_scope = {
         "work_item_id": key,
