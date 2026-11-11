@@ -1,0 +1,11 @@
+{
+  "operation": "publication-status",
+  "binding": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\binding.json",
+  "timeout_seconds": 45,
+  "error": "subprocess.TimeoutExpired: publication-status timed out after 45 seconds",
+  "recorded_at_utc": "2026-11-11T18:38:33.504209+00:00",
+  "attempts": 1,
+  "retry_attempted": false,
+  "public_writes": 0,
+  "effect": "Optional status observation unavailable; complete source decision without repeating the command or changing public objects."
+}

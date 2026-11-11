@@ -1,0 +1,72 @@
+{
+  "observed_at_utc": "2026-11-11T18:38:35.025932Z",
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "published_canonicals_today": [],
+  "active_leases": [
+    {
+      "lease_id": "lease_9493de018ccb76fd",
+      "lease_key": "cc466-plan-page-editorial",
+      "status": "ACTIVE",
+      "expires_at": "2026-11-11T18:43:41.464209+00:00"
+    }
+  ],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-11T18:37:51.740395Z",
+    "content_hash": "60ae1ffb0a84dffb4bad900f4e37cfcb8dfbe7f9ab0396a2261444b440b02a2e",
+    "latest_six_market_scenarios": [
+      {
+        "asset_id": "XAUUSD",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "US500",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "EURUSD",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 50.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "USDJPY",
+        "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 30.0
+      },
+      {
+        "asset_id": "USOIL",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 45.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "BTCUSD",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 50.0,
+        "alternative_probability_pct": 35.0
+      }
+    ],
+    "plan_count": 83,
+    "latest_plan_registration_utc": "2026-11-11T16:20:07.062029Z",
+    "clock_use": "Plan registration and export generation are observed separately; neither restarts the source capture clock."
+  },
+  "publication_status": {},
+  "publication_status_cli_observation": {
+    "succeeded": false,
+    "cause": "PUBLICATION_STATUS_TIMEOUT_45S",
+    "retry_attempted": false,
+    "evidence": "inspection-failure.json"
+  },
+  "binding": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\binding.json",
+    "bytes": 4562,
+    "sha256": "c7b95623b202a5a1dcc0e5737fe471622d1001b910f801a5d1ecb845b8e798ee",
+    "modified_at_utc": "2026-11-10T10:30:17.385915+00:00"
+  }
+}

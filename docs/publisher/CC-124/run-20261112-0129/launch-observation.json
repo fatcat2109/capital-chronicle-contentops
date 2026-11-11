@@ -1,0 +1,10 @@
+{
+  "process_id": 30180,
+  "parent_process_id": 27748,
+  "process_start_utc": "2026-11-11T18:28:57.662209Z",
+  "read_back_model": "gpt-6.1-sol",
+  "read_back_effort": "max",
+  "observation": "CONFIGURED_NOT_OBSERVED",
+  "source": "Win32_Process command-line argument readback; actual model runtime telemetry unavailable",
+  "other_cc124_worker_observed": false
+}

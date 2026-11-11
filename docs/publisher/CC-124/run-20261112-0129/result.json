@@ -1,0 +1,46 @@
+{
+  "item": "CC-124",
+  "actual_entry_utc": "2026-11-11T18:28:57.662209Z",
+  "observed_at_utc": "2026-11-11T18:38:35.025932Z",
+  "new_articles": 0,
+  "new_completed_main_reports": 1,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:12792s",
+  "source_assessment": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261112-0129\\source-assessment.json",
+    "bytes": 40840,
+    "sha256": "36311a4391996622c3ae8887e36f2c77436875557a187144741b2f3f48d6238c",
+    "modified_at_utc": "2026-11-11T18:38:44.595495+00:00"
+  },
+  "choice": "Use all held Main reports, the latest T2 output and exported scenarios in the publishing decision. One completed Main daily report arrived since the 18:54 check, but its original 22:05 GMT+7 capture passed the root CC-403 publication deadline at 23:05 GMT+7 on 11 November. The later plan registration and export refresh do not restart that clock. No fresh completed Main article source is available; decisions 89 and 93 require no filler and the six-hour cadence. Return the standing item to OPEN, next due 07:29 GMT+7, and retain the next pre-US note opportunity at 18:30 GMT+7.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "standing_status": "OPEN",
+  "next_due_gmt7": "12 Nov 2026 07:29 GMT+7",
+  "configured_launch": {
+    "process_id": 30180,
+    "parent_process_id": 27748,
+    "process_start_utc": "2026-11-11T18:28:57.662209Z",
+    "read_back_model": "gpt-6.1-sol",
+    "read_back_effort": "max",
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "source": "Win32_Process command-line argument readback; actual model runtime telemetry unavailable",
+    "other_cc124_worker_observed": false
+  },
+  "base_commit": "f4df4436940d231a571899268d687c7e09c0773b",
+  "base_reason": "Current ContentOps operating HEAD, containing the live Publisher fixes; fresh origin/master is its ancestor, 949 commits behind.",
+  "observation_limits": [
+    {
+      "succeeded": false,
+      "cause": "PUBLICATION_STATUS_TIMEOUT_45S",
+      "retry_attempted": false,
+      "evidence": "inspection-failure.json"
+    }
+  ],
+  "acceptance": "Installed source, clock, scenario and production-day consumers observed; publication-status CLI timed out after 45 seconds, with no retry. No new published-article acceptance."
+}
