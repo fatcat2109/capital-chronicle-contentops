@@ -308,6 +308,32 @@ def test_paraphrased_private_addition_metadata_never_blocks_an_exact_public_fact
     assert result["item_count"] == 1
 
 
+def test_dated_positioning_description_is_not_a_new_unconditional_call(setup):
+    store, _, root = setup
+    feed = mobile_input(setup)
+    ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW, reply_policy=packs.MOBILE_POLICY)
+    request = packs.read_json(ready["request_path"])
+    draft = authored(request)["items"][0]
+    draft["draft_text"] = "CFTC data for 3 Nov show speculators net long 102,321 yen contracts, 27% of open interest. That earlier bullish positioning can unwind when rate support fades."
+    assert packs.validate_mobile_draft(draft, request["candidates"][0], request["sources"][0], now=NOW) == draft["draft_text"]
+    draft["draft_text"] = draft["draft_text"].split(". ")[0] + ". The yen is bullish from here."
+    with pytest.raises(ValueError, match="UNCONDITIONAL_CALL_FORBIDDEN"):
+        packs.validate_mobile_draft(draft, request["candidates"][0], request["sources"][0], now=NOW)
+
+
+def test_reconciliation_preserves_actual_writer_clock_instead_of_rebuild_time(setup):
+    store, _, root = setup
+    feed = mobile_input(setup)
+    ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW, reply_policy=packs.MOBILE_POLICY)
+    response = authored(packs.read_json(ready["request_path"]))
+    response["editorial_call"] = {"writer": {"ended_at_utc": (NOW - timedelta(minutes=1)).isoformat()}}
+    path = root / "response.json"
+    packs.save_json(path, response)
+    result = packs.build(store, request_path=ready["request_path"], response_path=path, feed_path=feed, output_root=root, now=NOW)
+    item = packs.read_json(result["pack_path"])["items"][0]
+    assert item["post_to_draft_minutes"] == 1 and item["draft_ready_at_utc"] == (NOW - timedelta(minutes=1)).isoformat()
+
+
 def test_headless_writer_has_explicit_model_effort_and_no_project_or_mcp_inheritance(tmp_path):
     import subprocess
     seen = []

@@ -330,7 +330,13 @@ def validate_mobile_draft(draft, post, source, *, now):
     require_public_time(text)
     if public_text_problems(text):
         raise ValueError("REPLY_PRIVATE_OR_RAW_TEXT")
-    check_publication_copy({"reply": text}, require_notice=False)
+    # A dated source's positioning description is not a fresh direction call.
+    # The real CC-464 return said "earlier bearish positioning" and was wrongly
+    # refused by the general article guard. Only this historical noun phrase is
+    # exempt; free bullish/bearish prose still needs decision 40's call fields.
+    checked = re.sub(r"\b(?:earlier|dated|prior) (?:bullish|bearish) positioning\b",
+                     "dated positioning", text, flags=re.I)
+    check_publication_copy({"reply": checked}, require_notice=False)
     return text
 
 
@@ -416,12 +422,18 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
             seen.add(post_id)
             if post["kind"] == "target":
                 authors.add(author)
+            drafted = now
+            if mobile:
+                writer_clock = response.get("editorial_call", {}).get("writer", {}).get("ended_at_utc")
+                if writer_clock and clock(post["post_time_utc"]) <= clock(writer_clock) <= now:
+                    drafted = clock(writer_clock)
             items.append({
                 **post, "draft_text": text,
                 "intent_url": ("https://x.com/intent/tweet?" if mobile else "https://x.com/intent/post?") + urlencode({"in_reply_to": post_id, "text": text}),
                 "stale_at_utc": (clock(post["post_time_utc"]) + timedelta(seconds=3600 if mobile else TAB_LIFETIME_SECONDS)).isoformat(),
                 **({"fact_text": draft["fact_text"], "fact_source": draft["source_name"] + ", " + draft["date_text"],
-                    "post_to_draft_minutes": (now - clock(post["post_time_utc"])).total_seconds() / 60} if mobile else {}),
+                    "draft_ready_at_utc": drafted.isoformat(),
+                    "post_to_draft_minutes": (drafted - clock(post["post_time_utc"])).total_seconds() / 60} if mobile else {}),
                 **({"image": source["image"]} if mobile and draft.get("include_image") is True and source.get("image") else {}),
                 "sources": [{k: source[k] for k in ("source_id", "label", "known_at_utc", "rights_class",
                                                     "store_message_id", "store_payload_sha256")}],
@@ -534,8 +546,8 @@ def observe_manual_replies(store, *, reply_feed_path, now=None):
                 "post_id": post_id, "post_url": row["url"], "text": text,
                 "posted_at_utc": posted.isoformat(), "observed_at_utc": now.isoformat(),
                 "post_to_reply_minutes": (posted - clock(item["post_time_utc"])).total_seconds() / 60,
-                "post_to_draft_minutes": (clock(pack["built_at_utc"]) - clock(item["post_time_utc"])).total_seconds() / 60,
-                "draft_to_reply_minutes": (posted - clock(pack["built_at_utc"])).total_seconds() / 60,
+                "post_to_draft_minutes": (clock(item.get("draft_ready_at_utc", pack["built_at_utc"])) - clock(item["post_time_utc"])).total_seconds() / 60,
+                "draft_to_reply_minutes": (posted - clock(item.get("draft_ready_at_utc", pack["built_at_utc"]))).total_seconds() / 60,
                 "pack_built_at_utc": pack["built_at_utc"], "reply_shape": item.get("reply_shape"),
                 "draft_edited": text != item["draft_text"],
                 "posted_after_draft_expired": posted >= clock(item["stale_at_utc"]),
@@ -594,7 +606,7 @@ def report_manual_replies(store, *, now=None):
     latency = {name: {"reply_count": 0, "collected_24h": 0, "views": None}
                for name in ("under_2h", "2_to_6h", "over_6h")}
     def cohort_for(pack, item):
-        delay = (clock(pack["built_at_utc"]) - clock(item["post_time_utc"])).total_seconds() / 60
+        delay = (clock(item.get("draft_ready_at_utc", pack["built_at_utc"])) - clock(item["post_time_utc"])).total_seconds() / 60
         return (item["author_handle"], item.get("reply_shape") or "unspecified",
                 clock(pack["built_at_utc"]).astimezone(ZoneInfo("America/New_York")).strftime("%H:%M ET"),
                 "within_5m" if delay <= 5 else "5_to_60m" if delay < 60 else "over_60m")
