@@ -17,6 +17,13 @@ CC-470's first-screen reader also consumes the same store. Neo readback of the
 installed page confirms its audience table and hour controls; the static page
 keeps its own refresh clock. No PrivateApp rebuild was started by this run.
 
+`CapitalChronicle-PlanStatusPosts-V1` is bound to the operating root and its
+existing `pythonw.exe -B scripts/plan_status_posts.py --publish` action. A fresh
+process began after integration at 12 November 02:32:26 GMT+7. Its completed
+scheduled result had not yet been observed at that check; the fresh read-only
+collector result above is observed. `installed-task-binding.json` keeps the
+configuration and process facts separate from completion.
+
 The invocation table has **301 rows**, including 12 lane-run usage records. The
 CPI preview binds six native role records and one lane-run record with
 **2,368,288 reported tokens used**. This is the measured piece resource cost.
