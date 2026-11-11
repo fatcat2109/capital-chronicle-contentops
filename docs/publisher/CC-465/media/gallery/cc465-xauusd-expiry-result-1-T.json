@@ -1,6 +1,6 @@
 {
   "asset_id": "cc465-f22393cd17d7819642b1f2e9",
-  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-expiry-result-1-T.png",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-expiry-result-1-T.png",
   "sha256": "f22393cd17d7819642b1f2e9e7cba616ff11a8f50065c1ae56577e3e2fbd7129",
   "width": 1080,
   "height": 1350,
@@ -44,15 +44,15 @@
       },
       "source_binding": {
         "input_sha256": "2958b97ace8e01df777b828c23ff6c14b4e5110d11f2ed5d2c577fc5f1648ec0",
-        "source_sha256": "bfc9e879761e6c776cf1ee689c3616c9adc7f35b4d45c9d97066df62c76d6bb8",
+        "source_sha256": "28b89af3098698838b9628afb37a3b0f6fa87e56cbc7dae8c5e989b23885f8ab",
         "record": {
           "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
           "asset_id": "XAUUSD",
           "cancel_conditions": [],
           "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
           "cancel_level": null,
-          "check_age_seconds": 32.071707,
-          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+          "check_age_seconds": 31.379612,
+          "checked_at_utc": "2026-11-11T21:30:41.554987Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",
@@ -185,7 +185,7 @@
       }
     },
     "snapshot": {
-      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\T\\XAUUSD_2026-11-11_16-42-54.png",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\T\\XAUUSD_2026-11-11_16-42-54.png",
       "sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e",
       "width": 1080,
       "height": 850,
@@ -348,7 +348,16 @@
         1080,
         850
       ],
-      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+      "price_scale_check": {
+        "policy": "CC463_TRADINGVIEW_FIRST_V1",
+        "market": "XAUUSD",
+        "tv_symbol": "FX_IDC:XAUUSD",
+        "chart_sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e",
+        "captured_at_utc": "2026-11-11T16:42:54.345977+00:00",
+        "comparison_basis": "NOT_COMPARED",
+        "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "level_offset": 0.0
+      }
     },
     "framing": {
       "box": [
@@ -674,10 +683,10 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of Gold.",
     "chart": true,
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032"
   },
   "tradingview_snapshot": {
-    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\T\\XAUUSD_2026-11-11_16-42-54.png",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\T\\XAUUSD_2026-11-11_16-42-54.png",
     "sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e",
     "width": 1080,
     "height": 850,
@@ -840,7 +849,16 @@
       1080,
       850
     ],
-    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    "price_scale_check": {
+      "policy": "CC463_TRADINGVIEW_FIRST_V1",
+      "market": "XAUUSD",
+      "tv_symbol": "FX_IDC:XAUUSD",
+      "chart_sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e",
+      "captured_at_utc": "2026-11-11T16:42:54.345977+00:00",
+      "comparison_basis": "NOT_COMPARED",
+      "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+      "level_offset": 0.0
+    }
   },
   "delivery_only": true,
   "article_inclusion": true,
@@ -848,7 +866,7 @@
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
     "image_sha256": "f22393cd17d7819642b1f2e9e7cba616ff11a8f50065c1ae56577e3e2fbd7129",
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
     "template": "result",
     "master": "T",
     "score": 0,
@@ -868,7 +886,7 @@
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
       "image_sha256": "f22393cd17d7819642b1f2e9e7cba616ff11a8f50065c1ae56577e3e2fbd7129",
-      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
       "template": "result",
       "master": "T",
       "points": {
@@ -877,22 +895,20 @@
         "3": true,
         "4": true,
         "5": true,
-        "6": false,
+        "6": true,
         "7": true,
         "8": true,
         "9": true,
         "10": true
       },
-      "score": 9,
-      "passed": false,
-      "causes": [
-        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
-      ]
+      "score": 10,
+      "passed": true,
+      "causes": []
     },
     "vision": {
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:25:00.885457+00:00"
+    "reviewed_at_utc": "2026-11-11T21:39:17.393346+00:00"
   }
 }

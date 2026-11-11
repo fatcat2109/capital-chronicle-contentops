@@ -1,6 +1,6 @@
 {
   "asset_id": "cc465-803c2b0c8b682f97f154e7e8",
-  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-call-1-W.png",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-call-1-W.png",
   "sha256": "803c2b0c8b682f97f154e7e89b47e2317c4adcbacedc5fd66de4593424314daf",
   "width": 1600,
   "height": 900,
@@ -37,7 +37,7 @@
       },
       "source_binding": {
         "input_sha256": "4161bef3bd0c9000961ab2e72f25882764027359ba807d349358e1978ed361cb",
-        "source_sha256": "1441219adddebbd7ae4c042f16e8c9dd95eca5cbce2f6c57b3ead762748626be",
+        "source_sha256": "0c4ed552a836260942253aa2f335c270f203c3c044f23c4b5085e81c0b067276",
         "record": {
           "key": "cc465-usdjpy",
           "symbol": "USDJPY",
@@ -49,8 +49,8 @@
             "cancel_conditions": [],
             "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
             "cancel_level": null,
-            "check_age_seconds": 30.667586,
-            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+            "check_age_seconds": 29.719354,
+            "checked_at_utc": "2026-11-11T21:30:41.554987Z",
             "conditions": [
               {
                 "kind": "COMPLETED_BAR",
@@ -268,6 +268,7 @@
             "entry_deadline_utc": "2026-11-11T20:00:00Z",
             "chance_label": "Base-case chance",
             "chance_pct": 55.0,
+            "public_call_id": "call_ceb3e6dbeb265f0f3a36cb14",
             "short_id": "ceb3e6db",
             "registered_at_utc": "2026-11-10T16:18:25.849991Z",
             "reader_reasons": [],
@@ -277,8 +278,8 @@
               "cancel_conditions": [],
               "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
               "cancel_level": null,
-              "check_age_seconds": 30.667586,
-              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+              "check_age_seconds": 29.719354,
+              "checked_at_utc": "2026-11-11T21:30:41.554987Z",
               "conditions": [
                 {
                   "kind": "COMPLETED_BAR",
@@ -413,7 +414,7 @@
       }
     },
     "snapshot": {
-      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\W\\USDJPY_2026-11-11_16-43-35.png",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USDJPY\\W\\USDJPY_2026-11-11_16-43-35.png",
       "sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879",
       "width": 1600,
       "height": 700,
@@ -522,7 +523,16 @@
         1600,
         700
       ],
-      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+      "price_scale_check": {
+        "policy": "CC463_TRADINGVIEW_FIRST_V1",
+        "market": "USDJPY",
+        "tv_symbol": "FX_IDC:USDJPY",
+        "chart_sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879",
+        "captured_at_utc": "2026-11-11T16:43:36.072542+00:00",
+        "comparison_basis": "NOT_COMPARED",
+        "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "level_offset": 0.0
+      }
     },
     "framing": {
       "box": [
@@ -828,10 +838,10 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of USD/JPY.",
     "chart": true,
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032"
   },
   "tradingview_snapshot": {
-    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\W\\USDJPY_2026-11-11_16-43-35.png",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\USDJPY\\W\\USDJPY_2026-11-11_16-43-35.png",
     "sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879",
     "width": 1600,
     "height": 700,
@@ -940,7 +950,16 @@
       1600,
       700
     ],
-    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    "price_scale_check": {
+      "policy": "CC463_TRADINGVIEW_FIRST_V1",
+      "market": "USDJPY",
+      "tv_symbol": "FX_IDC:USDJPY",
+      "chart_sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879",
+      "captured_at_utc": "2026-11-11T16:43:36.072542+00:00",
+      "comparison_basis": "NOT_COMPARED",
+      "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+      "level_offset": 0.0
+    }
   },
   "delivery_only": true,
   "article_inclusion": true,
@@ -948,7 +967,7 @@
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
     "image_sha256": "803c2b0c8b682f97f154e7e89b47e2317c4adcbacedc5fd66de4593424314daf",
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
     "template": "call",
     "master": "W",
     "score": 0,
@@ -968,7 +987,7 @@
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
       "image_sha256": "803c2b0c8b682f97f154e7e89b47e2317c4adcbacedc5fd66de4593424314daf",
-      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
       "template": "call",
       "master": "W",
       "points": {
@@ -977,22 +996,20 @@
         "3": true,
         "4": true,
         "5": true,
-        "6": false,
+        "6": true,
         "7": true,
         "8": true,
         "9": true,
         "10": true
       },
-      "score": 9,
-      "passed": false,
-      "causes": [
-        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
-      ]
+      "score": 10,
+      "passed": true,
+      "causes": []
     },
     "vision": {
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:25:02.383944+00:00"
+    "reviewed_at_utc": "2026-11-11T21:39:19.551344+00:00"
   }
 }

@@ -27,15 +27,15 @@
   },
   "source_binding": {
     "input_sha256": "2958b97ace8e01df777b828c23ff6c14b4e5110d11f2ed5d2c577fc5f1648ec0",
-    "source_sha256": "bfc9e879761e6c776cf1ee689c3616c9adc7f35b4d45c9d97066df62c76d6bb8",
+    "source_sha256": "28b89af3098698838b9628afb37a3b0f6fa87e56cbc7dae8c5e989b23885f8ab",
     "record": {
       "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
       "asset_id": "XAUUSD",
       "cancel_conditions": [],
       "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
       "cancel_level": null,
-      "check_age_seconds": 32.071707,
-      "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+      "check_age_seconds": 31.379612,
+      "checked_at_utc": "2026-11-11T21:30:41.554987Z",
       "conditions": [
         {
           "kind": "COMPLETED_BAR",

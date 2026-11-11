@@ -1,6 +1,6 @@
 {
   "asset_id": "cc465-8a8323c4b234097f2cf108ae",
-  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-us500-expiry-result-1-T.png",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-us500-expiry-result-1-T.png",
   "sha256": "8a8323c4b234097f2cf108aeac2cbd644eaa09629da73bdb403d78cce4ea7564",
   "width": 1080,
   "height": 1350,
@@ -44,15 +44,15 @@
       },
       "source_binding": {
         "input_sha256": "8e1bf2d46f90a2f63b19ae91900555f09da34d52aaf6e9bba9d495543fce34c8",
-        "source_sha256": "a25c9e5cb7c79cace824601b1150bfd2d605c96f63f537bf34cd0cf9fd1b50e4",
+        "source_sha256": "67d2e58c471f6986c78e2cdc31c277343b4d44cd3d806f847f8cf4b32efdc30e",
         "record": {
           "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
           "asset_id": "US500",
           "cancel_conditions": [],
           "cancel_kind": null,
           "cancel_level": null,
-          "check_age_seconds": 30.608995,
-          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+          "check_age_seconds": 29.646898,
+          "checked_at_utc": "2026-11-11T21:30:41.554987Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",
@@ -187,7 +187,7 @@
       }
     },
     "snapshot": {
-      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\T\\SPX_2026-11-11_16-43-11.png",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\US500\\T\\SPX_2026-11-11_16-43-11.png",
       "sha256": "4db5cc720f51c4355bfad15978d3193d26e8ddbeed71efabff0561ba1c6e2d6a",
       "width": 1080,
       "height": 850,
@@ -326,7 +326,16 @@
         1080,
         850
       ],
-      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+      "price_scale_check": {
+        "policy": "CC463_TRADINGVIEW_FIRST_V1",
+        "market": "US500",
+        "tv_symbol": "SP:SPX",
+        "chart_sha256": "4db5cc720f51c4355bfad15978d3193d26e8ddbeed71efabff0561ba1c6e2d6a",
+        "captured_at_utc": "2026-11-11T16:43:12.118131+00:00",
+        "comparison_basis": "NOT_COMPARED",
+        "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "level_offset": 0.0
+      }
     },
     "framing": {
       "box": [
@@ -652,10 +661,10 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of S&P 500.",
     "chart": true,
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032"
   },
   "tradingview_snapshot": {
-    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\T\\SPX_2026-11-11_16-43-11.png",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\US500\\T\\SPX_2026-11-11_16-43-11.png",
     "sha256": "4db5cc720f51c4355bfad15978d3193d26e8ddbeed71efabff0561ba1c6e2d6a",
     "width": 1080,
     "height": 850,
@@ -794,7 +803,16 @@
       1080,
       850
     ],
-    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    "price_scale_check": {
+      "policy": "CC463_TRADINGVIEW_FIRST_V1",
+      "market": "US500",
+      "tv_symbol": "SP:SPX",
+      "chart_sha256": "4db5cc720f51c4355bfad15978d3193d26e8ddbeed71efabff0561ba1c6e2d6a",
+      "captured_at_utc": "2026-11-11T16:43:12.118131+00:00",
+      "comparison_basis": "NOT_COMPARED",
+      "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+      "level_offset": 0.0
+    }
   },
   "delivery_only": true,
   "article_inclusion": true,
@@ -802,7 +820,7 @@
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
     "image_sha256": "8a8323c4b234097f2cf108aeac2cbd644eaa09629da73bdb403d78cce4ea7564",
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
     "template": "result",
     "master": "T",
     "score": 0,
@@ -822,7 +840,7 @@
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
       "image_sha256": "8a8323c4b234097f2cf108aeac2cbd644eaa09629da73bdb403d78cce4ea7564",
-      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
       "template": "result",
       "master": "T",
       "points": {
@@ -831,22 +849,20 @@
         "3": true,
         "4": true,
         "5": true,
-        "6": false,
+        "6": true,
         "7": true,
         "8": true,
         "9": true,
         "10": true
       },
-      "score": 9,
-      "passed": false,
-      "causes": [
-        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
-      ]
+      "score": 10,
+      "passed": true,
+      "causes": []
     },
     "vision": {
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:25:01.428250+00:00"
+    "reviewed_at_utc": "2026-11-11T21:39:18.246505+00:00"
   }
 }

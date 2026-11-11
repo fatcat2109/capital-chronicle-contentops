@@ -27,15 +27,15 @@
   },
   "source_binding": {
     "input_sha256": "221bda440bf32665e84fa4f578d355e18fdbc2fd0ba6351df318ba302ec06d99",
-    "source_sha256": "54d4a386d7904ac157a0d8f94dcb4ccb37322808860d3238517cb4499198a849",
+    "source_sha256": "d35a96efb500ba20371ee34797a721495dc458fdc2a44922d61d77088c03dcb2",
     "record": {
       "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
       "asset_id": "BTCUSD",
       "cancel_conditions": [],
       "cancel_kind": null,
       "cancel_level": null,
-      "check_age_seconds": 29.39153,
-      "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+      "check_age_seconds": 28.230135,
+      "checked_at_utc": "2026-11-11T21:30:41.554987Z",
       "conditions": [
         {
           "kind": "COMPLETED_BAR",

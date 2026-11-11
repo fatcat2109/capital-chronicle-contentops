@@ -1,6 +1,6 @@
 {
   "asset_id": "cc465-fb7321a8dc6fe60aa34ac171",
-  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-T.png",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-T.png",
   "sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
   "width": 1080,
   "height": 1350,
@@ -1211,7 +1211,7 @@
     "notes": [],
     "alt_text": "Real TradingView chart used to inspect the event template. Retained CPI probabilities are from the 10 November Main event record.",
     "chart": false,
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032"
   },
   "delivery_only": true,
   "article_inclusion": true,
@@ -1219,7 +1219,7 @@
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
     "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
     "template": "event",
     "master": "T",
     "score": 0,
@@ -1239,7 +1239,7 @@
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
       "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
-      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
       "template": "event",
       "master": "T",
       "points": {
@@ -1259,36 +1259,9 @@
       "causes": []
     },
     "vision": {
-      "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
-      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
-      "model": "gemini-3.8-flash-high",
-      "effort": "high",
-      "configuration_status": "CONFIGURED_NOT_OBSERVED",
-      "started_at_utc": "2026-11-11T17:24:06.023718+00:00",
       "points": {},
-      "reasons": {},
-      "prompt_sha256": "5b0a58f4174775391c9c622a4e80625c2401328776b8944e9bf67ab1d87b203d",
-      "output_schema_sha256": "874b3520b285d6936bc5d523209c8142bf0c0d07ef2e3d58b8a735b398a3bf29",
-      "returncode": 0,
-      "output_sha256": "b52bf4803f7662039b0c7fffbc6d2a399e390c76c412be074ef4bf9c2ac146ed",
-      "stderr_sha256": "f90cb97a75e698819102157af12e14b3316550bb32c125e214603e998c0b3765",
-      "image_tools_observed": [
-        "read_file"
-      ],
-      "observed_conversation_id": "24a07dee-d6a5-4190-8135-8429c0f6b29e",
-      "observed_usage": {
-        "input_tokens": 21473,
-        "output_tokens": 782,
-        "thinking_tokens": 716,
-        "cache_read_tokens": 0,
-        "total_tokens": 22255
-      },
-      "observed_duration_seconds": 7.7116736,
-      "observed_num_turns": 1,
-      "status": "REVIEW_UNAVAILABLE",
-      "cause": "JSONDecodeError:Expecting value: line 1 column 1 (char 0)",
-      "ended_at_utc": "2026-11-11T17:26:08.986325+00:00"
+      "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:26:08.986415+00:00"
+    "reviewed_at_utc": "2026-11-11T21:39:24.233608+00:00"
   }
 }

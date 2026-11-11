@@ -20,7 +20,7 @@
   },
   "source_binding": {
     "input_sha256": "4161bef3bd0c9000961ab2e72f25882764027359ba807d349358e1978ed361cb",
-    "source_sha256": "1441219adddebbd7ae4c042f16e8c9dd95eca5cbce2f6c57b3ead762748626be",
+    "source_sha256": "0c4ed552a836260942253aa2f335c270f203c3c044f23c4b5085e81c0b067276",
     "record": {
       "key": "cc465-usdjpy",
       "symbol": "USDJPY",
@@ -32,8 +32,8 @@
         "cancel_conditions": [],
         "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
         "cancel_level": null,
-        "check_age_seconds": 30.667586,
-        "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+        "check_age_seconds": 29.719354,
+        "checked_at_utc": "2026-11-11T21:30:41.554987Z",
         "conditions": [
           {
             "kind": "COMPLETED_BAR",
@@ -251,6 +251,7 @@
         "entry_deadline_utc": "2026-11-11T20:00:00Z",
         "chance_label": "Base-case chance",
         "chance_pct": 55.0,
+        "public_call_id": "call_ceb3e6dbeb265f0f3a36cb14",
         "short_id": "ceb3e6db",
         "registered_at_utc": "2026-11-10T16:18:25.849991Z",
         "reader_reasons": [],
@@ -260,8 +261,8 @@
           "cancel_conditions": [],
           "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
           "cancel_level": null,
-          "check_age_seconds": 30.667586,
-          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+          "check_age_seconds": 29.719354,
+          "checked_at_utc": "2026-11-11T21:30:41.554987Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",

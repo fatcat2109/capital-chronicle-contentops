@@ -1,6 +1,6 @@
 {
   "asset_id": "cc465-d88580c7cf6be81323e8a71e",
-  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-call-1-W.png",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-call-1-W.png",
   "sha256": "d88580c7cf6be81323e8a71e45032b42c762bb50f08c9221fa19c078241e290d",
   "width": 1600,
   "height": 900,
@@ -37,7 +37,7 @@
       },
       "source_binding": {
         "input_sha256": "a6fa80d7b68ba40a820443d72120148759f09efe6e7d17fdbfd305ab94cf3f34",
-        "source_sha256": "9e4970cb63b7cd91ca22b70d68102a15d5c632c4c09e0cded856f5a1479c5c92",
+        "source_sha256": "7f89520c3bd6b951af8735ab90fba76eff190ac9a8666fe994247bd7c7699d4d",
         "record": {
           "key": "cc465-xauusd",
           "symbol": "XAUUSD",
@@ -49,8 +49,8 @@
             "cancel_conditions": [],
             "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
             "cancel_level": null,
-            "check_age_seconds": 32.071707,
-            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+            "check_age_seconds": 31.379612,
+            "checked_at_utc": "2026-11-11T21:30:41.554987Z",
             "conditions": [
               {
                 "kind": "COMPLETED_BAR",
@@ -268,6 +268,7 @@
             "entry_deadline_utc": "2026-11-11T20:00:00Z",
             "chance_label": "Base-case chance",
             "chance_pct": 50.0,
+            "public_call_id": "call_d5cc28ee8fda0b24d51593a6",
             "short_id": "d5cc28ee",
             "registered_at_utc": "2026-11-10T16:18:25.849991Z",
             "reader_reasons": [],
@@ -277,8 +278,8 @@
               "cancel_conditions": [],
               "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
               "cancel_level": null,
-              "check_age_seconds": 32.071707,
-              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+              "check_age_seconds": 31.379612,
+              "checked_at_utc": "2026-11-11T21:30:41.554987Z",
               "conditions": [
                 {
                   "kind": "COMPLETED_BAR",
@@ -413,7 +414,7 @@
       }
     },
     "snapshot": {
-      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\W\\XAUUSD_2026-11-11_16-42-45.png",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\W\\XAUUSD_2026-11-11_16-42-45.png",
       "sha256": "598d58157b26c63c5c6024c7f18ccce571919105aea2cbd6a1db80cf5fb3e8c7",
       "width": 1600,
       "height": 700,
@@ -546,7 +547,16 @@
         1600,
         700
       ],
-      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+      "price_scale_check": {
+        "policy": "CC463_TRADINGVIEW_FIRST_V1",
+        "market": "XAUUSD",
+        "tv_symbol": "FX_IDC:XAUUSD",
+        "chart_sha256": "598d58157b26c63c5c6024c7f18ccce571919105aea2cbd6a1db80cf5fb3e8c7",
+        "captured_at_utc": "2026-11-11T16:42:45.822096+00:00",
+        "comparison_basis": "NOT_COMPARED",
+        "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "level_offset": 0.0
+      }
     },
     "framing": {
       "box": [
@@ -852,10 +862,10 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of Gold.",
     "chart": true,
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032"
   },
   "tradingview_snapshot": {
-    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\W\\XAUUSD_2026-11-11_16-42-45.png",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\W\\XAUUSD_2026-11-11_16-42-45.png",
     "sha256": "598d58157b26c63c5c6024c7f18ccce571919105aea2cbd6a1db80cf5fb3e8c7",
     "width": 1600,
     "height": 700,
@@ -988,7 +998,16 @@
       1600,
       700
     ],
-    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    "price_scale_check": {
+      "policy": "CC463_TRADINGVIEW_FIRST_V1",
+      "market": "XAUUSD",
+      "tv_symbol": "FX_IDC:XAUUSD",
+      "chart_sha256": "598d58157b26c63c5c6024c7f18ccce571919105aea2cbd6a1db80cf5fb3e8c7",
+      "captured_at_utc": "2026-11-11T16:42:45.822096+00:00",
+      "comparison_basis": "NOT_COMPARED",
+      "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+      "level_offset": 0.0
+    }
   },
   "delivery_only": true,
   "article_inclusion": true,
@@ -996,7 +1015,7 @@
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
     "image_sha256": "d88580c7cf6be81323e8a71e45032b42c762bb50f08c9221fa19c078241e290d",
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
     "template": "call",
     "master": "W",
     "score": 0,
@@ -1016,7 +1035,7 @@
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
       "image_sha256": "d88580c7cf6be81323e8a71e45032b42c762bb50f08c9221fa19c078241e290d",
-      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
       "template": "call",
       "master": "W",
       "points": {
@@ -1025,22 +1044,20 @@
         "3": true,
         "4": true,
         "5": true,
-        "6": false,
+        "6": true,
         "7": true,
         "8": true,
         "9": true,
         "10": true
       },
-      "score": 9,
-      "passed": false,
-      "causes": [
-        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
-      ]
+      "score": 10,
+      "passed": true,
+      "causes": []
     },
     "vision": {
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:25:00.302028+00:00"
+    "reviewed_at_utc": "2026-11-11T21:39:16.785081+00:00"
   }
 }

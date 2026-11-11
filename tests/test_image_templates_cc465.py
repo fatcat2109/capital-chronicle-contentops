@@ -425,3 +425,11 @@ def test_review_checks_exact_local_file_before_starting_a_model(tmp_path):
     image['path']=str(next(tmp_path.glob('controlled-fixture-call-*.png')))
     image['sha256']='0'*64
     assert quality.review_vision(image,runner=refuse)['cause']=='ValueError:IMAGE_REVIEW_BYTES_CHANGED'
+
+
+def test_five_closed_calls_do_not_create_a_dead_space_refusal(tmp_path):
+    data=input_record('weekly');data.pop('source_binding')
+    data['week']['rows']=data['week']['rows'][:5]
+    data=bind(data,data)
+    image=templates.render(data,'W',tmp_path)
+    assert quality.code_check(image)['passed']

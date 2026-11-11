@@ -87,7 +87,8 @@ class Canvas:
         self.texts, self.drawings, self.notes = [], [], []
         self.margin = 48 if master == "W" else 40
 
-    def text(self, value, box, *, size=None, weight=400, mono=False, colour="ink", key="", wrap=1, optional=False):
+    def text(self, value, box, *, size=None, weight=400, mono=False, colour="ink", key="", wrap=1, optional=False,
+             center_y=False):
         if not value:
             return
         value = str(value)
@@ -123,6 +124,11 @@ class Canvas:
             if optional:
                 return
             raise LayoutError("IMAGE_TEXT_DOES_NOT_FIT", key, value=value, maximum_lines=wrap)
+        if center_y:
+            last_height=max(self.draw.textbbox((0,0),part,font=f)[3]-self.draw.textbbox((0,0),part,font=f)[1]
+                            for part,f,_ in runs(lines[-1]))
+            block_height=(len(lines)-1)*(size+8)+last_height
+            y+=max(0,(bottom-y-block_height)//2)
         for line in lines:
             parts=runs(line)
             bounds = [self.draw.textbbox((0,0),part,font=f) for part,f,_ in parts]
@@ -431,6 +437,7 @@ def _table(canvas,data,page):
         else:canvas.notes.append("WEEK_R_RESULT_NOT_EXPORTED")
         canvas.text(stats,(m+12,top+8,w-m-12,top+100),wrap=1 if wide else 2,key="week.stats")
         top+=100 if not wide else 92
+        canvas.draw.line((m,top,w-m,top),fill=COLOURS["rule"],width=2)
         for i,row in enumerate(rows):
             height=(bottom-top)//max(1,len(rows))
             y=top+i*height
@@ -443,7 +450,7 @@ def _table(canvas,data,page):
                 columns=[(12,300,MARKETS[row['market']],False),(320,470,row['direction'],False),
                          (480,695,row['horizon_label'],False),(710,880,chance_text,False),
                          (900,1270,row['outcome_label'],False),(1290,1500,r_text(row['r']) if row.get('r') is not None else "—",True)]
-                for a,b,value,mono in columns:canvas.text(value,(m+a,y+8,m+b,y+height-4),mono=mono,wrap=2,key="week.row")
+                for a,b,value,mono in columns:canvas.text(value,(m+a,y+8,m+b,y+height-4),mono=mono,wrap=2,key="week.row",center_y=True)
             else:
                 canvas.text(MARKETS[row['market']]+" · "+row['direction'],(m+12,y+8,w-m-210,y+54),key="week.market")
                 canvas.text(r_text(row['r']) if row.get('r') is not None else "—",(w-m-200,y+8,w-m-12,y+54),mono=True,key="week.r")

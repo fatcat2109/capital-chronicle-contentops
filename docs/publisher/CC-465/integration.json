@@ -1,6 +1,6 @@
 {
   "item": "CC-465",
-  "recorded_at_utc": "2026-11-11T21:31:29.877484+00:00",
+  "recorded_at_utc": "2026-11-11T21:40:15.069591+00:00",
   "stage": "BUILD_VERIFIED",
   "operating_base": "cf5d45b00b54080e6962dc6bacb0f66dfad16f57",
   "incoming": "9dc50f10534c60e45beb78909fe2491a721f464b",
@@ -19,6 +19,14 @@
     {
       "path": "integration-regression-tests.xml",
       "passed": 89
+    },
+    {
+      "path": "final-integration-image-tests.xml",
+      "passed": 90
+    },
+    {
+      "path": "final-reader-regression-tests.xml",
+      "passed": 43
     }
   ],
   "preserved_dirty_files": [
@@ -79,5 +87,20 @@
       "Historical no-entry charts do not prove entry-to-exit paths",
       "Weekly R and morning-map changes/states absent from retained public export"
     ]
+  },
+  "final_template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
+  "gallery": {
+    "images": 32,
+    "by_template": {
+      "call": 12,
+      "result": 10,
+      "event": 4,
+      "weekly": 2,
+      "map": 4
+    },
+    "code_passed": 26,
+    "path": "media/gallery/gallery.html",
+    "actual_event_vision": "local-event-vision.json",
+    "weekly_published_observed": 0
   }
 }

@@ -1,6 +1,6 @@
 {
   "asset_id": "cc465-0b8ee3d3f1638efced0282a6",
-  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-W.png",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-W.png",
   "sha256": "0b8ee3d3f1638efced0282a656888839ce60c3b33e8acce511448e1e145e6474",
   "width": 1600,
   "height": 900,
@@ -1211,7 +1211,7 @@
     "notes": [],
     "alt_text": "Real TradingView chart used to inspect the event template. Retained CPI probabilities are from the 10 November Main event record.",
     "chart": false,
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032"
   },
   "delivery_only": true,
   "article_inclusion": true,
@@ -1219,7 +1219,7 @@
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
     "image_sha256": "0b8ee3d3f1638efced0282a656888839ce60c3b33e8acce511448e1e145e6474",
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
     "template": "event",
     "master": "W",
     "score": 0,
@@ -1239,7 +1239,7 @@
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
       "image_sha256": "0b8ee3d3f1638efced0282a656888839ce60c3b33e8acce511448e1e145e6474",
-      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
       "template": "event",
       "master": "W",
       "points": {
@@ -1262,6 +1262,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:25:04.149415+00:00"
+    "reviewed_at_utc": "2026-11-11T21:39:23.771909+00:00"
   }
 }

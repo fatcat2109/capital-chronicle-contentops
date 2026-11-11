@@ -20,7 +20,7 @@
   },
   "source_binding": {
     "input_sha256": "597c7e50bb68d39d775875bd010b20d5286656b56ab35d1a1845c8fecde943fb",
-    "source_sha256": "e44c2c10ea618f2c7d1e86316a921ac40946cc2a4e91979169005abb71a9aeec",
+    "source_sha256": "5db7e870802f5354f77677ab95764ea490a2a2f4a616e934dec17bbe34aa754d",
     "record": {
       "key": "cc465-btcusd",
       "symbol": "BTCUSD",
@@ -32,8 +32,8 @@
         "cancel_conditions": [],
         "cancel_kind": null,
         "cancel_level": null,
-        "check_age_seconds": 29.39153,
-        "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+        "check_age_seconds": 28.230135,
+        "checked_at_utc": "2026-11-11T21:30:41.554987Z",
         "conditions": [
           {
             "kind": "COMPLETED_BAR",
@@ -253,6 +253,7 @@
         "entry_deadline_utc": "2026-11-16T20:00:00Z",
         "chance_label": "Base-case chance",
         "chance_pct": 52.0,
+        "public_call_id": "call_f6da00b4e26ac4eb2ad06528",
         "short_id": "f6da00b4",
         "registered_at_utc": "2026-11-10T06:23:56.897696Z",
         "reader_reasons": [],
@@ -262,8 +263,8 @@
           "cancel_conditions": [],
           "cancel_kind": null,
           "cancel_level": null,
-          "check_age_seconds": 29.39153,
-          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+          "check_age_seconds": 28.230135,
+          "checked_at_utc": "2026-11-11T21:30:41.554987Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",

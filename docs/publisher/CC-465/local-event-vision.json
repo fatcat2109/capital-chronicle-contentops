@@ -1,0 +1,15 @@
+{
+  "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
+  "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+  "model": "gemini-3.8-flash-high",
+  "effort": "high",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "started_at_utc": "2026-11-11T21:37:17.407886+00:00",
+  "points": {},
+  "reasons": {},
+  "prompt_sha256": "2a290ff1a6ced03eda3dcbd5261284908da1ec4a2ffc3c0168506364969adf57",
+  "output_schema_sha256": "874b3520b285d6936bc5d523209c8142bf0c0d07ef2e3d58b8a735b398a3bf29",
+  "status": "REVIEW_UNAVAILABLE",
+  "cause": "TimeoutExpired:Command '['C:\\\\Users\\\\bullw\\\\.gemini\\\\bin\\\\agy.exe', '--model', 'gemini-3.8-flash-high', '--effort', 'high', '--disable-slash-commands', '--mode', 'plan', '--add-dir', 'A:\\\\Capital Chronicle\\\\Worktrees\\\\ContentOps\\\\codex-publisher-exec\\\\docs\\\\publish",
+  "ended_at_utc": "2026-11-11T21:39:23.224511+00:00"
+}

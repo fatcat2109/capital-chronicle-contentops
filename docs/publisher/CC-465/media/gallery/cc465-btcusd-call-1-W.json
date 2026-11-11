@@ -1,6 +1,6 @@
 {
   "asset_id": "cc465-8080313861d599161d2690f3",
-  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-btcusd-call-1-W.png",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-btcusd-call-1-W.png",
   "sha256": "8080313861d599161d2690f38236793a7543a74cbe2d4251b37da09d0b74f175",
   "width": 1600,
   "height": 900,
@@ -37,7 +37,7 @@
       },
       "source_binding": {
         "input_sha256": "597c7e50bb68d39d775875bd010b20d5286656b56ab35d1a1845c8fecde943fb",
-        "source_sha256": "e44c2c10ea618f2c7d1e86316a921ac40946cc2a4e91979169005abb71a9aeec",
+        "source_sha256": "5db7e870802f5354f77677ab95764ea490a2a2f4a616e934dec17bbe34aa754d",
         "record": {
           "key": "cc465-btcusd",
           "symbol": "BTCUSD",
@@ -49,8 +49,8 @@
             "cancel_conditions": [],
             "cancel_kind": null,
             "cancel_level": null,
-            "check_age_seconds": 29.39153,
-            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+            "check_age_seconds": 28.230135,
+            "checked_at_utc": "2026-11-11T21:30:41.554987Z",
             "conditions": [
               {
                 "kind": "COMPLETED_BAR",
@@ -270,6 +270,7 @@
             "entry_deadline_utc": "2026-11-16T20:00:00Z",
             "chance_label": "Base-case chance",
             "chance_pct": 52.0,
+            "public_call_id": "call_f6da00b4e26ac4eb2ad06528",
             "short_id": "f6da00b4",
             "registered_at_utc": "2026-11-10T06:23:56.897696Z",
             "reader_reasons": [],
@@ -279,8 +280,8 @@
               "cancel_conditions": [],
               "cancel_kind": null,
               "cancel_level": null,
-              "check_age_seconds": 29.39153,
-              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+              "check_age_seconds": 28.230135,
+              "checked_at_utc": "2026-11-11T21:30:41.554987Z",
               "conditions": [
                 {
                   "kind": "COMPLETED_BAR",
@@ -417,7 +418,7 @@
       }
     },
     "snapshot": {
-      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\W\\BTCUSD_2026-11-11_16-45-23.png",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\BTCUSD\\W\\BTCUSD_2026-11-11_16-45-23.png",
       "sha256": "b494743cfe484f73a84db35c5ac162f478e84191d949bfb252cc65fab41fc8fe",
       "width": 1600,
       "height": 700,
@@ -562,7 +563,16 @@
         1600,
         700
       ],
-      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+      "price_scale_check": {
+        "policy": "CC463_TRADINGVIEW_FIRST_V1",
+        "market": "BTCUSD",
+        "tv_symbol": "COINBASE:BTCUSD",
+        "chart_sha256": "b494743cfe484f73a84db35c5ac162f478e84191d949bfb252cc65fab41fc8fe",
+        "captured_at_utc": "2026-11-11T16:45:23.834513+00:00",
+        "comparison_basis": "NOT_COMPARED",
+        "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "level_offset": 0.0
+      }
     },
     "framing": {
       "box": [
@@ -868,10 +878,10 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of Bitcoin.",
     "chart": true,
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032"
   },
   "tradingview_snapshot": {
-    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\W\\BTCUSD_2026-11-11_16-45-23.png",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\BTCUSD\\W\\BTCUSD_2026-11-11_16-45-23.png",
     "sha256": "b494743cfe484f73a84db35c5ac162f478e84191d949bfb252cc65fab41fc8fe",
     "width": 1600,
     "height": 700,
@@ -1016,7 +1026,16 @@
       1600,
       700
     ],
-    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    "price_scale_check": {
+      "policy": "CC463_TRADINGVIEW_FIRST_V1",
+      "market": "BTCUSD",
+      "tv_symbol": "COINBASE:BTCUSD",
+      "chart_sha256": "b494743cfe484f73a84db35c5ac162f478e84191d949bfb252cc65fab41fc8fe",
+      "captured_at_utc": "2026-11-11T16:45:23.834513+00:00",
+      "comparison_basis": "NOT_COMPARED",
+      "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+      "level_offset": 0.0
+    }
   },
   "delivery_only": true,
   "article_inclusion": true,
@@ -1024,7 +1043,7 @@
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
     "image_sha256": "8080313861d599161d2690f38236793a7543a74cbe2d4251b37da09d0b74f175",
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
     "template": "call",
     "master": "W",
     "score": 0,
@@ -1044,7 +1063,7 @@
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
       "image_sha256": "8080313861d599161d2690f38236793a7543a74cbe2d4251b37da09d0b74f175",
-      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
       "template": "call",
       "master": "W",
       "points": {
@@ -1053,22 +1072,20 @@
         "3": true,
         "4": true,
         "5": true,
-        "6": false,
+        "6": true,
         "7": true,
         "8": true,
         "9": true,
         "10": true
       },
-      "score": 9,
-      "passed": false,
-      "causes": [
-        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
-      ]
+      "score": 10,
+      "passed": true,
+      "causes": []
     },
     "vision": {
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:25:03.438978+00:00"
+    "reviewed_at_utc": "2026-11-11T21:39:22.168623+00:00"
   }
 }

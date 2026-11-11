@@ -1,6 +1,6 @@
 {
   "asset_id": "cc465-765d2701af750da511635b1e",
-  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-eurusd-call-1-W.png",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-eurusd-call-1-W.png",
   "sha256": "765d2701af750da511635b1efe2de446fb910419e86479c41b5ddf60b9970f87",
   "width": 1600,
   "height": 900,
@@ -37,7 +37,7 @@
       },
       "source_binding": {
         "input_sha256": "bef6fd1e58bd92e5e5bc76051344ed3a59f9f0cdb64694e5656eb947d56ca1bb",
-        "source_sha256": "4cf50a9f6fcddc399397a56f2996e282555eff29accdc5ceb6226c816ba8e4cf",
+        "source_sha256": "6fb3ede229eae030f82f102cd1eecd2b9d5966bcc3b3f81c46d8ea6016dd8b0a",
         "record": {
           "key": "cc465-eurusd",
           "symbol": "EURUSD",
@@ -49,8 +49,8 @@
             "cancel_conditions": [],
             "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
             "cancel_level": null,
-            "check_age_seconds": 29.773871,
-            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+            "check_age_seconds": 28.626474,
+            "checked_at_utc": "2026-11-11T21:30:41.554987Z",
             "conditions": [
               {
                 "kind": "COMPLETED_BAR",
@@ -268,6 +268,7 @@
             "entry_deadline_utc": "2026-11-11T20:00:00Z",
             "chance_label": "Base-case chance",
             "chance_pct": 55.0,
+            "public_call_id": "call_2649b7500e29d4b04d954f16",
             "short_id": "2649b750",
             "registered_at_utc": "2026-11-10T16:18:25.849991Z",
             "reader_reasons": [],
@@ -277,8 +278,8 @@
               "cancel_conditions": [],
               "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
               "cancel_level": null,
-              "check_age_seconds": 29.773871,
-              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+              "check_age_seconds": 28.626474,
+              "checked_at_utc": "2026-11-11T21:30:41.554987Z",
               "conditions": [
                 {
                   "kind": "COMPLETED_BAR",
@@ -413,7 +414,7 @@
       }
     },
     "snapshot": {
-      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\W\\EURUSD_2026-11-11_16-43-20.png",
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\EURUSD\\W\\EURUSD_2026-11-11_16-43-20.png",
       "sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160",
       "width": 1600,
       "height": 700,
@@ -522,7 +523,16 @@
         1600,
         700
       ],
-      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+      "price_scale_check": {
+        "policy": "CC463_TRADINGVIEW_FIRST_V1",
+        "market": "EURUSD",
+        "tv_symbol": "FX_IDC:EURUSD",
+        "chart_sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160",
+        "captured_at_utc": "2026-11-11T16:43:20.335642+00:00",
+        "comparison_basis": "NOT_COMPARED",
+        "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "level_offset": 0.0
+      }
     },
     "framing": {
       "box": [
@@ -828,10 +838,10 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of EUR/USD.",
     "chart": true,
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032"
   },
   "tradingview_snapshot": {
-    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\W\\EURUSD_2026-11-11_16-43-20.png",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\EURUSD\\W\\EURUSD_2026-11-11_16-43-20.png",
     "sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160",
     "width": 1600,
     "height": 700,
@@ -940,7 +950,16 @@
       1600,
       700
     ],
-    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    "price_scale_check": {
+      "policy": "CC463_TRADINGVIEW_FIRST_V1",
+      "market": "EURUSD",
+      "tv_symbol": "FX_IDC:EURUSD",
+      "chart_sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160",
+      "captured_at_utc": "2026-11-11T16:43:20.335642+00:00",
+      "comparison_basis": "NOT_COMPARED",
+      "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+      "level_offset": 0.0
+    }
   },
   "delivery_only": true,
   "article_inclusion": true,
@@ -948,7 +967,7 @@
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
     "image_sha256": "765d2701af750da511635b1efe2de446fb910419e86479c41b5ddf60b9970f87",
-    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
     "template": "call",
     "master": "W",
     "score": 0,
@@ -968,7 +987,7 @@
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
       "image_sha256": "765d2701af750da511635b1efe2de446fb910419e86479c41b5ddf60b9970f87",
-      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template_revision": "698d94a522c731c8f5363b1d41e45d5d305a7137e007b602c3a76bb0134e5032",
       "template": "call",
       "master": "W",
       "points": {
@@ -977,22 +996,20 @@
         "3": true,
         "4": true,
         "5": true,
-        "6": false,
+        "6": true,
         "7": true,
         "8": true,
         "9": true,
         "10": true
       },
-      "score": 9,
-      "passed": false,
-      "causes": [
-        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
-      ]
+      "score": 10,
+      "passed": true,
+      "causes": []
     },
     "vision": {
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:25:01.589072+00:00"
+    "reviewed_at_utc": "2026-11-11T21:39:18.591269+00:00"
   }
 }

@@ -20,7 +20,7 @@
   },
   "source_binding": {
     "input_sha256": "bef6fd1e58bd92e5e5bc76051344ed3a59f9f0cdb64694e5656eb947d56ca1bb",
-    "source_sha256": "4cf50a9f6fcddc399397a56f2996e282555eff29accdc5ceb6226c816ba8e4cf",
+    "source_sha256": "6fb3ede229eae030f82f102cd1eecd2b9d5966bcc3b3f81c46d8ea6016dd8b0a",
     "record": {
       "key": "cc465-eurusd",
       "symbol": "EURUSD",
@@ -32,8 +32,8 @@
         "cancel_conditions": [],
         "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
         "cancel_level": null,
-        "check_age_seconds": 29.773871,
-        "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+        "check_age_seconds": 28.626474,
+        "checked_at_utc": "2026-11-11T21:30:41.554987Z",
         "conditions": [
           {
             "kind": "COMPLETED_BAR",
@@ -251,6 +251,7 @@
         "entry_deadline_utc": "2026-11-11T20:00:00Z",
         "chance_label": "Base-case chance",
         "chance_pct": 55.0,
+        "public_call_id": "call_2649b7500e29d4b04d954f16",
         "short_id": "2649b750",
         "registered_at_utc": "2026-11-10T16:18:25.849991Z",
         "reader_reasons": [],
@@ -260,8 +261,8 @@
           "cancel_conditions": [],
           "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
           "cancel_level": null,
-          "check_age_seconds": 29.773871,
-          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+          "check_age_seconds": 28.626474,
+          "checked_at_utc": "2026-11-11T21:30:41.554987Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",
