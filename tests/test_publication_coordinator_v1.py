@@ -183,6 +183,114 @@ def test_cc401_day_audit_waits_for_whole_day_and_detects_false_alarms(cc401_copi
     assert audit(store.db_path, "2026-11-10", now=later)["status"] == "FAIL"
 
 
+def test_cc401_day_audit_preserves_history_and_counts_actual_failures(cc401_copied_store):
+    import runpy
+    audit = runpy.run_path(str(Path(__file__).parents[1] / "scripts/audit_publication_day_cc401.py"))["audit"]
+    store = cc401_copied_store
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=FixtureTransport())
+    rows = coordinator.register_plan("work-1", _plan("discord", "threads", "substack_notes"))["registered"]
+    for row, destination in zip(rows, ["discord", "threads", "substack_notes"]):
+        store.register_platform_dispatch(dispatch_id=row["dispatch_id"], message_id=row["message_id"],
+            platform=destination, status=DISPATCH_CONFIRMED, public_object_id=destination + "-123",
+            public_object_url="https://example.com/" + destination)
+        store.register_reconciliation(reconciliation_id=row["reconciliation_id"], work_item_id="work-1",
+            status="RECONCILED_CONFIRMED")
+    details = {
+        "local-refusal": {"destination": "discord", "status": DEFINITE_NO_WRITE,
+            "safe_error_classification": "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"},
+        "real-timeout": {"destination": "discord", "status": UNKNOWN_WRITE},
+        "repaired-builder": {"destination": "substack", "status": UNKNOWN_WRITE,
+            "safe_error_classification": "KeyError"},
+        "recovered-note-1": {"destination": "substack_notes", "status": UNKNOWN_WRITE,
+            "dispatch_id": rows[2]["dispatch_id"]},
+        "recovered-note-2": {"destination": "substack_notes", "status": UNKNOWN_WRITE,
+            "dispatch_id": rows[2]["dispatch_id"]},
+    }
+    for incident_id, detail in details.items():
+        store.register_incident(incident_id=incident_id, work_item_id="work-1", severity="DISPATCH_FAILURE",
+            description=json.dumps(detail))
+    store.register_incident(incident_id="repaired-builder_local_prewrite_resolved", work_item_id="work-1",
+        severity="RESOLVED_LOCAL_PREWRITE", description="{}")
+    with store.get_connection() as conn:
+        conn.execute("UPDATE platform_dispatches SET dispatched_at='2026-11-10T06:00:00+00:00'")
+        conn.execute("UPDATE incidents SET created_at='2026-11-10T06:01:00+00:00'")
+        conn.commit()
+    before = hashlib.sha256(Path(store.db_path).read_bytes()).hexdigest()
+    result = audit(store.db_path, "2026-11-10", now=datetime(2026, 11, 11, 5, tzinfo=timezone.utc))
+    assert result["status"] == "PASS"
+    assert result["destination_failure_incidents"] == {"discord": 2, "substack": 1, "substack_notes": 2}
+    assert result["active_destination_failure_incidents"] == {"discord": 1}
+    assert len(result["resolved_destination_failure_incidents"]) == 4
+    assert hashlib.sha256(Path(store.db_path).read_bytes()).hexdigest() == before
+    # Repaired history cannot hide a second genuine failure that same day.
+    store.register_incident(incident_id="second-real-timeout", work_item_id="work-1", severity="DISPATCH_FAILURE",
+        description=json.dumps({"destination": "discord", "status": UNKNOWN_WRITE}))
+    with store.get_connection() as conn:
+        conn.execute("UPDATE incidents SET created_at='2026-11-10T06:01:00+00:00'")
+        conn.commit()
+    result = audit(store.db_path, "2026-11-10", now=datetime(2026, 11, 11, 5, tzinfo=timezone.utc))
+    assert result["status"] == "FAIL"
+    assert result["active_destination_failure_incidents"] == {"discord": 2}
+
+
+@pytest.mark.parametrize("destination", ["discord", "threads"])
+def test_cc401_day_audit_never_excuses_a_confirmed_api_false_alarm(cc401_copied_store, destination):
+    import runpy
+    audit = runpy.run_path(str(Path(__file__).parents[1] / "scripts/audit_publication_day_cc401.py"))["audit"]
+    store = cc401_copied_store
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=FixtureTransport())
+    row = coordinator.register_plan("work-1", _plan(destination))["registered"][0]
+    store.register_platform_dispatch(dispatch_id=row["dispatch_id"], message_id=row["message_id"],
+        platform=destination, status=DISPATCH_CONFIRMED, public_object_id="provider-123",
+        public_object_url="https://example.com/post")
+    store.register_reconciliation(reconciliation_id=row["reconciliation_id"], work_item_id="work-1",
+        status="RECONCILED_CONFIRMED")
+    store.register_incident(incident_id="false-alarm", work_item_id="work-1", severity="DISPATCH_FAILURE",
+        description=json.dumps({"destination": destination, "dispatch_id": row["dispatch_id"], "status": UNKNOWN_WRITE}))
+    store.register_incident(incident_id="false-alarm_local_prewrite_resolved", work_item_id="work-1",
+        severity="RESOLVED_LOCAL_PREWRITE", description="{}")
+    with store.get_connection() as conn:
+        conn.execute("UPDATE platform_dispatches SET dispatched_at='2026-11-10T06:00:00+00:00'")
+        conn.execute("UPDATE incidents SET created_at='2026-11-10T06:01:00+00:00'")
+        conn.commit()
+    result = audit(store.db_path, "2026-11-10", now=datetime(2026, 11, 11, 5, tzinfo=timezone.utc))
+    assert result["status"] == "FAIL"
+    assert result["false_unknown_write_incidents"] == ["false-alarm"]
+
+
+@pytest.mark.parametrize("case", ["unreconciled_identity", "wrong_destination_identity", "ambiguous_composer", "invalid_description"])
+def test_cc401_day_audit_keeps_unresolved_failures_visible(cc401_copied_store, case):
+    import runpy
+    audit = runpy.run_path(str(Path(__file__).parents[1] / "scripts/audit_publication_day_cc401.py"))["audit"]
+    store = cc401_copied_store
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=FixtureTransport())
+    row = coordinator.register_plan("work-1", _plan("substack_notes"))["registered"][0]
+    if case in {"unreconciled_identity", "wrong_destination_identity"}:
+        store.register_platform_dispatch(dispatch_id=row["dispatch_id"], message_id=row["message_id"],
+            platform="substack_notes", status=DISPATCH_CONFIRMED, public_object_id="provider-123",
+            public_object_url="https://example.com/post")
+    if case == "wrong_destination_identity":
+        store.register_reconciliation(reconciliation_id=row["reconciliation_id"], work_item_id="work-1",
+            status="RECONCILED_CONFIRMED")
+    for incident_id in ["first", "second"]:
+        detail = {"destination": "substack_notes", "dispatch_id": row["dispatch_id"], "status": UNKNOWN_WRITE}
+        if case == "wrong_destination_identity":
+            detail.update(destination="linkedin", status=DEFINITE_NO_WRITE)
+        if case == "ambiguous_composer":
+            detail["safe_error_classification"] = "NEO_COMPOSER_PREPARATION_FAILED"
+        store.register_incident(incident_id=incident_id, work_item_id="work-1", severity="DISPATCH_FAILURE",
+            description="[]" if case == "invalid_description" else json.dumps(detail))
+    with store.get_connection() as conn:
+        conn.execute("UPDATE incidents SET created_at='2026-11-10T06:01:00+00:00'")
+        conn.commit()
+    result = audit(store.db_path, "2026-11-10", now=datetime(2026, 11, 11, 5, tzinfo=timezone.utc))
+    assert result["status"] == "FAIL"
+    if case == "invalid_description":
+        assert result["invalid_incidents"] == ["first", "second"]
+    else:
+        assert result["active_destination_failure_incidents"] == {"linkedin" if case == "wrong_destination_identity" else "substack_notes": 2}
+
+
 @pytest.fixture(autouse=True)
 def fixture_platform_permissions(monkeypatch):
     """These state-machine replays use fake transports with simulated permission.

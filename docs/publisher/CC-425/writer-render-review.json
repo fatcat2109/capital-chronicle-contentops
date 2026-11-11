@@ -1,0 +1,142 @@
+{
+  "schema_version": "contentops.cc425.writer_render_review.v1",
+  "reviewed_at_utc": "2026-11-11T08:30:16Z",
+  "operation_id": "cc425-cpi-reaction-history-20261111-v1",
+  "article_identity": "08d670ac572144224b951de4d57e5b29f572a7ddf1872df9a5f9d8de125ff18d",
+  "article_revision": "dcdc65b076fa42f1b0d52edb03fd593bcea711fe73d5aac4c04a7d6e672435bc",
+  "media_binding_sha256": "dcdc65b076fa42f1b0d52edb03fd593bcea711fe73d5aac4c04a7d6e672435bc",
+  "preview": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\review.html",
+    "sha256": "29173f14f10ff1771d6ae2a1d00a63d412ef25fd6fadc25df5b46bde79ec5913",
+    "metadata_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\reader-render.json",
+    "metadata_sha256": "e338b1109ac41d60d5fcc8a1ae7c3a6aeaf3ce8d23054e7b5d4f6e433a194a67",
+    "scope": "Private local canonical-render preview. The eight destination previews were not separately inspected in this review."
+  },
+  "media_assets": [
+    {
+      "asset_id": "cpi-gold-horizons-5aec0a3da914-v1",
+      "sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44"
+    },
+    {
+      "asset_id": "cc425-usda-grocery-20230622",
+      "sha256": "9068896edca5b08b498ab339f7e77df51092b5824babbf4bcd9bdbfbba174b08"
+    }
+  ],
+  "source_binding": {
+    "export_bytes_sha256": "5aec0a3da9141dc8a2120ee629486aae30dc658d3b1f838e2727bdf2d7f9e750",
+    "source_captured_at_utc": "2026-11-10T09:31:46.640512Z",
+    "latest_release_covered": "2026-10-14"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_write_851105f5e42d",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc425-cpi-reaction-history-20261111-v1\\desktop_request_revise.json",
+    "observation_source": "Same native writer task identity supplied by the collaboration runtime. Actual BrowserOS Neo screenshot tool image results were inspected. No supported runtime model/effort telemetry is exposed; configured assignment is recorded without claiming actual observation.",
+    "speed": "standard"
+  },
+  "browser_observation": {
+    "tool": "BrowserOS Neo",
+    "page_id": 14,
+    "tab_group_id": "594ED08C574C255A7E2FE94D0031F5FA",
+    "own_tab_only": true,
+    "native_desktop_control_used": false,
+    "device_metrics_override_restored": true,
+    "tab_retained_at_preview": true,
+    "screenshots": "Binary Neo screenshot tool image results, returned inline. No retained PNG file path is asserted.",
+    "viewports": [
+      {
+        "width": 1365,
+        "height": 900,
+        "device_scale_factor": 1,
+        "mobile": false,
+        "screenshot_observations": 13,
+        "observed": [
+          "introduction and limits",
+          "archive photo and credit",
+          "gold prose/chart/caption",
+          "all five table starts",
+          "coverage counts",
+          "later-retrieved and unavailable forecast labels",
+          "forecast saved before release rows",
+          "summary counts/mean/median after horizontal scroll",
+          "Scenarios and notices"
+        ]
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "device_scale_factor": 1,
+        "mobile": true,
+        "screenshot_observations": 14,
+        "observed": [
+          "introduction and limits",
+          "archive photo and credit",
+          "gold chart/caption",
+          "all five table starts and their right-side columns after horizontal scroll",
+          "coverage denominators",
+          "later-retrieved/unavailable forecast labels",
+          "summary n/eligible/mean/median",
+          "Scenarios and notices"
+        ]
+      }
+    ]
+  },
+  "findings": [
+    {
+      "area": "reader prose",
+      "result": "Readable at both viewports. The first-person call, So what line, 2026-10-14 coverage limit and absent November observation/map/result are visible. No internal SOURCE markers appear in the render."
+    },
+    {
+      "area": "photo",
+      "result": "The grocery photo loads at both viewports. The readable caption labels June 2023 archive context and carries USDAgov / Wikimedia Commons / public-domain credit. It does not present the photo as CPI or market-reaction evidence."
+    },
+    {
+      "area": "gold chart",
+      "result": "Desktop chart has the correct zero baseline, signs and relative bar magnitudes for the exact bound means. Four horizons, HistData January-December 2024, Investing headline buckets and hot n=4 / next-close n=3 versus cool n=3 are retained. The adjoining caption remains readable on mobile."
+    },
+    {
+      "area": "five structured grids",
+      "result": "All five grid starts were inspected at desktop and mobile, with representative rows. Provider/proxy identity, missing dashes, observed/eligible counts and separate mean/median columns remain present. This is not a claim that every individual table cell was visually audited."
+    },
+    {
+      "area": "forecast timing",
+      "result": "Desktop pixels show 'forecast saved before release', 'forecast retrieved later' and 'Unavailable'. Mobile right-side pixels show the latter two clearly. No internal timing codes were observed in these inspected rows."
+    },
+    {
+      "area": "mobile overflow",
+      "result": "Prose, headings, photo and captions stay within the page width. Each of the five grids scrolls horizontally inside its own area; left identity columns and right data columns are readable. The desktop summary also requires a short horizontal scroll for the median, which works."
+    },
+    {
+      "area": "Scenarios",
+      "result": "One section states that this edition has no current scenario set and assigns no scenario probabilities. The analysis-only and potential-holdings notices remain readable."
+    }
+  ],
+  "defects": [
+    {
+      "code": "MOBILE_CHART_EMBEDDED_LABELS_SMALL",
+      "severity": "minor",
+      "observed_viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "description": "At the inline fit-to-width size, the chart legend, axis lettering and embedded source footer are very small. The bars remain visually distinct.",
+      "existing_mitigation": "The adjacent caption retains the source/window and hot/cool sample counts in readable text. The figure links to the full-resolution PNG, whose original pixels were inspected earlier by this same writer.",
+      "recommendation": "Retain the full-resolution image link and caption. A mobile-friendly enlarged rendition would improve inline label reading without changing any values."
+    }
+  ],
+  "conclusion": "The historical draft is readable, with one mobile chart legibility limitation. No source/data contradiction was observed in the inspected render.",
+  "publication_approval": false,
+  "public_write_attempted": false,
+  "first_post_steps_remaining": [
+    "CC-417 explicitly requires Ops Product's table read before the first post.",
+    "The current producer predates the November release and supplies no November frozen map/result. Refresh and revise this same article through the existing owners before treating that later material as covered."
+  ],
+  "changes_performed": "No source, article, HTML or media file was changed. Only this findings artifact was saved."
+}

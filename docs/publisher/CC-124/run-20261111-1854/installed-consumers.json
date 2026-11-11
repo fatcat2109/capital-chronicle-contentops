@@ -1,0 +1,74 @@
+{
+  "observed_at_utc": "2026-11-11T11:58:21.911194Z",
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "published_canonicals_today": [],
+  "active_leases": [],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-11T11:57:22.214921Z",
+    "content_hash": "61fcd4291e073c290a5371d11e110111b1556736a1e5e8f74d9f959f8edfe94a",
+    "latest_six_market_scenarios": [
+      {
+        "asset_id": "XAUUSD",
+        "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+        "base_probability_pct": 45.0,
+        "alternative_probability_pct": 30.0
+      },
+      {
+        "asset_id": "US500",
+        "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+        "base_probability_pct": 40.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "EURUSD",
+        "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+        "base_probability_pct": 45.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "USDJPY",
+        "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 30.0
+      },
+      {
+        "asset_id": "USOIL",
+        "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+        "base_probability_pct": 46.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "BTCUSD",
+        "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 30.0
+      }
+    ]
+  },
+  "publication_status": {
+    "run_id": "cc338-cpi-preview-20261110-v1",
+    "work_item_id": "cc338-cpi-preview-20261110-v1",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 6,
+    "derivative_attempted_count": 7,
+    "derivative_unknown_count": 0,
+    "unknown_write_count": 0,
+    "recovery_required_destinations": [
+      "linkedin"
+    ],
+    "closed_no_write_destinations": [
+      "linkedin_company",
+      "youtube"
+    ]
+  },
+  "binding": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\binding.json",
+    "bytes": 4562,
+    "sha256": "c7b95623b202a5a1dcc0e5737fe471622d1001b910f801a5d1ecb845b8e798ee",
+    "modified_at_utc": "2026-11-10T10:30:17.385915+00:00"
+  }
+}

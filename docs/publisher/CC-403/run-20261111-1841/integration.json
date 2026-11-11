@@ -1,0 +1,135 @@
+{
+  "observed_at_utc": "2026-11-11T11:52:47.671657+00:00",
+  "base_commit": "4b7db97cebf926248c63dcac30c849ceee9c9706",
+  "delivered_commit": "0c5787546439fe89d4021629b364f3c467cac447",
+  "operating_commit": "0c5787546439fe89d4021629b364f3c467cac447",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "method": "fast-forward own Publisher item",
+  "installed_path_checks": [
+    {
+      "path": "docs/publisher/CC-403/README.md",
+      "committed_blob": "c5fd9168b4ffb18c0d91a13af2b7a761cf002242",
+      "installed_blob": "c5fd9168b4ffb18c0d91a13af2b7a761cf002242",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/README.md",
+      "committed_blob": "5a40fe9cc86bbfe2c4efeab567158bc642aa70f0",
+      "installed_blob": "5a40fe9cc86bbfe2c4efeab567158bc642aa70f0",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/inspect_run.py",
+      "committed_blob": "b9949c15e0ebd6a0f14f7fed5a9ca898ae73135c",
+      "installed_blob": "b9949c15e0ebd6a0f14f7fed5a9ca898ae73135c",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/installed-consumers.json",
+      "committed_blob": "85b0e9160929066236bc86683fcc8d73c37dc072",
+      "installed_blob": "85b0e9160929066236bc86683fcc8d73c37dc072",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/installed-source-checks.json",
+      "committed_blob": "b58bd37d74770cafb29055b76fdc7350ce2d55eb",
+      "installed_blob": "b58bd37d74770cafb29055b76fdc7350ce2d55eb",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/launch-observation.json",
+      "committed_blob": "4938e50b270e3f23366a606085b817c5336b5a07",
+      "installed_blob": "4938e50b270e3f23366a606085b817c5336b5a07",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/preserved-work.json",
+      "committed_blob": "e4a662376140836202253948c64868a3ce9f2807",
+      "installed_blob": "e4a662376140836202253948c64868a3ce9f2807",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/publication-status.json",
+      "committed_blob": "1503a0281d233e1767bb7b3e3e08cfcbaf1f70dd",
+      "installed_blob": "1503a0281d233e1767bb7b3e3e08cfcbaf1f70dd",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/reader-tests-fixed.xml",
+      "committed_blob": "42fbeac177db5c53e635bdd698957ffa17b4cda0",
+      "installed_blob": "42fbeac177db5c53e635bdd698957ffa17b4cda0",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/reader-tests.xml",
+      "committed_blob": "94c505de1c347e641ce5ea9ecad25b92140cf39d",
+      "installed_blob": "94c505de1c347e641ce5ea9ecad25b92140cf39d",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/source-assessment.json",
+      "committed_blob": "41186eb06302e042f8fecf1191f9cf4ad0255af8",
+      "installed_blob": "41186eb06302e042f8fecf1191f9cf4ad0255af8",
+      "matches": true
+    },
+    {
+      "path": "docs/publisher/CC-403/run-20261111-1841/verification.json",
+      "committed_blob": "d82290faf5d2278ec4272afefc50f3106c3b1cb2",
+      "installed_blob": "d82290faf5d2278ec4272afefc50f3106c3b1cb2",
+      "matches": true
+    },
+    {
+      "path": "tests/test_reader_article_contract_cc403.py",
+      "committed_blob": "84b9f3e3081a8432ba6888fde0271eb18f906154",
+      "installed_blob": "84b9f3e3081a8432ba6888fde0271eb18f906154",
+      "matches": true
+    }
+  ],
+  "preserved_modified_file_checks": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "ff61ac5f29b0430d75bcd9e7f3a67b4269bca376209225967121fa38abde2a18",
+      "matches": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "8a9df18eeac62097b7999a736f9f7c0a659d0632b920e6d44781316bac891d14",
+      "matches": true
+    }
+  ],
+  "source_owners_changed": false,
+  "restart_performed": false,
+  "public_writes": 0,
+  "chat_messages": 0,
+  "schedule_changes": 0
+}

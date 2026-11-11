@@ -139,6 +139,40 @@ def test_a_changed_frozen_copy_is_refused_before_any_write(queued):
         validate_status_post_intent(store, intent)
 
 
+@pytest.mark.parametrize('uncertain',[False,True])
+def test_one_status_destination_cannot_hold_another_exact_copy(queued,monkeypatch,uncertain):
+    from live_contentops.plan_status_posts_v1 import scope_to_post
+    from live_contentops.publication_coordinator_v1 import UNKNOWN_WRITE
+    store,transport,coordinator,keys,root=queued
+    key=keys[('XAUUSD','WAITING')]
+    plan_=prepare_post(store,key,root=root,host=fake_host,destinations=('x','threads'))
+    store.create_work_item(story_id=key,title='Exact status post',target_surface='MULTI_PLATFORM',work_item_id=key)
+    scope_to_post(coordinator,key,plan_)
+    coordinator.register_plan(key,plan_)
+    frozen=store.get_outbox_message(key)['payload']
+    ids=coordinator._ids(key,plan_['plan_hash'],'threads')
+    if uncertain:
+        store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],
+            platform='threads',status=UNKNOWN_WRITE)
+    original_read=transport.readback
+    monkeypatch.setattr(transport,'readback',lambda **kw: {'status':'READBACK_UNAVAILABLE','verified':False}
+        if kw['destination']=='threads' else original_read(**kw))
+    original_ready=coordinator._readiness
+    monkeypatch.setattr(coordinator,'_readiness',lambda destination,item:'SESSION_UNAVAILABLE'
+        if destination=='threads' else original_ready(destination,item))
+    # Exact shape retained by the live preflight: an unclaimed day-skipped
+    # destination contributes a count without an article canonical.
+    monkeypatch.setattr(coordinator,'recover_pending',lambda:{'backlog_remaining':1,'publish_calls':0,
+        'backlog_remaining_obligations':([{'work_item_id':key,'destination':'threads'}] if uncertain else [])})
+    result=coordinator.execute_plan(key,plan_)
+    assert result['per_destination']['x']['status']=='DISPATCH_CONFIRMED',result
+    assert transport.publish_calls.count('x')==1 and 'threads' not in transport.publish_calls
+    coordinator.execute_plan(key,plan_)
+    assert transport.publish_calls.count('x')==1 and 'threads' not in transport.publish_calls
+    if uncertain:assert store.get_platform_dispatch(ids['dispatch_id'])['status']==UNKNOWN_WRITE
+    assert store.get_outbox_message(key)['payload']==frozen
+
+
 def test_publish_ready_runs_each_post_once_through_the_coordinator(queued):
     store, transport, coordinator, keys, root = queued
     first = publish_ready(store, now=NOW, coordinator_for=lambda key, folder: coordinator, root=root, host=fake_host, limit=10)

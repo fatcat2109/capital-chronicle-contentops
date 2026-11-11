@@ -1,0 +1,23 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+____________ test_mandatory_source_credit_is_preserved[disclaimer] ____________
+tests\test_capital_chronicle_desk_record_source_v1.py:194: in test_mandatory_source_credit_is_preserved
+    with pytest.raises(ValueError, match="SOURCE_" + key.upper()):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE <class 'ValueError'>
+_ test_dated_new_desk_writer_resumes_exact_prompt_but_refuses_changed_prompt __
+tests\test_capital_chronicle_desk_record_source_v1.py:310: in test_dated_new_desk_writer_resumes_exact_prompt_but_refuses_changed_prompt
+    with pytest.raises(ValueError, match="CONFLICT"): turn(**{**args, "prompt": "Changed controlled request"})
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_desktop_editorial_v1.py:1326: in __call__
+    raise DesktopInputRequired({**request, "request_path": str(path)})
+E   live_contentops.native_desktop_editorial_v1.DesktopInputRequired: NATIVE_DESKTOP_INPUT_REQUIRED:write
+_ test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target[DEFINITE_NO_WRITE-True] _
+tests\test_reader_article_contract_cc403.py:309: in test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target
+    assert result["channels"][0]["skipped"] is excluded
+E   assert False is True
+=========================== short test summary info ===========================
+FAILED tests/test_capital_chronicle_desk_record_source_v1.py::test_mandatory_source_credit_is_preserved[disclaimer]
+FAILED tests/test_capital_chronicle_desk_record_source_v1.py::test_dated_new_desk_writer_resumes_exact_prompt_but_refuses_changed_prompt
+FAILED tests/test_reader_article_contract_cc403.py::test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target[DEFINITE_NO_WRITE-True]
+3 failed in 3.21s

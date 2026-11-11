@@ -147,6 +147,35 @@ if (input.phase === 'expose_note_upload') {
   }));
 }
 
+if (input.phase === 'expose_composer') {
+  return unwrap(await page.evaluateInPage(destination => {
+    const scope=document.querySelector('[role="dialog"]') || document;
+    const selector=destination==='x'
+      ? '[data-testid^="tweetTextarea_"][contenteditable="true"][role="textbox"]'
+      : '[contenteditable="true"][role="textbox"]';
+    const fields=Array.from(scope.querySelectorAll(selector)).filter(e=>e.getClientRects().length);
+    fields.forEach((e,i)=>e.setAttribute('aria-label','CC436 post text '+i));
+    return {ready:fields.length>0,count:fields.length};
+  },input.destination));
+}
+
+if (input.phase === 'add_post_focused') {
+  return unwrap(await page.evaluateInPage(() => {
+    const e=document.activeElement;
+    return {focused:!!e && e.matches('button,[role="button"]')
+      && e.getAttribute('aria-label')==='Add post' && !!e.closest('[role="dialog"]')};
+  }));
+}
+
+if (input.phase === 'dismiss_focused') {
+  return unwrap(await page.evaluateInPage(() => {
+    const e=document.activeElement;
+    return {focused:!!e && e.matches('button,[role="button"]')
+      && ['Close','Cancel'].includes(e.getAttribute('aria-label') || e.innerText)
+      && !!e.closest('[role="dialog"]')};
+  }));
+}
+
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
   const s = await snap();
   const posts = input.posts;
@@ -163,7 +192,7 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
       .filter(e => e.getClientRects().length).map(e => e.innerText)));
   if (input.phase === 'composer') return editors;
   const name = input.destination === 'x' && posts.length > 1 ? 'Post all'
-    : input.reply_parent ? 'Reply' : 'Post';
+    : input.destination === 'x' && input.reply_parent ? 'Reply' : 'Post';
   const buttons = s.refs.filter(r => r.role === 'button' && r.name === name);
   const button = buttons[buttons.length - 1];
   if (!check.matches || check.count !== posts.length || !button) {
@@ -203,7 +232,8 @@ if (input.phase === 'readback') {
       const noteUrl = value => {
         const u = new URL(value);
         return u.origin === 'https://substack.com' && !u.search && !u.hash
-          && u.pathname.startsWith('/' + identity + '/note/') && /\/note\/c-\d+$/.test(u.pathname);
+          && /\/note\/c-\d+$/.test(u.pathname) && (u.pathname.startsWith('/' + identity + '/note/')
+            || /^\/profile\/\d+-[a-z0-9-]+\/note\/c-\d+$/i.test(u.pathname));
       };
       const owner = ancestors.find(a=>links(a).some(l=>noteUrl(l.url))) || root;
       const url = links(owner).find(a=>noteUrl(a.url))?.url

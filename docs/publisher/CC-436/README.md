@@ -120,3 +120,152 @@ two-minute live acceptance test.
 Launch arguments observed on PID 41068 at the original entry:
 `--model gpt-6.1-sol`, `model_reasoning_effort="max"`;
 `CONFIGURED_NOT_OBSERVED` (no runtime model/effort telemetry).
+
+## 11 November continuation
+
+The account limitation above is historical. At this run's entry the live
+`suspended_routes.json` was empty, and the stored Notes route used
+`@capitalchronicle` under CC-453. The unchanged minute worker was observed as
+`pythonw.exe -B scripts/plan_status_posts.py --publish`.
+
+The next investigation found two local transport defects:
+
+- X's existing ET-day incident was a definite no-write,
+  `NEO_COMPOSER_PREPARATION_FAILED`. A local preparation refusal must not mute
+  unrelated posts for a whole day. The coordinator now treats that exact
+  classification as local only when the outcome is `DEFINITE_NO_WRITE`.
+  Historical incident bytes are preserved; uncertain outcomes keep their circuit.
+- Neo's live Notes reply dialog exposed `Leave a reply...` and a `Post` button.
+  The executor now accepts that editor and uses `Post` for Notes replies while
+  keeping X's `Reply` button. The empty inspection composer was cancelled.
+
+Feature and main-account Notes regression: **65 passed in 66.89 seconds**,
+using only `test_neo_endpoint_executor_cc436.py` and
+`test_notes_main_account_cc453.py`, in one pytest process. The added tests run
+the production submit-validation JavaScript and prove the repaired consumer can
+confirm a fresh exact post despite a retained local-preparation incident.
+
+The resumed launch arguments observed on PID 47820 were
+`--model gpt-6.1-sol`, `model_reasoning_effort="max"`;
+`CONFIGURED_NOT_OBSERVED`. No model supplied publication copy in this repair.
+Live timing still requires exact endpoint returns and their matching Telegram
+confirmations; an active task or repaired source alone does not establish it.
+
+The coordinator regression also passed: **111 tests in 186.18 seconds**, using
+only `test_publication_coordinator_v1.py`, with no other pytest process running.
+
+### Notes live timing established
+
+For the same stored operation,
+`plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2`:
+
+- Notes [c-384300093](https://substack.com/@capitalchronicle/note/c-384300093)
+  has an endpoint-observed publish click at `2026-11-11T03:24:58.853Z` and a
+  verified coordinator readback at `2026-11-11T03:25:49.343512Z`.
+- Its [Telegram twin 163](https://t.me/CapitalChronicle/163) was dispatched at
+  `2026-11-11T03:25:51.660274Z` and verified at
+  `2026-11-11T03:25:54.471112Z`.
+- Notes confirmed **5.1276 seconds before Telegram**. The native observation
+  identifies `NEO_ENDPOINT_EXECUTOR`, `browseros-neo/run`, and invocation
+  `neo-endpoint:b15c444c319c43c09358f67a408c56de`; no Codex tool step supplies
+  this return. A separate Neo read of the public Note matched the complete
+  frozen copy on 11 November, without editing the public object.
+
+The original source time, publish-click time and readback time remain separate.
+This establishes the Notes half of the live timing acceptance. X remains due
+for an exact matching live confirmation.
+
+### Installed continuation repairs
+
+- The minute record now preserves the recovery preflight's real cause when a
+  destination has no dispatch. This exposed the retained LinkedIn day skip
+  separately from X's local composer refusal. The executor file passed all
+  40 tests at that sub-step in 59.89 seconds.
+- X's editable DOM can appear before its accessibility name. When that name
+  is absent, the transport labels only the visible composer editor and obtains
+  its Neo ref before filling. It changes no public text. Six selected transport,
+  plain-Python consumer and submit-validation checks passed in 8.66 seconds.
+- Substack links a reply through `/profile/<id>-<slug>/note/<id>`. The reader
+  follows that public link and requires the same object under the bound
+  `@handle` on the rendered page. Nine selected readback/transport checks passed
+  in 13.85 seconds. The normal worker then reconciled the previously uncertain
+  EUR/USD reply to
+  [c-384339008](https://substack.com/@capitalchronicle/note/c-384339008), with no
+  repeated publish click. Later replies also confirmed through the same owner.
+- A proven pre-click composer refusal can resume after a transport repair.
+  The card consumer, coordinator and existing atomic store claim now use the
+  saved native return: definite no-write, no publish-clock observation, no known
+  public object and a changed transport revision are all required. Every old
+  request/return stays. An absent historical reconciliation row receives the
+  return's actual local cause. Missing or uncertain returns never resume a send.
+  The normal source/rights/account/staleness checks still run before writing.
+
+The last repair passed six endpoint recovery checks (30.80 seconds), four
+uncertainty/concurrency checks (10.22 seconds), and twelve canonical coordinator
+and policy-claim checks (24.02 seconds). These were separate, sequential pytest
+processes on targeted files; no long test run started in the decision window.
+All passing sub-steps were committed, pushed, and fast-forwarded into the
+Publisher operating root without changing a schedule or starting an application.
+
+The later normal tick exposed a second hold: a day-skipped LinkedIn copy left
+the status post behind the article canonical-recovery rule. Status posts have
+no Substack article. Exact-scoped, validated status rows now keep recovery local
+to each destination; the original article rule and each dispatch fence remain.
+Three source-copy/isolation checks passed in 13.72 seconds, and three canonical
+uncertain-write/retry checks passed in 5.17 seconds.
+
+The remaining X composer failure was observed in **Crop media**, after adding
+an image and the disclosure post. Neo focus plus Enter on the exact `Add post`
+button created the second editor. The transport now verifies that focused
+button before Enter, and cancels an old crop dialog before discarding its own
+unsent draft. It never saves a crop of the bound card. Six image-thread,
+composer and plain-Python-consumer checks passed in 6.11 seconds. A separate
+live preparation verified the focused button's `Add post` label; that test
+composer was discarded without a publish action.
+
+### Final installed result, 11 November
+
+The retained X operation was completed by the unchanged scheduled minute
+worker, PID 21888, started at `2026-11-11T05:30:26.756257Z` with command
+`pythonw.exe -B scripts/plan_status_posts.py --publish`. The original request
+and previous no-write returns remain in the production store.
+
+- [X root 2120388829182132310](https://x.com/Capitalnicle/status/2120388829182132310)
+  and its [disclosure reply](https://x.com/Capitalnicle/status/2120388834605334761)
+  were observed by the endpoint executor. Its publish click was
+  `2026-11-11T05:31:05.553Z`; X's rendered root clock was
+  `2026-11-11T05:31:06Z`. Strict coordinator readback confirmed at
+  `2026-11-11T05:31:45.559705Z`.
+- The bound request hash is
+  `42d82facf0a6346844e7dc0cd826182bf6826499957a981a79c7e7c801565649`;
+  invocation `neo-endpoint:e9eceb79edf848aebd6f437153f0843b` records
+  `NEO_ENDPOINT_EXECUTOR`. A separate Neo inspection found both exact posts
+  and their real public clocks. No Codex publication-tool begin/submit step
+  performed this send.
+- The dispatch row retains its earlier attempt clock, `04:52:34.890688Z`.
+  That is **not** the later public-write clock. The original Telegram twin
+  confirmed at `03:25:54.471112Z`, so this recovery was about **126 minutes
+  late**, not a two-minute live timing pass.
+- A browser beforeunload prompt on this executor's own tab was cleared.
+  Cleanup now focuses the exact Close/Cancel control and verifies that focus
+  before Enter. A profile-read refusal retains its underlying safe error.
+  A repaired exact profile no-write may resume through its own circuit only
+  after the saved return proves no click; it releases no other failed attempt.
+  Cleanup tests: 6 passed in 11.45 seconds. Exact profile repair tests: 2 passed
+  in 10.35 seconds. Final atomic-policy claim checks: 10 passed in 16.14 seconds.
+
+At final source, **all 52 endpoint tests passed**, split into sequential
+groups of 19 (28.77 seconds) and 33 (49.08 seconds) during the decision window.
+The earlier 111-test coordinator regression and later targeted canonical,
+status-isolation and atomic-claim regressions are recorded above. Tests used
+isolated stores; no full suite, parallel pytest or live test fixture was run.
+
+The remaining acceptance condition is external input:
+`AWAITING_FRESH_MAIN_STATUS_EVENT_FOR_2_MINUTE_TIMING_PROOF`. A read-only query
+at `2026-11-11T05:32:58Z` found **zero** new status-post source rows since this
+run entered at `04:31:30Z`; the latest existing source row was registered at
+`03:22:37.792884Z`. Already-published Telegram twins keep their real clocks.
+The lane does not manufacture a new Main event or repost a twin to obtain a
+passing interval. The existing minute worker continues normally. On the next
+new source-bound operation, read its X and Notes confirmations against its
+own Telegram confirmation; only that can close the remaining timing condition.

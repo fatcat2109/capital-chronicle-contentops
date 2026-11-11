@@ -164,8 +164,32 @@ def markdown_to_rich_text(markdown: str) -> dict[str, Any]:
             blocks.append({"type": "bullet_list", "items": list(list_items)})
             list_items.clear()
 
-    for line in lines:
+    index = 0
+    while index < len(lines):
+        line = lines[index]
+        index += 1
         stripped = line.strip()
+        if (stripped.startswith("|") and index < len(lines)
+                and re.fullmatch(r"\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?", lines[index].strip())):
+            flush_paragraph()
+            flush_list()
+            def cells(value):
+                return [v.strip().replace(r"\|", "|") for v in re.split(r"(?<!\\)\|", value.strip().strip("|"))]
+            headers = cells(stripped)
+            separators = cells(lines[index])
+            if len(headers) != len(separators):
+                raise ValueError("rich_text_table_width_changed")
+            index += 1
+            rows = []
+            while index < len(lines) and lines[index].strip().startswith("|"):
+                row = cells(lines[index])
+                if len(row) != len(headers):
+                    raise ValueError("rich_text_table_width_changed")
+                rows.append([_inline_nodes(cell) for cell in row])
+                index += 1
+            blocks.append({"type": "table", "headers": [_inline_nodes(h) for h in headers],
+                "rows": rows, "alignments": ["right" if s.endswith(":") else "left" for s in separators]})
+            continue
         if not stripped:
             flush_paragraph()
             flush_list()
@@ -231,6 +255,11 @@ def rich_text_to_html(document: Mapping[str, Any]) -> str:
                 f"<li>{_inline_html(item)}</li>" for item in (block.get("items") or [])
             )
             output.append(f"<ul>{items}</ul>")
+        elif kind == "table":
+            headers = "".join(f'<th scope="col">{_inline_html(cell)}</th>' for cell in block["headers"])
+            rows = "".join("<tr>" + "".join(f"<td>{_inline_html(cell)}</td>" for cell in row) + "</tr>"
+                           for row in block["rows"])
+            output.append(f"<table><thead><tr>{headers}</tr></thead><tbody>{rows}</tbody></table>")
         else:
             raise ValueError("rich_text_block_invalid")
     return "\n".join(output)
@@ -239,6 +268,10 @@ def rich_text_to_html(document: Mapping[str, Any]) -> str:
 def rich_text_to_plain_text(document: Mapping[str, Any]) -> str:
     values: list[str] = []
     for block in document.get("blocks") or []:
+        if block.get("type") == "table":
+            for row in [block["headers"], *block["rows"]]:
+                values.append(" | ".join("".join(str(n.get("text") or "") for n in cell) for cell in row))
+            continue
         if block.get("type") == "bullet_list":
             groups = block.get("items") or []
         else:

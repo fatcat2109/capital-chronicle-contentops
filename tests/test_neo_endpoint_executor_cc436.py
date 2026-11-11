@@ -363,6 +363,64 @@ def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,m
         assert e.fresh_publish_request(base) is None
 
 
+@pytest.mark.parametrize('destination',['x','substack_notes'])
+@pytest.mark.parametrize('refusal',['NEO_COMPOSER_PAYLOAD_MISMATCH','NEO_REGISTERED_PROFILE_UNAVAILABLE'])
+def test_minute_consumer_resumes_an_exact_unsent_composer_only_after_repair(tmp_path,monkeypatch,destination,refusal):
+    from live_contentops.plan_call_cards_v1 import _ready_destinations
+    store=copied_store(tmp_path);ids,value=message(store,destination)
+    with endpoint(fault='composer') as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url);e.executor_revision='previous-installed-source'
+        with monkeypatch.context() as patch:
+            if refusal=='NEO_REGISTERED_PROFILE_UNAVAILABLE':
+                patch.setattr(neo.NeoBrowserDriver,'perform',lambda self,packet:{'identity':{'authenticated':False,
+                    'observed_identity':None,'observed_at_utc':datetime.now(timezone.utc).isoformat()},
+                    'result':{'status':'FAILED_BEFORE_WRITE','definite_no_write':True,'stage':'BEFORE_PUBLISH_CLICK',
+                        'reason_code':refusal,'safe_error_classification':'NEO_BEFOREUNLOAD_SNAPSHOT'}})
+            first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert first['status']=='DEFINITE_NO_WRITE' and not state['posts']
+        dispatch=store.get_platform_dispatch(ids['dispatch_id'])
+        assert e.repaired_prewrite_request(dispatch) is None
+        assert neo.repaired_prewrite_request(store,dispatch)
+    assert destination in _ready_destinations(store,{'key':value['work_item_id'],'kind':'run'})
+    if refusal=='NEO_REGISTERED_PROFILE_UNAVAILABLE':
+        # An older composer return may already have supplied the retained
+        # reconciliation; the latest immutable no-write proof remains decisive.
+        store.register_reconciliation(reconciliation_id=ids['reconciliation_id'],
+            work_item_id=value['work_item_id'],status='NEO_COMPOSER_PREPARATION_FAILED')
+    with endpoint() as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url)
+        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='DISPATCH_CONFIRMED',result
+        assert destination in state['posts']
+        again=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert again['publish_called'] is False
+        assert len([a for n,a in state['calls'] if n=='run' and '"phase": "publish"' in a['code']])==1
+
+
+@pytest.mark.parametrize('uncertainty',['missing_return','clicked','write_performed'])
+def test_repaired_prewrite_proof_never_releases_an_unobserved_or_clicked_action(tmp_path,monkeypatch,uncertainty):
+    store=copied_store(tmp_path);ids,value=message(store,'x')
+    with endpoint(fault='composer') as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url);e.executor_revision='old-source'
+        c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        dispatch=store.get_platform_dispatch(ids['dispatch_id'])
+        assert neo.repaired_prewrite_request(store,dispatch)
+        original=store.get_outbox_message
+        def changed(key):
+            row=original(key)
+            if row:
+                packet=json.loads(row['payload']);result=packet.get('result',{})
+                if result.get('native_tool_return_sha256'):
+                    if uncertainty=='missing_return':return None
+                    if uncertainty=='clicked':result['native_tool_observation']['dispatched_at_utc']='2026-11-11T05:00:00Z'
+                    if uncertainty=='write_performed':result['public_write_performed']=True
+                    return {**row,'payload':json.dumps(packet)}
+            return row
+        monkeypatch.setattr(store,'get_outbox_message',changed)
+        assert neo.repaired_prewrite_request(store,dispatch) is None
+        assert not state['posts']
+
+
 def test_reopened_note_runs_the_repaired_transport_through_its_original_coordinator(tmp_path,monkeypatch):
     from live_contentops import neo_destination_handoff_v1 as handoff
     control=tmp_path/'suspended_routes.json';control.write_text('{}',encoding='utf-8')
@@ -551,6 +609,169 @@ def test_covered_thread_editor_uses_neo_focus_and_types_only_bound_copy():
     assert client.actual==['The bound original call.']
     assert [kind for kind,_ in client.actions]==['fill','focus','press','type']
     assert all(kind!='click' for kind,_ in client.actions)
+
+
+def test_notes_reply_uses_the_observed_editor_without_posting():
+    class Client:
+        def __init__(self): self.actions=[]
+        def call(self,name,args):
+            assert name=='navigate'
+            assert args['url']=='https://substack.com/@capitalchronicle/note/c-123'
+        def wait(self,*args): pass
+        def snapshot(self,page):
+            return {'refs':[{'role':'button','name':'Comment','ref':'comment'},
+                {'role':'textbox','name':'Leave a reply...','ref':'reply'}]}
+        def act(self,page,kind,**values): self.actions.append((kind,values))
+    client=Client()
+    request={'destination':'substack_notes','native_payload':{'text':'The original conditional call.'},
+        'reply_parent':{'public_object_url':'https://substack.com/@capitalchronicle/note/c-123'}}
+    assert neo.NeoBrowserDriver(client).prepare(request,1)==['The original conditional call.']
+    assert client.actions==[('click',{'ref':'comment'}),('fill',{'ref':'reply','value':'The original conditional call.'})]
+
+
+def test_loading_composer_observes_its_exact_editor_before_filling():
+    class Client:
+        def __init__(self): self.exposed=False;self.actions=[]
+        def call(self,*args,**kwargs): return {}
+        def wait(self,*args): pass
+        def snapshot(self,page):
+            return {'refs':[{'role':'textbox','name':'CC436 post text 0' if self.exposed else '', 'ref':'exact-editor'}]}
+        def run(self,page,phase,**values):
+            assert phase=='expose_composer' and values=={'destination':'x'}
+            self.exposed=True
+        def act(self,page,kind,**values): self.actions.append((kind,values))
+    client=Client()
+    request={'destination':'x','native_payload':{'text':'The frozen call.'}}
+    assert neo.NeoBrowserDriver(client).prepare(request,1)==['The frozen call.']
+    assert client.actions==[('fill',{'ref':'exact-editor','value':'The frozen call.'})]
+
+
+def test_image_thread_uses_the_focused_add_post_button_and_retains_both_texts():
+    class Client:
+        def __init__(self):self.count=1;self.focus=None;self.filled={};self.uploads=[]
+        def call(self,name,args):
+            if name=='upload':self.uploads.extend(args['files'])
+        def wait(self,*args):pass
+        def snapshot(self,page):return {'refs':[
+            {'role':'textbox','name':'Post text','ref':'editor-'+str(i)} for i in range(self.count)]+[
+            {'role':'button','name':'Add post','ref':'add'}, {'role':'button','name':'Choose Files','ref':'upload'}]}
+        def run(self,page,phase):
+            assert phase=='add_post_focused'
+            return {'focused':self.focus=='add'}
+        def act(self,page,kind,**values):
+            if kind=='click':pytest.fail('Image upload moved the Add post click point into Crop media')
+            if kind=='focus':self.focus=values['ref']
+            if kind=='press':
+                assert self.focus=='add' and values['key']=='Enter';self.count+=1
+            if kind=='fill':self.filled[values['ref']]=values['value']
+    client=Client()
+    request={'destination':'x','native_payload':{'posts':[{'text':'Bound lead.'},{'text':'Bound disclosure.'}]},
+        'content_binding':{'media_manifest':[{'path':'own-media/card.png'}]}}
+    assert neo.NeoBrowserDriver(client).prepare(request,1)==['Bound lead.','Bound disclosure.']
+    assert client.filled=={'editor-0':'Bound lead.','editor-1':'Bound disclosure.'}
+    assert client.uploads==['own-media/card.png']
+
+
+def test_own_crop_dialog_is_cancelled_before_discarding_an_unsent_thread():
+    class Client(neo.NeoMcpClient):
+        def __init__(self):self.step=0;self.actions=[]
+        def call(self,name,args):assert name=='snapshot'
+        def snapshot(self,page):
+            if self.step==0:return {'text':'dialog "Crop media"','refs':[{'role':'button','name':'Back','ref':'back'}]}
+            if self.step==1:return {'url':'https://x.com/compose/post','refs':[{'role':'button','name':'Close','ref':'close'}]}
+            return {'text':'alertdialog "Save post?"','refs':[{'role':'button','name':'Discard','ref':'discard'}]}
+        def wait(self,*args):pass
+        def run(self,page,phase):
+            if phase=='dismiss_focused':return {'focused':True}
+            assert phase=='composer';return ['Bound unsent copy']
+        def act(self,page,kind,**kw):
+            if kind=='focus':self.actions.append('focus-'+kw['ref']);return
+            self.actions.append(kw.get('ref') or kw['key']);self.step+=1
+    client=Client();client.clear_task_draft(1)
+    assert client.actions==['back','focus-close','Enter','discard']
+
+
+@pytest.mark.parametrize('author_verified',[True,False])
+def test_note_reply_profile_alias_requires_the_exact_object_under_its_bound_handle(author_verified):
+    text='The original conditional call remains in force.'
+    alias='https://substack.com/profile/123-capital-chronicle/note/c-456'
+    canonical='https://substack.com/@capitalchronicle/note/c-456'
+    parent='https://substack.com/@capitalchronicle/note/c-123'
+    class Client:
+        def __init__(self):self.navigations=[]
+        def call(self,name,args):
+            assert name=='navigate'
+            self.navigations.append(args['url'])
+        def wait(self,*args):pass
+        def run(self,page,phase,**kw):
+            assert phase=='readback'
+            url=(canonical if author_verified else alias) if len(self.navigations)>1 else alias
+            return {'notes':[{'public_object_id':'c-456','public_object_url':url,'observed_text':text,'links':[]},
+                {'public_object_id':'c-123','public_object_url':parent,'observed_text':'Original run','links':[]}]}
+    client=Client()
+    request={'destination':'substack_notes','entry_url':parent,'expected_identity':'@capitalchronicle',
+        'request_sha256':'bound-request','native_payload':{'text':text},'content_binding':{},
+        'reply_parent':{'public_object_id':'c-123','public_object_url':parent}}
+    result=neo.NeoBrowserDriver(client).readback(request,1)
+    assert client.navigations==[parent,alias]
+    if author_verified:
+        assert result['status']=='SUCCESS' and result['public_object_url']==canonical
+        assert result['observed_reply_parent_id']=='c-123'
+    else:
+        assert result['status']=='READBACK_UNAVAILABLE' and result['reason_code']=='NEO_NOTE_AUTHOR_NOT_VERIFIED'
+
+
+@pytest.mark.parametrize('destination,button',[('substack_notes','Post'),('x','Reply')])
+def test_reply_validates_the_platforms_actual_submit_button(destination,button):
+    # Run the production JS with the SDK/DOM observations from the live Notes
+    # reply. Validation must find Post on Notes and Reply on X, without a click.
+    code='''
+const fs=require('node:fs');
+const input={phase:'validate',destination:process.argv[1],reply_parent:{public_object_id:'parent'},posts:['Bound copy']};
+const page={snapshot:async()=>({refs:[{role:'button',name:process.argv[2],ref:'submit'}]}),
+ evaluateInPage:async()=>({value:{count:1,matches:true}}),click:async()=>{throw Error('unexpected publish')}};
+const run=new Function('input','page','return (async()=>{'+fs.readFileSync(process.argv[3],'utf8')+'})()');
+run(input,page).then(x=>process.stdout.write(JSON.stringify(x))).catch(e=>{console.error(e);process.exit(1)});
+'''
+    result=subprocess.run(['node','-e',code,destination,button,str(neo.STEPS)],capture_output=True,text=True,timeout=10,check=True)
+    assert json.loads(result.stdout)=={'status':'PREPARED','post_count':1}
+
+
+@pytest.mark.parametrize('destination',['x','substack_notes'])
+@pytest.mark.parametrize('status',['DEFINITE_NO_WRITE','UNKNOWN_WRITE'])
+def test_composer_preparation_does_not_mute_unrelated_posts_when_definitely_unsent(tmp_path,destination,status):
+    store=copied_store(tmp_path);_,value=message(store,destination)
+    c=Coordinator(store=store,transport_runtime=None)
+    detail={'status':status,'safe_error_classification':'NEO_COMPOSER_PREPARATION_FAILED'}
+    c._record_destination_day_failure(value,destination,detail)
+    assert (c._destination_day_failure(destination) is None) is (status=='DEFINITE_NO_WRITE')
+    if status=='UNKNOWN_WRITE': return
+    # Preserve and interpret incidents made by the previously installed code.
+    incident_id,_=c._destination_failure_key(destination)
+    original=json.dumps(detail,sort_keys=True)
+    store.register_incident(incident_id=incident_id,work_item_id=value['work_item_id'],
+        severity='DISPATCH_FAILURE',description=original)
+    with endpoint() as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url)
+        result=c._dispatch_message(store.list_outbox_messages(destination=destination)[0],canonical_url=value['canonical_url'])
+        assert result['status']=='DISPATCH_CONFIRMED',result
+        assert destination in state['posts']
+    with store.get_read_only_connection() as conn:
+        assert conn.execute('SELECT description FROM incidents WHERE incident_id=?',(incident_id,)).fetchone()[0]==original
+
+
+def test_minute_record_keeps_recovery_cause_instead_of_not_dispatched(tmp_path):
+    from live_contentops.plan_status_posts_v1 import destination_causes,record_run
+    outcome={'per_destination':{'x':{'status':'NOT_DISPATCHED'},
+        'telegram':{'status':'DISPATCH_CONFIRMED'}},'recovery_preflight':{'per_destination':{
+            'x':{'status':'SESSION_UNAVAILABLE','safe_error_classification':'EXACT_ACCOUNT_PROBE_FAILED'},
+            'telegram':{'status':'UNKNOWN_WRITE'}}}}
+    causes=destination_causes(outcome)
+    assert causes=={'x':'EXACT_ACCOUNT_PROBE_FAILED'}
+    path=record_run({'status':'OK','publication':{'posts':[{'key':'current','status':'PUBLISHING',
+        'destination_causes':causes,'per_destination':{'x':'NOT_DISPATCHED'}}]}},tmp_path)
+    recorded=json.loads(path.read_text(encoding='utf-8'))
+    assert recorded['posts'][0]['destination_causes']=={'x':'EXACT_ACCOUNT_PROBE_FAILED'}
 
 
 def test_existing_beforeunload_is_cleared_before_running_a_page_script():

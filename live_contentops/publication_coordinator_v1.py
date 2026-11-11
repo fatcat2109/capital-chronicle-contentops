@@ -399,7 +399,7 @@ def normalize_readback_result(
 # Refusals made locally, before any platform call; they never skip a destination for the ET day (CC-401).
 LOCAL_REFUSALS_NOT_PLATFORM_FAILURES = frozenset({
     "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE", "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
-    "NEO_COMPOSER_PAYLOAD_MISMATCH",
+    "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED",
 })
 
 
@@ -508,6 +508,27 @@ class DurablePublicationCoordinator:
         if not self.allow_prior_confirmed_distribution:
             return remaining > 0
         messages = self._recovery_messages() if evidence_messages is None else evidence_messages
+        scope = self.recovery_scope or {}
+        if (plan.get("plan_status_post") == work_item_id and scope.get("exact_work_item_only")
+                and scope.get("work_item_id") == work_item_id):
+            # Status posts have no Substack canonical. A LinkedIn day skip or
+            # one uncertain destination must not hold their other copies.
+            # Each exact dispatch still owns its readback and atomic claim.
+            from live_contentops.plan_status_posts_v1 import _row_payload
+            try:
+                _row_payload(self.store, work_item_id)
+            except (ValueError, OSError, KeyError, TypeError):
+                pass
+            else:
+                intents = []
+                for message in messages:
+                    intent = json.loads(message["payload"])
+                    if intent.get("plan_hash"):
+                        intents.append(intent)
+                if intents and all(intent.get("plan_status_post") == work_item_id
+                        and intent.get("work_item_id") == work_item_id for intent in intents
+                ) and all(message["destination"] != "substack" for message in messages):
+                    return False
         confirmations = {}
         def canonical_resolved(intent):
             if intent.get("repost_of_dispatch_id"):
@@ -2604,7 +2625,8 @@ class DurablePublicationCoordinator:
                 row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
                 failure = json.loads(row["description"]) if row else None
                 local = failure and (failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
-                if local and failure.get("safe_error_classification") == "NEO_COMPOSER_PAYLOAD_MISMATCH":
+                if local and (failure.get("reason_code") or failure.get("safe_error_classification")) in {
+                        "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}:
                     local = failure.get("status") == DEFINITE_NO_WRITE
                 confirmed = False
                 if failure and failure.get("dispatch_id"):
@@ -2673,7 +2695,8 @@ class DurablePublicationCoordinator:
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
         local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
         if (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
-                and (local_cause != "NEO_COMPOSER_PAYLOAD_MISMATCH" or detail.get("status") == DEFINITE_NO_WRITE)):
+                and (local_cause not in {"NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}
+                     or detail.get("status") == DEFINITE_NO_WRITE)):
             return
         incident_id, day, _ = self._destination_failure_cursor(destination, instant)
         self.store.register_incident(incident_id=incident_id,
@@ -2700,6 +2723,7 @@ class DurablePublicationCoordinator:
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         restored_x_no_write = False
         restored_substack_no_write = False
+        repaired_composer_no_write = False
         # CC-393: a forbidden fresh Neo route is settled before readiness can
         # request a browser identity probe. Existing attempts keep recovery.
         if existing is None and registration.transport_type == "BROWSEROS_NEO_MCP":
@@ -2787,6 +2811,21 @@ class DurablePublicationCoordinator:
                 and reconciliation_status in {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION"}
                 and _prohibited_write(destination) is None)
             retry_eligible = retry_eligible or restored_substack_no_write
+            executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+            repaired_request = getattr(executor, "repaired_prewrite_request", None)
+            repair_proof = (repaired_request(existing) if callable(repaired_request)
+                and not self._message_is_stale(message, intent) else None)
+            repaired_composer_no_write = bool(repair_proof
+                and reconciliation_status in {None, "NEO_COMPOSER_PREPARATION_FAILED",
+                    "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_REGISTERED_PROFILE_UNAVAILABLE"})
+            if repaired_composer_no_write and reconciliation_status is None:
+                # Older definite no-writes omitted a reconciliation row. Retain
+                # their immutable native return and record its actual pre-click
+                # cause before the existing atomic dispatch claim can resume it.
+                reconciliation_status = repair_proof["reason_code"]
+                self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+                    work_item_id=intent["work_item_id"],status=reconciliation_status)
+            retry_eligible = retry_eligible or repaired_composer_no_write
             correction_retry_eligible = bool(
                 explicit_transport_correction_retry
                 and (
@@ -2847,7 +2886,7 @@ class DurablePublicationCoordinator:
         # their original recovery path. Only fresh/definitely absent writes skip.
         if not native_pending_resume:
             failure = self._destination_day_failure(destination)
-            if failure:
+            if failure and not (repaired_composer_no_write and failure.get("dispatch_id") == ids["dispatch_id"]):
                 return {"destination": destination, "status": "DESTINATION_FAILED_ET_DAY_SKIP",
                         "publish_called": False, "reason_code": "DESTINATION_FAILED_ET_DAY_SKIP",
                         "first_failure": failure}
@@ -2976,7 +3015,7 @@ class DurablePublicationCoordinator:
             message_id=ids["message_id"], platform=destination,
             expected_status=existing.get("status") if existing else None,
             **({"policy_no_write_cause": "X_NON_API_AUTOMATION_PROHIBITED"} if restored_x_no_write else
-               {"policy_no_write_cause": reconciliation_status} if restored_substack_no_write else {}))
+               {"policy_no_write_cause": reconciliation_status} if restored_substack_no_write or repaired_composer_no_write else {}))
         if not claimed:
             actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
             return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),

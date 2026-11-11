@@ -189,6 +189,14 @@ class NeoMcpClient:
             if (getattr(self,"last_error",{}).get("classification")=="BEFOREUNLOAD"):
                 self.act(page,"dialog_accept")
             return
+        if 'dialog "Crop media"' in snapshot.get("text",""):
+            back=next((r for r in snapshot["refs"] if r["role"]=="button" and r["name"]=="Back"),None)
+            if not back:
+                return
+            # Cancel the image editor; never save a crop of a source-bound card.
+            self.act(page,"click",ref=back["ref"])
+            self.wait(page,'[data-testid="tweetTextarea_0"][contenteditable="true"]')
+            snapshot=self.snapshot(page)
         discard=next((r for r in snapshot["refs"] if r["role"]=="button" and r["name"]=="Discard"),None)
         if discard and 'alertdialog "Save post?"' in snapshot.get("text",""):
             self.act(page,"click",ref=discard["ref"])
@@ -201,7 +209,10 @@ class NeoMcpClient:
         if close:
             dirty=("/compose/post" in snapshot.get("url","")
                 and any(text.strip() for text in self.run(page,"composer")))
-            self.act(page,"click",ref=close["ref"])
+            self.act(page,"focus",ref=close["ref"])
+            if self.run(page,"dismiss_focused").get("focused") is not True:
+                raise NeoEndpointError("NEO_CLOSE_COMPOSER_FOCUS_NOT_CONFIRMED")
+            self.act(page,"press",key="Enter")
             if dirty:
                 self.wait(page,'[role="alertdialog"]')
             follow=self.snapshot(page)
@@ -518,7 +529,18 @@ class NeoBrowserDriver:
             data = self.client.run(page,"readback", expected_identity=request["expected_identity"])
             candidates = data["tweets" if destination == "x" else "notes"]
             self._resolve_links(request,candidates)
-            root = next((r for r in candidates if r["public_object_url"] == root["public_object_url"]), root)
+            if destination == "substack_notes":
+                # Replies can link through /profile/<id>-<slug>/note/<id>.
+                # Following that public link must reveal the same object under
+                # the bound @handle before the alias can establish authorship.
+                canonical_prefix="https://substack.com/"+request["expected_identity"]+"/note/"
+                root = next((r for r in candidates if r.get("public_object_id") == root.get("public_object_id")
+                    and r["public_object_url"].startswith(canonical_prefix)),None)
+                if root is None:
+                    return {"status":"READBACK_UNAVAILABLE","verified":False,
+                        "reason_code":"NEO_NOTE_AUTHOR_NOT_VERIFIED"}
+            else:
+                root = next((r for r in candidates if r["public_object_url"] == root["public_object_url"]), root)
         if len(texts)>1:
             # X delivers replies after the root. Wait for the expected final
             # post, rather than accepting the root-only loading snapshot.
@@ -580,16 +602,24 @@ class NeoBrowserDriver:
         media=(request.get("content_binding") or {}).get("media_manifest") or []
         for index,text in enumerate(posts):
             if index:
-                self.client.act(page,"click",ref=self._ref(page,"button",{"Add post"},last=True))
+                # An uploaded preview can move under this button's click point
+                # and open Crop media. Activate the exact observed button by
+                # keyboard, after verifying focus, so the source image stays intact.
+                self.client.act(page,"focus",ref=self._ref(page,"button",{"Add post"},last=True))
+                if self.client.run(page,"add_post_focused").get("focused") is not True:
+                    raise NeoEndpointError("NEO_ADD_POST_FOCUS_NOT_CONFIRMED")
+                self.client.act(page,"press",key="Enter")
                 self.client.wait(page,f'[role="dialog"] [data-testid="tweetTextarea_{index}"][contenteditable="true"][role="textbox"]')
             def editor_refs():
                 return [r for r in self.client.snapshot(page)["refs"] if r["role"] == "textbox"
-                    and (r["name"].startswith("Post text") or r["name"] in {
-                        "Post your reply","What's on your mind?","Write a reply...","Add a comment..."})]
+                    and (r["name"].startswith(("Post text", "CC436 post text")) or r["name"] in {
+                        "Post your reply","What's on your mind?","Write a reply...","Leave a reply...","Add a comment..."})]
             refs = editor_refs()
             if not refs:
-                # The DOM signal can precede the accessibility update by a
-                # render. Re-observe once; never use a loading-page ref.
+                # X can expose its editable DOM before its AX name appears.
+                # Name only the visible editor in this task's composer, then
+                # let Neo observe its ref. No text or submit state is changed.
+                self.client.run(page,"expose_composer",destination=destination)
                 refs=editor_refs()
             if not refs: raise NeoEndpointError("NEO_EXPECTED_COMPOSER_MISSING")
             ref=refs[-1]["ref"]
@@ -639,10 +669,10 @@ class NeoBrowserDriver:
                 return {"result":self.readback(request,page),"identity":identity}
             self.client.wait_text(page,"Edit profile")
             identity = self.client.run(page,"identity",destination=destination,expected_identity=request["expected_identity"])
-        except NeoEndpointError:
+        except NeoEndpointError as exc:
             return {"result":{"status":"READBACK_UNAVAILABLE" if request["action"]=="READBACK" else "FAILED_BEFORE_WRITE",
                 "definite_no_write":request["action"]!="READBACK","stage":"BEFORE_PUBLISH_CLICK",
-                "reason_code":"NEO_REGISTERED_PROFILE_UNAVAILABLE"},"identity":identity}
+                "reason_code":"NEO_REGISTERED_PROFILE_UNAVAILABLE","safe_error_classification":str(exc)},"identity":identity}
         if request["action"] == "VERIFY_IDENTITY":
             return {"result": {**identity,"status":"SUCCESS"}, "identity":identity}
         if not identity["authenticated"]:
@@ -669,6 +699,42 @@ def endpoint_client():
     return NeoMcpClient()
 
 
+def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
+    """Identify an exact unsent composer refusal made by older transport code.
+
+    A missing/uncertain return, an attempted click, a known object or the same
+    code revision cannot release the existing exactly-once dispatch fence.
+    """
+    if (dispatch.get("status") != "DEFINITE_NO_WRITE" or dispatch.get("public_object_id")
+            or dispatch.get("public_object_url") or dispatch.get("platform") not in {"x","substack_notes"}):
+        return None
+    message=store.get_outbox_message(dispatch["message_id"])
+    if not message:
+        return None
+    from .capital_chronicle_latest_report_consumer_v1 import sha256_of
+    revision=executor_revision or sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
+    found=None
+    for row in store.list_outbox_messages(work_item_id=message["work_item_id"],destination="internal:native-neo-tool"):
+        packet=json.loads(row["payload"])
+        request=packet.get("request") or {}
+        if (request.get("action") != "PUBLISH" or request.get("destination") != dispatch["platform"]
+                or request.get("dispatch_attempt_identity") != dispatch["dispatch_id"]):
+            continue
+        key="native-neo-"+sha256_of([packet["operation_id"],request["request_sha256"],"response"])
+        response=store.get_outbox_message(key)
+        result=json.loads(response["payload"]).get("result",{}) if response else {}
+        if (result.get("status") != "FAILED_BEFORE_WRITE" or result.get("definite_no_write") is not True
+                or result.get("public_write_performed") is not False or result.get("stage") != "BEFORE_PUBLISH_CLICK"
+                or result.get("reason_code") not in {"NEO_COMPOSER_PREPARATION_FAILED","NEO_COMPOSER_PAYLOAD_MISMATCH",
+                    "NEO_REGISTERED_PROFILE_UNAVAILABLE"}
+                or not result.get("native_tool_return_sha256")
+                or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
+                or result.get("neo_executor_revision") == revision):
+            return None
+        found={"request_sha256":request["request_sha256"],"reason_code":result["reason_code"]}
+    return found
+
+
 class EndpointNeoExecutor(NativeNeoExecutor):
     """The existing sole publisher calls this synchronously; no model is involved."""
     inline_transport = True
@@ -683,6 +749,9 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         self.automatic_destinations = (set(automatic_destinations) if automatic_destinations is not None
             else {"x", "substack_notes", *ARTICLE_ROUTES})
         self.executor_revision=sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
+
+    def repaired_prewrite_request(self, dispatch):
+        return repaired_prewrite_request(self.store,dispatch,executor_revision=self.executor_revision)
 
     def fresh_publish_request(self, request):
         """A repaired transport can supersede its proven pre-click refusal once.

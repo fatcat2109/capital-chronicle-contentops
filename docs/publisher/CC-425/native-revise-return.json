@@ -1,0 +1,315 @@
+{
+  "request_sha256": "4b70450b3e9b1a3ace0f7a25c0f7c0cec4ebe822d3ad5510e7c1b30b9d9e39ff",
+  "output": {
+    "article": {
+      "dek": "A historical CPI reference through 2026-10-14: early moves, later closes and gaps across gold, the euro, the S&P and the other markets.",
+      "market_asset": null,
+      "meta_description": "Compare CPI reaction history across release horizons, with source-specific averages, price proxies, missing observations and uneven coverage kept visible.",
+      "public_instrument_policy": "JIM_DECISION_107",
+      "reader_article_contract": {
+        "daily_prose_words": 350,
+        "data_cutoff_utc": null,
+        "format": "ARTICLE",
+        "max_sentence_words": 35,
+        "policy": "CC403_READER_ARTICLE_V1",
+        "primary_document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+        "publication_target_minutes": 60,
+        "source_pack_sha256": "36182f8e0d03e1e987576162f2a25dfeadfd0408a0ba5cc69ba0797dd1a8f764"
+      },
+      "search_title": "CPI reaction history: gold, the euro and the S&P",
+      "social_hook": "CPI's first move can tell a different story from the close. Our historical tables keep the gaps and changing samples visible.",
+      "substack_body_markdown": "We think CPI history is most useful when the first move and the close stay separate. Our calculations show why the horizon and the sample deserve as much attention as the surprise label. [[SOURCE:SOURCE_1]]\n\nThe latest release covered is 2026-10-14. The later November release observation, frozen map and result are absent from this edition. [[SOURCE:SOURCE_1]]\n\nSo what: We get a clearer comparison by checking the price series, horizon and observation count together. [[SOURCE:SOURCE_1]]\n\n## The first move and the close\n\nIn the HistData gold sample, cool headline CPI prints against Investing's forecast had a mean change of -0.0175% after 5 minutes. At the close, the mean was +0.9112%. Both use 3 / 3 observations. [[SOURCE:SOURCE_1]]\n\nFor hot prints in that same sample, the mean was -0.2410% after 5 minutes and -0.6731% at the close, using 4 / 4 observations. [[SOURCE:SOURCE_1]]\n\nThe hot group's next-close mean was +0.1313%, using 3 / 4 observations. The smaller sample means we cannot read that positive average as a reversal by every release. [[SOURCE:SOURCE_1]]\n\nDukascopy's euro series rose at the first interval and fell by the close on 2026-01-13. Its S&P index proxy did too. [[SOURCE:SOURCE_1]]\n\nWe see changing descriptions of the sample across horizons. Those changes do not isolate CPI's effect, and a historical mean cannot forecast the next CPI. [[SOURCE:SOURCE_1]]\n\n## How to read the comparisons\n\nEvery return starts from the exact price close at the release. The endpoints are 5 minutes, 30 minutes, 4 p.m. ET and the following weekday's 4 p.m. ET close. [[SOURCE:SOURCE_1]]\n\nClose and next close share that release-time baseline. The next-close column is not a return measured from the first close. [[SOURCE:SOURCE_1]]\n\nA dash means the exact endpoint is absent. It is not a zero return, and we do not fill it with an estimate. [[SOURCE:SOURCE_1]]\n\nGold has 24 / 33 observations after 5 minutes; the euro has 12 / 33. WTI has 0 / 33 at that horizon and 2 / 33 after 30 minutes. [[SOURCE:SOURCE_1]]\n\n## What hot and cool mean\n\nThe BLS figures are seasonally adjusted monthly first prints from each dated release. Unavailable first prints remain blank; revised series do not replace them. [[SOURCE:SOURCE_1]]\n\nHot, in-line and cool compare that first print with the named source's forecast. We keep headline and core separate, and Investing and Myfxbook separate. [[SOURCE:SOURCE_1]]\n\nThe desk's yardstick uses the prior 36 surprises' median absolute deviation times 1.4826, with at least 12 observations. It expresses each surprise against that source's historical spread. [[SOURCE:SOURCE_1]]\n\nA blank yardstick can mean too few prior observations or zero dispersion. An unavailable forecast remains unclassified, rather than being treated as in line. [[SOURCE:SOURCE_1]]\n\nSome forecasts were retrieved later, so the classifications do not prove what was known before the release. Forecasts saved before a release are identified separately. [[SOURCE:SOURCE_1]]\n\n## Which prices the tables measure\n\nThe gold and currency histories retain their provider labels. The S&P rows distinguish index proxies from the Yahoo Finance futures proxy. [[SOURCE:SOURCE_1]]\n\nBitcoin's Binance Bitcoin/USDT and Yahoo Finance Bitcoin/USD proxies remain separate. WTI uses the Yahoo Finance CL futures proxy, with the gaps shown in the coverage table. [[SOURCE:SOURCE_1]]\n\nInstrument references are GC gold futures, ES S&P futures, 6E euro futures, 6J yen futures, CL WTI futures and MBT Bitcoin futures. [[SOURCE:SOURCE_1]]\n\nThese names locate the markets. They do not transfer any table's measured return to another contract or ETF; each price-series label defines what was measured. [[SOURCE:SOURCE_1]]\n\nThe reaction, coverage, first-print, surprise and average tables belong together. Read each summary's n / eligible alongside its forecast source, CPI measure, price series, horizon, mean and median. [[SOURCE:SOURCE_1]]\n\n[[CPI_REACTION_TABLES]]\n\n## Scenarios\n\nThis edition supplies historical comparisons, not a current scenario set. The absent November map and result cannot be reconstructed from the old bucket averages, and we assign no scenario probabilities. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers. [[SOURCE:SOURCE_1]]",
+      "title": "What gold, the euro and the S&P did after each CPI since 2024"
+    },
+    "cited_sources": [
+      {
+        "published_at_utc": "2026-11-10T09:31:46.640512Z",
+        "publisher": "Capital Chronicle",
+        "source_id": "SOURCE_1",
+        "url": "urn:cc-public-report:desk:9d77db0b9df7aea7a6a5c36a53951d65a9c14e6ef25d9e990ad02fdebfaf9f74"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_title",
+        "claim_kind": "FACT",
+        "claim_text": "What gold, the euro and the S&P did after each CPI since 2024",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "cc-cpi-reactions-20261110T093146640512Z#report:cc-cpi-reactions-since-2024/title = What gold, the euro and the S&P did after each CPI since 2024\ncc-cpi-reactions-20261110T093146640512Z#report:cc-cpi-reactions-since-2024/sections/reaction-tables/heading = CPI reactions since 2024\ncc-cpi-reactions-20261110T093146640512Z#report:cc-cpi-reactions-since-2024/sections/reaction-tables/body_markdown = # What gold, the euro and the S&P did after each CPI since 2024"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_dek_scope",
+        "claim_kind": "FACT",
+        "claim_text": "A historical CPI reference through 2026-10-14: early moves, later closes and gaps across gold, the euro, the S&P and the other markets.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| 2026-09-11 08:30 | 2026-08 | XAUUSD | DUKASCOPY:XAU/USD | -0.2638% | +1.0929% | +0.1736% | — |\n| 2026-09-11 08:30 | 2026-08 | US500 | DUKASCOPY:USA500.IDX/USD (proxy) | -0.1376% | +0.2971% | +0.0807% | — |\n| 2026-09-11 08:30 | 2026-08 | EURUSD | DUKASCOPY:EUR/USD | -0.1268% | +0.0586% | -0.0017% | — |\n| 2026-09-11 08:30 | 2026-08 | USDJPY | DUKASCOPY:USD/JPY | +0.1345% | -0.3008% | -0.1533% | — |\n| 2026-09-11 08:30 | 2026-08 | USOIL | YAHOO_FINANCE:CL=F (proxy) | — | +0.1814% | +1.4212% | +2.6610% |\n| 2026-09-11 08:30 | 2026-08 | BTCUSD | YAHOO_FINANCE:BTC-USD (proxy) | — | +1.1296% | +0.2115% | +2.4105% |\n| 2026-10-14 08:30 | 2026-09 | XAUUSD | DUKASCOPY:XAU/USD | -0.8777% | -1.2758% | -1.1856% | +0.5993% |\n| 2026-10-14 08:30 | 2026-09 | US500 | YAHOO_FINANCE:ES=F (proxy) | — | -0.6854% | -1.3581% | -1.1138% |\n| 2026-10-14 08:30 | 2026-09 | EURUSD | DUKASCOPY:EUR/USD | -0.4126% | -0.6100% | -0.3760% | +0.1474% |\n| 2026-10-14 08:30 | 2026-09 | USDJPY | DUKASCOPY:USD/JPY | +0.2361% | +0.2607% | -0.0473% | -0.1894% |\n| 2026-10-14 08:30 | 2026-09 | USOIL | YAHOO_FINANCE:CL=F (proxy) | — | +0.5147% | -0.0420% | +1.1135% |\n| 2026-10-14 08:30 | 2026-09 | BTCUSD | YAHOO_FINANCE:BTC-USD (proxy) | — | -1.3809% | -2.4640% | -1.7923% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_dek_horizons",
+        "claim_kind": "FACT",
+        "claim_text": "A historical CPI reference through 2026-10-14: early moves, later closes and gaps across gold, the euro, the S&P and the other markets.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Computed price changes from the exact close at the release. All times are ET.\nThe session close is 4 p.m. ET; the next close is the following weekday at 4 p.m. ET.\nA dash means the exact endpoint is absent. Proxies and sources stay separate.\nThese are observed changes around a release, not an estimate of its isolated effect.\n\n| CPI release | Reference month | Market | Price series | +5m | +30m | Close | Next close |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_search_title",
+        "claim_kind": "FACT",
+        "claim_text": "CPI reaction history: gold, the euro and the S&P",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "cc-cpi-reactions-20261110T093146640512Z#report:cc-cpi-reactions-since-2024/title = What gold, the euro and the S&P did after each CPI since 2024\ncc-cpi-reactions-20261110T093146640512Z#report:cc-cpi-reactions-since-2024/sections/reaction-tables/heading = CPI reactions since 2024\ncc-cpi-reactions-20261110T093146640512Z#report:cc-cpi-reactions-since-2024/sections/reaction-tables/body_markdown = # What gold, the euro and the S&P did after each CPI since 2024\n\nComputed price changes from the exact close at the release. All times are ET.\nThe session close is 4 p.m. ET; the next close is the following weekday at 4 p.m. ET.\nA dash means the exact endpoint is absent. Proxies and sources stay separate.\nThese are observed changes around a release, not an estimate of its isolated effect.\n\n| CPI release | Reference month | Market | Price series | +5m | +30m | Close | Next close |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_meta_description",
+        "claim_kind": "FACT",
+        "claim_text": "Compare CPI reaction history across release horizons, with source-specific averages, price proxies, missing observations and uneven coverage kept visible.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "## Hot, in-line and cool: descriptive averages\n\nEach source and price series has its own sample; n counts observed moves, not all releases.\n\n| Measure | Consensus source | Bucket | Market | Price series | Window | n / eligible | Mean | Median |\n|---|---|---|---|---|---|---:|---:|---:|"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_social_hook",
+        "claim_kind": "FACT",
+        "claim_text": "CPI's first move can tell a different story from the close. Our historical tables keep the gaps and changing samples visible.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | 30m | 3 / 3 | -0.0487% | -0.0457% |\n| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | 5m | 3 / 3 | -0.0175% | -0.0357% |\n| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | next_session_close | 3 / 3 | +0.5149% | +0.6552% |\n| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | session_close | 3 / 3 | +0.9112% | +0.9001% |\n| CPI_HEADLINE_MOM | investing | HOT | BTCUSD | BINANCE:BTCUSDT | 30m | 4 / 4 | -0.5049% | -0.4840% |\n| CPI_HEADLINE_MOM | investing | HOT | BTCUSD | BINANCE:BTCUSDT | 5m | 4 / 4 | -0.4831% | -0.3575% |\n| CPI_HEADLINE_MOM | investing | HOT | BTCUSD | BINANCE:BTCUSDT | next_session_close | 4 / 4 | +0.3990% | +2.5577% |\n| CPI_HEADLINE_MOM | investing | HOT | BTCUSD | BINANCE:BTCUSDT | session_close | 4 / 4 | -0.8837% | -1.3120% |\n| CPI_HEADLINE_MOM | investing | HOT | US500 | HISTDATA:SPXUSD | 30m | 4 / 4 | -0.3213% | -0.2158% |\n| CPI_HEADLINE_MOM | investing | HOT | US500 | HISTDATA:SPXUSD | 5m | 4 / 4 | -0.2260% | -0.1232% |\n| CPI_HEADLINE_MOM | investing | HOT | US500 | HISTDATA:SPXUSD | next_session_close | 4 / 4 | -0.0093% | -0.1867% |\n| CPI_HEADLINE_MOM | investing | HOT | US500 | HISTDATA:SPXUSD | session_close | 4 / 4 | -0.7247% | -0.6699% |\n| CPI_HEADLINE_MOM | investing | HOT | USDJPY | HISTDATA:USDJPY | 30m | 4 / 4 | +0.3318% | +0.3120% |\n| CPI_HEADLINE_MOM | investing | HOT | USDJPY | HISTDATA:USDJPY | 5m | 4 / 4 | +0.2267% | +0.1422% |\n| CPI_HEADLINE_MOM | investing | HOT | USDJPY | HISTDATA:USDJPY | next_session_close | 4 / 4 | +0.3810% | +0.4535% |\n| CPI_HEADLINE_MOM | investing | HOT | USDJPY | HISTDATA:USDJPY | session_close | 4 / 4 | +0.3952% | +0.3901% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 30m | 4 / 4 | -0.4247% | -0.2158% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 5m | 4 / 4 | -0.2410% | -0.1359% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | next_session_close | 3 / 4 | +0.1313% | +0.5694% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | session_close | 4 / 4 | -0.6731% | -0.6801% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_opening",
+        "claim_kind": "FACT",
+        "claim_text": "We think CPI history is most useful when the first move and the close stay separate. Our calculations show why the horizon and the sample deserve as much attention as the surprise label.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | 30m | 3 / 3 | -0.0487% | -0.0457% |\n| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | 5m | 3 / 3 | -0.0175% | -0.0357% |\n| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | next_session_close | 3 / 3 | +0.5149% | +0.6552% |\n| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | session_close | 3 / 3 | +0.9112% | +0.9001% |\n| CPI_HEADLINE_MOM | investing | HOT | BTCUSD | BINANCE:BTCUSDT | 30m | 4 / 4 | -0.5049% | -0.4840% |\n| CPI_HEADLINE_MOM | investing | HOT | BTCUSD | BINANCE:BTCUSDT | 5m | 4 / 4 | -0.4831% | -0.3575% |\n| CPI_HEADLINE_MOM | investing | HOT | BTCUSD | BINANCE:BTCUSDT | next_session_close | 4 / 4 | +0.3990% | +2.5577% |\n| CPI_HEADLINE_MOM | investing | HOT | BTCUSD | BINANCE:BTCUSDT | session_close | 4 / 4 | -0.8837% | -1.3120% |\n| CPI_HEADLINE_MOM | investing | HOT | US500 | HISTDATA:SPXUSD | 30m | 4 / 4 | -0.3213% | -0.2158% |\n| CPI_HEADLINE_MOM | investing | HOT | US500 | HISTDATA:SPXUSD | 5m | 4 / 4 | -0.2260% | -0.1232% |\n| CPI_HEADLINE_MOM | investing | HOT | US500 | HISTDATA:SPXUSD | next_session_close | 4 / 4 | -0.0093% | -0.1867% |\n| CPI_HEADLINE_MOM | investing | HOT | US500 | HISTDATA:SPXUSD | session_close | 4 / 4 | -0.7247% | -0.6699% |\n| CPI_HEADLINE_MOM | investing | HOT | USDJPY | HISTDATA:USDJPY | 30m | 4 / 4 | +0.3318% | +0.3120% |\n| CPI_HEADLINE_MOM | investing | HOT | USDJPY | HISTDATA:USDJPY | 5m | 4 / 4 | +0.2267% | +0.1422% |\n| CPI_HEADLINE_MOM | investing | HOT | USDJPY | HISTDATA:USDJPY | next_session_close | 4 / 4 | +0.3810% | +0.4535% |\n| CPI_HEADLINE_MOM | investing | HOT | USDJPY | HISTDATA:USDJPY | session_close | 4 / 4 | +0.3952% | +0.3901% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 30m | 4 / 4 | -0.4247% | -0.2158% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 5m | 4 / 4 | -0.2410% | -0.1359% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | next_session_close | 3 / 4 | +0.1313% | +0.5694% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | session_close | 4 / 4 | -0.6731% | -0.6801% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_last_release",
+        "claim_kind": "FACT",
+        "claim_text": "The latest release covered is 2026-10-14.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| 2026-10-14 08:30 | 2026-09 | XAUUSD | DUKASCOPY:XAU/USD | -0.8777% | -1.2758% | -1.1856% | +0.5993% |\n| 2026-10-14 08:30 | 2026-09 | US500 | YAHOO_FINANCE:ES=F (proxy) | — | -0.6854% | -1.3581% | -1.1138% |\n| 2026-10-14 08:30 | 2026-09 | EURUSD | DUKASCOPY:EUR/USD | -0.4126% | -0.6100% | -0.3760% | +0.1474% |\n| 2026-10-14 08:30 | 2026-09 | USDJPY | DUKASCOPY:USD/JPY | +0.2361% | +0.2607% | -0.0473% | -0.1894% |\n| 2026-10-14 08:30 | 2026-09 | USOIL | YAHOO_FINANCE:CL=F (proxy) | — | +0.5147% | -0.0420% | +1.1135% |\n| 2026-10-14 08:30 | 2026-09 | BTCUSD | YAHOO_FINANCE:BTC-USD (proxy) | — | -1.3809% | -2.4640% | -1.7923% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_november_gap",
+        "claim_kind": "FACT",
+        "claim_text": "The later November release observation, frozen map and result are absent from this edition.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "## The desk's 10 November map and result\n\nThe 10 November CPI release is scheduled for 8:30 a.m. ET. The desk's frozen map is not yet present in the held scenario output. Its result is not yet due."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_so_what",
+        "claim_kind": "FACT",
+        "claim_text": "So what: We get a clearer comparison by checking the price series, horizon and observation count together.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "## Hot, in-line and cool: descriptive averages\n\nEach source and price series has its own sample; n counts observed moves, not all releases.\n\n| Measure | Consensus source | Bucket | Market | Price series | Window | n / eligible | Mean | Median |\n|---|---|---|---|---|---|---:|---:|---:|"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_gold_cool",
+        "claim_kind": "NUMBER",
+        "claim_text": "In the HistData gold sample, cool headline CPI prints against Investing's forecast had a mean change of -0.0175% after 5 minutes. At the close, the mean was +0.9112%. Both use 3 / 3 observations.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | 30m | 3 / 3 | -0.0487% | -0.0457% |\n| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | 5m | 3 / 3 | -0.0175% | -0.0357% |\n| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | next_session_close | 3 / 3 | +0.5149% | +0.6552% |\n| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | session_close | 3 / 3 | +0.9112% | +0.9001% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_gold_hot",
+        "claim_kind": "NUMBER",
+        "claim_text": "For hot prints in that same sample, the mean was -0.2410% after 5 minutes and -0.6731% at the close, using 4 / 4 observations.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 30m | 4 / 4 | -0.4247% | -0.2158% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 5m | 4 / 4 | -0.2410% | -0.1359% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | next_session_close | 3 / 4 | +0.1313% | +0.5694% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | session_close | 4 / 4 | -0.6731% | -0.6801% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_gold_next",
+        "claim_kind": "NUMBER",
+        "claim_text": "The hot group's next-close mean was +0.1313%, using 3 / 4 observations. The smaller sample means we cannot read that positive average as a reversal by every release.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 30m | 4 / 4 | -0.4247% | -0.2158% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 5m | 4 / 4 | -0.2410% | -0.1359% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | next_session_close | 3 / 4 | +0.1313% | +0.5694% |\n| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | session_close | 4 / 4 | -0.6731% | -0.6801% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_euro_equity",
+        "claim_kind": "FACT",
+        "claim_text": "Dukascopy's euro series rose at the first interval and fell by the close on 2026-01-13. Its S&P index proxy did too.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| 2026-01-13 08:30 | 2025-12 | XAUUSD | DUKASCOPY:XAU/USD | +0.2793% | +0.2389% | -0.3138% | +0.7019% |\n| 2026-01-13 08:30 | 2025-12 | US500 | DUKASCOPY:USA500.IDX/USD (proxy) | +0.3301% | +0.1774% | -0.0801% | -0.6039% |\n| 2026-01-13 08:30 | 2025-12 | EURUSD | DUKASCOPY:EUR/USD | +0.1407% | +0.1382% | -0.0601% | -0.0798% |\n| 2026-01-13 08:30 | 2025-12 | USDJPY | DUKASCOPY:USD/JPY | -0.1208% | -0.0094% | +0.1391% | -0.1926% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_descriptive_limits",
+        "claim_kind": "FACT",
+        "claim_text": "We see changing descriptions of the sample across horizons. Those changes do not isolate CPI's effect, and a historical mean cannot forecast the next CPI.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Computed price changes from the exact close at the release. All times are ET.\nThe session close is 4 p.m. ET; the next close is the following weekday at 4 p.m. ET.\nA dash means the exact endpoint is absent. Proxies and sources stay separate.\nThese are observed changes around a release, not an estimate of its isolated effect."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_endpoints",
+        "claim_kind": "NUMBER",
+        "claim_text": "Every return starts from the exact price close at the release. The endpoints are 5 minutes, 30 minutes, 4 p.m. ET and the following weekday's 4 p.m. ET close.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Computed price changes from the exact close at the release. All times are ET.\nThe session close is 4 p.m. ET; the next close is the following weekday at 4 p.m. ET.\nA dash means the exact endpoint is absent. Proxies and sources stay separate.\nThese are observed changes around a release, not an estimate of its isolated effect.\n\n| CPI release | Reference month | Market | Price series | +5m | +30m | Close | Next close |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_baseline",
+        "claim_kind": "FACT",
+        "claim_text": "Close and next close share that release-time baseline. The next-close column is not a return measured from the first close.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Computed price changes from the exact close at the release. All times are ET.\nThe session close is 4 p.m. ET; the next close is the following weekday at 4 p.m. ET.\nA dash means the exact endpoint is absent. Proxies and sources stay separate.\nThese are observed changes around a release, not an estimate of its isolated effect."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_missing",
+        "claim_kind": "FACT",
+        "claim_text": "A dash means the exact endpoint is absent. It is not a zero return, and we do not fill it with an estimate.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Computed price changes from the exact close at the release. All times are ET.\nThe session close is 4 p.m. ET; the next close is the following weekday at 4 p.m. ET.\nA dash means the exact endpoint is absent. Proxies and sources stay separate.\nThese are observed changes around a release, not an estimate of its isolated effect."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_coverage_counts",
+        "claim_kind": "NUMBER",
+        "claim_text": "Gold has 24 / 33 observations after 5 minutes; the euro has 12 / 33. WTI has 0 / 33 at that horizon and 2 / 33 after 30 minutes.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| Market | +5m | +30m | Close | Next close |\n|---|---:|---:|---:|---:|\n| XAUUSD | 24 / 33 | 24 / 33 | 24 / 33 | 19 / 33 |\n| US500 | 23 / 33 | 24 / 33 | 24 / 33 | 20 / 33 |\n| EURUSD | 12 / 33 | 12 / 33 | 12 / 33 | 8 / 33 |\n| USDJPY | 24 / 33 | 24 / 33 | 24 / 33 | 20 / 33 |\n| USOIL | 0 / 33 | 2 / 33 | 2 / 33 | 2 / 33 |\n| BTCUSD | 12 / 33 | 14 / 33 | 14 / 33 | 14 / 33 |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_first_prints",
+        "claim_kind": "FACT",
+        "claim_text": "The BLS figures are seasonally adjusted monthly first prints from each dated release. Unavailable first prints remain blank; revised series do not replace them.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "## Official first prints\n\nU.S. Bureau of Labor Statistics, seasonally adjusted monthly percent changes. These are\nthe values in the dated release, with unavailable first prints left blank; no revised-series substitution."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_forecast_buckets",
+        "claim_kind": "FACT",
+        "claim_text": "Hot, in-line and cool compare that first print with the named source's forecast. We keep headline and core separate, and Investing and Myfxbook separate.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "## Surprise on the desk's yardstick\n\nHot, in-line and cool compare the first print with that source's forecast. The yardstick is\nthe prior 36 surprises' median absolute deviation times 1.4826, with at least 12 observations.\nA later-retrieved forecast is labelled as such. No forecast is reconstructed from the actual.\n\nA missing yardstick means fewer than twelve prior source observations or zero dispersion.\n\n| Release | Measure | Source | Bucket | Normal spreads | Scale observations | Knowledge basis |\n|---|---|---|---|---:|---:|---|\n| 2024-01-11 | CPI_HEADLINE_MOM | investing | HOT | +0.6745 | 36 | RETAINED_LATER_OBSERVATION |\n| 2024-01-11 | CPI_HEADLINE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-01-11 | CPI_CORE_MOM | investing | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-01-11 | CPI_CORE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-02-13 | CPI_HEADLINE_MOM | investing | HOT | +0.6745 | 36 | RETAINED_LATER_OBSERVATION |\n| 2024-02-13 | CPI_HEADLINE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-02-13 | CPI_CORE_MOM | investing | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-02-13 | CPI_CORE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_yardstick",
+        "claim_kind": "NUMBER",
+        "claim_text": "The desk's yardstick uses the prior 36 surprises' median absolute deviation times 1.4826, with at least 12 observations. It expresses each surprise against that source's historical spread.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "## Surprise on the desk's yardstick\n\nHot, in-line and cool compare the first print with that source's forecast. The yardstick is\nthe prior 36 surprises' median absolute deviation times 1.4826, with at least 12 observations.\nA later-retrieved forecast is labelled as such. No forecast is reconstructed from the actual.\n\nA missing yardstick means fewer than twelve prior source observations or zero dispersion."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_blank_scale",
+        "claim_kind": "FACT",
+        "claim_text": "A blank yardstick can mean too few prior observations or zero dispersion. An unavailable forecast remains unclassified, rather than being treated as in line.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Hot, in-line and cool compare the first print with that source's forecast. The yardstick is\nthe prior 36 surprises' median absolute deviation times 1.4826, with at least 12 observations.\nA later-retrieved forecast is labelled as such. No forecast is reconstructed from the actual.\n\nA missing yardstick means fewer than twelve prior source observations or zero dispersion.\n\n| Release | Measure | Source | Bucket | Normal spreads | Scale observations | Knowledge basis |\n|---|---|---|---|---:|---:|---|\n| 2024-01-11 | CPI_HEADLINE_MOM | investing | HOT | +0.6745 | 36 | RETAINED_LATER_OBSERVATION |\n| 2024-01-11 | CPI_HEADLINE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-01-11 | CPI_CORE_MOM | investing | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-01-11 | CPI_CORE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-02-13 | CPI_HEADLINE_MOM | investing | HOT | +0.6745 | 36 | RETAINED_LATER_OBSERVATION |\n| 2024-02-13 | CPI_HEADLINE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-02-13 | CPI_CORE_MOM | investing | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2024-02-13 | CPI_CORE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_later_forecasts",
+        "claim_kind": "FACT",
+        "claim_text": "Some forecasts were retrieved later, so the classifications do not prove what was known before the release. Forecasts saved before a release are identified separately.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "## Surprise on the desk's yardstick\n\nHot, in-line and cool compare the first print with that source's forecast. The yardstick is\nthe prior 36 surprises' median absolute deviation times 1.4826, with at least 12 observations.\nA later-retrieved forecast is labelled as such. No forecast is reconstructed from the actual.\n\nA missing yardstick means fewer than twelve prior source observations or zero dispersion.\n\n| Release | Measure | Source | Bucket | Normal spreads | Scale observations | Knowledge basis |\n|---|---|---|---|---:|---:|---|\n| 2024-01-11 | CPI_HEADLINE_MOM | investing | HOT | +0.6745 | 36 | RETAINED_LATER_OBSERVATION |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_saved_forecast",
+        "claim_kind": "FACT",
+        "claim_text": "Forecasts saved before a release are identified separately.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| 2025-09-11 | CPI_HEADLINE_MOM | investing | HOT | +0.6745 | 36 | RETAINED_LATER_OBSERVATION |\n| 2025-09-11 | CPI_HEADLINE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2025-09-11 | CPI_CORE_MOM | investing | IN_LINE | — | 4 | RETAINED_LATER_OBSERVATION |\n| 2025-09-11 | CPI_CORE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2025-10-24 | CPI_HEADLINE_MOM | investing | COOL | -0.6745 | 36 | PRE_RELEASE_CAPTURE |\n| 2025-10-24 | CPI_HEADLINE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |\n| 2025-10-24 | CPI_CORE_MOM | investing | COOL | — | 5 | PRE_RELEASE_CAPTURE |\n| 2025-10-24 | CPI_CORE_MOM | myfxbook | UNCLASSIFIED | — | 0 | UNAVAILABLE |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_price_series",
+        "claim_kind": "FACT",
+        "claim_text": "The gold and currency histories retain their provider labels. The S&P rows distinguish index proxies from the Yahoo Finance futures proxy.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| 2026-09-11 08:30 | 2026-08 | XAUUSD | DUKASCOPY:XAU/USD | -0.2638% | +1.0929% | +0.1736% | — |\n| 2026-09-11 08:30 | 2026-08 | US500 | DUKASCOPY:USA500.IDX/USD (proxy) | -0.1376% | +0.2971% | +0.0807% | — |\n| 2026-09-11 08:30 | 2026-08 | EURUSD | DUKASCOPY:EUR/USD | -0.1268% | +0.0586% | -0.0017% | — |\n| 2026-09-11 08:30 | 2026-08 | USDJPY | DUKASCOPY:USD/JPY | +0.1345% | -0.3008% | -0.1533% | — |\n| 2026-09-11 08:30 | 2026-08 | USOIL | YAHOO_FINANCE:CL=F (proxy) | — | +0.1814% | +1.4212% | +2.6610% |\n| 2026-09-11 08:30 | 2026-08 | BTCUSD | YAHOO_FINANCE:BTC-USD (proxy) | — | +1.1296% | +0.2115% | +2.4105% |\n| 2026-10-14 08:30 | 2026-09 | XAUUSD | DUKASCOPY:XAU/USD | -0.8777% | -1.2758% | -1.1856% | +0.5993% |\n| 2026-10-14 08:30 | 2026-09 | US500 | YAHOO_FINANCE:ES=F (proxy) | — | -0.6854% | -1.3581% | -1.1138% |\n| 2026-10-14 08:30 | 2026-09 | EURUSD | DUKASCOPY:EUR/USD | -0.4126% | -0.6100% | -0.3760% | +0.1474% |\n| 2026-10-14 08:30 | 2026-09 | USDJPY | DUKASCOPY:USD/JPY | +0.2361% | +0.2607% | -0.0473% | -0.1894% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_bitcoin_binance",
+        "claim_kind": "FACT",
+        "claim_text": "Bitcoin's Binance Bitcoin/USDT and Yahoo Finance Bitcoin/USD proxies remain separate.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| 2024-01-11 08:30 | 2023-12 | XAUUSD | HISTDATA:XAUUSD | -0.2353% | -0.3860% | -0.4812% | — |\n| 2024-01-11 08:30 | 2023-12 | US500 | HISTDATA:SPXUSD (proxy) | -0.2722% | -0.4748% | -0.3124% | -0.2599% |\n| 2024-01-11 08:30 | 2023-12 | EURUSD | not held | — | — | — | — |\n| 2024-01-11 08:30 | 2023-12 | USDJPY | HISTDATA:USDJPY | +0.2910% | +0.6220% | +0.0406% | -0.3076% |\n| 2024-01-11 08:30 | 2023-12 | USOIL | not held | — | — | — | — |\n| 2024-01-11 08:30 | 2023-12 | BTCUSD | BINANCE:BTCUSDT (proxy) | -0.1847% | +0.3929% | -1.9051% | -7.3963% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_bitcoin_yahoo",
+        "claim_kind": "FACT",
+        "claim_text": "Bitcoin's Binance Bitcoin/USDT and Yahoo Finance Bitcoin/USD proxies remain separate.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| 2026-09-11 08:30 | 2026-08 | XAUUSD | DUKASCOPY:XAU/USD | -0.2638% | +1.0929% | +0.1736% | — |\n| 2026-09-11 08:30 | 2026-08 | US500 | DUKASCOPY:USA500.IDX/USD (proxy) | -0.1376% | +0.2971% | +0.0807% | — |\n| 2026-09-11 08:30 | 2026-08 | EURUSD | DUKASCOPY:EUR/USD | -0.1268% | +0.0586% | -0.0017% | — |\n| 2026-09-11 08:30 | 2026-08 | USDJPY | DUKASCOPY:USD/JPY | +0.1345% | -0.3008% | -0.1533% | — |\n| 2026-09-11 08:30 | 2026-08 | USOIL | YAHOO_FINANCE:CL=F (proxy) | — | +0.1814% | +1.4212% | +2.6610% |\n| 2026-09-11 08:30 | 2026-08 | BTCUSD | YAHOO_FINANCE:BTC-USD (proxy) | — | +1.1296% | +0.2115% | +2.4105% |\n| 2026-10-14 08:30 | 2026-09 | XAUUSD | DUKASCOPY:XAU/USD | -0.8777% | -1.2758% | -1.1856% | +0.5993% |\n| 2026-10-14 08:30 | 2026-09 | US500 | YAHOO_FINANCE:ES=F (proxy) | — | -0.6854% | -1.3581% | -1.1138% |\n| 2026-10-14 08:30 | 2026-09 | EURUSD | DUKASCOPY:EUR/USD | -0.4126% | -0.6100% | -0.3760% | +0.1474% |\n| 2026-10-14 08:30 | 2026-09 | USDJPY | DUKASCOPY:USD/JPY | +0.2361% | +0.2607% | -0.0473% | -0.1894% |\n| 2026-10-14 08:30 | 2026-09 | USOIL | YAHOO_FINANCE:CL=F (proxy) | — | +0.5147% | -0.0420% | +1.1135% |\n| 2026-10-14 08:30 | 2026-09 | BTCUSD | YAHOO_FINANCE:BTC-USD (proxy) | — | -1.3809% | -2.4640% | -1.7923% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_wti_proxy",
+        "claim_kind": "FACT",
+        "claim_text": "WTI uses the Yahoo Finance CL futures proxy, with the gaps shown in the coverage table.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "| 2026-09-11 08:30 | 2026-08 | XAUUSD | DUKASCOPY:XAU/USD | -0.2638% | +1.0929% | +0.1736% | — |\n| 2026-09-11 08:30 | 2026-08 | US500 | DUKASCOPY:USA500.IDX/USD (proxy) | -0.1376% | +0.2971% | +0.0807% | — |\n| 2026-09-11 08:30 | 2026-08 | EURUSD | DUKASCOPY:EUR/USD | -0.1268% | +0.0586% | -0.0017% | — |\n| 2026-09-11 08:30 | 2026-08 | USDJPY | DUKASCOPY:USD/JPY | +0.1345% | -0.3008% | -0.1533% | — |\n| 2026-09-11 08:30 | 2026-08 | USOIL | YAHOO_FINANCE:CL=F (proxy) | — | +0.1814% | +1.4212% | +2.6610% |\n| 2026-09-11 08:30 | 2026-08 | BTCUSD | YAHOO_FINANCE:BTC-USD (proxy) | — | +1.1296% | +0.2115% | +2.4105% |\n| 2026-10-14 08:30 | 2026-09 | XAUUSD | DUKASCOPY:XAU/USD | -0.8777% | -1.2758% | -1.1856% | +0.5993% |\n| 2026-10-14 08:30 | 2026-09 | US500 | YAHOO_FINANCE:ES=F (proxy) | — | -0.6854% | -1.3581% | -1.1138% |\n| 2026-10-14 08:30 | 2026-09 | EURUSD | DUKASCOPY:EUR/USD | -0.4126% | -0.6100% | -0.3760% | +0.1474% |\n| 2026-10-14 08:30 | 2026-09 | USDJPY | DUKASCOPY:USD/JPY | +0.2361% | +0.2607% | -0.0473% | -0.1894% |\n| 2026-10-14 08:30 | 2026-09 | USOIL | YAHOO_FINANCE:CL=F (proxy) | — | +0.5147% | -0.0420% | +1.1135% |\n| 2026-10-14 08:30 | 2026-09 | BTCUSD | YAHOO_FINANCE:BTC-USD (proxy) | — | -1.3809% | -2.4640% | -1.7923% |\n\n## Coverage\n\n| Market | +5m | +30m | Close | Next close |\n|---|---:|---:|---:|---:|\n| XAUUSD | 24 / 33 | 24 / 33 | 24 / 33 | 19 / 33 |\n| US500 | 23 / 33 | 24 / 33 | 24 / 33 | 20 / 33 |\n| EURUSD | 12 / 33 | 12 / 33 | 12 / 33 | 8 / 33 |\n| USDJPY | 24 / 33 | 24 / 33 | 24 / 33 | 20 / 33 |\n| USOIL | 0 / 33 | 2 / 33 | 2 / 33 | 2 / 33 |\n| BTCUSD | 12 / 33 | 14 / 33 | 14 / 33 | 14 / 33 |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_instrument_scope",
+        "claim_kind": "FACT",
+        "claim_text": "These names locate the markets. They do not transfer any table's measured return to another contract or ETF; each price-series label defines what was measured.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Computed price changes from the exact close at the release. All times are ET.\nThe session close is 4 p.m. ET; the next close is the following weekday at 4 p.m. ET.\nA dash means the exact endpoint is absent. Proxies and sources stay separate.\nThese are observed changes around a release, not an estimate of its isolated effect.\n\n| CPI release | Reference month | Market | Price series | +5m | +30m | Close | Next close |\n|---|---|---|---|---:|---:|---:|---:|\n| 2024-01-11 08:30 | 2023-12 | XAUUSD | HISTDATA:XAUUSD | -0.2353% | -0.3860% | -0.4812% | — |\n| 2024-01-11 08:30 | 2023-12 | US500 | HISTDATA:SPXUSD (proxy) | -0.2722% | -0.4748% | -0.3124% | -0.2599% |\n| 2024-01-11 08:30 | 2023-12 | EURUSD | not held | — | — | — | — |\n| 2024-01-11 08:30 | 2023-12 | USDJPY | HISTDATA:USDJPY | +0.2910% | +0.6220% | +0.0406% | -0.3076% |\n| 2024-01-11 08:30 | 2023-12 | USOIL | not held | — | — | — | — |\n| 2024-01-11 08:30 | 2023-12 | BTCUSD | BINANCE:BTCUSDT (proxy) | -0.1847% | +0.3929% | -1.9051% | -7.3963% |"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_read_tables",
+        "claim_kind": "FACT",
+        "claim_text": "The reaction, coverage, first-print, surprise and average tables belong together. Read each summary's n / eligible alongside its forecast source, CPI measure, price series, horizon, mean and median.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "## Hot, in-line and cool: descriptive averages\n\nEach source and price series has its own sample; n counts observed moves, not all releases.\n\n| Measure | Consensus source | Bucket | Market | Price series | Window | n / eligible | Mean | Median |\n|---|---|---|---|---|---|---:|---:|---:|"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_scenario_limit",
+        "claim_kind": "FACT",
+        "claim_text": "This edition supplies historical comparisons, not a current scenario set. The absent November map and result cannot be reconstructed from the old bucket averages, and we assign no scenario probabilities.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "## The desk's 10 November map and result\n\nThe 10 November CPI release is scheduled for 8:30 a.m. ET. The desk's frozen map is not yet present in the held scenario output. Its result is not yet due.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\nCapital Chronicle may hold positions in the markets it covers."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "cc425_notice",
+        "claim_kind": "FACT",
+        "claim_text": "Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle offers analysis only, not financial advice or recommendations.\nCapital Chronicle may hold positions in the markets it covers."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_article.v1"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_write_851105f5e42d",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc425-cpi-reaction-history-20261111-v1\\desktop_request_revise.json",
+    "observation_source": "Native subagent task identity is supplied by the collaboration runtime. This turn exposes no supported runtime model or reasoning-effort telemetry. Model and effort are recorded only as configured by the exact frozen native request; no environment, credential, session/config secret or process-argument inspection was performed.",
+    "speed": "standard"
+  }
+}

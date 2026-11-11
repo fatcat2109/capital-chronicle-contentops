@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="3" time="2.766" timestamp="2026-11-11T14:05:10.021749+07:00" hostname="J-P"><testcase classname="tests.test_capital_chronicle_desk_record_source_v1" name="test_mandatory_source_credit_is_preserved[disclaimer]" time="0.336"><failure message="Failed: DID NOT RAISE &lt;class 'ValueError'&gt;">tests\test_capital_chronicle_desk_record_source_v1.py:194: in test_mandatory_source_credit_is_preserved
+    with pytest.raises(ValueError, match="SOURCE_" + key.upper()):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE &lt;class 'ValueError'&gt;</failure></testcase><testcase classname="tests.test_capital_chronicle_desk_record_source_v1" name="test_dated_new_desk_writer_resumes_exact_prompt_but_refuses_changed_prompt" time="1.500"><failure message="live_contentops.native_desktop_editorial_v1.DesktopInputRequired: NATIVE_DESKTOP_INPUT_REQUIRED:write">tests\test_capital_chronicle_desk_record_source_v1.py:310: in test_dated_new_desk_writer_resumes_exact_prompt_but_refuses_changed_prompt
+    with pytest.raises(ValueError, match="CONFLICT"): turn(**{**args, "prompt": "Changed controlled request"})
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_desktop_editorial_v1.py:1326: in __call__
+    raise DesktopInputRequired({**request, "request_path": str(path)})
+E   live_contentops.native_desktop_editorial_v1.DesktopInputRequired: NATIVE_DESKTOP_INPUT_REQUIRED:write</failure></testcase><testcase classname="tests.test_reader_article_contract_cc403" name="test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target[DEFINITE_NO_WRITE-True]" time="0.003"><failure message="assert False is True">tests\test_reader_article_contract_cc403.py:309: in test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target
+    assert result["channels"][0]["skipped"] is excluded
+E   assert False is True</failure></testcase></testsuite></testsuites>

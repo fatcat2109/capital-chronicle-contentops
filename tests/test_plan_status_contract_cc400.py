@@ -98,7 +98,10 @@ def test_dry_run_renders_already_queued_posts_and_all_destination_copies_without
     assert result["status"] == "OK" and result["rendered_count"] == 2
     assert {r["kind"] for r in result["rendered_posts"]} == {"run", "setup"}
     from live_contentops.plan_call_cards_v1 import DESTINATIONS
-    assert all(set(row["destinations"]) == set(DESTINATIONS) for row in result["rendered_posts"])
+    # CC-435 keeps LinkedIn's run index and avoids a duplicate root per card.
+    for row in result["rendered_posts"]:
+        expected = set(DESTINATIONS) - ({"linkedin"} if row["kind"] == "setup" else set())
+        assert set(row["destinations"]) == expected
     assert all(copy["text"] for row in result["rendered_posts"] for copy in row["destinations"].values())
     assert store.list_outbox_messages() == before and incident_count(store) == 0
 

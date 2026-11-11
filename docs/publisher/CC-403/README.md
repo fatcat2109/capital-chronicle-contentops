@@ -1,8 +1,10 @@
 # CC-403 — reader copy, daily notes and the data clock
 
-The implementation is pushed and integrated into `A:\Capital Chronicle\ContentOps` at `a7aca972f0dc4320464fab088511a21ae0c99592`. **91 operating-root tests pass in 14.17 seconds**, and all twelve changed source/contract files match their committed blobs. The nine inherited modified files retain their original hashes. See [integration evidence](integration.json). No runtime restart, public write, chat message or schedule change was performed.
+**CC-403 is blocked on a current Main report for its public daily-note acceptance.** The 11 November follow-up used the installed source and reader consumers: the newest completed daily report's original data cutoff is **12:13:31 GMT+7**, with a publication deadline of **13:13:31 GMT+7**. At 18:47 GMT+7 the actual source-clock check returned `ARTICLE_DATA_CUTOFF_EXPIRED:23640s`. No newer completed daily analysis was found. [Current run evidence](run-20261111-1841/README.md).
 
-CC-403 remains **BLOCKED until the next eligible daily note**: decision 98 bars a second wrap on 10 November, whose CPI preview is already published. The next pre-US daily note is **11 November, 18:30 GMT+7**. Its existing CC-124 operation must supply the clean-title Substack readback and the observed publication within 60 minutes of its real data cutoff. Code and controlled readback tests do not substitute for that acceptance.
+**53 targeted reader tests pass.** The current run repairs one test that still assumed YouTube was barred before decision 121; it now exercises both policy states and preserves the uncertain-write distinction. All six inspected production owners match the operating root. The earlier implementation remains integrated at `a7aca972f0dc4320464fab088511a21ae0c99592`; its dated 10 November delivery passed 91 operating-root tests, preserved the inherited modified files, and is recorded in the [original integration evidence](integration.json).
+
+The expired 11 November 18:30 timed hold is replaced by the exact source dependency. Ops Live supplies a completed current Main analysis; Publisher continues the existing daily-note path under CC-124 and records its clean-title Substack readback and actual publication within 60 minutes of the original data cutoff. The existing six-market scenarios and older reports remain used in the source assessment. They cannot acquire a new data clock from retrieval or registration. No runtime restart, public write, chat message or schedule change was performed.
 
 The existing native writer and sole publication coordinator now consume the
 reader contract. New requests lead with our call in first person, use clean
@@ -83,8 +85,8 @@ remote master predates the installed Publisher work.
 
 The full public acceptance remains the next eligible daily note's clean-title
 Substack readback and publication within 60 minutes of its actual data cutoff.
-Today's CPI preview already serves as the 10 November wrap under decision 98;
-that decision bars a second wrap. The existing dated evidence is
-[CC-124's source check](../CC-124/run-20261110-2014/README.md). The article cap is
-not the cause. The next ordinary daily note is 11 November's pre-US wrap. This
-item changes no schedule and sends no chat message.
+The 10 November CPI preview served as that day's wrap under decision 98; its
+no-second-wrap restriction was the earlier hold, not the current cause.
+The 11 November source check finds zero daily article slots used; the source's
+expired data clock is the cause. A fresh completed Main analysis is the next
+required input. This item changes no schedule and sends no chat message.

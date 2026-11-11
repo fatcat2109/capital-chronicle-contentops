@@ -1,0 +1,29 @@
+{
+  "recorded_at_utc": "2026-11-11T14:31:31.030751+00:00",
+  "base_live_head": "0a7909c794b3cced7b9b43b6ebe08eb33de1d5fd",
+  "wip_files": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "ff61ac5f29b0430d75bcd9e7f3a67b4269bca376209225967121fa38abde2a18"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "8a9df18eeac62097b7999a736f9f7c0a659d0632b920e6d44781316bac891d14"
+    }
+  ],
+  "launch": {
+    "pid": 8668,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "basis": "Current codex exec launch arguments read via Win32_Process; runtime model telemetry unavailable."
+  }
+}

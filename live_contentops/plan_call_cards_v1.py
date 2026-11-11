@@ -627,6 +627,11 @@ def _ready_destinations(store, row, root=None):
             continue
         dispatch = _dispatch(store, row["key"], destination)
         if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
+            if destination in {"x", "substack_notes"} and dispatch["status"] == "DEFINITE_NO_WRITE":
+                from .neo_endpoint_executor_v1 import repaired_prewrite_request
+                if repaired_prewrite_request(store, dispatch):
+                    ready.append(destination)
+                    continue
             # Decision 112's exact former X policy no-write remains resumable.
             # Other definite no-writes retain their original terminal cause.
             if (destination == "x" and dispatch["status"] == "DEFINITE_NO_WRITE"

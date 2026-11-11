@@ -1,0 +1,41 @@
+{
+  "item": "CC-124",
+  "actual_entry_utc": "2026-11-11T11:54:06.5733550Z",
+  "observed_at_utc": "2026-11-11T11:58:21.911194Z",
+  "new_articles": 0,
+  "new_completed_main_reports": 0,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:24290s",
+  "source_assessment": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261111-1854\\source-assessment.json",
+    "bytes": 32969,
+    "sha256": "d5c62f1fa66e40abd0d5f118037b5ecf1ba7fc59400fae4003f1fbbea94ecd9e",
+    "modified_at_utc": "2026-11-11T11:58:30.738664+00:00"
+  },
+  "choice": "Use all held Main reports, the current T2 output and exported scenarios in the assessment. No completed Main report arrived after the 15:36 check; the latest completed daily analysis exceeds the root CC-403 60-minute data cutoff. Decision 89 requires no filler. Resume the standing item in six hours and keep the following pre-US note opportunity at 18:30 GMT+7; do not restart the source clock from a scan, report generation or retrieval.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "standing_status": "OPEN",
+  "next_due_gmt7": "12 Nov 2026 00:54 GMT+7",
+  "configured_launch": {
+    "process_id": 32524,
+    "parent_process_id": 3328,
+    "process_start_utc": "2026-11-11T11:54:06.5733550Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED"
+  },
+  "base_commit": "1a28dd777a46cd1314a5b3283c5a7bc55dc50da2",
+  "base_reason": "Current ContentOps operating HEAD, containing the live Publisher fixes; fresh origin/master is its ancestor, 924 commits behind.",
+  "acceptance": "Installed source, clock, scenario, production-day and publication-status consumers observed. No new published-article acceptance.",
+  "no_new_main_report_since_previous_run": true,
+  "next_action": "The next standing run consumes any new completed Main report at 12 Nov 2026 00:54 GMT+7; preserve the following daily note opportunity at 18:30 GMT+7. Main report production remains with Ops Live.",
+  "next_actor": "Existing Main report producer, then Codex Publisher standing run",
+  "due_daily_note_gmt7": "11 Nov 2026 18:30 GMT+7",
+  "daily_note_outcome": "No publication: the newest completed Main report has passed its source-data publication deadline; no new report since the previous assessment."
+}

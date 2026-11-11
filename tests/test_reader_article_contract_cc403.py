@@ -300,13 +300,21 @@ def test_existing_publication_status_separates_exact_clock_from_readback_upper_b
         assert timing["seconds_from_data"] is None
 
 
-@pytest.mark.parametrize("status,excluded", [("DEFINITE_NO_WRITE", True), ("UNKNOWN_WRITE", False)])
-def test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target(status, excluded):
+@pytest.mark.parametrize("status", ["DEFINITE_NO_WRITE", "UNKNOWN_WRITE"])
+@pytest.mark.parametrize("barred", [False, True])
+def test_platform_bar_excludes_only_a_definite_no_write_from_the_dispatch_target(status, barred, monkeypatch):
+    from live_contentops import destination_transport_registry_v1 as registry
     from live_contentops.native_publication_latency_v1 import publication_timing as status_timing
+    # Decision 121 reopened YouTube; exercise both policy epochs explicitly.
+    cause = "YOUTUBE_NON_API_AUTOMATION_PROHIBITED"
+    monkeypatch.setattr(registry, "barred_browser_destinations", lambda: {"youtube": cause} if barred else {})
     entry = {"destination": "youtube", "status": status, "dispatch_id": "attempt", "public_object_id": None}
     result = status_timing([], [], run_id="note", destinations=[entry])
-    assert result["channels"][0]["status"] == status
-    assert result["channels"][0]["skipped"] is excluded
+    channel = result["channels"][0]
+    assert channel["status"] == status
+    excluded = barred and status == "DEFINITE_NO_WRITE"
+    assert channel["skipped"] is excluded
+    assert channel.get("excluded_from_timing_due_to") == (cause if excluded else None)
 
 
 @pytest.mark.parametrize("fault", [None, "internal_title", "missing_error"])

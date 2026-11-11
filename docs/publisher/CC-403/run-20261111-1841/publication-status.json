@@ -1,0 +1,19 @@
+{
+  "run_id": "cc338-cpi-preview-20261110-v1",
+  "work_item_id": "cc338-cpi-preview-20261110-v1",
+  "canonical_article_status": "REAL_PUBLISHED",
+  "canonical_article_real_published": true,
+  "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+  "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+  "derivative_confirmed_count": 6,
+  "derivative_attempted_count": 7,
+  "derivative_unknown_count": 0,
+  "unknown_write_count": 0,
+  "recovery_required_destinations": [
+    "linkedin"
+  ],
+  "closed_no_write_destinations": [
+    "linkedin_company",
+    "youtube"
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "observed_at_utc": "2026-11-11T11:47:32.423159Z",
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "published_canonicals_today": [],
+  "active_leases": [
+    {
+      "lease_id": "lease_afee2f138504b620",
+      "lease_key": "x-reply-tabs-refresh",
+      "status": "ACTIVE",
+      "expires_at": "2026-11-11T11:55:03.589522+00:00"
+    }
+  ],
+  "main_export": {
+    "generated_at_utc": "2026-11-11T11:47:27.413648Z",
+    "content_hash": "bd829d4f4a24db56ae2c01250243ed7c9d72b7e26a6df43595156422ab8e75f4",
+    "latest_six_market_scenarios": [
+      {
+        "asset_id": "XAUUSD",
+        "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+        "base_probability_pct": 45.0,
+        "alternative_probability_pct": 30.0
+      },
+      {
+        "asset_id": "US500",
+        "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+        "base_probability_pct": 40.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "EURUSD",
+        "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+        "base_probability_pct": 45.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "USDJPY",
+        "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 30.0
+      },
+      {
+        "asset_id": "USOIL",
+        "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+        "base_probability_pct": 46.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "BTCUSD",
+        "registered_at_utc": "2026-11-11T03:19:22.635185Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 30.0
+      }
+    ]
+  },
+  "existing_cc124_bindings": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-bitcoin-rates-20261106-h\\binding.json",
+      "bytes": 3858,
+      "sha256": "eeaaca20a76b8dc2fe7be99a8154ed05510f380585c75858bd65eb1c25f21165",
+      "modified_at_utc": "2026-11-05T18:01:24.855783+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-gold-yields-20261105-e\\binding.json",
+      "bytes": 3872,
+      "sha256": "3c8b3e97dca0ed36ba0bd5822ae06d45e843b4a04f197b0be9f003aaef8f90ce",
+      "modified_at_utc": "2026-11-05T10:59:31.879452+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-jobs-fx-watch-20261105-f\\binding.json",
+      "bytes": 3928,
+      "sha256": "51f6fc28c5e95b26c036462750855229874be7c0a5e08c1c9513171a1f548f6a",
+      "modified_at_utc": "2026-11-05T13:27:24.386828+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261103-b\\binding.json",
+      "bytes": 4438,
+      "sha256": "0a7e3b7238be1f798e8c3ba4e7a2694b178fae775abd8c408d3e32ffd739bedf",
+      "modified_at_utc": "2026-11-03T14:09:23.319365+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261104-a\\binding.json",
+      "bytes": 3952,
+      "sha256": "6c25fcca29b35ce2019a3d1cb07680104c4c92da63611c338e8adf9b9228dde4",
+      "modified_at_utc": "2026-11-04T04:37:25.646901+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-a\\binding.json",
+      "bytes": 3825,
+      "sha256": "724639230fd4cc37dcfe58af654a99ee4adbed60de1ca531345df1c8a47599a0",
+      "modified_at_utc": "2026-11-04T23:13:17.927300+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-b\\binding.json",
+      "bytes": 3932,
+      "sha256": "58c69f2f9e447870e4b3c5e35e3cd416a4539934b10b30729281052c7fa08db2",
+      "modified_at_utc": "2026-11-05T01:35:08.606867+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-c\\binding.json",
+      "bytes": 2999,
+      "sha256": "e1f3e1b0c4389f134107eaa5a22fa7fab487bac741767c07331c963e7c37a23f",
+      "modified_at_utc": "2026-11-05T03:57:37.515142+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-next-article-20261105-d\\binding.json",
+      "bytes": 3006,
+      "sha256": "12caea0fbfab8af74588a2f6a622025329a585915688313743b61eaf07907083",
+      "modified_at_utc": "2026-11-05T07:23:32.895935+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-arrival-review-20261106-v1\\binding.json",
+      "bytes": 2644,
+      "sha256": "7d91e8991b7202f3fc28faedc835e4dbd15b2ecd63134201d3eaf1c99c6879ce",
+      "modified_at_utc": "2026-11-06T13:58:03.527882+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-nfp-us500-preview-20261105-g\\binding.json",
+      "bytes": 3916,
+      "sha256": "436c4dcbcd50efb0f92ce6a15ebce68234fefc9cfe90b3ba6c3d4be1b46fe068",
+      "modified_at_utc": "2026-11-05T15:49:29.210478+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v1\\binding.json",
+      "bytes": 3107,
+      "sha256": "73bbd58690fa0d26f2a0a978a38ae7e9869b24033e76b0ecadae87f8275975d2",
+      "modified_at_utc": "2026-11-06T09:38:16.880977+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-oil-euro-followup-20261106-v2\\binding.json",
+      "bytes": 3124,
+      "sha256": "570f7a09c98d071246a959ec7b15680bcfd1275818086b0d9702b8f0d919d26b",
+      "modified_at_utc": "2026-11-06T09:44:56.763164+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-pre-us-wrap-20261109-v1\\binding.json",
+      "bytes": 6613,
+      "sha256": "ffcc0d738f55882a7d609684cd6284dd23caf236cf3f48da305eabdcfc0c5fe6",
+      "modified_at_utc": "2026-11-09T11:39:02.438358+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-prepare-20261103-a\\binding.json",
+      "bytes": 3889,
+      "sha256": "391b9ea79bf2cdca7b92c3bc4207efd927b6763d440fefea82a10a9f6e570b77",
+      "modified_at_utc": "2026-11-02T22:27:05.163588+00:00"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-six-markets-20261106-v1\\binding.json",
+      "bytes": 2877,
+      "sha256": "a33493028587b887aa394086780465ea89800763dab6a43ababd5251fad288f8",
+      "modified_at_utc": "2026-11-06T07:32:14.916499+00:00"
+    }
+  ],
+  "installed_modules": {
+    "live_contentops.main_report_projection_source_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\main_report_projection_source_v1.py",
+    "live_contentops.reader_article_contract_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py",
+    "live_contentops.plan_status_posts_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+    "live_contentops.published_images_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py"
+  },
+  "internal_label_probe": [
+    "INTERNAL_EDITORIAL_LABEL:DATED CAPITAL CHRONICLE REVIEW"
+  ]
+}

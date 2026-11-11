@@ -1,0 +1,44 @@
+{
+  "recorded_at_utc": "2026-11-11T14:33:53.635616+00:00",
+  "status": "PASS",
+  "distinct_passing_tests": 131,
+  "runs": [
+    {
+      "path": "integration-chart-tests.xml",
+      "tests": 42,
+      "failures": []
+    },
+    {
+      "path": "integration-publication-tests.xml",
+      "tests": 61,
+      "failures": [
+        [
+          "tests.test_plan_status_contract_cc400",
+          "test_dry_run_renders_already_queued_posts_and_all_destination_copies_without_store_writes"
+        ]
+      ]
+    },
+    {
+      "path": "integration-distribution-tests.xml",
+      "tests": 45,
+      "failures": []
+    }
+  ],
+  "remaining_failures": [],
+  "stale_test_fix": "CC-400 expected LinkedIn on every card; updated to CC-435 run-index-only selection. No destination policy changed.",
+  "live_export_dry_run": {
+    "path": "integration-dry-run.json",
+    "status": "PASS",
+    "contract_version": "2.0.0",
+    "rendered_posts": 60,
+    "fresh_cards_due": 0
+  },
+  "integration_base": "0a7909c794b3cced7b9b43b6ebe08eb33de1d5fd",
+  "launch": {
+    "pid": 8668,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "basis": "Current codex exec launch arguments read via Win32_Process; runtime model telemetry unavailable."
+  }
+}

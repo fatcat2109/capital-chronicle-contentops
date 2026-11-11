@@ -1,0 +1,34 @@
+{
+  "item": "CC-425",
+  "observed_at_utc": "2026-11-11T07:44:46.389751+00:00",
+  "preparation_dir": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-425\\operating-consumer\\source-5aec0a3da9141dc8",
+  "source_known_at_utc": "2026-11-10T09:31:46.640512Z",
+  "source_export_path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\desk-export.json",
+  "source_export_sha256": "5aec0a3da9141dc8a2120ee629486aae30dc658d3b1f838e2727bdf2d7f9e750",
+  "source_record_id": "report:cc-cpi-reactions-since-2024",
+  "title": "What gold, the euro and the S&P did after each CPI since 2024",
+  "consumer": "read_export -> desk_evidence -> _source_pack -> bind_tables",
+  "writer_source_chars": 62900,
+  "full_source_preserved": true,
+  "tables": 5,
+  "table_sha256": [
+    "7bc74ce56ffb2e95c6c8af46ce55ce837732f18b143511bb0c5e96778c7610b3",
+    "d165d97ae9bd8d5c0e278e7faca9f1304b3068b4b0f92ac0e515e6d8fd2da806",
+    "445ceccf3d1dcb5bbed07ae467d7ca901e8a645859ece4085c8a7c5a99a58efa",
+    "d1dbdbe13cfef3501a203238e90f1fd999643406615888c19ee456a5d4da6fa6",
+    "c79d73c74c4dcca088122250a1c2f7151c683f66f770caf9f238d15084af3dae"
+  ],
+  "source_table_sha256": [
+    "9a35618e34f86afbc5002b28771e5ced2f8467456cf7755ffff008266cea4053",
+    "7d5ecd3d5f959f9204a63457ab626076b0f937f287ff6c15dde39a662883481d",
+    "445ceccf3d1dcb5bbed07ae467d7ca901e8a645859ece4085c8a7c5a99a58efa",
+    "73aeb33decdd2fa8104cc2091b3e8441abb341ec7708296dc5f6af917a7b3e4e",
+    "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+  ],
+  "publication_state": "NOT_DISPATCHED",
+  "remaining": [
+    "CC-417: Ops Product reads the table before the first post",
+    "CC-417 producer refresh: the November map/result and actual data cutoff",
+    "Native final article, media/review, canonical readback and CPI review link"
+  ]
+}
