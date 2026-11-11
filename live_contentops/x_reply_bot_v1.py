@@ -15,6 +15,7 @@ from pathlib import Path
 import re
 import subprocess
 import tempfile
+from time import perf_counter
 import urllib.error
 import urllib.request
 from uuid import uuid4
@@ -183,6 +184,7 @@ def message_for(item, *, number, now):
         f"“{escape(quoted_post(item['post_text']))}”\n{escape(item['post_url'])}\n\n"
         f"<code>{escape(item['draft_text'])}</code>\n\n"
         f"Fact: {escape(item['fact_text'])} ({escape(item['fact_source'])})\n"
+        f"Fact age: {escape(item['fact_binding']['age_text'])}\n"
         f"Good until {expiry:%H:%M} (GMT+7) · {len(item['draft_text'])} of 240 characters")
 
 
@@ -212,7 +214,7 @@ def _text_call(prompt, *, root, writer=False, runner=None):
     record_ = {"configured_model": model, "configured_effort": effort, "runtime_model": None,
         "runtime_effort": None, "configuration_status": "CONFIGURED_NOT_OBSERVED",
         "started_at_utc": packs.utcnow().isoformat(), "public_submit_actions": 0}
-    raw, err = b"", b""
+    raw, err, started = b"", b"", perf_counter()
     try:
         with tempfile.TemporaryDirectory(prefix="cc464-text-") as cwd:
             if writer:
@@ -255,12 +257,13 @@ def _text_call(prompt, *, root, writer=False, runner=None):
         raise
     finally:
         record_["ended_at_utc"] = packs.utcnow().isoformat()
+        record_["elapsed_seconds"] = perf_counter() - started
         (root / "stdout.txt").write_bytes(raw)
         (root / "stderr.txt").write_bytes(err)
         packs.save_json(root / "call.json", record_)
 
 
-def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None):
+def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=None):
     """AGY selects; one short stronger Codex call writes a sourced, non-form reply."""
     request = packs.read_json(request_path)
     root = Path(output_dir)
@@ -273,29 +276,43 @@ def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None):
         "positioning, base rates or priced-in data can answer. Audience metrics are private selection only.\n" +
         json.dumps({"candidates": candidates, "source_topics": sorted({s["label"] for s in request["sources"]}),
                     "audience_feedback": request["audience_feedback"]}, ensure_ascii=False))
+    started = perf_counter()
     ranking, rank_call = (ranker or _text_call)(prompt, root=root / "rank")
+    ranking_seconds = perf_counter() - started
     allowed = {p["post_id"]: p for p in candidates}
     ranked = [r for r in ranking.get("ranking", []) if r.get("post_id") in allowed
         and type(r.get("quality_score")) is int and QUALITY_FLOOR <= r["quality_score"] <= 100]
     ranked.sort(key=lambda r: -r["quality_score"])
-    response = {"request_sha256": request["request_sha256"], "items": [], "omissions": [],
+    response = {"request_sha256": request["request_sha256"], "items": [],
+        "omissions": [{"post_id": p["post_id"], "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"}
+                      for p in candidates if p["post_id"] not in {r["post_id"] for r in ranked}],
         "editorial_call": {"ranker": rank_call, "writer": None},
+        "stage_seconds": {"ranking": ranking_seconds, "drafting": 0.0},
         "remaining_quality_post_ids": [r["post_id"] for r in ranked[1:]]}
     if not ranked:
         response["omissions"] = [{"post_id": p["post_id"], "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"} for p in candidates]
     else:
         chosen = allowed[ranked[0]["post_id"]]
+        try:
+            packs.fact_policy.check_send_time(chosen, now=now or packs.utcnow())
+        except ValueError as exc:
+            response["omissions"].append({"post_id": chosen["post_id"], "cause": str(exc)})
+            path = root / "response.json"
+            packs.save_json(path, response)
+            return path
         # Keep the full public prose for the latest call per market, not its entry-level sentence.
         newest, fields = {}, []
         for source in request["sources"]:
-            if source["kind"] == "FROZEN_PUBLIC_CALL":
+            if source["source_id"] not in chosen.get("usable_source_ids", [s["source_id"] for s in request["sources"]]):
+                continue
+            if source["kind"] == "FROZEN_PUBLIC_CALL" and not source.get("parent_source_id"):
                 prior = newest.get(source["label"])
                 if not prior or packs.clock(source["known_at_utc"]) > packs.clock(prior["known_at_utc"]):
                     newest[source["label"]] = source
             else:
                 fields.append(source)
         sources = [{k: s[k] for k in ("source_id", "label", "known_at_utc", "excerpt", "rights_class",
-                    "context", "source_attribution", "image") if k in s} for s in [*fields, *newest.values()]]
+                    "context", "source_attribution", "image", "fact_binding") if k in s} for s in [*fields, *newest.values()]]
         # The complete source/request stays saved. Cap context by whole records, never sliced prose.
         selected, size = [], 0
         sources.sort(key=lambda s: (s["source_id"] not in {v["source_id"] for v in newest.values()},
@@ -307,10 +324,15 @@ def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None):
                 size += length
         prompt = ("Text only. Use no tools. Return JSON only, without fences. " + request["instructions"] + "\n" +
             json.dumps({"request_sha256": request["request_sha256"], "target": chosen, "sources": selected}, ensure_ascii=False))
+        started = perf_counter()
         authored, writer_call = (writer or _text_call)(prompt, root=root / "writer", writer=True)
+        response["stage_seconds"]["drafting"] = perf_counter() - started
         if any(str(d.get("post_id")) != chosen["post_id"] for d in authored.get("items", [])) or len(authored.get("items", [])) > 1:
             raise ValueError("WRITER_CHANGED_RANKED_TARGET")
-        response.update(items=authored.get("items", []), omissions=authored.get("omissions", []))
+        response["items"] = authored.get("items", [])
+        response["omissions"].extend(authored.get("omissions", []))
+        if not response["items"] and not any(o.get("post_id") == chosen["post_id"] for o in response["omissions"]):
+            response["omissions"].append({"post_id": chosen["post_id"], "cause": "WRITER_RETURNED_NO_USABLE_FACT"})
         response["editorial_call"]["writer"] = writer_call
         response["quality_score"] = ranked[0]["quality_score"]
     path = root / "response.json"
@@ -333,7 +355,8 @@ def park_tabs(*, control_path, now):
         note.write_text(prior + line, encoding="utf-8")
 
 
-def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=None, tabs_control=None):
+def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=None, tabs_control=None,
+                 stage_seconds=None):
     clock_now = (lambda: now) if now is not None else packs.utcnow
     bot = bot or TelegramBot()
     binding_path = Path(binding_path)
@@ -348,8 +371,16 @@ def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=
         raise ValueError("OLD_REPLY_PACK_IS_NOT_A_MOBILE_DRAFT")
     day = now.astimezone(packs.LOCAL).strftime("%Y-%m-%d")
     prior = store.list_outbox_messages(destination=DELIVERY)
-    count = sum(json.loads(r["payload"])["delivery_day"] == day for r in prior)
-    delivered, causes = [], Counter()
+    count = sum(json.loads(r["payload"])["delivery_day"] == day and r["status"] != "REFUSED_BEFORE_TEXT_SEND" for r in prior)
+    delivered, causes, dropped = [], Counter(), []
+    timings = {"filter": 0.0, "ranking": 0.0, "drafting": 0.0, "checks": 0.0, **(stage_seconds or {})}
+    def drop(item, cause):
+        causes[cause] += 1
+        event = {"kind": "private_draft_dropped", "post_id": item["post_id"], "cause": cause,
+                 "at_utc": clock_now().isoformat(), "policy": packs.fact_policy.POLICY,
+                 "post_to_check_minutes": (clock_now()-packs.clock(item["post_time_utc"])).total_seconds()/60}
+        dropped.append(event)
+        record(store, EVENTS, event)
     for item in pack["items"]:
         key = "xrb-" + item["post_id"]
         if store.get_outbox_message(key):
@@ -359,9 +390,14 @@ def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=
             causes["FIVE_QUALITY_DRAFTS_TODAY"] += 1
             continue
         now = clock_now()
-        if now >= packs.clock(item["stale_at_utc"]):
-            causes["TARGET_OVER_60_MINUTES"] += 1
+        started = perf_counter()
+        try:
+            checked_fact = packs.recheck_mobile_item(store, item, now=now)
+        except (ValueError, KeyError, OSError) as exc:
+            drop(item, str(exc) if isinstance(exc, ValueError) else "FACT_SOURCE_UNAVAILABLE_AT_SEND")
             continue
+        timings["checks"] = timings.get("checks", 0) + perf_counter()-started
+        item = {**item, "fact_binding": checked_fact}
         value = {"post_id": item["post_id"], "pack_message_id": pack_message_id,
             "delivery_day": day, "attempt_at_utc": now.isoformat(),
             "post_to_draft_minutes": item["post_to_draft_minutes"], "public_submit_actions": 0}
@@ -395,10 +431,34 @@ def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=
                     record(store, EVENTS, {"kind": "optional_image_unconfirmed", "delivery_id": key,
                         "cause": cause, "text_delivery_continues": True})
             now = clock_now()
-            if now >= packs.clock(item["stale_at_utc"]):
-                store.set_outbox_status(key, "EXPIRED_BEFORE_TEXT_SEND")
-                causes["TARGET_EXPIRED_DURING_MEDIA"] += 1
+            started = perf_counter()
+            try:
+                item["fact_binding"] = packs.recheck_mobile_item(store, item, now=now)
+            except (ValueError, KeyError, OSError) as exc:
+                store.set_outbox_status(key, "REFUSED_BEFORE_TEXT_SEND")
+                drop(item, str(exc) if isinstance(exc, ValueError) else "FACT_SOURCE_UNAVAILABLE_AT_SEND")
                 continue
+            timings["checks"] = timings.get("checks", 0) + perf_counter()-started
+            # Source reads/checks also take time: check the real clock immediately before the API call.
+            now = clock_now()
+            try:
+                attempt_minutes = packs.fact_policy.check_send_time(item, now=now)
+            except ValueError as exc:
+                store.set_outbox_status(key, "REFUSED_BEFORE_TEXT_SEND")
+                drop(item, str(exc))
+                continue
+            record(store, EVENTS, {"kind": "private_draft_send_attempt", "delivery_id": key,
+                "post_id": item["post_id"], "attempted_at_utc": now.isoformat(),
+                "post_to_send_attempt_minutes": attempt_minutes, "fact_binding": item["fact_binding"],
+                "stage_seconds": timings})
+            now = clock_now()
+            try:
+                attempt_minutes = packs.fact_policy.check_send_time(item, now=now)
+            except ValueError as exc:
+                store.set_outbox_status(key, "REFUSED_BEFORE_TEXT_SEND")
+                drop(item, str(exc))
+                continue
+            send_started = perf_counter()
             sent = bot.call("sendMessage", {"chat_id": chat_id, "text": message_for(item, number=count, now=now),
                 "parse_mode": "HTML", "link_preview_options": {"is_disabled": True},
                 "reply_markup": {"inline_keyboard": [[{"text": "Open reply on X", "url": item["intent_url"]},
@@ -408,6 +468,8 @@ def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=
                 "message_id": sent["message_id"], "delivered_at_utc": when.isoformat(),
                 "post_to_delivery_minutes": (when - packs.clock(item["post_time_utc"])).total_seconds() / 60,
                 "post_to_draft_minutes": item["post_to_draft_minutes"], "public_submit_actions": 0}
+            proof.update(post_to_send_attempt_minutes=attempt_minutes, fact_binding=item["fact_binding"],
+                         stage_seconds={**timings, "telegram_send": perf_counter()-send_started})
             record(store, EVENTS, proof)
             store.set_outbox_status(key, "DELIVERED")
             delivered.append(proof)
@@ -417,7 +479,7 @@ def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=
             store.set_outbox_status(key, "UNKNOWN_WRITE")
             causes[str(exc)] += 1
     return {"status": "DELIVERED" if delivered else "NO_FRESH_UNSENT_DRAFTS", "delivered": delivered,
-            "causes": dict(causes), "public_submit_actions": 0}
+            "causes": dict(causes), "dropped_candidates": dropped, "public_submit_actions": 0}
 
 
 def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None,
@@ -441,6 +503,9 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
     root = output_root / "bot" / (now.strftime("%Y%m%dT%H%M%S") + "-" + owner[-8:])
     result = {"status": "STARTED", "started_at_utc": now.isoformat(), "public_submit_actions": 0,
               "schedule_changed": False, "artifact_path": str(root / "result.json")}
+    stage_seconds = {}
+    tick_started = perf_counter()
+    current_candidates = []
     try:
         bot = bot or TelegramBot()
         result["binding"] = process_updates(store, binding_path=binding_path, bot=bot, now=now)
@@ -463,15 +528,22 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
                     store.set_outbox_status(delivery["message_id"], "DELIVERED")
         day = now.astimezone(packs.LOCAL).strftime("%Y-%m-%d")
         deliveries = store.list_outbox_messages(destination=DELIVERY)
-        if sum(json.loads(r["payload"])["delivery_day"] == day for r in deliveries) >= 5:
+        if sum(json.loads(r["payload"])["delivery_day"] == day and r["status"] != "REFUSED_BEFORE_TEXT_SEND" for r in deliveries) >= 5:
             result["status"] = "FIVE_QUALITY_DRAFTS_TODAY"
             return result
+        filter_started = perf_counter()
         ready = packs.prepare(store, feed_path=feed_path, output_root=root, now=now,
                               reply_policy=packs.MOBILE_POLICY)
         request = packs.read_json(ready["request_path"])
+        stage_seconds["filter"] = perf_counter()-filter_started
+        result.update(dropped_candidates=request.get("dropped_candidates", []), source_gaps=request.get("source_gaps", []),
+                      selection_causes=request["selection_causes"])
         tried = {json.loads(r["payload"])["post_id"] for r in store.list_outbox_messages(destination=ATTEMPTS)
                  if r["status"] != "AVAILABLE"}
+        result["dropped_candidates"].extend({"post_id": p["post_id"], "cause": "PREVIOUSLY_ATTEMPTED"}
+                                            for p in request["candidates"] if p["post_id"] in tried)
         request["candidates"] = [p for p in request["candidates"] if p["post_id"] not in tried][:12]
+        current_candidates = request["candidates"]
         if not request["candidates"]:
             result["status"] = "NO_NEW_ELIGIBLE_TARGETS"
             return result
@@ -485,22 +557,42 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
             else:
                 store.set_outbox_status(key, "RANKING")
         response = (drafter or rank_and_draft)(ready["request_path"], output_dir=root / "editorial")
-        remaining = packs.read_json(response).get("remaining_quality_post_ids", [])
+        authored = packs.read_json(response)
+        stage_seconds.update(authored.get("stage_seconds", {}))
+        remaining = authored.get("remaining_quality_post_ids", [])
         for post in request["candidates"]:
             store.set_outbox_status("xrb-attempt-" + post["post_id"],
                                    "AVAILABLE" if post["post_id"] in remaining else "ATTEMPTED")
         finished = now if drafter else packs.utcnow()
+        check_started = perf_counter()
         built = packs.build(store, request_path=ready["request_path"], response_path=response,
                             feed_path=feed_path, output_root=output_root, now=finished)
         result["pack"] = built
+        stage_seconds["checks"] = perf_counter()-check_started
+        saved_pack = packs.read_json(built["pack_path"])
+        result["dropped_candidates"] = saved_pack["omissions"]
         result["delivery"] = deliver_pack(store, built["store_message_id"], binding_path=binding_path,
-            bot=bot, now=finished if drafter else None, tabs_control=binding_path.parent / "x_reply_tabs.json")
+            bot=bot, now=finished if drafter else None, tabs_control=binding_path.parent / "x_reply_tabs.json",
+            stage_seconds=stage_seconds)
+        result["dropped_candidates"].extend(result["delivery"].get("dropped_candidates", []))
         result["status"] = result["delivery"]["status"]
     except Exception as exc:
         # BotError strings are fixed/redacted; other exceptions can contain a URL or private chat.
-        result.update(status="REPLY_BOT_FAILED", cause=str(exc) if isinstance(exc, BotError) else type(exc).__name__)
+        safe_cause = str(exc) if isinstance(exc, BotError) or (isinstance(exc, ValueError) and re.fullmatch(r"[A-Z0-9_]+", str(exc))) else type(exc).__name__
+        result.update(status="REPLY_BOT_FAILED", cause=safe_cause)
+        result.setdefault("dropped_candidates", []).extend({"post_id": p["post_id"], "cause": safe_cause}
+                                                          for p in current_candidates)
     finally:
         result["ended_at_utc"] = packs.utcnow().isoformat()
+        # Failed/timeout calls still explain where this candidate's time went.
+        for stage, folder in (("ranking", "rank"), ("drafting", "writer")):
+            call_path = root / "editorial" / folder / "call.json"
+            if stage not in stage_seconds and call_path.is_file():
+                saved_call = packs.read_json(call_path)
+                stage_seconds[stage] = saved_call.get("elapsed_seconds") or (
+                    packs.clock(saved_call["ended_at_utc"])-packs.clock(saved_call["started_at_utc"])).total_seconds()
+        result["stage_seconds"] = {"ranking": 0.0, "drafting": 0.0, "checks": 0.0, **stage_seconds,
+                                   "whole_tick": perf_counter()-tick_started}
         packs.save_json(root / "result.json", result)
         record(store, RUNS, result)
         store.release_lease(lease["lease_id"], owner_ref=owner, fencing_token=lease["fencing_token"])
