@@ -343,6 +343,10 @@ def validate_chart_inputs(packet, documents):
                 binding = doc.get("desk_record_binding")
                 if not binding:
                     continue
+                from live_contentops.cpi_reaction_page_v1 import RECORD_ID, validate_chart_cell
+                if binding.get("record_id") == RECORD_ID:
+                    validate_chart_cell(packet, point, operand, doc)
+                    continue
                 info = binding.get("series")
                 if binding.get("record_type") != "data_series" or not info:
                     raise ValueError("DESK_CHART_DATA_SERIES_REQUIRED")

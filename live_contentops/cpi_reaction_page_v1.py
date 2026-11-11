@@ -145,3 +145,53 @@ def validate_bound_tables(article):
     if (binding.get("policy") != POLICY or not binding.get("table_sha256")
             or any(actual.count(h) != 1 for h in binding["table_sha256"])):
         raise ValueError("CPI_REACTION_TABLE_CHANGED_OR_MISSING")
+
+
+def validate_chart_cell(packet, point, operand, document):
+    """Admit an unchanged public report cell to the existing chart renderer."""
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+
+    binding = document["desk_record_binding"]
+    if (binding.get("record_id") != RECORD_ID
+            or document.get("url") != "urn:cc-public-report:desk:" + sha256_of(binding)):
+        raise ValueError("CPI_REACTION_CHART_SOURCE_CHANGED")
+    projection = record_projection({"binding": binding})
+    basis = operand.get("period_basis") or {}
+    source = next((t for t in projection["tables"]
+                   if t["source_table_sha256"] == basis.get("source_table_sha256")), None)
+    # Locate the original row, before reader-name substitutions.
+    field = next(f for f in binding["fields"]
+                 if f["field_path"] == "/sections/reaction-tables/body_markdown")
+    original = next((t for t in tables(field["value"])
+                     if digest(t) == basis.get("source_table_sha256")), None)
+    if not source or not original or basis.get("basis") != "CC425_EXACT_TABLE_CELL":
+        raise ValueError("CPI_REACTION_CHART_CELL_UNBOUND")
+    lines = original.splitlines()
+    row_index, column = basis.get("row_index"), basis.get("column_index")
+    if (type(row_index) is not int or not 0 <= row_index < len(lines) - 2
+            or type(column) is not int):
+        raise ValueError("CPI_REACTION_CHART_CELL_UNBOUND")
+    row = lines[row_index + 2]
+    cells = [v.strip() for v in row.strip().strip("|").split("|")]
+    headers = [v.strip() for v in lines[0].strip().strip("|").split("|")]
+    if not 0 <= column < min(len(cells), len(headers)):
+        raise ValueError("CPI_REACTION_CHART_CELL_UNBOUND")
+    token = cells[column]
+    if (not re.fullmatch(r"[+-]?\d+(?:\.\d+)?%", token)
+            or operand.get("value_text") != token
+            or operand.get("support_excerpt") != row
+            or operand.get("metric") != headers[column]
+            or not operand.get("source_period_text")
+            or operand["source_period_text"] not in row
+            or operand.get("prepared_period") != point.get("period")
+            or operand.get("source_content_sha256") != digest(document["canonical_content_text"])
+            or operand.get("unit") != "percent" or packet.get("unit") != "percent"
+            or point.get("transform", "IDENTITY") != "IDENTITY" or point.get("scale", 1) != 1
+            or len(point.get("inputs", [])) != 1
+            or point.get("observation_kind") != "REPORTED_ACTUAL"
+            or type(point.get("value")) not in (float, int)
+            or point["value"] != float(token[:-1])):
+        raise ValueError("CPI_REACTION_CHART_EXACT_CELL_REQUIRED")
+    expected = {k: projection[k] for k in ("record_id", "export_bytes_sha256", "source_body_sha256")}
+    if packet.get("cpi_reaction_source") != expected:
+        raise ValueError("CPI_REACTION_CHART_SOURCE_CHANGED")

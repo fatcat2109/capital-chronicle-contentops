@@ -19,7 +19,9 @@ def record():
             + "\n\n## The desk's map\n\nIts result is not yet due at the original source clock.")
     binding = {"record_id": RECORD_ID, "record_type": "published_report", "fixture": False,
         "export_id": "test-cpi", "export_bytes_sha256": "a" * 64,
-        "asset_ids": [], "event_ids": [], "sources": [],
+        "asset_ids": [], "event_ids": [], "sources": [{"source_id": "cc-cpi-calculations",
+            "provider": "Capital Chronicle", "url": None,
+            "attribution": "Capital Chronicle calculations; price proxies as labelled"}],
         "fields": [{"field_path": "/sections/reaction-tables/body_markdown",
                     "citation": "test-cpi#" + RECORD_ID + "/sections/reaction-tables/body_markdown",
                     "value": body, "display": body}]}
@@ -146,3 +148,55 @@ def test_refresh_consumes_new_producer_cells_without_a_second_publisher():
     assert before["cpi_reaction_page"]["table_sha256"] != after["cpi_reaction_page"]["table_sha256"]
     with pytest.raises(ValueError, match="CHANGED_OR_MISSING"):
         bind_tables(before, refreshed)
+
+
+def chart_packet():
+    source = pack()[0]
+    projection = source["cpi_reaction_page"]
+    line = tables(source["canonical_content_text"])[0].splitlines()[2]
+    operand = {"document_id": source["document_id"], "support_excerpt": line,
+        "value_text": "-0.2353%", "metric": "+5m", "unit": "percent",
+        "source_period_text": "2024-01-01", "prepared_period": "5 minutes",
+        "source_content_sha256": source["canonical_content_sha256"],
+        "period_basis": {"basis": "CC425_EXACT_TABLE_CELL", "row_index": 0,
+            "column_index": 3, "source_table_sha256": projection["tables"][0]["source_table_sha256"]}}
+    return {"asset_id": "cpi-reaction-test", "title": "The exact observed change",
+        "question": "What did gold do?", "chart_type": "grouped_bar", "unit": "percent",
+        "source_caption": "Capital Chronicle calculations; HistData gold/USD, 1 January 2024.",
+        "cpi_reaction_source": {k: projection[k] for k in ("record_id", "export_bytes_sha256", "source_body_sha256")},
+        "series": [{"name": "Gold", "points": [{"period": "5 minutes", "value": -0.2353,
+            "observation_kind": "REPORTED_ACTUAL", "transform": "IDENTITY", "inputs": [operand]}]}]}
+
+
+def test_held_report_cell_reaches_existing_chart_renderer(tmp_path):
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+        build_editorial_data_chart, validate_source_value_chart,
+    )
+    chart = build_editorial_data_chart(chart_packet(), pack(), output_dir=tmp_path)
+    assert chart["computed_values"] == [[-0.2353]]
+    assert chart["modality"] == "source_backed_chart"
+    validate_source_value_chart(chart, pack())
+
+
+@pytest.mark.parametrize("mutation", ["value", "row", "column", "export", "gap", "scale"])
+def test_chart_report_cell_cannot_drift_or_fill_a_gap(mutation):
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _editorial_data_values
+    packet = chart_packet()
+    point = packet["series"][0]["points"][0]
+    operand = point["inputs"][0]
+    if mutation == "value":
+        point["value"] *= -1
+    elif mutation == "row":
+        operand["period_basis"]["row_index"] = 1
+    elif mutation == "column":
+        operand["period_basis"]["column_index"] = 4
+    elif mutation == "export":
+        packet["cpi_reaction_source"]["export_bytes_sha256"] = "b" * 64
+    elif mutation == "gap":
+        operand["period_basis"]["column_index"] = 6
+        operand["value_text"] = "0.0000%"
+        point["value"] = 0
+    else:
+        point["scale"] = 100
+    with pytest.raises(ValueError, match="CPI_REACTION_CHART"):
+        _editorial_data_values(packet, pack())
