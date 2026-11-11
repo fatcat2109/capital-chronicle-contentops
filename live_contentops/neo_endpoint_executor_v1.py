@@ -432,14 +432,27 @@ class NeoBrowserDriver:
                 ref = self._ref(page, "textbox", {"Text editor for creating content"}, last=True)
             else:
                 ref = self._ref(page, "button", {"Bật mí về video tiếp theo của bạn", "Share an upcoming video", "What's on your mind?"})
+                self.client.act(page, "click", ref=ref)
+                ready = self.client.run(page, "article_editor")
+                if not ready.get("ready"):
+                    raise NeoEndpointError("ARTICLE_EDITOR_UNAVAILABLE")
+                ref = self._ref(page, "textbox", {"CC454 article text"})
             self.client.act(page, "fill", ref=ref, value=posts[0])
             media = (request.get("content_binding") or {}).get("media_manifest") or []
             if media:
-                ready = self.client.run(page, "article_upload", destination=destination)
-                if not ready.get("ready"):
-                    raise NeoEndpointError("ARTICLE_FILE_INPUT_UNAVAILABLE")
-                ref = self._ref(page, "button", {"CC454 article image"})
-                self.client.call("upload", {"page": page, "ref": ref, "files": [a["path"] for a in media]})
+                ready = self.client.run(page, "article_intercept_upload", destination=destination)
+                if not ready.get("installed"):
+                    raise NeoEndpointError("ARTICLE_FILE_CHOOSER_INTERCEPTION_UNAVAILABLE")
+                try:
+                    names = {"Add media"} if destination == "linkedin_company" else {"Thêm hình ảnh", "Image", "Add image"}
+                    self.client.act(page, "click", ref=self._ref(page, "button", names))
+                    ref = self._ref(page, "button", {"CC454 article image"})
+                    self.client.call("upload", {"page": page, "ref": ref, "files": [a["path"] for a in media]})
+                    if destination == "linkedin_company":
+                        self.client.act(page, "click", ref=self._ref(page, "button", {"Next"}))
+                        self.client.wait(page, '[role="dialog"] [contenteditable="true"]')
+                finally:
+                    self.client.run(page, "article_upload_restore")
             refused = self.article_guard(request, page)
             if refused:
                 return {"result": refused, "identity": identity}

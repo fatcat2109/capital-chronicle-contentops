@@ -578,6 +578,14 @@ def test_canonical_first_real_url_eight_native_packages_restart_dedupe(
 def test_claimed_lost_publish_readback_before_retry_and_local_failure(
     tmp_path, monkeypatch
 ):
+    from datetime import timedelta
+    import live_contentops.publication_coordinator_v1 as publication
+    class Clock(datetime):
+        current = datetime.now(timezone.utc)
+        @classmethod
+        def now(cls, tz=None):
+            return cls.current
+    monkeypatch.setattr(publication, "datetime", Clock)
     store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
     operation, executor, transport = composed(store, binding, rollout, monkeypatch)
     transport.fail_destination = "telegram"
@@ -603,8 +611,11 @@ def test_claimed_lost_publish_readback_before_retry_and_local_failure(
             "threads",
         }
     ), (value, transport.calls)
-    # Depending on the existing bounded retry policy, only the failed derivative may remain.
+    # CC-401 keeps an actual destination failure quiet for its ET day. Recovery
+    # on the next day still reads back first and retries only this absent post.
     if value["publication"]["state"] != "RECONCILED":
+        assert transport.calls.count("telegram") == 1
+        Clock.current += timedelta(days=1)
         value, more = finish(operation, executor)
         writes += more
     assert value["publication"]["state"] == "RECONCILED"

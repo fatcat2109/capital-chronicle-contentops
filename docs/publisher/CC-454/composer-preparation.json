@@ -1,0 +1,30 @@
+{
+  "observed_at_utc": "2026-11-10T23:57:02.392754+00:00",
+  "scope": "Prepared only; both public publish controls were untouched. Each own composer was cleared or cancelled afterward.",
+  "text": "Capital Chronicle offers analysis only, not financial advice or recommendations.",
+  "media": {
+    "path": "docs\\publisher\\CC-454\\media\\transport-check.png",
+    "size": 78349,
+    "sha256": "ed1832d41bcc3225e01379d8c393f1314cf820a4cdd9e08ec910edd57febc5c5",
+    "source": "Existing owned Goal31 source-document card; copied without editing for private transport preparation."
+  },
+  "linkedin_company": {
+    "text_filled": true,
+    "file_chooser_intercepted": true,
+    "neo_upload_completed": true,
+    "next_returned_to_composer": true,
+    "preview_visible": true
+  },
+  "youtube": {
+    "editor_expanded_before_fill": true,
+    "file_chooser_intercepted": true,
+    "neo_upload_completed": true,
+    "preview_dimensions": [
+      1600,
+      900
+    ]
+  },
+  "new_public_posts": 0,
+  "native_file_dialogs": 0,
+  "final_state": "Both own tabs show original posting controls, with no dialog or pending test composer."
+}

@@ -1,5 +1,5 @@
 {
-  "source_sha256": "9a53994df90ca5d88a50dae7c4080a96d542a0888305b7c8efb79adc44c85e91",
+  "source_sha256": "27e8d4660435a63c603d6d13520ab84a3815dd7f5b838144640106cb2020ab08",
   "runtime": "Node async Neo SDK fixture; no browser or network calls",
   "checks": [
     {
@@ -15,6 +15,12 @@
       "status": "FAILED_BEFORE_WRITE"
     },
     {
+      "destination": "linkedin_company",
+      "native_file_dialog_calls": 0,
+      "label_default_prevented": true,
+      "original_click_restored": true
+    },
+    {
       "destination": "youtube",
       "composer_changed": false,
       "clicks": 1,
@@ -25,6 +31,12 @@
       "composer_changed": true,
       "clicks": 0,
       "status": "FAILED_BEFORE_WRITE"
+    },
+    {
+      "destination": "youtube",
+      "native_file_dialog_calls": 0,
+      "label_default_prevented": true,
+      "original_click_restored": true
     }
   ]
 }

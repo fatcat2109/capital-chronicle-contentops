@@ -24,18 +24,50 @@ if (input.phase === 'article_identity') {
     ...(company && correct ? {observed_stable_id:'143198922'} : {}), observed_at_utc:new Date().toISOString()};
 }
 
-if (input.phase === 'article_upload') {
-  return unwrap(await page.evaluateInPage(destination => {
-    const scope = destination === 'linkedin_company'
-      ? document.querySelector('[role="dialog"]') : document;
-    const fields = Array.from(scope?.querySelectorAll('input[type="file"]') || []);
-    const field = fields.find(e => /image/.test(e.accept)
-      && (destination === 'linkedin_company' || e.name === 'Filedata'));
+if (input.phase === 'article_editor') {
+  return unwrap(await page.evaluateInPage(() => {
+    const field=document.querySelector('#contenteditable-root[contenteditable="true"]');
     if (!field) return {ready:false};
-    field.style.cssText='display:block;visibility:visible;position:relative;width:180px;height:30px;opacity:1';
-    field.removeAttribute('aria-hidden'); field.setAttribute('aria-label','CC454 article image');
+    field.setAttribute('role','textbox');field.setAttribute('aria-label','CC454 article text');
     return {ready:true};
+  }));
+}
+
+if (input.phase === 'article_intercept_upload') {
+  return unwrap(await page.evaluateInPage(destination => {
+    window.__cc454UploadInterception?.restore();
+    const scope = destination === 'linkedin_company'
+      ? document.querySelector('[role="dialog"]') : document.querySelector('[role="main"]') || document.body;
+    if (!scope) return {installed:false};
+    const original=HTMLInputElement.prototype.click;
+    const show=field=>{
+      field.style.cssText='display:block;visibility:visible;position:relative;width:180px;height:30px;opacity:1';
+      field.removeAttribute('aria-hidden');field.setAttribute('aria-label','CC454 article image');
+      if (!field.isConnected || !field.getClientRects().length) scope.append(field);
+    };
+    // Stop both scripted input.click() and a label's default file-selection
+    // action. The real input keeps its platform change handler for Neo upload.
+    const listener=e=>{
+      if (e.target instanceof HTMLInputElement && e.target.type==='file') {
+        e.preventDefault();e.stopImmediatePropagation();show(e.target);
+      }
+    };
+    const intercept=function(){if(this.type==='file'){show(this);return;}return original.call(this);};
+    HTMLInputElement.prototype.click=intercept;
+    document.addEventListener('click',listener,true);
+    window.__cc454UploadInterception={restore(){
+      if (HTMLInputElement.prototype.click===intercept) HTMLInputElement.prototype.click=original;
+      document.removeEventListener('click',listener,true);
+    }};
+    return {installed:HTMLInputElement.prototype.click===intercept};
   }, input.destination));
+}
+
+if (input.phase === 'article_upload_restore') {
+  return unwrap(await page.evaluateInPage(() => {
+    window.__cc454UploadInterception?.restore();delete window.__cc454UploadInterception;
+    return {restored:true};
+  }));
 }
 
 if (input.phase === 'article_publish') {

@@ -33,10 +33,16 @@ class ArticleBrowser:
             {"role": "button", "name": "Start a post", "ref": "start"},
             {"role": "textbox", "name": "Text editor for creating content", "ref": "editor"},
             {"role": "button", "name": "Bật mí về video tiếp theo của bạn", "ref": "youtube-editor"},
+            {"role": "textbox", "name": "CC454 article text", "ref": "youtube-text"},
+            {"role": "button", "name": "Add media", "ref": "add-media"},
+            {"role": "button", "name": "Thêm hình ảnh", "ref": "add-image"},
+            {"role": "button", "name": "Next", "ref": "next"},
             {"role": "button", "name": "CC454 article image", "ref": "image"}]}
 
     def act(self, page, kind, **kwargs):
         self.calls.append((kind, kwargs))
+        if kind == "click" and kwargs.get("ref") in {"add-media", "add-image"}:
+            assert getattr(self, "intercepting", False), "A native file chooser must never be opened"
         if kind == "fill":
             self.composer = [kwargs["value"]]
 
@@ -45,6 +51,8 @@ class ArticleBrowser:
 
     def call(self, name, args):
         self.calls.append((name, args))
+        if name == "upload":
+            assert self.intercepting
         if name == "navigate":
             self.url = args["url"]
 
@@ -57,8 +65,14 @@ class ArticleBrowser:
             correct = self.fault != "account"
             return {"authenticated": correct, "observed_identity": handoff.IDENTITIES[self.destination] if correct else None,
                 "observed_stable_id": "143198922", "observed_at_utc": datetime.now(timezone.utc).isoformat()}
-        if phase == "article_upload":
+        if phase == "article_editor":
             return {"ready": True}
+        if phase == "article_intercept_upload":
+            self.intercepting = self.fault != "interception"
+            return {"installed": self.fault != "interception"}
+        if phase == "article_upload_restore":
+            self.intercepting = False
+            return {"restored": True}
         if phase == "article_publish":
             if self.fault == "composer":
                 return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
@@ -93,7 +107,7 @@ def local_controls(tmp_path, monkeypatch):
         if intent.get("output_dir"):
             return original_inputs(intent)
         payload = intent.get("native_payload") or {"text": intent["payload"]}
-        return {"output_dir": tmp_path, "article": {}, "media_assets": [],
+        return {"output_dir": tmp_path, "article": {}, "media_assets": intent.get("media_assets") or [],
             "payloads": {d: payload for d in ("youtube", "linkedin_company")},
             "canonical_url": intent.get("canonical_url"), "local_media": "", "public_image_url": ""}
     monkeypatch.setattr("live_contentops._eight_platform_substack_first_pipeline_impl_v1._durable_intent_inputs", source_inputs)
@@ -183,6 +197,34 @@ def test_native_article_consumer_keeps_manual_requests_on_its_parent_invocation(
     assert operation.executor.native_invocation_id == operation.native_invocation_id
     assert operation.executor.operation_id == binding["run_id"]
     assert operation.coordinator.store is store
+
+
+@pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])
+@pytest.mark.parametrize("interception_available", [True, False])
+def test_article_media_uses_only_intercepted_neo_upload_and_restores_it(tmp_path, destination, interception_available):
+    from hashlib import sha256
+    store, c, _, browser, message, _ = article(tmp_path, destination,
+        None if interception_available else "interception")
+    media = tmp_path / "media"
+    media.mkdir()
+    asset = media / "bound-card.png"
+    asset.write_bytes(b"controlled bound transport bytes")
+    intent = json.loads(message["payload"])
+    intent["native_payload"] = {"text": intent["payload"], "media_asset_ids": ["bound-card"]}
+    intent["media_assets"] = [{"asset_id": "bound-card", "path": str(asset),
+        "sha256": sha256(asset.read_bytes()).hexdigest()}]
+    store.finalize_outbox_payload_before_dispatch(message_id=message["message_id"], payload=json.dumps(intent), status="READY")
+    c._dispatch_message(store.get_outbox_message(message["message_id"]),
+        canonical_url="https://capitalchronicle.substack.com/p/test")
+    uploads = [args for name, args in (call for call in browser.calls if isinstance(call, tuple)) if name == "upload"]
+    if interception_available:
+        assert uploads == [{"page": 1, "ref": "image", "files": [str(asset)]}]
+        assert browser.calls.index("article_intercept_upload") < browser.calls.index("article_upload_restore")
+        assert browser.intercepting is False
+    else:
+        assert uploads == [] and browser.posts == []
+        assert not any(isinstance(call, tuple) and call[0] == "click" and call[1].get("ref") in {"add-media", "add-image"}
+            for call in browser.calls)
 
 
 def test_article_only_executor_leaves_other_native_steps_pending_without_endpoint_calls(tmp_path):

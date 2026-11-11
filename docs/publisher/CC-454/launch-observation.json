@@ -5,5 +5,12 @@
   "configured_effort": "max",
   "runtime_model_evidence": "CONFIGURED_NOT_OBSERVED",
   "base": "dddf45f2411f4c69960ec9d416da3e91de4c5b9e",
-  "base_reason": "Current operating HEAD includes applied Publisher changes absent from origin/master."
+  "base_reason": "Current operating HEAD includes applied Publisher changes absent from origin/master.",
+  "resume": {
+    "observed_at_utc": "2026-11-11T00:04:36.548709+00:00",
+    "pid": 28396,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "runtime_model_evidence": "CONFIGURED_NOT_OBSERVED"
+  }
 }
