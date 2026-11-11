@@ -115,3 +115,12 @@ rather than treating the first-ingest counts as a 24-hour observation.
 feed projection, manual readback and the existing performance consumer, alongside
 the CC-258 feed regressions. A real own-reply capture remains pending Jim's first
 reply; the controlled parser check is not represented as that observation.
+
+The reader-projection run passed **32 targeted tests**. Its source commit
+`59b9da8707f72209fcf36d90e7fda9d556a21f0e` is installed in the same operating root;
+the integration record's appended update verifies all three changed sources and
+the nine preserved dirty files again. A fresh installed observer still finds
+zero manual replies and returns the existing reader's bounded follow-up. The
+update's live tag is `contentops-live-20261111-cc455-reader-fields`; the original
+live/rollback tags are retained unchanged. Acceptance remains pending the first
+real manual-reply readback under decision 122.

@@ -82,5 +82,86 @@
     }
   ],
   "application_restarted": false,
-  "schedule_changed": false
+  "schedule_changed": false,
+  "reader_projection_update": {
+    "recorded_at_utc": "2026-11-11T00:51:59.852463+00:00",
+    "installed_commit": "59b9da8707f72209fcf36d90e7fda9d556a21f0e",
+    "installed_files": [
+      {
+        "path": "headline_ingestion/Data_Ingestion.py",
+        "normalized_sha256": "8b33010ee4c44cd018451fed35dfb832db325e4f4809512be4b06444b20ece36",
+        "matches_delivery": true
+      },
+      {
+        "path": "live_contentops/x_list_feed_v1.py",
+        "normalized_sha256": "c5f0c28306e9a5a5a9c515c08b6579be581f5cf4c602d4580f34319198ab2ef8",
+        "matches_delivery": true
+      },
+      {
+        "path": "live_contentops/x_reply_pack_v1.py",
+        "normalized_sha256": "8758d607d7713c21df6fcc31a6ade3e4cadc6b9b46bc43420ff2553016778c10",
+        "matches_delivery": true
+      }
+    ],
+    "preserved_work": [
+      {
+        "root": "worktree",
+        "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+        "unchanged": true
+      },
+      {
+        "root": "worktree",
+        "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+        "unchanged": true
+      },
+      {
+        "root": "worktree",
+        "path": "live_contentops/agy_editorial_assist_v1.py",
+        "unchanged": true
+      },
+      {
+        "root": "operating_root",
+        "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+        "unchanged": true
+      },
+      {
+        "root": "operating_root",
+        "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+        "unchanged": true
+      },
+      {
+        "root": "operating_root",
+        "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+        "unchanged": true
+      },
+      {
+        "root": "operating_root",
+        "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+        "unchanged": true
+      },
+      {
+        "root": "operating_root",
+        "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+        "unchanged": true
+      },
+      {
+        "root": "operating_root",
+        "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+        "unchanged": true
+      }
+    ],
+    "installed_observer_result": {
+      "observed": [],
+      "causes": {},
+      "public_write_performed": false,
+      "reader_followup": {
+        "own_replies_url": "https://x.com/Capitalnicle/with_replies",
+        "mentions_url": "https://x.com/notifications/mentions",
+        "action": "Use the existing signed-in reader's next bounded visit; pass its exact reply-edge rows with --reply-feed. No agent posts."
+      }
+    },
+    "reader_process_restarted": false,
+    "schedule_changed": false,
+    "actual_new_reader_reply_capture_observed": false
+  }
 }
