@@ -1,0 +1,188 @@
+{
+  "item": "CC-468",
+  "observation_method": "BrowserOS Neo visible public home, profile, about and archive pages; no message composer or send action",
+  "selection": "Ten independent macro publications with visible audience labels from 901 to over 10,000. Platform thresholds are lower bounds, not exact sizes or maximums. Activity was checked on each archive. No reciprocal recommendation has been agreed.",
+  "sender": "Jim",
+  "send_owner": "Jim only, under CC-468 and decision 124",
+  "candidates": [
+    {
+      "name": "Arkomina Research",
+      "author": "Marko Bjegovic",
+      "publication_url": "https://arkominaresearch.substack.com/",
+      "profile_url": "https://substack.com/@arkominaresearch",
+      "audience_label": "Over 3,000 subscribers",
+      "size_source_url": "https://arkominaresearch.substack.com/",
+      "identity_source_url": "https://arkominaresearch.substack.com/about",
+      "activity_source_url": "https://arkominaresearch.substack.com/archive",
+      "latest_visible_date": "2026-11-10",
+      "latest_visible_title": "Oct 2026 CPI Estimate",
+      "fit": "Inflation forecasts and the policy implications of employment releases align with our release-reaction coverage.",
+      "message": "Hi Marko, I’m Jim, and I run Capital Chronicle. Your inflation and labour-market work looks relevant to our readers. We publish source-based macro analysis with charts and conditional market views at https://capitalchronicle.substack.com/. Would you be open to comparing our newsletters and considering a mutual Substack recommendation if we both find a good reader fit? I’d be happy to start by exchanging one representative article. No pressure if this is not useful. Jim"
+    },
+    {
+      "name": "Deer’s Newsletter",
+      "author": "Deer Point Macro",
+      "publication_url": "https://deerpointmacro.substack.com/",
+      "profile_url": "https://substack.com/@deerpointmacro",
+      "audience_label": "Over 2,000 subscribers",
+      "size_source_url": "https://deerpointmacro.substack.com/",
+      "identity_source_url": "https://deerpointmacro.substack.com/about",
+      "activity_source_url": "https://deerpointmacro.substack.com/archive",
+      "latest_visible_date": "2026-11-04",
+      "latest_visible_title": "The World of Macro",
+      "fit": "Broad macro and credit analysis complements our event-led market explanations.",
+      "message": "Hi Deer Point Macro, I’m Jim, and I run Capital Chronicle. Your coverage of the macro backdrop and credit would complement the event-led market analysis we publish at https://capitalchronicle.substack.com/. Would you be interested in exchanging a representative article and considering a mutual Substack recommendation if each newsletter serves the other’s readers? I’d want the editorial fit to come first. No pressure if this is not useful. Jim"
+    },
+    {
+      "name": "Macro Is Dead",
+      "author": "Peter Farac",
+      "publication_url": "https://www.macroisdead.com/",
+      "profile_url": "https://substack.com/@peterfarac",
+      "audience_label": "Over 4,000 subscribers",
+      "size_source_url": "https://www.macroisdead.com/",
+      "identity_source_url": "https://www.macroisdead.com/about",
+      "activity_source_url": "https://www.macroisdead.com/archive",
+      "latest_visible_date": "2026-11-06",
+      "latest_visible_title": "China’s deceleration is entrenched. Is there another lever?",
+      "fit": "Cross-market macro reasoning and challenges to market narratives are a useful counterpart to release studies.",
+      "message": "Hi Peter, I’m Jim, and I run Capital Chronicle. Your work on macro transmission and the limits of familiar market narratives looks like a useful complement to our source-based release and market analysis. Our publication is https://capitalchronicle.substack.com/. Would you be open to exchanging one article and considering a mutual Substack recommendation if the reader fit is right? I’m interested in a useful editorial match, without an obligation on either side. Jim"
+    },
+    {
+      "name": "Pantheon Insights",
+      "author": "Pantheon Insights",
+      "publication_url": "https://pantheoninsights.substack.com/",
+      "profile_url": "https://substack.com/@pantheoninsights",
+      "audience_label": "Over 1,000 subscribers",
+      "size_source_url": "https://pantheoninsights.substack.com/",
+      "identity_source_url": "https://pantheoninsights.substack.com/about",
+      "activity_source_url": "https://pantheoninsights.substack.com/archive",
+      "latest_visible_date": "2026-11-09",
+      "latest_visible_title": "US Midterms Put AI Datacenter Spending to the Test",
+      "fit": "Geopolitical and energy transmission would broaden our readers’ view beyond the immediate data release.",
+      "message": "Hi Pantheon Insights, I’m Jim, and I run Capital Chronicle. Your analysis of geopolitical risks and their economic transmission would be relevant to our macro readers. We publish chart-led market analysis at https://capitalchronicle.substack.com/. Would you be open to comparing one article from each publication and considering a mutual Substack recommendation if the audiences are a good fit? There is no obligation to recommend anything you would not independently find useful. Jim"
+    },
+    {
+      "name": "Fidenza Macro",
+      "author": "Geo Chen",
+      "publication_url": "https://www.fidenzamacro.com/",
+      "profile_url": "https://substack.com/@fidenza",
+      "audience_label": "Over 5,000 subscribers",
+      "size_source_url": "https://www.fidenzamacro.com/",
+      "identity_source_url": "https://www.fidenzamacro.com/about",
+      "activity_source_url": "https://www.fidenzamacro.com/archive",
+      "latest_visible_date": "2026-11-06",
+      "latest_visible_title": "AI Carnage",
+      "fit": "Experienced global macro commentary complements our explicit conditions, charts and event-reaction history.",
+      "message": "Hi Geo, I’m Jim, and I run Capital Chronicle. Your global macro perspective would be relevant to readers who follow our chart-led, conditional market analysis. We publish at https://capitalchronicle.substack.com/. Would you consider exchanging a representative article and exploring a mutual Substack recommendation if the editorial fit is good? I’d prefer that each of us first decides independently whether the other publication is useful to our readers. Jim"
+    },
+    {
+      "name": "Japan Optimist",
+      "author": "Jesper Koll",
+      "publication_url": "https://japanoptimist.substack.com/",
+      "profile_url": "https://substack.com/@japanoptimist",
+      "audience_label": "Over 7,000 subscribers",
+      "size_source_url": "https://japanoptimist.substack.com/",
+      "identity_source_url": "https://japanoptimist.substack.com/about",
+      "activity_source_url": "https://japanoptimist.substack.com/archive",
+      "latest_visible_date": "2026-11-06",
+      "latest_visible_title": "Japan’s Capitalist Renaissance, Takanomics & BoJ Rate Hikes...",
+      "fit": "Japan policy and capital flows complement our yen and broader macro coverage.",
+      "message": "Hi Jesper, I’m Jim, and I run Capital Chronicle. Your perspective on Japan’s economy and policy would add useful context for our readers following the yen and global macro markets. Our publication is https://capitalchronicle.substack.com/. Would you be open to exchanging an article and considering a mutual Substack recommendation if we find a clear reader fit? I would only want a recommendation each of us is comfortable making on editorial merit. Jim"
+    },
+    {
+      "name": "Blind Squirrel Macro",
+      "author": "The Blind Squirrel",
+      "publication_url": "https://www.blindsquirrelmacro.com/",
+      "profile_url": "https://substack.com/@blindsquirrelmacro",
+      "audience_label": "Over 10,000 subscribers",
+      "size_source_url": "https://www.blindsquirrelmacro.com/",
+      "identity_source_url": "https://www.blindsquirrelmacro.com/about",
+      "activity_source_url": "https://www.blindsquirrelmacro.com/archive",
+      "latest_visible_date": "2026-11-09",
+      "latest_visible_title": "Decision Time",
+      "fit": "Accessible macro discussion and honest reviews of market views align with our reader approach.",
+      "message": "Hi Blind Squirrel, I’m Jim, and I run Capital Chronicle. Your accessible approach to macro and willingness to revisit market views are a good match for the readers we hope to serve. We publish charts and conditional macro analysis at https://capitalchronicle.substack.com/. Would you be open to comparing one article and considering a mutual Substack recommendation if it is useful to both audiences? No obligation if the fit is not right. Jim"
+    },
+    {
+      "name": "FX Poetry",
+      "author": "Andy Fately",
+      "publication_url": "https://fxpoet.substack.com/",
+      "profile_url": "https://substack.com/@fxpoet",
+      "audience_label": "901 subscribers",
+      "size_source_url": "https://substack.com/@fxpoet",
+      "identity_source_url": "https://fxpoet.substack.com/about",
+      "activity_source_url": "https://fxpoet.substack.com/archive",
+      "latest_visible_date": "5 HRS AGO",
+      "latest_visible_title": "Chthonic",
+      "fit": "Frequent macro and FX commentary adds a distinctive voice alongside our chart-led explanations.",
+      "message": "Hi Andy, I’m Jim, and I run Capital Chronicle. Your regular macro and FX commentary has a distinctive voice that could complement our chart-led market explanations. We publish at https://capitalchronicle.substack.com/. Would you be interested in exchanging a representative article and considering a mutual Substack recommendation if our readers would benefit? I’d like both of us to judge the fit independently before agreeing to anything. Jim",
+      "latest_visible_date_basis": "Relative time displayed at the archive observation; no exact publication instant was captured."
+    },
+    {
+      "name": "The Macro Butler’s Substack",
+      "author": "The Macro Butler",
+      "publication_url": "https://themacrobutler.substack.com/",
+      "profile_url": "https://substack.com/@themacrobutler",
+      "audience_label": "Over 2,000 subscribers",
+      "size_source_url": "https://themacrobutler.substack.com/",
+      "identity_source_url": "https://themacrobutler.substack.com/about",
+      "activity_source_url": "https://themacrobutler.substack.com/archive",
+      "latest_visible_date": "19 HRS AGO",
+      "latest_visible_title": "Stag-Parties",
+      "fit": "Policy, inflation and economic-cycle commentary overlaps with our macro readers’ interests.",
+      "message": "Hi Macro Butler, I’m Jim, and I run Capital Chronicle. Your coverage of policy, inflation and the economic cycle looks relevant to the readers of our source-based macro analysis. Our publication is https://capitalchronicle.substack.com/. Would you be open to exchanging one representative article and exploring a mutual Substack recommendation if there is a strong reader fit? I’d want each recommendation to stand on its own editorial merits. Jim",
+      "latest_visible_date_basis": "Relative time displayed at the archive observation; no exact publication instant was captured."
+    },
+    {
+      "name": "Macro investing - Gertjan",
+      "author": "Gertjan",
+      "publication_url": "https://macrogertjan.substack.com/",
+      "profile_url": "https://substack.com/@macrogertjan",
+      "audience_label": "2.1K+ subscribers",
+      "size_source_url": "https://substack.com/@macrogertjan",
+      "identity_source_url": "https://substack.com/@macrogertjan",
+      "activity_source_url": "https://macrogertjan.substack.com/archive",
+      "latest_visible_date": "4 HRS AGO",
+      "latest_visible_title": "Why I sold Visa after a 40% profit and bought another quality company",
+      "fit": "Plain explanations of macro, metals and volatility may help readers connect market context to a conditional view.",
+      "message": "Hi Gertjan, I’m Jim, and I run Capital Chronicle. Your explanations of macro, metals and market volatility could be useful to our readers following chart-led conditional market views. We publish at https://capitalchronicle.substack.com/. Would you be interested in exchanging an article and considering a mutual Substack recommendation if each publication would help the other’s readers? I’d prefer to begin with the editorial fit, with no commitment if it is not useful. Jim",
+      "latest_visible_date_basis": "Relative time displayed at the archive observation; no exact publication instant was captured."
+    }
+  ],
+  "excluded_after_activity_check": [
+    {
+      "name": "Unpegged",
+      "reason": "Latest visible archive entry 27 May 2022",
+      "source_url": "https://unpegged.substack.com/archive"
+    },
+    {
+      "name": "Augur Digest",
+      "reason": "Latest visible archive entry 30 September 2024",
+      "source_url": "https://augurdigest.substack.com/archive"
+    },
+    {
+      "name": "Pinpoint Capital Newsletter",
+      "reason": "Latest visible archive entry 9 January 2022",
+      "source_url": "https://pinpointcapital.substack.com/archive"
+    },
+    {
+      "name": "The Worked Shoot",
+      "reason": "Latest visible article 12 January 2024",
+      "source_url": "https://kayfabecapital.substack.com/p/a-blue-moon-resurfacing"
+    },
+    {
+      "name": "PURITY MACRO",
+      "reason": "Latest visible archive entry 21 May 2025",
+      "source_url": "https://puritymacro.substack.com/archive"
+    },
+    {
+      "name": "Friday Speedrun",
+      "reason": "Substack archive says the publication moved in March 2024",
+      "source_url": "https://fridayspeedrun.substack.com/archive"
+    }
+  ],
+  "prepared_at_utc": "2026-11-11T18:16:33.912195+00:00",
+  "public_page_observation_dates_utc": [
+    "2026-11-11"
+  ]
+}

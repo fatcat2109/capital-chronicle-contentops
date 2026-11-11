@@ -1,0 +1,17 @@
+[
+  {
+    "path": "docs/publisher/CC-468/event-sources/source-4338885f925c494b/presentation-e03dbfb7bac6ecc5/fomc/desk-export.json",
+    "sha256": "4d8c2418af3018570ea8cdc1e993092228285a2101e76d858e1b43c9f8c7bf56",
+    "working_and_committed_bytes_match": true
+  },
+  {
+    "path": "docs/publisher/CC-468/event-sources/source-4338885f925c494b/presentation-e03dbfb7bac6ecc5/nfp/desk-export.json",
+    "sha256": "2199d1655964777cd276481c681ed6fc9ff72be009fa1d2da3c1be6ceeb8d05e",
+    "working_and_committed_bytes_match": true
+  },
+  {
+    "path": "docs/publisher/CC-468/event-sources/source-4338885f925c494b/presentation-e03dbfb7bac6ecc5/ppi/desk-export.json",
+    "sha256": "ffca543d254a69dfa02b5d5f9232b8ae04c313774a5ff9752df55f57ba31634b",
+    "working_and_committed_bytes_match": true
+  }
+]
