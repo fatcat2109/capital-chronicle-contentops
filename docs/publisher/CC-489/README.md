@@ -71,4 +71,32 @@ smallest upstream change is a timed exact-instrument last quote in the existing
 minute export, or refreshed native M1 rows from its Data owner. Publisher's
 reader and publication consumer are ready to use either without another change.
 
-Integration and observed-day evidence are recorded below after installation.
+The operating root fast-forwarded to code commit
+`465178811b01979a2732364d8891025960ad5610` on **12 November 05:07:32 GMT+7**.
+Both `contentops-live-20261112-cc489` and
+`contentops-rollback-20261112-cc489` are pushed. All seven delivered Python files
+match their committed Git blobs. The two worktree telemetry files and six
+unrelated dirty operating-root files retain their initial hashes.
+[Integration evidence](integration.json) records these checks and the original
+operating HEAD. [All 69 installed tests](installed-tests.xml) pass from that root.
+
+The existing [minute task](installed-task.json) still uses `pythonw.exe` and
+`-B scripts\plan_status_posts.py --publish` in the same operating root. The
+[last logged consumer result](installed-consumer-readback.json) is OK with zero
+queued rows, but its 05:04:48 GMT+7 run clock precedes installation. The task was
+observed Running; its raw last-result code is retained. No completed run using
+the new code, or new live compared chart, is claimed by this readback.
+
+The [installed day audit](installed-day-audit.json) reports
+`OBSERVATION_PENDING`: zero observed plan charts in the current production day,
+zero missing-quote refusals, no three-day comparison sample, and all six current
+references `NOT_COMPARED` with their precise causes. Zero charts cannot prove
+95% coverage. The starting limits in the table remain explicitly uncalibrated.
+
+CC-489 remains **BLOCKED: PLAN_STATUS_LAST_PRICE_NOT_EXPORTED / CHART_REFERENCE_STALE**.
+Main can supply the timed exact-instrument price in its existing minute export;
+alternatively Data can refresh the existing native M1 store. Once either source
+is current, the installed reader consumes it automatically. A completed live
+day and the actual three-day differences must then be read through the existing
+register and outcomes with the audit command. No watcher, schedule change,
+duplicate publication or request to Jim is needed.

@@ -1,0 +1,230 @@
+{
+  "day": "2026-11-12",
+  "status": "OBSERVATION_PENDING",
+  "whole_live_day_elapsed": false,
+  "plan_charts": 0,
+  "compared_plan_charts": 0,
+  "compared_percent": null,
+  "required_compared_percent": 95,
+  "not_compared": [],
+  "missing_quote_refusals": [],
+  "charts": [],
+  "calibration": {
+    "from_utc": "2026-11-11T22:07:32.444492+00:00",
+    "until_utc": "2026-11-14T22:07:32.444492+00:00",
+    "whole_three_day_window_elapsed": false,
+    "markets": {
+      "XAUUSD": {
+        "limit_pct": 0.15,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "US500": {
+        "limit_pct": 0.15,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "EURUSD": {
+        "limit_pct": 0.15,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "USDJPY": {
+        "limit_pct": 0.15,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "USOIL": {
+        "limit_pct": 0.4,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      },
+      "BTCUSD": {
+        "limit_pct": 0.4,
+        "limit_basis": "APPROVED_STARTING_LIMIT",
+        "compared_images": 0,
+        "observed_et_dates": [],
+        "maximum_observed_difference_pct": null,
+        "p95_difference_pct": null,
+        "measured_above_limit": 0,
+        "closed_market_comparisons": 0,
+        "three_day_observations_present": false
+      }
+    }
+  },
+  "public_write_performed": false,
+  "schedule_changed": false,
+  "source_readback": {
+    "observed_at_utc": "2026-11-11T22:08:36.841246+00:00",
+    "markets": {
+      "XAUUSD": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "XAUUSD",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED"
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-10T05:11:00+00:00",
+            "age_seconds": 147456.841246
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "XAUUSD",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "US500": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE",
+        "market": "US500",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED"
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-10T05:11:00+00:00",
+            "age_seconds": 143340.0
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE",
+            "market": "US500",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "EURUSD": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "EURUSD",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED"
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-10T05:11:00+00:00",
+            "age_seconds": 147456.841246
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "EURUSD",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "USDJPY": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "USDJPY",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED"
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-10T05:11:00+00:00",
+            "age_seconds": 147456.841246
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "USDJPY",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "USOIL": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "USOIL",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED"
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-10T05:11:00+00:00",
+            "age_seconds": 147456.841246
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "USOIL",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      },
+      "BTCUSD": {
+        "status": "NOT_COMPARED",
+        "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+        "market": "BTCUSD",
+        "source_attempts": [
+          {
+            "source_kind": "PLAN_STATUS_EXPORT",
+            "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED"
+          },
+          {
+            "source_kind": "BAR_STORE_M1_CLOSE",
+            "cause": "CHART_REFERENCE_STALE",
+            "price_at_utc": "2026-11-10T05:11:00+00:00",
+            "age_seconds": 147456.841246
+          },
+          {
+            "source_kind": "MAIN_SAVED_TICK",
+            "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+            "market": "BTCUSD",
+            "maximum_clock_skew_seconds": 120
+          }
+        ]
+      }
+    }
+  }
+}

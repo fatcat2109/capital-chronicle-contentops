@@ -1,0 +1,11 @@
+{
+  "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261111.jsonl",
+  "observed_at_utc": "2026-11-11T22:14:18.371828+00:00",
+  "at_utc": "2026-11-11T22:04:48.468333Z",
+  "status": "OK",
+  "cause": null,
+  "queued": 0,
+  "export_generated_at_utc": "2026-11-11T22:02:15.437875Z",
+  "export_age_seconds": 18.9,
+  "run_clock_after_install": false
+}
