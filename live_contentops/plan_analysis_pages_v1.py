@@ -144,6 +144,9 @@ def _source_text(run, ref):
         raise ValueError("PLAN_ANALYSIS_SCALAR_SOURCE_REQUIRED")
     if ref.get("transform") == "ET":
         return public_timestamp(value)
+    if ref.get("transform") == "ET12":
+        from .plan_reader_copy_v1 import et
+        return et(value)
     if ref.get("transform"):
         raise ValueError("PLAN_ANALYSIS_SOURCE_TRANSFORM_INVALID")
     return str(value)
@@ -439,7 +442,8 @@ def confirmed_publication(store, plan):
             "canonical_url": status["canonical_url"], "summary": packet["summary"]}
 
 
-def continue_page(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None):
+def continue_page(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None,
+                  automatic=False):
     from .native_desktop_publication_v1 import live_publication_policy
     from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
     from .llm_operator_control_v1 import assert_llm_operator_execution_enabled
@@ -448,7 +452,7 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
     if Path(store.db_path).resolve() != Path(rollout["store_path"]).resolve():
         raise ValueError("PLAN_ANALYSIS_ROLLOUT_STORE_MISMATCH")
     coordinator, executor = bind_native_neo_coordinator(store, operation_id=packet["page_id"],
-        output_dir=packet["output_dir"], native_invocation_id=invocation_id, allow_publish=True)
+        output_dir=packet["output_dir"], native_invocation_id=invocation_id, allow_publish=True, automatic=automatic)
     coordinator.allow_prior_confirmed_distribution = True
     coordinator.recovery_scope = {"work_item_id": packet["page_id"], "plan": packet["plan"], "exact_work_item_only": True}
     if command in {"begin", "submit"}:

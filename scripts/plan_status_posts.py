@@ -107,6 +107,16 @@ def main(argv=None) -> int:
                 reply_bot = bot_refresh(store, binding_path=args.store.parent / "control/x_reply_bot_binding.json")
             except Exception as exc:
                 reply_bot = {"status": "REPLY_BOT_FAILED", "cause": type(exc).__name__, "public_submit_actions": 0}
+        plan_pages = None
+        if args.publish and not args.dry_run:
+            from live_contentops.plan_reader_editorial_v1 import run_due
+            try:
+                page_export = posts.read_export(args.export_dir, main_root=args.main_root, python=child_python())
+                rollout = json.loads((Path(__file__).resolve().parents[1] / "config/native_desktop_rollout_v1.json").read_bytes())
+                plan_pages = run_due(store, page_export, root=args.store.parent / "daily_app_outputs/plan_analysis",
+                    rollout=rollout, now=datetime.now(timezone.utc))
+            except Exception as exc:
+                plan_pages = {"status":"CANONICAL_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
         from live_contentops.instagram_adapter_v6 import readback_analysis_profile_link
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
                              render_all=args.dry_run,
@@ -114,6 +124,8 @@ def main(argv=None) -> int:
                              main_root=args.main_root, python=child_python())
         if reply_bot is not None:
             result["reply_bot"] = reply_bot
+        if plan_pages is not None:
+            result["plan_pages"] = plan_pages
         if args.dry_run:
             result["validation"] = "PASS" if result["status"] == "OK" else "FAIL"
         if args.publish and not args.dry_run and result["status"] == "OK":

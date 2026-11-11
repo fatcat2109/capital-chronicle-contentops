@@ -22,14 +22,19 @@ def controlled_tradingview(monkeypatch, tmp_path):
     from live_contentops import tradingview_snapshot_v1 as tv
     capture = tv.capture
     def snapshot(market, interval, folder, **kwargs):
+        from live_contentops import publication_image_contract_v1 as contract
         def worker(args):
             path = Path(args["out_dir"]) / (tv.SYMBOLS[market].split(":")[1] + "_2026-11-11_00-00-00.png")
-            image = Image.new("RGB", (800, 450), "white")
+            image = Image.new("RGB", (640, 800) if kwargs.get("ratio") == "4:5" else (800, 450), "white")
             ImageDraw.Draw(image).text((20, 20), "CONTROLLED MEDIA FIXTURE / " + market, fill="black")
             image.save(path)
-            return {"path": str(path), "suggested_filename": path.name,
+            return {"path": str(path), "suggested_filename": path.name, "page_title": market+" 100",
                     "legend": tv.INTERVAL_LABELS[interval], "captured_at_utc": datetime.now(timezone.utc).isoformat()}
-        return capture(market, interval, folder, worker=worker)
+        taken=capture(market, interval, folder, worker=worker, ratio=kwargs.get("ratio", "16:9"))
+        at=taken['captured_at_utc']
+        return contract.bind_scale(market,taken,quote={"market":market,"instrument":market,"price":100,
+            "quoted_at_utc":at,"known_at_utc":at,"source_path":"controlled-fixture.json",
+            "source_sha256":"a"*64,"price_basis":"plan_feed"})
     monkeypatch.setattr(tv, "capture", snapshot)
     monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
 
@@ -252,7 +257,7 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
     result = posts.publish_ready(store, now=NOW, latest_states=queued["latest_states"],
         root=tmp_path / "posts", host=fake_host, coordinator_for=lambda key, folder: coordinator)
     assert len(result["posts"]) == 6, result
-    assert all(r["status"] == "PUBLISHED" for r in result["posts"]), result
+    assert all(r["status"] == "PUBLISHED" for r in result["posts"]), json.dumps(result,indent=2)
     first_count = len(cards.DESTINATIONS) + 5 * (len(cards.DESTINATIONS) - 1)
     assert len(runtime.intents) == first_count
     assert [i["work_item_id"] for i in runtime.intents if i["destination_plan"]["destination"] == "linkedin"] == [

@@ -140,11 +140,19 @@ def source_packet(plan, run):
             for key, child in value.items():
                 if key in {"zone", "invalidation_level", "direction", "entry_deadline_utc", "horizon_end_utc",
                            "time_exit_utc", "registered_at_utc", "status", "low", "high", "lower", "upper",
-                           "minimum", "maximum", "zone_low", "zone_high"}:
+                           "minimum", "maximum", "zone_low", "zone_high", "invalidation_conditions",
+                           "level", "price", "horizon_end_utc", "scenario_analysis"}:
                     scalars(child, pointer + "/" + key)
         elif isinstance(value, (str, int, float)):
             add("plan", "plan-export", pointer, value)
     scalars(plan)
+    for key in ("registered_at_utc", "entry_deadline_utc", "status_at_utc"):
+        if plan.get(key):
+            lines.append({"id":"s"+str(len(lines)), "layer":"plan", "text":et(plan[key]),
+                "ref":{"file":"plan-export", "pointer":"/"+key, "transform":"ET12"}})
+    if scenario.get("horizon_end_utc"):
+        lines.append({"id":"s"+str(len(lines)), "layer":"plan", "text":et(scenario["horizon_end_utc"]),
+            "ref":{"file":"plan-export", "pointer":"/scenario_analysis/horizon_end_utc", "transform":"ET12"}})
     return {"plan_id": plan["plan_id"], "registration_hash": plan["registration_hash"],
             "asset_id": plan["asset_id"], "sources": lines,
             "scenario_analysis": scenario,
@@ -193,12 +201,41 @@ def validate_fields(fields, source):
             raise ValueError("CC466_SCENARIO_ODDS_NOT_SUPPLIED")
         if text and Decimal(re.search(r"\((\d+)%\)", text)[1]) != Decimal(str(probability)):
             raise ValueError("CC466_SCENARIO_ODDS_CHANGED")
-    if source.get("scenario_analysis", {}).get("main_alternative", {}).get("probability_pct") is not None and not alt:
+    if (source.get("scenario_analysis", {}).get("main_alternative") or {}).get("probability_pct") is not None and not alt:
         raise ValueError("CC466_HELD_ALTERNATIVE_ODDS_OMITTED")
     for key in ("window", "alt_text"):
         if fields.get(key):
             field(fields[key])
     return checks
+
+
+def attach_call(row):
+    """The concise call still states every field Jim decision 40 requires."""
+    from . import plan_status_posts_v1 as posts
+    from .event_article_guard_v1 import compact_reader_conditional_call_text
+    plan = row["levels"]
+    low, high, invalid = (plan[k] for k in ("zone_low", "zone_high", "invalidation_level"))
+    side = "below" if Decimal(str(invalid)) < Decimal(str(low)) else "above"
+    call = {"market": row["symbol"] if row["symbol"] in {"EURUSD", "USDJPY"} else row["instrument_title"],
+            "condition": "price reaches " + posts._level(low) + "–" + posts._level(high),
+            "direction": plan["direction"], "horizon": et(row.get("time_exit_utc") or plan["valid_until_utc"]),
+            "invalidation": side + " " + posts._level(invalid)}
+    call["market"] = {"EURUSD":"EUR/USD", "USDJPY":"USD/JPY"}.get(call["market"], call["market"])
+    return {"reader_call_line":compact_reader_conditional_call_text(call), "conditional_calls":[call]}
+
+
+def result_r(plan):
+    """Only an explicitly exported R result; STOPPED does not imply -1R."""
+    outcome=plan.get("outcome") or {}
+    score=outcome.get("score") or {}
+    for parent in (score,outcome):
+        for key in ("result_r", "realized_r", "r_multiple"):
+            value=parent.get(key)
+            if isinstance(value,(int,float)) and not isinstance(value,bool):
+                number=Decimal(str(value))
+                if number.is_finite():
+                    return number
+    return None
 
 
 def payloads(row, card_id, *, chart_credit=False, parents=None):

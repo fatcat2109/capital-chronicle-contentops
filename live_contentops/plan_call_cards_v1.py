@@ -225,6 +225,13 @@ def analysis_publication(raw):
 
 
 def compose(row):
+    if row.get("reader_contract") == "CC466_V1":
+        from .plan_reader_copy_v1 import payloads
+        if row.get("reader_fields"):
+            text = payloads(row, None)["telegram"]["text"]
+            return {"lead": row["reader_fields"]["hook"]["text"], "text": text,
+                    "conditional_calls": row.get("conditional_calls") or []}
+        return {"lead": "", "text": "", "conditional_calls": []}
     kind = row["kind"]
     if kind == "run":
         at = posts._utc(row["at_utc"]).astimezone(posts.PUBLIC_TZ)
@@ -306,6 +313,8 @@ def compose(row):
 
 
 def destinations_for(row):
+    if row.get("reader_contract") == "CC466_V1":
+        return tuple(d for d in DESTINATIONS if d != "linkedin")
     # LinkedIn receives the run and its links, rather than one duplicate root
     # for every card in that run (CC-435).
     return tuple(d for d in DESTINATIONS if d != "linkedin" or (
@@ -463,6 +472,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             item["delayed_at_utc"] = now.isoformat().replace("+00:00", "Z")
         analysis, cause = analysis_publication(raw)
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
+        from .plan_reader_copy_v1 import EFFECTIVE as READER_EFFECTIVE
+        if now >= READER_EFFECTIVE:
+            item.update(reader_contract="CC466_V1", source_plan=raw,
+                        source_plan_registration=raw.get("registration_hash"))
         return item
 
     groups = {}
@@ -483,7 +496,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         # Older exports still work: the current consumer run owns their group.
         run = raw.get("run_id") or export["status"]["generated_at_utc"]
         run_key = "plan-run-post-" + _hash(run)[:32]
-        item.update(parent_key=run_key, run_key=run_key)
+        if item.get("reader_contract"):
+            item["run_key"] = run_key
+        else:
+            item.update(parent_key=run_key, run_key=run_key)
         groups.setdefault(run_key, []).append(item)
 
     for run_key, members in groups.items():
@@ -494,7 +510,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             item["reasons"] = checked_reasons(proposed, source)
             item["reasons_cause"] = None if item["reasons"] else "PUBLIC_REASONS_NOT_SUPPLIED_OR_NUMBER_MISMATCH"
             item.update(compose(item))
-        if run_key not in prior:
+        if run_key not in prior and not all(m.get("reader_contract") for m in members):
             if profile_link is None:
                 profile_link = ({"verified": False, "cause": "INSTAGRAM_PROFILE_ANALYSIS_LINK_NOT_VERIFIED"}
                                 if instagram_profile_reader is None else instagram_profile_reader())
@@ -689,6 +705,9 @@ def _parents(store, row, destinations, previous):
 
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False):
+    if row.get("reader_contract") == "CC466_V1":
+        from .plan_reader_copy_v1 import payloads
+        return payloads(row, card_id, chart_credit=chart_credit, parents=parents)
     result = {}
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000,
@@ -836,6 +855,9 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     folder.mkdir(parents=True, exist_ok=True)
     context_path = folder / "run_context_v1.json"
     previous = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
+    if row.get("reader_contract") == "CC466_V1":
+        from .plan_reader_copy_v1 import validate_fields
+        validate_fields(row["reader_fields"], row["reader_source"])
     parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
     chosen = [d for d in destinations if not row.get("parent_key") or d in parents]
     if not chosen:
@@ -943,6 +965,9 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
 
 def validate_parent_intent(store, row, intent):
     destination = intent["destination_plan"]["destination"]
+    if row.get("reader_contract") == "CC466_V1":
+        from .plan_reader_copy_v1 import validate_fields
+        validate_fields(row["reader_fields"], row["reader_source"])
     if row["kind"] == "setup" and row.get("time_exit_utc") and datetime.now(timezone.utc) >= posts._utc(row["time_exit_utc"]):
         raise posts.PlanPostError("PLAN_CARD_ALREADY_ENDED_BEFORE_WRITE")
     if not row.get("parent_key"):
@@ -1015,6 +1040,13 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
     results, calls, browser_only = [], 0, 0
     for outbox, row in pending:
         key = row["key"]
+        if row.get("reader_contract") == "CC466_V1" and not row.get("reader_fields"):
+            from .plan_reader_editorial_v1 import prepare_social_row
+            prepared = prepare_social_row(store, row, root=root)
+            if prepared["status"] != "PREPARED":
+                results.append({"key": key, **prepared})
+                continue
+            row = prepared["row"]
         if row["kind"] == "run" and outbox["status"] == posts.READY and latest_states is not None:
             try:
                 members = [posts._row_payload(store, child) for child in row["card_keys"]]
