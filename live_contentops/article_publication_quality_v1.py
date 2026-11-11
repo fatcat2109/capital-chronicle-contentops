@@ -154,6 +154,8 @@ def before_article_write(coordinator, intent, destination):
             lead_asset_id=assets[0]["asset_id"], now=coordinator._clock(),
             canonical_url=intent.get("canonical_url"), enforce_cap=False)
     article, assets, documents = article_inputs(intent)
+    from live_contentops.cpi_reaction_page_v1 import validate_bound_tables
+    validate_bound_tables(article)
     from live_contentops.reader_article_contract_v1 import (
         validate_article as validate_reader_article, validate_payload as validate_reader_payload,
         validate_publication_clock,

@@ -188,6 +188,10 @@ def desk_evidence(records, request):
         "canonical_content_text": r["text"], "canonical_content_sha256": hashlib.sha256(r["text"].encode()).hexdigest(),
         "public_claim_allowed": True, "report_truth_only": True, "underlying_event_truth_granted": False,
         "desk_record_binding": r["binding"], "retrieval_method": "MAIN_PUBLIC_DESK_RECORD_PROJECTION"} for r in selected]
+    from live_contentops.cpi_reaction_page_v1 import record_projection
+    for doc, record in zip(docs, selected):
+        if projection := record_projection(record):
+            doc["cpi_reaction_page"] = projection
     return {"status": "PASS", "blockers": [], "evidence_documents": docs,
         "epistemic_state": {"schema_version": "contentops.v1_simple_epistemic_state.v1",
             "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT", "event_confirmation_state": "UNCONFIRMED",

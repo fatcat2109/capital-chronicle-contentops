@@ -1181,10 +1181,14 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
         if public_record_metadata:
             retained_main = True
         desk = document.get("desk_record_binding")
+        cpi_reaction = None
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of as desk_binding_hash
         if (isinstance(desk, Mapping) and document.get("source_authority_class") == "governed_capital_chronicle_report_only"
                 and document.get("retrieval_method") == "MAIN_PUBLIC_DESK_RECORD_PROJECTION"
-                and url == "urn:cc-public-report:desk:" + _hash(desk)):
+                and url == "urn:cc-public-report:desk:" + desk_binding_hash(desk)):
             retained_main = True
+            from live_contentops.cpi_reaction_page_v1 import record_projection
+            cpi_reaction = record_projection({"binding": desk})
         if not (url.startswith("https://") or retained_main) or len(text.strip()) < 40:
             continue
         constraints = document.get("source_reuse_constraints") or {}
@@ -1232,7 +1236,8 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "canonical_content_sha256": str(
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
-                "canonical_content_text": text if public_record_metadata else text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
+                "canonical_content_text": text if (public_record_metadata or cpi_reaction) else text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
+                **({"cpi_reaction_page": cpi_reaction} if cpi_reaction else {}),
                 **({"source_reuse_constraints": dict(constraints)} if constraints else {}),
                 **({k: document[k] for k in ("context_only", "known_at_utc", "retrieval_time_utc", "revision_at_utc")
                     if k in document} if document.get("context_only") else {}),
@@ -1360,6 +1365,8 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
     if any(d.get("weekly_scored_calls") for d in governed.get("source_pack", [])):
         from live_contentops.weekly_scored_calls_v1 import WRITER_GUIDANCE
         prompt += WRITER_GUIDANCE
+    from live_contentops.cpi_reaction_page_v1 import writer_guidance as cpi_reaction_guidance
+    prompt += cpi_reaction_guidance(governed.get("source_pack", []))
     return _reader_first_worker_prompt(prompt, governed)
 
 
@@ -1766,6 +1773,11 @@ def _validate_article_against_source_pack(
     article.pop("public_research_descriptors", None)
     article.pop("frozen_public_record", None)  # Main's exact source, never writer-authored attachment metadata.
     article.pop("weekly_scored_calls", None)
+    from live_contentops.cpi_reaction_page_v1 import bind_tables
+    try:
+        article = bind_tables(article, source_pack)
+    except ValueError as exc:
+        raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", [str(exc)]) from exc
     from live_contentops.reader_article_contract_v1 import validate_article as validate_reader_article
     try:
         validate_reader_article(article, source_pack)
@@ -1948,7 +1960,8 @@ def _revision_prompt(
 ) -> str:
     from live_contentops.weekly_scored_calls_v1 import WRITER_GUIDANCE
     weekly_guidance = WRITER_GUIDANCE if any(d.get("weekly_scored_calls") for d in governed.get("source_pack", [])) else ""
-    return weekly_guidance + (
+    from live_contentops.cpi_reaction_page_v1 import writer_guidance as cpi_reaction_guidance
+    return weekly_guidance + cpi_reaction_guidance(governed.get("source_pack", [])) + (
         "Return exactly one JSON object with no markdown fence, commentary, prefix, or suffix. "
         "Revise the prior article once using only the same governed candidate and SOURCE_PACK. "
         "Fix exactly the deterministic blockers, do not add a source or expand factual scope, and return the complete strict object. "
@@ -2113,7 +2126,7 @@ def _reader_safe_native_article(
             result["editorial_scope_notice"], *article.get("desk_record_source_notices", []))))
     for key in ("scenario_analysis", "social_scenarios", "market_asset", "article_type", "release_analysis",
                 "lead_image_asset_id", "publication_quality_policy", "valid_until_utc", "weekly_scored_calls",
-                "public_instrument_policy", "reader_article_contract"):
+                "public_instrument_policy", "reader_article_contract", "cpi_reaction_page"):
         if key in article:
             result[key] = article[key]
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
