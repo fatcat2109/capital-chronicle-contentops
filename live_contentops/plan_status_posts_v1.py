@@ -1581,10 +1581,14 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
 
 def destination_causes(outcome: Mapping[str, Any]) -> dict:
     """Retain fixed pre-write/recovery causes, without copy, credentials or tool returns."""
+    per = dict(outcome.get("per_destination") or {})
+    for destination, recovered in (outcome.get("recovery_preflight") or {}).get("per_destination", {}).items():
+        if not per.get(destination) or per[destination].get("status") == "NOT_DISPATCHED":
+            per[destination] = recovered
     return {destination: str(value.get("reason_code") or value.get("blocker")
         or value.get("safe_error_classification") or value.get("reconciliation_status")
         or value.get("status") or "DESTINATION_OUTCOME_UNAVAILABLE")[:200]
-        for destination, value in (outcome.get("per_destination") or {}).items()
+        for destination, value in per.items()
         if isinstance(value, Mapping) and value.get("status") != "DISPATCH_CONFIRMED"}
 
 

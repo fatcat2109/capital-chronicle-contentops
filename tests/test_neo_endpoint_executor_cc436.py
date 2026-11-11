@@ -610,6 +610,20 @@ def test_composer_preparation_does_not_mute_unrelated_posts_when_definitely_unse
         assert conn.execute('SELECT description FROM incidents WHERE incident_id=?',(incident_id,)).fetchone()[0]==original
 
 
+def test_minute_record_keeps_recovery_cause_instead_of_not_dispatched(tmp_path):
+    from live_contentops.plan_status_posts_v1 import destination_causes,record_run
+    outcome={'per_destination':{'x':{'status':'NOT_DISPATCHED'},
+        'telegram':{'status':'DISPATCH_CONFIRMED'}},'recovery_preflight':{'per_destination':{
+            'x':{'status':'SESSION_UNAVAILABLE','safe_error_classification':'EXACT_ACCOUNT_PROBE_FAILED'},
+            'telegram':{'status':'UNKNOWN_WRITE'}}}}
+    causes=destination_causes(outcome)
+    assert causes=={'x':'EXACT_ACCOUNT_PROBE_FAILED'}
+    path=record_run({'status':'OK','publication':{'posts':[{'key':'current','status':'PUBLISHING',
+        'destination_causes':causes,'per_destination':{'x':'NOT_DISPATCHED'}}]}},tmp_path)
+    recorded=json.loads(path.read_text(encoding='utf-8'))
+    assert recorded['posts'][0]['destination_causes']=={'x':'EXACT_ACCOUNT_PROBE_FAILED'}
+
+
 def test_existing_beforeunload_is_cleared_before_running_a_page_script():
     class Client(neo.NeoMcpClient):
         def __init__(self):self.actions=[]
