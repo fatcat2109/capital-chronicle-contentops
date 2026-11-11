@@ -206,3 +206,19 @@ and policy-claim checks (24.02 seconds). These were separate, sequential pytest
 processes on targeted files; no long test run started in the decision window.
 All passing sub-steps were committed, pushed, and fast-forwarded into the
 Publisher operating root without changing a schedule or starting an application.
+
+The later normal tick exposed a second hold: a day-skipped LinkedIn copy left
+the status post behind the article canonical-recovery rule. Status posts have
+no Substack article. Exact-scoped, validated status rows now keep recovery local
+to each destination; the original article rule and each dispatch fence remain.
+Three source-copy/isolation checks passed in 13.72 seconds, and three canonical
+uncertain-write/retry checks passed in 5.17 seconds.
+
+The remaining X composer failure was observed in **Crop media**, after adding
+an image and the disclosure post. Neo focus plus Enter on the exact `Add post`
+button created the second editor. The transport now verifies that focused
+button before Enter, and cancels an old crop dialog before discarding its own
+unsent draft. It never saves a crop of the bound card. Six image-thread,
+composer and plain-Python-consumer checks passed in 6.11 seconds. A separate
+live preparation verified the focused button's `Add post` label; that test
+composer was discarded without a publish action.
