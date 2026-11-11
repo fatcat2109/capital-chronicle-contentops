@@ -518,7 +518,18 @@ class NeoBrowserDriver:
             data = self.client.run(page,"readback", expected_identity=request["expected_identity"])
             candidates = data["tweets" if destination == "x" else "notes"]
             self._resolve_links(request,candidates)
-            root = next((r for r in candidates if r["public_object_url"] == root["public_object_url"]), root)
+            if destination == "substack_notes":
+                # Replies can link through /profile/<id>-<slug>/note/<id>.
+                # Following that public link must reveal the same object under
+                # the bound @handle before the alias can establish authorship.
+                canonical_prefix="https://substack.com/"+request["expected_identity"]+"/note/"
+                root = next((r for r in candidates if r.get("public_object_id") == root.get("public_object_id")
+                    and r["public_object_url"].startswith(canonical_prefix)),None)
+                if root is None:
+                    return {"status":"READBACK_UNAVAILABLE","verified":False,
+                        "reason_code":"NEO_NOTE_AUTHOR_NOT_VERIFIED"}
+            else:
+                root = next((r for r in candidates if r["public_object_url"] == root["public_object_url"]), root)
         if len(texts)>1:
             # X delivers replies after the root. Wait for the expected final
             # post, rather than accepting the root-only loading snapshot.

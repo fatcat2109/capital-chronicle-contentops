@@ -588,6 +588,36 @@ def test_loading_composer_observes_its_exact_editor_before_filling():
     assert client.actions==[('fill',{'ref':'exact-editor','value':'The frozen call.'})]
 
 
+@pytest.mark.parametrize('author_verified',[True,False])
+def test_note_reply_profile_alias_requires_the_exact_object_under_its_bound_handle(author_verified):
+    text='The original conditional call remains in force.'
+    alias='https://substack.com/profile/123-capital-chronicle/note/c-456'
+    canonical='https://substack.com/@capitalchronicle/note/c-456'
+    parent='https://substack.com/@capitalchronicle/note/c-123'
+    class Client:
+        def __init__(self):self.navigations=[]
+        def call(self,name,args):
+            assert name=='navigate'
+            self.navigations.append(args['url'])
+        def wait(self,*args):pass
+        def run(self,page,phase,**kw):
+            assert phase=='readback'
+            url=(canonical if author_verified else alias) if len(self.navigations)>1 else alias
+            return {'notes':[{'public_object_id':'c-456','public_object_url':url,'observed_text':text,'links':[]},
+                {'public_object_id':'c-123','public_object_url':parent,'observed_text':'Original run','links':[]}]}
+    client=Client()
+    request={'destination':'substack_notes','entry_url':parent,'expected_identity':'@capitalchronicle',
+        'request_sha256':'bound-request','native_payload':{'text':text},'content_binding':{},
+        'reply_parent':{'public_object_id':'c-123','public_object_url':parent}}
+    result=neo.NeoBrowserDriver(client).readback(request,1)
+    assert client.navigations==[parent,alias]
+    if author_verified:
+        assert result['status']=='SUCCESS' and result['public_object_url']==canonical
+        assert result['observed_reply_parent_id']=='c-123'
+    else:
+        assert result['status']=='READBACK_UNAVAILABLE' and result['reason_code']=='NEO_NOTE_AUTHOR_NOT_VERIFIED'
+
+
 @pytest.mark.parametrize('destination,button',[('substack_notes','Post'),('x','Reply')])
 def test_reply_validates_the_platforms_actual_submit_button(destination,button):
     # Run the production JS with the SDK/DOM observations from the live Notes

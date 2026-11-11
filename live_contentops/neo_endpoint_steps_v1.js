@@ -215,7 +215,8 @@ if (input.phase === 'readback') {
       const noteUrl = value => {
         const u = new URL(value);
         return u.origin === 'https://substack.com' && !u.search && !u.hash
-          && u.pathname.startsWith('/' + identity + '/note/') && /\/note\/c-\d+$/.test(u.pathname);
+          && /\/note\/c-\d+$/.test(u.pathname) && (u.pathname.startsWith('/' + identity + '/note/')
+            || /^\/profile\/\d+-[a-z0-9-]+\/note\/c-\d+$/i.test(u.pathname));
       };
       const owner = ancestors.find(a=>links(a).some(l=>noteUrl(l.url))) || root;
       const url = links(owner).find(a=>noteUrl(a.url))?.url
