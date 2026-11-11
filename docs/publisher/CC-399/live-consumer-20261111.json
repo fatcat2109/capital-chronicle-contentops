@@ -1,0 +1,216 @@
+{
+  "item": "CC-399",
+  "recorded_at_utc": "2026-11-11T01:04:13.641209+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "ef9b7c6e2cd4ef15a1d56f8cf1bf7372b09fcaad",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "editorial_model_calls": 0,
+  "public_writes_by_verification": 0,
+  "production_store_writes_by_verification": 0,
+  "schedule_changes": 0,
+  "installed_modules": {
+    "plan_call_cards_v1.py": {
+      "sha256": "eea122e5e70d9e7f8f4eaa91c10031d7d5ba0c481da8c379d5d90a6ae205d06a",
+      "matches_worktree": true
+    },
+    "plan_analysis_pages_v1.py": {
+      "sha256": "b8f7e99f07b2d5d3b076ffa8554810250cfc55d27dd758317aad42ba84cc64d9",
+      "matches_worktree": true
+    },
+    "discord_live_adapter_v6.py": {
+      "sha256": "a64997834b58139be6b50d6e18f82a511c5d7b000c6ccd1e3508abe2d98429f7",
+      "matches_worktree": true
+    },
+    "plan_status_posts_v1.py": {
+      "sha256": "312e5dc0652a00a87d43cf6589d9446209c6e0e5bc6d1f0bb87efb8f711d5ce2",
+      "matches_worktree": true
+    }
+  },
+  "telegram": {
+    "method": "BrowserOS Neo markdown reads of public https://t.me/s/CapitalChronicle only",
+    "feed_urls": [
+      "https://t.me/s/CapitalChronicle?before=138",
+      "https://t.me/s/CapitalChronicle?before=164"
+    ],
+    "captures": [
+      {
+        "sha256": "3246987ca541eec25bbd795a78ee58c3a53746e71a0242bf3ce9c3ff44b5f7e3",
+        "bytes": 21179
+      },
+      {
+        "sha256": "d236ece2e46c088a81fabf2bc3d066427b5a94cc59ce7e4b86d8b9dfa75d7d97",
+        "bytes": 55004
+      }
+    ],
+    "one_run_five_cards_verified": true,
+    "fill_replies_to_card_verified": true,
+    "untriggered_ending_replies_to_card_verified": true,
+    "observed_messages": [
+      {
+        "message_id": "122",
+        "url": "https://t.me/CapitalChronicle/122",
+        "quoted_parent_id": null,
+        "observed_body_sha256": "3bcf6d28980ca8dff1840b60f5fc9bdd5082f92b9837640e52fe7beb0bc4ab73",
+        "body_excerpt": "Calls from our 10 Nov 01:23 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      },
+      {
+        "message_id": "123",
+        "url": "https://t.me/CapitalChronicle/123",
+        "quoted_parent_id": "122",
+        "observed_body_sha256": "722c599162451fee1257df1a538ea9a76ea359086d0286ba235f739be2c12988",
+        "body_excerpt": "[#1396db9b](https://t.me/s/CapitalChronicle?q=%231396db9b) · short idea\nIf price trades into 85.9–86.05, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 86.8.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital C"
+      },
+      {
+        "message_id": "124",
+        "url": "https://t.me/CapitalChronicle/124",
+        "quoted_parent_id": "122",
+        "observed_body_sha256": "d543bb3063a9a07fc0695e7997bab2f10174bd1c83d769806eff24681eb57c2d",
+        "body_excerpt": "[#f6da00b4](https://t.me/s/CapitalChronicle?q=%23f6da00b4) · short idea\nIf price trades into 75,150–75,300, the desk is bearish on Micro Bitcoin (MBT futures, Nov 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves above 75,700.\nEntry window to 16 Nov 15:00 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital Ch"
+      },
+      {
+        "message_id": "125",
+        "url": "https://t.me/CapitalChronicle/125",
+        "quoted_parent_id": "122",
+        "observed_body_sha256": "a9e214814b261bc3db4513158ab431ee67cd97769161eee4df0da9411cc29037",
+        "body_excerpt": "[#bd31561c](https://t.me/s/CapitalChronicle?q=%23bd31561c) · long idea\nIf price trades into 4,100–4,104, the desk is bullish on Micro gold (MGC futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 4,080.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle"
+      },
+      {
+        "message_id": "126",
+        "url": "https://t.me/CapitalChronicle/126",
+        "quoted_parent_id": "122",
+        "observed_body_sha256": "fd9b94557e945cfa793fe468ba26dc54167d9f0c787e8e2ee6fc9909509066e4",
+        "body_excerpt": "[#b7fd4247](https://t.me/s/CapitalChronicle?q=%23b7fd4247) · long idea\nIf price trades into 1.12165–1.12195, the desk is bullish on Euro (EUR.USD spot) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 1.12.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 55% (Capital Chronicle model estim"
+      },
+      {
+        "message_id": "127",
+        "url": "https://t.me/CapitalChronicle/127",
+        "quoted_parent_id": "122",
+        "observed_body_sha256": "23dd8d994cf23d2f69a45f231bb8b3c8a5ceaafa12ca163ee7193f56c43ceb55",
+        "body_excerpt": "[#6845d7ba](https://t.me/s/CapitalChronicle?q=%236845d7ba) · long idea\nIf price trades into 7,522–7,528, the desk is bullish on Micro E-mini S&P 500 (MES futures, Dec 2026) over the period to 16 Nov 16:00 ET. Invalidated if price moves below 7,498.\nEntry window to 10 Nov 08:15 ET.\nTime exit: 16 Nov 16:00 ET.\nBase-case chance: 52% (Capital"
+      },
+      {
+        "message_id": "143",
+        "url": "https://t.me/CapitalChronicle/143",
+        "quoted_parent_id": null,
+        "observed_body_sha256": "82d6bee42417367472b5c87fd682077c83dd5add707f5b2033534aaa45611883",
+        "body_excerpt": "Calls from our 10 Nov 11:18 ET run: 4.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      },
+      {
+        "message_id": "144",
+        "url": "https://t.me/CapitalChronicle/144",
+        "quoted_parent_id": "143",
+        "observed_body_sha256": "60dd09356eec0b1e249e78d8bba9842be0d4492688e8cd64138bc420239c6845",
+        "body_excerpt": "[#ceb3e6db](https://t.me/s/CapitalChronicle?q=%23ceb3e6db) · long idea\nIf price trades into 158.3–158.38, the desk is bullish on US dollar / Japanese yen (USD.JPY spot) over the period to 13 Nov 03:00 ET. Invalidated if price moves below 158.04.\nEntry window to 11 Nov 15:00 ET.\nTime exit: 13 Nov 03:00 ET.\nBase-case chance: 55% (Capital Ch"
+      },
+      {
+        "message_id": "145",
+        "url": "https://t.me/CapitalChronicle/145",
+        "quoted_parent_id": "143",
+        "observed_body_sha256": "d1db94e434b7d9ee2996da0f78d09da40b6880c4655cba56d66a8f99a5d8d751",
+        "body_excerpt": "[#cb3fd1c5](https://t.me/s/CapitalChronicle?q=%23cb3fd1c5) · short idea\nIf price trades into 85.25–85.5, the desk is bearish on Micro WTI crude oil (MCL futures, Dec 2026) over the period to 13 Nov 03:00 ET. Invalidated if price moves above 86.15.\nEntry window to 11 Nov 15:00 ET.\nTime exit: 13 Nov 03:00 ET.\nBase-case chance: 55% (Capital "
+      },
+      {
+        "message_id": "146",
+        "url": "https://t.me/CapitalChronicle/146",
+        "quoted_parent_id": "143",
+        "observed_body_sha256": "1d7f01ecce9cda205190623cf961c613a4504be403b5cc1e7ddc11e2ba200d61",
+        "body_excerpt": "[#2649b750](https://t.me/s/CapitalChronicle?q=%232649b750) · short idea\nIf price trades into 1.1188–1.1194, the desk is bearish on Euro (EUR.USD spot) over the period to 13 Nov 03:00 ET. Invalidated if price moves above 1.1218.\nEntry window to 11 Nov 15:00 ET.\nTime exit: 13 Nov 03:00 ET.\nBase-case chance: 55% (Capital Chronicle model esti"
+      },
+      {
+        "message_id": "147",
+        "url": "https://t.me/CapitalChronicle/147",
+        "quoted_parent_id": "143",
+        "observed_body_sha256": "1b1b26992ce5d706621faf5fe0d23def2c64d0dd411b7382930d57c42e279321",
+        "body_excerpt": "[#d5cc28ee](https://t.me/s/CapitalChronicle?q=%23d5cc28ee) · short idea\nIf price trades into 4,062–4,070, the desk is bearish on Micro gold (MGC futures, Dec 2026) over the period to 13 Nov 03:00 ET. Invalidated if price moves above 4,096.\nEntry window to 11 Nov 15:00 ET.\nTime exit: 13 Nov 03:00 ET.\nBase-case chance: 50% (Capital Chronicl"
+      },
+      {
+        "message_id": "158",
+        "url": "https://t.me/CapitalChronicle/158",
+        "quoted_parent_id": "145",
+        "observed_body_sha256": "fae8f30881995aa1165cd4865d48f4d4262bd5f3bdb7b8e90bb970235f31c3d4",
+        "body_excerpt": "Micro WTI crude oil (MCL futures, Dec 2026) short of 10 Nov ([#cb3fd1c5](https://t.me/s/CapitalChronicle?q=%23cb3fd1c5)): an entry filled at 10 Nov 11:38 ET; the position is open.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may ho"
+      },
+      {
+        "message_id": "159",
+        "url": "https://t.me/CapitalChronicle/159",
+        "quoted_parent_id": "147",
+        "observed_body_sha256": "8e0a49b81e4b6d02140beb6a3e0cc63903792cffa0899fa3c7d50d367ef6a7a0",
+        "body_excerpt": "Micro gold (MGC futures, Dec 2026) short of 10 Nov ([#d5cc28ee](https://t.me/s/CapitalChronicle?q=%23d5cc28ee)): not triggered. Ended 10 Nov 13:30 ET.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets i"
+      },
+      {
+        "message_id": "160",
+        "url": "https://t.me/CapitalChronicle/160",
+        "quoted_parent_id": "146",
+        "observed_body_sha256": "678d49dd6e54a556c010913c90f83e8585894ce7c4239117af87eaf54758c60d",
+        "body_excerpt": "Euro (EUR.USD spot) short of 10 Nov ([#2649b750](https://t.me/s/CapitalChronicle?q=%232649b750)): not triggered. Ended 10 Nov 13:30 ET.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      },
+      {
+        "message_id": "161",
+        "url": "https://t.me/CapitalChronicle/161",
+        "quoted_parent_id": "144",
+        "observed_body_sha256": "6621c52de2dd166a7e556d9781221c312ba980a821931bcad0c8b882fb4071ce",
+        "body_excerpt": "US dollar / Japanese yen (USD.JPY spot) long of 10 Nov ([#ceb3e6db](https://t.me/s/CapitalChronicle?q=%23ceb3e6db)): not triggered. Ended 10 Nov 13:30 ET.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the marke"
+      },
+      {
+        "message_id": "162",
+        "url": "https://t.me/CapitalChronicle/162",
+        "quoted_parent_id": "139",
+        "observed_body_sha256": "da80f5f7d60324e4ed5603f06140e6fafee43297407df42b88c0dd30bf98eac7",
+        "body_excerpt": "US dollar / Japanese yen (USD.JPY spot) long of 10 Nov ([#35433fdd](https://t.me/s/CapitalChronicle?q=%2335433fdd)): not triggered. Ended 10 Nov 13:30 ET.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the marke"
+      }
+    ]
+  },
+  "discord": {
+    "observed_at_utc": "2026-11-11T00:58:26.946882+00:00",
+    "method": "Read-only official Discord v10 API; approved channel and active guild threads",
+    "bot_credential_present": true,
+    "approved_channel_id": "1519311669216673802",
+    "guild_id": "1519310996030750782",
+    "channel_type": 0,
+    "approved_channel_read_succeeded": true,
+    "active_call_threads": [],
+    "next_run_thread_readback_verified": false
+  },
+  "main_export": {
+    "observed_generated_at_utc": "2026-11-11T01:01:30.462548Z",
+    "plan_count": 68,
+    "latest_registered_at_utc": "2026-11-10T16:18:25.849991Z",
+    "post_bot_natural_run_available": false
+  },
+  "remaining": {
+    "cause": "NEXT_POST_BOT_MAIN_RUN_NOT_YET_EXPORTED",
+    "next_action": "Let the unchanged minute publisher consume the next natural Main run; read back its Discord cards and analysis links in the confirmed run thread and the next ending under its card.",
+    "owner": "Existing Main producer and Publisher consumer",
+    "historical_cards_reposted": false,
+    "synthetic_live_calls_created": false
+  },
+  "verification": {
+    "tests_passed": 57,
+    "test_seconds": 122.83,
+    "test_evidence": "docs/publisher/CC-399/thread-resume-tests-20261111.xml",
+    "installed_dry_run": {
+      "observed_at_utc": "2026-11-11T01:05:45.554098+00:00",
+      "operating_root": "A:\\Capital Chronicle\\ContentOps",
+      "command": "python -B scripts/plan_status_posts.py --dry-run",
+      "exit_code": 0,
+      "status": "OK",
+      "validation": "PASS",
+      "format": 4,
+      "contract_version": "2.0.0",
+      "export_generated_at_utc": "2026-11-11T01:05:22.641165Z",
+      "export_age_seconds": 21.1,
+      "max_export_age_minutes": 10,
+      "dry_run": true,
+      "rendered_count": 48,
+      "transitions_read": 109,
+      "would_queue_count": 0,
+      "not_posted_count": 23,
+      "public_write": false,
+      "store_write": false
+    },
+    "test_commit_integrated": "52f832e4ac91039ef2224e4c5dab6970aeaac9a6",
+    "production_code_changed_by_resume": false
+  }
+}

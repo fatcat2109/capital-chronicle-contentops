@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-11-11T01:05:45.554098+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "command": "python -B scripts/plan_status_posts.py --dry-run",
+  "exit_code": 0,
+  "status": "OK",
+  "validation": "PASS",
+  "format": 4,
+  "contract_version": "2.0.0",
+  "export_generated_at_utc": "2026-11-11T01:05:22.641165Z",
+  "export_age_seconds": 21.1,
+  "max_export_age_minutes": 10,
+  "dry_run": true,
+  "rendered_count": 48,
+  "transitions_read": 109,
+  "would_queue_count": 0,
+  "not_posted_count": 23,
+  "public_write": false,
+  "store_write": false
+}

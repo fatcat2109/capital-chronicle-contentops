@@ -1,11 +1,17 @@
 # CC-399 — Call cards and their threads
 
-Integrated into `A:\Capital Chronicle\ContentOps` at
+The Telegram run, card, fill and untriggered-ending readbacks are verified.
+The Discord bot credential is now available, and its approved channel is
+readable through the official API. The remaining acceptance is the next
+natural Main run's Discord cards and analysis links inside their run thread.
+The current export contains no run issued after the bot became available.
+See [the 11 November observation](live-consumer-20261111.json).
+
+First integrated into `A:\Capital Chronicle\ContentOps` at
 `675d75b50a8148088a2038d530a9ba2f120de66c`, on 10 November 2026 at
-11:05 GMT+7. The existing minute task reads this operating root and completed
-an OK format-4 operation. Completion remains blocked by the missing Discord
-thread credential; CC-432's pages and the natural run/card/ending Telegram
-readback are also outstanding. See [live-consumer.json](live-consumer.json).
+11:05 GMT+7. The existing minute task reads this operating root. The earlier
+credential gap and original verification remain in
+[the 10 November observation](live-consumer.json).
 
 The plan-status consumer now aggregates new calls by Main's run identity. Each
 run has one announcement and one source-bound card per call. Later fills and
@@ -83,9 +89,36 @@ ending has an API-confirmed Threads object. Its Telegram parent has no
 confirmed write, so that destination correctly stays unsent. These historical
 replies are not the required new morning run acceptance.
 
-Remaining actions are destination-specific: Ops Product supplies the existing
-Discord bot credential in `CapitalChronicle/DISCORD_BOT_TOKEN`, with permission
-to create and send in the approved announcement channel's threads; CC-432
-supplies its filtered publication result; Publisher reads the next natural
-run's cards and ending on the public Telegram feed. No schedule, user app,
-Main code, unrelated WIP or historical public post was changed by this item.
+## Resume — 11 November 2026
+
+BrowserOS Neo read the public Telegram feed. Message 122 is one run
+announcement; messages 123–127 are its five cards, each quoting that exact
+parent. Message 158 confirms a fill under card 145. Messages 159–162 report
+untriggered endings under their own cards. These are observed public objects.
+
+The official Discord API read the registered announcement channel and the
+server's active threads. It found no active call thread. The current Main
+export contains 68 plans; its latest registration remains
+`2026-11-10T16:18:25.849991Z`, before Ops recorded the bot available. Existing
+channel cards retain their frozen route. Their identities do not establish
+acceptance of a new bot-thread run.
+
+57 targeted checks passed in 122.83 seconds across the card, analysis-thread
+and Discord-queue tests. The added regression exercises first thread creation,
+a lost creation response and reuse of the same starter identity without a
+second thread. Existing copied-store checks cover five calls, a fill, a
+winning time exit, untriggered endings and the real coordinator/API path for
+an analysis reply. See [the test result](thread-resume-tests-20261111.xml).
+
+The installed consumer's dry run passed against contract 2.0.0, rendered 48
+retained rows and found zero new candidates. Its source export was 21.1 seconds
+old. See [the installed dry run](installed-dry-run-20261111.json). The four
+publication modules match the installed operating root byte for byte.
+
+The remaining cause is `NEXT_POST_BOT_MAIN_RUN_NOT_YET_EXPORTED`. The unchanged
+minute publisher will consume that run when Main supplies it. Publisher then
+reads back its Discord cards and analysis links inside the confirmed run
+thread, plus the next ending under its card. The missing observation is not
+reported as DONE. This verification made zero public writes or production-store
+writes. The configured launch was `gpt-6.1-sol` / `max`,
+`CONFIGURED_NOT_OBSERVED`; no editorial model call was made.
