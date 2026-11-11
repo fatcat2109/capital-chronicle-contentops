@@ -1864,11 +1864,21 @@ class DurablePublicationCoordinator:
         """Summarize exact durable destination records, independently of the latest callback."""
         canonical = dict(outcomes.get("substack") or {})
         canonical_real = cls._confirmed_public_object(canonical, destination="substack")
+        # Decision 121 reopens these article routes for the next work item.
+        # An exact policy no-write stays closed; a public identity or an
+        # uncertain attempt still requires its original readback/reconciliation.
+        closed = {d for d, o in outcomes.items()
+            if d in {"youtube", "linkedin_company"} and o.get("status") == DEFINITE_NO_WRITE
+            and o.get("reconciliation_status") == {
+                "youtube": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+                "linkedin_company": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED"}[d]
+            and not o.get("public_object_id") and not o.get("public_object_url")}
         derivatives = {d: dict(o) for d, o in outcomes.items() if d != "substack" and d not in barred_browser_destinations()
+            and d not in closed
             and (not full_v1 or d in V1_REQUIRED_DERIVATIVE_DESTINATIONS)}
         additional = {d: dict(o) for d, o in outcomes.items() if d != "substack" and d not in derivatives}
         confirmed = {d for d, o in derivatives.items() if cls._confirmed_public_object(o, destination=d)}
-        required = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) if full_v1 else set(derivatives)
+        required = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS) - closed if full_v1 else set(derivatives)
         missing = sorted(required - confirmed)
         distribution = (
             FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED if full_v1 and not missing
@@ -1900,10 +1910,12 @@ class DurablePublicationCoordinator:
                 and (outcomes.get("x") or {}).get("status") == UNKNOWN_WRITE),
             "unknown_write_detected": any(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d not in barred_browser_destinations()),
             "unknown_write_count": sum(o.get("status") == UNKNOWN_WRITE for d, o in outcomes.items() if d not in barred_browser_destinations()),
+            "closed_no_write_destinations": sorted(closed),
             **({"additional_destinations": additional,
                 "additional_confirmed_count": sum(cls._confirmed_public_object(o, destination=d) for d, o in additional.items()),
                 "additional_recovery_required_destinations": sorted(d for d, o in additional.items()
-                    if d not in barred_browser_destinations() and not cls._confirmed_public_object(o, destination=d))} if additional else {}),
+                    if d not in closed and d not in barred_browser_destinations()
+                    and not cls._confirmed_public_object(o, destination=d))} if additional else {}),
         }
 
     def publication_state(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:

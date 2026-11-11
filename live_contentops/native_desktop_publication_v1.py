@@ -408,7 +408,7 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
     for entry in entries:
         if entry["destination"] in skipped and not entry["dispatch_recorded"]:
             entry.update(status=skipped[entry["destination"]], blocker=None)
-    terminal_count = confirmed + len(skipped)
+    terminal_count = confirmed + len(skipped) + len(totals.get("closed_no_write_destinations", []))
     state = (
         "RECONCILED"
         if terminal_count == len(entries)

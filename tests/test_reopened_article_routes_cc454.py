@@ -127,6 +127,36 @@ def article(tmp_path, destination, fault=None, *, automatic_articles_only=False)
 
 
 @pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])
+@pytest.mark.parametrize("case", ["closed", "unknown", "public_identity", "fresh", "other_failure"])
+def test_restored_route_keeps_only_its_exact_prior_policy_no_write_closed(destination, case):
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+
+    row = {"status": "DEFINITE_NO_WRITE", "dispatch_recorded": True,
+           "reconciliation_status": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED" if destination == "youtube"
+                                    else "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+           "public_object_id": None, "public_object_url": None}
+    if case == "unknown":
+        row["status"] = "UNKNOWN_WRITE"
+    elif case == "public_identity":
+        row["public_object_id"] = "existing-public-object"
+    elif case == "fresh":
+        row.update(status="NOT_DISPATCHED", dispatch_recorded=False, reconciliation_status=None)
+    elif case == "other_failure":
+        row["reconciliation_status"] = "NEO_COMPOSER_PAYLOAD_MISMATCH"
+    outcomes = {destination: row, "substack": {"status": "DISPATCH_CONFIRMED",
+        "reconciliation_status": "RECONCILED_CONFIRMED", "public_object_id": "canonical",
+        "public_object_url": "https://capitalchronicle.substack.com/p/controlled-history"}}
+    before = json.dumps(outcomes, sort_keys=True)
+    result = DurablePublicationCoordinator.publication_totals(outcomes)
+    recovery = result["recovery_required_destinations"] + result.get("additional_recovery_required_destinations", [])
+    assert (destination not in recovery) is (case == "closed")
+    assert result["closed_no_write_destinations"] == ([destination] if case == "closed" else [])
+    assert result["unknown_write_count"] == int(case == "unknown")
+    assert result.get("additional_destinations", {}).get(destination) == row if destination == "linkedin_company" or case == "closed" else True
+    assert json.dumps(outcomes, sort_keys=True) == before
+
+
+@pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])
 @pytest.mark.parametrize("automatic_articles_only", [False, True])
 def test_article_coordinator_posts_and_reads_exact_public_object_once(tmp_path, destination, automatic_articles_only):
     store, c, executor, browser, message, row = article(tmp_path, destination,
