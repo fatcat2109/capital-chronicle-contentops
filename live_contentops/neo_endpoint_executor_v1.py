@@ -682,6 +682,41 @@ def endpoint_client():
     return NeoMcpClient()
 
 
+def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
+    """Identify an exact unsent composer refusal made by older transport code.
+
+    A missing/uncertain return, an attempted click, a known object or the same
+    code revision cannot release the existing exactly-once dispatch fence.
+    """
+    if (dispatch.get("status") != "DEFINITE_NO_WRITE" or dispatch.get("public_object_id")
+            or dispatch.get("public_object_url") or dispatch.get("platform") not in {"x","substack_notes"}):
+        return None
+    message=store.get_outbox_message(dispatch["message_id"])
+    if not message:
+        return None
+    from .capital_chronicle_latest_report_consumer_v1 import sha256_of
+    revision=executor_revision or sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
+    found=None
+    for row in store.list_outbox_messages(work_item_id=message["work_item_id"],destination="internal:native-neo-tool"):
+        packet=json.loads(row["payload"])
+        request=packet.get("request") or {}
+        if (request.get("action") != "PUBLISH" or request.get("destination") != dispatch["platform"]
+                or request.get("dispatch_attempt_identity") != dispatch["dispatch_id"]):
+            continue
+        key="native-neo-"+sha256_of([packet["operation_id"],request["request_sha256"],"response"])
+        response=store.get_outbox_message(key)
+        result=json.loads(response["payload"]).get("result",{}) if response else {}
+        if (result.get("status") != "FAILED_BEFORE_WRITE" or result.get("definite_no_write") is not True
+                or result.get("public_write_performed") is not False or result.get("stage") != "BEFORE_PUBLISH_CLICK"
+                or result.get("reason_code") not in {"NEO_COMPOSER_PREPARATION_FAILED","NEO_COMPOSER_PAYLOAD_MISMATCH"}
+                or not result.get("native_tool_return_sha256")
+                or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
+                or result.get("neo_executor_revision") == revision):
+            return None
+        found={"request_sha256":request["request_sha256"],"reason_code":result["reason_code"]}
+    return found
+
+
 class EndpointNeoExecutor(NativeNeoExecutor):
     """The existing sole publisher calls this synchronously; no model is involved."""
     inline_transport = True
@@ -696,6 +731,9 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         self.automatic_destinations = (set(automatic_destinations) if automatic_destinations is not None
             else {"x", "substack_notes", *ARTICLE_ROUTES})
         self.executor_revision=sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
+
+    def repaired_prewrite_request(self, dispatch):
+        return repaired_prewrite_request(self.store,dispatch,executor_revision=self.executor_revision)
 
     def fresh_publish_request(self, request):
         """A repaired transport can supersede its proven pre-click refusal once.

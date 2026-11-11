@@ -363,6 +363,52 @@ def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,m
         assert e.fresh_publish_request(base) is None
 
 
+@pytest.mark.parametrize('destination',['x','substack_notes'])
+def test_minute_consumer_resumes_an_exact_unsent_composer_only_after_repair(tmp_path,destination):
+    from live_contentops.plan_call_cards_v1 import _ready_destinations
+    store=copied_store(tmp_path);ids,value=message(store,destination)
+    with endpoint(fault='composer') as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url);e.executor_revision='previous-installed-source'
+        first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert first['status']=='DEFINITE_NO_WRITE' and not state['posts']
+        dispatch=store.get_platform_dispatch(ids['dispatch_id'])
+        assert e.repaired_prewrite_request(dispatch) is None
+        assert neo.repaired_prewrite_request(store,dispatch)
+    assert destination in _ready_destinations(store,{'key':value['work_item_id'],'kind':'run'})
+    with endpoint() as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url)
+        result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert result['status']=='DISPATCH_CONFIRMED',result
+        assert destination in state['posts']
+        again=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        assert again['publish_called'] is False
+        assert len([a for n,a in state['calls'] if n=='run' and '"phase": "publish"' in a['code']])==1
+
+
+@pytest.mark.parametrize('uncertainty',['missing_return','clicked','write_performed'])
+def test_repaired_prewrite_proof_never_releases_an_unobserved_or_clicked_action(tmp_path,monkeypatch,uncertainty):
+    store=copied_store(tmp_path);ids,value=message(store,'x')
+    with endpoint(fault='composer') as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url);e.executor_revision='old-source'
+        c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        dispatch=store.get_platform_dispatch(ids['dispatch_id'])
+        assert neo.repaired_prewrite_request(store,dispatch)
+        original=store.get_outbox_message
+        def changed(key):
+            row=original(key)
+            if row:
+                packet=json.loads(row['payload']);result=packet.get('result',{})
+                if result.get('native_tool_return_sha256'):
+                    if uncertainty=='missing_return':return None
+                    if uncertainty=='clicked':result['native_tool_observation']['dispatched_at_utc']='2026-11-11T05:00:00Z'
+                    if uncertainty=='write_performed':result['public_write_performed']=True
+                    return {**row,'payload':json.dumps(packet)}
+            return row
+        monkeypatch.setattr(store,'get_outbox_message',changed)
+        assert neo.repaired_prewrite_request(store,dispatch) is None
+        assert not state['posts']
+
+
 def test_reopened_note_runs_the_repaired_transport_through_its_original_coordinator(tmp_path,monkeypatch):
     from live_contentops import neo_destination_handoff_v1 as handoff
     control=tmp_path/'suspended_routes.json';control.write_text('{}',encoding='utf-8')

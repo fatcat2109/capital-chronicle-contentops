@@ -2702,6 +2702,7 @@ class DurablePublicationCoordinator:
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
         restored_x_no_write = False
         restored_substack_no_write = False
+        repaired_composer_no_write = False
         # CC-393: a forbidden fresh Neo route is settled before readiness can
         # request a browser identity probe. Existing attempts keep recovery.
         if existing is None and registration.transport_type == "BROWSEROS_NEO_MCP":
@@ -2789,6 +2790,20 @@ class DurablePublicationCoordinator:
                 and reconciliation_status in {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION"}
                 and _prohibited_write(destination) is None)
             retry_eligible = retry_eligible or restored_substack_no_write
+            executor = getattr(getattr(self.transport_runtime, "_neo_transport", None), "native_executor", None)
+            repaired_request = getattr(executor, "repaired_prewrite_request", None)
+            repair_proof = (repaired_request(existing) if callable(repaired_request)
+                and not self._message_is_stale(message, intent) else None)
+            repaired_composer_no_write = bool(repair_proof
+                and reconciliation_status in {None, repair_proof["reason_code"]})
+            if repaired_composer_no_write and reconciliation_status is None:
+                # Older definite no-writes omitted a reconciliation row. Retain
+                # their immutable native return and record its actual pre-click
+                # cause before the existing atomic dispatch claim can resume it.
+                reconciliation_status = repair_proof["reason_code"]
+                self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+                    work_item_id=intent["work_item_id"],status=reconciliation_status)
+            retry_eligible = retry_eligible or repaired_composer_no_write
             correction_retry_eligible = bool(
                 explicit_transport_correction_retry
                 and (
@@ -2978,7 +2993,7 @@ class DurablePublicationCoordinator:
             message_id=ids["message_id"], platform=destination,
             expected_status=existing.get("status") if existing else None,
             **({"policy_no_write_cause": "X_NON_API_AUTOMATION_PROHIBITED"} if restored_x_no_write else
-               {"policy_no_write_cause": reconciliation_status} if restored_substack_no_write else {}))
+               {"policy_no_write_cause": reconciliation_status} if restored_substack_no_write or repaired_composer_no_write else {}))
         if not claimed:
             actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
             return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),
