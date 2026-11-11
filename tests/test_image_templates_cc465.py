@@ -277,3 +277,48 @@ def test_template_acceptance_requires_twelve_distinct_real_images():
     assert quality.template_acceptance(reviews,"call",revision)["passed"]
     assert not quality.template_acceptance(reviews[:-1],"call",revision)["passed"]
     assert not quality.template_acceptance([{**row,"image_sha256":"same"} for row in reviews],"call",revision)["passed"]
+
+
+def test_result_path_uses_capture_bound_times_and_entry_to_exit_pixels(tmp_path):
+    taken=capture(tmp_path)
+    data=input_record("result");data.pop("source_binding")
+    data["result"]={"r":-1.,"outcome_label":"Stopped at invalidation","held_text":"1 day 6 h",
+        "best_r":.6,"worst_r":-1.,"entry_time_et":"11 Nov, 3:10 AM ET","exit_time_et":"12 Nov, 9:42 AM ET",
+        "time_range_short":"11 Nov–12 Nov","market":"USDJPY","path":{"snapshot_sha256":taken["sha256"],
+        "entry":{"x":300,"price":158.3,"time_et":"11 Nov, 3:10 AM ET"},
+        "exit":{"x":1100,"price":157.15,"time_et":"12 Nov, 9:42 AM ET"}}}
+    data=bind(data,data)
+    rendered=templates.render(data,"W",tmp_path,taken)
+    assert quality.code_check(rendered)["passed"]
+    assert any(t["text"]=="−1.0R" and t['mono'] for t in rendered['image_template']['texts'])
+    data['result']['path']['exit']['x']=500;data=bind(data,data)
+    with pytest.raises(ValueError,match="IMAGE_RESULT_PATH_TIMEFRAME_REQUIRED"):
+        templates.render(data,"W",tmp_path,taken)
+
+
+def test_cached_template_capture_skips_repeated_review_and_fails_closed_after_two_attempts(tmp_path,monkeypatch):
+    monkeypatch.setattr(tv,"OUTCOMES",tmp_path/"outcomes.jsonl")
+    count=[];snap=capture(tmp_path)
+    def review(image,**kwargs):count.append(image['sha256']);return yes_review(image)['vision']
+    monkeypatch.setattr(quality,"review_vision",review)
+    row={'key':'same-key','symbol':'USDJPY','at_utc':NOW.isoformat(),'levels':{}}
+    first=tv.plan_snapshot(row,tmp_path/'one',snapshot=lambda *a,**k:snap,image_input=input_record())
+    again=tv.plan_snapshot(row,tmp_path/'one',snapshot=lambda *a,**k:pytest.fail('duplicate capture'),image_input=input_record())
+    assert first['sha256']==again['sha256'] and len(count)==1
+    calls=[]
+    def failure(*a,**k):calls.append(1);raise tv.SnapshotError('CONTROLLED_CAPTURE_FAILURE')
+    with pytest.raises(tv.SnapshotPending,match='CONTROLLED_CAPTURE_FAILURE'):
+        tv.plan_snapshot({**row,'key':'bad'},tmp_path/'bad',snapshot=failure,image_input=input_record())
+    assert len(calls)==2
+
+
+def test_paid_chart_and_wrong_platform_stay_refused_before_publish(tmp_path):
+    image=asset(tmp_path);image['image_quality']=yes_review(image)
+    with pytest.raises(ValueError,match='IMAGE_PLATFORM_SIZE_INVALID'):
+        quality.validate_asset(image,destination='threads')
+    store,runtime,coordinator,message=publication_message(tmp_path/'run',image)
+    intent=json.loads(message['payload']);path=Path(intent['output_dir'])/'run_context_v1.json'
+    context=json.loads(path.read_bytes());context['article']['paid']=True;path.write_text(json.dumps(context),encoding='utf-8')
+    result=coordinator._dispatch_message(message,canonical_url=None)
+    assert result['status']=='DEFINITE_NO_WRITE' and result['reason_code']=='PUBLIC_REDISTRIBUTION_NOT_LICENSED'
+    assert runtime.publish_calls==[]

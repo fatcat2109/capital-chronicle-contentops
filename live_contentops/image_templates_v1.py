@@ -381,7 +381,10 @@ def _table(canvas,data,page):
             if i%2:canvas.draw.rectangle((m,y,w-m,y+height),fill=COLOURS["zebra"])
             if i==0:canvas.draw.rectangle((m,y,m+11,y+height),fill=COLOURS["yellow"])
             canvas.text(field(row,"name",14),(m+28,y+12,m+330,y+58),weight=600,key="scenario.name")
-            canvas.text(str(row["probability_pct"])+"%",(m+350,y+12,m+510,y+58),mono=True,key="scenario.probability")
+            probability=row["probability_pct"]
+            if isinstance(probability,bool) or not 0 <= probability <= 100 or int(probability)!=probability:
+                raise LayoutError("IMAGE_PROBABILITY_INVALID")
+            canvas.text(f"{probability:g}%",(m+350,y+12,m+510,y+58),mono=True,key="scenario.probability")
             # Two-scenario tables use the available row height; they never leave
             # a vacant third block or shrink the required type.
             step=(height-56)//4
@@ -432,16 +435,19 @@ def _table(canvas,data,page):
             height=(bottom-top)//max(1,len(rows))
             y=top+i*height
             if i%2:canvas.draw.rectangle((m,y,w-m,y+height),fill=COLOURS["zebra"])
+            chance = row.get('main_probability_pct')
+            chance_text = f"Said {chance:g}%" if chance is not None else ""
+            if chance is None:canvas.notes.append("WEEK_PROBABILITY_NOT_EXPORTED")
             if wide:
                 # Outcome shares a two-line cell; the font stays at 36 px.
                 columns=[(12,300,MARKETS[row['market']],False),(320,470,row['direction'],False),
-                         (480,695,row['horizon_label'],False),(710,880,"Said "+str(row['main_probability_pct'])+"%",False),
+                         (480,695,row['horizon_label'],False),(710,880,chance_text,False),
                          (900,1270,row['outcome_label'],False),(1290,1500,r_text(row['r']) if row.get('r') is not None else "—",True)]
                 for a,b,value,mono in columns:canvas.text(value,(m+a,y+8,m+b,y+height-4),mono=mono,wrap=2,key="week.row")
             else:
                 canvas.text(MARKETS[row['market']]+" · "+row['direction'],(m+12,y+8,w-m-210,y+54),key="week.market")
                 canvas.text(r_text(row['r']) if row.get('r') is not None else "—",(w-m-200,y+8,w-m-12,y+54),mono=True,key="week.r")
-                value=row['horizon_label']+" · Said "+str(row['main_probability_pct'])+"% · "+row['outcome_label']
+                value=" · ".join(s for s in (row['horizon_label'],chance_text,row['outcome_label']) if s)
                 canvas.text(value,(m+12,y+58,w-m-12,y+height-4),key="week.row")
             canvas.draw.line((m,y+height,w-m,y+height),fill=COLOURS["rule"],width=2)
         if week.get("wrong_note"):

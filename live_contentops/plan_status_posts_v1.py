@@ -1370,6 +1370,7 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
         from .plan_call_cards_v1 import destination_payloads as card_payloads
         return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
                                  carousel=context.get("status_post_instagram_carousel"),
+                                  portrait_id=context.get("status_post_threads_image"),
                                  chart_credit=bool(context.get("chart_credit")),
                                  complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     return row, _part_payloads(destination_payloads(row, card_id=card_id,

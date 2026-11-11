@@ -97,7 +97,7 @@ def code_check(asset, *, destination=None):
             fail(9,"IMAGE_PRIVATE_IDENTIFIER_OR_MONEY")
         if "…" in text or "..." in text:fail(7,"IMAGE_CUT_TEXT")
         for note in meta.get("notes",[]):
-            if note in {"WEEK_R_RESULT_NOT_EXPORTED","MORNING_MAP_CHANGE_NOT_EXPORTED","MORNING_MAP_STATE_NOT_EXPORTED"}:fail(9,note)
+            if note in {"WEEK_R_RESULT_NOT_EXPORTED","WEEK_PROBABILITY_NOT_EXPORTED","MORNING_MAP_CHANGE_NOT_EXPORTED","MORNING_MAP_STATE_NOT_EXPORTED"}:fail(9,note)
         from .image_templates_v1 import COLOURS
         for block in meta.get("texts",[]):
             if not _inside(block["box"],block["zone"]):fail(7,"IMAGE_TEXT_CLIPPED")
