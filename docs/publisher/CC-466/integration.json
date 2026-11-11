@@ -1,0 +1,122 @@
+{
+  "recorded_at_utc": "2026-11-11T18:24:38.156414+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "tested_operating_source_head": "4acf3df0ec54027143ca81912cf1bb0e902afa5e",
+  "delivery_source_head": "fc59b742e037c599bf4feb00a8b335677fc519e5",
+  "rollback_tag": "contentops-rollback-20261112-cc466",
+  "source_tag": "contentops-live-20261112-cc466-source",
+  "live_tag": "contentops-live-20261112-cc466",
+  "installed_sources": {
+    "config/plan_reader_acronyms_v1.json": {
+      "normalized_sha256": "de3c39f592611f118d35391b5a15cc50d1c5e4d88eb3e76d508fb95e6669c7ef",
+      "matches_delivery": true
+    },
+    "live_contentops/event_article_guard_v1.py": {
+      "normalized_sha256": "c8f69eeb70807524c6a20ca30811228e73030f6b6dbd778fb89533a924b36b88",
+      "matches_delivery": true
+    },
+    "live_contentops/neo_destination_handoff_v1.py": {
+      "normalized_sha256": "828689a8588d530c5d8c67957435d526dfce2e485e8fea464de8cf5105c885e4",
+      "matches_delivery": true
+    },
+    "live_contentops/neo_endpoint_executor_v1.py": {
+      "normalized_sha256": "687c347488d40bd4e0b711bb0aa2850dff41d307def5bdbd6228424b5351e0a2",
+      "matches_delivery": true
+    },
+    "live_contentops/neo_endpoint_steps_v1.js": {
+      "normalized_sha256": "175f7d739396fa34f52cc9fabb954f1808d7689c05bc3fdce2ccdc6dd50a3b0f",
+      "matches_delivery": true
+    },
+    "live_contentops/plan_analysis_pages_v1.py": {
+      "normalized_sha256": "cd103043523183f692020ff42e6dc9f5efe828b202adf8aaac67ff99063f29a0",
+      "matches_delivery": true
+    },
+    "live_contentops/plan_call_cards_v1.py": {
+      "normalized_sha256": "eaeaf21710c0ab44af0b075992946f03c31070a9e3aec111dd45cb611d9006d6",
+      "matches_delivery": true
+    },
+    "live_contentops/plan_reader_copy_v1.py": {
+      "normalized_sha256": "d3c451449a56d1542d23a7e416a31fa49141422219913276c5bbbfa9b85ba417",
+      "matches_delivery": true
+    },
+    "live_contentops/plan_reader_editorial_v1.py": {
+      "normalized_sha256": "a42994bc5fc86dd688755348fac981ce2ded03f520190892190eefb41c4266ad",
+      "matches_delivery": true
+    },
+    "live_contentops/plan_substack_neo_v1.py": {
+      "normalized_sha256": "ae55124c9bd09842abed7810c169de2296cfbdc159a8b9b1fdc90fab1a07d5d0",
+      "matches_delivery": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "normalized_sha256": "a50dfbf0835e7c39317b069bf84e8843511bacf74509dd5cd26b3d615df8f47d",
+      "matches_delivery": true
+    },
+    "scripts/plan_analysis_pages.py": {
+      "normalized_sha256": "c3be7cecaf7c4b89c7c6f74a27dfa04b61aaaba4c907a495764ec75d08d7f48c",
+      "matches_delivery": true
+    },
+    "scripts/plan_status_posts.py": {
+      "normalized_sha256": "185fb030ff50aacbcfd9524263e5e29bc88f806755bec7f4ccdb9cc7d757bede",
+      "matches_delivery": true
+    }
+  },
+  "dirty_files": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+      "original_prefix_preserved": true,
+      "prior_bytes": 3959,
+      "current_bytes": 3959,
+      "unchanged": true
+    },
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+      "original_prefix_preserved": true,
+      "prior_bytes": 19341,
+      "current_bytes": 19341,
+      "unchanged": true
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+      "original_prefix_preserved": true,
+      "prior_bytes": 39129,
+      "current_bytes": 39129,
+      "unchanged": true
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+      "original_prefix_preserved": true,
+      "prior_bytes": 6166,
+      "current_bytes": 6166,
+      "unchanged": true
+    },
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "original_prefix_preserved": true,
+      "prior_bytes": 1382937,
+      "current_bytes": 1382937,
+      "unchanged": true
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "original_prefix_preserved": true,
+      "prior_bytes": 68878,
+      "current_bytes": 68878,
+      "unchanged": true
+    }
+  },
+  "schedule_changed": false,
+  "application_restarted": false,
+  "build_tests": "55 passed (transport-consumer-tests.xml); final tab fix 13 passed (tab-group-tests.xml)",
+  "installed_tests": [
+    "29 passed in 5.19s (installed-tests.xml)",
+    "13 passed in 15.18s (installed-tab-tests.xml)"
+  ],
+  "stalled_installed_test_run": "Initial three-file test process was cancelled before reporting results; its single replacement ran only the two targeted files above.",
+  "acceptance": {
+    "confirmed_week_pages": 6,
+    "week_plan_count": 64,
+    "freeze_to_public_minutes": 79.09667601666666,
+    "under_ten_minutes": false,
+    "live_X_first_reply_link_proof": false,
+    "AGY_variants": "AGY_VARIANTS_TIMEOUT_120S",
+    "result_R": "MAIN_PUBLIC_RESULT_R_ABSENT: outcome.score.result_r",
+    "before_X_public_views": 499,
+    "after_X_public_views": null,
+    "unique_reach": null
+  },
+  "choice": "Integrate the passing consumer and retain the web-only canonical; preserve failed AGY calls and source clocks without substituting authored variants or inferred R."
+}

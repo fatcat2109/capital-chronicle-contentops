@@ -1,0 +1,30 @@
+{
+  "publication": {
+    "dispatch_id": "dispatch_a72883e2dbab96eb0334c056838f4d87",
+    "destination": "substack",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+  "plan_id": "plan_1ff14f488bdc84b20a3f51d2",
+  "confirmed": true,
+  "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+  "dispatch": {
+    "dispatch_id": "dispatch_a72883e2dbab96eb0334c056838f4d87",
+    "message_id": "outbox_a72883e2dbab96eb0334c056838f4d87",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-11T17:28:18.978019+00:00",
+    "public_object_id": "224485432",
+    "public_object_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+    "public_object_url_hash": "2a678d38688ed0e071f3ade803ee48a43d1f2dd1ba957e68a6b8392b8bdf0ff8"
+  },
+  "reconciliation": {
+    "reconciliation_id": "reconciliation_a72883e2dbab96eb0334c056838f4d87",
+    "work_item_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+    "status": "RECONCILED_CONFIRMED",
+    "reconciled_at": "2026-11-11T17:42:09.397872+00:00"
+  },
+  "pending_requests": []
+}
