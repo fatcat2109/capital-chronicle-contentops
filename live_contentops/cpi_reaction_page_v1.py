@@ -13,6 +13,23 @@ TOKEN = "[[CPI_REACTION_TABLES]]"
 POLICY = "CC425_CPI_REACTION_PAGE_V1"
 TITLE = "What gold, the euro and the S&P did after each CPI since 2024"
 
+# CC-468 extends the same table consumer. CPI's issued projection and policy
+# retain their exact shape; new families carry their own source identity.
+EVENT_PAGES = {
+    "CPI": {"record_id": RECORD_ID, "title": TITLE},
+    "NFP": {"record_id": "report:cc-nfp-reactions-since-2024",
+            "title": "What gold, the euro and the S&P did after each payrolls release"},
+    "FOMC": {"record_id": "report:cc-fomc-reactions-since-2024",
+             "title": "What gold, the euro and the S&P did after each Fed decision"},
+    "PPI": {"record_id": "report:cc-ppi-reactions-since-2024",
+            "title": "What gold, the euro and the S&P did after each PPI release"},
+}
+
+
+def event_family(record_id):
+    return next((family for family, spec in EVENT_PAGES.items()
+                 if spec["record_id"] == record_id), None)
+
 # Reader names only. Exact vendor instruments remain in the source binding.
 LABELS = {
     "YAHOO_FINANCE:BTC-USD": "Yahoo Finance Bitcoin/USD",
@@ -70,7 +87,8 @@ def reader_names(text, *, final_copy=False):
 
 
 def record_projection(record):
-    if record["binding"]["record_id"] != RECORD_ID:
+    family = event_family(record["binding"]["record_id"])
+    if family is None:
         return None
     field = next((f for f in record["binding"]["fields"]
                   if f["field_path"] == "/sections/reaction-tables/body_markdown"), None)
@@ -87,7 +105,7 @@ def record_projection(record):
                            "source_table_sha256": digest(t)} for t in tables(part))
     if not blocks:
         raise ValueError("CPI_REACTION_SOURCE_TABLE_REQUIRED")
-    return {"policy": POLICY, "record_id": RECORD_ID,
+    return {"policy": POLICY, "record_id": record["binding"]["record_id"],
             "export_bytes_sha256": record["binding"]["export_bytes_sha256"],
             "source_field_citation": field["citation"],
             "source_body_sha256": digest(body), "tables": blocks}
@@ -96,18 +114,23 @@ def record_projection(record):
 def writer_guidance(documents):
     if not any(d.get("cpi_reaction_page") for d in documents):
         return ""
+    projections = [d["cpi_reaction_page"] for d in documents if d.get("cpi_reaction_page")]
+    titles = [EVENT_PAGES[event_family(p["record_id"])]["title"] for p in projections]
     return ("\nCC425_CPI_REACTION_PAGE_V1: Write the source-bound reader argument under "
-            f"the title '{TITLE}'. Place {TOKEN} once where the historical tables belong. "
+            f"the title '{titles[0]}'. Place {TOKEN} once where the historical tables belong. "
             "Code inserts the exact structured source tables before source validation; "
             "do not copy, round, reorder or invent their cells. Write all prose yourself. "
-            "Distinguish monthly first prints, source-specific surprise buckets, the desk's "
+            "Distinguish monthly first prints or policy decisions, source-specific surprise buckets, the desk's "
             "normal-spread yardstick and descriptive price changes. Preserve series and proxy "
             "labels, sample counts, eligible denominators and gaps. Do not pool sources or "
             "infer causation, a trading edge or a forecast from a sample mean. A dash is not zero. "
             "State the actual last release covered. The old map/result description retains "
             "its original clock: never call a past release upcoming or its result not yet due. "
             "Use only a supplied Main map, result and scenario set; never invent absent ones. "
-            "Ops Product's table review precedes the first post under CC-417. Retain CC-403, "
+            + ("Ops Product's table review precedes the first CPI post under CC-417. "
+               if any(p["record_id"] == RECORD_ID for p in projections) else
+               "Keep the FOMC statement and press conference distinct; do not combine overlapping windows. ")
+            + "Retain CC-403, "
             "rights, media, identity and readback rules. A refreshed source requires the "
             "existing editorial revision and coordinator, not a second post or scheduler.\n")
 
@@ -165,7 +188,7 @@ def validate_chart_cell(packet, point, operand, document):
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
 
     binding = document["desk_record_binding"]
-    if (binding.get("record_id") != RECORD_ID
+    if (event_family(binding.get("record_id")) is None
             or document.get("url") != "urn:cc-public-report:desk:" + sha256_of(binding)):
         raise ValueError("CPI_REACTION_CHART_SOURCE_CHANGED")
     projection = record_projection({"binding": binding})
