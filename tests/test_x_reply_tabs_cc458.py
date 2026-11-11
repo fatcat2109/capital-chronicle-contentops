@@ -222,7 +222,7 @@ def test_agy_uses_bounded_existing_cli_and_records_config_without_trusting_self_
     seen = []
     def runner(args, **kwargs):
         seen.append(args)
-        assert kwargs["timeout"] == 120 and b'"event": "user"' in kwargs["input"]
+        assert kwargs["timeout"] == tabs.DRAFT_TIMEOUT_SECONDS and b'"event": "user"' in kwargs["input"]
         response = {"request_sha256": ready["request_sha256"], "items": [],
                     "editorial_call": {"runtime_model": "invented"}}
         raw = json.dumps({"event": "result", "result": {"status": "SUCCESS", "response": json.dumps(response)}}).encode()
