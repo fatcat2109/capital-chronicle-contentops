@@ -11,7 +11,7 @@
       "http_method": "POST",
       "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
       "body": {
-        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Flat means a move within 0.01% in either direction. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
         "allowed_mentions": {
           "parse": []
         },
@@ -47,7 +47,7 @@
       "http_method": "POST",
       "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
       "body": {
-        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Flat means a move within 0.01% in either direction. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
         "allowed_mentions": {
           "parse": []
         },
@@ -83,7 +83,7 @@
       "http_method": "POST",
       "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
       "body": {
-        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Flat means a move within 0.01% in either direction. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
         "allowed_mentions": {
           "parse": []
         },
@@ -119,7 +119,7 @@
       "http_method": "POST",
       "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
       "body": {
-        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Flat means a move within 0.01% in either direction. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
         "allowed_mentions": {
           "parse": []
         },
@@ -155,7 +155,7 @@
       "http_method": "POST",
       "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
       "body": {
-        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Flat means a move within 0.01% in either direction. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
         "allowed_mentions": {
           "parse": []
         },
@@ -191,7 +191,7 @@
       "http_method": "POST",
       "route": "Existing webhook endpoint; wait=true; never store its credential URL in this pack",
       "body": {
-        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "content": "Beat the desk: a reader forecasting poll. Compare the completed 15-minute close at 09:45 ET on 16 November with 12:00 ET on 20 November 2026. Flat means a move within 0.01% in either direction. Voting ends at this poll's expiry, 24 hours after creation. Capital Chronicle offers analysis only, not financial advice or recommendations.",
         "allowed_mentions": {
           "parse": []
         },

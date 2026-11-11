@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Capital Chronicle dated assistant feed sample",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "publisher",
+    "sample",
+    "generated_at_utc",
+    "event_map",
+    "regime_sheet",
+    "scores",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "1.0.0"
+      ]
+    },
+    "publisher": {
+      "type": "string",
+      "enum": [
+        "Capital Chronicle"
+      ]
+    },
+    "sample": {
+      "type": "boolean",
+      "enum": [
+        true
+      ]
+    },
+    "generated_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "event_map": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "event_id",
+          "known_at_utc",
+          "probability_scope",
+          "scenarios",
+          "source_id",
+          "source_pointer"
+        ]
+      }
+    },
+    "regime_sheet": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "market",
+          "regime",
+          "known_at_utc",
+          "data_cutoff_utc",
+          "source_id",
+          "source_pointer"
+        ],
+        "properties": {
+          "market": {
+            "type": "string",
+            "enum": [
+              "XAUUSD",
+              "US500",
+              "EURUSD",
+              "USDJPY",
+              "USOIL",
+              "BTCUSD"
+            ]
+          },
+          "regime": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "scores": {
+      "type": "object",
+      "required": [
+        "as_of_utc",
+        "scored_call_count",
+        "count_basis",
+        "sample_rows",
+        "win_rate"
+      ],
+      "properties": {
+        "scored_call_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "win_rate": {
+          "type": "null"
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source_id",
+          "bytes_sha256",
+          "owner"
+        ],
+        "properties": {
+          "bytes_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  }
+}
