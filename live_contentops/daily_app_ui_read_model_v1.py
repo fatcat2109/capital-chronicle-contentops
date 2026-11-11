@@ -1671,7 +1671,11 @@ def build_daily_app_snapshot(
             "provider_invocation_count": len(invocations),
             "prompt_tokens": prompt_tokens,
             "completion_tokens": completion_tokens,
-            "cost_metadata": "COST_METADATA_UNAVAILABLE",
+            "cost_metadata": ("OBSERVED_RUN_COST" if usage_records and all(row.get("cost_usd") is not None for row in usage_records)
+                              else "PARTIAL_COST_METADATA" if any(row.get("cost_usd") is not None for row in usage_records)
+                              else "COST_METADATA_UNAVAILABLE"),
+            "cost_usd": (sum(row["cost_usd"] for row in usage_records)
+                         if usage_records and all(row.get("cost_usd") is not None for row in usage_records) else None),
             "piece_usage": [{"work_item_id": row["work_item_id"], "invocation_id": row["invocation_id"], **usage}
                             for row, usage in zip(invocations, usage_records)],
             "operator_cockpit": cockpit,

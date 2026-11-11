@@ -1,0 +1,49 @@
+{
+  "collection": {
+    "state": "COLLECTED",
+    "scheduled": 47,
+    "collected": 5,
+    "pending": 42,
+    "outcomes": [
+      {
+        "observation_id": "obs_005277963381ec41ce5acbb0818d80d2",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_0e67bbdb18655f568544f5fa5ef7e326",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_02b724fb41ef52acc4c3fd58a1239415",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_0b288d673aed3895341ed045a98f1368",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_125fa99b6e9aee403688d3bf134a514d",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      }
+    ],
+    "excluded": {},
+    "model_calls": 0,
+    "public_write_performed": false
+  },
+  "model_usage": {
+    "imported": 0,
+    "source": "retained_native_run_returns",
+    "model_calls": 0
+  },
+  "observed_at_utc": "2026-11-11T06:31:10.245663+00:00",
+  "weekly_digest": {
+    "channels": 10,
+    "digest": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\weekly-engagement\\engagement.md",
+    "week_ending": "2026-11-11"
+  }
+}

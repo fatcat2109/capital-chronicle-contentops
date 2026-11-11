@@ -74,7 +74,12 @@ def import_native_invocations(store):
 
 def piece_usage(store, work_item_id):
     with store.get_read_only_connection() as conn:
-        rows = [dict(r) for r in conn.execute("SELECT * FROM model_invocations WHERE work_item_id=? ORDER BY invoked_at,invocation_id", (work_item_id,))]
+        owners = {work_item_id}
+        owners.update(row[0] for row in conn.execute(
+            "SELECT work_item_id FROM outbox_messages WHERE destination='internal:native-publication-binding' "
+            "AND json_extract(payload,'$.work_item_id')=?", (work_item_id,)))
+        rows = [dict(r) for r in conn.execute("SELECT * FROM model_invocations WHERE work_item_id IN (" +
+            ",".join("?" for _ in owners) + ") ORDER BY invoked_at,invocation_id", tuple(owners))]
     records = [json.loads(r.get("usage_metadata_json") or "{}") for r in rows]
     costs = [r.get("cost_usd") for r in records]
     return {"work_item_id": work_item_id, "invocation_count": len(rows),

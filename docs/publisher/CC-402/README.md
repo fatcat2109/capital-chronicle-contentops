@@ -27,12 +27,49 @@ Launch readback: codex.exe PID 21460, started 11 November 2026 12:58:56 GMT+7,
 `--model gpt-6.1-sol`, `model_reasoning_effort="max"`.
 Identity is `CONFIGURED_NOT_OBSERVED`; no runtime model telemetry is inferred.
 
-First checks: 17 collector/engagement cases and three canonical store/UI checks
-passed. Provider probes returned Threads views/replies and account followers,
-Telegram public-page views, and Meta account followers. Comment reads returned
-their own zero-like counters. Exact outcomes are in `provider-probe.json`.
+The 10 November GMT+7 store readback has observations for all **143 confirmed
+dispatches** across the five requested routes: Threads 42, Facebook 20,
+Instagram 20, Discord 18 and Telegram 43. Instagram's 20 dispatches refer to
+nine public objects. The aggregate does not multiply shared carousel counts.
+The five ordinary CPI-preview derivatives carry no call id; the other 138 rows
+carry their retained call/plan link. Existing damaged posts with a verified
+identity supply their actual metrics while preserving their incomplete-content
+state; those observations do not validate the planned copy. See
+`day-acceptance.json` and the bounded `day-20261110-batch*.json` results.
 
-The 07:00 digest renderer belongs to Main. Its proposed consumer change is
-delivered as a patch for Ops; this Publisher branch never edits Main's live root.
-The first production digest line and complete per-piece usage remain acceptance
-claims only when their actual retained records support them.
+The existing invocation table has **289** retained native response records.
+The CPI preview binds six of them to its canonical work item. None of these
+retained records exposes tokens or a per-piece USD bill; its cost readout says
+`USD_COST_NOT_EXPOSED_BY_RUN_RECORD`, with null values. This is the exact
+remaining telemetry limit, rather than a priced or zero-cost piece.
+
+The real weekly export is
+`A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/weekly-engagement/engagement.json`.
+It includes one digest line per platform and per-call totals. Current account
+reads include Threads 3, Facebook 5,191, Instagram 1,192, Telegram 6 and an
+approximate Discord member count of 2. These are snapshots, not acquired
+followers; a comparable prior account snapshot is still required for a weekly
+net change. Instagram's insights endpoint reports native error **#10**,
+"Application does not have permission for this action"; its available comment,
+like and follower reads continue. No wider scope was requested.
+
+There are **205 distinct passing targeted cases** across collector, weekly
+aggregation, learning, store, UI and call-card checks. The initial request-budget
+assertion failure and its passing correction are retained in `validation.json`
+and the XML artifacts. Tests ran one pytest process at a time. The initial
+combined store/UI check was stopped at 55 seconds during a decision-run window;
+the canonical files completed separately after 13:30 GMT+7.
+
+The 07:00 digest renderer belongs to Main. `main-digest.patch` is an exact
+two-file consumer patch for Ops; `git apply --check` passes on Main's current
+files. The proposed collector and renderer produce ten real platform lines in
+`digest-section-preview.md`. Main's source and production digest were not
+changed. Ops must apply this patch through Main's integration route and observe
+its next digest. Publisher integration is also pending Ops review, as requested
+by this exec dispatch; this item is **BUILT_UNMERGED**, not DONE.
+
+The existing minute consumer runs collection even when Main's newest plan export
+is stale, and records the collection result in its existing run record. It does
+not publish, retry a write, adjust a schedule, launch another worker or change
+account scope. Historical observation bytes and the ten old missed scheduled
+samples remain unchanged; new daily snapshots retain the actual collection time.

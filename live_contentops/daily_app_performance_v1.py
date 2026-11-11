@@ -1378,7 +1378,7 @@ def current_metrics_capability_matrix() -> list[dict[str, Any]]:
             "search_console_channel": "OPERATOR_SETUP_REQUIRED",
             "unavailable_is_zero": False,
             "additional_scope_granted": False,
-            "max_provider_requests_per_observation": 3 if destination in {"facebook_page", "instagram_business", "threads"} else 1,
+            "max_provider_requests_per_observation": 3 if destination in {"facebook_page", "instagram_business", "threads", "discord"} else 1,
             "native_read_only_observation": "EXISTING_AUDIENCE_OBSERVE_EXACT_OBJECT_WHEN_VISIBLE",
         }
         for destination in (
