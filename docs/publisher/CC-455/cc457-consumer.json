@@ -1,0 +1,31 @@
+{
+  "recorded_at_utc": "2026-11-11T00:42:48.845631+00:00",
+  "consumer_commit": "baba261ee396a0796f5714e4f9b7943c0b719e5d",
+  "consumer_source": "tools/product/private_desk_overview_v1.py",
+  "consumer_source_sha256": "7320aab241eb247cb03eabdf79d9aacabd2248049dc01d832ad5221ec8aa1164",
+  "execution": "Exact delivered CC-457 collect_reply_pack and helpers, with file-reader interface; this does not install its desk UI",
+  "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.json",
+  "state": "READ",
+  "item_count": 3,
+  "issues": [],
+  "checks": [
+    {
+      "post_id": "2120308677030883723",
+      "intent_target_correct": true,
+      "draft_exact": true,
+      "stale": false
+    },
+    {
+      "post_id": "2120307983259255040",
+      "intent_target_correct": true,
+      "draft_exact": true,
+      "stale": false
+    },
+    {
+      "post_id": "2120300583152181668",
+      "intent_target_correct": true,
+      "draft_exact": true,
+      "stale": false
+    }
+  ]
+}

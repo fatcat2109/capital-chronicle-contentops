@@ -1,0 +1,85 @@
+{
+  "executed_at_utc": "2026-11-11T00:41:52.358294+00:00",
+  "working_directory": "A:\\Capital Chronicle\\ContentOps",
+  "results": {
+    "pack-status": {
+      "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.json",
+      "built_at_utc": "2026-11-11T00:33:58.776957+00:00",
+      "valid_until_utc": "2026-11-11T01:42:36.691000+00:00",
+      "none_reason": null,
+      "item_count": 3,
+      "items": [
+        {
+          "post_id": "2120308677030883723",
+          "author_handle": "FirstSquawk",
+          "age_seconds": 1752.685314,
+          "stale": false,
+          "intent_url": "https://x.com/intent/post?in_reply_to=2120308677030883723&text=Before+CPI%2C+our+euro+call%27s+invalidation+was+1.1199+%2801%3A52+ET+on+10+November+2026%29.+Rate+rhetoric+needs+a+price+test+too.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations."
+        },
+        {
+          "post_id": "2120307983259255040",
+          "author_handle": "Newsquawk",
+          "age_seconds": 1918.093314,
+          "stale": false,
+          "intent_url": "https://x.com/intent/post?in_reply_to=2120307983259255040&text=Before+CPI%2C+our+S%26P+futures+call%27s+invalidation+was+7%2C498+%2801%3A23+ET+on+10+November+2026%29.+An+index+recap+leaves+that+price+test+out.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations."
+        },
+        {
+          "post_id": "2120300583152181668",
+          "author_handle": "zerohedge",
+          "age_seconds": 3682.416314,
+          "stale": false,
+          "intent_url": "https://x.com/intent/post?in_reply_to=2120300583152181668&text=Our+WTI+futures+call+recorded+86.15+as+invalidation+at+11%3A18+ET+on+10+November+2026.+A+peace+headline+still+needs+a+price+test.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations."
+        }
+      ],
+      "public_write_performed": false
+    },
+    "pack-report": {
+      "from_utc": "2026-10-28T00:41:51.236729+00:00",
+      "to_utc": "2026-11-11T00:41:51.236729+00:00",
+      "review_due_at_utc": "2026-11-25T00:33:58.776957+00:00",
+      "review_due": false,
+      "cohorts": [
+        {
+          "target_author": "FirstSquawk",
+          "reply_shape": "pre_event_call",
+          "build_time_et": "19:33 ET",
+          "drafts": 1,
+          "posted": 0,
+          "views": null,
+          "likes": null,
+          "profile_visits": null,
+          "collected_24h": 0
+        },
+        {
+          "target_author": "Newsquawk",
+          "reply_shape": "pre_event_call",
+          "build_time_et": "19:33 ET",
+          "drafts": 1,
+          "posted": 0,
+          "views": null,
+          "likes": null,
+          "profile_visits": null,
+          "collected_24h": 0
+        },
+        {
+          "target_author": "zerohedge",
+          "reply_shape": "invalidation",
+          "build_time_et": "19:33 ET",
+          "drafts": 1,
+          "posted": 0,
+          "views": null,
+          "likes": null,
+          "profile_visits": null,
+          "collected_24h": 0
+        }
+      ],
+      "public_write_performed": false
+    },
+    "pack-observe": {
+      "observed": [],
+      "causes": {},
+      "public_write_performed": false
+    }
+  },
+  "public_write_performed": false
+}

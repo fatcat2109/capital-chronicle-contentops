@@ -81,3 +81,24 @@ No schedule is changed. Ops Product owns 08:15 ET and release-plus-ten-minute
 cadence activation, after its consumer read. Jim's first actual manual reply and
 its real readback/24-hour metrics remain future observations; controlled tests
 prove the consumer path, not a reply that has not been posted.
+
+Installed source: `b92f4c5c977bb18077979aa6183ae7d08ed34a1b` was fast-forwarded into
+`A:\Capital Chronicle\ContentOps` on its existing operating branch. The fresh
+installed `pack-status` read the three-draft pack; `pack-observe` found zero
+manual replies. `installed-consumer.json` records those actual CLI results.
+`integration.json` verifies four installed source/config files and all nine
+earlier lane/live dirty files by hash. No application was restarted.
+
+`cc457-consumer.json` also executes the exact delivered CC-457 consumer at
+`baba261ee396a0796f5714e4f9b7943c0b719e5d` against the real Runtime pack: READ,
+three exact intents and no issues. This is its delivered parser with the normal
+file-reader interface, not an installation of the desk UI. Publisher's real HTML
+consumer remains available independently. Its displayed private source clocks
+use GMT+7; record clocks stay UTC and the drafts themselves keep ET.
+
+Live tag: `contentops-live-20261111-cc455`; rollback tag:
+`contentops-rollback-20261111-cc455`. The remaining acceptance step is outside
+the agent's posting authority under decision 122: Jim opens one prepared link,
+reviews the reply and posts it himself. The existing reader then supplies its
+exact reply-edge row to `pack-observe`; no agent substitutes a reply for him.
+No actual manual reply or 24-hour result is claimed in this delivery.
