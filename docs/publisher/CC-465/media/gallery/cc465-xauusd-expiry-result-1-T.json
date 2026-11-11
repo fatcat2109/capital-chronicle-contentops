@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-b0c7b3754f5782e9364bbf40",
+  "asset_id": "cc465-f22393cd17d7819642b1f2e9",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-expiry-result-1-T.png",
-  "sha256": "b0c7b3754f5782e9364bbf403fa592fb0fcc4c721fce36249e0d835cad91997c",
+  "sha256": "f22393cd17d7819642b1f2e9e7cba616ff11a8f50065c1ae56577e3e2fbd7129",
   "width": 1080,
   "height": 1350,
   "mime_type": "image/png",
@@ -44,15 +44,15 @@
       },
       "source_binding": {
         "input_sha256": "2958b97ace8e01df777b828c23ff6c14b4e5110d11f2ed5d2c577fc5f1648ec0",
-        "source_sha256": "b2a6c64247a793621ca99c9bd4a6145d77720ca723efe1f08eacd1e33ab45021",
+        "source_sha256": "bfc9e879761e6c776cf1ee689c3616c9adc7f35b4d45c9d97066df62c76d6bb8",
         "record": {
           "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
           "asset_id": "XAUUSD",
           "cancel_conditions": [],
           "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
           "cancel_level": null,
-          "check_age_seconds": 32.30027,
-          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "check_age_seconds": 32.071707,
+          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",
@@ -674,7 +674,7 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of Gold.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\T\\XAUUSD_2026-11-11_16-42-54.png",
@@ -847,8 +847,8 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "b0c7b3754f5782e9364bbf403fa592fb0fcc4c721fce36249e0d835cad91997c",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "f22393cd17d7819642b1f2e9e7cba616ff11a8f50065c1ae56577e3e2fbd7129",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "result",
     "master": "T",
     "score": 0,
@@ -867,8 +867,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "b0c7b3754f5782e9364bbf403fa592fb0fcc4c721fce36249e0d835cad91997c",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "f22393cd17d7819642b1f2e9e7cba616ff11a8f50065c1ae56577e3e2fbd7129",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "result",
       "master": "T",
       "points": {
@@ -893,6 +893,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:19.532725+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:00.885457+00:00"
   }
 }

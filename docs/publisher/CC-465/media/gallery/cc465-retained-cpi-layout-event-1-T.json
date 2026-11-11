@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-2cadb3cf7661d36b72af7b9c",
+  "asset_id": "cc465-a0837b959286895d71eb2754",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-1-T.png",
-  "sha256": "2cadb3cf7661d36b72af7b9c4c87c8f383b9c07cef11cad21c9446c82714e2dd",
+  "sha256": "a0837b959286895d71eb2754a3c12bb558f3686c792fd1a44343f61b00672d99",
   "width": 1080,
   "height": 1350,
   "mime_type": "image/png",
@@ -1049,7 +1049,7 @@
     "notes": [],
     "alt_text": "Real TradingView chart used to inspect the event template. Retained CPI probabilities are from the 10 November Main event record.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\T\\USDJPY_2026-11-11_16-43-46.png",
@@ -1234,8 +1234,8 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "2cadb3cf7661d36b72af7b9c4c87c8f383b9c07cef11cad21c9446c82714e2dd",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "a0837b959286895d71eb2754a3c12bb558f3686c792fd1a44343f61b00672d99",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "event",
     "master": "T",
     "score": 0,
@@ -1254,8 +1254,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "2cadb3cf7661d36b72af7b9c4c87c8f383b9c07cef11cad21c9446c82714e2dd",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "a0837b959286895d71eb2754a3c12bb558f3686c792fd1a44343f61b00672d99",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "event",
       "master": "T",
       "points": {
@@ -1280,6 +1280,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:22.146375+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:04.295003+00:00"
   }
 }

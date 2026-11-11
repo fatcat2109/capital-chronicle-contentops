@@ -20,6 +20,7 @@ from .image_templates_v1 import POLICY, SIZE, compile_image, template_revision
 from .image_template_inputs_v1 import digest
 
 MANDATORY = {1, 2, 3, 5, 7, 9}
+ACCEPTANCE_CONTROL = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\image_template_acceptance_v1.json")
 CHECKLIST = (
     "Exact platform canvas, RGB PNG, sRGB, under 5 MB",
     "Image 1 is the correct market's TradingView snapshot; weekly is the table exception",
@@ -171,8 +172,18 @@ def review_vision(asset,*,runner=None):
             "points":{},"reasons":{},"prompt_sha256":sha256(prompt.encode()).hexdigest()}
     try:
         with tempfile.TemporaryDirectory(prefix="cc465-vision-") as cwd:
+            schema={"type":"object","properties":{"image_seen":{"type":"boolean"},
+                "points":{"type":"object","properties":{str(i):{"type":"boolean"} for i in range(1,11)},
+                          "required":[str(i) for i in range(1,11)],"additionalProperties":False},
+                "reasons":{"type":"object","properties":{str(i):{"type":"string","minLength":1} for i in range(1,11)},
+                           "required":[str(i) for i in range(1,11)],"additionalProperties":False}},
+                "required":["image_seen","points","reasons"],"additionalProperties":False}
+            schema_path=Path(cwd)/"vision.schema.json"
+            schema_path.write_text(json.dumps(schema),encoding="utf-8")
+            record["output_schema_sha256"]=digest(schema)
             result=(runner or _run)([AGY,"--model",MODEL,"--effort",EFFORT,"--disable-slash-commands",
                 "--mode","plan","--add-dir",str(image_path.parent),
+                "--json-schema",str(schema_path),
                 "--print-timeout","120s","--input-format","stream-json","--output-format","stream-json","--print",""],
                 cwd=cwd,timeout=125,input=(json.dumps(message)+"\n").encode())
         record.update(returncode=result.returncode,output_sha256=sha256(result.stdout).hexdigest(),stderr_sha256=sha256(result.stderr).hexdigest())
@@ -214,14 +225,30 @@ def review_vision(asset,*,runner=None):
     return record
 
 
-def validate_asset(asset,*,destination=None,require_vision=True):
+def accepted_template(asset):
+    """Read the integrating owner's existing control area; never write it here."""
+    if asset.get("image_template_acceptance"):
+        return asset["image_template_acceptance"]
+    if ACCEPTANCE_CONTROL.is_file():
+        controls=json.loads(ACCEPTANCE_CONTROL.read_bytes())
+        return (controls.get("templates") or {}).get(asset["image_template"]["template"]) or {}
+    return {}
+
+
+def validate_asset(asset,*,destination=None,require_vision=True,require_template_acceptance=False):
     code=code_check(asset,destination=destination)
     if not code["passed"]:
         raise ValueError(code["causes"][0])
     if require_vision:
         review=asset.get("image_quality") or {}
-        combined=combine(code,review.get("vision") or {},new_template=True)
+        accepted=accepted_template(asset)
+        checked=template_acceptance(accepted.get("reviews") or [],code["template"],code["template_revision"])
+        admitted=checked["passed"] and bool(accepted.get("accepted_at_utc"))
+        combined=combine(code,review.get("vision") or {},new_template=not admitted)
         if not combined["passed"]:raise ValueError("IMAGE_VISION_REVIEW_REQUIRED_OR_FAILED")
+        if require_template_acceptance:
+            if not admitted:
+                raise ValueError("IMAGE_TEMPLATE_TWELVE_REAL_REVIEWS_REQUIRED")
         return combined
     return code
 
@@ -241,7 +268,15 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
         review=review_vision(asset,runner=vision_runner)
     else:
         review={"points":{},"status":"CODE_REFUSED","cause":code["causes"][0]}
-    asset["image_quality"]=combine(code,review,new_template=True)
+    # Acceptance is an artifact beside the existing media, supplied by the
+    # integrating owner after twelve actual six-market W/T reviews. No model,
+    # scheduler or publication register can grant it by a score alone.
+    acceptance=Path(folder)/"image_template_acceptance_v1.json"
+    if acceptance.is_file():
+        asset["image_template_acceptance"]=json.loads(acceptance.read_bytes())
+    accepted=accepted_template(asset)
+    admitted=template_acceptance(accepted.get("reviews") or [],code["template"],code["template_revision"])["passed"] and bool(accepted.get("accepted_at_utc"))
+    asset["image_quality"]=combine(code,review,new_template=not admitted)
     record_path.write_text(json.dumps(asset,ensure_ascii=False,indent=2),encoding="utf-8")
     validate_asset(asset)
     return asset

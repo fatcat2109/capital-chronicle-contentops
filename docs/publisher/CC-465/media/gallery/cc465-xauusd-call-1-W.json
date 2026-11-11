@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-a2adef132cb9a0d401026986",
+  "asset_id": "cc465-d88580c7cf6be81323e8a71e",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-call-1-W.png",
-  "sha256": "a2adef132cb9a0d4010269865b89e687683b1ff29a8cd596085b24398f6634d9",
+  "sha256": "d88580c7cf6be81323e8a71e45032b42c762bb50f08c9221fa19c078241e290d",
   "width": 1600,
   "height": 900,
   "mime_type": "image/png",
@@ -37,7 +37,7 @@
       },
       "source_binding": {
         "input_sha256": "a6fa80d7b68ba40a820443d72120148759f09efe6e7d17fdbfd305ab94cf3f34",
-        "source_sha256": "430fbce21753155e80a49a82e0253825de8e0b822d8d69bdd3740000d2ee876e",
+        "source_sha256": "9e4970cb63b7cd91ca22b70d68102a15d5c632c4c09e0cded856f5a1479c5c92",
         "record": {
           "key": "cc465-xauusd",
           "symbol": "XAUUSD",
@@ -49,8 +49,8 @@
             "cancel_conditions": [],
             "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
             "cancel_level": null,
-            "check_age_seconds": 32.30027,
-            "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+            "check_age_seconds": 32.071707,
+            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
             "conditions": [
               {
                 "kind": "COMPLETED_BAR",
@@ -277,8 +277,8 @@
               "cancel_conditions": [],
               "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
               "cancel_level": null,
-              "check_age_seconds": 32.30027,
-              "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+              "check_age_seconds": 32.071707,
+              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
               "conditions": [
                 {
                   "kind": "COMPLETED_BAR",
@@ -852,7 +852,7 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of Gold.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\W\\XAUUSD_2026-11-11_16-42-45.png",
@@ -995,8 +995,8 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "a2adef132cb9a0d4010269865b89e687683b1ff29a8cd596085b24398f6634d9",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "d88580c7cf6be81323e8a71e45032b42c762bb50f08c9221fa19c078241e290d",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "call",
     "master": "W",
     "score": 0,
@@ -1015,8 +1015,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "a2adef132cb9a0d4010269865b89e687683b1ff29a8cd596085b24398f6634d9",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "d88580c7cf6be81323e8a71e45032b42c762bb50f08c9221fa19c078241e290d",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "call",
       "master": "W",
       "points": {
@@ -1041,6 +1041,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:19.101050+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:00.302028+00:00"
   }
 }

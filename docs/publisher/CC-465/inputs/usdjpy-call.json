@@ -20,7 +20,7 @@
   },
   "source_binding": {
     "input_sha256": "4161bef3bd0c9000961ab2e72f25882764027359ba807d349358e1978ed361cb",
-    "source_sha256": "1564b179860cfd49f5bcefa1498567be530d8a0295d9e3a2b55b99870007f5fb",
+    "source_sha256": "1441219adddebbd7ae4c042f16e8c9dd95eca5cbce2f6c57b3ead762748626be",
     "record": {
       "key": "cc465-usdjpy",
       "symbol": "USDJPY",
@@ -32,8 +32,8 @@
         "cancel_conditions": [],
         "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
         "cancel_level": null,
-        "check_age_seconds": 30.928901,
-        "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+        "check_age_seconds": 30.667586,
+        "checked_at_utc": "2026-11-11T17:23:37.065173Z",
         "conditions": [
           {
             "kind": "COMPLETED_BAR",
@@ -260,8 +260,8 @@
           "cancel_conditions": [],
           "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
           "cancel_level": null,
-          "check_age_seconds": 30.928901,
-          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "check_age_seconds": 30.667586,
+          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",

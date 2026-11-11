@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-aa7daab7f20d0a0c9777bc5a",
+  "asset_id": "cc465-964cfcaa19d26965953bff30",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usoil-call-1-T.png",
-  "sha256": "aa7daab7f20d0a0c9777bc5af32b8c2527ff21345f3befea79cacfe14d86fd66",
+  "sha256": "964cfcaa19d26965953bff303fad92b5a182ca8279184f1fde50ef7b26ef7b86",
   "width": 1080,
   "height": 1350,
   "mime_type": "image/png",
@@ -37,7 +37,7 @@
       },
       "source_binding": {
         "input_sha256": "37f97eba62540c12f6031ffe6380c2a7c53c37bd21b08853f83a117b330e855e",
-        "source_sha256": "264e236962c4ff758ce8d1d1f10a0321a042fc8e39fde8c6de7a70ee72b049b3",
+        "source_sha256": "fac07c584467b622f1ebf25f3c0abeecd129cbda1be5b24cb38b1c16debc9a71",
         "record": {
           "key": "cc465-usoil",
           "symbol": "USOIL",
@@ -49,8 +49,8 @@
             "cancel_conditions": [],
             "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
             "cancel_level": null,
-            "check_age_seconds": 31.223767,
-            "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+            "check_age_seconds": 30.960172,
+            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
             "conditions": [
               {
                 "kind": "COMPLETED_BAR",
@@ -295,8 +295,8 @@
               "cancel_conditions": [],
               "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
               "cancel_level": null,
-              "check_age_seconds": 31.223767,
-              "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+              "check_age_seconds": 30.960172,
+              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
               "conditions": [
                 {
                   "kind": "COMPLETED_BAR",
@@ -974,7 +974,7 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of WTI crude oil.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USOIL\\T\\CL1!_2026-11-11_16-44-07.png",
@@ -1093,8 +1093,8 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "aa7daab7f20d0a0c9777bc5af32b8c2527ff21345f3befea79cacfe14d86fd66",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "964cfcaa19d26965953bff303fad92b5a182ca8279184f1fde50ef7b26ef7b86",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "call",
     "master": "T",
     "score": 0,
@@ -1113,8 +1113,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "aa7daab7f20d0a0c9777bc5af32b8c2527ff21345f3befea79cacfe14d86fd66",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "964cfcaa19d26965953bff303fad92b5a182ca8279184f1fde50ef7b26ef7b86",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "call",
       "master": "T",
       "points": {
@@ -1139,6 +1139,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:21.285923+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:03.274020+00:00"
   }
 }

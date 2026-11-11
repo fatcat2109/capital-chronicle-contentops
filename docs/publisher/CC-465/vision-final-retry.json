@@ -1,0 +1,99 @@
+{
+  "reviews": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-T.json",
+      "template": "event",
+      "image_sha256": "8dc9bb5dc2274c861e5ab4367d13e7ac57f8d37c4961edf866064bf520a24d6b",
+      "vision": {
+        "image_sha256": "8dc9bb5dc2274c861e5ab4367d13e7ac57f8d37c4961edf866064bf520a24d6b",
+        "template_revision": "a51a173532ec7a1481e008e8f8f7acfbb16cab37bef07dab25525500bc7f9f29",
+        "model": "gemini-3.8-flash-high",
+        "effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "started_at_utc": "2026-11-11T17:18:40.207350+00:00",
+        "points": {},
+        "reasons": {},
+        "prompt_sha256": "5b0a58f4174775391c9c622a4e80625c2401328776b8944e9bf67ab1d87b203d",
+        "returncode": 0,
+        "output_sha256": "d1cf54474fff3a156e565d52441efdf8c223197ed84f32a25a0398d95819c42b",
+        "stderr_sha256": "f90cb97a75e698819102157af12e14b3316550bb32c125e214603e998c0b3765",
+        "image_tools_observed": [
+          "read_file"
+        ],
+        "observed_conversation_id": "f8948ef6-6c1a-47bb-bb0a-8780f932ffbb",
+        "observed_usage": {
+          "input_tokens": 21117,
+          "output_tokens": 563,
+          "thinking_tokens": 497,
+          "cache_read_tokens": 0,
+          "total_tokens": 21680
+        },
+        "observed_duration_seconds": 6.9554655,
+        "observed_num_turns": 1,
+        "status": "REVIEW_UNAVAILABLE",
+        "cause": "JSONDecodeError:Expecting value: line 1 column 1 (char 0)",
+        "ended_at_utc": "2026-11-11T17:20:43.903432+00:00"
+      },
+      "combined": 0,
+      "passed": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-expiry-result-1-T.json",
+      "template": "result",
+      "image_sha256": "16d1f72ffdf4d8ce2206ea5822c0910816d5457e18073e6acd3ea237ad1f3070",
+      "vision": {
+        "image_sha256": "16d1f72ffdf4d8ce2206ea5822c0910816d5457e18073e6acd3ea237ad1f3070",
+        "template_revision": "a51a173532ec7a1481e008e8f8f7acfbb16cab37bef07dab25525500bc7f9f29",
+        "model": "gemini-3.8-flash-high",
+        "effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "started_at_utc": "2026-11-11T17:20:44.037778+00:00",
+        "points": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": true,
+          "8": true,
+          "9": true,
+          "10": true
+        },
+        "reasons": {
+          "1": "Valid RGB PNG canvas under 5 MB adhering to platform dimensions.",
+          "2": "Chart displays the correct USD/JPY 4h TradingView snapshot matching the input symbol.",
+          "3": "TradingView attribution line, legend, price/time scales, and logo are complete and fully uncovered.",
+          "4": "Only the specified entry band (158.30–158.38) and invalidation level (158.04) are plotted.",
+          "5": "Entry band and invalidation line have ample headroom/floor margins and match source inputs exactly.",
+          "6": "Last price marker at 159.831 aligns accurately with the source quote scale and candle close.",
+          "7": "All labels, scales, and text elements are intact without clipping, overlap, or truncation.",
+          "8": "Typography is sharp with strong contrast and remains legible at a 375 px viewport width.",
+          "9": "Contains no internal terms or identifiers, using ET timestamping and clean outcome copy.",
+          "10": "The chart area occupies over 60% of the total canvas height without empty bands exceeding 8%."
+        },
+        "prompt_sha256": "084211ca45ca7269908ad6fc7a28109a45d27b7fea0a252fb073cc039f969846",
+        "returncode": 0,
+        "output_sha256": "eeb0f503a665843a2efd844557cc03a53f3448a1a7c4396d587548b15f347efd",
+        "stderr_sha256": "3a7f8550106d86abb322e8ed0fb30a0296c0e97c6be03d5a8033b99d16737459",
+        "image_tools_observed": [
+          "read_file"
+        ],
+        "observed_conversation_id": "2bf13ee4-f4f6-42d3-a520-cbf82ef9473e",
+        "observed_usage": {
+          "input_tokens": 24314,
+          "output_tokens": 3175,
+          "thinking_tokens": 2823,
+          "cache_read_tokens": 20072,
+          "total_tokens": 27489
+        },
+        "observed_duration_seconds": 31.6118091,
+        "observed_num_turns": 1,
+        "status": "REVIEWED",
+        "ended_at_utc": "2026-11-11T17:21:19.113368+00:00"
+      },
+      "combined": 9,
+      "passed": false
+    }
+  ]
+}

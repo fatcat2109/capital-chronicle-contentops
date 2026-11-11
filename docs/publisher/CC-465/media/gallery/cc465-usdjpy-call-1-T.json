@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-20f680360efb1860ac39fd66",
+  "asset_id": "cc465-f1eb07623abd36a7fc34a4a3",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-call-1-T.png",
-  "sha256": "20f680360efb1860ac39fd6682f6d396471c4fc4799b127d3eef0bbedc857380",
+  "sha256": "f1eb07623abd36a7fc34a4a317ec9ebebdf168a45e5aa38de9a8e822a0524004",
   "width": 1080,
   "height": 1350,
   "mime_type": "image/png",
@@ -37,7 +37,7 @@
       },
       "source_binding": {
         "input_sha256": "4161bef3bd0c9000961ab2e72f25882764027359ba807d349358e1978ed361cb",
-        "source_sha256": "1564b179860cfd49f5bcefa1498567be530d8a0295d9e3a2b55b99870007f5fb",
+        "source_sha256": "1441219adddebbd7ae4c042f16e8c9dd95eca5cbce2f6c57b3ead762748626be",
         "record": {
           "key": "cc465-usdjpy",
           "symbol": "USDJPY",
@@ -49,8 +49,8 @@
             "cancel_conditions": [],
             "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
             "cancel_level": null,
-            "check_age_seconds": 30.928901,
-            "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+            "check_age_seconds": 30.667586,
+            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
             "conditions": [
               {
                 "kind": "COMPLETED_BAR",
@@ -277,8 +277,8 @@
               "cancel_conditions": [],
               "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
               "cancel_level": null,
-              "check_age_seconds": 30.928901,
-              "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+              "check_age_seconds": 30.667586,
+              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
               "conditions": [
                 {
                   "kind": "COMPLETED_BAR",
@@ -1004,7 +1004,7 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of USD/JPY.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\T\\USDJPY_2026-11-11_16-43-46.png",
@@ -1189,28 +1189,28 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "20f680360efb1860ac39fd6682f6d396471c4fc4799b127d3eef0bbedc857380",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "f1eb07623abd36a7fc34a4a317ec9ebebdf168a45e5aa38de9a8e822a0524004",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "call",
     "master": "T",
-    "score": 9,
+    "score": 0,
     "points": {
-      "1": true,
-      "2": true,
-      "3": true,
-      "4": true,
-      "5": true,
+      "1": false,
+      "2": false,
+      "3": false,
+      "4": false,
+      "5": false,
       "6": false,
-      "7": true,
-      "8": true,
-      "9": true,
-      "10": true
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false
     },
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "20f680360efb1860ac39fd6682f6d396471c4fc4799b127d3eef0bbedc857380",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "f1eb07623abd36a7fc34a4a317ec9ebebdf168a45e5aa38de9a8e822a0524004",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "call",
       "master": "T",
       "points": {
@@ -1232,56 +1232,9 @@
       ]
     },
     "vision": {
-      "image_sha256": "20f680360efb1860ac39fd6682f6d396471c4fc4799b127d3eef0bbedc857380",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
-      "model": "gemini-3.8-flash-high",
-      "effort": "high",
-      "configuration_status": "CONFIGURED_NOT_OBSERVED",
-      "started_at_utc": "2026-11-11T17:02:39.254863+00:00",
-      "points": {
-        "1": true,
-        "2": true,
-        "3": true,
-        "4": true,
-        "5": true,
-        "6": true,
-        "7": true,
-        "8": true,
-        "9": true,
-        "10": true
-      },
-      "reasons": {
-        "1": "Exact 1080x1350 RGB PNG canvas under 5 MB in sRGB format.",
-        "2": "Chart is the correct TradingView USD/JPY 4h snapshot matching the USDJPY market.",
-        "3": "Created with attribution line, legend, both time and price scales, and TradingView logo are whole and uncovered.",
-        "4": "Only the specified entry band (158.30-158.38) and invalidation level (158.04) appear inside the plot.",
-        "5": "Entry band and invalidation line are clearly visible with >6% spare margin and printed numbers match the source plan.",
-        "6": "Last price of 159.831 matches the snapshot source quote scale exactly.",
-        "7": "All text across the canvas, chart, and footer is intact with no clipping, overlap, cuts, or ellipsis.",
-        "8": "Typography retains strong contrast and clear readability when scaled to 375 px mobile width.",
-        "9": "Contains ET time exit and probability pair with no internal terms, identifiers, money, volume, or model mentions.",
-        "10": "Chart occupies ~63% of the canvas height with no empty vertical band exceeding 8%."
-      },
-      "prompt_sha256": "0e14f1f46243de5e023f02e6f751518058acff25933cc2d3d4e2edce364ae396",
-      "returncode": 0,
-      "output_sha256": "e38441921c4b414054b13f066fcba89f8c6d124650f5566d046c3a22899a7cdc",
-      "stderr_sha256": "3a7f8550106d86abb322e8ed0fb30a0296c0e97c6be03d5a8033b99d16737459",
-      "image_tools_observed": [
-        "read_file"
-      ],
-      "observed_conversation_id": "8ed48603-79cd-4140-90e7-930408378ad8",
-      "observed_usage": {
-        "input_tokens": 5818,
-        "output_tokens": 11014,
-        "thinking_tokens": 10642,
-        "cache_read_tokens": 38431,
-        "total_tokens": 16832
-      },
-      "observed_duration_seconds": 90.4127238,
-      "observed_num_turns": 1,
-      "status": "REVIEWED",
-      "ended_at_utc": "2026-11-11T17:04:13.063207+00:00"
+      "points": {},
+      "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:04:13.063277+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:02.563313+00:00"
   }
 }

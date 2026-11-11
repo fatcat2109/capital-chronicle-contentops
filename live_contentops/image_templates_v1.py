@@ -14,7 +14,7 @@ import math
 from pathlib import Path
 import re
 
-from PIL import Image, ImageCms, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 from .image_template_inputs_v1 import MARKETS, ORDER, digest, validate_binding
 
@@ -492,6 +492,7 @@ def compile_image(data,master,snapshot=None,*,image_number=1,page=0):
 
 def template_revision():
     return digest({"source":sha256(Path(__file__).read_text(encoding="utf-8-sig").replace("\r\n","\n").encode()).hexdigest(),
+                   "colour_profile":sha256((FONTS/"sRGB.icc").read_bytes()).hexdigest(),
                    "fonts":{p.name:sha256(p.read_bytes()).hexdigest() for p in FONTS.glob('*.ttf')}})
 
 
@@ -501,7 +502,7 @@ def render(data,master,out_dir,snapshot=None,*,image_number=1,page=0):
     post=str(data["post_id"])
     if not re.fullmatch(r"[A-Za-z0-9_-]+",post):raise LayoutError("IMAGE_POST_FILENAME_INVALID")
     path=folder/f"{post}-{data['template']}-{image_number+page}-{master}.png"
-    profile=ImageCms.ImageCmsProfile(ImageCms.createProfile('sRGB')).tobytes()
+    profile=(FONTS/"sRGB.icc").read_bytes()
     image.save(path,format="PNG",icc_profile=profile)
     raw=path.read_bytes()
     return {"asset_id":"cc465-"+sha256(raw).hexdigest()[:24],"path":str(path.resolve()),"sha256":sha256(raw).hexdigest(),

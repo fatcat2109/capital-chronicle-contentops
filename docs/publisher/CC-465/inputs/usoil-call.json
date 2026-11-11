@@ -20,7 +20,7 @@
   },
   "source_binding": {
     "input_sha256": "37f97eba62540c12f6031ffe6380c2a7c53c37bd21b08853f83a117b330e855e",
-    "source_sha256": "264e236962c4ff758ce8d1d1f10a0321a042fc8e39fde8c6de7a70ee72b049b3",
+    "source_sha256": "fac07c584467b622f1ebf25f3c0abeecd129cbda1be5b24cb38b1c16debc9a71",
     "record": {
       "key": "cc465-usoil",
       "symbol": "USOIL",
@@ -32,8 +32,8 @@
         "cancel_conditions": [],
         "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
         "cancel_level": null,
-        "check_age_seconds": 31.223767,
-        "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+        "check_age_seconds": 30.960172,
+        "checked_at_utc": "2026-11-11T17:23:37.065173Z",
         "conditions": [
           {
             "kind": "COMPLETED_BAR",
@@ -278,8 +278,8 @@
           "cancel_conditions": [],
           "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
           "cancel_level": null,
-          "check_age_seconds": 31.223767,
-          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "check_age_seconds": 30.960172,
+          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",

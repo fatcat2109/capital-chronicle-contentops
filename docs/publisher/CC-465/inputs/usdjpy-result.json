@@ -27,15 +27,15 @@
   },
   "source_binding": {
     "input_sha256": "c64e5f08c88925b29f11f5fb2d46415133a978c13dc6cbfb84a3b59650a0d7e1",
-    "source_sha256": "89acc3dbacd08cf6c822af62e6d10b34271c56d345afbbdc8d4177ede5a57de2",
+    "source_sha256": "193c42d268381fdeac80f87806f37d27cabe506f59a162cf864371804d1ce531",
     "record": {
       "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
       "asset_id": "USDJPY",
       "cancel_conditions": [],
       "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
       "cancel_level": null,
-      "check_age_seconds": 30.928901,
-      "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+      "check_age_seconds": 30.667586,
+      "checked_at_utc": "2026-11-11T17:23:37.065173Z",
       "conditions": [
         {
           "kind": "COMPLETED_BAR",

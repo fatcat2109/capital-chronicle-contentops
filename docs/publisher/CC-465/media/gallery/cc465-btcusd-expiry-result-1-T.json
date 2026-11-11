@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-cc469d9b4840b9d94e679464",
+  "asset_id": "cc465-1fb1229115c8da6564da2d43",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-btcusd-expiry-result-1-T.png",
-  "sha256": "cc469d9b4840b9d94e6794645734ea58e5dbd12e0e3b06cda9a640ced54dbd56",
+  "sha256": "1fb1229115c8da6564da2d4398afb3f4bbb8bebeebc70c2f1d2a11c2637d22fa",
   "width": 1080,
   "height": 1350,
   "mime_type": "image/png",
@@ -44,15 +44,15 @@
       },
       "source_binding": {
         "input_sha256": "221bda440bf32665e84fa4f578d355e18fdbc2fd0ba6351df318ba302ec06d99",
-        "source_sha256": "edfb4e693b3720754cd85b0482311e9fca4691ad0dc08e124b654017859d6815",
+        "source_sha256": "54d4a386d7904ac157a0d8f94dcb4ccb37322808860d3238517cb4499198a849",
         "record": {
           "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
           "asset_id": "BTCUSD",
           "cancel_conditions": [],
           "cancel_kind": null,
           "cancel_level": null,
-          "check_age_seconds": 29.712555,
-          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "check_age_seconds": 29.39153,
+          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",
@@ -646,7 +646,7 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of Bitcoin.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\T\\BTCUSD_2026-11-11_16-45-33.png",
@@ -789,8 +789,8 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "cc469d9b4840b9d94e6794645734ea58e5dbd12e0e3b06cda9a640ced54dbd56",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "1fb1229115c8da6564da2d4398afb3f4bbb8bebeebc70c2f1d2a11c2637d22fa",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "result",
     "master": "T",
     "score": 0,
@@ -809,8 +809,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "cc469d9b4840b9d94e6794645734ea58e5dbd12e0e3b06cda9a640ced54dbd56",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "1fb1229115c8da6564da2d4398afb3f4bbb8bebeebc70c2f1d2a11c2637d22fa",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "result",
       "master": "T",
       "points": {
@@ -835,6 +835,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:21.784841+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:03.875547+00:00"
   }
 }

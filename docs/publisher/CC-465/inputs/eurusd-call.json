@@ -20,7 +20,7 @@
   },
   "source_binding": {
     "input_sha256": "bef6fd1e58bd92e5e5bc76051344ed3a59f9f0cdb64694e5656eb947d56ca1bb",
-    "source_sha256": "575354990aa4908235a2c43b7747066ab22c7d8883fcd245f665cd6c27db8515",
+    "source_sha256": "4cf50a9f6fcddc399397a56f2996e282555eff29accdc5ceb6226c816ba8e4cf",
     "record": {
       "key": "cc465-eurusd",
       "symbol": "EURUSD",
@@ -32,8 +32,8 @@
         "cancel_conditions": [],
         "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
         "cancel_level": null,
-        "check_age_seconds": 30.034605,
-        "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+        "check_age_seconds": 29.773871,
+        "checked_at_utc": "2026-11-11T17:23:37.065173Z",
         "conditions": [
           {
             "kind": "COMPLETED_BAR",
@@ -260,8 +260,8 @@
           "cancel_conditions": [],
           "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
           "cancel_level": null,
-          "check_age_seconds": 30.034605,
-          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "check_age_seconds": 29.773871,
+          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",

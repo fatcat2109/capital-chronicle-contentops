@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-36a2729349c8d061810816ee",
+  "asset_id": "cc465-275e3174de993866fb764b03",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-us500-expiry-result-1-W.png",
-  "sha256": "36a2729349c8d061810816eebeeb55132b8a9c5e1b1663b34c7b8fb5995ad1aa",
+  "sha256": "275e3174de993866fb764b03e124bd56bf4d908cd945e01bc4e2c71f89f2a9c4",
   "width": 1600,
   "height": 900,
   "mime_type": "image/png",
@@ -44,15 +44,15 @@
       },
       "source_binding": {
         "input_sha256": "8e1bf2d46f90a2f63b19ae91900555f09da34d52aaf6e9bba9d495543fce34c8",
-        "source_sha256": "2c0510f87f183098f7be24561210cf276e5dd3c9cc5f56ab7c9132570fa9ef04",
+        "source_sha256": "a25c9e5cb7c79cace824601b1150bfd2d605c96f63f537bf34cd0cf9fd1b50e4",
         "record": {
           "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
           "asset_id": "US500",
           "cancel_conditions": [],
           "cancel_kind": null,
           "cancel_level": null,
-          "check_age_seconds": 30.872285,
-          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "check_age_seconds": 30.608995,
+          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",
@@ -612,7 +612,7 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of S&P 500.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\W\\SPX_2026-11-11_16-43-03.png",
@@ -773,8 +773,8 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "36a2729349c8d061810816eebeeb55132b8a9c5e1b1663b34c7b8fb5995ad1aa",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "275e3174de993866fb764b03e124bd56bf4d908cd945e01bc4e2c71f89f2a9c4",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "result",
     "master": "W",
     "score": 0,
@@ -793,8 +793,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "36a2729349c8d061810816eebeeb55132b8a9c5e1b1663b34c7b8fb5995ad1aa",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "275e3174de993866fb764b03e124bd56bf4d908cd945e01bc4e2c71f89f2a9c4",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "result",
       "master": "W",
       "points": {
@@ -819,6 +819,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:19.937668+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:01.295120+00:00"
   }
 }

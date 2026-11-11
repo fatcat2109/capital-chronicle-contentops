@@ -20,7 +20,7 @@
   },
   "source_binding": {
     "input_sha256": "349341fb27c2d6f50985bd3e3f4b56ab1139da779a9ae060650db3834b76c26c",
-    "source_sha256": "197b8b6c2c5081555f8f722d00697d12709fc9226add6cea3c6f4f7760881d93",
+    "source_sha256": "f6e6edbd946bdd3b8d23423cae8414e5d921e550e77e6eaa551c69659578aa76",
     "record": {
       "key": "cc465-us500",
       "symbol": "US500",
@@ -32,8 +32,8 @@
         "cancel_conditions": [],
         "cancel_kind": null,
         "cancel_level": null,
-        "check_age_seconds": 30.872285,
-        "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+        "check_age_seconds": 30.608995,
+        "checked_at_utc": "2026-11-11T17:23:37.065173Z",
         "conditions": [
           {
             "kind": "COMPLETED_BAR",
@@ -262,8 +262,8 @@
           "cancel_conditions": [],
           "cancel_kind": null,
           "cancel_level": null,
-          "check_age_seconds": 30.872285,
-          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "check_age_seconds": 30.608995,
+          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",

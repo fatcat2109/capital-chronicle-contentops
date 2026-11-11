@@ -299,7 +299,7 @@ def validate_write(coordinator, intent, destination):
         from .image_quality_v1 import validate_asset
         for asset in templates:
             try:
-                validate_asset(asset, destination=destination)
+                validate_asset(asset, destination=destination,require_template_acceptance=True)
             except ValueError as exc:
                 raise ImageContractError(str(exc), image_sha256=asset.get("sha256")) from exc
         first = assets[0].get("image_template") or {}

@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-58c07afcbcec7522961468ca",
+  "asset_id": "cc465-485c1a4fd75e4dcaa0934b57",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-us500-call-1-T.png",
-  "sha256": "58c07afcbcec7522961468caefa83f0338bf9f285291293d3bf2d920354aabf0",
+  "sha256": "485c1a4fd75e4dcaa0934b576e7b46f04723b3e607a44fde5bffb78d27c52300",
   "width": 1080,
   "height": 1350,
   "mime_type": "image/png",
@@ -37,7 +37,7 @@
       },
       "source_binding": {
         "input_sha256": "349341fb27c2d6f50985bd3e3f4b56ab1139da779a9ae060650db3834b76c26c",
-        "source_sha256": "197b8b6c2c5081555f8f722d00697d12709fc9226add6cea3c6f4f7760881d93",
+        "source_sha256": "f6e6edbd946bdd3b8d23423cae8414e5d921e550e77e6eaa551c69659578aa76",
         "record": {
           "key": "cc465-us500",
           "symbol": "US500",
@@ -49,8 +49,8 @@
             "cancel_conditions": [],
             "cancel_kind": null,
             "cancel_level": null,
-            "check_age_seconds": 30.872285,
-            "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+            "check_age_seconds": 30.608995,
+            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
             "conditions": [
               {
                 "kind": "COMPLETED_BAR",
@@ -279,8 +279,8 @@
               "cancel_conditions": [],
               "cancel_kind": null,
               "cancel_level": null,
-              "check_age_seconds": 30.872285,
-              "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+              "check_age_seconds": 30.608995,
+              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
               "conditions": [
                 {
                   "kind": "COMPLETED_BAR",
@@ -972,7 +972,7 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of S&P 500.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\T\\SPX_2026-11-11_16-43-11.png",
@@ -1121,8 +1121,8 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "58c07afcbcec7522961468caefa83f0338bf9f285291293d3bf2d920354aabf0",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "485c1a4fd75e4dcaa0934b576e7b46f04723b3e607a44fde5bffb78d27c52300",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "call",
     "master": "T",
     "score": 0,
@@ -1141,8 +1141,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "58c07afcbcec7522961468caefa83f0338bf9f285291293d3bf2d920354aabf0",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "485c1a4fd75e4dcaa0934b576e7b46f04723b3e607a44fde5bffb78d27c52300",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "call",
       "master": "T",
       "points": {
@@ -1167,6 +1167,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:19.812689+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:01.161948+00:00"
   }
 }

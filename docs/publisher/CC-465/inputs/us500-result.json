@@ -27,15 +27,15 @@
   },
   "source_binding": {
     "input_sha256": "8e1bf2d46f90a2f63b19ae91900555f09da34d52aaf6e9bba9d495543fce34c8",
-    "source_sha256": "2c0510f87f183098f7be24561210cf276e5dd3c9cc5f56ab7c9132570fa9ef04",
+    "source_sha256": "a25c9e5cb7c79cace824601b1150bfd2d605c96f63f537bf34cd0cf9fd1b50e4",
     "record": {
       "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
       "asset_id": "US500",
       "cancel_conditions": [],
       "cancel_kind": null,
       "cancel_level": null,
-      "check_age_seconds": 30.872285,
-      "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+      "check_age_seconds": 30.608995,
+      "checked_at_utc": "2026-11-11T17:23:37.065173Z",
       "conditions": [
         {
           "kind": "COMPLETED_BAR",

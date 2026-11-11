@@ -20,7 +20,7 @@
   },
   "source_binding": {
     "input_sha256": "597c7e50bb68d39d775875bd010b20d5286656b56ab35d1a1845c8fecde943fb",
-    "source_sha256": "77abeeb11b040b6a7a331b7c9bf31ce3a30f9342b04033578e36f93a0a46124b",
+    "source_sha256": "e44c2c10ea618f2c7d1e86316a921ac40946cc2a4e91979169005abb71a9aeec",
     "record": {
       "key": "cc465-btcusd",
       "symbol": "BTCUSD",
@@ -32,8 +32,8 @@
         "cancel_conditions": [],
         "cancel_kind": null,
         "cancel_level": null,
-        "check_age_seconds": 29.712555,
-        "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+        "check_age_seconds": 29.39153,
+        "checked_at_utc": "2026-11-11T17:23:37.065173Z",
         "conditions": [
           {
             "kind": "COMPLETED_BAR",
@@ -262,8 +262,8 @@
           "cancel_conditions": [],
           "cancel_kind": null,
           "cancel_level": null,
-          "check_age_seconds": 29.712555,
-          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "check_age_seconds": 29.39153,
+          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",

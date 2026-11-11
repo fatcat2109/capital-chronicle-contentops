@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-4dada5e41a807871d27295a9",
+  "asset_id": "cc465-7f838e8c722c970a81688db7",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-eurusd-expiry-result-1-T.png",
-  "sha256": "4dada5e41a807871d27295a9eaa37b921f7cfd18a860fe8ca96f902210e515f9",
+  "sha256": "7f838e8c722c970a81688db70367b3fa07a81316aec21e8ec7c556cf5e9c8f7f",
   "width": 1080,
   "height": 1350,
   "mime_type": "image/png",
@@ -44,15 +44,15 @@
       },
       "source_binding": {
         "input_sha256": "41a831f9c3e5ab4229377ace221126cdc024a2b6a43c8e760a6fa95377a6365e",
-        "source_sha256": "f145622cc167491fc288a38c678f5665c661fe929f751f73224b6cb8c43c879e",
+        "source_sha256": "37b91d7ba89277dd054bdeadec396087ebe71084b5d25d133562faebb5325829",
         "record": {
           "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
           "asset_id": "EURUSD",
           "cancel_conditions": [],
           "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
           "cancel_level": null,
-          "check_age_seconds": 30.034605,
-          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "check_age_seconds": 29.773871,
+          "checked_at_utc": "2026-11-11T17:23:37.065173Z",
           "conditions": [
             {
               "kind": "COMPLETED_BAR",
@@ -692,7 +692,7 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of EUR/USD.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\T\\EURUSD_2026-11-11_16-43-28.png",
@@ -883,8 +883,8 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "4dada5e41a807871d27295a9eaa37b921f7cfd18a860fe8ca96f902210e515f9",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "7f838e8c722c970a81688db70367b3fa07a81316aec21e8ec7c556cf5e9c8f7f",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "result",
     "master": "T",
     "score": 0,
@@ -903,8 +903,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "4dada5e41a807871d27295a9eaa37b921f7cfd18a860fe8ca96f902210e515f9",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "7f838e8c722c970a81688db70367b3fa07a81316aec21e8ec7c556cf5e9c8f7f",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "result",
       "master": "T",
       "points": {
@@ -929,6 +929,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:20.565052+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:02.231628+00:00"
   }
 }

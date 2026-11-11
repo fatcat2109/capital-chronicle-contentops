@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-4ac60b1697085fbd5d3267e5",
+  "asset_id": "cc465-8080313861d599161d2690f3",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-btcusd-call-1-W.png",
-  "sha256": "4ac60b1697085fbd5d3267e5616a6ef734c2ae659e3a79848fee14718170cc0a",
+  "sha256": "8080313861d599161d2690f38236793a7543a74cbe2d4251b37da09d0b74f175",
   "width": 1600,
   "height": 900,
   "mime_type": "image/png",
@@ -37,7 +37,7 @@
       },
       "source_binding": {
         "input_sha256": "597c7e50bb68d39d775875bd010b20d5286656b56ab35d1a1845c8fecde943fb",
-        "source_sha256": "77abeeb11b040b6a7a331b7c9bf31ce3a30f9342b04033578e36f93a0a46124b",
+        "source_sha256": "e44c2c10ea618f2c7d1e86316a921ac40946cc2a4e91979169005abb71a9aeec",
         "record": {
           "key": "cc465-btcusd",
           "symbol": "BTCUSD",
@@ -49,8 +49,8 @@
             "cancel_conditions": [],
             "cancel_kind": null,
             "cancel_level": null,
-            "check_age_seconds": 29.712555,
-            "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+            "check_age_seconds": 29.39153,
+            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
             "conditions": [
               {
                 "kind": "COMPLETED_BAR",
@@ -279,8 +279,8 @@
               "cancel_conditions": [],
               "cancel_kind": null,
               "cancel_level": null,
-              "check_age_seconds": 29.712555,
-              "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+              "check_age_seconds": 29.39153,
+              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
               "conditions": [
                 {
                   "kind": "COMPLETED_BAR",
@@ -868,7 +868,7 @@
     "notes": [],
     "alt_text": "TradingView 4h chart of Bitcoin.",
     "chart": true,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "tradingview_snapshot": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\W\\BTCUSD_2026-11-11_16-45-23.png",
@@ -1023,8 +1023,8 @@
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "4ac60b1697085fbd5d3267e5616a6ef734c2ae659e3a79848fee14718170cc0a",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "8080313861d599161d2690f38236793a7543a74cbe2d4251b37da09d0b74f175",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "call",
     "master": "W",
     "score": 0,
@@ -1043,8 +1043,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "4ac60b1697085fbd5d3267e5616a6ef734c2ae659e3a79848fee14718170cc0a",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "8080313861d599161d2690f38236793a7543a74cbe2d4251b37da09d0b74f175",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "call",
       "master": "W",
       "points": {
@@ -1069,6 +1069,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:21.429327+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:03.438978+00:00"
   }
 }

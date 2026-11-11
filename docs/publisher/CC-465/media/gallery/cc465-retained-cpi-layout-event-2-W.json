@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-26277325dd3636d2fc3f0cfc",
+  "asset_id": "cc465-0b8ee3d3f1638efced0282a6",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-W.png",
-  "sha256": "26277325dd3636d2fc3f0cfcf68b64f9d5f8363c7b1c74e04a3d48494902ed02",
+  "sha256": "0b8ee3d3f1638efced0282a656888839ce60c3b33e8acce511448e1e145e6474",
   "width": 1600,
   "height": 900,
   "mime_type": "image/png",
@@ -716,11 +716,11 @@
         "field": "scenario.name"
       },
       {
-        "text": "44.0%",
+        "text": "44%",
         "box": [
           398,
           132,
-          508,
+          464,
           157
         ],
         "zone": [
@@ -734,7 +734,7 @@
         "mono": true,
         "runs": [
           {
-            "text": "44.0%",
+            "text": "44%",
             "mono": true
           }
         ],
@@ -880,11 +880,11 @@
         "field": "scenario.name"
       },
       {
-        "text": "31.0%",
+        "text": "31%",
         "box": [
           398,
           357,
-          508,
+          464,
           382
         ],
         "zone": [
@@ -898,7 +898,7 @@
         "mono": true,
         "runs": [
           {
-            "text": "31.0%",
+            "text": "31%",
             "mono": true
           }
         ],
@@ -1044,11 +1044,11 @@
         "field": "scenario.name"
       },
       {
-        "text": "15.0%",
+        "text": "15%",
         "box": [
           398,
           582,
-          508,
+          464,
           607
         ],
         "zone": [
@@ -1062,7 +1062,7 @@
         "mono": true,
         "runs": [
           {
-            "text": "15.0%",
+            "text": "15%",
             "mono": true
           }
         ],
@@ -1211,15 +1211,15 @@
     "notes": [],
     "alt_text": "Real TradingView chart used to inspect the event template. Retained CPI probabilities are from the 10 November Main event record.",
     "chart": false,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "delivery_only": true,
   "article_inclusion": true,
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "26277325dd3636d2fc3f0cfcf68b64f9d5f8363c7b1c74e04a3d48494902ed02",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "0b8ee3d3f1638efced0282a656888839ce60c3b33e8acce511448e1e145e6474",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "event",
     "master": "W",
     "score": 0,
@@ -1238,8 +1238,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "26277325dd3636d2fc3f0cfcf68b64f9d5f8363c7b1c74e04a3d48494902ed02",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "0b8ee3d3f1638efced0282a656888839ce60c3b33e8acce511448e1e145e6474",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "event",
       "master": "W",
       "points": {
@@ -1262,6 +1262,6 @@
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:22.034878+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:04.149415+00:00"
   }
 }

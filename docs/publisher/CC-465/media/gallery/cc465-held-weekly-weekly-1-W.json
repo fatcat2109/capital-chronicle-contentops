@@ -1,7 +1,7 @@
 {
-  "asset_id": "cc465-6d25ae955d023aab2cad015a",
+  "asset_id": "cc465-eaa24b6132eb04b819795f1e",
   "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-held-weekly-weekly-1-W.png",
-  "sha256": "6d25ae955d023aab2cad015adb4cce112633241a04fe25b49e9a202a8e4db2b1",
+  "sha256": "eaa24b6132eb04b819795f1e15fc2d5a05b5c8eca69913a248a46cece4a440a4",
   "width": 1600,
   "height": 900,
   "mime_type": "image/png",
@@ -72,12 +72,12 @@
       },
       "source_binding": {
         "input_sha256": "38786cca1331f7c14fd05a12c68b77b6af89afcbe5973b1c1c1650d127c8b623",
-        "source_sha256": "01a2f73480ba8a57561ce275a35ded191091eff305fe468aa5b5d4d74a123379",
+        "source_sha256": "754161d069290140a7288795fecd9caf428a0af81dd565be776890acb48e0b0a",
         "record": {
           "public_export": {
-            "content_hash": "aedaf4d3fd3d7050e73a1db15604e4f36a702722471808db009f50e808176b0c",
+            "content_hash": "69430731a1bb7af3a5637dd718e3aa014c2b822cf1320ee85177150a27030010",
             "contract_version": "2.0.0",
-            "generated_at_utc": "2026-11-11T17:02:08.621777Z",
+            "generated_at_utc": "2026-11-11T17:24:09.373041Z",
             "notice": "Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
             "plans": [
               {
@@ -86,7 +86,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 580174.947225,
+                "check_age_seconds": 581495.059435,
                 "checked_at_utc": "2026-11-04T23:52:17.142255Z",
                 "conditions": [
                   {
@@ -227,7 +227,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 520713.733472,
+                "check_age_seconds": 522033.849808,
                 "checked_at_utc": "2026-11-05T16:23:18.602579Z",
                 "conditions": [
                   {
@@ -363,7 +363,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 46095.408834,
+                "check_age_seconds": 47416.04995,
                 "checked_at_utc": "2026-11-11T04:13:50.340304Z",
                 "conditions": [
                   {
@@ -481,7 +481,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 463294.139506,
+                "check_age_seconds": 464614.254839,
                 "checked_at_utc": "2026-11-06T08:20:18.529589Z",
                 "conditions": [
                   {
@@ -621,7 +621,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 524289.638969,
+                "check_age_seconds": 525610.380773,
                 "checked_at_utc": "2026-11-05T15:23:58.374730Z",
                 "conditions": [
                   {
@@ -757,8 +757,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 32.518682,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 32.299684,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -877,8 +877,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 32.1634,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 31.935083,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -1034,7 +1034,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 461794.915021,
+                "check_age_seconds": 463115.617655,
                 "checked_at_utc": "2026-11-06T08:45:32.500209Z",
                 "conditions": [
                   {
@@ -1175,8 +1175,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 30.305062,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 30.039358,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -1334,7 +1334,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 471441.746278,
+                "check_age_seconds": 472761.909833,
                 "checked_at_utc": "2026-11-06T06:04:32.094304Z",
                 "conditions": [
                   {
@@ -1476,8 +1476,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 29.866087,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 29.586972,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -1637,7 +1637,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 36387.382247,
+                "check_age_seconds": 37708.097527,
                 "checked_at_utc": "2026-11-11T06:55:38.683960Z",
                 "conditions": [
                   {
@@ -1774,8 +1774,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 30.51288,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 30.242258,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -1913,7 +1913,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 46042.733961,
+                "check_age_seconds": 47363.433833,
                 "checked_at_utc": "2026-11-11T04:14:44.117617Z",
                 "conditions": [
                   {
@@ -2031,8 +2031,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 31.8119,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 31.586338,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -2170,7 +2170,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 580177.251711,
+                "check_age_seconds": 581497.41144,
                 "checked_at_utc": "2026-11-04T23:52:17.142255Z",
                 "conditions": [
                   {
@@ -2311,8 +2311,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 31.223767,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 30.960172,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -2466,7 +2466,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 547417.184347,
+                "check_age_seconds": 548737.298046,
                 "checked_at_utc": "2026-11-05T08:58:17.610227Z",
                 "conditions": [
                   {
@@ -2602,7 +2602,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 518734.037048,
+                "check_age_seconds": 520054.158252,
                 "checked_at_utc": "2026-11-05T16:56:21.035971Z",
                 "conditions": [
                   {
@@ -2729,7 +2729,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 45981.221829,
+                "check_age_seconds": 47301.924203,
                 "checked_at_utc": "2026-11-11T04:15:45.473908Z",
                 "conditions": [
                   {
@@ -2847,8 +2847,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 32.30027,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 32.071707,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -2984,7 +2984,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 471443.266497,
+                "check_age_seconds": 472763.384898,
                 "checked_at_utc": "2026-11-06T06:04:32.094304Z",
                 "conditions": [
                   {
@@ -3126,7 +3126,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 518734.412714,
+                "check_age_seconds": 520054.52955,
                 "checked_at_utc": "2026-11-05T16:56:21.035971Z",
                 "conditions": [
                   {
@@ -3271,8 +3271,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 31.608162,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 31.336846,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -3414,7 +3414,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 563232.261137,
+                "check_age_seconds": 564552.359615,
                 "checked_at_utc": "2026-11-05T04:34:43.361704Z",
                 "conditions": [
                   {
@@ -3566,7 +3566,7 @@
                 ],
                 "cancel_kind": null,
                 "cancel_level": 156.7,
-                "check_age_seconds": 533788.461761,
+                "check_age_seconds": 535108.542713,
                 "checked_at_utc": "2026-11-05T12:45:27.363584Z",
                 "conditions": [
                   {
@@ -3718,7 +3718,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 9809.529295,
+                "check_age_seconds": 11130.22699,
                 "checked_at_utc": "2026-11-11T14:18:38.044035Z",
                 "conditions": [
                   {
@@ -3836,7 +3836,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 514886.916862,
+                "check_age_seconds": 516206.999646,
                 "checked_at_utc": "2026-11-05T18:00:29.285314Z",
                 "conditions": [
                   {
@@ -3976,7 +3976,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 539896.880515,
+                "check_age_seconds": 541217.58826,
                 "checked_at_utc": "2026-11-05T11:03:49.583745Z",
                 "conditions": [
                   {
@@ -4116,7 +4116,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 539315.05334,
+                "check_age_seconds": 540635.120553,
                 "checked_at_utc": "2026-11-05T11:13:21.400798Z",
                 "conditions": [
                   {
@@ -4249,8 +4249,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 31.076823,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 30.815232,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -4392,7 +4392,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 977.551674,
+                "check_age_seconds": 2298.253214,
                 "checked_at_utc": "2026-11-11T16:45:49.926646Z",
                 "conditions": [
                   {
@@ -4540,8 +4540,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 30.034605,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 29.773871,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -4677,7 +4677,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 580180.501003,
+                "check_age_seconds": 581500.580549,
                 "checked_at_utc": "2026-11-04T23:52:17.142255Z",
                 "conditions": [
                   {
@@ -4805,7 +4805,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 36505.918594,
+                "check_age_seconds": 37826.660471,
                 "checked_at_utc": "2026-11-11T06:53:42.099774Z",
                 "conditions": [
                   {
@@ -4942,7 +4942,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 923.661275,
+                "check_age_seconds": 2244.406055,
                 "checked_at_utc": "2026-11-11T16:46:44.811301Z",
                 "conditions": [
                   {
@@ -5079,7 +5079,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 200316.177292,
+                "check_age_seconds": 201636.826753,
                 "checked_at_utc": "2026-11-09T09:23:29.636017Z",
                 "conditions": [
                   {
@@ -5218,8 +5218,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 30.094935,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 29.83209,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -5357,8 +5357,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 30.928901,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 30.667586,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -5494,8 +5494,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 29.560777,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 29.217474,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -5643,7 +5643,7 @@
                 ],
                 "cancel_kind": null,
                 "cancel_level": 4150.0,
-                "check_age_seconds": 558518.698192,
+                "check_age_seconds": 559838.799994,
                 "checked_at_utc": "2026-11-05T05:53:19.718423Z",
                 "conditions": [
                   {
@@ -5795,7 +5795,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 526586.504944,
+                "check_age_seconds": 527906.642431,
                 "checked_at_utc": "2026-11-05T14:45:32.564434Z",
                 "conditions": [
                   {
@@ -5929,7 +5929,7 @@
                 ],
                 "cancel_kind": null,
                 "cancel_level": 2500.0,
-                "check_age_seconds": 558017.930507,
+                "check_age_seconds": 559338.581861,
                 "checked_at_utc": "2026-11-05T06:01:47.895295Z",
                 "conditions": [
                   {
@@ -6057,7 +6057,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 573342.994282,
+                "check_age_seconds": 574663.15415,
                 "checked_at_utc": "2026-11-05T01:46:16.388755Z",
                 "conditions": [
                   {
@@ -6198,7 +6198,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 531015.630057,
+                "check_age_seconds": 532336.250235,
                 "checked_at_utc": "2026-11-05T13:31:49.855939Z",
                 "conditions": [
                   {
@@ -6344,8 +6344,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 30.66449,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 30.397669,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -6487,7 +6487,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 200067.939165,
+                "check_age_seconds": 201388.647454,
                 "checked_at_utc": "2026-11-09T09:27:39.120076Z",
                 "conditions": [
                   {
@@ -6626,7 +6626,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 523891.955308,
+                "check_age_seconds": 525212.225071,
                 "checked_at_utc": "2026-11-05T15:30:28.107214Z",
                 "conditions": [
                   {
@@ -6771,7 +6771,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 45861.19407,
+                "check_age_seconds": 47181.903416,
                 "checked_at_utc": "2026-11-11T04:17:45.837380Z",
                 "conditions": [
                   {
@@ -6895,7 +6895,7 @@
                 ],
                 "cancel_kind": null,
                 "cancel_level": 84.9,
-                "check_age_seconds": 547883.456442,
+                "check_age_seconds": 549204.165853,
                 "checked_at_utc": "2026-11-05T08:50:43.719689Z",
                 "conditions": [
                   {
@@ -7035,8 +7035,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 31.021178,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 30.757658,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -7174,7 +7174,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 36448.322212,
+                "check_age_seconds": 37769.031694,
                 "checked_at_utc": "2026-11-11T06:54:38.728008Z",
                 "conditions": [
                   {
@@ -7311,7 +7311,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 853.380402,
+                "check_age_seconds": 2174.029975,
                 "checked_at_utc": "2026-11-11T16:47:52.439049Z",
                 "conditions": [
                   {
@@ -7429,7 +7429,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 1263997.643977,
+                "check_age_seconds": 1265317.982778,
                 "checked_at_utc": "2026-10-28T01:55:23.189564Z",
                 "conditions": [
                   {
@@ -7547,7 +7547,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 803.565378,
+                "check_age_seconds": 2124.26779,
                 "checked_at_utc": "2026-11-11T16:48:43.137409Z",
                 "conditions": [
                   {
@@ -7684,7 +7684,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 1233250.084091,
+                "check_age_seconds": 1234570.427097,
                 "checked_at_utc": "2026-10-28T10:27:50.882910Z",
                 "conditions": [
                   {
@@ -7792,8 +7792,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 30.153027,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 29.892873,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -7931,7 +7931,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 445479.319789,
+                "check_age_seconds": 446799.683517,
                 "checked_at_utc": "2026-11-06T13:17:21.810456Z",
                 "conditions": [
                   {
@@ -8070,7 +8070,7 @@
                 ],
                 "cancel_kind": null,
                 "cancel_level": 86.0,
-                "check_age_seconds": 518740.810515,
+                "check_age_seconds": 520061.343775,
                 "checked_at_utc": "2026-11-05T16:56:21.035971Z",
                 "conditions": [
                   {
@@ -8215,8 +8215,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 31.984926,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 31.764716,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -8358,7 +8358,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 45802.129509,
+                "check_age_seconds": 47122.872066,
                 "checked_at_utc": "2026-11-11T04:18:46.275147Z",
                 "conditions": [
                   {
@@ -8476,8 +8476,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 31.667826,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 31.411704,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -8615,8 +8615,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 30.872285,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 30.608995,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -8754,7 +8754,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 471404.395723,
+                "check_age_seconds": 472724.980247,
                 "checked_at_utc": "2026-11-06T06:05:17.984347Z",
                 "conditions": [
                   {
@@ -8905,7 +8905,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 471450.734485,
+                "check_age_seconds": 472771.357071,
                 "checked_at_utc": "2026-11-06T06:04:32.094304Z",
                 "conditions": [
                   {
@@ -9028,8 +9028,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 30.816521,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 30.549397,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -9167,7 +9167,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 504088.352048,
+                "check_age_seconds": 505409.005285,
                 "checked_at_utc": "2026-11-05T21:00:34.652682Z",
                 "conditions": [
                   {
@@ -9310,7 +9310,7 @@
                 ],
                 "cancel_kind": null,
                 "cancel_level": 4185.0,
-                "check_age_seconds": 555302.651273,
+                "check_age_seconds": 556623.397572,
                 "checked_at_utc": "2026-11-05T06:47:05.266269Z",
                 "conditions": [
                   {
@@ -9450,7 +9450,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
                 "cancel_level": null,
-                "check_age_seconds": 471405.359894,
+                "check_age_seconds": 472725.966167,
                 "checked_at_utc": "2026-11-06T06:05:17.984347Z",
                 "conditions": [
                   {
@@ -9601,7 +9601,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 580186.608563,
+                "check_age_seconds": 581507.223739,
                 "checked_at_utc": "2026-11-04T23:52:17.142255Z",
                 "conditions": [
                   {
@@ -9742,7 +9742,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 558524.2422,
+                "check_age_seconds": 559844.862797,
                 "checked_at_utc": "2026-11-05T05:53:19.718423Z",
                 "conditions": [
                   {
@@ -9883,7 +9883,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 471452.158939,
+                "check_age_seconds": 472772.771224,
                 "checked_at_utc": "2026-11-06T06:04:32.094304Z",
                 "conditions": [
                   {
@@ -10023,8 +10023,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 29.712555,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 29.39153,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -10173,8 +10173,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 31.376183,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 31.107849,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [
                   {
                     "kind": "COMPLETED_BAR",
@@ -10312,7 +10312,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 738.792962,
+                "check_age_seconds": 2059.447344,
                 "checked_at_utc": "2026-11-11T16:49:47.037337Z",
                 "conditions": [
                   {
@@ -10449,7 +10449,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 679.180703,
+                "check_age_seconds": 1999.796899,
                 "checked_at_utc": "2026-11-11T16:50:46.296950Z",
                 "conditions": [
                   {
@@ -10586,7 +10586,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 573348.949318,
+                "check_age_seconds": 574669.566959,
                 "checked_at_utc": "2026-11-05T01:46:16.388755Z",
                 "conditions": [
                   {
@@ -10713,7 +10713,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 81089.982284,
+                "check_age_seconds": 82410.691294,
                 "checked_at_utc": "2026-11-10T18:30:37.055955Z",
                 "conditions": [],
                 "data_state": "AVAILABLE",
@@ -10826,7 +10826,7 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 543140.910327,
+                "check_age_seconds": 544461.656188,
                 "checked_at_utc": "2026-11-05T10:09:47.001550Z",
                 "conditions": [],
                 "data_state": "UNAVAILABLE",
@@ -10944,8 +10944,8 @@
                 "cancel_conditions": [],
                 "cancel_kind": null,
                 "cancel_level": null,
-                "check_age_seconds": 32.368384,
-                "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+                "check_age_seconds": 32.143002,
+                "checked_at_utc": "2026-11-11T17:23:37.065173Z",
                 "conditions": [],
                 "data_state": "AVAILABLE",
                 "decision_record_id": "decision:dossier-20261106T093133Z:XAUUSD",
@@ -11348,11 +11348,11 @@
         "field": "week.row"
       },
       {
-        "text": "Said",
+        "text": "Said 60%",
         "box": [
           758,
           220,
-          832,
+          907,
           248
         ],
         "zone": [
@@ -11366,33 +11366,11 @@
         "mono": false,
         "runs": [
           {
-            "text": "Said",
+            "text": "Said ",
             "mono": false
-          }
-        ],
-        "colour": "ink",
-        "field": "week.row"
-      },
-      {
-        "text": "60.0%",
-        "box": [
-          758,
-          264,
-          868,
-          289
-        ],
-        "zone": [
-          758,
-          220,
-          928,
-          324
-        ],
-        "size": 36,
-        "weight": 400,
-        "mono": false,
-        "runs": [
+          },
           {
-            "text": "60.0%",
+            "text": "60%",
             "mono": true
           }
         ],
@@ -11523,58 +11501,6 @@
         "runs": [
           {
             "text": "Mid-term",
-            "mono": false
-          }
-        ],
-        "colour": "ink",
-        "field": "week.row"
-      },
-      {
-        "text": "Said",
-        "box": [
-          758,
-          336,
-          832,
-          364
-        ],
-        "zone": [
-          758,
-          336,
-          928,
-          440
-        ],
-        "size": 36,
-        "weight": 400,
-        "mono": false,
-        "runs": [
-          {
-            "text": "Said",
-            "mono": false
-          }
-        ],
-        "colour": "ink",
-        "field": "week.row"
-      },
-      {
-        "text": "None%",
-        "box": [
-          758,
-          380,
-          879,
-          408
-        ],
-        "zone": [
-          758,
-          336,
-          928,
-          440
-        ],
-        "size": 36,
-        "weight": 400,
-        "mono": false,
-        "runs": [
-          {
-            "text": "None%",
             "mono": false
           }
         ],
@@ -11738,11 +11664,11 @@
         "field": "week.row"
       },
       {
-        "text": "Said",
+        "text": "Said 55%",
         "box": [
           758,
           452,
-          832,
+          907,
           480
         ],
         "zone": [
@@ -11756,33 +11682,11 @@
         "mono": false,
         "runs": [
           {
-            "text": "Said",
+            "text": "Said ",
             "mono": false
-          }
-        ],
-        "colour": "ink",
-        "field": "week.row"
-      },
-      {
-        "text": "55.0%",
-        "box": [
-          758,
-          496,
-          868,
-          521
-        ],
-        "zone": [
-          758,
-          452,
-          928,
-          556
-        ],
-        "size": 36,
-        "weight": 400,
-        "mono": false,
-        "runs": [
+          },
           {
-            "text": "55.0%",
+            "text": "55%",
             "mono": true
           }
         ],
@@ -11946,58 +11850,6 @@
         "field": "week.row"
       },
       {
-        "text": "Said",
-        "box": [
-          758,
-          568,
-          832,
-          596
-        ],
-        "zone": [
-          758,
-          568,
-          928,
-          672
-        ],
-        "size": 36,
-        "weight": 400,
-        "mono": false,
-        "runs": [
-          {
-            "text": "Said",
-            "mono": false
-          }
-        ],
-        "colour": "ink",
-        "field": "week.row"
-      },
-      {
-        "text": "None%",
-        "box": [
-          758,
-          612,
-          879,
-          640
-        ],
-        "zone": [
-          758,
-          568,
-          928,
-          672
-        ],
-        "size": 36,
-        "weight": 400,
-        "mono": false,
-        "runs": [
-          {
-            "text": "None%",
-            "mono": false
-          }
-        ],
-        "colour": "ink",
-        "field": "week.row"
-      },
-      {
         "text": "Stopped at",
         "box": [
           948,
@@ -12154,11 +12006,11 @@
         "field": "week.row"
       },
       {
-        "text": "Said",
+        "text": "Said 55%",
         "box": [
           758,
           684,
-          832,
+          907,
           712
         ],
         "zone": [
@@ -12172,33 +12024,11 @@
         "mono": false,
         "runs": [
           {
-            "text": "Said",
+            "text": "Said ",
             "mono": false
-          }
-        ],
-        "colour": "ink",
-        "field": "week.row"
-      },
-      {
-        "text": "55.0%",
-        "box": [
-          758,
-          728,
-          868,
-          753
-        ],
-        "zone": [
-          758,
-          684,
-          928,
-          788
-        ],
-        "size": 36,
-        "weight": 400,
-        "mono": false,
-        "runs": [
+          },
           {
-            "text": "55.0%",
+            "text": "55%",
             "mono": true
           }
         ],
@@ -12311,19 +12141,21 @@
       }
     ],
     "notes": [
-      "WEEK_R_RESULT_NOT_EXPORTED"
+      "WEEK_R_RESULT_NOT_EXPORTED",
+      "WEEK_PROBABILITY_NOT_EXPORTED",
+      "WEEK_PROBABILITY_NOT_EXPORTED"
     ],
     "alt_text": "Weekly calls and their results in R.",
     "chart": false,
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
   },
   "delivery_only": true,
   "article_inclusion": true,
   "canonical_article_media": true,
   "image_quality": {
     "policy": "CC465_IMAGE_TEMPLATES_V1",
-    "image_sha256": "6d25ae955d023aab2cad015adb4cce112633241a04fe25b49e9a202a8e4db2b1",
-    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "image_sha256": "eaa24b6132eb04b819795f1e15fc2d5a05b5c8eca69913a248a46cece4a440a4",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
     "template": "weekly",
     "master": "W",
     "score": 0,
@@ -12342,8 +12174,8 @@
     "passed": false,
     "code": {
       "policy": "CC465_IMAGE_TEMPLATES_V1",
-      "image_sha256": "6d25ae955d023aab2cad015adb4cce112633241a04fe25b49e9a202a8e4db2b1",
-      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "image_sha256": "eaa24b6132eb04b819795f1e15fc2d5a05b5c8eca69913a248a46cece4a440a4",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
       "template": "weekly",
       "master": "W",
       "points": {
@@ -12356,18 +12188,20 @@
         "7": true,
         "8": true,
         "9": false,
-        "10": true
+        "10": false
       },
-      "score": 9,
+      "score": 8,
       "passed": false,
       "causes": [
-        "WEEK_R_RESULT_NOT_EXPORTED"
+        "IMAGE_EMPTY_BAND_TOO_TALL",
+        "WEEK_R_RESULT_NOT_EXPORTED",
+        "WEEK_PROBABILITY_NOT_EXPORTED"
       ]
     },
     "vision": {
       "points": {},
       "status": "NOT_RUN"
     },
-    "reviewed_at_utc": "2026-11-11T17:02:22.411354+00:00"
+    "reviewed_at_utc": "2026-11-11T17:25:04.693476+00:00"
   }
 }
