@@ -1,0 +1,107 @@
+{
+  "recorded_at_utc": "2026-11-11T19:31:19.725452+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "tested_operating_source_head": "085f9210e58218bb3ca99d894cf9920b0d3a70d2",
+  "delivery_source_head": "962942ddd22971f1128e964c339509bebfac49ce",
+  "rollback_tag": "contentops-rollback-20261112-cc402",
+  "source_tag": "contentops-live-20261112-cc402-source",
+  "live_tag": "contentops-live-20261112-cc402",
+  "installed_sources": {
+    "live_contentops/audience_collection_v1.py": {
+      "normalized_sha256": "5289a22905cc841889fca1f6211457ec35751a006a12b331baff47f1d95b059a",
+      "matches_delivery": true
+    },
+    "live_contentops/audience_feedback_v1.py": {
+      "normalized_sha256": "734fe43672880f40eb54897753954f83dfc19069bd191e0dc15b80b007bc9435",
+      "matches_delivery": true
+    },
+    "live_contentops/channel_engagement_v1.py": {
+      "normalized_sha256": "92cc9d71b46ce7b6bfcac29c30a22297bc2f51d3c2c391c60e999793690cad4b",
+      "matches_delivery": true
+    },
+    "live_contentops/daily_app_performance_v1.py": {
+      "normalized_sha256": "13a43ad7d8dbd905079e306a5e33f05e70392de9f6d36e1d5711c10d66eeb57a",
+      "matches_delivery": true
+    },
+    "live_contentops/daily_app_ui_read_model_v1.py": {
+      "normalized_sha256": "a966dc274672b31da7ed2113219ea0f4b078d5e11c9ce6b3199cd9632d27c9a1",
+      "matches_delivery": true
+    },
+    "live_contentops/destination_performance_observer_v1.py": {
+      "normalized_sha256": "531946467924dbd72fd3257744eb8e0e4e1ca62b84dd129a73bd1afac25e359c",
+      "matches_delivery": true
+    },
+    "live_contentops/durable_operational_store_v1.py": {
+      "normalized_sha256": "fc040a341218229f9a29c41ebfda4ceb2c38fa017d83058688b3947848008a46",
+      "matches_delivery": true
+    },
+    "live_contentops/model_invocation_usage_v1.py": {
+      "normalized_sha256": "3170f7c39146287c32b3de404f9890669a6e0ab75b29b38112f8afa19252c307",
+      "matches_delivery": true
+    },
+    "live_contentops/plan_call_cards_v1.py": {
+      "normalized_sha256": "8b486d98e2565e91be1abd5ed454ee76cbdf1f8b442f1707fa76a41820e6486f",
+      "matches_delivery": true
+    },
+    "live_contentops/plan_status_posts_v1.py": {
+      "normalized_sha256": "8a19345b10ed4de6311903a41c964d8d87fcefc33afa28eee6fbeb1ab930fc46",
+      "matches_delivery": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "normalized_sha256": "9794461638592bc3865006ab0dcde5d2a585b685087bd07ed4e1a34d29c1ab9e",
+      "matches_delivery": true
+    },
+    "scripts/collect_contentops_audience.py": {
+      "normalized_sha256": "5b76c18aa1f67c98bdc98afddcea129020dd47070db7b1ebdfa7b9c7f05fd8e0",
+      "matches_delivery": true
+    },
+    "scripts/export_contentops_weekly_engagement.py": {
+      "normalized_sha256": "2ffb99d7dd23dfa293c9225787ef65bcd120adf7817a0bc2d2c95196827ff4ab",
+      "matches_delivery": true
+    },
+    "scripts/plan_status_posts.py": {
+      "normalized_sha256": "dc3d664cfe92c4bb876ffeb992da5dfce771d0a6b6bbc7c5720a894be8166c88",
+      "matches_delivery": true
+    }
+  },
+  "dirty_files": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+      "original_prefix_preserved": true,
+      "original_bytes": 3959,
+      "current_bytes": 3959
+    },
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+      "original_prefix_preserved": true,
+      "original_bytes": 19341,
+      "current_bytes": 19341
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+      "original_prefix_preserved": true,
+      "original_bytes": 39129,
+      "current_bytes": 39129
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+      "original_prefix_preserved": true,
+      "original_bytes": 6166,
+      "current_bytes": 6166
+    },
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "original_prefix_preserved": true,
+      "original_bytes": 1382937,
+      "current_bytes": 1382937
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "original_prefix_preserved": true,
+      "original_bytes": 68878,
+      "current_bytes": 68878
+    }
+  },
+  "source_merge_route": "Publisher self-integration under CC-402 OV-P4 and decision 120",
+  "schedules_changed": 0,
+  "user_apps_restarted": 0,
+  "public_writes_performed": false,
+  "native_desktop_control_used": false,
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "model_configuration_status": "CONFIGURED_NOT_OBSERVED"
+}

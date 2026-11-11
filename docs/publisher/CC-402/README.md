@@ -1,3 +1,65 @@
+# CC-402 installed result — 12 November 2026
+
+CC-402 is integrated into `A:/Capital Chronicle/ContentOps`. The existing minute
+consumer collects the five requested routes and updates the installed desk's
+weekly source. No schedule, user application, Main source or public post was
+changed. The six unrelated dirty files retain their original bytes.
+
+Live readback finds observations for **143/143 confirmed dispatches** published
+on 10 November GMT+7. Their 138 call-bound records retain the exact CC-399 links;
+the five ordinary article copies have no call id. Shared Instagram carousels
+count once in platform totals. A new actual source read on all five routes is
+retained in `installed-fresh-source-collection.json` and `live-acceptance.json`.
+
+The installed overview reader consumes **10 platform lines, 35 type/platform
+rows and 17 publication-hour ET buckets** from `audience-weekly/latest.json`.
+CC-470's first-screen reader also consumes the same store. Neo readback of the
+installed page confirms its audience table and hour controls; the static page
+keeps its own refresh clock. No PrivateApp rebuild was started by this run.
+
+The invocation table has **301 rows**, including 12 lane-run usage records. The
+CPI preview binds six native role records and one lane-run record with
+**2,368,288 reported tokens used**. This is the measured piece resource cost.
+A per-piece USD charge, token split and actual runtime model/effort are not
+exposed by those records. They stay null; no API price or zero charge is invented.
+The choice is to use the measured token cost now, with its unit and limit.
+
+The sole publisher consumes the three-complete-week zero-reader policy before
+new messages reach transport. Missing counters never imply zero readers,
+positive interactions prevent that conclusion, and old issued messages and
+existing attempts keep recovery. A later positive observation resumes a stopped
+type. No type in the current export meets the three-week stop condition.
+
+Live observation found and fixed a local-midnight cache defect: daily windows
+were GMT+7, but source caches compared UTC dates. The fix uses each native source
+clock and the GMT+7 day. The two earlier reused-source batches remain intact in
+`installed-collection.json` and `installed-pre-fix-second-collection.json`; their
+original source clocks are explicit. The final fresh-source batch uses the fix.
+The minute consumer's existing run record now retains collection and usage
+outcomes without raw metric bodies.
+
+The canonical coordinator regression passed **118** cases. Installed collector,
+feedback and weekly checks passed **32**; the final installed midnight/policy
+selection passed **12**; the installed minute-record check passed **1**.
+The UI/learning/observer selection passed **33**. The store regression's cases
+passed in `resume-usage-store.xml`; that combined process's one new usage-test
+failure was corrected in `resume-usage-fixed.xml` (24 passing cases). The earlier
+clock-sensitive fixture failures and their passing corrections remain in the
+same folder. One pytest process ran at a time; no full suite or shards ran.
+
+`integration.json` binds the tested source, installed hashes and preserved dirty
+paths. Live and rollback tags are `contentops-live-20261112-cc402` and
+`contentops-rollback-20261112-cc402`. `live-acceptance.json`,
+`installed-overview-reader.json` and `installed-browser-audience.json` retain the
+consumer readbacks. The original 07:00 Main digest patch remains history; Ops
+Product's OV-P4 amendment makes the installed desk the current weekly consumer.
+
+The configured launch is `gpt-6.1-sol/max`, labelled
+`CONFIGURED_NOT_OBSERVED`. No Claude call, chat message, schedule change,
+application restart, MT5 action or native desktop automation occurred.
+
+---
+
 # 12 November continuation
 
 The continuation branch is `backlog/cc-402-audience-live`, cut from operating
