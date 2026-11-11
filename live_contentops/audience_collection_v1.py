@@ -199,12 +199,21 @@ def run_collection(store, *, now=None, limit=4, published_day=None, collector=No
         account_seen = set()
         observations = store.list_performance_observations()
         object_cache = {}
+        local_day = now.astimezone(ZoneInfo("Asia/Bangkok")).date()
         for row in observations:
-            if row.get("collected_at_utc") and utc(row["collected_at_utc"]).date() == now.date():
-                if json.loads(row["metrics_native_json"]).get("_account_snapshot", {}).get("metrics"):
-                    account_seen.add(row["platform"])
-                if row["collector_capability_version"] == CAPABILITY and row["collection_status"] == "COLLECTED":
-                    object_cache[(row["platform"], row["public_object_id"])] = row
+            if not row.get("collected_at_utc"):
+                continue
+            native = json.loads(row["metrics_native_json"])
+            account = native.get("_account_snapshot", {})
+            account_at = account.get("collected_at_utc")
+            if account.get("metrics") and account_at and utc(account_at).astimezone(ZoneInfo("Asia/Bangkok")).date() == local_day:
+                account_seen.add(row["platform"])
+            # The daily window follows GMT+7. A cloned observation's collection
+            # clock cannot make yesterday's native source read current again.
+            source_at = native.get("_source_observed_at_utc") or row["collected_at_utc"]
+            if (utc(source_at).astimezone(ZoneInfo("Asia/Bangkok")).date() == local_day
+                    and row["collector_capability_version"] == CAPABILITY and row["collection_status"] == "COLLECTED"):
+                object_cache[(row["platform"], row["public_object_id"])] = row
         for row in selected:
             if time.monotonic() >= deadline:
                 break

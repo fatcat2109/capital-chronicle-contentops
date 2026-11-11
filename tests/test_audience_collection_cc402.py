@@ -241,3 +241,28 @@ def test_lane_run_counters_bind_one_dated_piece_and_do_not_sum_resumes_or_invent
         destination="internal:native-publication-binding", payload=json.dumps({"work_item_id": "cc338-other-piece-20261110-v1"}))
     (folder / "stderr-resume3.txt").write_text("tokens used\n2,000\n", encoding="utf-8")
     assert import_native_invocations(store, lane_run_root=tmp_path / "runs")["lane_runs_updated"] == 0
+
+
+def test_local_midnight_requires_a_new_native_source_read_even_in_same_utc_day(tmp_path, monkeypatch):
+    from live_contentops import audience_collection_v1 as audience
+    store = seed(tmp_path, ("threads",))
+    calls, accounts = [], []
+    at = [NOW]
+    class Clock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return at[0].astimezone(tz) if tz is not None else at[0].replace(tzinfo=None)
+    monkeypatch.setattr(audience, "datetime", Clock)
+    def collect(**kwargs):
+        calls.append(kwargs)
+        return {"status": "COLLECTED", "metrics": {"views": len(calls)}, "availability": {"views": "AVAILABLE"}}
+    def account(route):
+        accounts.append(route)
+        return {"metrics": {"followers_count": len(accounts)}, "status": "COLLECTED"}
+    run_collection(store, now=at[0], collector=collect, account_collector=account)
+    at[0] = NOW.replace(hour=18)  # 01:00 GMT+7 next day, still the same UTC date.
+    run_collection(store, now=at[0], collector=collect, account_collector=account)
+    assert len(calls) == len(accounts) == 2
+    rows = store.list_performance_observations()
+    assert sorted(json.loads(r["metrics_native_json"])["views"] for r in rows) == [1, 2]
+    assert {r["observation_window"] for r in rows} == {"AUDIENCE_DAILY:2026-11-11", "AUDIENCE_DAILY:2026-11-12"}
