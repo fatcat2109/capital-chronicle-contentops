@@ -237,9 +237,20 @@ def _write_json(path: Path, value: Mapping[str, Any]) -> None:
 def _preserve_unqualified_revision_artifact(path, value, turn):
     """Retain failed assembly bytes before an accepted same-writer revision."""
     path = Path(path)
-    if (path.name not in {"article_manifest_v1.json", "simple_gemini_validation_v1.json"}
+    if (path.name not in {"article_manifest_v1.json", "simple_gemini_validation_v1.json", "simple_gemini_newsroom_receipt_v1.json"}
             or not path.is_file() or json.loads(path.read_bytes()) == value):
         return
+    receipt_recovery = path.name == "simple_gemini_newsroom_receipt_v1.json"
+    if receipt_recovery:
+        previous = json.loads(path.read_bytes())
+        # A source/renderer repair can qualify the accepted revision on resume.
+        # Retain its earlier refusal; an already qualified receipt stays sealed.
+        if (previous.get("qualified_article_count") or value.get("qualified_article_count") != 1
+                or previous.get("run_id") != value.get("run_id")
+                or previous.get("cutoff_utc") != value.get("cutoff_utc")
+                or previous.get("public_write_performed") is not False
+                or value.get("public_write_performed") is not False):
+            return
     request = getattr(turn, "frozen_request", lambda _: None)("revise")
     read_response = getattr(turn, "native_response",
         lambda stage: getattr(turn, "_get", lambda *_: None)(stage, "response"))
@@ -248,7 +259,7 @@ def _preserve_unqualified_revision_artifact(path, value, turn):
         return  # The ordinary immutable-artifact check remains authoritative.
     if (response["request_sha256"] != request["request_sha256"]
             or response["invocation_observation"]["invocation_id"] != writer["invocation_observation"]["invocation_id"]
-            or (path.parent / "qualified_article_record_v1.json").exists()):
+            or (not receipt_recovery and (path.parent / "qualified_article_record_v1.json").exists())):
         raise SimpleGeminiNewsroomError("native_revision_artifact_change_refused", [path.name])
     archive = path.parent / "editorial-revision-history" / request["request_sha256"] / path.name
     if archive.exists():

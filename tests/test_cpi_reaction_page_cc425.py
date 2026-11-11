@@ -156,6 +156,29 @@ def test_reader_wording_update_resumes_the_unchanged_evidence_file(tmp_path, mon
     validate_bound_tables(article)
 
 
+def test_validated_revision_replaces_failed_receipt_and_retains_its_history(tmp_path):
+    from types import SimpleNamespace
+    original = {"run_id": "cpi", "cutoff_utc": "2026-11-11T07:03:57Z",
+                "qualified_article_count": 0, "public_write_performed": False}
+    current = {**original, "qualified_article_count": 1}
+    path = tmp_path / "simple_gemini_newsroom_receipt_v1.json"
+    newsroom._write_json(path, original)
+    old_bytes = path.read_bytes()
+    # Qualification is persisted before the final receipt in the real owner.
+    (tmp_path / "qualified_article_record_v1.json").write_text("{}")
+    request = {"request_sha256": "a" * 64}
+    response = {**request, "invocation_observation": {"invocation_id": "same-writer"}}
+    turn = SimpleNamespace(frozen_request=lambda _: request, native_response=lambda _: response)
+    newsroom._preserve_unqualified_revision_artifact(path, current, turn)
+    newsroom._write_json(path, current)
+    assert (tmp_path / "editorial-revision-history" / ("a" * 64) / path.name).read_bytes() == old_bytes
+    assert newsroom._write_json(path, current) is None
+    with pytest.raises(newsroom.SimpleGeminiNewsroomError):
+        changed = {**current, "cutoff_utc": "2026-11-11T08:00:00Z"}
+        newsroom._preserve_unqualified_revision_artifact(path, changed, turn)
+        newsroom._write_json(path, changed)
+
+
 def test_refresh_consumes_new_producer_cells_without_a_second_publisher():
     first = pack()
     value = record()
