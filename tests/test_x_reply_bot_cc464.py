@@ -355,7 +355,7 @@ def test_native_timeout_keeps_partial_return_in_existing_call_artifacts(tmp_path
     import subprocess
     def run(args, **kwargs):
         raise subprocess.TimeoutExpired(args, kwargs["timeout"], output=b"partial native return", stderr=b"partial stderr")
-    with pytest.raises(ValueError, match="AGY_RANK_TIMEOUT_60S"):
+    with pytest.raises(ValueError, match="AGY_RANK_TIMEOUT_90S"):
         botlane._text_call("Return ranking.", root=tmp_path, runner=run)
     assert (tmp_path / "stdout.txt").read_bytes() == b"partial native return"
     assert packs.read_json(tmp_path / "call.json")["status"] == "TIMEOUT"
