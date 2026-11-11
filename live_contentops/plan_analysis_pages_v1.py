@@ -268,7 +268,7 @@ def _assemble(plan, manuscript, run):
             paragraphs += geometry
     if reader:
         from .plan_reader_copy_v1 import page_footer, check_text
-        paragraphs += page_footer(plan, freeze)
+        paragraphs += page_footer(plan, freeze, legacy=manuscript.get("reader_revision", 1) < 2)
     else:
         paragraphs += [audit]
     paragraphs += [PUBLIC_NOTICE, CONFLICTS_NOTICE]
@@ -384,6 +384,35 @@ def replace_unpublished_media(store, held, packet):
         intent=json.loads(row["payload"])
         if intent.get("plan_hash")!=plan["plan_hash"]:
             store.set_outbox_status(row["message_id"],"SUPERSEDED_UNSENT_MEDIA_REVISION")
+    return revised
+
+
+def replace_unpublished_copy(store, held, packet):
+    """A confirmed pre-click refusal may repair the same retained draft's copy.
+
+    The old request and its exact response remain immutable. A possibly sent
+    page always requires its existing readback and cannot enter this function.
+    """
+    if held["registration_hash"] != packet["registration_hash"] or held["plan_id"] != packet["plan_id"]:
+        raise ValueError("PLAN_ANALYSIS_EXACT_PLAN_REQUIRED")
+    for row in store.list_outbox_messages(work_item_id=held["page_id"]):
+        if row["destination"] != "substack":
+            continue
+        with store.get_read_only_connection() as conn:
+            dispatch=conn.execute("SELECT * FROM platform_dispatches WHERE message_id=?",(row["message_id"],)).fetchone()
+        if dispatch and (dispatch["status"] not in {"DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
+                         or dispatch["public_object_id"] or dispatch["public_object_url"]):
+            raise ValueError("PLAN_ANALYSIS_COPY_REVISION_READBACK_REQUIRED")
+    store.register_outbox_message(message_id=held["page_id"]+"-prior-copy-"+held["plan"]["plan_hash"],
+        work_item_id=held["page_id"],destination="internal:plan-analysis-revision",
+        payload=canonical_bytes(held).decode(),status="EDITORIAL_INTERNAL")
+    plan={**held["plan"],"analysis_copy_revision":sha256_of(packet["native_payload"])}
+    plan["destinations"]=[{**d,"payload":packet["native_payload"]["body_markdown"],
+        "payload_hash":sha256(packet["native_payload"]["body_markdown"].encode()).hexdigest()} for d in plan["destinations"]]
+    plan.pop("plan_hash",None);plan["plan_hash"]=sha256_of(plan)
+    revised={**packet,"page_id":held["page_id"],"plan":plan}
+    store.finalize_outbox_payload_before_dispatch(message_id=held["page_id"],
+        payload=canonical_bytes(revised).decode(),status="EDITORIAL_INTERNAL")
     return revised
 
 

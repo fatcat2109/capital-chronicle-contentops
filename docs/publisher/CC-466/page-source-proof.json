@@ -1,0 +1,24 @@
+{
+  "plan_id": "plan_1ff14f488bdc84b20a3f51d2",
+  "registration_hash": "b07b0de9d3306cb99cc8dd7bb95726e0f5717e3df9465b9850277736d078e832",
+  "word_count": 617,
+  "layers": [
+    "priced_in",
+    "positioning",
+    "fear",
+    "technical",
+    "story",
+    "macro",
+    "scenarios",
+    "plan",
+    "invalidation"
+  ],
+  "title": "EUR/USD: bearish at 1.1101–1.1108, wrong above 1.1139",
+  "authorship": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "writer_artifact": "docs\\publisher\\CC-466\\editorial\\eurusd\\writer-record.json",
+    "publisher_native_revision": "Same lane native MAX source-binding and reader-copy edit; markers, desk voice and title format corrected."
+  }
+}

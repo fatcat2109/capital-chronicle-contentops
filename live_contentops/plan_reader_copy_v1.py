@@ -79,12 +79,18 @@ def check_text(text, *, source, max_chars=None, check_numbers=True, prose=True, 
             "unknown_acronyms": sorted(capitals - base - sourced)}
 
 
-def page_footer(plan, freeze):
+def page_footer(plan, freeze, *, legacy=False):
     states = {"WAITING": "waiting for entry", "TRIGGERED": "in position", "FILLED": "in position"}
+    state=states.get(plan.get("status"))
+    if legacy and state is None:
+        state="closed"
+    if plan.get("status") in {"CANCELLED","INVALIDATED","EXPIRED","VIEW_CHANGED","CLOSED","RESULT"}:
+        state="closed"
+    status=("Status: "+state if state else "Current entry status is unavailable") + " (updated " + et(
+        plan.get("status_at_utc") or plan.get("registered_at_utc") or freeze["frozen_at_utc"]) + ")."
     return ["How this view was built: a main case, a written case against it, then a final decision. "
             "The plan was fixed at " + et(freeze["frozen_at_utc"]) + ", before this page was published.",
-            "Status: " + states.get(plan.get("status"), "closed") + " (updated " + et(
-                plan.get("status_at_utc") or plan.get("registered_at_utc") or freeze["frozen_at_utc"]) + ")."]
+            status]
 
 
 def source_packet(plan, run):

@@ -118,3 +118,11 @@ def test_signed_r_result_exception_keeps_money_volume_and_account_private():
     assert public_execution_copy_forbidden('Result: −1.0R. The size is 2 lots.')
     assert public_execution_copy_forbidden('The account balance is 100000.')
     assert public_execution_copy_forbidden('We made 2R.')
+
+
+def test_unavailable_status_never_becomes_closed_in_new_page_footer():
+    plan={'status':None,'registered_at_utc':'2026-11-11T16:20:00Z'}
+    freeze={'frozen_at_utc':'2026-11-11T16:19:00Z'}
+    assert 'unavailable' in reader.page_footer(plan,freeze)[1]
+    assert 'closed' not in reader.page_footer(plan,freeze)[1]
+    assert 'Status: closed' in reader.page_footer({**plan,'status':'EXPIRED'},freeze)[1]

@@ -579,6 +579,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     items = {item["key"]: item for item in [*render_items, *payloads]}
     for item in items.values():
         if render_all:
+            if item.get("reader_contract") and not item.get("reader_fields"):
+                rendered.append({"key":item["key"],"kind":item["kind"],"status":"EDITORIAL_INPUT_REQUIRED",
+                    "cause":"CC466_SOURCED_FIELDS_NOT_PREPARED","destinations":{},"text":""})
+                continue
             try:
                 item = {**item, **compose(item)}
                 copies = destination_payloads(item, card_id="dry-run-" + item["key"])
@@ -856,8 +860,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     context_path = folder / "run_context_v1.json"
     previous = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
     if row.get("reader_contract") == "CC466_V1":
-        from .plan_reader_copy_v1 import validate_fields
-        validate_fields(row["reader_fields"], row["reader_source"])
+        from .plan_reader_editorial_v1 import validate_reader_row
+        validate_reader_row(store, row)
     parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
     chosen = [d for d in destinations if not row.get("parent_key") or d in parents]
     if not chosen:
@@ -976,8 +980,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
 def validate_parent_intent(store, row, intent):
     destination = intent["destination_plan"]["destination"]
     if row.get("reader_contract") == "CC466_V1":
-        from .plan_reader_copy_v1 import validate_fields
-        validate_fields(row["reader_fields"], row["reader_source"])
+        from .plan_reader_editorial_v1 import validate_reader_row
+        validate_reader_row(store, row)
     if row["kind"] == "setup" and row.get("time_exit_utc") and datetime.now(timezone.utc) >= posts._utc(row["time_exit_utc"]):
         raise posts.PlanPostError("PLAN_CARD_ALREADY_ENDED_BEFORE_WRITE")
     if not row.get("parent_key"):

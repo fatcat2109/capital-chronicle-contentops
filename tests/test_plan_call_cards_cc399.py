@@ -108,6 +108,25 @@ def test_five_plans_make_one_run_and_five_cards_once(five, main_root):
     assert len(rows(store)) == 6
 
 
+def test_cc466_new_consumer_queues_only_plans_and_dry_run_has_no_old_count_copy(five,main_root):
+    store,folder,plans,events=five
+    now=datetime(2026,11,12,1,tzinfo=timezone.utc)
+    for p in plans:
+        p['registered_at_utc']='2026-11-12T00:55:00Z'
+        p['time_exit_utc']='2026-11-12T15:00:00Z'
+        p['entry_deadline_utc']='2026-11-12T13:00:00Z'
+    events=[event(p['plan_id'],'WAITING',p['registered_at_utc']) for p in plans]
+    write(folder,plans,events,generated_at_utc=now.isoformat())
+    result=posts.queue_posts(store,folder,now=now,main_root=main_root,python=sys.executable)
+    queued=rows(store)
+    assert len(queued)==5 and all(r['kind']=='setup' and r['reader_contract']=='CC466_V1' for r in queued)
+    assert all(not r.get('parent_key') and not r.get('text') for r in queued)
+    dry=posts.queue_posts(store,folder,now=now,main_root=main_root,python=sys.executable,
+                          dry_run=True,render_all=True)
+    assert all(r['status']=='EDITORIAL_INPUT_REQUIRED' for r in dry['rendered_posts'])
+    assert all(not r['destinations'] for r in dry['rendered_posts'])
+
+
 def test_upgrade_reuses_legacy_shared_work_item_genesis(five, main_root):
     store, folder, _, _ = five
     original = store.create_work_item(story_id=posts.WORK_ITEM_ID, title="Plan status posts (decision 79)",

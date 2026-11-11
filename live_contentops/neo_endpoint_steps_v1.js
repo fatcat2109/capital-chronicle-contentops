@@ -10,6 +10,82 @@ const unwrap = r => {
   return r.value;
 };
 
+// CC-466 uses this same endpoint for bound web-only plan pages.
+if (input.phase === 'plan_substack_identity') {
+  const s=await snap();
+  return {authenticated:s.text.includes('Publisher dashboard') && s.refs.some(r=>r.name==='Capital Chronicle'),
+    observed_identity:'capitalchronicle.substack.com',observed_at_utc:new Date().toISOString()};
+}
+if (input.phase === 'plan_substack_intercept') {
+  return unwrap(await page.evaluateInPage(()=>{
+    const click=HTMLInputElement.prototype.click;
+    const show=e=>{e.style.cssText='display:block;visibility:visible;position:fixed;bottom:4px;left:4px;width:180px;height:30px;opacity:1;z-index:9999';e.setAttribute('aria-label','CC466 editor upload');if(!e.isConnected)document.body.append(e);};
+    HTMLInputElement.prototype.click=function(...args){if(this.type==='file'){show(this);return;}return click.apply(this,args);};
+    document.addEventListener('click',e=>{if(e.target instanceof HTMLInputElement&&e.target.type==='file'){e.preventDefault();e.stopImmediatePropagation();show(e.target);}},true);
+    return {installed:true};
+  }));
+}
+if (input.phase === 'plan_substack_uploaded') {
+  return unwrap(await page.evaluateInPage(()=>({src:document.querySelector('.ProseMirror img')?.getAttribute('data-attrs')
+    ? JSON.parse(document.querySelector('.ProseMirror img').getAttribute('data-attrs')).src
+    : document.querySelector('.ProseMirror img')?.src})));
+}
+if (input.phase === 'plan_substack_clear') {
+  return unwrap(await page.evaluateInPage(()=>{const e=document.querySelector('.ProseMirror');e.focus();
+    e.dispatchEvent(new KeyboardEvent('keydown',{key:'a',code:'KeyA',ctrlKey:true,bubbles:true,cancelable:true}));
+    e.dispatchEvent(new KeyboardEvent('keydown',{key:'Backspace',code:'Backspace',bubbles:true,cancelable:true}));
+    return {sent:true};}));
+}
+if (input.phase === 'plan_substack_paste') {
+  return unwrap(await page.evaluateInPage(html=>{const e=document.querySelector('.ProseMirror');e.focus();
+    const dt=new DataTransfer();dt.setData('text/html',html);
+    e.dispatchEvent(new ClipboardEvent('paste',{bubbles:true,cancelable:true,clipboardData:dt}));return {sent:true};},input.html));
+}
+if (input.phase === 'plan_substack_check') {
+  return unwrap(await page.evaluateInPage(data=>{
+    const n=t=>String(t).replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/\s+/g,' ').trim();
+    const e=document.querySelector('.ProseMirror');const text=n(e.innerText);
+    const images=Array.from(e.querySelectorAll('img'));
+    let body=text;for(const a of data.media)body=n(body.replace(n(a.caption),' '));
+    return {verified:body===n(data.expected_text) && images.length===data.media.length
+      && data.media.every((a,i)=>images[i].alt===a.alt_text && text.includes(n(a.caption))),pre_click_body:e.innerText};
+  },{expected_text:input.expected_text,media:input.media}));
+}
+if (input.phase === 'plan_substack_email') {
+  return unwrap(await page.evaluateInPage(()=>({enabled:Array.from(document.querySelectorAll('input[type=checkbox]'))
+    .find(e=>e.parentElement.innerText.includes('Send via email'))?.checked})));
+}
+if (input.phase === 'plan_substack_publish') {
+  const safe=unwrap(await page.evaluateInPage(()=>!Array.from(document.querySelectorAll('input[type=checkbox]')).some(e=>e.checked)));
+  const button=find(await snap(),'button','Publish now');
+  if(!safe||!button)return {status:'FAILED_BEFORE_WRITE',definite_no_write:true,public_write_performed:false,stage:'BEFORE_PUBLISH_CLICK',reason_code:'PLAN_SUBSTACK_WEB_ONLY_NOT_CONFIRMED'};
+  const dispatched_at_utc=new Date().toISOString();await page.click(button.ref);
+  return {status:'CLICKED',dispatched_at_utc};
+}
+if (input.phase === 'plan_substack_published') {
+  const s=await snap();const match=s.url.match(/\/publish\/posts\/detail\/(\d+)\/share-center/);
+  const url=s.text.match(/https:\/\/capitalchronicle\.substack\.com\/p\/[a-z0-9-]+/);
+  return {public_object_id:match?.[1],public_object_url:url?.[0],share_center_reached_utc:new Date().toISOString()};
+}
+if (input.phase === 'plan_substack_code_handoff') {
+  const s=await snap();
+  if(!s.text.includes('Check your email'))throw new Error('CODE_DIALOG_NOT_OBSERVED');
+  // Never read, snapshot or evaluate the mailbox. The code tab stays untouched.
+  const codePage=s.url.match(/\/publish\/post\/(\d+)/)?.[1];
+  const mail=await browser.open('https://mail.google.com/');
+  return {draft_id:codePage,page_id:page.id,page_url:s.url,gmail_page_id:mail.id};
+}
+if (input.phase === 'plan_substack_readback') {
+  return unwrap(await page.evaluateInPage(()=>({status:'SUCCESS',observed_identity:'capitalchronicle.substack.com',
+    public_object_url:location.href,observed_text:document.body.innerText,
+    article_text:document.querySelector('.body.markup')?.innerText,
+    published_at_utc:document.querySelector('time')?.dateTime,
+    public_image_urls:Array.from(document.querySelectorAll('figure img')).map(i=>{
+      const attrs=i.getAttribute('data-attrs');return attrs?JSON.parse(attrs).src:i.src;}),
+    media:Array.from(document.querySelectorAll('figure')).filter(f=>f.querySelector('img')).map(f=>({
+      alt_text:f.querySelector('img').alt,caption:f.querySelector('figcaption')?.innerText})),observed_at_utc:new Date().toISOString()})));
+}
+
 // CC-454 extends this same transport for the two restored article destinations.
 if (input.phase === 'article_identity') {
   const s = await snap();
@@ -221,8 +297,11 @@ if (input.phase === 'readback') {
       const url = time && time.closest('a').href;
       const text = e.querySelector('[data-testid="tweetText"]');
       const postLinks = links(e);
+      const views=e.querySelector('a[href$="/analytics"]');
       return {public_object_url:url, public_object_id:url && url.match(/status\/(\d+)/)?.[1],
         observed_text:text?.innerText || '', published_at_utc:time?.getAttribute('datetime'),
+        public_views_text:views?.innerText || null, public_views_label:views?.getAttribute('aria-label') || null,
+        metrics_observed_at_utc:new Date().toISOString(),
         links:postLinks, public_image_urls:Array.from(e.querySelectorAll('img'))
           .map(i=>i.currentSrc||i.src).filter(u=>/^https:\/\/pbs.twimg.com\/media\//.test(u))};
     }).filter(e=>e.public_object_url && /^https:\/\/x.com\/Capitalnicle\/status\//i.test(e.public_object_url));

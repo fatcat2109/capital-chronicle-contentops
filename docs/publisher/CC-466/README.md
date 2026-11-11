@@ -36,3 +36,24 @@ AGY 1.5.5 lists the configured Gemini 3.8 Flash High model. Three bounded calls
 returned no text (60/120-second stream, then a 120-second direct request).
 `native-model-limits.json` retains those failures. No variant is claimed authored
 by AGY when it returned none, and no substitute provider was used.
+
+The canonical EUR/USD page is now confirmed at
+https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong.
+It was published web only at 12 November 2026 00:38:43 GMT+7. The original
+freeze-to-public interval was 79.10 minutes, which fails the ten-minute target.
+`live-page-proof.json` records the clocks without moving the original cutoff.
+
+`automatic-page-readback.json` verifies the complete rendered article and exact
+chart bytes through the same Neo driver used by the installed minute consumer.
+`transport-consumer-tests.xml` records 55 passing targeted tests in 135.54 seconds:
+new queue rows have no count post, the canonical is required, uploads intercept
+the chooser, and uncertain clicks require readback. A failed text call can be
+explicitly resumed once; its first artifact is retained and a successful return
+is then reused.
+
+At the recorded week snapshot, 6 of 64 six-market plans have confirmed pages.
+Five scored records lack an explicit R field. The existing source paths were
+searched; stopped/hit labels are not converted to invented returns. AGY returned
+no variants, so there is no new live X first-reply proof or after measurement.
+The retained pre-change X post has 499 public views; unique reach is unavailable.
+`week-coverage.json` and `x-before-after.json` keep those limits explicit.

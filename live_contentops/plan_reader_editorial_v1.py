@@ -20,7 +20,7 @@ from . import plan_analysis_pages_v1 as pages
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
 
 
-def text_call(prompt, *, root, writer=False, runner=None):
+def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
     from .agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
     from .x_reply_bot_v1 import _json_response
     root = Path(root)
@@ -28,7 +28,13 @@ def text_call(prompt, *, root, writer=False, runner=None):
     key = sha256(("cc466-text-v4:writer300:variants-direct120\n"+prompt).encode()).hexdigest()
     artifact = root / key / "result.json"
     if artifact.is_file():
-        return json.loads(artifact.read_bytes())
+        attempts=[artifact,*sorted(artifact.parent.glob("resume-*/result.json"))]
+        previous=json.loads(attempts[-1].read_bytes())
+        if previous["status"]=="RETURNED" or not retry_failed:
+            return previous
+        # Only an explicit resume retries the same failed input. Retain the
+        # first failure and the new observed attempt under the same request.
+        artifact=artifact.parent/("resume-"+datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ"))/"result.json"
     artifact.parent.mkdir(parents=True, exist_ok=True)
     (artifact.parent / "prompt.txt").write_text(prompt, encoding="utf-8")
     model, effort = ("gpt-6.1-sol", "max") if writer else (MODEL, EFFORT)
@@ -107,7 +113,8 @@ def manuscript_prompt(source):
 
 def bind_manuscript(value, source, plan):
     value = json.loads(json.dumps(value))
-    value.update(reader_contract=reader.CONTRACT,plan_id=plan["plan_id"],registration_hash=plan["registration_hash"])
+    value.update(reader_contract=reader.CONTRACT,reader_revision=2,
+                 plan_id=plan["plan_id"],registration_hash=plan["registration_hash"])
     def clean(text):
         # Representation repairs only: provenance remains metadata, and the
         # same desk speaks as 'we'. Original model bytes remain in its artifact.
@@ -173,7 +180,7 @@ def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call):
             prompt=manuscript_prompt(source)+"\nCorrect this exact defect in one complete revision: "+cause+"\nPrior return:\n"+json.dumps(record["output"])
 
 
-def prepare_variants(packet, row, *, output_dir, call=text_call):
+def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=False):
     source=packet.get("reader_source")
     if not source:
         run=pages.load_run(packet["source_plan"],run_root=Path(packet["run_root"]))
@@ -206,7 +213,7 @@ def prepare_variants(packet, row, *, output_dir, call=text_call):
         )+json.dumps({"source":source,"result_r":str(reader.result_r(row["source_plan"]))},ensure_ascii=False)
     records=[]
     for attempt in range(2):
-        record=call(prompt,root=Path(output_dir)/"agy-variants",writer=False)
+        record=call(prompt,root=Path(output_dir)/"agy-variants",writer=False,retry_failed=retry_failed)
         records.append({k:v for k,v in record.items() if k!="output"})
         if record["status"]!="RETURNED":
             return {"status":"VARIANTS_UNAVAILABLE","cause":record.get("cause"),"calls":records}
@@ -237,7 +244,7 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
     owner="cc466-"+uuid4().hex
     from .durable_operational_store_v1 import LeaseConflictError
     try:
-        lease=store.acquire_lease("cc466-plan-page-editorial",owner,ttl_seconds=590)
+        lease=store.acquire_lease("cc466-plan-page-editorial",owner,ttl_seconds=1200)
     except LeaseConflictError:
         return {"status":"ACTIVE_PAGE_SLICE","pages":[]}
     results=[]
@@ -246,7 +253,13 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
             "live_contentops.plan_status_posts_v1",fromlist=["MARKETS"]).MARKETS
             and p.get("run_id") and p.get("analysis_result_hash") and p.get("registered_at_utc")]
         plans=[p for p in plans if now-timedelta(days=7)<=datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00"))<=now]
-        plans.sort(key=lambda p:p["registered_at_utc"],reverse=True)
+        def attempt_clock(plan):
+            path=Path(root)/("plan-analysis-"+plan["plan_id"])/"editorial_result.json"
+            return path.stat().st_mtime if path.is_file() else 0
+        # Fresh plans get their first opportunity within the ten-minute target.
+        # Retained failures rotate; a cached refusal cannot starve the week.
+        plans.sort(key=lambda p:(0 if now-datetime.fromisoformat(p["registered_at_utc"].replace("Z","+00:00"))<timedelta(minutes=10)
+                                  else 1, attempt_clock(p),p["registered_at_utc"]))
         for plan in plans:
             packet=publication_packet(store,plan)
             if packet and pages.page_status(store,packet)["confirmed"]:
@@ -255,22 +268,31 @@ def run_due(store, export, *, root, rollout, now, call=text_call, publish=True, 
                 break
             folder=Path(root)/("plan-analysis-"+plan["plan_id"])
             if not packet:
-                prepared=prepare_page(plan,output_dir=folder,call=call)
+                try:
+                    prepared=prepare_page(plan,output_dir=folder,call=call)
+                except (OSError,ValueError,KeyError,TypeError) as exc:
+                    prepared={"status":"SOURCE_PAGE_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
                 if prepared["status"]!="PREPARED":
                     results.append({"plan_id":plan["plan_id"],**prepared})
+                    folder.mkdir(parents=True,exist_ok=True)
+                    (folder/"editorial_result.json").write_bytes(canonical_bytes(results[-1]))
                     continue
                 packet=pages.register_page(store,prepared["packet"])
             if publish:
-                outcome=pages.continue_page(store,packet,invocation_id=owner,rollout=rollout,automatic=True)
+                try:
+                    outcome=pages.continue_page(store,packet,invocation_id=owner,rollout=rollout,automatic=True)
+                except (OSError,ValueError,KeyError,TypeError) as exc:
+                    outcome={"status":"CANONICAL_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
             else:
                 outcome={"status":"PREPARED","page_id":packet["page_id"]}
             results.append({"plan_id":plan["plan_id"],"page_id":packet["page_id"],"publication":outcome})
+            (folder/"editorial_result.json").write_bytes(canonical_bytes(results[-1]))
         return {"status":"OK","pages":results,"week_plan_count":len(plans)}
     finally:
         store.release_lease(lease["lease_id"],owner,lease["fencing_token"])
 
 
-def prepare_social_row(store, row, *, root, call=text_call):
+def prepare_social_row(store, row, *, root, call=text_call, retry_failed=False):
     """A canonical-page failure has the same unsettled status as an X failure."""
     from . import plan_call_cards_v1 as cards
     from . import plan_status_posts_v1 as posts
@@ -282,7 +304,7 @@ def prepare_social_row(store, row, *, root, call=text_call):
     if not packet or not pages.page_status(store,packet)["confirmed"]:
         return {"status":"CANONICAL_PENDING","cause":"SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
                 "plan_id":plan["plan_id"]}
-    prepared=prepare_variants(packet,row,output_dir=Path(root)/row["key"],call=call)
+    prepared=prepare_variants(packet,row,output_dir=Path(root)/row["key"],call=call,retry_failed=retry_failed)
     if prepared["status"]!="PREPARED":
         return prepared
     publication=pages.confirmed_publication(store,plan)
@@ -291,3 +313,17 @@ def prepare_social_row(store, row, *, root, call=text_call):
     store.finalize_outbox_payload_before_dispatch(message_id=row["key"],
         payload=json.dumps(updated,sort_keys=True,ensure_ascii=False),status=posts.READY)
     return {"status":"PREPARED","row":updated}
+
+
+def validate_reader_row(store, row):
+    """Recheck the confirmed canonical and exact Main plan at the write boundary."""
+    plan=row["source_plan"]
+    packet=publication_packet(store,plan)
+    publication=pages.confirmed_publication(store,plan)
+    if not packet or not publication or publication["canonical_url"] != row["analysis_publication"]["canonical_url"]:
+        raise ValueError("CC466_CANONICAL_PAGE_NOT_CONFIRMED")
+    run=pages.load_run(plan,run_root=Path(packet["run_root"]))
+    source=reader.source_packet(plan,run)
+    if source != row["reader_source"] or plan["registration_hash"] != row["source_plan_registration"]:
+        raise ValueError("CC466_ANALYSIS_SOURCE_CHANGED")
+    reader.validate_fields(row["reader_fields"],source)

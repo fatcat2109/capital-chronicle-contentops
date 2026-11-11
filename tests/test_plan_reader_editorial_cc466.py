@@ -79,3 +79,82 @@ def test_acronym_only_rewrite_happens_once_then_logs_without_gate(source,tmp_pat
     assert basis['plan_id']==plan['plan_id']
     check=reader.check_text('HICP matters.',source='HICP matters.')
     assert check['automatic_acronyms']==['HICP']
+
+
+@pytest.mark.parametrize('condition', ['exact','wrong_dispatch','uncertain','public_object'])
+def test_daily_failure_is_released_only_for_bound_preclick_and_reconciled_absence(tmp_path,condition):
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    store.create_work_item(story_id='page',work_item_id='page',title='Page',target_surface='SUBSTACK_ARTICLE')
+    store.register_outbox_message(message_id='outbox_test',work_item_id='page',destination='substack',payload='{}')
+    store.register_platform_dispatch(dispatch_id='dispatch_test',message_id='outbox_test',platform='substack',
+        status='RECONCILED_ABSENT_SAFE_TO_RETRY',
+        public_object_id='123' if condition=='public_object' else None)
+    c=Coordinator(store=store,transport_runtime=None)
+    c._record_destination_day_failure({'work_item_id':'page'},'substack',
+        {'dispatch_id':'dispatch_test','safe_error_classification':'NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH'})
+    result={'request_sha256':'request','native_tool_return_sha256':'a'*64,
+        'status':'FAILED_BEFORE_WRITE','stage':'BEFORE_PUBLISH_CLICK',
+        'definite_no_write':condition!='uncertain','public_write_performed':False}
+    request={'action':'PUBLISH','destination':'substack','work_item_id':'page',
+        'dispatch_attempt_identity':'wrong' if condition=='wrong_dispatch' else 'dispatch_test'}
+    class Returned:
+        def _get(self,key,kind):
+            return {'request':request} if kind=='request' else {'result':result}
+    if condition=='exact':
+        c.resolve_reconciled_native_preclick_failure('substack',native_executor=Returned(),request_hash='request')
+        assert c._destination_day_failure('substack') is None
+        assert store.get_platform_dispatch('dispatch_test')['status']=='RECONCILED_ABSENT_SAFE_TO_RETRY'
+    else:
+        with pytest.raises(ValueError,match='EXACT_NATIVE_PRECLICK_AND_ABSENCE'):
+            c.resolve_reconciled_native_preclick_failure('substack',native_executor=Returned(),request_hash='request')
+        assert c._destination_day_failure('substack') is not None
+
+
+def test_a_missing_identity_before_an_observed_no_click_is_not_unknown_write():
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    def no_click(request):
+        return {'request_sha256':request['request_sha256'],'native_tool_return_sha256':'a'*64,
+            'status':'FAILED_BEFORE_WRITE','definite_no_write':True,'public_write_performed':False,
+            'stage':'BEFORE_PUBLISH_CLICK','reason_code':'CC466_SOURCE_STATUS_COPY_REPAIR'}
+    h=NeoDestinationHandoff(native_executor=no_click)
+    result=h.publish(destination='substack',intent={'work_item_id':'page','native_payload':{'title':'A page','body_markdown':'A sourced page.'}},
+        authorization_context={})
+    assert result['status']=='FAILED_BEFORE_WRITE' and result['definite_no_write']
+
+
+def test_source_validation_uses_the_confirmed_page_not_only_writer_fields(source,tmp_path,monkeypatch):
+    root,_,plan,manuscript=source
+    packet=pages.render(plan,manuscript,run_root=root,output_dir=tmp_path/'page')
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    packet=pages.register_page(store,packet)
+    supplied=reader.source_packet(plan,pages.load_run(plan,run_root=root))
+    row={'source_plan':plan,'source_plan_registration':plan['registration_hash'],
+        'reader_source':supplied,'analysis_publication':{'canonical_url':'https://capitalchronicle.substack.com/p/view'},
+        'reader_fields':{}}
+    with pytest.raises(ValueError,match='CANONICAL_PAGE_NOT_CONFIRMED'):
+        editorial.validate_reader_row(store,row)
+    monkeypatch.setattr(pages,'confirmed_publication',lambda *a:{'canonical_url':row['analysis_publication']['canonical_url']})
+    row['reader_source']={**supplied,'sources':[{'id':'fake','text':'Invented 99%.','layer':'macro'}]}
+    with pytest.raises(ValueError,match='ANALYSIS_SOURCE_CHANGED'):
+        editorial.validate_reader_row(store,row)
+
+
+def test_explicit_native_retry_preserves_the_failure_and_caches_its_return(tmp_path):
+    import subprocess
+    calls=[]
+    def runner(args,**kw):
+        calls.append(args)
+        if len(calls)==1:
+            raise subprocess.TimeoutExpired(args,120,output=b'')
+        return subprocess.CompletedProcess(args,0,b'{"answer":"Returned text."}',b'')
+    first=editorial.text_call('Exact input.',root=tmp_path,runner=runner)
+    assert first['cause']=='AGY_VARIANTS_TIMEOUT_120S'
+    assert editorial.text_call('Exact input.',root=tmp_path,runner=runner)==first
+    assert len(calls)==1
+    second=editorial.text_call('Exact input.',root=tmp_path,runner=runner,retry_failed=True)
+    assert second['status']=='RETURNED'
+    assert json.loads(__import__('pathlib').Path(first['artifact_path']).read_bytes())==first
+    assert second['artifact_path']!=first['artifact_path']
+    assert editorial.text_call('Exact input.',root=tmp_path,runner=runner)==second
+    assert len(calls)==2
