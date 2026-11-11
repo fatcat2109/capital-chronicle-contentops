@@ -1,0 +1,3440 @@
+{
+  "recorded_at_utc": "2026-11-11T19:17:15.594620+00:00",
+  "reader_source": "A:\\Capital Chronicle\\PrivateApp\\builder\\tools\\product\\private_publisher_desk_v1.py",
+  "source": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+    "href": "file:///A:/Capital%20Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3"
+  },
+  "audience": {
+    "rows": [
+      {
+        "type": "Call",
+        "platform": "discord",
+        "median_views": null,
+        "n": 0,
+        "updated_at": "2026-11-11T19:16:22.002630Z",
+        "posts": [
+          {
+            "observation_id": "obs_06ae63c7d900cff2e52b6c1e9c702d6b",
+            "dispatch_id": "dispatch_55702fa11df77e66f53de38ebf44aaba",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748728376729611",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:21.554174Z",
+            "posted_at_utc": "2026-11-10T16:21:00.685739+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_1ba8d9ebc0b053a3c99c5e863999e287",
+            "dispatch_id": "dispatch_bcb9e62d427fd84bf171883298811769",
+            "post_id": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551689134899240",
+            "views": null,
+            "collected_at_utc": "2026-11-11T19:16:22.002630Z",
+            "posted_at_utc": "2026-11-10T03:18:03.119096+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_2bb3a56d989026e3e43144ac6fa90295",
+            "dispatch_id": "dispatch_4b43dacde0bfd6c779b0b4d764531fb5",
+            "post_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569706608089501787",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:34.283328Z",
+            "posted_at_utc": "2026-11-10T13:33:38.291364+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 8
+          },
+          {
+            "observation_id": "obs_2cb544e73e1a82d30e06458ac958e11f",
+            "dispatch_id": "dispatch_d12587a7837c4953e50c9f68f4031bee",
+            "post_id": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551436633866330",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:40.263520Z",
+            "posted_at_utc": "2026-11-10T03:17:02.807633+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_377091f7ee0791c86e5573032a9638aa",
+            "dispatch_id": "dispatch_c13e5a4faf22f99532b0d18d5e9b7343",
+            "post_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569703100032225312",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:32.433382Z",
+            "posted_at_utc": "2026-11-10T13:19:42.327573+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 8
+          },
+          {
+            "observation_id": "obs_460a53b7f451fd25e0c6a33cd683e5c8",
+            "dispatch_id": "dispatch_1d792f304434916cb1696ab7f99d9b76",
+            "post_id": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551758584315964",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:37.170745Z",
+            "posted_at_utc": "2026-11-10T03:18:19.404014+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_5ef1254e12a7b899f15f051564289aca",
+            "dispatch_id": "dispatch_9cfc52a70a079ebd71d85bf4c675d109",
+            "post_id": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527291086766194",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:41.143543Z",
+            "posted_at_utc": "2026-11-10T01:41:04.936786+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_5fd91fd2cf5ef5e9025b8a5cf294d506",
+            "dispatch_id": "dispatch_ebfad4bf2e3b20d6e594afc39d69b6c4",
+            "post_id": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551566317297685",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:45.692936Z",
+            "posted_at_utc": "2026-11-10T03:17:33.903420+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_654963d3b3eee15f805f81607bd3a5c3",
+            "dispatch_id": "dispatch_ba6cc723cb940eb98764e98e426cd30a",
+            "post_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748871180189796",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:50.839098Z",
+            "posted_at_utc": "2026-11-10T16:21:34.508437+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_6ec52dfdd2f20ee1f5166eee6b35f7b9",
+            "dispatch_id": "dispatch_5bad5a767ec261f3d245bd10e89bb8ab",
+            "post_id": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527474344300726",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:55.055886Z",
+            "posted_at_utc": "2026-11-10T01:41:49.518950+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_9fd7f3aac729e43c6e31e38849a85671",
+            "dispatch_id": "dispatch_ea04958b8d8aff9c4b939b77a33167df",
+            "post_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569749009965256767",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:59.068676Z",
+            "posted_at_utc": "2026-11-10T16:22:07.754294+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_a2557388e22d9dd5aef3d5512e54fca0",
+            "dispatch_id": "dispatch_462815fdae29a62d8372227e8366c467",
+            "post_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569749155533037619",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:03.665438Z",
+            "posted_at_utc": "2026-11-10T16:22:42.462127+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_a32c1fc11f74301d6627b822e8f7c6fc",
+            "dispatch_id": "dispatch_18c14f792d6dc0fb6251571b41af2ffb",
+            "post_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748420481122395",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:07.110507Z",
+            "posted_at_utc": "2026-11-10T16:19:47.442061+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_b8f63a44d619e7d77c10815fd8cfcb45",
+            "dispatch_id": "dispatch_0ec7ae26e962d0cdc0a4e70600d8ea75",
+            "post_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569526675622985822",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:11.167473Z",
+            "posted_at_utc": "2026-11-10T01:38:39.335299+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_e340e5b5b3e1cb84678fd30cf4c60689",
+            "dispatch_id": "dispatch_2a7b37a724bc0e05d1b682b5d849ea7c",
+            "post_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569598929002176564",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:15.043363Z",
+            "posted_at_utc": "2026-11-10T06:25:46.019328+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_ed51f38f82570bb1a79e9fd4077b83e3",
+            "dispatch_id": "dispatch_da7f506f1f4bc94d18499a30d160de1c",
+            "post_id": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527594263646310",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:56.190924Z",
+            "posted_at_utc": "2026-11-10T01:42:18.357047+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_fdeca63b3eb9cbf010693d9bf3bc01f7",
+            "dispatch_id": "dispatch_c2b53c51ab12cef2d0cc523cde9ae2f3",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569753146874658928",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:59.887968Z",
+            "posted_at_utc": "2026-11-10T16:38:34.464158+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_7df2ab3b87453693a54addf4d2a1e351",
+            "dispatch_id": "dispatch_a50fddbfa3d4a23e58cbbe49d066bae7",
+            "post_id": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569915426341920872",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:56.619692Z",
+            "posted_at_utc": "2026-11-11T03:23:24.584379+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          }
+        ],
+        "cause": "VIEWS_UNSUPPORTED"
+      },
+      {
+        "type": "Call",
+        "platform": "facebook",
+        "median_views": null,
+        "n": 0,
+        "updated_at": "2026-11-11T19:16:21.973213Z",
+        "posts": [
+          {
+            "observation_id": "obs_0ef7e223477238d21ac8860632db3372",
+            "dispatch_id": "dispatch_f269a74819e9c35d3f0f9110c8a56e54",
+            "post_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+            "url": "https://www.facebook.com/1342369584748125/posts/1450916280560121",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:20.110405Z",
+            "posted_at_utc": "2026-11-10T13:33:41.747851+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 8
+          },
+          {
+            "observation_id": "obs_038509d9b9d08ccdc43448e39998f1a6",
+            "dispatch_id": "dispatch_e2afba798481cf44b3c5be208fc47f44",
+            "post_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T19:16:21.973213Z",
+            "posted_at_utc": "2026-11-10T06:27:51.540402+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_1b89b524acbf0ab02b2ebe007451af15",
+            "dispatch_id": "dispatch_071766b3da6eb9dcbc7757b149308d9a",
+            "post_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+            "url": "https://www.facebook.com/1342369584748125/posts/1450581160593633",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:32.935975Z",
+            "posted_at_utc": "2026-11-10T06:25:48.881221+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_242197bcff2028d9e708f53621563671",
+            "dispatch_id": "dispatch_331b8f4002663ea47eee2ccb6412e43b",
+            "post_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:32.058739Z",
+            "posted_at_utc": "2026-11-10T06:27:27.200410+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_26dd196c84b2d0e04541946e2bfb603e",
+            "dispatch_id": "dispatch_6d70e311be0a8a45b3bc0157c4cb3742",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:36.675597Z",
+            "posted_at_utc": "2026-11-10T16:21:03.116777+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_30f4c29750a73abdfe6f97465372dc3b",
+            "dispatch_id": "dispatch_2b33ebe8014b4f6441582553e7afb4c4",
+            "post_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:40.728633Z",
+            "posted_at_utc": "2026-11-10T16:12:04.427211+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_474e78720ba1acbfb1779afe3a1c666b",
+            "dispatch_id": "dispatch_690e443d814e58f6934841d5c191919c",
+            "post_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:44.110027Z",
+            "posted_at_utc": "2026-11-10T16:22:44.952089+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_4dd39e1f55bcb59aec55a02be5ade776",
+            "dispatch_id": "dispatch_599095c91c327ec26d370daf389359aa",
+            "post_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+            "url": "https://www.facebook.com/1342369584748125/posts/1451065237211892",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:50.031694Z",
+            "posted_at_utc": "2026-11-10T16:19:49.932746+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_73429500771e323bf336698e719744da",
+            "dispatch_id": "dispatch_2bbd83e917ccf3ca1cd2431f2544fc83",
+            "post_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:58.651738Z",
+            "posted_at_utc": "2026-11-10T06:27:01.004775+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_785b18186af17de9b252f714dd2b3854",
+            "dispatch_id": "dispatch_f9101c4acbe185f31ed900ab825f49d6",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:02.784135Z",
+            "posted_at_utc": "2026-11-10T16:38:36.624654+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_8dfd5b65ee3b72186eb194798d30a96b",
+            "dispatch_id": "dispatch_921740aeb7c9a211bd9a7ed7e8a01bb9",
+            "post_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:06.706534Z",
+            "posted_at_utc": "2026-11-10T06:28:43.882696+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_9b829917be95081b990deaf6469b6595",
+            "dispatch_id": "dispatch_8852f751d305f6a97eaf56e92e161e2b",
+            "post_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+            "url": "https://www.facebook.com/1342369584748125/posts/1450602847258131",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:10.699461Z",
+            "posted_at_utc": "2026-11-10T06:53:37.261686+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_bf97a578d2584c413115dd5dfff98884",
+            "dispatch_id": "dispatch_50022ed9beda05f099a90067e39268a4",
+            "post_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:14.287469Z",
+            "posted_at_utc": "2026-11-10T16:22:10.290522+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_dbcc16a82987af7db8e185fe05e4ae7d",
+            "dispatch_id": "dispatch_51956d2a5d2d29dda22523bd1af2b364",
+            "post_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:50.786288Z",
+            "posted_at_utc": "2026-11-10T06:28:18.015825+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_e097098048e53af3082c61aea2ce1668",
+            "dispatch_id": "dispatch_87c15bb9485cdb46a3f6f142b5fbac74",
+            "post_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:55.737229Z",
+            "posted_at_utc": "2026-11-10T16:21:37.297461+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_ed184f06d5407e6c05a41aa136aea8c6",
+            "dispatch_id": "dispatch_840f95fbac06cc5f2c1e57d8f736edc0",
+            "post_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:26:02.701724Z",
+            "posted_at_utc": "2026-11-10T16:11:32.122197+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_105d206b77dda8c64b4103b72f91b1ba",
+            "dispatch_id": "dispatch_fce862d2e05f4d455da8facec877eeac",
+            "post_id": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:51.138810Z",
+            "posted_at_utc": "2026-11-11T03:27:37.133860+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 22
+          }
+        ],
+        "cause": "VIEWS_NOT_EXPOSED"
+      },
+      {
+        "type": "Call",
+        "platform": "instagram",
+        "median_views": null,
+        "n": 0,
+        "updated_at": "2026-11-11T19:16:21.988976Z",
+        "posts": [
+          {
+            "observation_id": "obs_4f411c83414923e99a70e5c5f0c833ad",
+            "dispatch_id": "dispatch_9408d403f8132a59dfe68ba19dde872e",
+            "post_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+            "url": "https://www.instagram.com/p/DfjTwO1D7wb/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:32.077193Z",
+            "posted_at_utc": "2026-11-10T16:11:38.533391+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_0299c2ad67443ead5c1e1ef7eebfee97",
+            "dispatch_id": "dispatch_e4096e40c2c9b1159d4995d6ad027755",
+            "post_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+            "url": "https://www.instagram.com/p/DfjQnXDD0Qu/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T19:16:21.988976Z",
+            "posted_at_utc": "2026-11-10T06:27:32.389227+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_de0573a1e1cd60d275935bddf776188c",
+            "dispatch_id": "dispatch_b25719d8d4da98b29de510bab6192f40",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": "https://www.instagram.com/p/DfkUlnLj2wM/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:59.514851Z",
+            "posted_at_utc": "2026-11-10T16:21:08.889439+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e8004228f8ed0f2ca6036ee7e4c6d28b",
+            "dispatch_id": "dispatch_58dceef53c42c4d387e8529b72532577",
+            "post_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+            "url": "https://www.instagram.com/p/DfkBhO0jyGZ/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:26:05.119294Z",
+            "posted_at_utc": "2026-11-10T16:12:10.976245+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_d7041e56d9f2e61a4af3336e6de0e340",
+            "dispatch_id": "dispatch_b1735c4e94cbc6cbaccd456c8da34387",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:51.293580Z",
+            "posted_at_utc": "2026-11-10T16:38:40.933177+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_534f40182523bcc1f298522655d71eee",
+            "dispatch_id": "dispatch_7fb6e7cc3fc58caebf9ca42acd6e58cf",
+            "post_id": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+            "url": "https://www.instagram.com/p/Dflgj95ks8e/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:56.270951Z",
+            "posted_at_utc": "2026-11-11T03:23:34.108333+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 22
+          }
+        ],
+        "cause": "VIEWS_NOT_EXPOSED; VIEWS_UNAVAILABLE"
+      },
+      {
+        "type": "Call",
+        "platform": "telegram",
+        "median_views": 3,
+        "n": 27,
+        "updated_at": "2026-11-11T06:35:58.729566Z",
+        "posts": [
+          {
+            "observation_id": "obs_0e1f817b138f0444fe6656565f2cb1fc",
+            "dispatch_id": "dispatch_cc8948d4c65e60aad82a18e8d036a62e",
+            "post_id": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+            "url": "https://t.me/CapitalChronicle/120",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:23:25.582421Z",
+            "posted_at_utc": "2026-11-10T03:18:06.992704+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_3ceed71107e468c8329c3b998e135bb5",
+            "dispatch_id": "dispatch_928e1116526628f62f9adfc44e6f3854",
+            "post_id": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+            "url": "https://t.me/CapitalChronicle/119",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:24:35.697585Z",
+            "posted_at_utc": "2026-11-10T03:17:37.024348+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_46c22a81d78a9c7bad95918395c0e3a3",
+            "dispatch_id": "dispatch_445d1ebd37e28bd2c79523e1f25dbc71",
+            "post_id": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+            "url": "https://t.me/CapitalChronicle/117",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:24:39.805080Z",
+            "posted_at_utc": "2026-11-10T01:42:22.412468+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_486e23233db134f0d7192789bf9ca185",
+            "dispatch_id": "dispatch_30106b516cfe7e61bd811c88ebb69e88",
+            "post_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+            "url": "https://t.me/CapitalChronicle/123",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:24:43.164429Z",
+            "posted_at_utc": "2026-11-10T06:27:09.935623+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_48ec21342092361600320bb0f395f3d7",
+            "dispatch_id": "dispatch_0d52415837f520ef7245f3737abba37b",
+            "post_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+            "url": "https://t.me/CapitalChronicle/137",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:24:48.017662Z",
+            "posted_at_utc": "2026-11-10T13:34:04.087270+00:00",
+            "cause": null,
+            "hour_et": 8
+          },
+          {
+            "observation_id": "obs_4df8d89e1254e8f8cd83ecdb87eee769",
+            "dispatch_id": "dispatch_64c87b663e6694e8441f38b31e85a1ff",
+            "post_id": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+            "url": "https://t.me/CapitalChronicle/118",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:24:57.657411Z",
+            "posted_at_utc": "2026-11-10T03:17:06.207616+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_4e82ac3344d72a0d67164f83017f1eaf",
+            "dispatch_id": "dispatch_bf6bcf7d1ee53a5faccff5dd0d03d52a",
+            "post_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+            "url": "https://t.me/CapitalChronicle/124",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:25:01.774054Z",
+            "posted_at_utc": "2026-11-10T06:27:34.482080+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_5513f7fa04b18bfc35410e89fe2c9272",
+            "dispatch_id": "dispatch_41aa5fb68369db11611b7095af7f5b4f",
+            "post_id": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+            "url": "https://t.me/CapitalChronicle/121",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:25:05.815017Z",
+            "posted_at_utc": "2026-11-10T03:18:22.778269+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_63b1e3a6ff8b0c5bbaf45727f57778b0",
+            "dispatch_id": "dispatch_5e81359e4f7e0a8854bb63be4a46d910",
+            "post_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+            "url": "https://t.me/CapitalChronicle/125",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:25:17.055023Z",
+            "posted_at_utc": "2026-11-10T06:27:59.628859+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_6b15cbc518701d84e36c1051526e4c7a",
+            "dispatch_id": "dispatch_0c381826a0852353e5eb1338c0ade67c",
+            "post_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+            "url": "https://t.me/CapitalChronicle/147",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:25:54.736343Z",
+            "posted_at_utc": "2026-11-10T16:22:53.178961+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_6ddef4dd37c346227f985d7753c9726d",
+            "dispatch_id": "dispatch_0fb01df51623dc4cb3de4de8504cc3f7",
+            "post_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+            "url": "https://t.me/CapitalChronicle/139",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:02.110818Z",
+            "posted_at_utc": "2026-11-10T16:12:13.410006+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_6f6f7df3112f37cd9d0bc3b129ae9196",
+            "dispatch_id": "dispatch_ff1d76a3b3cf09f798d9e1f26eddf623",
+            "post_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+            "url": "https://t.me/CapitalChronicle/122",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:26:04.758071Z",
+            "posted_at_utc": "2026-11-10T06:26:46.619232+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_758b72e30ac233621a0f88f3d757c3d5",
+            "dispatch_id": "dispatch_2fba173a151159effc2da6b9b45f336d",
+            "post_id": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+            "url": "https://t.me/CapitalChronicle/116",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:06.582927Z",
+            "posted_at_utc": "2026-11-10T01:41:53.401326+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_7636cd8d2036e594bf1e0be57f31c083",
+            "dispatch_id": "dispatch_ad0692305272064497d68a9802724526",
+            "post_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+            "url": "https://t.me/CapitalChronicle/138",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:08.788320Z",
+            "posted_at_utc": "2026-11-10T16:11:40.688411+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_7b5813077183afc9caf65ad3c622d953",
+            "dispatch_id": "dispatch_7b954873bbe1fcbd565efc0a706ebecf",
+            "post_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+            "url": "https://t.me/CapitalChronicle/146",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:26:10.559886Z",
+            "posted_at_utc": "2026-11-10T16:22:18.288941+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_a23f07e1942a656ccc9151e185856db2",
+            "dispatch_id": "dispatch_08ac9b4098ca76f267f1efcffac71a02",
+            "post_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+            "url": "https://t.me/CapitalChronicle/145",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:26:14.504298Z",
+            "posted_at_utc": "2026-11-10T16:21:45.687827+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_c58b85855c39aff3ea37509eda825837",
+            "dispatch_id": "dispatch_19c026474e254990d9ce3d97286104e4",
+            "post_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+            "url": "https://t.me/CapitalChronicle/128",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:26:21.733535Z",
+            "posted_at_utc": "2026-11-10T06:54:09.093326+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_ceea72686ec9cfb7ed9a3e00ac0770e7",
+            "dispatch_id": "dispatch_c13b5add6890fbb74381d886d34f11f2",
+            "post_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+            "url": "https://t.me/CapitalChronicle/126",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:23.807897Z",
+            "posted_at_utc": "2026-11-10T06:28:25.604860+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_cf266fd5de2d26bd05aae77266a7206a",
+            "dispatch_id": "dispatch_98c5dfff7513d80c534b09b84954e9f1",
+            "post_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+            "url": "https://t.me/CapitalChronicle/114",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:25.319347Z",
+            "posted_at_utc": "2026-11-10T01:38:43.298439+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_cf2d173645e3c40423e301a56af0f214",
+            "dispatch_id": "dispatch_8d1150b8324e8dae1ca6236743dad3b8",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": "https://t.me/CapitalChronicle/158",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:27.551484Z",
+            "posted_at_utc": "2026-11-10T16:38:45.016640+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_d77d7bc4f74e17fadaed98effa02b333",
+            "dispatch_id": "dispatch_98e19e42f77fd181038ab6baf68890b2",
+            "post_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+            "url": "https://t.me/CapitalChronicle/127",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:33.348348Z",
+            "posted_at_utc": "2026-11-10T06:28:53.698173+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_db9cf6367a018f0d0d19a3d0ae180f8a",
+            "dispatch_id": "dispatch_fd01d41a51cd1fab6b0f048076a571b9",
+            "post_id": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+            "url": "https://t.me/CapitalChronicle/115",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:35.484603Z",
+            "posted_at_utc": "2026-11-10T01:41:16.624028+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_e0bbcf350fe35dd0d3e7390b2994167b",
+            "dispatch_id": "dispatch_30c29ea40c7ac2684d0eaf3cd42c7012",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": "https://t.me/CapitalChronicle/144",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:28:52.131768Z",
+            "posted_at_utc": "2026-11-10T16:21:10.900045+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e81e0fc6d4ab2231e86bf15f583da6c2",
+            "dispatch_id": "dispatch_9b2cf2a5274568cf0133f3fdbb91f175",
+            "post_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+            "url": "https://t.me/CapitalChronicle/143",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:00.818731Z",
+            "posted_at_utc": "2026-11-10T16:20:42.359733+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_125fa99b6e9aee403688d3bf134a514d",
+            "dispatch_id": "dispatch_d29449e00444fa2b3dc9f29c05f142ac",
+            "post_id": "plan-status-post-4f393682398d7e4531df3cf59b0782da",
+            "url": "https://t.me/CapitalChronicle/169",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:31:09.751390Z",
+            "posted_at_utc": "2026-11-11T03:29:12.127647+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_2829316dbacb3c2751792d0447240d95",
+            "dispatch_id": "dispatch_920556bcf3b57fa765717ba300f35820",
+            "post_id": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+            "url": "https://t.me/CapitalChronicle/165",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:35:55.322108Z",
+            "posted_at_utc": "2026-11-11T03:27:10.699521+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_44ede6fa772fccae2b28e810dee48f11",
+            "dispatch_id": "dispatch_1135e2d58e75d3e5dba73449712216c2",
+            "post_id": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+            "url": "https://t.me/CapitalChronicle/164",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:35:58.729566Z",
+            "posted_at_utc": "2026-11-11T03:26:39.115380+00:00",
+            "cause": null,
+            "hour_et": 22
+          }
+        ],
+        "cause": null
+      },
+      {
+        "type": "Call",
+        "platform": "threads",
+        "median_views": 7.0,
+        "n": 24,
+        "updated_at": "2026-11-11T06:35:55.963161Z",
+        "posts": [
+          {
+            "observation_id": "obs_0f149c18584ad3a2b1ca84240f2f59b2",
+            "dispatch_id": "dispatch_6ca16b3f1c187df324b15607f663f92a",
+            "post_id": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7AT1I4pD",
+            "views": 64,
+            "collected_at_utc": "2026-11-11T06:23:26.235488Z",
+            "posted_at_utc": "2026-11-10T03:17:39.986067+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_1b6626c2bc2abce3b49e926c3f47482e",
+            "dispatch_id": "dispatch_1966d4b0b74a36f62590d6d28092594c",
+            "post_id": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfiv-4wo9Up",
+            "views": 39,
+            "collected_at_utc": "2026-11-11T06:23:32.175869Z",
+            "posted_at_utc": "2026-11-10T01:41:21.199688+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_23eb3c7199b1d3fd2d06785e59188174",
+            "dispatch_id": "dispatch_c7d9621db7f537e76d431269584ffb83",
+            "post_id": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfiwDPPI1Ag",
+            "views": 10,
+            "collected_at_utc": "2026-11-11T06:24:31.698794Z",
+            "posted_at_utc": "2026-11-10T01:41:56.906320+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_25a04bda4cfaeae8b9702db62429cfed",
+            "dispatch_id": "dispatch_6d8c80054b93face7346de8e2fdd76ef",
+            "post_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUnz1I6P_",
+            "views": 13,
+            "collected_at_utc": "2026-11-11T06:24:40.420389Z",
+            "posted_at_utc": "2026-11-10T16:20:45.250109+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_a6fd26981b03d77b2c23749e8c877060",
+            "dispatch_id": "dispatch_0f56008401091c9978c33eb2732a5be1",
+            "post_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkBjRflPto",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:24:43.807294Z",
+            "posted_at_utc": "2026-11-10T13:34:07.278855+00:00",
+            "cause": null,
+            "hour_et": 8
+          },
+          {
+            "observation_id": "obs_c4626c65417a2299d25b72721e489d20",
+            "dispatch_id": "dispatch_13910bfc6839f395923ffb63757635e2",
+            "post_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQpuRFDTc",
+            "views": 23,
+            "collected_at_utc": "2026-11-11T06:24:54.046830Z",
+            "posted_at_utc": "2026-11-10T06:26:49.674486+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_e64f088edaee90aabc243e0346588bc3",
+            "dispatch_id": "dispatch_d496b03b9626ff2205d3ecb6ecbe31de",
+            "post_id": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7FyWow5n",
+            "views": 139,
+            "collected_at_utc": "2026-11-11T06:24:58.277650Z",
+            "posted_at_utc": "2026-11-10T03:18:25.059833+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_eda271ce7d839d8b8354f4b7ee34a0fb",
+            "dispatch_id": "dispatch_20d4b813b36c24eb694de7c5e81defa9",
+            "post_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfivsEtozIr",
+            "views": 11,
+            "collected_at_utc": "2026-11-11T06:25:02.450772Z",
+            "posted_at_utc": "2026-11-10T01:38:46.991016+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_f429046d4d2c6a9ffcb7a47dc56361c0",
+            "dispatch_id": "dispatch_f48275989a425293615bd8ebf7f4519e",
+            "post_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjTyL6FIn8",
+            "views": 10,
+            "collected_at_utc": "2026-11-11T06:25:10.001991Z",
+            "posted_at_utc": "2026-11-10T06:54:12.114963+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_fb15c2c7862597e3fd679087437a44bb",
+            "dispatch_id": "dispatch_7e1711e51a0a6729c8b070c7e5f0abbe",
+            "post_id": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfi68kMI-eR",
+            "views": 33,
+            "collected_at_utc": "2026-11-11T06:25:50.451002Z",
+            "posted_at_utc": "2026-11-10T03:17:09.414334+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_2e3d0877de9d2726f34e2bf990cddb74",
+            "dispatch_id": "dispatch_ec75b4443c9c5884b3b5e4a25be06476",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUrebo92j",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:28:52.767608Z",
+            "posted_at_utc": "2026-11-10T16:21:15.373553+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_43afdd88739e69480f0c83b1eefdd4b2",
+            "dispatch_id": "dispatch_e3956545fbd2fb5e65c640add4bba811",
+            "post_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQvg1FCEw",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:28:55.580594Z",
+            "posted_at_utc": "2026-11-10T06:27:37.296468+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_48c0d31ba5b671763ee53143059db598",
+            "dispatch_id": "dispatch_fd3ce5355c518141aa259f1fb5df6b9a",
+            "post_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUzrRIxn_",
+            "views": 9,
+            "collected_at_utc": "2026-11-11T06:28:58.295890Z",
+            "posted_at_utc": "2026-11-10T16:22:22.461968+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_506560b98133e95984e3860b13ce144e",
+            "dispatch_id": "dispatch_bfcc9f97a40f28b4cea994e72388aed4",
+            "post_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQsh2lGlU",
+            "views": 9,
+            "collected_at_utc": "2026-11-11T06:29:04.081276Z",
+            "posted_at_utc": "2026-11-10T06:27:12.915404+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_6e0767c613e1c03d0f23a729280a3b1f",
+            "dispatch_id": "dispatch_bd010e48521ed79f525ee83c65c299e4",
+            "post_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkTlwJo5t_",
+            "views": 6,
+            "collected_at_utc": "2026-11-11T06:29:09.857737Z",
+            "posted_at_utc": "2026-11-10T16:11:44.169561+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_8796f981f8a45d34431ba09bc46d5dc6",
+            "dispatch_id": "dispatch_99771956553ca6fe67ed77d8a6e03554",
+            "post_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkTp17I881",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:10.559315Z",
+            "posted_at_utc": "2026-11-10T16:12:17.380842+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_9af65800ebc88bc59f779125eb477346",
+            "dispatch_id": "dispatch_5b6ea73675c8b3508c8b6ac0ae16e246",
+            "post_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQyjflORU",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:11.223604Z",
+            "posted_at_utc": "2026-11-10T06:28:02.280041+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_ad8de3d0a7cc5a890d4f37a04e81be93",
+            "dispatch_id": "dispatch_052c62f9e8454aa148f1165504c00d8a",
+            "post_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkU3zPo_JN",
+            "views": 8,
+            "collected_at_utc": "2026-11-11T06:29:11.938491Z",
+            "posted_at_utc": "2026-11-10T16:22:56.216908+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_b431c310b99f8b5335d3a3aed5b9f7f4",
+            "dispatch_id": "dispatch_f174af6279b63a5f5e79e3a6017a5e79",
+            "post_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUvq7I2Lm",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:29:12.564568Z",
+            "posted_at_utc": "2026-11-10T16:21:49.589400+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_deccfd7f73556baa4511e710dd721cfd",
+            "dispatch_id": "dispatch_22670d7abf07c333b7023ae4bdd4fc34",
+            "post_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQ5NYFP93",
+            "views": 0,
+            "collected_at_utc": "2026-11-11T06:29:15.300929Z",
+            "posted_at_utc": "2026-11-10T06:28:56.763877+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_ec83a858601183ad149fc683db9ef64d",
+            "dispatch_id": "dispatch_3a01ab1417e6225d3cd980823cd3b29e",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkWsITI6im",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:16.081247Z",
+            "posted_at_utc": "2026-11-10T16:38:48.850882+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_f708fb92ddd708fbf1696e6dfba6c860",
+            "dispatch_id": "dispatch_5d7178d0e9a0cf590db76eb906cc92dd",
+            "post_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQ1ylFHIA",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:17.438498Z",
+            "posted_at_utc": "2026-11-10T06:28:28.689974+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_005277963381ec41ce5acbb0818d80d2",
+            "dispatch_id": "dispatch_f1ee34ca5eb10cc0986fed25df329a52",
+            "post_id": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dflg1aHI6T9",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:31:05.444897Z",
+            "posted_at_utc": "2026-11-11T03:26:42.647597+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_09cfe7229ec9b493223f4dc6dd858792",
+            "dispatch_id": "dispatch_9d6aaf15038189663a0b0aeb117ae655",
+            "post_id": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DflhEleI2bo",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:35:55.963161Z",
+            "posted_at_utc": "2026-11-11T03:28:46.841803+00:00",
+            "cause": null,
+            "hour_et": 22
+          }
+        ],
+        "cause": null
+      },
+      {
+        "type": "Note",
+        "platform": "discord",
+        "median_views": null,
+        "n": 0,
+        "updated_at": "2026-11-11T06:25:51.693789Z",
+        "posts": [
+          {
+            "observation_id": "obs_e424e9d2ca56f2114b3925f3e160112c",
+            "dispatch_id": "dispatch_4fd0460a86f1338d6cd9f8d8b951ab4f",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569687377679745110",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:51.693789Z",
+            "posted_at_utc": "2026-11-10T12:17:13.591347+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 7
+          }
+        ],
+        "cause": "VIEWS_UNSUPPORTED"
+      },
+      {
+        "type": "Note",
+        "platform": "facebook",
+        "median_views": null,
+        "n": 0,
+        "updated_at": "2026-11-11T06:25:59.497982Z",
+        "posts": [
+          {
+            "observation_id": "obs_e4e3de6c14ee4ef579d97298a66fa6b3",
+            "dispatch_id": "dispatch_3c2849e1224d27f24c68e50a5f296434",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://www.facebook.com/1342369584748125/posts/1450849443900138",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:59.497982Z",
+            "posted_at_utc": "2026-11-10T12:17:17.247000+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 7
+          }
+        ],
+        "cause": "VIEWS_NOT_EXPOSED"
+      },
+      {
+        "type": "Note",
+        "platform": "instagram",
+        "median_views": null,
+        "n": 0,
+        "updated_at": "2026-11-11T06:23:21.085683Z",
+        "posts": [
+          {
+            "observation_id": "obs_0ab09cf653fcce0de9d3b7c5d947f27d",
+            "dispatch_id": "dispatch_1d490cb220d3b2d887680b5aaed4c74f",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://www.instagram.com/p/Dfj5h_nj32E/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:21.085683Z",
+            "posted_at_utc": "2026-11-10T12:24:00.935056+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 7
+          }
+        ],
+        "cause": "VIEWS_UNAVAILABLE"
+      },
+      {
+        "type": "Note",
+        "platform": "telegram",
+        "median_views": 3.0,
+        "n": 6,
+        "updated_at": "2026-11-11T06:28:54.938125Z",
+        "posts": [
+          {
+            "observation_id": "obs_4aed7328655e91b0cd0845a98f098b9c",
+            "dispatch_id": "dispatch_2f94b8b1c5c11648de699beb05aa47d4",
+            "post_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-telegram",
+            "url": "https://t.me/CapitalChronicle/130",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:24:53.365483Z",
+            "posted_at_utc": "2026-11-10T08:04:08.270873+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_9519839432c41829b78c4cb68d5411e8",
+            "dispatch_id": "dispatch_019e2a7e650546da92454d3ed9d4df97",
+            "post_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-telegram",
+            "url": "https://t.me/CapitalChronicle/133",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:12.711584Z",
+            "posted_at_utc": "2026-11-10T08:40:39.081365+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_b823dbddb5e2a88d2ea99f93a67a496c",
+            "dispatch_id": "dispatch_407cd68da5ea6c66255ae1d90bc7c51e",
+            "post_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-telegram",
+            "url": "https://t.me/CapitalChronicle/129",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:26:17.987277Z",
+            "posted_at_utc": "2026-11-10T08:03:51.262936+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_d37924b18dc762ad00d8d4ecb35aa594",
+            "dispatch_id": "dispatch_f0f8c2e0f422444a1bf2698e5f581e47",
+            "post_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-telegram",
+            "url": "https://t.me/CapitalChronicle/131",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:29.370103Z",
+            "posted_at_utc": "2026-11-10T08:37:19.067358+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_d3f90e321588b3134df6ee23e3eb3592",
+            "dispatch_id": "dispatch_ee5fb312fa6e438ab6bbe1b5000d6116",
+            "post_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-telegram",
+            "url": "https://t.me/CapitalChronicle/132",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:31.739677Z",
+            "posted_at_utc": "2026-11-10T08:37:35.473762+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_e38f857bc0ee4b2e7fa4b1a379345104",
+            "dispatch_id": "dispatch_2489d8c9c9cd4561e9afe7ea090280b5",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://t.me/CapitalChronicle/136",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:28:54.938125Z",
+            "posted_at_utc": "2026-11-10T12:17:59.274449+00:00",
+            "cause": null,
+            "hour_et": 7
+          }
+        ],
+        "cause": null
+      },
+      {
+        "type": "Note",
+        "platform": "threads",
+        "median_views": 2,
+        "n": 7,
+        "updated_at": "2026-11-11T19:16:21.956240Z",
+        "posts": [
+          {
+            "observation_id": "obs_0c3414080d50eb004c1bd905dc4666dc",
+            "dispatch_id": "dispatch_137fb6c22e57ebef95e7cf57c7a6b34b",
+            "post_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjflvNFPEI",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:23:19.149879Z",
+            "posted_at_utc": "2026-11-10T08:37:21.947325+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_1bef3cd55435ebe2090a56ae85d06b70",
+            "dispatch_id": "dispatch_ad9354a602f82a38f4d0736f5fc26fd7",
+            "post_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjbwtLlCrY",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:23:37.620859Z",
+            "posted_at_utc": "2026-11-10T08:03:54.599058+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_25321e1a3f0d64f4babe7e30b4e27ac1",
+            "dispatch_id": "dispatch_a24e9d4dccb02ad711eaa623ba2a2189",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfj42NGlE4E",
+            "views": 145,
+            "collected_at_utc": "2026-11-11T06:24:36.341492Z",
+            "posted_at_utc": "2026-11-10T12:18:03.511519+00:00",
+            "cause": null,
+            "hour_et": 7
+          },
+          {
+            "observation_id": "obs_bc9232504649936639b591a4858b5a1a",
+            "dispatch_id": "dispatch_bb967858606bd15d067b3ea5556413e1",
+            "post_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjgrEelO6G",
+            "views": 0,
+            "collected_at_utc": "2026-11-11T06:24:48.749994Z",
+            "posted_at_utc": "2026-11-10T08:46:49.835989+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_010c673cf04c1172dbb2abfe7b9a1541",
+            "dispatch_id": "dispatch_637c26b2fded02873a941800a6599816",
+            "post_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfjfnr7lCEB",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T19:16:21.956240Z",
+            "posted_at_utc": "2026-11-10T08:37:37.915108+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_f7aacd5fb0bebb820afdacafcf6b9178",
+            "dispatch_id": "dispatch_b11cf652096a635135eec8a249c6c385",
+            "post_id": "plan-analysis-root-plan_8b7c1dd880206079033b6efe-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjgiOeFOGD",
+            "views": 19,
+            "collected_at_utc": "2026-11-11T06:25:13.962997Z",
+            "posted_at_utc": "2026-11-10T08:45:36.571194+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_fd2109873f28117366292fb86acd4a71",
+            "dispatch_id": "dispatch_03d441be9e69e39b262b87334f6d524f",
+            "post_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfjbyr2lB6u",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:25:55.431196Z",
+            "posted_at_utc": "2026-11-10T08:04:10.733317+00:00",
+            "cause": null,
+            "hour_et": 3
+          }
+        ],
+        "cause": null
+      },
+      {
+        "type": "Result",
+        "platform": "discord",
+        "median_views": null,
+        "n": 0,
+        "updated_at": "2026-11-11T06:35:52.312069Z",
+        "posts": [
+          {
+            "observation_id": "obs_0b288d673aed3895341ed045a98f1368",
+            "dispatch_id": "dispatch_2c4caf1ee85b4ba12a6e5d153b2f0e42",
+            "post_id": "plan-result-post-35f59c0e8bd8e2fbfb3a28d252798e47",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569813719028990044",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:31:07.075259Z",
+            "posted_at_utc": "2026-11-10T20:39:15.945260+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 15
+          },
+          {
+            "observation_id": "obs_149f5e824196935f1d02006c88ac8e0a",
+            "dispatch_id": "dispatch_be7ba481362cd3a2e148c751ff4ba369",
+            "post_id": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569813881679912991",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:52.312069Z",
+            "posted_at_utc": "2026-11-10T20:39:54.683082+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 15
+          }
+        ],
+        "cause": "VIEWS_UNSUPPORTED"
+      },
+      {
+        "type": "Result",
+        "platform": "facebook",
+        "median_views": null,
+        "n": 0,
+        "updated_at": "2026-11-11T06:35:56.257033Z",
+        "posts": [
+          {
+            "observation_id": "obs_1f27661f06dfa280adbbe10d529b1149",
+            "dispatch_id": "dispatch_016e233a491936346bc5a80cdae65845",
+            "post_id": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:37.943381Z",
+            "posted_at_utc": "2026-11-10T16:26:34.430769+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_64b3564ef8001cddbed13191d6950a88",
+            "dispatch_id": "dispatch_d896880f26b55d6d8acd1420d05c6f41",
+            "post_id": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:54.634892Z",
+            "posted_at_utc": "2026-11-10T16:27:36.489763+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_f4140e67fd2a6b231b46f0cad885d4b1",
+            "dispatch_id": "dispatch_65005474144a39ecfb5765939cf16939",
+            "post_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:26:05.075630Z",
+            "posted_at_utc": "2026-11-10T16:28:34.853166+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_0e67bbdb18655f568544f5fa5ef7e326",
+            "dispatch_id": "dispatch_1bad03b75fcf1090927e5940823cc3a1",
+            "post_id": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:31:05.774172Z",
+            "posted_at_utc": "2026-11-10T20:39:56.971227+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 15
+          },
+          {
+            "observation_id": "obs_23a6596a0f108e13d2bd14bce62689fb",
+            "dispatch_id": "dispatch_e798876b2b6d2077dd38f4a02d02fd6b",
+            "post_id": "plan-result-post-36f1c673b8ec94e7c56189bc6b0bddcb",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:56.257033Z",
+            "posted_at_utc": "2026-11-10T20:40:26.644549+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 15
+          }
+        ],
+        "cause": "VIEWS_NOT_EXPOSED"
+      },
+      {
+        "type": "Result",
+        "platform": "instagram",
+        "median_views": null,
+        "n": 0,
+        "updated_at": "2026-11-11T06:25:14.680122Z",
+        "posts": [
+          {
+            "observation_id": "obs_6f16c4d42299941851942a1b29e997fd",
+            "dispatch_id": "dispatch_0646ee4d57c9f233a943bee8af9023aa",
+            "post_id": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:50.438578Z",
+            "posted_at_utc": "2026-11-10T16:26:38.534331+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_930b6d9aa95b655b1365d569ce19231c",
+            "dispatch_id": "dispatch_517b964e832e650326089e5b7195acde",
+            "post_id": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:03.257704Z",
+            "posted_at_utc": "2026-11-10T16:27:40.624617+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_cfaeeb5d21b46675c681b0e889501f86",
+            "dispatch_id": "dispatch_fabe1b58a2e1bc28224d57a311daa2cf",
+            "post_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:14.680122Z",
+            "posted_at_utc": "2026-11-10T16:28:38.607443+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          }
+        ],
+        "cause": "VIEWS_NOT_EXPOSED"
+      },
+      {
+        "type": "Result",
+        "platform": "telegram",
+        "median_views": 2,
+        "n": 13,
+        "updated_at": "2026-11-11T19:16:22.057043Z",
+        "posts": [
+          {
+            "observation_id": "obs_123f81ae891bbd641fcb0425fabaf244",
+            "dispatch_id": "dispatch_00da48d1fdf3249c6992a0e5d0d55793",
+            "post_id": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+            "url": "https://t.me/CapitalChronicle/154",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:23:31.456427Z",
+            "posted_at_utc": "2026-11-10T16:27:10.617239+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_1e72a3452f3fd45078b6fe43bf9a6eb0",
+            "dispatch_id": "dispatch_5f919160004b26110b494d305da06ebc",
+            "post_id": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+            "url": "https://t.me/CapitalChronicle/153",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:23:37.018103Z",
+            "posted_at_utc": "2026-11-10T16:26:42.647655+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_10423b182443bfda7563615fb3a5be27",
+            "dispatch_id": "dispatch_12f0180081e8ba9d2b0830e1695c627e",
+            "post_id": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+            "url": "https://t.me/CapitalChronicle/141",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T19:16:22.057043Z",
+            "posted_at_utc": "2026-11-10T16:14:35.901737+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_600d944ed23948993e0b8150194c1a24",
+            "dispatch_id": "dispatch_d96bc8a0554343792978effaddba03c5",
+            "post_id": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+            "url": "https://t.me/CapitalChronicle/140",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:25:09.410079Z",
+            "posted_at_utc": "2026-11-10T16:13:38.115944+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_62bcfc69d9fb6bcac068a2452a5243d9",
+            "dispatch_id": "dispatch_b7dd55a065448278923ec46db123dd2b",
+            "post_id": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+            "url": "https://t.me/CapitalChronicle/151",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:25:13.386077Z",
+            "posted_at_utc": "2026-11-10T16:25:35.125749+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_6b3a2ec43cf25fba0bc972e0580b060c",
+            "dispatch_id": "dispatch_cef289b68b164c9feaf41a75bb24efee",
+            "post_id": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+            "url": "https://t.me/CapitalChronicle/148",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:25:58.748456Z",
+            "posted_at_utc": "2026-11-10T16:24:36.215328+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_b076569950f8f8e85b8e0b4bfb4b61cc",
+            "dispatch_id": "dispatch_81c598fc5c4db589c6a83e888b9622dd",
+            "post_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+            "url": "https://t.me/CapitalChronicle/157",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:16.459818Z",
+            "posted_at_utc": "2026-11-10T16:28:42.364459+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_b8fd5984882388e58b68092b78e4b156",
+            "dispatch_id": "dispatch_3aa0afcf42c7b69fb90c13a145885320",
+            "post_id": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+            "url": "https://t.me/CapitalChronicle/152",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:20.180353Z",
+            "posted_at_utc": "2026-11-10T16:26:02.470521+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_de8850760fa669fba1f1467a6612b99a",
+            "dispatch_id": "dispatch_d04a8fd7e897226933c0cb515cb4c455",
+            "post_id": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+            "url": "https://t.me/CapitalChronicle/150",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:28:45.963985Z",
+            "posted_at_utc": "2026-11-10T16:25:09.890510+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_df845496d75488e9aef6da554218dedb",
+            "dispatch_id": "dispatch_1f4d746d422f994e1b7eacd597001ea3",
+            "post_id": "plan-result-post-6c9969838ea89afe7842aa9548fa05fb",
+            "url": "https://t.me/CapitalChronicle/149",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:28:49.237769Z",
+            "posted_at_utc": "2026-11-10T16:25:02.621349+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e740f01437c8b75250dc38919e47b03e",
+            "dispatch_id": "dispatch_7a2686efe8ec11a6b2ee1718d38d6878",
+            "post_id": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+            "url": "https://t.me/CapitalChronicle/155",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:28:57.583072Z",
+            "posted_at_utc": "2026-11-10T16:27:44.719903+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e9f1ab1ba9f990c33e0e9b8a56092ff1",
+            "dispatch_id": "dispatch_1bb09e73329b2c82e4c1e3e401c76185",
+            "post_id": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+            "url": "https://t.me/CapitalChronicle/156",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:29:03.482845Z",
+            "posted_at_utc": "2026-11-10T16:28:10.039498+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_f76f6aaccdbdf3a4b4a3f75e0e3d1f1f",
+            "dispatch_id": "dispatch_ca08e9763dd451b3844b8a90ba377143",
+            "post_id": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+            "url": "https://t.me/CapitalChronicle/142",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:05.899011Z",
+            "posted_at_utc": "2026-11-10T16:15:35.607069+00:00",
+            "cause": null,
+            "hour_et": 11
+          }
+        ],
+        "cause": null
+      },
+      {
+        "type": "Result",
+        "platform": "threads",
+        "median_views": 1.5,
+        "n": 14,
+        "updated_at": "2026-11-11T06:35:50.664708Z",
+        "posts": [
+          {
+            "observation_id": "obs_1b8991c406f1d9158c60e74f906e2d9f",
+            "dispatch_id": "dispatch_7dd6327551b4fd3cfa0cc8b88879f939",
+            "post_id": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVefSI_VV",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:28:42.680219Z",
+            "posted_at_utc": "2026-11-10T16:28:13.147939+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_1e052fb10b86e32d28265fddfb7a7f64",
+            "dispatch_id": "dispatch_c9e9ccf48f3b72df2e4ed68e2277448a",
+            "post_id": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjAmYiFGhG",
+            "views": 0,
+            "collected_at_utc": "2026-11-11T06:28:46.615363Z",
+            "posted_at_utc": "2026-11-10T04:06:34.162742+00:00",
+            "cause": null,
+            "hour_et": 23
+          },
+          {
+            "observation_id": "obs_2723eef060d149638af787c4104c3c61",
+            "dispatch_id": "dispatch_a4214a60047b793ac0641eec1f7e84dd",
+            "post_id": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVXTKow7A",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:28:49.953913Z",
+            "posted_at_utc": "2026-11-10T16:27:14.003361+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_502f8c2a679e0fa568c49e3a27dee734",
+            "dispatch_id": "dispatch_f94dbbf8315a37b02b074d00d9d5a411",
+            "post_id": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVT2go7cz",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:01.439898Z",
+            "posted_at_utc": "2026-11-10T16:26:46.189113+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_5b532bf9fbf7a37af05ffd7082389ed8",
+            "dispatch_id": "dispatch_960a127a54a6dfea6f7b8be2aa81c1c3",
+            "post_id": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVO5uoy09",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:06.549119Z",
+            "posted_at_utc": "2026-11-10T16:26:05.555262+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_5d9af3f45b3a6bd84d644d63c999bef0",
+            "dispatch_id": "dispatch_b3c5e2db23d042b42909f163308c7695",
+            "post_id": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVLkto8-R",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:07.224507Z",
+            "posted_at_utc": "2026-11-10T16:25:38.220375+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_646620de32586ea7111867f4bbde1a9d",
+            "dispatch_id": "dispatch_521baa69b97c8a431bc2fda8fb6ece5c",
+            "post_id": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVbYmo5xd",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:07.890611Z",
+            "posted_at_utc": "2026-11-10T16:27:47.779314+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_64bb22ce080d91b3396b4b3650db63d3",
+            "dispatch_id": "dispatch_b5dc5ae4bd52b0c6c541ecc5d8cad9ca",
+            "post_id": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUCb6o_Yy",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:08.543185Z",
+            "posted_at_utc": "2026-11-10T16:15:38.910127+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_64d25311062434ac47a2bfeb864be914",
+            "dispatch_id": "dispatch_d4c1f968eac477b1440f6a8676739d43",
+            "post_id": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkT7MEI_L2",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:29:09.205112Z",
+            "posted_at_utc": "2026-11-10T16:14:39.562048+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_bf26381b99f0bfa0c30cd9aefac42fe8",
+            "dispatch_id": "dispatch_ecb8af361d5a8bff979b6b3b2c08790a",
+            "post_id": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVEYqIyvP",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:29:13.208387Z",
+            "posted_at_utc": "2026-11-10T16:24:39.351054+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_c3ccc670cf507021e6cafebd4c7683b2",
+            "dispatch_id": "dispatch_7cbec28fd015154894bf3d34fb186b17",
+            "post_id": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVIciI0ID",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:13.888469Z",
+            "posted_at_utc": "2026-11-10T16:25:12.694740+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_c7a498ade9abe94f50a11270271673df",
+            "dispatch_id": "dispatch_2b9aa639cf319c50c4c17fa9fcd09159",
+            "post_id": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkT0Hoo9FX",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:14.602455Z",
+            "posted_at_utc": "2026-11-10T16:13:41.300465+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_f0ff90e8c0acb3a12a8bea0d8e931c0d",
+            "dispatch_id": "dispatch_af4efc37704dafec0975a36b98cc2778",
+            "post_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkViWqox1_",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:29:16.774569Z",
+            "posted_at_utc": "2026-11-10T16:28:44.943205+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_06b387465ed501f00222117ab13a8a65",
+            "dispatch_id": "dispatch_3064ee5fcc29c8332ac7147cab70fa72",
+            "post_id": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkyTy1EyXU",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:35:50.664708Z",
+            "posted_at_utc": "2026-11-10T20:40:09.674324+00:00",
+            "cause": null,
+            "hour_et": 15
+          }
+        ],
+        "cause": null
+      }
+    ],
+    "hours": [
+      {
+        "hour_et": 1,
+        "median_views": 3.0,
+        "n": 14,
+        "updated_at": "2026-11-11T19:16:21.988976Z",
+        "posts": [
+          {
+            "observation_id": "obs_038509d9b9d08ccdc43448e39998f1a6",
+            "dispatch_id": "dispatch_e2afba798481cf44b3c5be208fc47f44",
+            "post_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T19:16:21.973213Z",
+            "posted_at_utc": "2026-11-10T06:27:51.540402+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_1b89b524acbf0ab02b2ebe007451af15",
+            "dispatch_id": "dispatch_071766b3da6eb9dcbc7757b149308d9a",
+            "post_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+            "url": "https://www.facebook.com/1342369584748125/posts/1450581160593633",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:32.935975Z",
+            "posted_at_utc": "2026-11-10T06:25:48.881221+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_0299c2ad67443ead5c1e1ef7eebfee97",
+            "dispatch_id": "dispatch_e4096e40c2c9b1159d4995d6ad027755",
+            "post_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+            "url": "https://www.instagram.com/p/DfjQnXDD0Qu/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T19:16:21.988976Z",
+            "posted_at_utc": "2026-11-10T06:27:32.389227+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_242197bcff2028d9e708f53621563671",
+            "dispatch_id": "dispatch_331b8f4002663ea47eee2ccb6412e43b",
+            "post_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:32.058739Z",
+            "posted_at_utc": "2026-11-10T06:27:27.200410+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_486e23233db134f0d7192789bf9ca185",
+            "dispatch_id": "dispatch_30106b516cfe7e61bd811c88ebb69e88",
+            "post_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+            "url": "https://t.me/CapitalChronicle/123",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:24:43.164429Z",
+            "posted_at_utc": "2026-11-10T06:27:09.935623+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_c4626c65417a2299d25b72721e489d20",
+            "dispatch_id": "dispatch_13910bfc6839f395923ffb63757635e2",
+            "post_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQpuRFDTc",
+            "views": 23,
+            "collected_at_utc": "2026-11-11T06:24:54.046830Z",
+            "posted_at_utc": "2026-11-10T06:26:49.674486+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_73429500771e323bf336698e719744da",
+            "dispatch_id": "dispatch_2bbd83e917ccf3ca1cd2431f2544fc83",
+            "post_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:58.651738Z",
+            "posted_at_utc": "2026-11-10T06:27:01.004775+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_4e82ac3344d72a0d67164f83017f1eaf",
+            "dispatch_id": "dispatch_bf6bcf7d1ee53a5faccff5dd0d03d52a",
+            "post_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+            "url": "https://t.me/CapitalChronicle/124",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:25:01.774054Z",
+            "posted_at_utc": "2026-11-10T06:27:34.482080+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_8dfd5b65ee3b72186eb194798d30a96b",
+            "dispatch_id": "dispatch_921740aeb7c9a211bd9a7ed7e8a01bb9",
+            "post_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:06.706534Z",
+            "posted_at_utc": "2026-11-10T06:28:43.882696+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_f429046d4d2c6a9ffcb7a47dc56361c0",
+            "dispatch_id": "dispatch_f48275989a425293615bd8ebf7f4519e",
+            "post_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjTyL6FIn8",
+            "views": 10,
+            "collected_at_utc": "2026-11-11T06:25:10.001991Z",
+            "posted_at_utc": "2026-11-10T06:54:12.114963+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_9b829917be95081b990deaf6469b6595",
+            "dispatch_id": "dispatch_8852f751d305f6a97eaf56e92e161e2b",
+            "post_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+            "url": "https://www.facebook.com/1342369584748125/posts/1450602847258131",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:10.699461Z",
+            "posted_at_utc": "2026-11-10T06:53:37.261686+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_e340e5b5b3e1cb84678fd30cf4c60689",
+            "dispatch_id": "dispatch_2a7b37a724bc0e05d1b682b5d849ea7c",
+            "post_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569598929002176564",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:15.043363Z",
+            "posted_at_utc": "2026-11-10T06:25:46.019328+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_63b1e3a6ff8b0c5bbaf45727f57778b0",
+            "dispatch_id": "dispatch_5e81359e4f7e0a8854bb63be4a46d910",
+            "post_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+            "url": "https://t.me/CapitalChronicle/125",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:25:17.055023Z",
+            "posted_at_utc": "2026-11-10T06:27:59.628859+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_dbcc16a82987af7db8e185fe05e4ae7d",
+            "dispatch_id": "dispatch_51956d2a5d2d29dda22523bd1af2b364",
+            "post_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:50.786288Z",
+            "posted_at_utc": "2026-11-10T06:28:18.015825+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_6f6f7df3112f37cd9d0bc3b129ae9196",
+            "dispatch_id": "dispatch_ff1d76a3b3cf09f798d9e1f26eddf623",
+            "post_id": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+            "url": "https://t.me/CapitalChronicle/122",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:26:04.758071Z",
+            "posted_at_utc": "2026-11-10T06:26:46.619232+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_c58b85855c39aff3ea37509eda825837",
+            "dispatch_id": "dispatch_19c026474e254990d9ce3d97286104e4",
+            "post_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+            "url": "https://t.me/CapitalChronicle/128",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:26:21.733535Z",
+            "posted_at_utc": "2026-11-10T06:54:09.093326+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_ceea72686ec9cfb7ed9a3e00ac0770e7",
+            "dispatch_id": "dispatch_c13b5add6890fbb74381d886d34f11f2",
+            "post_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+            "url": "https://t.me/CapitalChronicle/126",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:23.807897Z",
+            "posted_at_utc": "2026-11-10T06:28:25.604860+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_d77d7bc4f74e17fadaed98effa02b333",
+            "dispatch_id": "dispatch_98e19e42f77fd181038ab6baf68890b2",
+            "post_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+            "url": "https://t.me/CapitalChronicle/127",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:33.348348Z",
+            "posted_at_utc": "2026-11-10T06:28:53.698173+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_43afdd88739e69480f0c83b1eefdd4b2",
+            "dispatch_id": "dispatch_e3956545fbd2fb5e65c640add4bba811",
+            "post_id": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQvg1FCEw",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:28:55.580594Z",
+            "posted_at_utc": "2026-11-10T06:27:37.296468+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_506560b98133e95984e3860b13ce144e",
+            "dispatch_id": "dispatch_bfcc9f97a40f28b4cea994e72388aed4",
+            "post_id": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQsh2lGlU",
+            "views": 9,
+            "collected_at_utc": "2026-11-11T06:29:04.081276Z",
+            "posted_at_utc": "2026-11-10T06:27:12.915404+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_9af65800ebc88bc59f779125eb477346",
+            "dispatch_id": "dispatch_5b6ea73675c8b3508c8b6ac0ae16e246",
+            "post_id": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQyjflORU",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:11.223604Z",
+            "posted_at_utc": "2026-11-10T06:28:02.280041+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_deccfd7f73556baa4511e710dd721cfd",
+            "dispatch_id": "dispatch_22670d7abf07c333b7023ae4bdd4fc34",
+            "post_id": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQ5NYFP93",
+            "views": 0,
+            "collected_at_utc": "2026-11-11T06:29:15.300929Z",
+            "posted_at_utc": "2026-11-10T06:28:56.763877+00:00",
+            "cause": null,
+            "hour_et": 1
+          },
+          {
+            "observation_id": "obs_f708fb92ddd708fbf1696e6dfba6c860",
+            "dispatch_id": "dispatch_5d7178d0e9a0cf590db76eb906cc92dd",
+            "post_id": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjQ1ylFHIA",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:17.438498Z",
+            "posted_at_utc": "2026-11-10T06:28:28.689974+00:00",
+            "cause": null,
+            "hour_et": 1
+          }
+        ],
+        "cause": null
+      },
+      {
+        "hour_et": 3,
+        "median_views": 3,
+        "n": 11,
+        "updated_at": "2026-11-11T19:16:21.956240Z",
+        "posts": [
+          {
+            "observation_id": "obs_0c3414080d50eb004c1bd905dc4666dc",
+            "dispatch_id": "dispatch_137fb6c22e57ebef95e7cf57c7a6b34b",
+            "post_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjflvNFPEI",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:23:19.149879Z",
+            "posted_at_utc": "2026-11-10T08:37:21.947325+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_1bef3cd55435ebe2090a56ae85d06b70",
+            "dispatch_id": "dispatch_ad9354a602f82a38f4d0736f5fc26fd7",
+            "post_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjbwtLlCrY",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:23:37.620859Z",
+            "posted_at_utc": "2026-11-10T08:03:54.599058+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_bc9232504649936639b591a4858b5a1a",
+            "dispatch_id": "dispatch_bb967858606bd15d067b3ea5556413e1",
+            "post_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjgrEelO6G",
+            "views": 0,
+            "collected_at_utc": "2026-11-11T06:24:48.749994Z",
+            "posted_at_utc": "2026-11-10T08:46:49.835989+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_4aed7328655e91b0cd0845a98f098b9c",
+            "dispatch_id": "dispatch_2f94b8b1c5c11648de699beb05aa47d4",
+            "post_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-telegram",
+            "url": "https://t.me/CapitalChronicle/130",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:24:53.365483Z",
+            "posted_at_utc": "2026-11-10T08:04:08.270873+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_010c673cf04c1172dbb2abfe7b9a1541",
+            "dispatch_id": "dispatch_637c26b2fded02873a941800a6599816",
+            "post_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfjfnr7lCEB",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T19:16:21.956240Z",
+            "posted_at_utc": "2026-11-10T08:37:37.915108+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_f7aacd5fb0bebb820afdacafcf6b9178",
+            "dispatch_id": "dispatch_b11cf652096a635135eec8a249c6c385",
+            "post_id": "plan-analysis-root-plan_8b7c1dd880206079033b6efe-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjgiOeFOGD",
+            "views": 19,
+            "collected_at_utc": "2026-11-11T06:25:13.962997Z",
+            "posted_at_utc": "2026-11-10T08:45:36.571194+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_fd2109873f28117366292fb86acd4a71",
+            "dispatch_id": "dispatch_03d441be9e69e39b262b87334f6d524f",
+            "post_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-threads",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfjbyr2lB6u",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:25:55.431196Z",
+            "posted_at_utc": "2026-11-10T08:04:10.733317+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_9519839432c41829b78c4cb68d5411e8",
+            "dispatch_id": "dispatch_019e2a7e650546da92454d3ed9d4df97",
+            "post_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-telegram",
+            "url": "https://t.me/CapitalChronicle/133",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:12.711584Z",
+            "posted_at_utc": "2026-11-10T08:40:39.081365+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_b823dbddb5e2a88d2ea99f93a67a496c",
+            "dispatch_id": "dispatch_407cd68da5ea6c66255ae1d90bc7c51e",
+            "post_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-telegram",
+            "url": "https://t.me/CapitalChronicle/129",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:26:17.987277Z",
+            "posted_at_utc": "2026-11-10T08:03:51.262936+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_d37924b18dc762ad00d8d4ecb35aa594",
+            "dispatch_id": "dispatch_f0f8c2e0f422444a1bf2698e5f581e47",
+            "post_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-telegram",
+            "url": "https://t.me/CapitalChronicle/131",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:29.370103Z",
+            "posted_at_utc": "2026-11-10T08:37:19.067358+00:00",
+            "cause": null,
+            "hour_et": 3
+          },
+          {
+            "observation_id": "obs_d3f90e321588b3134df6ee23e3eb3592",
+            "dispatch_id": "dispatch_ee5fb312fa6e438ab6bbe1b5000d6116",
+            "post_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-telegram",
+            "url": "https://t.me/CapitalChronicle/132",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:31.739677Z",
+            "posted_at_utc": "2026-11-10T08:37:35.473762+00:00",
+            "cause": null,
+            "hour_et": 3
+          }
+        ],
+        "cause": null
+      },
+      {
+        "hour_et": 7,
+        "median_views": 74.0,
+        "n": 2,
+        "updated_at": "2026-11-11T06:28:54.938125Z",
+        "posts": [
+          {
+            "observation_id": "obs_0ab09cf653fcce0de9d3b7c5d947f27d",
+            "dispatch_id": "dispatch_1d490cb220d3b2d887680b5aaed4c74f",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://www.instagram.com/p/Dfj5h_nj32E/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:21.085683Z",
+            "posted_at_utc": "2026-11-10T12:24:00.935056+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 7
+          },
+          {
+            "observation_id": "obs_25321e1a3f0d64f4babe7e30b4e27ac1",
+            "dispatch_id": "dispatch_a24e9d4dccb02ad711eaa623ba2a2189",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfj42NGlE4E",
+            "views": 145,
+            "collected_at_utc": "2026-11-11T06:24:36.341492Z",
+            "posted_at_utc": "2026-11-10T12:18:03.511519+00:00",
+            "cause": null,
+            "hour_et": 7
+          },
+          {
+            "observation_id": "obs_e424e9d2ca56f2114b3925f3e160112c",
+            "dispatch_id": "dispatch_4fd0460a86f1338d6cd9f8d8b951ab4f",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569687377679745110",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:51.693789Z",
+            "posted_at_utc": "2026-11-10T12:17:13.591347+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 7
+          },
+          {
+            "observation_id": "obs_e4e3de6c14ee4ef579d97298a66fa6b3",
+            "dispatch_id": "dispatch_3c2849e1224d27f24c68e50a5f296434",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://www.facebook.com/1342369584748125/posts/1450849443900138",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:59.497982Z",
+            "posted_at_utc": "2026-11-10T12:17:17.247000+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 7
+          },
+          {
+            "observation_id": "obs_e38f857bc0ee4b2e7fa4b1a379345104",
+            "dispatch_id": "dispatch_2489d8c9c9cd4561e9afe7ea090280b5",
+            "post_id": "cc338-cpi-preview-20261110-v1",
+            "url": "https://t.me/CapitalChronicle/136",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:28:54.938125Z",
+            "posted_at_utc": "2026-11-10T12:17:59.274449+00:00",
+            "cause": null,
+            "hour_et": 7
+          }
+        ],
+        "cause": null
+      },
+      {
+        "hour_et": 8,
+        "median_views": 2.0,
+        "n": 2,
+        "updated_at": "2026-11-11T06:24:48.017662Z",
+        "posts": [
+          {
+            "observation_id": "obs_0ef7e223477238d21ac8860632db3372",
+            "dispatch_id": "dispatch_f269a74819e9c35d3f0f9110c8a56e54",
+            "post_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+            "url": "https://www.facebook.com/1342369584748125/posts/1450916280560121",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:20.110405Z",
+            "posted_at_utc": "2026-11-10T13:33:41.747851+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 8
+          },
+          {
+            "observation_id": "obs_2bb3a56d989026e3e43144ac6fa90295",
+            "dispatch_id": "dispatch_4b43dacde0bfd6c779b0b4d764531fb5",
+            "post_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569706608089501787",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:34.283328Z",
+            "posted_at_utc": "2026-11-10T13:33:38.291364+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 8
+          },
+          {
+            "observation_id": "obs_377091f7ee0791c86e5573032a9638aa",
+            "dispatch_id": "dispatch_c13e5a4faf22f99532b0d18d5e9b7343",
+            "post_id": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569703100032225312",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:32.433382Z",
+            "posted_at_utc": "2026-11-10T13:19:42.327573+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 8
+          },
+          {
+            "observation_id": "obs_a6fd26981b03d77b2c23749e8c877060",
+            "dispatch_id": "dispatch_0f56008401091c9978c33eb2732a5be1",
+            "post_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkBjRflPto",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:24:43.807294Z",
+            "posted_at_utc": "2026-11-10T13:34:07.278855+00:00",
+            "cause": null,
+            "hour_et": 8
+          },
+          {
+            "observation_id": "obs_48ec21342092361600320bb0f395f3d7",
+            "dispatch_id": "dispatch_0d52415837f520ef7245f3737abba37b",
+            "post_id": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+            "url": "https://t.me/CapitalChronicle/137",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:24:48.017662Z",
+            "posted_at_utc": "2026-11-10T13:34:04.087270+00:00",
+            "cause": null,
+            "hour_et": 8
+          }
+        ],
+        "cause": null
+      },
+      {
+        "hour_et": 11,
+        "median_views": 2,
+        "n": 41,
+        "updated_at": "2026-11-11T19:16:22.057043Z",
+        "posts": [
+          {
+            "observation_id": "obs_06ae63c7d900cff2e52b6c1e9c702d6b",
+            "dispatch_id": "dispatch_55702fa11df77e66f53de38ebf44aaba",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748728376729611",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:21.554174Z",
+            "posted_at_utc": "2026-11-10T16:21:00.685739+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_4f411c83414923e99a70e5c5f0c833ad",
+            "dispatch_id": "dispatch_9408d403f8132a59dfe68ba19dde872e",
+            "post_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+            "url": "https://www.instagram.com/p/DfjTwO1D7wb/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:32.077193Z",
+            "posted_at_utc": "2026-11-10T16:11:38.533391+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_123f81ae891bbd641fcb0425fabaf244",
+            "dispatch_id": "dispatch_00da48d1fdf3249c6992a0e5d0d55793",
+            "post_id": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+            "url": "https://t.me/CapitalChronicle/154",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:23:31.456427Z",
+            "posted_at_utc": "2026-11-10T16:27:10.617239+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_1e72a3452f3fd45078b6fe43bf9a6eb0",
+            "dispatch_id": "dispatch_5f919160004b26110b494d305da06ebc",
+            "post_id": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+            "url": "https://t.me/CapitalChronicle/153",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:23:37.018103Z",
+            "posted_at_utc": "2026-11-10T16:26:42.647655+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_1f27661f06dfa280adbbe10d529b1149",
+            "dispatch_id": "dispatch_016e233a491936346bc5a80cdae65845",
+            "post_id": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:37.943381Z",
+            "posted_at_utc": "2026-11-10T16:26:34.430769+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_de0573a1e1cd60d275935bddf776188c",
+            "dispatch_id": "dispatch_b25719d8d4da98b29de510bab6192f40",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": "https://www.instagram.com/p/DfkUlnLj2wM/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:59.514851Z",
+            "posted_at_utc": "2026-11-10T16:21:08.889439+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_10423b182443bfda7563615fb3a5be27",
+            "dispatch_id": "dispatch_12f0180081e8ba9d2b0830e1695c627e",
+            "post_id": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+            "url": "https://t.me/CapitalChronicle/141",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T19:16:22.057043Z",
+            "posted_at_utc": "2026-11-10T16:14:35.901737+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_26dd196c84b2d0e04541946e2bfb603e",
+            "dispatch_id": "dispatch_6d70e311be0a8a45b3bc0157c4cb3742",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:36.675597Z",
+            "posted_at_utc": "2026-11-10T16:21:03.116777+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_25a04bda4cfaeae8b9702db62429cfed",
+            "dispatch_id": "dispatch_6d8c80054b93face7346de8e2fdd76ef",
+            "post_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUnz1I6P_",
+            "views": 13,
+            "collected_at_utc": "2026-11-11T06:24:40.420389Z",
+            "posted_at_utc": "2026-11-10T16:20:45.250109+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_30f4c29750a73abdfe6f97465372dc3b",
+            "dispatch_id": "dispatch_2b33ebe8014b4f6441582553e7afb4c4",
+            "post_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:40.728633Z",
+            "posted_at_utc": "2026-11-10T16:12:04.427211+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_474e78720ba1acbfb1779afe3a1c666b",
+            "dispatch_id": "dispatch_690e443d814e58f6934841d5c191919c",
+            "post_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:44.110027Z",
+            "posted_at_utc": "2026-11-10T16:22:44.952089+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e8004228f8ed0f2ca6036ee7e4c6d28b",
+            "dispatch_id": "dispatch_58dceef53c42c4d387e8529b72532577",
+            "post_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+            "url": "https://www.instagram.com/p/DfkBhO0jyGZ/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:26:05.119294Z",
+            "posted_at_utc": "2026-11-10T16:12:10.976245+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_4dd39e1f55bcb59aec55a02be5ade776",
+            "dispatch_id": "dispatch_599095c91c327ec26d370daf389359aa",
+            "post_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+            "url": "https://www.facebook.com/1342369584748125/posts/1451065237211892",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:50.031694Z",
+            "posted_at_utc": "2026-11-10T16:19:49.932746+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_6f16c4d42299941851942a1b29e997fd",
+            "dispatch_id": "dispatch_0646ee4d57c9f233a943bee8af9023aa",
+            "post_id": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:50.438578Z",
+            "posted_at_utc": "2026-11-10T16:26:38.534331+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_654963d3b3eee15f805f81607bd3a5c3",
+            "dispatch_id": "dispatch_ba6cc723cb940eb98764e98e426cd30a",
+            "post_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748871180189796",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:50.839098Z",
+            "posted_at_utc": "2026-11-10T16:21:34.508437+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_64b3564ef8001cddbed13191d6950a88",
+            "dispatch_id": "dispatch_d896880f26b55d6d8acd1420d05c6f41",
+            "post_id": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:54.634892Z",
+            "posted_at_utc": "2026-11-10T16:27:36.489763+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_9fd7f3aac729e43c6e31e38849a85671",
+            "dispatch_id": "dispatch_ea04958b8d8aff9c4b939b77a33167df",
+            "post_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569749009965256767",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:59.068676Z",
+            "posted_at_utc": "2026-11-10T16:22:07.754294+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_785b18186af17de9b252f714dd2b3854",
+            "dispatch_id": "dispatch_f9101c4acbe185f31ed900ab825f49d6",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:02.784135Z",
+            "posted_at_utc": "2026-11-10T16:38:36.624654+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_930b6d9aa95b655b1365d569ce19231c",
+            "dispatch_id": "dispatch_517b964e832e650326089e5b7195acde",
+            "post_id": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:03.257704Z",
+            "posted_at_utc": "2026-11-10T16:27:40.624617+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_a2557388e22d9dd5aef3d5512e54fca0",
+            "dispatch_id": "dispatch_462815fdae29a62d8372227e8366c467",
+            "post_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569749155533037619",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:03.665438Z",
+            "posted_at_utc": "2026-11-10T16:22:42.462127+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_a32c1fc11f74301d6627b822e8f7c6fc",
+            "dispatch_id": "dispatch_18c14f792d6dc0fb6251571b41af2ffb",
+            "post_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569748420481122395",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:07.110507Z",
+            "posted_at_utc": "2026-11-10T16:19:47.442061+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_600d944ed23948993e0b8150194c1a24",
+            "dispatch_id": "dispatch_d96bc8a0554343792978effaddba03c5",
+            "post_id": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+            "url": "https://t.me/CapitalChronicle/140",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:25:09.410079Z",
+            "posted_at_utc": "2026-11-10T16:13:38.115944+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_62bcfc69d9fb6bcac068a2452a5243d9",
+            "dispatch_id": "dispatch_b7dd55a065448278923ec46db123dd2b",
+            "post_id": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+            "url": "https://t.me/CapitalChronicle/151",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:25:13.386077Z",
+            "posted_at_utc": "2026-11-10T16:25:35.125749+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_bf97a578d2584c413115dd5dfff98884",
+            "dispatch_id": "dispatch_50022ed9beda05f099a90067e39268a4",
+            "post_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:14.287469Z",
+            "posted_at_utc": "2026-11-10T16:22:10.290522+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_cfaeeb5d21b46675c681b0e889501f86",
+            "dispatch_id": "dispatch_fabe1b58a2e1bc28224d57a311daa2cf",
+            "post_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:14.680122Z",
+            "posted_at_utc": "2026-11-10T16:28:38.607443+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_d7041e56d9f2e61a4af3336e6de0e340",
+            "dispatch_id": "dispatch_b1735c4e94cbc6cbaccd456c8da34387",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:51.293580Z",
+            "posted_at_utc": "2026-11-10T16:38:40.933177+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_6b15cbc518701d84e36c1051526e4c7a",
+            "dispatch_id": "dispatch_0c381826a0852353e5eb1338c0ade67c",
+            "post_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+            "url": "https://t.me/CapitalChronicle/147",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:25:54.736343Z",
+            "posted_at_utc": "2026-11-10T16:22:53.178961+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e097098048e53af3082c61aea2ce1668",
+            "dispatch_id": "dispatch_87c15bb9485cdb46a3f6f142b5fbac74",
+            "post_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:55.737229Z",
+            "posted_at_utc": "2026-11-10T16:21:37.297461+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_6b3a2ec43cf25fba0bc972e0580b060c",
+            "dispatch_id": "dispatch_cef289b68b164c9feaf41a75bb24efee",
+            "post_id": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+            "url": "https://t.me/CapitalChronicle/148",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:25:58.748456Z",
+            "posted_at_utc": "2026-11-10T16:24:36.215328+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_fdeca63b3eb9cbf010693d9bf3bc01f7",
+            "dispatch_id": "dispatch_c2b53c51ab12cef2d0cc523cde9ae2f3",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569753146874658928",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:59.887968Z",
+            "posted_at_utc": "2026-11-10T16:38:34.464158+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_6ddef4dd37c346227f985d7753c9726d",
+            "dispatch_id": "dispatch_0fb01df51623dc4cb3de4de8504cc3f7",
+            "post_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+            "url": "https://t.me/CapitalChronicle/139",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:02.110818Z",
+            "posted_at_utc": "2026-11-10T16:12:13.410006+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_ed184f06d5407e6c05a41aa136aea8c6",
+            "dispatch_id": "dispatch_840f95fbac06cc5f2c1e57d8f736edc0",
+            "post_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:26:02.701724Z",
+            "posted_at_utc": "2026-11-10T16:11:32.122197+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_f4140e67fd2a6b231b46f0cad885d4b1",
+            "dispatch_id": "dispatch_65005474144a39ecfb5765939cf16939",
+            "post_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:26:05.075630Z",
+            "posted_at_utc": "2026-11-10T16:28:34.853166+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_7636cd8d2036e594bf1e0be57f31c083",
+            "dispatch_id": "dispatch_ad0692305272064497d68a9802724526",
+            "post_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+            "url": "https://t.me/CapitalChronicle/138",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:08.788320Z",
+            "posted_at_utc": "2026-11-10T16:11:40.688411+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_7b5813077183afc9caf65ad3c622d953",
+            "dispatch_id": "dispatch_7b954873bbe1fcbd565efc0a706ebecf",
+            "post_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+            "url": "https://t.me/CapitalChronicle/146",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:26:10.559886Z",
+            "posted_at_utc": "2026-11-10T16:22:18.288941+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_a23f07e1942a656ccc9151e185856db2",
+            "dispatch_id": "dispatch_08ac9b4098ca76f267f1efcffac71a02",
+            "post_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+            "url": "https://t.me/CapitalChronicle/145",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:26:14.504298Z",
+            "posted_at_utc": "2026-11-10T16:21:45.687827+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_b076569950f8f8e85b8e0b4bfb4b61cc",
+            "dispatch_id": "dispatch_81c598fc5c4db589c6a83e888b9622dd",
+            "post_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+            "url": "https://t.me/CapitalChronicle/157",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:16.459818Z",
+            "posted_at_utc": "2026-11-10T16:28:42.364459+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_b8fd5984882388e58b68092b78e4b156",
+            "dispatch_id": "dispatch_3aa0afcf42c7b69fb90c13a145885320",
+            "post_id": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+            "url": "https://t.me/CapitalChronicle/152",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:20.180353Z",
+            "posted_at_utc": "2026-11-10T16:26:02.470521+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_cf2d173645e3c40423e301a56af0f214",
+            "dispatch_id": "dispatch_8d1150b8324e8dae1ca6236743dad3b8",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": "https://t.me/CapitalChronicle/158",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:27.551484Z",
+            "posted_at_utc": "2026-11-10T16:38:45.016640+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_1b8991c406f1d9158c60e74f906e2d9f",
+            "dispatch_id": "dispatch_7dd6327551b4fd3cfa0cc8b88879f939",
+            "post_id": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVefSI_VV",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:28:42.680219Z",
+            "posted_at_utc": "2026-11-10T16:28:13.147939+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_de8850760fa669fba1f1467a6612b99a",
+            "dispatch_id": "dispatch_d04a8fd7e897226933c0cb515cb4c455",
+            "post_id": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+            "url": "https://t.me/CapitalChronicle/150",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:28:45.963985Z",
+            "posted_at_utc": "2026-11-10T16:25:09.890510+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_df845496d75488e9aef6da554218dedb",
+            "dispatch_id": "dispatch_1f4d746d422f994e1b7eacd597001ea3",
+            "post_id": "plan-result-post-6c9969838ea89afe7842aa9548fa05fb",
+            "url": "https://t.me/CapitalChronicle/149",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:28:49.237769Z",
+            "posted_at_utc": "2026-11-10T16:25:02.621349+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_2723eef060d149638af787c4104c3c61",
+            "dispatch_id": "dispatch_a4214a60047b793ac0641eec1f7e84dd",
+            "post_id": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVXTKow7A",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:28:49.953913Z",
+            "posted_at_utc": "2026-11-10T16:27:14.003361+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e0bbcf350fe35dd0d3e7390b2994167b",
+            "dispatch_id": "dispatch_30c29ea40c7ac2684d0eaf3cd42c7012",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": "https://t.me/CapitalChronicle/144",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:28:52.131768Z",
+            "posted_at_utc": "2026-11-10T16:21:10.900045+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_2e3d0877de9d2726f34e2bf990cddb74",
+            "dispatch_id": "dispatch_ec75b4443c9c5884b3b5e4a25be06476",
+            "post_id": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUrebo92j",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:28:52.767608Z",
+            "posted_at_utc": "2026-11-10T16:21:15.373553+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e740f01437c8b75250dc38919e47b03e",
+            "dispatch_id": "dispatch_7a2686efe8ec11a6b2ee1718d38d6878",
+            "post_id": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+            "url": "https://t.me/CapitalChronicle/155",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:28:57.583072Z",
+            "posted_at_utc": "2026-11-10T16:27:44.719903+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_48c0d31ba5b671763ee53143059db598",
+            "dispatch_id": "dispatch_fd3ce5355c518141aa259f1fb5df6b9a",
+            "post_id": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUzrRIxn_",
+            "views": 9,
+            "collected_at_utc": "2026-11-11T06:28:58.295890Z",
+            "posted_at_utc": "2026-11-10T16:22:22.461968+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e81e0fc6d4ab2231e86bf15f583da6c2",
+            "dispatch_id": "dispatch_9b2cf2a5274568cf0133f3fdbb91f175",
+            "post_id": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+            "url": "https://t.me/CapitalChronicle/143",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:00.818731Z",
+            "posted_at_utc": "2026-11-10T16:20:42.359733+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_502f8c2a679e0fa568c49e3a27dee734",
+            "dispatch_id": "dispatch_f94dbbf8315a37b02b074d00d9d5a411",
+            "post_id": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVT2go7cz",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:01.439898Z",
+            "posted_at_utc": "2026-11-10T16:26:46.189113+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_e9f1ab1ba9f990c33e0e9b8a56092ff1",
+            "dispatch_id": "dispatch_1bb09e73329b2c82e4c1e3e401c76185",
+            "post_id": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+            "url": "https://t.me/CapitalChronicle/156",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:29:03.482845Z",
+            "posted_at_utc": "2026-11-10T16:28:10.039498+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_f76f6aaccdbdf3a4b4a3f75e0e3d1f1f",
+            "dispatch_id": "dispatch_ca08e9763dd451b3844b8a90ba377143",
+            "post_id": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+            "url": "https://t.me/CapitalChronicle/142",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:05.899011Z",
+            "posted_at_utc": "2026-11-10T16:15:35.607069+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_5b532bf9fbf7a37af05ffd7082389ed8",
+            "dispatch_id": "dispatch_960a127a54a6dfea6f7b8be2aa81c1c3",
+            "post_id": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVO5uoy09",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:06.549119Z",
+            "posted_at_utc": "2026-11-10T16:26:05.555262+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_5d9af3f45b3a6bd84d644d63c999bef0",
+            "dispatch_id": "dispatch_b3c5e2db23d042b42909f163308c7695",
+            "post_id": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVLkto8-R",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:07.224507Z",
+            "posted_at_utc": "2026-11-10T16:25:38.220375+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_646620de32586ea7111867f4bbde1a9d",
+            "dispatch_id": "dispatch_521baa69b97c8a431bc2fda8fb6ece5c",
+            "post_id": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVbYmo5xd",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:07.890611Z",
+            "posted_at_utc": "2026-11-10T16:27:47.779314+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_64bb22ce080d91b3396b4b3650db63d3",
+            "dispatch_id": "dispatch_b5dc5ae4bd52b0c6c541ecc5d8cad9ca",
+            "post_id": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUCb6o_Yy",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:08.543185Z",
+            "posted_at_utc": "2026-11-10T16:15:38.910127+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_64d25311062434ac47a2bfeb864be914",
+            "dispatch_id": "dispatch_d4c1f968eac477b1440f6a8676739d43",
+            "post_id": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkT7MEI_L2",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:29:09.205112Z",
+            "posted_at_utc": "2026-11-10T16:14:39.562048+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_6e0767c613e1c03d0f23a729280a3b1f",
+            "dispatch_id": "dispatch_bd010e48521ed79f525ee83c65c299e4",
+            "post_id": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkTlwJo5t_",
+            "views": 6,
+            "collected_at_utc": "2026-11-11T06:29:09.857737Z",
+            "posted_at_utc": "2026-11-10T16:11:44.169561+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_8796f981f8a45d34431ba09bc46d5dc6",
+            "dispatch_id": "dispatch_99771956553ca6fe67ed77d8a6e03554",
+            "post_id": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkTp17I881",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:10.559315Z",
+            "posted_at_utc": "2026-11-10T16:12:17.380842+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_ad8de3d0a7cc5a890d4f37a04e81be93",
+            "dispatch_id": "dispatch_052c62f9e8454aa148f1165504c00d8a",
+            "post_id": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkU3zPo_JN",
+            "views": 8,
+            "collected_at_utc": "2026-11-11T06:29:11.938491Z",
+            "posted_at_utc": "2026-11-10T16:22:56.216908+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_b431c310b99f8b5335d3a3aed5b9f7f4",
+            "dispatch_id": "dispatch_f174af6279b63a5f5e79e3a6017a5e79",
+            "post_id": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkUvq7I2Lm",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:29:12.564568Z",
+            "posted_at_utc": "2026-11-10T16:21:49.589400+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_bf26381b99f0bfa0c30cd9aefac42fe8",
+            "dispatch_id": "dispatch_ecb8af361d5a8bff979b6b3b2c08790a",
+            "post_id": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVEYqIyvP",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:29:13.208387Z",
+            "posted_at_utc": "2026-11-10T16:24:39.351054+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_c3ccc670cf507021e6cafebd4c7683b2",
+            "dispatch_id": "dispatch_7cbec28fd015154894bf3d34fb186b17",
+            "post_id": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkVIciI0ID",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:29:13.888469Z",
+            "posted_at_utc": "2026-11-10T16:25:12.694740+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_c7a498ade9abe94f50a11270271673df",
+            "dispatch_id": "dispatch_2b9aa639cf319c50c4c17fa9fcd09159",
+            "post_id": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkT0Hoo9FX",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:14.602455Z",
+            "posted_at_utc": "2026-11-10T16:13:41.300465+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_ec83a858601183ad149fc683db9ef64d",
+            "dispatch_id": "dispatch_3a01ab1417e6225d3cd980823cd3b29e",
+            "post_id": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkWsITI6im",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:29:16.081247Z",
+            "posted_at_utc": "2026-11-10T16:38:48.850882+00:00",
+            "cause": null,
+            "hour_et": 11
+          },
+          {
+            "observation_id": "obs_f0ff90e8c0acb3a12a8bea0d8e931c0d",
+            "dispatch_id": "dispatch_af4efc37704dafec0975a36b98cc2778",
+            "post_id": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkViWqox1_",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:29:16.774569Z",
+            "posted_at_utc": "2026-11-10T16:28:44.943205+00:00",
+            "cause": null,
+            "hour_et": 11
+          }
+        ],
+        "cause": null
+      },
+      {
+        "hour_et": 15,
+        "median_views": 1,
+        "n": 1,
+        "updated_at": "2026-11-11T06:35:56.257033Z",
+        "posts": [
+          {
+            "observation_id": "obs_0e67bbdb18655f568544f5fa5ef7e326",
+            "dispatch_id": "dispatch_1bad03b75fcf1090927e5940823cc3a1",
+            "post_id": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:31:05.774172Z",
+            "posted_at_utc": "2026-11-10T20:39:56.971227+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 15
+          },
+          {
+            "observation_id": "obs_0b288d673aed3895341ed045a98f1368",
+            "dispatch_id": "dispatch_2c4caf1ee85b4ba12a6e5d153b2f0e42",
+            "post_id": "plan-result-post-35f59c0e8bd8e2fbfb3a28d252798e47",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569813719028990044",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:31:07.075259Z",
+            "posted_at_utc": "2026-11-10T20:39:15.945260+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 15
+          },
+          {
+            "observation_id": "obs_06b387465ed501f00222117ab13a8a65",
+            "dispatch_id": "dispatch_3064ee5fcc29c8332ac7147cab70fa72",
+            "post_id": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfkyTy1EyXU",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:35:50.664708Z",
+            "posted_at_utc": "2026-11-10T20:40:09.674324+00:00",
+            "cause": null,
+            "hour_et": 15
+          },
+          {
+            "observation_id": "obs_149f5e824196935f1d02006c88ac8e0a",
+            "dispatch_id": "dispatch_be7ba481362cd3a2e148c751ff4ba369",
+            "post_id": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569813881679912991",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:52.312069Z",
+            "posted_at_utc": "2026-11-10T20:39:54.683082+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 15
+          },
+          {
+            "observation_id": "obs_23a6596a0f108e13d2bd14bce62689fb",
+            "dispatch_id": "dispatch_e798876b2b6d2077dd38f4a02d02fd6b",
+            "post_id": "plan-result-post-36f1c673b8ec94e7c56189bc6b0bddcb",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:56.257033Z",
+            "posted_at_utc": "2026-11-10T20:40:26.644549+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 15
+          }
+        ],
+        "cause": null
+      },
+      {
+        "hour_et": 20,
+        "median_views": 4,
+        "n": 7,
+        "updated_at": "2026-11-11T06:26:35.484603Z",
+        "posts": [
+          {
+            "observation_id": "obs_1b6626c2bc2abce3b49e926c3f47482e",
+            "dispatch_id": "dispatch_1966d4b0b74a36f62590d6d28092594c",
+            "post_id": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfiv-4wo9Up",
+            "views": 39,
+            "collected_at_utc": "2026-11-11T06:23:32.175869Z",
+            "posted_at_utc": "2026-11-10T01:41:21.199688+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_23eb3c7199b1d3fd2d06785e59188174",
+            "dispatch_id": "dispatch_c7d9621db7f537e76d431269584ffb83",
+            "post_id": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfiwDPPI1Ag",
+            "views": 10,
+            "collected_at_utc": "2026-11-11T06:24:31.698794Z",
+            "posted_at_utc": "2026-11-10T01:41:56.906320+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_46c22a81d78a9c7bad95918395c0e3a3",
+            "dispatch_id": "dispatch_445d1ebd37e28bd2c79523e1f25dbc71",
+            "post_id": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+            "url": "https://t.me/CapitalChronicle/117",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:24:39.805080Z",
+            "posted_at_utc": "2026-11-10T01:42:22.412468+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_5ef1254e12a7b899f15f051564289aca",
+            "dispatch_id": "dispatch_9cfc52a70a079ebd71d85bf4c675d109",
+            "post_id": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527291086766194",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:41.143543Z",
+            "posted_at_utc": "2026-11-10T01:41:04.936786+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_6ec52dfdd2f20ee1f5166eee6b35f7b9",
+            "dispatch_id": "dispatch_5bad5a767ec261f3d245bd10e89bb8ab",
+            "post_id": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527474344300726",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:55.055886Z",
+            "posted_at_utc": "2026-11-10T01:41:49.518950+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_eda271ce7d839d8b8354f4b7ee34a0fb",
+            "dispatch_id": "dispatch_20d4b813b36c24eb694de7c5e81defa9",
+            "post_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfivsEtozIr",
+            "views": 11,
+            "collected_at_utc": "2026-11-11T06:25:02.450772Z",
+            "posted_at_utc": "2026-11-10T01:38:46.991016+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_b8f63a44d619e7d77c10815fd8cfcb45",
+            "dispatch_id": "dispatch_0ec7ae26e962d0cdc0a4e70600d8ea75",
+            "post_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569526675622985822",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:11.167473Z",
+            "posted_at_utc": "2026-11-10T01:38:39.335299+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_ed51f38f82570bb1a79e9fd4077b83e3",
+            "dispatch_id": "dispatch_da7f506f1f4bc94d18499a30d160de1c",
+            "post_id": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569527594263646310",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:25:56.190924Z",
+            "posted_at_utc": "2026-11-10T01:42:18.357047+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_758b72e30ac233621a0f88f3d757c3d5",
+            "dispatch_id": "dispatch_2fba173a151159effc2da6b9b45f336d",
+            "post_id": "plan-status-post-9b49d41ac440d3eca83ae7aaf618aedd",
+            "url": "https://t.me/CapitalChronicle/116",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:26:06.582927Z",
+            "posted_at_utc": "2026-11-10T01:41:53.401326+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_cf266fd5de2d26bd05aae77266a7206a",
+            "dispatch_id": "dispatch_98c5dfff7513d80c534b09b84954e9f1",
+            "post_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+            "url": "https://t.me/CapitalChronicle/114",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:25.319347Z",
+            "posted_at_utc": "2026-11-10T01:38:43.298439+00:00",
+            "cause": null,
+            "hour_et": 20
+          },
+          {
+            "observation_id": "obs_db9cf6367a018f0d0d19a3d0ae180f8a",
+            "dispatch_id": "dispatch_fd01d41a51cd1fab6b0f048076a571b9",
+            "post_id": "plan-status-post-0f22fe9c36ec21c72a73cc13b903167c",
+            "url": "https://t.me/CapitalChronicle/115",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:26:35.484603Z",
+            "posted_at_utc": "2026-11-10T01:41:16.624028+00:00",
+            "cause": null,
+            "hour_et": 20
+          }
+        ],
+        "cause": null
+      },
+      {
+        "hour_et": 22,
+        "median_views": 4.0,
+        "n": 12,
+        "updated_at": "2026-11-11T19:16:22.002630Z",
+        "posts": [
+          {
+            "observation_id": "obs_0e1f817b138f0444fe6656565f2cb1fc",
+            "dispatch_id": "dispatch_cc8948d4c65e60aad82a18e8d036a62e",
+            "post_id": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+            "url": "https://t.me/CapitalChronicle/120",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:23:25.582421Z",
+            "posted_at_utc": "2026-11-10T03:18:06.992704+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_0f149c18584ad3a2b1ca84240f2f59b2",
+            "dispatch_id": "dispatch_6ca16b3f1c187df324b15607f663f92a",
+            "post_id": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7AT1I4pD",
+            "views": 64,
+            "collected_at_utc": "2026-11-11T06:23:26.235488Z",
+            "posted_at_utc": "2026-11-10T03:17:39.986067+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_1ba8d9ebc0b053a3c99c5e863999e287",
+            "dispatch_id": "dispatch_bcb9e62d427fd84bf171883298811769",
+            "post_id": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551689134899240",
+            "views": null,
+            "collected_at_utc": "2026-11-11T19:16:22.002630Z",
+            "posted_at_utc": "2026-11-10T03:18:03.119096+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_2cb544e73e1a82d30e06458ac958e11f",
+            "dispatch_id": "dispatch_d12587a7837c4953e50c9f68f4031bee",
+            "post_id": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551436633866330",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:23:40.263520Z",
+            "posted_at_utc": "2026-11-10T03:17:02.807633+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_3ceed71107e468c8329c3b998e135bb5",
+            "dispatch_id": "dispatch_928e1116526628f62f9adfc44e6f3854",
+            "post_id": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+            "url": "https://t.me/CapitalChronicle/119",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:24:35.697585Z",
+            "posted_at_utc": "2026-11-10T03:17:37.024348+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_460a53b7f451fd25e0c6a33cd683e5c8",
+            "dispatch_id": "dispatch_1d792f304434916cb1696ab7f99d9b76",
+            "post_id": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551758584315964",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:37.170745Z",
+            "posted_at_utc": "2026-11-10T03:18:19.404014+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_5fd91fd2cf5ef5e9025b8a5cf294d506",
+            "dispatch_id": "dispatch_ebfad4bf2e3b20d6e594afc39d69b6c4",
+            "post_id": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569551566317297685",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:24:45.692936Z",
+            "posted_at_utc": "2026-11-10T03:17:33.903420+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_4df8d89e1254e8f8cd83ecdb87eee769",
+            "dispatch_id": "dispatch_64c87b663e6694e8441f38b31e85a1ff",
+            "post_id": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+            "url": "https://t.me/CapitalChronicle/118",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:24:57.657411Z",
+            "posted_at_utc": "2026-11-10T03:17:06.207616+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_e64f088edaee90aabc243e0346588bc3",
+            "dispatch_id": "dispatch_d496b03b9626ff2205d3ecb6ecbe31de",
+            "post_id": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfi7FyWow5n",
+            "views": 139,
+            "collected_at_utc": "2026-11-11T06:24:58.277650Z",
+            "posted_at_utc": "2026-11-10T03:18:25.059833+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_5513f7fa04b18bfc35410e89fe2c9272",
+            "dispatch_id": "dispatch_41aa5fb68369db11611b7095af7f5b4f",
+            "post_id": "plan-status-post-89c48cff2f36ad2516753dd0364cea71",
+            "url": "https://t.me/CapitalChronicle/121",
+            "views": 4,
+            "collected_at_utc": "2026-11-11T06:25:05.815017Z",
+            "posted_at_utc": "2026-11-10T03:18:22.778269+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_fb15c2c7862597e3fd679087437a44bb",
+            "dispatch_id": "dispatch_7e1711e51a0a6729c8b070c7e5f0abbe",
+            "post_id": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dfi68kMI-eR",
+            "views": 33,
+            "collected_at_utc": "2026-11-11T06:25:50.451002Z",
+            "posted_at_utc": "2026-11-10T03:17:09.414334+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_005277963381ec41ce5acbb0818d80d2",
+            "dispatch_id": "dispatch_f1ee34ca5eb10cc0986fed25df329a52",
+            "post_id": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/Dflg1aHI6T9",
+            "views": 1,
+            "collected_at_utc": "2026-11-11T06:31:05.444897Z",
+            "posted_at_utc": "2026-11-11T03:26:42.647597+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_534f40182523bcc1f298522655d71eee",
+            "dispatch_id": "dispatch_7fb6e7cc3fc58caebf9ca42acd6e58cf",
+            "post_id": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+            "url": "https://www.instagram.com/p/Dflgj95ks8e/",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:56.270951Z",
+            "posted_at_utc": "2026-11-11T03:23:34.108333+00:00",
+            "cause": "VIEWS_UNAVAILABLE",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_125fa99b6e9aee403688d3bf134a514d",
+            "dispatch_id": "dispatch_d29449e00444fa2b3dc9f29c05f142ac",
+            "post_id": "plan-status-post-4f393682398d7e4531df3cf59b0782da",
+            "url": "https://t.me/CapitalChronicle/169",
+            "views": 5,
+            "collected_at_utc": "2026-11-11T06:31:09.751390Z",
+            "posted_at_utc": "2026-11-11T03:29:12.127647+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_105d206b77dda8c64b4103b72f91b1ba",
+            "dispatch_id": "dispatch_fce862d2e05f4d455da8facec877eeac",
+            "post_id": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+            "url": null,
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:51.138810Z",
+            "posted_at_utc": "2026-11-11T03:27:37.133860+00:00",
+            "cause": "VIEWS_NOT_EXPOSED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_2829316dbacb3c2751792d0447240d95",
+            "dispatch_id": "dispatch_920556bcf3b57fa765717ba300f35820",
+            "post_id": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+            "url": "https://t.me/CapitalChronicle/165",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:35:55.322108Z",
+            "posted_at_utc": "2026-11-11T03:27:10.699521+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_09cfe7229ec9b493223f4dc6dd858792",
+            "dispatch_id": "dispatch_9d6aaf15038189663a0b0aeb117ae655",
+            "post_id": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DflhEleI2bo",
+            "views": 2,
+            "collected_at_utc": "2026-11-11T06:35:55.963161Z",
+            "posted_at_utc": "2026-11-11T03:28:46.841803+00:00",
+            "cause": null,
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_7df2ab3b87453693a54addf4d2a1e351",
+            "dispatch_id": "dispatch_a50fddbfa3d4a23e58cbbe49d066bae7",
+            "post_id": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+            "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569915426341920872",
+            "views": null,
+            "collected_at_utc": "2026-11-11T06:35:56.619692Z",
+            "posted_at_utc": "2026-11-11T03:23:24.584379+00:00",
+            "cause": "VIEWS_UNSUPPORTED",
+            "hour_et": 22
+          },
+          {
+            "observation_id": "obs_44ede6fa772fccae2b28e810dee48f11",
+            "dispatch_id": "dispatch_1135e2d58e75d3e5dba73449712216c2",
+            "post_id": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+            "url": "https://t.me/CapitalChronicle/164",
+            "views": 3,
+            "collected_at_utc": "2026-11-11T06:35:58.729566Z",
+            "posted_at_utc": "2026-11-11T03:26:39.115380+00:00",
+            "cause": null,
+            "hour_et": 22
+          }
+        ],
+        "cause": null
+      },
+      {
+        "hour_et": 23,
+        "median_views": 0,
+        "n": 1,
+        "updated_at": "2026-11-11T06:28:46.615363Z",
+        "posts": [
+          {
+            "observation_id": "obs_1e052fb10b86e32d28265fddfb7a7f64",
+            "dispatch_id": "dispatch_c9e9ccf48f3b72df2e4ed68e2277448a",
+            "post_id": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+            "url": "https://www.threads.com/@official.capitalchronicle/post/DfjAmYiFGhG",
+            "views": 0,
+            "collected_at_utc": "2026-11-11T06:28:46.615363Z",
+            "posted_at_utc": "2026-11-10T04:06:34.162742+00:00",
+            "cause": null,
+            "hour_et": 23
+          }
+        ],
+        "cause": null
+      }
+    ],
+    "updated_at": "2026-11-11T19:16:22.057043Z",
+    "window_start": "2026-11-06T00:00:00+07:00",
+    "window_end": "2026-11-13T00:00:00+07:00",
+    "basis": "Latest cumulative native views per public object; posts published in 7 local calendar days including today; median, not incremental weekly views. Hour is publication hour in ET.",
+    "cause": null
+  }
+}
