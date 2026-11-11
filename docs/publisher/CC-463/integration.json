@@ -1,0 +1,282 @@
+{
+  "recorded_at_utc": "2026-11-11T15:36:40.282116+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "e95964e0afe9df11282cac7aaa64433863c8b13d",
+  "live_tag": "contentops-live-20261111-cc463",
+  "rollback_tag": "contentops-rollback-20261111-cc463",
+  "installed_files": [
+    {
+      "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
+      "sha256": "5c868b31cf45832396d46239aa909eb9eed805e0a638d211d14ba251704b5f3f",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/article_publication_quality_v1.py",
+      "sha256": "c55aadaa4a4d8a5bc42395d5ccf007271f8fbc68b7eec64514eb0a68ad98c56c",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/event_pack_v1.py",
+      "sha256": "96af4b71654d2b46cb7c2f497f7aac96942d9873cf84146c21d4dd749db904e0",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/native_desktop_editorial_v1.py",
+      "sha256": "5d5502cf2bfc91671870c6e2765cb095c5d1dcc424bce74ea1d46b9ed50ae1ee",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/native_neo_executor_v1.py",
+      "sha256": "b95af25f9b6db680e013b1fcce614be1f2f2b7b109903408a25e586e4f946944",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/native_newsroom_volume_v1.py",
+      "sha256": "0322691e6bcfcae8287438d51030bba2f6bc23c165d3e98283af69d5a6c023c4",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/plan_analysis_pages_v1.py",
+      "sha256": "e0ba0f58539711d950b99b0751d109834f21429dfa2a990a03f1ed1f25e7a511",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/plan_call_cards_v1.py",
+      "sha256": "0f113ae1b5e410067a8967408633c948e2bef8004b72acb19bd532bc651ca364",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/plan_status_posts_v1.py",
+      "sha256": "2e2b2677ddb870527daaa8dbe15a9b154a99b52651184f488285e371ea827730",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/post_visuals_v1.py",
+      "sha256": "cca6eec64534e754af8ed5bc75645d7191ba177078f43b059a5d8d911381713f",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "sha256": "2f07e45b5c61a8557a2f1cea4cd60a739afe1db3244e86e72c991a31eabbff6d",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/publication_image_contract_v1.py",
+      "sha256": "ca3dcb6590ba30a40de38bdb334b51c5b0e2c160877645dc4cfcf08134e4f4cd",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/published_images_v1.py",
+      "sha256": "225e16407c0cbf39fce42fdaef195455ae8d57293c7fceac1a16550bec27766c",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/rolling_x_grounded_article_media_builder_v1.py",
+      "sha256": "085ccf4408297fc9f5cb396367cc5e4fe84e13e5f7afc7e3bbd618069a94926e",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/tradingview_plan_overlay_v1.py",
+      "sha256": "b53b5dbc7d68c5c10604ce3b1d56828c8daf146a45fcd688f526a661f6754abc",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/tradingview_snapshot_v1.py",
+      "sha256": "d7984ef574b0048709799c90395eefcc63dbba7fd46134184a57127e4a630151",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "sha256": "53017c1ce2a1ff64d9831f8b231fe1d4a2ead7eae41fcb34180751fee6534a58",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    },
+    {
+      "path": "scripts/audit_publication_images_cc463.py",
+      "sha256": "fd31957e0fc3590816dfe46fedfb16ed078f47f614e9a3736dcfcd203bcec5b8",
+      "matches_delivered_build": true,
+      "comparison": "git EOL normalization; source text identical"
+    }
+  ],
+  "unrelated_wip": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "ff61ac5f29b0430d75bcd9e7f3a67b4269bca376209225967121fa38abde2a18",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "8a9df18eeac62097b7999a736f9f7c0a659d0632b920e6d44781316bac891d14",
+      "unchanged": true
+    }
+  ],
+  "installed_contract_tests": 28,
+  "installed_dry_run": {
+    "contract_version": "2.0.0",
+    "export_generated_at_utc": "2026-11-11T15:34:09.952946Z",
+    "rendered_count": 60,
+    "status": "OK",
+    "would_queue": []
+  },
+  "minute_consumer_run_observations": [
+    {
+      "at_utc": "2026-11-11T15:34:23.649652Z",
+      "status": "OK",
+      "cause": null,
+      "export_generated_at_utc": "2026-11-11T15:33:08.527018Z",
+      "event_packs": {
+        "events": [],
+        "status": "NO_EVENT_PACK_DUE"
+      },
+      "available_fields": [
+        "analysis_links",
+        "at_utc",
+        "cause",
+        "contract_version",
+        "event_packs",
+        "event_timestamp",
+        "export_age_seconds",
+        "export_generated_at_utc",
+        "failed_field",
+        "incident_id",
+        "max_export_age_minutes",
+        "neo_stored_requests",
+        "not_posted",
+        "not_posted_details",
+        "posts",
+        "posts_by_status",
+        "publication",
+        "queued",
+        "scorecard",
+        "status"
+      ]
+    },
+    {
+      "at_utc": "2026-11-11T15:35:23.200138Z",
+      "status": "OK",
+      "cause": null,
+      "export_generated_at_utc": "2026-11-11T15:34:09.952946Z",
+      "event_packs": {
+        "events": [],
+        "status": "NO_EVENT_PACK_DUE"
+      },
+      "available_fields": [
+        "analysis_links",
+        "at_utc",
+        "cause",
+        "contract_version",
+        "event_packs",
+        "event_timestamp",
+        "export_age_seconds",
+        "export_generated_at_utc",
+        "failed_field",
+        "incident_id",
+        "max_export_age_minutes",
+        "neo_stored_requests",
+        "not_posted",
+        "not_posted_details",
+        "posts",
+        "posts_by_status",
+        "publication",
+        "queued",
+        "scorecard",
+        "status"
+      ]
+    },
+    {
+      "at_utc": "2026-11-11T15:36:27.974525Z",
+      "status": "OK",
+      "cause": null,
+      "export_generated_at_utc": "2026-11-11T15:35:08.809359Z",
+      "event_packs": {
+        "events": [],
+        "status": "NO_EVENT_PACK_DUE"
+      },
+      "available_fields": [
+        "analysis_links",
+        "at_utc",
+        "cause",
+        "contract_version",
+        "event_packs",
+        "event_timestamp",
+        "export_age_seconds",
+        "export_generated_at_utc",
+        "failed_field",
+        "incident_id",
+        "max_export_age_minutes",
+        "neo_stored_requests",
+        "not_posted",
+        "not_posted_details",
+        "posts",
+        "posts_by_status",
+        "publication",
+        "queued",
+        "scorecard",
+        "status"
+      ]
+    }
+  ],
+  "latest_main_plan_registration_utc": "2026-11-11T06:31:04.626225Z",
+  "public_post_observation": "NEXT_MAIN_CARD_NOT_EXPORTED",
+  "public_writes_by_verification": 0,
+  "live_day_observation": "NOT_ELAPSED",
+  "seven_day_observation": "NOT_ELAPSED",
+  "live_instagram_image_observed": false,
+  "schedule_changes": 0,
+  "application_restarts": 0,
+  "computer_use_invoked": false
+}
