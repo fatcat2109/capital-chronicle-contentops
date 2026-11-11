@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+from collections import Counter
 
 RECORD_ID = "report:cc-cpi-reactions-since-2024"
 TOKEN = "[[CPI_REACTION_TABLES]]"
@@ -105,10 +106,17 @@ def record_projection(record):
                            "source_table_sha256": digest(t)} for t in tables(part))
     if not blocks:
         raise ValueError("CPI_REACTION_SOURCE_TABLE_REQUIRED")
-    return {"policy": POLICY, "record_id": record["binding"]["record_id"],
+    result = {"policy": POLICY, "record_id": record["binding"]["record_id"],
             "export_bytes_sha256": record["binding"]["export_bytes_sha256"],
             "source_field_citation": field["citation"],
             "source_body_sha256": digest(body), "tables": blocks}
+    if family != "CPI":
+        clock = next((f for f in record["binding"]["fields"]
+                      if f["field_path"] == "/sections/source-data-cutoff/body_markdown"), None)
+        result["data_cutoff_utc"] = clock["value"] if clock else None
+        result["data_clock_binding"] = ({"citation": clock["citation"], "value": clock["value"]}
+                                       if clock else None)
+    return result
 
 
 def writer_guidance(documents):
@@ -124,6 +132,7 @@ def writer_guidance(documents):
             "normal-spread yardstick and descriptive price changes. Preserve series and proxy "
             "labels, sample counts, eligible denominators and gaps. Do not pool sources or "
             "infer causation, a trading edge or a forecast from a sample mean. A dash is not zero. "
+            "Keep the source-data-cutoff field in metadata; never paste that internal clock into the article. "
             "State the actual last release covered. The old map/result description retains "
             "its original clock: never call a past release upcoming or its result not yet due. "
             "Use only a supplied Main map, result and scenario set; never invent absent ones. "
@@ -160,7 +169,7 @@ def bind_tables(article, documents):
         article["substack_body_markdown"] = body
     expected = [digest(t["markdown"]) for t in projected_tables]
     actual = [digest(t) for t in tables(body)]
-    if any(actual.count(h) != 1 for h in expected):
+    if any(actual.count(h) != count for h, count in Counter(expected).items()):
         raise ValueError("CPI_REACTION_TABLE_CHANGED_OR_MISSING")
     article["cpi_reaction_page"] = {k: projection[k] for k in (
         "policy", "record_id", "export_bytes_sha256", "source_field_citation", "source_body_sha256")}
@@ -179,7 +188,7 @@ def validate_bound_tables(article):
         return
     actual = [digest(t) for t in tables(str(article.get("substack_body_markdown") or ""))]
     if (binding.get("policy") != POLICY or not binding.get("table_sha256")
-            or any(actual.count(h) != 1 for h in binding["table_sha256"])):
+            or any(actual.count(h) != count for h, count in Counter(binding["table_sha256"]).items())):
         raise ValueError("CPI_REACTION_TABLE_CHANGED_OR_MISSING")
 
 

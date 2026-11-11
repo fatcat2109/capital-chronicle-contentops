@@ -1,0 +1,40 @@
+{
+  "item": "CC-468",
+  "event_family": "NFP",
+  "observed_at_utc": "2026-11-11T18:10:25.582165+00:00",
+  "preparation_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\editorial-preparation\\nfp\\source-2199d1655964777c",
+  "source_known_at_utc": "2026-11-11T18:02:48.550409Z",
+  "source_data_cutoff_utc": "2026-11-10T11:30:00Z",
+  "source_export_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\event-sources\\source-4338885f925c494b\\presentation-e03dbfb7bac6ecc5\\nfp\\desk-export.json",
+  "source_export_sha256": "2199d1655964777cd276481c681ed6fc9ff72be009fa1d2da3c1be6ceeb8d05e",
+  "source_record_id": "report:cc-nfp-reactions-since-2024",
+  "title": "What gold, the euro and the S&P did after each payrolls release",
+  "consumer": "read_export -> desk_evidence -> _source_pack -> bind_tables",
+  "writer_source_chars": 21684,
+  "full_source_preserved": true,
+  "tables": 7,
+  "table_sha256": [
+    "a70c9a45ff4e932d51456575921707fec6ca7321c7b07a07205990f2081f3424",
+    "25926ee5a26fe65e9e5e58e8910fb434dc3d9a00302c1a0431cea60ec8483b59",
+    "344fe7f0394579fdd684cf98fb9fc27244a08415632d5199040d78a38b1cf23d",
+    "cbc7ab98bd439ded0fc22b90b41883b61d477cc0f9769b39d73395206cb92cd8",
+    "6f7d8cfc856560876b2096a40862b1e1c0483311f7cbb27ab901b3a4e8e9882d",
+    "276643215f02f83ea7e2de38d783cddd87fad8f8a56c77b6268587c2799177e1",
+    "2ce6b993662a2a289da6cdb44bf0e129d6c85eea35b8fa820a76d32f29df5d1d"
+  ],
+  "source_table_sha256": [
+    "a70c9a45ff4e932d51456575921707fec6ca7321c7b07a07205990f2081f3424",
+    "25926ee5a26fe65e9e5e58e8910fb434dc3d9a00302c1a0431cea60ec8483b59",
+    "344fe7f0394579fdd684cf98fb9fc27244a08415632d5199040d78a38b1cf23d",
+    "cbc7ab98bd439ded0fc22b90b41883b61d477cc0f9769b39d73395206cb92cd8",
+    "6f7d8cfc856560876b2096a40862b1e1c0483311f7cbb27ab901b3a4e8e9882d",
+    "276643215f02f83ea7e2de38d783cddd87fad8f8a56c77b6268587c2799177e1",
+    "2ce6b993662a2a289da6cdb44bf0e129d6c85eea35b8fa820a76d32f29df5d1d"
+  ],
+  "publication_state": "NOT_DISPATCHED",
+  "remaining": [
+    "Native final article and source-bound media/review",
+    "Existing coordinator publication and exact public readback",
+    "Reference the confirmed canonical page in the relevant event review"
+  ]
+}

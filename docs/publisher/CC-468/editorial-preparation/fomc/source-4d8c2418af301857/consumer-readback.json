@@ -1,0 +1,52 @@
+{
+  "item": "CC-468",
+  "event_family": "FOMC",
+  "observed_at_utc": "2026-11-11T18:10:25.582165+00:00",
+  "preparation_dir": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\editorial-preparation\\fomc\\source-4d8c2418af301857",
+  "source_known_at_utc": "2026-11-11T18:02:48.550409Z",
+  "source_data_cutoff_utc": "2026-11-10T11:30:00Z",
+  "source_export_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-468\\event-sources\\source-4338885f925c494b\\presentation-e03dbfb7bac6ecc5\\fomc\\desk-export.json",
+  "source_export_sha256": "4d8c2418af3018570ea8cdc1e993092228285a2101e76d858e1b43c9f8c7bf56",
+  "source_record_id": "report:cc-fomc-reactions-since-2024",
+  "title": "What gold, the euro and the S&P did after each Fed decision",
+  "consumer": "read_export -> desk_evidence -> _source_pack -> bind_tables",
+  "writer_source_chars": 19017,
+  "full_source_preserved": true,
+  "tables": 13,
+  "table_sha256": [
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "3607cb281045ee8e41fc1cbbd13b58b089d3a767397cac86cb17385e4ba0db89"
+  ],
+  "source_table_sha256": [
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "9032ba57f3487363ece4ea6cfe17c9ae3803dd6483aa638681d20616a533d0cb",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "70937ad919543f4dab875bb1a9c06806d3ab3de05e6fd732a26c55d008aba312",
+    "3607cb281045ee8e41fc1cbbd13b58b089d3a767397cac86cb17385e4ba0db89"
+  ],
+  "publication_state": "NOT_DISPATCHED",
+  "remaining": [
+    "Native final article and source-bound media/review",
+    "Existing coordinator publication and exact public readback",
+    "Reference the confirmed canonical page in the relevant event review"
+  ]
+}

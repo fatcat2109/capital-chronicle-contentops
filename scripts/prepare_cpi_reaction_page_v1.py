@@ -59,6 +59,7 @@ def prepare(binding_path, profile_path, out, *, cutoff_utc, event="CPI"):
         "observed_at_utc": cutoff_utc,
         "preparation_dir": str(out),
         "source_known_at_utc": record["known_at_utc"],
+        "source_data_cutoff_utc": pack[0].get("data_cutoff_utc"),
         "source_export_path": matching[0]["path"], "source_export_sha256": matching[0]["sha256"],
         "source_record_id": record_id, "title": title,
         "consumer": "read_export -> desk_evidence -> _source_pack -> bind_tables",
