@@ -19,7 +19,7 @@ from test_tradingview_snapshot_cc314 import FIXTURE
 
 
 @pytest.fixture
-def ready(source, tmp_path):
+def ready(source, tmp_path):  # noqa: F811 - imported pytest fixture
     root, folder, plan, manuscript = source
     now = datetime.now(timezone.utc)
     date = now.astimezone(notes.ET).strftime("%d %b").lstrip("0")
@@ -44,7 +44,12 @@ def ready(source, tmp_path):
     packet = pages.render(plan, manuscript, run_root=root, output_dir=tmp_path / "page")
     snap = {"path": str(FIXTURE), "sha256": sha256(FIXTURE.read_bytes()).hexdigest(),
             "tv_symbol": tv.SYMBOLS["EURUSD"], "interval": "240", "interval_label": "4h",
-            "chart_url": tv.chart_url(tv.SYMBOLS["EURUSD"], "240"), "captured_at_utc": now.isoformat()}
+            "chart_url": tv.chart_url(tv.SYMBOLS["EURUSD"], "240"), "captured_at_utc": now.isoformat(),
+            "page_title": "EURUSD 1.12", "capture_ratio": "16:9"}
+    from live_contentops.publication_image_contract_v1 import bind_scale
+    snap = bind_scale("EURUSD", snap, quote={"market": "EURUSD", "instrument": "EURUSD", "price": 1.12,
+        "quoted_at_utc": now.isoformat(), "known_at_utc": now.isoformat(), "source_path": "controlled-quote.json",
+        "source_sha256": "a" * 64, "price_basis": "plan_feed"})
     packet["media_assets"] = [tv.snapshot_asset("EURUSD", "Euro", snap, tmp_path / "chart")]
     store = ContentOpsDurableStore(tmp_path / "notes.sqlite3")
     page = pages.register_page(store, packet)
@@ -96,10 +101,34 @@ def test_installed_minute_consumer_prepares_one_note_and_reuses_frozen_writer(re
     assert 'result["substack_daily_note"] = daily_note(store' in script.read_text(encoding="utf-8")
 
 
+@pytest.mark.parametrize("response_lost", [False, True])
+def test_real_coordinator_dispatches_the_daily_note_once_and_keeps_uncertainty_readback_only(ready, tmp_path, response_lost):
+    from test_publication_coordinator_v1 import FixtureTransport, _set_mode
+    store, page, authored, now = ready
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    value = notes.register_note(store, page, authored, now=now, output_root=tmp_path / "notes")
+    class Runtime(FixtureTransport):
+        def publish(self, **kwargs):
+            super().publish(**kwargs)
+            return {"status": "SUCCESS", "id": "c-123", "public_url": "https://substack.com/@capitalchronicle/note/c-123"}
+    runtime = Runtime(ambiguous=True, raise_after_write=response_lost)
+    coordinator = Coordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED"}, clock=lambda: now)
+    coordinator.allow_prior_confirmed_distribution = True
+    coordinator.recovery_scope = {"work_item_id": value["link_id"], "plan": value["plan"], "exact_work_item_only": True}
+    first = coordinator.publish_plan(value["link_id"], value["plan"])
+    assert runtime.publish_calls == ["substack_notes"]
+    assert first["per_destination"]["substack_notes"]["status"] == ("UNKNOWN_WRITE" if response_lost else "DISPATCH_CONFIRMED")
+    assert pages.link_status(store, value)["confirmed"] is False
+    coordinator.publish_plan(value["link_id"], value["plan"])
+    assert runtime.publish_calls == ["substack_notes"]
+
+
 @pytest.mark.parametrize("mutation,cause", [
     ("number", "NOTE_NUMBER_UNBOUND"), ("date", "NOTE_DATED_FIGURE_UNBOUND"),
     ("technical", "NOTE_MUST_LEAD"), ("ellipsis", "NOTE_COMPLETE_SHORT_SENTENCE|NOTE_SHAPE"),
     ("source", "NOTE_SENTENCE_SOURCE_UNBOUND"), ("model", "NOTE_INTERNAL_TERM"),
+    ("unit", "NOTE_NUMBER_UNIT_UNBOUND"),
 ])
 def test_wrong_public_copy_is_refused_before_registration(ready, tmp_path, mutation, cause):
     store, page, authored, now = ready
@@ -110,6 +139,7 @@ def test_wrong_public_copy_is_refused_before_registration(ready, tmp_path, mutat
     if mutation == "ellipsis": value["sentences"][0]["text"] += "…"
     if mutation == "source": value["sentences"][0]["source_excerpt"] = "Not in the analysis."
     if mutation == "model": value["sentences"][0]["text"] += " Our model."
+    if mutation == "unit": value["sentences"][0]["text"] = value["sentences"][0]["text"].replace("5%", "5 bp")
     with pytest.raises(ValueError, match=cause):
         notes.register_note(store, page, value, now=now, output_root=tmp_path / "notes")
     assert not store.get_outbox_message(notes.identity(notes.day_at(now)))
@@ -145,3 +175,17 @@ def test_actual_capture_bytes_are_bound_and_unknown_capitals_never_gate(ready, t
                                   ("2026-07-12T04:01:00Z", "2026-07-12")])
 def test_daily_identity_uses_new_york_date_with_dst(at, day):
     assert notes.day_at(at) == day
+
+
+def test_invalid_copy_gets_one_bounded_rewrite_with_the_same_source(ready, tmp_path):
+    store, page, authored, now = ready
+    calls = []
+    def writer(prompt, **kwargs):
+        calls.append(kwargs["root"])
+        if len(calls) == 1:
+            return {**authored, "sentences": []}, {}
+        assert "Rewrite this copy once" in prompt
+        return authored, {}
+    result = notes.run_due(store, output_root=tmp_path / "notes", now=now, writer=writer, publish=False)
+    assert result["state"] == "NOTE_PREPARED" and len(calls) == 2
+    assert calls[1] == calls[0] / "repair"

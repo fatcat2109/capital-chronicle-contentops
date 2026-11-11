@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import re
 import shutil
+from decimal import Decimal
 from uuid import uuid4
 from zoneinfo import ZoneInfo
 
@@ -96,6 +97,18 @@ def validate_copy(authored, page):
             raise ValueError("NOTE_SENTENCE_SOURCE_UNBOUND")
         if pages._numbers(text) - pages._numbers(excerpt):
             raise ValueError("NOTE_NUMBER_UNBOUND")
+        def claims(value):
+            pattern = r"(?<![\w.])([$€£]?)[+−-]?\d+(?:,\d{3})*(?:\.\d+)?(?:\s*(?:%|percent|basis points|bps?|contracts|jobs|dollars))?"
+            result = set()
+            for match in re.finditer(pattern, value, re.I):
+                token = match.group().replace('−', '-')
+                number = re.search(r"[+−-]?\d+(?:,\d{3})*(?:\.\d+)?", token).group()
+                unit = re.sub(r"[$€£+\-\d,.\s]", "", token).lower()
+                unit = {"percent": "%", "basispoints": "bp", "bps": "bp", "dollars": "$"}.get(unit, unit)
+                result.add((format(Decimal(number.replace(',', '')).normalize(), 'f'), match.group(1) or unit))
+            return result
+        if claims(text) - claims(excerpt):
+            raise ValueError("NOTE_NUMBER_UNIT_UNBOUND")
         if index == 0 and section not in FORCES:
             raise ValueError("NOTE_MUST_LEAD_WITH_MARKET_FORCE")
         technical += section == "technical"
@@ -287,6 +300,22 @@ def run_due(store, *, output_root, now=None, writer=None, publish=True, automati
             page = next((p for p in candidates if p["page_id"] == authored.get("page_id")), None)
             if not page:
                 raise ValueError("NOTE_WRITER_SOURCE_PAGE_NOT_SELECTED")
+            try:
+                validate_copy(authored, page)
+            except ValueError as defect:
+                from .x_reply_bot_v1 import _text_call
+                repair = folder / "repair"
+                if (repair / "response.json").is_file():
+                    authored = json.loads((repair / "response.json").read_bytes())
+                elif (repair / "call.json").is_file():
+                    raise ValueError("NOTE_BOUNDED_REPAIR_FAILED") from None
+                else:
+                    authored, _ = (writer or _text_call)(writer_prompt([page])
+                        + "\nRewrite this copy once to fix " + str(defect)
+                        + ":\n" + json.dumps(authored, ensure_ascii=False), root=repair, writer=True)
+                if authored.get("page_id") != page["page_id"]:
+                    raise ValueError("NOTE_WRITER_SOURCE_PAGE_NOT_SELECTED")
+                validate_copy(authored, page)
             value = register_note(store, page, authored, output_root=output_root, now=now)
         if not publish:
             return {"state": "NOTE_PREPARED", "note_id": key, "day_et": value["day_et"]}
