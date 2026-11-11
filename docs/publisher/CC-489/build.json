@@ -1,0 +1,19 @@
+{
+  "item": "CC-489",
+  "branch": "backlog/cc-489-chart-quote-coverage",
+  "base": "4e4e0f72f8e84905cb2fc8910955147d0bc3ddda",
+  "launch": {
+    "pid": 12788,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "observation": "CONFIGURED_NOT_OBSERVED"
+  },
+  "tests": {
+    "artifact": "price-reference-tests.xml",
+    "passed": 59,
+    "failed": 0,
+    "seconds": 16.26
+  },
+  "consumer": "DurablePublicationCoordinator -> existing published_images_v1.jsonl",
+  "choice": "Read timed plan export, exact native M1 store, then existing Main ticks; preserve NOT_COMPARED when none is usable."
+}

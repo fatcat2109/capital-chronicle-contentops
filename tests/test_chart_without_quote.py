@@ -9,6 +9,13 @@ from live_contentops import publication_image_contract_v1 as contract
 from live_contentops.tradingview_snapshot_v1 import SYMBOLS
 
 
+@pytest.fixture(autouse=True)
+def isolated_price_sources(tmp_path, monkeypatch):
+    from live_contentops import chart_price_reference_v1 as references
+    monkeypatch.setattr(references, "PLAN_STATUS_PATH", tmp_path / "status.json")
+    monkeypatch.setattr(references, "BAR_STORE", tmp_path / "bars.sqlite3")
+
+
 def _snapshot(market):
     return {"tv_symbol": SYMBOLS[market], "sha256": "a" * 64, "captured_at_utc": "2026-11-11T16:24:10+00:00",
             "page_title": "not read when there is no quote"}
