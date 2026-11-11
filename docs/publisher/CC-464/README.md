@@ -93,3 +93,33 @@ to its real phone/reply acceptance evidence and the later audience observations.
 Official references checked through Neo: [Telegram Bot API](https://core.telegram.org/bots/api#getupdates),
 [X Web Intents](https://docs.x.com/x-for-websites/web-intents/overview), and
 [Codex non-interactive mode](https://learn.chatgpt.com/docs/non-interactive-mode).
+
+Live result, 11 November 2026 23:28 GMT+7: source commit `4334924c` is pushed
+and fast-forwarded into the existing operating branch. All six installed source
+hashes match. All six dirty operating files were preserved at the initial merge;
+the two runtime ledgers subsequently received normal runtime appends, and their
+original prefixes remain byte-identical. Both dirty lane files remain preserved.
+The installed tests passed 36 checks in 22.45 seconds. No schedule or application
+was changed, and Main was not edited.
+
+The actual minute task ran the new consumer; `scheduled-and-readback.json`
+records its outcomes. Its original valid dated positioning text was reconciled
+without redrafting or changing bytes. The same bot's getChat proved the bound
+private destination, and Bot API confirmed private message 3 at 23:28:17 GMT+7.
+`first-private-push.json` preserves the actual clocks: post-to-draft 39.50 minutes,
+post-to-delivery 44.51 minutes. This retained target proves the delivery route,
+not the five-minute target. There was no invented recent target or backdated clock.
+
+The first confirmed draft parked CC-458 immediately. Runtime's adjacent
+`PARKED.md` contains its restore action, and `installed-consumer.json` confirms
+that gate is off. The exact Neo own-reply reader then ran successfully and found
+no manual reply. No agent submitted anything on X.
+
+CC-464 is **BLOCKED: FIVE_MINUTE_PHONE_AND_FIRST_JIM_REPLY_PROOF_PENDING**,
+with the implementation integrated and operating. It is not waiting for Ops
+review or deployment. The existing minute task can deliver the next genuine
+fresh high-quality target; no polling loop was added to manufacture acceptance.
+Jim's one prepared action is to tap **Open reply on X** on private bot message 3
+and press Reply if he accepts the draft. A phone open and actual own-account reply
+cannot be inferred from the Bot API response or desktop intent proof. The first
+real reply feeds both delays and the 24-hour/fourteen-day audience record.
