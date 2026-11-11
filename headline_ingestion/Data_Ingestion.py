@@ -366,6 +366,7 @@ def recursive_tweet_extractor(obj):
                         ),
                         "metrics": {
                             **({"likes": legacy['favorite_count']} if type(legacy.get('favorite_count')) is int else {}),
+                            **({"replies": legacy['reply_count']} if type(legacy.get('reply_count')) is int else {}),
                             **({"views": int(str(obj['views']['count']))}
                                if str((obj.get('views') or {}).get('count', '')).isdigit() else {}),
                         },

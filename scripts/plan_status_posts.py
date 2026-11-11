@@ -98,11 +98,22 @@ def main(argv=None) -> int:
             python=child_python(), dry_run=args.dry_run)}
         result["status"] = "OK" if result["scorecard"]["status"] in {"CONFIRMED", "PREVIEW"} else "SCORECARD_NOT_CONFIRMED"
     else:
+        # Decision 124: run private reply delivery first, before potentially slow
+        # chart/publication work. This reuses the minute entry without a new schedule.
+        reply_bot = None
+        if args.publish and not args.dry_run:
+            from live_contentops.x_reply_bot_v1 import refresh_due as bot_refresh
+            try:
+                reply_bot = bot_refresh(store, binding_path=args.store.parent / "control/x_reply_bot_binding.json")
+            except Exception as exc:
+                reply_bot = {"status": "REPLY_BOT_FAILED", "cause": type(exc).__name__, "public_submit_actions": 0}
         from live_contentops.instagram_adapter_v6 import readback_analysis_profile_link
         result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
                              render_all=args.dry_run,
                              instagram_profile_reader=readback_analysis_profile_link if args.publish and not args.dry_run else None,
                              main_root=args.main_root, python=child_python())
+        if reply_bot is not None:
+            result["reply_bot"] = reply_bot
         if args.dry_run:
             result["validation"] = "PASS" if result["status"] == "OK" else "FAIL"
         if args.publish and not args.dry_run and result["status"] == "OK":
