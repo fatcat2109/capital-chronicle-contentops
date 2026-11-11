@@ -168,3 +168,22 @@ def test_table_and_minus_sign_survive_render_and_comparison():
     body="## Scenarios\n\n| Case | Odds |\n|---|---|\n| Main | 50% |\n| Alternative | 35% |\n\nResult: -1.0R."
     assert "<td>Main</td><td>50%</td>" in plan_neo.body_html(body)
     assert plan_neo.body_text(body)=="Scenarios Case Odds Main 50% Alternative 35% Result: -1.0R."
+
+
+def test_plan_client_reuses_its_named_group_and_leaves_other_tasks_alone():
+    client=neo.NeoMcpClient(task_name="cc466 plan pages",group_title="codex/cc466-plan-pages")
+    calls=[]
+    def call(name,args):
+        calls.append((name,args))
+        if name=='tabs':
+            value='[50] https://capitalchronicle.substack.com/p/own (Own page)\n[48] https://x.com/Capitalnicle/status/old (Other task)'
+        elif name=='tab_groups':
+            value='[own] "codex/cc466-plan-pages" (green) pages: 50\n[other] "codex/cc436-automatic-posts" (pink) pages: 48'
+        else:
+            value='ok'
+        return {'content':[{'type':'text','text':value}]}
+    client.call=call
+    assert client.open('plan-substack','https://capitalchronicle.substack.com/p/own')==50
+    assert client.group=='own'
+    assert not any(args.get('page')==48 or args.get('action')=='new' for _,args in calls)
+    assert not any(name=='windows' for name,_ in calls)
