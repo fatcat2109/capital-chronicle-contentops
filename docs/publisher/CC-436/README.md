@@ -222,3 +222,50 @@ unsent draft. It never saves a crop of the bound card. Six image-thread,
 composer and plain-Python-consumer checks passed in 6.11 seconds. A separate
 live preparation verified the focused button's `Add post` label; that test
 composer was discarded without a publish action.
+
+### Final installed result, 11 November
+
+The retained X operation was completed by the unchanged scheduled minute
+worker, PID 21888, started at `2026-11-11T05:30:26.756257Z` with command
+`pythonw.exe -B scripts/plan_status_posts.py --publish`. The original request
+and previous no-write returns remain in the production store.
+
+- [X root 2120388829182132310](https://x.com/Capitalnicle/status/2120388829182132310)
+  and its [disclosure reply](https://x.com/Capitalnicle/status/2120388834605334761)
+  were observed by the endpoint executor. Its publish click was
+  `2026-11-11T05:31:05.553Z`; X's rendered root clock was
+  `2026-11-11T05:31:06Z`. Strict coordinator readback confirmed at
+  `2026-11-11T05:31:45.559705Z`.
+- The bound request hash is
+  `42d82facf0a6346844e7dc0cd826182bf6826499957a981a79c7e7c801565649`;
+  invocation `neo-endpoint:e9eceb79edf848aebd6f437153f0843b` records
+  `NEO_ENDPOINT_EXECUTOR`. A separate Neo inspection found both exact posts
+  and their real public clocks. No Codex publication-tool begin/submit step
+  performed this send.
+- The dispatch row retains its earlier attempt clock, `04:52:34.890688Z`.
+  That is **not** the later public-write clock. The original Telegram twin
+  confirmed at `03:25:54.471112Z`, so this recovery was about **126 minutes
+  late**, not a two-minute live timing pass.
+- A browser beforeunload prompt on this executor's own tab was cleared.
+  Cleanup now focuses the exact Close/Cancel control and verifies that focus
+  before Enter. A profile-read refusal retains its underlying safe error.
+  A repaired exact profile no-write may resume through its own circuit only
+  after the saved return proves no click; it releases no other failed attempt.
+  Cleanup tests: 6 passed in 11.45 seconds. Exact profile repair tests: 2 passed
+  in 10.35 seconds. Final atomic-policy claim checks: 10 passed in 16.14 seconds.
+
+At final source, **all 52 endpoint tests passed**, split into sequential
+groups of 19 (28.77 seconds) and 33 (49.08 seconds) during the decision window.
+The earlier 111-test coordinator regression and later targeted canonical,
+status-isolation and atomic-claim regressions are recorded above. Tests used
+isolated stores; no full suite, parallel pytest or live test fixture was run.
+
+The remaining acceptance condition is external input:
+`AWAITING_FRESH_MAIN_STATUS_EVENT_FOR_2_MINUTE_TIMING_PROOF`. A read-only query
+at `2026-11-11T05:32:58Z` found **zero** new status-post source rows since this
+run entered at `04:31:30Z`; the latest existing source row was registered at
+`03:22:37.792884Z`. Already-published Telegram twins keep their real clocks.
+The lane does not manufacture a new Main event or repost a twin to obtain a
+passing interval. The existing minute worker continues normally. On the next
+new source-bound operation, read its X and Notes confirmations against its
+own Telegram confirmation; only that can close the remaining timing condition.
