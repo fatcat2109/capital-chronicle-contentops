@@ -23,6 +23,10 @@ QUOTE_ROOT = Path(r"A:\Capital Chronicle\ResearchRuns\claude-main-research")
 # observations (including their clock separation) are in CC-463/README.md.
 MAX_DIFFERENCE_PCT = {"XAUUSD": .15, "US500": .15, "EURUSD": .15,
                       "USDJPY": .15, "USOIL": .40, "BTCUSD": .40}
+# Ops Product, 11 Nov 2026: a missing quote is not a mismatch. Main saves a quote only during its own runs, so on the
+# first live run (16:24Z) every chart was refused and five posts went out as text. A chart with no quote to compare
+# is still the right market's chart: it goes out marked NOT_COMPARED. Only a measured difference refuses an image.
+QUOTE_ABSENT = ("TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE", "TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE")
 ET = ZoneInfo("America/New_York")
 
 
@@ -167,10 +171,25 @@ def compare_scale(market, snapshot, quote):
     return result
 
 
+def not_compared(market, snapshot, cause):
+    """The binding of a chart that had no quote to compare with: the right symbol, and no level offset."""
+    from .tradingview_snapshot_v1 import SYMBOLS
+    if market not in SYMBOLS or snapshot.get("tv_symbol") != SYMBOLS[market]:
+        raise ImageContractError("TRADINGVIEW_MARKET_SYMBOL_MISMATCH")
+    return {"policy": POLICY, "market": market, "tv_symbol": SYMBOLS[market], "chart_sha256": snapshot["sha256"],
+            "captured_at_utc": snapshot["captured_at_utc"], "comparison_basis": "NOT_COMPARED",
+            "quote_absent_cause": cause, "level_offset": 0.}
+
+
 def bind_scale(market, snapshot, *, quote=None):
     snapshot = dict(snapshot)
-    snapshot["price_scale_check"] = compare_scale(market, snapshot,
-        quote or saved_main_quote(market, snapshot["captured_at_utc"]))
+    try:
+        snapshot["price_scale_check"] = compare_scale(market, snapshot,
+            quote or saved_main_quote(market, snapshot["captured_at_utc"]))
+    except ImageContractError as error:
+        if quote is not None or str(error) not in QUOTE_ABSENT:
+            raise
+        snapshot["price_scale_check"] = not_compared(market, snapshot, str(error))
     return snapshot
 
 
@@ -178,6 +197,10 @@ def validate_scale(market, snapshot):
     check = snapshot.get("price_scale_check") or {}
     if check.get("policy") != POLICY:
         raise ImageContractError("TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED")
+    if check.get("comparison_basis") == "NOT_COMPARED":
+        if check != not_compared(market, snapshot, check.get("quote_absent_cause")):
+            raise ImageContractError("TRADINGVIEW_PRICE_SCALE_BINDING_CHANGED")
+        return check
     if check != compare_scale(market, snapshot, check.get("quote") or {}):
         raise ImageContractError("TRADINGVIEW_PRICE_SCALE_BINDING_CHANGED")
     return check

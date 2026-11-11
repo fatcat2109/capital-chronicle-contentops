@@ -208,6 +208,8 @@ def apply(asset, row, *, require_verified=True):
     if asset["tradingview_snapshot"].get("price_scale_check"):
         from .publication_image_contract_v1 import validate_scale
         check = validate_scale(row["symbol"], asset["tradingview_snapshot"])
+        if check.get("comparison_basis") == "NOT_COMPARED" and row["symbol"] == "USOIL":
+            return asset   # the futures basis is unknown without a quote: the plain chart, levels stay in the text
         overlay["price_scale_check"] = check
         if check["level_offset"]:
             delta = check["level_offset"]
