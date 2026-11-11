@@ -1,0 +1,109 @@
+{
+  "observed_at_utc": "2026-11-11T20:55:03.587558+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "tested_code_head": "c74500a61f213b7f6378402b7cc7a108b0fcdf64",
+  "operating_head_at_probe": "c74500a61f213b7f6378402b7cc7a108b0fcdf64",
+  "source_commit": "6edefa943e1ea82307ef851f706c2b8ce82b5b3b",
+  "installed_sources": {
+    "live_contentops/x_reply_bot_v1.py": {
+      "normalized_sha256": "07c17acb0e27c479ee01622d80c14042f3da5547537bfdd720b560801b8ccee7",
+      "matches_source_commit": true
+    },
+    "live_contentops/x_reply_pack_v1.py": {
+      "normalized_sha256": "532df9368e423c4ba00dc50d27964f073ff71880c630617c1183915f6206c2c0",
+      "matches_source_commit": true
+    },
+    "live_contentops/x_reply_fact_policy_v1.py": {
+      "normalized_sha256": "cb61b33694ae3dca81c93dac29331ca87776cb4d603993a5b108aeb01127ec16",
+      "matches_source_commit": true
+    },
+    "live_contentops/x_reply_fact_sources_v1.py": {
+      "normalized_sha256": "e7ee2da6e6e0bd777f9f45c6a453201e3f419a856e01b647a10164859285fb75",
+      "matches_source_commit": true
+    },
+    "live_contentops/x_reply_trading_dates_v1.py": {
+      "normalized_sha256": "3397d30d2ae762b3ca5f51dc2368276040632592582ba1c4309c4e2dd32053ee",
+      "matches_source_commit": true
+    }
+  },
+  "wip_preservation": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "initial_size": 992508,
+        "current_size": 992508,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "initial_size": 10337,
+        "current_size": 10337,
+        "original_bytes_preserved": true
+      }
+    },
+    "A:\\Capital Chronicle\\ContentOps": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+        "initial_size": 3959,
+        "current_size": 3959,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+        "initial_size": 19341,
+        "current_size": 19341,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+        "initial_size": 39129,
+        "current_size": 39129,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+        "initial_size": 6166,
+        "current_size": 6166,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "initial_size": 1382937,
+        "current_size": 1382937,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "initial_size": 68878,
+        "current_size": 68878,
+        "original_bytes_preserved": true
+      }
+    }
+  },
+  "rollback_tag": "contentops-rollback-20261112-cc495",
+  "live_tag": "contentops-live-20261112-cc495-speed",
+  "source_tag": "contentops-live-20261112-cc495-speed-source",
+  "consumer_status": "NO_FRESH_UNSENT_DRAFTS",
+  "consumer_artifact": "docs/publisher/CC-495/installed-speed-consumer.json",
+  "new_private_deliveries": 0,
+  "acceptance": "THREE_REAL_PRIVATE_DELIVERIES_PENDING",
+  "scheduled_consumer": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "execute": "pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "observed_process_started_at_utc": "2026-11-11T20:11:26.835897+00:00"
+  },
+  "schedule_changed": false,
+  "application_restarted": false,
+  "public_submit_actions": 0,
+  "baseline_installed_tests": {
+    "tests": 64,
+    "failures": 0,
+    "errors": 0,
+    "seconds": "120.516",
+    "artifact": "docs/publisher/CC-495/installed-final-tests.xml",
+    "code_head": "cb9dc1cfad9da3f577e90abeb53403bb86d03651"
+  },
+  "changed_consumer_installed_tests": {
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "seconds": "12.521",
+    "artifact": "docs/publisher/CC-495/installed-speed-tests.xml",
+    "code_head": "c74500a61f213b7f6378402b7cc7a108b0fcdf64"
+  },
+  "wip_preservation_observed_at_utc": "2026-11-11T21:07:20.066979+00:00"
+}

@@ -1,0 +1,1001 @@
+{
+  "observed_at_utc": "2026-11-11T20:55:03.587558+00:00",
+  "source_count": 44,
+  "kind_counts": {
+    "session": 13,
+    "daily": 13,
+    "base_rate": 18
+  },
+  "sources": [
+    {
+      "source_id": "held-reply-fact-17504130606d4c58b04c88e0f97106206326aa80b58cf2c29847e412b85d4e1f",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "SPX"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T17:13:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:08.092484+00:00",
+      "artifact_binding": {
+        "kind": "history_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "f08c291991f196d1817a841d5c03e7cb29c83faf795ffb422d5caf37b3c67671",
+        "open_epoch": 1794417120
+      }
+    },
+    {
+      "source_id": "held-reply-fact-0ffc3bb75ec9492a03ff1f815a4a48b4d6bd390a2faccc9955f57ba2e81a2b6f",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "SPX"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T14:30:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T14:42:35.972540+00:00",
+      "artifact_binding": {
+        "kind": "native_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "market": "US500",
+        "open_epoch": 1794406500,
+        "source_sha256": "daf9260716ac51a720487901ceb9a9b0d3ef8e8b52054573815620d0e98a220d"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-48e7d1a858913ff9ab72a34e62ae62d8430012a615ec202cde2ca5e63f35f0d3",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "XAUUSD"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T17:13:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:06.422767+00:00",
+      "artifact_binding": {
+        "kind": "history_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "d558ace063f9951e523bfc62e8dbddb58161be6e5a1497cddb6c6c20e21a06a3",
+        "open_epoch": 1794417120
+      }
+    },
+    {
+      "source_id": "held-reply-fact-c89681219615421e872722e012d815d621cbe4e00fa1a8f68fa9d6f2a587a5af",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "XAUUSD"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T14:30:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T14:42:33.346922+00:00",
+      "artifact_binding": {
+        "kind": "native_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "market": "XAUUSD",
+        "open_epoch": 1794406500,
+        "source_sha256": "4505ae46bc35c01904d6bfe908eb333327d0cf25ceb1dc97bbeacea061e4e02c"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-379867078964b467b22e8a9d16720b39c4bf098d63a847e3ff70527357cb9c1d",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "EURUSD"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T17:21:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:04.764983+00:00",
+      "artifact_binding": {
+        "kind": "history_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "b7a04c5276d5d95b84dbb4cea34379fdf8c35d84819efc166350d1dae9b81349",
+        "open_epoch": 1794417600
+      }
+    },
+    {
+      "source_id": "held-reply-fact-28b4dbbd0684a45c0607b60fb39c59c1440ad902cac385a18b56887bbdf58ebc",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "EURUSD"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T14:30:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T14:42:32.054359+00:00",
+      "artifact_binding": {
+        "kind": "native_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "market": "EURUSD",
+        "open_epoch": 1794406500,
+        "source_sha256": "4505ae46bc35c01904d6bfe908eb333327d0cf25ceb1dc97bbeacea061e4e02c"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-85650e6fcc3cc4a4587f502d0bcc43d4f3f61cb85f87763b1893814324c3f998",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "USDJPY"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T17:22:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:05.534366+00:00",
+      "artifact_binding": {
+        "kind": "history_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "68918589ca62589b5849fde0ebe8e95b32b75534672e2773dc9904d5ef70435c",
+        "open_epoch": 1794417660
+      }
+    },
+    {
+      "source_id": "held-reply-fact-4c72ebdb2976b4c6fd2a6bb496023688efe2bdd388dda86c4d62103a2f28f093",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "USDJPY"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T07:45:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T07:47:01.845909+00:00",
+      "artifact_binding": {
+        "kind": "native_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "market": "USDJPY",
+        "open_epoch": 1794382200,
+        "source_sha256": "840e4e75a5d9532a1987979a954a35eb52c90cf4b4e3ae9cf42f0e86bfd16159"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-6dee2e14611b97756beb699843a10df8c18fe7f8631d560dd1bb70d873813bbb",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "WTI"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T17:13:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:07.324090+00:00",
+      "artifact_binding": {
+        "kind": "history_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "7b2db7ecc754fac390d7ab5c3635bf6eab15c3a65b5ee0f43744c5abacc8d2a2",
+        "open_epoch": 1794417120
+      }
+    },
+    {
+      "source_id": "held-reply-fact-6e047d14bd0c1422e8eab11db9753077158e8c040a91a6a519869d4f602d60f5",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "WTI"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T14:30:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T14:42:33.705348+00:00",
+      "artifact_binding": {
+        "kind": "native_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "market": "USOIL",
+        "open_epoch": 1794406500,
+        "source_sha256": "4505ae46bc35c01904d6bfe908eb333327d0cf25ceb1dc97bbeacea061e4e02c"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-d657f465ac92d71b030799f0f8d76300badc8c70bbc7695bc5f4ef2e82b2e90a",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "BTCUSD"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T17:22:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:08.946372+00:00",
+      "artifact_binding": {
+        "kind": "history_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "a41424d24107ba875a8674ccf2862125e48ba77f936d3de1d589d68c052d65dc",
+        "open_epoch": 1794417660
+      }
+    },
+    {
+      "source_id": "held-reply-fact-4caf0e783da2986864155b5f6ae23c588307528b64af37b9df8ea6d65acf4e15",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "BTCUSD"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T14:30:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T14:42:41.243492+00:00",
+      "artifact_binding": {
+        "kind": "native_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "market": "BTCUSD",
+        "open_epoch": 1794406500,
+        "source_sha256": "969195b0505f90c2d06344980da47ddfede68ea15610fdaeb9ee83129d3a6318"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-fe696673914c6070dc4520c30bedff5376f4be1ca1e191739422b83b258c6712",
+      "fact": {
+        "kind": "session",
+        "markets": [
+          "DXY"
+        ],
+        "as_of_date": "2026-11-11",
+        "observed_at_utc": "2026-11-11T17:12:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:09.711492+00:00",
+      "artifact_binding": {
+        "kind": "history_bar",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "84e3389fed9d829895604da69d0adcd2790a3e4fdfee9e867f562f402fb34e3a",
+        "open_epoch": 1794417060
+      }
+    },
+    {
+      "source_id": "held-reply-fact-f4fb443b5c8ea135c2f5e8187d9a6ce064e755955ebebc74f421438069be1ea1",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "US2Y"
+        ],
+        "as_of_date": "2026-11-10",
+        "observed_at_utc": "2026-11-11T00:00:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:13.227737+00:00",
+      "artifact_binding": {
+        "kind": "history_point",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "741dc45fe00c832743e7cf2410518eaafe8c787ab55e782e78160ffa70e9738b",
+        "open_epoch": 1794268800
+      }
+    },
+    {
+      "source_id": "held-reply-fact-4641d5b495f103dfea88f4f348550ddce7f187a375807f50ec71655f67dc6160",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "US10Y"
+        ],
+        "as_of_date": "2026-11-10",
+        "observed_at_utc": "2026-11-11T00:00:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:13.227737+00:00",
+      "artifact_binding": {
+        "kind": "history_point",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "3b4cf2838fb83360ebc4ae9077f37594ad10310f5e741c6963d5a4d6fac98b57",
+        "open_epoch": 1794268800
+      }
+    },
+    {
+      "source_id": "held-reply-fact-0b84b3708cdc27e4e2432c5840364005db8fc18d6aa5529a93770d6f95b50bc3",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "US10Y"
+        ],
+        "as_of_date": "2026-11-10",
+        "observed_at_utc": "2026-11-11T00:00:00+00:00"
+      },
+      "known_at_utc": "2026-11-11T17:22:13.827504+00:00",
+      "artifact_binding": {
+        "kind": "history_point",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+        "source_id": "2b3f3fede6913d11fd50d17bc328e09a5d1b48db3a14746d524bbe0093038578",
+        "open_epoch": 1794268800
+      }
+    },
+    {
+      "source_id": "held-reply-fact-b605563b43f5007e91495e2eae6d44be4d1076d7b2863fc71f12b4f0ef1482b2",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "US2Y"
+        ],
+        "as_of_date": "2026-11-10"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "c35f5ea8ec38d92647c898296de5281e1d97e074c16d2b7d9fdd6991d75e54a7"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-a0397dee03e46e8e4c7ddf5f7866532d968cc2338b2df62cc00c38ef160d020f",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "US10Y"
+        ],
+        "as_of_date": "2026-11-10"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "ff4a38b997b3828cc32d9eac1dd2879cbe919a49a8f196acf674501b7a41eedf"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-7368f4f39f61d598d7a8fc096c652f127f336282f68b08ed613fba3df2a57153",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "US30Y"
+        ],
+        "as_of_date": "2026-11-10"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "fc3c991aabdaa189a54d88bb615dced5e5afe0617dc4edf89d9606f11d4eb235"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-c3af12751ab0b01ae5340643b6097af4d7de835dfea8f303d1ed3830e5853460",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "US10Y"
+        ],
+        "as_of_date": "2026-11-10"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "20a37fff6d47cfe4f8c41b31f06cb8fa543ddb84bdd3dd1bffd2bdcf13ec48ed"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-1f4e05bb917ea350fc7453d6718740aeda084b970a8afea745de4c8b90f7ca0d",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "RATES"
+        ],
+        "as_of_date": "2026-11-09"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "b1a24c319847cac575f8cd31b89dc343070e99fee1a250c38fd9466b40e24c80"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-ce9de23defdba741e1de386ebd316764beca422648c9cc3ca17275d95bd57d10",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "RATES"
+        ],
+        "as_of_date": "2026-11-09"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "e41cbe12489c99165f0c080ead01b4648848466f7529c8abbabb0e79fe09f682"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-0d6a0d83986b30124a844a12760f20f1802eff4c2384c609e5a0558303a5f141",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "JP2Y"
+        ],
+        "as_of_date": "2026-11-10"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "b2db29dec8cc61267f1cddbee2c3b3e24839d842df795d66fddbb4eb99dfc3b1"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-4d0101784c8935813c1c175ba7feb220b6b53a2646821afb56aa1e3cba89d838",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "JP10Y"
+        ],
+        "as_of_date": "2026-11-10"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "fda50afe4f21970aa088c765663490815209375058152fd84ad0c0d50ba9eaae"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-8e9d84fd8b0319b232a7845aa4e260ae65a5573833c28443d72f85d59d111e86",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "EA2Y"
+        ],
+        "as_of_date": "2026-11-10"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "23468519f28f560d602a1cb0301343b310fd11754145b3efcf8062bfcb1c418e"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-d5052385ce95329faa5a8b44cc967035621ee2bb4df4e7d4c09b676de10e6849",
+      "fact": {
+        "kind": "daily",
+        "markets": [
+          "EA10Y"
+        ],
+        "as_of_date": "2026-11-10"
+      },
+      "known_at_utc": "2026-11-11T17:30:23.564290+00:00",
+      "artifact_binding": {
+        "kind": "rate_row",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+        "version": "57fb3e815eba11eae6a09545e4eaefa6bb55790dab46c35e0c7f24b4978ed80a"
+      }
+    },
+    {
+      "source_id": "held-reply-fact-cd976e6cdc77c55369820f6737375a31c26482b163eb41a095e2df41c189e56d",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "EURUSD"
+        ],
+        "period_text": "Jan 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:EUR/USD",
+        "price_basis": "BID",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 232,
+        "consensus_source": "myfxbook",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 232
+      }
+    },
+    {
+      "source_id": "held-reply-fact-b7737efb29f10dfb2994eaed16d8000f4a1325de42854797733e46a9820080c4",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "USDJPY"
+        ],
+        "period_text": "Jan 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:USD/JPY",
+        "price_basis": "BID",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 244,
+        "consensus_source": "myfxbook",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 244
+      }
+    },
+    {
+      "source_id": "held-reply-fact-b8c1ab9563c37615d60824bef0d38ad5b221cf52bdf3fc78e856c238a1ac7fcd",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "XAUUSD"
+        ],
+        "period_text": "Jan 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:XAU/USD",
+        "price_basis": "BID",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 252,
+        "consensus_source": "myfxbook",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 252
+      }
+    },
+    {
+      "source_id": "held-reply-fact-0d3066b9cef8b756cf50d31b9334b1061d76d5aaebbbc20518d8cb524fa2fc35",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "EURUSD"
+        ],
+        "period_text": "Jan 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:EUR/USD",
+        "price_basis": "BID",
+        "window": "5m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 233,
+        "consensus_source": "myfxbook",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 233
+      }
+    },
+    {
+      "source_id": "held-reply-fact-648d5ad2e8630dd1cc6c39b3774403c0e380f4d6d37c155c61c0544347bb3066",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "USDJPY"
+        ],
+        "period_text": "Jan 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:USD/JPY",
+        "price_basis": "BID",
+        "window": "5m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 245,
+        "consensus_source": "myfxbook",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 245
+      }
+    },
+    {
+      "source_id": "held-reply-fact-8338e7ad2a4c6474457ef392ac6f2634fa4e72a4d9d24429d0beb529b028a8f6",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "XAUUSD"
+        ],
+        "period_text": "Jan 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:XAU/USD",
+        "price_basis": "BID",
+        "window": "5m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 253,
+        "consensus_source": "myfxbook",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 253
+      }
+    },
+    {
+      "source_id": "held-reply-fact-0db9e357ad8d4fd2c2960f733fafadf50d3dba479a7d1af62fb1eb88f3704475",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "EURUSD"
+        ],
+        "period_text": "Jan 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:EUR/USD",
+        "price_basis": "BID",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 176,
+        "consensus_source": "investing",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 176
+      }
+    },
+    {
+      "source_id": "held-reply-fact-ad536d1e63fe9450d5ff12f340c0176b603340f4af245ec678986126597f10a2",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "USDJPY"
+        ],
+        "period_text": "Jan 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:USD/JPY",
+        "price_basis": "BID",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 192,
+        "consensus_source": "investing",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 192
+      }
+    },
+    {
+      "source_id": "held-reply-fact-0bbee9f6f8ede7cac6a5b59d80d6afdd0354d797cccfb84de4ca7840124730af",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "XAUUSD"
+        ],
+        "period_text": "Jan 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:XAU/USD",
+        "price_basis": "BID",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 204,
+        "consensus_source": "investing",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 204
+      }
+    },
+    {
+      "source_id": "held-reply-fact-79e3198439b7467a8efcd08813f1e118ed1e0ea2a2d70b1a1a90769ba1f7f0e6",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "SPX"
+        ],
+        "period_text": "Jan 2026 to 11 Sep 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:USA500.IDX/USD",
+        "price_basis": "BID",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 236,
+        "consensus_source": "myfxbook",
+        "sample_end_date": "2026-09-11"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 236
+      }
+    },
+    {
+      "source_id": "held-reply-fact-3f22f02efb674d65858053ea0b3e8830943da0f81cbf61808c3889e3b589daf1",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "SPX"
+        ],
+        "period_text": "Jan 2026 to 11 Sep 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:USA500.IDX/USD",
+        "price_basis": "BID",
+        "window": "5m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 237,
+        "consensus_source": "myfxbook",
+        "sample_end_date": "2026-09-11"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 237
+      }
+    },
+    {
+      "source_id": "held-reply-fact-945015cbfa7331e6f9549a7b914eca8b5f86d2ce8ae588d2200000cd9c3af6e7",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "SPX"
+        ],
+        "period_text": "Jan 2026 to 11 Sep 2026",
+        "through_date": "2026-11-10",
+        "series_id": "DUKASCOPY:USA500.IDX/USD",
+        "price_basis": "BID",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 180,
+        "consensus_source": "investing",
+        "sample_end_date": "2026-09-11"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 180
+      }
+    },
+    {
+      "source_id": "held-reply-fact-6fec140347b0ad919d51fa99cbcf966a71a0fe375864cef7c076684546958783",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "BTCUSD"
+        ],
+        "period_text": "Mar 2024 to 11 Dec 2024",
+        "through_date": "2026-11-10",
+        "series_id": "BINANCE:BTCUSDT",
+        "price_basis": "SPOT_TRADE",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 168,
+        "consensus_source": "investing",
+        "sample_end_date": "2024-12-11"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 168
+      }
+    },
+    {
+      "source_id": "held-reply-fact-a81a28ab29a52da2949d5e7c03b3886118a36e89ed3319aa57dbd3cdcd736f06",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "BTCUSD"
+        ],
+        "period_text": "Mar 2024 to 11 Dec 2024",
+        "through_date": "2026-11-10",
+        "series_id": "BINANCE:BTCUSDT",
+        "price_basis": "SPOT_TRADE",
+        "window": "5m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 169,
+        "consensus_source": "investing",
+        "sample_end_date": "2024-12-11"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 169
+      }
+    },
+    {
+      "source_id": "held-reply-fact-b6276468616c173fab0f505b15dc5de957863c31a00b39da3aef734f9ca92d86",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "BTCUSD"
+        ],
+        "period_text": "Jan 2024 to 10 Oct 2024",
+        "through_date": "2026-11-10",
+        "series_id": "BINANCE:BTCUSDT",
+        "price_basis": "SPOT_TRADE",
+        "window": "30m",
+        "condition_text": "hot headline CPI",
+        "producer_summary_row": 152,
+        "consensus_source": "investing",
+        "sample_end_date": "2024-10-10"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 152
+      }
+    },
+    {
+      "source_id": "held-reply-fact-b6db049a84f1a576199435b98af19017024c7324e6a275e857dfa3d8042a81c5",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "WTI"
+        ],
+        "period_text": "Sep 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "YAHOO_FINANCE:CL=F",
+        "price_basis": "YAHOO_UNADJUSTED_CHART_OHLC:CL=F",
+        "window": "30m",
+        "condition_text": "hot core CPI",
+        "producer_summary_row": 36,
+        "consensus_source": "investing",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 36
+      }
+    },
+    {
+      "source_id": "held-reply-fact-86bd2c76d89e9ba57e7e742a0fd0ff8f5fda063514f9fb24527340270e688541",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "WTI"
+        ],
+        "period_text": "Sep 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "YAHOO_FINANCE:CL=F",
+        "price_basis": "YAHOO_UNADJUSTED_CHART_OHLC:CL=F",
+        "window": "30m",
+        "condition_text": "hot core CPI",
+        "producer_summary_row": 96,
+        "consensus_source": "myfxbook",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 96
+      }
+    },
+    {
+      "source_id": "held-reply-fact-a30af7cf621ae6d7a783499cc11cfa839fb7162347e60de9ddd1b92fa67e913e",
+      "fact": {
+        "kind": "base_rate",
+        "markets": [
+          "WTI"
+        ],
+        "period_text": "Sep 2026 to 14 Oct 2026",
+        "through_date": "2026-11-10",
+        "series_id": "YAHOO_FINANCE:CL=F",
+        "price_basis": "YAHOO_UNADJUSTED_CHART_OHLC:CL=F",
+        "window": "30m",
+        "condition_text": "in-line headline CPI",
+        "producer_summary_row": 200,
+        "consensus_source": "investing",
+        "sample_end_date": "2026-10-14"
+      },
+      "known_at_utc": "2026-11-10T09:31:46.640512Z",
+      "artifact_binding": {
+        "kind": "reaction_count",
+        "path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\cpi-reactions\\latest\\publisher.json",
+        "sha256": "d2c1553cb6994d2b5fd506b063b22ed9bfe9446d82cc57093e298a97cdcbdd95",
+        "through_date": "2026-11-10",
+        "producer_summary_row": 200
+      }
+    }
+  ],
+  "gaps": [
+    {
+      "cause": "SAME_SESSION_PRICED_IN_PATH_NOT_HELD",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\rates-implied\\observations.sqlite3",
+      "held_families": [
+        "direct_rates",
+        "rates",
+        "rates_proxy",
+        "volatility"
+      ]
+    },
+    {
+      "market": "NDX",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "NASDAQ",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "BTCUSD",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "DXY",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "EURUSD",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "SPX",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "US10Y",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "US2Y",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "USDJPY",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "WTI",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    },
+    {
+      "market": "XAUUSD",
+      "cause": "SAME_SESSION_PRICE_OR_YIELD_NOT_HELD_WITHIN_75_MINUTES",
+      "searched": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3"
+    }
+  ],
+  "public_submit_actions": 0
+}

@@ -1,0 +1,109 @@
+{
+  "searched_at_utc": "2026-11-11T21:04:26.998350+00:00",
+  "roots": [
+    "A:\\Capital Chronicle\\ResearchRuns",
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research"
+  ],
+  "patterns": [
+    "*/requests/*/intraday-capture.json",
+    "t2-runs/*/request/intraday/*/intraday-capture.json",
+    "*/dossier-*/intraday-capture.json"
+  ],
+  "matching_files": 99,
+  "latest": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T144036Z\\request\\intraday\\batch-03\\intraday-capture.json",
+      "known_at_utc": "2026-11-11T14:42:41.578838Z",
+      "schema": "CapitalChroniclePrimaryDemoIntradayCaptureV1",
+      "symbols": [
+        "AVGO",
+        "BTCUSD",
+        "EQIX",
+        "ETHUSD",
+        "JPM",
+        "LIN",
+        "LLY",
+        "LMT",
+        "TSLA",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T144036Z\\request\\intraday\\batch-02\\intraday-capture.json",
+      "known_at_utc": "2026-11-11T14:42:37.785134Z",
+      "schema": "CapitalChroniclePrimaryDemoIntradayCaptureV1",
+      "symbols": [
+        "AAPL",
+        "AMZN",
+        "GOOGL",
+        "META",
+        "MSFT",
+        "NVDA",
+        "SPCX",
+        "US30",
+        "US500",
+        "USTEC",
+        "XCUUSD",
+        "XNGUSD"
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T144036Z\\request\\intraday\\batch-01\\intraday-capture.json",
+      "known_at_utc": "2026-11-11T14:42:33.894478Z",
+      "schema": "CapitalChroniclePrimaryDemoIntradayCaptureV1",
+      "symbols": [
+        "AUDUSD",
+        "DXY",
+        "EURUSD",
+        "GBPUSD",
+        "NZDUSD",
+        "UKOIL",
+        "USDCAD",
+        "USDCHF",
+        "USDJPY",
+        "USOIL",
+        "XAGUSD",
+        "XAUUSD"
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T074520Z\\request\\intraday\\batch-03\\intraday-capture.json",
+      "known_at_utc": "2026-11-11T07:47:11.263616Z",
+      "schema": "CapitalChroniclePrimaryDemoIntradayCaptureV1",
+      "symbols": [
+        "AVGO",
+        "BTCUSD",
+        "EQIX",
+        "ETHUSD",
+        "JPM",
+        "LIN",
+        "LLY",
+        "LMT",
+        "TSLA",
+        "WMT",
+        "XOM"
+      ]
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T074520Z\\request\\intraday\\batch-02\\intraday-capture.json",
+      "known_at_utc": "2026-11-11T07:47:07.534573Z",
+      "schema": "CapitalChroniclePrimaryDemoIntradayCaptureV1",
+      "symbols": [
+        "AAPL",
+        "AMZN",
+        "GOOGL",
+        "META",
+        "MSFT",
+        "NVDA",
+        "SPCX",
+        "US30",
+        "US500",
+        "USTEC",
+        "XCUUSD",
+        "XNGUSD"
+      ]
+    }
+  ],
+  "scope": "Saved research outputs only; no terminal, Guardian, position runtime or producer job was opened or changed."
+}
