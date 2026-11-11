@@ -150,3 +150,27 @@ The resumed launch arguments observed on PID 47820 were
 `CONFIGURED_NOT_OBSERVED`. No model supplied publication copy in this repair.
 Live timing still requires exact endpoint returns and their matching Telegram
 confirmations; an active task or repaired source alone does not establish it.
+
+The coordinator regression also passed: **111 tests in 186.18 seconds**, using
+only `test_publication_coordinator_v1.py`, with no other pytest process running.
+
+### Notes live timing established
+
+For the same stored operation,
+`plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2`:
+
+- Notes [c-384300093](https://substack.com/@capitalchronicle/note/c-384300093)
+  has an endpoint-observed publish click at `2026-11-11T03:24:58.853Z` and a
+  verified coordinator readback at `2026-11-11T03:25:49.343512Z`.
+- Its [Telegram twin 163](https://t.me/CapitalChronicle/163) was dispatched at
+  `2026-11-11T03:25:51.660274Z` and verified at
+  `2026-11-11T03:25:54.471112Z`.
+- Notes confirmed **5.1276 seconds before Telegram**. The native observation
+  identifies `NEO_ENDPOINT_EXECUTOR`, `browseros-neo/run`, and invocation
+  `neo-endpoint:b15c444c319c43c09358f67a408c56de`; no Codex tool step supplies
+  this return. A separate Neo read of the public Note matched the complete
+  frozen copy on 11 November, without editing the public object.
+
+The original source time, publish-click time and readback time remain separate.
+This establishes the Notes half of the live timing acceptance. X remains due
+for an exact matching live confirmation.
