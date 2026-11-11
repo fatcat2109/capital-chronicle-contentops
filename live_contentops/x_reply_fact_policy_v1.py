@@ -150,7 +150,12 @@ def check_fact(post, source, *, now, draft=None):
                                    + str(fact["sample_count"]) + r"\b", draft["draft_text"], re.I)
                           and fact["period_text"].casefold() in draft["draft_text"].casefold()):
             raise ValueError("FACT_BASE_RATE_COUNT_AND_PERIOD_NOT_STATED")
-        age_text = "historical count through " + through.strftime("%d %b %Y")
+        if draft and fact.get("condition_text") and fact["condition_text"].casefold() not in draft["draft_text"].casefold():
+            raise ValueError("FACT_BASE_RATE_CONDITION_NOT_STATED")
+        if draft and fact.get("window") and not re.search(r"\b" + re.escape(fact["window"][:-1]) + r"[ -]?(?:minutes?|mins?|m)\b", draft["draft_text"], re.I):
+            raise ValueError("FACT_BASE_RATE_REACTION_WINDOW_NOT_STATED")
+        age_text = ("historical count; last observation " + date.fromisoformat(fact["sample_end_date"]).strftime("%d %b %Y")
+                    if fact.get("sample_end_date") else "historical count through " + through.strftime("%d %b %Y"))
     elif kind == "positioning":  # rule 3
         if not fact.get("as_of_date"):
             raise ValueError("FACT_POSITIONING_AS_OF_DATE_REQUIRED")

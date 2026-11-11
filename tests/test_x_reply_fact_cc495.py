@@ -351,12 +351,24 @@ def test_reaction_counts_never_pool_series_windows_or_future_events(tmp_path):
     def event(day, series, value):
         return {"release_utc": day + "T13:30:00Z", "markets": [{"symbol": "US500", "series_id": series,
             "price_basis": "BID", "windows": {"5m": {"move_pct": value, "missing_reason": None}}}]}
+    def summary(series, count, dates):
+        return {"symbol": "US500", "series_id": series, "price_basis": "BID", "window": "5m",
+                "positive_n": count, "n": len(dates), "release_dates": dates,
+                "measure": "CPI_CORE_MOM", "bucket": "HOT", "consensus_source": "held producer consensus"}
     packs.save_json(path, {"as_of_utc": NOW.isoformat(), "events": [
         event("2026-09-10", "HISTDATA:SPXUSD", 1), event("2026-10-10", "HISTDATA:SPXUSD", -1),
-        event("2026-10-10", "DUKASCOPY:USA500.IDX/USD", 2), event("2026-11-12", "HISTDATA:SPXUSD", 2)]})
+        event("2026-10-10", "DUKASCOPY:USA500.IDX/USD", 2), event("2026-11-12", "HISTDATA:SPXUSD", 2)],
+        "summary": [summary("HISTDATA:SPXUSD", 1, ["2026-09-10", "2026-10-10"]),
+                    summary("DUKASCOPY:USA500.IDX/USD", 1, ["2026-10-10"]),
+                    summary("HISTDATA:SPXUSD", 3, ["2026-09-10", "2026-10-10", "2026-11-12"])]})
     sources = facts._reaction_sources(path, through_date="2026-11-10")
     hist = next(s for s in sources if s["fact_binding"]["series_id"].startswith("HISTDATA:"))
     assert len(sources) == 2 and hist["fact_binding"]["sample_count"] == 2 and hist["fact_binding"]["count"] == 1
-    assert "1 of 2 retained CPI days from 10 Sep 2026 to 10 Oct 2026" in hist["excerpt"]
+    assert "1 of 2 retained hot core CPI days, Sep 2026 to 10 Oct 2026" in hist["excerpt"]
     assert facts.resolve(hist) == hist
-    assert policy.check_fact(post("S&P 500 ON CPI"), hist, now=NOW, draft={"draft_text": hist["excerpt"]})
+    checked = policy.check_fact(post("S&P 500 ON CPI"), hist, now=NOW, draft={"draft_text": hist["excerpt"]})
+    assert checked["age_text"] == "historical count; last observation 10 Oct 2026"
+    with pytest.raises(ValueError, match="FACT_BASE_RATE_CONDITION_NOT_STATED"):
+        policy.check_fact(post("S&P 500 ON CPI"), hist, now=NOW, draft={"draft_text": hist["excerpt"].replace("hot core CPI", "CPI")})
+    with pytest.raises(ValueError, match="FACT_BASE_RATE_REACTION_WINDOW_NOT_STATED"):
+        policy.check_fact(post("S&P 500 ON CPI"), hist, now=NOW, draft={"draft_text": hist["excerpt"].replace("5 minutes", "the release")})
