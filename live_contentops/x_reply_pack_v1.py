@@ -477,7 +477,10 @@ def observe_manual_replies(store, *, reply_feed_path, now=None):
         observed.append({"post_id": post_id, "parent_post_id": parent, "target_author": item["author_handle"],
                          "readback_message_id": message_id, "dispatch_id": dispatch_id,
                          "daily_observation_id": daily["observation_id"]})
-    return {"observed": observed, "causes": dict(causes), "public_write_performed": False}
+    return {"observed": observed, "causes": dict(causes), "public_write_performed": False,
+            "reader_followup": {"own_replies_url": "https://x.com/Capitalnicle/with_replies",
+                                "mentions_url": "https://x.com/notifications/mentions",
+                                "action": "Use the existing signed-in reader's next bounded visit; pass its exact reply-edge rows with --reply-feed. No agent posts."}}
 
 
 def report_manual_replies(store, *, now=None):

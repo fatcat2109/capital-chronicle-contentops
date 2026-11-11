@@ -120,7 +120,7 @@ def feed_row(row: Mapping[str, Any]) -> dict[str, Any] | None:
     handle = str(row.get("author_handle") or "").strip()
     url = str(row.get("tweet_url") or "").strip() or (
         f"https://x.com/{handle}/status/{tweet_id}" if handle else f"https://x.com/i/status/{tweet_id}")
-    return {
+    projected = {
         "handle": handle,
         "text": text,
         "url": url,
@@ -131,6 +131,16 @@ def feed_row(row: Mapping[str, Any]) -> dict[str, Any] | None:
         "is_retweet": bool(row.get("is_retweet")),
         "tags": [str(tag) for tag in (row.get("candidate_catalyst_tags") or [])],
     }
+    # CC-455: retain actual reader observations; never infer a reply edge from text.
+    parent = row.get("in_reply_to_status_id")
+    if parent is not None and str(parent).isdigit():
+        projected["in_reply_to_status_id"] = str(parent)
+    if row.get("quoted_author_handle"):
+        projected["quoted_author_handle"] = str(row["quoted_author_handle"])
+    if isinstance(row.get("metrics"), dict) and row["metrics"]:
+        projected["metrics"] = dict(row["metrics"])
+        projected["metrics_observed_at_utc"] = _iso(ingested) if ingested else None
+    return projected
 
 
 def _sidecar_name(day: date) -> str:

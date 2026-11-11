@@ -248,6 +248,9 @@ def _tweet_sidecar_metadata(tweet):
         "is_retweet": False,
         "is_quote_like": False,
         "linked_urls": [],
+        "in_reply_to_status_id": None,
+        "quoted_author_handle": None,
+        "metrics": None,
     }
     if isinstance(tweet, dict):
         metadata.update({key: tweet.get(key, metadata[key]) for key in metadata})
@@ -357,6 +360,15 @@ def recursive_tweet_extractor(obj):
                         "is_retweet": text.startswith("RT @"),
                         "is_quote_like": "https://t.co/" in text,
                         "linked_urls": linked_urls,
+                        "in_reply_to_status_id": legacy.get('in_reply_to_status_id_str'),
+                        "quoted_author_handle": find_screen_name(
+                            ((obj.get('quoted_status_result') or {}).get('result') or {}).get('core', {})
+                        ),
+                        "metrics": {
+                            **({"likes": legacy['favorite_count']} if type(legacy.get('favorite_count')) is int else {}),
+                            **({"views": int(str(obj['views']['count']))}
+                               if str((obj.get('views') or {}).get('count', '')).isdigit() else {}),
+                        },
                     })
             except Exception: pass
         for key, value in obj.items(): tweets.extend(recursive_tweet_extractor(value))

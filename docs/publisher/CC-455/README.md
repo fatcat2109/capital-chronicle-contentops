@@ -102,3 +102,16 @@ the agent's posting authority under decision 122: Jim opens one prepared link,
 reviews the reply and posts it himself. The existing reader then supplies its
 exact reply-edge row to `pack-observe`; no agent substitutes a reply for him.
 No actual manual reply or 24-hour result is claimed in this delivery.
+
+The final reader check found an actual projection loss: the ingestion parser
+and feed omitted reply-parent/quoted-author fields. The same pure parser and
+`feed_row` now retain those fields plus observed likes/views and their capture
+clock. Default list navigation, capture process, deduplication, first-ingest
+clocks and schedules are unchanged. No reader process was restarted. The observer
+returns the existing reader's own-replies/mentions URLs as a bounded follow-up;
+`--reply-feed` consumes its current capture, including a later metrics capture,
+rather than treating the first-ingest counts as a 24-hour observation.
+`reader-projection-tests.xml` covers the actual pure ingestion functions through
+feed projection, manual readback and the existing performance consumer, alongside
+the CC-258 feed regressions. A real own-reply capture remains pending Jim's first
+reply; the controlled parser check is not represented as that observation.

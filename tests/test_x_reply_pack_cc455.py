@@ -270,3 +270,39 @@ def test_observed_post_clock_is_write_once_and_requires_offset(setup):
         store.register_platform_dispatch(**args, observed_dispatched_at_utc=(posted + timedelta(seconds=1)).isoformat())
     with pytest.raises(ValueError, match="OFFSET_REQUIRED"):
         store.register_platform_dispatch(**args, observed_dispatched_at_utc="2026-11-11T00:35:00")
+
+
+def test_actual_ingestion_parser_and_feed_preserve_reply_edge_to_observer(setup):
+    """Execute the production pure parsers without importing browser/startup code."""
+    import ast
+    import hashlib
+    from pathlib import Path
+    from live_contentops.x_list_feed_v1 import feed_row, X_EPOCH_MS
+
+    source = ast.parse((Path(__file__).resolve().parents[1] / "headline_ingestion/Data_Ingestion.py").read_text(encoding="utf-8-sig"))
+    selected = {"find_screen_name", "recursive_tweet_extractor", "_tweet_sidecar_metadata"}
+    functions = [n for n in source.body if isinstance(n, ast.FunctionDef) and n.name in selected]
+    namespace = {"re": __import__("re"), "_normalize_headline_text": lambda s: str(s).strip(),
+                 "convert_to_gmt7": str, "_tweet_text": lambda t: t["text"],
+                 "candidate_catalyst_tags": lambda text: [], "follow_up_data_need_candidates": lambda *a: [],
+                 "headline_quality_flags": lambda t: [], "_text_sha256": lambda t: hashlib.sha256(t.encode()).hexdigest(),
+                 "_dedup_key": lambda t: "tweet_id:" + t["tweet_id"]}
+    exec(compile(ast.Module(body=functions, type_ignores=[]), "production-ingestion-pure-functions", "exec"), namespace)
+    posted = NOW + timedelta(minutes=5)
+    post_id = str((int(posted.timestamp() * 1000) - X_EPOCH_MS) << 22)
+    raw = {"core": {"user_results": {"result": {"legacy": {"screen_name": "Capitalnicle"}}}},
+           "legacy": {"id_str": post_id, "full_text": "Jim's edited reply", "in_reply_to_status_id_str": "123", "favorite_count": 0},
+           "views": {"count": "42"}}
+    tweet = namespace["recursive_tweet_extractor"](raw)[0]
+    sidecar = {**namespace["_tweet_sidecar_metadata"](tweet), "headline_text": tweet["text"],
+               "captured_at_utc_precise": (posted + timedelta(hours=24)).isoformat()}
+    projected = feed_row(sidecar)
+    assert projected["in_reply_to_status_id"] == "123" and projected["metrics"] == {"views": 42, "likes": 0}
+    store, _, root = setup
+    ready, _, response = response_for(setup)
+    build(setup, ready, response)
+    path = root / "reader-projected-replies.json"
+    packs.save_json(path, {"rows": [projected]})
+    result = packs.observe_manual_replies(store, reply_feed_path=path, now=posted + timedelta(hours=24))
+    assert result["observed"][0]["parent_post_id"] == "123"
+    assert packs.report_manual_replies(store, now=posted + timedelta(hours=24))["cohorts"][0]["views"] == 42
