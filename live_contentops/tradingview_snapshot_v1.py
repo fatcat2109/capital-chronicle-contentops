@@ -342,9 +342,18 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
     if chart_size:
         taken["template_chart_size"] = list(chart_size)
     if not economic and (worker is None or quote_provider is not None):
-        from .publication_image_contract_v1 import bind_scale
-        taken = bind_scale(market, taken,
-            quote=quote_provider(market, taken["captured_at_utc"]) if quote_provider else None)
+        from .publication_image_contract_v1 import ImageContractError, bind_scale
+        try:
+            taken = bind_scale(market, taken,
+                quote=quote_provider(market, taken["captured_at_utc"]) if quote_provider else None)
+        except ImageContractError as error:
+            record_outcome({"status": "PRICE_SCALE_REFUSED", "market": market,
+                "cause": str(error), "captured_at_utc": taken["captured_at_utc"],
+                "price_scale_check": error.details, "chart_sha256": taken["sha256"]})
+            raise
+        record_outcome({"status": "PRICE_SCALE_CHECKED", "market": market,
+            "captured_at_utc": taken["captured_at_utc"],
+            "price_scale_check": taken["price_scale_check"], "chart_sha256": taken["sha256"]})
     return taken
 
 

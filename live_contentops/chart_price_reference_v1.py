@@ -30,6 +30,14 @@ def _iso(epoch):
     return datetime.fromtimestamp(epoch, timezone.utc).isoformat()
 
 
+def _unavailable(failures, cause):
+    if failures:
+        # Sources are scanned newest first. Report the closest held price,
+        # rather than letting the last (oldest) failed import mask its age.
+        raise min(failures, key=lambda e: abs(getattr(e, "details", {}).get("age_seconds", float("inf"))))
+    raise contract.ImageContractError(cause)
+
+
 def _reference(market, captured_at, price, price_at, known_at, **source):
     capture = contract.utc(captured_at)
     at, closed = contract.comparison_clock(market, capture)
@@ -53,7 +61,7 @@ def plan_status_quote(market, captured_at, path):
     path = Path(path)
     raw = path.read_bytes()
     data = json.loads(raw)
-    if data.get("schema") != "CapitalChroniclePlanStatusV1":
+    if not isinstance(data, dict) or data.get("schema") != "CapitalChroniclePlanStatusV1":
         raise contract.ImageContractError("PLAN_STATUS_PRICE_SCHEMA_INVALID")
     digest = sha256(_canonical({k: v for k, v in data.items() if k != "content_hash"})).hexdigest()
     if data.get("content_hash") != digest:
@@ -62,8 +70,10 @@ def plan_status_quote(market, captured_at, path):
     if known > contract.utc(captured_at):
         raise contract.ImageContractError("CHART_REFERENCE_NOT_KNOWN_AT_CAPTURE")
     candidates, failures = [], []
+    if not isinstance(data.get("plans"), list):
+        raise contract.ImageContractError("PLAN_STATUS_PRICE_SCHEMA_INVALID")
     for row in data["plans"]:
-        if row.get("asset_id") != market:
+        if not isinstance(row, dict) or row.get("asset_id") != market:
             continue
         quote = row.get("last_quote") or row.get("quote")
         if not isinstance(quote, dict):
@@ -86,9 +96,7 @@ def plan_status_quote(market, captured_at, path):
         except (ValueError, KeyError, TypeError, OverflowError) as exc:
             failures.append(exc)
     if not candidates:
-        if failures:
-            raise failures[-1]
-        raise contract.ImageContractError("PLAN_STATUS_LAST_PRICE_NOT_EXPORTED")
+        _unavailable(failures, "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED")
     return min(candidates, key=lambda q: q["age_seconds"])
 
 
@@ -115,7 +123,7 @@ def bar_store_quote(market, captured_at, path):
         for source in sources:
             try:
                 metadata = json.loads(source["metadata_json"])
-                if (metadata.get("source_instrument") != market
+                if (not isinstance(metadata, dict) or metadata.get("source_instrument") != market
                         or metadata.get("contract_id") != "EXNESS_DEMO:" + market):
                     failures.append(contract.ImageContractError("CHART_REFERENCE_INSTRUMENT_MISMATCH"))
                     continue
@@ -137,9 +145,7 @@ def bar_store_quote(market, captured_at, path):
             except (ValueError, KeyError, TypeError, OverflowError) as exc:
                 failures.append(exc)
     if not candidates:
-        if failures:
-            raise failures[-1]
-        raise contract.ImageContractError("BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE")
+        _unavailable(failures, "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE")
     return min(candidates, key=lambda q: q["age_seconds"])
 
 

@@ -176,3 +176,60 @@ def test_missing_store_is_not_created(sources):
     sources[1].unlink()
     assert contract.bind_scale("EURUSD", snap())["price_scale_check"]["comparison_basis"] == "NOT_COMPARED"
     assert not sources[1].exists()
+
+
+@pytest.mark.parametrize("body", [[], "invalid-json", {"schema": "wrong"}])
+def test_unreadable_export_uses_available_bar_instead_of_refusing_a_chart(sources, body):
+    sources[0].write_text(body if isinstance(body, str) else json.dumps(body), encoding="utf-8")
+    bar(sources[1])
+    assert contract.bind_scale("EURUSD", snap())["price_scale_check"]["quote"]["source_kind"] == "BAR_STORE_M1_CLOSE"
+
+
+def test_unreadable_bar_metadata_is_a_named_gap_not_a_chart_refusal(sources):
+    bar(sources[1])
+    with closing(sqlite3.connect(sources[1])) as db, db:
+        db.execute("UPDATE history_sources SET metadata_json='[]'")
+    check = contract.bind_scale("EURUSD", snap())["price_scale_check"]
+    assert check["comparison_basis"] == "NOT_COMPARED"
+    assert check["quote_source_attempts"][1]["cause"] == "CHART_REFERENCE_INSTRUMENT_MISMATCH"
+
+
+def test_cause_reports_the_freshest_stale_bar_not_the_oldest_import(sources):
+    bar(sources[1], end=NOW - timedelta(minutes=3), sid="newest")
+    bar(sources[1], end=NOW - timedelta(days=2), known=NOW - timedelta(days=1), sid="older")
+    with pytest.raises(contract.ImageContractError) as error:
+        prices.bar_store_quote("EURUSD", NOW, sources[1])
+    assert error.value.details["age_seconds"] == 180
+
+
+def test_missing_quote_still_reaches_real_coordinator_as_a_chart(sources, tmp_path):
+    from test_publication_image_contract_cc463 import message_with, snapshot
+    taken = contract.bind_scale("US500", snapshot())
+    asset = {**tv.snapshot_asset("US500", "S&P 500", taken, tmp_path),
+             "article_inclusion": True, "canonical_article_media": True}
+    _, runtime, coordinator, message = message_with(tmp_path / "run", [asset])
+    result = coordinator._dispatch_message(message, canonical_url=None)
+    assert result["status"] == "DISPATCH_CONFIRMED" and runtime.publish_calls == ["substack"], result
+
+
+@pytest.mark.parametrize("price,expected", [(100, "PRICE_SCALE_CHECKED"), (90, "PRICE_SCALE_REFUSED")])
+def test_chart_service_records_compared_samples_and_measured_refusals(sources, tmp_path, price, expected):
+    from test_tradingview_snapshot_cc314 import FIXTURE
+    bar(sources[1], "US500", price=price)
+    folder = tmp_path / "media"
+    folder.mkdir()
+    path = folder / "SPX_2026-11-12_16-00-00.png"
+    path.write_bytes(FIXTURE.read_bytes())
+    def worker(args):
+        return {"path": str(path), "suggested_filename": path.name, "legend": "SPX 4h",
+                "page_title": "SPX 100", "captured_at_utc": NOW.isoformat()}
+    def capture():
+        return tv.capture("US500", "240", folder, worker=worker,
+                          quote_provider=lambda m, at: prices.saved_chart_quote(m, at))
+    if price == 100:
+        assert capture()["price_scale_check"]["quote"]["source_kind"] == "BAR_STORE_M1_CLOSE"
+    else:
+        with pytest.raises(contract.ImageContractError, match="PRICE_SCALE_MISMATCH"):
+            capture()
+    event = json.loads(tv.OUTCOMES.read_text().splitlines()[-1])
+    assert event["status"] == expected and event["price_scale_check"]["difference_pct"] >= 0
