@@ -100,18 +100,16 @@ def test_no_level_or_target_is_drawn_and_no_target_is_kept(queued):
     assert "7,790" not in json.dumps(plan_) and "7790" not in json.dumps(row)
 
 
-def test_a_failed_snapshot_still_posts_with_the_plans_numbers(queued, outcomes):
+def test_two_failed_snapshots_use_text_and_never_a_drawn_card(queued, outcomes):
     store, _, key, root = queued
 
     def broken(market, interval, out_dir):
         raise tv.SnapshotError("TRADINGVIEW_SNAPSHOT_TIMEOUT")
     plan_ = prepare_post(store, key, root=root, host=fake_host, snapshot=broken)
-    asset = json.loads((Path(plan_["output_dir"]) / "run_context_v1.json").read_bytes())["media"]["assets"][0]
-    assert asset["card_kind"] == "PLAN_FACT_CARD" and Path(asset["path"]).is_file()
-    facts = dict(asset["data_card_packet"]["facts"])
-    assert facts["Entry zone"] == "7,650–7,672.5" and facts["Invalidation"] == "Below 7,620"
-    assert facts["Status"] == "New plan" and facts["As of"] == "Thu 5 Nov, 07:20 ET"
-    assert "7,790" not in json.dumps(asset) and "7,740" not in json.dumps(asset)
+    context = json.loads((Path(plan_["output_dir"]) / "run_context_v1.json").read_bytes())
+    assert context["media"]["assets"] == []
+    state = json.loads((Path(plan_["output_dir"]) / "tradingview_capture_v1.json").read_bytes())
+    assert state["attempts"] == 2 and state["status"] == "TEXT_ONLY"
     for row in plan_["destinations"]:
         assert "Chart: TradingView" not in row["payload"]
     assert tv.failure_count(outcomes) == 1
@@ -136,15 +134,17 @@ def test_x_keeps_the_credit_with_the_link_inside_its_limit(queued):
     assert "Chart: TradingView" in x["posts"][0]["text"] and x["posts"][0]["media_asset_ids"] == ["c"]
 
 
-def test_a_busy_tick_falls_back_once_its_snapshot_budget_is_spent(queued, outcomes):
+def test_a_busy_tick_defers_without_spending_capture_attempts_or_publishing_a_card(queued, outcomes):
     store, _, key, root = queued
     calls = []
-    plan_ = prepare_post(store, key, root=root, host=fake_host, snapshot=snapshot_with(calls),
-                         snapshot_allowed=lambda: False)
+    with pytest.raises(tv.SnapshotPending, match="DEFERRED_RUN_TIME_BUDGET"):
+        prepare_post(store, key, root=root, host=fake_host, snapshot=snapshot_with(calls),
+                     snapshot_allowed=lambda: False)
     assert calls == []
-    asset = json.loads((Path(plan_["output_dir"]) / "run_context_v1.json").read_bytes())["media"]["assets"][0]
-    assert asset["card_kind"] == "PLAN_FACT_CARD"
-    assert json.loads(outcomes.read_text().splitlines()[0])["status"] == "SKIPPED_RUN_TIME_BUDGET"
+    assert not (root / key / "run_context_v1.json").exists()
+    state = json.loads((root / key / "tradingview_capture_v1.json").read_bytes())
+    assert state["attempts"] == 0
+    assert json.loads(outcomes.read_text().splitlines()[0])["status"] == "DEFERRED"
 
 
 def test_capture_refuses_another_symbol_or_an_unconfirmed_timeframe(tmp_path):

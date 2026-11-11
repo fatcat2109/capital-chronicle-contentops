@@ -9,8 +9,9 @@ attribution stays clearly visible: the snapshot's own "Created with TradingView.
 logo are never cropped (framing only pads), and each post says "Chart: TradingView". Section 3 bars
 machine processing of TradingView content: one snapshot per post, displayed only, no data read.
 
-A failed snapshot never stops the post: the caller falls back to a fact card with the plan's own
-numbers (decision 42), and every outcome is counted in OUTCOMES.
+CC-459: plan posts share one capture per market for 15 minutes. Two capture attempts fit within
+a five-minute wait; the run budget defers capture, never substitutes a drawn levels picture.
+After failure, text-capable destinations use text and image-required destinations are skipped.
 
 Drawings: TradingView's guest chart refuses programmatic and hotkey drawings (5 Nov probe:
 "Cannot create shape" for horizontal_line and rectangle, Alt+H draws nothing), so no level is
@@ -24,7 +25,7 @@ import os
 import re
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -57,6 +58,96 @@ RIGHTS_BASIS = ("TradingView Terms of Use section 4 (checked 5 Nov 2026): chart 
 
 class SnapshotError(RuntimeError):
     pass
+
+
+class SnapshotPending(ValueError):
+    """The existing minute consumer resumes the same capture, without a new job."""
+
+
+PLAN_CACHE_SECONDS = 15 * 60
+PLAN_WAIT_SECONDS = 5 * 60
+PLAN_ATTEMPTS = 2
+
+
+def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
+                  now: datetime | None = None) -> dict | None:
+    """CC-459's bounded capture/cache owner. A None result means text after two failures.
+
+    Only image artifacts are cached; this is not another scheduler or publication store.
+    The market, source download hash, capture clock and first failure stay bound.
+    """
+    now = now or datetime.now(timezone.utc)
+    folder = Path(folder)
+    folder.mkdir(parents=True, exist_ok=True)
+    media = folder / "media_assets"
+    market = row["symbol"]
+    interval = interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
+    state_path = folder / "tradingview_capture_v1.json"
+    state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {
+        "key": row["key"], "market": market, "started_at_utc": now.isoformat(), "attempts": 0}
+    if state.get("key") != row["key"] or state.get("market") != market:
+        raise ValueError("TRADINGVIEW_PLAN_CAPTURE_BINDING_CHANGED")
+
+    def save():
+        state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
+
+    cache_file = folder.parent / "tradingview_cache" / (market + ".json")
+    taken = None
+    try:
+        cached = json.loads(cache_file.read_text(encoding="utf-8"))
+        captured = _utc(cached.get("captured_at_utc"))
+        if (captured and 0 <= (now - captured).total_seconds() < PLAN_CACHE_SECONDS
+                and cached.get("tv_symbol") == SYMBOLS[market]
+                and Path(cached["path"]).is_file() and _sha256(Path(cached["path"])) == cached["sha256"]):
+            taken = cached
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
+    # Preserve this exact post's successful image even when it resumes after the cache expires.
+    if not taken and state.get("snapshot"):
+        prior = state["snapshot"]
+        if prior.get("tv_symbol") == SYMBOLS[market] and _sha256(Path(prior["path"])) == prior["sha256"]:
+            taken = prior
+    if taken:
+        asset = snapshot_asset(market, row.get("instrument_title") or NAMES[market], taken, media)
+        validate_snapshot_asset(asset)
+        if state.get("status") != "CAPTURED":
+            state.update(status="CAPTURED", snapshot=taken, cache_hit=True)
+            save()
+            record_outcome({k: v for k, v in state.items() if k != "snapshot"})
+        return asset
+    if state.get("status") == "TEXT_ONLY":
+        return None
+    deadline = _utc(state["started_at_utc"]) + timedelta(seconds=PLAN_WAIT_SECONDS)
+    while state["attempts"] < PLAN_ATTEMPTS and datetime.now(timezone.utc) < deadline:
+        if snapshot_allowed is not None and not snapshot_allowed():
+            state.update(status="DEFERRED", cause="TRADINGVIEW_CAPTURE_DEFERRED_RUN_TIME_BUDGET")
+            save()
+            record_outcome(state)
+            raise SnapshotPending(state["cause"])
+        state["attempts"] += 1
+        save()
+        try:
+            if snapshot:
+                taken = snapshot(market, interval, media)
+            else:
+                remaining = (deadline - datetime.now(timezone.utc)).total_seconds()
+                taken = capture(market, interval, media, timeout=min(TIMEOUT_SECONDS, max(1, remaining)))
+            asset = snapshot_asset(market, row.get("instrument_title") or NAMES[market], taken, media)
+            validate_snapshot_asset(asset)
+            state.update(status="CAPTURED", snapshot=taken, cache_hit=False)
+            save()
+            cache_file.parent.mkdir(parents=True, exist_ok=True)
+            cache_file.write_text(json.dumps(taken, sort_keys=True), encoding="utf-8")
+            record_outcome({k: v for k, v in state.items() if k != "snapshot"})
+            return asset
+        except Exception as exc:
+            state.setdefault("first_cause", str(exc)[:200])
+            state["cause"] = str(exc)[:200]
+            save()
+    state.update(status="TEXT_ONLY", cause=state.get("first_cause") or "TRADINGVIEW_CAPTURE_WAIT_EXPIRED")
+    save()
+    record_outcome(state)
+    return None
 
 
 # Jim decision 87 (CC-316): memory measurements never gate capture.
@@ -433,6 +524,24 @@ def _worker(args: dict) -> dict:
             context = browser.new_context(viewport=VIEWPORT, accept_downloads=True, locale="en-US",
                                           timezone_id="UTC", color_scheme="light")
             page = context.new_page()
+            if args.get("probe_geometry"):
+                page.add_init_script("""(() => {
+                    const fill = CanvasRenderingContext2D.prototype.fillText;
+                    const seen = new WeakMap();
+                    window.__cc459Labels = seen;
+                    CanvasRenderingContext2D.prototype.fillText = function(text, x, y, ...rest) {
+                        if (/^-?[\\d,.]+$/.test(String(text))) {
+                            let labels = seen.get(this.canvas);
+                            if (!labels) seen.set(this.canvas, labels = new Map());
+                            const t = this.getTransform();
+                            const m = this.measureText(String(text));
+                            labels.set(String(text), {text: String(text), x: t.a*x+t.e, y: t.d*y+t.f,
+                                baseline: this.textBaseline, font: this.font,
+                                ascent: m.actualBoundingBoxAscent, descent: m.actualBoundingBoxDescent});
+                        }
+                        return fill.call(this, text, x, y, ...rest);
+                    };
+                })();""")
             page.goto(args["url"], wait_until="domcontentloaded", timeout=budget // 2)
             page.wait_for_selector("canvas", timeout=budget // 3)
             page.wait_for_function(
@@ -444,13 +553,21 @@ def _worker(args: dict) -> dict:
                         ...q('#header-toolbar-intervals button[aria-checked="true"]'),
                         ...q('#header-toolbar-intervals')].join(' · '); }""")
             page.mouse.move(VIEWPORT["width"] // 3, VIEWPORT["height"] // 2)
+            geometry_probe = page.evaluate("""() => [...document.querySelectorAll('canvas')].map(c => {
+                const r = c.getBoundingClientRect();
+                return {width: c.width, height: c.height, rect: [r.x,r.y,r.width,r.height],
+                    parents: [c.parentElement, c.parentElement?.parentElement].map(e =>
+                        ({name:e?.getAttribute('data-name'), cls:e?.className})),
+                    labels: [...(window.__cc459Labels?.get(c)?.values() || [])]};
+            })""") if args.get("probe_geometry") else None
             with page.expect_download(timeout=20000) as download:
                 page.keyboard.press("Control+Alt+KeyS")
             name = download.value.suggested_filename
             target = out_dir / name
             download.value.save_as(str(target))
             return {"path": str(target), "suggested_filename": name, "legend": legend, "page_title": page.title(),
-                    "captured_at_utc": datetime.now(timezone.utc).isoformat(), "seconds": round(time.time() - started, 1)}
+                    "captured_at_utc": datetime.now(timezone.utc).isoformat(), "seconds": round(time.time() - started, 1),
+                    **({"geometry_probe": geometry_probe} if geometry_probe else {})}
         finally:
             browser.close()
 

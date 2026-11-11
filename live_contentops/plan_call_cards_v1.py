@@ -655,7 +655,7 @@ def _parents(store, row, destinations, previous):
     return parents, deferred
 
 
-def destination_payloads(row, *, card_id, parents=None, carousel=None):
+def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False):
     result = {}
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000,
@@ -664,6 +664,8 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None):
         # Decision 113: use Telegram's text allowance with the hosted card as
         # its explicit large preview, rather than the photo caption allowance.
         limits["telegram"] = 4096
+    credit = "\n\n" + posts.CHART_CREDIT if chart_credit else ""
+    limits = {d: n - len(credit) for d, n in limits.items()}
     for destination in destinations_for(row):
         text = row["text"]
         if destination == "threads" and row["kind"] == "run" and row.get("analysis_publications"):
@@ -760,82 +762,97 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None):
             elif destination == "substack_notes":
                 payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"))
         result[destination] = payload
+    for payload in result.values():
+        if credit:
+            first = payload["text"]
+            payload["text"] = first + credit
+            payload["full_text"] = payload["text"] + payload["full_text"][len(first):]
+            if "root_text" in payload:
+                payload["root_text"] += credit
+            if payload.get("posts"):
+                payload["posts"][0]["text"] += credit
+        if not card_id:
+            payload["media_asset_ids"] = []
+            for part in payload.get("posts") or []:
+                part["media_asset_ids"] = []
     return result
 
 
-def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS, **ignored):
+def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
+                 snapshot=None, snapshot_allowed=None, **ignored):
     from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
-    from .plan_call_card_media_v1 import render
+    from . import tradingview_snapshot_v1 as tv
     row = posts._row_payload(store, key)
     destinations = tuple(d for d in destinations if d in destinations_for(row))
     folder = Path(root) / key
+    folder.mkdir(parents=True, exist_ok=True)
     context_path = folder / "run_context_v1.json"
     previous = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
     parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
     chosen = [d for d in destinations if not row.get("parent_key") or d in parents]
     if not chosen:
         return {"destinations": [], "deferred_destinations": deferred, "output_dir": str(folder.resolve())}
-    existing_assets = (previous.get("media") or {}).get("assets") or []
-    card = existing_assets[0] if existing_assets else render(row, folder)
-    if not Path(card["path"]).is_file() or hashlib.sha256(Path(card["path"]).read_bytes()).hexdigest() != card["sha256"]:
-        raise posts.PlanPostError("PLAN_CARD_IMAGE_BYTES_CHANGED")
     title = (row["lead"] if row["kind"] == "run" else
              f"{row['instrument_title']} · #{row['short_id']} · "
              + (ending_words(row) if row["kind"] == "result" else "call card" if row["kind"] == "setup" else "update"))
     article = {"title": title, "dek": row["lead"], "body": row["text"],
                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
+    # Registered packages keep exact bytes for readback/reconciliation. This
+    # cannot create a new drawn image; fresh packages always use CC-314.
+    frozen = bool(previous and any(_dispatch(store, key, d) for d in destinations_for(row)))
+    assets, carousel, skipped = [], [], []
     manifest_path = folder / "delivery_media_manifest_v1.json"
-    if not posts._hosted(manifest_path, card):
-        if host is None:
-            from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
-        delivery = host(work_item_id=key, delivery_only_assets=[card], existing_manifest=None,
-                        article_assets=[], article=article, source_documents=[])
-        if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
-            raise posts.PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
-        manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))
-    assets, carousel = [card], []
-    if row["kind"] == "run":
-        if host is None:
-            from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
-        for child_key in row["card_keys"]:
-            child = posts._row_payload(store, child_key)
-            child_folder = Path(root) / child_key
-            child_card = render(child, child_folder)
-            child_manifest_path = child_folder / "delivery_media_manifest_v1.json"
-            try:
-                if not posts._hosted(child_manifest_path, child_card):
-                    delivery = host(work_item_id=child_key, delivery_only_assets=[child_card], existing_manifest=None,
-                                    article_assets=[], article={"title": child["lead"]}, source_documents=[])
-                    if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
-                        raise posts.PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
-                    child_manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))
-            except (OSError, ValueError, KeyError, TypeError) as exc:
-                chosen = [d for d in chosen if d != "instagram_business"]
-                deferred.append({"destination": "instagram_business", "cause": "CAROUSEL_CARD_MEDIA_UNAVAILABLE",
-                                 "card_key": child_key, "detail": str(exc)[:160]})
-                break
-            child_manifest = json.loads(child_manifest_path.read_bytes())
-            hosted = next(a for a in child_manifest["assets"] if a["sha256"] == child_card["sha256"])
-            carousel.append({"asset_id": child_card["asset_id"], "path": child_card["path"],
-                "sha256": child_card["sha256"], "url": hosted["verified_public_delivery_url"]})
-            assets.append(child_card)
-        # The ordinary transport resolves the selected first carousel image
-        # through the same existing delivery manifest as all other platforms.
-        root_manifest = json.loads(manifest_path.read_bytes())
-        known = {a["media_asset_id"] for a in root_manifest["assets"]}
-        for child_key in row["card_keys"]:
-            child_manifest_file = Path(root) / child_key / "delivery_media_manifest_v1.json"
-            if not child_manifest_file.is_file():
+    if frozen:
+        assets = (previous.get("media") or {}).get("assets") or []
+        carousel = previous.get("status_post_instagram_carousel") or []
+        skipped = previous.get("status_post_skipped_destinations") or []
+        chart_credit = bool(previous.get("chart_credit"))
+    else:
+        members = [posts._row_payload(store, child) for child in row["card_keys"]] if row["kind"] == "run" else [row]
+        all_carousel_images = True
+        manifest = {"status": "PASS", "assets": []}
+        for member in members:
+            member_folder = Path(root) / member["key"]
+            card, _ = posts._post_image(member, member_folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+            if card is None:
+                all_carousel_images = False
                 continue
-            child_manifest = json.loads(child_manifest_file.read_bytes())
-            root_manifest["assets"].extend(a for a in child_manifest["assets"] if a["media_asset_id"] not in known)
-        manifest_path.write_bytes(canonical_bytes(root_manifest))
-    context = {"schema_version": "contentops.plan_status_post_context.v1", "article": article,
-        "selection": {}, "media": {"assets": assets}, "plan_status_post": key, "chart_credit": False,
-        "status_post_parents": parents, "status_post_instagram_carousel": carousel}
-    context_path.write_bytes(canonical_bytes(context))
-    payloads = destination_payloads(row, card_id=card["asset_id"], parents=parents, carousel=carousel)
+            if host is None:
+                from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
+            local_manifest_path = member_folder / "delivery_media_manifest_v1.json"
+            if not posts._hosted(local_manifest_path, card):
+                delivery = host(work_item_id=member["key"], delivery_only_assets=[card], existing_manifest=None,
+                                article_assets=[], article=article, source_documents=[])
+                if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
+                    raise posts.PlanPostError("PLAN_STATUS_CHART_HOSTING_" + str(delivery.get("status") or "FAILED"))
+                local_manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))
+            local_manifest = json.loads(local_manifest_path.read_bytes())
+            hosted = next(a for a in local_manifest["assets"] if a["sha256"] == card["sha256"])
+            assets.append(card)
+            if hosted["media_asset_id"] not in {a["media_asset_id"] for a in manifest["assets"]}:
+                manifest["assets"].append(hosted)
+            carousel.append({"asset_id": card["asset_id"], "path": card["path"],
+                "sha256": card["sha256"], "url": hosted["verified_public_delivery_url"]})
+        if assets:
+            manifest_path.write_bytes(canonical_bytes(manifest))
+        if not assets or (row["kind"] == "run" and not all_carousel_images):
+            skipped = [{"destination": "instagram_business", "cause": "TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED"}]
+            tv.record_outcome({"key": key, "market": row["symbol"], "destination": "instagram_business",
+                               "status": "SKIPPED_IMAGE_REQUIRED", "cause": skipped[0]["cause"]})
+        chart_credit = bool(assets)
+    skipped_names = {s["destination"] for s in skipped}
+    chosen = [d for d in chosen if d not in skipped_names]
+    card = assets[0] if assets else None
+    if not frozen:
+        context = {"schema_version": "contentops.plan_status_post_context.v1", "article": article,
+            "selection": {}, "media": {"assets": assets}, "plan_status_post": key,
+            "chart_credit": chart_credit, "status_post_chart_policy": "CC459_TRADINGVIEW",
+            "status_post_parents": parents, "status_post_instagram_carousel": carousel,
+            "status_post_skipped_destinations": skipped}
+        context_path.write_bytes(canonical_bytes(context))
+    payloads = destination_payloads(row, card_id=card["asset_id"] if card else None,
+                                  parents=parents, carousel=carousel, chart_credit=chart_credit)
     plan_rows = []
     for destination in chosen:
         registration = registration_for_destination(destination)
@@ -849,9 +866,10 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS, **ig
         "plan_hash": hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest(),
         "story_identity": key, "article_identity": key, "package_identity": key,
         "publication_window": {"window_identity": key}, "output_dir": str(folder.resolve()),
-        "status_post_card_id": card["asset_id"], "transport_registry_version": REGISTRY_VERSION,
+        "status_post_card_id": card["asset_id"] if card else None, "transport_registry_version": REGISTRY_VERSION,
         "policy_mode_version": "AUTONOMOUS_DEFAULT:cc399.v1", "destinations": plan_rows,
-        "continuations": [], "deferred_destinations": deferred}
+        "continuations": [], "deferred_destinations": deferred, "skipped_destinations": skipped}
+
 
 
 def validate_parent_intent(store, row, intent):
@@ -906,7 +924,8 @@ def readback_own_comment(destination, comment_id, parent_id, text):
                 "safe_error_classification": type(exc).__name__}
 
 
-def publish_ready(store, *, now, latest_states=None, root, host=None, coordinator_for=None, limit=5, automatic_neo=False):
+def publish_ready(store, *, now, latest_states=None, root, host=None, coordinator_for=None, limit=5, automatic_neo=False,
+                  snapshot=None, snapshot_allowed=None):
     if coordinator_for is None:
         def coordinator_for(key, folder):
             from .native_neo_executor_v1 import bind_native_neo_coordinator
@@ -974,11 +993,12 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 continue
             calls += 1
         try:
-            plan = prepare_post(store, key, root=root, host=host)
+            plan = prepare_post(store, key, root=root, host=host, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
             if not plan["destinations"]:
                 results.append({"key": key, "status": "WAITING_FOR_CARD_PARENT",
                                 "cause": (plan["deferred_destinations"] or [{}])[0].get("cause", "CARD_PARENT_NOT_CONFIRMED"),
-                                "deferred_destinations": plan["deferred_destinations"]})
+                                "deferred_destinations": plan["deferred_destinations"],
+                "skipped_destinations": plan.get("skipped_destinations", [])})
                 continue
             store.create_work_item(story_id=key, title="Call run" if row["kind"] == "run" else "Call card",
                                    target_surface="MULTI_PLATFORM", work_item_id=key)
@@ -989,12 +1009,14 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             states = {d: (o or {}).get("status") for d, o in (outcome.get("per_destination") or {}).items()}
             required = destinations_for(row)
             confirmed = {d for d in required if _reference(store, key, d)}
-            done = len(confirmed) == len(required)
+            skipped = {d["destination"] for d in plan.get("skipped_destinations") or []}
+            done = len(confirmed | skipped) == len(required)
             store.set_outbox_status(key, "PUBLISHED" if done else "PUBLISHING")
             results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING",
                 "per_destination": states, "confirmed_destinations": sorted(confirmed),
                 "destination_causes": posts.destination_causes(outcome),
-                "deferred_destinations": plan["deferred_destinations"]})
+                "deferred_destinations": plan["deferred_destinations"],
+                "skipped_destinations": plan.get("skipped_destinations", [])})
         except (OSError, ValueError, KeyError, TypeError) as exc:
             cause = str(exc)[:200]
             status = "NOT_STARTED"

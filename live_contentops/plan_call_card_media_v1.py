@@ -1,6 +1,9 @@
 """Source-bound call-level diagrams. No price history is synthesized."""
 from __future__ import annotations
 
+# CC-459: parked renderer (Jim decision 96). Retained artifacts/tests may use it;
+# no publication preparation path calls it. New call images use TradingView.
+
 import hashlib
 import json
 from pathlib import Path

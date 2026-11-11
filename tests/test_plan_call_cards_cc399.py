@@ -15,6 +15,25 @@ from test_plan_status_posts_cc306 import main_root, plan, event  # noqa: F401
 NOW = datetime(2026, 11, 10, 8, tzinfo=timezone.utc)
 
 
+@pytest.fixture(autouse=True)
+def controlled_tradingview(monkeypatch, tmp_path):
+    """Test the real media consumer without a browser or provider request."""
+    from PIL import Image, ImageDraw
+    from live_contentops import tradingview_snapshot_v1 as tv
+    capture = tv.capture
+    def snapshot(market, interval, folder, **kwargs):
+        def worker(args):
+            path = Path(args["out_dir"]) / (tv.SYMBOLS[market].split(":")[1] + "_2026-11-11_00-00-00.png")
+            image = Image.new("RGB", (800, 450), "white")
+            ImageDraw.Draw(image).text((20, 20), "CONTROLLED MEDIA FIXTURE / " + market, fill="black")
+            image.save(path)
+            return {"path": str(path), "suggested_filename": path.name,
+                    "legend": tv.INTERVAL_LABELS[interval], "captured_at_utc": datetime.now(timezone.utc).isoformat()}
+        return capture(market, interval, folder, worker=worker)
+    monkeypatch.setattr(tv, "capture", snapshot)
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+
+
 def call(pid, asset="EURUSD", **changes):
     value = plan(pid, asset, "BULLISH", 1.12017, 1.12054, invalid=1.11824,
                  deadline="2026-11-10T15:00:00Z")

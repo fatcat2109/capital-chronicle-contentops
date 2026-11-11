@@ -1109,7 +1109,7 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
     TradingView snapshot, "Chart: TradingView" follows the post (Terms section 4, decision 82)."""
     if row.get("format") == 4:
         from .plan_call_cards_v1 import destination_payloads as card_payloads
-        return card_payloads(row, card_id=card_id)
+        return card_payloads(row, card_id=card_id, chart_credit=chart_credit)
     body, notices = _split(row["text"])
     link = CHART_CREDIT if chart_credit else ""
     payloads = {}
@@ -1148,22 +1148,22 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
             chunks.append(notices)
             if any(_x_length(c) > LIMITS["x"] for c in chunks):
                 raise PlanPostError("PLAN_STATUS_POST_TOO_LONG_FOR_X")
-            posts = [{"text": c, "media_asset_ids": [card_id] if i == 0 else [], "order": i,
+            posts = [{"text": c, "media_asset_ids": [card_id] if card_id else [] if i == 0 and card_id else [], "order": i,
                       "role": "root" if i == 0 else "reply"} for i, c in enumerate(chunks)]
             payloads[destination] = {"destination": destination, "text": chunks[0], "posts": posts,
                                      "root_text": chunks[0], "reply_texts": chunks[1:],
-                                     "full_text": "\n\n".join(chunks), "media_asset_ids": [card_id]}
+                                     "full_text": "\n\n".join(chunks), "media_asset_ids": [card_id] if card_id else []}
             continue
         if (_x_length(text) if destination == "x" else len(text)) > LIMITS[destination]:
             if row.get("why") and destination in {"telegram", "discord", "substack_notes"}:
                 parts = _text_parts(body, notices, LIMITS[destination], link, lines=v2,
                                     rest_limit=REST_LIMITS.get(destination) if v2 else None)
                 payloads[destination] = {"destination": destination, "text": text, "full_text": text,
-                                         "media_asset_ids": [card_id], "parts": parts}
+                                         "media_asset_ids": [card_id] if card_id else [], "parts": parts}
                 continue
             raise PlanPostError("PLAN_STATUS_POST_TOO_LONG:" + destination)
         payloads[destination] = {"destination": destination, "text": text, "full_text": text,
-                                 "media_asset_ids": [card_id]}
+                                 "media_asset_ids": [card_id] if card_id else []}
     if row.get("correction_of"):
         for destination, payload in payloads.items():
             originals = row["correction_of"].get(destination) or []
@@ -1207,7 +1207,7 @@ def card_article(row: Mapping[str, Any]) -> dict:
 
 
 CHART_CREDIT = "Chart: TradingView"
-SNAPSHOT_RUN_BUDGET_SECONDS = 150  # the minute task has 5 minutes; later posts in a busy tick use the card
+SNAPSHOT_RUN_BUDGET_SECONDS = 150  # later captures wait for the next existing minute tick
 
 
 def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
@@ -1239,51 +1239,12 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
     return facts
 
 
-def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None) -> tuple[dict, bool]:
-    """CC-314 (decision 82): TradingView's snapshot of the market, or, if that fails, CC-290's
-    fact card with the plan's numbers. Taken once per post: a resumed post reuses its image."""
+def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None) -> tuple[dict | None, bool]:
+    """CC-459: every new plan image is TradingView; after two failures use text."""
     from live_contentops import tradingview_snapshot_v1 as tv
-    context_path = folder / "run_context_v1.json"
-    if context_path.is_file():
-        prior = json.loads(context_path.read_bytes())
-        assets = (prior.get("media") or {}).get("assets") or []
-        if assets and Path(assets[0]["path"]).is_file() \
-                and hashlib.sha256(Path(assets[0]["path"]).read_bytes()).hexdigest() == assets[0]["sha256"]:
-            return assets[0], bool(prior.get("chart_credit"))
-    if row.get("correction_of"):
-        return tv.fallback_card(title="Correction: both plans were waiting",
-            facts=[("EUR/USD zone", "1.1166–1.117"), ("US crude oil zone", "90.2–90.45"),
-                   ("At 04:16 / 04:18 ET", "Price had not reached either zone")],
-            dated_line="November 9, 2026", out_dir=folder / "media_assets"), False
-    if row.get("kind") == "result":
-        # Decision 19b: a new snapshot would include bars after this historical outcome.
-        # CC-314's existing fact-card fallback shows the exact result, count and plan levels.
-        at = _utc(row["at_utc"]).astimezone(PUBLIC_TZ)
-        return tv.fallback_card(title=f"{TITLES[row['symbol']]}: {row['result'].lower()}",
-            facts=plan_facts(row), dated_line=f"{at:%B} {at.day}, {at.year}",
-            out_dir=folder / "media_assets"), False
-    market = row["symbol"]
-    interval = tv.interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
-    media_dir = folder / "media_assets"
-    outcome = {"key": row["key"], "market": market, "interval": interval}
-    if snapshot_allowed is None or snapshot_allowed():
-        try:
-            taken = (snapshot or tv.capture)(market, interval, media_dir)
-            asset = tv.snapshot_asset(market, TITLES[market], taken, media_dir)
-            tv.record_outcome({**outcome, "status": "CAPTURED", "asset_id": asset["asset_id"],
-                               "seconds": taken.get("seconds")})
-            return asset, True
-        except Exception as exc:  # noqa: BLE001 - a failed snapshot never stops the post
-            tv.record_outcome({**outcome, "status": "FAILED",
-                               "cause": str(exc)[:200]})
-    else:
-        tv.record_outcome({**outcome, "status": "SKIPPED_RUN_TIME_BUDGET"})
-    at = _utc(row["at_utc"])
-    words = (f"plan result — {row['result'].lower()}" if row.get("kind") == "result" else
-             "why this plan" if row.get("kind") == "why" else STATE_WORDS.get(row.get("state"), "status update"))
-    card = tv.fallback_card(title=f"{TITLES[market]}: {words}",
-                            facts=plan_facts(row), dated_line=f"{at:%B} {at.day}, {at.year}", out_dir=media_dir)
-    return card, False
+    asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+    return asset, asset is not None
+
 
 
 def _hosted(manifest_path: Path, card: Mapping[str, Any]) -> bool:
@@ -1310,7 +1271,8 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         from .plan_call_cards_v1 import prepare_post as card_post, DESTINATIONS as card_destinations
         if destinations == POST_DESTINATIONS:
             destinations = card_destinations
-        return card_post(store, key, root=root, host=host, destinations=destinations)
+        return card_post(store, key, root=root, host=host, destinations=destinations,
+                         snapshot=snapshot, snapshot_allowed=snapshot_allowed)
     if row.get("kind") == "result":
         if any(d not in API_DESTINATIONS for d in destinations):
             if destinations != POST_DESTINATIONS:
@@ -1322,7 +1284,7 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
     if host is None:
         from live_contentops.cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
     manifest_path = folder / "delivery_media_manifest_v1.json"
-    if not _hosted(manifest_path, card):
+    if card and not _hosted(manifest_path, card):
         existing = json.loads(manifest_path.read_bytes()) if manifest_path.is_file() else None
         # The snapshot and the plan card are post images only (never on a site page). An older
         # package's title card keeps its article-asset route.
@@ -1333,12 +1295,12 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":  # cloudinary_delivery_media_v1.READY
             raise PlanPostError("PLAN_STATUS_CARD_HOSTING_" + str(delivery.get("status") or "FAILED"))
         manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))  # the hosting result wraps it
-    full_payloads = destination_payloads(row, card_id=card["asset_id"], chart_credit=chart_credit)
+    full_payloads = destination_payloads(row, card_id=card["asset_id"] if card else None, chart_credit=chart_credit)
     payloads = _part_payloads(full_payloads)
     context_path = folder / "run_context_v1.json"
     prior_context = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
     context = {"schema_version": "contentops.plan_status_post_context.v1", "article": {**article, "body": row["text"]},
-               "selection": {}, "media": {"assets": [card]}, "plan_status_post": key,
+               "selection": {}, "media": {"assets": [card] if card else []}, "plan_status_post": key,
                "chart_credit": chart_credit,
                **({"status_post_continuations": prior_context["status_post_continuations"]}
                   if prior_context.get("status_post_continuations") else {})}
@@ -1356,7 +1318,7 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
             "plan_hash": hashlib.sha256(("plan-status-post:" + key).encode()).hexdigest(),
             "story_identity": key, "article_identity": key, "package_identity": key,
             "publication_window": {"window_identity": key}, "output_dir": str(folder.resolve()),
-            "status_post_card_id": card["asset_id"], "transport_registry_version": REGISTRY_VERSION,
+            "status_post_card_id": card["asset_id"] if card else None, "transport_registry_version": REGISTRY_VERSION,
             "policy_mode_version": "AUTONOMOUS_DEFAULT:cc306.v1", "destinations": rows}
     continuations = []
     for part in range(1, max(len(p.get("parts") or [p]) for p in full_payloads.values())):
@@ -1381,11 +1343,12 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
     context = json.loads((Path(output_dir) / "run_context_v1.json").read_bytes())
     if context.get("plan_status_post") != key:
         raise PlanPostError("PLAN_STATUS_POST_PACKAGE_MISMATCH")
-    card_id = context["media"]["assets"][0]["asset_id"]
+    card_id = (context["media"]["assets"][0]["asset_id"] if context["media"]["assets"] else None)
     if row.get("format") == 4:
         from .plan_call_cards_v1 import destination_payloads as card_payloads
         return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
-                                 carousel=context.get("status_post_instagram_carousel"))
+                                 carousel=context.get("status_post_instagram_carousel"),
+                                 chart_credit=bool(context.get("chart_credit")))
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
                               chart_credit=bool(context.get("chart_credit"))), part)
 
@@ -1573,7 +1536,8 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
                         "destination_causes": causes})
     from .plan_call_cards_v1 import publish_ready as publish_cards
     card_results = publish_cards(store, now=now, latest_states=latest_states, root=root,
-                                 host=host, coordinator_for=coordinator_for, limit=limit)
+                                 host=host, coordinator_for=coordinator_for, limit=limit, automatic_neo=automatic_neo,
+                                 snapshot=snapshot, snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
     from .plan_analysis_pages_v1 import distribute_links
     links = distribute_links(store, **({"automatic_neo": True} if automatic_neo else {}))
     return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links}
