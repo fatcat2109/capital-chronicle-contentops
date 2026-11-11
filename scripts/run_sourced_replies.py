@@ -12,7 +12,7 @@ from live_contentops.sourced_replies_v1 import stage, publish, report, ROOT
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("command", choices=["stage", "publish", "status"])
+    p.add_argument("command", choices=["stage", "publish", "status", "pack-prepare", "pack-build", "pack-status"])
     p.add_argument("--store", required=True)
     p.add_argument("--candidate", type=Path)
     p.add_argument(
@@ -24,9 +24,31 @@ def main():
     )
     p.add_argument("--key")
     p.add_argument("--native-invocation-id")
+    p.add_argument("--request", type=Path)
+    p.add_argument("--response", type=Path)
+    p.add_argument("--pack", type=Path)
+    p.add_argument("--output-root", type=Path)
+    p.add_argument("--mentions-feed", type=Path)
     args = p.parse_args()
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
-    if args.command == "stage":
+    if args.command.startswith("pack-"):
+        from live_contentops import x_reply_pack_v1 as packs
+
+        if args.command == "pack-status":
+            if not args.pack:
+                p.error("--pack required")
+            result = packs.read_pack(args.pack)
+        else:
+            options = dict(store=store, feed_path=args.feed, mentions_path=args.mentions_feed)
+            if args.output_root:
+                options["output_root"] = args.output_root
+            if args.command == "pack-prepare":
+                result = packs.prepare(**options)
+            else:
+                if not args.request or not args.response:
+                    p.error("--request and --response required")
+                result = packs.build(**options, request_path=args.request, response_path=args.response)
+    elif args.command == "stage":
         if not args.candidate:
             p.error("--candidate required")
         result = stage(

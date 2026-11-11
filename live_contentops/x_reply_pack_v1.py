@@ -1,0 +1,367 @@
+"""CC-455: the existing sourced-reply runner's pack for Jim (decision 122).
+
+The feed and public desk/frozen-call records are inputs. Native editorial work
+authors the response. This module saves files and internal store records; it has
+no browser, provider, model, coordinator or public-write call.
+"""
+from __future__ import annotations
+
+from collections import Counter
+from datetime import datetime, timedelta, timezone
+from html import escape
+import json
+from pathlib import Path
+import re
+from urllib.parse import urlencode
+from zoneinfo import ZoneInfo
+
+from live_contentops.event_article_guard_v1 import (
+    CONFLICTS_NOTICE, NAMED_NUMBER, PUBLIC_NOTICE, check_publication_copy,
+)
+from live_contentops.preview_link_guard_v1 import find_forbidden_link
+from live_contentops.public_time_v1 import public_timestamp, require_public_time
+from live_contentops.sourced_replies_v1 import clock, digest
+from tools.product.desk_record_projection_v1 import (
+    MODEL_ESTIMATE_LABEL, PRIVATE_ONLY_RIGHTS, public_text_problems,
+)
+
+PACK_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\x_reply_pack")
+TARGETS = Path(__file__).resolve().parents[1] / "docs/publisher/CC-455/target-accounts.json"
+PACK_DESTINATION = "internal:x-reply-pack"
+READBACK_DESTINATION = "internal:x-manual-reply-readback"
+LOCAL = ZoneInfo("Asia/Bangkok")  # CC-457's private desk day; public prose uses ET.
+NUMBER = re.compile(r"(?<![A-Za-z0-9])[+-]?\d+(?:[.,]\d+)*%?")
+POST = re.compile(r"https://(?:www\.)?x\.com/([A-Za-z0-9_]+)/status/(\d+)")
+TOPIC = re.compile(
+    r"\b(?:gold|silver|oil|wti|brent|bitcoin|btc|crypto|dollar|eur|yen|fx|forex|"
+    r"treasur\w*|bonds?|yields?|rates?|fed|fomc|ecb|boj|cpi|ppi|pce|payrolls?|"
+    r"inflation|jobs|gdp|s&p|nasdaq|stocks?|equities|indices|index)\b", re.I,
+)
+
+
+def utcnow():
+    return datetime.now(timezone.utc)
+
+
+def read_json(path):
+    return json.loads(Path(path).read_bytes())
+
+
+def save_json(path, value):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    tmp.write_text(json.dumps(value, ensure_ascii=False, indent=2, allow_nan=False) + "\n", encoding="utf-8")
+    tmp.replace(path)
+
+
+def target_handles(path=TARGETS):
+    config = read_json(path)
+    base = read_json(Path(__file__).resolve().parents[1] / config["reuse_target_research"])
+    return {str(row["x_author"]).lstrip("@").casefold() for row in base["targets"]} | {
+        str(handle).lstrip("@").casefold() for handle in config["additional_x_handles"]
+    }
+
+
+def select_posts(feed, *, handles, mentions=None, now=None):
+    """Age/topic/identity checks, retaining original text for private drafting."""
+    now = now or utcnow()
+    selected, causes, seen = [], Counter(), set()
+    for row in [*feed.get("rows", []), *(mentions or {}).get("rows", [])]:
+        handle = str(row.get("handle", "")).lstrip("@")
+        text = str(row.get("text", ""))
+        kind = "mention" if (
+            re.search(r"(?<!\w)@Capitalnicle\b", text, re.I)
+            or str(row.get("quoted_author_handle", "")).lstrip("@").casefold() == "capitalnicle"
+        ) else "target"
+        if kind == "target" and handle.casefold() not in handles:
+            continue
+        post_id = str(row.get("tweet_id", ""))
+        match = POST.fullmatch(str(row.get("url", "")))
+        if not match or match[1].casefold() != handle.casefold() or match[2] != post_id:
+            causes["POST_IDENTITY_MISMATCH"] += 1
+            continue
+        if post_id in seen:
+            continue
+        seen.add(post_id)
+        try:
+            posted = clock(row["posted_utc"])
+        except (ValueError, KeyError, TypeError):
+            causes["POST_TIME_INVALID"] += 1
+            continue
+        age = (now - posted).total_seconds()
+        if not 0 <= age < 3600:
+            causes["POST_OUTSIDE_60_MINUTE_BUILD_WINDOW"] += 1
+        elif row.get("is_retweet") or text.startswith("RT @"):
+            causes["RETWEET_NOT_ORIGINAL_TARGET"] += 1
+        elif kind == "target" and not TOPIC.search(text):
+            causes["NO_SIX_MARKET_OR_MACRO_TOPIC"] += 1
+        elif handle.casefold() == "capitalnicle":
+            causes["OWN_POST_NOT_REPLY_TARGET"] += 1
+        else:
+            selected.append({
+                "kind": kind, "post_id": post_id, "post_url": row["url"],
+                "author_handle": handle, "post_time_utc": posted.isoformat(),
+                "post_text": text, "post_age_seconds_at_build": age,
+            })
+    selected.sort(key=lambda row: (row["kind"] != "mention", row["post_age_seconds_at_build"]))
+    return selected, dict(causes)
+
+
+def held_sources(store, *, desk_message_id=None, call_message_id=None):
+    """Reuse the source owner's public projection and our frozen public calls."""
+    sources = []
+    rows = ([store.get_outbox_message(desk_message_id)] if desk_message_id else
+            store.list_outbox_messages(destination="internal:cc-report-feed"))
+    if rows:
+        row = rows[-1]
+        data = json.loads(row["payload"])
+        for record in data.get("desk_record_sources", []):
+            binding = record["binding"]
+            if binding.get("fixture"):
+                continue
+            for field in binding["fields"]:
+                value = field.get("value")
+                if (value is None or isinstance(value, (dict, list, bool))
+                        or field.get("rights_class") in PRIVATE_ONLY_RIGHTS):
+                    continue
+                display = field["display"]
+                if not NUMBER.search(display):
+                    continue
+                sources.append({
+                    "source_id": row["message_id"] + "#" + field["citation"],
+                    "kind": "MAIN_PUBLIC_DESK_FIELD", "label": record["title"],
+                    "known_at_utc": record["known_at_utc"], "excerpt": display,
+                    "rights_class": field["rights_class"], "field": field,
+                    "context": [{"path": f["field_path"], "display": f["display"]}
+                                for f in binding["fields"] if f["value"] is not None
+                                and not isinstance(f["value"], (list, dict))],
+                    "source_attribution": binding["sources"],
+                    "store_message_id": row["message_id"],
+                    "store_payload_sha256": digest(data),
+                })
+    calls = ([store.get_outbox_message(call_message_id)] if call_message_id else
+             store.list_outbox_messages(destination="internal:plan-status-post"))
+    for row in calls:
+        data = json.loads(row["payload"])
+        # These are the source owner's public, frozen setup calls, not fills or account data.
+        if data.get("kind") != "setup" or not data.get("text"):
+            continue
+        sources.append({
+            "source_id": row["message_id"], "kind": "FROZEN_PUBLIC_CALL",
+            "label": "Capital Chronicle frozen " + str(data.get("symbol", "")) + " call",
+            "known_at_utc": data.get("at_utc") or data.get("registered_at_utc") or row["created_at"],
+            "excerpt": data["text"],
+            "rights_class": "CC_OWN_ANALYSIS", "store_message_id": row["message_id"],
+            "store_payload_sha256": digest(data), "plan_id": data.get("plan_id"),
+        })
+    return sources
+
+
+def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mentions_path=None, now=None):
+    now = now or utcnow()
+    feed = read_json(feed_path)
+    posts, causes = select_posts(feed, handles=target_handles(targets), now=now,
+                                mentions=read_json(mentions_path) if mentions_path else None)
+    sources = held_sources(store)
+    request = {
+        "schema_version": "contentops.x_reply_pack_request.v1", "prepared_at_utc": now.isoformat(),
+        "feed_generated_at_utc": feed["generated_at_utc"], "feed_sha256": digest(feed),
+        "candidates": posts, "selection_causes": causes, "sources": sources,
+        "instructions": (
+            "Author English replies for Jim to review and post himself (decision 122). "
+            "Choose 3-5 useful target posts, at most one per target author, plus every useful mention. "
+            "Never pad. Each draft is <=280 characters, contains one exact sourced number/fact and its "
+            "public_timestamp, and adds an invalidation, priced-in comparison or dated pre-event view. "
+            "Copy no third-party post into the reply. Use only the public desk fields or frozen calls here. "
+            "No advice, AI label, account, execution or model-position wording. Include PUBLIC_NOTICE. "
+            "Return request_sha256, editorial_call (actual model/effort when observed; configured values "
+            "otherwise), items [{post_id, source_id, fact_text (exact source excerpt in the reply), "
+            "draft_text, addition (in the draft), point, reply_shape}], and omissions [{post_id, cause}]. "
+            "Use the same operation's native editorial route; never call Claude or a paid model API. "
+            "No link unless it is our confirmed published Substack page."
+        ),
+        "PUBLIC_NOTICE": PUBLIC_NOTICE,
+        "public_write_performed": False,
+    }
+    for source in sources:
+        source["public_timestamp"] = public_timestamp(source["known_at_utc"])
+    request["request_sha256"] = digest(request)
+    path = Path(output_root) / ("reply-pack-request-" + request["request_sha256"][:16] + ".json")
+    save_json(path, request)
+    return {"request_path": str(path), "request_sha256": request["request_sha256"],
+            "candidate_count": len(posts), "source_count": len(sources), "selection_causes": causes,
+            "public_write_performed": False}
+
+
+def validate_draft(draft, post, source, *, now, published_urls=()):
+    text = draft["draft_text"]
+    if not text.strip() or len(text) > 280:
+        raise ValueError("REPLY_PLATFORM_LENGTH_EXCEEDED")
+    if any(char.isalpha() and not ("a" <= char.lower() <= "z") for char in text):
+        raise ValueError("REPLY_ENGLISH_REQUIRED")
+    if clock(source["known_at_utc"]) > now:
+        raise ValueError("REPLY_SOURCE_KNOWN_AFTER_PREPARATION")
+    fact = draft.get("fact_text", "")
+    if not fact or not NUMBER.search(fact) or fact not in source["excerpt"] or fact not in text:
+        raise ValueError("REPLY_EXACT_SOURCE_FACT_REQUIRED")
+    stamp = public_timestamp(source["known_at_utc"])
+    if stamp not in text:
+        raise ValueError("REPLY_SOURCE_TIME_REQUIRED")
+    remainder = text.replace(stamp, "")
+    remainder = re.sub(r"https?://\S+", "", NAMED_NUMBER.sub(" ", remainder))
+    if {n.rstrip("%") for n in NUMBER.findall(remainder)} - {n.rstrip("%") for n in NUMBER.findall(fact)}:
+        raise ValueError("REPLY_UNBOUND_OR_CHANGED_NUMBER")
+    if not draft.get("point") or not draft.get("addition") or draft["addition"] not in text:
+        raise ValueError("REPLY_THREAD_SPECIFIC_POINT_REQUIRED")
+    if draft["addition"].casefold() in post["post_text"].casefold():
+        raise ValueError("REPLY_ADDS_NOTHING_TO_TARGET")
+    if find_forbidden_link(text):
+        raise ValueError("PREVIEW_HOST_LINK_FORBIDDEN")
+    require_public_time(text)
+    for url in re.findall(r"https?://\S+", text):
+        if url.rstrip(".,)") not in published_urls:
+            raise ValueError("REPLY_LINK_NOT_OWN_CONFIRMED_PAGE")
+    if re.search(r"\b(?:AI[- ]?(?:generated|written|run)|as an AI|follow us|buy now|CFDs?)\b", text, re.I):
+        raise ValueError("REPLY_PROMOTION_OR_AI_LABEL_FORBIDDEN")
+    if public_text_problems(text):
+        raise ValueError("REPLY_PRIVATE_OR_RAW_TEXT")
+    check_publication_copy({"reply": text})
+    if PUBLIC_NOTICE not in text:
+        raise ValueError("PUBLIC_ANALYSIS_NOTICE_REQUIRED")
+    if source["rights_class"] == "CC_MODEL_ESTIMATE" and (
+        MODEL_ESTIMATE_LABEL not in text or CONFLICTS_NOTICE not in text
+    ):
+        raise ValueError("REPLY_MODEL_ESTIMATE_NOTICES_REQUIRED")
+    return text
+
+
+def render_html(pack):
+    cards = []
+    for item in pack["items"]:
+        sources = "; ".join(escape(s["label"]) + " · " + escape(s["known_at_utc"]) for s in item["sources"])
+        cards.append(
+            '<article data-post-time="' + escape(item["post_time_utc"], quote=True) + '">'
+            '<h2><a href="' + escape(item["post_url"], quote=True) + '">@' + escape(item["author_handle"]) + '</a></h2>'
+            '<p class="age"></p><blockquote>' + escape(item["post_text"]) + '</blockquote>'
+            '<textarea readonly aria-label="Reply draft">' + escape(item["draft_text"]) + '</textarea>'
+            '<p class="sources">' + sources + '</p><a class="intent" href="' + escape(item["intent_url"], quote=True)
+            + '" rel="noopener noreferrer">Review reply on X</a></article>'
+        )
+    built = clock(pack["built_at_utc"]).astimezone(LOCAL).strftime("%d %b %Y %H:%M GMT+7")
+    return '''<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Capital Chronicle · Reply pack</title><style>
+body{font:17px/1.5 system-ui;margin:2rem auto;padding:0 1rem;max-width:800px;background:#f5f4ef;color:#17212b}
+article{background:white;padding:1.3rem;border:1px solid #ccd3d5;border-radius:10px;margin:1rem 0}h1{line-height:1.2}
+h2{font-size:1.15rem}a{color:#075d75}blockquote{margin:1rem 0;padding-left:1rem;border-left:3px solid #c7d2d7;white-space:pre-wrap}
+textarea{box-sizing:border-box;width:100%;min-height:145px;padding:.8rem;font:inherit;resize:vertical}.sources,.age{font-size:.85rem;color:#53616a}
+.intent{display:inline-block;background:#075d75;color:white;padding:.6rem 1rem;border-radius:6px}.stale .intent{display:none}.stale{opacity:.65}
+</style><h1>Your X reply pack</h1><p>Read, edit and post each reply yourself. Drafts expire 90 minutes after the original post.</p>
+<p>Built ''' + escape(built) + '</p><p>' + escape(pack.get("none_reason") or pack.get("short_reason") or "") + '</p>' + "".join(cards) + '''
+<script>function ages(){for(const card of document.querySelectorAll('article[data-post-time]')){
+const age=Math.max(0,(Date.now()-Date.parse(card.dataset.postTime))/60000);const stale=age>=90;
+card.classList.toggle('stale',stale);card.querySelector('.age').textContent=Math.floor(age)+' minutes old'+(stale?' · STALE':'');}}
+ages();setInterval(ages,30000);</script></html>'''
+
+
+def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROOT,
+          targets=TARGETS, mentions_path=None, now=None):
+    now = now or utcnow()
+    request, response = read_json(request_path), read_json(response_path)
+    expected = digest({k: v for k, v in request.items() if k != "request_sha256"})
+    if expected != request.get("request_sha256") or response.get("request_sha256") != expected:
+        raise ValueError("REPLY_PACK_REQUEST_CHANGED")
+    feed = read_json(feed_path)
+    current, causes = select_posts(feed, handles=target_handles(targets), now=now,
+                                  mentions=read_json(mentions_path) if mentions_path else None)
+    live = {r["post_id"]: r for r in current}
+    frozen = {r["post_id"]: r for r in request["candidates"]}
+    # Resolve every source again from its owning immutable outbox, rather than trusting a response's metadata.
+    sources = {}
+    for bound in request["sources"]:
+        if bound["source_id"] not in {d.get("source_id") for d in response.get("items", [])}:
+            continue
+        options = {"desk_message_id" if bound["kind"] == "MAIN_PUBLIC_DESK_FIELD" else "call_message_id":
+                   bound["store_message_id"]}
+        sources.update({s["source_id"]: s for s in held_sources(store, **options)})
+    published_urls = {d["public_object_url"] for d in store.list_platform_dispatches()
+                      if d["platform"] == "substack" and d["status"] == "DISPATCH_CONFIRMED"
+                      and d.get("public_object_url")}
+    items, omitted, authors, seen = [], list(response.get("omissions", [])), set(), set()
+    for draft in response.get("items", []):
+        post_id = str(draft.get("post_id", ""))
+        try:
+            post, original = live.get(post_id), frozen.get(post_id)
+            if not post or not original:
+                raise ValueError("POST_NO_LONGER_IN_FRESH_HELD_INPUT")
+            if any(post[k] != original[k] for k in ("post_url", "author_handle", "post_time_utc", "post_text", "kind")):
+                raise ValueError("REPLY_TARGET_BYTES_CHANGED")
+            if post_id in seen:
+                raise ValueError("REPLY_POST_SELECTED_TWICE")
+            source = sources.get(draft.get("source_id"))
+            bound = next((s for s in request["sources"] if s["source_id"] == draft.get("source_id")), None)
+            if not source or not bound or source["store_payload_sha256"] != bound["store_payload_sha256"]:
+                raise ValueError("REPLY_SOURCE_BINDING_CHANGED")
+            text = validate_draft(draft, post, source, now=now, published_urls=published_urls)
+            author = post["author_handle"].casefold()
+            if post["kind"] == "target" and (author in authors or len(authors) >= 5):
+                raise ValueError("TARGET_AUTHOR_ALREADY_SELECTED_OR_FIVE_TARGETS_REACHED")
+            seen.add(post_id)
+            if post["kind"] == "target":
+                authors.add(author)
+            items.append({
+                **post, "draft_text": text,
+                "intent_url": "https://x.com/intent/post?" + urlencode({"in_reply_to": post_id, "text": text}),
+                "stale_at_utc": (clock(post["post_time_utc"]) + timedelta(minutes=90)).isoformat(),
+                "sources": [{k: source[k] for k in ("source_id", "label", "known_at_utc", "rights_class",
+                                                    "store_message_id", "store_payload_sha256")}],
+                "point": draft["point"], "reply_shape": draft.get("reply_shape"),
+                "editorial_call": response.get("editorial_call", {}),
+            })
+        except (ValueError, KeyError) as exc:
+            omitted.append({"post_id": post_id, "cause": str(exc)})
+    for post_id, post in live.items():
+        if post["kind"] == "mention" and post_id not in seen and not any(o.get("post_id") == post_id for o in omitted):
+            omitted.append({"post_id": post_id, "cause": "MENTION_NEEDS_NATIVE_SOURCED_DRAFT"})
+    reason = None
+    if not items:
+        reason = ("No fresh target or mention matched the age, identity and market rules. " + json.dumps(causes, sort_keys=True)
+                  if not current else "No source-bound native draft was usable. "
+                  + "; ".join(sorted({o["cause"] for o in omitted}) or ["Native drafts not supplied."]))
+    short = None if len(authors) >= 3 else (
+        f"{len(authors)} target replies: no padding. "
+        + ("; ".join(sorted({o["cause"] for o in omitted})) or "Fewer eligible authored additions in this build.")
+    )
+    pack = {
+        "schema_version": "contentops.x_reply_pack.v1", "built_at_utc": now.isoformat(),
+        "valid_until_utc": max((clock(i["stale_at_utc"]) for i in items), default=now + timedelta(minutes=90)).isoformat(),
+        "none_reason": reason, "short_reason": short, "items": items, "omissions": omitted,
+        "selection_causes": causes, "request_sha256": expected, "response_sha256": digest(response),
+        "feed_generated_at_utc": feed["generated_at_utc"], "feed_sha256": digest(feed),
+        "editorial_call": response.get("editorial_call", {}), "public_write_performed": False,
+        "publication_actor": "Jim", "schedule_changed": False,
+    }
+    stem = "reply-pack-" + now.astimezone(LOCAL).strftime("%Y%m%d")
+    path = Path(output_root) / (stem + ".json")
+    key = "x-reply-pack-" + digest(pack)
+    store.create_work_item(story_id=key, title="Jim's X reply pack", target_surface="PRIVATE", work_item_id=key)
+    store.register_outbox_message(message_id=key, work_item_id=key, destination=PACK_DESTINATION,
+                                  payload=json.dumps(pack, sort_keys=True), status="PREPARED_FOR_JIM")
+    save_json(path, pack)
+    path.with_suffix(".html").write_text(render_html(pack), encoding="utf-8")
+    return {"pack_path": str(path), "html_path": str(path.with_suffix(".html")), "store_message_id": key,
+            "item_count": len(items), "none_reason": reason, "short_reason": short,
+            "public_write_performed": False}
+
+
+def read_pack(path, *, now=None):
+    """The installed CLI/HTML consumer reads the exact file CC-457 consumes."""
+    pack = read_json(path)
+    now = now or utcnow()
+    return {"pack_path": str(path), "built_at_utc": pack["built_at_utc"],
+            "valid_until_utc": pack["valid_until_utc"], "none_reason": pack["none_reason"],
+            "item_count": len(pack["items"]), "items": [
+                {"post_id": i["post_id"], "author_handle": i["author_handle"],
+                 "age_seconds": (now - clock(i["post_time_utc"])).total_seconds(),
+                 "stale": now >= clock(i["stale_at_utc"]), "intent_url": i["intent_url"]}
+                for i in pack["items"]], "public_write_performed": False}

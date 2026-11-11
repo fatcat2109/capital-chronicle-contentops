@@ -1,0 +1,5 @@
+{
+  "reuse_target_research": "docs/publisher/CC-386/target-research.json",
+  "additional_x_handles": ["FirstSquawk", "Newsquawk", "financialjuice", "zerohedge", "MikeZaccardi"],
+  "selection_basis": "Extend CC-386's retained PeterSchiff target with finance accounts already present in the held CC-258 list. Match exact author and post identity; admit only original six-market or macro posts younger than 60 minutes. No follower count is inferred."
+}
