@@ -213,11 +213,15 @@ def test_signed_out_has_one_cause_without_drafting_or_touching_waiting_tabs(setu
 
 def test_transport_waits_for_x_identity_instead_of_rejecting_first_loading_frame():
     calls = []
-    client = SimpleNamespace(wait=lambda page, selector: calls.append("identity_wait"),
-        call=lambda name, args: calls.append(name) or {"ok": True, "value": {"authenticated": True}},
-        value=lambda r: r)
+    def call(name, args):
+        calls.append(name)
+        if name == "wait":
+            assert args["timeout"] == 30000
+            return "matched (selector)"
+        return {"ok": True, "value": {"authenticated": True}}
+    client = SimpleNamespace(call=call, text=lambda r: r, value=lambda r: r)
     assert tabs.NeoReplyTabs(client).inspect(7)["authenticated"]
-    assert calls == ["identity_wait", "run"]
+    assert calls == ["wait", "run"]
 
 
 def test_cadence_stays_disabled_until_real_refresh_is_saved(setup):
@@ -245,6 +249,23 @@ def test_agy_uses_bounded_existing_cli_and_records_config_without_trusting_self_
     assert seen[0][seen[0].index("--model") + 1] == "gemini-3.8-flash-high"
     assert record["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
     assert packs.read_json(path)["editorial_call"]["runtime_model"] is None
+
+
+def test_agy_short_source_aliases_reach_the_bound_pack_consumer(setup):
+    store, feed, root = setup
+    ready, response, _ = response_for(setup)
+    original = response["items"][0]["source_id"]
+    response["items"][0]["source_id"] = "S1"
+    response.pop("request_sha256")
+    def runner(args, **kwargs):
+        return subprocess.CompletedProcess(args, 0, json.dumps({"status": "SUCCESS",
+            "response": json.dumps(response)}).encode(), b"")
+    path = tabs.draft_with_agy(ready["request_path"], output_dir=root / "agy", runner=runner)
+    assert packs.read_json(path)["items"][0]["source_id"] == original
+    built = packs.build(store, request_path=ready["request_path"], response_path=path,
+                        feed_path=feed, output_root=root, now=NOW)
+    assert built["item_count"] == 1
+    assert packs.read_json(built["pack_path"])["items"][0]["sources"][0]["source_id"] == original
 
 
 def test_actual_minute_entry_refreshes_tabs_when_main_export_is_stale(setup, monkeypatch, capsys):
