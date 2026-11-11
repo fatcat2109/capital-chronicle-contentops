@@ -132,7 +132,7 @@ def bind_tables(article, documents):
     if TOKEN in body:
         sid = source["source_id"]
         assembled = "\n\n".join("## " + t["heading"] + "\n\n" + t["markdown"]
-                                  + f"\n\n[[SOURCE:{sid}]]" for t in projected_tables)
+                                  + f"\n[[SOURCE:{sid}]]" for t in projected_tables)
         body = body.replace(TOKEN, assembled)
         article["substack_body_markdown"] = body
     expected = [digest(t["markdown"]) for t in projected_tables]
@@ -142,6 +142,11 @@ def bind_tables(article, documents):
     article["cpi_reaction_page"] = {k: projection[k] for k in (
         "policy", "record_id", "export_bytes_sha256", "source_field_citation", "source_body_sha256")}
     article["cpi_reaction_page"]["table_sha256"] = expected
+    field = next(f for f in source["desk_record_binding"]["fields"]
+                 if f["field_path"] == "/sections/reaction-tables/body_markdown")
+    citation = {k: field.get(k) for k in ("citation", "value", "display", "decimals", "unit")}
+    article["desk_record_citations"] = [c for c in article.get("desk_record_citations", [])
+                                         if c.get("citation") != citation["citation"]] + [citation]
     return article
 
 

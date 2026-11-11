@@ -234,7 +234,9 @@ def validate_article_citations(article, records, *, supported_material_claims=()
             # Natural full-agency attribution already identifies this schedule;
             # the dated release is not a requirement for a ritual export footer.
             continue
-        keys = () if rights == MODEL_ESTIMATE else ("attribution",) if rights == CITED_FACT else ("attribution", "disclaimer")
+        # CC-403 uses natural attribution for our analysis. Its exact source
+        # metadata stays bound; a verbatim internal footer adds no reuse right.
+        keys = () if rights in {MODEL_ESTIMATE, "CC_OWN_ANALYSIS"} else ("attribution",) if rights == CITED_FACT else ("attribution", "disclaimer")
         for key in keys:
             if source.get(key) and source[key].casefold() not in folded:
                 raise ValueError("DESK_ARTICLE_SOURCE_" + key.upper() + "_REQUIRED")

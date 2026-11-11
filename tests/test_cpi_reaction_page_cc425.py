@@ -21,10 +21,11 @@ def record():
         "export_id": "test-cpi", "export_bytes_sha256": "a" * 64,
         "asset_ids": [], "event_ids": [], "sources": [{"source_id": "cc-cpi-calculations",
             "provider": "Capital Chronicle", "url": None,
+            "rights_class": "CC_OWN_ANALYSIS",
             "attribution": "Capital Chronicle calculations; price proxies as labelled"}],
         "fields": [{"field_path": "/sections/reaction-tables/body_markdown",
                     "citation": "test-cpi#" + RECORD_ID + "/sections/reaction-tables/body_markdown",
-                    "value": body, "display": body}]}
+                    "value": body, "display": body, "source_ids": ["cc-cpi-calculations"]}]}
     return {"binding": binding, "headline_id": "cpi", "known_at_utc": "2026-11-10T09:31:46Z",
             "text": body, "headline": {"source_url": "urn:cc-public-report:desk:" + sha256_of(binding)}}
 
@@ -59,6 +60,11 @@ def test_tables_are_structured_and_prose_is_the_writers():
     assert "XAUUSD" not in body and "not yet due" not in body
     assert len(tables(body)) == 2
     assert body.count("[[SOURCE:SOURCE_1]]") == 2
+    table_paragraphs = "\n\n".join(p for p in body.split("\n\n") if p.startswith("|"))
+    assert newsroom._paragraph_marker_blockers(table_paragraphs, {"SOURCE_1"}) == []
+    from live_contentops.capital_chronicle_desk_record_source_v1 import validate_article_citations
+    validate_article_citations({**article, "substack_body_markdown": body +
+        "\n\nCapital Chronicle offers analysis only, not financial advice or recommendations."}, [record()])
     assert article["cpi_reaction_page"]["export_bytes_sha256"] == "a" * 64
     validate_bound_tables(article)
     assert bind_tables(article, pack()) == article
