@@ -117,6 +117,15 @@ def main(argv=None) -> int:
             from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
             result["publication"]["neo_stored_requests"] = resume_stored_requests(store)
         if not args.dry_run:
+            if args.publish:
+                # Decision 123: reuse this minute entry with a two-hour gate.
+                # Reply drafts do not depend on Main's status-export freshness.
+                from live_contentops.x_reply_tabs_v1 import refresh_due
+                try:
+                    result["reply_tabs"] = refresh_due(store)
+                except Exception as exc:
+                    result["reply_tabs"] = {"status": "REFRESH_FAILED", "cause": type(exc).__name__,
+                                            "public_submit_actions": 0}
             from live_contentops.event_timestamp_v1 import maintain_timestamps
             try:
                 proof = maintain_timestamps()

@@ -83,12 +83,12 @@ def test_installed_runner_contract_feeds_html_and_desk_with_no_agent_write(setup
 
 
 def test_freshness_identity_topic_retweets_and_duplicate_input():
-    rows = [post(), post(), post("124", age=60), post("125", age=-1),
+    rows = [post(), post(), post("124", age=121), post("125", age=-1),
             post("126", text="Political appointment"), post("127", is_retweet=True),
             post("128", url="https://x.com/wrong/status/128")]
     selected, causes = packs.select_posts({"rows": rows}, handles={"firstsquawk"}, now=NOW)
     assert [p["post_id"] for p in selected] == ["123"]
-    assert causes["POST_OUTSIDE_60_MINUTE_BUILD_WINDOW"] == 2
+    assert causes["POST_OUTSIDE_120_MINUTE_BUILD_WINDOW"] == 2
     assert causes["POST_IDENTITY_MISMATCH"] == 1
 
 
@@ -135,9 +135,9 @@ def test_an_empty_pack_has_a_real_cause_and_no_filler(setup):
 def test_expired_targets_are_rechecked_at_build_and_reader_marks_stale(setup):
     ready, response, path = response_for(setup)
     result = build(setup, ready, path)
-    assert packs.read_pack(result["pack_path"], now=NOW + timedelta(minutes=81))["items"][0]["stale"]
+    assert packs.read_pack(result["pack_path"], now=NOW + timedelta(minutes=351))["items"][0]["stale"]
     store, feed, root = setup
-    expired = packs.build(store, feed_path=feed, output_root=root, now=NOW + timedelta(minutes=51),
+    expired = packs.build(store, feed_path=feed, output_root=root, now=NOW + timedelta(minutes=111),
                           request_path=ready["request_path"], response_path=path)
     assert expired["item_count"] == 0 and expired["none_reason"]
 

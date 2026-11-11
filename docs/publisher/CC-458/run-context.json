@@ -1,0 +1,16 @@
+{
+  "item": "CC-458",
+  "recorded_at_utc": "2026-11-11T02:44:41.593703+00:00",
+  "base": "f7c3083f2b5a8dfd5861af2dca3962a1d0163a85",
+  "branch": "backlog/cc-458-neo-reply-tabs",
+  "origin_master": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "cadence_choice": "existing minute executor, two-hour gate; no schedule change",
+  "preserved_lane_work": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+    "live_contentops/agy_editorial_assist_v1.py": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7"
+  }
+}

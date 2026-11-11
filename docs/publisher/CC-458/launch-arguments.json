@@ -1,0 +1,23 @@
+[
+  {
+    "name": "pwsh.exe",
+    "pid": 22024,
+    "configured_model": "",
+    "configured_effort": "low",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED"
+  },
+  {
+    "name": "codex.exe",
+    "pid": 10216,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED"
+  },
+  {
+    "name": "pwsh.exe",
+    "pid": 25432,
+    "configured_model": "",
+    "configured_effort": "",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED"
+  }
+]

@@ -13,6 +13,7 @@ from live_contentops.sourced_replies_v1 import stage, publish, report, ROOT
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("command", choices=["stage", "publish", "status", "pack-prepare", "pack-build", "pack-status", "pack-observe", "pack-report",
+                                       "tabs-refresh", "tabs-status", "tabs-enable",
                                        "api-poll", "api-publish", "api-status"])
     p.add_argument("--store", required=True)
     p.add_argument("--candidate", type=Path)
@@ -34,7 +35,17 @@ def main():
     p.add_argument("--x-approval-ref")
     args = p.parse_args()
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
-    if args.command.startswith("api-"):
+    if args.command.startswith("tabs-"):
+        from live_contentops import x_reply_tabs_v1 as tabs
+        if args.command == "tabs-refresh":
+            result = tabs.refresh_due(store, force=True, feed_path=args.feed,
+                                      **({"output_root": args.output_root} if args.output_root else {}))
+        elif args.command == "tabs-enable":
+            result = tabs.enable_cadence(store)
+        else:
+            result = {"state": tabs.latest_state(store), "cadence":
+                      tabs.packs.read_json(tabs.CONTROL) if tabs.CONTROL.is_file() else {"enabled": False}}
+    elif args.command.startswith("api-"):
         from live_contentops import x_mention_responder_v1 as api
         if args.command == "api-status":
             result = {"cost": api.budget(store), "last_run": next(reversed(api._values(store, "internal:x-api-mention-run")), None)}

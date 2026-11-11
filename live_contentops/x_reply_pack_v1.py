@@ -30,6 +30,8 @@ TARGETS = Path(__file__).resolve().parents[1] / "docs/publisher/CC-455/target-ac
 PACK_DESTINATION = "internal:x-reply-pack"
 READBACK_DESTINATION = "internal:x-manual-reply-readback"
 LOCAL = ZoneInfo("Asia/Bangkok")  # CC-457's private desk day; public prose uses ET.
+BUILD_WINDOW_SECONDS = 120 * 60  # Decision 123: Jim checks every three to four hours.
+TAB_LIFETIME_SECONDS = 6 * 60 * 60
 NUMBER = re.compile(r"(?<![A-Za-z0-9])[+-]?\d+(?:[.,]\d+)*%?")
 POST = re.compile(r"https://(?:www\.)?x\.com/([A-Za-z0-9_]+)/status/(\d+)")
 TOPIC = re.compile(
@@ -90,8 +92,8 @@ def select_posts(feed, *, handles, mentions=None, now=None):
             causes["POST_TIME_INVALID"] += 1
             continue
         age = (now - posted).total_seconds()
-        if not 0 <= age < 3600:
-            causes["POST_OUTSIDE_60_MINUTE_BUILD_WINDOW"] += 1
+        if not 0 <= age <= BUILD_WINDOW_SECONDS:
+            causes["POST_OUTSIDE_120_MINUTE_BUILD_WINDOW"] += 1
         elif row.get("is_retweet") or text.startswith("RT @"):
             causes["RETWEET_NOT_ORIGINAL_TARGET"] += 1
         elif kind == "target" and not TOPIC.search(text):
@@ -174,7 +176,7 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
         "candidates": posts, "selection_causes": causes, "sources": sources,
         "audience_feedback": report_manual_replies(store, now=now),
         "instructions": (
-            "Author English replies for Jim to review and post himself (decision 122). "
+            "Author English replies for Jim to review and post himself (decisions 122 and 123). "
             "Choose 3-5 useful target posts, at most one per target author, plus every useful mention. "
             "Never pad. Each draft is <=280 characters, contains one exact sourced number/fact and its "
             "public_timestamp, and adds an invalidation, priced-in comparison or dated pre-event view. "
@@ -273,10 +275,10 @@ article{background:white;padding:1.3rem;border:1px solid #ccd3d5;border-radius:1
 h2{font-size:1.15rem}a{color:#075d75}blockquote{margin:1rem 0;padding-left:1rem;border-left:3px solid #c7d2d7;white-space:pre-wrap}
 textarea{box-sizing:border-box;width:100%;min-height:145px;padding:.8rem;font:inherit;resize:vertical}.sources,.age{font-size:.85rem;color:#53616a}
 .intent{display:inline-block;background:#075d75;color:white;padding:.6rem 1rem;border-radius:6px}.stale .intent{display:none}.stale{opacity:.65}
-</style><h1>Your X reply pack</h1><p>Read, edit and post each reply yourself. Drafts expire 90 minutes after the original post.</p>
+</style><h1>Your X reply pack</h1><p>Read, edit and post each reply yourself. Drafts expire 6 hours after the original post.</p>
 <p>Built ''' + escape(built) + '</p><p>' + escape(pack.get("none_reason") or pack.get("short_reason") or "") + '</p>' + "".join(cards) + '''
 <script>function ages(){for(const card of document.querySelectorAll('article[data-post-time]')){
-const age=Math.max(0,(Date.now()-Date.parse(card.dataset.postTime))/60000);const stale=age>=90;
+const age=Math.max(0,(Date.now()-Date.parse(card.dataset.postTime))/60000);const stale=age>=360;
 card.classList.toggle('stale',stale);card.querySelector('.age').textContent=Math.floor(age)+' minutes old'+(stale?' · STALE':'');}}
 ages();setInterval(ages,30000);</script></html>'''
 
@@ -334,7 +336,7 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
             items.append({
                 **post, "draft_text": text,
                 "intent_url": "https://x.com/intent/post?" + urlencode({"in_reply_to": post_id, "text": text}),
-                "stale_at_utc": (clock(post["post_time_utc"]) + timedelta(minutes=90)).isoformat(),
+                "stale_at_utc": (clock(post["post_time_utc"]) + timedelta(seconds=TAB_LIFETIME_SECONDS)).isoformat(),
                 "sources": [{k: source[k] for k in ("source_id", "label", "known_at_utc", "rights_class",
                                                     "store_message_id", "store_payload_sha256")}],
                 "point": draft["point"], "reply_shape": draft.get("reply_shape"),
@@ -356,7 +358,7 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
     )
     pack = {
         "schema_version": "contentops.x_reply_pack.v1", "built_at_utc": now.isoformat(),
-        "valid_until_utc": max((clock(i["stale_at_utc"]) for i in items), default=now + timedelta(minutes=90)).isoformat(),
+        "valid_until_utc": max((clock(i["stale_at_utc"]) for i in items), default=now + timedelta(seconds=TAB_LIFETIME_SECONDS)).isoformat(),
         "none_reason": reason, "short_reason": short, "items": items, "omissions": omitted,
         "selection_causes": causes, "request_sha256": expected, "response_sha256": digest(response),
         "feed_generated_at_utc": feed["generated_at_utc"], "feed_sha256": digest(feed),
@@ -444,6 +446,7 @@ def observe_manual_replies(store, *, reply_feed_path, now=None):
                 "parent_post_id": parent, "target_author": item["author_handle"],
                 "post_id": post_id, "post_url": row["url"], "text": text,
                 "posted_at_utc": posted.isoformat(), "observed_at_utc": now.isoformat(),
+                "post_to_reply_minutes": (posted - clock(item["post_time_utc"])).total_seconds() / 60,
                 "pack_built_at_utc": pack["built_at_utc"], "reply_shape": item.get("reply_shape"),
                 "draft_edited": text != item["draft_text"],
                 "posted_after_draft_expired": posted >= clock(item["stale_at_utc"]),
@@ -499,6 +502,8 @@ def report_manual_replies(store, *, now=None):
     now = now or utcnow()
     since = now - timedelta(days=14)
     cohorts, packs, first_built = {}, {}, None
+    latency = {name: {"reply_count": 0, "collected_24h": 0, "views": None}
+               for name in ("under_2h", "2_to_6h", "over_6h")}
     for row in store.list_outbox_messages(destination=PACK_DESTINATION):
         pack = json.loads(row["payload"])
         built = clock(pack["built_at_utc"])
@@ -523,17 +528,25 @@ def report_manual_replies(store, *, now=None):
                   clock(pack["built_at_utc"]).astimezone(ZoneInfo("America/New_York")).strftime("%H:%M ET"))
         group = cohorts[cohort]
         group["posted"] += 1
+        target = next(i for i in pack["items"] if i["post_id"] == value["parent_post_id"])
+        minutes = (clock(value["posted_at_utc"]) - clock(target["post_time_utc"])).total_seconds() / 60
+        band = latency["under_2h" if minutes < 120 else "2_to_6h" if minutes <= 360 else "over_6h"]
+        band["reply_count"] += 1
         for observation in store.list_performance_observations(dispatch_id="dispatch_" + row["message_id"]):
             if observation["observation_window"] != "DAILY" or observation["collection_status"] != "COLLECTED":
                 continue
             group["collected_24h"] += 1
+            band["collected_24h"] += 1
             metrics, available = json.loads(observation["metrics_native_json"]), json.loads(observation["metric_availability_json"])
             for name in ("views", "likes", "profile_visits"):
                 if available.get(name) == "AVAILABLE" and name in metrics:
                     group[name] = (group[name] or 0) + metrics[name]
+                    if name == "views":
+                        band["views"] = (band["views"] or 0) + metrics[name]
     review_due = first_built + timedelta(days=14) if first_built else None
     return {"from_utc": since.isoformat(), "to_utc": now.isoformat(),
             "review_due_at_utc": review_due.isoformat() if review_due else None,
             "review_due": now >= review_due if review_due else False,
+            "post_to_reply_latency": latency,
             "cohorts": sorted(cohorts.values(), key=lambda c: (-(c["views"] or 0), c["target_author"])),
             "public_write_performed": False}
