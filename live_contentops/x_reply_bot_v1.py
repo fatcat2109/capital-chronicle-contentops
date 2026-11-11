@@ -538,11 +538,21 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
         stage_seconds["filter"] = perf_counter()-filter_started
         result.update(dropped_candidates=request.get("dropped_candidates", []), source_gaps=request.get("source_gaps", []),
                       selection_causes=request["selection_causes"])
-        tried = {json.loads(r["payload"])["post_id"] for r in store.list_outbox_messages(destination=ATTEMPTS)
+        for post in request["candidates"]:
+            post["fact_context_sha256"] = packs.digest({"policy": packs.fact_policy.POLICY,
+                "post_text": post["post_text"], "usable_source_ids": sorted(post["usable_source_ids"])})
+            post["attempt_key"] = "xrb-attempt-" + post["post_id"] + "-" + post["fact_context_sha256"][:16]
+        tried = {r["message_id"] for r in store.list_outbox_messages(destination=ATTEMPTS)
                  if r["status"] != "AVAILABLE"}
+        sent_posts = {json.loads(r["payload"])["post_id"] for r in deliveries}
         result["dropped_candidates"].extend({"post_id": p["post_id"], "cause": "PREVIOUSLY_ATTEMPTED"}
-                                            for p in request["candidates"] if p["post_id"] in tried)
-        request["candidates"] = [p for p in request["candidates"] if p["post_id"] not in tried][:12]
+                                            for p in request["candidates"] if p["attempt_key"] in tried)
+        result["dropped_candidates"].extend({"post_id": p["post_id"], "cause": "ALREADY_DELIVERED_OR_UNCERTAIN"}
+                                            for p in request["candidates"] if p["post_id"] in sent_posts)
+        # A ranking made without these facts is not a reason to hide new evidence.
+        # An unchanged rejected opportunity is not sent through another model call.
+        request["candidates"] = [p for p in request["candidates"]
+                                 if p["attempt_key"] not in tried and p["post_id"] not in sent_posts][:12]
         current_candidates = request["candidates"]
         if not request["candidates"]:
             result["status"] = "NO_NEW_ELIGIBLE_TARGETS"
@@ -551,9 +561,10 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
         ready["request_path"] = str(root / ("reply-pack-request-" + request["request_sha256"][:16] + ".json"))
         packs.save_json(ready["request_path"], request)
         for post in request["candidates"]:
-            key = "xrb-attempt-" + post["post_id"]
+            key = post["attempt_key"]
             if not store.get_outbox_message(key):
-                record(store, ATTEMPTS, {"post_id": post["post_id"], "at_utc": now.isoformat()}, key=key, status="RANKING")
+                record(store, ATTEMPTS, {"post_id": post["post_id"], "at_utc": now.isoformat(),
+                    "fact_context_sha256": post["fact_context_sha256"]}, key=key, status="RANKING")
             else:
                 store.set_outbox_status(key, "RANKING")
         response = (drafter or rank_and_draft)(ready["request_path"], output_dir=root / "editorial")
@@ -561,7 +572,7 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
         stage_seconds.update(authored.get("stage_seconds", {}))
         remaining = authored.get("remaining_quality_post_ids", [])
         for post in request["candidates"]:
-            store.set_outbox_status("xrb-attempt-" + post["post_id"],
+            store.set_outbox_status(post["attempt_key"],
                                    "AVAILABLE" if post["post_id"] in remaining else "ATTEMPTED")
         finished = now if drafter else packs.utcnow()
         check_started = perf_counter()

@@ -109,36 +109,36 @@ def _bar_source(db, artifact, *, native=False):
 def _reaction_sources(path, *, through_date):
     raw = Path(path).read_bytes()
     data = json.loads(raw)
-    groups = defaultdict(list)
-    for event in data["events"]:
-        release = policy.utc(event["release_utc"])
-        if release.astimezone(policy.ET).date().isoformat() > through_date:
+    sources, used = [], defaultdict(int)
+    # Reuse the producer's counts. Publisher never recomputes its base rates.
+    rows = sorted(enumerate(data.get("summary", [])), key=lambda pair: (
+        -pair[1].get("n", 0), pair[1].get("window") != "30m", pair[0]))
+    for index, row in rows:
+        market, window = row["symbol"], row["window"]
+        count, total, dates = row["positive_n"], row["n"], row["release_dates"]
+        if (market not in LABELS or used[market] >= 3 or window not in {"5m", "30m"}
+                or type(count) is not int or type(total) is not int or not 0 <= count <= total or total < 1
+                or len(set(dates)) != total or any(day > through_date for day in dates)):
             continue
-        for market in event["markets"]:
-            symbol = market["symbol"]
-            if symbol not in LABELS:
-                continue
-            for window in ("5m", "30m"):
-                cell = market.get("windows", {}).get(window, {})
-                value = cell.get("move_pct")
-                if type(value) in (int, float) and math.isfinite(value) and not cell.get("missing_reason"):
-                    groups[(symbol, market["series_id"], market["price_basis"], window)].append((release, value))
-    sources = []
-    for (market, series, basis, window), values in sorted(groups.items()):
-        dates = [d for d, _ in values]
-        start, end = min(dates), max(dates)
-        period = "retained CPI days from " + start.strftime("%d %b %Y").lstrip("0") + " to " + end.strftime("%d %b %Y").lstrip("0")
-        count, total = sum(value > 0 for _, value in values), len(values)
+        start, end = datetime.fromisoformat(min(dates)), datetime.fromisoformat(max(dates))
+        period = start.strftime("%b %Y") + " to " + end.strftime("%d %b %Y").lstrip("0")
+        series, basis = row["series_id"], row["price_basis"]
+        condition = {"HOT": "hot", "COOL": "cool", "IN_LINE": "in-line"}.get(row["bucket"])
+        measure = {"CPI_CORE_MOM": "core CPI", "CPI_HEADLINE_MOM": "headline CPI"}.get(row["measure"])
+        if not condition or not measure:
+            continue
         fact = {"kind": "base_rate", "markets": [LABELS[market][0]], "count": count, "sample_count": total,
                 "period_text": period, "through_date": through_date, "series_id": series, "price_basis": basis,
-                "window": window, "event_dates": sorted(d.isoformat() for d in dates)}
-        # Do not pool sources, instruments or reaction windows, or claim a complete calendar.
-        provider = series.split(":", 1)[0].replace("_", " ").title()
-        excerpt = (f"{LABELS[market][1]} rose after {window[:-1]} minutes in {count} of {total} {period} "
-                   f"({provider}; desk count).")
+                "window": window, "event_dates": sorted(dates), "condition_text": condition + " " + measure,
+                "producer_summary_row": index, "consensus_source": row["consensus_source"], "sample_end_date": max(dates)}
+        provider = {"HISTDATA": "HistData", "DUKASCOPY": "Dukascopy", "YAHOO_FINANCE": "Yahoo Finance",
+                    "BINANCE": "Binance"}.get(series.split(":", 1)[0], series.split(":", 1)[0])
+        excerpt = (f"{LABELS[market][1]} rose after {window[:-1]} minutes in {count} of {total} "
+                   f"retained {condition} {measure} days, {period} ({provider}; desk count).")
         artifact = {"kind": "reaction_count", "path": str(path), "sha256": sha256(raw).hexdigest(),
-                    "through_date": through_date, "market": market, "series_id": series, "price_basis": basis, "window": window}
+                    "through_date": through_date, "producer_summary_row": index}
         sources.append(_source(excerpt, fact, attribution=provider, known=data["as_of_utc"], artifact=artifact))
+        used[market] += 1
     return sources
 
 

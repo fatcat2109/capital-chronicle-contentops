@@ -28,8 +28,9 @@ No source acquisition, Main edit, schedule change or application restart is adde
 One attributed price/yield may enter a reply under host rule 7 and Jim's decision
 72 b. This does not grant redistribution of the underlying raw bar/rate tables.
 CFDs and futures keep their instrument names and source units. Historical reaction
-counts are computed separately by instrument, source, price basis and reaction
-window; sources are never pooled, and a retained sample is named as such. No
+counts reuse the producer's stored count and denominator, with its CPI condition,
+instrument, source, price basis and reaction window. Publisher computes no new
+base rate. Sources are never pooled, and a retained sample is named as such. No
 consensus table, private account detail or execution identifier enters the copy.
 
 The private message shows `Fact age` in plain words. Existing outbox run/event
@@ -37,6 +38,9 @@ records retain each candidate's cause, source gaps, post-to-draft, post-to-send
 attempt and confirmed delivery minutes. Timings cover filtering, ranking,
 drafting, checks and Telegram sending, including uncertain send attempts. The
 five-draft cap, identity checks, Skip and uncertain-write deduplication remain.
+An unpublished target is reconsidered when its usable facts change. An unchanged
+rejected target avoids another model call, and a delivered or uncertain target
+never returns to drafting. Old issued requests and attempt records remain intact.
 
 `first-draft-timing.json` reconstructs the rejected delivery from its saved
 request and call clocks. It was already 37.67 minutes old at the first tick;
@@ -52,6 +56,9 @@ Build evidence:
 - `reply-tests-second.xml`: 58 passes and two test-isolation fixture corrections.
 - `fact-and-entry-tests.xml`: 27 passing policy, source-consumer and entry checks.
 - `reply-tests.xml`: 62 passing final policy, bot, held-source and minute-entry checks.
+- `changed-facts-tests.xml`: 61 passing bot and fact checks, including reuse of newly held evidence.
+- `producer-count-tests.xml`: 28 passing fact checks with the producer's own conditional counts.
+- `historical-age-tests.xml`: two focused checks for the sample's real end date and stated condition/window.
 
 Live integration, installed tests, source availability and the next three real
 private deliveries are recorded separately when observed. A Bot API confirmation
