@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "et_day": "2026-11-10",
+  "day_complete": true,
+  "window_start_utc": "2026-11-10T05:00:00+00:00",
+  "window_end_utc": "2026-11-11T05:00:00+00:00",
+  "next_check_gmt7": "2026-11-11T12:00:00+07:00",
+  "confirmed_posts": {
+    "discord": 14,
+    "threads": 45
+  },
+  "false_unknown_write_incidents": [],
+  "destination_failure_incidents": {
+    "discord": 2,
+    "substack": 2,
+    "linkedin": 2,
+    "substack_notes": 5,
+    "x": 1
+  },
+  "active_destination_failure_incidents": {
+    "linkedin": 1,
+    "discord": 1
+  },
+  "resolved_destination_failure_incidents": [
+    {
+      "incident_id": "incident_destination_day_89ec6004e61d497e96cfc8e0bdc0ff35",
+      "destination": "discord",
+      "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+    },
+    {
+      "incident_id": "incident_destination_day_0892aa268e07c08cc65aa46778237727",
+      "destination": "substack",
+      "resolution": "RECORDED_LOCAL_PREWRITE_REPAIR"
+    },
+    {
+      "incident_id": "incident_destination_day_0892aa268e07c08cc65aa46778237727_after_local_prewrite_repair",
+      "destination": "substack",
+      "resolution": "RECORDED_LOCAL_PREWRITE_REPAIR"
+    },
+    {
+      "incident_id": "incident_destination_day_39090cc11eae3166aef5a2f7e9eb8c6e",
+      "destination": "linkedin",
+      "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+    },
+    {
+      "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc",
+      "destination": "substack_notes",
+      "resolution": "EXACT_OBJECT_RECONCILED_CONFIRMED"
+    },
+    {
+      "incident_id": "incident_destination_day_2ee678bcc0b389f220f780c277941022",
+      "destination": "x",
+      "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+    },
+    {
+      "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc_after_local_prewrite_repair",
+      "destination": "substack_notes",
+      "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+    },
+    {
+      "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc_after_local_prewrite_repair_after_local_prewrite_repair",
+      "destination": "substack_notes",
+      "resolution": "EXACT_OBJECT_RECONCILED_CONFIRMED"
+    },
+    {
+      "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc_after_local_prewrite_repair_after_local_prewrite_repair_after_local_prewrite_repair",
+      "destination": "substack_notes",
+      "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+    },
+    {
+      "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc_after_local_prewrite_repair_after_local_prewrite_repair_after_local_prewrite_repair_after_local_prewrite_repair",
+      "destination": "substack_notes",
+      "resolution": "EXACT_OBJECT_RECONCILED_CONFIRMED"
+    }
+  ],
+  "invalid_incidents": [],
+  "observed_at_utc": "2026-11-11T05:42:48.096953+00:00",
+  "public_write_performed": false
+}

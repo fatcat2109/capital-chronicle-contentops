@@ -1,0 +1,21 @@
+{
+  "status": "FAIL",
+  "et_day": "2026-11-10",
+  "day_complete": true,
+  "window_start_utc": "2026-11-10T05:00:00+00:00",
+  "window_end_utc": "2026-11-11T05:00:00+00:00",
+  "next_check_gmt7": "2026-11-11T12:00:00+07:00",
+  "confirmed_posts": {
+    "discord": 14,
+    "threads": 45
+  },
+  "false_unknown_write_incidents": [],
+  "destination_failure_incidents": {
+    "discord": 2,
+    "substack": 2,
+    "linkedin": 2,
+    "substack_notes": 5,
+    "x": 1
+  },
+  "public_write_performed": false
+}

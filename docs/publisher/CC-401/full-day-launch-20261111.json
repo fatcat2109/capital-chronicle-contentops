@@ -1,0 +1,8 @@
+{
+  "parent_pid": 25432,
+  "reasoning_effort": "max",
+  "pid": 28000,
+  "process_start_utc": "2026-11-11T05:36:02.7954410Z",
+  "model": "gpt-6.1-sol",
+  "evidence_state": "CONFIGURED_NOT_OBSERVED"
+}

@@ -15,12 +15,22 @@ The three old queued status Notes ended as not posted with `CC401_STALE_STATUS_N
 
 ## Full-day acceptance
 
-The next full ET day after morning integration is 10 November 2026. It ends **11 November 2026 12:00 GMT+7** (05:00 UTC). No current observation is full-day proof. Run once after that instant, from the operating root:
+The planned full ET day after morning integration was 10 November 2026. It ended **11 November 2026 12:00 GMT+7** (05:00 UTC). The elapsed-day result is recorded below. The read-only command, from the operating root, is:
 
 ```powershell
 python scripts/audit_publication_day_cc401.py --store "A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3" --day 2026-11-10 --output "A:/Capital Chronicle/Worktrees/ContentOps/codex-publisher-exec/docs/publisher/CC-401/full-day-audit.json"
 ```
 
-The audit is read-only. PASS requires an elapsed whole day, confirmed posts on both destinations, no UNKNOWN_WRITE incident for a confirmed Discord/Threads write and at most one destination-failure incident per destination. No new schedule or watcher is installed.
+The audit is read-only. PASS requires an elapsed whole day, confirmed posts on both destinations, no UNKNOWN_WRITE incident for a confirmed Discord/Threads write and at most one active destination-failure incident per destination. Recorded local repairs and exact reconciled objects follow the live coordinator's circuit semantics; original incident counts remain visible. No new schedule or watcher is installed.
 
 Integrated code: `7a013ffccc3095231131858e8a51d0d829425d88`, fast-forwarded into `A:/Capital Chronicle/ContentOps`. `copied-live-replay.json` records the 555 MB live-store-copy replay; `live-application.json` records exact live Note endings and the operating-root consumer source. The temporary database copy was removed after its connections closed.
+
+## Full-day verification — 11 November 2026
+
+`full-day-audit-20261110.json` reports **PASS** for the complete 10 November ET day: **14 confirmed Discord posts, 45 confirmed Threads posts and zero UNKNOWN_WRITE incidents against confirmed posts**.
+
+The original audit returned FAIL because it counted repaired local refusals and subsequently reconciled objects as active destination failures. Its exact result remains in `full-day-audit-20261110-initial.json`. The corrected audit retains every original count and lists the evidence for each resolved row. It uses the coordinator's local-refusal causes, explicit local-repair markers and exact destination/object/reconciliation identity. A confirmed Discord or Threads false alarm still fails, even with a later repair marker. Duplicate unresolved failures still fail.
+
+One actual Discord UNKNOWN_WRITE and one LinkedIn TLS no-write remain visible for that day. These are separate failures, each recorded once for its destination; they are not counted as confirmed-post false alarms. Existing reconciliation retains the uncertain Discord dispatch. The three original queued Notes remain DEFINITE_NO_WRITE with `CC401_STALE_STATUS_NOTE_UNCLAIMED`.
+
+`full-day-audit-tests-20261111.txt` and its JUnit XML record **15 passing targeted checks** in 22.70 seconds, including copied-store provider acceptance, one incident per ET day, next-day retry, cancellation safety, exact destination identity and audit non-mutation. `full-day-launch-20261111.json` records the configured `gpt-6.1-sol / max` launch as CONFIGURED_NOT_OBSERVED. The live-root verification is retained in `full-day-closure-20261111.json`.
