@@ -323,6 +323,64 @@ def test_missing_discord_bot_token_is_definite_no_write(monkeypatch):
     assert result["reason_code"] == "DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE"
 
 
+@pytest.mark.parametrize("lost_create_return", [False, True])
+def test_first_bot_run_creates_one_thread_and_recovers_its_lost_return(monkeypatch, lost_create_return):
+    from urllib.error import HTTPError, URLError
+    from live_contentops import discord_live_adapter_v6 as adapter, live_telemetry_v6
+
+    channel, run = "1519311669216673802", "12345"
+    webhook = "https://discord.test/webhook"
+    requests, messages = [], []
+    thread_exists = False
+
+    class Response:
+        def __init__(self, value): self.value = value
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self): return json.dumps(self.value).encode()
+
+    def send(req, **kwargs):
+        nonlocal thread_exists
+        method, url = req.get_method(), req.full_url
+        requests.append((method, url))
+        thread = {"id": run, "parent_id": channel, "type": 11,
+                  "thread_metadata": {"archived": False}}
+        if url == webhook:
+            return Response({"channel_id": channel})
+        assert req.get_header("Authorization") == "Bot fixture-bot"
+        if method == "GET" and url == f"https://discord.com/api/v10/channels/{run}":
+            if not thread_exists:
+                raise HTTPError(url, 404, "Not Found", {}, None)
+            return Response(thread)
+        if url == f"https://discord.com/api/v10/channels/{channel}/messages/{run}/threads":
+            assert method == "POST" and not thread_exists
+            assert json.loads(req.data)["name"] == "Calls"
+            thread_exists = True
+            if lost_create_return:
+                raise URLError("thread created; response lost")
+            return Response(thread)
+        assert method == "POST" and url == f"https://discord.com/api/v10/channels/{run}/messages"
+        body = json.loads(req.data)
+        assert body["message_reference"]["message_id"] == run
+        messages.append(body)
+        return Response({"id": str(67890 + len(messages)), "channel_id": run})
+
+    monkeypatch.setattr(adapter, "read_secret", lambda name: "fixture-bot")
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", send)
+    monkeypatch.setattr(live_telemetry_v6, "classify_and_record_dispatch", lambda **kw: None)
+    first = adapter.execute_discord_post("first card", webhook_url=webhook,
+        thread_parent_id=run, thread_name="Calls", reply_to_message_id=run)
+    if lost_create_return:
+        assert first["definite_no_write"] and not messages
+    else:
+        assert first["status"] == "SUCCESS"
+    second = adapter.execute_discord_post("next card", webhook_url=webhook,
+        thread_parent_id=run, thread_name="Calls", reply_to_message_id=run)
+    assert second["status"] == "SUCCESS"
+    assert sum(method == "POST" and url.endswith("/threads") for method, url in requests) == 1
+    assert len(messages) == (1 if lost_create_return else 2)
+
+
 @pytest.mark.parametrize("destination,field", [("facebook_page", "message"), ("instagram_business", "text")])
 def test_own_card_comments_read_back_from_their_exact_parent(monkeypatch, destination, field):
     from live_contentops import facebook_page_adapter_v6 as facebook, instagram_adapter_v6 as instagram
