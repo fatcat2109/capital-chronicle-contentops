@@ -369,7 +369,7 @@ def sync_tabs(store, state, pack, driver, *, now):
 
 
 def refresh_due(store, *, force=False, feed_path=FEED_PATH, output_root=packs.PACK_ROOT,
-                control_path=CONTROL, driver=None, drafter=None, now=None):
+                control_path=CONTROL, driver=None, drafter=None, now=None, retained_pack_path=None):
     now = now or packs.utcnow()
     control = packs.read_json(control_path) if Path(control_path).is_file() else {}
     if not force and not control.get("enabled"):
@@ -404,14 +404,23 @@ def refresh_due(store, *, force=False, feed_path=FEED_PATH, output_root=packs.PA
         result["readback"] = packs.observe_manual_replies(store, reply_feed_path=reply_path, now=observed_now)
         # Also consume exact held edges from the existing list reader.
         result["held_readback"] = packs.observe_manual_replies(store, reply_feed_path=feed_path, now=observed_now)
-        result["stage"] = "AGY_DRAFT"
-        ready = packs.prepare(store, feed_path=feed_path, mentions_path=mentions_path, output_root=root, now=now)
-        response = (drafter or draft_with_agy)(ready["request_path"], output_dir=root / "agy")
-        result["stage"] = "PACK_BUILD"
-        built = packs.build(store, request_path=ready["request_path"], response_path=response,
-                            feed_path=feed_path, mentions_path=mentions_path, output_root=output_root,
-                            now=now if drafter else packs.utcnow())
-        result.update(pack=built, editorial_call=packs.read_json(response).get("editorial_call", {}))
+        if retained_pack_path:
+            result["stage"] = "PACK_RESUME"
+            retained = packs.read_json(retained_pack_path)
+            if not any(packs.digest(json.loads(row["payload"])) == packs.digest(retained)
+                       for row in store.list_outbox_messages(destination=packs.PACK_DESTINATION)):
+                raise ValueError("REPLY_PACK_NOT_BOUND_TO_STORE")
+            built = {"pack_path": str(retained_pack_path), "item_count": len(retained["items"])}
+            result.update(pack=built, editorial_call=retained.get("editorial_call", {}), drafting_reused=True)
+        else:
+            result["stage"] = "AGY_DRAFT"
+            ready = packs.prepare(store, feed_path=feed_path, mentions_path=mentions_path, output_root=root, now=now)
+            response = (drafter or draft_with_agy)(ready["request_path"], output_dir=root / "agy")
+            result["stage"] = "PACK_BUILD"
+            built = packs.build(store, request_path=ready["request_path"], response_path=response,
+                                feed_path=feed_path, mentions_path=mentions_path, output_root=output_root,
+                                now=now if drafter else packs.utcnow())
+            result.update(pack=built, editorial_call=packs.read_json(response).get("editorial_call", {}))
         result["stage"] = "NEO_TABS"
         result["actions"] = sync_tabs(store, state, packs.read_json(built["pack_path"]), driver,
                                       now=now if drafter else packs.utcnow())

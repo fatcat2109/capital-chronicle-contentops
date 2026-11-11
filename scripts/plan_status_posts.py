@@ -122,7 +122,10 @@ def main(argv=None) -> int:
                 # Reply drafts do not depend on Main's status-export freshness.
                 from live_contentops.x_reply_tabs_v1 import refresh_due
                 try:
-                    result["reply_tabs"] = refresh_due(store)
+                    result["reply_tabs"] = refresh_due(store,
+                        control_path=args.store.parent / "control/x_reply_tabs.json",
+                        output_root=args.store.parent / "daily_app_outputs/x_reply_pack",
+                        feed_path=args.store.parent / "x_list_feed/x_list_feed_v1.json")
                 except Exception as exc:
                     result["reply_tabs"] = {"status": "REFRESH_FAILED", "cause": type(exc).__name__,
                                             "public_submit_actions": 0}

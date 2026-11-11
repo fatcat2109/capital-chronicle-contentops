@@ -37,14 +37,16 @@ def main():
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
     if args.command.startswith("tabs-"):
         from live_contentops import x_reply_tabs_v1 as tabs
+        control = Path(args.store).parent / "control/x_reply_tabs.json"
         if args.command == "tabs-refresh":
             result = tabs.refresh_due(store, force=True, feed_path=args.feed,
+                                      control_path=control, retained_pack_path=args.pack,
                                       **({"output_root": args.output_root} if args.output_root else {}))
         elif args.command == "tabs-enable":
-            result = tabs.enable_cadence(store)
+            result = tabs.enable_cadence(store, control_path=control)
         else:
             result = {"state": tabs.latest_state(store), "cadence":
-                      tabs.packs.read_json(tabs.CONTROL) if tabs.CONTROL.is_file() else {"enabled": False}}
+                      tabs.packs.read_json(control) if control.is_file() else {"enabled": False}}
     elif args.command.startswith("api-"):
         from live_contentops import x_mention_responder_v1 as api
         if args.command == "api-status":

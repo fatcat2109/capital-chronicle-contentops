@@ -1,0 +1,14 @@
+{
+  "schema_version": "contentops.x_reply_tabs_run.v1",
+  "started_at_utc": "2026-11-11T03:13:16.174981+00:00",
+  "status": "REFRESH_FAILED",
+  "stage": "READBACK_AND_MENTIONS",
+  "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\neo-refresh\\20261111T031316-f472fad8\\result.json",
+  "public_submit_actions": 0,
+  "public_write_performed": false,
+  "schedule_changed": false,
+  "cadence": "EXISTING_MINUTE_EXECUTOR_TWO_HOUR_GATE",
+  "cause": "NeoEndpointError: X_ACCOUNT_IDENTITY_NOT_CONFIRMED",
+  "ended_at_utc": "2026-11-11T03:13:43.215868+00:00",
+  "store_message_id": "x-reply-tabs-d9bf01cafafae0f5d9e70fd93e5e2e9215be5d1d0aebebccc57d5928f8cf1e07"
+}

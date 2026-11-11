@@ -255,13 +255,36 @@ def test_actual_minute_entry_refreshes_tabs_when_main_export_is_stale(setup, mon
     calls = []
     monkeypatch.setattr(entry, "ContentOpsDurableStore", lambda *a, **kw: store)
     monkeypatch.setattr(entry, "queue_posts", lambda *a, **kw: {"status": "EXPORT_STALE"})
-    monkeypatch.setattr(tabs, "refresh_due", lambda s: calls.append(s) or {"status": "READY_FOR_JIM"})
+    def refresh(s, **kwargs):
+        assert all(str(path).startswith(str(root)) for path in kwargs.values())
+        calls.append(s)
+        return {"status": "READY_FOR_JIM"}
+    monkeypatch.setattr(tabs, "refresh_due", refresh)
     monkeypatch.setattr(event_timestamp_v1, "maintain_timestamps", lambda: {})
     monkeypatch.setattr(event_pack_v1, "run_due_packs", lambda *a, **kw: {})
     monkeypatch.setattr(posts, "record_run", lambda *a: root / "run.json")
     assert entry.main(["--publish", "--store", str(root / "store.sqlite3")]) == 1
     assert json.loads(capsys.readouterr().out)["reply_tabs"]["status"] == "READY_FOR_JIM"
     assert calls == [store]
+
+
+def test_browser_repair_reuses_exact_stored_pack_without_another_editorial_call(setup):
+    store, feed, root = setup
+    first = run(setup)
+    def never(*a, **kw):
+        raise AssertionError("accepted editorial work must be reused")
+    neo = Neo()
+    result = tabs.refresh_due(store, force=True, feed_path=feed, output_root=root,
+        control_path=root / "control.json", driver=neo, drafter=never, now=NOW,
+        retained_pack_path=first["pack"]["pack_path"])
+    assert result["status"] == "READY_FOR_JIM" and result["drafting_reused"]
+    changed = packs.read_json(first["pack"]["pack_path"])
+    changed["items"][0]["draft_text"] = "Changed outside the bound pack"
+    packs.save_json(first["pack"]["pack_path"], changed)
+    failed = tabs.refresh_due(store, force=True, feed_path=feed, output_root=root,
+        control_path=root / "control.json", driver=neo, drafter=never, now=NOW,
+        retained_pack_path=first["pack"]["pack_path"])
+    assert failed["stage"] == "PACK_RESUME" and "REPLY_PACK_NOT_BOUND_TO_STORE" in failed["cause"]
 
 
 def test_manual_readback_measures_post_to_reply_minutes_and_24h_slow_reply_views(setup):
