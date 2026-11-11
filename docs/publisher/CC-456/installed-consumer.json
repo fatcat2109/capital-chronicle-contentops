@@ -1,0 +1,121 @@
+{
+  "item": "CC-456",
+  "observed_at_utc": "2026-11-11T01:57:36.047326+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "b08c1b1b47ba86f610e5b1808b6f44b6627b642b",
+  "module_paths": {
+    "responder": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_mention_responder_v1.py",
+    "pack": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_pack_v1.py"
+  },
+  "store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "api_poll": {
+    "started_at_utc": "2026-11-11T01:57:33.549049+00:00",
+    "public_write_performed": false,
+    "manual_fallback": {
+      "route": "CC455_JIM_CLICK",
+      "mention_count_in_held_feed": 0,
+      "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.json",
+      "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.html",
+      "selection_causes": {},
+      "next_action": "Use pack-prepare/pack-build with the held mentions feed; Jim reviews and posts each intent"
+    },
+    "status": "X_API_KEYS_NOT_SET",
+    "first_api_call": {
+      "method": "GET",
+      "path": "/2/users/me"
+    },
+    "network_calls": 0,
+    "cost": {
+      "spend_day_gmt7": "2026-11-11",
+      "daily_limit_usd": 0.5,
+      "cost_upper_bound_usd": 0.0,
+      "estimated_cost_usd": 0.0,
+      "unresolved_request_count": 0,
+      "remaining_micro_usd": 500000,
+      "invoice_cost_usd": null,
+      "basis": "Published rates; no deduplication or Owned Read discount assumed for the cap"
+    },
+    "request_costs": [],
+    "completed_at_utc": "2026-11-11T01:57:33.629396+00:00",
+    "run_record": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\api\\x-api-run-7bb86a2642c0ee0095d719446766e0c34be6df82908f6e05f859d9e02aa59d83.json",
+    "run_message_id": "x-api-run-7bb86a2642c0ee0095d719446766e0c34be6df82908f6e05f859d9e02aa59d83"
+  },
+  "api_status": {
+    "cost": {
+      "spend_day_gmt7": "2026-11-11",
+      "daily_limit_usd": 0.5,
+      "cost_upper_bound_usd": 0.0,
+      "estimated_cost_usd": 0.0,
+      "unresolved_request_count": 0,
+      "remaining_micro_usd": 500000,
+      "invoice_cost_usd": null,
+      "basis": "Published rates; no deduplication or Owned Read discount assumed for the cap"
+    },
+    "last_run": {
+      "completed_at_utc": "2026-11-11T01:57:33.629396+00:00",
+      "cost": {
+        "basis": "Published rates; no deduplication or Owned Read discount assumed for the cap",
+        "cost_upper_bound_usd": 0.0,
+        "daily_limit_usd": 0.5,
+        "estimated_cost_usd": 0.0,
+        "invoice_cost_usd": null,
+        "remaining_micro_usd": 500000,
+        "spend_day_gmt7": "2026-11-11",
+        "unresolved_request_count": 0
+      },
+      "first_api_call": {
+        "method": "GET",
+        "path": "/2/users/me"
+      },
+      "manual_fallback": {
+        "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.html",
+        "mention_count_in_held_feed": 0,
+        "next_action": "Use pack-prepare/pack-build with the held mentions feed; Jim reviews and posts each intent",
+        "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.json",
+        "route": "CC455_JIM_CLICK",
+        "selection_causes": {}
+      },
+      "network_calls": 0,
+      "public_write_performed": false,
+      "request_costs": [],
+      "started_at_utc": "2026-11-11T01:57:33.549049+00:00",
+      "status": "X_API_KEYS_NOT_SET"
+    }
+  },
+  "manual_pack_readback": {
+    "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.json",
+    "built_at_utc": "2026-11-11T00:33:58.776957+00:00",
+    "valid_until_utc": "2026-11-11T01:42:36.691000+00:00",
+    "none_reason": null,
+    "item_count": 3,
+    "items": [
+      {
+        "post_id": "2120308677030883723",
+        "author_handle": "FirstSquawk",
+        "age_seconds": 6299.210221,
+        "stale": true,
+        "intent_url": "https://x.com/intent/post?in_reply_to=2120308677030883723&text=Before+CPI%2C+our+euro+call%27s+invalidation+was+1.1199+%2801%3A52+ET+on+10+November+2026%29.+Rate+rhetoric+needs+a+price+test+too.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations."
+      },
+      {
+        "post_id": "2120307983259255040",
+        "author_handle": "Newsquawk",
+        "age_seconds": 6464.618221,
+        "stale": true,
+        "intent_url": "https://x.com/intent/post?in_reply_to=2120307983259255040&text=Before+CPI%2C+our+S%26P+futures+call%27s+invalidation+was+7%2C498+%2801%3A23+ET+on+10+November+2026%29.+An+index+recap+leaves+that+price+test+out.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations."
+      },
+      {
+        "post_id": "2120300583152181668",
+        "author_handle": "zerohedge",
+        "age_seconds": 8228.941221,
+        "stale": true,
+        "intent_url": "https://x.com/intent/post?in_reply_to=2120300583152181668&text=Our+WTI+futures+call+recorded+86.15+as+invalidation+at+11%3A18+ET+on+10+November+2026.+A+peace+headline+still+needs+a+price+test.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations."
+      }
+    ],
+    "public_write_performed": false
+  },
+  "manual_pack_sha256_before_and_after": "c428e004eeb7b461dc36c3a7970b9d7d1a49c951705164c5ca8fbb7341dca2a6",
+  "x_dispatches_unchanged": true,
+  "new_api_cost_reservations": 0,
+  "public_writes": 0,
+  "schedule_changes": 0
+}

@@ -66,3 +66,19 @@ Final result: final-reply-regressions-v2.xml has 63 passes with zero failures,
 and coordinator-regression.xml has 111 passes. All 174 targeted cases passed.
 Ruff and the explicit-path whitespace check pass. validation.json binds the
 source hashes and retains the earlier assertion failure and its correction.
+
+Installed source commit: b08c1b1b47ba86f610e5b1808b6f44b6627b642b was
+fast-forwarded into A:\Capital Chronicle\ContentOps on its existing operating
+branch. installed-consumer.json records an actual installed api-poll result:
+X_API_KEYS_NOT_SET at GET /2/users/me, zero network calls and USD 0 spent.
+The same installed api-status read its durable result. The installed pack-status
+read the retained three-draft manual pack, whose bytes did not change. No X
+dispatch or API cost reservation was created. This meets the item's explicit
+no-key acceptance variant; no real API reply or API account census is claimed.
+
+integration.json verifies all seven installed sources by exact Git blob and
+LF-normalized bytes. Four raw checkout hashes differ because of the existing
+Windows CRLF conversion, which is recorded rather than mistaken for a code
+change. All nine earlier lane/live dirty files retain their pre-install hashes.
+No application restart, schedule change, public post or new runtime was needed.
+Jim's remaining setup actions and the unobserved checkout minimum are in SETUP.md.

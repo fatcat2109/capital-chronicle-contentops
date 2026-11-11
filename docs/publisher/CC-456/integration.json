@@ -1,0 +1,146 @@
+{
+  "item": "CC-456",
+  "before_install_utc": "2026-11-11T01:56:53.377678+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "before_head": "d87015c830d4d4cfe096b4abeee6f3a582920b45",
+  "source_commit": "b08c1b1b47ba86f610e5b1808b6f44b6627b642b",
+  "remote_verified": "b08c1b1b47ba86f610e5b1808b6f44b6627b642b",
+  "preserved": {
+    "worktree_dirty": [
+      {
+        "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+        "sha256_before_install": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+        "initial_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+        "sha256_after_install": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+        "preserved": true
+      },
+      {
+        "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+        "sha256_before_install": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+        "initial_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+        "sha256_after_install": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+        "preserved": true
+      },
+      {
+        "path": "live_contentops/agy_editorial_assist_v1.py",
+        "sha256_before_install": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+        "initial_sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+        "sha256_after_install": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+        "preserved": true
+      }
+    ],
+    "live_dirty": [
+      {
+        "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+        "sha256_before_install": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "initial_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "sha256_after_install": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+        "preserved": true
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+        "sha256_before_install": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "initial_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "sha256_after_install": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+        "preserved": true
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+        "sha256_before_install": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "initial_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "sha256_after_install": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+        "preserved": true
+      },
+      {
+        "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+        "sha256_before_install": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "initial_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "sha256_after_install": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+        "preserved": true
+      },
+      {
+        "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+        "sha256_before_install": "cdead3afe1e57c4b1da1ea35fe23b25fec72a6633fa09d114b6dd33b6801053e",
+        "initial_sha256": "cdead3afe1e57c4b1da1ea35fe23b25fec72a6633fa09d114b6dd33b6801053e",
+        "sha256_after_install": "cdead3afe1e57c4b1da1ea35fe23b25fec72a6633fa09d114b6dd33b6801053e",
+        "preserved": true
+      },
+      {
+        "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+        "sha256_before_install": "f8041d42018f81f9b0d88944889bf7fd974802241e75f4b6efbe119faf5ad5a9",
+        "initial_sha256": "f8041d42018f81f9b0d88944889bf7fd974802241e75f4b6efbe119faf5ad5a9",
+        "sha256_after_install": "f8041d42018f81f9b0d88944889bf7fd974802241e75f4b6efbe119faf5ad5a9",
+        "preserved": true
+      }
+    ]
+  },
+  "authority": "Jim decision 39; Publisher integrates its own item",
+  "installed_consumer_evidence": "installed-consumer.json",
+  "after_install_utc": "2026-11-11T01:57:36.047326+00:00",
+  "after_head": "b08c1b1b47ba86f610e5b1808b6f44b6627b642b",
+  "source_hashes": {
+    "live_contentops/x_mention_responder_v1.py": {
+      "tested_raw_sha256": "a4bb529bc2a50111d66ca90677a14e2a5c56f85f75f4bcd9a29ccba6ca7e29c2",
+      "installed_raw_sha256": "17a49c7b4a50e65c347abd70d09d604c2ce4a589d44dd5ac05c02405bcc09741",
+      "lf_normalized_sha256": "a4bb529bc2a50111d66ca90677a14e2a5c56f85f75f4bcd9a29ccba6ca7e29c2",
+      "git_blob": "e139f1c0995995fe1ac3b12f0f61df002d4370f6",
+      "same_source": true
+    },
+    "live_contentops/sourced_replies_v1.py": {
+      "tested_raw_sha256": "7ba34147f6cf44abf4259cf42a9af28b3d3537c2390c1045c7100ffc05c24797",
+      "installed_raw_sha256": "7ba34147f6cf44abf4259cf42a9af28b3d3537c2390c1045c7100ffc05c24797",
+      "lf_normalized_sha256": "d5e8f13002e7525c5d56057f27038f0c5c2c5c9bb2aa26060b8c080d32975124",
+      "git_blob": "fddf211129d80b7c417e0520d91c2a77b5ce5696",
+      "same_source": true
+    },
+    "live_contentops/x_reply_pack_v1.py": {
+      "tested_raw_sha256": "14def77fb35875604517a52b1786f93c2d72b1e0af4676b41a7819382e43c8f6",
+      "installed_raw_sha256": "f063f43abb6604e07ab4d7cea73516aa4189047f140a4c4f1a0428b6b86119e8",
+      "lf_normalized_sha256": "14def77fb35875604517a52b1786f93c2d72b1e0af4676b41a7819382e43c8f6",
+      "git_blob": "25516d1593812d678fd0a7a0dfda641c54d4a376",
+      "same_source": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "tested_raw_sha256": "74f01b1029727481bb8fc7811fd3368bb0fa975b64330b722f002274daa45827",
+      "installed_raw_sha256": "74f01b1029727481bb8fc7811fd3368bb0fa975b64330b722f002274daa45827",
+      "lf_normalized_sha256": "4dbb38ba9600d80f85b4ff632eab871a393ca4d992c8dbbf9c9127d1e0275ad6",
+      "git_blob": "beca407f2f07ced77be4ef66dc7514088a2e46c1",
+      "same_source": true
+    },
+    "scripts/run_sourced_replies.py": {
+      "tested_raw_sha256": "9169963fc3511fe58e8ddf2a74dcc916a221629c7ac51e84ad077c748aa943cb",
+      "installed_raw_sha256": "9169963fc3511fe58e8ddf2a74dcc916a221629c7ac51e84ad077c748aa943cb",
+      "lf_normalized_sha256": "070c94bf03b4b2f09c24553210ef158ff82c4bea9e46f3ee0b017aec6bf76ce1",
+      "git_blob": "185a2770b75d52cd9295cd7b89100b2a0c03d8b8",
+      "same_source": true
+    },
+    "scripts/set_x_api_keys.py": {
+      "tested_raw_sha256": "3d98acfde0f9449678361544247276693d3ed045ad7b7a1df47da89c4844f3ac",
+      "installed_raw_sha256": "f94593be1fab98434968e3bf074d194c5f9e07d54533a8c47c8d5a954e2d092b",
+      "lf_normalized_sha256": "3d98acfde0f9449678361544247276693d3ed045ad7b7a1df47da89c4844f3ac",
+      "git_blob": "a67d84f12ee685fd574c2fe2c846b41337fc3987",
+      "same_source": true
+    },
+    "tests/test_x_mention_responder_cc456.py": {
+      "tested_raw_sha256": "d4dd4a66fafe833ea100c8971bcacc5811b44e77f1cf099a2decff55c8ce05a0",
+      "installed_raw_sha256": "123933cff2c13ff59bfc576b165f63bcba6c77fc8899fefb58a11940ff97b03e",
+      "lf_normalized_sha256": "d4dd4a66fafe833ea100c8971bcacc5811b44e77f1cf099a2decff55c8ce05a0",
+      "git_blob": "c61930e6ccda1357174dc86f81d965a7f0398360",
+      "same_source": true
+    }
+  },
+  "checkout_note": "Raw hashes differ for four files under the existing Windows CRLF checkout conversion; LF-normalized bytes and exact Git blobs match. No Git configuration was changed.",
+  "acceptance": {
+    "variant": "No API keys, as explicitly accepted by CC-456",
+    "status": "PASS",
+    "observed_result": "X_API_KEYS_NOT_SET",
+    "network_calls": 0,
+    "spend_usd": 0,
+    "public_writes": 0,
+    "manual_pack_items": 3,
+    "manual_pack_unchanged": true,
+    "live_consumer": "Installed scripts/run_sourced_replies.py -> x_mention_responder_v1 -> production durable store"
+  },
+  "finished_at_utc": "2026-11-11T01:58:33.146815+00:00"
+}
