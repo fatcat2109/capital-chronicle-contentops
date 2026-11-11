@@ -174,3 +174,35 @@ For the same stored operation,
 The original source time, publish-click time and readback time remain separate.
 This establishes the Notes half of the live timing acceptance. X remains due
 for an exact matching live confirmation.
+
+### Installed continuation repairs
+
+- The minute record now preserves the recovery preflight's real cause when a
+  destination has no dispatch. This exposed the retained LinkedIn day skip
+  separately from X's local composer refusal. The executor file passed all
+  40 tests at that sub-step in 59.89 seconds.
+- X's editable DOM can appear before its accessibility name. When that name
+  is absent, the transport labels only the visible composer editor and obtains
+  its Neo ref before filling. It changes no public text. Six selected transport,
+  plain-Python consumer and submit-validation checks passed in 8.66 seconds.
+- Substack links a reply through `/profile/<id>-<slug>/note/<id>`. The reader
+  follows that public link and requires the same object under the bound
+  `@handle` on the rendered page. Nine selected readback/transport checks passed
+  in 13.85 seconds. The normal worker then reconciled the previously uncertain
+  EUR/USD reply to
+  [c-384339008](https://substack.com/@capitalchronicle/note/c-384339008), with no
+  repeated publish click. Later replies also confirmed through the same owner.
+- A proven pre-click composer refusal can resume after a transport repair.
+  The card consumer, coordinator and existing atomic store claim now use the
+  saved native return: definite no-write, no publish-clock observation, no known
+  public object and a changed transport revision are all required. Every old
+  request/return stays. An absent historical reconciliation row receives the
+  return's actual local cause. Missing or uncertain returns never resume a send.
+  The normal source/rights/account/staleness checks still run before writing.
+
+The last repair passed six endpoint recovery checks (30.80 seconds), four
+uncertainty/concurrency checks (10.22 seconds), and twelve canonical coordinator
+and policy-claim checks (24.02 seconds). These were separate, sequential pytest
+processes on targeted files; no long test run started in the decision window.
+All passing sub-steps were committed, pushed, and fast-forwarded into the
+Publisher operating root without changing a schedule or starting an application.
