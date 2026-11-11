@@ -433,3 +433,17 @@ def test_five_closed_calls_do_not_create_a_dead_space_refusal(tmp_path):
     data=bind(data,data)
     image=templates.render(data,'W',tmp_path)
     assert quality.code_check(image)['passed']
+
+
+def test_weekly_consumer_excludes_reservations_old_rows_and_future_publications():
+    rows=[]
+    for i,(state,day) in enumerate([('RESERVED','2026-11-12')]*20+
+            [('PUBLISHED','2026-11-05')]*20+[('PUBLISHED','2026-11-13')]*20+
+            [('PUBLISHED','2026-11-12')]):
+        key=str(i)
+        rows.append({'state':state,'day':day,'images':[{'sha256':key,'image_quality':{
+            'image_sha256':key,'template':'call','score':10,'passed':True}}]})
+    sample=quality.publication_sample(rows,'2026-11-12',rng=random.Random(1))
+    assert len(sample['images'])==1
+    assert sample['weekly']['observed']==1 and not sample['weekly']['passed']
+    assert sample['weekly']['start_day']=='2026-11-06'

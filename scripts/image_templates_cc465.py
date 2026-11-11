@@ -17,7 +17,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from live_contentops.image_templates_v1 import CHART, TEMPLATES, render
 from live_contentops.image_template_inputs_v1 import ORDER
-from live_contentops.image_quality_v1 import code_check, combine, daily_sample, review_vision, weekly_sample
+from live_contentops.image_quality_v1 import code_check, combine, publication_sample, review_vision
 
 
 def write(path, data):
@@ -114,9 +114,9 @@ def main():
         print(json.dumps({"asset":str(args.asset),"score":asset["image_quality"]["score"],"passed":asset["image_quality"]["passed"],"vision":asset["image_quality"]["vision"]["status"]}))
     else:
         records=[json.loads(line) for line in args.register.read_text(encoding="utf-8-sig").splitlines() if line.strip()]
-        sample=daily_sample(records,args.day)
-        write(args.output,{"day":args.day,"images":sample,"weekly":weekly_sample([i["image_quality"] for r in records for i in r.get("images",[]) if i.get("image_quality")])})
-        print(json.dumps({"selected":len(sample),"output":str(args.output)}))
+        sample=publication_sample(records,args.day)
+        write(args.output,sample)
+        print(json.dumps({"selected":len(sample["images"]),"output":str(args.output)}))
 
 
 if __name__=="__main__":main()

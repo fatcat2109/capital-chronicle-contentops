@@ -6,7 +6,7 @@ There is no second publisher, timer, register or acceptance-by-model shortcut.
 """
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -308,6 +308,16 @@ def weekly_sample(reviews):
     values=list(unique.values())[-20:]
     return {"required":20,"observed":len(values),"passed":len(values)==20 and all(r.get("passed") and r.get("score",0)>=8 for r in values),
             "images":[r["image_sha256"] for r in values]}
+
+
+def publication_sample(records,day,*,rng=None):
+    """Only observed publications in this seven-day window can prove the week."""
+    end=date.fromisoformat(day)
+    days=[(end-timedelta(days=i)).isoformat() for i in reversed(range(7))]
+    selected=[image for at in days for image in daily_sample(records,at,rng=rng)]
+    return {"day":day,"images":daily_sample(records,day,rng=rng),
+            "weekly":{**weekly_sample([i["image_quality"] for i in selected]),
+                      "start_day":days[0],"end_day":day}}
 
 
 def template_acceptance(reviews,template,revision):
