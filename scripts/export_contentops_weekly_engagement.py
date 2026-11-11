@@ -5,9 +5,11 @@ from datetime import datetime, timezone
 import json
 import sqlite3
 import sys
+from contextlib import nullcontext
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from live_contentops.channel_engagement_v1 import weekly_channel_engagement, render_engagement_digest, weekly_audience_lines
+from live_contentops.audience_collection_v1 import dispatch_call_ids
 
 
 def export_weekly_engagement(store, week_ending, target):
@@ -19,8 +21,18 @@ def export_weekly_engagement(store, week_ending, target):
         connection.execute("BEGIN")
         def rows(table):
             return [dict(r) for r in connection.execute("SELECT * FROM " + table)]
-        value = weekly_channel_engagement(dispatches=rows("platform_dispatches"), reconciliations=rows("reconciliations"),
-            readbacks=rows("readbacks"), observations=rows("performance_observations"), week_ending=week_ending)
+        class ReadSnapshot:
+            def get_outbox_message(self, message_id):
+                row = connection.execute("SELECT * FROM outbox_messages WHERE message_id=?", (message_id,)).fetchone()
+                return dict(row) if row else None
+            def get_read_only_connection(self):
+                return nullcontext(connection)
+        dispatches = rows("platform_dispatches")
+        observations = rows("performance_observations")
+        observed_ids = {o["dispatch_id"] for o in observations}
+        bindings = {d["dispatch_id"]: dispatch_call_ids(ReadSnapshot(), d) for d in dispatches if d["dispatch_id"] in observed_ids}
+        value = weekly_channel_engagement(dispatches=dispatches, reconciliations=rows("reconciliations"),
+            readbacks=rows("readbacks"), observations=observations, week_ending=week_ending, call_bindings=bindings)
     value["recorded_at_utc"] = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     value["input_store_read_only"] = True
     value["digest_lines"] = weekly_audience_lines(value)

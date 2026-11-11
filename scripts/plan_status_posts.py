@@ -169,27 +169,29 @@ def main(argv=None) -> int:
                 result["event_timestamp"] = {"status": "STAMP_ERROR", "cause": type(exc).__name__}
             from live_contentops.event_pack_v1 import run_due_packs
             result["event_packs"] = run_due_packs(store, publish=args.publish)
-            # CC-402: the existing minute consumer also owns a small metrics batch.
-            # No new task/process; no public action, model or wider account scope.
-            from live_contentops.audience_collection_v1 import run_collection
-            from live_contentops.model_invocation_usage_v1 import import_native_invocations
-            try:
-                result["audience_collection"] = run_collection(store, limit=4)
-                result["model_usage"] = import_native_invocations(store)
-                if result["audience_collection"].get("collected"):
-                    from scripts.export_contentops_weekly_engagement import export_weekly_engagement
-                    from datetime import datetime, timezone
-                    from zoneinfo import ZoneInfo
-                    ending = datetime.now(timezone.utc).astimezone(ZoneInfo("Asia/Bangkok")).date().isoformat()
-                    result["weekly_audience"] = export_weekly_engagement(args.store, ending,
-                        args.store.parent / "daily_app_outputs" / "weekly-engagement")
-            except (OSError, ValueError) as exc:
-                result["audience_collection"] = {"state": "COLLECTION_ERROR", "cause": type(exc).__name__}
-            # pythonw has no stdout: each run's status, the export's age and any refusal go to the run record.
-            try:
-                result["run_record"] = str(posts.record_run(result, args.store.parent / posts.RUN_RECORD_FOLDER))
-            except OSError as exc:
-                result["run_record_error"] = type(exc).__name__
+    if args.publish and not args.dry_run:
+        # A stale Main export must not stop observations of already published posts.
+        # CC-402 reuses this existing minute consumer, without publication or models.
+        from live_contentops.audience_collection_v1 import run_collection
+        from live_contentops.model_invocation_usage_v1 import import_native_invocations
+        try:
+            result["audience_collection"] = run_collection(store, limit=4)
+            result["model_usage"] = import_native_invocations(store)
+            if result["audience_collection"].get("collected"):
+                from scripts.export_contentops_weekly_engagement import export_weekly_engagement
+                from zoneinfo import ZoneInfo
+                ending = datetime.now(timezone.utc).astimezone(ZoneInfo("Asia/Bangkok")).date().isoformat()
+                result["weekly_audience"] = export_weekly_engagement(args.store, ending,
+                    args.store.parent / "daily_app_outputs" / "weekly-engagement")
+        except (OSError, ValueError) as exc:
+            result["audience_collection"] = {"state": "COLLECTION_ERROR", "cause": type(exc).__name__}
+    if not args.dry_run:
+        # Preserve non-publishing run records too. Include metrics and stale
+        # export outcomes after this run's actual collection finishes.
+        try:
+            result["run_record"] = str(posts.record_run(result, args.store.parent / posts.RUN_RECORD_FOLDER))
+        except OSError as exc:
+            result["run_record_error"] = type(exc).__name__
     if sys.stdout is not None:
         sys.stdout.reconfigure(encoding="utf-8")
         sys.stdout.write(json.dumps(result, sort_keys=True, ensure_ascii=False, indent=1) + "\n")

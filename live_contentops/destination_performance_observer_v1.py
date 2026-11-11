@@ -20,7 +20,7 @@ METRICS = (
     "search_impressions", "search_clicks", "search_ctr", "search_query",
     "search_position", "interaction_quality",
     "reply_sample_count",
-    "quotes", "followers_count", "members_count",
+    "quotes", "followers_count", "members_count", "approximate_members_count",
 )
 
 
@@ -78,6 +78,13 @@ def _http_failure(destination: str, error: Exception) -> dict[str, Any]:
         try:
             detail = json.loads(error.read(8192)).get("error", {})
             message = re.sub(r"https?://\S+|[A-Za-z0-9_-]{48,}", "<redacted>", str(detail.get("message", "")))[:500]
+            if re.search(r"token|credential|secret|authorization", message, re.I):
+                message = "Provider authentication error; code retained"
+            code = detail.get("code")
+            if code in {10, 200}:
+                result.update(_result(destination, "PERMISSION_REQUIRED", limitation=f"read_only_provider_http_{error.code}", provider_requests=1))
+            elif code == 190:
+                result.update(_result(destination, "AUTH_REQUIRED", limitation=f"read_only_provider_http_{error.code}", provider_requests=1))
             result["provider_error"] = {"code": detail.get("code"), "subcode": detail.get("error_subcode"), "message": message}
         except (ValueError, AttributeError, TypeError):
             pass
@@ -286,6 +293,33 @@ def collect_current_authorized_destination_metrics(
 
 def collect_account_metrics(destination: str) -> dict[str, Any]:
     """A separate daily account snapshot; never sum this count once per post."""
+    if destination == "discord":
+        token = read_secret("DISCORD_BOT_TOKEN")
+        webhook = first_secret("DISCORD_WEBHOOK_URL", "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL", "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK")
+        if not token or not webhook:
+            return _result(destination, "AUTH_REQUIRED", limitation="existing_discord_bot_or_webhook_binding_missing")
+        requests = 0
+        try:
+            request = urllib.request.Request(webhook, method="GET")
+            request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+            requests += 1
+            with urllib.request.urlopen(request, timeout=20) as response:
+                guild = str(json.loads(response.read().decode("utf-8")).get("guild_id") or "")
+            if not re.fullmatch(r"\d+", guild):
+                return _result(destination, "NOT_EXPOSED", limitation="approved_webhook_guild_not_exposed", provider_requests=requests)
+            request = urllib.request.Request(f"https://discord.com/api/v10/guilds/{guild}?with_counts=true", method="GET")
+            request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+            request.add_header("Authorization", "Bot " + token)
+            requests += 1
+            with urllib.request.urlopen(request, timeout=20) as response:
+                value = json.loads(response.read().decode("utf-8"))
+            metrics = _counts({"approximate_members_count": value.get("approximate_member_count")})
+            return _result(destination, "COLLECTED" if metrics else "NOT_EXPOSED", metrics=metrics,
+                           available=tuple(metrics), limitation="official_discord_approximate_member_count_not_exact_new_members", provider_requests=requests)
+        except Exception as exc:
+            result = _http_failure(destination, exc)
+            result["provider_requests"] = requests
+            return result
     bindings = {
         "facebook_page": (("FACEBOOK_PAGE_ACCESS_TOKEN", "META_ACCESS_TOKEN"), ("FACEBOOK_PAGE_ID",), "followers_count"),
         "instagram_business": (("INSTAGRAM_ACCESS_TOKEN", "META_ACCESS_TOKEN"), ("INSTAGRAM_BUSINESS_ACCOUNT_ID", "INSTAGRAM_IG_ID"), "followers_count"),

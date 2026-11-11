@@ -13,7 +13,7 @@ from uuid import uuid4
 from zoneinfo import ZoneInfo
 
 from . import daily_app_performance_v1 as perf
-from .channel_engagement_v1 import verified_dispatch_readback
+from .channel_engagement_v1 import verified_dispatch_readback, verified_dispatch_identity
 from .destination_performance_observer_v1 import collect_current_authorized_destination_metrics, collect_account_metrics
 from .durable_operational_store_v1 import LeaseConflictError
 
@@ -33,14 +33,28 @@ def dispatch_call_ids(store, dispatch, message=None):
     """Join CC-399's retained record; never guess a call from article prose."""
     message = message or store.get_outbox_message(dispatch["message_id"])
     intent = json.loads((message or {}).get("payload") or "{}")
+    if not isinstance(intent, dict):
+        return []
     key = intent.get("plan_status_post")
     if key:
         record = store.get_outbox_message(key)
         payload = json.loads((record or {}).get("payload") or "{}")
-        if payload.get("plan_id"):
-            # CC-399's public short id is explicit; retain the producer plan id too.
-            return [{"call_id": payload.get("public_call_id") or payload.get("short_id") or payload["plan_id"],
-                     "plan_id": payload["plan_id"], "source_record_id": key}]
+        members = [(key, payload)]
+        if payload.get("kind") == "run":
+            members = [(child, json.loads((store.get_outbox_message(child) or {}).get("payload") or "{}"))
+                       for child in payload.get("card_keys", [])]
+        result = []
+        for source, card in members:
+            if not card.get("plan_id"):
+                continue
+            # A run post binds its actual cards, never a fictitious run-shaped call.
+            full = card.get("public_call_id") or card.get("levels", {}).get("public_call_id")
+            result.append({"call_id": full or card.get("short_id") or card["plan_id"],
+                     "call_id_kind": "PUBLIC_CALL_ID" if full else "CC399_RETAINED_SHORT_ID" if card.get("short_id") else "PLAN_ID",
+                     "plan_id": card["plan_id"], "source_record_id": source,
+                     **({"run_record_id": key} if source != key else {})})
+        if result:
+            return result
     # Analysis pages have an exact plan binding rather than a status-card record.
     with store.get_read_only_connection() as conn:
         records = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination='internal:plan-analysis-page' AND work_item_id=?",
@@ -75,8 +89,10 @@ def _schedule(store, now, *, published_day=None):
         reconciliation_id = "reconciliation_" + dispatch["dispatch_id"].removeprefix("dispatch_")
         reconciliation = next((r for r in store.get_reconciliations_for_work_item(message["work_item_id"])
                                if r["reconciliation_id"] == reconciliation_id), {})
-        if reconciliation.get("status") != "RECONCILED_CONFIRMED" or not any(
-                verified_dispatch_readback(r, dispatch) for r in store.list_readbacks_for_dispatch(dispatch["dispatch_id"])):
+        readbacks = store.list_readbacks_for_dispatch(dispatch["dispatch_id"])
+        learning_eligible = reconciliation.get("status") == "RECONCILED_CONFIRMED" and any(
+            verified_dispatch_readback(r, dispatch) for r in readbacks)
+        if not learning_eligible and not any(verified_dispatch_identity(r, dispatch) for r in readbacks):
             excluded[dispatch["dispatch_id"]] = "EXACT_CONFIRMED_READBACK_NOT_RECORDED"
             continue
         calls = dispatch_call_ids(store, dispatch, message)
@@ -88,7 +104,7 @@ def _schedule(store, now, *, published_day=None):
             "public_object_url_hash": dispatch.get("public_object_url_hash"), "observation_window": window,
             "scheduled_for_utc": now.isoformat(), "collected_at_utc": None, "collector_capability_version": CAPABILITY,
             "collection_status": "SCHEDULED", "metrics_native_json": json.dumps({"_call_ids": calls}),
-            "metric_availability_json": "{}", "source_identity": "contentops.audience_collection.cc402.v1", "learning_eligible": 1,
+            "metric_availability_json": "{}", "source_identity": "contentops.audience_collection.cc402.v1", "learning_eligible": int(learning_eligible),
         }
         observation["observation_hash"] = perf.observation_hash(observation)
         store.register_performance_observation(observation=observation)
@@ -146,7 +162,7 @@ class PublicTelegramMetrics:
             return re.sub(r"\[END_UNTRUSTED_PAGE_CONTENT[^\]]*\]", "", str(text).split("\n", 1)[-1]).strip()
         raw = body(value.get("views", ""))
         metrics = {"views": int(raw)} if re.fullmatch(r"\d+", raw) else {}
-        members = re.search(r"\b(\d+)\s+subscribers\b", body(value.get("members", "")))
+        members = re.search(r"\b(\d+)\s+subscribers(?![A-Za-z])", body(value.get("members", "")))
         return {"status": "COLLECTED" if metrics else "NOT_EXPOSED", "metrics": metrics,
                 "availability": {"views": "AVAILABLE" if metrics else "NOT_EXPOSED"},
                 "account_metrics": {"members_count": int(members[1])} if members else {},
@@ -167,6 +183,10 @@ def run_collection(store, *, now=None, limit=4, published_day=None, collector=No
         scheduled, excluded = _schedule(store, now, published_day=published_day)
         rows = [r for r in store.list_performance_observations(collection_status="SCHEDULED")
                 if r["collector_capability_version"] == CAPABILITY and utc(r["scheduled_for_utc"]) <= now]
+        if published_day:
+            dispatch_ids = {d["dispatch_id"] for d in store.list_platform_dispatches()
+                if utc(d["dispatched_at"]).astimezone(ZoneInfo("Asia/Bangkok")).date().isoformat() == published_day}
+            rows = [r for r in rows if r["dispatch_id"] in dispatch_ids]
         # Complete every route fairly during recovery, rather than all one route first.
         buckets = {route: [r for r in rows if r["platform"] == route] for route in ROUTES}
         selected = []
@@ -181,7 +201,7 @@ def run_collection(store, *, now=None, limit=4, published_day=None, collector=No
         object_cache = {}
         for row in observations:
             if row.get("collected_at_utc") and utc(row["collected_at_utc"]).date() == now.date():
-                if json.loads(row["metrics_native_json"]).get("_account_snapshot"):
+                if json.loads(row["metrics_native_json"]).get("_account_snapshot", {}).get("metrics"):
                     account_seen.add(row["platform"])
                 if row["collector_capability_version"] == CAPABILITY and row["collection_status"] == "COLLECTED":
                     object_cache[(row["platform"], row["public_object_id"])] = row
@@ -209,6 +229,8 @@ def run_collection(store, *, now=None, limit=4, published_day=None, collector=No
                     result = dict(collect_current_authorized_destination_metrics(destination=route, public_object_id=row["public_object_id"], object_kind=object_kind))
                 metrics = dict(result.get("metrics") or {})
                 metrics.pop("_account_snapshot", None)
+                metrics["_source_observed_at_utc"] = (metrics.get("_source_observed_at_utc") or cached["collected_at_utc"]
+                    if cached else datetime.now(timezone.utc).isoformat())
                 metrics["_call_ids"] = json.loads(row["metrics_native_json"]).get("_call_ids", [])
                 metrics["_collection_details"] = {k: result[k] for k in ("source_url", "limitations", "insights_status", "provider_requests", "provider_error", "insights_error") if k in result}
                 metrics["_object_kind"] = object_kind

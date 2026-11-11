@@ -1,0 +1,67 @@
+{
+  "day_gmt7": "2026-11-10",
+  "store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "read_at_utc": "2026-11-11T06:35:59.896108+00:00",
+  "platforms": [
+    {
+      "platform": "threads",
+      "confirmed_dispatches": 42,
+      "distinct_public_objects": 42,
+      "collected_observations": 42,
+      "status_counts": {
+        "COLLECTED": 42
+      },
+      "dispatches_with_call_link": 41
+    },
+    {
+      "platform": "facebook_page",
+      "confirmed_dispatches": 20,
+      "distinct_public_objects": 20,
+      "collected_observations": 20,
+      "status_counts": {
+        "COLLECTED": 20
+      },
+      "dispatches_with_call_link": 19
+    },
+    {
+      "platform": "instagram_business",
+      "confirmed_dispatches": 20,
+      "distinct_public_objects": 9,
+      "collected_observations": 20,
+      "status_counts": {
+        "COLLECTED": 20
+      },
+      "dispatches_with_call_link": 19
+    },
+    {
+      "platform": "discord",
+      "confirmed_dispatches": 18,
+      "distinct_public_objects": 18,
+      "collected_observations": 18,
+      "status_counts": {
+        "COLLECTED": 18
+      },
+      "dispatches_with_call_link": 17
+    },
+    {
+      "platform": "telegram",
+      "confirmed_dispatches": 43,
+      "distinct_public_objects": 43,
+      "collected_observations": 43,
+      "status_counts": {
+        "COLLECTED": 43
+      },
+      "dispatches_with_call_link": 42
+    }
+  ],
+  "missing_dispatches": [],
+  "all_day_dispatches_observed": true,
+  "model_invocations": 289,
+  "native_usage_states": [
+    {
+      "state": "NOT_EXPOSED_BY_RUN_RECORD",
+      "count": 289
+    }
+  ],
+  "daily_collected_dispatches": 143
+}

@@ -1,0 +1,74 @@
+{
+  "collection": {
+    "state": "COLLECTED",
+    "scheduled": 16,
+    "collected": 10,
+    "pending": 48,
+    "outcomes": [
+      {
+        "observation_id": "obs_06b387465ed501f00222117ab13a8a65",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_105d206b77dda8c64b4103b72f91b1ba",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_306230123dabd41fbe3514d248265a76",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_149f5e824196935f1d02006c88ac8e0a",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_2829316dbacb3c2751792d0447240d95",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_09cfe7229ec9b493223f4dc6dd858792",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_23a6596a0f108e13d2bd14bce62689fb",
+        "platform": "facebook_page",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_534f40182523bcc1f298522655d71eee",
+        "platform": "instagram_business",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_7df2ab3b87453693a54addf4d2a1e351",
+        "platform": "discord",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_44ede6fa772fccae2b28e810dee48f11",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      }
+    ],
+    "excluded": {},
+    "model_calls": 0,
+    "public_write_performed": false
+  },
+  "model_usage": {
+    "imported": 0,
+    "source": "retained_native_run_returns",
+    "model_calls": 0
+  },
+  "observed_at_utc": "2026-11-11T06:35:59.268874+00:00",
+  "weekly_digest": {
+    "channels": 10,
+    "digest": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\weekly-engagement\\engagement.md",
+    "week_ending": "2026-11-11"
+  }
+}

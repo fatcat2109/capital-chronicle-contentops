@@ -32,6 +32,8 @@ def verified_dispatch_readback(row, dispatch):
     """Read the coordinator's envelope and the older flat observation format."""
     if row.get("dispatch_id") != dispatch["dispatch_id"]:
         return False
+
+
     try:
         payload = _json(row["readback_data"])
         if not isinstance(payload, dict):
@@ -51,7 +53,22 @@ def verified_dispatch_readback(row, dispatch):
         return False
 
 
-def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observations, week_ending):
+def verified_dispatch_identity(row, dispatch):
+    """An observed object with damaged content still has useful audience metrics."""
+    try:
+        payload = _json(row["readback_data"])
+        observed = payload["readback"]
+        return (row.get("dispatch_id") == dispatch["dispatch_id"]
+                and payload.get("dispatch_id") == dispatch["dispatch_id"]
+                and payload.get("destination") == dispatch["platform"]
+                and observed.get("identity_match") is True
+                and str(observed.get("observed_public_object_id")) == str(dispatch["public_object_id"])
+                and observed.get("observed_public_object_url") == dispatch.get("public_object_url"))
+    except (ValueError, TypeError, KeyError):
+        return False
+
+
+def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observations, week_ending, call_bindings=None):
     ending = date.fromisoformat(week_ending)
     start = datetime.combine(ending - timedelta(days=6), time(), ZoneInfo("Asia/Bangkok"))
     end = datetime.combine(ending + timedelta(days=1), time(), ZoneInfo("Asia/Bangkok"))
@@ -62,12 +79,10 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         if channel not in CHANNELS:
             continue
         reconciliation = reconciliation_by_id.get("reconciliation_" + dispatch["dispatch_id"].removeprefix("dispatch_"), {})
-        if reconciliation.get("status") != "RECONCILED_CONFIRMED":
-            continue
         if not DurablePublicationCoordinator._confirmed_public_object(
-                {**dispatch, "reconciliation_status": reconciliation["status"]}, destination=channel):
+                {**dispatch, "reconciliation_status": reconciliation.get("status")}, destination=channel):
             continue
-        verified = any(verified_dispatch_readback(row, dispatch) for row in readbacks)
+        verified = any(verified_dispatch_readback(row, dispatch) or verified_dispatch_identity(row, dispatch) for row in readbacks)
         if verified:
             eligible[dispatch["dispatch_id"]] = dispatch
 
@@ -87,12 +102,15 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         dispatch = eligible.get(observation.get("dispatch_id"))
         if (not dispatch or dispatch["platform"] != channel
                 or str(dispatch["public_object_id"]) != str(observation.get("public_object_id"))
-                or observation.get("learning_eligible") not in (True, 1)):
+                or (observation.get("learning_eligible") not in (True, 1)
+                    and not any(verified_dispatch_identity(row, dispatch) for row in readbacks))):
             excluded[(channel, "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT")] += 1
             continue
         key = (channel, str(observation["public_object_id"]))
         try:
-            for call in _json(observation.get("metrics_native_json") or "{}").get("_call_ids", []):
+            calls = (call_bindings.get(observation["dispatch_id"], []) if call_bindings is not None else
+                     _json(observation.get("metrics_native_json") or "{}").get("_call_ids", []))
+            for call in calls:
                 calls_by_object.setdefault(key, {})[call["call_id"]] = call
         except (ValueError, TypeError, KeyError):
             pass
@@ -169,6 +187,8 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         account_latest = account_snapshots[-1][1] if account_snapshots else None
         account_prior = next((account for stamp, account in reversed(account_snapshots) if stamp <= start), None)
         follower_key = "members_count" if channel in {"telegram", "discord"} else "followers_count"
+        if channel == "discord":
+            follower_key = "approximate_members_count"
         follower_now = (account_latest or {}).get("metrics", {}).get(follower_key)
         follower_before = (account_prior or {}).get("metrics", {}).get(follower_key)
         net_followers = follower_now - follower_before if type(follower_now) is int and type(follower_before) is int else None
@@ -183,6 +203,7 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
             "posts_in_week": len(posted), "account_snapshot": account_latest,
             "net_new_followers_or_members": net_followers,
             "follower_change_state": "OBSERVED_SNAPSHOT_DIFFERENCE" if net_followers is not None else "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
+            "account_count_is_approximate": channel == "discord",
             "objects_with_metrics": len(objects), "objects_with_observations": len(samples),
             "eligible_objects_in_store": len(confirmed_objects),
             "native_counter_sums": dict(totals) or None, "support_per_metric": dict(support),
@@ -193,6 +214,8 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         "timezone": "Asia/Bangkok", "channels": channels,
         "calls": list(call_totals.values()),
         "metric_basis": "Latest cumulative native snapshot per channel/public object collected in this week; not incremental weekly activity. Per-object reach can overlap. Rates are not summed or averaged.",
+        "content_incomplete_objects_included": sum(1 for dispatch in eligible.values()
+            if reconciliation_by_id.get("reconciliation_" + dispatch["dispatch_id"].removeprefix("dispatch_"), {}).get("status") == "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"),
         "missing_is_zero": False, "public_write_performed": False, "model_calls": 0}
 
 
@@ -218,6 +241,7 @@ def weekly_audience_lines(value):
         audience = next((f"{name} {counters[name]:g}" for name in ("views", "total_views", "reach", "impressions") if name in counters), "views/reach unavailable")
         replies = next((f"{name} {counters[name]:g}" for name in ("replies", "comments") if name in counters), "replies unavailable")
         change = row.get("net_new_followers_or_members")
-        followers = f"net followers/members {change:+d}" if change is not None else "new followers/members unavailable (no comparable account baseline)"
+        label = "estimated net members" if row.get("account_count_is_approximate") else "net followers/members"
+        followers = f"{label} {change:+d}" if change is not None else "new followers/members unavailable (no comparable account baseline)"
         lines.append(f"{row['channel']}: posts {row.get('posts_in_week', 0)}; {audience}; {replies}; {followers}.")
     return lines

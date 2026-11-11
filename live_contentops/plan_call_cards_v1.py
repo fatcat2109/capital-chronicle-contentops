@@ -103,6 +103,8 @@ def card_plan(raw):
     if isinstance(chance, (int, float)) and not isinstance(chance, bool) and 0 <= chance <= 100:
         plan["chance_pct"] = chance
     call_id = raw.get("public_call_id") or (raw.get("outcome") or {}).get("public_call_id") or raw["plan_id"]
+    if raw.get("public_call_id") or (raw.get("outcome") or {}).get("public_call_id"):
+        plan["public_call_id"] = str(call_id)
     plan["short_id"] = re.sub(r"^(?:call|plan)_", "", str(call_id))[:8]
     plan["registered_at_utc"] = raw.get("registered_at_utc") or raw.get("not_before_utc")
     plan["reader_reasons"] = raw.get("reader_reasons", raw.get("freeze_reasons", []))

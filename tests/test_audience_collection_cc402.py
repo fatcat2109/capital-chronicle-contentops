@@ -104,3 +104,106 @@ def test_weekly_digest_and_call_totals_use_store_observations_without_duplicatin
     assert next(r for r in result["calls"] if r["channel"] == "threads")["native_counter_sums"]["views"] == 2
     line = next(line for line in weekly_audience_lines(result) if line.startswith("threads:"))
     assert "posts 1; views 2; replies 0" in line
+
+
+def test_identity_verified_damaged_post_is_observed_without_claiming_content_success(tmp_path):
+    store = seed(tmp_path, ("threads",))
+    with store.get_connection() as conn:
+        conn.execute("UPDATE reconciliations SET status='RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE'")
+        conn.execute("UPDATE readbacks SET readback_data=?", (json.dumps({"dispatch_id": "dispatch_threads", "destination": "threads",
+            "readback": {"verified": False, "identity_match": True, "observed_public_object_id": "100", "observed_public_object_url": "https://example.test/threads"}}),))
+    result = run_collection(store, now=NOW, collector=lambda **_: {"status": "COLLECTED", "metrics": {"views": 2},
+        "availability": {"views": "AVAILABLE"}}, account_collector=lambda _: {"metrics": {}, "status": "NOT_EXPOSED"})
+    assert result["collected"] == 1
+    assert store.list_performance_observations()[0]["learning_eligible"] == 0
+    with store.get_read_only_connection() as conn:
+        rows = lambda table: [dict(r) for r in conn.execute("SELECT * FROM " + table)]
+        report = weekly_channel_engagement(dispatches=rows("platform_dispatches"), reconciliations=rows("reconciliations"),
+            readbacks=rows("readbacks"), observations=rows("performance_observations"), week_ending="2026-11-11")
+    assert report["content_incomplete_objects_included"] == 1
+    assert next(r for r in report["channels"] if r["channel"] == "threads")["native_counter_sums"]["views"] == 2
+
+
+def test_minute_consumer_still_collects_when_main_export_is_stale(tmp_path, monkeypatch, capsys):
+    from scripts import plan_status_posts as consumer
+    from live_contentops import audience_collection_v1 as audience
+    from live_contentops import model_invocation_usage_v1 as usage
+    store = seed(tmp_path)
+    monkeypatch.setattr(consumer, "ContentOpsDurableStore", lambda *_args, **_kwargs: store)
+    monkeypatch.setattr(consumer, "queue_posts", lambda *_args, **_kwargs: {"status": "EXPORT_STALE"})
+    calls = []
+    monkeypatch.setattr(audience, "run_collection", lambda *_args, **kwargs: calls.append(kwargs) or {"collected": 0})
+    monkeypatch.setattr(usage, "import_native_invocations", lambda _: {"imported": 0})
+    assert consumer.main(["--publish", "--store", str(tmp_path / "audience.sqlite3")]) == 1
+    assert calls == [{"limit": 4}]
+    assert json.loads(capsys.readouterr().out)["audience_collection"]["collected"] == 0
+
+
+def test_shared_carousel_keeps_both_call_links_but_counts_one_public_object(tmp_path):
+    store = seed(tmp_path, ("instagram_business",))
+    store.register_outbox_message(message_id="card-two", work_item_id="work-instagram_business", destination="internal:plan-status-post",
+        payload=json.dumps({"plan_id": "plan-two", "short_id": "ef012345"}))
+    store.register_outbox_message(message_id="message-two", work_item_id="work-instagram_business", destination="instagram_business",
+        payload=json.dumps({"plan_status_post": "card-two", "native_payload": {"reuse_run_carousel": True}}))
+    with store.get_connection() as conn:
+        conn.execute("INSERT INTO platform_dispatches SELECT 'dispatch_two','message-two',platform,status,dispatched_at,public_object_id,public_object_url,public_object_url_hash FROM platform_dispatches LIMIT 1")
+        conn.execute("INSERT INTO readbacks VALUES ('read-two','dispatch_two','{\"verified\":true}','2026-11-10T06:01:00Z')")
+    store.register_reconciliation(reconciliation_id="reconciliation_two", work_item_id="work-instagram_business", status="RECONCILED_CONFIRMED")
+    calls = []
+    def collect(**kwargs):
+        calls.append(kwargs)
+        return {"status": "COLLECTED", "metrics": {"views": 6}, "availability": {"views": "AVAILABLE"}}
+    run_collection(store, now=NOW, collector=collect, account_collector=lambda _: {"metrics": {}, "status": "NOT_EXPOSED"})
+    assert len(calls) == 1
+    with store.get_read_only_connection() as conn:
+        rows = lambda table: [dict(r) for r in conn.execute("SELECT * FROM " + table)]
+        report = weekly_channel_engagement(dispatches=rows("platform_dispatches"), reconciliations=rows("reconciliations"),
+            readbacks=rows("readbacks"), observations=rows("performance_observations"), week_ending="2026-11-11")
+    channel = next(r for r in report["channels"] if r["channel"] == "instagram_business")
+    assert channel["posts_in_week"] == 1 and channel["native_counter_sums"]["views"] == 6
+    assert {r["call_id"] for r in report["calls"]} == {"abcd1234", "ef012345"}
+    assert all(r["shared_object_metrics"] for r in report["calls"])
+
+
+def test_reported_permission_error_keeps_its_safe_native_cause():
+    from io import BytesIO
+    from urllib.error import HTTPError
+    error = HTTPError("https://provider.test/", 400, "Bad Request", {}, BytesIO(b'{"error":{"code":10,"message":"Application does not have permission for this action"}}'))
+    result = observer._http_failure("instagram_business", error)
+    assert result["status"] == "PERMISSION_REQUIRED"
+    assert result["provider_error"]["code"] == 10
+
+
+def test_telegram_reads_exact_public_counter_and_account_without_page_script():
+    from live_contentops.audience_collection_v1 import PublicTelegramMetrics
+    class Client:
+        def call(self, tool, args):
+            assert tool == "run" and "evaluateInPage" not in args["code"]
+            return {"ok": True, "value": {"views": "[UNTRUSTED_PAGE_CONTENT]\n3\n[END_UNTRUSTED_PAGE_CONTENT]",
+                "members": "[UNTRUSTED_PAGE_CONTENT]\n6 subscribers89 photos33 links\n[END_UNTRUSTED_PAGE_CONTENT]"}}
+        value = staticmethod(lambda value: value)
+    public = PublicTelegramMetrics(Client())
+    public._open = lambda _object: "https://t.me/s/CapitalChronicle?before=151"
+    public.page = 1
+    result = public("150")
+    assert result["metrics"] == {"views": 3}
+    assert result["account_metrics"] == {"members_count": 6}
+
+
+def test_run_post_is_bound_to_its_actual_cards_and_export_uses_that_join(tmp_path):
+    from live_contentops.audience_collection_v1 import dispatch_call_ids
+    from scripts.export_contentops_weekly_engagement import export_weekly_engagement
+    store = seed(tmp_path, ("threads",))
+    store.register_outbox_message(message_id="run-card", work_item_id="work-threads", destination="internal:plan-status-post",
+        payload=json.dumps({"kind": "run", "plan_id": "plan-run-post-example", "card_keys": ["card-threads"]}))
+    with store.get_connection() as conn:
+        conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id='message-threads'", (json.dumps({"plan_status_post": "run-card"}),))
+    dispatch = store.get_platform_dispatch("dispatch_threads")
+    links = dispatch_call_ids(store, dispatch)
+    assert links[0]["plan_id"] == "plan-one" and links[0]["call_id"] == "abcd1234"
+    assert links[0]["run_record_id"] == "run-card"
+    run_collection(store, now=NOW, collector=lambda **_: {"status": "COLLECTED", "metrics": {"views": 2}, "availability": {"views": "AVAILABLE"}},
+        account_collector=lambda _: {"metrics": {}, "status": "NOT_EXPOSED"})
+    export_weekly_engagement(store.db_path, "2026-11-11", tmp_path / "weekly")
+    report = json.loads((tmp_path / "weekly" / "engagement.json").read_bytes())
+    assert report["calls"][0]["call_id"] == "abcd1234"
