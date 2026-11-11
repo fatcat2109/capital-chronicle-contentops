@@ -1,0 +1,53 @@
+{
+  "module_path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_tabs_v1.py",
+  "gate": {
+    "status": "NOT_DUE",
+    "next_due_at_utc": "2026-11-11T05:38:47.937940+00:00",
+    "public_submit_actions": 0
+  },
+  "state": {
+    "group_id": "EF58FF3DBFD39BB9553A662ACC33209B",
+    "last_attempt_at_utc": "2026-11-11T03:38:47.937940+00:00",
+    "revision": 16,
+    "tabs": [
+      {
+        "author_handle": "FirstSquawk",
+        "draft_text": "Wall Street losses put benchmark levels into focus. At 22:19 ET on 10 November 2026, desk invalidation was set at earlier call level 7,858. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "intent_url": "https://x.com/intent/post?in_reply_to=2120353271516901482&text=Wall+Street+losses+put+benchmark+levels+into+focus.+At+22%3A19+ET+on+10+November+2026%2C+desk+invalidation+was+set+at+earlier+call+level+7%2C858.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations.",
+        "page_id": 292,
+        "post_id": "2120353271516901482",
+        "post_time_utc": "2026-11-11T03:09:48.845000+00:00",
+        "post_url": "https://x.com/FirstSquawk/status/2120353271516901482",
+        "status": "READY_FOR_JIM",
+        "verified_browser_text": "Wall Street losses put benchmark levels into focus. At 22:19 ET on 10 November 2026, desk invalidation was set at earlier call level 7,858. Capital Chronicle offers analysis only, not financial advice or recommendations. ",
+        "waiting_url": "https://x.com/intent/post?in_reply_to=2120353271516901482&text=Wall+Street+losses+put+benchmark+levels+into+focus.+At+22%3A19+ET+on+10+November+2026%2C+desk+invalidation+was+set+at+earlier+call+level+7%2C858.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations.",
+        "target_text_sha256": "3630ac442a0d7429daf330c6158774f61bc1810434c9464d315dce791252ecb3"
+      },
+      {
+        "author_handle": "financialjuice",
+        "draft_text": "As BoJ policy expectations shape USD/JPY, earlier call levels noted invalidation below 157.15. Capital Chronicle offers analysis only, not financial advice or recommendations. 22:19 ET on 10 November 2026",
+        "intent_url": "https://x.com/intent/post?in_reply_to=2120333163780018301&text=As+BoJ+policy+expectations+shape+USD%2FJPY%2C+earlier+call+levels+noted+invalidation+below+157.15.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations.+22%3A19+ET+on+10+November+2026",
+        "page_id": 293,
+        "post_id": "2120333163780018301",
+        "post_time_utc": "2026-11-11T01:49:54.787000+00:00",
+        "post_url": "https://x.com/financialjuice/status/2120333163780018301",
+        "status": "READY_FOR_JIM",
+        "verified_browser_text": "As BoJ policy expectations shape USD/JPY, earlier call levels noted invalidation below 157.15. Capital Chronicle offers analysis only, not financial advice or recommendations. 22:19 ET on 10 November 2026 ",
+        "waiting_url": "https://x.com/intent/post?in_reply_to=2120333163780018301&text=As+BoJ+policy+expectations+shape+USD%2FJPY%2C+earlier+call+levels+noted+invalidation+below+157.15.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations.+22%3A19+ET+on+10+November+2026",
+        "target_text_sha256": "4fb9e119b1b4e957f1dceeadd0de6c023af5d11d07b7282862ba191bc7e34586"
+      }
+    ]
+  },
+  "control": {
+    "enabled": true,
+    "interval_seconds": 7200,
+    "consumer": "scripts/plan_status_posts.py --publish",
+    "schedule_changed": false,
+    "first_refresh_message_id": "x-reply-tabs-24a1d3fbe349a0ebd8f8acdbd3cf799cff6485f8ffccc0dd79619876b81a357d",
+    "enabled_at_utc": "2026-11-11T03:40:01.884151+00:00"
+  },
+  "manual_readbacks": 0,
+  "public_submit_actions": 0,
+  "schedule_changed": false,
+  "evidence_projection": "Target text remains in exact private Runtime records; public-copy evidence retains its hash."
+}

@@ -1,0 +1,32 @@
+{
+  "recorded_at_utc": "2026-11-11T03:42:28.838636+00:00",
+  "group_title": "X replies: press Reply",
+  "group_id": "EF58FF3DBFD39BB9553A662ACC33209B",
+  "group_page_count": 2,
+  "checks": [
+    {
+      "page_id": 292,
+      "post_id": "2120353271516901482",
+      "author_handle": "FirstSquawk",
+      "target_id_matches": true,
+      "target_author_matches": true,
+      "verified_editor_unchanged": true,
+      "reply_control_present": true,
+      "pixels_inspected": true,
+      "findings": "Readable target and draft; Reply remains available; no submit action."
+    },
+    {
+      "page_id": 293,
+      "post_id": "2120333163780018301",
+      "author_handle": "financialjuice",
+      "target_id_matches": true,
+      "target_author_matches": true,
+      "verified_editor_unchanged": true,
+      "reply_control_present": true,
+      "pixels_inspected": true,
+      "findings": "Readable target and draft; Reply remains available; no submit action."
+    }
+  ],
+  "public_submit_actions": 0,
+  "manual_readback_rows": 0
+}

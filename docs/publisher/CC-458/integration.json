@@ -1,0 +1,44 @@
+{
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "head": "7317c1e2e2309040909d7f56bf2e4c262f81945b",
+  "installed_sources": {
+    "live_contentops/x_reply_tabs_v1.py": {
+      "normalized_sha256": "48de5b6824c1c732be0f4e65732425e07b95d9ef4623c03611cfec54e0e10c89",
+      "matches_delivery": true
+    },
+    "live_contentops/x_reply_tabs_steps_v1.js": {
+      "normalized_sha256": "bd6b9f968fdb89dde46cc8ad366eda223f428625bcaccbc8d8ce589d3c558a19",
+      "matches_delivery": true
+    },
+    "live_contentops/x_reply_pack_v1.py": {
+      "normalized_sha256": "2ec092997334b2dd123325f431ac4de9ec39fb18cf746015f4f88bc90505fef7",
+      "matches_delivery": true
+    },
+    "scripts/plan_status_posts.py": {
+      "normalized_sha256": "92b2621e9587986f0421bd0d8c3234589da9a094801ff0fb0b22064a28f18272",
+      "matches_delivery": true
+    },
+    "scripts/run_sourced_replies.py": {
+      "normalized_sha256": "ccdd4b3cd703999dc49a060ee04fa54b5877ed72ba781e0c168d24c3108c3f18",
+      "matches_delivery": true
+    },
+    "docs/publisher/CC-455/target-accounts.json": {
+      "normalized_sha256": "c503c463ea9d7b2ecb6b0b76eba1ed6a6317bfe91a88b89b4914b1b5d6488ea6",
+      "matches_delivery": true
+    }
+  },
+  "prior_live_files_unchanged_at_merge": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+  },
+  "schedule_changed": false,
+  "applications_restarted": false,
+  "cadence_enabled": true,
+  "rollback_tag": "contentops-rollback-20261111-cc458",
+  "live_tag": "contentops-live-20261111-cc458",
+  "source_update_tag": "contentops-live-20261111-cc458-ready"
+}

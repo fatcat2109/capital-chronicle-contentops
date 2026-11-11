@@ -1,0 +1,5 @@
+{
+  "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+  "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true,
+  "live_contentops/agy_editorial_assist_v1.py": true
+}

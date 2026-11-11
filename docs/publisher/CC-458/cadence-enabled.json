@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "interval_seconds": 7200,
+  "consumer": "scripts/plan_status_posts.py --publish",
+  "schedule_changed": false,
+  "first_refresh_message_id": "x-reply-tabs-24a1d3fbe349a0ebd8f8acdbd3cf799cff6485f8ffccc0dd79619876b81a357d",
+  "enabled_at_utc": "2026-11-11T03:40:01.884151+00:00"
+}
