@@ -1,0 +1,33 @@
+{
+  "observed_at_utc": "2026-11-11T08:45:10.186749+00:00",
+  "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\shock-trigger\\2026-11-11\\20261111T084042Z\\decision.json",
+  "sha256": "4397c88b31cf673e58d7f006085d63f3ca8ae527a4be1c155f41729ca27c9db3",
+  "bytes": 7567,
+  "fields": {
+    "schema": "ShockTriggerCheckV1",
+    "checked_at_utc": "2026-11-11T08:40:42Z",
+    "cause": "headlines below the burst rule (0 fast-squawk posts from 0 accounts in 5 min); no quote move or admitted fact; headline text never arms",
+    "verdict": "REFUSED_HEADLINE_ONLY_C7",
+    "model_calls": 1,
+    "skipped": {
+      "AAPL": "QUOTE_STALE_OR_FUTURE",
+      "AMZN": "QUOTE_STALE_OR_FUTURE",
+      "AVGO": "QUOTE_STALE_OR_FUTURE",
+      "EQIX": "QUOTE_STALE_OR_FUTURE",
+      "GOOGL": "QUOTE_STALE_OR_FUTURE",
+      "JPM": "QUOTE_STALE_OR_FUTURE",
+      "LIN": "QUOTE_STALE_OR_FUTURE",
+      "LLY": "QUOTE_STALE_OR_FUTURE",
+      "LMT": "QUOTE_STALE_OR_FUTURE",
+      "META": "QUOTE_STALE_OR_FUTURE",
+      "MSFT": "QUOTE_STALE_OR_FUTURE",
+      "NVDA": "QUOTE_STALE_OR_FUTURE",
+      "SPCX": "QUOTE_STALE_OR_FUTURE",
+      "TSLA": "QUOTE_STALE_OR_FUTURE",
+      "WMT": "QUOTE_STALE_OR_FUTURE",
+      "XOM": "QUOTE_STALE_OR_FUTURE"
+    },
+    "quote_clock_utc": "2026-11-11T08:41:23Z"
+  },
+  "use": "The latest quote-trigger decision enters the assessment. A fresh scan clock is not a new completed Main article call or probability set."
+}

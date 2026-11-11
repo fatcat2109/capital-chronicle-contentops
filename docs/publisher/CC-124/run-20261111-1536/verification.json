@@ -1,0 +1,21 @@
+{
+  "installed_modules": {
+    "live_contentops.main_report_projection_source_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\main_report_projection_source_v1.py",
+    "live_contentops.reader_article_contract_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py",
+    "live_contentops.plan_status_posts_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+    "live_contentops.published_images_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\published_images_v1.py"
+  },
+  "exact_main_passage_admitted": true,
+  "original_data_clock_consumed": true,
+  "new_main_reports_used_in_assessment": 2,
+  "t2_selection_used_in_assessment": true,
+  "publication_status_cli_succeeded": true,
+  "feed_unchanged": true,
+  "inherited_work_unchanged": true,
+  "new_operations": 0,
+  "editorial_model_calls": 0,
+  "public_writes": 0,
+  "pytest_processes": 0,
+  "chat_messages": 0,
+  "schedule_changes": 0
+}

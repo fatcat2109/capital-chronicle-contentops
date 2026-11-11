@@ -1,0 +1,37 @@
+{
+  "item": "CC-124",
+  "actual_entry_utc": "2026-11-11T08:36:54.5147960Z",
+  "observed_at_utc": "2026-11-11T08:44:12.157823Z",
+  "new_articles": 0,
+  "new_completed_main_reports": 2,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:12640s",
+  "source_assessment": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261111-1536\\source-assessment.json",
+    "bytes": 34525,
+    "sha256": "62ff854d5b578f6765fb9f1e2ffa671121a845436e9e7d18b8d2566277647f83",
+    "modified_at_utc": "2026-11-11T08:44:17.870563+00:00"
+  },
+  "choice": "Use both new Main reports, current T2 ranking and held scenarios in the assessment. The latest completed daily analysis exceeds the root CC-403 60-minute data cutoff; the T2 output supplies rankings only. Keep the next run aligned to the pre-US daily note, rather than publish stale analysis or invent a call.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "standing_status": "OPEN",
+  "next_due_gmt7": "11 Nov 2026 18:30 GMT+7",
+  "configured_launch": {
+    "process_id": 11672,
+    "parent_process_id": 3328,
+    "process_start_utc": "2026-11-11T08:36:54.5147960Z",
+    "launch_arguments": "--model gpt-6.1-sol -c \"model_reasoning_effort=\\\"max\\\"\"",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "state": "CONFIGURED_NOT_OBSERVED"
+  },
+  "base_commit": "32777e7a6422bc743977a3673f3fcea9d63b3b75",
+  "base_reason": "Current ContentOps operating HEAD, containing the live Publisher fixes; fresh origin/master is its ancestor, 920 commits behind.",
+  "acceptance": "Installed source, clock, scenario, production-day and publication-status consumers observed. No new published-article acceptance."
+}
