@@ -1,0 +1,36 @@
+{
+  "schema_version": "contentops.metaculus_dry_run.v1",
+  "round_id": "minibench-2026-10-19",
+  "generated_at_utc": "2026-11-11T09:56:51.351633Z",
+  "mode": "CLOSED_ROUND_REPLAY",
+  "question_count": 60,
+  "matched_count": 0,
+  "abstained_count": 60,
+  "submission_count": 0,
+  "network_call_count": 0,
+  "first_causes": {
+    "OUTSIDE_SIX_MARKETS_CPI_PAYROLL_SCOPE": 55,
+    "RELATED_MARKET_IS_NOT_THE_QUESTION_INSTRUMENT": 3,
+    "PLATFORM_FULL_RESOLUTION_CONTRACT_UNAVAILABLE": 2
+  },
+  "external_score": null,
+  "external_rank": null,
+  "listing_consistency": "ADVERTISED_COUNT_DIFFERS_FROM_UNIQUE_VISIBLE_POSTS",
+  "advertised_question_count": 59,
+  "private_result": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc428-external-score-pilot\\dry-run.json",
+  "private_result_sha256": "813b6218937472d61b6efac54278a0093108473a0945986f1fed131bbccbd1b6",
+  "input_inventory_counts": [
+    {
+      "kind": "MAIN_PUBLIC_PLAN_EXPORT",
+      "forecast_count": 42
+    },
+    {
+      "kind": "MAIN_EVENT_SCENARIO_MATRIX",
+      "forecast_count": 2
+    },
+    {
+      "kind": "MAIN_EVENT_SCENARIO_MATRIX",
+      "forecast_count": 2
+    }
+  ]
+}

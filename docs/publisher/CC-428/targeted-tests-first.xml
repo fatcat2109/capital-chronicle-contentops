@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="22" time="1.432" timestamp="2026-11-11T16:54:43.038063+07:00" hostname="J-P"><testcase classname="tests.test_metaculus_forecast_cc428" name="test_exact_main_number_is_used_in_atomic_request_with_distinct_ids" time="0.033" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_nearby_proposition_never_reuses_probability[instrument-BTCUSD:ANOTHER_EXCHANGE]" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_nearby_proposition_never_reuses_probability[unit-EUR]" time="0.002" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_nearby_proposition_never_reuses_probability[horizon_end_utc-2026-11-13T00:00:00Z]" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_nearby_proposition_never_reuses_probability[horizon_start_utc-2026-11-11T00:00:00Z]" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_nearby_proposition_never_reuses_probability[measure-TOUCH_PRICE]" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_nearby_proposition_never_reuses_probability[resolution_source-ANOTHER_RESOLVER]" time="0.002" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_nearby_proposition_never_reuses_probability[conditioning-value6]" time="0.002" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_nearby_proposition_never_reuses_probability[predicate-value7]" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_closed_round_replay_does_not_backdate_an_input_version" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_incomplete_or_hidden_metadata_and_post_id_do_not_become_question_id" time="0.002" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_numeric_source_cdf_is_carried_exactly_and_never_fitted_from_point_estimate" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_option_probabilities_preserve_the_complete_source_set" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_conflicting_source_versions_and_duplicate_questions_are_not_resubmissions" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_prepared_public_comment_uses_existing_public_guards[Account login 279779602-MAIN_EXPLANATION_CONTAINS_PRIVATE_OR_RESTRICTED_CONTENT]" time="0.003" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_prepared_public_comment_uses_existing_public_guards[See https://capital-chronicle-preview.pages.dev/-PREVIEW_HOST_LINK_FORBIDDEN]" time="0.002" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_prepared_public_comment_uses_existing_public_guards[The deadline is 12:00 GMT+7.-PUBLIC_TIMEZONE_NOT_NEW_YORK_ET]" time="0.003"><failure message="AssertionError: assert {'PUBLIC_TIME..._REQUIRED': 1} == {'PUBLIC_TIME...W_YORK_ET': 1}&#10;  &#10;  Left contains 1 more item:&#10;  {'PUBLIC_TIMEZONE_ET_REQUIRED': 1}&#10;  Right contains 1 more item:&#10;  {'PUBLIC_TIMEZONE_NOT_NEW_YORK_ET': 1}&#10;  Use -v to get more diff">text = 'The deadline is 12:00 GMT+7.', cause = 'PUBLIC_TIMEZONE_NOT_NEW_YORK_ET'
+
+    @pytest.mark.parametrize("text,cause", [
+        ("Account login 279779602", "MAIN_EXPLANATION_CONTAINS_PRIVATE_OR_RESTRICTED_CONTENT"),
+        ("See https://capital-chronicle-preview.pages.dev/", "PREVIEW_HOST_LINK_FORBIDDEN"),
+        ("The deadline is 12:00 GMT+7.", "PUBLIC_TIMEZONE_NOT_NEW_YORK_ET"),
+    ])
+    def test_prepared_public_comment_uses_existing_public_guards(text, cause):
+        f = forecast(); f["public_explanation"] = text
+&gt;       assert run(f=f)["first_causes"] == {cause: 1}
+E       AssertionError: assert {'PUBLIC_TIME..._REQUIRED': 1} == {'PUBLIC_TIME...W_YORK_ET': 1}
+E         
+E         Left contains 1 more item:
+E         {'PUBLIC_TIMEZONE_ET_REQUIRED': 1}
+E         Right contains 1 more item:
+E         {'PUBLIC_TIMEZONE_NOT_NEW_YORK_ET': 1}
+E         Use -v to get more diff
+
+tests\test_metaculus_forecast_cc428.py:120: AssertionError</failure></testcase><testcase classname="tests.test_metaculus_forecast_cc428" name="test_named_public_rights_restriction_keeps_numbers_in_internal_matching" time="0.002" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_api_group_children_are_not_collapsed_to_post_or_filled_from_hidden_values" time="0.002" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_public_plan_consumer_preserves_three_distinct_numbers_and_original_clocks" time="0.010" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_actual_cli_consumes_main_output_and_remains_network_free" time="0.033" /><testcase classname="tests.test_metaculus_forecast_cc428" name="test_event_matrix_projection_uses_own_estimates_and_omits_raw_inputs" time="0.013"><failure message="KeyError: 'event_type'">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-1904/test_event_matrix_projection_u0')
+
+    def test_event_matrix_projection_uses_own_estimates_and_omits_raw_inputs(tmp_path):
+        path = tmp_path / "matrix.json"
+        path.write_text(json.dumps({"target": {"event_id": "fixture-cpi"}, "matrices": [{
+            "target": {"event_type": "US_CPI"}, "bands": {"actual_boundaries": [0.1, 0.2]},
+            "branches": [{"branch": "IN_LINE", "probability": 0.7}], "cutoff_utc": "2026-11-10T10:00:00Z",
+            "probability_scope": "CONDITIONAL_ON_COVERED_SCALAR_FIRST_PRINT_SURPRISE",
+            "public_probabilities_eligible": True, "sources": {"raw_consensus": "NEVER_EXPORT"}}]}))
+&gt;       result = event_forecasts(path, observed_at_utc=NOW)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_metaculus_forecast_cc428.py:181: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-1904/test_event_matrix_projection_u0/matrix.json')
+
+    def event_forecasts(path, *, observed_at_utc):
+        """Project only Main's model probabilities, never the raw consensus/history.
+    
+        Retained scoring bundles state a data cutoff, not proof of when this exact
+        bundle first existed. Retain that cutoff separately from today's observation.
+        """
+        doc, raw_hash = _load(path)
+        forecasts = []
+        for i, matrix in enumerate(doc.get("matrices", [])):
+            probabilities = {b["branch"]: b["probability"] for b in matrix.get("branches", [])
+                             if b.get("probability") is not None}
+            if not probabilities:
+                continue
+            if any(not _number(v) or not 0 &lt;= v &lt;= 1 for v in probabilities.values()):
+                raise ValueError("MAIN_EVENT_PROBABILITY_INVALID")
+            forecasts.append({
+                "forecast_id": doc["target"]["event_id"] + ":matrix:" + str(i),
+&gt;               "assets": [doc["target"]["event_type"]], "format": "scenario_bands",
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                "probabilities": probabilities, "source_value": probabilities,
+                "source_unit": "probability", "target": deepcopy(matrix["target"]),
+                "bands": deepcopy(matrix["bands"]),
+                "available_at_utc": observed_at_utc, "data_cutoff_utc": matrix["cutoff_utc"],
+                "probability_basis": matrix.get("probability_measure"),
+                "conditioning": matrix.get("probability_scope"),
+                "public_model_estimate": matrix.get("public_probabilities_eligible") is True,
+                "contract": None,
+                "source": {"path": str(path), "sha256": raw_hash, "pointer": f"/matrices/{i}/branches"},
+            })
+E           KeyError: 'event_type'
+
+live_contentops\metaculus_forecast_v1.py:125: KeyError</failure></testcase></testsuite></testsuites>
