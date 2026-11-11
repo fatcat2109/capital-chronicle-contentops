@@ -1,0 +1,14 @@
+{
+  "recorded_at_utc": "2026-11-11T14:37:39.160456+00:00",
+  "method": "BrowserOS Neo; only the unsigned public channel page",
+  "url": "https://t.me/s/CapitalChronicle",
+  "source_capture_path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8317.26\\.browseros\\tool-output\\read-1794407828816-fb2a0f1b-2827-474f-b1c5-e9674c3bee9b.md",
+  "source_capture_sha256": "c507c7548ac79574e7b1b268e148d0b3e129af3e19334b22292edc0e29f03138",
+  "retained_markdown": "public-telegram-readback.md",
+  "embedded_images": "Data URI bytes omitted from retained markdown.",
+  "latest_public_message_id": 174,
+  "latest_public_post_url": "https://t.me/CapitalChronicle/174",
+  "fresh_chart_card_observed": false,
+  "first_live_overlay_observed": false,
+  "required_channel_readbacks": "Pending the next distinct Main card; no duplicate card published for this proof."
+}

@@ -1,7 +1,7 @@
 {
-  "status": "BUILD_VERIFIED",
-  "operating_root_integration": "OPS_REVIEW_PENDING",
-  "live_publication_readback": "NOT_RUN",
+  "status": "INTEGRATED_AWAITING_FIRST_NEW_MAIN_CARD",
+  "operating_root_integration": "INTEGRATED",
+  "live_publication_readback": "NEXT_MAIN_CARD_NOT_EXPORTED",
   "configured_model": "gpt-6.1-sol",
   "configured_effort": "max",
   "model_telemetry": "CONFIGURED_NOT_OBSERVED",
@@ -48,5 +48,9 @@
       "sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b",
       "captured_at_utc": "2026-11-11T04:13:41.861306+00:00"
     }
-  }
+  },
+  "integrated_commit": "2cb1331702e84590bac12337dccbc5f403b9beac",
+  "integration_evidence": "live-consumer-20261111.json",
+  "distinct_integration_checks": 131,
+  "installed_repeat_checks": 25
 }
