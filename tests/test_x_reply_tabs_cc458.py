@@ -140,7 +140,7 @@ def test_next_refresh_closes_only_sent_or_expired_unedited_tabs_and_keeps_edits(
     assert sum(p["groupId"] == state["group_id"] for p in neo.pages()) == 5
     assert any(a["action"] == "SENT_CLOSED" for a in actions)
     assert any(a["action"] == "EXPIRED_CLOSED" for a in actions)
-    assert len(state["tabs"]) == 5
+    assert len(state["tabs"]) == 6  # Five waiting in our group and Jim's preserved moved tab.
 
 
 def test_empty_waiting_box_is_refilled_but_changed_text_is_never_overwritten(setup):
@@ -222,10 +222,11 @@ def test_agy_uses_bounded_existing_cli_and_records_config_without_trusting_self_
     seen = []
     def runner(args, **kwargs):
         seen.append(args)
-        assert kwargs["timeout"] == tabs.DRAFT_TIMEOUT_SECONDS and b'"event": "user"' in kwargs["input"]
+        assert kwargs["timeout"] == tabs.DRAFT_TIMEOUT_SECONDS and kwargs["input"] is None
+        assert args[-2] == "--print" and "request_sha256" in args[-1]
         response = {"request_sha256": ready["request_sha256"], "items": [],
                     "editorial_call": {"runtime_model": "invented"}}
-        raw = json.dumps({"event": "result", "result": {"status": "SUCCESS", "response": json.dumps(response)}}).encode()
+        raw = json.dumps({"status": "SUCCESS", "response": json.dumps(response)}).encode()
         return subprocess.CompletedProcess(args, 0, raw, b"")
     path = tabs.draft_with_agy(ready["request_path"], output_dir=root / "agy", runner=runner)
     record = packs.read_json(root / "agy/call.json")

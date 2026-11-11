@@ -1,0 +1,24 @@
+{
+  "started_at_utc": "2026-11-11T03:03:50.832905+00:00",
+  "model": "gemini-3.8-flash-high",
+  "effort": "high",
+  "transport": "short direct --print",
+  "public_write_performed": false,
+  "returncode": 0,
+  "output": {
+    "conversation_id": "2058e9d4-be32-401f-949d-d33f31309457",
+    "status": "SUCCESS",
+    "response": "{\"ok\":true}\n",
+    "duration_seconds": 5.4654644,
+    "num_turns": 1,
+    "usage": {
+      "input_tokens": 13612,
+      "output_tokens": 103,
+      "thinking_tokens": 98,
+      "cache_read_tokens": 0,
+      "total_tokens": 13715
+    }
+  },
+  "stderr_bytes": 0,
+  "ended_at_utc": "2026-11-11T03:04:07.866417+00:00"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "CapitalChronicle-PlanStatusPosts-V1",
+  "path": "\\",
+  "state": "Running",
+  "actions": [
+    {
+      "Execute": "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\pythonw.exe",
+      "Arguments": "-B scripts\\plan_status_posts.py --publish",
+      "WorkingDirectory": "A:\\Capital Chronicle\\ContentOps"
+    }
+  ],
+  "triggers": [
+    {
+      "start": "2026-11-05T17:14:25+07:00",
+      "enabled": true,
+      "interval": "PT1M"
+    },
+    {
+      "start": null,
+      "enabled": true,
+      "interval": null
+    }
+  ],
+  "last_run_utc": "2026-11-11T02:55:26.0000000Z",
+  "task_xml_sha256": "11010833ca87f208a465cb66bb6b878942a0a50ce6eb3e2099be5a78a6d6af02"
+}
