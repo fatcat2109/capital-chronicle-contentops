@@ -1,0 +1,39 @@
+{
+  "operation_id": "cc427-prop-challenge-monthly-20261111-v1",
+  "top_level_launch": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_basis": "Observed current codex.exe launch arguments (PID 35664), model/effort extracted without serialising its prompt",
+    "actual_runtime_model": null,
+    "actual_runtime_effort": null,
+    "model_observation": "CONFIGURED_NOT_OBSERVED"
+  },
+  "preparation": {
+    "assignment_id": "CC427_LIGHT_PREPARATION_V1",
+    "request_sha256": "dd4f8ac70285db0f1642820bc93807691b5ab8921c37dfeb61ef597fae15762b",
+    "result_sha256": "56d8415f9561e4ddff5537d16d48365c666856dfb201bc0f09664b939d376358",
+    "supported_context_identity": "/root/cc427_light_preparation",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "low",
+    "actual_runtime_model": null,
+    "actual_runtime_effort": null,
+    "model_observation": "CONFIGURED_NOT_OBSERVED",
+    "result_consumed_in_same_root_run": true
+  },
+  "writing_and_render_review": {
+    "supported_context_identity": "/root",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "actual_runtime_model": null,
+    "actual_runtime_effort": null,
+    "model_observation": "CONFIGURED_NOT_OBSERVED",
+    "article_sha256": "916e977065b4d26a5f47d6182138ff6bbefe176cca3ea19a9ec62106b3e630a9",
+    "render_review": "writer-render-review.json"
+  },
+  "filtering": {
+    "needed": false,
+    "reason": "No X input or headline filtering in this assigned monthly audit"
+  },
+  "native_newsroom_binding": null,
+  "native_newsroom_binding_note": "This is the engineering item's prepared source and authored reader draft. No native newsroom operation, prepared coordinator handoff or publication is claimed."
+}

@@ -1,0 +1,70 @@
+{
+  "operation_id": "cc427-prop-challenge-monthly-20261111-v1",
+  "assignment_id": "CC427_LIGHT_PREPARATION_V1",
+  "request_sha256": "dd4f8ac70285db0f1642820bc93807691b5ab8921c37dfeb61ef597fae15762b",
+  "stage": "selection-and-evidence-plan",
+  "completion": "COMPLETED_BOUNDED_ASSIGNMENT",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "low",
+  "model_observation": "CONFIGURED_NOT_OBSERVED",
+  "actual_runtime_model": null,
+  "actual_runtime_effort": null,
+  "supported_invocation_identity": "/root/cc427_light_preparation",
+  "identity_basis": "Canonical agent task name supplied in native NEW_TASK context; no separate invocation UUID observed.",
+  "editorial_mode": "DATA_OR_DOCUMENT_LENS",
+  "reader_question": "What does our November model record establish against FTMO's 2-Step Challenge objectives, and what remains unresolved?",
+  "angle": "A month-to-date audit of the model against specific published objectives: the profit target and opening-day requirement are unmet, while the available record cannot establish either loss-limit pass. Explain why evaluation-phase exemptions differ from the later Standard account.",
+  "findings": [
+    "The bound report says NOT_PASSED_AS_OF_CUTOFF, not failed or disqualified. It is a model replay, not an actual FTMO account result.",
+    "The model uses a fixed 0.5% of starting model capital per frozen original cash-risk unit, without compounding; it does not establish that every position has identical risk units or that later sizing was changed.",
+    "Five recorded positions comprise four closed and one open. The bound public text reports booked model change of -0.86%; this excludes unrealised P/L and is not an equity return.",
+    "Two Prague opening days do not meet the four-day minimum. Holding or closing a position on a different day does not create an opening day.",
+    "Challenge target is 10%, Verification target is 5%, and the target requires all positions closed. The supplied model is in Challenge, not Verification or a subsequent Standard account.",
+    "Both Challenge and Verification are exempt from the selected-news execution window and holding through market breaks longer than two hours. NOT_APPLICABLE is correct for these two restrictions in the bound Challenge report.",
+    "For the subsequent Standard account, the news restriction covers executions including SL, TP and pending orders on affected instruments during two minutes before and after selected releases; existing positions opened earlier may be held. It is not a ban on all instruments around all news.",
+    "The later Standard account requires positions closed before market breaks longer than two hours. Swing accounts are exempt from both named restrictions. Evaluation exemptions do not waive forbidden-practices rules.",
+    "Maximum daily loss and maximum loss remain UNKNOWN in the bound report because NORMALISED_INTRADAY_EQUITY_PATH_ABSENT prevents a continuous equity comparison. Three flat checkpoints cannot establish the missing path."
+  ],
+  "evidence_plan": {
+    "primary_model_binding": "docs/publisher/CC-427/preparation-20261111/challenge-481296eb6bc30af7/source-pack.json: SOURCE_1 / prop_challenge_binding.report",
+    "source_pack_sha256": "7f80af57a7aef97406b92aa3e4fb9c0c8cb6c1ec2663548bb4cc343120b01daa",
+    "report_path": "docs/publisher/CC-427/preparation-20261111/challenge-481296eb6bc30af7/report.json",
+    "rules_path": "config/ftmo_two_step_rules_v1.json",
+    "rules_sha256": "f053432cb9349abc23d67af9890603586e51bcf0b6e99d33529640c02c9d3a9e",
+    "source_cutoff_utc": "2026-11-11T09:07:21.979327Z",
+    "claim_bindings": [
+      {"claim": "Month-to-date record, fixed risk basis, counts, booked change and audit verdict", "source": "SOURCE_1 and report.json; preserve supplied values without recalculation"},
+      {"claim": "Challenge versus Verification profit targets and all-closed requirement", "source": "docs/publisher/CC-427/sources/ftmo-2-step-target.md"},
+      {"claim": "Daily equity floor resets from Prague midnight balance, using a fixed 5% initial-capital amount; floating P/L and costs count", "source": "docs/publisher/CC-427/sources/ftmo-2-step-daily-loss.md"},
+      {"claim": "Maximum loss uses a static initial-capital equity floor with a 10% amount", "source": "docs/publisher/CC-427/sources/ftmo-2-step-max-loss.md"},
+      {"claim": "Four opening days, measured by Prague calendar day", "source": "docs/publisher/CC-427/sources/ftmo-2-step-trading-days.md"},
+      {"claim": "Evaluation and Swing news exemptions versus later Standard execution restriction", "source": "docs/publisher/CC-427/sources/ftmo-news.md"},
+      {"claim": "Evaluation and Swing long-market-break exemptions versus later Standard closure requirement", "source": "docs/publisher/CC-427/sources/ftmo-weekend.md"}
+    ],
+    "structure_proposal": ["Lead with our audit conclusion, explicitly qualified as month-to-date model evidence.", "Use a compact objective/verdict/reason table, distinguishing unmet from unknown and not applicable.", "Explain booked P/L versus equity and the open position before discussing loss limits.", "Explain evaluation exemptions separately from later Standard restrictions.", "End with a practical So what line about what this record establishes; avoid a trading recipe."],
+    "visual_proposal": "A compact original data card or objective-status table using only the bound aggregate values. Do not draw an equity curve, intraday drawdown, projected pass date, performance distribution or invented scenarios. MAX writer chooses the useful final visual.",
+    "public_copy_handling": "Use natural FTMO attribution and the bound aggregate model output. Keep execution identifiers, private dataset rows and metadata hashes out of reader copy. Use ET for any public instant and date; retain original UTC in metadata. No unsupported directional market scenarios are present in this bounded pack."
+  },
+  "limitations": [
+    "This is November month-to-date through the supplied cutoff, not a completed calendar-month review, full strategy history or evidence of future profitability.",
+    "The fixed starting-capital risk model is a normalization of recorded executions, not an actual funded-account equity statement or FTMO certification.",
+    "Small observed set: five positions, four closed, one open, and two Prague opening days. Do not generalize it into a pass rate or edge estimate.",
+    "Booked model change omits unrealised P/L. Do not rename it equity performance or infer remaining drawdown room.",
+    "Unknown loss-limit verdicts are the supplied report's explicit evidence limitation, not a new hold on using the aggregate output. This assignment made no broader search for an equity path and does not claim none exists elsewhere.",
+    "One labelled operations test and two cash records are excluded by the bound report; no private rows were read or reconstructed.",
+    "Six FTMO captures have date-only observation clocks. Do not invent acquisition instants or suggest a fresh live source check occurred during this assignment.",
+    "The target capture supplied here does not independently state the report's no-time-limit claim; avoid elaborating it beyond the bound report or obtain primary confirmation through the root's existing source owner if required.",
+    "This scope checks numeric objectives and two named execution restrictions, not forbidden practices, eligibility or every contractual term.",
+    "Model and effort are configured labels only; actual runtime telemetry is unavailable in this child context."
+  ],
+  "verification": {
+    "request_hash": "MATCHED_EXPECTED_SHA256",
+    "sources_read": "Bound public source pack, adjacent report, rules configuration and all six named captures",
+    "exemption_distinction": "CONSISTENT_WITH_CAPTURED_FTMO_TEXT",
+    "calculations_performed": false,
+    "browser_or_external_actions": false,
+    "reader_article_written": false,
+    "no_red_tape_application": "Use the held aggregate output in editorial preparation. Preserve report UNKNOWN fields as factual limits without turning them into a blanket publication refusal."
+  },
+  "next_action": "Root consumes this exact preparation once and continues the same operation with the approved MAX writer, using unchanged source-bound numbers and explicit month-to-date/equity limitations."
+}

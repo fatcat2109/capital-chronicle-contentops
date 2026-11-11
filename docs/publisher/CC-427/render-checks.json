@@ -1,0 +1,17 @@
+{
+  "source_report_sha256": "5edcb95885daa4eaf7fb9ca4ce14f160ecd85c1b8049f31faf2c82159af9de30",
+  "article_sha256": "916e977065b4d26a5f47d6182138ff6bbefe176cca3ea19a9ec62106b3e630a9",
+  "canonical_rich_text_schema": "contentops.article_rich_text.v1",
+  "rule_table_rows": 6,
+  "maximum_sentence_words": 19,
+  "media": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-427\\media\\model-audit-5edcb95885daa4ea.png",
+    "sha256": "7344e45294ad498bc85045b83442570f3bbcea9e3d7c96a62ad6205dbc29f7af",
+    "width": 1200,
+    "height": 960,
+    "rights": "CAPITAL_CHRONICLE_ORIGINAL_DATA_CARD",
+    "source_report_sha256": "5edcb95885daa4eaf7fb9ca4ce14f160ecd85c1b8049f31faf2c82159af9de30"
+  },
+  "public_notice_present": true,
+  "publication_state": "NOT_DISPATCHED"
+}

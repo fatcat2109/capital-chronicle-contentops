@@ -1,0 +1,22 @@
+{
+  "item": "CC-427",
+  "month": "2026-11",
+  "phase": "challenge",
+  "data_cutoff_utc": "2026-11-11T09:07:21.979327Z",
+  "public_edition": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-427\\preparation-20261111\\challenge-8bf0ac21812637c0",
+  "private_trace": "A:\\Capital Chronicle\\Runtime\\ContentOps\\cc-427-private\\source-d937de24ecfb4254\\challenge-5edcb95885daa4ea-trace.json",
+  "report_sha256": "5edcb95885daa4eaf7fb9ca4ce14f160ecd85c1b8049f31faf2c82159af9de30",
+  "trade_count": 5,
+  "overall": "NOT_PASSED_AS_OF_CUTOFF",
+  "rules": {
+    "profit_target": "NOT_MET",
+    "maximum_daily_loss": "UNKNOWN",
+    "maximum_loss": "UNKNOWN",
+    "minimum_trading_days": "NOT_MET",
+    "news_window": "NOT_APPLICABLE",
+    "weekend_holding": "NOT_APPLICABLE"
+  },
+  "consumer": "held_dataset -> evaluate -> RetainedSourceResearch -> existing newsroom _source_pack",
+  "consumer_readback_exact": true,
+  "publication_state": "NOT_DISPATCHED"
+}

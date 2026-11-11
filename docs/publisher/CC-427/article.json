@@ -1,0 +1,205 @@
+{
+  "title": "Our November FTMO test has not passed yet",
+  "dek": "A month-to-date model audit of the desk's recorded trades against FTMO's two-step objectives.",
+  "substack_body_markdown": "We have not passed FTMO's two-step Challenge objectives in our November model replay.\n\nThrough 11 November ET, the record contains five desk positions: four closed and one still open. This is a month-to-date check, not a completed-month result.\n\nWe scale each position's frozen original risk to 0.5% of starting model capital. We retain its recorded execution timing and observed trading costs, without compounding.\n\nClosed results and booked costs leave the model at **-0.86%**, before the open position's unrealised result. That is not an equity return.\n\n## Where the test stands\n\nFTMO's [two-step objectives](https://ftmo.com/en/trading-objectives/#2-step) distinguish profit, equity losses and trading days. Our verdicts keep those tests separate.\n\n| Objective | Verdict at the cutoff | Why |\n| --- | --- | --- |\n| Profit objective of 10%, with all positions closed | Not met | The target has not been reached at a recorded point when every position was closed. |\n| Minimum: four trading days | Not met | Positions opened on two FTMO calendar days; holding or closing on another day does not add an opening day. |\n| Maximum daily loss: 5% of starting capital | Unknown | The full risk-normalised intraday equity path is unavailable. |\n| Maximum overall loss: 10% of starting capital | Unknown | The same equity-path gap prevents a reliable pass verdict. |\n| Selected-news execution window | Does not apply during Challenge | FTMO exempts Challenge and Verification from this restriction. |\n| Holding through long market breaks | Does not apply during Challenge | FTMO exempts Challenge and Verification from this restriction. |\n\nFTMO measures trading days in its Central European calendar. Its daily-loss floor starts from the balance at that day's midnight; floating results, commissions and swaps count toward equity.\n\nWe have recorded flat checkpoints, but they do not establish what equity did between them. Calling either loss limit a pass would overstate this record.\n\n## Evaluation and funded accounts have different restrictions\n\nFTMO's [news rule](https://ftmo.com/en/faq/can-i-trade-news/) covers executions around selected announcements on affected instruments, including stops, profit-taking orders and pending orders.\n\nFor subsequent Standard accounts, the restricted window runs from two minutes before to two minutes after the release. The [holding rule](https://ftmo.com/en/faq/can-i-hold-positions-overnight-or-over-the-weekend/) requires closing before market breaks longer than two hours.\n\nChallenge, Verification and Swing accounts have the stated exemptions. FTMO's forbidden-practices rules still apply; this check does not certify compliance with every contractual term.\n\nOne labelled operations test is excluded. Cash movements do not count toward model profit.\n\n**So what:** we need the target, enough opening days and a complete equity-loss check before claiming a pass. FTMO's [unlimited evaluation period](https://ftmo.com/en/2-step-challenge/) makes \"not met yet\" different from disqualification.\n\nThis is our model replay, not an actual FTMO result or a strategy to copy. There is no affiliate link.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n",
+  "prop_challenge_binding": {
+    "report": {
+      "booked_model_change_pct": "-0.85792262470853120112400282",
+      "closed_trade_count": 4,
+      "cutoff_utc": "2026-11-11T09:07:21.979327Z",
+      "equity_path_cause": "NORMALISED_INTRADAY_EQUITY_PATH_ABSENT",
+      "equity_path_complete": false,
+      "excluded_cash_record_count": 2,
+      "excluded_operations_test_count": 1,
+      "model": {
+        "cost_basis": "Observed profit, commissions, swaps and fees at each original deal clock. Open P/L is separate.",
+        "initial_index": "100",
+        "not_an_actual_ftmo_account": true,
+        "risk_basis": "Frozen original cash risk; one fixed risk unit is 0.5% of starting model capital, without compounding.",
+        "risk_pct_initial_capital": "0.5"
+      },
+      "month": "2026-11",
+      "observed_flat_checkpoint_count": 3,
+      "open_trade_count": 1,
+      "overall": "NOT_PASSED_AS_OF_CUTOFF",
+      "phase": "challenge",
+      "private_dataset_sha256": "4154008d7ac915d477b879bf6034c896eae8644fb247a702e9b37987dad1097c",
+      "program": "FTMO_CFD_2_STEP",
+      "rule_version": "ftmo-cfd-2-step-2026-11-11-r2",
+      "rules": [
+        {
+          "reason": "Target must be reached with every position closed; no time limit.",
+          "required_pct": "10",
+          "rule": "profit_target",
+          "source": "profit_target",
+          "verdict": "NOT_MET"
+        },
+        {
+          "limit_pct": "5",
+          "reason": "Prague midnight balance less the fixed limit; floating P/L and costs count.",
+          "rule": "maximum_daily_loss",
+          "source": "daily_loss",
+          "verdict": "UNKNOWN"
+        },
+        {
+          "limit_pct": "10",
+          "reason": "Equity must not fall below the fixed initial-capital floor.",
+          "rule": "maximum_loss",
+          "source": "maximum_loss",
+          "verdict": "UNKNOWN"
+        },
+        {
+          "observed_days": 2,
+          "reason": "Count days with an opening execution in Europe/Prague.",
+          "required_days": 4,
+          "rule": "minimum_trading_days",
+          "source": "trading_days",
+          "verdict": "NOT_MET"
+        },
+        {
+          "reason": "Challenge and Verification are exempt from the two-minute restriction; forbidden practices still apply.",
+          "rule": "news_window",
+          "source": "news",
+          "verdict": "NOT_APPLICABLE"
+        },
+        {
+          "reason": "Challenge and Verification are exempt from the long-market-break restriction; forbidden practices still apply.",
+          "rule": "weekend_holding",
+          "source": "weekend",
+          "verdict": "NOT_APPLICABLE"
+        }
+      ],
+      "rules_sha256": "e69f763a25f3d292dd8d53044a7ea38e4407a5386c5c9ab8facf9bea5f6226ed",
+      "schema_version": "contentops.prop_challenge.v1",
+      "source_known_at_utc": "2026-11-11T09:07:21.979327Z",
+      "trade_count": 5,
+      "trading_days": 2
+    },
+    "rules": {
+      "account_type": "STANDARD",
+      "affiliate_link": null,
+      "day_timezone": "Europe/Prague",
+      "editorial_month_timezone": "America/New_York",
+      "model": {
+        "cost_basis": "Observed profit, commissions, swaps and fees at each original deal clock. Open P/L is separate.",
+        "initial_index": "100",
+        "not_an_actual_ftmo_account": true,
+        "risk_basis": "Frozen original cash risk; one fixed risk unit is 0.5% of starting model capital, without compounding.",
+        "risk_pct_initial_capital": "0.5"
+      },
+      "phases": {
+        "challenge": {
+          "maximum_daily_loss_pct": "5",
+          "maximum_loss_pct": "10",
+          "minimum_trading_days": 4,
+          "news_window_applies": false,
+          "profit_target_pct": "10",
+          "weekend_break_rule_applies": false
+        },
+        "verification": {
+          "maximum_daily_loss_pct": "5",
+          "maximum_loss_pct": "10",
+          "minimum_trading_days": 4,
+          "news_window_applies": false,
+          "profit_target_pct": "5",
+          "weekend_break_rule_applies": false
+        }
+      },
+      "program": "FTMO_CFD_2_STEP",
+      "schema_version": "contentops.prop_rules.v1",
+      "scope_limit": "Numeric objectives and the two named execution restrictions only; no certification of forbidden-practices, eligibility or all contract terms.",
+      "sources": {
+        "daily_loss": {
+          "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-daily-loss.md",
+          "capture_sha256": "c885814356fa51ceab1fed4b56a950621269437fc4a4019b8e9f77c2d9101025",
+          "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+          "observed_at_utc": null,
+          "observed_on_utc": "2026-11-11",
+          "url": "https://ftmo.com/en/trading-objectives/#2-step-max-daily-loss"
+        },
+        "maximum_loss": {
+          "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-max-loss.md",
+          "capture_sha256": "e330af1bd55594942fb49567a72ea4444f95638f6784294ddfbb0c95e0c86266",
+          "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+          "observed_at_utc": null,
+          "observed_on_utc": "2026-11-11",
+          "url": "https://ftmo.com/en/trading-objectives/#2-step-max-loss"
+        },
+        "news": {
+          "capture_path": "docs/publisher/CC-427/sources/ftmo-news.md",
+          "capture_sha256": "11d23e46f3e76cbc92397752b6a490a438e8656118dc143db5a5b995350b970c",
+          "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+          "observed_at_utc": null,
+          "observed_on_utc": "2026-11-11",
+          "url": "https://ftmo.com/en/faq/can-i-trade-news/"
+        },
+        "profit_target": {
+          "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-target.md",
+          "capture_sha256": "c23157270c591b57ad66960eb4b9920a868be791dfa3ff50928f76f339b6c606",
+          "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+          "observed_at_utc": null,
+          "observed_on_utc": "2026-11-11",
+          "url": "https://ftmo.com/en/trading-objectives/#2-step"
+        },
+        "program_overview": {
+          "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-overview.md",
+          "capture_sha256": "d54ef30c992e8e77bb5a8b54c815d3ad3e9ebdfd2805dc631fbf9ac45f8c8240",
+          "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+          "observed_at_utc": null,
+          "observed_on_utc": "2026-11-11",
+          "url": "https://ftmo.com/en/2-step-challenge/"
+        },
+        "trading_days": {
+          "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-trading-days.md",
+          "capture_sha256": "38575f40216a78fee90efa6c4724eeecfaf92156a45f0a8ac8994db4c125c4b6",
+          "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+          "observed_at_utc": null,
+          "observed_on_utc": "2026-11-11",
+          "url": "https://ftmo.com/en/trading-objectives/#2-step-min-trading-days"
+        },
+        "weekend": {
+          "capture_path": "docs/publisher/CC-427/sources/ftmo-weekend.md",
+          "capture_sha256": "03e6245b7f54f431415a2047a4f2d15f35579340879069a7338552831008cf4b",
+          "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+          "observed_at_utc": null,
+          "observed_on_utc": "2026-11-11",
+          "url": "https://ftmo.com/en/faq/can-i-hold-positions-overnight-or-over-the-weekend/"
+        }
+      },
+      "subsequent_standard_account": {
+        "market_break_hours_greater_than": "2",
+        "maximum_daily_loss_pct": "5",
+        "maximum_loss_pct": "10",
+        "minimum_trading_days": null,
+        "news_restricted_minutes_after": 2,
+        "news_restricted_minutes_before": 2,
+        "news_scope": "All executions, including SL/TP and pending orders; selected announcements and affected symbols only.",
+        "profit_target_pct": null,
+        "swing_exempt": true
+      },
+      "trading_period": "UNLIMITED",
+      "version": "ftmo-cfd-2-step-2026-11-11-r2"
+    },
+    "rules_sha256": "e69f763a25f3d292dd8d53044a7ea38e4407a5386c5c9ab8facf9bea5f6226ed",
+    "text_sha256": "e23cc0f94ed6a03f02c246e8bde93f0cc4df78f299767336863b1443a1afa894"
+  },
+  "public_write_state": "NOT_DISPATCHED",
+  "editorial_review": "OPS_REVIEW_PENDING",
+  "source_pack_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-427\\preparation-20261111\\challenge-8bf0ac21812637c0\\source-pack.json",
+  "authorship": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "runtime_model": null,
+    "runtime_effort": null,
+    "observation": "CONFIGURED_NOT_OBSERVED",
+    "supported_context_identity": "/root"
+  },
+  "media": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-427\\media\\model-audit-5edcb95885daa4ea.png",
+    "sha256": "7344e45294ad498bc85045b83442570f3bbcea9e3d7c96a62ad6205dbc29f7af",
+    "width": 1200,
+    "height": 960,
+    "rights": "CAPITAL_CHRONICLE_ORIGINAL_DATA_CARD",
+    "source_report_sha256": "5edcb95885daa4eaf7fb9ca4ce14f160ecd85c1b8049f31faf2c82159af9de30"
+  }
+}

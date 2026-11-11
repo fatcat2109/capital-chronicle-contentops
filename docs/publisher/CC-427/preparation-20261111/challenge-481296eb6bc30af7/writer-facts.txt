@@ -1,0 +1,13 @@
+FTMO 2-Step challenge, 2026-11, as of 2026-11-11T09:07:21.979327Z.
+Model risk: 0.5% of starting model capital per frozen original risk unit.
+Desk positions: 5; closed: 4; open: 1.
+Opening days (Prague): 2. Excluded labelled operations tests: 1.
+Booked model change: -0.86%; excludes unrealised P/L, so it is not an equity return.
+Overall: NOT_PASSED_AS_OF_CUTOFF.
+profit_target: NOT_MET. Requirement: 10%. Target must be reached with every position closed; no time limit. Source: https://ftmo.com/en/trading-objectives/#2-step
+maximum_daily_loss: UNKNOWN. Requirement: 5%. Prague midnight balance less the fixed limit; floating P/L and costs count. Source: https://ftmo.com/en/trading-objectives/#2-step-max-daily-loss
+maximum_loss: UNKNOWN. Requirement: 10%. Equity must not fall below the fixed initial-capital floor. Source: https://ftmo.com/en/trading-objectives/#2-step-max-loss
+minimum_trading_days: NOT_MET. Requirement: 4 days. Count days with an opening execution in Europe/Prague. Source: https://ftmo.com/en/trading-objectives/#2-step-min-trading-days
+news_window: NOT_APPLICABLE. Challenge and Verification are exempt from the two-minute restriction; forbidden practices still apply. Source: https://ftmo.com/en/faq/can-i-trade-news/
+weekend_holding: NOT_APPLICABLE. Challenge and Verification are exempt from the long-market-break restriction; forbidden practices still apply. Source: https://ftmo.com/en/faq/can-i-hold-positions-overnight-or-over-the-weekend/
+Loss-limit passes are unverified because the normalised intraday equity path is absent. This is a model replay of recorded executions, not an FTMO account result, certification or a strategy to copy. FTMO's forbidden-practices rules remain separate; this audit does not certify compliance with every contractual term.

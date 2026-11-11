@@ -1,0 +1,41 @@
+{
+  "article_sha256": "916e977065b4d26a5f47d6182138ff6bbefe176cca3ea19a9ec62106b3e630a9",
+  "source_report_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-427\\preparation-20261111\\challenge-8bf0ac21812637c0\\report.json",
+  "source_report_sha256": "5edcb95885daa4eaf7fb9ca4ce14f160ecd85c1b8049f31faf2c82159af9de30",
+  "private_trace_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\cc-427-private\\source-d937de24ecfb4254\\challenge-5edcb95885daa4ea-trace.json",
+  "bindings": [
+    {
+      "reader_claim": "five positions; four closed; one open; two opening days; -0.86% booked model change; one excluded labelled operations test",
+      "source": "report.json plus private trace/risk journals/deal fact hashes",
+      "fields": [
+        "trade_count",
+        "closed_trade_count",
+        "open_trade_count",
+        "trading_days",
+        "booked_model_change_pct",
+        "excluded_operations_test_count"
+      ]
+    },
+    {
+      "reader_claim": "fixed 0.5% starting-capital risk, without compounding",
+      "source": "report.model and rules.model"
+    },
+    {
+      "reader_claim": "10% Challenge target; 5% daily loss; 10% overall loss; four opening days",
+      "source": "config/ftmo_two_step_rules_v1.json sources profit_target/daily_loss/maximum_loss/trading_days"
+    },
+    {
+      "reader_claim": "loss-limit passes unknown",
+      "source": "private trace: held account equity gaps plus absent complete risk-normalised equity tape; only flat points are used as exact checkpoints"
+    },
+    {
+      "reader_claim": "evaluation exemptions; subsequent Standard two-minute window and breaks longer than two hours; Swing exemptions",
+      "source": "captured ftmo-news.md and ftmo-weekend.md"
+    },
+    {
+      "reader_claim": "unlimited evaluation period",
+      "source": "captured ftmo-2-step-overview.md, Trading Period: Unlimited"
+    }
+  ],
+  "clock_note": "The source data cutoff is 2026-11-11T09:07:21.979327Z (16:07:21 GMT+7; 04:07:21 ET). Later preparation and visual review do not refresh it."
+}
