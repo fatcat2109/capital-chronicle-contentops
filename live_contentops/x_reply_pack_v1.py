@@ -295,7 +295,10 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
             "A daily fact may be one trading day old; say its day. Positioning is at most 3 calendar days old "
             "and only answers a positioning post, never today's move. A base rate states count, denominator "
             "and period, computed through the last completed market day. Use the same market; another index "
-            "never substitutes. A yield/dollar driver must name both markets and explain the link in words. "
+            "never substitutes. Preserve a base rate's condition_text and reaction window: a hot core CPI "
+            "30-minute count is never an all-CPI or full-day count. State count and period in one sentence. "
+            "Use its actual historical sample end date, never its report/capture date. "
+            "A yield/dollar driver must name both markets and explain the link in words. "
             "No usable fact means omit the target with its specific cause. Never draft to fill a quota."
         )
     if automated_mentions:
