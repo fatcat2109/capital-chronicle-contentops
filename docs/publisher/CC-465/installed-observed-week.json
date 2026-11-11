@@ -1,0 +1,18 @@
+{
+  "register": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+  "register_sha256": "5a489713321593bf600fb8255db0fce86efe61998927a878f6770e2acececd0f",
+  "records": 1076,
+  "sample": {
+    "day": "2026-11-12",
+    "images": [],
+    "weekly": {
+      "required": 20,
+      "observed": 0,
+      "passed": false,
+      "images": [],
+      "start_day": "2026-11-06",
+      "end_day": "2026-11-12"
+    }
+  },
+  "observed_at_utc": "2026-11-11T21:43:41.582484+00:00"
+}

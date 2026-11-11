@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-11-11T21:45:05.491719+00:00",
+  "existing_consumer_log": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261111.jsonl",
+  "last_record": {
+    "at_utc": "2026-11-11T21:44:12.931558Z",
+    "status": "OK",
+    "cause": null,
+    "export_generated_at_utc": "2026-11-11T21:40:37.258596Z",
+    "export_age_seconds": 58.0,
+    "queued": 0,
+    "posts_by_status": {
+      "PUBLISHING": 13,
+      "SETTLED": 2,
+      "WAITING": 43
+    }
+  },
+  "integration_source_head": "c5a3baebd297b72bba1d1621cad1b199791554cb",
+  "schedule_changed": false,
+  "consumer_restarted": false
+}
