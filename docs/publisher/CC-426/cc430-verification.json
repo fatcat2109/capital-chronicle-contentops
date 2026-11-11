@@ -1,0 +1,315 @@
+{
+  "schema_version": "contentops.payment_routes_review_verification.v1",
+  "item_id": "CC-430",
+  "checked_at_utc": "2026-11-11T11:19:09.614297+00:00",
+  "status": "PASS",
+  "acceptance": "All eight requested routes have a sourced payout verdict, fee schedule, identity/tax steps and financial-content rule.",
+  "route_count": 8,
+  "sourced_route_fields_checked": 48,
+  "primary_sources": 44,
+  "secondary_sources": 0,
+  "maximum_quoted_words_per_source": 19,
+  "quote_checks": {
+    "automatic_browser_excerpt_matches": 37,
+    "manually_compared_primary_web_or_saved_page": 7,
+    "results": [
+      {
+        "source_id": "STRIPE_COUNTRIES",
+        "method": "manual comparison with primary web text or saved public page",
+        "matched": true,
+        "automatic": false
+      },
+      {
+        "source_id": "SUBSTACK_SETUP",
+        "method": "manual comparison with primary web text or saved public page",
+        "matched": true,
+        "automatic": false
+      },
+      {
+        "source_id": "SUBSTACK_COUNTRIES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "STRIPE_POLICY",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "KOFI_FEES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "KOFI_RULES",
+        "method": "manual comparison with primary web text or saved public page",
+        "matched": true,
+        "automatic": false
+      },
+      {
+        "source_id": "KOFI_TAX",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PAYPAL_FEES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PAYPAL_POLICY",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PAYPAL_ID",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "GUM_PAYOUT",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "GUM_FEES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "GUM_RULES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "GUM_ID",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "GUM_TAX",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "LS_COUNTRIES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "LS_FEES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "LS_POLICY",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "LS_ID",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "LS_TAX",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "LS_INCOME",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "LS_ACTIVATE",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PADDLE_COUNTRIES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PADDLE_POLICY",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PADDLE_TERMS",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PADDLE_PAYOUT",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PATREON_PAYOUT",
+        "method": "manual comparison with primary web text or saved public page",
+        "matched": true,
+        "automatic": false
+      },
+      {
+        "source_id": "PATREON_FEES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PATREON_RULES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PATREON_TAX",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PATREON_ID",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PATREON_VERIFY",
+        "method": "manual comparison with primary web text or saved public page",
+        "matched": true,
+        "automatic": false
+      },
+      {
+        "source_id": "PATREON_CURRENCIES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PAYONEER_FEES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PAYONEER_POLICY",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PAYONEER_REQUEST",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PAYONEER_ID",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "PAYONEER_B2B",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "VN_BANK_FEES",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "VN_BANK_ID",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "VN_TAX_CURRENT",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      },
+      {
+        "source_id": "VN_SECURITIES",
+        "method": "manual comparison with primary web text or saved public page",
+        "matched": true,
+        "automatic": false
+      },
+      {
+        "source_id": "VN_BANK_FORM",
+        "method": "manual comparison with primary web text or saved public page",
+        "matched": true,
+        "automatic": false
+      },
+      {
+        "source_id": "PATREON_VAT",
+        "method": "exact match in retained BrowserOS excerpt",
+        "matched": true,
+        "automatic": true
+      }
+    ]
+  },
+  "artifact_checks": [
+    "Unique source IDs and URLs",
+    "HTTPS issuer links and observed UTC read clocks",
+    "No future read clocks",
+    "Every route field resolves to retained source IDs",
+    "Maximum two short sentences and 25 quoted words per source",
+    "Source links/reference IDs present in reader table",
+    "CC-024 consumes the recommendation under decision 84; no paid activation claimed",
+    "Configured model/effort separated from observed runtime",
+    "Delivery honestly remains Ops-review pending"
+  ],
+  "artifacts": [
+    {
+      "path": "docs/publisher/CC-426/cc430-payment-routes.json",
+      "bytes": 49469,
+      "sha256_working_copy": "d4caeec345dc74e857933cccb5be9aedc78c3db5fe76ba26eacbdd493ea7e69b",
+      "git_blob_id_normalized": "7193ffbfb0c7cee67c54a2da0a81bb8fc834dc0e"
+    },
+    {
+      "path": "docs/publisher/CC-426/README.md",
+      "bytes": 23055,
+      "sha256_working_copy": "b379fdf033c9d74686b2288c08b686f229a594a95155acb05b93e471cbd21fee",
+      "git_blob_id_normalized": "5fd248069f9a30f681d987e241bbf3278e88473c"
+    }
+  ],
+  "validation_kind": "Bounded documentation/source-coverage check; no pytest or runtime modification.",
+  "limits": [
+    "Account onboarding, provider product approval and actual payouts were not exercised.",
+    "Decision 84 keeps charging and paid activation closed.",
+    "Country support and our product assessment remain separate.",
+    "Tax rates and final legal classification require the actual seller/product facts; this review invents none."
+  ],
+  "delivery_state": "BUILT_UNMERGED (Ops review pending)"
+}

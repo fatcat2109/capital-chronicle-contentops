@@ -1,0 +1,927 @@
+{
+  "schema_version": "contentops.vietnam_payment_routes_review.v1",
+  "item_id": "CC-430",
+  "requested_artifact_directory": "docs/publisher/CC-426",
+  "consumer": "CC-024 paid-tier decision under Jim decision 84",
+  "prepared_at_utc": "2026-11-11T11:10:01.356Z",
+  "base_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "scope": "Primary-source route comparison; no account onboarding, provider contact, payment, paid activation or schedule change.",
+  "launch": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Current codex.exe command line explicitly contained --model gpt-6.1-sol and model_reasoning_effort=max; supported runtime model/effort telemetry was unavailable.",
+    "editorial_model_calls": 0
+  },
+  "decision": {
+    "recommended_future_membership_route": "patreon",
+    "alternatives": [
+      "kofi_paypal",
+      "vietnam_bank_transfer"
+    ],
+    "country_support_does_not_imply_product_acceptance": true,
+    "activation_condition": "JIM_DECISION_84",
+    "current_payment_action": "NONE",
+    "reason": "Patreon expressly permits the intended journalistic/analytical format and supports Vietnam payouts; Substack's domestic Stripe setup does not.",
+    "source_ids": [
+      "PATREON_RULES",
+      "PATREON_PAYOUT",
+      "SUBSTACK_SETUP",
+      "STRIPE_COUNTRIES"
+    ]
+  },
+  "common_seller_steps": {
+    "text": "Use the genuine individual/business seller and its tax identity; match platform/bank ownership. Retain gross sales, fees, payouts and FX records; issue invoices required by the applicable regime. Merchant-of-record sales tax does not itself settle Vietnamese income tax. Seller form, turnover and exact paid product are not established here; no tax-rate or licensing conclusion is invented.",
+    "source_ids": [
+      "VN_TAX_CURRENT",
+      "VN_BANK_FORM",
+      "LS_INCOME",
+      "VN_SECURITIES"
+    ]
+  },
+  "decision84": {
+    "source": "Tower JIM_DECISIONS_20261030.md decision 84; BACKLOG CC-024",
+    "conditions": [
+      "The first DEMO position is correctly managed, followed by a month without errors.",
+      "20-30 conditional calls are publicly scored and never edited.",
+      "4-6 weeks of publishing without a gap.",
+      "Free subscribers and pledges show willingness to pay."
+    ],
+    "operation": "Everything stays free until these conditions hold. Demand measurement uses the separately approved pledge process. This review makes no charge or pledge-setting change."
+  },
+  "method": {
+    "primary_sources": 44,
+    "secondary_sources": 0,
+    "read_clock": "UTC per source; Jim-facing times use GMT+7.",
+    "browser": "BrowserOS Neo existing window; task group 29E5AC5FB8047BD7E04F5CD94FA7208D; five owned research tabs reused; other tabs unchanged.",
+    "supplement": "Official public-page text for PDFs and content not exposed by collapsed browser panels.",
+    "quote_policy": "At most two short sentences and 25 quoted words per source; one fragment or sentence retained.",
+    "epistemic_policy": "Separate provider rule facts from assessments, and country eligibility from account approval, product acceptance and payout."
+  },
+  "routes": [
+    {
+      "id": "substack",
+      "name": "Substack paid subscriptions",
+      "payout": {
+        "text": "NO for Vietnam-resident seller onboarding using a Vietnamese business/bank only. Stripe is Substack's sole provider; Vietnam is absent from Stripe's merchant-country list.",
+        "source_ids": [
+          "SUBSTACK_SETUP",
+          "SUBSTACK_COUNTRIES",
+          "STRIPE_COUNTRIES"
+        ]
+      },
+      "fees": {
+        "text": "10% Substack plus Stripe card/billing fees at the actual eligible jurisdiction's rate. There is no supported Vietnam merchant tariff for this route; iOS purchases have separate Apple economics.",
+        "source_ids": [
+          "SUBSTACK_SETUP"
+        ]
+      },
+      "identity": {
+        "text": "Truthful personal/business address and details, then a linked bank through Stripe. A foreign receiving-account number does not change seller residence; a separately legitimate eligible foreign entity is a different setup.",
+        "source_ids": [
+          "SUBSTACK_SETUP",
+          "STRIPE_COUNTRIES"
+        ]
+      },
+      "tax": {
+        "text": "No domestic Vietnam paid-onboarding process is available. A genuine supported-country entity would need its own tax assessment; apply the common Vietnam seller steps. This item creates no foreign entity.",
+        "source_ids": [
+          "SUBSTACK_SETUP",
+          "VN_TAX_CURRENT"
+        ]
+      },
+      "content": {
+        "text": "Stripe's investment/brokerage and other financial-service categories require due diligence; misleading get-rich-quick schemes are barred. This does not establish a categorical ban on editorial macro analysis.",
+        "source_ids": [
+          "STRIPE_POLICY"
+        ]
+      },
+      "assessment": {
+        "text": "Replace CC-024's assumption that Jim can simply connect a Vietnamese Stripe account. Keep free Substack; use a suitable alternative for the eventual paid tier.",
+        "source_ids": [
+          "SUBSTACK_SETUP",
+          "STRIPE_COUNTRIES"
+        ]
+      },
+      "next_action": "Ops Product: use the alternative-route comparison in the paid-tier decision; no payout-setting change during this review."
+    },
+    {
+      "id": "kofi_paypal",
+      "name": "Ko-fi through PayPal",
+      "payout": {
+        "text": "YES in principle: Ko-fi pays into the creator's own PayPal account; PayPal publishes Vietnam commercial receipt and local-bank withdrawal routes. Verification and account limitations still apply.",
+        "source_ids": [
+          "KOFI_FEES",
+          "PAYPAL_FEES",
+          "PAYPAL_ID"
+        ]
+      },
+      "fees": {
+        "text": "Membership/monthly tips/shop: 5% Ko-fi plus PayPal Vietnam international commercial fees of 4.40% + $0.30 for USD receipts. Withdrawal is 60,000 VND when no conversion is involved; FX/other charges are separate. The 0% Ko-fi option applies to qualifying one-time tips, not memberships.",
+        "source_ids": [
+          "KOFI_FEES",
+          "PAYPAL_FEES"
+        ]
+      },
+      "identity": {
+        "text": "Use the seller's own correctly domiciled PayPal account; provide legal name, residence, birth date, national/tax identification, bank and requested business evidence. PayPal recommends a business account for primarily commercial use.",
+        "source_ids": [
+          "PAYPAL_ID"
+        ]
+      },
+      "tax": {
+        "text": "Ko-fi is not merchant of record: seller determines registrations, adds/remits applicable VAT or sales tax and reports income. PayPal can request tax documents; apply the common Vietnam seller steps.",
+        "source_ids": [
+          "KOFI_TAX",
+          "PAYPAL_ID"
+        ]
+      },
+      "content": {
+        "text": "Ko-fi bars unlawful financial services and misleading finance claims and incorporates PayPal rules. PayPal requires approval for buying/selling/brokering investments. No blanket ban on ordinary economic journalism was found; this is an assessment, not express approval.",
+        "source_ids": [
+          "KOFI_RULES",
+          "PAYPAL_POLICY"
+        ]
+      },
+      "assessment": {
+        "text": "Future editorial-membership alternative after decision 84. Its lower platform fee comes with seller-operated indirect-tax administration and PayPal FX/withdrawal costs.",
+        "source_ids": [
+          "KOFI_FEES",
+          "KOFI_TAX",
+          "PAYPAL_FEES",
+          "PATREON_FEES"
+        ]
+      },
+      "next_action": "Ops Product defines the editorial membership/tax handling; after decision 84, Jim completes any secure PayPal identity/bank step."
+    },
+    {
+      "id": "gumroad",
+      "name": "Gumroad",
+      "payout": {
+        "text": "YES: Vietnam/VND local-bank payouts are explicitly listed. A local bank, government photo ID and residence/business evidence are required. Standard threshold is $100 equivalent; account review applies. Payoneer/Wise are expressly unsupported payout substitutes.",
+        "source_ids": [
+          "GUM_PAYOUT",
+          "GUM_ID"
+        ]
+      },
+      "fees": {
+        "text": "Direct sale: 10% + $0.50 plus card processing of 2.9% + $0.30 or PayPal fees. Discover: 30% including processing. High-volume discounts are separate; use the standard case for a new launch.",
+        "source_ids": [
+          "GUM_FEES"
+        ]
+      },
+      "identity": {
+        "text": "Select the real individual/business form; provide legal name, birth date, physical address, national ID/photo ID and applicable company registration/tax documents. Match payout country and bank.",
+        "source_ids": [
+          "GUM_ID",
+          "GUM_PAYOUT"
+        ]
+      },
+      "tax": {
+        "text": "Gumroad handles platform transaction sales tax as merchant of record; existing reseller reporting and common Vietnam seller reporting can remain. Its broad tax marketing does not establish exemption from seller income tax.",
+        "source_ids": [
+          "GUM_TAX",
+          "GUM_ID"
+        ]
+      },
+      "content": {
+        "text": "Investment-opportunity services, crypto products and advice-framed prediction services are restricted. Rules do not expressly classify an editorial macro report; the actual six-market/conditional-call sample needs a product-specific answer if this route is selected.",
+        "source_ids": [
+          "GUM_RULES"
+        ]
+      },
+      "assessment": {
+        "text": "Country payout is available; exact product fit remains unresolved. Prefer Patreon rather than assuming either acceptance of the current product or a blanket ban on financial writing.",
+        "source_ids": [
+          "GUM_PAYOUT",
+          "GUM_RULES",
+          "PATREON_RULES"
+        ]
+      },
+      "next_action": "Ops Product retains as a digital-report alternative; any later provider classification request requires the actual sample and separately authorized contact. No message was sent."
+    },
+    {
+      "id": "lemon_squeezy",
+      "name": "Lemon Squeezy",
+      "payout": {
+        "text": "YES at country level: Vietnam is explicitly listed for bank payouts. Identity, tax forms and store approval remain separate.",
+        "source_ids": [
+          "LS_COUNTRIES",
+          "LS_ID",
+          "LS_TAX"
+        ]
+      },
+      "fees": {
+        "text": "Base 5% + $0.50 on total order value including tax; add 1.5% international, 1.5% PayPal and 0.5% subscriptions where applicable. Non-US bank payout: 1%; non-US PayPal: 3%, capped at $30. Optional-feature charges are separate.",
+        "source_ids": [
+          "LS_FEES"
+        ]
+      },
+      "identity": {
+        "text": "Provide personal information/government photo ID; complete store KYC/KYB and product review; bind the real bank or PayPal account.",
+        "source_ids": [
+          "LS_ID",
+          "LS_ACTIVATE",
+          "LS_COUNTRIES"
+        ]
+      },
+      "tax": {
+        "text": "Complete the applicable non-US Form W-8. Merchant-of-record handling covers buyer sales tax/VAT; tax on seller payout income can remain.",
+        "source_ids": [
+          "LS_TAX",
+          "LS_INCOME"
+        ]
+      },
+      "content": {
+        "text": "Services, regulated financial activities and crypto-related products are prohibited. Fulfilled original eBooks/PDFs can be accepted if not prohibited. A standalone macro PDF differs from the ongoing six-market product, which includes Bitcoin.",
+        "source_ids": [
+          "LS_POLICY",
+          "LS_ACTIVATE"
+        ]
+      },
+      "assessment": {
+        "text": "Do not select for the current bundled six-market offering. A separate non-crypto downloadable publication is only a possible future store-review case.",
+        "source_ids": [
+          "LS_POLICY",
+          "LS_ACTIVATE"
+        ]
+      },
+      "next_action": "Ops Product retains the explicit Vietnam payout finding and selects a provider whose content rule fits the actual membership."
+    },
+    {
+      "id": "paddle",
+      "name": "Paddle",
+      "payout": {
+        "text": "Country eligibility exists for an accepted software supplier: Vietnam is not on its unsupported list. Monthly wire/Payoneer payouts have a $100 minimum; this is not acceptance of a financial newsletter.",
+        "source_ids": [
+          "PADDLE_COUNTRIES",
+          "PADDLE_PAYOUT"
+        ]
+      },
+      "fees": {
+        "text": "Checkout: 5% + $0.50. Certain wire payouts add $15 SWIFT plus recipient-bank costs. FX margins and other applicable fees are separate; obtain the actual corridor quote for any future eligible software product.",
+        "source_ids": [
+          "PADDLE_TERMS",
+          "PADDLE_PAYOUT"
+        ]
+      },
+      "identity": {
+        "text": "KYC/KYB can include business/product URLs, business/financial details, shareholders/beneficial owners, tax status and registrations; supply genuine supplier/bank information.",
+        "source_ids": [
+          "PADDLE_TERMS"
+        ]
+      },
+      "tax": {
+        "text": "Paddle administers transaction sales tax as reseller; supplier tax-status/registration disclosures remain. Apply common Vietnam seller reporting.",
+        "source_ids": [
+          "PADDLE_TERMS"
+        ]
+      },
+      "content": {
+        "text": "Expressly bars investment/financial advice, trading signals and strategies. Its software focus also restricts pure advisory services and community access without a supported bona fide product.",
+        "source_ids": [
+          "PADDLE_POLICY"
+        ]
+      },
+      "assessment": {
+        "text": "Not suitable for the current newsletter/conditional-call offering. Country eligibility and Payoneer availability do not override its product rule.",
+        "source_ids": [
+          "PADDLE_POLICY",
+          "PADDLE_COUNTRIES",
+          "PADDLE_PAYOUT"
+        ]
+      },
+      "next_action": "Ops Product excludes from the current membership shortlist; do not disguise an editorial subscription as software."
+    },
+    {
+      "id": "patreon",
+      "name": "Patreon",
+      "payout": {
+        "text": "YES: Vietnam/VND is an explicit bank destination, including USD-to-local-bank transfer via Payoneer. VND is not on the selectable creator-balance currency list; use a supported currency such as USD and distinguish conversion to the bank's VND.",
+        "source_ids": [
+          "PATREON_PAYOUT",
+          "PATREON_CURRENCIES"
+        ]
+      },
+      "fees": {
+        "text": "New creators: 10% platform. USD card/Apple Pay: 2.9% + $0.30; non-US PayPal/Venmo: 3.9% + $0.30. Different member/creator currency adds 2.5%. USD-to-VND bank payout: 1.55% + $0.25 ($10 minimum). Optional PayPal/Wallet and iOS costs are separate.",
+        "source_ids": [
+          "PATREON_FEES",
+          "PATREON_PAYOUT"
+        ]
+      },
+      "identity": {
+        "text": "Supply accurate payout country/matching account details; complete required Patreon/processor checks with legal name, birth date and requested ID/photo/business evidence. Adding/changing payout details triggers a five-day lock.",
+        "source_ids": [
+          "PATREON_ID",
+          "PATREON_VERIFY"
+        ]
+      },
+      "tax": {
+        "text": "Submit W-8BEN for the non-US individual or applicable W-8BEN-E for an entity, with genuine identity/tax details. Do not assume treaty benefits; apply common Vietnam seller reporting. Patreon collects/remits applicable member VAT where it has the obligation; local seller filings can remain.",
+        "source_ids": [
+          "PATREON_TAX",
+          "PATREON_VAT"
+        ]
+      },
+      "content": {
+        "text": "Explicitly permits analytical, educational, journalistic and historical finance/banking/crypto discussion. Financial advice promoting/selling investments or ownership, MLM schemes and crypto launches remains barred. The membership must deliver the stated editorial product.",
+        "source_ids": [
+          "PATREON_RULES"
+        ]
+      },
+      "assessment": {
+        "text": "Preferred future membership candidate: Vietnam payouts and the intended finance-journalism category are expressly documented. This recommendation is not an account approval or completed payout.",
+        "source_ids": [
+          "PATREON_PAYOUT",
+          "PATREON_CURRENCIES",
+          "PATREON_RULES"
+        ]
+      },
+      "next_action": "After decision 84, Ops Product chooses the final editorial SKU; Jim completes one secure identity/tax/own-bank onboarding flow. Verify a real first payout only once charging is authorized."
+    },
+    {
+      "id": "payoneer",
+      "name": "Routes through Payoneer",
+      "payout": {
+        "text": "YES as a rail for an accepted platform; Vietnam is listed among bank destinations and Patreon documents Vietnam/VND. Paddle offers Payoneer for eligible suppliers. Direct Request a Payment covers supported B2B categories, not consumer checkout. It does not add Payoneer support to Gumroad/Substack.",
+        "source_ids": [
+          "PAYONEER_FEES",
+          "PATREON_PAYOUT",
+          "PADDLE_PAYOUT",
+          "PAYONEER_B2B",
+          "GUM_PAYOUT",
+          "SUBSTACK_SETUP"
+        ]
+      },
+      "fees": {
+        "text": "Platform payouts use that platform's tariff. Direct card receipts: up to 3.99% + $0.49; US ACH: 1%. Bank withdrawals vary by corridor, including published 1.2%-4% rates or conditional fixed pricing. Annual fee: $29.95 below $6,000 receipts in 12 months, with account/region exceptions. No universal VND quote is established.",
+        "source_ids": [
+          "PAYONEER_FEES"
+        ]
+      },
+      "identity": {
+        "text": "Verify real personal/business information, government ID, address and bank ownership in the Verification Center; provide requested category/invoice evidence.",
+        "source_ids": [
+          "PAYONEER_ID",
+          "PAYONEER_B2B"
+        ]
+      },
+      "tax": {
+        "text": "Business invoice requests can include applicable local tax; seller determines invoice/tax treatment and reports receipts under common Vietnam steps. This collection rail is not documented as remitting seller income tax.",
+        "source_ids": [
+          "PAYONEER_REQUEST",
+          "VN_TAX_CURRENT"
+        ]
+      },
+      "content": {
+        "text": "Brokerage investment services, venture capital/investments and other restricted financial activities are excluded. Direct editorial B2B invoices require an allowed category; retail Request a Payment is expressly excluded.",
+        "source_ids": [
+          "PAYONEER_POLICY",
+          "PAYONEER_B2B"
+        ]
+      },
+      "assessment": {
+        "text": "Use the documented rail behind Patreon if selected. Direct B2B collection is conditional on the actual client/product/category; it is not a universal consumer-subscription replacement.",
+        "source_ids": [
+          "PATREON_PAYOUT",
+          "PAYONEER_B2B",
+          "PAYONEER_POLICY"
+        ]
+      },
+      "next_action": "Ops Product uses the chosen platform's payout integration; do not repurpose business invoice requests as consumer membership checkout."
+    },
+    {
+      "id": "vietnam_bank_transfer",
+      "name": "Bank transfer from Vietnamese businesses",
+      "payout": {
+        "text": "YES for a lawful domestic B2B sale to the seller's own VND account. Vietcombank's organisational account form supports VND. This is direct collection rather than a platform payout or automated membership service.",
+        "source_ids": [
+          "VN_BANK_FORM",
+          "VN_BANK_FEES"
+        ]
+      },
+      "fees": {
+        "text": "Direct transfer has no platform percentage; bank/account/package and payer allocation determine costs. Published VCB DigiBiz outgoing examples: 7,000 VND same-bank; non-24/7 interbank 0.02%, min 20,000/max 1,000,000 VND. These are corporate payer examples, not Jim's quoted receiving fee; VAT/package/recipient-bank costs can differ.",
+        "source_ids": [
+          "VN_BANK_FEES"
+        ]
+      },
+      "identity": {
+        "text": "Match the contracting seller and account. An organisational account needs registered business/tax identity and legal-representative ID; corporate electronic payments require representative biometric verification. Individual-business treatment depends on the actual seller form.",
+        "source_ids": [
+          "VN_BANK_FORM",
+          "VN_BANK_ID"
+        ]
+      },
+      "tax": {
+        "text": "Set the real business/tax form; prepare the B2B contract, applicable invoice/e-invoice and revenue records, then file/pay under the relevant regime. No universal tax rate is established for an unidentified seller/product.",
+        "source_ids": [
+          "VN_TAX_CURRENT",
+          "VN_BANK_FORM"
+        ]
+      },
+      "content": {
+        "text": "The bank rail provides no exemption for regulated advice. Securities Law Article 4(32) includes analysis/reports plus buy/sell/hold recommendations; Article 86(4) addresses licensed securities advice. This audit does not decide an unidentified SKU's legal classification.",
+        "source_ids": [
+          "VN_SECURITIES"
+        ]
+      },
+      "assessment": {
+        "text": "Practical future domestic B2B collection for a documented editorial-content contract, with invoice/payment matching and fulfilment. It is not a turnkey recurring-subscription platform or an investment-advice licence.",
+        "source_ids": [
+          "VN_BANK_FORM",
+          "VN_TAX_CURRENT",
+          "VN_SECURITIES"
+        ]
+      },
+      "next_action": "After decision 84, Ops Product prepares one lawful editorial contract/invoice; Jim completes any required secure seller/bank verification. Use only that seller's confirmed account."
+    }
+  ],
+  "sources": [
+    {
+      "reference": "S01",
+      "id": "STRIPE_COUNTRIES",
+      "title": "Stripe global availability",
+      "url": "https://stripe.com/global",
+      "read_at_utc": "2026-11-11T10:55:49.619Z",
+      "quote": "Stripe is currently supported in the following countries/regions, with more to come.",
+      "finding": "Vietnam is absent from the published merchant-country list. A platform paying a Vietnamese bank is a separate capability from opening a Vietnamese Stripe merchant account.",
+      "source_class": "PRIMARY",
+      "access": "BrowserOS Neo public page"
+    },
+    {
+      "reference": "S02",
+      "id": "SUBSTACK_SETUP",
+      "title": "Substack: connect Stripe and receive payments",
+      "url": "https://support.substack.com/hc/en-us/articles/4405482746132-How-do-I-set-up-my-Stripe-account-on-Substack-to-start-receiving-payments",
+      "quote": "Stripe is our sole payment provider",
+      "finding": "Substack charges 10% plus Stripe card and billing fees; onboarding requires real business/personal details and a linked bank. No PayPal or Payoneer payout replacement is offered in this guide.",
+      "access": "BrowserOS Neo article; saved public article read; primary web text",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:03:59.656Z"
+    },
+    {
+      "reference": "S03",
+      "id": "SUBSTACK_COUNTRIES",
+      "title": "Substack country limitations",
+      "url": "https://support.substack.com/hc/en-us/articles/360041314672-Are-there-any-countries-or-geographies-where-payments-aren-t-supported-on-Substack",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:59:14.026Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "If you have a free Substack publication, you can start from anywhere.",
+      "finding": "Free publication is available globally; paid subscriptions depend on supported Stripe countries, with additional Substack exceptions."
+    },
+    {
+      "reference": "S04",
+      "id": "STRIPE_POLICY",
+      "title": "Stripe restricted businesses",
+      "url": "https://stripe.com/legal/restricted-businesses",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:34.456Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Financial products and services",
+      "finding": "Investment/brokerage and other financial services require additional due diligence; deceptive get-rich-quick schemes are prohibited. This is not blanket approval for every finance product."
+    },
+    {
+      "reference": "S05",
+      "id": "KOFI_FEES",
+      "title": "Ko-fi fees",
+      "url": "https://help.ko-fi.com/hc/en-us/articles/360002506494-Does-Ko-fi-take-a-fee",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:57:38.648Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "A flat 5% service fee applies to anything else",
+      "finding": "Memberships, monthly tips and shop sales incur 5% on the free plan; one-time tips can incur 0%. Processor fees are additional."
+    },
+    {
+      "reference": "S06",
+      "id": "KOFI_RULES",
+      "title": "Ko-fi content guidelines",
+      "url": "https://help.ko-fi.com/hc/en-us/articles/360007937553-Ko-fi-Content-Guidelines",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:11.502Z",
+      "access": "BrowserOS Neo; primary web text for section 3.2",
+      "quote": "Financial services violations",
+      "finding": "Section 1 incorporates payment-provider rules. Section 3.2 prohibits unlawful financial services and misleading financial claims; the rule is not a categorical ban on economic journalism."
+    },
+    {
+      "reference": "S07",
+      "id": "KOFI_TAX",
+      "title": "Ko-fi tax responsibilities",
+      "url": "https://help.ko-fi.com/hc/en-us/articles/10792069957661-How-tax-works-on-Ko-fi",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:59:13.074Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "It is the creator's responsibility to calculate and remit the appropriate sales tax or VAT due on their sales.",
+      "finding": "Ko-fi is not merchant of record and does not collect/remit creator VAT or sales tax; creator income reporting remains with the seller."
+    },
+    {
+      "reference": "S08",
+      "id": "PAYPAL_FEES",
+      "title": "PayPal Vietnam merchant fees",
+      "url": "https://www.paypal.com/vn/business/paypal-business-fees?locale.x=en_VN",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:03:59.656Z",
+      "access": "BrowserOS Neo; primary web text for rate/destination tables",
+      "quote": "4.40% + fixed fee",
+      "finding": "Vietnam residents' international commercial receipts cost 4.40% plus the currency-specific fixed fee ($0.30 for USD). Withdrawal to a local Vietnamese bank is 60,000 VND when no conversion is involved; FX and other applicable fees are separate."
+    },
+    {
+      "reference": "S09",
+      "id": "PAYPAL_POLICY",
+      "title": "PayPal Vietnam acceptable use",
+      "url": "https://www.paypal.com/vn/legalhub/paypal/acceptableuse-full?locale.x=en_VN",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:58:03.329Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "PayPal requires pre-approval to accept payments for certain services as detailed in the chart below.",
+      "finding": "Buying, selling or brokering investments requires pre-approval. Illegal activity, deceptive schemes and other prohibited activities remain barred. An editorial subscription is not permission to broker investments."
+    },
+    {
+      "reference": "S10",
+      "id": "PAYPAL_ID",
+      "title": "PayPal Vietnam user agreement",
+      "url": "https://www.paypal.com/vn/legalhub/paypal/useragreement-full?locale.x=en_VN",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:58:41.857Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "We recommend business accounts for people and organizations that primarily use PayPal to sell goods or services",
+      "finding": "Correct residence and business/personal details are required. PayPal may require identity, taxpayer/national identification, address and additional tax documentation; each party remains responsible for its own taxes."
+    },
+    {
+      "reference": "S11",
+      "id": "GUM_PAYOUT",
+      "title": "Gumroad payouts",
+      "url": "https://gumroad.com/help/article/13-getting-paid",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:56:52.741Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Vietnam",
+      "finding": "The bank-payout country table explicitly lists Vietnam/VND. Local bank, photo ID and residence/business evidence are required. Standard minimum is $100 equivalent; payout review and settlement delays apply. Payoneer and Wise are not supported payout modes."
+    },
+    {
+      "reference": "S12",
+      "id": "GUM_FEES",
+      "title": "Gumroad fees",
+      "url": "https://gumroad.com/help/article/66-gumroads-fees",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:58:38.189Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Credit card processing (2.9% + $0.30)",
+      "finding": "Direct sales cost 10% + $0.50, excluding card processing of 2.9% + $0.30 or PayPal fees. Discover is 30% including processing. A high-volume discount is separate from the standard case."
+    },
+    {
+      "reference": "S13",
+      "id": "GUM_RULES",
+      "title": "Gumroad prohibited products",
+      "url": "https://gumroad.com/prohibited",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:58:02.197Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "investment opportunities",
+      "finding": "The list bars investment-opportunity services, crypto products and advice-framed prediction services. It does not expressly settle the classification of an editorial macro report; uncertainty goes to the provider with the actual sample."
+    },
+    {
+      "reference": "S14",
+      "id": "GUM_ID",
+      "title": "Gumroad payout identity settings",
+      "url": "https://gumroad.com/help/article/260-your-payout-settings-page",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:08.437Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Company Tax ID and business registration document (if applicable)",
+      "finding": "Choose the actual individual/business form; provide legal name, date of birth, address, national ID/photo ID and applicable company/tax documents. This does not establish a universal W-9 or W-8 requirement for a Vietnam seller."
+    },
+    {
+      "reference": "S15",
+      "id": "GUM_TAX",
+      "title": "Gumroad sales tax",
+      "url": "https://gumroad.com/help/article/121-sales-tax-on-gumroad",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:01:25.641Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Gumroad now acts as the Merchant of Record for all sales.",
+      "finding": "Gumroad handles sales-tax collection/remittance on platform transactions; existing reseller reporting may remain. This does not state that a seller's Vietnamese income-tax liability disappears."
+    },
+    {
+      "reference": "S16",
+      "id": "LS_COUNTRIES",
+      "title": "Lemon Squeezy supported countries",
+      "url": "https://docs.lemonsqueezy.com/help/getting-started/supported-countries",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:58:03.279Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Vietnam",
+      "finding": "Vietnam is explicitly listed for bank payouts. Platform payout support does not require assuming a standalone Vietnam Stripe merchant account is available."
+    },
+    {
+      "reference": "S17",
+      "id": "LS_FEES",
+      "title": "Lemon Squeezy fees",
+      "url": "https://docs.lemonsqueezy.com/help/getting-started/fees",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:58:37.957Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "1% per payout for bank accounts outside the US",
+      "finding": "The base example uses 5% + $0.50; additional fees include 1.5% international, 1.5% PayPal and 0.5% subscriptions. Non-US bank payouts cost 1%; non-US PayPal payouts cost 3%, capped at $30. Transaction fees apply to total order value including tax."
+    },
+    {
+      "reference": "S18",
+      "id": "LS_POLICY",
+      "title": "Lemon Squeezy prohibited products",
+      "url": "https://docs.lemonsqueezy.com/help/getting-started/prohibited-products",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:56:51.965Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "NFT & Crypto related products.",
+      "finding": "Services, regulated banking/financing/currency-exchange activities, get-rich-quick schemes and crypto-related products are prohibited. The six-market product includes Bitcoin; a macro-only fulfilled PDF is a distinct product classification, not an automatic ban."
+    },
+    {
+      "reference": "S19",
+      "id": "LS_ID",
+      "title": "Lemon Squeezy identity verification",
+      "url": "https://docs.lemonsqueezy.com/help/getting-started/verify-your-identity",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:59:12.222Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "upload a photo of your government-issued ID.",
+      "finding": "Personal information and government ID are required before selling; store activation and periodic re-verification can also apply."
+    },
+    {
+      "reference": "S20",
+      "id": "LS_TAX",
+      "title": "Lemon Squeezy tax forms",
+      "url": "https://docs.lemonsqueezy.com/help/tax-forms",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:07.502Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Non-US merchants and affiliates are required to complete a Form W-8",
+      "finding": "Non-US owners must provide the applicable W-8 details; payout can be disabled until the tax form is complete. US W-9 instructions are a different seller category."
+    },
+    {
+      "reference": "S21",
+      "id": "LS_INCOME",
+      "title": "Lemon Squeezy sales tax and income",
+      "url": "https://docs.lemonsqueezy.com/help/payments/sales-tax-vat",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:34.513Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "you may need to pay tax on the income you receive from Lemon Squeezy in the form of payouts.",
+      "finding": "As merchant of record it handles buyer sales tax/VAT; seller income tax can remain."
+    },
+    {
+      "reference": "S22",
+      "id": "LS_ACTIVATE",
+      "title": "Lemon Squeezy store review",
+      "url": "https://docs.lemonsqueezy.com/help/getting-started/activate-your-store",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:01:27.420Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "eBooks, PDFs, design assets, photos, audio, video, etc.",
+      "finding": "Fulfilled digital goods can be accepted if not prohibited, following KYC/KYB and product review. The policy distinguishes fulfilled goods from service subscriptions."
+    },
+    {
+      "reference": "S23",
+      "id": "PADDLE_COUNTRIES",
+      "title": "Paddle supplier countries",
+      "url": "https://www.paddle.com/help/start/account-verification/which-countries-are-supported-by-paddle",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:08.440Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Paddle works with software businesses anywhere in the world",
+      "finding": "Vietnam is absent from Paddle's unsupported supplier-country list. This is country eligibility for an accepted software business, not a promise to accept a financial newsletter."
+    },
+    {
+      "reference": "S24",
+      "id": "PADDLE_POLICY",
+      "title": "Paddle acceptable use",
+      "url": "https://www.paddle.com/help/start/intro-to-paddle/what-am-i-not-allowed-to-sell-on-paddle",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:07.951Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Investment or financial advice, including trading signals and strategies",
+      "finding": "Paddle targets software and bars investment/financial advice and trading signals/strategies, with additional restrictions on pure advisory services and community-only access."
+    },
+    {
+      "reference": "S25",
+      "id": "PADDLE_TERMS",
+      "title": "Paddle master services agreement",
+      "url": "https://www.paddle.com/legal/terms",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:07.386Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Paddle Checkout: 5% of SRP plus $0.50;",
+      "finding": "Checkout costs 5% + $0.50. Supplier KYC/KYB can include owners, business/product URLs and tax registrations. Paddle administers transaction sales taxes; FX and international transfer costs are separate."
+    },
+    {
+      "reference": "S26",
+      "id": "PADDLE_PAYOUT",
+      "title": "Paddle payout schedule",
+      "url": "https://www.paddle.com/help/manage/get-paid/when-and-how-do-i-get-paid",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:01:51.498Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "You can receive your payment either via wire transfer or Payoneer.",
+      "finding": "Monthly payouts have a minimum $100 threshold. Certain destinations incur a $15 SWIFT charge and bank charges can apply. Payoneer availability does not override product restrictions."
+    },
+    {
+      "reference": "S27",
+      "id": "PATREON_PAYOUT",
+      "title": "Patreon international payouts",
+      "url": "https://support.patreon.com/hc/en-gb/articles/39694936541965-Payout-guide-for-creators-outside-the-US",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:03:59.656Z",
+      "access": "BrowserOS Neo; primary web text for rate/destination tables",
+      "quote": "Vietnam",
+      "finding": "Vietnam/VND appears in the bank destination table. USD-to-local-bank payout costs 1.55% + $0.25, with a $10 minimum; PayPal is 1% (min $0.25, cap $20, $10 minimum). Payoneer Wallet is $1 with a $25 minimum, before provider costs."
+    },
+    {
+      "reference": "S28",
+      "id": "PATREON_FEES",
+      "title": "Patreon creator fees",
+      "url": "https://support.patreon.com/hc/en-us/articles/11111747095181-Creator-fees-overview",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:57:38.648Z",
+      "access": "BrowserOS Neo; primary web text for USD processing table",
+      "quote": "2.9% + $0.30",
+      "finding": "New pages use a 10% platform plan. USD card/Apple Pay processing is 2.9% + $0.30; non-US PayPal/Venmo is 3.9% + $0.30. Different member/creator currencies add 2.5%; eligible iOS purchases have Apple's separate 30% fee replacing standard processing."
+    },
+    {
+      "reference": "S29",
+      "id": "PATREON_RULES",
+      "title": "Patreon finance content rule",
+      "url": "https://www.patreon.com/policy/guidelines",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:58:01.474Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Works that discuss finance, banking, cryptocurrencies and business topics in an analytical, educational, journalistic, or historical manner are permitted.",
+      "finding": "The same section prohibits financial advice that promotes/offers/sells investment opportunities or ownership/financial products, MLM schemes and crypto launches. Permission covers the stated analytical formats, not an investment-advice service."
+    },
+    {
+      "reference": "S30",
+      "id": "PATREON_TAX",
+      "title": "Patreon W-8 forms",
+      "url": "https://support.patreon.com/hc/en-gb/articles/360057086011-Submitting-a-W-8BEN",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:59:14.109Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "All creators who are not US citizens must submit a W-8BEN or W-8BEN-E",
+      "finding": "Patreon requires the applicable non-US tax form to pay out. Complete real legal identity, residence and tax details; treaty benefits cannot be assumed."
+    },
+    {
+      "reference": "S31",
+      "id": "PATREON_ID",
+      "title": "Patreon payout setup",
+      "url": "https://support.patreon.com/hc/en-us/articles/115004029783-Adding-your-payout-details",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:36.412Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "an automatic 5-day payout lock is placed on your balance.",
+      "finding": "Payout country and account location must match supplied information; adding/changing payout details triggers a five-day lock. No customer's account has been inspected for eligibility."
+    },
+    {
+      "reference": "S32",
+      "id": "PATREON_VERIFY",
+      "title": "Patreon account identity verification",
+      "url": "https://support.patreon.com/hc/en-gb/articles/34582075437069-Account-Identity-Verification-FAQ",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:03:15.490Z",
+      "access": "BrowserOS Neo; primary web text for expanded verification answers",
+      "quote": "A government-issued photo ID",
+      "finding": "When enrolled, provide legal name, birth date and identification; a photo, government ID or business documents may be requested. Payouts lock during required verification, separately from payment-provider checks."
+    },
+    {
+      "reference": "S33",
+      "id": "PATREON_CURRENCIES",
+      "title": "Patreon supported creator currencies",
+      "url": "https://support.patreon.com/hc/en-us/articles/360039589091-Patreon-s-supported-currencies",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:01:27.174Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "USD",
+      "finding": "USD is a supported creator currency; VND is not listed as a selectable creator balance currency. A Vietnam/VND bank destination does not mean VND tier pricing is supported."
+    },
+    {
+      "reference": "S34",
+      "id": "PAYONEER_FEES",
+      "title": "Payoneer pricing",
+      "url": "https://www.payoneer.com/pricing/",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:03:59.656Z",
+      "access": "BrowserOS Neo; primary web text for collapsed pricing panels",
+      "quote": "Up to 3.99% + 0.49 USD or equivalent",
+      "finding": "Vietnam appears in local-bank withdrawal destinations. Card receipts can cost up to 3.99% + $0.49; US ACH is 1%. Published bank withdrawal corridors range 1.2%-4% or a conditional fixed fee; annual account fee is $29.95 below $6,000 receipts in 12 months, subject to account/region exceptions. Confirm the actual corridor quote."
+    },
+    {
+      "reference": "S35",
+      "id": "PAYONEER_POLICY",
+      "title": "Payoneer prohibited transaction list",
+      "url": "https://www.payoneer.com/legal/prohibited-transaction-list/",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:58:02.061Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Brokerage investment services",
+      "finding": "The list restricts brokerage/investment services, venture capital/investments and other financial activities. A payment rail is not permission to sell investment products or advice."
+    },
+    {
+      "reference": "S36",
+      "id": "PAYONEER_REQUEST",
+      "title": "Payoneer invoice payment requests",
+      "url": "https://www.payoneer.com/payment-request/",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:58:41.339Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Set the amount, add local taxes, currencies, and payment terms.",
+      "finding": "Business invoices can include applicable taxes. Payoneer is a collection/payment rail; this page does not promise seller income-tax remittance."
+    },
+    {
+      "reference": "S37",
+      "id": "PAYONEER_ID",
+      "title": "Payoneer document verification",
+      "url": "https://payoneer.custhelp.com/app/answers/detail/a_id/34658",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T10:59:13.351Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "Your identity",
+      "finding": "Verification can require government ID, residence evidence and a bank document identifying the bank, account and owner; supply business information where requested."
+    },
+    {
+      "reference": "S38",
+      "id": "PAYONEER_B2B",
+      "title": "Payoneer payment-request eligibility",
+      "url": "https://payoneer.custhelp.com/app/answers/detail/a_id/12280/kw/pay%20using%20payoneer",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:01:51.466Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "request a payment cannot be used as a checkout or payment solution for ecommerce stores.",
+      "finding": "Request a Payment is for supported B2B categories, not consumer checkout. If a business category is unsupported for requests, the help page describes business receiving-account transfers; all prohibited-transaction rules still apply."
+    },
+    {
+      "reference": "S39",
+      "id": "VN_BANK_FEES",
+      "title": "Vietcombank corporate transfer tariff",
+      "url": "https://vcbdigibiz.vietcombank.com.vn/statics/vcb-digibiz/pages/bieu-phi-dich-vu.html",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:00:35.642Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "7.000 VND/món",
+      "finding": "An unbundled DigiBiz same-bank outgoing transfer is 7,000 VND; non-24/7 interbank outgoing is 0.02%, minimum 20,000 VND, maximum 1,000,000 VND. These are payer-side examples, not Jim's quoted receiving fee; packages, VAT and other banks can differ."
+    },
+    {
+      "reference": "S40",
+      "id": "VN_BANK_ID",
+      "title": "Vietcombank corporate representative verification",
+      "url": "https://www.vietcombank.com.vn/vi-VN/Trang-thong-tin-dien-tu/Articles/2025/06/25/20250625_Cap-nhat-thong-tin-sinh-trac-hoc-cua-nguoi-dai-dien-KHTC",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:01:52.478Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "người đại diện",
+      "finding": "The bank requires the legal representative's identity/biometric verification for corporate electronic payments; the notice applies from 1 July 2025."
+    },
+    {
+      "reference": "S41",
+      "id": "VN_TAX_CURRENT",
+      "title": "Vietnam Tax Department handbook announcement",
+      "url": "https://xaydungchinhsach.chinhphu.vn/ban-hanh-so-tay-nghiep-vu-huong-dan-quan-ly-thue-ho-kinh-doanh-ca-nhan-kinh-doanh-119261110152140643.htm",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:03:10.112Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "đăng ký thuế và hóa đơn, khai và nộp thuế",
+      "finding": "The current household/individual-business workflow includes tax registration, invoices, filing and payment. Seller legal form, turnover and activity are needed to choose the actual treatment; this announcement is not a product-specific tax-rate ruling."
+    },
+    {
+      "reference": "S42",
+      "id": "VN_SECURITIES",
+      "title": "Vietnam consolidated Securities Law 102/VBHN-VPQH, Article 4(32) and Article 86(4)",
+      "url": "https://congbaocdn.chinhphu.vn/180507251028987904/2026/5/4/cong-bao-so-42-639135104544859042-ngay-12-05-47082_1777888853_signed.pdf",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:01:23.919Z",
+      "access": "Official Gazette public PDF via primary web text",
+      "quote": "khuyến nghị liên quan đến việc mua, bán, nắm giữ chứng khoán.",
+      "finding": "Article 4(32) defines securities investment advice through analysis/reports and recommendations to buy/sell/hold securities; Article 86(4) addresses licensed securities-advisory companies. A bank transfer or a disclaimer does not itself decide product classification."
+    },
+    {
+      "reference": "S43",
+      "id": "VN_BANK_FORM",
+      "title": "Vietcombank organisational account application, form 01b",
+      "url": "https://vietcombank.com.vn/-/media/Project/VCB-Sites/VCB/KHTC/Bieu-mau-bieu-phi-KHTC/Bieu-mau-va-huong-dan/Dich-vu-tai-khoan/VCB_CTC_Giay-e-nghi-mo-tai-khoan-to-chuc.pdf?ts=20230630065749",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:03:15.490Z",
+      "access": "Bank public PDF via primary web text",
+      "quote": "MÃ SỐ THUẾ (Tax Code)",
+      "finding": "The application requests organisational tax code, registered identity, business-license information and legal representative identification. It also offers a VND current account."
+    },
+    {
+      "reference": "S44",
+      "id": "PATREON_VAT",
+      "title": "Patreon creator VAT handling",
+      "url": "https://support.patreon.com/hc/en-us/articles/205259549-How-VAT-works-for-creators-on-Patreon",
+      "source_class": "PRIMARY",
+      "read_at_utc": "2026-11-11T11:14:39.180Z",
+      "access": "BrowserOS Neo public page",
+      "quote": "VAT charges are processed and remitted via Patreon",
+      "finding": "Where Patreon has a collection obligation, applicable member VAT is added, collected and remitted by Patreon; local seller registration/filing obligations are not universally removed."
+    }
+  ]
+}
