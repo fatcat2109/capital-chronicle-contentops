@@ -10,8 +10,8 @@ from live_contentops import v1_simple_gemini_newsroom_v1 as newsroom
 
 def record():
     # Exceeds the ordinary source limit and includes Unicode missing cells.
-    first = "| Release | Market | Series | +5m | +30m | Close | Next close |\n|---|---|---|---:|---:|---:|---:|\n"
-    first += "\n".join(f"| 2024-01-{i:02d} | XAUUSD | HISTDATA:XAUUSD | -0.2353% | +0.1000% | 0.0000% | — |"
+    first = "| Release | Market | Series | +5m | +30m | Close | Next close | Knowledge basis |\n|---|---|---|---:|---:|---:|---:|---|\n"
+    first += "\n".join(f"| 2024-01-{i:02d} | XAUUSD | HISTDATA:XAUUSD | -0.2353% | +0.1000% | 0.0000% | — | RETAINED_LATER_OBSERVATION |"
                        for i in range(1, 29))
     body = ("Computed changes, not isolated CPI effects.\n\n" + first + "\n\n"
             + "Source context. " * 2500
@@ -129,6 +129,8 @@ def test_native_compiler_retains_table_binding_and_removes_source_markers():
     compiled = newsroom._reader_safe_native_article(article, article_mode="DATA_OR_DOCUMENT_LENS")
     assert "[[SOURCE:" not in compiled["substack_body_markdown"]
     assert compiled["cpi_reaction_page"] == article["cpi_reaction_page"]
+    assert "RETAINED_LATER_OBSERVATION" not in compiled["substack_body_markdown"]
+    assert "forecast retrieved later" in compiled["substack_body_markdown"]
     validate_bound_tables(compiled)
 
 
