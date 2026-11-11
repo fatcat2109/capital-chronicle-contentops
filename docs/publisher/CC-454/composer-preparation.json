@@ -6,7 +6,9 @@
     "path": "docs\\publisher\\CC-454\\media\\transport-check.png",
     "size": 78349,
     "sha256": "ed1832d41bcc3225e01379d8c393f1314cf820a4cdd9e08ec910edd57febc5c5",
-    "source": "Existing owned Goal31 source-document card; copied without editing for private transport preparation."
+    "source": "Existing owned Goal31 source-document card; copied without editing for private transport preparation.",
+    "source_path": "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/articles/goal31-company-machine-reading/media_assets/source_document_card.png",
+    "copy_retention": "Local private preparation copy; the original source bytes remain tracked."
   },
   "linkedin_company": {
     "text_filled": true,

@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-11-11T00:08:22.825791+00:00",
+  "publisher_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
+  "executor_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\neo_endpoint_executor_v1.py",
+  "article_executor_selected_by_native_consumer": true,
+  "endpoint_article_destinations": [
+    "linkedin_company",
+    "youtube"
+  ],
+  "required_article_derivatives": [
+    "telegram",
+    "x",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "youtube"
+  ],
+  "remaining_neo_bars": {
+    "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+    "instagram_business": "INSTAGRAM_NON_API_AUTOMATION_PROHIBITED"
+  },
+  "suspended_routes": {},
+  "public_write_performed": false,
+  "application_restart_performed": false,
+  "schedule_change_performed": false
+}

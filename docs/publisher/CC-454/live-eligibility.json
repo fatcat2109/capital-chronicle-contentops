@@ -21,5 +21,27 @@
   ],
   "article_outboxes_created_in_previous_hour": [],
   "choice": "Preserve decision-121 closed no-writes; use the next new article without changing its cadence.",
-  "public_writes_in_cc454": 0
+  "public_writes_in_cc454": 0,
+  "final_observed_at_utc": "2026-11-11T00:09:07.681909+00:00",
+  "latest_canonical_outbox": {
+    "work_item_id": "cc338-cpi-preview-20261110-v1",
+    "status": "DISPATCH_CONFIRMED",
+    "created_at": "2026-11-10T12:00:11.871750+00:00"
+  },
+  "latest_closed_routes": [
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "created_at": "2026-11-10T12:00:11.982303+00:00"
+    },
+    {
+      "work_item_id": "cc338-cpi-preview-20261110-v1",
+      "destination": "linkedin_company",
+      "status": "DEFINITE_NO_WRITE",
+      "created_at": "2026-11-10T12:00:11.937553+00:00"
+    }
+  ],
+  "first_cause": "JIM_DECISION_121_NEXT_NEW_ARTICLE_REQUIRED_NO_BACKFILL",
+  "next_action": "The existing newsroom consumer uses the next new approved article; read back its company LinkedIn and YouTube public URLs. No new cadence or old intent is used."
 }

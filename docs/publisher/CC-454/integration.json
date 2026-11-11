@@ -1,0 +1,48 @@
+{
+  "observed_at_utc": "2026-11-11T00:08:20.233397+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "before": "dddf45f2411f4c69960ec9d416da3e91de4c5b9e",
+  "installed_source_commit": "356c9dbbe65e9f992494b66dc8efe7aaf6894646",
+  "source_files": {
+    "live_contentops/native_desktop_publication_v1.py": {
+      "installed_sha256": "868e509736199d65e761d2aaaeb50b9679d11ed75dc5102d2b1275c4ac23b606",
+      "normalized_sha256": "091ecbc148decf722a4574e987396815c823435d080fca36a34094a4db53c7c5",
+      "git_line_ending_conversion": false
+    },
+    "live_contentops/native_neo_executor_v1.py": {
+      "installed_sha256": "4a605b57ce1b201cba8780f1817251ef5e4f33d3a1c4ac7e280ac06fb6708461",
+      "normalized_sha256": "abfbbd91d3e831909dd834c4176a5bb5d74e8ae0315027bfc2abfc3ea4cf5fd7",
+      "git_line_ending_conversion": false
+    },
+    "live_contentops/neo_destination_handoff_v1.py": {
+      "installed_sha256": "6831b90d54bd8681ae1cc0dc7d0096a58db9dea8f31e73542b4b6ca56a365d8d",
+      "normalized_sha256": "962f435470068f39d19e27036dd9e3cd40cc971564285c886a2fbba707a69da4",
+      "git_line_ending_conversion": false
+    },
+    "live_contentops/neo_endpoint_executor_v1.py": {
+      "installed_sha256": "159bcb57057367a91a560c25ecd0e997c54290291aec26a83215ac17e9b2048f",
+      "normalized_sha256": "cbb5508140183e19fe4a295c6e9f25aba3603e6484113fdefa03ad2c9e8264fa",
+      "git_line_ending_conversion": true
+    },
+    "live_contentops/neo_endpoint_steps_v1.js": {
+      "installed_sha256": "bb5af2df7e1fa762133d44ea544b60a892aad4650ac339d6d943fb48519f2c13",
+      "normalized_sha256": "27e8d4660435a63c603d6d13520ab84a3815dd7f5b838144640106cb2020ab08",
+      "git_line_ending_conversion": true
+    }
+  },
+  "pre_existing_files_preserved": true,
+  "pre_existing_files": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "cdead3afe1e57c4b1da1ea35fe23b25fec72a6633fa09d114b6dd33b6801053e",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "f8041d42018f81f9b0d88944889bf7fd974802241e75f4b6efbe119faf5ad5a9"
+  },
+  "rollback_tag": "contentops-rollback-20261111-cc454",
+  "live_tag": "contentops-live-20261111-cc454",
+  "consumer": "NativeReviewedPublication._authorize_and_bind uses article-only CC-436 endpoint composition; the existing native publication CLI imports the operating-root source on each invocation.",
+  "public_posts_observed": 0,
+  "remaining_acceptance": "Next new article under decision 121; closed policy no-writes are not reopened."
+}
