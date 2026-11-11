@@ -1,0 +1,95 @@
+{
+  "observed_at_utc": "2026-11-11T20:15:29.678651+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "head": "c5056c651fbc6caf09a52117d74d65d6e9d9bcd0",
+  "prior_head": "8c5ebace5f5c11d0935d4bc2b60a8c4655dd8eb7",
+  "source_commit": "7ee0a089",
+  "installed_sources": {
+    "live_contentops/x_reply_bot_v1.py": {
+      "normalized_sha256": "15df6231845e1f6a2142d9d758f4d4cd5c6bb6be4b9804b3078becde7d6eae8d",
+      "matches_integrated_commit": true
+    },
+    "live_contentops/x_reply_pack_v1.py": {
+      "normalized_sha256": "237b021dd1d9fd8c99977086b0c8cf0edd2854512e69165579eb0a6df15d6b68",
+      "matches_integrated_commit": true
+    },
+    "live_contentops/x_reply_fact_policy_v1.py": {
+      "normalized_sha256": "797c3a8bf860af49eb33ff6ae93f687f1f630b530c682f48caa6b51fd22e589b",
+      "matches_integrated_commit": true
+    },
+    "live_contentops/x_reply_fact_sources_v1.py": {
+      "normalized_sha256": "3469fbba8969315149bbf0620a2986aa9092390e6a06689fcc682284f14895c9",
+      "matches_integrated_commit": true
+    },
+    "live_contentops/x_reply_trading_dates_v1.py": {
+      "normalized_sha256": "3397d30d2ae762b3ca5f51dc2368276040632592582ba1c4309c4e2dd32053ee",
+      "matches_integrated_commit": true
+    }
+  },
+  "wip_preservation": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "initial_size": 992508,
+        "current_size": 992508,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "initial_size": 10337,
+        "current_size": 10337,
+        "original_bytes_preserved": true
+      }
+    },
+    "A:\\Capital Chronicle\\ContentOps": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+        "initial_size": 3959,
+        "current_size": 3959,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+        "initial_size": 19341,
+        "current_size": 19341,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+        "initial_size": 39129,
+        "current_size": 39129,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+        "initial_size": 6166,
+        "current_size": 6166,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "initial_size": 1382937,
+        "current_size": 1382937,
+        "original_bytes_preserved": true
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "initial_size": 68878,
+        "current_size": 68878,
+        "original_bytes_preserved": true
+      }
+    }
+  },
+  "rollback_tag": "contentops-rollback-20261112-cc495",
+  "source_tag": "contentops-live-20261112-cc495-source",
+  "live_tag": "contentops-live-20261112-cc495",
+  "installed_tests": {
+    "passed": 62,
+    "artifact": "docs/publisher/CC-495/installed-tests.xml"
+  },
+  "scheduled_consumer": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "execute": "pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "process_observed": {
+      "pid": 41728,
+      "started_at_utc": "2026-11-11T20:11:26.835897+00:00"
+    }
+  },
+  "schedule_changed": false,
+  "application_restarted": false,
+  "public_submit_actions": 0
+}

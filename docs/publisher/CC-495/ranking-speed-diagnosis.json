@@ -26,6 +26,23 @@
   "lease_seconds": 270,
   "send_deadline_minutes": 15,
   "models_changed": false,
-  "native_postchange_result": "PENDING_EXISTING_MINUTE_CONSUMER",
-  "schedule_changed": false
+  "native_postchange_result": "NO_FRESH_UNSENT_DRAFTS",
+  "schedule_changed": false,
+  "native_postchange_cause": null,
+  "native_postchange_stage_seconds": {
+    "ranking": 30.667221200001222,
+    "drafting": 0.0,
+    "checks": 0.13581630000044242,
+    "filter": 5.531653000001825,
+    "whole_tick": 39.46253590000197
+  },
+  "native_postchange_call": {
+    "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T205224-d08658ed\\editorial\\rank\\call.json",
+    "status": "RETURNED",
+    "elapsed_seconds": 30.660684900001797,
+    "prompt_bytes": 3580,
+    "configured_model": "gemini-3.8-flash-high",
+    "configured_effort": "high",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED"
+  }
 }
