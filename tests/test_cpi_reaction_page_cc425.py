@@ -134,6 +134,22 @@ def test_native_compiler_retains_table_binding_and_removes_source_markers():
     validate_bound_tables(compiled)
 
 
+def test_reader_wording_update_resumes_the_unchanged_evidence_file(tmp_path, monkeypatch):
+    from live_contentops.cpi_reaction_page_v1 import PUBLIC_LABELS
+    original = pack()
+    path = tmp_path / "simple_gemini_evidence_v1.json"
+    newsroom._write_json(path, {"source_pack": original})
+    frozen_bytes = path.read_bytes()
+    monkeypatch.setitem(PUBLIC_LABELS, "RETAINED_LATER_OBSERVATION", "forecast observed later")
+    resumed = pack()
+    assert resumed == original
+    newsroom._write_json(path, {"source_pack": resumed})
+    assert path.read_bytes() == frozen_bytes
+    article = bind_tables({"substack_body_markdown": TOKEN}, resumed)
+    assert "forecast observed later" in article["substack_body_markdown"]
+    validate_bound_tables(article)
+
+
 def test_refresh_consumes_new_producer_cells_without_a_second_publisher():
     first = pack()
     value = record()

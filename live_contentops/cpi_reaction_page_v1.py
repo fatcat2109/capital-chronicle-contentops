@@ -32,9 +32,6 @@ LABELS = {
     "ZERO_DISPERSION": "no earlier error dispersion",
     "CONSENSUS_NOT_HELD_FOR_RELEASE": "forecast unavailable",
     "ACTUAL_NOT_HELD_FOR_RELEASE": "first print unavailable",
-    "PRE_RELEASE_CAPTURE": "forecast saved before release",
-    "RETAINED_LATER_OBSERVATION": "forecast retrieved later",
-    "UNAVAILABLE": "Unavailable",
     "PRE_RELEASE_ENDPOINT_ABSENT": "release baseline unavailable",
     "EXACT_ENDPOINT_ABSENT": "exact endpoint unavailable",
     "next_session_close": "Next close",
@@ -50,6 +47,11 @@ LABELS = {
     "USOIL": "WTI oil",
     "BTCUSD": "Bitcoin",
 }
+PUBLIC_LABELS = {
+    "PRE_RELEASE_CAPTURE": "forecast saved before release",
+    "RETAINED_LATER_OBSERVATION": "forecast retrieved later",
+    "UNAVAILABLE": "Unavailable",
+}
 
 
 def digest(text):
@@ -61,8 +63,8 @@ def tables(text):
     return re.findall(r"(?m)^\|[^\n]*(?:\n\|[^\n]*)+", text)
 
 
-def reader_names(text):
-    for old, new in LABELS.items():
+def reader_names(text, *, final_copy=False):
+    for old, new in {**LABELS, **(PUBLIC_LABELS if final_copy else {})}.items():
         text = re.sub(r"(?<![\w])" + re.escape(old) + r"(?![\w])", lambda _: new, text)
     return text
 
@@ -123,7 +125,7 @@ def bind_tables(article, documents):
     projection = source["cpi_reaction_page"]
     # Presentation labels can improve while an immutable source packet remains
     # frozen. Original table/body hashes retain the producer's exact bytes.
-    projected_tables = [{**t, "markdown": reader_names(t["markdown"])} for t in projection["tables"]]
+    projected_tables = [{**t, "markdown": reader_names(t["markdown"], final_copy=True)} for t in projection["tables"]]
     body = str(article.get("substack_body_markdown") or "")
     if body.count(TOKEN) > 1:
         raise ValueError("CPI_REACTION_TABLES_DUPLICATED")
