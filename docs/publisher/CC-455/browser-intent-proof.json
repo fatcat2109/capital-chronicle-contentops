@@ -1,0 +1,47 @@
+{
+  "recorded_at_utc": "2026-11-11T00:40:11Z",
+  "browser": "BrowserOS Neo",
+  "group_id": "AAE74620ACF70AAF015459AF51F25926",
+  "checks": [
+    {
+      "page": 254,
+      "post_id": "2120308677030883723",
+      "author_handle": "FirstSquawk",
+      "exact_intent_url": "https://x.com/intent/post?in_reply_to=2120308677030883723&text=Before+CPI%2C+our+euro+call%27s+invalidation+was+1.1199+%2801%3A52+ET+on+10+November+2026%29.+Rate+rhetoric+needs+a+price+test+too.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations.",
+      "correct_reply_target": true,
+      "draft_prefilled": true,
+      "reply_control_present": true,
+      "public_submit_actions": 0
+    },
+    {
+      "page": 255,
+      "post_id": "2120307983259255040",
+      "author_handle": "Newsquawk",
+      "exact_intent_url": "https://x.com/intent/post?in_reply_to=2120307983259255040&text=Before+CPI%2C+our+S%26P+futures+call%27s+invalidation+was+7%2C498+%2801%3A23+ET+on+10+November+2026%29.+An+index+recap+leaves+that+price+test+out.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations.",
+      "correct_reply_target": true,
+      "draft_prefilled": true,
+      "reply_control_present": true,
+      "public_submit_actions": 0
+    },
+    {
+      "page": 256,
+      "post_id": "2120300583152181668",
+      "author_handle": "zerohedge",
+      "exact_intent_url": "https://x.com/intent/post?in_reply_to=2120300583152181668&text=Our+WTI+futures+call+recorded+86.15+as+invalidation+at+11%3A18+ET+on+10+November+2026.+A+peace+headline+still+needs+a+price+test.+Capital+Chronicle+offers+analysis+only%2C+not+financial+advice+or+recommendations.",
+      "correct_reply_target": true,
+      "draft_prefilled": true,
+      "reply_control_present": true,
+      "public_submit_actions": 0
+    }
+  ],
+  "html_consumer": {
+    "page": 257,
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.html",
+    "opened": true,
+    "pixels_inspected": true,
+    "findings": "Three readable cards, source clocks, draft text and reply links; no clipping observed."
+  },
+  "public_write_performed": false,
+  "native_file_dialogs_opened": 0,
+  "other_agents_tabs_changed": false
+}

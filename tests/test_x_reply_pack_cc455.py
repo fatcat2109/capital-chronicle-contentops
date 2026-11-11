@@ -106,6 +106,7 @@ def test_mentions_and_quotes_use_same_pack_from_non_target_accounts():
     (lambda d: d.update(draft_text=d["draft_text"] + " As an AI."), "PROMOTION_OR_AI_LABEL"),
     (lambda d: d.update(draft_text=d["draft_text"] + " DEMO account."), "PRIVATE"),
     (lambda d: d.update(draft_text=d["draft_text"] + " https://elsewhere.com"), "NOT_OWN_CONFIRMED_PAGE"),
+    (lambda d: d.update(draft_text=d["draft_text"] + " elsewhere.com"), "NOT_OWN_CONFIRMED_PAGE"),
 ])
 def test_public_copy_and_source_failures_do_not_become_usable_drafts(setup, change, cause):
     ready, response, path = response_for(setup)
@@ -186,3 +187,86 @@ def test_older_frozen_call_clock_and_retained_source_survive_new_feed_scan(setup
     store.register_outbox_message(message_id=latest, work_item_id=latest, destination="internal:cc-report-feed",
                                   payload=json.dumps({"desk_record_sources": []}))
     assert build(setup, ready, path)["item_count"] == 1  # Original exact source remains usable.
+
+
+def manual_feed(setup, *, parent="123", handle="Capitalnicle", metrics=None, when=None):
+    _, _, root = setup
+    posted = NOW + timedelta(minutes=5)
+    row = post("456", handle, text="Jim's edited reply with the same source fact.", age=-5,
+               in_reply_to_status_id=parent)
+    if metrics is not None:
+        row.update(metrics=metrics, metrics_observed_at_utc=(when or posted + timedelta(hours=24)).isoformat())
+    path = root / "held-own-replies.json"
+    packs.save_json(path, {"generated_at_utc": (when or posted).isoformat(), "rows": [row]})
+    return path, posted
+
+
+def test_jims_edited_reply_joins_exact_parent_and_existing_24h_consumer(setup):
+    store, _, _ = setup
+    ready, _, response = response_for(setup)
+    built = build(setup, ready, response)
+    feed, posted = manual_feed(setup)
+    result = packs.observe_manual_replies(store, reply_feed_path=feed, now=posted)
+    assert len(result["observed"]) == 1 and result["public_write_performed"] is False
+    record = result["observed"][0]
+    dispatch = store.get_platform_dispatch(record["dispatch_id"])
+    assert packs.clock(dispatch["dispatched_at"]) == posted
+    assert dispatch["public_object_url"] == "https://x.com/Capitalnicle/status/456"
+    message = json.loads(store.get_outbox_message(record["readback_message_id"])["payload"])
+    assert message["pack_message_id"] == built["store_message_id"] and message["draft_edited"]
+    assert store.list_readbacks_for_dispatch(dispatch["dispatch_id"])
+    observation = store.get_performance_observation(record["daily_observation_id"])
+    assert packs.clock(observation["scheduled_for_utc"]) == posted + timedelta(hours=24)
+    assert json.loads(observation["metrics_native_json"]) == {}
+    assert packs.report_manual_replies(store, now=posted)["cohorts"][0]["posted"] == 1
+    assert packs.observe_manual_replies(store, reply_feed_path=feed, now=posted) == result
+    assert not store.list_outbox_messages(destination="x")  # The dispatch is an observed manual object.
+
+
+def test_collected_24h_metrics_keep_unavailable_distinct_from_zero(setup):
+    store, _, _ = setup
+    ready, _, response = response_for(setup)
+    build(setup, ready, response)
+    feed, posted = manual_feed(setup, metrics={"views": 123, "likes": 0})
+    result = packs.observe_manual_replies(store, reply_feed_path=feed, now=posted + timedelta(hours=24))
+    observation = store.get_performance_observation(result["observed"][0]["daily_observation_id"])
+    assert json.loads(observation["metrics_native_json"]) == {"views": 123, "likes": 0}
+    assert json.loads(observation["metric_availability_json"])["profile_visits"] == "NOT_EXPOSED"
+    group = packs.report_manual_replies(store, now=posted + timedelta(hours=24))["cohorts"][0]
+    assert group["views"] == 123 and group["likes"] == 0 and group["profile_visits"] is None
+    assert group["target_author"] == "FirstSquawk" and group["reply_shape"] == "priced_in_comparison"
+    assert group["collected_24h"] == 1
+    next_request = packs.prepare(store, feed_path=setup[1], output_root=setup[2], now=posted + timedelta(hours=24))
+    feedback = packs.read_json(next_request["request_path"])["audience_feedback"]
+    assert feedback["cohorts"][0]["views"] == 123 and feedback["review_due"] is False
+
+
+def test_early_or_unrelated_reader_rows_never_prove_manual_reply_or_24h_metrics(setup):
+    store, _, _ = setup
+    ready, _, response = response_for(setup)
+    build(setup, ready, response)
+    feed, posted = manual_feed(setup, parent="999")
+    assert not packs.observe_manual_replies(store, reply_feed_path=feed, now=posted)["observed"]
+    feed, _ = manual_feed(setup, handle="Impersonator")
+    assert not packs.observe_manual_replies(store, reply_feed_path=feed, now=posted)["observed"]
+    feed, _ = manual_feed(setup, metrics={"views": 999}, when=posted + timedelta(hours=1))
+    result = packs.observe_manual_replies(store, reply_feed_path=feed, now=posted + timedelta(hours=25))
+    observation = store.get_performance_observation(result["observed"][0]["daily_observation_id"])
+    assert observation["collection_status"] == "SCHEDULED"
+    assert packs.report_manual_replies(store, now=posted + timedelta(hours=25))["cohorts"][0]["views"] is None
+
+
+def test_observed_post_clock_is_write_once_and_requires_offset(setup):
+    from live_contentops.durable_operational_store_v1 import DispatchIdentityConflictError
+
+    store, _, _ = setup
+    ready, _, response = response_for(setup)
+    build(setup, ready, response)
+    feed, posted = manual_feed(setup)
+    result = packs.observe_manual_replies(store, reply_feed_path=feed, now=posted)
+    row = result["observed"][0]
+    args = dict(dispatch_id=row["dispatch_id"], message_id=row["readback_message_id"], platform="x")
+    with pytest.raises(DispatchIdentityConflictError, match="dispatched_at"):
+        store.register_platform_dispatch(**args, observed_dispatched_at_utc=(posted + timedelta(seconds=1)).isoformat())
+    with pytest.raises(ValueError, match="OFFSET_REQUIRED"):
+        store.register_platform_dispatch(**args, observed_dispatched_at_utc="2026-11-11T00:35:00")

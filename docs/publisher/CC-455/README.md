@@ -42,5 +42,42 @@ CC-386 regressions, actual JSON/HTML consumption, exact intent decoding, source
 and target changes, clock/expiry handling, private-copy refusals, retained source
 reuse and zero agent dispatches. Ruff passes for the changed Python files.
 
-Manual-reply readback, installed-consumer evidence and the live Neo link check
-are the next sub-step. No schedule is changed; Ops Product owns cadence activation.
+The same runner now also has `pack-observe` and `pack-report`. Each build reads
+the held own-reply feed once. `--mentions-feed` and `--reply-feed` accept the
+existing signed-in reader's saved rows; they never start a browser or a reader.
+A manual readback requires @Capitalnicle's exact author, URL, post ID and
+`in_reply_to_status_id` (or `in_reply_to_id`). Similar wording is insufficient.
+Jim's edited text is retained separately from the draft. Observed manual objects
+use the existing dispatch, readback, reconciliation and performance tables;
+their outbox destination stays internal and no public X outbox is created.
+
+The dispatch registration's optional observed clock preserves the actual post
+time, rather than the later import time. That clock and public identity are
+write-once. The DAILY observation is due 24 hours after the actual post.
+Reader rows may supply `metrics_observed_at_utc` and `metrics` (`views`, `likes`,
+`profile_visits`); early captures cannot prove a 24-hour result, and missing
+metrics never become zero. `pack-report` groups the last fourteen days by target,
+reply shape and ET build time. The next native preparation receives that feedback
+and its fourteen-day review clock, so audience evidence feeds future selection.
+No target is dropped because a metric was unavailable.
+
+`consumer-tests.xml` records 96 passes across the pack, canonical store and
+existing reply tests. `final-pack-tests.xml` records 21 pack passes, including
+bare-domain link refusal. `feedback-and-html-tests.xml` adds the final three
+selected checks for feedback reaching the next native request and HTML handling.
+These are targeted runs, one pytest process at a time; no full suite was run.
+
+One real pack was built at **11 November 2026 07:33 GMT+7**, from the live feed,
+with three drafts (202, 213 and 208 characters) bound to frozen euro, S&P futures
+and WTI futures calls. Its JSON/HTML are in the agreed Runtime directory. Its
+internal outbox key is
+`x-reply-pack-477ed70a83a9551f0ea09a3edab044a3fce2618877946adaca3b42953887b985`.
+`browser-intent-proof.json` records three actual Neo reply composers, each under
+the expected author/post with the exact draft prefilled, and zero submit actions.
+The real HTML was opened and its rendered pixels inspected. Jim's and other
+agents' tabs were left as found. No file upload or native dialog was used.
+
+No schedule is changed. Ops Product owns 08:15 ET and release-plus-ten-minute
+cadence activation, after its consumer read. Jim's first actual manual reply and
+its real readback/24-hour metrics remain future observations; controlled tests
+prove the consumer path, not a reply that has not been posted.

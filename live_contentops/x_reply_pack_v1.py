@@ -108,11 +108,12 @@ def select_posts(feed, *, handles, mentions=None, now=None):
     return selected, dict(causes)
 
 
-def held_sources(store, *, desk_message_id=None, call_message_id=None):
+def held_sources(store, *, desk_message_id=None, call_message_id=None, include_desk=True, include_calls=True):
     """Reuse the source owner's public projection and our frozen public calls."""
     sources = []
-    rows = ([store.get_outbox_message(desk_message_id)] if desk_message_id else
-            store.list_outbox_messages(destination="internal:cc-report-feed"))
+    rows = (([store.get_outbox_message(desk_message_id)] if desk_message_id else
+             store.list_outbox_messages(destination="internal:cc-report-feed")) if include_desk else [])
+    rows = [r for r in rows if r and r["destination"] == "internal:cc-report-feed"]
     if rows:
         row = rows[-1]
         data = json.loads(row["payload"])
@@ -140,9 +141,11 @@ def held_sources(store, *, desk_message_id=None, call_message_id=None):
                     "store_message_id": row["message_id"],
                     "store_payload_sha256": digest(data),
                 })
-    calls = ([store.get_outbox_message(call_message_id)] if call_message_id else
-             store.list_outbox_messages(destination="internal:plan-status-post"))
+    calls = (([store.get_outbox_message(call_message_id)] if call_message_id else
+              store.list_outbox_messages(destination="internal:plan-status-post")) if include_calls else [])
     for row in calls:
+        if not row or row["destination"] != "internal:plan-status-post":
+            continue
         data = json.loads(row["payload"])
         # These are the source owner's public, frozen setup calls, not fills or account data.
         if data.get("kind") != "setup" or not data.get("text"):
@@ -168,6 +171,7 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
         "schema_version": "contentops.x_reply_pack_request.v1", "prepared_at_utc": now.isoformat(),
         "feed_generated_at_utc": feed["generated_at_utc"], "feed_sha256": digest(feed),
         "candidates": posts, "selection_causes": causes, "sources": sources,
+        "audience_feedback": report_manual_replies(store, now=now),
         "instructions": (
             "Author English replies for Jim to review and post himself (decision 122). "
             "Choose 3-5 useful target posts, at most one per target author, plus every useful mention. "
@@ -180,6 +184,10 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
             "draft_text, addition (in the draft), point, reply_shape}], and omissions [{post_id, cause}]. "
             "Use the same operation's native editorial route; never call Claude or a paid model API. "
             "No link unless it is our confirmed published Substack page."
+            " Use audience_feedback for selection: after its fourteen-day review is due, "
+            "drop targets and reply shapes with measured zero views; prefer those earning views "
+            "and drafts Jim actually posted. Uncaptured metrics stay unknown. Audience numbers "
+            "are private selection feedback, never source facts for the reply."
         ),
         "PUBLIC_NOTICE": PUBLIC_NOTICE,
         "public_write_performed": False,
@@ -219,7 +227,7 @@ def validate_draft(draft, post, source, *, now, published_urls=()):
     if find_forbidden_link(text):
         raise ValueError("PREVIEW_HOST_LINK_FORBIDDEN")
     require_public_time(text)
-    for url in re.findall(r"https?://\S+", text):
+    for url in re.findall(r"(?:https?://|www\.)\S+|(?<![\w@])[a-zA-Z0-9.-]+\.(?:com|net|org|io|app|dev|co)\b\S*", text):
         if url.rstrip(".,)") not in published_urls:
             raise ValueError("REPLY_LINK_NOT_OWN_CONFIRMED_PAGE")
     if re.search(r"\b(?:AI[- ]?(?:generated|written|run)|as an AI|follow us|buy now|CFDs?)\b", text, re.I):
@@ -239,7 +247,9 @@ def validate_draft(draft, post, source, *, now, published_urls=()):
 def render_html(pack):
     cards = []
     for item in pack["items"]:
-        sources = "; ".join(escape(s["label"]) + " · " + escape(s["known_at_utc"]) for s in item["sources"])
+        sources = "; ".join(escape(s["label"]) + " · " +
+                            clock(s["known_at_utc"]).astimezone(LOCAL).strftime("%d %b %Y %H:%M GMT+7")
+                            for s in item["sources"])
         cards.append(
             '<article data-post-time="' + escape(item["post_time_utc"], quote=True) + '">'
             '<h2><a href="' + escape(item["post_url"], quote=True) + '">@' + escape(item["author_handle"]) + '</a></h2>'
@@ -282,7 +292,8 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
         if bound["source_id"] not in {d.get("source_id") for d in response.get("items", [])}:
             continue
         options = {"desk_message_id" if bound["kind"] == "MAIN_PUBLIC_DESK_FIELD" else "call_message_id":
-                   bound["store_message_id"]}
+                   bound["store_message_id"], "include_desk": bound["kind"] == "MAIN_PUBLIC_DESK_FIELD",
+                   "include_calls": bound["kind"] == "FROZEN_PUBLIC_CALL"}
         sources.update({s["source_id"]: s for s in held_sources(store, **options)})
     published_urls = {d["public_object_url"] for d in store.list_platform_dispatches()
                       if d["platform"] == "substack" and d["status"] == "DISPATCH_CONFIRMED"
@@ -365,3 +376,150 @@ def read_pack(path, *, now=None):
                  "age_seconds": (now - clock(i["post_time_utc"])).total_seconds(),
                  "stale": now >= clock(i["stale_at_utc"]), "intent_url": i["intent_url"]}
                 for i in pack["items"]], "public_write_performed": False}
+
+
+def observe_manual_replies(store, *, reply_feed_path, now=None):
+    """Join exact own-account reply edges from the held signed-in reader.
+
+    Jim may edit a draft. The observed text is retained separately; neither text
+    similarity nor a matching number is evidence of a reply edge. Metrics use
+    the existing dispatch/readback/performance tables that CC-402 consumes.
+    """
+    from live_contentops import daily_app_performance_v1 as perf
+
+    now = now or utcnow()
+    feed = read_json(reply_feed_path)
+    packs = [(r["message_id"], json.loads(r["payload"]))
+             for r in store.list_outbox_messages(destination=PACK_DESTINATION)]
+    observed, causes = [], Counter()
+    for row in feed.get("rows", []):
+        if str(row.get("handle", "")).lstrip("@").casefold() != "capitalnicle":
+            continue
+        match = POST.fullmatch(str(row.get("url", "")))
+        post_id = str(row.get("tweet_id", ""))
+        parent = str(row.get("in_reply_to_status_id") or row.get("in_reply_to_id") or "")
+        if not match or match[1].casefold() != "capitalnicle" or match[2] != post_id or not parent.isdigit():
+            causes["MANUAL_REPLY_EXACT_AUTHOR_IDENTITY_AND_PARENT_REQUIRED"] += 1
+            continue
+        try:
+            posted = clock(row["posted_utc"])
+        except (ValueError, KeyError, TypeError):
+            causes["MANUAL_REPLY_POST_CLOCK_INVALID"] += 1
+            continue
+        if posted > now:
+            causes["MANUAL_REPLY_POST_CLOCK_IN_FUTURE"] += 1
+            continue
+        candidates = [(key, pack, item) for key, pack in packs for item in pack["items"]
+                      if item["post_id"] == parent and clock(pack["built_at_utc"]) <= posted]
+        if not candidates:
+            continue
+        key, pack, item = max(candidates, key=lambda c: clock(c[1]["built_at_utc"]))
+        text = str(row.get("text", ""))
+        if not text or public_text_problems(text):
+            causes["MANUAL_REPLY_EMPTY_OR_PRIVATE_TEXT"] += 1
+            continue
+        message_id = "manual-x-reply-" + post_id
+        dispatch_id = "dispatch_" + message_id
+        prior = store.get_outbox_message(message_id)
+        if prior:
+            value = json.loads(prior["payload"])
+            if any(value[k] != expected for k, expected in (
+                ("post_url", row["url"]), ("parent_post_id", parent), ("posted_at_utc", posted.isoformat())
+            )):
+                raise ValueError("MANUAL_REPLY_OBSERVED_IDENTITY_CHANGED")
+        else:
+            value = {
+                "kind": "manual_x_reply_readback", "pack_message_id": key,
+                "parent_post_id": parent, "target_author": item["author_handle"],
+                "post_id": post_id, "post_url": row["url"], "text": text,
+                "posted_at_utc": posted.isoformat(), "observed_at_utc": now.isoformat(),
+                "pack_built_at_utc": pack["built_at_utc"], "reply_shape": item.get("reply_shape"),
+                "draft_edited": text != item["draft_text"],
+                "posted_after_draft_expired": posted >= clock(item["stale_at_utc"]),
+                "reader_feed_path": str(reply_feed_path), "reader_feed_sha256": digest(feed),
+                "public_write_performed": False, "publication_route": "JIM_MANUAL_DECISION_122",
+            }
+            store.create_work_item(story_id=message_id, title="Jim's observed X reply", target_surface="PRIVATE",
+                                   work_item_id=message_id)
+            store.register_outbox_message(message_id=message_id, work_item_id=message_id,
+                                          destination=READBACK_DESTINATION, payload=json.dumps(value, sort_keys=True),
+                                          status="READBACK_CONFIRMED")
+        dispatch = store.register_platform_dispatch(
+            dispatch_id=dispatch_id, message_id=message_id, platform="x", status="DISPATCH_CONFIRMED",
+            public_object_id=post_id, public_object_url=row["url"], observed_dispatched_at_utc=posted.isoformat(),
+        )
+        store.register_readback(readback_id="readback_" + message_id, dispatch_id=dispatch_id,
+                                readback_data=json.dumps(value, sort_keys=True))
+        store.register_reconciliation(reconciliation_id="reconciliation_" + message_id,
+                                      work_item_id=message_id, status="RECONCILED_CONFIRMED")
+        daily = next(o for o in perf.build_scheduled_observations(
+            dispatch=dispatch, work_item_id=message_id, dispatched_at=posted, learning_eligible=True,
+        ) if o["observation_window"] == "DAILY")
+        store.register_performance_observation(observation=daily)
+        if now >= posted + timedelta(hours=24):
+            # Only a reader capture at/after the due time can supply the 24-hour metrics.
+            capture = row.get("metrics_observed_at_utc")
+            if capture and posted + timedelta(hours=24) <= clock(capture) <= now:
+                metrics, availability = {}, {}
+                supplied = row.get("metrics", {})
+                for name in ("views", "likes", "profile_visits"):
+                    value_ = supplied.get(name)
+                    if type(value_) in (int, float) and value_ >= 0 and value_ < float("inf"):
+                        metrics[name], availability[name] = value_, "AVAILABLE"
+                    else:
+                        availability[name] = "NOT_EXPOSED" if name == "profile_visits" else "NOT_CAPTURED"
+                store.mark_performance_observation_collected(
+                    observation_id=daily["observation_id"], collection_status="COLLECTED" if metrics else "UNAVAILABLE",
+                    collected_at_utc=clock(capture).isoformat(), metrics_native_json=json.dumps(metrics, sort_keys=True),
+                    metric_availability_json=json.dumps(availability, sort_keys=True),
+                    source_identity="contentops.x_feed_reader.manual_reply.v1",
+                )
+        observed.append({"post_id": post_id, "parent_post_id": parent, "target_author": item["author_handle"],
+                         "readback_message_id": message_id, "dispatch_id": dispatch_id,
+                         "daily_observation_id": daily["observation_id"]})
+    return {"observed": observed, "causes": dict(causes), "public_write_performed": False}
+
+
+def report_manual_replies(store, *, now=None):
+    """Fourteen-day cohorts by target, authored reply shape and actual ET build time."""
+    now = now or utcnow()
+    since = now - timedelta(days=14)
+    cohorts, packs, first_built = {}, {}, None
+    for row in store.list_outbox_messages(destination=PACK_DESTINATION):
+        pack = json.loads(row["payload"])
+        built = clock(pack["built_at_utc"])
+        if built <= now:
+            first_built = min(first_built, built) if first_built else built
+        if not since <= built <= now:
+            continue
+        packs[row["message_id"]] = pack
+        for item in pack["items"]:
+            cohort = (item["author_handle"], item.get("reply_shape") or "unspecified",
+                      clock(pack["built_at_utc"]).astimezone(ZoneInfo("America/New_York")).strftime("%H:%M ET"))
+            group = cohorts.setdefault(cohort, {"target_author": cohort[0], "reply_shape": cohort[1],
+                "build_time_et": cohort[2], "drafts": 0, "posted": 0,
+                "views": None, "likes": None, "profile_visits": None, "collected_24h": 0})
+            group["drafts"] += 1
+    for row in store.list_outbox_messages(destination=READBACK_DESTINATION):
+        value = json.loads(row["payload"])
+        pack = packs.get(value["pack_message_id"])
+        if not pack:
+            continue
+        cohort = (value["target_author"], value.get("reply_shape") or "unspecified",
+                  clock(pack["built_at_utc"]).astimezone(ZoneInfo("America/New_York")).strftime("%H:%M ET"))
+        group = cohorts[cohort]
+        group["posted"] += 1
+        for observation in store.list_performance_observations(dispatch_id="dispatch_" + row["message_id"]):
+            if observation["observation_window"] != "DAILY" or observation["collection_status"] != "COLLECTED":
+                continue
+            group["collected_24h"] += 1
+            metrics, available = json.loads(observation["metrics_native_json"]), json.loads(observation["metric_availability_json"])
+            for name in ("views", "likes", "profile_visits"):
+                if available.get(name) == "AVAILABLE" and name in metrics:
+                    group[name] = (group[name] or 0) + metrics[name]
+    review_due = first_built + timedelta(days=14) if first_built else None
+    return {"from_utc": since.isoformat(), "to_utc": now.isoformat(),
+            "review_due_at_utc": review_due.isoformat() if review_due else None,
+            "review_due": now >= review_due if review_due else False,
+            "cohorts": sorted(cohorts.values(), key=lambda c: (-(c["views"] or 0), c["target_author"])),
+            "public_write_performed": False}

@@ -12,7 +12,7 @@ from live_contentops.sourced_replies_v1 import stage, publish, report, ROOT
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("command", choices=["stage", "publish", "status", "pack-prepare", "pack-build", "pack-status"])
+    p.add_argument("command", choices=["stage", "publish", "status", "pack-prepare", "pack-build", "pack-status", "pack-observe", "pack-report"])
     p.add_argument("--store", required=True)
     p.add_argument("--candidate", type=Path)
     p.add_argument(
@@ -29,12 +29,17 @@ def main():
     p.add_argument("--pack", type=Path)
     p.add_argument("--output-root", type=Path)
     p.add_argument("--mentions-feed", type=Path)
+    p.add_argument("--reply-feed", type=Path)
     args = p.parse_args()
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
     if args.command.startswith("pack-"):
         from live_contentops import x_reply_pack_v1 as packs
 
-        if args.command == "pack-status":
+        if args.command == "pack-report":
+            result = packs.report_manual_replies(store)
+        elif args.command == "pack-observe":
+            result = packs.observe_manual_replies(store, reply_feed_path=args.reply_feed or args.feed)
+        elif args.command == "pack-status":
             if not args.pack:
                 p.error("--pack required")
             result = packs.read_pack(args.pack)
@@ -48,6 +53,7 @@ def main():
                 if not args.request or not args.response:
                     p.error("--request and --response required")
                 result = packs.build(**options, request_path=args.request, response_path=args.response)
+                result["readback"] = packs.observe_manual_replies(store, reply_feed_path=args.reply_feed or args.feed)
     elif args.command == "stage":
         if not args.candidate:
             p.error("--candidate required")

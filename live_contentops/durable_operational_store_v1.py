@@ -1248,6 +1248,7 @@ class ContentOpsDurableStore:
         status: str = "PENDING",
         public_object_id: Optional[str] = None,
         public_object_url: Optional[str] = None,
+        observed_dispatched_at_utc: Optional[str] = None,
     ) -> Dict[str, Any]:
         """Register a canonical dispatch with the exact external public-object identity.
 
@@ -1262,12 +1263,18 @@ class ContentOpsDurableStore:
         public_object_url_hash = (
             compute_sha256(public_object_url) if public_object_url else None
         )
+        dispatched_at = self._get_now_iso()
+        if observed_dispatched_at_utc is not None:
+            observed = datetime.fromisoformat(observed_dispatched_at_utc.replace("Z", "+00:00"))
+            if observed.tzinfo is None:
+                raise ValueError("DISPATCH_OBSERVED_TIME_OFFSET_REQUIRED")
+            dispatched_at = observed.astimezone(timezone.utc).isoformat()
         columns = (
             "dispatch_id", "message_id", "platform", "status", "dispatched_at",
             "public_object_id", "public_object_url", "public_object_url_hash",
         )
         values = (
-            dispatch_id, message_id, platform, status, self._get_now_iso(),
+            dispatch_id, message_id, platform, status, dispatched_at,
             public_object_id, public_object_url, public_object_url_hash,
         )
         conn = self.get_connection()
@@ -1282,6 +1289,12 @@ class ContentOpsDurableStore:
                 # safe one-time completion; a registration without identity never erases one.
                 stored_id = existing["public_object_id"]
                 stored_url = existing["public_object_url"]
+                if observed_dispatched_at_utc is not None and datetime.fromisoformat(
+                    str(existing["dispatched_at"]).replace("Z", "+00:00")
+                ) != observed:
+                    raise DispatchIdentityConflictError(
+                        f"platform_dispatch_identity_conflict:{dispatch_id}:dispatched_at"
+                    )
                 if public_object_id is not None and stored_id is not None and public_object_id != stored_id:
                     raise DispatchIdentityConflictError(
                         f"platform_dispatch_identity_conflict:{dispatch_id}:public_object_id"
