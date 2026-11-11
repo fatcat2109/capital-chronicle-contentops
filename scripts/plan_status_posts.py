@@ -127,6 +127,9 @@ def main(argv=None) -> int:
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))
             from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
             result["publication"]["neo_stored_requests"] = resume_stored_requests(store)
+            from live_contentops.substack_daily_note_v1 import run_due as daily_note
+            result["substack_daily_note"] = daily_note(store,
+                output_root=args.store.parent / "daily_app_outputs/substack-daily-notes", automatic_neo=True)
         if not args.dry_run:
             if args.publish:
                 # The own-reply observation survives parking the old draft tabs.

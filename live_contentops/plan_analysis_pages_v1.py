@@ -628,6 +628,9 @@ def validate_link_plan(store, work_item_id, plan):
         raise ValueError("PLAN_ANALYSIS_EXACT_LINK_REQUIRED")
     if value.get("kind") == "run":
         return _validate_run_link(store, value)
+    if value.get("kind") == "daily_note":
+        from .substack_daily_note_v1 import validate_note
+        return validate_note(store, value)
     packet=json.loads(store.get_outbox_message(value["page_id"])["payload"])
     validate_plan(store,packet["page_id"],packet["plan"])
     if page_status(store,packet)["canonical_url"]!=value["canonical_url"]:
@@ -680,6 +683,9 @@ def validate_link_plan(store, work_item_id, plan):
 def validate_link_intent(store, intent):
     value=json.loads(store.get_outbox_message(intent["work_item_id"])["payload"])
     value=validate_link_plan(store,intent["work_item_id"],value["plan"])
+    if value.get("kind") == "daily_note":
+        from .substack_daily_note_v1 import validate_note
+        validate_note(store, value, now=datetime.now(timezone.utc))
     if intent.get("native_payload")!=value["native_payload"] or intent.get("canonical_url")!=value["canonical_url"]:
         raise ValueError("PLAN_ANALYSIS_LINK_INTENT_CHANGED")
     return value
