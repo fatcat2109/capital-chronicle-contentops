@@ -606,6 +606,16 @@ class NeoDestinationHandoff:
                     "reason_code": "NEO_NATIVE_EXECUTOR_NOT_BOUND", "request": request,
                     "public_write_performed": False}
         result = dict(self.native_executor(request))
+        if (result.get("request_sha256") == request["request_sha256"]
+                and result.get("native_tool_return_sha256")
+                and result.get("status") == "FAILED_BEFORE_WRITE"
+                and result.get("stage") == "BEFORE_PUBLISH_CLICK"
+                and result.get("definite_no_write") is True and result.get("public_write_performed") is False
+                and not result.get("public_object_id") and not result.get("public_object_url")
+                and not (result.get("native_tool_observation") or {}).get("dispatched_at_utc")):
+            # No click needs no signed-in identity. Preserve the observed local
+            # refusal instead of turning a missing identity into UNKNOWN_WRITE.
+            return result
         if (result.get("request_sha256") == request["request_sha256"] and result.get("composed_identity") is not None
                 and result.get("definite_no_write") is True and str(result.get("status")) == "FAILED_BEFORE_WRITE"
                 and result.get("public_write_performed") is False

@@ -194,6 +194,9 @@ class PublicOutputError(ValueError):
 
 def public_execution_copy_forbidden(text: str) -> bool:
     """Keep position calls private while allowing a central bank's policy target."""
+    # CC-466: an explicitly sourced result in R is public; cash, size and
+    # account identifiers remain private. Only the signed result grammar is exempt.
+    text = re.sub(r"\bResult: [+−-]\d+\.\dR\.", "Result: recorded.", text)
     if _PRIVATE_TEXT.search(text):
         return True
     for match in _INSTRUCTION.finditer(text):
@@ -215,6 +218,12 @@ def reader_conditional_call_text(call: Mapping[str, Any]) -> str:
     """The same five bound fields in decision 98's first-person reader form."""
     return (f"We are {call['direction']} on {call['market']} if {call['condition']}. "
             f"Our horizon is {call['horizon']}. Our view is invalidated if {call['invalidation']}.")
+
+
+def compact_reader_conditional_call_text(call: Mapping[str, Any]) -> str:
+    """CC-466: the same bound condition, direction, horizon and invalidation."""
+    return (f"We are {call['direction']} on {call['market']} if {call['condition']}. "
+            f"Wrong {call['invalidation']}. Ends {call['horizon']}.")
 
 
 def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
@@ -261,9 +270,10 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
             _fail("CALL_CONDITION_OR_INVALIDATION_INVALID", "conditional_calls")
         wording = conditional_call_text(call)
         reader_wording = reader_conditional_call_text(call)
-        if require_call_text and not any(w in combined for w in (wording, reader_wording)):
+        compact_wording = compact_reader_conditional_call_text(call)
+        if require_call_text and not any(w in combined for w in (wording, reader_wording, compact_wording)):
             _fail("CONDITIONAL_CALL_NOT_IN_AUTHORED_COPY", "conditional_calls")
-        remainder = remainder.replace(wording, "").replace(reader_wording, "")
+        remainder = remainder.replace(wording, "").replace(reader_wording, "").replace(compact_wording, "")
     if calls and CONFLICTS_NOTICE not in combined:
         _fail("CONFLICTS_NOTICE_REQUIRED", "copy")
     # CC-379 / decision 106: a dated, resolved call is a record of the original

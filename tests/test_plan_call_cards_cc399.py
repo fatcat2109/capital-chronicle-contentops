@@ -22,14 +22,19 @@ def controlled_tradingview(monkeypatch, tmp_path):
     from live_contentops import tradingview_snapshot_v1 as tv
     capture = tv.capture
     def snapshot(market, interval, folder, **kwargs):
+        from live_contentops import publication_image_contract_v1 as contract
         def worker(args):
             path = Path(args["out_dir"]) / (tv.SYMBOLS[market].split(":")[1] + "_2026-11-11_00-00-00.png")
-            image = Image.new("RGB", (800, 450), "white")
+            image = Image.new("RGB", (640, 800) if kwargs.get("ratio") == "4:5" else (800, 450), "white")
             ImageDraw.Draw(image).text((20, 20), "CONTROLLED MEDIA FIXTURE / " + market, fill="black")
             image.save(path)
-            return {"path": str(path), "suggested_filename": path.name,
+            return {"path": str(path), "suggested_filename": path.name, "page_title": market+" 100",
                     "legend": tv.INTERVAL_LABELS[interval], "captured_at_utc": datetime.now(timezone.utc).isoformat()}
-        return capture(market, interval, folder, worker=worker)
+        taken=capture(market, interval, folder, worker=worker, ratio=kwargs.get("ratio", "16:9"))
+        at=taken['captured_at_utc']
+        return contract.bind_scale(market,taken,quote={"market":market,"instrument":market,"price":100,
+            "quoted_at_utc":at,"known_at_utc":at,"source_path":"controlled-fixture.json",
+            "source_sha256":"a"*64,"price_basis":"plan_feed"})
     monkeypatch.setattr(tv, "capture", snapshot)
     monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
 
@@ -101,6 +106,25 @@ def test_five_plans_make_one_run_and_five_cards_once(five, main_root):
     assert all(r["parent_key"] == run["key"] for r in calls)
     assert queue(store, folder, main_root)["queued"] == []
     assert len(rows(store)) == 6
+
+
+def test_cc466_new_consumer_queues_only_plans_and_dry_run_has_no_old_count_copy(five,main_root):
+    store,folder,plans,events=five
+    now=datetime(2026,11,12,1,tzinfo=timezone.utc)
+    for p in plans:
+        p['registered_at_utc']='2026-11-12T00:55:00Z'
+        p['time_exit_utc']='2026-11-12T15:00:00Z'
+        p['entry_deadline_utc']='2026-11-12T13:00:00Z'
+    events=[event(p['plan_id'],'WAITING',p['registered_at_utc']) for p in plans]
+    write(folder,plans,events,generated_at_utc=now.isoformat())
+    result=posts.queue_posts(store,folder,now=now,main_root=main_root,python=sys.executable)
+    queued=rows(store)
+    assert len(queued)==5 and all(r['kind']=='setup' and r['reader_contract']=='CC466_V1' for r in queued)
+    assert all(not r.get('parent_key') and not r.get('text') for r in queued)
+    dry=posts.queue_posts(store,folder,now=now,main_root=main_root,python=sys.executable,
+                          dry_run=True,render_all=True)
+    assert all(r['status']=='EDITORIAL_INPUT_REQUIRED' for r in dry['rendered_posts'])
+    assert all(not r['destinations'] for r in dry['rendered_posts'])
 
 
 def test_upgrade_reuses_legacy_shared_work_item_genesis(five, main_root):
@@ -252,7 +276,7 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
     result = posts.publish_ready(store, now=NOW, latest_states=queued["latest_states"],
         root=tmp_path / "posts", host=fake_host, coordinator_for=lambda key, folder: coordinator)
     assert len(result["posts"]) == 6, result
-    assert all(r["status"] == "PUBLISHED" for r in result["posts"]), result
+    assert all(r["status"] == "PUBLISHED" for r in result["posts"]), json.dumps(result,indent=2)
     first_count = len(cards.DESTINATIONS) + 5 * (len(cards.DESTINATIONS) - 1)
     assert len(runtime.intents) == first_count
     assert [i["work_item_id"] for i in runtime.intents if i["destination_plan"]["destination"] == "linkedin"] == [

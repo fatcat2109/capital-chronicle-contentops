@@ -17,9 +17,11 @@ from live_contentops.plan_status_posts_v1 import read_export
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("command", choices=["render", "register", "status", "resume", "readback", "begin", "submit",
-                                          "links", "link-resume", "link-readback", "link-begin", "link-submit"])
+                                          "links", "link-resume", "link-readback", "link-begin", "link-submit", "prepare-variants"])
     parser.add_argument("--plan-id")
     parser.add_argument("--link-id")
+    parser.add_argument("--post-key")
+    parser.add_argument("--retry-failed-text", action="store_true", help="one explicit new attempt; retain the failed native result")
     parser.add_argument("--manuscript", type=Path)
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--store", type=Path, default=PRODUCTION_STORE)
@@ -30,7 +32,16 @@ def main(argv=None):
     parser.add_argument("--rollout", type=Path, default=Path("config/native_desktop_rollout_v1.json"))
     args = parser.parse_args(argv)
     store = ContentOpsDurableStore(args.store, auto_migrate=False)
-    if args.command == "links":
+    if args.command == "prepare-variants":
+        if not args.post_key:
+            parser.error("--post-key is required")
+        from live_contentops.plan_reader_editorial_v1 import prepare_social_row
+        row=json.loads(store.get_outbox_message(args.post_key)["payload"])
+        if row.get("reader_contract")!="CC466_V1":
+            raise ValueError("ISSUED_PACKET_RETAINED_NO_COPY_REWRITE")
+        result=prepare_social_row(store,row,root=args.output_dir or args.store.parent/"daily_app_outputs/plan_status_posts",
+                                  retry_failed=args.retry_failed_text)
+    elif args.command == "links":
         result = pages.distribute_links(store)
     elif args.command.startswith("link-"):
         if not args.link_id:

@@ -30,6 +30,17 @@ SECTIONS = (
     ("scenarios", "Scenarios: base, upside and downside"),
     ("desk_process", "How the desk reached its view"),
 )
+
+READER_SECTIONS = (
+    ("priced_in", "What is priced in"), ("positioning", "Positioning"),
+    ("fear", "Fear"), ("technical", "Structure"), ("story", "The story"),
+    ("macro", "Macro"), ("scenarios", "The scenarios"), ("plan", "The plan"),
+    ("invalidation", "What would change our mind"),
+)
+
+
+def sections_for(manuscript):
+    return READER_SECTIONS if manuscript.get("reader_contract") == "CC466_V1" else SECTIONS
 RIGHTS = {"CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", "PUBLIC_DOMAIN_OFFICIAL_FACT", "SINGLE_ATTRIBUTED_FACT"}
 _PRIVATE = re.compile(
     r"\b(?:demo|mt[45]|exness[\w-]*|metatrader|account\s+(?:id|number|balance|equity)|"
@@ -51,8 +62,15 @@ def _numbers(text):
     # A sign and a percentage are material. A scalar probability of 55 can
     # support '55%' but never a made-up complement or a changed magnitude.
     from .event_article_guard_v1 import NAMED_NUMBER
-    return {format(Decimal(m.group().replace(',', '').replace('−', '-').rstrip('%')).normalize(), 'f')
-            for m in _NUM.finditer(NAMED_NUMBER.sub('', str(text)))}
+    text = str(text)
+    # A stated decline and a signed negative are the same sourced magnitude.
+    # An unsigned rise never gains that equivalence.
+    text = re.sub(r"\b(?:down|fell|declined|dropped|lost)\s+(\d+(?:\.\d+)?%)", r"-\1", text, flags=re.I)
+    text = re.sub(r"\b(\d+(?:\.\d+)?%)\s+(?:decline|fall|drop|decrease)\b", r"-\1", text, flags=re.I)
+    values = {format(Decimal(m.group().replace(',', '').replace('−', '-').rstrip('%')).normalize(), 'f')
+              for m in _NUM.finditer(NAMED_NUMBER.sub('', text))}
+    values.update(re.findall(r"\b(?:SMA|ATR|M|H)(\d+)\b", text))
+    return values
 
 
 def _pointer(value, pointer):
@@ -70,11 +88,11 @@ def load_run(plan, *, run_root=RUN_ROOT):
                    if (Path(run_root) / kind / run_id / "role-pack.json").is_file()), None)
     if folder is None:
         raise ValueError("PLAN_ANALYSIS_RUN_NOT_FOUND")
-    names = ["role-pack.json", "role-evidence.json", "critic-note.json", "integrated-owner-record.json",
+    names = ["role-pack.json", "role-evidence.json", "integrated-owner-record.json",
              "plan-geometry.json", "options-context.json", "final-decision-freeze.json", "desktop-manual-result.json"]
     names += (["analysis-native.json"] if (folder / "analysis-native.json").is_file()
               else ["primary-native.json", "critical-native.json", "owner-native.json"])
-    names += [name for name in ("market-context.json", "shock-pack.json") if (folder / name).is_file()]
+    names += [name for name in ("critic-note.json", "market-context.json", "shock-pack.json") if (folder / name).is_file()]
     documents, manifest = {}, {}
     for name in names:
         raw = (folder / name).read_bytes()
@@ -85,7 +103,8 @@ def load_run(plan, *, run_root=RUN_ROOT):
     freeze = documents["final-decision-freeze.json"]
     if freeze.get("qualitative_result_hash") != plan.get("analysis_result_hash"):
         raise ValueError("PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH")
-    return {"folder": folder, "documents": documents, "manifest": manifest, "freeze": freeze}
+    return {"folder": folder, "documents": documents, "manifest": manifest, "freeze": freeze,
+            "source_plan": plan}
 
 
 def public_filter(text, *, rights="CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", source_name="Capital Chronicle",
@@ -117,17 +136,26 @@ def public_filter(text, *, rights="CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", source_
 
 def _source_text(run, ref):
     name, pointer = ref["file"], ref["pointer"]
-    if name not in run["documents"]:
+    if name == "plan-export":
+        document = run["source_plan"]
+    elif name in run["documents"]:
+        document = run["documents"][name]
+    else:
         raise ValueError("PLAN_ANALYSIS_SOURCE_FILE_NOT_BOUND")
     # Raw accounts, execution packets and bulk vendor series are never public
     # sources. Main's original analytical prose and official single facts are.
     if re.search(r"(?:account|portfolio_state|cost_inputs|cost_summary|execution|risk_allocation)", pointer, re.I):
         raise ValueError("PLAN_ANALYSIS_PRIVATE_SOURCE_POINTER")
-    value = _pointer(run["documents"][name], pointer)
+    value = _pointer(document, pointer)
     if not isinstance(value, (str, int, float)) or isinstance(value, bool):
         raise ValueError("PLAN_ANALYSIS_SCALAR_SOURCE_REQUIRED")
     if ref.get("transform") == "ET":
         return public_timestamp(value)
+    if ref.get("transform") == "ET12":
+        from .plan_reader_copy_v1 import et
+        return et(value)
+    if ref.get("transform") == "TIMEFRAME_WORDS":
+        return re.sub(r"\bM(\d+)\b", r"\1-minute", str(value))
     if ref.get("transform"):
         raise ValueError("PLAN_ANALYSIS_SOURCE_TRANSFORM_INVALID")
     return str(value)
@@ -137,7 +165,8 @@ def validate_manuscript(plan, manuscript, run):
     if (manuscript.get("plan_id") != plan["plan_id"]
             or manuscript.get("registration_hash") != plan["registration_hash"]):
         raise ValueError("PLAN_ANALYSIS_EXACT_PLAN_REQUIRED")
-    if set(manuscript.get("sections", {})) != {key for key, _ in SECTIONS}:
+    sections = sections_for(manuscript)
+    if set(manuscript.get("sections", {})) != {key for key, _ in sections}:
         raise ValueError("PLAN_ANALYSIS_ALL_SEVEN_SECTIONS_REQUIRED")
     private_texts = []
     for name in ("market-context.json", "shock-pack.json"):
@@ -149,7 +178,7 @@ def validate_manuscript(plan, manuscript, run):
             if name == "shock-pack.json" or _X.search(json.dumps(item)):
                 private_texts.extend(item[k] for k in ("headline", "text", "body", "title") if isinstance(item.get(k), str))
     bound = []
-    for key, _ in SECTIONS:
+    for key, _ in sections:
         section = manuscript["sections"][key]
         if not section.get("paragraphs") or not section.get("summary"):
             raise ValueError("PLAN_ANALYSIS_SECTION_EMPTY:" + key)
@@ -180,6 +209,7 @@ def validate_manuscript(plan, manuscript, run):
 def _owner_candidate(plan, run):
     documents = run["documents"]
     owner = documents.get("analysis-native.json", {}).get("native_synthesis") or documents["owner-native.json"]
+    owner = owner.get("native_synthesis") or owner
     cid = {"XAUUSD": "cand_macro_gold", "USOIL": "cand_macro_wti", "US500": "cand_macro_spx",
            "BTCUSD": "cand_macro_btcusd", "EURUSD": "cand_macro_eurusd", "USDJPY": "cand_macro_usdjpy"}.get(plan["asset_id"])
     index = next(i for i,c in enumerate(owner["candidates"]) if c["candidate_id"] == cid)
@@ -229,15 +259,25 @@ def _assemble(plan, manuscript, run):
     timestamp = public_timestamp(freeze["frozen_at_utc"])
     cutoff = public_timestamp(freeze.get("decision_cutoff_utc", freeze["frozen_at_utc"]))
     audit = f"Evidence cutoff: {cutoff}. The view was fixed at {timestamp}. Analysis fingerprint: {freeze['immutable_hash']}."
-    geometry, geometry_bindings = _public_geometry(plan, run)
+    reader = manuscript.get("reader_contract") == "CC466_V1"
+    geometry, geometry_bindings = ([], []) if reader else _public_geometry(plan, run)
     paragraphs = [manuscript["introduction"]]
-    for key, title in SECTIONS:
+    for key, title in sections_for(manuscript):
         paragraphs += ["## " + title, *[p["text"] for p in manuscript["sections"][key]["paragraphs"]]]
         if key == "technical":
             paragraphs += geometry
-    paragraphs += [audit, PUBLIC_NOTICE, CONFLICTS_NOTICE]
+    if reader:
+        from .plan_reader_copy_v1 import page_footer, check_text
+        paragraphs += page_footer(plan, freeze, legacy=manuscript.get("reader_revision", 1) < 2)
+    else:
+        paragraphs += [audit]
+    paragraphs += [PUBLIC_NOTICE, CONFLICTS_NOTICE]
     body = "\n\n".join(paragraphs)
     public_filter(body)
+    if reader:
+        check_text(body, source="\n".join(_source_text(run, ref) for section in manuscript["sections"].values()
+            for paragraph in section["paragraphs"] for ref in paragraph["refs"]),
+            check_numbers=False, prose=False)
     payload = {"title": manuscript["title"], "subtitle": manuscript["subtitle"], "body_markdown": body}
     return payload, paragraphs, geometry_bindings
 
@@ -252,16 +292,23 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT):
     folder = Path(output_dir)
     folder.mkdir(parents=True, exist_ok=True)
     card = _card(plan, run, folder, manuscript) if plan.get("asset_id") in posts.MARKETS and plan.get("zone") else None
+    if card and manuscript.get("reader_contract") == "CC466_V1":
+        card = {**card, "article_inclusion": True, "canonical_article_media": True,
+                "placement_after": manuscript["introduction"], "article_section": "introduction",
+                "canonical_article_section_association": "introduction"}
     (folder / "article.md").write_text("# " + payload["title"] + "\n\n" + body, encoding="utf-8")
     html = '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
     html += '<style>body{font:18px/1.65 Georgia,serif;max-width:760px;margin:36px auto;padding:0 22px;color:#18252b}h1{line-height:1.2}h2{font:600 24px/1.3 system-ui;margin-top:2em}p{overflow-wrap:anywhere}</style>'
     html += '<h1>' + escape(payload['title']) + '</h1><p>' + escape(payload['subtitle']) + '</p>'
-    html += ''.join('<h2>' + escape(p[3:]) + '</h2>' if p.startswith('## ') else '<p>' + escape(p) + '</p>' for p in paragraphs)
+    for index, paragraph in enumerate(paragraphs):
+        html += '<h2>' + escape(paragraph[3:]) + '</h2>' if paragraph.startswith('## ') else '<p>' + escape(paragraph).replace('\n','<br>') + '</p>'
+        if index == 0 and card:
+            html += '<figure style="margin:24px 0"><img style="width:100%;height:auto" src="' + escape(Path(card['path']).as_uri()) + '" alt="' + escape(card['alt_text']) + '"><figcaption>' + escape(card['caption']) + '</figcaption></figure>'
     (folder / "article.html").write_text(html, encoding="utf-8")
     packet = {"schema_version": "contentops.plan_analysis_page.v1", "plan_id": plan["plan_id"],
               "registration_hash": plan["registration_hash"], "run_id": plan["run_id"],
               "analysis_result_hash": plan["analysis_result_hash"], "native_payload": payload,
-              "summary": {k: manuscript["sections"][k]["summary"] for k, _ in SECTIONS},
+               "summary": {k: manuscript["sections"][k]["summary"] for k, _ in sections_for(manuscript)},
               "source_manifest": run["manifest"], "numeric_bindings": bindings,
               "freeze": {k: freeze[k] for k in ("frozen_at_utc", "immutable_hash")},
               "authorship": manuscript.get("authorship", {}), "manuscript": manuscript, "run_root": str(Path(run_root)),
@@ -340,6 +387,35 @@ def replace_unpublished_media(store, held, packet):
     return revised
 
 
+def replace_unpublished_copy(store, held, packet):
+    """A confirmed pre-click refusal may repair the same retained draft's copy.
+
+    The old request and its exact response remain immutable. A possibly sent
+    page always requires its existing readback and cannot enter this function.
+    """
+    if held["registration_hash"] != packet["registration_hash"] or held["plan_id"] != packet["plan_id"]:
+        raise ValueError("PLAN_ANALYSIS_EXACT_PLAN_REQUIRED")
+    for row in store.list_outbox_messages(work_item_id=held["page_id"]):
+        if row["destination"] != "substack":
+            continue
+        with store.get_read_only_connection() as conn:
+            dispatch=conn.execute("SELECT * FROM platform_dispatches WHERE message_id=?",(row["message_id"],)).fetchone()
+        if dispatch and (dispatch["status"] not in {"DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
+                         or dispatch["public_object_id"] or dispatch["public_object_url"]):
+            raise ValueError("PLAN_ANALYSIS_COPY_REVISION_READBACK_REQUIRED")
+    store.register_outbox_message(message_id=held["page_id"]+"-prior-copy-"+held["plan"]["plan_hash"],
+        work_item_id=held["page_id"],destination="internal:plan-analysis-revision",
+        payload=canonical_bytes(held).decode(),status="EDITORIAL_INTERNAL")
+    plan={**held["plan"],"analysis_copy_revision":sha256_of(packet["native_payload"])}
+    plan["destinations"]=[{**d,"payload":packet["native_payload"]["body_markdown"],
+        "payload_hash":sha256(packet["native_payload"]["body_markdown"].encode()).hexdigest()} for d in plan["destinations"]]
+    plan.pop("plan_hash",None);plan["plan_hash"]=sha256_of(plan)
+    revised={**packet,"page_id":held["page_id"],"plan":plan}
+    store.finalize_outbox_payload_before_dispatch(message_id=held["page_id"],
+        payload=canonical_bytes(revised).decode(),status="EDITORIAL_INTERNAL")
+    return revised
+
+
 def validate_plan(store, work_item_id, plan):
     row = store.get_outbox_message(work_item_id)
     packet = json.loads(row["payload"]) if row else {}
@@ -352,7 +428,7 @@ def validate_plan(store, work_item_id, plan):
     expected, _, _ = _assemble(packet["source_plan"], packet["manuscript"], run)
     if expected != packet["native_payload"]:
         raise ValueError("PLAN_ANALYSIS_RENDERED_COPY_CHANGED")
-    if packet["summary"] != {k: packet["manuscript"]["sections"][k]["summary"] for k, _ in SECTIONS}:
+    if packet["summary"] != {k: packet["manuscript"]["sections"][k]["summary"] for k, _ in sections_for(packet["manuscript"])}:
         raise ValueError("PLAN_ANALYSIS_SUMMARY_CHANGED")
     for asset in packet.get("media_assets", []):
         if sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]:
@@ -411,7 +487,8 @@ def confirmed_publication(store, plan):
             "canonical_url": status["canonical_url"], "summary": packet["summary"]}
 
 
-def continue_page(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None):
+def continue_page(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None,
+                  automatic=False):
     from .native_desktop_publication_v1 import live_publication_policy
     from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
     from .llm_operator_control_v1 import assert_llm_operator_execution_enabled
@@ -420,7 +497,7 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
     if Path(store.db_path).resolve() != Path(rollout["store_path"]).resolve():
         raise ValueError("PLAN_ANALYSIS_ROLLOUT_STORE_MISMATCH")
     coordinator, executor = bind_native_neo_coordinator(store, operation_id=packet["page_id"],
-        output_dir=packet["output_dir"], native_invocation_id=invocation_id, allow_publish=True)
+        output_dir=packet["output_dir"], native_invocation_id=invocation_id, allow_publish=True, automatic=automatic)
     coordinator.allow_prior_confirmed_distribution = True
     coordinator.recovery_scope = {"work_item_id": packet["page_id"], "plan": packet["plan"], "exact_work_item_only": True}
     if command in {"begin", "submit"}:

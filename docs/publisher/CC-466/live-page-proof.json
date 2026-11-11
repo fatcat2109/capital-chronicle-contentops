@@ -1,0 +1,19 @@
+{
+  "schema_version": "contentops.cc466.live_page.v1",
+  "public_object_id": "224485432",
+  "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+  "published_at_utc": "2026-11-11T17:38:43.248Z",
+  "publication_gmt7": "12 Nov 2026 00:38:43 GMT+7",
+  "data_freeze_at_utc": "2026-11-11T16:19:37.447439Z",
+  "freeze_to_public_minutes": 79.09667601666666,
+  "under_ten_minutes": false,
+  "coordinator_confirmed": true,
+  "email_sent": false,
+  "media_byte_hash_matches": true,
+  "public_chart_count": 1,
+  "headings": 9,
+  "word_count": 617,
+  "AGY_variants": "TIMEOUT_NO_OUTPUT",
+  "live_X_first_reply_proof": false,
+  "later_reach_observations": null
+}

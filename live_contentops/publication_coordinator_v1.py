@@ -2689,6 +2689,36 @@ class DurablePublicationCoordinator:
                 "dispatch_id":dispatch["dispatch_id"], "browser_write_request_issued":False,
                 "exact_dispatch_still_requires_readback":True}))
 
+    def resolve_reconciled_native_preclick_failure(self, destination, *, native_executor, request_hash):
+        """A bound pre-click refusal plus proven absence resolves its daily circuit.
+
+        Retain both original observations. This performs no retry and cannot
+        release a possibly sent object, missing return or platform restriction.
+        """
+        incident_id, _, failure = self._destination_failure_cursor(destination)
+        if not failure or failure.get("safe_error_classification") != "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH":
+            raise ValueError("NATIVE_PRECLICK_BINDING_FAILURE_REQUIRED")
+        dispatch = self.store.get_platform_dispatch(failure["dispatch_id"]) or {}
+        request = (native_executor._get(request_hash,"request") or {}).get("request",{})
+        response = native_executor._get(request_hash,"response") or {}
+        result = response.get("result") or {}
+        if (request.get("action") != "PUBLISH" or request.get("destination") != destination
+                or request.get("dispatch_attempt_identity") != dispatch.get("dispatch_id")
+                or result.get("request_sha256") != request_hash
+                or not result.get("native_tool_return_sha256")
+                or result.get("status") != "FAILED_BEFORE_WRITE"
+                or result.get("stage") != "BEFORE_PUBLISH_CLICK"
+                or result.get("definite_no_write") is not True or result.get("public_write_performed") is not False
+                or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
+                or dispatch.get("public_object_id") or dispatch.get("public_object_url")
+                or dispatch.get("status") != RECONCILED_ABSENT_SAFE_TO_RETRY):
+            raise ValueError("EXACT_NATIVE_PRECLICK_AND_ABSENCE_REQUIRED")
+        return self.store.register_incident(incident_id=incident_id+"_local_prewrite_resolved",
+            work_item_id=request["work_item_id"],severity="RESOLVED_LOCAL_PREWRITE",
+            description=_canonical_json({"cause":"OBSERVED_NATIVE_PRECLICK_REFUSAL_AND_RECONCILED_ABSENCE",
+                "dispatch_id":dispatch["dispatch_id"],"request_hash":request_hash,
+                "public_write_performed":False,"retry_performed":False}))
+
     def _record_destination_day_failure(self, intent, destination, detail, instant=None):
         # CC-401: reuse the incident table as the daily circuit, with first cause
         # retained by its idempotent insert. No new queue, ledger or scheduler.

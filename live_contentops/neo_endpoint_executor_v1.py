@@ -293,7 +293,7 @@ def compare_public_images(request, observed, *, http=None):
         parsed = urlsplit(url)
         host = parsed.hostname or ""
         allowed = (request["destination"] == "x" and host == "pbs.twimg.com" and parsed.path.startswith("/media/")) or (
-            request["destination"] == "substack_notes" and (
+            request["destination"] in {"substack_notes", "substack"} and (
                 host == "substack-post-media.s3.amazonaws.com" or host == "substackcdn.com" or host.endswith(".substackcdn.com"))) or (
             request["destination"] == "linkedin_company" and host == "media.licdn.com") or (
             request["destination"] == "youtube" and host == "yt3.ggpht.com")
@@ -658,6 +658,9 @@ class NeoBrowserDriver:
     def perform(self, packet):
         request = packet["request"]
         destination = request["destination"]
+        if destination == "substack" and packet.get("operation_id", "").startswith("plan-analysis-"):
+            from .plan_substack_neo_v1 import perform
+            return perform(self.client, packet)
         if destination in ARTICLE_ROUTES:
             return self.article_perform(packet)
         profile = request["entry_url"] if request["action"] == "READBACK" else ROOTS[destination]
@@ -748,7 +751,8 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         self.client=client or endpoint_client()
         self.automatic_destinations = (set(automatic_destinations) if automatic_destinations is not None
             else {"x", "substack_notes", *ARTICLE_ROUTES})
-        self.executor_revision=sha256(Path(__file__).read_bytes()+STEPS.read_bytes()).hexdigest()
+        self.executor_revision=sha256(Path(__file__).read_bytes()+STEPS.read_bytes()
+            +Path(__file__).with_name("plan_substack_neo_v1.py").read_bytes()).hexdigest()
 
     def repaired_prewrite_request(self, dispatch):
         return repaired_prewrite_request(self.store,dispatch,executor_revision=self.executor_revision)
@@ -778,7 +782,8 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         try:
             return super().__call__(request)
         except NativeNeoInputRequired as waiting:
-            if request.get("destination") not in self.automatic_destinations or request.get("action") == "EDIT_EXISTING":
+            plan_page = request.get("destination") == "substack" and self.operation_id.startswith("plan-analysis-")
+            if (request.get("destination") not in self.automatic_destinations and not plan_page) or request.get("action") == "EDIT_EXISTING":
                 raise
             pending=waiting
         # Connect before claiming: an unavailable endpoint has made no public attempt.
