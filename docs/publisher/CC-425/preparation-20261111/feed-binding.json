@@ -1,0 +1,11 @@
+{
+  "schema_version": "contentops.main_report_feed_pointer.v1",
+  "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+  "producer_commit": "f246323babe709c58450d0657a6208e3066c3017",
+  "desk_record_exports": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\preparation-20261111\\desk-export.json",
+      "sha256": "5aec0a3da9141dc8a2120ee629486aae30dc658d3b1f838e2727bdf2d7f9e750"
+    }
+  ]
+}

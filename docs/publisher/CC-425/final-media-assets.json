@@ -1,0 +1,318 @@
+[
+  {
+    "asset_id": "cpi-gold-horizons-5aec0a3da914-v1",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\media\\media_assets\\cpi-gold-horizons-5aec0a3da914-v1.png",
+    "sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44",
+    "media_role": "editorial_data_journalism",
+    "modality": "source_backed_chart",
+    "role": "supporting_fact_context",
+    "caption": "Mean gold changes in the HistData sample, January–December 2024, grouped by the Investing headline CPI forecast. Hot: four observations, three at the next close; cool: three. Descriptive changes around releases.",
+    "attribution": "Capital Chronicle calculations. Investing headline CPI forecast buckets; HistData gold/USD, January–December 2024.\nDescriptive means (%); hot n=4 (next close n=3), cool n=3. Samples and sources stay separate.",
+    "alt_text": "Gold's mean changes across four release horizons, separated into hot and cool headline CPI buckets. Cool-print means are negative early and positive at the close; next-close sample counts differ.",
+    "source_page_url": null,
+    "source_links": [
+      {
+        "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+        "url": null,
+        "label": "Capital Chronicle calculations; U.S. Bureau of Labor Statistics first prints; price proxies as labelled"
+      }
+    ],
+    "source_lineage": [
+      {
+        "source_url": null,
+        "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146"
+      }
+    ],
+    "underlying_source_rights_status": "attributed_facts_independent_chart",
+    "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
+    "width": 1440,
+    "height": 1040,
+    "editorial_data_packet": {
+      "asset_id": "cpi-gold-horizons-5aec0a3da914-v1",
+      "chart_type": "grouped_bar",
+      "title": "Gold: the first move can differ from the close",
+      "question": "How did gold's mean move change across the four horizons?",
+      "placement_after": "The first move and the close",
+      "unit": "percent",
+      "series": [
+        {
+          "name": "Hot: n=4; next close n=3",
+          "points": [
+            {
+              "period": "5 minutes",
+              "value": -0.241,
+              "transform": "IDENTITY",
+              "observation_kind": "REPORTED_ACTUAL",
+              "inputs": [
+                {
+                  "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+                  "support_excerpt": "| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 5m | 4 / 4 | -0.2410% | -0.1359% |",
+                  "value_text": "-0.2410%",
+                  "metric": "Mean",
+                  "unit": "percent",
+                  "source_period_text": "5m",
+                  "prepared_period": "5 minutes",
+                  "source_content_sha256": "adfa2111707aa13a77fdab3dcb77cf844eb560f346b2a16e9a1a8e8f37f8ed25",
+                  "period_basis": {
+                    "basis": "CC425_EXACT_TABLE_CELL",
+                    "row_index": 165,
+                    "column_index": 7,
+                    "source_table_sha256": "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+                  }
+                }
+              ]
+            },
+            {
+              "period": "30 minutes",
+              "value": -0.4247,
+              "transform": "IDENTITY",
+              "observation_kind": "REPORTED_ACTUAL",
+              "inputs": [
+                {
+                  "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+                  "support_excerpt": "| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | 30m | 4 / 4 | -0.4247% | -0.2158% |",
+                  "value_text": "-0.4247%",
+                  "metric": "Mean",
+                  "unit": "percent",
+                  "source_period_text": "30m",
+                  "prepared_period": "30 minutes",
+                  "source_content_sha256": "adfa2111707aa13a77fdab3dcb77cf844eb560f346b2a16e9a1a8e8f37f8ed25",
+                  "period_basis": {
+                    "basis": "CC425_EXACT_TABLE_CELL",
+                    "row_index": 164,
+                    "column_index": 7,
+                    "source_table_sha256": "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+                  }
+                }
+              ]
+            },
+            {
+              "period": "Close",
+              "value": -0.6731,
+              "transform": "IDENTITY",
+              "observation_kind": "REPORTED_ACTUAL",
+              "inputs": [
+                {
+                  "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+                  "support_excerpt": "| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | session_close | 4 / 4 | -0.6731% | -0.6801% |",
+                  "value_text": "-0.6731%",
+                  "metric": "Mean",
+                  "unit": "percent",
+                  "source_period_text": "session_close",
+                  "prepared_period": "Close",
+                  "source_content_sha256": "adfa2111707aa13a77fdab3dcb77cf844eb560f346b2a16e9a1a8e8f37f8ed25",
+                  "period_basis": {
+                    "basis": "CC425_EXACT_TABLE_CELL",
+                    "row_index": 167,
+                    "column_index": 7,
+                    "source_table_sha256": "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+                  }
+                }
+              ]
+            },
+            {
+              "period": "Next close",
+              "value": 0.1313,
+              "transform": "IDENTITY",
+              "observation_kind": "REPORTED_ACTUAL",
+              "inputs": [
+                {
+                  "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+                  "support_excerpt": "| CPI_HEADLINE_MOM | investing | HOT | XAUUSD | HISTDATA:XAUUSD | next_session_close | 3 / 4 | +0.1313% | +0.5694% |",
+                  "value_text": "+0.1313%",
+                  "metric": "Mean",
+                  "unit": "percent",
+                  "source_period_text": "next_session_close",
+                  "prepared_period": "Next close",
+                  "source_content_sha256": "adfa2111707aa13a77fdab3dcb77cf844eb560f346b2a16e9a1a8e8f37f8ed25",
+                  "period_basis": {
+                    "basis": "CC425_EXACT_TABLE_CELL",
+                    "row_index": 166,
+                    "column_index": 7,
+                    "source_table_sha256": "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Cool: n=3",
+          "points": [
+            {
+              "period": "5 minutes",
+              "value": -0.0175,
+              "transform": "IDENTITY",
+              "observation_kind": "REPORTED_ACTUAL",
+              "inputs": [
+                {
+                  "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+                  "support_excerpt": "| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | 5m | 3 / 3 | -0.0175% | -0.0357% |",
+                  "value_text": "-0.0175%",
+                  "metric": "Mean",
+                  "unit": "percent",
+                  "source_period_text": "5m",
+                  "prepared_period": "5 minutes",
+                  "source_content_sha256": "adfa2111707aa13a77fdab3dcb77cf844eb560f346b2a16e9a1a8e8f37f8ed25",
+                  "period_basis": {
+                    "basis": "CC425_EXACT_TABLE_CELL",
+                    "row_index": 149,
+                    "column_index": 7,
+                    "source_table_sha256": "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+                  }
+                }
+              ]
+            },
+            {
+              "period": "30 minutes",
+              "value": -0.0487,
+              "transform": "IDENTITY",
+              "observation_kind": "REPORTED_ACTUAL",
+              "inputs": [
+                {
+                  "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+                  "support_excerpt": "| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | 30m | 3 / 3 | -0.0487% | -0.0457% |",
+                  "value_text": "-0.0487%",
+                  "metric": "Mean",
+                  "unit": "percent",
+                  "source_period_text": "30m",
+                  "prepared_period": "30 minutes",
+                  "source_content_sha256": "adfa2111707aa13a77fdab3dcb77cf844eb560f346b2a16e9a1a8e8f37f8ed25",
+                  "period_basis": {
+                    "basis": "CC425_EXACT_TABLE_CELL",
+                    "row_index": 148,
+                    "column_index": 7,
+                    "source_table_sha256": "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+                  }
+                }
+              ]
+            },
+            {
+              "period": "Close",
+              "value": 0.9112,
+              "transform": "IDENTITY",
+              "observation_kind": "REPORTED_ACTUAL",
+              "inputs": [
+                {
+                  "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+                  "support_excerpt": "| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | session_close | 3 / 3 | +0.9112% | +0.9001% |",
+                  "value_text": "+0.9112%",
+                  "metric": "Mean",
+                  "unit": "percent",
+                  "source_period_text": "session_close",
+                  "prepared_period": "Close",
+                  "source_content_sha256": "adfa2111707aa13a77fdab3dcb77cf844eb560f346b2a16e9a1a8e8f37f8ed25",
+                  "period_basis": {
+                    "basis": "CC425_EXACT_TABLE_CELL",
+                    "row_index": 151,
+                    "column_index": 7,
+                    "source_table_sha256": "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+                  }
+                }
+              ]
+            },
+            {
+              "period": "Next close",
+              "value": 0.5149,
+              "transform": "IDENTITY",
+              "observation_kind": "REPORTED_ACTUAL",
+              "inputs": [
+                {
+                  "document_id": "cc-desk:64ab49e96f4151fb091f6a18371b7cae74b5358cbc3f512bffe2f094f6e8d146",
+                  "support_excerpt": "| CPI_HEADLINE_MOM | investing | COOL | XAUUSD | HISTDATA:XAUUSD | next_session_close | 3 / 3 | +0.5149% | +0.6552% |",
+                  "value_text": "+0.5149%",
+                  "metric": "Mean",
+                  "unit": "percent",
+                  "source_period_text": "next_session_close",
+                  "prepared_period": "Next close",
+                  "source_content_sha256": "adfa2111707aa13a77fdab3dcb77cf844eb560f346b2a16e9a1a8e8f37f8ed25",
+                  "period_basis": {
+                    "basis": "CC425_EXACT_TABLE_CELL",
+                    "row_index": 150,
+                    "column_index": 7,
+                    "source_table_sha256": "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "value_label_decimals": 4,
+      "source_caption": "Capital Chronicle calculations. Investing headline CPI forecast buckets; HistData gold/USD, January–December 2024.\nDescriptive means (%); hot n=4 (next close n=3), cool n=3. Samples and sources stay separate.",
+      "caption": "Mean gold changes in the HistData sample, January–December 2024, grouped by the Investing headline CPI forecast. Hot: four observations, three at the next close; cool: three. Descriptive changes around releases.",
+      "alt_text": "Gold's mean changes across four release horizons, separated into hot and cool headline CPI buckets. Cool-print means are negative early and positive at the close; next-close sample counts differ.",
+      "cpi_reaction_source": {
+        "record_id": "report:cc-cpi-reactions-since-2024",
+        "export_bytes_sha256": "5aec0a3da9141dc8a2120ee629486aae30dc658d3b1f838e2727bdf2d7f9e750",
+        "source_body_sha256": "ba2504ff706e6cc2b0f3c2d3345e5b35d42210b71f44fb181e5ed0045e0c98cd"
+      }
+    },
+    "transform_sha256": "23f035aa1c3e6a005bec69d4251617e18fa370e7f9c54b5e4ce5ffff62e86f30",
+    "placement_after": "The first move and the close",
+    "destination_subset": [],
+    "computed_values": [
+      [
+        -0.241,
+        -0.4247,
+        -0.6731,
+        0.1313
+      ],
+      [
+        -0.0175,
+        -0.0487,
+        0.9112,
+        0.5149
+      ]
+    ],
+    "missingness": "NO_VALUES_FILLED_OR_INTERPOLATED",
+    "visual_review": {
+      "asset_sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44",
+      "pixels_inspected": true,
+      "labels_and_units_legible": true,
+      "reviewer": "/root; top-level gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED",
+      "findings": "Actual PNG inspected with view_image: readable title, source/window and sample counts; correct zero baseline, direction and relative magnitude; no clipping. The MAX writer retains the final editorial choice."
+    },
+    "prior_image_near_matches": 0
+  },
+  {
+    "asset_id": "cc425-usda-grocery-20230622",
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\media\\usda-grocery-dearborn-20230622-original.jpg",
+    "sha256": "9068896edca5b08b498ab339f7e77df51092b5824babbf4bcd9bdbfbba174b08",
+    "modality": "documentary_photo",
+    "media_role": "context_photo",
+    "source_page_url": "https://commons.wikimedia.org/wiki/File:WIC_Environments_in_Michigan_(20230621-USDA-FNS-UNK-0052).jpg",
+    "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/6/60/WIC_Environments_in_Michigan_%2820230621-USDA-FNS-UNK-0052%29.jpg",
+    "creator_publisher": "USDAgov",
+    "license_name": "Public domain (USDA official-duty work)",
+    "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+    "rights_status": "PUBLIC_DOMAIN",
+    "depicted_date": "Taken on 22 June 2023, 11:08:13",
+    "source_reuse_basis": "The retained Commons file has PD-USGov-USDA and identifies an official-duty USDA work; its exact metadata and federal-work policy are retained.",
+    "context_only": true,
+    "corroborates_article_facts": false,
+    "is_archive_context": true,
+    "supports_headline": false,
+    "is_logo": false,
+    "is_thumbnail": false,
+    "is_synthetic": false,
+    "ai_generated_image": false,
+    "relevance_rationale": "Archive grocery-shopping context for consumer prices; it depicts neither a CPI release nor a market reaction.",
+    "caption": "Archive context: grocery shopping at the Papaya Supermarket in Dearborn, Michigan, June 2023. Photo: USDAgov / Wikimedia Commons; public domain.",
+    "alt_text": "A shopper selects fresh produce inside a supermarket, photographed in Michigan in June 2023.",
+    "attribution": "USDAgov / Wikimedia Commons / public domain",
+    "placement_after": "introduction",
+    "width": 5472,
+    "height": 3648,
+    "rights_evidence_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\media\\photo-rights-evidence.json",
+    "rights_evidence_sha256": "88b258cd33de01e8c7e1c9c9c64c6dbac148953a01f846d0a6d329b3dc4872c5",
+    "visual_review": {
+      "asset_sha256": "9068896edca5b08b498ab339f7e77df51092b5824babbf4bcd9bdbfbba174b08",
+      "pixels_inspected": true,
+      "relevant_subject": true,
+      "reviewer": "/root; gpt-6.1-sol/max CONFIGURED_NOT_OBSERVED",
+      "findings": "Original JPEG inspected: a shopper and fresh produce in a supermarket. Clear archive context and USDA credit; no implication that the photograph depicts a CPI event or market reaction."
+    },
+    "prior_image_near_matches": 0
+  }
+]
