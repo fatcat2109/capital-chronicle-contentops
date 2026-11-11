@@ -19,6 +19,7 @@ TYPES = {
     "map": "Map", "morning_map": "Map", "daily_wrap": "Daily note",
     "daily_note": "Daily note", "weekly_review": "Weekly review",
     "reply": "Reply", "sourced_reply": "Reply", "state": "Update", "why": "Update",
+    "triggered": "Update", "update": "Update",
     "note": "Note", "article": "Article",
 }
 READER_METRICS = ("views", "total_views", "reach", "impressions", "meaningful_reads")
@@ -40,7 +41,13 @@ def post_type(intent, source=None):
     kind = source.get("kind") or intent.get("post_type") or article.get("post_type") or intent.get("kind")
     if kind in TYPES.values():
         return kind
-    return TYPES.get(str(kind).lower(), "Article" if article else "Unspecified")
+    if str(kind).lower() in TYPES:
+        return TYPES[str(kind).lower()]
+    if intent.get("plan_analysis_page"):
+        return "Call analysis"
+    if intent.get("daily_digest"):
+        return "Digest"
+    return "Article" if article or intent.get("article_identity") and not intent.get("plan_status_post") else "Unspecified"
 
 
 def _mapping(value):
@@ -114,9 +121,9 @@ def project_audience(*, dispatches, reconciliations, readbacks, observations, me
                 "cause": None if values else "NO_AVAILABLE_VIEW_COUNTER"}
     policy = dict((previous or {}).get("post_type_policy") or {})
     for kind in sorted({s["post_type"] for s in samples} - {"Unspecified"}):
-        if policy.get(kind, {}).get("state") == "STOPPED":
-            continue
         rows = [s for s in samples if s["post_type"] == kind]
+        if policy.get(kind, {}).get("state") == "STOPPED" and not any(s["reader_zero"] is False for s in rows):
+            continue
         weeks = [[s for s in rows if start + timedelta(days=7*i) <= clock(s["posted_at_utc"]) < start + timedelta(days=7*(i+1))] for i in range(3)]
         stop = all(week and all(s["reader_zero"] is True for s in week) for week in weeks)
         policy[kind] = {"state": "STOPPED" if stop else "CONTINUE",
@@ -137,6 +144,8 @@ def stopped_type_for_new_message(store, message, intent):
     path = Path(store.db_path).parent / "audience-weekly/latest.json"
     try:
         value = json.loads(path.read_bytes())
+        if not isinstance(value, dict):
+            return None
         if value.get("schema_version") != SCHEMA or value.get("input_store") != str(Path(store.db_path).resolve()):
             return None
         source = store.get_outbox_message(intent.get("plan_status_post")) if intent.get("plan_status_post") else None

@@ -1,3 +1,32 @@
+# 12 November continuation
+
+The continuation branch is `backlog/cc-402-audience-live`, cut from operating
+HEAD `1c21bcfa` with the original two CC-402 delivery commits applied. Newer
+CC-466 consumers and both unrelated telemetry/duplicate-ledger edits survive.
+The launch configures `gpt-6.1-sol/max` (`CONFIGURED_NOT_OBSERVED`).
+
+The weekly exporter now writes the installed overview's exact input,
+`Runtime/ContentOps/audience-weekly/latest.json`. It carries the platform lines,
+post-type/platform medians, publication-hour ET samples and exact observation
+identities. CC-470's installed Publisher panel also reads those same durable
+observations directly. Neither route needs a Main digest patch.
+
+The exporter evaluates three complete weeks of confirmed public objects.
+Every object in every week must have a measured zero reader counter; missing
+counters or positive interactions cannot imply no readers. The sole publisher
+settles a stopped type's new messages before transport. Issued messages and
+existing attempts retain their exact readback and recovery. The stop evidence
+stays in the same weekly export when the old posts age out.
+
+Lane CLI usage is read from terminal counters in the existing launch/run files.
+An item and local date must bind exactly one retained publication piece. Resume
+counters are cumulative; the largest reported total is retained separately
+from native role input/output tokens. No subscription tariff, fabricated split
+or dollar charge is inferred. A multi-piece binding is left unassigned.
+
+The installed run and acceptance results are in `integration.json` and
+`live-acceptance.json` once observed. The original delivery evidence follows.
+
 # CC-402: audience collection and piece usage
 
 The existing minute plan-status consumer runs a bounded batch of read-only
@@ -60,13 +89,11 @@ and the XML artifacts. Tests ran one pytest process at a time. The initial
 combined store/UI check was stopped at 55 seconds during a decision-run window;
 the canonical files completed separately after 13:30 GMT+7.
 
-The 07:00 digest renderer belongs to Main. `main-digest.patch` is an exact
-two-file consumer patch for Ops; `git apply --check` passes on Main's current
-files. The proposed collector and renderer produce ten real platform lines in
-`digest-section-preview.md`. Main's source and production digest were not
-changed. Ops must apply this patch through Main's integration route and observe
-its next digest. Publisher integration is also pending Ops review, as requested
-by this exec dispatch; this item is **BUILT_UNMERGED**, not DONE.
+The first delivery prepared `main-digest.patch` for the Main 07:00 digest.
+Ops Product's 11 November OV-P4 amendment supersedes that dependency: the
+installed private desk is the weekly table's consumer, and Publisher integrates
+this item itself. The old patch and preview remain evidence of that delivery;
+Main's source and production digest are not changed by CC-402.
 
 The existing minute consumer runs collection even when Main's newest plan export
 is stale, and records the collection result in its existing run record. It does

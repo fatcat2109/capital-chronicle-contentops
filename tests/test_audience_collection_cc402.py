@@ -218,3 +218,26 @@ def test_run_post_is_bound_to_its_actual_cards_and_export_uses_that_join(tmp_pat
     export_weekly_engagement(store.db_path, "2026-11-11", tmp_path / "weekly")
     report = json.loads((tmp_path / "weekly" / "engagement.json").read_bytes())
     assert report["calls"][0]["call_id"] == "abcd1234"
+
+
+def test_lane_run_counters_bind_one_dated_piece_and_do_not_sum_resumes_or_invent_cost(tmp_path):
+    store = seed(tmp_path)
+    piece = "cc338-cpi-preview-20261110-v1"
+    store.register_outbox_message(message_id="piece-binding", work_item_id="work-threads",
+        destination="internal:native-publication-binding", payload=json.dumps({"work_item_id": piece}))
+    folder = tmp_path / "runs/publisher-cc338"
+    folder.mkdir(parents=True)
+    (folder / "launch.json").write_text(json.dumps({"items": ["CC-338"], "started_utc": "2026-11-10T10:00:00Z",
+        "model": "configured", "reasoning_effort": "max"}), encoding="utf-8")
+    for suffix, total in [("", "1,000"), ("-resume1", "1,500"), ("-resume2", "1,500")]:
+        (folder / ("stderr" + suffix + ".txt")).write_text("some output\ntokens used\n" + total + "\n", encoding="utf-8")
+    assert import_native_invocations(store, lane_run_root=tmp_path / "runs")["lane_runs_updated"] == 1
+    assert import_native_invocations(store, lane_run_root=tmp_path / "runs")["imported"] == 0
+    usage = piece_usage(store, piece)
+    assert usage["lane_run_usage"][0]["cli_reported_tokens_used"] == 1500
+    assert usage["cost_usd"] is None and usage["lane_run_usage"][0]["prompt_tokens"] is None
+    # A second possible piece on the same item/date is ambiguous; do not assign it.
+    store.register_outbox_message(message_id="ambiguous-binding", work_item_id="work-threads",
+        destination="internal:native-publication-binding", payload=json.dumps({"work_item_id": "cc338-other-piece-20261110-v1"}))
+    (folder / "stderr-resume3.txt").write_text("tokens used\n2,000\n", encoding="utf-8")
+    assert import_native_invocations(store, lane_run_root=tmp_path / "runs")["lane_runs_updated"] == 0

@@ -38,6 +38,8 @@ def test_three_complete_weeks_of_zero_readers_stop_type_and_keep_evidence():
     # A stopped type does not silently restart when its old posts age out.
     later = project_audience(**{**args, "now": NOW + timedelta(days=30)}, previous=result)
     assert later["post_type_policy"]["Note"] == policy
+    args["observations"][-1]["metrics_native_json"] = '{"views":1}'
+    assert project_audience(**args, previous=result)["post_type_policy"]["Note"]["state"] == "CONTINUE"
 
 
 @pytest.mark.parametrize("defect", ["missing_views", "positive_views", "positive_likes", "missing_week", "unknown_write", "future_clock"])
