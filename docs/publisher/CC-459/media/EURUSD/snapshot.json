@@ -1,0 +1,174 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\EURUSD\\EURUSD_2026-11-11_04-10-43.png",
+  "sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd",
+  "width": 1524,
+  "height": 856,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1448,
+      768
+    ],
+    "axis_origin": [
+      1448,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -15498.90759664633,
+    "intercept": 17918.15202431894,
+    "max_label_error_px": 0.5683291847526561,
+    "grid_checks": [
+      {
+        "price": 1.108,
+        "page_y_in_download": 745.2173282247778,
+        "grid_y": 745,
+        "error_px": 0.2173282247778161
+      },
+      {
+        "price": 1.11,
+        "page_y_in_download": 714.2278007662849,
+        "grid_y": 714,
+        "error_px": 0.22780076628487222
+      },
+      {
+        "price": 1.112,
+        "page_y_in_download": 683.2382733077918,
+        "grid_y": 683,
+        "error_px": 0.23827330779181466
+      },
+      {
+        "price": 1.114,
+        "page_y_in_download": 652.2487458492989,
+        "grid_y": 652,
+        "error_px": 0.24874584929887078
+      },
+      {
+        "price": 1.116,
+        "page_y_in_download": 621.2592183908059,
+        "grid_y": 621,
+        "error_px": 0.2592183908059269
+      },
+      {
+        "price": 1.118,
+        "page_y_in_download": 590.2696909323129,
+        "grid_y": 590,
+        "error_px": 0.26969093231286934
+      },
+      {
+        "price": 1.12,
+        "page_y_in_download": 559.2801634738199,
+        "grid_y": 559,
+        "error_px": 0.28016347381992546
+      },
+      {
+        "price": 1.122,
+        "page_y_in_download": 528.290636015327,
+        "grid_y": 528,
+        "error_px": 0.2906360153269816
+      },
+      {
+        "price": 1.124,
+        "page_y_in_download": 497.3011085568339,
+        "grid_y": 497,
+        "error_px": 0.301108556833924
+      },
+      {
+        "price": 1.126,
+        "page_y_in_download": 466.3115810983409,
+        "grid_y": 466,
+        "error_px": 0.3115810983409233
+      },
+      {
+        "price": 1.128,
+        "page_y_in_download": 435.3220536398479,
+        "grid_y": 435,
+        "error_px": 0.32205363984792257
+      },
+      {
+        "price": 1.13,
+        "page_y_in_download": 404.332526181355,
+        "grid_y": 404,
+        "error_px": 0.3325261813549787
+      },
+      {
+        "price": 1.132,
+        "page_y_in_download": 373.34299872286203,
+        "grid_y": 373,
+        "error_px": 0.3429987228620348
+      },
+      {
+        "price": 1.134,
+        "page_y_in_download": 342.353471264369,
+        "grid_y": 342,
+        "error_px": 0.35347126436897724
+      },
+      {
+        "price": 1.136,
+        "page_y_in_download": 311.36394380587603,
+        "grid_y": 311,
+        "error_px": 0.36394380587603337
+      },
+      {
+        "price": 1.138,
+        "page_y_in_download": 280.374416347383,
+        "grid_y": 280,
+        "error_px": 0.3744163473829758
+      },
+      {
+        "price": 1.14,
+        "page_y_in_download": 249.38488888889003,
+        "grid_y": 249,
+        "error_px": 0.3848888888900319
+      },
+      {
+        "price": 1.142,
+        "page_y_in_download": 218.3953614303971,
+        "grid_y": 218,
+        "error_px": 0.39536143039708804
+      },
+      {
+        "price": 1.144,
+        "page_y_in_download": 187.40583397190403,
+        "grid_y": 187,
+        "error_px": 0.4058339719040305
+      },
+      {
+        "price": 1.146,
+        "page_y_in_download": 156.4163065134111,
+        "grid_y": 156,
+        "error_px": 0.4163065134110866
+      },
+      {
+        "price": 1.148,
+        "page_y_in_download": 125.42677905491803,
+        "grid_y": 125,
+        "error_px": 0.42677905491802903
+      },
+      {
+        "price": 1.15,
+        "page_y_in_download": 94.4372515964252,
+        "grid_y": 94,
+        "error_px": 0.43725159642519884
+      },
+      {
+        "price": 1.152,
+        "page_y_in_download": 63.44772413793214,
+        "grid_y": 63,
+        "error_px": 0.4477241379321413
+      }
+    ],
+    "source_sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd"
+  },
+  "tv_symbol": "FX_IDC:EURUSD",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "EURUSD 1.11650 \u25b2 +0.04%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:EURUSD&interval=240",
+  "suggested_filename": "EURUSD_2026-11-11_04-10-43.png",
+  "captured_at_utc": "2026-11-11T04:10:44.186539+00:00",
+  "seconds": 20.3
+}

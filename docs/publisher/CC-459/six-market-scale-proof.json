@@ -1,0 +1,5033 @@
+{
+  "export_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+  "markets": {
+    "XAUUSD": {
+      "status": "VERIFIED",
+      "snapshot": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\XAUUSD\\XAUUSD_2026-11-11_04-09-57.png",
+        "sha256": "70f9d96a70a7f52b63dc83916a90f2dbbb31df86f2d2e879b76fc03392b7d387",
+        "width": 1524,
+        "height": 856,
+        "chart_geometry": {
+          "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+          "pane_box": [
+            10,
+            27,
+            1442,
+            768
+          ],
+          "axis_origin": [
+            1442,
+            27
+          ],
+          "axis_pixel_match": 1.0,
+          "mode": "linear",
+          "slope": -1.1458876395108974,
+          "intercept": 5142.578177242206,
+          "max_label_error_px": 0.7645371614098622,
+          "grid_checks": [
+            {
+              "price": 3840.0,
+              "page_y_in_download": 742.035802273328,
+              "grid_y": 742,
+              "error_px": 0.035802273328044976
+            },
+            {
+              "price": 3880.0,
+              "page_y_in_download": 696.2203119217553,
+              "grid_y": 696,
+              "error_px": 0.22031192175529668
+            },
+            {
+              "price": 3920.0,
+              "page_y_in_download": 650.4048215701824,
+              "grid_y": 650,
+              "error_px": 0.4048215701824347
+            },
+            {
+              "price": 3960.0,
+              "page_y_in_download": 604.5893312186096,
+              "grid_y": 605,
+              "error_px": 0.4106687813904273
+            },
+            {
+              "price": 4000.0,
+              "page_y_in_download": 558.7738408670367,
+              "grid_y": 559,
+              "error_px": 0.22615913296328927
+            },
+            {
+              "price": 4040.0,
+              "page_y_in_download": 512.958350515464,
+              "grid_y": 513,
+              "error_px": 0.04164948453603756
+            },
+            {
+              "price": 4080.0,
+              "page_y_in_download": 467.1428601638911,
+              "grid_y": 467,
+              "error_px": 0.14286016389110046
+            },
+            {
+              "price": 4120.0,
+              "page_y_in_download": 421.32736981231824,
+              "grid_y": 421,
+              "error_px": 0.3273698123182385
+            },
+            {
+              "price": 4160.0,
+              "page_y_in_download": 375.5118794607454,
+              "grid_y": 376,
+              "error_px": 0.4881205392546235
+            },
+            {
+              "price": 4200.0,
+              "page_y_in_download": 329.6963891091725,
+              "grid_y": 330,
+              "error_px": 0.3036108908274855
+            },
+            {
+              "price": 4240.0,
+              "page_y_in_download": 283.88089875759977,
+              "grid_y": 284,
+              "error_px": 0.11910124240023379
+            },
+            {
+              "price": 4280.0,
+              "page_y_in_download": 238.0654084060269,
+              "grid_y": 238,
+              "error_px": 0.06540840602690423
+            },
+            {
+              "price": 4320.0,
+              "page_y_in_download": 192.24991805445404,
+              "grid_y": 192,
+              "error_px": 0.24991805445404225
+            },
+            {
+              "price": 4360.0,
+              "page_y_in_download": 146.43442770288118,
+              "grid_y": 146,
+              "error_px": 0.43442770288118027
+            },
+            {
+              "price": 4400.0,
+              "page_y_in_download": 100.61893735130843,
+              "grid_y": 101,
+              "error_px": 0.38106264869156803
+            },
+            {
+              "price": 4440.0,
+              "page_y_in_download": 54.80344699973557,
+              "grid_y": 55,
+              "error_px": 0.19655300026443
+            }
+          ],
+          "source_sha256": "70f9d96a70a7f52b63dc83916a90f2dbbb31df86f2d2e879b76fc03392b7d387"
+        },
+        "tv_symbol": "FX_IDC:XAUUSD",
+        "interval": "240",
+        "interval_label": "4h",
+        "legend": "4h",
+        "page_title": "XAUUSD 4,047.473 \u25b2 +0.38%",
+        "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=240",
+        "suggested_filename": "XAUUSD_2026-11-11_04-09-57.png",
+        "captured_at_utc": "2026-11-11T04:09:58.677172+00:00",
+        "seconds": 34.8
+      },
+      "variants": [
+        {
+          "asset_id": "tradingview-plan-82440839dbb4d9e76224",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\XAUUSD\\tradingview-70f9d96a70a7f52b-16x9-levels-82440839dbb4d9e7.png",
+          "sha256": "81821292432a88c9a2c93791d57d55e9aebfcdf18a6d6133545d1bb7a60ede7c",
+          "width": 1524,
+          "height": 858,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "Gold spot / US dollar (ICE): 4h chart of Gold spot / US dollar (ICE). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of Gold spot / US dollar (ICE), captured 23:09 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\XAUUSD\\XAUUSD_2026-11-11_04-09-57.png",
+            "sha256": "70f9d96a70a7f52b63dc83916a90f2dbbb31df86f2d2e879b76fc03392b7d387",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1442,
+                768
+              ],
+              "axis_origin": [
+                1442,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -1.1458876395108974,
+              "intercept": 5142.578177242206,
+              "max_label_error_px": 0.7645371614098622,
+              "grid_checks": [
+                {
+                  "price": 3840.0,
+                  "page_y_in_download": 742.035802273328,
+                  "grid_y": 742,
+                  "error_px": 0.035802273328044976
+                },
+                {
+                  "price": 3880.0,
+                  "page_y_in_download": 696.2203119217553,
+                  "grid_y": 696,
+                  "error_px": 0.22031192175529668
+                },
+                {
+                  "price": 3920.0,
+                  "page_y_in_download": 650.4048215701824,
+                  "grid_y": 650,
+                  "error_px": 0.4048215701824347
+                },
+                {
+                  "price": 3960.0,
+                  "page_y_in_download": 604.5893312186096,
+                  "grid_y": 605,
+                  "error_px": 0.4106687813904273
+                },
+                {
+                  "price": 4000.0,
+                  "page_y_in_download": 558.7738408670367,
+                  "grid_y": 559,
+                  "error_px": 0.22615913296328927
+                },
+                {
+                  "price": 4040.0,
+                  "page_y_in_download": 512.958350515464,
+                  "grid_y": 513,
+                  "error_px": 0.04164948453603756
+                },
+                {
+                  "price": 4080.0,
+                  "page_y_in_download": 467.1428601638911,
+                  "grid_y": 467,
+                  "error_px": 0.14286016389110046
+                },
+                {
+                  "price": 4120.0,
+                  "page_y_in_download": 421.32736981231824,
+                  "grid_y": 421,
+                  "error_px": 0.3273698123182385
+                },
+                {
+                  "price": 4160.0,
+                  "page_y_in_download": 375.5118794607454,
+                  "grid_y": 376,
+                  "error_px": 0.4881205392546235
+                },
+                {
+                  "price": 4200.0,
+                  "page_y_in_download": 329.6963891091725,
+                  "grid_y": 330,
+                  "error_px": 0.3036108908274855
+                },
+                {
+                  "price": 4240.0,
+                  "page_y_in_download": 283.88089875759977,
+                  "grid_y": 284,
+                  "error_px": 0.11910124240023379
+                },
+                {
+                  "price": 4280.0,
+                  "page_y_in_download": 238.0654084060269,
+                  "grid_y": 238,
+                  "error_px": 0.06540840602690423
+                },
+                {
+                  "price": 4320.0,
+                  "page_y_in_download": 192.24991805445404,
+                  "grid_y": 192,
+                  "error_px": 0.24991805445404225
+                },
+                {
+                  "price": 4360.0,
+                  "page_y_in_download": 146.43442770288118,
+                  "grid_y": 146,
+                  "error_px": 0.43442770288118027
+                },
+                {
+                  "price": 4400.0,
+                  "page_y_in_download": 100.61893735130843,
+                  "grid_y": 101,
+                  "error_px": 0.38106264869156803
+                },
+                {
+                  "price": 4440.0,
+                  "page_y_in_download": 54.80344699973557,
+                  "grid_y": 55,
+                  "error_px": 0.19655300026443
+                }
+              ],
+              "source_sha256": "70f9d96a70a7f52b63dc83916a90f2dbbb31df86f2d2e879b76fc03392b7d387"
+            },
+            "tv_symbol": "FX_IDC:XAUUSD",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "XAUUSD 4,047.473 \u25b2 +0.38%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=240",
+            "suggested_filename": "XAUUSD_2026-11-11_04-09-57.png",
+            "captured_at_utc": "2026-11-11T04:09:58.677172+00:00",
+            "seconds": 34.8,
+            "framing": {
+              "ratio": "16:9",
+              "width": 1524,
+              "height": 858,
+              "original_box": [
+                0,
+                1,
+                1524,
+                857
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1442,
+                768
+              ],
+              "axis_origin": [
+                1442,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -1.1458876395108974,
+              "intercept": 5142.578177242206,
+              "max_label_error_px": 0.7645371614098622,
+              "grid_checks": [
+                {
+                  "price": 3840.0,
+                  "page_y_in_download": 742.035802273328,
+                  "grid_y": 742,
+                  "error_px": 0.035802273328044976
+                },
+                {
+                  "price": 3880.0,
+                  "page_y_in_download": 696.2203119217553,
+                  "grid_y": 696,
+                  "error_px": 0.22031192175529668
+                },
+                {
+                  "price": 3920.0,
+                  "page_y_in_download": 650.4048215701824,
+                  "grid_y": 650,
+                  "error_px": 0.4048215701824347
+                },
+                {
+                  "price": 3960.0,
+                  "page_y_in_download": 604.5893312186096,
+                  "grid_y": 605,
+                  "error_px": 0.4106687813904273
+                },
+                {
+                  "price": 4000.0,
+                  "page_y_in_download": 558.7738408670367,
+                  "grid_y": 559,
+                  "error_px": 0.22615913296328927
+                },
+                {
+                  "price": 4040.0,
+                  "page_y_in_download": 512.958350515464,
+                  "grid_y": 513,
+                  "error_px": 0.04164948453603756
+                },
+                {
+                  "price": 4080.0,
+                  "page_y_in_download": 467.1428601638911,
+                  "grid_y": 467,
+                  "error_px": 0.14286016389110046
+                },
+                {
+                  "price": 4120.0,
+                  "page_y_in_download": 421.32736981231824,
+                  "grid_y": 421,
+                  "error_px": 0.3273698123182385
+                },
+                {
+                  "price": 4160.0,
+                  "page_y_in_download": 375.5118794607454,
+                  "grid_y": 376,
+                  "error_px": 0.4881205392546235
+                },
+                {
+                  "price": 4200.0,
+                  "page_y_in_download": 329.6963891091725,
+                  "grid_y": 330,
+                  "error_px": 0.3036108908274855
+                },
+                {
+                  "price": 4240.0,
+                  "page_y_in_download": 283.88089875759977,
+                  "grid_y": 284,
+                  "error_px": 0.11910124240023379
+                },
+                {
+                  "price": 4280.0,
+                  "page_y_in_download": 238.0654084060269,
+                  "grid_y": 238,
+                  "error_px": 0.06540840602690423
+                },
+                {
+                  "price": 4320.0,
+                  "page_y_in_download": 192.24991805445404,
+                  "grid_y": 192,
+                  "error_px": 0.24991805445404225
+                },
+                {
+                  "price": 4360.0,
+                  "page_y_in_download": 146.43442770288118,
+                  "grid_y": 146,
+                  "error_px": 0.43442770288118027
+                },
+                {
+                  "price": 4400.0,
+                  "page_y_in_download": 100.61893735130843,
+                  "grid_y": 101,
+                  "error_px": 0.38106264869156803
+                },
+                {
+                  "price": 4440.0,
+                  "page_y_in_download": 54.80344699973557,
+                  "grid_y": 55,
+                  "error_px": 0.19655300026443
+                }
+              ],
+              "source_sha256": "70f9d96a70a7f52b63dc83916a90f2dbbb31df86f2d2e879b76fc03392b7d387"
+            },
+            "source": {
+              "key": "cc459-capture-plan_e53c7c0aa6230ec191762925",
+              "symbol": "XAUUSD",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 4128.0,
+                "zone_high": 4144.0,
+                "invalidation_level": 4232.0,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 4232.0,
+                "y": 294,
+                "expected_y": 294.1816868320884,
+                "error_px": 0.18168683208841685,
+                "edge": null
+              },
+              {
+                "label": "Entry high",
+                "price": 4144.0,
+                "y": 395,
+                "expected_y": 395.0197991090472,
+                "error_px": 0.019799109047198726,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 4128.0,
+                "y": 413,
+                "expected_y": 413.3540013412212,
+                "error_px": 0.354001341221192,
+                "edge": null
+              }
+            ]
+          }
+        },
+        {
+          "asset_id": "tradingview-plan-65638d643a48e4b86a66",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\XAUUSD\\tradingview-70f9d96a70a7f52b-4x5-levels-65638d643a48e4b8.png",
+          "sha256": "c6342fd9fc2eae9a2323477a3d0fd77a0719241d2cc0ca5ad78751cbd5de86c1",
+          "width": 1524,
+          "height": 1905,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "Gold spot / US dollar (ICE): 4h chart of Gold spot / US dollar (ICE). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of Gold spot / US dollar (ICE), captured 23:09 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\XAUUSD\\XAUUSD_2026-11-11_04-09-57.png",
+            "sha256": "70f9d96a70a7f52b63dc83916a90f2dbbb31df86f2d2e879b76fc03392b7d387",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1442,
+                768
+              ],
+              "axis_origin": [
+                1442,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -1.1458876395108974,
+              "intercept": 5142.578177242206,
+              "max_label_error_px": 0.7645371614098622,
+              "grid_checks": [
+                {
+                  "price": 3840.0,
+                  "page_y_in_download": 742.035802273328,
+                  "grid_y": 742,
+                  "error_px": 0.035802273328044976
+                },
+                {
+                  "price": 3880.0,
+                  "page_y_in_download": 696.2203119217553,
+                  "grid_y": 696,
+                  "error_px": 0.22031192175529668
+                },
+                {
+                  "price": 3920.0,
+                  "page_y_in_download": 650.4048215701824,
+                  "grid_y": 650,
+                  "error_px": 0.4048215701824347
+                },
+                {
+                  "price": 3960.0,
+                  "page_y_in_download": 604.5893312186096,
+                  "grid_y": 605,
+                  "error_px": 0.4106687813904273
+                },
+                {
+                  "price": 4000.0,
+                  "page_y_in_download": 558.7738408670367,
+                  "grid_y": 559,
+                  "error_px": 0.22615913296328927
+                },
+                {
+                  "price": 4040.0,
+                  "page_y_in_download": 512.958350515464,
+                  "grid_y": 513,
+                  "error_px": 0.04164948453603756
+                },
+                {
+                  "price": 4080.0,
+                  "page_y_in_download": 467.1428601638911,
+                  "grid_y": 467,
+                  "error_px": 0.14286016389110046
+                },
+                {
+                  "price": 4120.0,
+                  "page_y_in_download": 421.32736981231824,
+                  "grid_y": 421,
+                  "error_px": 0.3273698123182385
+                },
+                {
+                  "price": 4160.0,
+                  "page_y_in_download": 375.5118794607454,
+                  "grid_y": 376,
+                  "error_px": 0.4881205392546235
+                },
+                {
+                  "price": 4200.0,
+                  "page_y_in_download": 329.6963891091725,
+                  "grid_y": 330,
+                  "error_px": 0.3036108908274855
+                },
+                {
+                  "price": 4240.0,
+                  "page_y_in_download": 283.88089875759977,
+                  "grid_y": 284,
+                  "error_px": 0.11910124240023379
+                },
+                {
+                  "price": 4280.0,
+                  "page_y_in_download": 238.0654084060269,
+                  "grid_y": 238,
+                  "error_px": 0.06540840602690423
+                },
+                {
+                  "price": 4320.0,
+                  "page_y_in_download": 192.24991805445404,
+                  "grid_y": 192,
+                  "error_px": 0.24991805445404225
+                },
+                {
+                  "price": 4360.0,
+                  "page_y_in_download": 146.43442770288118,
+                  "grid_y": 146,
+                  "error_px": 0.43442770288118027
+                },
+                {
+                  "price": 4400.0,
+                  "page_y_in_download": 100.61893735130843,
+                  "grid_y": 101,
+                  "error_px": 0.38106264869156803
+                },
+                {
+                  "price": 4440.0,
+                  "page_y_in_download": 54.80344699973557,
+                  "grid_y": 55,
+                  "error_px": 0.19655300026443
+                }
+              ],
+              "source_sha256": "70f9d96a70a7f52b63dc83916a90f2dbbb31df86f2d2e879b76fc03392b7d387"
+            },
+            "tv_symbol": "FX_IDC:XAUUSD",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "XAUUSD 4,047.473 \u25b2 +0.38%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=240",
+            "suggested_filename": "XAUUSD_2026-11-11_04-09-57.png",
+            "captured_at_utc": "2026-11-11T04:09:58.677172+00:00",
+            "seconds": 34.8,
+            "framing": {
+              "ratio": "4:5",
+              "width": 1524,
+              "height": 1905,
+              "original_box": [
+                0,
+                524,
+                1524,
+                1380
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1442,
+                768
+              ],
+              "axis_origin": [
+                1442,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -1.1458876395108974,
+              "intercept": 5142.578177242206,
+              "max_label_error_px": 0.7645371614098622,
+              "grid_checks": [
+                {
+                  "price": 3840.0,
+                  "page_y_in_download": 742.035802273328,
+                  "grid_y": 742,
+                  "error_px": 0.035802273328044976
+                },
+                {
+                  "price": 3880.0,
+                  "page_y_in_download": 696.2203119217553,
+                  "grid_y": 696,
+                  "error_px": 0.22031192175529668
+                },
+                {
+                  "price": 3920.0,
+                  "page_y_in_download": 650.4048215701824,
+                  "grid_y": 650,
+                  "error_px": 0.4048215701824347
+                },
+                {
+                  "price": 3960.0,
+                  "page_y_in_download": 604.5893312186096,
+                  "grid_y": 605,
+                  "error_px": 0.4106687813904273
+                },
+                {
+                  "price": 4000.0,
+                  "page_y_in_download": 558.7738408670367,
+                  "grid_y": 559,
+                  "error_px": 0.22615913296328927
+                },
+                {
+                  "price": 4040.0,
+                  "page_y_in_download": 512.958350515464,
+                  "grid_y": 513,
+                  "error_px": 0.04164948453603756
+                },
+                {
+                  "price": 4080.0,
+                  "page_y_in_download": 467.1428601638911,
+                  "grid_y": 467,
+                  "error_px": 0.14286016389110046
+                },
+                {
+                  "price": 4120.0,
+                  "page_y_in_download": 421.32736981231824,
+                  "grid_y": 421,
+                  "error_px": 0.3273698123182385
+                },
+                {
+                  "price": 4160.0,
+                  "page_y_in_download": 375.5118794607454,
+                  "grid_y": 376,
+                  "error_px": 0.4881205392546235
+                },
+                {
+                  "price": 4200.0,
+                  "page_y_in_download": 329.6963891091725,
+                  "grid_y": 330,
+                  "error_px": 0.3036108908274855
+                },
+                {
+                  "price": 4240.0,
+                  "page_y_in_download": 283.88089875759977,
+                  "grid_y": 284,
+                  "error_px": 0.11910124240023379
+                },
+                {
+                  "price": 4280.0,
+                  "page_y_in_download": 238.0654084060269,
+                  "grid_y": 238,
+                  "error_px": 0.06540840602690423
+                },
+                {
+                  "price": 4320.0,
+                  "page_y_in_download": 192.24991805445404,
+                  "grid_y": 192,
+                  "error_px": 0.24991805445404225
+                },
+                {
+                  "price": 4360.0,
+                  "page_y_in_download": 146.43442770288118,
+                  "grid_y": 146,
+                  "error_px": 0.43442770288118027
+                },
+                {
+                  "price": 4400.0,
+                  "page_y_in_download": 100.61893735130843,
+                  "grid_y": 101,
+                  "error_px": 0.38106264869156803
+                },
+                {
+                  "price": 4440.0,
+                  "page_y_in_download": 54.80344699973557,
+                  "grid_y": 55,
+                  "error_px": 0.19655300026443
+                }
+              ],
+              "source_sha256": "70f9d96a70a7f52b63dc83916a90f2dbbb31df86f2d2e879b76fc03392b7d387"
+            },
+            "source": {
+              "key": "cc459-capture-plan_e53c7c0aa6230ec191762925",
+              "symbol": "XAUUSD",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 4128.0,
+                "zone_high": 4144.0,
+                "invalidation_level": 4232.0,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 4232.0,
+                "y": 817,
+                "expected_y": 817.1816868320884,
+                "error_px": 0.18168683208841685,
+                "edge": null
+              },
+              {
+                "label": "Entry high",
+                "price": 4144.0,
+                "y": 918,
+                "expected_y": 918.0197991090472,
+                "error_px": 0.019799109047198726,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 4128.0,
+                "y": 936,
+                "expected_y": 936.3540013412212,
+                "error_px": 0.354001341221192,
+                "edge": null
+              }
+            ]
+          }
+        }
+      ],
+      "grid_anchor_count": 16,
+      "max_grid_error_px": 0.4881205392546235,
+      "max_level_error_px": 0.354001341221192
+    },
+    "US500": {
+      "status": "VERIFIED",
+      "snapshot": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\US500\\SPX_2026-11-11_04-10-20.png",
+        "sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b",
+        "width": 1524,
+        "height": 856,
+        "chart_geometry": {
+          "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+          "pane_box": [
+            10,
+            27,
+            1448,
+            768
+          ],
+          "axis_origin": [
+            1448,
+            27
+          ],
+          "axis_pixel_match": 1.0,
+          "mode": "linear",
+          "slope": -0.9999370730897084,
+          "intercept": 7945.164449099497,
+          "max_label_error_px": 0.7922820130834225,
+          "grid_checks": [
+            {
+              "price": 7200.0,
+              "page_y_in_download": 745.5668805116459,
+              "grid_y": 746,
+              "error_px": 0.43311948835412295
+            },
+            {
+              "price": 7240.0,
+              "page_y_in_download": 705.5701771968289,
+              "grid_y": 706,
+              "error_px": 0.4298228031710778
+            },
+            {
+              "price": 7280.0,
+              "page_y_in_download": 665.573473882012,
+              "grid_y": 666,
+              "error_px": 0.42652611798803264
+            },
+            {
+              "price": 7320.0,
+              "page_y_in_download": 625.5767705671951,
+              "grid_y": 626,
+              "error_px": 0.4232294328048738
+            },
+            {
+              "price": 7360.0,
+              "page_y_in_download": 585.5800672523781,
+              "grid_y": 586,
+              "error_px": 0.4199327476219423
+            },
+            {
+              "price": 7400.0,
+              "page_y_in_download": 545.5833639375612,
+              "grid_y": 546,
+              "error_px": 0.4166360624387835
+            },
+            {
+              "price": 7440.0,
+              "page_y_in_download": 505.58666062274426,
+              "grid_y": 506,
+              "error_px": 0.4133393772557383
+            },
+            {
+              "price": 7480.0,
+              "page_y_in_download": 465.58995730792725,
+              "grid_y": 466,
+              "error_px": 0.41004269207275
+            },
+            {
+              "price": 7520.0,
+              "page_y_in_download": 425.59325399311035,
+              "grid_y": 426,
+              "error_px": 0.406746006889648
+            },
+            {
+              "price": 7560.0,
+              "page_y_in_download": 385.5965506782934,
+              "grid_y": 386,
+              "error_px": 0.40344932170660286
+            },
+            {
+              "price": 7600.0,
+              "page_y_in_download": 345.59984736347644,
+              "grid_y": 346,
+              "error_px": 0.4001526365235577
+            },
+            {
+              "price": 7640.0,
+              "page_y_in_download": 305.6031440486595,
+              "grid_y": 306,
+              "error_px": 0.39685595134051255
+            },
+            {
+              "price": 7680.0,
+              "page_y_in_download": 265.60644073384253,
+              "grid_y": 266,
+              "error_px": 0.3935592661574674
+            },
+            {
+              "price": 7720.0,
+              "page_y_in_download": 225.60973741902558,
+              "grid_y": 226,
+              "error_px": 0.39026258097442224
+            },
+            {
+              "price": 7760.0,
+              "page_y_in_download": 185.61303410420862,
+              "grid_y": 186,
+              "error_px": 0.3869658957913771
+            },
+            {
+              "price": 7800.0,
+              "page_y_in_download": 145.61633078939167,
+              "grid_y": 146,
+              "error_px": 0.3836692106083319
+            },
+            {
+              "price": 7840.0,
+              "page_y_in_download": 105.61962747457483,
+              "grid_y": 106,
+              "error_px": 0.3803725254251731
+            },
+            {
+              "price": 7880.0,
+              "page_y_in_download": 65.62292415975787,
+              "grid_y": 66,
+              "error_px": 0.3770758402421279
+            },
+            {
+              "price": 7520.93,
+              "page_y_in_download": 425.5,
+              "grid_y": 426,
+              "error_px": 0.5
+            }
+          ],
+          "source_sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b"
+        },
+        "tv_symbol": "SP:SPX",
+        "interval": "240",
+        "interval_label": "4h",
+        "legend": "4h",
+        "page_title": "SPX 7,520.93 \u25bc \u22120.38%",
+        "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+        "suggested_filename": "SPX_2026-11-11_04-10-20.png",
+        "captured_at_utc": "2026-11-11T04:10:21.323857+00:00",
+        "seconds": 18.6
+      },
+      "variants": [
+        {
+          "asset_id": "tradingview-plan-1c8e01b1393f219cd395",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\US500\\tradingview-1a1ac717d027baa5-16x9-levels-1c8e01b1393f219c.png",
+          "sha256": "5bbfc06a9f8139b09dc8e9fe23033a4ebfb6ce299bc7629223ed8bd6419041a8",
+          "width": 1524,
+          "height": 858,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "S&P 500 index: 4h chart of S&P 500 index. Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of S&P 500 index, captured 23:10 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\US500\\SPX_2026-11-11_04-10-20.png",
+            "sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -0.9999370730897084,
+              "intercept": 7945.164449099497,
+              "max_label_error_px": 0.7922820130834225,
+              "grid_checks": [
+                {
+                  "price": 7200.0,
+                  "page_y_in_download": 745.5668805116459,
+                  "grid_y": 746,
+                  "error_px": 0.43311948835412295
+                },
+                {
+                  "price": 7240.0,
+                  "page_y_in_download": 705.5701771968289,
+                  "grid_y": 706,
+                  "error_px": 0.4298228031710778
+                },
+                {
+                  "price": 7280.0,
+                  "page_y_in_download": 665.573473882012,
+                  "grid_y": 666,
+                  "error_px": 0.42652611798803264
+                },
+                {
+                  "price": 7320.0,
+                  "page_y_in_download": 625.5767705671951,
+                  "grid_y": 626,
+                  "error_px": 0.4232294328048738
+                },
+                {
+                  "price": 7360.0,
+                  "page_y_in_download": 585.5800672523781,
+                  "grid_y": 586,
+                  "error_px": 0.4199327476219423
+                },
+                {
+                  "price": 7400.0,
+                  "page_y_in_download": 545.5833639375612,
+                  "grid_y": 546,
+                  "error_px": 0.4166360624387835
+                },
+                {
+                  "price": 7440.0,
+                  "page_y_in_download": 505.58666062274426,
+                  "grid_y": 506,
+                  "error_px": 0.4133393772557383
+                },
+                {
+                  "price": 7480.0,
+                  "page_y_in_download": 465.58995730792725,
+                  "grid_y": 466,
+                  "error_px": 0.41004269207275
+                },
+                {
+                  "price": 7520.0,
+                  "page_y_in_download": 425.59325399311035,
+                  "grid_y": 426,
+                  "error_px": 0.406746006889648
+                },
+                {
+                  "price": 7560.0,
+                  "page_y_in_download": 385.5965506782934,
+                  "grid_y": 386,
+                  "error_px": 0.40344932170660286
+                },
+                {
+                  "price": 7600.0,
+                  "page_y_in_download": 345.59984736347644,
+                  "grid_y": 346,
+                  "error_px": 0.4001526365235577
+                },
+                {
+                  "price": 7640.0,
+                  "page_y_in_download": 305.6031440486595,
+                  "grid_y": 306,
+                  "error_px": 0.39685595134051255
+                },
+                {
+                  "price": 7680.0,
+                  "page_y_in_download": 265.60644073384253,
+                  "grid_y": 266,
+                  "error_px": 0.3935592661574674
+                },
+                {
+                  "price": 7720.0,
+                  "page_y_in_download": 225.60973741902558,
+                  "grid_y": 226,
+                  "error_px": 0.39026258097442224
+                },
+                {
+                  "price": 7760.0,
+                  "page_y_in_download": 185.61303410420862,
+                  "grid_y": 186,
+                  "error_px": 0.3869658957913771
+                },
+                {
+                  "price": 7800.0,
+                  "page_y_in_download": 145.61633078939167,
+                  "grid_y": 146,
+                  "error_px": 0.3836692106083319
+                },
+                {
+                  "price": 7840.0,
+                  "page_y_in_download": 105.61962747457483,
+                  "grid_y": 106,
+                  "error_px": 0.3803725254251731
+                },
+                {
+                  "price": 7880.0,
+                  "page_y_in_download": 65.62292415975787,
+                  "grid_y": 66,
+                  "error_px": 0.3770758402421279
+                },
+                {
+                  "price": 7520.93,
+                  "page_y_in_download": 425.5,
+                  "grid_y": 426,
+                  "error_px": 0.5
+                }
+              ],
+              "source_sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b"
+            },
+            "tv_symbol": "SP:SPX",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "SPX 7,520.93 \u25bc \u22120.38%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+            "suggested_filename": "SPX_2026-11-11_04-10-20.png",
+            "captured_at_utc": "2026-11-11T04:10:21.323857+00:00",
+            "seconds": 18.6,
+            "framing": {
+              "ratio": "16:9",
+              "width": 1524,
+              "height": 858,
+              "original_box": [
+                0,
+                1,
+                1524,
+                857
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -0.9999370730897084,
+              "intercept": 7945.164449099497,
+              "max_label_error_px": 0.7922820130834225,
+              "grid_checks": [
+                {
+                  "price": 7200.0,
+                  "page_y_in_download": 745.5668805116459,
+                  "grid_y": 746,
+                  "error_px": 0.43311948835412295
+                },
+                {
+                  "price": 7240.0,
+                  "page_y_in_download": 705.5701771968289,
+                  "grid_y": 706,
+                  "error_px": 0.4298228031710778
+                },
+                {
+                  "price": 7280.0,
+                  "page_y_in_download": 665.573473882012,
+                  "grid_y": 666,
+                  "error_px": 0.42652611798803264
+                },
+                {
+                  "price": 7320.0,
+                  "page_y_in_download": 625.5767705671951,
+                  "grid_y": 626,
+                  "error_px": 0.4232294328048738
+                },
+                {
+                  "price": 7360.0,
+                  "page_y_in_download": 585.5800672523781,
+                  "grid_y": 586,
+                  "error_px": 0.4199327476219423
+                },
+                {
+                  "price": 7400.0,
+                  "page_y_in_download": 545.5833639375612,
+                  "grid_y": 546,
+                  "error_px": 0.4166360624387835
+                },
+                {
+                  "price": 7440.0,
+                  "page_y_in_download": 505.58666062274426,
+                  "grid_y": 506,
+                  "error_px": 0.4133393772557383
+                },
+                {
+                  "price": 7480.0,
+                  "page_y_in_download": 465.58995730792725,
+                  "grid_y": 466,
+                  "error_px": 0.41004269207275
+                },
+                {
+                  "price": 7520.0,
+                  "page_y_in_download": 425.59325399311035,
+                  "grid_y": 426,
+                  "error_px": 0.406746006889648
+                },
+                {
+                  "price": 7560.0,
+                  "page_y_in_download": 385.5965506782934,
+                  "grid_y": 386,
+                  "error_px": 0.40344932170660286
+                },
+                {
+                  "price": 7600.0,
+                  "page_y_in_download": 345.59984736347644,
+                  "grid_y": 346,
+                  "error_px": 0.4001526365235577
+                },
+                {
+                  "price": 7640.0,
+                  "page_y_in_download": 305.6031440486595,
+                  "grid_y": 306,
+                  "error_px": 0.39685595134051255
+                },
+                {
+                  "price": 7680.0,
+                  "page_y_in_download": 265.60644073384253,
+                  "grid_y": 266,
+                  "error_px": 0.3935592661574674
+                },
+                {
+                  "price": 7720.0,
+                  "page_y_in_download": 225.60973741902558,
+                  "grid_y": 226,
+                  "error_px": 0.39026258097442224
+                },
+                {
+                  "price": 7760.0,
+                  "page_y_in_download": 185.61303410420862,
+                  "grid_y": 186,
+                  "error_px": 0.3869658957913771
+                },
+                {
+                  "price": 7800.0,
+                  "page_y_in_download": 145.61633078939167,
+                  "grid_y": 146,
+                  "error_px": 0.3836692106083319
+                },
+                {
+                  "price": 7840.0,
+                  "page_y_in_download": 105.61962747457483,
+                  "grid_y": 106,
+                  "error_px": 0.3803725254251731
+                },
+                {
+                  "price": 7880.0,
+                  "page_y_in_download": 65.62292415975787,
+                  "grid_y": 66,
+                  "error_px": 0.3770758402421279
+                },
+                {
+                  "price": 7520.93,
+                  "page_y_in_download": 425.5,
+                  "grid_y": 426,
+                  "error_px": 0.5
+                }
+              ],
+              "source_sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b"
+            },
+            "source": {
+              "key": "cc459-capture-plan_a11a3108089c7d75cc6b1522",
+              "symbol": "US500",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 7680.0,
+                "zone_high": 7710.0,
+                "invalidation_level": 7858.0,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 7858.0,
+                "y": 89,
+                "expected_y": 88.65892876056841,
+                "error_px": 0.3410712394315851,
+                "edge": "above view"
+              },
+              {
+                "label": "Entry high",
+                "price": 7710.0,
+                "y": 237,
+                "expected_y": 236.649615577845,
+                "error_px": 0.35038442215500254,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 7680.0,
+                "y": 267,
+                "expected_y": 266.6477277705362,
+                "error_px": 0.3522722294637788,
+                "edge": null
+              }
+            ]
+          }
+        },
+        {
+          "asset_id": "tradingview-plan-89099e84d57ab2cbbc7a",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\US500\\tradingview-1a1ac717d027baa5-4x5-levels-89099e84d57ab2cb.png",
+          "sha256": "74e03248a4f5fb1134e4cc538245f793a16646dbfc15c8a38d8343d5ac0c0a6f",
+          "width": 1524,
+          "height": 1905,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "S&P 500 index: 4h chart of S&P 500 index. Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of S&P 500 index, captured 23:10 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\US500\\SPX_2026-11-11_04-10-20.png",
+            "sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -0.9999370730897084,
+              "intercept": 7945.164449099497,
+              "max_label_error_px": 0.7922820130834225,
+              "grid_checks": [
+                {
+                  "price": 7200.0,
+                  "page_y_in_download": 745.5668805116459,
+                  "grid_y": 746,
+                  "error_px": 0.43311948835412295
+                },
+                {
+                  "price": 7240.0,
+                  "page_y_in_download": 705.5701771968289,
+                  "grid_y": 706,
+                  "error_px": 0.4298228031710778
+                },
+                {
+                  "price": 7280.0,
+                  "page_y_in_download": 665.573473882012,
+                  "grid_y": 666,
+                  "error_px": 0.42652611798803264
+                },
+                {
+                  "price": 7320.0,
+                  "page_y_in_download": 625.5767705671951,
+                  "grid_y": 626,
+                  "error_px": 0.4232294328048738
+                },
+                {
+                  "price": 7360.0,
+                  "page_y_in_download": 585.5800672523781,
+                  "grid_y": 586,
+                  "error_px": 0.4199327476219423
+                },
+                {
+                  "price": 7400.0,
+                  "page_y_in_download": 545.5833639375612,
+                  "grid_y": 546,
+                  "error_px": 0.4166360624387835
+                },
+                {
+                  "price": 7440.0,
+                  "page_y_in_download": 505.58666062274426,
+                  "grid_y": 506,
+                  "error_px": 0.4133393772557383
+                },
+                {
+                  "price": 7480.0,
+                  "page_y_in_download": 465.58995730792725,
+                  "grid_y": 466,
+                  "error_px": 0.41004269207275
+                },
+                {
+                  "price": 7520.0,
+                  "page_y_in_download": 425.59325399311035,
+                  "grid_y": 426,
+                  "error_px": 0.406746006889648
+                },
+                {
+                  "price": 7560.0,
+                  "page_y_in_download": 385.5965506782934,
+                  "grid_y": 386,
+                  "error_px": 0.40344932170660286
+                },
+                {
+                  "price": 7600.0,
+                  "page_y_in_download": 345.59984736347644,
+                  "grid_y": 346,
+                  "error_px": 0.4001526365235577
+                },
+                {
+                  "price": 7640.0,
+                  "page_y_in_download": 305.6031440486595,
+                  "grid_y": 306,
+                  "error_px": 0.39685595134051255
+                },
+                {
+                  "price": 7680.0,
+                  "page_y_in_download": 265.60644073384253,
+                  "grid_y": 266,
+                  "error_px": 0.3935592661574674
+                },
+                {
+                  "price": 7720.0,
+                  "page_y_in_download": 225.60973741902558,
+                  "grid_y": 226,
+                  "error_px": 0.39026258097442224
+                },
+                {
+                  "price": 7760.0,
+                  "page_y_in_download": 185.61303410420862,
+                  "grid_y": 186,
+                  "error_px": 0.3869658957913771
+                },
+                {
+                  "price": 7800.0,
+                  "page_y_in_download": 145.61633078939167,
+                  "grid_y": 146,
+                  "error_px": 0.3836692106083319
+                },
+                {
+                  "price": 7840.0,
+                  "page_y_in_download": 105.61962747457483,
+                  "grid_y": 106,
+                  "error_px": 0.3803725254251731
+                },
+                {
+                  "price": 7880.0,
+                  "page_y_in_download": 65.62292415975787,
+                  "grid_y": 66,
+                  "error_px": 0.3770758402421279
+                },
+                {
+                  "price": 7520.93,
+                  "page_y_in_download": 425.5,
+                  "grid_y": 426,
+                  "error_px": 0.5
+                }
+              ],
+              "source_sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b"
+            },
+            "tv_symbol": "SP:SPX",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "SPX 7,520.93 \u25bc \u22120.38%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+            "suggested_filename": "SPX_2026-11-11_04-10-20.png",
+            "captured_at_utc": "2026-11-11T04:10:21.323857+00:00",
+            "seconds": 18.6,
+            "framing": {
+              "ratio": "4:5",
+              "width": 1524,
+              "height": 1905,
+              "original_box": [
+                0,
+                524,
+                1524,
+                1380
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -0.9999370730897084,
+              "intercept": 7945.164449099497,
+              "max_label_error_px": 0.7922820130834225,
+              "grid_checks": [
+                {
+                  "price": 7200.0,
+                  "page_y_in_download": 745.5668805116459,
+                  "grid_y": 746,
+                  "error_px": 0.43311948835412295
+                },
+                {
+                  "price": 7240.0,
+                  "page_y_in_download": 705.5701771968289,
+                  "grid_y": 706,
+                  "error_px": 0.4298228031710778
+                },
+                {
+                  "price": 7280.0,
+                  "page_y_in_download": 665.573473882012,
+                  "grid_y": 666,
+                  "error_px": 0.42652611798803264
+                },
+                {
+                  "price": 7320.0,
+                  "page_y_in_download": 625.5767705671951,
+                  "grid_y": 626,
+                  "error_px": 0.4232294328048738
+                },
+                {
+                  "price": 7360.0,
+                  "page_y_in_download": 585.5800672523781,
+                  "grid_y": 586,
+                  "error_px": 0.4199327476219423
+                },
+                {
+                  "price": 7400.0,
+                  "page_y_in_download": 545.5833639375612,
+                  "grid_y": 546,
+                  "error_px": 0.4166360624387835
+                },
+                {
+                  "price": 7440.0,
+                  "page_y_in_download": 505.58666062274426,
+                  "grid_y": 506,
+                  "error_px": 0.4133393772557383
+                },
+                {
+                  "price": 7480.0,
+                  "page_y_in_download": 465.58995730792725,
+                  "grid_y": 466,
+                  "error_px": 0.41004269207275
+                },
+                {
+                  "price": 7520.0,
+                  "page_y_in_download": 425.59325399311035,
+                  "grid_y": 426,
+                  "error_px": 0.406746006889648
+                },
+                {
+                  "price": 7560.0,
+                  "page_y_in_download": 385.5965506782934,
+                  "grid_y": 386,
+                  "error_px": 0.40344932170660286
+                },
+                {
+                  "price": 7600.0,
+                  "page_y_in_download": 345.59984736347644,
+                  "grid_y": 346,
+                  "error_px": 0.4001526365235577
+                },
+                {
+                  "price": 7640.0,
+                  "page_y_in_download": 305.6031440486595,
+                  "grid_y": 306,
+                  "error_px": 0.39685595134051255
+                },
+                {
+                  "price": 7680.0,
+                  "page_y_in_download": 265.60644073384253,
+                  "grid_y": 266,
+                  "error_px": 0.3935592661574674
+                },
+                {
+                  "price": 7720.0,
+                  "page_y_in_download": 225.60973741902558,
+                  "grid_y": 226,
+                  "error_px": 0.39026258097442224
+                },
+                {
+                  "price": 7760.0,
+                  "page_y_in_download": 185.61303410420862,
+                  "grid_y": 186,
+                  "error_px": 0.3869658957913771
+                },
+                {
+                  "price": 7800.0,
+                  "page_y_in_download": 145.61633078939167,
+                  "grid_y": 146,
+                  "error_px": 0.3836692106083319
+                },
+                {
+                  "price": 7840.0,
+                  "page_y_in_download": 105.61962747457483,
+                  "grid_y": 106,
+                  "error_px": 0.3803725254251731
+                },
+                {
+                  "price": 7880.0,
+                  "page_y_in_download": 65.62292415975787,
+                  "grid_y": 66,
+                  "error_px": 0.3770758402421279
+                },
+                {
+                  "price": 7520.93,
+                  "page_y_in_download": 425.5,
+                  "grid_y": 426,
+                  "error_px": 0.5
+                }
+              ],
+              "source_sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b"
+            },
+            "source": {
+              "key": "cc459-capture-plan_a11a3108089c7d75cc6b1522",
+              "symbol": "US500",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 7680.0,
+                "zone_high": 7710.0,
+                "invalidation_level": 7858.0,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 7858.0,
+                "y": 612,
+                "expected_y": 611.6589287605684,
+                "error_px": 0.3410712394315851,
+                "edge": "above view"
+              },
+              {
+                "label": "Entry high",
+                "price": 7710.0,
+                "y": 760,
+                "expected_y": 759.649615577845,
+                "error_px": 0.35038442215500254,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 7680.0,
+                "y": 790,
+                "expected_y": 789.6477277705362,
+                "error_px": 0.3522722294637788,
+                "edge": null
+              }
+            ]
+          }
+        }
+      ],
+      "grid_anchor_count": 19,
+      "max_grid_error_px": 0.5,
+      "max_level_error_px": 0.3522722294637788
+    },
+    "EURUSD": {
+      "status": "VERIFIED",
+      "snapshot": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\EURUSD\\EURUSD_2026-11-11_04-10-43.png",
+        "sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd",
+        "width": 1524,
+        "height": 856,
+        "chart_geometry": {
+          "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+          "pane_box": [
+            10,
+            27,
+            1448,
+            768
+          ],
+          "axis_origin": [
+            1448,
+            27
+          ],
+          "axis_pixel_match": 1.0,
+          "mode": "linear",
+          "slope": -15498.90759664633,
+          "intercept": 17918.15202431894,
+          "max_label_error_px": 0.5683291847526561,
+          "grid_checks": [
+            {
+              "price": 1.108,
+              "page_y_in_download": 745.2173282247778,
+              "grid_y": 745,
+              "error_px": 0.2173282247778161
+            },
+            {
+              "price": 1.11,
+              "page_y_in_download": 714.2278007662849,
+              "grid_y": 714,
+              "error_px": 0.22780076628487222
+            },
+            {
+              "price": 1.112,
+              "page_y_in_download": 683.2382733077918,
+              "grid_y": 683,
+              "error_px": 0.23827330779181466
+            },
+            {
+              "price": 1.114,
+              "page_y_in_download": 652.2487458492989,
+              "grid_y": 652,
+              "error_px": 0.24874584929887078
+            },
+            {
+              "price": 1.116,
+              "page_y_in_download": 621.2592183908059,
+              "grid_y": 621,
+              "error_px": 0.2592183908059269
+            },
+            {
+              "price": 1.118,
+              "page_y_in_download": 590.2696909323129,
+              "grid_y": 590,
+              "error_px": 0.26969093231286934
+            },
+            {
+              "price": 1.12,
+              "page_y_in_download": 559.2801634738199,
+              "grid_y": 559,
+              "error_px": 0.28016347381992546
+            },
+            {
+              "price": 1.122,
+              "page_y_in_download": 528.290636015327,
+              "grid_y": 528,
+              "error_px": 0.2906360153269816
+            },
+            {
+              "price": 1.124,
+              "page_y_in_download": 497.3011085568339,
+              "grid_y": 497,
+              "error_px": 0.301108556833924
+            },
+            {
+              "price": 1.126,
+              "page_y_in_download": 466.3115810983409,
+              "grid_y": 466,
+              "error_px": 0.3115810983409233
+            },
+            {
+              "price": 1.128,
+              "page_y_in_download": 435.3220536398479,
+              "grid_y": 435,
+              "error_px": 0.32205363984792257
+            },
+            {
+              "price": 1.13,
+              "page_y_in_download": 404.332526181355,
+              "grid_y": 404,
+              "error_px": 0.3325261813549787
+            },
+            {
+              "price": 1.132,
+              "page_y_in_download": 373.34299872286203,
+              "grid_y": 373,
+              "error_px": 0.3429987228620348
+            },
+            {
+              "price": 1.134,
+              "page_y_in_download": 342.353471264369,
+              "grid_y": 342,
+              "error_px": 0.35347126436897724
+            },
+            {
+              "price": 1.136,
+              "page_y_in_download": 311.36394380587603,
+              "grid_y": 311,
+              "error_px": 0.36394380587603337
+            },
+            {
+              "price": 1.138,
+              "page_y_in_download": 280.374416347383,
+              "grid_y": 280,
+              "error_px": 0.3744163473829758
+            },
+            {
+              "price": 1.14,
+              "page_y_in_download": 249.38488888889003,
+              "grid_y": 249,
+              "error_px": 0.3848888888900319
+            },
+            {
+              "price": 1.142,
+              "page_y_in_download": 218.3953614303971,
+              "grid_y": 218,
+              "error_px": 0.39536143039708804
+            },
+            {
+              "price": 1.144,
+              "page_y_in_download": 187.40583397190403,
+              "grid_y": 187,
+              "error_px": 0.4058339719040305
+            },
+            {
+              "price": 1.146,
+              "page_y_in_download": 156.4163065134111,
+              "grid_y": 156,
+              "error_px": 0.4163065134110866
+            },
+            {
+              "price": 1.148,
+              "page_y_in_download": 125.42677905491803,
+              "grid_y": 125,
+              "error_px": 0.42677905491802903
+            },
+            {
+              "price": 1.15,
+              "page_y_in_download": 94.4372515964252,
+              "grid_y": 94,
+              "error_px": 0.43725159642519884
+            },
+            {
+              "price": 1.152,
+              "page_y_in_download": 63.44772413793214,
+              "grid_y": 63,
+              "error_px": 0.4477241379321413
+            }
+          ],
+          "source_sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd"
+        },
+        "tv_symbol": "FX_IDC:EURUSD",
+        "interval": "240",
+        "interval_label": "4h",
+        "legend": "4h",
+        "page_title": "EURUSD 1.11650 \u25b2 +0.04%",
+        "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:EURUSD&interval=240",
+        "suggested_filename": "EURUSD_2026-11-11_04-10-43.png",
+        "captured_at_utc": "2026-11-11T04:10:44.186539+00:00",
+        "seconds": 20.3
+      },
+      "variants": [
+        {
+          "asset_id": "tradingview-plan-a9a81df132ace966bb61",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\EURUSD\\tradingview-558fa13f70fa4203-16x9-levels-a9a81df132ace966.png",
+          "sha256": "5c41a405a4607e343ea4656ed2761efd3a46a5ceb9db0e5c979bf75cd1e0fe2b",
+          "width": 1524,
+          "height": 858,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "Euro / US dollar spot (ICE): 4h chart of Euro / US dollar spot (ICE). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of Euro / US dollar spot (ICE), captured 23:10 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:EURUSD&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\EURUSD\\EURUSD_2026-11-11_04-10-43.png",
+            "sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -15498.90759664633,
+              "intercept": 17918.15202431894,
+              "max_label_error_px": 0.5683291847526561,
+              "grid_checks": [
+                {
+                  "price": 1.108,
+                  "page_y_in_download": 745.2173282247778,
+                  "grid_y": 745,
+                  "error_px": 0.2173282247778161
+                },
+                {
+                  "price": 1.11,
+                  "page_y_in_download": 714.2278007662849,
+                  "grid_y": 714,
+                  "error_px": 0.22780076628487222
+                },
+                {
+                  "price": 1.112,
+                  "page_y_in_download": 683.2382733077918,
+                  "grid_y": 683,
+                  "error_px": 0.23827330779181466
+                },
+                {
+                  "price": 1.114,
+                  "page_y_in_download": 652.2487458492989,
+                  "grid_y": 652,
+                  "error_px": 0.24874584929887078
+                },
+                {
+                  "price": 1.116,
+                  "page_y_in_download": 621.2592183908059,
+                  "grid_y": 621,
+                  "error_px": 0.2592183908059269
+                },
+                {
+                  "price": 1.118,
+                  "page_y_in_download": 590.2696909323129,
+                  "grid_y": 590,
+                  "error_px": 0.26969093231286934
+                },
+                {
+                  "price": 1.12,
+                  "page_y_in_download": 559.2801634738199,
+                  "grid_y": 559,
+                  "error_px": 0.28016347381992546
+                },
+                {
+                  "price": 1.122,
+                  "page_y_in_download": 528.290636015327,
+                  "grid_y": 528,
+                  "error_px": 0.2906360153269816
+                },
+                {
+                  "price": 1.124,
+                  "page_y_in_download": 497.3011085568339,
+                  "grid_y": 497,
+                  "error_px": 0.301108556833924
+                },
+                {
+                  "price": 1.126,
+                  "page_y_in_download": 466.3115810983409,
+                  "grid_y": 466,
+                  "error_px": 0.3115810983409233
+                },
+                {
+                  "price": 1.128,
+                  "page_y_in_download": 435.3220536398479,
+                  "grid_y": 435,
+                  "error_px": 0.32205363984792257
+                },
+                {
+                  "price": 1.13,
+                  "page_y_in_download": 404.332526181355,
+                  "grid_y": 404,
+                  "error_px": 0.3325261813549787
+                },
+                {
+                  "price": 1.132,
+                  "page_y_in_download": 373.34299872286203,
+                  "grid_y": 373,
+                  "error_px": 0.3429987228620348
+                },
+                {
+                  "price": 1.134,
+                  "page_y_in_download": 342.353471264369,
+                  "grid_y": 342,
+                  "error_px": 0.35347126436897724
+                },
+                {
+                  "price": 1.136,
+                  "page_y_in_download": 311.36394380587603,
+                  "grid_y": 311,
+                  "error_px": 0.36394380587603337
+                },
+                {
+                  "price": 1.138,
+                  "page_y_in_download": 280.374416347383,
+                  "grid_y": 280,
+                  "error_px": 0.3744163473829758
+                },
+                {
+                  "price": 1.14,
+                  "page_y_in_download": 249.38488888889003,
+                  "grid_y": 249,
+                  "error_px": 0.3848888888900319
+                },
+                {
+                  "price": 1.142,
+                  "page_y_in_download": 218.3953614303971,
+                  "grid_y": 218,
+                  "error_px": 0.39536143039708804
+                },
+                {
+                  "price": 1.144,
+                  "page_y_in_download": 187.40583397190403,
+                  "grid_y": 187,
+                  "error_px": 0.4058339719040305
+                },
+                {
+                  "price": 1.146,
+                  "page_y_in_download": 156.4163065134111,
+                  "grid_y": 156,
+                  "error_px": 0.4163065134110866
+                },
+                {
+                  "price": 1.148,
+                  "page_y_in_download": 125.42677905491803,
+                  "grid_y": 125,
+                  "error_px": 0.42677905491802903
+                },
+                {
+                  "price": 1.15,
+                  "page_y_in_download": 94.4372515964252,
+                  "grid_y": 94,
+                  "error_px": 0.43725159642519884
+                },
+                {
+                  "price": 1.152,
+                  "page_y_in_download": 63.44772413793214,
+                  "grid_y": 63,
+                  "error_px": 0.4477241379321413
+                }
+              ],
+              "source_sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd"
+            },
+            "tv_symbol": "FX_IDC:EURUSD",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "EURUSD 1.11650 \u25b2 +0.04%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:EURUSD&interval=240",
+            "suggested_filename": "EURUSD_2026-11-11_04-10-43.png",
+            "captured_at_utc": "2026-11-11T04:10:44.186539+00:00",
+            "seconds": 20.3,
+            "framing": {
+              "ratio": "16:9",
+              "width": 1524,
+              "height": 858,
+              "original_box": [
+                0,
+                1,
+                1524,
+                857
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -15498.90759664633,
+              "intercept": 17918.15202431894,
+              "max_label_error_px": 0.5683291847526561,
+              "grid_checks": [
+                {
+                  "price": 1.108,
+                  "page_y_in_download": 745.2173282247778,
+                  "grid_y": 745,
+                  "error_px": 0.2173282247778161
+                },
+                {
+                  "price": 1.11,
+                  "page_y_in_download": 714.2278007662849,
+                  "grid_y": 714,
+                  "error_px": 0.22780076628487222
+                },
+                {
+                  "price": 1.112,
+                  "page_y_in_download": 683.2382733077918,
+                  "grid_y": 683,
+                  "error_px": 0.23827330779181466
+                },
+                {
+                  "price": 1.114,
+                  "page_y_in_download": 652.2487458492989,
+                  "grid_y": 652,
+                  "error_px": 0.24874584929887078
+                },
+                {
+                  "price": 1.116,
+                  "page_y_in_download": 621.2592183908059,
+                  "grid_y": 621,
+                  "error_px": 0.2592183908059269
+                },
+                {
+                  "price": 1.118,
+                  "page_y_in_download": 590.2696909323129,
+                  "grid_y": 590,
+                  "error_px": 0.26969093231286934
+                },
+                {
+                  "price": 1.12,
+                  "page_y_in_download": 559.2801634738199,
+                  "grid_y": 559,
+                  "error_px": 0.28016347381992546
+                },
+                {
+                  "price": 1.122,
+                  "page_y_in_download": 528.290636015327,
+                  "grid_y": 528,
+                  "error_px": 0.2906360153269816
+                },
+                {
+                  "price": 1.124,
+                  "page_y_in_download": 497.3011085568339,
+                  "grid_y": 497,
+                  "error_px": 0.301108556833924
+                },
+                {
+                  "price": 1.126,
+                  "page_y_in_download": 466.3115810983409,
+                  "grid_y": 466,
+                  "error_px": 0.3115810983409233
+                },
+                {
+                  "price": 1.128,
+                  "page_y_in_download": 435.3220536398479,
+                  "grid_y": 435,
+                  "error_px": 0.32205363984792257
+                },
+                {
+                  "price": 1.13,
+                  "page_y_in_download": 404.332526181355,
+                  "grid_y": 404,
+                  "error_px": 0.3325261813549787
+                },
+                {
+                  "price": 1.132,
+                  "page_y_in_download": 373.34299872286203,
+                  "grid_y": 373,
+                  "error_px": 0.3429987228620348
+                },
+                {
+                  "price": 1.134,
+                  "page_y_in_download": 342.353471264369,
+                  "grid_y": 342,
+                  "error_px": 0.35347126436897724
+                },
+                {
+                  "price": 1.136,
+                  "page_y_in_download": 311.36394380587603,
+                  "grid_y": 311,
+                  "error_px": 0.36394380587603337
+                },
+                {
+                  "price": 1.138,
+                  "page_y_in_download": 280.374416347383,
+                  "grid_y": 280,
+                  "error_px": 0.3744163473829758
+                },
+                {
+                  "price": 1.14,
+                  "page_y_in_download": 249.38488888889003,
+                  "grid_y": 249,
+                  "error_px": 0.3848888888900319
+                },
+                {
+                  "price": 1.142,
+                  "page_y_in_download": 218.3953614303971,
+                  "grid_y": 218,
+                  "error_px": 0.39536143039708804
+                },
+                {
+                  "price": 1.144,
+                  "page_y_in_download": 187.40583397190403,
+                  "grid_y": 187,
+                  "error_px": 0.4058339719040305
+                },
+                {
+                  "price": 1.146,
+                  "page_y_in_download": 156.4163065134111,
+                  "grid_y": 156,
+                  "error_px": 0.4163065134110866
+                },
+                {
+                  "price": 1.148,
+                  "page_y_in_download": 125.42677905491803,
+                  "grid_y": 125,
+                  "error_px": 0.42677905491802903
+                },
+                {
+                  "price": 1.15,
+                  "page_y_in_download": 94.4372515964252,
+                  "grid_y": 94,
+                  "error_px": 0.43725159642519884
+                },
+                {
+                  "price": 1.152,
+                  "page_y_in_download": 63.44772413793214,
+                  "grid_y": 63,
+                  "error_px": 0.4477241379321413
+                }
+              ],
+              "source_sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd"
+            },
+            "source": {
+              "key": "cc459-capture-plan_5e5cf20917286ebd8cb8d945",
+              "symbol": "EURUSD",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 1.1225,
+                "zone_high": 1.1245,
+                "invalidation_level": 1.1282,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 1.1282,
+                "y": 433,
+                "expected_y": 433.2844737825508,
+                "error_px": 0.2844737825507764,
+                "edge": null
+              },
+              {
+                "label": "Entry high",
+                "price": 1.1245,
+                "y": 491,
+                "expected_y": 490.63043189014206,
+                "error_px": 0.3695681098579371,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 1.1225,
+                "y": 522,
+                "expected_y": 521.628247083434,
+                "error_px": 0.37175291656603804,
+                "edge": null
+              }
+            ]
+          }
+        },
+        {
+          "asset_id": "tradingview-plan-97861d76a5520e74b83d",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\EURUSD\\tradingview-558fa13f70fa4203-4x5-levels-97861d76a5520e74.png",
+          "sha256": "871fc4aff518a6e598df26e8beda8943b9b250c19c527d7d47ff0930f2275b2e",
+          "width": 1524,
+          "height": 1905,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "Euro / US dollar spot (ICE): 4h chart of Euro / US dollar spot (ICE). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of Euro / US dollar spot (ICE), captured 23:10 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:EURUSD&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\EURUSD\\EURUSD_2026-11-11_04-10-43.png",
+            "sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -15498.90759664633,
+              "intercept": 17918.15202431894,
+              "max_label_error_px": 0.5683291847526561,
+              "grid_checks": [
+                {
+                  "price": 1.108,
+                  "page_y_in_download": 745.2173282247778,
+                  "grid_y": 745,
+                  "error_px": 0.2173282247778161
+                },
+                {
+                  "price": 1.11,
+                  "page_y_in_download": 714.2278007662849,
+                  "grid_y": 714,
+                  "error_px": 0.22780076628487222
+                },
+                {
+                  "price": 1.112,
+                  "page_y_in_download": 683.2382733077918,
+                  "grid_y": 683,
+                  "error_px": 0.23827330779181466
+                },
+                {
+                  "price": 1.114,
+                  "page_y_in_download": 652.2487458492989,
+                  "grid_y": 652,
+                  "error_px": 0.24874584929887078
+                },
+                {
+                  "price": 1.116,
+                  "page_y_in_download": 621.2592183908059,
+                  "grid_y": 621,
+                  "error_px": 0.2592183908059269
+                },
+                {
+                  "price": 1.118,
+                  "page_y_in_download": 590.2696909323129,
+                  "grid_y": 590,
+                  "error_px": 0.26969093231286934
+                },
+                {
+                  "price": 1.12,
+                  "page_y_in_download": 559.2801634738199,
+                  "grid_y": 559,
+                  "error_px": 0.28016347381992546
+                },
+                {
+                  "price": 1.122,
+                  "page_y_in_download": 528.290636015327,
+                  "grid_y": 528,
+                  "error_px": 0.2906360153269816
+                },
+                {
+                  "price": 1.124,
+                  "page_y_in_download": 497.3011085568339,
+                  "grid_y": 497,
+                  "error_px": 0.301108556833924
+                },
+                {
+                  "price": 1.126,
+                  "page_y_in_download": 466.3115810983409,
+                  "grid_y": 466,
+                  "error_px": 0.3115810983409233
+                },
+                {
+                  "price": 1.128,
+                  "page_y_in_download": 435.3220536398479,
+                  "grid_y": 435,
+                  "error_px": 0.32205363984792257
+                },
+                {
+                  "price": 1.13,
+                  "page_y_in_download": 404.332526181355,
+                  "grid_y": 404,
+                  "error_px": 0.3325261813549787
+                },
+                {
+                  "price": 1.132,
+                  "page_y_in_download": 373.34299872286203,
+                  "grid_y": 373,
+                  "error_px": 0.3429987228620348
+                },
+                {
+                  "price": 1.134,
+                  "page_y_in_download": 342.353471264369,
+                  "grid_y": 342,
+                  "error_px": 0.35347126436897724
+                },
+                {
+                  "price": 1.136,
+                  "page_y_in_download": 311.36394380587603,
+                  "grid_y": 311,
+                  "error_px": 0.36394380587603337
+                },
+                {
+                  "price": 1.138,
+                  "page_y_in_download": 280.374416347383,
+                  "grid_y": 280,
+                  "error_px": 0.3744163473829758
+                },
+                {
+                  "price": 1.14,
+                  "page_y_in_download": 249.38488888889003,
+                  "grid_y": 249,
+                  "error_px": 0.3848888888900319
+                },
+                {
+                  "price": 1.142,
+                  "page_y_in_download": 218.3953614303971,
+                  "grid_y": 218,
+                  "error_px": 0.39536143039708804
+                },
+                {
+                  "price": 1.144,
+                  "page_y_in_download": 187.40583397190403,
+                  "grid_y": 187,
+                  "error_px": 0.4058339719040305
+                },
+                {
+                  "price": 1.146,
+                  "page_y_in_download": 156.4163065134111,
+                  "grid_y": 156,
+                  "error_px": 0.4163065134110866
+                },
+                {
+                  "price": 1.148,
+                  "page_y_in_download": 125.42677905491803,
+                  "grid_y": 125,
+                  "error_px": 0.42677905491802903
+                },
+                {
+                  "price": 1.15,
+                  "page_y_in_download": 94.4372515964252,
+                  "grid_y": 94,
+                  "error_px": 0.43725159642519884
+                },
+                {
+                  "price": 1.152,
+                  "page_y_in_download": 63.44772413793214,
+                  "grid_y": 63,
+                  "error_px": 0.4477241379321413
+                }
+              ],
+              "source_sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd"
+            },
+            "tv_symbol": "FX_IDC:EURUSD",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "EURUSD 1.11650 \u25b2 +0.04%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:EURUSD&interval=240",
+            "suggested_filename": "EURUSD_2026-11-11_04-10-43.png",
+            "captured_at_utc": "2026-11-11T04:10:44.186539+00:00",
+            "seconds": 20.3,
+            "framing": {
+              "ratio": "4:5",
+              "width": 1524,
+              "height": 1905,
+              "original_box": [
+                0,
+                524,
+                1524,
+                1380
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -15498.90759664633,
+              "intercept": 17918.15202431894,
+              "max_label_error_px": 0.5683291847526561,
+              "grid_checks": [
+                {
+                  "price": 1.108,
+                  "page_y_in_download": 745.2173282247778,
+                  "grid_y": 745,
+                  "error_px": 0.2173282247778161
+                },
+                {
+                  "price": 1.11,
+                  "page_y_in_download": 714.2278007662849,
+                  "grid_y": 714,
+                  "error_px": 0.22780076628487222
+                },
+                {
+                  "price": 1.112,
+                  "page_y_in_download": 683.2382733077918,
+                  "grid_y": 683,
+                  "error_px": 0.23827330779181466
+                },
+                {
+                  "price": 1.114,
+                  "page_y_in_download": 652.2487458492989,
+                  "grid_y": 652,
+                  "error_px": 0.24874584929887078
+                },
+                {
+                  "price": 1.116,
+                  "page_y_in_download": 621.2592183908059,
+                  "grid_y": 621,
+                  "error_px": 0.2592183908059269
+                },
+                {
+                  "price": 1.118,
+                  "page_y_in_download": 590.2696909323129,
+                  "grid_y": 590,
+                  "error_px": 0.26969093231286934
+                },
+                {
+                  "price": 1.12,
+                  "page_y_in_download": 559.2801634738199,
+                  "grid_y": 559,
+                  "error_px": 0.28016347381992546
+                },
+                {
+                  "price": 1.122,
+                  "page_y_in_download": 528.290636015327,
+                  "grid_y": 528,
+                  "error_px": 0.2906360153269816
+                },
+                {
+                  "price": 1.124,
+                  "page_y_in_download": 497.3011085568339,
+                  "grid_y": 497,
+                  "error_px": 0.301108556833924
+                },
+                {
+                  "price": 1.126,
+                  "page_y_in_download": 466.3115810983409,
+                  "grid_y": 466,
+                  "error_px": 0.3115810983409233
+                },
+                {
+                  "price": 1.128,
+                  "page_y_in_download": 435.3220536398479,
+                  "grid_y": 435,
+                  "error_px": 0.32205363984792257
+                },
+                {
+                  "price": 1.13,
+                  "page_y_in_download": 404.332526181355,
+                  "grid_y": 404,
+                  "error_px": 0.3325261813549787
+                },
+                {
+                  "price": 1.132,
+                  "page_y_in_download": 373.34299872286203,
+                  "grid_y": 373,
+                  "error_px": 0.3429987228620348
+                },
+                {
+                  "price": 1.134,
+                  "page_y_in_download": 342.353471264369,
+                  "grid_y": 342,
+                  "error_px": 0.35347126436897724
+                },
+                {
+                  "price": 1.136,
+                  "page_y_in_download": 311.36394380587603,
+                  "grid_y": 311,
+                  "error_px": 0.36394380587603337
+                },
+                {
+                  "price": 1.138,
+                  "page_y_in_download": 280.374416347383,
+                  "grid_y": 280,
+                  "error_px": 0.3744163473829758
+                },
+                {
+                  "price": 1.14,
+                  "page_y_in_download": 249.38488888889003,
+                  "grid_y": 249,
+                  "error_px": 0.3848888888900319
+                },
+                {
+                  "price": 1.142,
+                  "page_y_in_download": 218.3953614303971,
+                  "grid_y": 218,
+                  "error_px": 0.39536143039708804
+                },
+                {
+                  "price": 1.144,
+                  "page_y_in_download": 187.40583397190403,
+                  "grid_y": 187,
+                  "error_px": 0.4058339719040305
+                },
+                {
+                  "price": 1.146,
+                  "page_y_in_download": 156.4163065134111,
+                  "grid_y": 156,
+                  "error_px": 0.4163065134110866
+                },
+                {
+                  "price": 1.148,
+                  "page_y_in_download": 125.42677905491803,
+                  "grid_y": 125,
+                  "error_px": 0.42677905491802903
+                },
+                {
+                  "price": 1.15,
+                  "page_y_in_download": 94.4372515964252,
+                  "grid_y": 94,
+                  "error_px": 0.43725159642519884
+                },
+                {
+                  "price": 1.152,
+                  "page_y_in_download": 63.44772413793214,
+                  "grid_y": 63,
+                  "error_px": 0.4477241379321413
+                }
+              ],
+              "source_sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd"
+            },
+            "source": {
+              "key": "cc459-capture-plan_5e5cf20917286ebd8cb8d945",
+              "symbol": "EURUSD",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 1.1225,
+                "zone_high": 1.1245,
+                "invalidation_level": 1.1282,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 1.1282,
+                "y": 956,
+                "expected_y": 956.2844737825508,
+                "error_px": 0.2844737825507764,
+                "edge": null
+              },
+              {
+                "label": "Entry high",
+                "price": 1.1245,
+                "y": 1014,
+                "expected_y": 1013.6304318901421,
+                "error_px": 0.3695681098579371,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 1.1225,
+                "y": 1045,
+                "expected_y": 1044.628247083434,
+                "error_px": 0.37175291656603804,
+                "edge": null
+              }
+            ]
+          }
+        }
+      ],
+      "grid_anchor_count": 23,
+      "max_grid_error_px": 0.4477241379321413,
+      "max_level_error_px": 0.37175291656603804
+    },
+    "USDJPY": {
+      "status": "VERIFIED",
+      "snapshot": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USDJPY\\USDJPY_2026-11-11_04-10-55.png",
+        "sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741",
+        "width": 1524,
+        "height": 856,
+        "chart_geometry": {
+          "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+          "pane_box": [
+            10,
+            27,
+            1448,
+            768
+          ],
+          "axis_origin": [
+            1448,
+            27
+          ],
+          "axis_pixel_match": 0.9921259842519685,
+          "mode": "linear",
+          "slope": -190.95260930617582,
+          "intercept": 30470.322921705236,
+          "max_label_error_px": 0.7628770180199353,
+          "grid_checks": [
+            {
+              "price": 155.6,
+              "page_y_in_download": 758.1443324936614,
+              "grid_y": 758,
+              "error_px": 0.144332493661409
+            },
+            {
+              "price": 155.8,
+              "page_y_in_download": 719.9440806044947,
+              "grid_y": 720,
+              "error_px": 0.055919395505270586
+            },
+            {
+              "price": 156.0,
+              "page_y_in_download": 681.7438287153279,
+              "grid_y": 682,
+              "error_px": 0.25617128467206385
+            },
+            {
+              "price": 156.2,
+              "page_y_in_download": 643.5435768261613,
+              "grid_y": 644,
+              "error_px": 0.4564231738387434
+            },
+            {
+              "price": 156.4,
+              "page_y_in_download": 605.3433249369945,
+              "grid_y": 605,
+              "error_px": 0.3433249369944633
+            },
+            {
+              "price": 156.6,
+              "page_y_in_download": 567.1430730478278,
+              "grid_y": 567,
+              "error_px": 0.14307304782778374
+            },
+            {
+              "price": 156.8,
+              "page_y_in_download": 528.942821158661,
+              "grid_y": 529,
+              "error_px": 0.05717884133900952
+            },
+            {
+              "price": 157.0,
+              "page_y_in_download": 490.74256926949425,
+              "grid_y": 491,
+              "error_px": 0.25743073050574594
+            },
+            {
+              "price": 157.2,
+              "page_y_in_download": 452.5423173803275,
+              "grid_y": 453,
+              "error_px": 0.45768261967248236
+            },
+            {
+              "price": 157.4,
+              "page_y_in_download": 414.3420654911607,
+              "grid_y": 414,
+              "error_px": 0.3420654911607244
+            },
+            {
+              "price": 157.6,
+              "page_y_in_download": 376.14181360199404,
+              "grid_y": 376,
+              "error_px": 0.1418136019940448
+            },
+            {
+              "price": 157.8,
+              "page_y_in_download": 337.94156171282725,
+              "grid_y": 338,
+              "error_px": 0.05843828717274846
+            },
+            {
+              "price": 158.0,
+              "page_y_in_download": 299.74130982366046,
+              "grid_y": 300,
+              "error_px": 0.2586901763395417
+            },
+            {
+              "price": 158.2,
+              "page_y_in_download": 261.5410579344938,
+              "grid_y": 262,
+              "error_px": 0.4589420655062213
+            },
+            {
+              "price": 158.4,
+              "page_y_in_download": 223.3408060453271,
+              "grid_y": 223,
+              "error_px": 0.3408060453270991
+            },
+            {
+              "price": 158.6,
+              "page_y_in_download": 185.1405541561603,
+              "grid_y": 185,
+              "error_px": 0.14055415616030587
+            },
+            {
+              "price": 158.8,
+              "page_y_in_download": 146.94030226699363,
+              "grid_y": 147,
+              "error_px": 0.05969773300637371
+            },
+            {
+              "price": 159.0,
+              "page_y_in_download": 108.74005037782683,
+              "grid_y": 109,
+              "error_px": 0.25994962217316697
+            },
+            {
+              "price": 159.2,
+              "page_y_in_download": 70.53979848866004,
+              "grid_y": 71,
+              "error_px": 0.46020151133996023
+            }
+          ],
+          "source_sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741"
+        },
+        "tv_symbol": "FX_IDC:USDJPY",
+        "interval": "240",
+        "interval_label": "4h",
+        "legend": "4h",
+        "page_title": "USDJPY 158.853 \u25b2 +0.09%",
+        "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+        "suggested_filename": "USDJPY_2026-11-11_04-10-55.png",
+        "captured_at_utc": "2026-11-11T04:10:55.793750+00:00",
+        "seconds": 8.7
+      },
+      "variants": [
+        {
+          "asset_id": "tradingview-plan-b29d466b2354571436e1",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USDJPY\\tradingview-92c52211c2054467-16x9-levels-b29d466b23545714.png",
+          "sha256": "d60c750626c0c887be3c504af3d2bd9ad979669b7ff38cd7faeb5171aa3a6829",
+          "width": 1524,
+          "height": 858,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "US dollar / Japanese yen spot (ICE): 4h chart of US dollar / Japanese yen spot (ICE). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of US dollar / Japanese yen spot (ICE), captured 23:10 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USDJPY\\USDJPY_2026-11-11_04-10-55.png",
+            "sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 0.9921259842519685,
+              "mode": "linear",
+              "slope": -190.95260930617582,
+              "intercept": 30470.322921705236,
+              "max_label_error_px": 0.7628770180199353,
+              "grid_checks": [
+                {
+                  "price": 155.6,
+                  "page_y_in_download": 758.1443324936614,
+                  "grid_y": 758,
+                  "error_px": 0.144332493661409
+                },
+                {
+                  "price": 155.8,
+                  "page_y_in_download": 719.9440806044947,
+                  "grid_y": 720,
+                  "error_px": 0.055919395505270586
+                },
+                {
+                  "price": 156.0,
+                  "page_y_in_download": 681.7438287153279,
+                  "grid_y": 682,
+                  "error_px": 0.25617128467206385
+                },
+                {
+                  "price": 156.2,
+                  "page_y_in_download": 643.5435768261613,
+                  "grid_y": 644,
+                  "error_px": 0.4564231738387434
+                },
+                {
+                  "price": 156.4,
+                  "page_y_in_download": 605.3433249369945,
+                  "grid_y": 605,
+                  "error_px": 0.3433249369944633
+                },
+                {
+                  "price": 156.6,
+                  "page_y_in_download": 567.1430730478278,
+                  "grid_y": 567,
+                  "error_px": 0.14307304782778374
+                },
+                {
+                  "price": 156.8,
+                  "page_y_in_download": 528.942821158661,
+                  "grid_y": 529,
+                  "error_px": 0.05717884133900952
+                },
+                {
+                  "price": 157.0,
+                  "page_y_in_download": 490.74256926949425,
+                  "grid_y": 491,
+                  "error_px": 0.25743073050574594
+                },
+                {
+                  "price": 157.2,
+                  "page_y_in_download": 452.5423173803275,
+                  "grid_y": 453,
+                  "error_px": 0.45768261967248236
+                },
+                {
+                  "price": 157.4,
+                  "page_y_in_download": 414.3420654911607,
+                  "grid_y": 414,
+                  "error_px": 0.3420654911607244
+                },
+                {
+                  "price": 157.6,
+                  "page_y_in_download": 376.14181360199404,
+                  "grid_y": 376,
+                  "error_px": 0.1418136019940448
+                },
+                {
+                  "price": 157.8,
+                  "page_y_in_download": 337.94156171282725,
+                  "grid_y": 338,
+                  "error_px": 0.05843828717274846
+                },
+                {
+                  "price": 158.0,
+                  "page_y_in_download": 299.74130982366046,
+                  "grid_y": 300,
+                  "error_px": 0.2586901763395417
+                },
+                {
+                  "price": 158.2,
+                  "page_y_in_download": 261.5410579344938,
+                  "grid_y": 262,
+                  "error_px": 0.4589420655062213
+                },
+                {
+                  "price": 158.4,
+                  "page_y_in_download": 223.3408060453271,
+                  "grid_y": 223,
+                  "error_px": 0.3408060453270991
+                },
+                {
+                  "price": 158.6,
+                  "page_y_in_download": 185.1405541561603,
+                  "grid_y": 185,
+                  "error_px": 0.14055415616030587
+                },
+                {
+                  "price": 158.8,
+                  "page_y_in_download": 146.94030226699363,
+                  "grid_y": 147,
+                  "error_px": 0.05969773300637371
+                },
+                {
+                  "price": 159.0,
+                  "page_y_in_download": 108.74005037782683,
+                  "grid_y": 109,
+                  "error_px": 0.25994962217316697
+                },
+                {
+                  "price": 159.2,
+                  "page_y_in_download": 70.53979848866004,
+                  "grid_y": 71,
+                  "error_px": 0.46020151133996023
+                }
+              ],
+              "source_sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741"
+            },
+            "tv_symbol": "FX_IDC:USDJPY",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "USDJPY 158.853 \u25b2 +0.09%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+            "suggested_filename": "USDJPY_2026-11-11_04-10-55.png",
+            "captured_at_utc": "2026-11-11T04:10:55.793750+00:00",
+            "seconds": 8.7,
+            "framing": {
+              "ratio": "16:9",
+              "width": 1524,
+              "height": 858,
+              "original_box": [
+                0,
+                1,
+                1524,
+                857
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 0.9921259842519685,
+              "mode": "linear",
+              "slope": -190.95260930617582,
+              "intercept": 30470.322921705236,
+              "max_label_error_px": 0.7628770180199353,
+              "grid_checks": [
+                {
+                  "price": 155.6,
+                  "page_y_in_download": 758.1443324936614,
+                  "grid_y": 758,
+                  "error_px": 0.144332493661409
+                },
+                {
+                  "price": 155.8,
+                  "page_y_in_download": 719.9440806044947,
+                  "grid_y": 720,
+                  "error_px": 0.055919395505270586
+                },
+                {
+                  "price": 156.0,
+                  "page_y_in_download": 681.7438287153279,
+                  "grid_y": 682,
+                  "error_px": 0.25617128467206385
+                },
+                {
+                  "price": 156.2,
+                  "page_y_in_download": 643.5435768261613,
+                  "grid_y": 644,
+                  "error_px": 0.4564231738387434
+                },
+                {
+                  "price": 156.4,
+                  "page_y_in_download": 605.3433249369945,
+                  "grid_y": 605,
+                  "error_px": 0.3433249369944633
+                },
+                {
+                  "price": 156.6,
+                  "page_y_in_download": 567.1430730478278,
+                  "grid_y": 567,
+                  "error_px": 0.14307304782778374
+                },
+                {
+                  "price": 156.8,
+                  "page_y_in_download": 528.942821158661,
+                  "grid_y": 529,
+                  "error_px": 0.05717884133900952
+                },
+                {
+                  "price": 157.0,
+                  "page_y_in_download": 490.74256926949425,
+                  "grid_y": 491,
+                  "error_px": 0.25743073050574594
+                },
+                {
+                  "price": 157.2,
+                  "page_y_in_download": 452.5423173803275,
+                  "grid_y": 453,
+                  "error_px": 0.45768261967248236
+                },
+                {
+                  "price": 157.4,
+                  "page_y_in_download": 414.3420654911607,
+                  "grid_y": 414,
+                  "error_px": 0.3420654911607244
+                },
+                {
+                  "price": 157.6,
+                  "page_y_in_download": 376.14181360199404,
+                  "grid_y": 376,
+                  "error_px": 0.1418136019940448
+                },
+                {
+                  "price": 157.8,
+                  "page_y_in_download": 337.94156171282725,
+                  "grid_y": 338,
+                  "error_px": 0.05843828717274846
+                },
+                {
+                  "price": 158.0,
+                  "page_y_in_download": 299.74130982366046,
+                  "grid_y": 300,
+                  "error_px": 0.2586901763395417
+                },
+                {
+                  "price": 158.2,
+                  "page_y_in_download": 261.5410579344938,
+                  "grid_y": 262,
+                  "error_px": 0.4589420655062213
+                },
+                {
+                  "price": 158.4,
+                  "page_y_in_download": 223.3408060453271,
+                  "grid_y": 223,
+                  "error_px": 0.3408060453270991
+                },
+                {
+                  "price": 158.6,
+                  "page_y_in_download": 185.1405541561603,
+                  "grid_y": 185,
+                  "error_px": 0.14055415616030587
+                },
+                {
+                  "price": 158.8,
+                  "page_y_in_download": 146.94030226699363,
+                  "grid_y": 147,
+                  "error_px": 0.05969773300637371
+                },
+                {
+                  "price": 159.0,
+                  "page_y_in_download": 108.74005037782683,
+                  "grid_y": 109,
+                  "error_px": 0.25994962217316697
+                },
+                {
+                  "price": 159.2,
+                  "page_y_in_download": 70.53979848866004,
+                  "grid_y": 71,
+                  "error_px": 0.46020151133996023
+                }
+              ],
+              "source_sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741"
+            },
+            "source": {
+              "key": "cc459-capture-plan_6af844208892f3705eee4de5",
+              "symbol": "USDJPY",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 158.0,
+                "zone_high": 158.3,
+                "invalidation_level": 157.15,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bullish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Entry high",
+                "price": 158.3,
+                "y": 244,
+                "expected_y": 243.52486853760274,
+                "error_px": 0.47513146239725756,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 158.0,
+                "y": 301,
+                "expected_y": 300.81065132945514,
+                "error_px": 0.1893486705448595,
+                "edge": null
+              },
+              {
+                "label": "Invalidation",
+                "price": 157.15,
+                "y": 463,
+                "expected_y": 463.12036923970663,
+                "error_px": 0.12036923970663338,
+                "edge": null
+              }
+            ]
+          }
+        },
+        {
+          "asset_id": "tradingview-plan-f8f07d45998ded05cbf8",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USDJPY\\tradingview-92c52211c2054467-4x5-levels-f8f07d45998ded05.png",
+          "sha256": "0c747baf3b4321181e0c19cef13d4464a137b5ef97fce3885a484390f85057e4",
+          "width": 1524,
+          "height": 1905,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "US dollar / Japanese yen spot (ICE): 4h chart of US dollar / Japanese yen spot (ICE). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of US dollar / Japanese yen spot (ICE), captured 23:10 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USDJPY\\USDJPY_2026-11-11_04-10-55.png",
+            "sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 0.9921259842519685,
+              "mode": "linear",
+              "slope": -190.95260930617582,
+              "intercept": 30470.322921705236,
+              "max_label_error_px": 0.7628770180199353,
+              "grid_checks": [
+                {
+                  "price": 155.6,
+                  "page_y_in_download": 758.1443324936614,
+                  "grid_y": 758,
+                  "error_px": 0.144332493661409
+                },
+                {
+                  "price": 155.8,
+                  "page_y_in_download": 719.9440806044947,
+                  "grid_y": 720,
+                  "error_px": 0.055919395505270586
+                },
+                {
+                  "price": 156.0,
+                  "page_y_in_download": 681.7438287153279,
+                  "grid_y": 682,
+                  "error_px": 0.25617128467206385
+                },
+                {
+                  "price": 156.2,
+                  "page_y_in_download": 643.5435768261613,
+                  "grid_y": 644,
+                  "error_px": 0.4564231738387434
+                },
+                {
+                  "price": 156.4,
+                  "page_y_in_download": 605.3433249369945,
+                  "grid_y": 605,
+                  "error_px": 0.3433249369944633
+                },
+                {
+                  "price": 156.6,
+                  "page_y_in_download": 567.1430730478278,
+                  "grid_y": 567,
+                  "error_px": 0.14307304782778374
+                },
+                {
+                  "price": 156.8,
+                  "page_y_in_download": 528.942821158661,
+                  "grid_y": 529,
+                  "error_px": 0.05717884133900952
+                },
+                {
+                  "price": 157.0,
+                  "page_y_in_download": 490.74256926949425,
+                  "grid_y": 491,
+                  "error_px": 0.25743073050574594
+                },
+                {
+                  "price": 157.2,
+                  "page_y_in_download": 452.5423173803275,
+                  "grid_y": 453,
+                  "error_px": 0.45768261967248236
+                },
+                {
+                  "price": 157.4,
+                  "page_y_in_download": 414.3420654911607,
+                  "grid_y": 414,
+                  "error_px": 0.3420654911607244
+                },
+                {
+                  "price": 157.6,
+                  "page_y_in_download": 376.14181360199404,
+                  "grid_y": 376,
+                  "error_px": 0.1418136019940448
+                },
+                {
+                  "price": 157.8,
+                  "page_y_in_download": 337.94156171282725,
+                  "grid_y": 338,
+                  "error_px": 0.05843828717274846
+                },
+                {
+                  "price": 158.0,
+                  "page_y_in_download": 299.74130982366046,
+                  "grid_y": 300,
+                  "error_px": 0.2586901763395417
+                },
+                {
+                  "price": 158.2,
+                  "page_y_in_download": 261.5410579344938,
+                  "grid_y": 262,
+                  "error_px": 0.4589420655062213
+                },
+                {
+                  "price": 158.4,
+                  "page_y_in_download": 223.3408060453271,
+                  "grid_y": 223,
+                  "error_px": 0.3408060453270991
+                },
+                {
+                  "price": 158.6,
+                  "page_y_in_download": 185.1405541561603,
+                  "grid_y": 185,
+                  "error_px": 0.14055415616030587
+                },
+                {
+                  "price": 158.8,
+                  "page_y_in_download": 146.94030226699363,
+                  "grid_y": 147,
+                  "error_px": 0.05969773300637371
+                },
+                {
+                  "price": 159.0,
+                  "page_y_in_download": 108.74005037782683,
+                  "grid_y": 109,
+                  "error_px": 0.25994962217316697
+                },
+                {
+                  "price": 159.2,
+                  "page_y_in_download": 70.53979848866004,
+                  "grid_y": 71,
+                  "error_px": 0.46020151133996023
+                }
+              ],
+              "source_sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741"
+            },
+            "tv_symbol": "FX_IDC:USDJPY",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "USDJPY 158.853 \u25b2 +0.09%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+            "suggested_filename": "USDJPY_2026-11-11_04-10-55.png",
+            "captured_at_utc": "2026-11-11T04:10:55.793750+00:00",
+            "seconds": 8.7,
+            "framing": {
+              "ratio": "4:5",
+              "width": 1524,
+              "height": 1905,
+              "original_box": [
+                0,
+                524,
+                1524,
+                1380
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 0.9921259842519685,
+              "mode": "linear",
+              "slope": -190.95260930617582,
+              "intercept": 30470.322921705236,
+              "max_label_error_px": 0.7628770180199353,
+              "grid_checks": [
+                {
+                  "price": 155.6,
+                  "page_y_in_download": 758.1443324936614,
+                  "grid_y": 758,
+                  "error_px": 0.144332493661409
+                },
+                {
+                  "price": 155.8,
+                  "page_y_in_download": 719.9440806044947,
+                  "grid_y": 720,
+                  "error_px": 0.055919395505270586
+                },
+                {
+                  "price": 156.0,
+                  "page_y_in_download": 681.7438287153279,
+                  "grid_y": 682,
+                  "error_px": 0.25617128467206385
+                },
+                {
+                  "price": 156.2,
+                  "page_y_in_download": 643.5435768261613,
+                  "grid_y": 644,
+                  "error_px": 0.4564231738387434
+                },
+                {
+                  "price": 156.4,
+                  "page_y_in_download": 605.3433249369945,
+                  "grid_y": 605,
+                  "error_px": 0.3433249369944633
+                },
+                {
+                  "price": 156.6,
+                  "page_y_in_download": 567.1430730478278,
+                  "grid_y": 567,
+                  "error_px": 0.14307304782778374
+                },
+                {
+                  "price": 156.8,
+                  "page_y_in_download": 528.942821158661,
+                  "grid_y": 529,
+                  "error_px": 0.05717884133900952
+                },
+                {
+                  "price": 157.0,
+                  "page_y_in_download": 490.74256926949425,
+                  "grid_y": 491,
+                  "error_px": 0.25743073050574594
+                },
+                {
+                  "price": 157.2,
+                  "page_y_in_download": 452.5423173803275,
+                  "grid_y": 453,
+                  "error_px": 0.45768261967248236
+                },
+                {
+                  "price": 157.4,
+                  "page_y_in_download": 414.3420654911607,
+                  "grid_y": 414,
+                  "error_px": 0.3420654911607244
+                },
+                {
+                  "price": 157.6,
+                  "page_y_in_download": 376.14181360199404,
+                  "grid_y": 376,
+                  "error_px": 0.1418136019940448
+                },
+                {
+                  "price": 157.8,
+                  "page_y_in_download": 337.94156171282725,
+                  "grid_y": 338,
+                  "error_px": 0.05843828717274846
+                },
+                {
+                  "price": 158.0,
+                  "page_y_in_download": 299.74130982366046,
+                  "grid_y": 300,
+                  "error_px": 0.2586901763395417
+                },
+                {
+                  "price": 158.2,
+                  "page_y_in_download": 261.5410579344938,
+                  "grid_y": 262,
+                  "error_px": 0.4589420655062213
+                },
+                {
+                  "price": 158.4,
+                  "page_y_in_download": 223.3408060453271,
+                  "grid_y": 223,
+                  "error_px": 0.3408060453270991
+                },
+                {
+                  "price": 158.6,
+                  "page_y_in_download": 185.1405541561603,
+                  "grid_y": 185,
+                  "error_px": 0.14055415616030587
+                },
+                {
+                  "price": 158.8,
+                  "page_y_in_download": 146.94030226699363,
+                  "grid_y": 147,
+                  "error_px": 0.05969773300637371
+                },
+                {
+                  "price": 159.0,
+                  "page_y_in_download": 108.74005037782683,
+                  "grid_y": 109,
+                  "error_px": 0.25994962217316697
+                },
+                {
+                  "price": 159.2,
+                  "page_y_in_download": 70.53979848866004,
+                  "grid_y": 71,
+                  "error_px": 0.46020151133996023
+                }
+              ],
+              "source_sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741"
+            },
+            "source": {
+              "key": "cc459-capture-plan_6af844208892f3705eee4de5",
+              "symbol": "USDJPY",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 158.0,
+                "zone_high": 158.3,
+                "invalidation_level": 157.15,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bullish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Entry high",
+                "price": 158.3,
+                "y": 767,
+                "expected_y": 766.5248685376027,
+                "error_px": 0.47513146239725756,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 158.0,
+                "y": 824,
+                "expected_y": 823.8106513294551,
+                "error_px": 0.1893486705448595,
+                "edge": null
+              },
+              {
+                "label": "Invalidation",
+                "price": 157.15,
+                "y": 986,
+                "expected_y": 986.1203692397066,
+                "error_px": 0.12036923970663338,
+                "edge": null
+              }
+            ]
+          }
+        }
+      ],
+      "grid_anchor_count": 19,
+      "max_grid_error_px": 0.46020151133996023,
+      "max_level_error_px": 0.47513146239725756
+    },
+    "USOIL": {
+      "status": "VERIFIED",
+      "snapshot": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USOIL\\CL1!_2026-11-11_04-11-14.png",
+        "sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57",
+        "width": 1524,
+        "height": 856,
+        "chart_geometry": {
+          "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+          "pane_box": [
+            10,
+            27,
+            1448,
+            768
+          ],
+          "axis_origin": [
+            1448,
+            27
+          ],
+          "axis_pixel_match": 1.0,
+          "mode": "linear",
+          "slope": -28.748596849653442,
+          "intercept": 3119.3725155353895,
+          "max_label_error_px": 0.7559716445985032,
+          "grid_checks": [
+            {
+              "price": 86.0,
+              "page_y_in_download": 646.7993747039317,
+              "grid_y": 647,
+              "error_px": 0.20062529606832413
+            },
+            {
+              "price": 88.0,
+              "page_y_in_download": 589.327086688773,
+              "grid_y": 589,
+              "error_px": 0.3270866887729653
+            },
+            {
+              "price": 92.0,
+              "page_y_in_download": 474.38251065845554,
+              "grid_y": 474,
+              "error_px": 0.3825106584555442
+            },
+            {
+              "price": 94.0,
+              "page_y_in_download": 416.91022264329683,
+              "grid_y": 417,
+              "error_px": 0.08977735670316633
+            },
+            {
+              "price": 96.0,
+              "page_y_in_download": 359.4379346281381,
+              "grid_y": 359,
+              "error_px": 0.4379346281381231
+            },
+            {
+              "price": 98.0,
+              "page_y_in_download": 301.9656466129795,
+              "grid_y": 302,
+              "error_px": 0.03435338702047375
+            },
+            {
+              "price": 100.0,
+              "page_y_in_download": 244.49335859782082,
+              "grid_y": 244,
+              "error_px": 0.4933585978208157
+            },
+            {
+              "price": 102.0,
+              "page_y_in_download": 187.0210705826621,
+              "grid_y": 187,
+              "error_px": 0.021070582662105153
+            },
+            {
+              "price": 104.0,
+              "page_y_in_download": 129.5487825675035,
+              "grid_y": 130,
+              "error_px": 0.4512174324964917
+            },
+            {
+              "price": 106.0,
+              "page_y_in_download": 72.07649455234468,
+              "grid_y": 72,
+              "error_px": 0.07649455234468405
+            }
+          ],
+          "source_sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57"
+        },
+        "tv_symbol": "NYMEX:CL1!",
+        "interval": "240",
+        "interval_label": "4h",
+        "legend": "4h",
+        "page_title": "CL1! 86.59 \u25b2 +0.64%",
+        "chart_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+        "suggested_filename": "CL1!_2026-11-11_04-11-14.png",
+        "captured_at_utc": "2026-11-11T04:11:14.882611+00:00",
+        "seconds": 16.6
+      },
+      "variants": [
+        {
+          "asset_id": "tradingview-plan-259bb384b4ae3b9f2561",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USOIL\\tradingview-9733af965fc3a611-16x9-levels-259bb384b4ae3b9f.png",
+          "sha256": "b5b5c6911b13d68f0642a1d49723fa3dafda8d99ce7619ad4644179ddb19ab74",
+          "width": 1524,
+          "height": 858,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "WTI light crude oil futures, front month (NYMEX): 4h chart of WTI light crude oil futures, front month (NYMEX). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of WTI light crude oil futures, front month (NYMEX), captured 23:11 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USOIL\\CL1!_2026-11-11_04-11-14.png",
+            "sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -28.748596849653442,
+              "intercept": 3119.3725155353895,
+              "max_label_error_px": 0.7559716445985032,
+              "grid_checks": [
+                {
+                  "price": 86.0,
+                  "page_y_in_download": 646.7993747039317,
+                  "grid_y": 647,
+                  "error_px": 0.20062529606832413
+                },
+                {
+                  "price": 88.0,
+                  "page_y_in_download": 589.327086688773,
+                  "grid_y": 589,
+                  "error_px": 0.3270866887729653
+                },
+                {
+                  "price": 92.0,
+                  "page_y_in_download": 474.38251065845554,
+                  "grid_y": 474,
+                  "error_px": 0.3825106584555442
+                },
+                {
+                  "price": 94.0,
+                  "page_y_in_download": 416.91022264329683,
+                  "grid_y": 417,
+                  "error_px": 0.08977735670316633
+                },
+                {
+                  "price": 96.0,
+                  "page_y_in_download": 359.4379346281381,
+                  "grid_y": 359,
+                  "error_px": 0.4379346281381231
+                },
+                {
+                  "price": 98.0,
+                  "page_y_in_download": 301.9656466129795,
+                  "grid_y": 302,
+                  "error_px": 0.03435338702047375
+                },
+                {
+                  "price": 100.0,
+                  "page_y_in_download": 244.49335859782082,
+                  "grid_y": 244,
+                  "error_px": 0.4933585978208157
+                },
+                {
+                  "price": 102.0,
+                  "page_y_in_download": 187.0210705826621,
+                  "grid_y": 187,
+                  "error_px": 0.021070582662105153
+                },
+                {
+                  "price": 104.0,
+                  "page_y_in_download": 129.5487825675035,
+                  "grid_y": 130,
+                  "error_px": 0.4512174324964917
+                },
+                {
+                  "price": 106.0,
+                  "page_y_in_download": 72.07649455234468,
+                  "grid_y": 72,
+                  "error_px": 0.07649455234468405
+                }
+              ],
+              "source_sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57"
+            },
+            "tv_symbol": "NYMEX:CL1!",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "CL1! 86.59 \u25b2 +0.64%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+            "suggested_filename": "CL1!_2026-11-11_04-11-14.png",
+            "captured_at_utc": "2026-11-11T04:11:14.882611+00:00",
+            "seconds": 16.6,
+            "framing": {
+              "ratio": "16:9",
+              "width": 1524,
+              "height": 858,
+              "original_box": [
+                0,
+                1,
+                1524,
+                857
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -28.748596849653442,
+              "intercept": 3119.3725155353895,
+              "max_label_error_px": 0.7559716445985032,
+              "grid_checks": [
+                {
+                  "price": 86.0,
+                  "page_y_in_download": 646.7993747039317,
+                  "grid_y": 647,
+                  "error_px": 0.20062529606832413
+                },
+                {
+                  "price": 88.0,
+                  "page_y_in_download": 589.327086688773,
+                  "grid_y": 589,
+                  "error_px": 0.3270866887729653
+                },
+                {
+                  "price": 92.0,
+                  "page_y_in_download": 474.38251065845554,
+                  "grid_y": 474,
+                  "error_px": 0.3825106584555442
+                },
+                {
+                  "price": 94.0,
+                  "page_y_in_download": 416.91022264329683,
+                  "grid_y": 417,
+                  "error_px": 0.08977735670316633
+                },
+                {
+                  "price": 96.0,
+                  "page_y_in_download": 359.4379346281381,
+                  "grid_y": 359,
+                  "error_px": 0.4379346281381231
+                },
+                {
+                  "price": 98.0,
+                  "page_y_in_download": 301.9656466129795,
+                  "grid_y": 302,
+                  "error_px": 0.03435338702047375
+                },
+                {
+                  "price": 100.0,
+                  "page_y_in_download": 244.49335859782082,
+                  "grid_y": 244,
+                  "error_px": 0.4933585978208157
+                },
+                {
+                  "price": 102.0,
+                  "page_y_in_download": 187.0210705826621,
+                  "grid_y": 187,
+                  "error_px": 0.021070582662105153
+                },
+                {
+                  "price": 104.0,
+                  "page_y_in_download": 129.5487825675035,
+                  "grid_y": 130,
+                  "error_px": 0.4512174324964917
+                },
+                {
+                  "price": 106.0,
+                  "page_y_in_download": 72.07649455234468,
+                  "grid_y": 72,
+                  "error_px": 0.07649455234468405
+                }
+              ],
+              "source_sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57"
+            },
+            "source": {
+              "key": "cc459-capture-plan_4a68fd77e5609b19cd258ac1",
+              "symbol": "USOIL",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 88.4,
+                "zone_high": 89.6,
+                "invalidation_level": 92.1,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 92.1,
+                "y": 473,
+                "expected_y": 472.6267456823075,
+                "error_px": 0.37325431769249917,
+                "edge": null
+              },
+              {
+                "label": "Entry high",
+                "price": 89.6,
+                "y": 544,
+                "expected_y": 544.4982378064415,
+                "error_px": 0.4982378064414661,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 88.4,
+                "y": 579,
+                "expected_y": 578.996554026025,
+                "error_px": 0.0034459739749763685,
+                "edge": null
+              }
+            ]
+          }
+        },
+        {
+          "asset_id": "tradingview-plan-a4908dee7b1d349b852c",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USOIL\\tradingview-9733af965fc3a611-4x5-levels-a4908dee7b1d349b.png",
+          "sha256": "a44aba408b8ad7a18b1f478ca68466729c59e23837cb2d45961602e6d557c856",
+          "width": 1524,
+          "height": 1905,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "WTI light crude oil futures, front month (NYMEX): 4h chart of WTI light crude oil futures, front month (NYMEX). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of WTI light crude oil futures, front month (NYMEX), captured 23:11 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USOIL\\CL1!_2026-11-11_04-11-14.png",
+            "sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -28.748596849653442,
+              "intercept": 3119.3725155353895,
+              "max_label_error_px": 0.7559716445985032,
+              "grid_checks": [
+                {
+                  "price": 86.0,
+                  "page_y_in_download": 646.7993747039317,
+                  "grid_y": 647,
+                  "error_px": 0.20062529606832413
+                },
+                {
+                  "price": 88.0,
+                  "page_y_in_download": 589.327086688773,
+                  "grid_y": 589,
+                  "error_px": 0.3270866887729653
+                },
+                {
+                  "price": 92.0,
+                  "page_y_in_download": 474.38251065845554,
+                  "grid_y": 474,
+                  "error_px": 0.3825106584555442
+                },
+                {
+                  "price": 94.0,
+                  "page_y_in_download": 416.91022264329683,
+                  "grid_y": 417,
+                  "error_px": 0.08977735670316633
+                },
+                {
+                  "price": 96.0,
+                  "page_y_in_download": 359.4379346281381,
+                  "grid_y": 359,
+                  "error_px": 0.4379346281381231
+                },
+                {
+                  "price": 98.0,
+                  "page_y_in_download": 301.9656466129795,
+                  "grid_y": 302,
+                  "error_px": 0.03435338702047375
+                },
+                {
+                  "price": 100.0,
+                  "page_y_in_download": 244.49335859782082,
+                  "grid_y": 244,
+                  "error_px": 0.4933585978208157
+                },
+                {
+                  "price": 102.0,
+                  "page_y_in_download": 187.0210705826621,
+                  "grid_y": 187,
+                  "error_px": 0.021070582662105153
+                },
+                {
+                  "price": 104.0,
+                  "page_y_in_download": 129.5487825675035,
+                  "grid_y": 130,
+                  "error_px": 0.4512174324964917
+                },
+                {
+                  "price": 106.0,
+                  "page_y_in_download": 72.07649455234468,
+                  "grid_y": 72,
+                  "error_px": 0.07649455234468405
+                }
+              ],
+              "source_sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57"
+            },
+            "tv_symbol": "NYMEX:CL1!",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "CL1! 86.59 \u25b2 +0.64%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+            "suggested_filename": "CL1!_2026-11-11_04-11-14.png",
+            "captured_at_utc": "2026-11-11T04:11:14.882611+00:00",
+            "seconds": 16.6,
+            "framing": {
+              "ratio": "4:5",
+              "width": 1524,
+              "height": 1905,
+              "original_box": [
+                0,
+                524,
+                1524,
+                1380
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1448,
+                768
+              ],
+              "axis_origin": [
+                1448,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -28.748596849653442,
+              "intercept": 3119.3725155353895,
+              "max_label_error_px": 0.7559716445985032,
+              "grid_checks": [
+                {
+                  "price": 86.0,
+                  "page_y_in_download": 646.7993747039317,
+                  "grid_y": 647,
+                  "error_px": 0.20062529606832413
+                },
+                {
+                  "price": 88.0,
+                  "page_y_in_download": 589.327086688773,
+                  "grid_y": 589,
+                  "error_px": 0.3270866887729653
+                },
+                {
+                  "price": 92.0,
+                  "page_y_in_download": 474.38251065845554,
+                  "grid_y": 474,
+                  "error_px": 0.3825106584555442
+                },
+                {
+                  "price": 94.0,
+                  "page_y_in_download": 416.91022264329683,
+                  "grid_y": 417,
+                  "error_px": 0.08977735670316633
+                },
+                {
+                  "price": 96.0,
+                  "page_y_in_download": 359.4379346281381,
+                  "grid_y": 359,
+                  "error_px": 0.4379346281381231
+                },
+                {
+                  "price": 98.0,
+                  "page_y_in_download": 301.9656466129795,
+                  "grid_y": 302,
+                  "error_px": 0.03435338702047375
+                },
+                {
+                  "price": 100.0,
+                  "page_y_in_download": 244.49335859782082,
+                  "grid_y": 244,
+                  "error_px": 0.4933585978208157
+                },
+                {
+                  "price": 102.0,
+                  "page_y_in_download": 187.0210705826621,
+                  "grid_y": 187,
+                  "error_px": 0.021070582662105153
+                },
+                {
+                  "price": 104.0,
+                  "page_y_in_download": 129.5487825675035,
+                  "grid_y": 130,
+                  "error_px": 0.4512174324964917
+                },
+                {
+                  "price": 106.0,
+                  "page_y_in_download": 72.07649455234468,
+                  "grid_y": 72,
+                  "error_px": 0.07649455234468405
+                }
+              ],
+              "source_sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57"
+            },
+            "source": {
+              "key": "cc459-capture-plan_4a68fd77e5609b19cd258ac1",
+              "symbol": "USOIL",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 88.4,
+                "zone_high": 89.6,
+                "invalidation_level": 92.1,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 92.1,
+                "y": 996,
+                "expected_y": 995.6267456823075,
+                "error_px": 0.37325431769249917,
+                "edge": null
+              },
+              {
+                "label": "Entry high",
+                "price": 89.6,
+                "y": 1067,
+                "expected_y": 1067.4982378064415,
+                "error_px": 0.4982378064414661,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 88.4,
+                "y": 1102,
+                "expected_y": 1101.996554026025,
+                "error_px": 0.0034459739749763685,
+                "edge": null
+              }
+            ]
+          }
+        }
+      ],
+      "grid_anchor_count": 10,
+      "max_grid_error_px": 0.4933585978208157,
+      "max_level_error_px": 0.4982378064414661
+    },
+    "BTCUSD": {
+      "status": "VERIFIED",
+      "snapshot": {
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\BTCUSD\\BTCUSD_2026-11-11_04-13-41.png",
+        "sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b",
+        "width": 1524,
+        "height": 856,
+        "chart_geometry": {
+          "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+          "pane_box": [
+            10,
+            27,
+            1442,
+            768
+          ],
+          "axis_origin": [
+            1442,
+            27
+          ],
+          "axis_pixel_match": 1.0,
+          "mode": "linear",
+          "slope": -0.04227031244308188,
+          "intercept": 3778.4334225211937,
+          "max_label_error_px": 0.293265146136946,
+          "grid_checks": [
+            {
+              "price": 72000.0,
+              "page_y_in_download": 734.9171638151347,
+              "grid_y": 735,
+              "error_px": 0.08283618486530031
+            },
+            {
+              "price": 73000.0,
+              "page_y_in_download": 692.6514153612047,
+              "grid_y": 693,
+              "error_px": 0.34858463879527335
+            },
+            {
+              "price": 74000.0,
+              "page_y_in_download": 650.3856669072746,
+              "grid_y": 650,
+              "error_px": 0.3856669072746399
+            },
+            {
+              "price": 75000.0,
+              "page_y_in_download": 608.1199184533446,
+              "grid_y": 608,
+              "error_px": 0.1199184533445532
+            },
+            {
+              "price": 76000.0,
+              "page_y_in_download": 565.8541699994146,
+              "grid_y": 566,
+              "error_px": 0.14583000058541984
+            },
+            {
+              "price": 77000.0,
+              "page_y_in_download": 523.5884215454846,
+              "grid_y": 524,
+              "error_px": 0.4115784545153929
+            },
+            {
+              "price": 78000.0,
+              "page_y_in_download": 481.3226730915545,
+              "grid_y": 481,
+              "error_px": 0.3226730915545204
+            },
+            {
+              "price": 79000.0,
+              "page_y_in_download": 439.05692463762455,
+              "grid_y": 439,
+              "error_px": 0.05692463762454736
+            },
+            {
+              "price": 80000.0,
+              "page_y_in_download": 396.79117618369446,
+              "grid_y": 397,
+              "error_px": 0.20882381630553937
+            },
+            {
+              "price": 81000.0,
+              "page_y_in_download": 354.5254277297645,
+              "grid_y": 355,
+              "error_px": 0.4745722702355124
+            },
+            {
+              "price": 82000.0,
+              "page_y_in_download": 312.2596792758344,
+              "grid_y": 312,
+              "error_px": 0.25967927583440087
+            },
+            {
+              "price": 83000.0,
+              "page_y_in_download": 269.9939308219044,
+              "grid_y": 270,
+              "error_px": 0.00606917809557217
+            },
+            {
+              "price": 84000.0,
+              "page_y_in_download": 227.72818236797434,
+              "grid_y": 228,
+              "error_px": 0.2718176320256589
+            },
+            {
+              "price": 85000.0,
+              "page_y_in_download": 185.46243391404437,
+              "grid_y": 185,
+              "error_px": 0.46243391404436807
+            },
+            {
+              "price": 86000.0,
+              "page_y_in_download": 143.19668546011428,
+              "grid_y": 143,
+              "error_px": 0.19668546011428134
+            },
+            {
+              "price": 87000.0,
+              "page_y_in_download": 100.93093700618431,
+              "grid_y": 101,
+              "error_px": 0.0690629938156917
+            },
+            {
+              "price": 88000.0,
+              "page_y_in_download": 58.665188552254335,
+              "grid_y": 59,
+              "error_px": 0.33481144774566474
+            }
+          ],
+          "source_sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b"
+        },
+        "tv_symbol": "COINBASE:BTCUSD",
+        "interval": "240",
+        "interval_label": "4h",
+        "legend": "4h",
+        "page_title": "BTCUSD 73,650.43 \u25bc \u22120.06%",
+        "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+        "suggested_filename": "BTCUSD_2026-11-11_04-13-41.png",
+        "captured_at_utc": "2026-11-11T04:13:41.861306+00:00",
+        "seconds": 16.8
+      },
+      "variants": [
+        {
+          "asset_id": "tradingview-plan-6f3e9b4aa6c285d48e1f",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\BTCUSD\\tradingview-bc1b6e6e1ce57705-16x9-levels-6f3e9b4aa6c285d4.png",
+          "sha256": "80b612adaa7c3fc6fdad1bbc9007e4b5727d15ce24932437db0c19701301bc2e",
+          "width": 1524,
+          "height": 858,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "Bitcoin / US dollar (Coinbase spot): 4h chart of Bitcoin / US dollar (Coinbase spot). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of Bitcoin / US dollar (Coinbase spot), captured 23:13 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\BTCUSD\\BTCUSD_2026-11-11_04-13-41.png",
+            "sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1442,
+                768
+              ],
+              "axis_origin": [
+                1442,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -0.04227031244308188,
+              "intercept": 3778.4334225211937,
+              "max_label_error_px": 0.293265146136946,
+              "grid_checks": [
+                {
+                  "price": 72000.0,
+                  "page_y_in_download": 734.9171638151347,
+                  "grid_y": 735,
+                  "error_px": 0.08283618486530031
+                },
+                {
+                  "price": 73000.0,
+                  "page_y_in_download": 692.6514153612047,
+                  "grid_y": 693,
+                  "error_px": 0.34858463879527335
+                },
+                {
+                  "price": 74000.0,
+                  "page_y_in_download": 650.3856669072746,
+                  "grid_y": 650,
+                  "error_px": 0.3856669072746399
+                },
+                {
+                  "price": 75000.0,
+                  "page_y_in_download": 608.1199184533446,
+                  "grid_y": 608,
+                  "error_px": 0.1199184533445532
+                },
+                {
+                  "price": 76000.0,
+                  "page_y_in_download": 565.8541699994146,
+                  "grid_y": 566,
+                  "error_px": 0.14583000058541984
+                },
+                {
+                  "price": 77000.0,
+                  "page_y_in_download": 523.5884215454846,
+                  "grid_y": 524,
+                  "error_px": 0.4115784545153929
+                },
+                {
+                  "price": 78000.0,
+                  "page_y_in_download": 481.3226730915545,
+                  "grid_y": 481,
+                  "error_px": 0.3226730915545204
+                },
+                {
+                  "price": 79000.0,
+                  "page_y_in_download": 439.05692463762455,
+                  "grid_y": 439,
+                  "error_px": 0.05692463762454736
+                },
+                {
+                  "price": 80000.0,
+                  "page_y_in_download": 396.79117618369446,
+                  "grid_y": 397,
+                  "error_px": 0.20882381630553937
+                },
+                {
+                  "price": 81000.0,
+                  "page_y_in_download": 354.5254277297645,
+                  "grid_y": 355,
+                  "error_px": 0.4745722702355124
+                },
+                {
+                  "price": 82000.0,
+                  "page_y_in_download": 312.2596792758344,
+                  "grid_y": 312,
+                  "error_px": 0.25967927583440087
+                },
+                {
+                  "price": 83000.0,
+                  "page_y_in_download": 269.9939308219044,
+                  "grid_y": 270,
+                  "error_px": 0.00606917809557217
+                },
+                {
+                  "price": 84000.0,
+                  "page_y_in_download": 227.72818236797434,
+                  "grid_y": 228,
+                  "error_px": 0.2718176320256589
+                },
+                {
+                  "price": 85000.0,
+                  "page_y_in_download": 185.46243391404437,
+                  "grid_y": 185,
+                  "error_px": 0.46243391404436807
+                },
+                {
+                  "price": 86000.0,
+                  "page_y_in_download": 143.19668546011428,
+                  "grid_y": 143,
+                  "error_px": 0.19668546011428134
+                },
+                {
+                  "price": 87000.0,
+                  "page_y_in_download": 100.93093700618431,
+                  "grid_y": 101,
+                  "error_px": 0.0690629938156917
+                },
+                {
+                  "price": 88000.0,
+                  "page_y_in_download": 58.665188552254335,
+                  "grid_y": 59,
+                  "error_px": 0.33481144774566474
+                }
+              ],
+              "source_sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b"
+            },
+            "tv_symbol": "COINBASE:BTCUSD",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "BTCUSD 73,650.43 \u25bc \u22120.06%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+            "suggested_filename": "BTCUSD_2026-11-11_04-13-41.png",
+            "captured_at_utc": "2026-11-11T04:13:41.861306+00:00",
+            "seconds": 16.8,
+            "framing": {
+              "ratio": "16:9",
+              "width": 1524,
+              "height": 858,
+              "original_box": [
+                0,
+                1,
+                1524,
+                857
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1442,
+                768
+              ],
+              "axis_origin": [
+                1442,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -0.04227031244308188,
+              "intercept": 3778.4334225211937,
+              "max_label_error_px": 0.293265146136946,
+              "grid_checks": [
+                {
+                  "price": 72000.0,
+                  "page_y_in_download": 734.9171638151347,
+                  "grid_y": 735,
+                  "error_px": 0.08283618486530031
+                },
+                {
+                  "price": 73000.0,
+                  "page_y_in_download": 692.6514153612047,
+                  "grid_y": 693,
+                  "error_px": 0.34858463879527335
+                },
+                {
+                  "price": 74000.0,
+                  "page_y_in_download": 650.3856669072746,
+                  "grid_y": 650,
+                  "error_px": 0.3856669072746399
+                },
+                {
+                  "price": 75000.0,
+                  "page_y_in_download": 608.1199184533446,
+                  "grid_y": 608,
+                  "error_px": 0.1199184533445532
+                },
+                {
+                  "price": 76000.0,
+                  "page_y_in_download": 565.8541699994146,
+                  "grid_y": 566,
+                  "error_px": 0.14583000058541984
+                },
+                {
+                  "price": 77000.0,
+                  "page_y_in_download": 523.5884215454846,
+                  "grid_y": 524,
+                  "error_px": 0.4115784545153929
+                },
+                {
+                  "price": 78000.0,
+                  "page_y_in_download": 481.3226730915545,
+                  "grid_y": 481,
+                  "error_px": 0.3226730915545204
+                },
+                {
+                  "price": 79000.0,
+                  "page_y_in_download": 439.05692463762455,
+                  "grid_y": 439,
+                  "error_px": 0.05692463762454736
+                },
+                {
+                  "price": 80000.0,
+                  "page_y_in_download": 396.79117618369446,
+                  "grid_y": 397,
+                  "error_px": 0.20882381630553937
+                },
+                {
+                  "price": 81000.0,
+                  "page_y_in_download": 354.5254277297645,
+                  "grid_y": 355,
+                  "error_px": 0.4745722702355124
+                },
+                {
+                  "price": 82000.0,
+                  "page_y_in_download": 312.2596792758344,
+                  "grid_y": 312,
+                  "error_px": 0.25967927583440087
+                },
+                {
+                  "price": 83000.0,
+                  "page_y_in_download": 269.9939308219044,
+                  "grid_y": 270,
+                  "error_px": 0.00606917809557217
+                },
+                {
+                  "price": 84000.0,
+                  "page_y_in_download": 227.72818236797434,
+                  "grid_y": 228,
+                  "error_px": 0.2718176320256589
+                },
+                {
+                  "price": 85000.0,
+                  "page_y_in_download": 185.46243391404437,
+                  "grid_y": 185,
+                  "error_px": 0.46243391404436807
+                },
+                {
+                  "price": 86000.0,
+                  "page_y_in_download": 143.19668546011428,
+                  "grid_y": 143,
+                  "error_px": 0.19668546011428134
+                },
+                {
+                  "price": 87000.0,
+                  "page_y_in_download": 100.93093700618431,
+                  "grid_y": 101,
+                  "error_px": 0.0690629938156917
+                },
+                {
+                  "price": 88000.0,
+                  "page_y_in_download": 58.665188552254335,
+                  "grid_y": 59,
+                  "error_px": 0.33481144774566474
+                }
+              ],
+              "source_sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b"
+            },
+            "source": {
+              "key": "cc459-capture-plan_5fb1fd296a3ef7bf4b22636b",
+              "symbol": "BTCUSD",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 76000.0,
+                "zone_high": 76700.0,
+                "invalidation_level": 78900.0,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 78900.0,
+                "y": 444,
+                "expected_y": 444.30577076203326,
+                "error_px": 0.30577076203326214,
+                "edge": null
+              },
+              {
+                "label": "Entry high",
+                "price": 76700.0,
+                "y": 537,
+                "expected_y": 537.3004581368136,
+                "error_px": 0.3004581368136314,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 76000.0,
+                "y": 567,
+                "expected_y": 566.8896768469708,
+                "error_px": 0.11032315302918505,
+                "edge": null
+              }
+            ]
+          }
+        },
+        {
+          "asset_id": "tradingview-plan-ab2c3ad107188aae301f",
+          "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\BTCUSD\\tradingview-bc1b6e6e1ce57705-4x5-levels-ab2c3ad107188aae.png",
+          "sha256": "371cdf63b595d53046a1a085e5f6f5c852be681535e34916ed7b0706787c91b7",
+          "width": 1524,
+          "height": 1905,
+          "mime_type": "image/png",
+          "modality": "tradingview_chart_snapshot",
+          "card_kind": "TRADINGVIEW_SNAPSHOT",
+          "media_role": "delivery_only",
+          "role": "market_chart",
+          "delivery_only": true,
+          "article_inclusion": false,
+          "canonical_article_media": false,
+          "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+          "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+          "attribution": "TradingView",
+          "credit": "Chart: TradingView",
+          "caption": "Bitcoin / US dollar (Coinbase spot): 4h chart of Bitcoin / US dollar (Coinbase spot). Chart: TradingView. Plan levels: Capital Chronicle.",
+          "alt_text": "TradingView 4h candlestick chart of Bitcoin / US dollar (Coinbase spot), captured 23:13 ET on 10 November 2026.",
+          "source_page_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+          "tradingview_snapshot": {
+            "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\BTCUSD\\BTCUSD_2026-11-11_04-13-41.png",
+            "sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b",
+            "width": 1524,
+            "height": 856,
+            "chart_geometry": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1442,
+                768
+              ],
+              "axis_origin": [
+                1442,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -0.04227031244308188,
+              "intercept": 3778.4334225211937,
+              "max_label_error_px": 0.293265146136946,
+              "grid_checks": [
+                {
+                  "price": 72000.0,
+                  "page_y_in_download": 734.9171638151347,
+                  "grid_y": 735,
+                  "error_px": 0.08283618486530031
+                },
+                {
+                  "price": 73000.0,
+                  "page_y_in_download": 692.6514153612047,
+                  "grid_y": 693,
+                  "error_px": 0.34858463879527335
+                },
+                {
+                  "price": 74000.0,
+                  "page_y_in_download": 650.3856669072746,
+                  "grid_y": 650,
+                  "error_px": 0.3856669072746399
+                },
+                {
+                  "price": 75000.0,
+                  "page_y_in_download": 608.1199184533446,
+                  "grid_y": 608,
+                  "error_px": 0.1199184533445532
+                },
+                {
+                  "price": 76000.0,
+                  "page_y_in_download": 565.8541699994146,
+                  "grid_y": 566,
+                  "error_px": 0.14583000058541984
+                },
+                {
+                  "price": 77000.0,
+                  "page_y_in_download": 523.5884215454846,
+                  "grid_y": 524,
+                  "error_px": 0.4115784545153929
+                },
+                {
+                  "price": 78000.0,
+                  "page_y_in_download": 481.3226730915545,
+                  "grid_y": 481,
+                  "error_px": 0.3226730915545204
+                },
+                {
+                  "price": 79000.0,
+                  "page_y_in_download": 439.05692463762455,
+                  "grid_y": 439,
+                  "error_px": 0.05692463762454736
+                },
+                {
+                  "price": 80000.0,
+                  "page_y_in_download": 396.79117618369446,
+                  "grid_y": 397,
+                  "error_px": 0.20882381630553937
+                },
+                {
+                  "price": 81000.0,
+                  "page_y_in_download": 354.5254277297645,
+                  "grid_y": 355,
+                  "error_px": 0.4745722702355124
+                },
+                {
+                  "price": 82000.0,
+                  "page_y_in_download": 312.2596792758344,
+                  "grid_y": 312,
+                  "error_px": 0.25967927583440087
+                },
+                {
+                  "price": 83000.0,
+                  "page_y_in_download": 269.9939308219044,
+                  "grid_y": 270,
+                  "error_px": 0.00606917809557217
+                },
+                {
+                  "price": 84000.0,
+                  "page_y_in_download": 227.72818236797434,
+                  "grid_y": 228,
+                  "error_px": 0.2718176320256589
+                },
+                {
+                  "price": 85000.0,
+                  "page_y_in_download": 185.46243391404437,
+                  "grid_y": 185,
+                  "error_px": 0.46243391404436807
+                },
+                {
+                  "price": 86000.0,
+                  "page_y_in_download": 143.19668546011428,
+                  "grid_y": 143,
+                  "error_px": 0.19668546011428134
+                },
+                {
+                  "price": 87000.0,
+                  "page_y_in_download": 100.93093700618431,
+                  "grid_y": 101,
+                  "error_px": 0.0690629938156917
+                },
+                {
+                  "price": 88000.0,
+                  "page_y_in_download": 58.665188552254335,
+                  "grid_y": 59,
+                  "error_px": 0.33481144774566474
+                }
+              ],
+              "source_sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b"
+            },
+            "tv_symbol": "COINBASE:BTCUSD",
+            "interval": "240",
+            "interval_label": "4h",
+            "legend": "4h",
+            "page_title": "BTCUSD 73,650.43 \u25bc \u22120.06%",
+            "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+            "suggested_filename": "BTCUSD_2026-11-11_04-13-41.png",
+            "captured_at_utc": "2026-11-11T04:13:41.861306+00:00",
+            "seconds": 16.8,
+            "framing": {
+              "ratio": "4:5",
+              "width": 1524,
+              "height": 1905,
+              "original_box": [
+                0,
+                524,
+                1524,
+                1380
+              ]
+            },
+            "policy": "contentops.tradingview_snapshot.v1",
+            "levels_drawn": [],
+            "target_drawn": false
+          },
+          "publication_authority": false,
+          "plan_overlay": {
+            "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+            "scale": {
+              "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+              "pane_box": [
+                10,
+                27,
+                1442,
+                768
+              ],
+              "axis_origin": [
+                1442,
+                27
+              ],
+              "axis_pixel_match": 1.0,
+              "mode": "linear",
+              "slope": -0.04227031244308188,
+              "intercept": 3778.4334225211937,
+              "max_label_error_px": 0.293265146136946,
+              "grid_checks": [
+                {
+                  "price": 72000.0,
+                  "page_y_in_download": 734.9171638151347,
+                  "grid_y": 735,
+                  "error_px": 0.08283618486530031
+                },
+                {
+                  "price": 73000.0,
+                  "page_y_in_download": 692.6514153612047,
+                  "grid_y": 693,
+                  "error_px": 0.34858463879527335
+                },
+                {
+                  "price": 74000.0,
+                  "page_y_in_download": 650.3856669072746,
+                  "grid_y": 650,
+                  "error_px": 0.3856669072746399
+                },
+                {
+                  "price": 75000.0,
+                  "page_y_in_download": 608.1199184533446,
+                  "grid_y": 608,
+                  "error_px": 0.1199184533445532
+                },
+                {
+                  "price": 76000.0,
+                  "page_y_in_download": 565.8541699994146,
+                  "grid_y": 566,
+                  "error_px": 0.14583000058541984
+                },
+                {
+                  "price": 77000.0,
+                  "page_y_in_download": 523.5884215454846,
+                  "grid_y": 524,
+                  "error_px": 0.4115784545153929
+                },
+                {
+                  "price": 78000.0,
+                  "page_y_in_download": 481.3226730915545,
+                  "grid_y": 481,
+                  "error_px": 0.3226730915545204
+                },
+                {
+                  "price": 79000.0,
+                  "page_y_in_download": 439.05692463762455,
+                  "grid_y": 439,
+                  "error_px": 0.05692463762454736
+                },
+                {
+                  "price": 80000.0,
+                  "page_y_in_download": 396.79117618369446,
+                  "grid_y": 397,
+                  "error_px": 0.20882381630553937
+                },
+                {
+                  "price": 81000.0,
+                  "page_y_in_download": 354.5254277297645,
+                  "grid_y": 355,
+                  "error_px": 0.4745722702355124
+                },
+                {
+                  "price": 82000.0,
+                  "page_y_in_download": 312.2596792758344,
+                  "grid_y": 312,
+                  "error_px": 0.25967927583440087
+                },
+                {
+                  "price": 83000.0,
+                  "page_y_in_download": 269.9939308219044,
+                  "grid_y": 270,
+                  "error_px": 0.00606917809557217
+                },
+                {
+                  "price": 84000.0,
+                  "page_y_in_download": 227.72818236797434,
+                  "grid_y": 228,
+                  "error_px": 0.2718176320256589
+                },
+                {
+                  "price": 85000.0,
+                  "page_y_in_download": 185.46243391404437,
+                  "grid_y": 185,
+                  "error_px": 0.46243391404436807
+                },
+                {
+                  "price": 86000.0,
+                  "page_y_in_download": 143.19668546011428,
+                  "grid_y": 143,
+                  "error_px": 0.19668546011428134
+                },
+                {
+                  "price": 87000.0,
+                  "page_y_in_download": 100.93093700618431,
+                  "grid_y": 101,
+                  "error_px": 0.0690629938156917
+                },
+                {
+                  "price": 88000.0,
+                  "page_y_in_download": 58.665188552254335,
+                  "grid_y": 59,
+                  "error_px": 0.33481144774566474
+                }
+              ],
+              "source_sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b"
+            },
+            "source": {
+              "key": "cc459-capture-plan_5fb1fd296a3ef7bf4b22636b",
+              "symbol": "BTCUSD",
+              "source_content_hash": "b4f74812b8024a4caa4494ed4e0c3df79d9f2289df8296db6594ca9faf0eafe7",
+              "levels": {
+                "zone_low": 76000.0,
+                "zone_high": 76700.0,
+                "invalidation_level": 78900.0,
+                "target": null,
+                "tick_size": null,
+                "valid_until_utc": "2026-11-18T02:00:00Z",
+                "direction": "bearish"
+              }
+            },
+            "markers": [
+              {
+                "label": "Invalidation",
+                "price": 78900.0,
+                "y": 967,
+                "expected_y": 967.3057707620333,
+                "error_px": 0.30577076203326214,
+                "edge": null
+              },
+              {
+                "label": "Entry high",
+                "price": 76700.0,
+                "y": 1060,
+                "expected_y": 1060.3004581368136,
+                "error_px": 0.3004581368136314,
+                "edge": null
+              },
+              {
+                "label": "Entry low",
+                "price": 76000.0,
+                "y": 1090,
+                "expected_y": 1089.8896768469708,
+                "error_px": 0.11032315302918505,
+                "edge": null
+              }
+            ]
+          }
+        }
+      ],
+      "grid_anchor_count": 17,
+      "max_grid_error_px": 0.4745722702355124,
+      "max_level_error_px": 0.30577076203326214
+    }
+  }
+}

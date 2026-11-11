@@ -1243,6 +1243,13 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
     """CC-459: every new plan image is TradingView; after two failures use text."""
     from live_contentops import tradingview_snapshot_v1 as tv
     asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+    if asset:
+        from live_contentops import tradingview_plan_overlay_v1 as overlay
+        try:
+            asset = overlay.apply(asset, row)
+        except (ValueError, KeyError, OSError) as exc:
+            tv.record_outcome({"key": row["key"], "market": row["symbol"], "status": "PLAIN_SNAPSHOT",
+                               "cause": str(exc)[:200]})
     return asset, asset is not None
 
 
@@ -1280,7 +1287,15 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
             destinations = API_DESTINATIONS
     folder = Path(root) / key
     article = card_article(row)
-    card, chart_credit = _post_image(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+    context_path = folder / "run_context_v1.json"
+    prior_context = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
+    frozen_context = bool(prior_context and store.get_dispatches_for_work_item(key))
+    if frozen_context:
+        prior_assets = (prior_context.get("media") or {}).get("assets") or []
+        card = prior_assets[0] if prior_assets else None
+        chart_credit = bool(prior_context.get("chart_credit"))
+    else:
+        card, chart_credit = _post_image(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
     if host is None:
         from live_contentops.cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
     manifest_path = folder / "delivery_media_manifest_v1.json"
@@ -1297,14 +1312,13 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))  # the hosting result wraps it
     full_payloads = destination_payloads(row, card_id=card["asset_id"] if card else None, chart_credit=chart_credit)
     payloads = _part_payloads(full_payloads)
-    context_path = folder / "run_context_v1.json"
-    prior_context = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
     context = {"schema_version": "contentops.plan_status_post_context.v1", "article": {**article, "body": row["text"]},
                "selection": {}, "media": {"assets": [card] if card else []}, "plan_status_post": key,
                "chart_credit": chart_credit,
                **({"status_post_continuations": prior_context["status_post_continuations"]}
                   if prior_context.get("status_post_continuations") else {})}
-    (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
+    if not frozen_context:
+        (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
     rows = []
     for destination in destinations:
         registration = registration_for_destination(destination)
@@ -1332,7 +1346,7 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
                 "story_identity": child, "article_identity": child, "package_identity": child,
                 "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
                 "destinations": child_rows})
-    if set(destinations) == set(API_DESTINATIONS):
+    if set(destinations) == set(API_DESTINATIONS) and not frozen_context:
         context["status_post_continuations"] = continuations
         (folder / "run_context_v1.json").write_bytes(canonical_bytes(context))
     return {**plan, "continuations": continuations}
@@ -1348,7 +1362,8 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
         from .plan_call_cards_v1 import destination_payloads as card_payloads
         return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
                                  carousel=context.get("status_post_instagram_carousel"),
-                                 chart_credit=bool(context.get("chart_credit")))
+                                 chart_credit=bool(context.get("chart_credit")),
+                                 complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
                               chart_credit=bool(context.get("chart_credit"))), part)
 
@@ -1359,6 +1374,11 @@ def validate_status_post_plan(store, work_item_id: str, plan: Mapping[str, Any])
     if not isinstance(part, int) or part < 0 or work_item_id != (f"{key}-part-{part}" if part else key):
         raise PlanPostError("PLAN_STATUS_POST_WORK_ITEM_MISMATCH")
     row, payloads = _expected(store, key, str(plan.get("output_dir") or ""), part)
+    context = json.loads((Path(plan["output_dir"]) / "run_context_v1.json").read_bytes())
+    from .tradingview_plan_overlay_v1 import validate as validate_overlay
+    for asset in (context.get("media") or {}).get("assets") or []:
+        if asset.get("plan_overlay"):
+            validate_overlay(asset, _row_payload(store, asset["plan_overlay"]["source"]["key"]))
     for item in plan.get("destinations") or []:
         destination = item.get("destination")
         if (destination not in payloads or item.get("payload") != payloads[destination]["full_text"]
@@ -1372,6 +1392,11 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     key = str(intent.get("plan_status_post") or "")
     part = intent.get("plan_status_part", 0)
     row, payloads = _expected(store, key, str(intent.get("output_dir") or ""), part)
+    # Decision 82 / CC-459: exact readback remains available for old objects,
+    # while a fresh write can never send the parked drawn levels picture.
+    context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
+    if any(a.get("modality") != "tradingview_chart_snapshot" for a in (context.get("media") or {}).get("assets") or []):
+        raise PlanPostError("JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED")
     if row.get("format") == 4:
         # Frozen copy is the authority. A later formatter or disclosure change
         # cannot rewrite it or make an exact historical intent fail comparison.

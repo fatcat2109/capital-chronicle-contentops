@@ -1,0 +1,150 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USDJPY\\USDJPY_2026-11-11_04-10-55.png",
+  "sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741",
+  "width": 1524,
+  "height": 856,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1448,
+      768
+    ],
+    "axis_origin": [
+      1448,
+      27
+    ],
+    "axis_pixel_match": 0.9921259842519685,
+    "mode": "linear",
+    "slope": -190.95260930617582,
+    "intercept": 30470.322921705236,
+    "max_label_error_px": 0.7628770180199353,
+    "grid_checks": [
+      {
+        "price": 155.6,
+        "page_y_in_download": 758.1443324936614,
+        "grid_y": 758,
+        "error_px": 0.144332493661409
+      },
+      {
+        "price": 155.8,
+        "page_y_in_download": 719.9440806044947,
+        "grid_y": 720,
+        "error_px": 0.055919395505270586
+      },
+      {
+        "price": 156.0,
+        "page_y_in_download": 681.7438287153279,
+        "grid_y": 682,
+        "error_px": 0.25617128467206385
+      },
+      {
+        "price": 156.2,
+        "page_y_in_download": 643.5435768261613,
+        "grid_y": 644,
+        "error_px": 0.4564231738387434
+      },
+      {
+        "price": 156.4,
+        "page_y_in_download": 605.3433249369945,
+        "grid_y": 605,
+        "error_px": 0.3433249369944633
+      },
+      {
+        "price": 156.6,
+        "page_y_in_download": 567.1430730478278,
+        "grid_y": 567,
+        "error_px": 0.14307304782778374
+      },
+      {
+        "price": 156.8,
+        "page_y_in_download": 528.942821158661,
+        "grid_y": 529,
+        "error_px": 0.05717884133900952
+      },
+      {
+        "price": 157.0,
+        "page_y_in_download": 490.74256926949425,
+        "grid_y": 491,
+        "error_px": 0.25743073050574594
+      },
+      {
+        "price": 157.2,
+        "page_y_in_download": 452.5423173803275,
+        "grid_y": 453,
+        "error_px": 0.45768261967248236
+      },
+      {
+        "price": 157.4,
+        "page_y_in_download": 414.3420654911607,
+        "grid_y": 414,
+        "error_px": 0.3420654911607244
+      },
+      {
+        "price": 157.6,
+        "page_y_in_download": 376.14181360199404,
+        "grid_y": 376,
+        "error_px": 0.1418136019940448
+      },
+      {
+        "price": 157.8,
+        "page_y_in_download": 337.94156171282725,
+        "grid_y": 338,
+        "error_px": 0.05843828717274846
+      },
+      {
+        "price": 158.0,
+        "page_y_in_download": 299.74130982366046,
+        "grid_y": 300,
+        "error_px": 0.2586901763395417
+      },
+      {
+        "price": 158.2,
+        "page_y_in_download": 261.5410579344938,
+        "grid_y": 262,
+        "error_px": 0.4589420655062213
+      },
+      {
+        "price": 158.4,
+        "page_y_in_download": 223.3408060453271,
+        "grid_y": 223,
+        "error_px": 0.3408060453270991
+      },
+      {
+        "price": 158.6,
+        "page_y_in_download": 185.1405541561603,
+        "grid_y": 185,
+        "error_px": 0.14055415616030587
+      },
+      {
+        "price": 158.8,
+        "page_y_in_download": 146.94030226699363,
+        "grid_y": 147,
+        "error_px": 0.05969773300637371
+      },
+      {
+        "price": 159.0,
+        "page_y_in_download": 108.74005037782683,
+        "grid_y": 109,
+        "error_px": 0.25994962217316697
+      },
+      {
+        "price": 159.2,
+        "page_y_in_download": 70.53979848866004,
+        "grid_y": 71,
+        "error_px": 0.46020151133996023
+      }
+    ],
+    "source_sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741"
+  },
+  "tv_symbol": "FX_IDC:USDJPY",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "USDJPY 158.853 \u25b2 +0.09%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+  "suggested_filename": "USDJPY_2026-11-11_04-10-55.png",
+  "captured_at_utc": "2026-11-11T04:10:55.793750+00:00",
+  "seconds": 8.7
+}

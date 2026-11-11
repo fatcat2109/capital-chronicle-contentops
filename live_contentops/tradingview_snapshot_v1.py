@@ -13,13 +13,15 @@ CC-459: plan posts share one capture per market for 15 minutes. Two capture atte
 a five-minute wait; the run budget defers capture, never substitutes a drawn levels picture.
 After failure, text-capable destinations use text and image-required destinations are skipped.
 
-Drawings: TradingView's guest chart refuses programmatic and hotkey drawings (5 Nov probe:
-"Cannot create shape" for horizontal_line and rectangle, Alt+H draws nothing), so no level is
-drawn; the post's text carries the zone and invalidation. A target is never drawn (decision 40).
+TradingView's guest chart refuses native drawings ("Cannot create shape"). CC-459 instead
+places Capital Chronicle's supplied public plan levels on a copy of the download, against
+the chart's visible axis and checked pane geometry. The original download stays unchanged.
+Axis labels serve this displayed annotation only; they never become an analytical price feed.
 """
 from __future__ import annotations
 
 import hashlib
+import base64
 import json
 import os
 import re
@@ -225,7 +227,8 @@ def failure_count(path: Path | None = None) -> int:
     if not path.is_file():
         return 0
     return sum(1 for line in path.read_text(encoding="utf-8").splitlines()
-               if line.strip() and json.loads(line).get("status") != "CAPTURED")
+               if line.strip() and json.loads(line).get("status") in {
+                   "FAILED", "TEXT_ONLY", "SKIPPED_RUN_TIME_BUDGET"})
 
 
 def _kill_tree(pid: int) -> None:
@@ -282,7 +285,14 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
         if image.format != "PNG" or min(image.size) < 400:
             raise SnapshotError("TRADINGVIEW_SNAPSHOT_IMAGE_INVALID")
         size = image.size
-    return {"path": str(path), "sha256": _sha256(path), "width": size[0], "height": size[1],
+    scale = {}
+    if result.get("geometry_probe"):
+        from live_contentops.tradingview_plan_overlay_v1 import geometry
+        try:
+            scale = {"chart_geometry": geometry(result)}
+        except (ValueError, KeyError, OSError, StopIteration, ZeroDivisionError) as exc:
+            scale = {"chart_geometry_cause": str(exc) or "TRADINGVIEW_PRICE_SCALE_NOT_USABLE"}
+    return {"path": str(path), "sha256": _sha256(path), "width": size[0], "height": size[1], **scale,
             "tv_symbol": tv_symbol, "interval": interval, "interval_label": INTERVAL_LABELS[interval],
             "legend": legend, "page_title": result.get("page_title"), "chart_url": args["url"],
             "suggested_filename": result.get("suggested_filename"),
@@ -340,8 +350,12 @@ def validate_snapshot_asset(asset: Mapping[str, Any], article: Mapping[str, Any]
         if (original.format != "PNG" or min(original.size) < 400
                 or (box[2] - box[0], box[3] - box[1]) != original.size
                 or framed.size != (asset["width"], asset["height"])
-                or ImageChops.difference(original.convert("RGB"), framed.convert("RGB").crop(box)).getbbox()):
+                or (not asset.get("plan_overlay") and
+                    ImageChops.difference(original.convert("RGB"), framed.convert("RGB").crop(box)).getbbox())):
             raise ValueError("TRADINGVIEW_SNAPSHOT_ATTRIBUTION_CROPPED_OR_CHANGED")
+        if asset.get("plan_overlay"):
+            from live_contentops.tradingview_plan_overlay_v1 import validate
+            validate(asset)
         top = asset.get("preceding_card")
         if top:
             if _sha256(Path(top["path"])) != top["sha256"]:
@@ -524,11 +538,19 @@ def _worker(args: dict) -> dict:
             context = browser.new_context(viewport=VIEWPORT, accept_downloads=True, locale="en-US",
                                           timezone_id="UTC", color_scheme="light")
             page = context.new_page()
-            if args.get("probe_geometry"):
+            if args.get("probe_geometry", True):
                 page.add_init_script("""(() => {
                     const fill = CanvasRenderingContext2D.prototype.fillText;
                     const seen = new WeakMap();
                     window.__cc459Labels = seen;
+                    for (const name of ['clearRect', 'fillRect']) {
+                        const original = CanvasRenderingContext2D.prototype[name];
+                        CanvasRenderingContext2D.prototype[name] = function(x,y,w,h,...rest) {
+                            if (x <= 0 && y <= 0 && w >= this.canvas.width-1 && h >= this.canvas.height-1)
+                                seen.delete(this.canvas);
+                            return original.call(this,x,y,w,h,...rest);
+                        };
+                    }
                     CanvasRenderingContext2D.prototype.fillText = function(text, x, y, ...rest) {
                         if (/^-?[\\d,.]+$/.test(String(text))) {
                             let labels = seen.get(this.canvas);
@@ -559,15 +581,22 @@ def _worker(args: dict) -> dict:
                     parents: [c.parentElement, c.parentElement?.parentElement].map(e =>
                         ({name:e?.getAttribute('data-name'), cls:e?.className})),
                     labels: [...(window.__cc459Labels?.get(c)?.values() || [])]};
-            })""") if args.get("probe_geometry") else None
+            })""") if args.get("probe_geometry", True) else None
+            if args.get("probe_geometry", True):
+                axis_png = page.locator('[data-name="price-axis-A"] canvas').first.evaluate("c => c.toDataURL('image/png').split(',')[1]")
+                axis_file = out_dir / "price-axis.png"
+                axis_file.write_bytes(base64.b64decode(axis_png))
             with page.expect_download(timeout=20000) as download:
                 page.keyboard.press("Control+Alt+KeyS")
             name = download.value.suggested_filename
             target = out_dir / name
             download.value.save_as(str(target))
-            return {"path": str(target), "suggested_filename": name, "legend": legend, "page_title": page.title(),
+            result = {"path": str(target), "suggested_filename": name, "legend": legend, "page_title": page.title(),
                     "captured_at_utc": datetime.now(timezone.utc).isoformat(), "seconds": round(time.time() - started, 1),
-                    **({"geometry_probe": geometry_probe} if geometry_probe else {})}
+                    **({"geometry_probe": geometry_probe, "axis_path": str(axis_file)} if geometry_probe else {})}
+            if geometry_probe:
+                (out_dir / "visible-axis-geometry.json").write_text(json.dumps(result,sort_keys=True),encoding="utf-8")
+            return result
         finally:
             browser.close()
 

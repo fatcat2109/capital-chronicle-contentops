@@ -57,6 +57,20 @@ def fake_host(*, work_item_id, delivery_only_assets, existing_manifest, article_
         "verified_public_delivery_url": "https://res.cloudinary.com/demo/image/upload/" + card["sha256"][:16] + ".png"}]}}
 
 
+def recorded_snapshot(market, interval, folder):
+    """CC-459's real guest download, copied locally for a hosting-path test."""
+    from pathlib import Path, PureWindowsPath
+    import shutil
+    from live_contentops import tradingview_snapshot_v1 as tv
+    base = Path(__file__).parents[1] / "docs/publisher/CC-459/media" / market
+    snap = json.loads((base / "snapshot.json").read_bytes())
+    original = base / PureWindowsPath(snap["path"]).name
+    folder.mkdir(parents=True, exist_ok=True)
+    copied = folder / original.name
+    shutil.copyfile(original, copied)
+    return {**snap, "path": str(copied), "interval": interval, "interval_label": tv.INTERVAL_LABELS[interval]}
+
+
 @pytest.fixture
 def queued(tmp_path, export_fixture, main_root):
     store, transport, coordinator = _coordinator(tmp_path, runtime=FixtureTransport())
@@ -89,7 +103,7 @@ def test_x_splits_into_a_post_and_a_notice_reply_within_its_limit(queued):
     payload = destination_payloads(json.loads(store.get_outbox_message(keys[("XAUUSD", "WAITING")])["payload"]),
                                    card_id=plan_["status_post_card_id"])["x"]
     assert all(_x_length(p["text"]) <= 280 for p in payload["posts"])
-    assert payload["posts"][0]["media_asset_ids"] == [plan_["status_post_card_id"]]
+    assert payload["posts"][0]["media_asset_ids"] == ([plan_["status_post_card_id"]] if plan_["status_post_card_id"] else [])
     assert payload["posts"][1]["text"].startswith(PUBLIC_NOTICE)
 
 
@@ -107,7 +121,8 @@ def test_the_registered_intents_carry_the_frozen_copy_card_and_hosted_url(queued
         data = _durable_intent_inputs(intent)
         assert data["payloads"][destination] == intent["native_payload"]
         assert data["payloads"][destination]["text"].startswith("US crude oil: the plan with the 61.2–61.8 entry zone is cancelled")
-        assert data["local_media"].endswith(".png") and data["public_image_url"].startswith("https://res.cloudinary.com/")
+        # CC-459: the controlled browser failure sends text, never a drawn card.
+        assert data["local_media"] == "" and not data["public_image_url"]
         assert "published_content_export" not in intent
 
 
@@ -140,7 +155,8 @@ def test_publish_ready_runs_each_post_once_through_the_coordinator(queued):
 def test_a_hosting_failure_posts_nothing(queued):
     store, transport, coordinator, keys, root = queued
     result = publish_ready(store, now=NOW, coordinator_for=lambda key, folder: coordinator, root=root, limit=1,
-                           host=lambda **kw: {"status": "BLOCKED_CLOUDINARY_CREDENTIALS_MISSING"})
+                           host=lambda **kw: {"status": "BLOCKED_CLOUDINARY_CREDENTIALS_MISSING"},
+                           snapshot=recorded_snapshot)
     assert result["posts"][0]["status"] == "NOT_STARTED"
     assert "PLAN_STATUS_CARD_HOSTING_BLOCKED_CLOUDINARY_CREDENTIALS_MISSING" in result["posts"][0]["cause"]
     assert transport.publish_calls == []
@@ -222,13 +238,13 @@ def test_an_idle_run_touches_no_coordinator_and_no_host(queued):
         raise AssertionError("an idle run must not call the hosting provider")
 
     idle = publish_ready(store, now=NOW, coordinator_for=no_coordinator, root=root, host=no_host, limit=10)
-    assert idle == {"status": "OK", "posts": []} and transport.publish_calls == calls
+    assert idle["status"] == "OK" and idle["posts"] == [] and transport.publish_calls == calls
 
 
 def test_a_hosted_card_is_reused_without_a_provider_call(queued):
     store, _, _, keys, root = queued
     key = keys[("XAUUSD", "TRIGGERED")]
-    prepare_post(store, key, root=root, host=fake_host)
+    prepare_post(store, key, root=root, host=fake_host, snapshot=recorded_snapshot)
 
     def no_host(**kw):
         raise AssertionError("the verified hosted card must be reused")

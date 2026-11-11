@@ -279,6 +279,16 @@ def compose(row):
                      "INVALIDATED": "the idea's invalidation condition was reached",
                      "EXPIRED": "the entry window ended"}.get(row["state"], "the state changed")
             lead = prefix + f"{words} at {_clock(row['at_utc'])}."
+    if kind != "setup":
+        extra.extend(["Entry zone: " + level(plan["zone_low"], plan) + "–" + level(plan["zone_high"], plan) + ".",
+                      "Invalidation: " + level(plan["invalidation_level"], plan) + "."])
+        if plan.get("target"):
+            extra.append("Model target level: " + "–".join(dict.fromkeys(level(v, plan) for v in plan["target"])) + ".")
+        if row.get("entry_deadline_utc"):
+            extra.append("Entry window to " + _clock(row["entry_deadline_utc"]) + ".")
+        horizon = row.get("time_exit_utc") or plan.get("valid_until_utc")
+        if horizon:
+            extra.append("Time exit: " + _clock(horizon) + ".")
     analysis = row.get("analysis_publication") or {}
     summary = analysis.get("summary") or {}
     lines = [lead, *extra]
@@ -593,10 +603,28 @@ def _reference(store, key, destination):
     return None
 
 
-def _ready_destinations(store, row):
+def _skipped_images(root, row):
+    """Destination-local image failure, retained in the existing post artifact."""
+    if root is None:
+        return []
+    for key in (row["key"], row.get("parent_key")):
+        if not key:
+            continue
+        path = Path(root) / key / "run_context_v1.json"
+        if path.is_file():
+            skipped = json.loads(path.read_bytes()).get("status_post_skipped_destinations") or []
+            if skipped:
+                return skipped
+    return []
+
+
+def _ready_destinations(store, row, root=None):
     """A settled/parent-waiting copy cannot starve unrelated cards of a slot."""
     ready = []
+    skipped = {s["destination"] for s in _skipped_images(root, row)}
     for destination in destinations_for(row):
+        if destination in skipped:
+            continue
         dispatch = _dispatch(store, row["key"], destination)
         if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
             # Decision 112's exact former X policy no-write remains resumable.
@@ -655,7 +683,7 @@ def _parents(store, row, destinations, previous):
     return parents, deferred
 
 
-def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False):
+def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False):
     result = {}
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000,
@@ -668,6 +696,18 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
     limits = {d: n - len(credit) for d, n in limits.items()}
     for destination in destinations_for(row):
         text = row["text"]
+        if destination == "threads" and row["kind"] != "run" and complete_levels:
+            # The image no longer carries the only copy of a level/window.
+            # Preserve every supplied line in the platform's existing thread route.
+            body = posts._split(text)[0]
+            parts = posts._text_parts(body, NOTICES, limits[destination], lines=True)
+            payload = {"destination": destination, "text": parts[0], "root_text": parts[0],
+                       "full_text": "\n\n".join(parts), "reply_texts": parts[1:], "media_asset_ids": [card_id]}
+            ref = (parents or {}).get(destination)
+            if ref:
+                payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"))
+            result[destination] = payload
+            continue
         if destination == "threads" and row["kind"] == "run" and row.get("analysis_publications"):
             root = row["lead"] + "\n\n" + NOTICES
             replies = [_run_summary({"analysis_publications": [analysis]}, "",
@@ -801,7 +841,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     # Registered packages keep exact bytes for readback/reconciliation. This
     # cannot create a new drawn image; fresh packages always use CC-314.
     frozen = bool(previous and any(_dispatch(store, key, d) for d in destinations_for(row)))
-    assets, carousel, skipped = [], [], []
+    assets, carousel, skipped = [], [], _skipped_images(root, row)
     manifest_path = folder / "delivery_media_manifest_v1.json"
     if frozen:
         assets = (previous.get("media") or {}).get("assets") or []
@@ -828,12 +868,33 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
                     raise posts.PlanPostError("PLAN_STATUS_CHART_HOSTING_" + str(delivery.get("status") or "FAILED"))
                 local_manifest_path.write_bytes(canonical_bytes(delivery["manifest"]))
             local_manifest = json.loads(local_manifest_path.read_bytes())
-            hosted = next(a for a in local_manifest["assets"] if a["sha256"] == card["sha256"])
             assets.append(card)
-            if hosted["media_asset_id"] not in {a["media_asset_id"] for a in manifest["assets"]}:
-                manifest["assets"].append(hosted)
-            carousel.append({"asset_id": card["asset_id"], "path": card["path"],
-                "sha256": card["sha256"], "url": hosted["verified_public_delivery_url"]})
+            carousel_card = card
+            if row["kind"] == "run":
+                # Instagram receives a padded 4:5 variant of the same download.
+                # All TradingView pixels and the checked plan overlay are retained.
+                from . import tradingview_plan_overlay_v1 as overlay
+                carousel_card = tv.snapshot_asset(member["symbol"], member["instrument_title"],
+                    card["tradingview_snapshot"], member_folder / "media_assets", "4:5")
+                try:
+                    carousel_card = overlay.apply(carousel_card, member)
+                except (OSError, ValueError, KeyError) as exc:
+                    tv.record_outcome({"key": member["key"], "market": member["symbol"],
+                        "status": "PLAIN_SNAPSHOT", "cause": str(exc)[:200]})
+                if not posts._hosted(local_manifest_path, carousel_card):
+                    delivery = host(work_item_id=member["key"], delivery_only_assets=[carousel_card], existing_manifest=None,
+                                    article_assets=[], article=article, source_documents=[])
+                    if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
+                        raise posts.PlanPostError("PLAN_STATUS_CHART_HOSTING_" + str(delivery.get("status") or "FAILED"))
+                    local_manifest["assets"].extend(delivery["manifest"]["assets"])
+                    local_manifest_path.write_bytes(canonical_bytes(local_manifest))
+                assets.append(carousel_card)
+            for hosted in local_manifest["assets"]:
+                if hosted["media_asset_id"] not in {a["media_asset_id"] for a in manifest["assets"]}:
+                    manifest["assets"].append(hosted)
+            hosted = next(a for a in local_manifest["assets"] if a["sha256"] == carousel_card["sha256"])
+            carousel.append({"asset_id": carousel_card["asset_id"], "path": carousel_card["path"],
+                "sha256": carousel_card["sha256"], "url": hosted["verified_public_delivery_url"]})
         if assets:
             manifest_path.write_bytes(canonical_bytes(manifest))
         if not assets or (row["kind"] == "run" and not all_carousel_images):
@@ -852,7 +913,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             "status_post_skipped_destinations": skipped}
         context_path.write_bytes(canonical_bytes(context))
     payloads = destination_payloads(row, card_id=card["asset_id"] if card else None,
-                                  parents=parents, carousel=carousel, chart_credit=chart_credit)
+                                  parents=parents, carousel=carousel, chart_credit=chart_credit,
+                                  complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     plan_rows = []
     for destination in chosen:
         registration = registration_for_destination(destination)
@@ -974,7 +1036,7 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             results.append({"key": key, "status": posts.SUPERSEDED,
                 "cause": "PLAN_UPDATE_SUPERSEDED_BY_" + latest_states[row["plan_id"]]})
             continue
-        ready = _ready_destinations(store, row)
+        ready = _ready_destinations(store, row, root=root)
         if not ready:
             _, deferred = _parents(store, row, DESTINATIONS, {})
             results.append({"key": key, "status": "WAITING" if deferred else "SETTLED",

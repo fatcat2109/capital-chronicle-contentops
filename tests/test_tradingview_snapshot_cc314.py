@@ -145,6 +145,7 @@ def test_a_busy_tick_defers_without_spending_capture_attempts_or_publishing_a_ca
     state = json.loads((root / key / "tradingview_capture_v1.json").read_bytes())
     assert state["attempts"] == 0
     assert json.loads(outcomes.read_text().splitlines()[0])["status"] == "DEFERRED"
+    assert tv.failure_count(outcomes) == 0
 
 
 def test_capture_refuses_another_symbol_or_an_unconfirmed_timeframe(tmp_path):

@@ -1,0 +1,52 @@
+{
+  "status": "BUILD_VERIFIED",
+  "operating_root_integration": "OPS_REVIEW_PENDING",
+  "live_publication_readback": "NOT_RUN",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "base_commit": "cf6e51d78520e153054f8226eef39aa78c31aa9a",
+  "six_market_capture_count": 6,
+  "delivery_variants_per_market": [
+    "16:9",
+    "4:5"
+  ],
+  "max_grid_error_px": 0.5,
+  "max_level_error_px": 0.4982378064414661,
+  "supplied_target_count": 0,
+  "target_limit": "Current Main plan-status export explicitly omits target_level (tools/product/plan_status_export_v1.py:101); all 18 held setup rows also have no target. Supplied-target rendering is tested with controlled inputs.",
+  "changed_schedule": false,
+  "computer_use_invoked": false,
+  "source_images": {
+    "XAUUSD": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\XAUUSD\\XAUUSD_2026-11-11_04-09-57.png",
+      "sha256": "70f9d96a70a7f52b63dc83916a90f2dbbb31df86f2d2e879b76fc03392b7d387",
+      "captured_at_utc": "2026-11-11T04:09:58.677172+00:00"
+    },
+    "US500": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\US500\\SPX_2026-11-11_04-10-20.png",
+      "sha256": "1a1ac717d027baa54e4ca55a556ce4b02b7fdb766bff753fafce5d88cb8ea40b",
+      "captured_at_utc": "2026-11-11T04:10:21.323857+00:00"
+    },
+    "EURUSD": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\EURUSD\\EURUSD_2026-11-11_04-10-43.png",
+      "sha256": "558fa13f70fa42039b4e36492fb60f863939fa45e0d2051faa59f6d899d18fbd",
+      "captured_at_utc": "2026-11-11T04:10:44.186539+00:00"
+    },
+    "USDJPY": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USDJPY\\USDJPY_2026-11-11_04-10-55.png",
+      "sha256": "92c52211c2054467ea3b8511267686f154c24bc3762bfe0e0e93b03c36910741",
+      "captured_at_utc": "2026-11-11T04:10:55.793750+00:00"
+    },
+    "USOIL": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\USOIL\\CL1!_2026-11-11_04-11-14.png",
+      "sha256": "9733af965fc3a611be8be0c5b32d19fe919aa0ceea102734b77464e8a7f2ea57",
+      "captured_at_utc": "2026-11-11T04:11:14.882611+00:00"
+    },
+    "BTCUSD": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-459\\media\\BTCUSD\\BTCUSD_2026-11-11_04-13-41.png",
+      "sha256": "bc1b6e6e1ce57705509f0453886801b8c8438a3909e6e342077c9ffd1984731b",
+      "captured_at_utc": "2026-11-11T04:13:41.861306+00:00"
+    }
+  }
+}
