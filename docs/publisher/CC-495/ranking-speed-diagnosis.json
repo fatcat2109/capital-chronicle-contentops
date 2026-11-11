@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-11-11T20:47:19.939409+00:00",
+  "measured_failures": [
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T201829-e5f99f50\\editorial\\rank\\call.json",
+      "status": "TIMEOUT",
+      "elapsed_seconds": 61.565199500000745,
+      "prompt_bytes": 12936,
+      "configured_model": "gemini-3.8-flash-high",
+      "configured_effort": "high",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED"
+    },
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T202728-5a93c5b9\\editorial\\rank\\call.json",
+      "status": "TIMEOUT",
+      "elapsed_seconds": 63.353038400000514,
+      "prompt_bytes": 12916,
+      "configured_model": "gemini-3.8-flash-high",
+      "configured_effort": "high",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED"
+    }
+  ],
+  "change": "Only target fields plus three usable source facts and ages go to ranking; binding IDs, attempt keys and global topic titles stay out. The writer retains the full exact source binding.",
+  "rank_timeout_seconds": 90,
+  "writer_timeout_seconds": 90,
+  "lease_seconds": 270,
+  "send_deadline_minutes": 15,
+  "models_changed": false,
+  "native_postchange_result": "PENDING_EXISTING_MINUTE_CONSUMER",
+  "schedule_changed": false
+}

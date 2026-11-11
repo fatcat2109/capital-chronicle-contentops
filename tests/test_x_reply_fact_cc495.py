@@ -299,6 +299,41 @@ def test_unchanged_low_quality_target_is_not_ranked_again_but_new_facts_are_used
     assert len(calls) == 2 and calls[0] != calls[1]
 
 
+def test_ranker_gets_actual_relevant_facts_without_internal_binding_ids(consumer):
+    store, _, feed, root = consumer
+    ready = packs.prepare(store, feed_path=feed, output_root=root / "request", now=NOW, reply_policy=packs.MOBILE_POLICY)
+    request = packs.read_json(ready["request_path"])
+    request["candidates"][0].update(attempt_key="private-attempt-marker", fact_context_sha256="private-context-marker")
+    request["candidates"][0]["usable_source_ids"].extend(["internal-binding-marker" * 100] * 20)
+    request["request_sha256"] = packs.digest({k: v for k, v in request.items() if k != "request_sha256"})
+    packs.save_json(ready["request_path"], request)
+    sizes = []
+    def rank(prompt, **kwargs):
+        sizes.append(len(prompt))
+        assert "7000.0 USD" in prompt and "today, 10:55 AM ET" in prompt
+        assert "reply_count" in prompt and "internal-binding-marker" not in prompt
+        assert "private-attempt-marker" not in prompt and "private-context-marker" not in prompt
+        assert request["sources"][0]["source_id"] not in prompt
+        return {"ranking": [{"post_id": "123", "quality_score": 92}]}, {}
+    def write(prompt, **kwargs):
+        assert request["sources"][0]["source_id"] in prompt
+        return authored(request), {}
+    response = botlane.rank_and_draft(ready["request_path"], output_dir=root / "editorial", ranker=rank, writer=write, now=NOW)
+    assert sizes[0] < 3000 and packs.read_json(response)["items"]
+
+
+def test_bounded_rank_timeout_is_recorded_without_changing_model_roles(tmp_path):
+    import subprocess
+    def slow(args, **kwargs):
+        assert kwargs["timeout"] == 90 and "90s" in args
+        raise subprocess.TimeoutExpired(args, 90, output=b"partial rank result")
+    with pytest.raises(ValueError, match="AGY_RANK_TIMEOUT_90S"):
+        botlane._text_call("No tools. Rank only.", root=tmp_path, runner=slow)
+    call = packs.read_json(tmp_path / "call.json")
+    assert call["status"] == "TIMEOUT" and call["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
+    assert call["configured_model"] != botlane.WRITER_MODEL
+
+
 def test_media_time_cannot_push_a_draft_past_fifteen_minutes(consumer, monkeypatch):
     from hashlib import sha256
     from PIL import Image

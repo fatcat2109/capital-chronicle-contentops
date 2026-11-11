@@ -42,6 +42,14 @@ An unpublished target is reconsidered when its usable facts change. An unchanged
 rejected target avoids another model call, and a delivered or uncertain target
 never returns to drafting. Old issued requests and attempt records remain intact.
 
+Two live ranking calls returned no result after 61.57 and 63.35 seconds. Their
+13 KB prompts included internal binding IDs. Ranking now receives the target's
+three usable facts and their ages, with no internal binding/attempt IDs or global
+source-title list. The writer retains the complete bound evidence. Both existing
+editorial roles have a 90-second bound; the existing lease covers both calls and
+transport time. This keeps the normal editorial budget below the five-minute
+target while the send boundary still refuses a target older than 15 minutes.
+
 `first-draft-timing.json` reconstructs the rejected delivery from its saved
 request and call clocks. It was already 37.67 minutes old at the first tick;
 ranking took 43.15 seconds and writing 62.73 seconds. The original tick sent
