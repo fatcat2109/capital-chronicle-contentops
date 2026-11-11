@@ -451,6 +451,14 @@ class ContentOpsDurableStore:
         now = self._now_fn() if self._now_fn else datetime.now(timezone.utc)
         return now.replace(tzinfo=timezone.utc) if now.tzinfo is None else now.astimezone(timezone.utc)
     def _get_now_iso(self) -> str: return self._get_now().isoformat()
+    def ensure_model_usage_column(self) -> None:
+        """Compatible nullable telemetry on the existing table; no lineage rewrite."""
+        with self.get_connection() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            columns = {row["name"] for row in conn.execute("PRAGMA table_info(model_invocations)")}
+            if "usage_metadata_json" not in columns:
+                conn.execute("ALTER TABLE model_invocations ADD COLUMN usage_metadata_json TEXT")
+
     def ensure_outbox_read_indexes(self) -> None:
         """Optional read indexes; leave payloads, identities and schema lineage unchanged."""
         with self.get_connection() as conn:

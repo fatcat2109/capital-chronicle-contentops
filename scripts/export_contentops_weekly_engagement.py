@@ -7,7 +7,30 @@ import sqlite3
 import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from live_contentops.channel_engagement_v1 import weekly_channel_engagement, render_engagement_digest
+from live_contentops.channel_engagement_v1 import weekly_channel_engagement, render_engagement_digest, weekly_audience_lines
+
+
+def export_weekly_engagement(store, week_ending, target):
+    """The minute consumer refreshes this existing digest export; no new schedule."""
+    target = Path(target).resolve()
+    with sqlite3.connect(Path(store).resolve().as_uri() + "?mode=ro", uri=True) as connection:
+        connection.row_factory = sqlite3.Row
+        connection.execute("PRAGMA query_only=ON")
+        connection.execute("BEGIN")
+        def rows(table):
+            return [dict(r) for r in connection.execute("SELECT * FROM " + table)]
+        value = weekly_channel_engagement(dispatches=rows("platform_dispatches"), reconciliations=rows("reconciliations"),
+            readbacks=rows("readbacks"), observations=rows("performance_observations"), week_ending=week_ending)
+    value["recorded_at_utc"] = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    value["input_store_read_only"] = True
+    value["digest_lines"] = weekly_audience_lines(value)
+    target.mkdir(parents=True, exist_ok=True)
+    for filename, payload in [("engagement.json", json.dumps(value, indent=2) + "\n"),
+                              ("engagement.md", "\n".join(value["digest_lines"]) + "\n\n" + render_engagement_digest(value))]:
+        temporary = target / (filename + ".tmp")
+        temporary.write_text(payload, encoding="utf-8")
+        temporary.replace(target / filename)
+    return {"channels": len(value["channels"]), "digest": str(target / "engagement.md"), "week_ending": week_ending}
 
 
 def main():
@@ -16,21 +39,7 @@ def main():
     parser.add_argument("--week-ending", required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
-    target = args.output_dir.resolve()
-    with sqlite3.connect(args.store.resolve().as_uri() + "?mode=ro", uri=True) as connection:
-        connection.row_factory = sqlite3.Row
-        connection.execute("PRAGMA query_only=ON")
-        connection.execute("BEGIN")
-        def rows(table):
-            return [dict(r) for r in connection.execute("SELECT * FROM " + table)]
-        value = weekly_channel_engagement(dispatches=rows("platform_dispatches"), reconciliations=rows("reconciliations"),
-            readbacks=rows("readbacks"), observations=rows("performance_observations"), week_ending=args.week_ending)
-    value["recorded_at_utc"] = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-    value["input_store_read_only"] = True
-    target.mkdir(parents=True, exist_ok=True)
-    (target / "engagement.json").write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
-    (target / "engagement.md").write_text(render_engagement_digest(value), encoding="utf-8")
-    print(json.dumps({"channels": len(value["channels"]), "digest": str(target / "engagement.md")}))
+    print(json.dumps(export_weekly_engagement(args.store, args.week_ending, args.output_dir)))
 
 
 if __name__ == "__main__":

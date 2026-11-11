@@ -71,7 +71,7 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         if verified:
             eligible[dispatch["dispatch_id"]] = dispatch
 
-    latest, excluded = {}, Counter()
+    latest, excluded, calls_by_object = {}, Counter(), {}
     for observation in observations:
         channel = observation.get("platform")
         if channel not in CHANNELS:
@@ -91,11 +91,17 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
             excluded[(channel, "UNCONFIRMED_OR_MISMATCHED_PUBLIC_OBJECT")] += 1
             continue
         key = (channel, str(observation["public_object_id"]))
+        try:
+            for call in _json(observation.get("metrics_native_json") or "{}").get("_call_ids", []):
+                calls_by_object.setdefault(key, {})[call["call_id"]] = call
+        except (ValueError, TypeError, KeyError):
+            pass
         if key not in latest or clock > latest[key][0]:
             latest[key] = (clock, observation)
 
     capabilities = {r["destination"]: r for r in current_metrics_capability_matrix()}
     channels = []
+    call_totals = {}
     for channel in CHANNELS:
         samples = [(key[1], value[1]) for key, value in latest.items() if key[0] == channel]
         totals, support, rates, causes = Counter(), Counter(), {}, Counter()
@@ -129,6 +135,15 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
                         "collected_at_utc": observation["collected_at_utc"]})
             if available:
                 objects.add(object_id)
+                bound_calls = list(calls_by_object.get((channel, object_id), {}).values())
+                for call in bound_calls:
+                    key = (channel, call["call_id"])
+                    total = call_totals.setdefault(key, {"channel": channel, **call, "posts": 0, "native_counter_sums": {}, "shared_object_metrics": False})
+                    total["shared_object_metrics"] |= len(bound_calls) > 1 or metrics.get("_shared_public_object") is True
+                    total["posts"] += 1
+                    for name in COUNTERS:
+                        if availability.get(name) == "AVAILABLE" and type(metrics.get(name)) in (int, float) and math.isfinite(metrics[name]) and metrics[name] >= 0:
+                            total["native_counter_sums"][name] = total["native_counter_sums"].get(name, 0) + metrics[name]
             else:
                 causes[str(observation.get("collection_status") or "NO_AVAILABLE_NATIVE_METRIC")] += 1
         confirmed_objects = {str(d["public_object_id"]) for d in eligible.values() if d["platform"] == channel}
@@ -139,7 +154,35 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
         for (destination, cause), count in excluded.items():
             if destination == channel:
                 causes[cause] += count
+        account_snapshots = []
+        for observation in observations:
+            if observation.get("platform") != channel:
+                continue
+            try:
+                account = _json(observation.get("metrics_native_json") or "{}").get("_account_snapshot", {})
+                stamp = _clock(account.get("collected_at_utc"))
+                if stamp < end and account.get("metrics"):
+                    account_snapshots.append((stamp, account))
+            except (ValueError, TypeError):
+                continue
+        account_snapshots.sort(key=lambda pair: pair[0])
+        account_latest = account_snapshots[-1][1] if account_snapshots else None
+        account_prior = next((account for stamp, account in reversed(account_snapshots) if stamp <= start), None)
+        follower_key = "members_count" if channel in {"telegram", "discord"} else "followers_count"
+        follower_now = (account_latest or {}).get("metrics", {}).get(follower_key)
+        follower_before = (account_prior or {}).get("metrics", {}).get(follower_key)
+        net_followers = follower_now - follower_before if type(follower_now) is int and type(follower_before) is int else None
+        posted = set()
+        for dispatch in eligible.values():
+            try:
+                if dispatch["platform"] == channel and start <= _clock(dispatch.get("dispatched_at")) < end:
+                    posted.add(str(dispatch["public_object_id"]))
+            except (ValueError, TypeError):
+                continue
         channels.append({"channel": channel, "status": "OBSERVED" if objects else "UNAVAILABLE",
+            "posts_in_week": len(posted), "account_snapshot": account_latest,
+            "net_new_followers_or_members": net_followers,
+            "follower_change_state": "OBSERVED_SNAPSHOT_DIFFERENCE" if net_followers is not None else "PRIOR_WEEK_ACCOUNT_SNAPSHOT_UNAVAILABLE",
             "objects_with_metrics": len(objects), "objects_with_observations": len(samples),
             "eligible_objects_in_store": len(confirmed_objects),
             "native_counter_sums": dict(totals) or None, "support_per_metric": dict(support),
@@ -148,6 +191,7 @@ def weekly_channel_engagement(*, dispatches, reconciliations, readbacks, observa
             "native_read_only_path": "audience-observe on an exact due observation; no login, scope change or public action"})
     return {"schema_version": "contentops.weekly_channel_engagement.v1", "week_ending": week_ending,
         "timezone": "Asia/Bangkok", "channels": channels,
+        "calls": list(call_totals.values()),
         "metric_basis": "Latest cumulative native snapshot per channel/public object collected in this week; not incremental weekly activity. Per-object reach can overlap. Rates are not summed or averaged.",
         "missing_is_zero": False, "public_write_performed": False, "model_calls": 0}
 
@@ -164,3 +208,16 @@ def render_engagement_digest(value):
         causes = "; ".join(sorted(row["missing_causes"])) or "None in observed fields"
         lines.append(f"| {row['channel']} | {row['objects_with_metrics']} | {counters} | {causes} |")
     return "\n".join([*lines, "", "Missing metrics remain unavailable. Member and company LinkedIn records are separate. No model or public write was used.", ""])
+
+
+def weekly_audience_lines(value):
+    """One plain line per platform for the existing 07:00 digest consumer."""
+    lines = []
+    for row in value["channels"]:
+        counters = row.get("native_counter_sums") or {}
+        audience = next((f"{name} {counters[name]:g}" for name in ("views", "total_views", "reach", "impressions") if name in counters), "views/reach unavailable")
+        replies = next((f"{name} {counters[name]:g}" for name in ("replies", "comments") if name in counters), "replies unavailable")
+        change = row.get("net_new_followers_or_members")
+        followers = f"net followers/members {change:+d}" if change is not None else "new followers/members unavailable (no comparable account baseline)"
+        lines.append(f"{row['channel']}: posts {row.get('posts_in_week', 0)}; {audience}; {replies}; {followers}.")
+    return lines
