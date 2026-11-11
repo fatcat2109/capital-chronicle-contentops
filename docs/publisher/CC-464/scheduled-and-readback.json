@@ -1,0 +1,115 @@
+{
+  "scheduled_runs": [
+    {
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T162126-a9b1e0a0\\result.json",
+      "binding": {
+        "bound_now": false,
+        "causes": {},
+        "public_submit_actions": 0,
+        "skipped": 0,
+        "status": "BOUND",
+        "updates_processed": 1
+      },
+      "delivery": {
+        "causes": {},
+        "delivered": [],
+        "public_submit_actions": 0,
+        "status": "NO_FRESH_UNSENT_DRAFTS"
+      },
+      "ended_at_utc": "2026-11-11T16:23:17.309690+00:00",
+      "pack": {
+        "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.html",
+        "item_count": 0,
+        "none_reason": "No source-bound native draft was usable. UNCONDITIONAL_CALL_FORBIDDEN",
+        "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.json",
+        "public_write_performed": false,
+        "short_reason": "0 target replies: no padding. UNCONDITIONAL_CALL_FORBIDDEN",
+        "store_message_id": "x-reply-pack-41f5057aea6bdf3f007ce1d253bbcd8b11a57e2447c47c5dbddaeeb3ac747638"
+      },
+      "public_submit_actions": 0,
+      "readback": {
+        "causes": {},
+        "observed": [],
+        "public_write_performed": false,
+        "reader_followup": {
+          "action": "Use the existing signed-in reader's next bounded visit; pass its exact reply-edge rows with --reply-feed. No agent posts.",
+          "mentions_url": "https://x.com/notifications/mentions",
+          "own_replies_url": "https://x.com/Capitalnicle/with_replies"
+        }
+      },
+      "schedule_changed": false,
+      "started_at_utc": "2026-11-11T16:21:26.574717+00:00",
+      "status": "NO_FRESH_UNSENT_DRAFTS"
+    },
+    {
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T162626-559c32d6\\result.json",
+      "binding": {
+        "bound_now": false,
+        "causes": {},
+        "public_submit_actions": 0,
+        "skipped": 0,
+        "status": "BOUND",
+        "updates_processed": 0
+      },
+      "ended_at_utc": "2026-11-11T16:26:30.589076+00:00",
+      "public_submit_actions": 0,
+      "readback": {
+        "causes": {},
+        "observed": [],
+        "public_write_performed": false,
+        "reader_followup": {
+          "action": "Use the existing signed-in reader's next bounded visit; pass its exact reply-edge rows with --reply-feed. No agent posts.",
+          "mentions_url": "https://x.com/notifications/mentions",
+          "own_replies_url": "https://x.com/Capitalnicle/with_replies"
+        }
+      },
+      "schedule_changed": false,
+      "started_at_utc": "2026-11-11T16:26:26.860902+00:00",
+      "status": "NO_NEW_ELIGIBLE_TARGETS"
+    },
+    {
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261111T162826-4affd6fb\\result.json",
+      "binding": {
+        "bound_now": false,
+        "causes": {},
+        "public_submit_actions": 0,
+        "skipped": 0,
+        "status": "BOUND",
+        "updates_processed": 0
+      },
+      "ended_at_utc": "2026-11-11T16:28:32.288785+00:00",
+      "public_submit_actions": 0,
+      "readback": {
+        "causes": {},
+        "observed": [],
+        "public_write_performed": false,
+        "reader_followup": {
+          "action": "Use the existing signed-in reader's next bounded visit; pass its exact reply-edge rows with --reply-feed. No agent posts.",
+          "mentions_url": "https://x.com/notifications/mentions",
+          "own_replies_url": "https://x.com/Capitalnicle/with_replies"
+        }
+      },
+      "schedule_changed": false,
+      "started_at_utc": "2026-11-11T16:28:26.622706+00:00",
+      "status": "NO_NEW_ELIGIBLE_TARGETS"
+    }
+  ],
+  "manual_readback_runs": [
+    {
+      "at_utc": "2026-11-11T16:28:43.972158+00:00",
+      "public_submit_actions": 0,
+      "readback": {
+        "causes": {},
+        "observed": [],
+        "public_write_performed": false,
+        "reader_followup": {
+          "action": "Use the existing signed-in reader's next bounded visit; pass its exact reply-edge rows with --reply-feed. No agent posts.",
+          "mentions_url": "https://x.com/notifications/mentions",
+          "own_replies_url": "https://x.com/Capitalnicle/with_replies"
+        }
+      },
+      "status": "OBSERVED"
+    }
+  ],
+  "public_submit_actions": 0
+}

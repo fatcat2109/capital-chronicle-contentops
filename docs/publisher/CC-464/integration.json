@@ -1,23 +1,15 @@
 {
-  "recorded_at_utc": "2026-11-11T16:20:31.179001+00:00",
+  "recorded_at_utc": "2026-11-11T16:29:36.536375+00:00",
   "operating_root": "A:\\Capital Chronicle\\ContentOps",
-  "head": "0628a86bc474fdc2839e38ba0cc6eabd44f67bf1",
+  "head": "d267f8daeb515568715f73d5f3ed037a0df6f74e",
   "prior_head": "47a262b04bf074c0228e0ddae20a501a8079c672",
-  "dirty_files_preserved": {
-    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
-    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
-    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
-    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
-  },
   "installed_sources": {
     "live_contentops/x_reply_bot_v1.py": {
       "normalized_sha256": "f598bb578724cfad9f4bf0f5e70c113d6f7763c639f3268af0d9a62d841eef95",
       "matches_delivery": true
     },
     "live_contentops/x_reply_pack_v1.py": {
-      "normalized_sha256": "dd23c3a38cddebf424527547470b4a2ba75c9f5e307aca84d62042775b991f45",
+      "normalized_sha256": "58c3a26a34e8501ba4c8f55d26cad9d8481708e303487905a8ce343e9f66a463",
       "matches_delivery": true
     },
     "live_contentops/x_reply_tabs_v1.py": {
@@ -40,5 +32,41 @@
   "rollback_tag": "contentops-rollback-20261111-cc464",
   "source_tag": "contentops-live-20261111-cc464-source",
   "schedule_changed": false,
-  "application_restarted": false
+  "application_restarted": false,
+  "installed_targeted_tests": "36 passed in 22.45s (installed-tests.xml)",
+  "first_private_delivery": "2026-11-11T16:28:17Z",
+  "live_tag": "contentops-live-20261111-cc464",
+  "acceptance_pending": [
+    "A real target delivered within five minutes of its post",
+    "Jim opens the delivered link on his phone",
+    "First manual reply exact-edge readback with both delays"
+  ],
+  "dirty_files_preserved_at_initial_merge": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+  },
+  "final_snapshot_equals_premerge": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": false,
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": false
+  },
+  "runtime_appends_after_integration": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "original_prefix_preserved": true,
+      "original_bytes": 1375121,
+      "current_bytes": 1382937
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "original_prefix_preserved": true,
+      "original_bytes": 66901,
+      "current_bytes": 68878
+    }
+  }
 }
