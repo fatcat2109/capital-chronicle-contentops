@@ -16,4 +16,6 @@ All [six inspected production owners](installed-source-checks.json) match the te
 
 The existing branch was fast-forwarded from its previous CC-403 delivery to the current ContentOps operating HEAD `4b7db97cebf926248c63dcac30c849ceee9c9706` before this follow-up. Remote master predates that installed Publisher work. Only this item's test correction and evidence are added.
 
+The delivery `0c5787546439fe89d4021629b364f3c467cac447` is pushed and integrated by fast-forward into `A:\Capital Chronicle\ContentOps`. The [integration check](integration.json) verifies all thirteen installed paths against their committed blobs and all eight inherited modified files against their original hashes. The [result](result.json) records the external source dependency and the remaining public acceptance. Integration does not complete the missing daily-note publication.
+
 **Next action:** Ops Live supplies a completed current Main analysis through its existing feed. Publisher resumes the daily-note path under CC-124, retains the original source cutoff, and records its clean-title Substack readback and actual publication within 60 minutes. The explicit timing requirement and decision 89's Main-report scope remain. No new operation, AGY/native editorial call, platform draft, public write, restart, chat message or schedule change was performed.

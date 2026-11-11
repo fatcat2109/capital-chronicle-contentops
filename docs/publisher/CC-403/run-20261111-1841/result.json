@@ -1,0 +1,40 @@
+{
+  "item": "CC-403",
+  "status": "BLOCKED",
+  "cause": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "failing_operation": "validate_publication_clock for the next daily-note Substack publication",
+  "actual_error": "ARTICLE_DATA_CUTOFF_EXPIRED:23640s",
+  "source_data_cutoff_utc": "2026-11-11T05:13:31.505049Z",
+  "publication_deadline_utc": "2026-11-11T06:13:31.505049+00:00",
+  "source_observed_at_utc": "2026-11-11T11:47:32.423159Z",
+  "followup_commit": "0c5787546439fe89d4021629b364f3c467cac447",
+  "operating_commit": "0c5787546439fe89d4021629b364f3c467cac447",
+  "implementation_previously_integrated": true,
+  "branch": "backlog/cc-403-reader-first-notes",
+  "tests": {
+    "passed": 53,
+    "failed": 0,
+    "artifact": "reader-tests-fixed.xml",
+    "initial_run": {
+      "passed": 50,
+      "failed": 1,
+      "artifact": "reader-tests.xml",
+      "cause": "YouTube test fixture assumed the bar superseded by decision 121"
+    }
+  },
+  "choice": "Use held Main reports, T2 rankings and six-market scenarios in the assessment. Preserve their data clocks and the explicit 60-minute requirement; do not create an already-late daily note or invent a new Main call.",
+  "next_action": "Ops Live supplies a completed current Main analysis through its existing feed; Publisher resumes the daily note under CC-124 and records the clean-title Substack readback and actual publication within 60 minutes of the original cutoff.",
+  "next_actor": "Ops Live, then Codex Publisher",
+  "remaining_acceptance": [
+    "Actual daily-note clean-title Substack readback",
+    "Observed publication within 60 minutes of original data cutoff"
+  ],
+  "new_articles": 0,
+  "daily_article_slots_used": 0,
+  "new_editorial_operations": 0,
+  "editorial_model_calls": 0,
+  "public_writes": 0,
+  "chat_messages": 0,
+  "schedule_changes": 0,
+  "inherited_modified_files_preserved": 8
+}
