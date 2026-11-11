@@ -37,6 +37,9 @@ records retain each candidate's cause, source gaps, post-to-draft, post-to-send
 attempt and confirmed delivery minutes. Timings cover filtering, ranking,
 drafting, checks and Telegram sending, including uncertain send attempts. The
 five-draft cap, identity checks, Skip and uncertain-write deduplication remain.
+An unpublished target is reconsidered when its usable facts change. An unchanged
+rejected target avoids another model call, and a delivered or uncertain target
+never returns to drafting. Old issued requests and attempt records remain intact.
 
 `first-draft-timing.json` reconstructs the rejected delivery from its saved
 request and call clocks. It was already 37.67 minutes old at the first tick;
@@ -52,6 +55,7 @@ Build evidence:
 - `reply-tests-second.xml`: 58 passes and two test-isolation fixture corrections.
 - `fact-and-entry-tests.xml`: 27 passing policy, source-consumer and entry checks.
 - `reply-tests.xml`: 62 passing final policy, bot, held-source and minute-entry checks.
+- `changed-facts-tests.xml`: 61 passing bot and fact checks, including reuse of newly held evidence.
 
 Live integration, installed tests, source availability and the next three real
 private deliveries are recorded separately when observed. A Bot API confirmation

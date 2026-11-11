@@ -267,6 +267,38 @@ def test_source_row_change_is_rechecked_before_private_send(consumer):
     assert result["causes"]["REPLY_SOURCE_BINDING_CHANGED"] == 1 and not bot.sent
 
 
+def test_an_old_unpublished_ranking_does_not_hide_new_usable_facts(consumer):
+    store, binding, feed, root = consumer
+    botlane.record(store, botlane.ATTEMPTS, {"post_id": "123", "at_utc": (NOW-timedelta(minutes=1)).isoformat()},
+                   key="xrb-attempt-123", status="ATTEMPTED")
+    bot = Bot()
+    result = botlane.refresh_due(store, binding_path=binding, feed_path=feed, output_root=root / "out",
+                                 bot=bot, drafter=drafter, now=NOW)
+    assert result["status"] == "DELIVERED" and len(bot.sent) == 1
+
+
+def test_unchanged_low_quality_target_is_not_ranked_again_but_new_facts_are_used(consumer):
+    store, binding, feed, root = consumer
+    calls = []
+    def low_quality(path, *, output_dir):
+        request = packs.read_json(path)
+        calls.append(request["candidates"][0]["fact_context_sha256"])
+        result = output_dir / "response.json"
+        packs.save_json(result, {"request_sha256": request["request_sha256"], "items": [],
+            "omissions": [{"post_id": "123", "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"}]})
+        return result
+    options = dict(binding_path=binding, feed_path=feed, output_root=root / "out", bot=Bot(), drafter=low_quality, now=NOW)
+    botlane.refresh_due(store, **options)
+    assert botlane.refresh_due(store, **options)["status"] == "NO_NEW_ELIGIBLE_TARGETS"
+    with sqlite3.connect(root / "intake/completed-bars/bars.sqlite3") as db:
+        db.execute("INSERT INTO history_sources SELECT 'new-source',source_sha256,path,market,timeframe,series_id,?,metadata_json "
+                   "FROM history_sources WHERE source_id='fixture-source'", ((NOW-timedelta(minutes=2)).timestamp(),))
+        db.execute("INSERT INTO history_bars SELECT 'new-source',open_epoch+60,end_epoch+60,session_date,open,high,low,close "
+                   "FROM history_bars WHERE source_id='fixture-source'")
+    botlane.refresh_due(store, **options)
+    assert len(calls) == 2 and calls[0] != calls[1]
+
+
 def test_media_time_cannot_push_a_draft_past_fifteen_minutes(consumer, monkeypatch):
     from hashlib import sha256
     from PIL import Image
