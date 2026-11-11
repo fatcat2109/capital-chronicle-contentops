@@ -101,6 +101,24 @@ def _draft_text(draft):
     return "\n".join(str(draft.get(k) or "") for k in FIELDS)
 
 
+def _date_names(text):
+    # Named weekdays/months also need coverage when no digit appears. Exclude
+    # standalone "May", which is also an ordinary verb; dated May has digits.
+    return set(re.findall(r"\b(?:Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|"
+                          r"January|February|March|April|June|July|August|September|October|November|December)\b", text))
+
+
+def _check_light_text(text, basis):
+    _no_new_numbers(text, basis)
+    evidence = _json(basis)
+    if _date_names(text) - _date_names(evidence):
+        raise ValueError("AGY_UNSUPPORTED_DATE")
+    for name in re.findall(r"\b(?i:according to|reported by)\s+"
+                           r"([A-Z][\w&.-]*(?:\s+[A-Z][\w&.-]*){0,5})", text):
+        if name.casefold() not in evidence.casefold():
+            raise ValueError("AGY_UNSUPPORTED_ATTRIBUTION")
+
+
 def prompt_for(draft, source_pack, assets):
     packet = {"draft": draft, "source_lines": _lines(source_pack), "media": [
         {k: a[k] for k in ("asset_id", "modality", "caption", "alt_text", "spec", "chart_spec",
@@ -176,6 +194,15 @@ def _claim_flags(output, packet):
             reason = reason or "SOURCE_QUOTE_UNMATCHED"
         elif _numbers(claim["draft_span"]) - _numbers(claim["source_quote"]):
             reason = reason or "CLAIM_NUMBER_NOT_IN_SOURCE_QUOTE"
+        elif _date_names(claim["draft_span"]) - _date_names(claim["source_quote"]):
+            reason = reason or "CLAIM_DATE_NOT_IN_SOURCE_QUOTE"
+        elif claim.get("kind") == "attribution":
+            span = claim["draft_span"]
+            # Permit ordinary attribution framing, while checking the named
+            # span against the actual referenced lines. A flag is not a veto.
+            name = re.sub(r"^(?:according to|reported by)\s+|\s+(?:reports?|said)$", "", span, flags=re.I)
+            if name.casefold() not in "\n".join(lines[r] for r in refs).casefold():
+                reason = reason or "CLAIM_ATTRIBUTION_NOT_IN_SOURCE_LINES"
         if claim["draft_span"] not in draft:
             reason = reason or "DRAFT_SPAN_UNMATCHED"
         if reason:
@@ -186,6 +213,9 @@ def _claim_flags(output, packet):
         if number not in _numbers(listed):
             flags.append({"claim_id": "coverage-" + _hash(number)[:12],
                           "cause": "NUMBER_NOT_LISTED", "draft_span": number})
+    for name in sorted(_date_names(draft) - _date_names(listed)):
+        flags.append({"claim_id": "date-" + _hash(name)[:12],
+                      "cause": "DATE_NOT_LISTED", "draft_span": name})
     # Attribution coverage uses the source's own named publisher, never an
     # inferred entity. Free-form semantics remain Publisher's editorial decision.
     for line in packet["source_lines"]:
@@ -307,7 +337,7 @@ def consume_assist(article, assets, *, output_dir, article_mode=None, epistemic_
                     if alt["asset_id"] not in by_id or len(alt["text"]) > 1000:
                         raise ValueError("AGY_ALT_ASSET_INVALID")
                     basis = record["asset_specs"].get(alt["asset_id"], {})
-                    _no_new_numbers(alt["text"], basis)
+                    _check_light_text(alt["text"], basis)
                     if any(by_id[alt["asset_id"]].get(k) != basis.get(k) for k in
                            ("caption", "modality", "spec", "chart_spec", "computed_values", "series")):
                         raise ValueError("AGY_ALT_SPEC_CHANGED")
@@ -326,10 +356,10 @@ def consume_assist(article, assets, *, output_dir, article_mode=None, epistemic_
                         raise ValueError("AGY_VARIANT_SCHEMA_INVALID")
                     for post in posts:
                         _public(post)
-                        _no_new_numbers(post, {k: article.get(k) for k in
+                        _check_light_text(post, {k: article.get(k) for k in
                             ("title", "subtitle", "dek", "substack_body_markdown", "social_scenarios")})
                         if record.get("record_validation_version") == 2:
-                            _no_new_numbers(post, source_basis)
+                            _check_light_text(post, source_basis)
                         if len(post) > LIMITS[destination] - (300 if destination in {"telegram", "discord"} else 0):
                             raise ValueError("AGY_VARIANT_LIMIT:" + destination)
                     variants[destination] = text

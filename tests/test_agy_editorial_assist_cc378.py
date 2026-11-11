@@ -265,3 +265,38 @@ def test_matching_a_metadata_quote_does_not_support_a_claim(tmp_path):
                          "source_line_ids": ["L3"], "source_quote": "999", "flag": ""}]
     record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(output))
     assert record["flags"][0]["cause"] == "SOURCE_LINE_UNMATCHED"
+
+
+def test_named_dates_and_attributions_are_checked_against_the_quote(tmp_path):
+    draft, sources, assets = packet()
+    draft["substack_body_markdown"] = "According to Invented Agency, the release is Tuesday in November."
+    sources[0]["text"] = "The release is Wednesday in November."
+    output = recorded_output()
+    output["claims"] = [
+        {"claim_id": "wrong-day", "draft_span": "Tuesday", "kind": "date",
+         "source_line_ids": ["L2"], "source_quote": "Wednesday", "flag": ""},
+        {"claim_id": "wrong-publisher", "draft_span": "According to Invented Agency", "kind": "attribution",
+         "source_line_ids": ["L2"], "source_quote": "The release", "flag": ""}]
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(output))
+    causes = {f["cause"] for f in record["flags"]}
+    assert causes == {"CLAIM_DATE_NOT_IN_SOURCE_QUOTE", "CLAIM_ATTRIBUTION_NOT_IN_SOURCE_LINES", "DATE_NOT_LISTED"}
+    assert any(f["cause"] == "DATE_NOT_LISTED" and f["draft_span"] == "November" for f in record["flags"])
+
+
+@pytest.mark.parametrize("extra,cause", [("The release is Tuesday.", "AGY_UNSUPPORTED_DATE"),
+                                        ("According to Invented Agency, there are 2 observations.",
+                                         "AGY_UNSUPPORTED_ATTRIBUTION")])
+def test_light_copy_checks_dates_and_attributions_without_blocking_other_outputs(tmp_path, extra, cause):
+    draft, sources, assets = packet()
+    # Even an unsupported attribution/date repeated from the draft must be
+    # rejected by the source-record check before the real compiler consumes it.
+    draft["substack_body_markdown"] += " " + extra
+    output = recorded_output()
+    output["variants"]["telegram"] = extra
+    output["alt_text"][0]["text"] = "The chart is dated Tuesday."
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(output))
+    approve(tmp_path, record)
+    article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert media[0]["alt_text"] == assets[0]["alt_text"]
+    assert set(article["publisher_light_variants"]) == {"x", "threads", "discord"}
+    assert cause in article["agy_light_assist"]["rejected_suggestions"]

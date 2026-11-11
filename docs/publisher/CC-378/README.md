@@ -1,5 +1,38 @@
 # CC-378 — Antigravity light text and claim check
 
+## Decision 114 delivery — 11 November 2026
+
+The reopened delivery checks claims and light copy against the retained record.
+An exact quote now has to contain the claim's numerical value, sign and unit,
+and any named date. Attribution spans are checked against their referenced lines.
+Coverage checks flag omitted numbers, named dates and the source's named publisher.
+Identifiers, URLs, hashes and retrieval metadata cannot supply numerical evidence.
+
+Selected social variants are checked against both the article and the numbered
+source record before the existing compiler consumes them. Alt text is checked
+against its admitted asset specification. A bad suggestion keeps the existing
+copy for that output; valid suggestions for other outputs still reach the compiler.
+Publisher continues to decide each claim flag. These checks establish exact
+record matches; Publisher still judges meaning and context.
+
+The first live runtime probe succeeded with agy 1.5.5, configured as
+`gemini-3.8-flash-high` / high (`CONFIGURED_NOT_OBSERVED`). The retained runtime
+artifact and exact hashes are in [validation-decision114.json](validation-decision114.json).
+Forty focused tests passed in 11.72 seconds, including recorded output through
+the actual compiler, forced failure, wrong quotes, omitted claims and selective
+fallback. No test used a live store or made a public write.
+
+The branch starts at the current Publisher operating-root HEAD. The remote
+default branch is 910 commits behind it and lacks the active article consumer.
+This new delivery remains unmerged for the Ops review requested by this run;
+the earlier integration below describes the original decision-105 version.
+Two CC-124 pieces with saved flag decisions and exact published alt/copy
+readbacks remain acceptance work. The saved CPI-preview assist timed out after
+120 seconds and continued without suggestions; it is not successful-use evidence.
+No historical article is edited or new publication created to manufacture it.
+
+## Original decision 105 implementation
+
 Decision 105 is wired into the existing native article `submit` path. Publisher
 still writes and edits. Nothing calls a model for a plan-status post. No schedule
 changes are included.
