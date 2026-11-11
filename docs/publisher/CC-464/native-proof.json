@@ -1,0 +1,7 @@
+{
+  "started_at_utc": "2026-11-11T16:00:52.136822+00:00",
+  "public_submit_actions": 0,
+  "status": "NATIVE_PROOF_FAILED",
+  "cause": "AGY_RANK_TIMEOUT_35S",
+  "ended_at_utc": "2026-11-11T16:01:27.454466+00:00"
+}

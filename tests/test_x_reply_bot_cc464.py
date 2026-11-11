@@ -165,6 +165,14 @@ def test_minute_consumer_uses_held_fact_delivers_exact_intent_and_parks_tabs_wit
                                 bot=bot, drafter=draft_fixture, now=NOW)
     assert again["status"] == "NO_NEW_ELIGIBLE_TARGETS"
     assert len([c for c in bot.calls if c[0] == "sendMessage"]) == 1
+    # A restart after the saved successful API return recovers parking without a second send.
+    store.set_outbox_status("xrb-123", "SENDING")
+    packs.save_json(tabs_control, {"enabled": True})
+    botlane.refresh_due(store, binding_path=binding, feed_path=feed, output_root=root / "out",
+                        bot=bot, drafter=draft_fixture, now=NOW)
+    assert packs.read_json(tabs_control)["enabled"] is False
+    assert store.get_outbox_message("xrb-123")["status"] == "DELIVERED"
+    assert len([c for c in bot.calls if c[0] == "sendMessage"]) == 1
 
 
 def test_non_private_destination_is_refused_before_any_draft_send(setup):
@@ -288,6 +296,67 @@ def test_ranker_never_pads_low_quality_candidates_or_calls_writer(setup):
     assert not packs.read_json(path)["items"]
 
 
+def test_paraphrased_private_addition_metadata_never_blocks_an_exact_public_fact(setup):
+    store, _, root = setup
+    feed = mobile_input(setup)
+    ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW, reply_policy=packs.MOBILE_POLICY)
+    value = authored(packs.read_json(ready["request_path"]))
+    value["items"][0]["addition"] = "Dated crowd positioning adds context absent from the original post."
+    path = root / "response.json"
+    packs.save_json(path, value)
+    result = packs.build(store, request_path=ready["request_path"], response_path=path, feed_path=feed, output_root=root, now=NOW)
+    assert result["item_count"] == 1
+
+
+def test_headless_writer_has_explicit_model_effort_and_no_project_or_mcp_inheritance(tmp_path):
+    import subprocess
+    seen = []
+    def run(args, **kwargs):
+        seen.extend(args)
+        assert kwargs["input"] == b"Return JSON only."
+        assert kwargs["timeout"] == 90
+        return subprocess.CompletedProcess(args, 0, b'{"items":[],"omissions":[]}', b"")
+    _, call = botlane._text_call("Return JSON only.", root=tmp_path, writer=True, runner=run)
+    assert seen[seen.index("--model") + 1] == "gpt-6.1-sol"
+    assert 'model_reasoning_effort="max"' in seen
+    assert "--ignore-user-config" in seen and "--ephemeral" in seen and "read-only" in seen
+    assert call["configuration_status"] == "CONFIGURED_NOT_OBSERVED" and call["runtime_model"] is None
+
+
+def test_native_timeout_keeps_partial_return_in_existing_call_artifacts(tmp_path):
+    import subprocess
+    def run(args, **kwargs):
+        raise subprocess.TimeoutExpired(args, kwargs["timeout"], output=b"partial native return", stderr=b"partial stderr")
+    with pytest.raises(ValueError, match="AGY_RANK_TIMEOUT_60S"):
+        botlane._text_call("Return ranking.", root=tmp_path, runner=run)
+    assert (tmp_path / "stdout.txt").read_bytes() == b"partial native return"
+    assert packs.read_json(tmp_path / "call.json")["status"] == "TIMEOUT"
+
+
+def test_real_reply_observer_remains_wired_after_tab_gate_is_parked(setup):
+    store, binding, root = setup
+    feed = mobile_input(setup)
+    botlane.refresh_due(store, binding_path=binding, feed_path=feed, output_root=root / "out",
+                        bot=FakeBot(), drafter=draft_fixture, now=NOW)
+    class Reader:
+        def connect(self):
+            pass
+        def capture_inputs(self, owner, directory, **options):
+            assert owner is store and options == {"include_mentions": False, "max_details": 1,
+                                                  "group_title": "codex/cc464-reply-readback"}
+            path = directory / "replies.json"
+            packs.save_json(path, {"rows": [{"handle": "Capitalnicle", "tweet_id": "998",
+                "url": "https://x.com/Capitalnicle/status/998", "posted_utc": (NOW + timedelta(minutes=3)).isoformat(),
+                "in_reply_to_status_id": "123", "text": "Jim's manually sent reply."}]})
+            return path, None
+    result = botlane.observe_due(store, output_root=root / "out", reader=Reader(), now=NOW + timedelta(minutes=4))
+    assert result["status"] == "OBSERVED" and result["readback"]["observed"][0]["parent_post_id"] == "123"
+    value = json.loads(store.list_outbox_messages(destination=packs.READBACK_DESTINATION)[0]["payload"])
+    assert value["post_to_draft_minutes"] == 2 and value["post_to_reply_minutes"] == 5
+    assert packs.read_json(binding.parent / "x_reply_tabs.json")["enabled"] is False
+    assert botlane.observe_due(store, output_root=root / "out", reader=Reader(), now=NOW + timedelta(minutes=5))["status"] == "OBSERVATION_NOT_DUE"
+
+
 def test_expired_pack_does_not_send_and_daily_five_limit_is_shared_by_every_tick(setup):
     store, binding, root = setup
     feed = mobile_input(setup)
@@ -310,7 +379,8 @@ def test_expired_pack_does_not_send_and_daily_five_limit_is_shared_by_every_tick
     assert expired["causes"]["TARGET_OVER_60_MINUTES"] == 1
 
 
-def test_source_bound_chart_is_sent_before_draft_and_original_bytes_are_preserved(setup):
+@pytest.mark.parametrize("corrupt", [False, True])
+def test_source_bound_chart_is_sent_before_draft_and_original_bytes_are_preserved(setup, corrupt):
     from hashlib import sha256
     from PIL import Image
     store, binding, root = setup
@@ -334,6 +404,8 @@ def test_source_bound_chart_is_sent_before_draft_and_original_bytes_are_preserve
     result = packs.build(store, request_path=ready["request_path"], response_path=response_path, feed_path=feed, output_root=root, now=NOW)
     pack = packs.read_json(result["pack_path"])
     assert pack["items"][0]["image"] == image
+    if corrupt:
+        chart.write_bytes(b"changed bytes")
     class WithPhoto(FakeBot):
         def send_photo(self, chat_id, path):
             assert chat_id == 123456789 and sha256(path.read_bytes()).hexdigest() == image["sha256"]
@@ -342,5 +414,8 @@ def test_source_bound_chart_is_sent_before_draft_and_original_bytes_are_preserve
     bot = WithPhoto()
     delivered = botlane.deliver_pack(store, result["store_message_id"], binding_path=binding, bot=bot, now=NOW)
     assert delivered["status"] == "DELIVERED"
-    assert [m for m, _ in bot.calls if m.startswith("send")] == ["sendPhoto", "sendMessage"]
-    assert sha256(chart.read_bytes()).hexdigest() == image["sha256"]
+    assert [m for m, _ in bot.calls if m.startswith("send")] == (["sendMessage"] if corrupt else ["sendPhoto", "sendMessage"])
+    if not corrupt:
+        assert sha256(chart.read_bytes()).hexdigest() == image["sha256"]
+    else:
+        assert delivered["causes"]["OPTIONAL_IMAGE_BOUND_CHART_BYTES_OR_RIGHTS_CHANGED"] == 1

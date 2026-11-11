@@ -14,7 +14,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("command", choices=["stage", "publish", "status", "pack-prepare", "pack-build", "pack-status", "pack-observe", "pack-report",
                                        "tabs-refresh", "tabs-status", "tabs-enable",
-                                       "bot-refresh", "bot-bind", "bot-status",
+                                       "bot-refresh", "bot-bind", "bot-status", "bot-observe",
                                        "api-poll", "api-publish", "api-status"])
     p.add_argument("--store", required=True)
     p.add_argument("--candidate", type=Path)
@@ -44,6 +44,8 @@ def main():
                                      output_root=args.output_root)
         elif args.command == "bot-bind":
             result = bot.process_updates(store, binding_path=control)
+        elif args.command == "bot-observe":
+            result = bot.observe_due(store, **({"output_root": args.output_root} if args.output_root else {}))
         else:
             binding = bot.packs.read_json(control) if control.is_file() else {}
             result = {"configured": control.is_file(), "private_chat_bound": bool(binding.get("bound_chat_id")),

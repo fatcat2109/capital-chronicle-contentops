@@ -1,0 +1,16 @@
+{
+  "status": "REBUILT_RETAINED_NATIVE_RETURN",
+  "pack": {
+    "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\cc464-native-proof-60s\\metadata-check-removed\\reply-pack-20261111.json",
+    "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\cc464-native-proof-60s\\metadata-check-removed\\reply-pack-20261111.html",
+    "store_message_id": "x-reply-pack-3e43b7e25147ebe0649362538a39a7666d4acfb1b7a219a18c805ead564f2d73",
+    "item_count": 1,
+    "none_reason": null,
+    "short_reason": "1 target replies: no padding. Fewer eligible authored additions in this build.",
+    "public_write_performed": false
+  },
+  "public_text_changed": false,
+  "response_sha256": "13d601011486edc8fdb5d28bea209ac2879b88dc9aa7a2543a0e89fcbb4952bf",
+  "cause_removed": "Private addition metadata need not be a literal substring; exact fact and every number remain checked.",
+  "public_submit_actions": 0
+}

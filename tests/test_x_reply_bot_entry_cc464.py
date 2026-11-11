@@ -25,6 +25,7 @@ def test_real_minute_entry_orders_bot_before_export_and_dry_run_calls_no_bot(tmp
         order.append("main-export")
         return {"status": "EXPORT_STALE"}
     monkeypatch.setattr(bot, "refresh_due", refresh)
+    monkeypatch.setattr(bot, "observe_due", lambda *a, **k: {"status": "OBSERVATION_NOT_DUE"})
     monkeypatch.setattr(cli, "queue_posts", queue)
     monkeypatch.setattr(tabs, "refresh_due", lambda *a, **k: {"status": "DISABLED"})
     monkeypatch.setattr(event_timestamp_v1, "maintain_timestamps", lambda: {"status": "UNCHANGED"})

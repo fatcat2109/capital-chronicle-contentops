@@ -129,6 +129,14 @@ def main(argv=None) -> int:
             result["publication"]["neo_stored_requests"] = resume_stored_requests(store)
         if not args.dry_run:
             if args.publish:
+                # The own-reply observation survives parking the old draft tabs.
+                from live_contentops.x_reply_bot_v1 import observe_due
+                try:
+                    result["reply_bot_readback"] = observe_due(store,
+                        output_root=args.store.parent / "daily_app_outputs/x_reply_pack")
+                except Exception as exc:
+                    result["reply_bot_readback"] = {"status": "MANUAL_READBACK_UNAVAILABLE",
+                                                   "cause": type(exc).__name__, "public_submit_actions": 0}
                 # Decision 123: reuse this minute entry with a two-hour gate.
                 # Reply drafts do not depend on Main's status-export freshness.
                 from live_contentops.x_reply_tabs_v1 import refresh_due

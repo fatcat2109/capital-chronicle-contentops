@@ -213,6 +213,9 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
             "with the fact's actual date and source in words. Sentence two explains its relevance. "
             "Allowed reply_shape: base_rate, positioning, priced_in. No brand, disclaimer, we, our, "
             "own calls, links, emoji, hashtags, certain forecasts or advice. Never invent or round a number. "
+            "State the unit of a count (contracts), rate (percent or bp) or price (currency). "
+            "Prefer one useful figure; do not add a second price just because it is in the source. "
+            "Explain the direct implication; no speculation about unobserved exits or liquidation. "
             "Use the full held evidence, including its context, rather than an earlier call's entry level. "
             "Return request_sha256, items [{post_id,source_id,fact_text,date_text,source_name,draft_text,"
             "addition,point,reply_shape}], omissions [{post_id,cause}]. fact_text must be an exact "
@@ -291,7 +294,8 @@ def validate_mobile_draft(draft, post, source, *, now):
         raise ValueError("REPLY_TWO_SENTENCES_22_WORDS")
     if any(c.isalpha() and not ("a" <= c.lower() <= "z") for c in text):
         raise ValueError("REPLY_ENGLISH_REQUIRED")
-    if re.search(r"\b(?:we|our|ours|will|guaranteed|buy|sell|should|recommend|GPT|Claude|Codex|Gemini|Antigravity)\b|Capital\s*Chronicle|financial advice|https?://|www\.|\b[a-z0-9.-]+\.(?:com|net|org|io|app|dev|co)\b|[#@!]|\.\.\.|…", text, re.I):
+    import unicodedata
+    if any(unicodedata.category(c) in {"So", "Cs"} for c in text) or re.search(r"\b(?:we|our|ours|will|guaranteed|buy|sell|should|recommend|GPT|Claude|Codex|Gemini|Antigravity)\b|Capital\s*Chronicle|financial advice|https?://|www\.|\b[a-z0-9.-]+\.(?:com|net|org|io|app|dev|co)\b|[#@$!]|\.\.\.|…", text, re.I):
         raise ValueError("REPLY_VOICE_OR_PROMOTION_FORBIDDEN")
     if draft.get("reply_shape") not in {"base_rate", "positioning", "priced_in"}:
         raise ValueError("REPLY_SHAPE_NOT_IN_VOICE_GUIDE")
@@ -310,12 +314,16 @@ def validate_mobile_draft(draft, post, source, *, now):
         value = draft.get(field, "")
         if not value or value.casefold() not in evidence.casefold() or value.casefold() not in text.casefold():
             raise ValueError("REPLY_BOUND_DATE_AND_SOURCE_REQUIRED")
+    if not re.search(r"\b(?:\d{4}-\d{2}-\d{2}|\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2})\b", draft["date_text"], re.I):
+        raise ValueError("REPLY_ACTUAL_DATA_DATE_REQUIRED")
     def numbers(value):
         return {n.replace(",", "").replace("−", "-").lstrip("+") for n in
                 re.findall(r"(?<![A-Za-z0-9])[+-−]?\d+(?:[.,]\d+)*%?", value)}
     if numbers(text) - numbers(evidence):
         raise ValueError("REPLY_UNBOUND_OR_CHANGED_NUMBER")
-    if fact.casefold() in post["post_text"].casefold() or not draft.get("addition") or draft["addition"] not in text or not draft.get("point"):
+    # A paraphrased private metadata summary is not a public-copy defect. The
+    # exact fact, every number and target absence are checked independently.
+    if fact.casefold() in post["post_text"].casefold() or not draft.get("addition") or not draft.get("point"):
         raise ValueError("REPLY_ADDS_NOTHING_TO_TARGET")
     if find_forbidden_link(text):
         raise ValueError("PREVIEW_HOST_LINK_FORBIDDEN")

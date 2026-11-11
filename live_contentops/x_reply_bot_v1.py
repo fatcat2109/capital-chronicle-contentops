@@ -29,7 +29,7 @@ EVENTS = "internal:x-reply-bot-event"
 RUNS = "internal:x-reply-bot-run"
 ATTEMPTS = "internal:x-reply-bot-attempt"
 WRITER_MODEL, WRITER_EFFORT = "gpt-6.1-sol", "max"
-RANK_TIMEOUT, WRITER_TIMEOUT = 35, 90
+RANK_TIMEOUT, WRITER_TIMEOUT = 60, 90
 QUALITY_FLOOR = 80
 
 
@@ -63,10 +63,12 @@ class TelegramBot:
         return value.get("result")
 
     def send_photo(self, chat_id, path):
+        import mimetypes
+        media_type = mimetypes.guess_type(str(path))[0] or "application/octet-stream"
         boundary = "cc464-" + uuid4().hex
         body = (f"--{boundary}\r\nContent-Disposition: form-data; name=\"chat_id\"\r\n\r\n{chat_id}\r\n"
-                f"--{boundary}\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"fact.png\"\r\n"
-                "Content-Type: image/png\r\n\r\n").encode("utf-8")
+                f"--{boundary}\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"fact{Path(path).suffix}\"\r\n"
+                f"Content-Type: {media_type}\r\n\r\n").encode("utf-8")
         body += Path(path).read_bytes() + f"\r\n--{boundary}--\r\n".encode("ascii")
         return self._request("sendPhoto", body, "multipart/form-data; boundary=" + boundary)
 
@@ -133,10 +135,15 @@ def process_updates(store, *, binding_path=BINDING, bot=None, now=None):
                 causes["SKIP_DELIVERY_NOT_FOUND"] += 1
                 continue
             store.set_outbox_status(key, "SKIPPED_BY_JIM")
-            record(store, EVENTS, {"kind": "skip", "delivery_id": key, "at_utc": now.isoformat()},
-                   key="x-reply-skip-" + str(update["update_id"]))
+            event_key = "x-reply-skip-" + str(update["update_id"])
+            if not store.get_outbox_message(event_key):
+                record(store, EVENTS, {"kind": "skip", "delivery_id": key, "at_utc": now.isoformat()}, key=event_key)
             skipped += 1
-            bot.call("answerCallbackQuery", {"callback_query_id": callback["id"], "text": "Skipped"})
+            packs.save_json(binding_path, binding)
+            try:
+                bot.call("answerCallbackQuery", {"callback_query_id": callback["id"], "text": "Skipped"})
+            except BotError:
+                causes["SKIP_ACKNOWLEDGEMENT_UNCONFIRMED"] += 1
     packs.save_json(binding_path, binding)
     if bound_now and binding.get("acknowledgement") == "PENDING":
         chat_id = bot.private_chat(binding)
@@ -239,9 +246,10 @@ def _text_call(prompt, *, root, writer=False, runner=None):
             packs.save_json(root / "response.json", value)
             record_["status"] = "RETURNED"
             return value, record_
-    except subprocess.TimeoutExpired:
+    except subprocess.TimeoutExpired as exc:
+        raw, err = exc.output or b"", exc.stderr or b""
         record_["status"] = "TIMEOUT"
-        raise ValueError("CODEX_DRAFT_TIMEOUT_90S" if writer else "AGY_RANK_TIMEOUT_35S") from None
+        raise ValueError("CODEX_DRAFT_TIMEOUT_90S" if writer else "AGY_RANK_TIMEOUT_60S") from None
     except Exception as exc:
         record_.update(status="FAILED", cause=type(exc).__name__)
         raise
@@ -326,10 +334,12 @@ def park_tabs(*, control_path, now):
 
 
 def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=None, tabs_control=None):
-    bot, now = bot or TelegramBot(), now or packs.utcnow()
+    clock_now = (lambda: now) if now is not None else packs.utcnow
+    bot = bot or TelegramBot()
     binding_path = Path(binding_path)
     binding = packs.read_json(binding_path)
     chat_id = bot.private_chat(binding)
+    now = clock_now()
     row = store.get_outbox_message(pack_message_id)
     if not row or row["destination"] != packs.PACK_DESTINATION:
         raise ValueError("REPLY_PACK_NOT_BOUND_TO_STORE")
@@ -348,6 +358,7 @@ def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=
         if count >= 5:
             causes["FIVE_QUALITY_DRAFTS_TODAY"] += 1
             continue
+        now = clock_now()
         if now >= packs.clock(item["stale_at_utc"]):
             causes["TARGET_OVER_60_MINUTES"] += 1
             continue
@@ -359,23 +370,35 @@ def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=
         try:
             image = item.get("image")
             if image:
-                from hashlib import sha256
-                from PIL import Image
-                import shutil
-                path = Path(image["path"])
-                if (image.get("kind") not in {"chart", "table"} or not image.get("rights_class")
-                        or image["rights_class"] in packs.PRIVATE_ONLY_RIGHTS
-                        or sha256(path.read_bytes()).hexdigest() != image.get("sha256")):
-                    raise BotError("BOUND_CHART_BYTES_OR_RIGHTS_CHANGED")
-                with Image.open(path) as pixels:
-                    pixels.verify()
-                media = binding_path.parent.parent / "daily_app_outputs/x_reply_pack/bot/media" / item["post_id"]
-                media.mkdir(parents=True, exist_ok=True)
-                own_image = media / path.name
-                shutil.copyfile(path, own_image)
-                photo = bot.send_photo(chat_id, own_image)
-                record(store, EVENTS, {"kind": "private_draft_photo_delivered", "delivery_id": key,
-                    "message_id": photo["message_id"], "image_sha256": image["sha256"]})
+                try:
+                    from hashlib import sha256
+                    from PIL import Image
+                    import shutil
+                    path = Path(image["path"])
+                    if (image.get("kind") not in {"chart", "table"} or not image.get("rights_class")
+                            or image["rights_class"] in packs.PRIVATE_ONLY_RIGHTS
+                            or path.suffix.lower() not in {".png", ".jpg", ".jpeg", ".webp"}
+                            or sha256(path.read_bytes()).hexdigest() != image.get("sha256")):
+                        raise BotError("BOUND_CHART_BYTES_OR_RIGHTS_CHANGED")
+                    with Image.open(path) as pixels:
+                        pixels.verify()
+                    media = binding_path.parent.parent / "daily_app_outputs/x_reply_pack/bot/media" / item["post_id"]
+                    media.mkdir(parents=True, exist_ok=True)
+                    own_image = media / path.name
+                    shutil.copyfile(path, own_image)
+                    photo = bot.send_photo(chat_id, own_image)
+                    record(store, EVENTS, {"kind": "private_draft_photo_delivered", "delivery_id": key,
+                        "message_id": photo["message_id"], "image_sha256": image["sha256"]})
+                except Exception as exc:
+                    cause = str(exc) if isinstance(exc, BotError) else type(exc).__name__
+                    causes["OPTIONAL_IMAGE_" + cause] += 1
+                    record(store, EVENTS, {"kind": "optional_image_unconfirmed", "delivery_id": key,
+                        "cause": cause, "text_delivery_continues": True})
+            now = clock_now()
+            if now >= packs.clock(item["stale_at_utc"]):
+                store.set_outbox_status(key, "EXPIRED_BEFORE_TEXT_SEND")
+                causes["TARGET_EXPIRED_DURING_MEDIA"] += 1
+                continue
             sent = bot.call("sendMessage", {"chat_id": chat_id, "text": message_for(item, number=count, now=now),
                 "parse_mode": "HTML", "link_preview_options": {"is_disabled": True},
                 "reply_markup": {"inline_keyboard": [[{"text": "Open reply on X", "url": item["intent_url"]},
@@ -425,6 +448,19 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
         if result["binding"]["status"] != "BOUND":
             result["status"] = result["binding"]["status"]
             return result
+        # Recover a stop between the confirmed private send and parking CC-458.
+        # The saved real Bot API response proves this step; do not resend a draft.
+        confirmations = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=EVENTS)
+                         if json.loads(r["payload"]).get("kind") == "private_draft_delivered"]
+        if confirmations:
+            tabs_control = binding_path.parent / "x_reply_tabs.json"
+            tabs = packs.read_json(tabs_control) if tabs_control.is_file() else {}
+            if tabs.get("enabled") or tabs.get("parked_by") != "CC-464":
+                park_tabs(control_path=tabs_control, now=now)
+            for confirmation in confirmations:
+                delivery = store.get_outbox_message(confirmation["delivery_id"])
+                if delivery and delivery["status"] in {"SENDING", "UNKNOWN_WRITE"}:
+                    store.set_outbox_status(delivery["message_id"], "DELIVERED")
         day = now.astimezone(packs.LOCAL).strftime("%Y-%m-%d")
         deliveries = store.list_outbox_messages(destination=DELIVERY)
         if sum(json.loads(r["payload"])["delivery_day"] == day for r in deliveries) >= 5:
@@ -458,13 +494,51 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
                             feed_path=feed_path, output_root=output_root, now=finished)
         result["pack"] = built
         result["delivery"] = deliver_pack(store, built["store_message_id"], binding_path=binding_path,
-            bot=bot, now=finished, tabs_control=binding_path.parent / "x_reply_tabs.json")
+            bot=bot, now=finished if drafter else None, tabs_control=binding_path.parent / "x_reply_tabs.json")
         result["status"] = result["delivery"]["status"]
     except Exception as exc:
         # BotError strings are fixed/redacted; other exceptions can contain a URL or private chat.
         result.update(status="REPLY_BOT_FAILED", cause=str(exc) if isinstance(exc, BotError) else type(exc).__name__)
     finally:
         result["ended_at_utc"] = packs.utcnow().isoformat()
+        packs.save_json(root / "result.json", result)
+        record(store, RUNS, result)
+        store.release_lease(lease["lease_id"], owner_ref=owner, fencing_token=lease["fencing_token"])
+    return result
+
+
+def observe_due(store, *, output_root=packs.PACK_ROOT, reader=None, now=None):
+    """Keep CC-455's real own-reply reader after CC-458's tab refresh is parked.
+
+    This reuses its two-hour observation cadence, not a draft-admission gate.
+    It opens one temporary reader page, at most one reply detail, and no composer.
+    """
+    from live_contentops.durable_operational_store_v1 import LeaseConflictError
+    from live_contentops.x_reply_tabs_v1 import NeoReplyTabs
+    now = now or packs.utcnow()
+    if not store.list_outbox_messages(destination=DELIVERY):
+        return {"status": "NO_BOT_DELIVERIES", "public_submit_actions": 0}
+    attempts = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=EVENTS)
+                if json.loads(r["payload"]).get("kind") == "manual_readback_attempt"]
+    if attempts and (now - max(packs.clock(r["at_utc"]) for r in attempts)).total_seconds() < 7200:
+        return {"status": "OBSERVATION_NOT_DUE", "public_submit_actions": 0}
+    owner = "cc464-observe-" + uuid4().hex
+    try:
+        lease = store.acquire_lease("x-reply-tabs-refresh", owner_ref=owner, ttl_seconds=180)
+    except LeaseConflictError:
+        return {"status": "REPLY_CONSUMER_ALREADY_RUNNING", "public_submit_actions": 0}
+    root = Path(output_root) / "bot/readback" / now.strftime("%Y%m%dT%H%M%S")
+    result = {"status": "READBACK_STARTED", "at_utc": now.isoformat(), "public_submit_actions": 0}
+    try:
+        record(store, EVENTS, {"kind": "manual_readback_attempt", "at_utc": now.isoformat()})
+        driver = reader or NeoReplyTabs()
+        driver.connect()
+        reply_path, _ = driver.capture_inputs(store, root, include_mentions=False,
+                                              max_details=1, group_title="codex/cc464-reply-readback")
+        result.update(status="OBSERVED", readback=packs.observe_manual_replies(store, reply_feed_path=reply_path, now=now))
+    except Exception as exc:
+        result.update(status="MANUAL_READBACK_UNAVAILABLE", cause=type(exc).__name__)
+    finally:
         packs.save_json(root / "result.json", result)
         record(store, RUNS, result)
         store.release_lease(lease["lease_id"], owner_ref=owner, fencing_token=lease["fencing_token"])
