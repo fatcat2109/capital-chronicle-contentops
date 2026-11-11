@@ -1,0 +1,32 @@
+{
+  "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.json",
+  "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.html",
+  "store_message_id": "x-reply-pack-3ae0d4d8217aa2f943a3e9d286a7ba37d0fcf05f85adc0a81b2419aac19d6128",
+  "item_count": 2,
+  "none_reason": null,
+  "short_reason": "2 target replies: no padding. UNCONDITIONAL_CALL_FORBIDDEN",
+  "public_write_performed": false,
+  "fact_binding_repairs": [
+    {
+      "post_id": "2120353271516901482",
+      "field": "fact_text",
+      "exact_source_number": "7,858",
+      "authored_text_changed": false
+    },
+    {
+      "post_id": "2120350718767022471",
+      "field": "fact_text",
+      "exact_source_number": "92.1",
+      "authored_text_changed": false
+    },
+    {
+      "post_id": "2120333163780018301",
+      "field": "fact_text",
+      "exact_source_number": "157.15",
+      "authored_text_changed": false
+    }
+  ],
+  "original_response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\neo-refresh\\cc458-final-editorial\\agy\\response.json",
+  "normalized_response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\neo-refresh\\cc458-final-editorial\\agy\\response-fact-bindings.json",
+  "authored_text_changed": false
+}

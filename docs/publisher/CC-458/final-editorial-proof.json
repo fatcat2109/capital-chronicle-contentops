@@ -1,0 +1,15 @@
+{
+  "status": "BUILT",
+  "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\neo-refresh\\cc458-final-editorial\\agy\\response.json",
+  "pack": {
+    "pack_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.json",
+    "html_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\reply-pack-20261111.html",
+    "store_message_id": "x-reply-pack-cd5447d1f4406b02943d59daf596d18a43abfd1587fe4f1500c3aa8cf1dcb8c5",
+    "item_count": 0,
+    "none_reason": "No source-bound native draft was usable. REPLY_EXACT_SOURCE_FACT_REQUIRED",
+    "short_reason": "0 target replies: no padding. REPLY_EXACT_SOURCE_FACT_REQUIRED",
+    "public_write_performed": false
+  },
+  "call_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\neo-refresh\\cc458-final-editorial\\agy\\call.json",
+  "public_submit_actions": 0
+}

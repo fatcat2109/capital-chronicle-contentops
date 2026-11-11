@@ -5,6 +5,7 @@ the durable store/leases and the existing Neo MCP transport retain their owners.
 """
 from __future__ import annotations
 
+from copy import deepcopy
 from datetime import timedelta
 import json
 from pathlib import Path
@@ -49,6 +50,32 @@ def _save_state(store, state):
     _record(store, STATE_DESTINATION, state)
 
 
+def normalize_fact_bindings(request, response):
+    """Repair a paraphrased binding field without altering authored public text.
+
+    The public-number validator still checks the entire draft. A changed or
+    additional number cannot be hidden by this representation-only repair.
+    """
+    response = deepcopy(response)
+    sources = {s["source_id"]: s for s in request["sources"]}
+    repairs = []
+    for item in response["items"]:
+        source = sources.get(item.get("source_id"))
+        fact = item.get("fact_text", "")
+        if not source or fact in source["excerpt"]:
+            continue
+        numbers = set(packs.NUMBER.findall(fact.replace(source["public_timestamp"], "")))
+        if len(numbers) != 1:
+            continue
+        number = next(iter(numbers))
+        if number in packs.NUMBER.findall(source["excerpt"]) and number in item["draft_text"]:
+            item["fact_text"] = number
+            repairs.append({"post_id": item["post_id"], "field": "fact_text", "exact_source_number": number,
+                            "authored_text_changed": False})
+    response["fact_binding_repairs"] = repairs
+    return response
+
+
 def draft_with_agy(request_path, *, output_dir, runner=None):
     """Small text-only calls, one per author, bound to the same frozen request."""
     request = packs.read_json(request_path)
@@ -81,6 +108,7 @@ def draft_with_agy(request_path, *, output_dir, runner=None):
                 record[key] = record["calls"][0].get(key)
         record["status"] = "DRAFTED" if chosen else "NO_ELIGIBLE_TARGETS"
         response["editorial_call"] = dict(record)
+        response = normalize_fact_bindings(request, response)
         path = root / "response.json"
         packs.save_json(path, response)
         return path

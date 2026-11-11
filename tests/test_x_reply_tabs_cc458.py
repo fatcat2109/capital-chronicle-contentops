@@ -268,6 +268,37 @@ def test_agy_short_source_aliases_reach_the_bound_pack_consumer(setup):
     assert packs.read_json(built["pack_path"])["items"][0]["sources"][0]["source_id"] == original
 
 
+def test_paraphrased_fact_binding_is_repaired_without_rewriting_native_public_copy(setup):
+    store, feed, root = setup
+    ready, response, _ = response_for(setup)
+    request = packs.read_json(ready["request_path"])
+    response["items"][0]["fact_text"] = "The BLS wage reading was 0.7%."
+    original_text = response["items"][0]["draft_text"]
+    fixed = tabs.normalize_fact_bindings(request, response)
+    assert fixed["items"][0]["fact_text"] == response["items"][0]["fact_text"]
+    assert not fixed["fact_binding_repairs"]  # No unit inference from a bare stored number.
+    assert fixed["items"][0]["draft_text"] == original_text
+    assert response["items"][0]["fact_text"] == "The BLS wage reading was 0.7%."
+
+
+def test_literal_fact_metadata_repair_keeps_changed_public_numbers_blocked(setup):
+    store, feed, root = setup
+    ready, response, _ = response_for(setup)
+    request = packs.read_json(ready["request_path"])
+    response["items"][0]["fact_text"] = "The sourced value was 0.7 at " + request["sources"][0]["public_timestamp"]
+    fixed = tabs.normalize_fact_bindings(request, response)
+    assert fixed["items"][0]["fact_text"] == "0.7"
+    path = root / "normalized-response.json"
+    packs.save_json(path, fixed)
+    assert packs.build(store, feed_path=feed, output_root=root, now=NOW,
+        request_path=ready["request_path"], response_path=path)["item_count"] == 1
+    fixed["items"][0]["draft_text"] += " 99"
+    packs.save_json(path, fixed)
+    invalid = packs.build(store, feed_path=feed, output_root=root, now=NOW,
+        request_path=ready["request_path"], response_path=path)
+    assert invalid["item_count"] == 0 and "UNBOUND_OR_CHANGED_NUMBER" in invalid["none_reason"]
+
+
 def test_actual_minute_entry_refreshes_tabs_when_main_export_is_stale(setup, monkeypatch, capsys):
     from scripts import plan_status_posts as entry
     from live_contentops import plan_status_posts_v1 as posts
