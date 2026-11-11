@@ -1,0 +1,23 @@
+{
+  "page_id": 283,
+  "page_keys": [
+    "browserProfileId",
+    "groupId",
+    "index",
+    "isActive",
+    "isLoading",
+    "isPinned",
+    "loadProgress",
+    "ownerAgentId",
+    "ownerLabel",
+    "ownership",
+    "pageId",
+    "tabId",
+    "targetId",
+    "title",
+    "url",
+    "windowId"
+  ],
+  "group_id": "2E62BD9CA2E53B46EA1E2D8237BB96AA",
+  "group_id_type": "str"
+}

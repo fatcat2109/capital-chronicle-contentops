@@ -175,6 +175,17 @@ def test_sent_composer_that_closed_after_jims_click_is_removed(setup):
     assert neo.closed == [page] and not state["tabs"]
 
 
+def test_jim_can_clear_a_previously_ready_box_without_agent_refilling_it(setup):
+    store, _, _ = setup
+    neo, state = Neo(), tabs.latest_state(store)
+    page = seed_tab(state, neo, item(1))
+    state["tabs"][0]["status"] = "READY_FOR_JIM"
+    neo.current[page]["editors"] = [""]
+    tabs.sync_tabs(store, state, {"items": []}, neo, now=NOW + timedelta(hours=7))
+    assert not neo.filled and not neo.closed and neo.current[page]["editors"] == [""]
+    assert state["tabs"][0]["status"] == "JIM_EDIT_PRESERVED"
+
+
 def test_failed_drafter_leaves_group_unchanged_and_waits_two_hours(setup):
     store, _, root = setup
     neo = Neo()
@@ -223,7 +234,7 @@ def test_agy_uses_bounded_existing_cli_and_records_config_without_trusting_self_
     def runner(args, **kwargs):
         seen.append(args)
         assert kwargs["timeout"] == tabs.DRAFT_TIMEOUT_SECONDS and kwargs["input"] is None
-        assert args[-2] == "--print" and "request_sha256" in args[-1]
+        assert args[-2] == "--print" and "PUBLIC_NOTICE" in args[-1]
         response = {"request_sha256": ready["request_sha256"], "items": [],
                     "editorial_call": {"runtime_model": "invented"}}
         raw = json.dumps({"status": "SUCCESS", "response": json.dumps(response)}).encode()
