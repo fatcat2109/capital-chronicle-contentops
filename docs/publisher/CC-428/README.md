@@ -35,8 +35,9 @@ The full answers and binary source snapshot are retained locally under
 The raw platform question list and full inputs are excluded from the public delivery.
 An earlier raw-input commit was pushed before repository visibility was checked.
 Its remote branch reference was removed. This clean delivery excludes those
-commits; purging GitHub's retained history is not verified. The exact earlier
-commit and correction are recorded in the local result for Ops Product.
+commits. A metadata check after deletion still retrieved the earlier commit by
+SHA; GitHub's retained history has not been purged. The exact earlier commit,
+paths and correction are recorded in the local result for Ops Product's cleanup review.
 The event inventory contains only Main's own estimates and target/band definitions;
 raw consensus, prediction-market data, execution and outcome rows are not compiled
 into comments or requests.

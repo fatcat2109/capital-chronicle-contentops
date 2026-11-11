@@ -18,7 +18,7 @@
   "listing_consistency": "ADVERTISED_COUNT_DIFFERS_FROM_UNIQUE_VISIBLE_POSTS",
   "advertised_question_count": 59,
   "private_result": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc428-external-score-pilot\\dry-run-final.json",
-  "private_result_sha256": "dd616ba366f05f93d01fc88611774fff168053b4e3f5b84798315b7ce626f6af",
+  "private_result_sha256": "f7e5f11ae0fad610870b5cabe86e7dd763f3fd0bfe6b296fabfb550ab6dec2e8",
   "input_inventory_counts": [
     {
       "kind": "MAIN_PUBLIC_PLAN_EXPORT",
@@ -33,7 +33,7 @@
       "forecast_count": 2
     }
   ],
-  "public_input_history": "Earlier raw-input branch reference removed; clean branch excludes its commits; GitHub retained-history purge unverified.",
+  "public_input_history": "Original remote branch removed and clean delivery history excludes the raw inputs. GitHub commit metadata still retrieves the earlier commit by SHA; Ops Product cleanup review remains.",
   "test_count": 25,
   "latest_main_model_estimates": [
     {
