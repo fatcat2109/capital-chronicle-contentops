@@ -108,6 +108,10 @@ def card_plan(raw):
     plan["short_id"] = re.sub(r"^(?:call|plan)_", "", str(call_id))[:8]
     plan["registered_at_utc"] = raw.get("registered_at_utc") or raw.get("not_before_utc")
     plan["reader_reasons"] = raw.get("reader_reasons", raw.get("freeze_reasons", []))
+    # CC-465 applies to new preparations; historical-clock replays retain the
+    # earlier image contract and frozen packages never gain new source fields.
+    if datetime.now(timezone.utc) >= datetime(2026, 11, 11, 16, 25, tzinfo=timezone.utc):
+        plan["image_source_plan"] = raw
     return plan
 
 
@@ -710,10 +714,11 @@ def _parents(store, row, destinations, previous):
     return parents, deferred
 
 
-def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False):
+def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False,
+                         portrait_id=None):
     if row.get("reader_contract") == "CC466_V1":
         from .plan_reader_copy_v1 import payloads
-        return payloads(row, card_id, chart_credit=chart_credit, parents=parents)
+        return payloads(row, card_id, chart_credit=chart_credit, parents=parents, portrait_id=portrait_id)
     result = {}
     limits = {"telegram": 1024, "discord": 2000, "threads": 500, "x": 280,
               "facebook_page": 60000, "instagram_business": 2200, "substack_notes": 10000,
@@ -834,7 +839,11 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
             elif destination == "substack_notes":
                 payload.update(reply_to_id=str(ref["public_object_id"]), reply_to_url=ref.get("public_object_url"))
         result[destination] = payload
-    for payload in result.values():
+    for destination,payload in result.items():
+        if destination == "threads" and portrait_id:
+            payload["media_asset_ids"] = [portrait_id]
+            if payload.get("posts"):
+                payload["posts"][0]["media_asset_ids"] = [portrait_id]
         if credit:
             first = payload["text"]
             payload["text"] = first + credit
@@ -909,7 +918,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             local_manifest = json.loads(local_manifest_path.read_bytes())
             assets.append(card)
             carousel_card = card
-            if "instagram_business" in chosen:
+            native_templates = bool(card.get("image_template"))
+            if "instagram_business" in chosen or native_templates and "threads" in chosen:
                 # CC-463: a separate native portrait capture from the same
                 # service. A failed portrait affects only Instagram.
                 carousel_card, _ = posts._post_image(member, member_folder, snapshot=snapshot,
@@ -946,12 +956,14 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     skipped_names = {s["destination"] for s in skipped}
     chosen = [d for d in chosen if d not in skipped_names]
     card = assets[0] if assets else None
+    portrait_id = previous.get("status_post_threads_image") if frozen else next(
+        (a["asset_id"] for a in assets if (a.get("image_template") or {}).get("master") == "T"),None)
     if not frozen:
         context = {"schema_version": "contentops.plan_status_post_context.v1", "article": article,
             "selection": {}, "media": {"assets": assets}, "plan_status_post": key,
             "chart_credit": chart_credit, "status_post_chart_policy": "CC459_TRADINGVIEW",
             "status_post_parents": parents, "status_post_instagram_carousel": carousel,
-            "status_post_skipped_destinations": skipped}
+            "status_post_skipped_destinations": skipped, "status_post_threads_image": portrait_id}
         if row.get("reader_contract"):
             context["reader_contract"] = row["reader_contract"]
             context["reader_source"] = row["reader_source"]
@@ -959,6 +971,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         context_path.write_bytes(canonical_bytes(context))
     payloads = destination_payloads(row, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,
+                                  portrait_id=portrait_id,
                                   complete_levels=not frozen or previous.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     plan_rows = []
     for destination in chosen:

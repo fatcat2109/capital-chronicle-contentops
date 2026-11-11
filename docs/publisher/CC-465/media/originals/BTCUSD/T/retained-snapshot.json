@@ -1,0 +1,136 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\T\\BTCUSD_2026-11-11_16-45-33.png",
+  "sha256": "29f62f4d7d4094eeeabd763bd3663165db056a9c57112cbd176638e7920562dd",
+  "width": 1080,
+  "height": 850,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      998,
+      762
+    ],
+    "axis_origin": [
+      998,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -0.04927900564747743,
+    "intercept": 4282.242833116278,
+    "max_label_error_px": 0.5858179628494327,
+    "grid_checks": [
+      {
+        "price": 72000.0,
+        "page_y_in_download": 734.0441306445846,
+        "grid_y": 734,
+        "error_px": 0.04413064458458393
+      },
+      {
+        "price": 73000.0,
+        "page_y_in_download": 684.7753023288874,
+        "grid_y": 685,
+        "error_px": 0.22469767111260808
+      },
+      {
+        "price": 74000.0,
+        "page_y_in_download": 635.5064740131903,
+        "grid_y": 635,
+        "error_px": 0.5064740131903136
+      },
+      {
+        "price": 75000.0,
+        "page_y_in_download": 586.2376456974932,
+        "grid_y": 586,
+        "error_px": 0.23764569749323528
+      },
+      {
+        "price": 76000.0,
+        "page_y_in_download": 536.968817381796,
+        "grid_y": 537,
+        "error_px": 0.031182618203956736
+      },
+      {
+        "price": 77000.0,
+        "page_y_in_download": 487.69998906609896,
+        "grid_y": 488,
+        "error_px": 0.30001093390103506
+      },
+      {
+        "price": 78000.0,
+        "page_y_in_download": 438.43116075040183,
+        "grid_y": 438,
+        "error_px": 0.4311607504018298
+      },
+      {
+        "price": 79000.0,
+        "page_y_in_download": 389.16233243470475,
+        "grid_y": 389,
+        "error_px": 0.16233243470475145
+      },
+      {
+        "price": 80000.0,
+        "page_y_in_download": 339.8935041190076,
+        "grid_y": 340,
+        "error_px": 0.10649588099238372
+      },
+      {
+        "price": 81000.0,
+        "page_y_in_download": 290.6246758033105,
+        "grid_y": 290,
+        "error_px": 0.6246758033104811
+      },
+      {
+        "price": 82000.0,
+        "page_y_in_download": 241.35584748761346,
+        "grid_y": 241,
+        "error_px": 0.35584748761345963
+      },
+      {
+        "price": 83000.0,
+        "page_y_in_download": 192.08701917191627,
+        "grid_y": 192,
+        "error_px": 0.08701917191626762
+      },
+      {
+        "price": 84000.0,
+        "page_y_in_download": 142.8181908562192,
+        "grid_y": 143,
+        "error_px": 0.1818091437808107
+      },
+      {
+        "price": 85000.0,
+        "page_y_in_download": 93.54936254052211,
+        "grid_y": 93,
+        "error_px": 0.549362540522111
+      },
+      {
+        "price": 86000.0,
+        "page_y_in_download": 44.28053422482492,
+        "grid_y": 44,
+        "error_px": 0.28053422482491897
+      }
+    ],
+    "source_sha256": "29f62f4d7d4094eeeabd763bd3663165db056a9c57112cbd176638e7920562dd"
+  },
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "width": 1466,
+    "height": 844
+  },
+  "tv_symbol": "COINBASE:BTCUSD",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "BTCUSD 74,151.48 ▲ +0.62%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+  "suggested_filename": "BTCUSD_2026-11-11_16-45-33.png",
+  "captured_at_utc": "2026-11-11T16:45:34.141076+00:00",
+  "seconds": 8.4,
+  "template_chart_size": [
+    1080,
+    850
+  ],
+  "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+}

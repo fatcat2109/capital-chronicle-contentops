@@ -1,0 +1,83 @@
+{
+  "item": "CC-465",
+  "recorded_at_utc": "2026-11-11T21:31:29.877484+00:00",
+  "stage": "BUILD_VERIFIED",
+  "operating_base": "cf5d45b00b54080e6962dc6bacb0f66dfad16f57",
+  "incoming": "9dc50f10534c60e45beb78909fe2491a721f464b",
+  "branch": "backlog/cc-465-integrate-image-templates",
+  "launch": {
+    "pid": 34344,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "checks": [
+    {
+      "path": "integration-consumer-tests.xml",
+      "passed": 68
+    },
+    {
+      "path": "integration-regression-tests.xml",
+      "passed": 89
+    }
+  ],
+  "preserved_dirty_files": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51"
+    }
+  ],
+  "live_integration": null,
+  "acceptance": "PENDING; no runtime acceptance control exists",
+  "visual_inspection": {
+    "tool": "local PNG file inspection; no desktop control",
+    "templates_opened": [
+      "call",
+      "event",
+      "result",
+      "weekly",
+      "map"
+    ],
+    "findings": [
+      "All five real gallery designs opened",
+      "Historical no-entry charts do not prove entry-to-exit paths",
+      "Weekly R and morning-map changes/states absent from retained public export"
+    ]
+  }
+}

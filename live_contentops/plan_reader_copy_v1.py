@@ -262,7 +262,7 @@ def result_r(plan):
     return None
 
 
-def payloads(row, card_id, *, chart_credit=False, parents=None):
+def payloads(row, card_id, *, chart_credit=False, parents=None, portrait_id=None):
     from . import plan_status_posts_v1 as posts
     fields, source = row["reader_fields"], row["reader_source"]
     validate_fields(fields, source)
@@ -300,16 +300,17 @@ def payloads(row, card_id, *, chart_credit=False, parents=None):
         raise ValueError("CC466_THREADS_FIELD_SET_TOO_LONG_REWRITE_REQUIRED")
     result = {}
     for destination in ("telegram", "discord", "threads", "facebook_page", "instagram_business", "x", "substack_notes"):
+        media_id = portrait_id if portrait_id and destination in {"threads", "instagram_business"} else card_id
         parts = x_parts if destination == "x" else thread_parts if destination == "threads" else [long]
         maximum = {"telegram": 4096, "discord": 2000, "instagram_business": 2200}.get(destination, 60000)
         if destination not in {"x", "threads"} and len(parts[0]) > maximum:
             raise ValueError("CC466_DESTINATION_COPY_TOO_LONG:" + destination)
         payload = {"destination": destination, "text": parts[0], "full_text": "\n\n".join(parts),
-                   "media_asset_ids": [card_id] if card_id else []}
+                   "media_asset_ids": [media_id] if media_id else []}
         if len(parts) > 1:
             payload.update(root_text=parts[0], reply_texts=parts[1:], posts=[{
                 "text": text, "order": index, "role": "root" if index == 0 else "reply",
-                "media_asset_ids": [card_id] if card_id and index == 0 else []} for index, text in enumerate(parts)])
+                "media_asset_ids": [media_id] if media_id and index == 0 else []} for index, text in enumerate(parts)])
         parent = (parents or {}).get(destination)
         if parent and parent.get("public_object_id"):
             payload.update(reply_to_id=str(parent["public_object_id"]), reply_to_url=parent["public_object_url"])

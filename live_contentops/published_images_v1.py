@@ -168,6 +168,8 @@ class PublishedImages:
                 images[-1]["price_scale_check"] = asset["tradingview_snapshot"]["price_scale_check"]
             if asset.get("owned_diagram_data_sha256"):
                 images[-1]["owned_diagram_data_sha256"] = asset["owned_diagram_data_sha256"]
+            if asset.get("image_quality"):
+                images[-1]["image_quality"] = asset["image_quality"]
         with _locked_feed(self.path) as handle:
             rows = _read(handle.read())
             active = _active(rows)
@@ -226,6 +228,7 @@ class PublishedImages:
             raise ImagePolicyError("PUBLISHED_IMAGE_OBSERVATION_REQUIRED")
         from .publication_image_contract_v1 import image_type
         bound = [{"asset_id": str(i.get("asset_id") or index), "image_type": image_type(i),
+                  **({"image_quality": i["image_quality"]} if i.get("image_quality") else {}),
                   **({"price_scale_check": i["tradingview_snapshot"]["price_scale_check"]}
                      if (i.get("tradingview_snapshot") or {}).get("price_scale_check") else {}),
                   **fingerprint(i["path"])}

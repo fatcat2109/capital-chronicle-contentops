@@ -1,0 +1,112 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\W\\USDJPY_2026-11-11_16-43-35.png",
+  "sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879",
+  "width": 1600,
+  "height": 700,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1524,
+      612
+    ],
+    "axis_origin": [
+      1524,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -94.19519874065341,
+    "intercept": 15146.858708431739,
+    "max_label_error_px": 1.7621459846850485e-12,
+    "grid_checks": [
+      {
+        "price": 155.0,
+        "page_y_in_download": 546.6029036304611,
+        "grid_y": 547,
+        "error_px": 0.39709636953887184
+      },
+      {
+        "price": 155.5,
+        "page_y_in_download": 499.5053042601344,
+        "grid_y": 500,
+        "error_px": 0.49469573986561954
+      },
+      {
+        "price": 156.0,
+        "page_y_in_download": 452.40770488980775,
+        "grid_y": 453,
+        "error_px": 0.5922951101922536
+      },
+      {
+        "price": 156.5,
+        "page_y_in_download": 405.310105519481,
+        "grid_y": 406,
+        "error_px": 0.6898944805190013
+      },
+      {
+        "price": 157.0,
+        "page_y_in_download": 358.21250614915425,
+        "grid_y": 359,
+        "error_px": 0.787493850845749
+      },
+      {
+        "price": 157.5,
+        "page_y_in_download": 311.1149067788276,
+        "grid_y": 311,
+        "error_px": 0.11490677882761702
+      },
+      {
+        "price": 158.0,
+        "page_y_in_download": 264.01730740850087,
+        "grid_y": 264,
+        "error_px": 0.017307408500869315
+      },
+      {
+        "price": 158.5,
+        "page_y_in_download": 216.91970803817418,
+        "grid_y": 217,
+        "error_px": 0.08029196182582155
+      },
+      {
+        "price": 159.0,
+        "page_y_in_download": 169.8221086678475,
+        "grid_y": 170,
+        "error_px": 0.1778913321525124
+      },
+      {
+        "price": 159.5,
+        "page_y_in_download": 122.7245092975208,
+        "grid_y": 123,
+        "error_px": 0.27549070247920326
+      },
+      {
+        "price": 160.0,
+        "page_y_in_download": 75.6269099271941,
+        "grid_y": 76,
+        "error_px": 0.3730900728058941
+      }
+    ],
+    "source_sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879"
+  },
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "width": 1986,
+    "height": 694
+  },
+  "tv_symbol": "FX_IDC:USDJPY",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "USDJPY 159.835 ▲ +0.71%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+  "suggested_filename": "USDJPY_2026-11-11_16-43-35.png",
+  "captured_at_utc": "2026-11-11T16:43:36.072542+00:00",
+  "seconds": 6.9,
+  "template_chart_size": [
+    1600,
+    700
+  ],
+  "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+}

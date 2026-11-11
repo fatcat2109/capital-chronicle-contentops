@@ -1,0 +1,998 @@
+{
+  "asset_id": "cc465-803c2b0c8b682f97f154e7e8",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usdjpy-call-1-W.png",
+  "sha256": "803c2b0c8b682f97f154e7e89b47e2317c4adcbacedc5fd66de4593424314daf",
+  "width": 1600,
+  "height": 900,
+  "mime_type": "image/png",
+  "alt_text": "TradingView 4h chart of USD/JPY.",
+  "modality": "tradingview_chart_snapshot",
+  "credit": "Chart: TradingView",
+  "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+  "image_template": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "template": "call",
+    "master": "W",
+    "image_number": 1,
+    "page": 0,
+    "input": {
+      "schema": "image_input_v1",
+      "post_id": "cc465-usdjpy",
+      "template": "call",
+      "market": "USDJPY",
+      "plan": {
+        "market": "USDJPY",
+        "market_name": "USD/JPY",
+        "direction": "LONG",
+        "horizon_label": "Mid-term",
+        "status_label": "Expired, no entry",
+        "entry_low": 158.3,
+        "entry_high": 158.38,
+        "invalidation": 158.04,
+        "target": null,
+        "main_probability_pct": 55.0,
+        "alt_probability_pct": 30.0,
+        "time_exit_et": "13 Nov, 3:00 AM ET",
+        "entry_window_ends_et": ""
+      },
+      "source_binding": {
+        "input_sha256": "4161bef3bd0c9000961ab2e72f25882764027359ba807d349358e1978ed361cb",
+        "source_sha256": "1441219adddebbd7ae4c042f16e8c9dd95eca5cbce2f6c57b3ead762748626be",
+        "record": {
+          "key": "cc465-usdjpy",
+          "symbol": "USDJPY",
+          "at_utc": "2026-11-10T16:18:25.849991Z",
+          "state": "EXPIRED",
+          "source_plan": {
+            "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+            "asset_id": "USDJPY",
+            "cancel_conditions": [],
+            "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+            "cancel_level": null,
+            "check_age_seconds": 30.667586,
+            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+            "conditions": [
+              {
+                "kind": "COMPLETED_BAR",
+                "predicates": [
+                  {
+                    "field": "low",
+                    "operator": "LTE",
+                    "threshold": 158.38
+                  }
+                ],
+                "timeframe": "M15"
+              }
+            ],
+            "data_state": "AVAILABLE",
+            "decision_record_id": "decision:request-9f7c39e808aef09c:USDJPY",
+            "direction": "BULLISH",
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_high": 158.38,
+                "zone_low": 158.3
+              }
+            ],
+            "entries_first_cause": null,
+            "entry_deadline_utc": "2026-11-11T20:00:00Z",
+            "expires_at_utc": "2026-11-11T20:00:00Z",
+            "first_cause": null,
+            "forecast_probabilities": {
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "missing_reasons": [],
+              "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+              "probability_target_before_stop_pct": 50,
+              "probability_touch_pct": 55,
+              "probability_up_pct": 55,
+              "reference_at_utc": "2026-11-10T15:05:01Z",
+              "reference_price": 158.63
+            },
+            "invalidation_conditions": [
+              {
+                "field": "low",
+                "operator": "LTE",
+                "threshold": 158.04
+              }
+            ],
+            "kind": "WATCH",
+            "not_before_utc": "2026-11-10T16:30:00Z",
+            "outcome": {
+              "first_cause": "UNTRIGGERED_PLAN_ENDED",
+              "outcome_id": null,
+              "public_call_id": "call_ceb3e6dbeb265f0f3a36cb14",
+              "result": null,
+              "score": null,
+              "state": "NOT_SCORED_UNTRIGGERED"
+            },
+            "plan_id": "plan_1335ba1ab3963352e9f2204b",
+            "public_instrument": {
+              "contract_first_cause": null,
+              "contract_month": null,
+              "direction": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": null,
+                  "zone_low": null
+                }
+              ],
+              "exchange": "IDEALPRO",
+              "invalidation_level": null,
+              "kind": "SPOT",
+              "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+              "name": "US dollar / Japanese yen",
+              "symbol": "USD.JPY",
+              "zone_high": null,
+              "zone_low": null
+            },
+            "public_instrument_first_cause": null,
+            "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+            "registration_hash": "1a265a0de024344421905e083e4d0494c190e4200fdf796cea2cc3d1fa134466",
+            "review_at_utc": "2026-11-11T12:00:00Z",
+            "run_id": "request-9f7c39e808aef09c",
+            "scenario_analysis": {
+              "acceptance": "accepted at T0+95 min: 158.630 at 15:05Z is about 43 pips above the 158.20 pre-release shelf (investingLive about 11:00Z, context) and above the 9 Nov D1 high 158.391; T0 and T0+30 min prices are not observed.",
+              "base_case": {
+                "market_move": "USDJPY holds above the 158.20 pre-release shelf and the broken 158.391 high and climbs through 158.770 toward higher levels before 13 Nov 08:00Z, as US front-end yields stay above flat-to-lower JGB yields.",
+                "probability_pct": 55.0
+              },
+              "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured break of the 9 Nov D1 high 158.391 to 158.630 with every USD pair moving USD-up; (3) the JGB 2y down 16 bp over 4-6 Nov while US2Y held 4.51%.",
+              "driver": "CLEAR. US front-end yields: USDJPY rose with every USD pair at the capture and on 6 Nov (+0.64% with EURUSD -0.79%); qualified by a 60-day US10Y correlation of 0.28.",
+              "field_first_causes": {
+                "acceptance": null,
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "invalidation_reason": "below 158.04 the pair is back under the pre-release shelf and the 158.061 dossier capture, which means the CPI repricing failed for this pair.",
+              "invalidation_text": "any trade below 158.04; the thesis is also broken by an M15 close below 158.20 while US500 is down more than 1% on the day, a Japanese official verbal warning, or the US 2y giving back most of its CPI-day rise.",
+              "main_alternative": {
+                "market_move": "a haven-yen bid on an equity selloff, or seven-week range supply at 158.77-159.04, sends USDJPY back below 158.04 toward the 9 Nov low 157.670.",
+                "probability_pct": 30.0
+              },
+              "mechanism": "the hot October core CPI (+0.296% vs 0.2% consensus, BLS) reprices the US front end (2y +15-17 bp, context) while the JGB 2y had already fallen from 1.891% (4 Nov) to 1.732% (6 Nov) with US2Y at 4.51%; USDJPY's 20-day correlation to US10Y changes is +0.62 (beta 0.038 per point, US500 beta only 0.10), and yen speculators net long 27% of open interest must cover above 158.770.",
+              "missing_fields": [],
+              "opposite_mechanism": "a haven-yen bid if the rates shock knocks equities (5 Nov: USDJPY -0.55% with US500 -4.86%) and range-top supply at 158.40-159.04; each predicts a return under 158.39 inside the horizon.",
+              "positioning": "CFTC JPY speculators net long yen 102,321 of 380,641 (27%, COT 3 Nov) are forced to cover above 158.770; sellers have capped 158.40-159.04 on every D1 test since 24 Sep (highs 158.404, 159.037, 158.455, 158.512, 158.754, 158.952, 158.603, 158.605, 158.770, 158.669, 158.585; no D1 close above 158.84); official-action risk near 159.75-160.40, where the 1-2 Sep up-leg reversed. Crowd trade: long yen, wrong while USDJPY holds above 158.39.",
+              "priced": "prior_pricing AMBIGUOUS; 5-day -0.65 ATR to the 9 Nov close (158.471 to 157.988), so nothing hawkish was priced before the print; the 158.630 capture sits +1.08 ATR over the 20-day mean 157.822, +1.43 over the 50-day 157.562 and -0.61 under the 200-day 159.086; 20-day range 156.075-158.770, 14 pips under its top; ATR percentile 30; the 48 h to 15 min drift and the implied move are not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+              "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "why_no_open": "at the capture the price is 25-33 pips above the reviewed buying zone and 14 pips under the 158.770 range top, so buying there buys into seven-week range supply.",
+              "zone_reason": "158.30-158.38 retests the broken 9 Nov D1 high 158.391 from above, over the 158.20-158.24 pre-release shelf."
+            },
+            "scenario_first_cause": null,
+            "status": "EXPIRED",
+            "status_at_utc": "2026-11-10T18:30:00Z",
+            "status_label": "Expired",
+            "trigger_hash": "f3f3f89c7f9febd53c970796e964a3577db5062957a545189549542dd67e751c",
+            "zone": {
+              "maximum": 158.38,
+              "minimum": 158.3
+            }
+          },
+          "levels": {
+            "direction": "bullish",
+            "zone_low": 158.3,
+            "zone_high": 158.38,
+            "cancel_level": null,
+            "target": null,
+            "invalidation_level": 158.04,
+            "valid_until_utc": "2026-11-11T20:00:00Z",
+            "scenario_analysis": {
+              "acceptance": "accepted at T0+95 min: 158.630 at 15:05Z is about 43 pips above the 158.20 pre-release shelf (investingLive about 11:00Z, context) and above the 9 Nov D1 high 158.391; T0 and T0+30 min prices are not observed.",
+              "base_case": {
+                "market_move": "USDJPY holds above the 158.20 pre-release shelf and the broken 158.391 high and climbs through 158.770 toward higher levels before 13 Nov 08:00Z, as US front-end yields stay above flat-to-lower JGB yields.",
+                "probability_pct": 55.0
+              },
+              "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured break of the 9 Nov D1 high 158.391 to 158.630 with every USD pair moving USD-up; (3) the JGB 2y down 16 bp over 4-6 Nov while US2Y held 4.51%.",
+              "driver": "CLEAR. US front-end yields: USDJPY rose with every USD pair at the capture and on 6 Nov (+0.64% with EURUSD -0.79%); qualified by a 60-day US10Y correlation of 0.28.",
+              "field_first_causes": {
+                "acceptance": null,
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "invalidation_reason": "below 158.04 the pair is back under the pre-release shelf and the 158.061 dossier capture, which means the CPI repricing failed for this pair.",
+              "invalidation_text": "any trade below 158.04; the thesis is also broken by an M15 close below 158.20 while US500 is down more than 1% on the day, a Japanese official verbal warning, or the US 2y giving back most of its CPI-day rise.",
+              "main_alternative": {
+                "market_move": "a haven-yen bid on an equity selloff, or seven-week range supply at 158.77-159.04, sends USDJPY back below 158.04 toward the 9 Nov low 157.670.",
+                "probability_pct": 30.0
+              },
+              "mechanism": "the hot October core CPI (+0.296% vs 0.2% consensus, BLS) reprices the US front end (2y +15-17 bp, context) while the JGB 2y had already fallen from 1.891% (4 Nov) to 1.732% (6 Nov) with US2Y at 4.51%; USDJPY's 20-day correlation to US10Y changes is +0.62 (beta 0.038 per point, US500 beta only 0.10), and yen speculators net long 27% of open interest must cover above 158.770.",
+              "missing_fields": [],
+              "opposite_mechanism": "a haven-yen bid if the rates shock knocks equities (5 Nov: USDJPY -0.55% with US500 -4.86%) and range-top supply at 158.40-159.04; each predicts a return under 158.39 inside the horizon.",
+              "positioning": "CFTC JPY speculators net long yen 102,321 of 380,641 (27%, COT 3 Nov) are forced to cover above 158.770; sellers have capped 158.40-159.04 on every D1 test since 24 Sep (highs 158.404, 159.037, 158.455, 158.512, 158.754, 158.952, 158.603, 158.605, 158.770, 158.669, 158.585; no D1 close above 158.84); official-action risk near 159.75-160.40, where the 1-2 Sep up-leg reversed. Crowd trade: long yen, wrong while USDJPY holds above 158.39.",
+              "priced": "prior_pricing AMBIGUOUS; 5-day -0.65 ATR to the 9 Nov close (158.471 to 157.988), so nothing hawkish was priced before the print; the 158.630 capture sits +1.08 ATR over the 20-day mean 157.822, +1.43 over the 50-day 157.562 and -0.61 under the 200-day 159.086; 20-day range 156.075-158.770, 14 pips under its top; ATR percentile 30; the 48 h to 15 min drift and the implied move are not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+              "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "why_no_open": "at the capture the price is 25-33 pips above the reviewed buying zone and 14 pips under the 158.770 range top, so buying there buys into seven-week range supply.",
+              "zone_reason": "158.30-158.38 retests the broken 9 Nov D1 high 158.391 from above, over the 158.20-158.24 pre-release shelf."
+            },
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_low": 158.3,
+                "zone_high": 158.38
+              }
+            ],
+            "public_instrument": {
+              "name": "US dollar / Japanese yen",
+              "symbol": "USD.JPY",
+              "kind": "SPOT",
+              "exchange": "IDEALPRO",
+              "contract_month": null,
+              "direction": null,
+              "zone_low": null,
+              "zone_high": null,
+              "invalidation_level": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_low": null,
+                  "zone_high": null
+                }
+              ]
+            },
+            "mechanism": null,
+            "priced": null,
+            "positioning": null,
+            "driver": null,
+            "acceptance": null,
+            "zone_reason": null,
+            "invalidation_reason": null,
+            "confirmations": null,
+            "opposite_mechanism": null,
+            "invalidation_text": null,
+            "price_basis": "plan",
+            "tick_size": null,
+            "time_exit_utc": "2026-11-13T08:00:00Z",
+            "entry_deadline_utc": "2026-11-11T20:00:00Z",
+            "chance_label": "Base-case chance",
+            "chance_pct": 55.0,
+            "short_id": "ceb3e6db",
+            "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+            "reader_reasons": [],
+            "image_source_plan": {
+              "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "asset_id": "USDJPY",
+              "cancel_conditions": [],
+              "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+              "cancel_level": null,
+              "check_age_seconds": 30.667586,
+              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+              "conditions": [
+                {
+                  "kind": "COMPLETED_BAR",
+                  "predicates": [
+                    {
+                      "field": "low",
+                      "operator": "LTE",
+                      "threshold": 158.38
+                    }
+                  ],
+                  "timeframe": "M15"
+                }
+              ],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:request-9f7c39e808aef09c:USDJPY",
+              "direction": "BULLISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 158.38,
+                  "zone_low": 158.3
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-11T20:00:00Z",
+              "expires_at_utc": "2026-11-11T20:00:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "missing_reasons": [],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": 50,
+                "probability_touch_pct": 55,
+                "probability_up_pct": 55,
+                "reference_at_utc": "2026-11-10T15:05:01Z",
+                "reference_price": 158.63
+              },
+              "invalidation_conditions": [
+                {
+                  "field": "low",
+                  "operator": "LTE",
+                  "threshold": 158.04
+                }
+              ],
+              "kind": "WATCH",
+              "not_before_utc": "2026-11-10T16:30:00Z",
+              "outcome": {
+                "first_cause": "UNTRIGGERED_PLAN_ENDED",
+                "outcome_id": null,
+                "public_call_id": "call_ceb3e6dbeb265f0f3a36cb14",
+                "result": null,
+                "score": null,
+                "state": "NOT_SCORED_UNTRIGGERED"
+              },
+              "plan_id": "plan_1335ba1ab3963352e9f2204b",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": null,
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "IDEALPRO",
+                "invalidation_level": null,
+                "kind": "SPOT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "US dollar / Japanese yen",
+                "symbol": "USD.JPY",
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+              "registration_hash": "1a265a0de024344421905e083e4d0494c190e4200fdf796cea2cc3d1fa134466",
+              "review_at_utc": "2026-11-11T12:00:00Z",
+              "run_id": "request-9f7c39e808aef09c",
+              "scenario_analysis": {
+                "acceptance": "accepted at T0+95 min: 158.630 at 15:05Z is about 43 pips above the 158.20 pre-release shelf (investingLive about 11:00Z, context) and above the 9 Nov D1 high 158.391; T0 and T0+30 min prices are not observed.",
+                "base_case": {
+                  "market_move": "USDJPY holds above the 158.20 pre-release shelf and the broken 158.391 high and climbs through 158.770 toward higher levels before 13 Nov 08:00Z, as US front-end yields stay above flat-to-lower JGB yields.",
+                  "probability_pct": 55.0
+                },
+                "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured break of the 9 Nov D1 high 158.391 to 158.630 with every USD pair moving USD-up; (3) the JGB 2y down 16 bp over 4-6 Nov while US2Y held 4.51%.",
+                "driver": "CLEAR. US front-end yields: USDJPY rose with every USD pair at the capture and on 6 Nov (+0.64% with EURUSD -0.79%); qualified by a 60-day US10Y correlation of 0.28.",
+                "field_first_causes": {
+                  "acceptance": null,
+                  "confirmations": null,
+                  "driver": null,
+                  "invalidation_reason": null,
+                  "invalidation_text": null,
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": null,
+                  "priced": null,
+                  "why_no_open": null,
+                  "zone_reason": null
+                },
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "invalidation_reason": "below 158.04 the pair is back under the pre-release shelf and the 158.061 dossier capture, which means the CPI repricing failed for this pair.",
+                "invalidation_text": "any trade below 158.04; the thesis is also broken by an M15 close below 158.20 while US500 is down more than 1% on the day, a Japanese official verbal warning, or the US 2y giving back most of its CPI-day rise.",
+                "main_alternative": {
+                  "market_move": "a haven-yen bid on an equity selloff, or seven-week range supply at 158.77-159.04, sends USDJPY back below 158.04 toward the 9 Nov low 157.670.",
+                  "probability_pct": 30.0
+                },
+                "mechanism": "the hot October core CPI (+0.296% vs 0.2% consensus, BLS) reprices the US front end (2y +15-17 bp, context) while the JGB 2y had already fallen from 1.891% (4 Nov) to 1.732% (6 Nov) with US2Y at 4.51%; USDJPY's 20-day correlation to US10Y changes is +0.62 (beta 0.038 per point, US500 beta only 0.10), and yen speculators net long 27% of open interest must cover above 158.770.",
+                "missing_fields": [],
+                "opposite_mechanism": "a haven-yen bid if the rates shock knocks equities (5 Nov: USDJPY -0.55% with US500 -4.86%) and range-top supply at 158.40-159.04; each predicts a return under 158.39 inside the horizon.",
+                "positioning": "CFTC JPY speculators net long yen 102,321 of 380,641 (27%, COT 3 Nov) are forced to cover above 158.770; sellers have capped 158.40-159.04 on every D1 test since 24 Sep (highs 158.404, 159.037, 158.455, 158.512, 158.754, 158.952, 158.603, 158.605, 158.770, 158.669, 158.585; no D1 close above 158.84); official-action risk near 159.75-160.40, where the 1-2 Sep up-leg reversed. Crowd trade: long yen, wrong while USDJPY holds above 158.39.",
+                "priced": "prior_pricing AMBIGUOUS; 5-day -0.65 ATR to the 9 Nov close (158.471 to 157.988), so nothing hawkish was priced before the print; the 158.630 capture sits +1.08 ATR over the 20-day mean 157.822, +1.43 over the 50-day 157.562 and -0.61 under the 200-day 159.086; 20-day range 156.075-158.770, 14 pips under its top; ATR percentile 30; the 48 h to 15 min drift and the implied move are not observed.",
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+                "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+                "why_no_open": "at the capture the price is 25-33 pips above the reviewed buying zone and 14 pips under the 158.770 range top, so buying there buys into seven-week range supply.",
+                "zone_reason": "158.30-158.38 retests the broken 9 Nov D1 high 158.391 from above, over the 158.20-158.24 pre-release shelf."
+              },
+              "scenario_first_cause": null,
+              "status": "EXPIRED",
+              "status_at_utc": "2026-11-10T18:30:00Z",
+              "status_label": "Expired",
+              "trigger_hash": "f3f3f89c7f9febd53c970796e964a3577db5062957a545189549542dd67e751c",
+              "zone": {
+                "maximum": 158.38,
+                "minimum": 158.3
+              }
+            }
+          }
+        }
+      }
+    },
+    "snapshot": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\W\\USDJPY_2026-11-11_16-43-35.png",
+      "sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879",
+      "width": 1600,
+      "height": 700,
+      "chart_geometry": {
+        "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+        "pane_box": [
+          10,
+          27,
+          1524,
+          612
+        ],
+        "axis_origin": [
+          1524,
+          27
+        ],
+        "axis_pixel_match": 1.0,
+        "mode": "linear",
+        "slope": -94.19519874065341,
+        "intercept": 15146.858708431739,
+        "max_label_error_px": 1.7621459846850485e-12,
+        "grid_checks": [
+          {
+            "price": 155.0,
+            "page_y_in_download": 546.6029036304611,
+            "grid_y": 547,
+            "error_px": 0.39709636953887184
+          },
+          {
+            "price": 155.5,
+            "page_y_in_download": 499.5053042601344,
+            "grid_y": 500,
+            "error_px": 0.49469573986561954
+          },
+          {
+            "price": 156.0,
+            "page_y_in_download": 452.40770488980775,
+            "grid_y": 453,
+            "error_px": 0.5922951101922536
+          },
+          {
+            "price": 156.5,
+            "page_y_in_download": 405.310105519481,
+            "grid_y": 406,
+            "error_px": 0.6898944805190013
+          },
+          {
+            "price": 157.0,
+            "page_y_in_download": 358.21250614915425,
+            "grid_y": 359,
+            "error_px": 0.787493850845749
+          },
+          {
+            "price": 157.5,
+            "page_y_in_download": 311.1149067788276,
+            "grid_y": 311,
+            "error_px": 0.11490677882761702
+          },
+          {
+            "price": 158.0,
+            "page_y_in_download": 264.01730740850087,
+            "grid_y": 264,
+            "error_px": 0.017307408500869315
+          },
+          {
+            "price": 158.5,
+            "page_y_in_download": 216.91970803817418,
+            "grid_y": 217,
+            "error_px": 0.08029196182582155
+          },
+          {
+            "price": 159.0,
+            "page_y_in_download": 169.8221086678475,
+            "grid_y": 170,
+            "error_px": 0.1778913321525124
+          },
+          {
+            "price": 159.5,
+            "page_y_in_download": 122.7245092975208,
+            "grid_y": 123,
+            "error_px": 0.27549070247920326
+          },
+          {
+            "price": 160.0,
+            "page_y_in_download": 75.6269099271941,
+            "grid_y": 76,
+            "error_px": 0.3730900728058941
+          }
+        ],
+        "source_sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879"
+      },
+      "capture_ratio": "16:9",
+      "capture_viewport": {
+        "width": 1986,
+        "height": 694
+      },
+      "tv_symbol": "FX_IDC:USDJPY",
+      "interval": "240",
+      "interval_label": "4h",
+      "legend": "4h",
+      "page_title": "USDJPY 159.835 ▲ +0.71%",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+      "suggested_filename": "USDJPY_2026-11-11_16-43-35.png",
+      "captured_at_utc": "2026-11-11T16:43:36.072542+00:00",
+      "seconds": 6.9,
+      "template_chart_size": [
+        1600,
+        700
+      ],
+      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    },
+    "framing": {
+      "box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "original_size": [
+        1600,
+        700
+      ],
+      "paste_box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "scale": 1.0,
+      "shape_error": 0.0,
+      "paper_margin_fraction": 0.0
+    },
+    "levels": {
+      "required": true,
+      "levels_visible": true,
+      "pane_box": [
+        22.0,
+        193.0,
+        1512.0,
+        704.0
+      ],
+      "entry_colour": "#1F5FBF",
+      "target_visible": false
+    },
+    "texts": [
+      {
+        "text": "Entry 158.30–158.38",
+        "box": [
+          34.0,
+          317.9909398366781,
+          313.0,
+          343.9909398366781
+        ],
+        "zone": [
+          34.0,
+          317.9909398366781,
+          325.0,
+          351.9909398366781
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry 158.30–158.38",
+            "mono": false
+          }
+        ],
+        "colour": "blue",
+        "field": "chart_level"
+      },
+      {
+        "text": "Invalidation 158.04",
+        "box": [
+          34.0,
+          363.9909398366781,
+          286.0,
+          385.9909398366781
+        ],
+        "zone": [
+          34.0,
+          363.9909398366781,
+          298.0,
+          397.9909398366781
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Invalidation 158.04",
+            "mono": false
+          }
+        ],
+        "colour": "red",
+        "field": "chart_level"
+      },
+      {
+        "text": "USD/JPY",
+        "box": [
+          76,
+          20,
+          314,
+          63
+        ],
+        "zone": [
+          76,
+          20,
+          1552,
+          92
+        ],
+        "size": 56,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "USD/JPY",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "title"
+      },
+      {
+        "text": "LONG",
+        "box": [
+          350,
+          34,
+          453,
+          62
+        ],
+        "zone": [
+          350,
+          34,
+          457,
+          78
+        ],
+        "size": 36,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "LONG",
+            "mono": false
+          }
+        ],
+        "colour": "#FFFFFF",
+        "field": "direction"
+      },
+      {
+        "text": "Mid-term",
+        "box": [
+          487,
+          36,
+          647,
+          64
+        ],
+        "zone": [
+          487,
+          36,
+          1552,
+          90
+        ],
+        "size": 36,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Mid-term",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "horizon"
+      },
+      {
+        "text": "Expired, no entry",
+        "box": [
+          1262.0,
+          36,
+          1552.0,
+          69
+        ],
+        "zone": [
+          1262.0,
+          36,
+          1552,
+          98
+        ],
+        "size": 36,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Expired, no entry",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "status"
+      },
+      {
+        "text": "Entry 158.30–158.38 · Invalidation 158.04",
+        "box": [
+          48,
+          808,
+          794,
+          841
+        ],
+        "zone": [
+          48,
+          808,
+          1552,
+          851
+        ],
+        "size": 36,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry ",
+            "mono": false
+          },
+          {
+            "text": "158.30–158.38",
+            "mono": true
+          },
+          {
+            "text": " · Invalidation ",
+            "mono": false
+          },
+          {
+            "text": "158.04",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "Main 55% · Alternative 30% · Time exit 13 Nov, 3:00 AM ET",
+        "box": [
+          48,
+          852,
+          1077,
+          882
+        ],
+        "zone": [
+          48,
+          852,
+          1552,
+          895
+        ],
+        "size": 36,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Main ",
+            "mono": false
+          },
+          {
+            "text": "55%",
+            "mono": true
+          },
+          {
+            "text": " · Alternative ",
+            "mono": false
+          },
+          {
+            "text": "30%",
+            "mono": true
+          },
+          {
+            "text": " · Time exit ",
+            "mono": false
+          },
+          {
+            "text": "13 Nov, 3:00 AM ET",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "CAPITAL CHRONICLE",
+        "box": [
+          1174.0,
+          852,
+          1552.0,
+          880
+        ],
+        "zone": [
+          1174.0,
+          852,
+          1552,
+          893
+        ],
+        "size": 36,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "CAPITAL CHRONICLE",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "wordmark"
+      }
+    ],
+    "notes": [],
+    "alt_text": "TradingView 4h chart of USD/JPY.",
+    "chart": true,
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+  },
+  "tradingview_snapshot": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\W\\USDJPY_2026-11-11_16-43-35.png",
+    "sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879",
+    "width": 1600,
+    "height": 700,
+    "chart_geometry": {
+      "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+      "pane_box": [
+        10,
+        27,
+        1524,
+        612
+      ],
+      "axis_origin": [
+        1524,
+        27
+      ],
+      "axis_pixel_match": 1.0,
+      "mode": "linear",
+      "slope": -94.19519874065341,
+      "intercept": 15146.858708431739,
+      "max_label_error_px": 1.7621459846850485e-12,
+      "grid_checks": [
+        {
+          "price": 155.0,
+          "page_y_in_download": 546.6029036304611,
+          "grid_y": 547,
+          "error_px": 0.39709636953887184
+        },
+        {
+          "price": 155.5,
+          "page_y_in_download": 499.5053042601344,
+          "grid_y": 500,
+          "error_px": 0.49469573986561954
+        },
+        {
+          "price": 156.0,
+          "page_y_in_download": 452.40770488980775,
+          "grid_y": 453,
+          "error_px": 0.5922951101922536
+        },
+        {
+          "price": 156.5,
+          "page_y_in_download": 405.310105519481,
+          "grid_y": 406,
+          "error_px": 0.6898944805190013
+        },
+        {
+          "price": 157.0,
+          "page_y_in_download": 358.21250614915425,
+          "grid_y": 359,
+          "error_px": 0.787493850845749
+        },
+        {
+          "price": 157.5,
+          "page_y_in_download": 311.1149067788276,
+          "grid_y": 311,
+          "error_px": 0.11490677882761702
+        },
+        {
+          "price": 158.0,
+          "page_y_in_download": 264.01730740850087,
+          "grid_y": 264,
+          "error_px": 0.017307408500869315
+        },
+        {
+          "price": 158.5,
+          "page_y_in_download": 216.91970803817418,
+          "grid_y": 217,
+          "error_px": 0.08029196182582155
+        },
+        {
+          "price": 159.0,
+          "page_y_in_download": 169.8221086678475,
+          "grid_y": 170,
+          "error_px": 0.1778913321525124
+        },
+        {
+          "price": 159.5,
+          "page_y_in_download": 122.7245092975208,
+          "grid_y": 123,
+          "error_px": 0.27549070247920326
+        },
+        {
+          "price": 160.0,
+          "page_y_in_download": 75.6269099271941,
+          "grid_y": 76,
+          "error_px": 0.3730900728058941
+        }
+      ],
+      "source_sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879"
+    },
+    "capture_ratio": "16:9",
+    "capture_viewport": {
+      "width": 1986,
+      "height": 694
+    },
+    "tv_symbol": "FX_IDC:USDJPY",
+    "interval": "240",
+    "interval_label": "4h",
+    "legend": "4h",
+    "page_title": "USDJPY 159.835 ▲ +0.71%",
+    "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:USDJPY&interval=240",
+    "suggested_filename": "USDJPY_2026-11-11_16-43-35.png",
+    "captured_at_utc": "2026-11-11T16:43:36.072542+00:00",
+    "seconds": 6.9,
+    "template_chart_size": [
+      1600,
+      700
+    ],
+    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+  },
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true,
+  "image_quality": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "image_sha256": "803c2b0c8b682f97f154e7e89b47e2317c4adcbacedc5fd66de4593424314daf",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template": "call",
+    "master": "W",
+    "score": 0,
+    "points": {
+      "1": false,
+      "2": false,
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false
+    },
+    "passed": false,
+    "code": {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "803c2b0c8b682f97f154e7e89b47e2317c4adcbacedc5fd66de4593424314daf",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": false,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ]
+    },
+    "vision": {
+      "points": {},
+      "status": "NOT_RUN"
+    },
+    "reviewed_at_utc": "2026-11-11T17:25:02.383944+00:00"
+  }
+}

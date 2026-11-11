@@ -1,0 +1,191 @@
+{
+  "images": [
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\xauusd-call.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\xauusd-call.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\xauusd-result.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\xauusd-result.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\us500-call.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\us500-call.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\us500-result.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\us500-result.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\eurusd-call.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\eurusd-call.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\eurusd-result.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\eurusd-result.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\usdjpy-call.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\usdjpy-call.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\usdjpy-result.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\usdjpy-result.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\usoil-call.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USOIL\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\usoil-call.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USOIL\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\btcusd-call.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\btcusd-call.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\btcusd-result.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\btcusd-result.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\event.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\event.json",
+      "master": "W",
+      "image_number": 2
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\event.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\event.json",
+      "master": "T",
+      "image_number": 2
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\weekly.json",
+      "master": "W",
+      "image_number": 1
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\weekly.json",
+      "master": "T",
+      "image_number": 1
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\morning-map.json",
+      "master": "W",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\W\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\morning-map.json",
+      "master": "W",
+      "image_number": 2
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\morning-map.json",
+      "master": "T",
+      "image_number": 1,
+      "snapshot_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USDJPY\\T\\snapshot.json"
+    },
+    {
+      "input_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\inputs\\morning-map.json",
+      "master": "T",
+      "image_number": 2
+    }
+  ],
+  "preview_limit": "Historical held plans on current real charts show layout only; public dispatch is held. R scores and daily moves are not fabricated."
+}

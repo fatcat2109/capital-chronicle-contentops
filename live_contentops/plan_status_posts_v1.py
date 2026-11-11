@@ -1249,7 +1249,14 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
                 ratio: str = "16:9") -> tuple[dict | None, bool]:
     """CC-459: every new plan image is TradingView; after two failures use text."""
     from live_contentops import tradingview_snapshot_v1 as tv
-    asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio)
+    image_input = None
+    if (row.get("levels") or {}).get("image_source_plan") and row.get("kind") in {"setup", "result"}:
+        from .image_template_inputs_v1 import from_plan, from_result
+        image_input = from_result(row) if row.get("kind") == "result" else from_plan(row)
+    asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio,
+                             **({"image_input": image_input} if image_input else {}))
+    if image_input:
+        return asset, asset is not None
     if asset:
         from live_contentops import tradingview_plan_overlay_v1 as overlay
         try:
@@ -1369,6 +1376,7 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
         from .plan_call_cards_v1 import destination_payloads as card_payloads
         return row, card_payloads(row, card_id=card_id, parents=context.get("status_post_parents"),
                                  carousel=context.get("status_post_instagram_carousel"),
+                                  portrait_id=context.get("status_post_threads_image"),
                                  chart_credit=bool(context.get("chart_credit")),
                                  complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     return row, _part_payloads(destination_payloads(row, card_id=card_id,

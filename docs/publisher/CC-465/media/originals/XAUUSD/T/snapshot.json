@@ -1,0 +1,175 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\T\\XAUUSD_2026-11-11_16-42-54.png",
+  "sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e",
+  "width": 1080,
+  "height": 850,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      998,
+      762
+    ],
+    "axis_origin": [
+      998,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -1.7328533690647758,
+    "intercept": 7408.411850903844,
+    "max_label_error_px": 0.028340563575511624,
+    "grid_checks": [
+      {
+        "price": 3860.0,
+        "page_y_in_download": 719.5998825526309,
+        "grid_y": 719,
+        "error_px": 0.599882552630902
+      },
+      {
+        "price": 3880.0,
+        "page_y_in_download": 684.9427388726493,
+        "grid_y": 685,
+        "error_px": 0.057261127350670904
+      },
+      {
+        "price": 3900.0,
+        "page_y_in_download": 650.2855951926676,
+        "grid_y": 650,
+        "error_px": 0.28559519266764255
+      },
+      {
+        "price": 3920.0,
+        "page_y_in_download": 615.6284515126861,
+        "grid_y": 615,
+        "error_px": 0.6284515126860697
+      },
+      {
+        "price": 3940.0,
+        "page_y_in_download": 580.9713078327045,
+        "grid_y": 581,
+        "error_px": 0.028692167295503168
+      },
+      {
+        "price": 3960.0,
+        "page_y_in_download": 546.3141641527228,
+        "grid_y": 546,
+        "error_px": 0.3141641527228103
+      },
+      {
+        "price": 3980.0,
+        "page_y_in_download": 511.65702047274124,
+        "grid_y": 512,
+        "error_px": 0.3429795272587626
+      },
+      {
+        "price": 4000.0,
+        "page_y_in_download": 476.9998767927596,
+        "grid_y": 477,
+        "error_px": 0.0001232072403922757
+      },
+      {
+        "price": 4020.0,
+        "page_y_in_download": 442.342733112778,
+        "grid_y": 442,
+        "error_px": 0.342733112777978
+      },
+      {
+        "price": 4040.0,
+        "page_y_in_download": 407.68558943279635,
+        "grid_y": 408,
+        "error_px": 0.3144105672036517
+      },
+      {
+        "price": 4060.0,
+        "page_y_in_download": 373.0284457528148,
+        "grid_y": 373,
+        "error_px": 0.02844575281477546
+      },
+      {
+        "price": 4080.0,
+        "page_y_in_download": 338.37130207283315,
+        "grid_y": 338,
+        "error_px": 0.37130207283314576
+      },
+      {
+        "price": 4100.0,
+        "page_y_in_download": 303.7141583928515,
+        "grid_y": 304,
+        "error_px": 0.28584160714848394
+      },
+      {
+        "price": 4120.0,
+        "page_y_in_download": 269.0570147128699,
+        "grid_y": 269,
+        "error_px": 0.05701471286988635
+      },
+      {
+        "price": 4140.0,
+        "page_y_in_download": 234.3998710328883,
+        "grid_y": 234,
+        "error_px": 0.3998710328883135
+      },
+      {
+        "price": 4160.0,
+        "page_y_in_download": 199.74272735290663,
+        "grid_y": 200,
+        "error_px": 0.25727264709337305
+      },
+      {
+        "price": 4180.0,
+        "page_y_in_download": 165.08558367292505,
+        "grid_y": 165,
+        "error_px": 0.08558367292505409
+      },
+      {
+        "price": 4200.0,
+        "page_y_in_download": 130.42843999294348,
+        "grid_y": 130,
+        "error_px": 0.42843999294348123
+      },
+      {
+        "price": 4220.0,
+        "page_y_in_download": 95.77129631296191,
+        "grid_y": 96,
+        "error_px": 0.22870368703809163
+      },
+      {
+        "price": 4240.0,
+        "page_y_in_download": 61.11415263298022,
+        "grid_y": 61,
+        "error_px": 0.11415263298022182
+      }
+    ],
+    "source_sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e"
+  },
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "width": 1466,
+    "height": 844
+  },
+  "tv_symbol": "FX_IDC:XAUUSD",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "XAUUSD 3,998.540 \u25bc \u22120.83%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=240",
+  "suggested_filename": "XAUUSD_2026-11-11_16-42-54.png",
+  "captured_at_utc": "2026-11-11T16:42:54.345977+00:00",
+  "seconds": 7.4,
+  "template_chart_size": [
+    1080,
+    850
+  ],
+  "price_scale_check": {
+    "policy": "CC463_TRADINGVIEW_FIRST_V1",
+    "market": "XAUUSD",
+    "tv_symbol": "FX_IDC:XAUUSD",
+    "chart_sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e",
+    "captured_at_utc": "2026-11-11T16:42:54.345977+00:00",
+    "comparison_basis": "NOT_COMPARED",
+    "quote_absent_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+    "level_offset": 0.0
+  }
+}

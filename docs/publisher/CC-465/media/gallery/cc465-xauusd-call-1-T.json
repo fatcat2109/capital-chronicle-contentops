@@ -1,0 +1,1216 @@
+{
+  "asset_id": "cc465-e3a164d4c824251f832c30ef",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-xauusd-call-1-T.png",
+  "sha256": "e3a164d4c824251f832c30efb48353f110b52b0312c5c782f38b2b22a1ee5321",
+  "width": 1080,
+  "height": 1350,
+  "mime_type": "image/png",
+  "alt_text": "TradingView 4h chart of Gold.",
+  "modality": "tradingview_chart_snapshot",
+  "credit": "Chart: TradingView",
+  "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+  "image_template": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "template": "call",
+    "master": "T",
+    "image_number": 1,
+    "page": 0,
+    "input": {
+      "schema": "image_input_v1",
+      "post_id": "cc465-xauusd",
+      "template": "call",
+      "market": "XAUUSD",
+      "plan": {
+        "market": "XAUUSD",
+        "market_name": "Gold",
+        "direction": "SHORT",
+        "horizon_label": "Mid-term",
+        "status_label": "Expired, no entry",
+        "entry_low": 4062.0,
+        "entry_high": 4070.0,
+        "invalidation": 4096.0,
+        "target": null,
+        "main_probability_pct": 50.0,
+        "alt_probability_pct": 40.0,
+        "time_exit_et": "13 Nov, 3:00 AM ET",
+        "entry_window_ends_et": ""
+      },
+      "source_binding": {
+        "input_sha256": "a6fa80d7b68ba40a820443d72120148759f09efe6e7d17fdbfd305ab94cf3f34",
+        "source_sha256": "9e4970cb63b7cd91ca22b70d68102a15d5c632c4c09e0cded856f5a1479c5c92",
+        "record": {
+          "key": "cc465-xauusd",
+          "symbol": "XAUUSD",
+          "at_utc": "2026-11-10T16:18:25.849991Z",
+          "state": "EXPIRED",
+          "source_plan": {
+            "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+            "asset_id": "XAUUSD",
+            "cancel_conditions": [],
+            "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+            "cancel_level": null,
+            "check_age_seconds": 32.071707,
+            "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+            "conditions": [
+              {
+                "kind": "COMPLETED_BAR",
+                "predicates": [
+                  {
+                    "field": "high",
+                    "operator": "GTE",
+                    "threshold": 4062.0
+                  }
+                ],
+                "timeframe": "M15"
+              }
+            ],
+            "data_state": "AVAILABLE",
+            "decision_record_id": "decision:request-9f7c39e808aef09c:XAUUSD",
+            "direction": "BEARISH",
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_high": 4070.0,
+                "zone_low": 4062.0
+              }
+            ],
+            "entries_first_cause": null,
+            "entry_deadline_utc": "2026-11-11T20:00:00Z",
+            "expires_at_utc": "2026-11-11T20:00:00Z",
+            "first_cause": null,
+            "forecast_probabilities": {
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "missing_reasons": [],
+              "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+              "probability_target_before_stop_pct": 45,
+              "probability_touch_pct": 60,
+              "probability_up_pct": 40,
+              "reference_at_utc": "2026-11-10T15:05:02Z",
+              "reference_price": 4050.952
+            },
+            "invalidation_conditions": [
+              {
+                "field": "high",
+                "operator": "GTE",
+                "threshold": 4096.0
+              }
+            ],
+            "kind": "WATCH",
+            "not_before_utc": "2026-11-10T16:30:00Z",
+            "outcome": {
+              "first_cause": "UNTRIGGERED_PLAN_ENDED",
+              "outcome_id": null,
+              "public_call_id": "call_d5cc28ee8fda0b24d51593a6",
+              "result": null,
+              "score": null,
+              "state": "NOT_SCORED_UNTRIGGERED"
+            },
+            "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+            "public_instrument": {
+              "contract_first_cause": null,
+              "contract_month": "2026-12",
+              "direction": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": null,
+                  "zone_low": null
+                }
+              ],
+              "exchange": "COMEX",
+              "invalidation_level": null,
+              "kind": "FUT",
+              "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+              "name": "Micro gold",
+              "symbol": "MGC",
+              "zone_high": null,
+              "zone_low": null
+            },
+            "public_instrument_first_cause": null,
+            "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+            "registration_hash": "1a45c9646aa9d0a1120a3d0957f16f5bc46a37925f8e72946cab81c9b6e985d3",
+            "review_at_utc": "2026-11-11T12:00:00Z",
+            "run_id": "request-9f7c39e808aef09c",
+            "scenario_analysis": {
+              "acceptance": "accepted so far: about 4057 at 13:58Z (Reuters, context) and 4050.95 at 15:05Z, below every earlier price on record today (4080-4104, 09:00-10:20Z); the exact T0 level is not observed, and on 6 Nov the reaction also held at T0+30 min and T0+2 h before closing back through the pre-release level, so acceptance at T0+95 min does not separate today from 6 Nov.",
+              "base_case": {
+                "market_move": "gold stays below the broken 4054-4073 support zone and falls through the 6 Nov low 4026.88 toward lower levels before 13 Nov 08:00Z, as the hike repricing lifts real yields and the dollar.",
+                "probability_pct": 50.0
+              },
+              "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured -2.13% with every USD pair USD-up and the break of the 9 Nov D1 low 4054.825; (3) crowded speculative length (45% of open interest net long, 3 Nov).",
+              "driver": "MIXED inside sessions, CLEAR in D1 sign.; D1 sign followed the USD leg on 4 Nov (+3.23% with EURUSD +0.25%), 6 Nov (-0.36% with -0.79%), 9 Nov (+2.06% with +0.68%) and today (-2.13% with -0.37%); but today's move is about 5.8 times the USD leg, about -1.20% of it came by 09:30Z with EURUSD +0.08%, and the 6 Nov release session went +0.20% against DXY +0.23%; 20-day DXY beta -1.17 (correlation -0.22), 20-day US10Y correlation +0.09.",
+              "field_first_causes": {
+                "acceptance": null,
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "invalidation_reason": "4096 sits above 4080, where today's earlier long was stopped, and the 4084.40 H1 floor of the 06:52Z ledger, and below 4104 (09:00Z) and the 6 Nov high 4107.09; a trade there means the release reaction failed.",
+              "invalidation_text": "any trade above 4096; the thesis is also broken by an M15 close above 4084.40 while EURUSD is back above 1.1199, a metals-only rebound of more than 0.9% with DXY flat, a Fed push-back on a December hike, or the US 2y giving back most of its CPI rise.",
+              "main_alternative": {
+                "market_move": "crowded-long dip buying returns, as on 6-9 Nov, and gold climbs back above 4096 before 13 Nov 08:00Z.",
+                "probability_pct": 40.0
+              },
+              "mechanism": "the hot core print pushes the US front end toward a December hike (context: about a full hike priced, 2y +15-17 bp), raising real yields and firming the USD against a non-yielding asset whose speculators held 45% of open interest net long (3 Nov), with forced selling below the broken 8-9 Nov lows 4054.21/4054.83; captured 4139.17 (9 Nov close) to a 4050.952 bid at 15:05:02Z, -2.13% or -1.20 D1 ATR (ATR 73.38).",
+              "missing_fields": [],
+              "opposite_mechanism": "metals-specific dip buying by the crowded long base, as on 6-9 Nov, with mean reversion to the 20-day mean 4039.15 and support at the 6 Nov NFP low 4026.88, where last week's short stopped making progress (H1 low 4029.79).",
+              "positioning": "speculators net long 179,548 of 399,169 (45%, COT 3 Nov, before the run to 4148.76; today's length not observed); flow-forcing levels are the broken 4054.2-4054.8 lows, then the 6 Nov D1 low 4026.88; ETF stocks were flat 2-6 Nov (GLD 1040.51 to 1041.37 t, IAU 461.62 to 460.81 t) and say nothing about 9-10 Nov dip demand. Crowd trade: long gold, wrong while gold stays under 4073.55-4084.40; this short is wrong on a metals-only rebound like 9 Nov 00:30-01:00Z (+0.91%, about 37 points, DXY -0.03%).",
+              "priced": "prior_pricing AMBIGUOUS; the +2.74 ATR five-session run-up (3 Nov close 3938.16 to 9 Nov 4139.17) is fully given back; the capture sits +0.16 ATR over the 20-day mean 4039.15, -1.36 under the 50-day 4150.44 and -3.96 under the 200-day 4341.80; 20-day range 3870.03-4190.65; ATR percentile 15.3 before today; the dossier IN_LINE band (about -2.6% to +2.8%) contains today's move; the 48 h to 15 min drift, T0 level and implied move are not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+              "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "why_no_open": "the capture sits 11-19 points under the reviewed selling zone, near the release low; selling there would repeat the 6 Nov release chase that reversed.",
+              "zone_reason": "4062-4070 sells a retest of the broken support cluster: the 5 Nov D1 low 4061.41, the 4 Nov close 4065.54, the 6 Nov release-session close 4066.0 (dated review), the 6 Nov D1 close 4071.23 and the 4 Nov high 4071.63, under the 8 Nov Sunday-stub high 4073.55 (weak, 8,686 ticks)."
+            },
+            "scenario_first_cause": null,
+            "status": "EXPIRED",
+            "status_at_utc": "2026-11-10T18:30:00Z",
+            "status_label": "Expired",
+            "trigger_hash": "b98efe191ada850025bea30208802465a323ca2547f6e38bb89eb351b8d943cd",
+            "zone": {
+              "maximum": 4070.0,
+              "minimum": 4062.0
+            }
+          },
+          "levels": {
+            "direction": "bearish",
+            "zone_low": 4062.0,
+            "zone_high": 4070.0,
+            "cancel_level": null,
+            "target": null,
+            "invalidation_level": 4096.0,
+            "valid_until_utc": "2026-11-11T20:00:00Z",
+            "scenario_analysis": {
+              "acceptance": "accepted so far: about 4057 at 13:58Z (Reuters, context) and 4050.95 at 15:05Z, below every earlier price on record today (4080-4104, 09:00-10:20Z); the exact T0 level is not observed, and on 6 Nov the reaction also held at T0+30 min and T0+2 h before closing back through the pre-release level, so acceptance at T0+95 min does not separate today from 6 Nov.",
+              "base_case": {
+                "market_move": "gold stays below the broken 4054-4073 support zone and falls through the 6 Nov low 4026.88 toward lower levels before 13 Nov 08:00Z, as the hike repricing lifts real yields and the dollar.",
+                "probability_pct": 50.0
+              },
+              "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured -2.13% with every USD pair USD-up and the break of the 9 Nov D1 low 4054.825; (3) crowded speculative length (45% of open interest net long, 3 Nov).",
+              "driver": "MIXED inside sessions, CLEAR in D1 sign.; D1 sign followed the USD leg on 4 Nov (+3.23% with EURUSD +0.25%), 6 Nov (-0.36% with -0.79%), 9 Nov (+2.06% with +0.68%) and today (-2.13% with -0.37%); but today's move is about 5.8 times the USD leg, about -1.20% of it came by 09:30Z with EURUSD +0.08%, and the 6 Nov release session went +0.20% against DXY +0.23%; 20-day DXY beta -1.17 (correlation -0.22), 20-day US10Y correlation +0.09.",
+              "field_first_causes": {
+                "acceptance": null,
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "invalidation_reason": "4096 sits above 4080, where today's earlier long was stopped, and the 4084.40 H1 floor of the 06:52Z ledger, and below 4104 (09:00Z) and the 6 Nov high 4107.09; a trade there means the release reaction failed.",
+              "invalidation_text": "any trade above 4096; the thesis is also broken by an M15 close above 4084.40 while EURUSD is back above 1.1199, a metals-only rebound of more than 0.9% with DXY flat, a Fed push-back on a December hike, or the US 2y giving back most of its CPI rise.",
+              "main_alternative": {
+                "market_move": "crowded-long dip buying returns, as on 6-9 Nov, and gold climbs back above 4096 before 13 Nov 08:00Z.",
+                "probability_pct": 40.0
+              },
+              "mechanism": "the hot core print pushes the US front end toward a December hike (context: about a full hike priced, 2y +15-17 bp), raising real yields and firming the USD against a non-yielding asset whose speculators held 45% of open interest net long (3 Nov), with forced selling below the broken 8-9 Nov lows 4054.21/4054.83; captured 4139.17 (9 Nov close) to a 4050.952 bid at 15:05:02Z, -2.13% or -1.20 D1 ATR (ATR 73.38).",
+              "missing_fields": [],
+              "opposite_mechanism": "metals-specific dip buying by the crowded long base, as on 6-9 Nov, with mean reversion to the 20-day mean 4039.15 and support at the 6 Nov NFP low 4026.88, where last week's short stopped making progress (H1 low 4029.79).",
+              "positioning": "speculators net long 179,548 of 399,169 (45%, COT 3 Nov, before the run to 4148.76; today's length not observed); flow-forcing levels are the broken 4054.2-4054.8 lows, then the 6 Nov D1 low 4026.88; ETF stocks were flat 2-6 Nov (GLD 1040.51 to 1041.37 t, IAU 461.62 to 460.81 t) and say nothing about 9-10 Nov dip demand. Crowd trade: long gold, wrong while gold stays under 4073.55-4084.40; this short is wrong on a metals-only rebound like 9 Nov 00:30-01:00Z (+0.91%, about 37 points, DXY -0.03%).",
+              "priced": "prior_pricing AMBIGUOUS; the +2.74 ATR five-session run-up (3 Nov close 3938.16 to 9 Nov 4139.17) is fully given back; the capture sits +0.16 ATR over the 20-day mean 4039.15, -1.36 under the 50-day 4150.44 and -3.96 under the 200-day 4341.80; 20-day range 3870.03-4190.65; ATR percentile 15.3 before today; the dossier IN_LINE band (about -2.6% to +2.8%) contains today's move; the 48 h to 15 min drift, T0 level and implied move are not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+              "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "why_no_open": "the capture sits 11-19 points under the reviewed selling zone, near the release low; selling there would repeat the 6 Nov release chase that reversed.",
+              "zone_reason": "4062-4070 sells a retest of the broken support cluster: the 5 Nov D1 low 4061.41, the 4 Nov close 4065.54, the 6 Nov release-session close 4066.0 (dated review), the 6 Nov D1 close 4071.23 and the 4 Nov high 4071.63, under the 8 Nov Sunday-stub high 4073.55 (weak, 8,686 ticks)."
+            },
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_low": 4062.0,
+                "zone_high": 4070.0
+              }
+            ],
+            "public_instrument": {
+              "name": "Micro gold",
+              "symbol": "MGC",
+              "kind": "FUT",
+              "exchange": "COMEX",
+              "contract_month": "2026-12",
+              "direction": null,
+              "zone_low": null,
+              "zone_high": null,
+              "invalidation_level": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_low": null,
+                  "zone_high": null
+                }
+              ]
+            },
+            "mechanism": null,
+            "priced": null,
+            "positioning": null,
+            "driver": null,
+            "acceptance": null,
+            "zone_reason": null,
+            "invalidation_reason": null,
+            "confirmations": null,
+            "opposite_mechanism": null,
+            "invalidation_text": null,
+            "price_basis": "plan",
+            "tick_size": null,
+            "time_exit_utc": "2026-11-13T08:00:00Z",
+            "entry_deadline_utc": "2026-11-11T20:00:00Z",
+            "chance_label": "Base-case chance",
+            "chance_pct": 50.0,
+            "short_id": "d5cc28ee",
+            "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+            "reader_reasons": [],
+            "image_source_plan": {
+              "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "asset_id": "XAUUSD",
+              "cancel_conditions": [],
+              "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+              "cancel_level": null,
+              "check_age_seconds": 32.071707,
+              "checked_at_utc": "2026-11-11T17:23:37.065173Z",
+              "conditions": [
+                {
+                  "kind": "COMPLETED_BAR",
+                  "predicates": [
+                    {
+                      "field": "high",
+                      "operator": "GTE",
+                      "threshold": 4062.0
+                    }
+                  ],
+                  "timeframe": "M15"
+                }
+              ],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:request-9f7c39e808aef09c:XAUUSD",
+              "direction": "BEARISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 4070.0,
+                  "zone_low": 4062.0
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-11T20:00:00Z",
+              "expires_at_utc": "2026-11-11T20:00:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "missing_reasons": [],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": 45,
+                "probability_touch_pct": 60,
+                "probability_up_pct": 40,
+                "reference_at_utc": "2026-11-10T15:05:02Z",
+                "reference_price": 4050.952
+              },
+              "invalidation_conditions": [
+                {
+                  "field": "high",
+                  "operator": "GTE",
+                  "threshold": 4096.0
+                }
+              ],
+              "kind": "WATCH",
+              "not_before_utc": "2026-11-10T16:30:00Z",
+              "outcome": {
+                "first_cause": "UNTRIGGERED_PLAN_ENDED",
+                "outcome_id": null,
+                "public_call_id": "call_d5cc28ee8fda0b24d51593a6",
+                "result": null,
+                "score": null,
+                "state": "NOT_SCORED_UNTRIGGERED"
+              },
+              "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": "2026-12",
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "COMEX",
+                "invalidation_level": null,
+                "kind": "FUT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Micro gold",
+                "symbol": "MGC",
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+              "registration_hash": "1a45c9646aa9d0a1120a3d0957f16f5bc46a37925f8e72946cab81c9b6e985d3",
+              "review_at_utc": "2026-11-11T12:00:00Z",
+              "run_id": "request-9f7c39e808aef09c",
+              "scenario_analysis": {
+                "acceptance": "accepted so far: about 4057 at 13:58Z (Reuters, context) and 4050.95 at 15:05Z, below every earlier price on record today (4080-4104, 09:00-10:20Z); the exact T0 level is not observed, and on 6 Nov the reaction also held at T0+30 min and T0+2 h before closing back through the pre-release level, so acceptance at T0+95 min does not separate today from 6 Nov.",
+                "base_case": {
+                  "market_move": "gold stays below the broken 4054-4073 support zone and falls through the 6 Nov low 4026.88 toward lower levels before 13 Nov 08:00Z, as the hike repricing lifts real yields and the dollar.",
+                  "probability_pct": 50.0
+                },
+                "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured -2.13% with every USD pair USD-up and the break of the 9 Nov D1 low 4054.825; (3) crowded speculative length (45% of open interest net long, 3 Nov).",
+                "driver": "MIXED inside sessions, CLEAR in D1 sign.; D1 sign followed the USD leg on 4 Nov (+3.23% with EURUSD +0.25%), 6 Nov (-0.36% with -0.79%), 9 Nov (+2.06% with +0.68%) and today (-2.13% with -0.37%); but today's move is about 5.8 times the USD leg, about -1.20% of it came by 09:30Z with EURUSD +0.08%, and the 6 Nov release session went +0.20% against DXY +0.23%; 20-day DXY beta -1.17 (correlation -0.22), 20-day US10Y correlation +0.09.",
+                "field_first_causes": {
+                  "acceptance": null,
+                  "confirmations": null,
+                  "driver": null,
+                  "invalidation_reason": null,
+                  "invalidation_text": null,
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": null,
+                  "priced": null,
+                  "why_no_open": null,
+                  "zone_reason": null
+                },
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "invalidation_reason": "4096 sits above 4080, where today's earlier long was stopped, and the 4084.40 H1 floor of the 06:52Z ledger, and below 4104 (09:00Z) and the 6 Nov high 4107.09; a trade there means the release reaction failed.",
+                "invalidation_text": "any trade above 4096; the thesis is also broken by an M15 close above 4084.40 while EURUSD is back above 1.1199, a metals-only rebound of more than 0.9% with DXY flat, a Fed push-back on a December hike, or the US 2y giving back most of its CPI rise.",
+                "main_alternative": {
+                  "market_move": "crowded-long dip buying returns, as on 6-9 Nov, and gold climbs back above 4096 before 13 Nov 08:00Z.",
+                  "probability_pct": 40.0
+                },
+                "mechanism": "the hot core print pushes the US front end toward a December hike (context: about a full hike priced, 2y +15-17 bp), raising real yields and firming the USD against a non-yielding asset whose speculators held 45% of open interest net long (3 Nov), with forced selling below the broken 8-9 Nov lows 4054.21/4054.83; captured 4139.17 (9 Nov close) to a 4050.952 bid at 15:05:02Z, -2.13% or -1.20 D1 ATR (ATR 73.38).",
+                "missing_fields": [],
+                "opposite_mechanism": "metals-specific dip buying by the crowded long base, as on 6-9 Nov, with mean reversion to the 20-day mean 4039.15 and support at the 6 Nov NFP low 4026.88, where last week's short stopped making progress (H1 low 4029.79).",
+                "positioning": "speculators net long 179,548 of 399,169 (45%, COT 3 Nov, before the run to 4148.76; today's length not observed); flow-forcing levels are the broken 4054.2-4054.8 lows, then the 6 Nov D1 low 4026.88; ETF stocks were flat 2-6 Nov (GLD 1040.51 to 1041.37 t, IAU 461.62 to 460.81 t) and say nothing about 9-10 Nov dip demand. Crowd trade: long gold, wrong while gold stays under 4073.55-4084.40; this short is wrong on a metals-only rebound like 9 Nov 00:30-01:00Z (+0.91%, about 37 points, DXY -0.03%).",
+                "priced": "prior_pricing AMBIGUOUS; the +2.74 ATR five-session run-up (3 Nov close 3938.16 to 9 Nov 4139.17) is fully given back; the capture sits +0.16 ATR over the 20-day mean 4039.15, -1.36 under the 50-day 4150.44 and -3.96 under the 200-day 4341.80; 20-day range 3870.03-4190.65; ATR percentile 15.3 before today; the dossier IN_LINE band (about -2.6% to +2.8%) contains today's move; the 48 h to 15 min drift, T0 level and implied move are not observed.",
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+                "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+                "why_no_open": "the capture sits 11-19 points under the reviewed selling zone, near the release low; selling there would repeat the 6 Nov release chase that reversed.",
+                "zone_reason": "4062-4070 sells a retest of the broken support cluster: the 5 Nov D1 low 4061.41, the 4 Nov close 4065.54, the 6 Nov release-session close 4066.0 (dated review), the 6 Nov D1 close 4071.23 and the 4 Nov high 4071.63, under the 8 Nov Sunday-stub high 4073.55 (weak, 8,686 ticks)."
+              },
+              "scenario_first_cause": null,
+              "status": "EXPIRED",
+              "status_at_utc": "2026-11-10T18:30:00Z",
+              "status_label": "Expired",
+              "trigger_hash": "b98efe191ada850025bea30208802465a323ca2547f6e38bb89eb351b8d943cd",
+              "zone": {
+                "maximum": 4070.0,
+                "minimum": 4062.0
+              }
+            }
+          }
+        }
+      }
+    },
+    "snapshot": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\T\\XAUUSD_2026-11-11_16-42-54.png",
+      "sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e",
+      "width": 1080,
+      "height": 850,
+      "chart_geometry": {
+        "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+        "pane_box": [
+          10,
+          27,
+          998,
+          762
+        ],
+        "axis_origin": [
+          998,
+          27
+        ],
+        "axis_pixel_match": 1.0,
+        "mode": "linear",
+        "slope": -1.7328533690647758,
+        "intercept": 7408.411850903844,
+        "max_label_error_px": 0.028340563575511624,
+        "grid_checks": [
+          {
+            "price": 3860.0,
+            "page_y_in_download": 719.5998825526309,
+            "grid_y": 719,
+            "error_px": 0.599882552630902
+          },
+          {
+            "price": 3880.0,
+            "page_y_in_download": 684.9427388726493,
+            "grid_y": 685,
+            "error_px": 0.057261127350670904
+          },
+          {
+            "price": 3900.0,
+            "page_y_in_download": 650.2855951926676,
+            "grid_y": 650,
+            "error_px": 0.28559519266764255
+          },
+          {
+            "price": 3920.0,
+            "page_y_in_download": 615.6284515126861,
+            "grid_y": 615,
+            "error_px": 0.6284515126860697
+          },
+          {
+            "price": 3940.0,
+            "page_y_in_download": 580.9713078327045,
+            "grid_y": 581,
+            "error_px": 0.028692167295503168
+          },
+          {
+            "price": 3960.0,
+            "page_y_in_download": 546.3141641527228,
+            "grid_y": 546,
+            "error_px": 0.3141641527228103
+          },
+          {
+            "price": 3980.0,
+            "page_y_in_download": 511.65702047274124,
+            "grid_y": 512,
+            "error_px": 0.3429795272587626
+          },
+          {
+            "price": 4000.0,
+            "page_y_in_download": 476.9998767927596,
+            "grid_y": 477,
+            "error_px": 0.0001232072403922757
+          },
+          {
+            "price": 4020.0,
+            "page_y_in_download": 442.342733112778,
+            "grid_y": 442,
+            "error_px": 0.342733112777978
+          },
+          {
+            "price": 4040.0,
+            "page_y_in_download": 407.68558943279635,
+            "grid_y": 408,
+            "error_px": 0.3144105672036517
+          },
+          {
+            "price": 4060.0,
+            "page_y_in_download": 373.0284457528148,
+            "grid_y": 373,
+            "error_px": 0.02844575281477546
+          },
+          {
+            "price": 4080.0,
+            "page_y_in_download": 338.37130207283315,
+            "grid_y": 338,
+            "error_px": 0.37130207283314576
+          },
+          {
+            "price": 4100.0,
+            "page_y_in_download": 303.7141583928515,
+            "grid_y": 304,
+            "error_px": 0.28584160714848394
+          },
+          {
+            "price": 4120.0,
+            "page_y_in_download": 269.0570147128699,
+            "grid_y": 269,
+            "error_px": 0.05701471286988635
+          },
+          {
+            "price": 4140.0,
+            "page_y_in_download": 234.3998710328883,
+            "grid_y": 234,
+            "error_px": 0.3998710328883135
+          },
+          {
+            "price": 4160.0,
+            "page_y_in_download": 199.74272735290663,
+            "grid_y": 200,
+            "error_px": 0.25727264709337305
+          },
+          {
+            "price": 4180.0,
+            "page_y_in_download": 165.08558367292505,
+            "grid_y": 165,
+            "error_px": 0.08558367292505409
+          },
+          {
+            "price": 4200.0,
+            "page_y_in_download": 130.42843999294348,
+            "grid_y": 130,
+            "error_px": 0.42843999294348123
+          },
+          {
+            "price": 4220.0,
+            "page_y_in_download": 95.77129631296191,
+            "grid_y": 96,
+            "error_px": 0.22870368703809163
+          },
+          {
+            "price": 4240.0,
+            "page_y_in_download": 61.11415263298022,
+            "grid_y": 61,
+            "error_px": 0.11415263298022182
+          }
+        ],
+        "source_sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e"
+      },
+      "capture_ratio": "16:9",
+      "capture_viewport": {
+        "width": 1466,
+        "height": 844
+      },
+      "tv_symbol": "FX_IDC:XAUUSD",
+      "interval": "240",
+      "interval_label": "4h",
+      "legend": "4h",
+      "page_title": "XAUUSD 3,998.540 ▼ −0.83%",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=240",
+      "suggested_filename": "XAUUSD_2026-11-11_16-42-54.png",
+      "captured_at_utc": "2026-11-11T16:42:54.345977+00:00",
+      "seconds": 7.4,
+      "template_chart_size": [
+        1080,
+        850
+      ],
+      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    },
+    "framing": {
+      "box": [
+        0,
+        170,
+        1080,
+        1020
+      ],
+      "original_size": [
+        1080,
+        850
+      ],
+      "paste_box": [
+        0,
+        170,
+        1080,
+        1020
+      ],
+      "scale": 1.0,
+      "shape_error": 0.0,
+      "paper_margin_fraction": 0.0
+    },
+    "levels": {
+      "required": true,
+      "levels_visible": true,
+      "pane_box": [
+        22.0,
+        259.0,
+        986.0,
+        920.0
+      ],
+      "entry_colour": "#1F5FBF",
+      "target_visible": false
+    },
+    "texts": [
+      {
+        "text": "Invalidation 4,096",
+        "box": [
+          34.0,
+          462.64445121452263,
+          273.0,
+          487.64445121452263
+        ],
+        "zone": [
+          34.0,
+          462.64445121452263,
+          285.0,
+          496.64445121452263
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Invalidation 4,096",
+            "mono": false
+          }
+        ],
+        "colour": "red",
+        "field": "chart_level"
+      },
+      {
+        "text": "Entry 4,062–4,070",
+        "box": [
+          34.0,
+          514.6300522864658,
+          284.0,
+          540.6300522864658
+        ],
+        "zone": [
+          34.0,
+          514.6300522864658,
+          296.0,
+          548.6300522864658
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry 4,062–4,070",
+            "mono": false
+          }
+        ],
+        "colour": "blue",
+        "field": "chart_level"
+      },
+      {
+        "text": "Gold",
+        "box": [
+          68,
+          28,
+          214,
+          77
+        ],
+        "zone": [
+          68,
+          28,
+          1040,
+          104
+        ],
+        "size": 64,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Gold",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "title"
+      },
+      {
+        "text": "SHORT",
+        "box": [
+          250,
+          44,
+          383,
+          73
+        ],
+        "zone": [
+          250,
+          44,
+          387,
+          91
+        ],
+        "size": 38,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "SHORT",
+            "mono": false
+          }
+        ],
+        "colour": "#FFFFFF",
+        "field": "direction"
+      },
+      {
+        "text": "Mid-term",
+        "box": [
+          40,
+          113,
+          191,
+          140
+        ],
+        "zone": [
+          40,
+          113,
+          1040,
+          162
+        ],
+        "size": 34,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Mid-term",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "horizon"
+      },
+      {
+        "text": "Expired, no entry",
+        "box": [
+          734.0,
+          113,
+          1040.0,
+          149
+        ],
+        "zone": [
+          734.0,
+          113,
+          1040,
+          168
+        ],
+        "size": 38,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Expired, no entry",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "status"
+      },
+      {
+        "text": "Entry",
+        "box": [
+          40,
+          1030,
+          120,
+          1060
+        ],
+        "zone": [
+          40,
+          1030,
+          500,
+          1068
+        ],
+        "size": 32,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry",
+            "mono": false
+          }
+        ],
+        "colour": "muted",
+        "field": "cell_label"
+      },
+      {
+        "text": "4,062–4,070",
+        "box": [
+          40,
+          1070,
+          359,
+          1111
+        ],
+        "zone": [
+          40,
+          1070,
+          500,
+          1133
+        ],
+        "size": 48,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "4,062–4,070",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "Entry"
+      },
+      {
+        "text": "Invalidation",
+        "box": [
+          580,
+          1030,
+          752,
+          1055
+        ],
+        "zone": [
+          580,
+          1030,
+          1040,
+          1068
+        ],
+        "size": 32,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Invalidation",
+            "mono": false
+          }
+        ],
+        "colour": "muted",
+        "field": "cell_label"
+      },
+      {
+        "text": "4,096",
+        "box": [
+          580,
+          1070,
+          725,
+          1111
+        ],
+        "zone": [
+          580,
+          1070,
+          1040,
+          1133
+        ],
+        "size": 48,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "4,096",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "Invalidation"
+      },
+      {
+        "text": "Time exit",
+        "box": [
+          40,
+          1138,
+          177,
+          1163
+        ],
+        "zone": [
+          40,
+          1138,
+          500,
+          1176
+        ],
+        "size": 32,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Time exit",
+            "mono": false
+          }
+        ],
+        "colour": "muted",
+        "field": "cell_label"
+      },
+      {
+        "text": "13 Nov, 3:00 AM ET",
+        "box": [
+          40,
+          1178,
+          400,
+          1207
+        ],
+        "zone": [
+          40,
+          1178,
+          500,
+          1241
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "13 Nov, 3:00 AM ET",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "Time exit"
+      },
+      {
+        "text": "Main 50% · Alternative 40%",
+        "box": [
+          40,
+          1248,
+          452,
+          1275
+        ],
+        "zone": [
+          40,
+          1248,
+          1040,
+          1292
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Main ",
+            "mono": false
+          },
+          {
+            "text": "50%",
+            "mono": true
+          },
+          {
+            "text": " · Alternative ",
+            "mono": false
+          },
+          {
+            "text": "40%",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "CAPITAL CHRONICLE",
+        "box": [
+          640.0,
+          1302,
+          1040.0,
+          1331
+        ],
+        "zone": [
+          640.0,
+          1302,
+          1040,
+          1343
+        ],
+        "size": 38,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "CAPITAL CHRONICLE",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "wordmark"
+      }
+    ],
+    "notes": [],
+    "alt_text": "TradingView 4h chart of Gold.",
+    "chart": true,
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d"
+  },
+  "tradingview_snapshot": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\XAUUSD\\T\\XAUUSD_2026-11-11_16-42-54.png",
+    "sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e",
+    "width": 1080,
+    "height": 850,
+    "chart_geometry": {
+      "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+      "pane_box": [
+        10,
+        27,
+        998,
+        762
+      ],
+      "axis_origin": [
+        998,
+        27
+      ],
+      "axis_pixel_match": 1.0,
+      "mode": "linear",
+      "slope": -1.7328533690647758,
+      "intercept": 7408.411850903844,
+      "max_label_error_px": 0.028340563575511624,
+      "grid_checks": [
+        {
+          "price": 3860.0,
+          "page_y_in_download": 719.5998825526309,
+          "grid_y": 719,
+          "error_px": 0.599882552630902
+        },
+        {
+          "price": 3880.0,
+          "page_y_in_download": 684.9427388726493,
+          "grid_y": 685,
+          "error_px": 0.057261127350670904
+        },
+        {
+          "price": 3900.0,
+          "page_y_in_download": 650.2855951926676,
+          "grid_y": 650,
+          "error_px": 0.28559519266764255
+        },
+        {
+          "price": 3920.0,
+          "page_y_in_download": 615.6284515126861,
+          "grid_y": 615,
+          "error_px": 0.6284515126860697
+        },
+        {
+          "price": 3940.0,
+          "page_y_in_download": 580.9713078327045,
+          "grid_y": 581,
+          "error_px": 0.028692167295503168
+        },
+        {
+          "price": 3960.0,
+          "page_y_in_download": 546.3141641527228,
+          "grid_y": 546,
+          "error_px": 0.3141641527228103
+        },
+        {
+          "price": 3980.0,
+          "page_y_in_download": 511.65702047274124,
+          "grid_y": 512,
+          "error_px": 0.3429795272587626
+        },
+        {
+          "price": 4000.0,
+          "page_y_in_download": 476.9998767927596,
+          "grid_y": 477,
+          "error_px": 0.0001232072403922757
+        },
+        {
+          "price": 4020.0,
+          "page_y_in_download": 442.342733112778,
+          "grid_y": 442,
+          "error_px": 0.342733112777978
+        },
+        {
+          "price": 4040.0,
+          "page_y_in_download": 407.68558943279635,
+          "grid_y": 408,
+          "error_px": 0.3144105672036517
+        },
+        {
+          "price": 4060.0,
+          "page_y_in_download": 373.0284457528148,
+          "grid_y": 373,
+          "error_px": 0.02844575281477546
+        },
+        {
+          "price": 4080.0,
+          "page_y_in_download": 338.37130207283315,
+          "grid_y": 338,
+          "error_px": 0.37130207283314576
+        },
+        {
+          "price": 4100.0,
+          "page_y_in_download": 303.7141583928515,
+          "grid_y": 304,
+          "error_px": 0.28584160714848394
+        },
+        {
+          "price": 4120.0,
+          "page_y_in_download": 269.0570147128699,
+          "grid_y": 269,
+          "error_px": 0.05701471286988635
+        },
+        {
+          "price": 4140.0,
+          "page_y_in_download": 234.3998710328883,
+          "grid_y": 234,
+          "error_px": 0.3998710328883135
+        },
+        {
+          "price": 4160.0,
+          "page_y_in_download": 199.74272735290663,
+          "grid_y": 200,
+          "error_px": 0.25727264709337305
+        },
+        {
+          "price": 4180.0,
+          "page_y_in_download": 165.08558367292505,
+          "grid_y": 165,
+          "error_px": 0.08558367292505409
+        },
+        {
+          "price": 4200.0,
+          "page_y_in_download": 130.42843999294348,
+          "grid_y": 130,
+          "error_px": 0.42843999294348123
+        },
+        {
+          "price": 4220.0,
+          "page_y_in_download": 95.77129631296191,
+          "grid_y": 96,
+          "error_px": 0.22870368703809163
+        },
+        {
+          "price": 4240.0,
+          "page_y_in_download": 61.11415263298022,
+          "grid_y": 61,
+          "error_px": 0.11415263298022182
+        }
+      ],
+      "source_sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e"
+    },
+    "capture_ratio": "16:9",
+    "capture_viewport": {
+      "width": 1466,
+      "height": 844
+    },
+    "tv_symbol": "FX_IDC:XAUUSD",
+    "interval": "240",
+    "interval_label": "4h",
+    "legend": "4h",
+    "page_title": "XAUUSD 3,998.540 ▼ −0.83%",
+    "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=240",
+    "suggested_filename": "XAUUSD_2026-11-11_16-42-54.png",
+    "captured_at_utc": "2026-11-11T16:42:54.345977+00:00",
+    "seconds": 7.4,
+    "template_chart_size": [
+      1080,
+      850
+    ],
+    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+  },
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true,
+  "image_quality": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "image_sha256": "e3a164d4c824251f832c30efb48353f110b52b0312c5c782f38b2b22a1ee5321",
+    "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+    "template": "call",
+    "master": "T",
+    "score": 0,
+    "points": {
+      "1": false,
+      "2": false,
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false
+    },
+    "passed": false,
+    "code": {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "e3a164d4c824251f832c30efb48353f110b52b0312c5c782f38b2b22a1ee5321",
+      "template_revision": "a3e6a6d1549b8c1fe49e1e7311c826006a6bd7027c5ac1c517c4d9ee81fa260d",
+      "template": "call",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": false,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ]
+    },
+    "vision": {
+      "points": {},
+      "status": "NOT_RUN"
+    },
+    "reviewed_at_utc": "2026-11-11T17:25:00.633345+00:00"
+  }
+}

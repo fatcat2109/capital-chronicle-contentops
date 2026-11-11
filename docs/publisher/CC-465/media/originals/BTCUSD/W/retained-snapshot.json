@@ -1,0 +1,148 @@
+{
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\W\\BTCUSD_2026-11-11_16-45-23.png",
+  "sha256": "b494743cfe484f73a84db35c5ac162f478e84191d949bfb252cc65fab41fc8fe",
+  "width": 1600,
+  "height": 700,
+  "chart_geometry": {
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "pane_box": [
+      10,
+      27,
+      1518,
+      612
+    ],
+    "axis_origin": [
+      1518,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "mode": "linear",
+    "slope": -0.0327840909312915,
+    "intercept": 2945.993178456681,
+    "max_label_error_px": 0.6196936434776035,
+    "grid_checks": [
+      {
+        "price": 72000.0,
+        "page_y_in_download": 585.430789642667,
+        "grid_y": 585,
+        "error_px": 0.4307896426670368
+      },
+      {
+        "price": 73000.0,
+        "page_y_in_download": 552.6556223605959,
+        "grid_y": 553,
+        "error_px": 0.34437763940411514
+      },
+      {
+        "price": 74000.0,
+        "page_y_in_download": 519.8804550785247,
+        "grid_y": 520,
+        "error_px": 0.11954492147526707
+      },
+      {
+        "price": 75000.0,
+        "page_y_in_download": 487.1052877964536,
+        "grid_y": 487,
+        "error_px": 0.105287796453581
+      },
+      {
+        "price": 76000.0,
+        "page_y_in_download": 454.33012051438243,
+        "grid_y": 454,
+        "error_px": 0.33012051438242906
+      },
+      {
+        "price": 77000.0,
+        "page_y_in_download": 421.5549532323113,
+        "grid_y": 421,
+        "error_px": 0.5549532323112771
+      },
+      {
+        "price": 78000.0,
+        "page_y_in_download": 388.7797859502402,
+        "grid_y": 389,
+        "error_px": 0.22021404975981795
+      },
+      {
+        "price": 79000.0,
+        "page_y_in_download": 356.00461866816903,
+        "grid_y": 356,
+        "error_px": 0.004618668169030116
+      },
+      {
+        "price": 80000.0,
+        "page_y_in_download": 323.22945138609794,
+        "grid_y": 323,
+        "error_px": 0.22945138609793503
+      },
+      {
+        "price": 81000.0,
+        "page_y_in_download": 290.4542841040268,
+        "grid_y": 290,
+        "error_px": 0.4542841040267831
+      },
+      {
+        "price": 82000.0,
+        "page_y_in_download": 257.67911682195563,
+        "grid_y": 258,
+        "error_px": 0.32088317804436883
+      },
+      {
+        "price": 83000.0,
+        "page_y_in_download": 224.90394953988448,
+        "grid_y": 225,
+        "error_px": 0.09605046011552076
+      },
+      {
+        "price": 84000.0,
+        "page_y_in_download": 192.12878225781333,
+        "grid_y": 192,
+        "error_px": 0.1287822578133273
+      },
+      {
+        "price": 85000.0,
+        "page_y_in_download": 159.35361497574218,
+        "grid_y": 159,
+        "error_px": 0.3536149757421754
+      },
+      {
+        "price": 86000.0,
+        "page_y_in_download": 126.57844769367108,
+        "grid_y": 126,
+        "error_px": 0.5784476936710803
+      },
+      {
+        "price": 87000.0,
+        "page_y_in_download": 93.80328041159999,
+        "grid_y": 94,
+        "error_px": 0.1967195884000148
+      },
+      {
+        "price": 88000.0,
+        "page_y_in_download": 61.02811312952883,
+        "grid_y": 61,
+        "error_px": 0.02811312952883327
+      }
+    ],
+    "source_sha256": "b494743cfe484f73a84db35c5ac162f478e84191d949bfb252cc65fab41fc8fe"
+  },
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "width": 1986,
+    "height": 694
+  },
+  "tv_symbol": "COINBASE:BTCUSD",
+  "interval": "240",
+  "interval_label": "4h",
+  "legend": "4h",
+  "page_title": "BTCUSD 74,145.55 ▲ +0.61%",
+  "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+  "suggested_filename": "BTCUSD_2026-11-11_16-45-23.png",
+  "captured_at_utc": "2026-11-11T16:45:23.834513+00:00",
+  "seconds": 72.5,
+  "template_chart_size": [
+    1600,
+    700
+  ],
+  "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+}

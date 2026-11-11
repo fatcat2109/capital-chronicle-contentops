@@ -1,0 +1,100 @@
+{
+  "images": [
+    {
+      "market": "BTCUSD",
+      "master": "T",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\BTCUSD\\T\\BTCUSD_2026-11-11_16-45-33.png",
+      "sha256": "29f62f4d7d4094eeeabd763bd3663165db056a9c57112cbd176638e7920562dd",
+      "bytes": 74620,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "BTCUSD",
+      "master": "W",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\BTCUSD\\W\\BTCUSD_2026-11-11_16-45-23.png",
+      "sha256": "b494743cfe484f73a84db35c5ac162f478e84191d949bfb252cc65fab41fc8fe",
+      "bytes": 86889,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "EURUSD",
+      "master": "T",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\EURUSD\\T\\EURUSD_2026-11-11_16-43-28.png",
+      "sha256": "ad0f5002da8815f79e4849263ccb0f6f5771738ad7882db5936410163e07eaa6",
+      "bytes": 78870,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "EURUSD",
+      "master": "W",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\EURUSD\\W\\EURUSD_2026-11-11_16-43-20.png",
+      "sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160",
+      "bytes": 80388,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "US500",
+      "master": "T",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\US500\\T\\SPX_2026-11-11_16-43-11.png",
+      "sha256": "4db5cc720f51c4355bfad15978d3193d26e8ddbeed71efabff0561ba1c6e2d6a",
+      "bytes": 75476,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "US500",
+      "master": "W",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\US500\\W\\SPX_2026-11-11_16-43-03.png",
+      "sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d",
+      "bytes": 89320,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "USDJPY",
+      "master": "T",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\USDJPY\\T\\USDJPY_2026-11-11_16-43-46.png",
+      "sha256": "0180a788958f764e784294e5d79afcbb9f9939b30b3e409b4a910d7bffadee3b",
+      "bytes": 80430,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "USDJPY",
+      "master": "W",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\USDJPY\\W\\USDJPY_2026-11-11_16-43-35.png",
+      "sha256": "39c1496a4cc1046a1d5b0ba0c06bcfd4f83749c8b22cd33e12b007052cb3d879",
+      "bytes": 81761,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "USOIL",
+      "master": "T",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\USOIL\\T\\CL1!_2026-11-11_16-44-07.png",
+      "sha256": "a10d17b10753ed99c0e82a3e962255dee0310460c1d1b911a7b486f96952efba",
+      "bytes": 75200,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "USOIL",
+      "master": "W",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\USOIL\\W\\CL1!_2026-11-11_16-43-58.png",
+      "sha256": "a4623c2a09126dab3ab46cef48f8b91c3343f817fedaa71cb2e1aab7bc38b2b5",
+      "bytes": 87852,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "XAUUSD",
+      "master": "T",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\T\\XAUUSD_2026-11-11_16-42-54.png",
+      "sha256": "aaec5de7c85b48592a1b35f4f8d555b57c5b79e7cd91864541ce479ff3a1c44e",
+      "bytes": 83272,
+      "comparison_basis": "NOT_COMPARED"
+    },
+    {
+      "market": "XAUUSD",
+      "master": "W",
+      "path": "docs\\publisher\\CC-465\\media\\originals\\XAUUSD\\W\\XAUUSD_2026-11-11_16-42-45.png",
+      "sha256": "598d58157b26c63c5c6024c7f18ccce571919105aea2cbd6a1db80cf5fb3e8c7",
+      "bytes": 89187,
+      "comparison_basis": "NOT_COMPARED"
+    }
+  ]
+}
