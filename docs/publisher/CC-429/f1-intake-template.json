@@ -1,0 +1,36 @@
+{
+  "purpose": "Blank manual intake; not a frozen call, registration or awarded badge",
+  "format_owner": "CC-409 CapitalChronicleCallsLedgerPublicV1",
+  "creator_namespace": null,
+  "original_publication_url": null,
+  "display_permission": null,
+  "call": {
+    "public_call_id": null,
+    "market": null,
+    "direction": null,
+    "frozen_at_utc": null,
+    "horizon_end_utc": null,
+    "entry": null,
+    "entry_bounds": {"minimum": null, "maximum": null},
+    "invalidation_level": null,
+    "forecast_probabilities": {
+      "reference_price": null,
+      "reference_at_utc": null,
+      "horizon_end_utc": null,
+      "probability_basis": null,
+      "probability_up_pct": null,
+      "probability_touch_pct": null,
+      "probability_target_before_stop_pct": null,
+      "missing_reasons": ["NOT_YET_SUBMITTED"]
+    }
+  },
+  "registration": {"start_utc": null, "end_utc": null, "expiry_utc": null},
+  "condition_text": null,
+  "outcome_definition": null,
+  "probability_definitions": {
+    "probability_up_pct": "Chance of ending above reference_price at horizon_end_utc; not confidence in either chosen direction",
+    "probability_touch_pct": "Chance of touching the declared entry condition within the registered window",
+    "probability_target_before_stop_pct": "Chance of the explicitly declared target-before-stop event; keep its conditioning and horizon"
+  },
+  "handling": "Null stays null. No complement, copied probability or invented price. The existing owner assigns identities and chain hashes on acceptance; never hand-fill a hash or fabricate a trading registration. No creator record is written into Main's operational calls ledger."
+}
