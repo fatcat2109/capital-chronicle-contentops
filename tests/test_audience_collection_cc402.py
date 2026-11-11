@@ -266,3 +266,15 @@ def test_local_midnight_requires_a_new_native_source_read_even_in_same_utc_day(t
     rows = store.list_performance_observations()
     assert sorted(json.loads(r["metrics_native_json"])["views"] for r in rows) == [1, 2]
     assert {r["observation_window"] for r in rows} == {"AUDIENCE_DAILY:2026-11-11", "AUDIENCE_DAILY:2026-11-12"}
+
+
+def test_existing_minute_record_retains_collection_and_usage_without_metric_bodies(tmp_path):
+    from live_contentops.plan_status_posts_v1 import record_run
+    result = {"status": "OK", "audience_collection": {"state": "COLLECTED", "collected": 4,
+        "pending": 10, "outcomes": [{"observation_id": "one", "status": "COLLECTED"}],
+        "metrics_native_json": "not a run record field"}, "model_usage": {"imported": 1},
+        "weekly_audience": {"channels": 10, "desk": "audience-weekly/latest.json"}}
+    row = json.loads(record_run(result, tmp_path, now=NOW).read_text(encoding="utf-8"))
+    assert row["audience_collection"]["collected"] == 4
+    assert "metrics_native_json" not in row["audience_collection"]
+    assert row["model_usage"]["imported"] == 1 and row["weekly_audience"]["channels"] == 10

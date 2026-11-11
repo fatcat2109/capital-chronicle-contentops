@@ -885,6 +885,12 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
         line["scorecard"] = result["scorecard"]
     if "event_timestamp" in result:
         line["event_timestamp"] = result["event_timestamp"]
+    if "audience_collection" in result:
+        line["audience_collection"] = {k: v for k, v in result["audience_collection"].items()
+            if k in {"state", "scheduled", "collected", "pending", "cause", "outcomes", "public_write_performed", "model_calls"}}
+    for name in ("model_usage", "weekly_audience"):
+        if name in result:
+            line[name] = result[name]
     if "event_packs" in result:
         line["event_packs"] = {"status": result["event_packs"].get("status"), "events": []}
         for event in result["event_packs"].get("events") or []:
