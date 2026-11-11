@@ -7,9 +7,9 @@
   "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:12640s",
   "source_assessment": {
     "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261111-1536\\source-assessment.json",
-    "bytes": 34525,
-    "sha256": "62ff854d5b578f6765fb9f1e2ffa671121a845436e9e7d18b8d2566277647f83",
-    "modified_at_utc": "2026-11-11T08:44:17.870563+00:00"
+    "bytes": 33780,
+    "sha256": "f80d3a21c1e76d8bc6153c7a8620005ff2e950278f60386a025e4975ea8441bf",
+    "modified_at_utc": "2026-11-11T08:47:24.476048+00:00"
   },
   "choice": "Use both new Main reports, current T2 ranking and held scenarios in the assessment. The latest completed daily analysis exceeds the root CC-403 60-minute data cutoff; the T2 output supplies rankings only. Keep the next run aligned to the pre-US daily note, rather than publish stale analysis or invent a call.",
   "authority": [

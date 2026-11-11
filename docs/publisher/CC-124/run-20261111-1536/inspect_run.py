@@ -30,7 +30,7 @@ def info(path):
 
 
 def save(name, value):
-    with (HERE / name).open("x", encoding="utf-8") as output:
+    with (HERE / name).open("x", encoding="utf-8", newline="\n") as output:
         json.dump(value, output, indent=2, ensure_ascii=True)
         output.write("\n")
 
