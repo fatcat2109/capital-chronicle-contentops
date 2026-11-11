@@ -364,17 +364,29 @@ def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,m
 
 
 @pytest.mark.parametrize('destination',['x','substack_notes'])
-def test_minute_consumer_resumes_an_exact_unsent_composer_only_after_repair(tmp_path,destination):
+@pytest.mark.parametrize('refusal',['NEO_COMPOSER_PAYLOAD_MISMATCH','NEO_REGISTERED_PROFILE_UNAVAILABLE'])
+def test_minute_consumer_resumes_an_exact_unsent_composer_only_after_repair(tmp_path,monkeypatch,destination,refusal):
     from live_contentops.plan_call_cards_v1 import _ready_destinations
     store=copied_store(tmp_path);ids,value=message(store,destination)
     with endpoint(fault='composer') as (url,state):
         c,e=bound(store,tmp_path,value['work_item_id'],url);e.executor_revision='previous-installed-source'
-        first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
+        with monkeypatch.context() as patch:
+            if refusal=='NEO_REGISTERED_PROFILE_UNAVAILABLE':
+                patch.setattr(neo.NeoBrowserDriver,'perform',lambda self,packet:{'identity':{'authenticated':False,
+                    'observed_identity':None,'observed_at_utc':datetime.now(timezone.utc).isoformat()},
+                    'result':{'status':'FAILED_BEFORE_WRITE','definite_no_write':True,'stage':'BEFORE_PUBLISH_CLICK',
+                        'reason_code':refusal,'safe_error_classification':'NEO_BEFOREUNLOAD_SNAPSHOT'}})
+            first=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
         assert first['status']=='DEFINITE_NO_WRITE' and not state['posts']
         dispatch=store.get_platform_dispatch(ids['dispatch_id'])
         assert e.repaired_prewrite_request(dispatch) is None
         assert neo.repaired_prewrite_request(store,dispatch)
     assert destination in _ready_destinations(store,{'key':value['work_item_id'],'kind':'run'})
+    if refusal=='NEO_REGISTERED_PROFILE_UNAVAILABLE':
+        # An older composer return may already have supplied the retained
+        # reconciliation; the latest immutable no-write proof remains decisive.
+        store.register_reconciliation(reconciliation_id=ids['reconciliation_id'],
+            work_item_id=value['work_item_id'],status='NEO_COMPOSER_PREPARATION_FAILED')
     with endpoint() as (url,state):
         c,e=bound(store,tmp_path,value['work_item_id'],url)
         result=c._dispatch_message(store.get_outbox_message(ids['message_id']),canonical_url=value['canonical_url'])
@@ -669,11 +681,14 @@ def test_own_crop_dialog_is_cancelled_before_discarding_an_unsent_thread():
             if self.step==1:return {'url':'https://x.com/compose/post','refs':[{'role':'button','name':'Close','ref':'close'}]}
             return {'text':'alertdialog "Save post?"','refs':[{'role':'button','name':'Discard','ref':'discard'}]}
         def wait(self,*args):pass
-        def run(self,page,phase):assert phase=='composer';return ['Bound unsent copy']
+        def run(self,page,phase):
+            if phase=='dismiss_focused':return {'focused':True}
+            assert phase=='composer';return ['Bound unsent copy']
         def act(self,page,kind,**kw):
-            assert kind=='click';self.actions.append(kw['ref']);self.step+=1
+            if kind=='focus':self.actions.append('focus-'+kw['ref']);return
+            self.actions.append(kw.get('ref') or kw['key']);self.step+=1
     client=Client();client.clear_task_draft(1)
-    assert client.actions==['back','close','discard']
+    assert client.actions==['back','focus-close','Enter','discard']
 
 
 @pytest.mark.parametrize('author_verified',[True,False])

@@ -1352,10 +1352,11 @@ class ContentOpsDurableStore:
             row = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (dispatch_id,)).fetchone()
             restored_policy_no_write = False
             restorable_causes = {
-                "x": {"X_NON_API_AUTOMATION_PROHIBITED", "NEO_COMPOSER_PREPARATION_FAILED", "NEO_COMPOSER_PAYLOAD_MISMATCH"},
+                "x": {"X_NON_API_AUTOMATION_PROHIBITED", "NEO_COMPOSER_PREPARATION_FAILED", "NEO_COMPOSER_PAYLOAD_MISMATCH",
+                    "NEO_REGISTERED_PROFILE_UNAVAILABLE"},
                 "substack": {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION"},
                 "substack_notes": {"SUBSTACK_ACCOUNT_SUSPENDED", "SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION",
-                    "NEO_COMPOSER_PREPARATION_FAILED", "NEO_COMPOSER_PAYLOAD_MISMATCH"},
+                    "NEO_COMPOSER_PREPARATION_FAILED", "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_REGISTERED_PROFILE_UNAVAILABLE"},
             }
             if (row is not None and expected_status == "DEFINITE_NO_WRITE"
                     and policy_no_write_cause in restorable_causes.get(platform, set())

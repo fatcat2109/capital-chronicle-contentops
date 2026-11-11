@@ -2816,7 +2816,8 @@ class DurablePublicationCoordinator:
             repair_proof = (repaired_request(existing) if callable(repaired_request)
                 and not self._message_is_stale(message, intent) else None)
             repaired_composer_no_write = bool(repair_proof
-                and reconciliation_status in {None, repair_proof["reason_code"]})
+                and reconciliation_status in {None, "NEO_COMPOSER_PREPARATION_FAILED",
+                    "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_REGISTERED_PROFILE_UNAVAILABLE"})
             if repaired_composer_no_write and reconciliation_status is None:
                 # Older definite no-writes omitted a reconciliation row. Retain
                 # their immutable native return and record its actual pre-click
@@ -2885,7 +2886,7 @@ class DurablePublicationCoordinator:
         # their original recovery path. Only fresh/definitely absent writes skip.
         if not native_pending_resume:
             failure = self._destination_day_failure(destination)
-            if failure:
+            if failure and not (repaired_composer_no_write and failure.get("dispatch_id") == ids["dispatch_id"]):
                 return {"destination": destination, "status": "DESTINATION_FAILED_ET_DAY_SKIP",
                         "publish_called": False, "reason_code": "DESTINATION_FAILED_ET_DAY_SKIP",
                         "first_failure": failure}

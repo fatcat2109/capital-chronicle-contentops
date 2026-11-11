@@ -167,6 +167,15 @@ if (input.phase === 'add_post_focused') {
   }));
 }
 
+if (input.phase === 'dismiss_focused') {
+  return unwrap(await page.evaluateInPage(() => {
+    const e=document.activeElement;
+    return {focused:!!e && e.matches('button,[role="button"]')
+      && ['Close','Cancel'].includes(e.getAttribute('aria-label') || e.innerText)
+      && !!e.closest('[role="dialog"]')};
+  }));
+}
+
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
   const s = await snap();
   const posts = input.posts;

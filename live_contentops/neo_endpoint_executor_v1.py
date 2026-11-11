@@ -209,7 +209,10 @@ class NeoMcpClient:
         if close:
             dirty=("/compose/post" in snapshot.get("url","")
                 and any(text.strip() for text in self.run(page,"composer")))
-            self.act(page,"click",ref=close["ref"])
+            self.act(page,"focus",ref=close["ref"])
+            if self.run(page,"dismiss_focused").get("focused") is not True:
+                raise NeoEndpointError("NEO_CLOSE_COMPOSER_FOCUS_NOT_CONFIRMED")
+            self.act(page,"press",key="Enter")
             if dirty:
                 self.wait(page,'[role="alertdialog"]')
             follow=self.snapshot(page)
@@ -666,10 +669,10 @@ class NeoBrowserDriver:
                 return {"result":self.readback(request,page),"identity":identity}
             self.client.wait_text(page,"Edit profile")
             identity = self.client.run(page,"identity",destination=destination,expected_identity=request["expected_identity"])
-        except NeoEndpointError:
+        except NeoEndpointError as exc:
             return {"result":{"status":"READBACK_UNAVAILABLE" if request["action"]=="READBACK" else "FAILED_BEFORE_WRITE",
                 "definite_no_write":request["action"]!="READBACK","stage":"BEFORE_PUBLISH_CLICK",
-                "reason_code":"NEO_REGISTERED_PROFILE_UNAVAILABLE"},"identity":identity}
+                "reason_code":"NEO_REGISTERED_PROFILE_UNAVAILABLE","safe_error_classification":str(exc)},"identity":identity}
         if request["action"] == "VERIFY_IDENTITY":
             return {"result": {**identity,"status":"SUCCESS"}, "identity":identity}
         if not identity["authenticated"]:
@@ -722,7 +725,8 @@ def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
         result=json.loads(response["payload"]).get("result",{}) if response else {}
         if (result.get("status") != "FAILED_BEFORE_WRITE" or result.get("definite_no_write") is not True
                 or result.get("public_write_performed") is not False or result.get("stage") != "BEFORE_PUBLISH_CLICK"
-                or result.get("reason_code") not in {"NEO_COMPOSER_PREPARATION_FAILED","NEO_COMPOSER_PAYLOAD_MISMATCH"}
+                or result.get("reason_code") not in {"NEO_COMPOSER_PREPARATION_FAILED","NEO_COMPOSER_PAYLOAD_MISMATCH",
+                    "NEO_REGISTERED_PROFILE_UNAVAILABLE"}
                 or not result.get("native_tool_return_sha256")
                 or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
                 or result.get("neo_executor_revision") == revision):
