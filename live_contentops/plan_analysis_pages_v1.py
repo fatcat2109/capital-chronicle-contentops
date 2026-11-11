@@ -30,6 +30,17 @@ SECTIONS = (
     ("scenarios", "Scenarios: base, upside and downside"),
     ("desk_process", "How the desk reached its view"),
 )
+
+READER_SECTIONS = (
+    ("priced_in", "What is priced in"), ("positioning", "Positioning"),
+    ("fear", "Fear"), ("technical", "Structure"), ("story", "The story"),
+    ("macro", "Macro"), ("scenarios", "The scenarios"), ("plan", "The plan"),
+    ("invalidation", "What would change our mind"),
+)
+
+
+def sections_for(manuscript):
+    return READER_SECTIONS if manuscript.get("reader_contract") == "CC466_V1" else SECTIONS
 RIGHTS = {"CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", "PUBLIC_DOMAIN_OFFICIAL_FACT", "SINGLE_ATTRIBUTED_FACT"}
 _PRIVATE = re.compile(
     r"\b(?:demo|mt[45]|exness[\w-]*|metatrader|account\s+(?:id|number|balance|equity)|"
@@ -70,11 +81,11 @@ def load_run(plan, *, run_root=RUN_ROOT):
                    if (Path(run_root) / kind / run_id / "role-pack.json").is_file()), None)
     if folder is None:
         raise ValueError("PLAN_ANALYSIS_RUN_NOT_FOUND")
-    names = ["role-pack.json", "role-evidence.json", "critic-note.json", "integrated-owner-record.json",
+    names = ["role-pack.json", "role-evidence.json", "integrated-owner-record.json",
              "plan-geometry.json", "options-context.json", "final-decision-freeze.json", "desktop-manual-result.json"]
     names += (["analysis-native.json"] if (folder / "analysis-native.json").is_file()
               else ["primary-native.json", "critical-native.json", "owner-native.json"])
-    names += [name for name in ("market-context.json", "shock-pack.json") if (folder / name).is_file()]
+    names += [name for name in ("critic-note.json", "market-context.json", "shock-pack.json") if (folder / name).is_file()]
     documents, manifest = {}, {}
     for name in names:
         raw = (folder / name).read_bytes()
@@ -85,7 +96,8 @@ def load_run(plan, *, run_root=RUN_ROOT):
     freeze = documents["final-decision-freeze.json"]
     if freeze.get("qualitative_result_hash") != plan.get("analysis_result_hash"):
         raise ValueError("PLAN_ANALYSIS_FREEZE_RESULT_MISMATCH")
-    return {"folder": folder, "documents": documents, "manifest": manifest, "freeze": freeze}
+    return {"folder": folder, "documents": documents, "manifest": manifest, "freeze": freeze,
+            "source_plan": plan}
 
 
 def public_filter(text, *, rights="CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", source_name="Capital Chronicle",
@@ -117,13 +129,17 @@ def public_filter(text, *, rights="CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", source_
 
 def _source_text(run, ref):
     name, pointer = ref["file"], ref["pointer"]
-    if name not in run["documents"]:
+    if name == "plan-export":
+        document = run["source_plan"]
+    elif name in run["documents"]:
+        document = run["documents"][name]
+    else:
         raise ValueError("PLAN_ANALYSIS_SOURCE_FILE_NOT_BOUND")
     # Raw accounts, execution packets and bulk vendor series are never public
     # sources. Main's original analytical prose and official single facts are.
     if re.search(r"(?:account|portfolio_state|cost_inputs|cost_summary|execution|risk_allocation)", pointer, re.I):
         raise ValueError("PLAN_ANALYSIS_PRIVATE_SOURCE_POINTER")
-    value = _pointer(run["documents"][name], pointer)
+    value = _pointer(document, pointer)
     if not isinstance(value, (str, int, float)) or isinstance(value, bool):
         raise ValueError("PLAN_ANALYSIS_SCALAR_SOURCE_REQUIRED")
     if ref.get("transform") == "ET":
@@ -137,7 +153,8 @@ def validate_manuscript(plan, manuscript, run):
     if (manuscript.get("plan_id") != plan["plan_id"]
             or manuscript.get("registration_hash") != plan["registration_hash"]):
         raise ValueError("PLAN_ANALYSIS_EXACT_PLAN_REQUIRED")
-    if set(manuscript.get("sections", {})) != {key for key, _ in SECTIONS}:
+    sections = sections_for(manuscript)
+    if set(manuscript.get("sections", {})) != {key for key, _ in sections}:
         raise ValueError("PLAN_ANALYSIS_ALL_SEVEN_SECTIONS_REQUIRED")
     private_texts = []
     for name in ("market-context.json", "shock-pack.json"):
@@ -149,7 +166,7 @@ def validate_manuscript(plan, manuscript, run):
             if name == "shock-pack.json" or _X.search(json.dumps(item)):
                 private_texts.extend(item[k] for k in ("headline", "text", "body", "title") if isinstance(item.get(k), str))
     bound = []
-    for key, _ in SECTIONS:
+    for key, _ in sections:
         section = manuscript["sections"][key]
         if not section.get("paragraphs") or not section.get("summary"):
             raise ValueError("PLAN_ANALYSIS_SECTION_EMPTY:" + key)
@@ -180,6 +197,7 @@ def validate_manuscript(plan, manuscript, run):
 def _owner_candidate(plan, run):
     documents = run["documents"]
     owner = documents.get("analysis-native.json", {}).get("native_synthesis") or documents["owner-native.json"]
+    owner = owner.get("native_synthesis") or owner
     cid = {"XAUUSD": "cand_macro_gold", "USOIL": "cand_macro_wti", "US500": "cand_macro_spx",
            "BTCUSD": "cand_macro_btcusd", "EURUSD": "cand_macro_eurusd", "USDJPY": "cand_macro_usdjpy"}.get(plan["asset_id"])
     index = next(i for i,c in enumerate(owner["candidates"]) if c["candidate_id"] == cid)
@@ -229,15 +247,25 @@ def _assemble(plan, manuscript, run):
     timestamp = public_timestamp(freeze["frozen_at_utc"])
     cutoff = public_timestamp(freeze.get("decision_cutoff_utc", freeze["frozen_at_utc"]))
     audit = f"Evidence cutoff: {cutoff}. The view was fixed at {timestamp}. Analysis fingerprint: {freeze['immutable_hash']}."
-    geometry, geometry_bindings = _public_geometry(plan, run)
+    reader = manuscript.get("reader_contract") == "CC466_V1"
+    geometry, geometry_bindings = ([], []) if reader else _public_geometry(plan, run)
     paragraphs = [manuscript["introduction"]]
-    for key, title in SECTIONS:
+    for key, title in sections_for(manuscript):
         paragraphs += ["## " + title, *[p["text"] for p in manuscript["sections"][key]["paragraphs"]]]
         if key == "technical":
             paragraphs += geometry
-    paragraphs += [audit, PUBLIC_NOTICE, CONFLICTS_NOTICE]
+    if reader:
+        from .plan_reader_copy_v1 import page_footer, check_text
+        paragraphs += page_footer(plan, freeze)
+    else:
+        paragraphs += [audit]
+    paragraphs += [PUBLIC_NOTICE, CONFLICTS_NOTICE]
     body = "\n\n".join(paragraphs)
     public_filter(body)
+    if reader:
+        check_text(body, source="\n".join(_source_text(run, ref) for section in manuscript["sections"].values()
+            for paragraph in section["paragraphs"] for ref in paragraph["refs"]) + "\n" + body,
+            check_numbers=False, prose=False)
     payload = {"title": manuscript["title"], "subtitle": manuscript["subtitle"], "body_markdown": body}
     return payload, paragraphs, geometry_bindings
 
@@ -261,7 +289,7 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT):
     packet = {"schema_version": "contentops.plan_analysis_page.v1", "plan_id": plan["plan_id"],
               "registration_hash": plan["registration_hash"], "run_id": plan["run_id"],
               "analysis_result_hash": plan["analysis_result_hash"], "native_payload": payload,
-              "summary": {k: manuscript["sections"][k]["summary"] for k, _ in SECTIONS},
+               "summary": {k: manuscript["sections"][k]["summary"] for k, _ in sections_for(manuscript)},
               "source_manifest": run["manifest"], "numeric_bindings": bindings,
               "freeze": {k: freeze[k] for k in ("frozen_at_utc", "immutable_hash")},
               "authorship": manuscript.get("authorship", {}), "manuscript": manuscript, "run_root": str(Path(run_root)),
@@ -352,7 +380,7 @@ def validate_plan(store, work_item_id, plan):
     expected, _, _ = _assemble(packet["source_plan"], packet["manuscript"], run)
     if expected != packet["native_payload"]:
         raise ValueError("PLAN_ANALYSIS_RENDERED_COPY_CHANGED")
-    if packet["summary"] != {k: packet["manuscript"]["sections"][k]["summary"] for k, _ in SECTIONS}:
+    if packet["summary"] != {k: packet["manuscript"]["sections"][k]["summary"] for k, _ in sections_for(packet["manuscript"])}:
         raise ValueError("PLAN_ANALYSIS_SUMMARY_CHANGED")
     for asset in packet.get("media_assets", []):
         if sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]:
