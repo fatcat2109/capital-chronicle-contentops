@@ -31,11 +31,14 @@ class NeoEndpointError(RuntimeError):
 
 
 class NeoMcpClient:
-    def __init__(self, endpoint="http://127.0.0.1:9010/mcp", *, session=None):
+    def __init__(self, endpoint="http://127.0.0.1:9010/mcp", *, session=None,
+                 task_name="cc436 automatic posts", group_title=GROUP):
         parsed = urlsplit(endpoint)
         if parsed.scheme != "http" or parsed.hostname not in {"127.0.0.1", "localhost", "::1"}:
             raise ValueError("NEO_LOCAL_ENDPOINT_REQUIRED")
         self.endpoint = endpoint
+        self.task_name=task_name
+        self.group_title=group_title
         self.http = session or requests.Session()
         self.http.headers.update({"Accept": "application/json, text/event-stream"})
         self.sequence = 0
@@ -227,10 +230,10 @@ class NeoMcpClient:
     def open(self, destination, url):
         if not hasattr(self, "pages"):
             self.pages = {}
-            self.call("name_session", {"name": "cc436 automatic posts", "category": "social-media"})
+            self.call("name_session", {"name": self.task_name, "category": "social-media"})
             listing = self.text(self.call("tabs", {"action": "list"}))
             groups = self.text(self.call("tab_groups", {"action": "list"}))
-            group = re.search(r'^\[([^]]+)\] "' + re.escape(GROUP) + r'"[^\n]*pages: ([\d, ]+)', groups, re.M)
+            group = re.search(r'^\[([^]]+)\] "' + re.escape(self.group_title) + r'"[^\n]*pages: ([\d, ]+)', groups, re.M)
             self.group = group[1] if group else None
             # Reuse only this executor's explicitly named group, never another task's tabs.
             if group:
@@ -244,7 +247,7 @@ class NeoMcpClient:
                         if host == "www.linkedin.com": self.pages.setdefault("linkedin_company", int(match[1]))
                         if host == "www.youtube.com": self.pages.setdefault("youtube", int(match[1]))
                         if host in {"t.co","capitalchronicle.substack.com"}:
-                            self.pages.setdefault("link-verification",int(match[1]))
+                            self.pages.setdefault("plan-substack" if self.group_title=="codex/cc466-plan-pages" else "link-verification",int(match[1]))
         if destination in self.pages:
             page = self.pages[destination]
             self.call("navigate", {"page": page, "url": url})
@@ -257,7 +260,7 @@ class NeoMcpClient:
             page = self.pages[destination] = int(match[1])
             if not self.group:
                 groups = self.text(self.call("tab_groups", {"action": "list"}))
-                match = re.search(r'^\[([^]]+)\] "' + re.escape(GROUP) + '"', groups, re.M)
+                match = re.search(r'^\[([^]]+)\] "' + re.escape(self.group_title) + '"', groups, re.M)
                 self.group = match[1] if match else None
         return page
 
@@ -748,7 +751,8 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         if automatic_destinations is None:
             kwargs["native_invocation_id"] = "neo-endpoint:" + uuid4().hex
         super().__init__(*args,**kwargs)
-        self.client=client or endpoint_client()
+        self.client=client or (NeoMcpClient(task_name="cc466 plan pages",group_title="codex/cc466-plan-pages")
+            if self.operation_id.startswith("plan-analysis-") else endpoint_client())
         self.automatic_destinations = (set(automatic_destinations) if automatic_destinations is not None
             else {"x", "substack_notes", *ARTICLE_ROUTES})
         self.executor_revision=sha256(Path(__file__).read_bytes()+STEPS.read_bytes()
