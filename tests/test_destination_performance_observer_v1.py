@@ -38,10 +38,11 @@ def test_facebook_exact_object_read_returns_bounded_metrics_and_interactions(mon
         destination="facebook_page", public_object_id="exact-post"
     )
 
-    assert len(requests) == 1
+    assert len(requests) == 2
+    assert requests[1][0].endswith("/exact-post/insights")
     assert requests[0][0].endswith("/exact-post")
     assert result["status"] == "COLLECTED"
-    assert result["provider_requests"] == 1
+    assert result["provider_requests"] == 2
     assert result["metrics"] == {"likes": 7, "comments": 1, "shares": 2}
     assert result["interactions"] == [
         {

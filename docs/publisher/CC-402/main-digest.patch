@@ -1,0 +1,45 @@
+--- a/tools/product/contentops_digest_v1.py
++++ b/tools/product/contentops_digest_v1.py
+@@ -166,5 +166,26 @@
+         except (ValueError, TypeError) as exc:
+             view["reason"] = str(exc)
+             reader.evidence[str(record)]["reason"] = str(exc)
++    view["weekly_audience"] = _weekly_audience(reader, store, now)
+     view["last_public_post"] = _last_public_post(reader, store, now)
+     return view
++
++
++def _weekly_audience(reader, store, now):
++    """CC-402: read Publisher's existing export; never collect or write its store."""
++    path = Path(store).parent / "daily_app_outputs" / "weekly-engagement" / "engagement.json" if store else None
++    doc = reader.read(path, "ContentOps weekly audience")
++    if doc is None:
++        return {"state": "MISSING", "path": str(path), "lines": []}
++    try:
++        stamp = _utc(doc["recorded_at_utc"])
++        lines = doc["digest_lines"]
++        if (doc.get("schema_version") != "contentops.weekly_channel_engagement.v1"
++                or stamp > now or not isinstance(lines, list)
++                or not all(isinstance(line, str) for line in lines)):
++            raise ValueError("CONTENTOPS_WEEKLY_AUDIENCE_INVALID")
++        return {"state": "SAVED_RECORD", "path": str(path), "week_ending": doc["week_ending"],
++                "observed_at_utc": _iso(stamp), "age_hours": round((now - stamp).total_seconds() / 3600, 1),
++                "metric_basis": doc["metric_basis"], "lines": lines}
++    except (ValueError, TypeError, KeyError) as exc:
++        return {"state": "MISSING", "path": str(path), "lines": [], "reason": str(exc)}
+--- a/tools/product/main_daily_digest_v1.py
++++ b/tools/product/main_daily_digest_v1.py
+@@ -1403,6 +1403,13 @@
+         lines.append(f"Last public post: {_local_clock(post['at_utc'])} GMT+7 ({_cell(post['channel'])}; saved confirmed dispatch time).")
+     else:
+         lines.append(f"Last public post: {_cell(post['state'])}" + (f"; {_cell(post['reason'])}" if post.get("reason") else "") + ".")
++    audience = newsroom.get("weekly_audience") or {}
++    if audience.get("state") == "SAVED_RECORD":
++        lines.extend(["", "Weekly audience through " + str(audience["week_ending"]) + " (GMT+7):", "",
++                      str(audience["metric_basis"]), "", *audience["lines"],
++                      "Snapshot age: " + str(audience["age_hours"]) + " hours; " + str(audience["path"])])
++    else:
++        lines.append("Weekly audience: MISSING; " + str(audience.get("reason") or audience.get("path") or "export unavailable"))
+     shadow = report.get("shadow") or {}
+     from .call_probability_scores_v1 import render_markdown as render_call_probabilities
+     lines.extend(["", render_call_probabilities(shadow.get("call_probability_scores") or {}).rstrip()])

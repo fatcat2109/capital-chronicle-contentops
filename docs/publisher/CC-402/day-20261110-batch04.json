@@ -1,0 +1,299 @@
+{
+  "collection": {
+    "state": "COLLECTED",
+    "scheduled": 25,
+    "collected": 33,
+    "pending": 0,
+    "outcomes": [
+      {
+        "observation_id": "obs_1b8991c406f1d9158c60e74f906e2d9f",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_de8850760fa669fba1f1467a6612b99a",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_1e052fb10b86e32d28265fddfb7a7f64",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_df845496d75488e9aef6da554218dedb",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_2723eef060d149638af787c4104c3c61",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_e0bbcf350fe35dd0d3e7390b2994167b",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_2e3d0877de9d2726f34e2bf990cddb74",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_e38f857bc0ee4b2e7fa4b1a379345104",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_43afdd88739e69480f0c83b1eefdd4b2",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_e740f01437c8b75250dc38919e47b03e",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_48c0d31ba5b671763ee53143059db598",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_e81e0fc6d4ab2231e86bf15f583da6c2",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_502f8c2a679e0fa568c49e3a27dee734",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_e9f1ab1ba9f990c33e0e9b8a56092ff1",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_506560b98133e95984e3860b13ce144e",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_f76f6aaccdbdf3a4b4a3f75e0e3d1f1f",
+        "platform": "telegram",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_5b532bf9fbf7a37af05ffd7082389ed8",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_5d9af3f45b3a6bd84d644d63c999bef0",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_646620de32586ea7111867f4bbde1a9d",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_64bb22ce080d91b3396b4b3650db63d3",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_64d25311062434ac47a2bfeb864be914",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_6e0767c613e1c03d0f23a729280a3b1f",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_8796f981f8a45d34431ba09bc46d5dc6",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_9af65800ebc88bc59f779125eb477346",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_ad8de3d0a7cc5a890d4f37a04e81be93",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_b431c310b99f8b5335d3a3aed5b9f7f4",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_bf26381b99f0bfa0c30cd9aefac42fe8",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_c3ccc670cf507021e6cafebd4c7683b2",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_c7a498ade9abe94f50a11270271673df",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_deccfd7f73556baa4511e710dd721cfd",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_ec83a858601183ad149fc683db9ef64d",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_f0ff90e8c0acb3a12a8bea0d8e931c0d",
+        "platform": "threads",
+        "status": "COLLECTED"
+      },
+      {
+        "observation_id": "obs_f708fb92ddd708fbf1696e6dfba6c860",
+        "platform": "threads",
+        "status": "COLLECTED"
+      }
+    ],
+    "excluded": {},
+    "model_calls": 0,
+    "public_write_performed": false
+  },
+  "model_usage": {
+    "imported": 0,
+    "source": "retained_native_run_returns",
+    "model_calls": 0
+  },
+  "observed_at_utc": "2026-11-11T06:29:17.894302+00:00",
+  "weekly_digest": {
+    "channels": 10,
+    "digest": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\weekly-engagement\\engagement.md",
+    "week_ending": "2026-11-11"
+  },
+  "piece": {
+    "work_item_id": "cc338-cpi-preview-20261110-v1",
+    "invocation_count": 6,
+    "cost_usd": null,
+    "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+    "invocations": [
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_select_c4e8fb68cd6c",
+        "observation_source": "Supported native task context supplies canonical task identity; actual model and reasoning effort are not exposed in that context.",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "c4e8fb68cd6c035bd7151b13932826750e05320bec56e1e931655dd68a1ac5ae",
+        "source_record_id": "native-desktop-c4a9185d901c5fddcb14de635436a9dd5ed5844d0aa6cfd334b9ab878872bf89",
+        "stage": "select",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_select_c4e8fb68cd6c",
+        "observation_source": "Supported native canonical task context; actual model and effort not exposed.",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "9fb65dbd158a4ab734489fd021461e4354332c2efcb417e9fe38a6f5b3665d27",
+        "source_record_id": "native-desktop-1a1be3c12090fc417d527296ef61f026fc8dbc9a5e4e47978440071c1fca54be",
+        "stage": "media-plan",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported task context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "5c76aa987d12d924e0e3ec2f0889d256462a4abc6d2e834773b7e2a52c71dd8c",
+        "source_record_id": "native-desktop-dd567725f9193b9bc07a930685bc84b039473f73ff4c34e9d9c4dff52208e6c6",
+        "stage": "visual-edit",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported native context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "1a85fe247a127c337598e34b8597eddee1f621c5619ca51a98178a1cf1d7cec6",
+        "source_record_id": "native-desktop-13f9e72a46f01c0c8eaad5230dedfb40d1dc75e6bcf65b8604f8dc92a3488f73",
+        "stage": "write",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported native context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "563be5f0a2106ad335886755b94e1ddf37cbc3291b466932ce2f3de0efaae2a3",
+        "source_record_id": "native-desktop-cc6f2eb51169013fcb5fb1a809b26ee9c20c36ca863939fe6dd855b32c5a6abb",
+        "stage": "revise",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      },
+      {
+        "completion_tokens": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "cost_state": "USD_COST_NOT_EXPOSED_BY_RUN_RECORD",
+        "cost_usd": null,
+        "model": null,
+        "native_invocation_id": "/root/native_visual_edit_5c76aa987d12",
+        "observation_source": "supported native context",
+        "prompt_tokens": null,
+        "reasoning_effort": null,
+        "request_sha256": "87f214e95cc49ac440332492b0b39e963c38aeae47d76cd648e3776300792a0a",
+        "source_record_id": "native-desktop-18587237fdbfae8b63aedc4e795f488d1bc2f22f299c682241a84fd775dadad7",
+        "stage": "final-visual-2550e7490d54865f4eae03c919085a52046585ca8133ca5134a7e9818a1ab0fb",
+        "usage_state": "NOT_EXPOSED_BY_RUN_RECORD"
+      }
+    ]
+  }
+}

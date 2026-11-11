@@ -1,12 +1,12 @@
 """Bounded read-only destination observations over existing authorized bindings.
 
-Each invocation performs at most one provider request for its exact destination/public object.
+Each invocation performs bounded GETs for its exact destination/public object.
 Missing scope, binding, or exposed data is reported truthfully and never coerced to zero.
 """
 from __future__ import annotations
 
 import json
-import os
+import re
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -20,6 +20,7 @@ METRICS = (
     "search_impressions", "search_clicks", "search_ctr", "search_query",
     "search_position", "interaction_quality",
     "reply_sample_count",
+    "quotes", "followers_count", "members_count", "approximate_members_count",
 )
 
 
@@ -69,11 +70,25 @@ def _http_failure(destination: str, error: Exception) -> dict[str, Any]:
         status = "AUTH_REQUIRED" if error.code == 401 else (
             "PERMISSION_REQUIRED" if error.code == 403 else "UNAVAILABLE"
         )
-        return _result(
+        result = _result(
             destination, status,
             limitation=f"read_only_provider_http_{error.code}",
             provider_requests=1,
         )
+        try:
+            detail = json.loads(error.read(8192)).get("error", {})
+            message = re.sub(r"https?://\S+|[A-Za-z0-9_-]{48,}", "<redacted>", str(detail.get("message", "")))[:500]
+            if re.search(r"token|credential|secret|authorization", message, re.I):
+                message = "Provider authentication error; code retained"
+            code = detail.get("code")
+            if code in {10, 200}:
+                result.update(_result(destination, "PERMISSION_REQUIRED", limitation=f"read_only_provider_http_{error.code}", provider_requests=1))
+            elif code == 190:
+                result.update(_result(destination, "AUTH_REQUIRED", limitation=f"read_only_provider_http_{error.code}", provider_requests=1))
+            result["provider_error"] = {"code": detail.get("code"), "subcode": detail.get("error_subcode"), "message": message}
+        except (ValueError, AttributeError, TypeError):
+            pass
+        return result
     return _result(
         destination, "UNAVAILABLE",
         limitation=f"read_only_provider_{type(error).__name__}",
@@ -93,6 +108,47 @@ def _counts(values):
         if isinstance(value, int) and not isinstance(value, bool) and value >= 0}
 
 
+def _insight_values(value: Mapping[str, Any]) -> dict[str, int]:
+    """One lifetime scalar per metric; never add periods, breakdowns or pages."""
+    result = {}
+    for row in value.get("data") or []:
+        if not isinstance(row, Mapping):
+            continue
+        values = row.get("values")
+        count = (values[0].get("value") if isinstance(values, list) and len(values) == 1
+                 and isinstance(values[0], Mapping) else (row.get("total_value") or {}).get("value"))
+        result.update(_counts({str(row.get("name")): count}))
+    return result
+
+
+def _add_insights(result, destination, object_id, token, names):
+    """A rejected insight never erases independently observed interaction counts."""
+    host = "graph.threads.net/v1.0" if destination == "threads" else "graph.facebook.com/v21.0"
+    try:
+        value = _get_json(f"https://{host}/{urllib.parse.quote(object_id, safe='')}/insights",
+                          {"metric": ",".join(names), "access_token": token})
+        if value.get("error"):
+            raise ValueError("INSIGHTS_PROVIDER_ERROR")
+        metrics = _insight_values(value)
+        aliases = {"post_media_view": "views", "post_impressions_unique": "reach", "saved": "saves"}
+        metrics = {aliases.get(name, name): count for name, count in metrics.items()}
+        result["metrics"].update(metrics)
+        result["availability"].update({aliases.get(name, name): "AVAILABLE" if aliases.get(name, name) in metrics else "NOT_EXPOSED" for name in names})
+        result["insights_status"] = "COLLECTED" if metrics else "NOT_EXPOSED"
+        if metrics:
+            result["status"] = "COLLECTED"
+    except Exception as exc:  # noqa: BLE001 - never serialize provider URLs/tokens
+        failure = _http_failure(destination, exc)
+        aliases = {"post_media_view": "views", "post_impressions_unique": "reach", "saved": "saves"}
+        result["availability"].update({aliases.get(name, name): failure["status"] for name in names if aliases.get(name, name) not in result["metrics"]})
+        result["insights_status"] = failure["status"]
+        if failure.get("provider_error"):
+            result["insights_error"] = failure["provider_error"]
+        result["limitations"].extend(failure["limitations"])
+    result["provider_requests"] += 1
+    return result
+
+
 def _facebook(post_id: str) -> dict[str, Any]:
     token = _meta_token("FACEBOOK_PAGE_ACCESS_TOKEN", "META_ACCESS_TOKEN")
     if not token:
@@ -106,7 +162,8 @@ def _facebook(post_id: str) -> dict[str, Any]:
             },
         )
     except Exception as exc:  # noqa: BLE001
-        return _http_failure("facebook_page", exc)
+        return _add_insights(_http_failure("facebook_page", exc), "facebook_page", post_id, token,
+                             ("post_media_view", "post_impressions_unique"))
     likes = ((value.get("likes") or {}).get("summary") or {}).get("total_count")
     comments_edge = value.get("comments") or {}
     comments = (comments_edge.get("summary") or {}).get("total_count")
@@ -116,11 +173,13 @@ def _facebook(post_id: str) -> dict[str, Any]:
         {"interaction_id": str(row.get("id") or ""), "text": str(row.get("message") or ""), "platform": "facebook_page"}
         for row in (comments_edge.get("data") or []) if isinstance(row, Mapping)
     ]
-    return _result(
+    result = _result(
         "facebook_page", "COLLECTED", metrics=metrics,
         available=tuple(metrics), missing_metrics=tuple({"likes", "comments", "shares"} - metrics.keys()), interactions=interactions,
         limitation="one_exact_page_post_graph_read",
     )
+    return _add_insights(result, "facebook_page", post_id, token,
+                         ("post_media_view", "post_impressions_unique"))
 
 
 def _instagram(media_id: str) -> dict[str, Any]:
@@ -133,17 +192,19 @@ def _instagram(media_id: str) -> dict[str, Any]:
             {"fields": "id,like_count,comments_count,comments.limit(25){id,text}", "access_token": token},
         )
     except Exception as exc:  # noqa: BLE001
-        return _http_failure("instagram_business", exc)
+        return _add_insights(_http_failure("instagram_business", exc), "instagram_business", media_id, token,
+                             ("views", "reach", "saved", "shares"))
     interactions = [
         {"interaction_id": str(row.get("id") or ""), "text": str(row.get("text") or ""), "platform": "instagram_business"}
         for row in ((value.get("comments") or {}).get("data") or []) if isinstance(row, Mapping)
     ]
     metrics = _counts({"likes": value.get("like_count"), "comments": value.get("comments_count")})
-    return _result(
+    result = _result(
         "instagram_business", "COLLECTED",
         metrics=metrics, available=tuple(metrics), missing_metrics=tuple({"likes", "comments"} - metrics.keys()), interactions=interactions,
         limitation="one_exact_business_media_graph_read",
     )
+    return _add_insights(result, "instagram_business", media_id, token, ("views", "reach", "saved", "shares"))
 
 
 def _threads(post_id: str) -> dict[str, Any]:
@@ -156,21 +217,23 @@ def _threads(post_id: str) -> dict[str, Any]:
             {"fields": "id,text", "limit": "25", "access_token": token},
         )
     except Exception as exc:  # noqa: BLE001
-        return _http_failure("threads", exc)
+        return _add_insights(_http_failure("threads", exc), "threads", post_id, token,
+                             ("views", "likes", "replies", "reposts", "quotes"))
     interactions = [
         {"interaction_id": str(row.get("id") or ""), "text": str(row.get("text") or ""), "platform": "threads"}
         for row in (value.get("data") or []) if isinstance(row, Mapping)
     ]
     metrics = {"reply_sample_count": len(interactions)} if isinstance(value.get("data"), list) else {}
-    return _result(
+    result = _result(
         "threads", "COLLECTED", metrics=metrics,
         available=tuple(metrics), missing_metrics=("replies",), interactions=interactions,
         limitation="one_exact_root_replies_page_sample_not_total_replies_no_insights_scope_assumed",
     )
+    return _add_insights(result, "threads", post_id, token, ("views", "likes", "replies", "reposts", "quotes"))
 
 
 def _discord(message_id: str) -> dict[str, Any]:
-    webhook = str(read_secret("DISCORD_WEBHOOK_URL") or "")
+    webhook = first_secret("DISCORD_WEBHOOK_URL", "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL")
     if not webhook:
         return _result("discord", "AUTH_REQUIRED", limitation="current_webhook_binding_missing")
     request = urllib.request.Request(
@@ -194,9 +257,24 @@ def _discord(message_id: str) -> dict[str, Any]:
 
 
 def collect_current_authorized_destination_metrics(
-    *, destination: str, public_object_id: str
+    *, destination: str, public_object_id: str, object_kind: str = "post"
 ) -> dict[str, Any]:
     """Use only the currently configured binding; never request consent or wider scope."""
+    if object_kind == "comment" and destination in {"facebook_page", "instagram_business"}:
+        tokens = ("FACEBOOK_PAGE_ACCESS_TOKEN", "META_ACCESS_TOKEN") if destination == "facebook_page" else ("INSTAGRAM_ACCESS_TOKEN", "META_ACCESS_TOKEN")
+        token = _meta_token(*tokens)
+        if not token:
+            return _result(destination, "AUTH_REQUIRED", limitation="existing_comment_read_binding_missing")
+        fields = "id,like_count,comment_count" if destination == "facebook_page" else "id,like_count"
+        try:
+            value = _get_json(f"https://graph.facebook.com/v21.0/{urllib.parse.quote(public_object_id, safe='')}",
+                              {"fields": fields, "access_token": token})
+            metrics = _counts({"likes": value.get("like_count"), "replies": value.get("comment_count")})
+            return _result(destination, "COLLECTED", metrics=metrics, available=tuple(metrics),
+                           missing_metrics=("views", "reach", "replies") if destination == "instagram_business" else ("views", "reach"),
+                           limitation="exact_comment_counters_no_post_insights_on_comment")
+        except Exception as exc:
+            return _http_failure(destination, exc)
     if destination == "facebook_page":
         return _facebook(public_object_id)
     if destination == "instagram_business":
@@ -211,3 +289,59 @@ def collect_current_authorized_destination_metrics(
             limitation="current_authorized_binding_exposes_no_safe_exact_object_metrics_collector",
         )
     return _result(destination, "UNSUPPORTED", limitation="destination_collector_not_implemented")
+
+
+def collect_account_metrics(destination: str) -> dict[str, Any]:
+    """A separate daily account snapshot; never sum this count once per post."""
+    if destination == "discord":
+        token = read_secret("DISCORD_BOT_TOKEN")
+        webhook = first_secret("DISCORD_WEBHOOK_URL", "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL", "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK")
+        if not token or not webhook:
+            return _result(destination, "AUTH_REQUIRED", limitation="existing_discord_bot_or_webhook_binding_missing")
+        requests = 0
+        try:
+            request = urllib.request.Request(webhook, method="GET")
+            request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+            requests += 1
+            with urllib.request.urlopen(request, timeout=20) as response:
+                guild = str(json.loads(response.read().decode("utf-8")).get("guild_id") or "")
+            if not re.fullmatch(r"\d+", guild):
+                return _result(destination, "NOT_EXPOSED", limitation="approved_webhook_guild_not_exposed", provider_requests=requests)
+            request = urllib.request.Request(f"https://discord.com/api/v10/guilds/{guild}?with_counts=true", method="GET")
+            request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+            request.add_header("Authorization", "Bot " + token)
+            requests += 1
+            with urllib.request.urlopen(request, timeout=20) as response:
+                value = json.loads(response.read().decode("utf-8"))
+            metrics = _counts({"approximate_members_count": value.get("approximate_member_count")})
+            return _result(destination, "COLLECTED" if metrics else "NOT_EXPOSED", metrics=metrics,
+                           available=tuple(metrics), limitation="official_discord_approximate_member_count_not_exact_new_members", provider_requests=requests)
+        except Exception as exc:
+            result = _http_failure(destination, exc)
+            result["provider_requests"] = requests
+            return result
+    bindings = {
+        "facebook_page": (("FACEBOOK_PAGE_ACCESS_TOKEN", "META_ACCESS_TOKEN"), ("FACEBOOK_PAGE_ID",), "followers_count"),
+        "instagram_business": (("INSTAGRAM_ACCESS_TOKEN", "META_ACCESS_TOKEN"), ("INSTAGRAM_BUSINESS_ACCOUNT_ID", "INSTAGRAM_IG_ID"), "followers_count"),
+        "threads": (("THREADS_USER_ACCESS_TOKEN", "THREADS_ACCESS_TOKEN"), ("THREADS_USER_ID",), "followers_count"),
+    }
+    if destination not in bindings:
+        return _result(destination, "NOT_EXPOSED", limitation="account_count_not_exposed_by_current_route")
+    tokens, ids, field = bindings[destination]
+    token, account = first_secret(*tokens), first_secret(*ids)
+    if not token or not account:
+        return _result(destination, "AUTH_REQUIRED", limitation="existing_account_binding_missing")
+    try:
+        host = "graph.threads.net/v1.0" if destination == "threads" else "graph.facebook.com/v21.0"
+        if destination == "threads":
+            value = _get_json(f"https://{host}/{urllib.parse.quote(account, safe='')}/threads_insights",
+                              {"metric": "followers_count", "access_token": token})
+            metrics = _insight_values(value)
+        else:
+            value = _get_json(f"https://{host}/{urllib.parse.quote(account, safe='')}",
+                              {"fields": field, "access_token": token})
+            metrics = _counts({field: value.get(field)})
+        return _result(destination, "COLLECTED" if metrics else "NOT_EXPOSED", metrics=metrics,
+                       available=tuple(metrics), limitation="daily_account_snapshot_not_post_metric", provider_requests=1)
+    except Exception as exc:
+        return _http_failure(destination, exc)

@@ -332,7 +332,9 @@ def test_metrics_capability_matrix_is_ten_channels_and_never_zero_fills_unavaila
     assert next(row for row in matrix if row["destination"] == "linkedin")[
         "collector_state"
     ] == "PERMISSION_REQUIRED_RESTRICTED_MEMBER_SOCIAL_READ"
-    assert all(row["max_provider_requests_per_observation"] == 1 for row in matrix)
+    assert all(row["max_provider_requests_per_observation"] ==
+               (3 if row["destination"] in {"facebook_page", "instagram_business", "threads", "discord"} else 1)
+               for row in matrix)
 
 
 def test_native_metrics_preserved(tmp_path):

@@ -90,7 +90,7 @@ def test_threads_reply_page_is_a_sample_not_an_invented_total(monkeypatch):
     value = observer.collect_current_authorized_destination_metrics(destination="threads", public_object_id="exact")
     assert value["metrics"] == {"reply_sample_count": 1}
     assert value["availability"]["replies"] == "NOT_EXPOSED"
-    assert value["provider_requests"] == 1
+    assert value["provider_requests"] == 2
 
 
 def test_rejected_provider_read_is_one_actual_request_not_a_missing_binding():
