@@ -1,0 +1,199 @@
+{
+  "item": "CC-401",
+  "status": "VERIFIED_LIVE",
+  "observed_at_utc": "2026-11-11T05:46:03.222255+00:00",
+  "code_commit": "8851ae5d5dff114d72b2188f1b3169870b5b3d81",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "production_store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "integration_method": "git merge --ff-only backlog/cc-401-full-day-audit",
+  "audit_source": "A:\\Capital Chronicle\\ContentOps\\scripts\\audit_publication_day_cc401.py",
+  "audit": {
+    "status": "PASS",
+    "et_day": "2026-11-10",
+    "day_complete": true,
+    "window_start_utc": "2026-11-10T05:00:00+00:00",
+    "window_end_utc": "2026-11-11T05:00:00+00:00",
+    "next_check_gmt7": "2026-11-11T12:00:00+07:00",
+    "confirmed_posts": {
+      "discord": 14,
+      "threads": 45
+    },
+    "false_unknown_write_incidents": [],
+    "destination_failure_incidents": {
+      "discord": 2,
+      "substack": 2,
+      "linkedin": 2,
+      "substack_notes": 5,
+      "x": 1
+    },
+    "active_destination_failure_incidents": {
+      "linkedin": 1,
+      "discord": 1
+    },
+    "resolved_destination_failure_incidents": [
+      {
+        "incident_id": "incident_destination_day_89ec6004e61d497e96cfc8e0bdc0ff35",
+        "destination": "discord",
+        "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+      },
+      {
+        "incident_id": "incident_destination_day_0892aa268e07c08cc65aa46778237727",
+        "destination": "substack",
+        "resolution": "RECORDED_LOCAL_PREWRITE_REPAIR"
+      },
+      {
+        "incident_id": "incident_destination_day_0892aa268e07c08cc65aa46778237727_after_local_prewrite_repair",
+        "destination": "substack",
+        "resolution": "RECORDED_LOCAL_PREWRITE_REPAIR"
+      },
+      {
+        "incident_id": "incident_destination_day_39090cc11eae3166aef5a2f7e9eb8c6e",
+        "destination": "linkedin",
+        "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+      },
+      {
+        "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc",
+        "destination": "substack_notes",
+        "resolution": "EXACT_OBJECT_RECONCILED_CONFIRMED"
+      },
+      {
+        "incident_id": "incident_destination_day_2ee678bcc0b389f220f780c277941022",
+        "destination": "x",
+        "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+      },
+      {
+        "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc_after_local_prewrite_repair",
+        "destination": "substack_notes",
+        "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+      },
+      {
+        "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc_after_local_prewrite_repair_after_local_prewrite_repair",
+        "destination": "substack_notes",
+        "resolution": "EXACT_OBJECT_RECONCILED_CONFIRMED"
+      },
+      {
+        "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc_after_local_prewrite_repair_after_local_prewrite_repair_after_local_prewrite_repair",
+        "destination": "substack_notes",
+        "resolution": "LOCAL_REFUSAL_BEFORE_PLATFORM_CALL"
+      },
+      {
+        "incident_id": "incident_destination_day_5de624168630d92c62b388fdca0ce9fc_after_local_prewrite_repair_after_local_prewrite_repair_after_local_prewrite_repair_after_local_prewrite_repair",
+        "destination": "substack_notes",
+        "resolution": "EXACT_OBJECT_RECONCILED_CONFIRMED"
+      }
+    ],
+    "invalid_incidents": [],
+    "observed_at_utc": "2026-11-11T05:44:54.408586+00:00",
+    "public_write_performed": false
+  },
+  "source_hashes": {
+    "scripts/audit_publication_day_cc401.py": {
+      "operating_root_sha256": "44fb7bc19277667cd8033c9561c99cbef6ae3c28db316c2901f33f28ffb24439",
+      "worktree_sha256": "3550fc10cb7b6634d015a4613d417108e3075c431c66486b05b7703b40269341",
+      "source_text_equal": true
+    },
+    "live_contentops/publication_coordinator_v1.py": {
+      "operating_root_sha256": "121a105b1cacd74f5e1b0cb9d5505e9183f27157b4d7c0fa94ec9f7b56d023a9",
+      "worktree_sha256": "121a105b1cacd74f5e1b0cb9d5505e9183f27157b4d7c0fa94ec9f7b56d023a9",
+      "source_text_equal": true
+    },
+    "live_contentops/plan_status_posts_v1.py": {
+      "operating_root_sha256": "331e63e8ff09afaa0d5cc8425be950b450b24730bffd758b157908f7f0df1bf8",
+      "worktree_sha256": "331e63e8ff09afaa0d5cc8425be950b450b24730bffd758b157908f7f0df1bf8",
+      "source_text_equal": true
+    },
+    "live_contentops/discord_live_adapter_v6.py": {
+      "operating_root_sha256": "a64997834b58139be6b50d6e18f82a511c5d7b000c6ccd1e3508abe2d98429f7",
+      "worktree_sha256": "a64997834b58139be6b50d6e18f82a511c5d7b000c6ccd1e3508abe2d98429f7",
+      "source_text_equal": true
+    },
+    "live_contentops/threads_adapter_v6.py": {
+      "operating_root_sha256": "ca2915010a03b9227c0eafec957cb529508381ed629931fcd9f14df21a13c510",
+      "worktree_sha256": "ca2915010a03b9227c0eafec957cb529508381ed629931fcd9f14df21a13c510",
+      "source_text_equal": true
+    },
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": {
+      "operating_root_sha256": "592119d79d15d8cd8a12b2aa57cfb293e0fd5ffaf3cbb0a20e1c5b0bb31507fd",
+      "worktree_sha256": "592119d79d15d8cd8a12b2aa57cfb293e0fd5ffaf3cbb0a20e1c5b0bb31507fd",
+      "source_text_equal": true
+    }
+  },
+  "source_hash_note": "Git checks out the audit script with CRLF in the operating root; normalized source text is identical. Other checked sources are byte-identical.",
+  "consumer": {
+    "coordinator_source": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+    "status_publisher_source": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_status_posts_v1.py",
+    "api_wrapper_source": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\_eight_platform_substack_first_pipeline_impl_v1.py",
+    "proof": "The installed audit ran against the production store; the complete ET day has 14 confirmed Discord and 45 confirmed Threads writes with zero confirmed-post UNKNOWN_WRITE incidents."
+  },
+  "notes": [
+    {
+      "message_id": "outbox_2e5a55e29f03ca70094eb5f39ea4496a",
+      "outbox_status": "DEFINITE_NO_WRITE",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "reason_code": "CC401_STALE_STATUS_NOTE_UNCLAIMED"
+    },
+    {
+      "message_id": "outbox_1e8b666c608b9df5feaf073366aaf47d",
+      "outbox_status": "DEFINITE_NO_WRITE",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "reason_code": "CC401_STALE_STATUS_NOTE_UNCLAIMED"
+    },
+    {
+      "message_id": "outbox_76be49b9c3b261491b10d1b849a2cbe0",
+      "outbox_status": "DEFINITE_NO_WRITE",
+      "dispatch_status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "reason_code": "CC401_STALE_STATUS_NOTE_UNCLAIMED"
+    }
+  ],
+  "remaining_distinct_failures": [
+    {
+      "incident_id": "incident_destination_day_89ec6004e61d497e96cfc8e0bdc0ff35_after_local_prewrite_repair",
+      "destination": "discord",
+      "dispatch_id": "dispatch_25d42756d00c4019ff070863aa6b10e1",
+      "current_dispatch_status": "UNKNOWN_WRITE",
+      "cause": null
+    },
+    {
+      "incident_id": "incident_destination_day_39090cc11eae3166aef5a2f7e9eb8c6e_after_local_prewrite_repair",
+      "destination": "linkedin",
+      "dispatch_id": "dispatch_a8caf1f5b27c984a67401420dea1c26f",
+      "current_dispatch_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+    }
+  ],
+  "validation": {
+    "command": "python -m pytest -q tests/test_publication_coordinator_v1.py -k cc401",
+    "passed": 15,
+    "deselected": 103,
+    "duration_seconds": 22.7,
+    "log": "full-day-audit-tests-20261111.txt"
+  },
+  "launch": {
+    "parent_pid": 25432,
+    "reasoning_effort": "max",
+    "pid": 28000,
+    "process_start_utc": "2026-11-11T05:36:02.7954410Z",
+    "model": "gpt-6.1-sol",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED"
+  },
+  "preserved_worktree_wip": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "unchanged": true
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "unchanged": true
+    },
+    "live_contentops/agy_editorial_assist_v1.py": {
+      "sha256": "43be4b3cdae58fc6ed3a3f1cd73b08ad30fc296b3a35616336c956b8988e6ee7",
+      "unchanged": true
+    }
+  },
+  "choice": "Audit the elapsed ET day using the live coordinator circuit semantics, so repaired history remains visible without masquerading as an active platform failure; confirmed API false alarms and duplicate active failures still fail.",
+  "public_write_performed": false,
+  "schedules_changed": false
+}
