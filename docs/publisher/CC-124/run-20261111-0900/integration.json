@@ -1,0 +1,95 @@
+{
+  "observed_at_utc": "2026-11-11T02:26:46.688864+00:00",
+  "item": "CC-124",
+  "publisher_operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "repair_commit": "b851aa7462dd77352c1e22882a9230aaadcc84a8",
+  "installed_files": [
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-124\\run-20261111-0900\\closed-route-regression.xml",
+      "bytes": 3146,
+      "sha256": "89381ad58f8cea16dfc613dff1fbfec5feefde8d5da119565d230b6412df48f8",
+      "git_blob": "2cc5f321700fc13f518a133cc38d1c64b2bba5ab",
+      "matches_commit": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-124\\run-20261111-0900\\frozen-artifacts-before.json",
+      "bytes": 2388,
+      "sha256": "00f16601a63993774ba28d54ff8da2373bc05537d929008d6274b5a25711cd80",
+      "git_blob": "89e452edf294d3a0edb1d4bf35e78dbd6bd77a2e",
+      "matches_commit": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-124\\run-20261111-0900\\frozen-packet-before.xml",
+      "bytes": 1733,
+      "sha256": "49197ebf1fa502b6788e6ed4a60d5dd45a1fcbab377c558b2594fa467fffd806",
+      "git_blob": "bea9c22358e25b0249c941b3144154b1885d5c70",
+      "matches_commit": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-124\\run-20261111-0900\\publication-regression.xml",
+      "bytes": 6046,
+      "sha256": "6310af0e5f6432a98bedc4893f5aeea48298f30996742bcb993ead3d25782714",
+      "git_blob": "998479f2fb7314214b96ed39a6c2a85e689a1923",
+      "matches_commit": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-124\\run-20261111-0900\\publication-status-failure.json",
+      "bytes": 500,
+      "sha256": "23aab964787e6f9e3b73394b8ffed440f332ab504ae7acc68f5d36f12b999f25",
+      "git_blob": "d9365ce245390cad6608de98e02c0667f57ca001",
+      "matches_commit": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
+      "bytes": 45490,
+      "sha256": "78d4036ea69f03bad897a259efdccbfeeeccfd4f8806b11da0644529c1a67a87",
+      "git_blob": "28c45ba8bb9ec0a9ce76a0092d3e2c0acc22b187",
+      "matches_commit": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\publication_coordinator_v1.py",
+      "bytes": 305043,
+      "sha256": "b6d655d3ee54bea0d55dd3438a41afac4298ad129aa88a9534f8ac57a376c3ee",
+      "git_blob": "0699d7872e36823be9e39412b1571fa963a3e7da",
+      "matches_commit": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\tests\\test_native_desktop_publication_v1.py",
+      "bytes": 48378,
+      "sha256": "a364a40574c037422aa971eaeb6821d77adee42ffad568a716eae744f9a5164d",
+      "git_blob": "8a1c5e7fc688b4c7826003cd19651fe546e474b7",
+      "matches_commit": true
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\tests\\test_reopened_article_routes_cc454.py",
+      "bytes": 17048,
+      "sha256": "5bbac2c45b59b3b580ad435cb8c9258d52efd653ef800a97fe1c05d477ff336e",
+      "git_blob": "b2477025b0c3f4b41c4bf2974ceefdff456ada42",
+      "matches_commit": true
+    }
+  ],
+  "preserved_inherited_files": 8,
+  "inherited_bytes_unchanged": true,
+  "installed_cli_observation": "docs\\publisher\\CC-124\\run-20261111-0900\\final-installed-consumers.json",
+  "canonical_identity_preserved": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+  "closed_prior_dispatches": [
+    {
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "reconciliation_status": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "destination": "linkedin_company",
+      "status": "DEFINITE_NO_WRITE",
+      "reconciliation_status": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+      "public_object_id": null,
+      "public_object_url": null
+    }
+  ],
+  "remaining_recovery_destinations": [
+    "linkedin"
+  ],
+  "new_public_writes": 0
+}

@@ -1,0 +1,47 @@
+{
+  "item": "CC-124",
+  "actual_entry_utc": "2026-11-11T02:00:24.973892Z",
+  "observed_at_utc": "2026-11-11T02:25:03.235955Z",
+  "new_articles": 0,
+  "source_assessment": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-124\\run-20261111-0900\\source-assessment.json",
+    "bytes": 25358,
+    "sha256": "55ad5cebf9801d22c0e76c8809f594b27ef14eb36bd5ac2b0aff2129b0c0a6be",
+    "modified_at_utc": "2026-11-11T02:07:49.836890+00:00"
+  },
+  "first_cause": "NO_NEW_MAIN_REPORT",
+  "latest_source_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:39748s",
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "choice": "Use the unchanged post-CPI Main report and plan export in the source assessment. Resume article production on the next fresh Main report; decision 89 requires no filler. Do not replace the original capture clock or issue a duplicate operation.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "standing_status": "OPEN",
+  "next_due_gmt7": "11 Nov 2026 15:00 GMT+7",
+  "next_daily_wrap_gmt7": "11 Nov 2026 18:30 GMT+7",
+  "configured_launch": {
+    "process_id": 19976,
+    "process_start_utc": "2026-11-11T02:00:24.973892Z",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "observation": "Win32_Process.CommandLine",
+    "arguments": [
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"max\""
+    ],
+    "state": "CONFIGURED_NOT_OBSERVED"
+  },
+  "publication_status_repair": {
+    "first_error": "qualified_record_not_valid_for_slot",
+    "consumer": "live_contentops.native_desktop_publication_v1._prepared_packet",
+    "operating_commit": "b851aa7462dd77352c1e22882a9230aaadcc84a8",
+    "scope": "Exact sealed and dispatched historical artifacts retain their original destination set. New packets keep the current destination requirements."
+  },
+  "acceptance": "Installed source-check consumers verified. No new article or published-article acceptance claimed."
+}

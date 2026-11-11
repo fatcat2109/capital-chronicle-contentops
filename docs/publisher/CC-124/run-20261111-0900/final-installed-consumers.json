@@ -1,0 +1,154 @@
+{
+  "observed_at_utc": "2026-11-11T02:25:03.235955Z",
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "published_canonicals_today": [],
+  "active_leases": [],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-11T02:24:16.914493Z",
+    "content_hash": "0aaff453edac1a5b6a1bf12f25f9718364505b91df75c2b7e80215a3b2b4c6f7",
+    "latest_six_market_scenarios": [
+      {
+        "asset_id": "XAUUSD",
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "base_probability_pct": 50.0,
+        "alternative_probability_pct": 40.0
+      },
+      {
+        "asset_id": "US500",
+        "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+        "base_probability_pct": 52.0,
+        "alternative_probability_pct": 38.0
+      },
+      {
+        "asset_id": "EURUSD",
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "USDJPY",
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 30.0
+      },
+      {
+        "asset_id": "USOIL",
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "BTCUSD",
+        "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+        "base_probability_pct": 52.0,
+        "alternative_probability_pct": 38.0
+      }
+    ],
+    "interpretation": "The refreshed export and held estimates enter the assessment; their generation and registration clocks do not replace Main's original data capture."
+  },
+  "publication_status": {
+    "run_id": "cc338-cpi-preview-20261110-v1",
+    "work_item_id": "cc338-cpi-preview-20261110-v1",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 6,
+    "derivative_attempted_count": 7,
+    "derivative_unknown_count": 0,
+    "recovery_required_destinations": [
+      "linkedin"
+    ],
+    "readback_limitation_destinations": [],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "state": "DISTRIBUTION_INCOMPLETE",
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "skipped_destinations": [],
+    "closed_no_write_destinations": [
+      "linkedin_company",
+      "youtube"
+    ],
+    "additional_recovery_required_destinations": []
+  },
+  "destination_records": [
+    {
+      "destination": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "224293572",
+      "public_object_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+    },
+    {
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "136",
+      "public_object_url": "https://t.me/CapitalChronicle/136"
+    },
+    {
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "1569687377679745110",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569687377679745110"
+    },
+    {
+      "destination": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "2120129873830388070",
+      "public_object_url": "https://x.com/Capitalnicle/status/2120129873830388070"
+    },
+    {
+      "destination": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "106091951705748_1450849443900138",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1450849443900138"
+    },
+    {
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "18118649638820551",
+      "public_object_url": "https://www.instagram.com/p/Dfj5h_nj32E/"
+    },
+    {
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_object_id": "18189728134418285",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfj42NGlE4E"
+    },
+    {
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "reconciliation_status": "YOUTUBE_NON_API_AUTOMATION_PROHIBITED",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "destination": "linkedin_company",
+      "status": "DEFINITE_NO_WRITE",
+      "reconciliation_status": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+      "public_object_id": null,
+      "public_object_url": null
+    }
+  ],
+  "binding": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\binding.json",
+    "bytes": 4562,
+    "sha256": "c7b95623b202a5a1dcc0e5737fe471622d1001b910f801a5d1ecb845b8e798ee",
+    "modified_at_utc": "2026-11-10T10:30:17.385915+00:00"
+  }
+}

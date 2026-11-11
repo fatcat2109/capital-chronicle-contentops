@@ -1,0 +1,78 @@
+{
+  "observed_at_utc": "2026-11-11T02:18:54.190340Z",
+  "production_day": "2026-11-11",
+  "daily_article_limit": 2,
+  "published_canonicals_today": [],
+  "active_leases": [],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-11T02:18:14.466893Z",
+    "content_hash": "c4fcc4e86e736be67544b637ce42f35d049ceab476afd0058881142cc0a5953a",
+    "latest_six_market_scenarios": [
+      {
+        "asset_id": "XAUUSD",
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "base_probability_pct": 50.0,
+        "alternative_probability_pct": 40.0
+      },
+      {
+        "asset_id": "US500",
+        "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+        "base_probability_pct": 52.0,
+        "alternative_probability_pct": 38.0
+      },
+      {
+        "asset_id": "EURUSD",
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "USDJPY",
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 30.0
+      },
+      {
+        "asset_id": "USOIL",
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "BTCUSD",
+        "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+        "base_probability_pct": 52.0,
+        "alternative_probability_pct": 38.0
+      }
+    ],
+    "interpretation": "The refreshed export and held estimates enter the assessment; their generation and registration clocks do not replace Main's original data capture."
+  },
+  "publication_status": {
+    "run_id": "cc338-cpi-preview-20261110-v1",
+    "work_item_id": "cc338-cpi-preview-20261110-v1",
+    "canonical_article_status": "REAL_PUBLISHED",
+    "canonical_article_real_published": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+    "canonical_publication_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "distribution_status": "PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED",
+    "derivative_confirmed_count": 6,
+    "derivative_attempted_count": 8,
+    "derivative_unknown_count": 0,
+    "recovery_required_destinations": [
+      "linkedin",
+      "youtube"
+    ],
+    "readback_limitation_destinations": [],
+    "unknown_write_detected": false,
+    "unknown_write_count": 0,
+    "state": "DISTRIBUTION_INCOMPLETE",
+    "dispatch_blocker": "SEPARATE_OWNER_ACTIVATION_AND_CURRENT_DESTINATION_PROOF_REQUIRED",
+    "skipped_destinations": []
+  },
+  "binding": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\binding.json",
+    "bytes": 4562,
+    "sha256": "c7b95623b202a5a1dcc0e5737fe471622d1001b910f801a5d1ecb845b8e798ee",
+    "modified_at_utc": "2026-11-10T10:30:17.385915+00:00"
+  }
+}
