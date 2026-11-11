@@ -1191,6 +1191,10 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
         public_record_metadata = verified_source_metadata(document)
         if public_record_metadata:
             retained_main = True
+        from live_contentops.prop_challenge_v1 import verified_source_metadata as prop_source_metadata
+        prop_challenge_metadata = prop_source_metadata(document)
+        if prop_challenge_metadata:
+            retained_main = True
         desk = document.get("desk_record_binding")
         cpi_reaction = None
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of as desk_binding_hash
@@ -1247,8 +1251,9 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "canonical_content_sha256": str(
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
-                "canonical_content_text": text if (public_record_metadata or cpi_reaction) else text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
+                "canonical_content_text": text if (public_record_metadata or cpi_reaction or prop_challenge_metadata) else text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
                 **({"cpi_reaction_page": cpi_reaction} if cpi_reaction else {}),
+                **({"prop_challenge_binding": prop_challenge_metadata} if prop_challenge_metadata else {}),
                 **({"source_reuse_constraints": dict(constraints)} if constraints else {}),
                 **({k: document[k] for k in ("context_only", "known_at_utc", "retrieval_time_utc", "revision_at_utc")
                     if k in document} if document.get("context_only") else {}),

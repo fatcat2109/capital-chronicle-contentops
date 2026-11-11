@@ -1,0 +1,4 @@
+sources/*.md -text
+*.json -text
+*.txt -text
+*.md -text

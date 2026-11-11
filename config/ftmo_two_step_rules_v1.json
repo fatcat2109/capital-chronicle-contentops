@@ -1,0 +1,96 @@
+{
+  "schema_version": "contentops.prop_rules.v1",
+  "version": "ftmo-cfd-2-step-2026-11-11",
+  "program": "FTMO_CFD_2_STEP",
+  "account_type": "STANDARD",
+  "day_timezone": "Europe/Prague",
+  "editorial_month_timezone": "America/New_York",
+  "model": {
+    "initial_index": "100",
+    "risk_pct_initial_capital": "0.5",
+    "risk_basis": "Frozen original cash risk; one fixed risk unit is 0.5% of starting model capital, without compounding.",
+    "cost_basis": "Observed profit, commissions, swaps and fees at each original deal clock. Open P/L is separate.",
+    "not_an_actual_ftmo_account": true
+  },
+  "phases": {
+    "challenge": {
+      "maximum_daily_loss_pct": "5",
+      "maximum_loss_pct": "10",
+      "minimum_trading_days": 4,
+      "news_window_applies": false,
+      "weekend_break_rule_applies": false,
+      "profit_target_pct": "10"
+    },
+    "verification": {
+      "maximum_daily_loss_pct": "5",
+      "maximum_loss_pct": "10",
+      "minimum_trading_days": 4,
+      "news_window_applies": false,
+      "weekend_break_rule_applies": false,
+      "profit_target_pct": "5"
+    }
+  },
+  "subsequent_standard_account": {
+    "profit_target_pct": null,
+    "minimum_trading_days": null,
+    "maximum_daily_loss_pct": "5",
+    "maximum_loss_pct": "10",
+    "news_restricted_minutes_before": 2,
+    "news_restricted_minutes_after": 2,
+    "news_scope": "All executions, including SL/TP and pending orders; selected announcements and affected symbols only.",
+    "market_break_hours_greater_than": "2",
+    "swing_exempt": true
+  },
+  "sources": {
+    "profit_target": {
+      "url": "https://ftmo.com/en/trading-objectives/#2-step",
+      "observed_on_utc": "2026-11-11",
+      "observed_at_utc": null,
+      "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+      "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-target.md",
+      "capture_sha256": "c23157270c591b57ad66960eb4b9920a868be791dfa3ff50928f76f339b6c606"
+    },
+    "daily_loss": {
+      "url": "https://ftmo.com/en/trading-objectives/#2-step-max-daily-loss",
+      "observed_on_utc": "2026-11-11",
+      "observed_at_utc": null,
+      "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+      "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-daily-loss.md",
+      "capture_sha256": "c885814356fa51ceab1fed4b56a950621269437fc4a4019b8e9f77c2d9101025"
+    },
+    "maximum_loss": {
+      "url": "https://ftmo.com/en/trading-objectives/#2-step-max-loss",
+      "observed_on_utc": "2026-11-11",
+      "observed_at_utc": null,
+      "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+      "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-max-loss.md",
+      "capture_sha256": "e330af1bd55594942fb49567a72ea4444f95638f6784294ddfbb0c95e0c86266"
+    },
+    "trading_days": {
+      "url": "https://ftmo.com/en/trading-objectives/#2-step-min-trading-days",
+      "observed_on_utc": "2026-11-11",
+      "observed_at_utc": null,
+      "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+      "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-trading-days.md",
+      "capture_sha256": "38575f40216a78fee90efa6c4724eeecfaf92156a45f0a8ac8994db4c125c4b6"
+    },
+    "news": {
+      "url": "https://ftmo.com/en/faq/can-i-trade-news/",
+      "observed_on_utc": "2026-11-11",
+      "observed_at_utc": null,
+      "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+      "capture_path": "docs/publisher/CC-427/sources/ftmo-news.md",
+      "capture_sha256": "11d23e46f3e76cbc92397752b6a490a438e8656118dc143db5a5b995350b970c"
+    },
+    "weekend": {
+      "url": "https://ftmo.com/en/faq/can-i-hold-positions-overnight-or-over-the-weekend/",
+      "observed_on_utc": "2026-11-11",
+      "observed_at_utc": null,
+      "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+      "capture_path": "docs/publisher/CC-427/sources/ftmo-weekend.md",
+      "capture_sha256": "03e6245b7f54f431415a2047a4f2d15f35579340879069a7338552831008cf4b"
+    }
+  },
+  "scope_limit": "Numeric objectives and the two named execution restrictions only; no certification of forbidden-practices, eligibility or all contract terms.",
+  "affiliate_link": null
+}
