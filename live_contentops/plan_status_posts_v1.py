@@ -1239,10 +1239,11 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
     return facts
 
 
-def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None) -> tuple[dict | None, bool]:
+def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
+                ratio: str = "16:9") -> tuple[dict | None, bool]:
     """CC-459: every new plan image is TradingView; after two failures use text."""
     from live_contentops import tradingview_snapshot_v1 as tv
-    asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+    asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio)
     if asset:
         from live_contentops import tradingview_plan_overlay_v1 as overlay
         try:

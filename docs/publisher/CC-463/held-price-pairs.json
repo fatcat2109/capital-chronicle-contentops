@@ -1,0 +1,77 @@
+{
+  "captured_quote_files": 125,
+  "pairs": [
+    {
+      "market": "XAUUSD",
+      "chart_price": 4047.473,
+      "chart_captured_at_utc": "2026-11-11T04:09:58.677172+00:00",
+      "quote_price": 4042.576,
+      "quote_at_utc": "2026-11-11T04:47:33+00:00",
+      "quote_source": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T044600Z\\request\\capture.json",
+      "quote_source_hash": "611e612289176f3f411bc024646cd7f871825e7a5bc81b25438a18d12a26625e",
+      "clock_skew_seconds": 2254.322828,
+      "difference": 4.8969999999999345,
+      "difference_pct": 0.12113563232948334
+    },
+    {
+      "market": "US500",
+      "chart_price": 7520.93,
+      "chart_captured_at_utc": "2026-11-11T04:10:21.323857+00:00",
+      "quote_price": 7574.21,
+      "quote_at_utc": "2026-11-11T04:47:32+00:00",
+      "quote_source": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T044600Z\\request\\capture.json",
+      "quote_source_hash": "611e612289176f3f411bc024646cd7f871825e7a5bc81b25438a18d12a26625e",
+      "clock_skew_seconds": 2230.676143,
+      "difference": -53.279999999999745,
+      "difference_pct": 0.7034396986616392
+    },
+    {
+      "market": "EURUSD",
+      "chart_price": 1.1165,
+      "chart_captured_at_utc": "2026-11-11T04:10:44.186539+00:00",
+      "quote_price": 1.1163,
+      "quote_at_utc": "2026-11-11T04:47:34+00:00",
+      "quote_source": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T044600Z\\request\\capture.json",
+      "quote_source_hash": "611e612289176f3f411bc024646cd7f871825e7a5bc81b25438a18d12a26625e",
+      "clock_skew_seconds": 2209.813461,
+      "difference": 0.00019999999999997797,
+      "difference_pct": 0.017916330735463403
+    },
+    {
+      "market": "USDJPY",
+      "chart_price": 158.853,
+      "chart_captured_at_utc": "2026-11-11T04:10:55.793750+00:00",
+      "quote_price": 158.808,
+      "quote_at_utc": "2026-11-11T04:47:33+00:00",
+      "quote_source": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T044600Z\\request\\capture.json",
+      "quote_source_hash": "611e612289176f3f411bc024646cd7f871825e7a5bc81b25438a18d12a26625e",
+      "clock_skew_seconds": 2197.20625,
+      "difference": 0.045000000000015916,
+      "difference_pct": 0.028336103974620875
+    },
+    {
+      "market": "USOIL",
+      "chart_price": 86.59,
+      "chart_captured_at_utc": "2026-11-11T04:11:14.882611+00:00",
+      "quote_price": 85.681,
+      "quote_at_utc": "2026-11-11T04:47:25+00:00",
+      "quote_source": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T044600Z\\request\\capture.json",
+      "quote_source_hash": "611e612289176f3f411bc024646cd7f871825e7a5bc81b25438a18d12a26625e",
+      "clock_skew_seconds": 2170.117389,
+      "difference": 0.909000000000006,
+      "difference_pct": 1.0609119874884818
+    },
+    {
+      "market": "BTCUSD",
+      "chart_price": 73650.43,
+      "chart_captured_at_utc": "2026-11-11T04:13:41.861306+00:00",
+      "quote_price": 73668.46,
+      "quote_at_utc": "2026-11-11T04:47:33+00:00",
+      "quote_source": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\t2-runs\\t2-20261111T044600Z\\request\\capture.json",
+      "quote_source_hash": "611e612289176f3f411bc024646cd7f871825e7a5bc81b25438a18d12a26625e",
+      "clock_skew_seconds": 2031.138694,
+      "difference": -18.030000000013388,
+      "difference_pct": 0.024474517317198415
+    }
+  ]
+}

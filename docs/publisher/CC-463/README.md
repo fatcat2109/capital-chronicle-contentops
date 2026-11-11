@@ -1,0 +1,11 @@
+CC-463 implements Jim's decision 124 in the existing `DurablePublicationCoordinator` and `tradingview_snapshot_v1` service. Its base is the CC-459 operating HEAD, `3358a4252d6cc3b8dc21e2bfdc9c34c3534b499a`. Fresh market writes require a TradingView first image of the correct market and a quote-bound price-scale check. A refusal is recorded as a definite no-write before any destination probe. Existing ambiguous attempts and native returns retain their readback path.
+
+The initial maximum absolute differences, as percentages of Main's quote, are gold 0.25%, S&P 500 1.00%, EUR/USD 0.10%, USD/JPY 0.10%, WTI 1.50% and Bitcoin 0.25%. [Retained comparisons](held-price-pairs.json) show 0.1211%, 0.7034%, 0.0179%, 0.0283%, 1.0609% and 0.0245%, respectively. These observations are 34–38 minutes apart. They establish initial bounded tolerances with a margin; they are not simultaneous feed-basis measurements. Publication requires a saved Main tick within 120 seconds of capture, with the quote known by capture time. The raw difference is checked before any WTI conversion; an excessive difference never becomes a conversion. WTI levels use the accepted simultaneous additive difference, stated on the image. Other markets never borrow that conversion.
+
+Instagram uses a native 4:5 chart download. A wide chart cannot be padded into that route. The existing service measures its download and resizes the chart viewport, preserving the chart header, axis and attribution. Targets use the exact supplied `target` or `target_level`; their absence is not filled. CC-471 owns adding Main's public target to its export.
+
+The existing `published_images_v1.jsonl` now retains image type and scale-check metadata. Its daily read method counts observed image uses by type, excluding reservations and repeated readbacks. Historical records retain their bytes and report UNKNOWN when their image type was not recorded.
+
+Launch configuration is `gpt-6.1-sol/max`, read from the active Ops-dispatched process arguments, labelled `CONFIGURED_NOT_OBSERVED`. No model call is inferred from those arguments. This run changes no schedule and sends no message to another chat.
+
+Build checks, integration, public readback and the required full live day plus seven-day observation are recorded separately below. Passing tests do not complete that observation period.

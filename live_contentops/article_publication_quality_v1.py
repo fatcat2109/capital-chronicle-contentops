@@ -236,13 +236,14 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
     """Register delivered status/digest images too, without changing their contracts."""
     if coordinator.published_content_path is None or coordinator._clock() < EFFECTIVE_FROM:
         return
-    _, assets, _ = article_inputs(intent)
+    article, assets, _ = article_inputs(intent)
     payload = intent.get("native_payload") or {}
     selected = list(payload.get("media_asset_ids") or []) if isinstance(payload, dict) else []
     if isinstance(payload, dict):
         selected += [i for p in payload.get("posts") or [] if isinstance(p, dict) for i in p.get("media_asset_ids") or []]
     if dispatch["platform"] != "substack" and selected:
-        assets = [a for a in assets if a.get("asset_id") in selected]
+        by_id = {a.get("asset_id"): a for a in assets}
+        assets = [by_id[i] for i in dict.fromkeys(selected) if i in by_id]
     if not assets:
         return
     # The canonical reservation already binds its fingerprints and uncertain
@@ -255,7 +256,9 @@ def observe_published_images(coordinator, intent, dispatch, *, observed_url, pub
         reference += ":edit:" + sha256(json.dumps(intent["reader_presentation_review"], sort_keys=True).encode()).hexdigest()
     image_register(coordinator).seed(piece_id=piece_id(coordinator.store, intent),
         canonical_url=observed_url if dispatch["platform"] == "substack" else intent.get("canonical_url"),
-        images=[{"asset_id": a["asset_id"], "path": a.get("path") or a.get("absolute_local_source_path")} for a in assets],
+        images=[{**a, "path": a.get("path") or a.get("absolute_local_source_path")} for a in assets],
         published_at=published_at_utc or dispatch["dispatched_at"], observation_ref=reference,
+        destination=dispatch["platform"], market=article.get("market_asset"),
+        image_contract=article.get("publication_image_contract"),
         counts_as_article=False, clock_basis="OBSERVED_PRESENTATION_EDIT_CLOCK" if edited else
         "OBSERVED_PUBLICATION_CLOCK" if published_at_utc else "RETAINED_COORDINATOR_DISPATCH_CLOCK")

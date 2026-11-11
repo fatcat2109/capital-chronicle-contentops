@@ -2929,6 +2929,28 @@ class DurablePublicationCoordinator:
         wrong_time = find_forbidden_public_time(*posted_values(intent, canonical_url), public_media_text(intent.get("media_assets")))
         if wrong_time:
             return {**refusal(destination, wrong_time), "status": TIME_REASON, "reason_code": TIME_REASON}
+        # Decision 124: one image contract for every fresh post, before any
+        # destination probe or adapter call. Existing in-flight returns and
+        # ambiguous writes still follow their original readback path.
+        if not native_pending_resume:
+            from .publication_image_contract_v1 import ImageContractError, validate_write
+            try:
+                validate_write(self, intent, destination)
+            except ImageContractError as image_error:
+                claimed = self.store.claim_platform_dispatch_attempt(
+                    dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform=destination,
+                    expected_status=existing.get("status") if existing else None)
+                if not claimed:
+                    actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+                    return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),
+                            "publish_called": False, "reason_code": "EXACT_DISPATCH_ALREADY_CLAIMED"}
+                self.store.set_dispatch_status(ids["dispatch_id"], DEFINITE_NO_WRITE)
+                self.store.set_outbox_status(ids["message_id"], DEFINITE_NO_WRITE)
+                self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+                    work_item_id=intent["work_item_id"], status=str(image_error))
+                return {"destination": destination, "status": DEFINITE_NO_WRITE, "publish_called": False,
+                        "reason_code": str(image_error), "image_contract_details": image_error.details,
+                        "dispatch_id": ids["dispatch_id"]}
         if intent.get("sourced_reply"):
             from live_contentops.sourced_replies_v1 import validate_intent, reserve, read_target
             row = validate_intent(self.store, intent)

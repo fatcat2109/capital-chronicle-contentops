@@ -4231,7 +4231,9 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
             decision["channel_media"] = {d: [i for i in ids if i in available] for d, ids in decision["channel_media"].items()}
     # CC-306: a plan-state post is not an article; it carries its validated copy per
     # destination (frozen below), so the article compiler has nothing to compile.
-    payloads = {} if intent.get("plan_status_post") or intent.get("sourced_reply") or intent.get("plan_analysis_page") else build_native_derivative_payloads(
+    payloads = {} if (intent.get("plan_status_post") or intent.get("sourced_reply")
+        or intent.get("plan_analysis_page") or media_destination == "substack"
+        or isinstance(frozen_for_media, Mapping)) else build_native_derivative_payloads(
         article=article,
         selection=selection,
         canonical_url=canonical_url or "https://capitalchronicle.substack.com/p/pending-publication",

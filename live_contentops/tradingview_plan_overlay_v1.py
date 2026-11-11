@@ -114,8 +114,12 @@ def geometry(result):
 def source_binding(row):
     levels = row.get("levels") or {}
     fields = ("zone_low", "zone_high", "invalidation_level", "target", "tick_size", "valid_until_utc", "direction")
+    bound = {k: levels[k] for k in fields if k in levels}
+    if not bound.get("target") and levels.get("target_level") is not None:
+        value = levels["target_level"]
+        bound["target"] = list(value) if isinstance(value, (list, tuple)) else [value]
     return {"key": row["key"], "symbol": row["symbol"], "source_content_hash": row.get("source_content_hash"),
-            "levels": {k: levels[k] for k in fields if k in levels}}
+            "levels": bound}
 
 
 def _price_y(scale, price):
@@ -133,7 +137,20 @@ def _draw(image, overlay, offset):
     # Preserve the entire TradingView legend, price axis, header and logo.
     left, top, right, bottom = left+16+ox, top+62+oy, right-16+ox, bottom-12+oy
     draw = ImageDraw.Draw(image, "RGBA")
-    levels = overlay["source"]["levels"]
+    levels = deepcopy(overlay["source"]["levels"])
+    offset = (overlay.get("price_scale_check") or {}).get("level_offset", 0)
+    if offset:
+        for field in ("zone_low", "zone_high", "invalidation_level"):
+            if levels.get(field) is not None:
+                levels[field] = float(levels[field]) + offset
+        levels["target"] = [float(value) + offset for value in levels.get("target") or []]
+    if overlay.get("basis_label"):
+        font = _font("semibold", 16)
+        label = overlay["basis_label"]
+        width = draw.textbbox((0, 0), label, font=font)[2] + 16
+        draw.rectangle((left + 8, top, left + 8 + width, top + 25), fill=(255, 255, 255, 245))
+        draw.text((left + 15, top + 2), label, font=font, fill=(31, 60, 80, 255))
+        top += 30
     markers = []
     colors = {"Entry low": (25,110,95,255), "Entry high": (25,110,95,255),
               "Invalidation": (175,40,57,255), "Target": (31,83,160,255)}
@@ -188,6 +205,14 @@ def apply(asset, row, *, require_verified=True):
         raise ValueError("TRADINGVIEW_PRICE_SCALE_NOT_CAPTURED_OR_BOUND")
     result = deepcopy(asset)
     overlay = {"policy": POLICY, "scale": scale, "source": source_binding(row)}
+    if asset["tradingview_snapshot"].get("price_scale_check"):
+        from .publication_image_contract_v1 import validate_scale
+        check = validate_scale(row["symbol"], asset["tradingview_snapshot"])
+        overlay["price_scale_check"] = check
+        if check["level_offset"]:
+            delta = check["level_offset"]
+            overlay["basis_label"] = ("WTI futures = plan feed " + ("+" if delta >= 0 else "-")
+                + f" {abs(delta):.3f} USD/bbl at capture")
     source = Path(asset["path"])
     with Image.open(source) as image:
         image = image.convert("RGB")
@@ -210,6 +235,8 @@ def validate(asset, row=None):
             or overlay["scale"]["source_sha256"] != snap["sha256"]
             or (row and _hash(overlay["source"]) != _hash(source_binding(row)))):
         raise ValueError("TRADINGVIEW_OVERLAY_SOURCE_OR_SCALE_CHANGED")
+    if overlay.get("price_scale_check") != snap.get("price_scale_check"):
+        raise ValueError("TRADINGVIEW_OVERLAY_PRICE_BASIS_CHANGED")
     with Image.open(snap["path"]) as raw, Image.open(asset["path"]) as actual:
         expected = Image.new("RGB", (asset["width"],asset["height"]),"white")
         box = snap["framing"]["original_box"]

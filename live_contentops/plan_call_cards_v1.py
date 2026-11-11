@@ -782,8 +782,10 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
                    "media_asset_ids": [card_id]}
         if destination == "telegram" and len(text) > 1024:
             payload["telegram_text_with_card_preview"] = True
-        if destination == "instagram_business" and row["kind"] == "run" and carousel:
-            payload.update(carousel_images=carousel, media_asset_ids=[a["asset_id"] for a in carousel])
+        if destination == "instagram_business" and carousel:
+            payload["media_asset_ids"] = [a["asset_id"] for a in carousel]
+            if row["kind"] == "run":
+                payload["carousel_images"] = carousel
         ref = (parents or {}).get(destination)
         if destination == "discord" and row.get("discord_delivery") == "channel":
             payload["discord_channel_post"] = True
@@ -875,17 +877,17 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             local_manifest = json.loads(local_manifest_path.read_bytes())
             assets.append(card)
             carousel_card = card
-            if row["kind"] == "run":
-                # Instagram receives a padded 4:5 variant of the same download.
-                # All TradingView pixels and the checked plan overlay are retained.
-                from . import tradingview_plan_overlay_v1 as overlay
-                carousel_card = tv.snapshot_asset(member["symbol"], member["instrument_title"],
-                    card["tradingview_snapshot"], member_folder / "media_assets", "4:5")
-                try:
-                    carousel_card = overlay.apply(carousel_card, member)
-                except (OSError, ValueError, KeyError) as exc:
-                    tv.record_outcome({"key": member["key"], "market": member["symbol"],
-                        "status": "PLAIN_SNAPSHOT", "cause": str(exc)[:200]})
+            if "instagram_business" in chosen:
+                # CC-463: a separate native portrait capture from the same
+                # service. A failed portrait affects only Instagram.
+                carousel_card, _ = posts._post_image(member, member_folder, snapshot=snapshot,
+                    snapshot_allowed=snapshot_allowed, ratio="4:5")
+                if carousel_card is None:
+                    all_carousel_images = False
+                    for hosted in local_manifest["assets"]:
+                        if hosted["media_asset_id"] not in {a["media_asset_id"] for a in manifest["assets"]}:
+                            manifest["assets"].append(hosted)
+                    continue
                 if not posts._hosted(local_manifest_path, carousel_card):
                     delivery = host(work_item_id=member["key"], delivery_only_assets=[carousel_card], existing_manifest=None,
                                     article_assets=[], article=article, source_documents=[])
@@ -902,7 +904,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
                 "sha256": carousel_card["sha256"], "url": hosted["verified_public_delivery_url"]})
         if assets:
             manifest_path.write_bytes(canonical_bytes(manifest))
-        if not assets or (row["kind"] == "run" and not all_carousel_images):
+        if not assets or not all_carousel_images:
             skipped = [{"destination": "instagram_business", "cause": "TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED"}]
             tv.record_outcome({"key": key, "market": row["symbol"], "destination": "instagram_business",
                                "status": "SKIPPED_IMAGE_REQUIRED", "cause": skipped[0]["cause"]})
