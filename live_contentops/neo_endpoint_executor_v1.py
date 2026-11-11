@@ -585,7 +585,7 @@ class NeoBrowserDriver:
             def editor_refs():
                 return [r for r in self.client.snapshot(page)["refs"] if r["role"] == "textbox"
                     and (r["name"].startswith("Post text") or r["name"] in {
-                        "Post your reply","What's on your mind?","Write a reply...","Add a comment..."})]
+                        "Post your reply","What's on your mind?","Write a reply...","Leave a reply...","Add a comment..."})]
             refs = editor_refs()
             if not refs:
                 # The DOM signal can precede the accessibility update by a

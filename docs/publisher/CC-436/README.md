@@ -120,3 +120,33 @@ two-minute live acceptance test.
 Launch arguments observed on PID 41068 at the original entry:
 `--model gpt-6.1-sol`, `model_reasoning_effort="max"`;
 `CONFIGURED_NOT_OBSERVED` (no runtime model/effort telemetry).
+
+## 11 November continuation
+
+The account limitation above is historical. At this run's entry the live
+`suspended_routes.json` was empty, and the stored Notes route used
+`@capitalchronicle` under CC-453. The unchanged minute worker was observed as
+`pythonw.exe -B scripts/plan_status_posts.py --publish`.
+
+The next investigation found two local transport defects:
+
+- X's existing ET-day incident was a definite no-write,
+  `NEO_COMPOSER_PREPARATION_FAILED`. A local preparation refusal must not mute
+  unrelated posts for a whole day. The coordinator now treats that exact
+  classification as local only when the outcome is `DEFINITE_NO_WRITE`.
+  Historical incident bytes are preserved; uncertain outcomes keep their circuit.
+- Neo's live Notes reply dialog exposed `Leave a reply...` and a `Post` button.
+  The executor now accepts that editor and uses `Post` for Notes replies while
+  keeping X's `Reply` button. The empty inspection composer was cancelled.
+
+Feature and main-account Notes regression: **65 passed in 66.89 seconds**,
+using only `test_neo_endpoint_executor_cc436.py` and
+`test_notes_main_account_cc453.py`, in one pytest process. The added tests run
+the production submit-validation JavaScript and prove the repaired consumer can
+confirm a fresh exact post despite a retained local-preparation incident.
+
+The resumed launch arguments observed on PID 47820 were
+`--model gpt-6.1-sol`, `model_reasoning_effort="max"`;
+`CONFIGURED_NOT_OBSERVED`. No model supplied publication copy in this repair.
+Live timing still requires exact endpoint returns and their matching Telegram
+confirmations; an active task or repaired source alone does not establish it.

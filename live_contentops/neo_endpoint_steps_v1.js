@@ -163,7 +163,7 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
       .filter(e => e.getClientRects().length).map(e => e.innerText)));
   if (input.phase === 'composer') return editors;
   const name = input.destination === 'x' && posts.length > 1 ? 'Post all'
-    : input.reply_parent ? 'Reply' : 'Post';
+    : input.destination === 'x' && input.reply_parent ? 'Reply' : 'Post';
   const buttons = s.refs.filter(r => r.role === 'button' && r.name === name);
   const button = buttons[buttons.length - 1];
   if (!check.matches || check.count !== posts.length || !button) {

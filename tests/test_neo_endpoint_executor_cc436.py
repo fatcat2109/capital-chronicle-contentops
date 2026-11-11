@@ -553,6 +553,63 @@ def test_covered_thread_editor_uses_neo_focus_and_types_only_bound_copy():
     assert all(kind!='click' for kind,_ in client.actions)
 
 
+def test_notes_reply_uses_the_observed_editor_without_posting():
+    class Client:
+        def __init__(self): self.actions=[]
+        def call(self,name,args):
+            assert name=='navigate'
+            assert args['url']=='https://substack.com/@capitalchronicle/note/c-123'
+        def wait(self,*args): pass
+        def snapshot(self,page):
+            return {'refs':[{'role':'button','name':'Comment','ref':'comment'},
+                {'role':'textbox','name':'Leave a reply...','ref':'reply'}]}
+        def act(self,page,kind,**values): self.actions.append((kind,values))
+    client=Client()
+    request={'destination':'substack_notes','native_payload':{'text':'The original conditional call.'},
+        'reply_parent':{'public_object_url':'https://substack.com/@capitalchronicle/note/c-123'}}
+    assert neo.NeoBrowserDriver(client).prepare(request,1)==['The original conditional call.']
+    assert client.actions==[('click',{'ref':'comment'}),('fill',{'ref':'reply','value':'The original conditional call.'})]
+
+
+@pytest.mark.parametrize('destination,button',[('substack_notes','Post'),('x','Reply')])
+def test_reply_validates_the_platforms_actual_submit_button(destination,button):
+    # Run the production JS with the SDK/DOM observations from the live Notes
+    # reply. Validation must find Post on Notes and Reply on X, without a click.
+    code='''
+const fs=require('node:fs');
+const input={phase:'validate',destination:process.argv[1],reply_parent:{public_object_id:'parent'},posts:['Bound copy']};
+const page={snapshot:async()=>({refs:[{role:'button',name:process.argv[2],ref:'submit'}]}),
+ evaluateInPage:async()=>({value:{count:1,matches:true}}),click:async()=>{throw Error('unexpected publish')}};
+const run=new Function('input','page','return (async()=>{'+fs.readFileSync(process.argv[3],'utf8')+'})()');
+run(input,page).then(x=>process.stdout.write(JSON.stringify(x))).catch(e=>{console.error(e);process.exit(1)});
+'''
+    result=subprocess.run(['node','-e',code,destination,button,str(neo.STEPS)],capture_output=True,text=True,timeout=10,check=True)
+    assert json.loads(result.stdout)=={'status':'PREPARED','post_count':1}
+
+
+@pytest.mark.parametrize('destination',['x','substack_notes'])
+@pytest.mark.parametrize('status',['DEFINITE_NO_WRITE','UNKNOWN_WRITE'])
+def test_composer_preparation_does_not_mute_unrelated_posts_when_definitely_unsent(tmp_path,destination,status):
+    store=copied_store(tmp_path);_,value=message(store,destination)
+    c=Coordinator(store=store,transport_runtime=None)
+    detail={'status':status,'safe_error_classification':'NEO_COMPOSER_PREPARATION_FAILED'}
+    c._record_destination_day_failure(value,destination,detail)
+    assert (c._destination_day_failure(destination) is None) is (status=='DEFINITE_NO_WRITE')
+    if status=='UNKNOWN_WRITE': return
+    # Preserve and interpret incidents made by the previously installed code.
+    incident_id,_=c._destination_failure_key(destination)
+    original=json.dumps(detail,sort_keys=True)
+    store.register_incident(incident_id=incident_id,work_item_id=value['work_item_id'],
+        severity='DISPATCH_FAILURE',description=original)
+    with endpoint() as (url,state):
+        c,e=bound(store,tmp_path,value['work_item_id'],url)
+        result=c._dispatch_message(store.list_outbox_messages(destination=destination)[0],canonical_url=value['canonical_url'])
+        assert result['status']=='DISPATCH_CONFIRMED',result
+        assert destination in state['posts']
+    with store.get_read_only_connection() as conn:
+        assert conn.execute('SELECT description FROM incidents WHERE incident_id=?',(incident_id,)).fetchone()[0]==original
+
+
 def test_existing_beforeunload_is_cleared_before_running_a_page_script():
     class Client(neo.NeoMcpClient):
         def __init__(self):self.actions=[]
