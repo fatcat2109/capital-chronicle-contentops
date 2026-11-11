@@ -32,7 +32,9 @@ class FakeBot:
 
 
 @pytest.fixture
-def setup(tmp_path):
+def setup(tmp_path, monkeypatch):
+    from live_contentops import x_reply_fact_sources_v1
+    monkeypatch.setattr(x_reply_fact_sources_v1, "load", lambda **kwargs: ([], []))
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3", auto_migrate=True)
     binding = tmp_path / "control/x_reply_bot_binding.json"
     packs.save_json(binding, {"start_nonce": "test-once", "bound_chat_id": None})
@@ -111,10 +113,10 @@ def mobile_input(setup, *, age=2):
     store.create_work_item(story_id=key, work_item_id=key, title="Public yen facts", target_surface="PRIVATE")
     store.register_outbox_message(message_id=key, work_item_id=key, destination="internal:plan-status-post",
         payload=json.dumps({"kind": "setup", "symbol": "USDJPY", "at_utc": (NOW - timedelta(hours=1)).isoformat(),
-            "text": "CFTC data for 3 Nov show speculators net long 102,321 yen contracts, 27% of open interest."}))
+            "text": "CFTC data for 9 Nov show speculators net long 102,321 yen contracts, 27% of open interest."}))
     feed = root / "feed.json"
     packs.save_json(feed, {"generated_at_utc": NOW.isoformat(), "rows": [{"handle": "FirstSquawk",
-        "text": "BOJ AND JAPAN DISCUSS THE YEN", "url": "https://x.com/FirstSquawk/status/123",
+        "text": "CFTC YEN POSITIONING SHOWS CROWDED SPECULATIVE LONGS", "url": "https://x.com/FirstSquawk/status/123",
         "tweet_id": "123", "posted_utc": (NOW - timedelta(minutes=age)).isoformat(), "metrics": {"replies": 3}}]})
     return feed
 
@@ -122,8 +124,8 @@ def mobile_input(setup, *, age=2):
 def authored(request):
     return {"request_sha256": request["request_sha256"], "editorial_call": {"configured_model": "test-model"},
         "items": [{"post_id": "123", "source_id": request["sources"][0]["source_id"],
-            "draft_text": "CFTC data for 3 Nov show speculators net long 102,321 yen contracts, 27% of open interest. That makes a stronger yen vulnerable to long liquidation when rate support fades.",
-            "fact_text": "102,321 yen contracts", "source_name": "CFTC", "date_text": "3 Nov",
+            "draft_text": "CFTC data for 9 Nov show speculators net long 102,321 yen contracts, 27% of open interest. That makes a stronger yen vulnerable to long liquidation when rate support fades.",
+            "fact_text": "102,321 yen contracts", "source_name": "CFTC", "date_text": "9 Nov",
             "addition": "long liquidation", "point": "Crowded positioning limits the headline's implication", "reply_shape": "positioning"}],
         "omissions": []}
 
@@ -147,7 +149,7 @@ def test_minute_consumer_uses_held_fact_delivers_exact_intent_and_parks_tabs_wit
     assert len(messages) == 1 and messages[0]["chat_id"] == 123456789
     message = messages[0]
     assert "<code>CFTC" in message["text"] and "Good until" in message["text"]
-    assert "Fact: 102,321 yen contracts (CFTC, 3 Nov)" in message["text"]
+    assert "Fact: 102,321 yen contracts (CFTC, 9 Nov)" in message["text"]
     buttons = message["reply_markup"]["inline_keyboard"][0]
     intent = urlparse(buttons[0]["url"])
     assert intent.netloc == "x.com" and intent.path == "/intent/tweet"
@@ -213,14 +215,14 @@ def test_code_filter_uses_real_reply_counts_and_never_turns_unknown_into_zero(se
     feed = packs.read_json(feed_path)
     original = feed["rows"][0]
     rows = []
-    for post_id, age, count in [("1", 59, 2), ("2", 60, 0), ("3", 1, 20), ("4", 1, None)]:
+    for post_id, age, count in [("1", 14, 2), ("2", 16, 0), ("3", 1, 20), ("4", 1, None)]:
         row = dict(original, tweet_id=post_id, url="https://x.com/FirstSquawk/status/" + post_id,
                    posted_utc=(NOW - timedelta(minutes=age)).isoformat(), metrics={"replies": count})
         rows.append(row)
     selected, causes = packs.select_posts({"rows": rows}, handles={"firstsquawk"}, now=NOW, mobile=True)
     assert {p["post_id"] for p in selected} == {"1", "4"}
     assert next(p for p in selected if p["post_id"] == "4")["reply_count"] is None
-    assert causes["POST_ALREADY_HAS_20_REPLIES"] == 1 and causes["POST_OUTSIDE_60_MINUTE_WINDOW"] == 1
+    assert causes["POST_ALREADY_HAS_20_REPLIES"] == 1 and causes["TARGET_OVER_15_MINUTES_AT_SEND"] == 1
 
 
 def test_uncertain_telegram_send_is_never_repeated_and_does_not_park_tabs(setup):
@@ -276,7 +278,7 @@ def test_ranker_uses_agy_but_only_stronger_writer_authors_source_bound_reply(set
         calls.append("writer")
         assert kwargs["writer"] and "102,321" in prompt
         return authored(packs.read_json(ready["request_path"])), {"configured_model": "gpt-6.1-sol", "configured_effort": "max", "configuration_status": "CONFIGURED_NOT_OBSERVED"}
-    path = botlane.rank_and_draft(ready["request_path"], output_dir=root / "native", ranker=rank, writer=write)
+    path = botlane.rank_and_draft(ready["request_path"], output_dir=root / "native", ranker=rank, writer=write, now=NOW)
     value = packs.read_json(path)
     assert calls == ["rank", "writer"] and value["quality_score"] == 92
     assert value["editorial_call"]["writer"]["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
@@ -292,7 +294,7 @@ def test_ranker_never_pads_low_quality_candidates_or_calls_writer(setup):
         return {"ranking": [{"post_id": "123", "quality_score": 79}]}, {}
     def write(*a, **k):
         pytest.fail("A weak opportunity is not padded into a draft")
-    path = botlane.rank_and_draft(ready["request_path"], output_dir=root / "native", ranker=rank, writer=write)
+    path = botlane.rank_and_draft(ready["request_path"], output_dir=root / "native", ranker=rank, writer=write, now=NOW)
     assert not packs.read_json(path)["items"]
 
 
@@ -314,7 +316,7 @@ def test_dated_positioning_description_is_not_a_new_unconditional_call(setup):
     ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW, reply_policy=packs.MOBILE_POLICY)
     request = packs.read_json(ready["request_path"])
     draft = authored(request)["items"][0]
-    draft["draft_text"] = "CFTC data for 3 Nov show speculators net long 102,321 yen contracts, 27% of open interest. That earlier bullish positioning can unwind when rate support fades."
+    draft["draft_text"] = "CFTC data for 9 Nov show speculators net long 102,321 yen contracts, 27% of open interest. That earlier bullish positioning can unwind when rate support fades."
     assert packs.validate_mobile_draft(draft, request["candidates"][0], request["sources"][0], now=NOW) == draft["draft_text"]
     draft["draft_text"] = draft["draft_text"].split(". ")[0] + ". The yen is bullish from here."
     with pytest.raises(ValueError, match="UNCONDITIONAL_CALL_FORBIDDEN"):
@@ -402,7 +404,7 @@ def test_expired_pack_does_not_send_and_daily_five_limit_is_shared_by_every_tick
     store.register_outbox_message(message_id=key, work_item_id=key, destination=packs.PACK_DESTINATION, payload=json.dumps(pack))
     # A different day avoids the day's cap and exercises the actual expiry refusal.
     expired = botlane.deliver_pack(store, key, binding_path=binding, bot=bot, now=NOW + timedelta(days=1))
-    assert expired["causes"]["TARGET_OVER_60_MINUTES"] == 1
+    assert expired["causes"]["TARGET_OVER_15_MINUTES_AT_SEND"] == 1
 
 
 @pytest.mark.parametrize("corrupt", [False, True])
@@ -420,7 +422,7 @@ def test_source_bound_chart_is_sent_before_draft_and_original_bytes_are_preserve
     store.register_outbox_message(message_id=key, work_item_id=key, destination="internal:cc-report-feed",
         payload=json.dumps({"desk_record_sources": [{"title": "CFTC yen positioning", "known_at_utc": (NOW - timedelta(hours=1)).isoformat(),
             "binding": {"fixture": False, "sources": [{"attribution": "CFTC"}], "fields": [{"citation": "CFTC/yen", "field_path": "/yen",
-                "value": 102321, "display": "CFTC data for 3 Nov show speculators net long 102,321 yen contracts, 27% of open interest.",
+                "value": 102321, "display": "CFTC data for 9 Nov show speculators net long 102,321 yen contracts, 27% of open interest.",
                 "rights_class": "CC_OWN_ANALYSIS", "image": image}]}}]}))
     ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW, reply_policy=packs.MOBILE_POLICY)
     value = authored(packs.read_json(ready["request_path"]))

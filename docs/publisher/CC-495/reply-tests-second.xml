@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="60" time="83.733" timestamp="2026-11-12T02:59:56.480843+07:00" hostname="J-P"><testcase classname="tests.test_x_reply_fact_cc495" name="test_positioning_age_uses_actual_as_of_not_fresh_report_clock" time="0.018" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_positioning_three_calendar_day_boundary[3-True]" time="0.004" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_positioning_three_calendar_day_boundary[4-False]" time="0.003" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_recent_positioning_never_explains_a_session_move[YEN RISES TODAY-FACT_POSITIONING_TARGET_NOT_POSITIONING]" time="0.003" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_recent_positioning_never_explains_a_session_move[CFTC YEN POSITIONING AS THE YEN RISES-FACT_POSITIONING_CANNOT_EXPLAIN_SESSION_MOVE]" time="0.005" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_session_observation_window_and_no_future_fact[-61-FACT_SESSION_NOT_CURRENT]" time="0.004" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_session_observation_window_and_no_future_fact[-60-None]" time="0.003" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_session_observation_window_and_no_future_fact[1-None]" time="0.003" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_session_observation_window_and_no_future_fact[3-FACT_SESSION_NOT_CURRENT]" time="0.004" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_a_fresh_capture_cannot_turn_yesterdays_price_into_todays_fact" time="0.006" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_daily_fact_counts_trading_days_and_requires_its_day_in_the_sentence" time="0.007" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_bond_holiday_does_not_add_a_trading_day" time="0.004" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_base_rate_is_a_completed_count_with_its_explicit_historical_period" time="0.003" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_same_market_is_required_even_for_a_fresh_fact" time="0.003" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_a_driver_sentence_names_both_markets_and_the_relationship" time="0.005" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_no_fact_means_no_draft" time="0.004" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_send_deadline_is_checked_at_the_actual_send_boundary" time="0.003" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_minute_consumer_reads_held_bar_checks_age_and_records_all_four_stages" time="3.743" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_pre_draft_filter_drops_other_index_and_does_not_call_a_model" time="2.325" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_old_pack_cannot_bypass_the_new_send_deadline_or_rewrite_issued_bytes" time="2.106" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_source_row_change_is_rechecked_before_private_send" time="5.006" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_media_time_cannot_push_a_draft_past_fifteen_minutes" time="2.587"><failure message="TypeError: ContentOpsDurableStore.create_work_item() missing 1 required keyword-only argument: 'target_surface'">consumer = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000001DA9B6336F0&gt;, WindowsPath('C:/U...feed.json'), WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-2188/test_media_time_cannot_push_a_0'))
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001DA9B676D60&gt;
+
+    def test_media_time_cannot_push_a_draft_past_fifteen_minutes(consumer, monkeypatch):
+        from hashlib import sha256
+        from PIL import Image
+        store, binding, feed, root = consumer
+        ready = packs.prepare(store, feed_path=feed, output_root=root / "request", now=NOW, reply_policy=packs.MOBILE_POLICY)
+        response = drafter(ready["request_path"], output_dir=root)
+        built = packs.build(store, request_path=ready["request_path"], response_path=response, feed_path=feed, output_root=root, now=NOW)
+        value = json.loads(store.get_outbox_message(built["store_message_id"])["payload"])
+        image = root / "test-chart.png"
+        Image.new("RGB", (40, 40), "white").save(image)
+        value["items"][0]["image"] = {"path": str(image), "sha256": sha256(image.read_bytes()).hexdigest(),
+                                      "kind": "chart", "rights_class": "CC_OWN_ANALYSIS"}
+        key = "isolated-media-delay-pack"
+&gt;       store.create_work_item(work_item_id=key, story_id=key, title=key)
+E       TypeError: ContentOpsDurableStore.create_work_item() missing 1 required keyword-only argument: 'target_surface'
+
+tests\test_x_reply_fact_cc495.py:273: TypeError</failure></testcase><testcase classname="tests.test_x_reply_fact_cc495" name="test_official_rate_rows_keep_the_data_day_and_exact_source_value" time="2.247" /><testcase classname="tests.test_x_reply_fact_cc495" name="test_reaction_counts_never_pool_series_windows_or_future_events" time="0.018" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_start_binds_once_only_private_and_redacts_every_return_and_store_row" time="2.766" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_non_private_start_never_sends_even_with_correct_nonce[group]" time="1.999" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_non_private_start_never_sends_even_with_correct_nonce[supergroup]" time="3.272" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_non_private_start_never_sends_even_with_correct_nonce[channel]" time="2.272" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_private_destination_refuses_channel_ids_and_changed_chat_type[@CapitalChronicle-channel]" time="0.006" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_private_destination_refuses_channel_ids_and_changed_chat_type[-1001234-channel]" time="0.006" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_private_destination_refuses_channel_ids_and_changed_chat_type[123456789-group]" time="0.005" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_transport_errors_do_not_serialize_token_url_or_chat" time="0.006" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_skip_only_accepts_bound_private_sender" time="1.764" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_minute_consumer_uses_held_fact_delivers_exact_intent_and_parks_tabs_without_public_writes" time="2.531" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_non_private_destination_is_refused_before_any_draft_send" time="1.352" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_mobile_voice_and_all_numbers_remain_source_bound[&lt;lambda&gt;-TWO_SENTENCES]" time="1.316" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_mobile_voice_and_all_numbers_remain_source_bound[&lt;lambda&gt;-VOICE0]" time="1.142" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_mobile_voice_and_all_numbers_remain_source_bound[&lt;lambda&gt;-VOICE1]" time="0.930" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_mobile_voice_and_all_numbers_remain_source_bound[&lt;lambda&gt;-EXACT_SOURCE_FACT]" time="1.037" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_mobile_voice_and_all_numbers_remain_source_bound[&lt;lambda&gt;-UNBOUND_OR_CHANGED_NUMBER]" time="1.416" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_mobile_voice_and_all_numbers_remain_source_bound[&lt;lambda&gt;-BOUND_DATE_AND_SOURCE0]" time="2.993" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_mobile_voice_and_all_numbers_remain_source_bound[&lt;lambda&gt;-BOUND_DATE_AND_SOURCE1]" time="1.619" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_mobile_voice_and_all_numbers_remain_source_bound[&lt;lambda&gt;-SHAPE]" time="4.237" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_code_filter_uses_real_reply_counts_and_never_turns_unknown_into_zero" time="2.765" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_uncertain_telegram_send_is_never_repeated_and_does_not_park_tabs" time="2.832" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_manual_reply_readback_keeps_both_delays_and_feeds_14_day_cohort" time="2.331" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_ranker_uses_agy_but_only_stronger_writer_authors_source_bound_reply" time="2.098" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_ranker_never_pads_low_quality_candidates_or_calls_writer" time="1.511" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_paraphrased_private_addition_metadata_never_blocks_an_exact_public_fact" time="2.080" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_dated_positioning_description_is_not_a_new_unconditional_call" time="1.948" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_reconciliation_preserves_actual_writer_clock_instead_of_rebuild_time" time="2.392" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_headless_writer_has_explicit_model_effort_and_no_project_or_mcp_inheritance" time="0.137" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_native_timeout_keeps_partial_return_in_existing_call_artifacts" time="0.021" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_real_reply_observer_remains_wired_after_tab_gate_is_parked" time="5.834" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_expired_pack_does_not_send_and_daily_five_limit_is_shared_by_every_tick" time="1.507" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_source_bound_chart_is_sent_before_draft_and_original_bytes_are_preserved[False]" time="1.415" /><testcase classname="tests.test_x_reply_bot_cc464" name="test_source_bound_chart_is_sent_before_draft_and_original_bytes_are_preserved[True]" time="1.122" /><testcase classname="tests.test_x_reply_bot_entry_cc464" name="test_real_minute_entry_orders_bot_before_export_and_dry_run_calls_no_bot[False]" time="2.046"><failure message="sqlite3.OperationalError: no such table: leases">tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-2188/test_real_minute_entry_orders_0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000001DA9B988C20&gt;
+dry = False
+
+    @pytest.mark.parametrize("dry", [False, True])
+    def test_real_minute_entry_orders_bot_before_export_and_dry_run_calls_no_bot(tmp_path, monkeypatch, dry):
+        spec = importlib.util.spec_from_file_location("cc464_minute", Path(__file__).parents[1] / "scripts/plan_status_posts.py")
+        cli = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cli)
+        from live_contentops import x_reply_bot_v1 as bot
+        from live_contentops import x_reply_tabs_v1 as tabs
+        from live_contentops import event_timestamp_v1, event_pack_v1, plan_status_posts_v1
+        order = []
+        def refresh(store, **options):
+            order.append("private-draft")
+            assert options["binding_path"] == tmp_path / "control/x_reply_bot_binding.json"
+            return {"status": "PENDING_JIM_BOT_START", "public_submit_actions": 0}
+        def queue(*a, **k):
+            order.append("main-export")
+            return {"status": "EXPORT_STALE"}
+        monkeypatch.setattr(bot, "refresh_due", refresh)
+        monkeypatch.setattr(bot, "observe_due", lambda *a, **k: {"status": "OBSERVATION_NOT_DUE"})
+        monkeypatch.setattr(cli, "queue_posts", queue)
+        monkeypatch.setattr(tabs, "refresh_due", lambda *a, **k: {"status": "DISABLED"})
+        monkeypatch.setattr(event_timestamp_v1, "maintain_timestamps", lambda: {"status": "UNCHANGED"})
+        monkeypatch.setattr(event_pack_v1, "run_due_packs", lambda *a, **k: [])
+        monkeypatch.setattr(plan_status_posts_v1, "record_run", lambda *a: tmp_path / "record.json")
+        class Output(io.StringIO):
+            def reconfigure(self, **kw):
+                pass
+        output = Output()
+        monkeypatch.setattr(sys, "stdout", output)
+&gt;       cli.main(["--store", str(tmp_path / "store.sqlite3"), "--publish", *(["--dry-run"] if dry else [])])
+
+tests\test_x_reply_bot_entry_cc464.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+scripts\plan_status_posts.py:178: in main
+    result["audience_collection"] = run_collection(store, limit=4)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\audience_collection_v1.py:179: in run_collection
+    lease = store.acquire_lease("audience-collection-cc402", owner, ttl_seconds=180)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000001DA9DD70C50&gt;
+lease_key = 'audience-collection-cc402'
+owner_ref = 'audience-a04edf4d2ab44b8f940a635022153050', ttl_seconds = 180
+work_item_id = None
+
+    def acquire_lease(self, lease_key: str, owner_ref: str, ttl_seconds: int = 30, work_item_id: Optional[str] = None) -&gt; Dict[str, Any]:
+        now = self._get_now(); now_iso = now.isoformat(); expires = (now + timedelta(seconds=ttl_seconds)).isoformat(); conn = self.get_connection()
+        try:
+&gt;           conn.execute("BEGIN IMMEDIATE"); existing = conn.execute("SELECT * FROM leases WHERE lease_key=?", (lease_key,)).fetchone()
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           sqlite3.OperationalError: no such table: leases
+
+live_contentops\durable_operational_store_v1.py:909: OperationalError</failure></testcase><testcase classname="tests.test_x_reply_bot_entry_cc464" name="test_real_minute_entry_orders_bot_before_export_and_dry_run_calls_no_bot[True]" time="0.011" /><testcase classname="tests.test_x_reply_bot_entry_cc464" name="test_feed_keeps_observed_reply_count_from_cdp_extraction" time="0.659" /></testsuite></testsuites>

@@ -21,6 +21,7 @@ from live_contentops.event_article_guard_v1 import (
 from live_contentops.preview_link_guard_v1 import find_forbidden_link
 from live_contentops.public_time_v1 import public_timestamp, require_public_time
 from live_contentops.sourced_replies_v1 import clock, digest
+from live_contentops import x_reply_fact_policy_v1 as fact_policy
 from tools.product.desk_record_projection_v1 import (
     MODEL_ESTIMATE_LABEL, PRIVATE_ONLY_RIGHTS, public_text_problems,
 )
@@ -66,10 +67,14 @@ def target_handles(path=TARGETS):
     }
 
 
-def select_posts(feed, *, handles, mentions=None, now=None, mobile=False):
+def select_posts(feed, *, handles, mentions=None, now=None, mobile=False, drops=None):
     """Age/topic/identity checks, retaining original text for private drafting."""
     now = now or utcnow()
     selected, causes, seen = [], Counter(), set()
+    def drop(post_id, cause):
+        causes[cause] += 1
+        if drops is not None:
+            drops.append({"post_id": post_id, "cause": cause})
     for row in [*feed.get("rows", []), *(mentions or {}).get("rows", [])]:
         handle = str(row.get("handle", "")).lstrip("@")
         text = str(row.get("text", ""))
@@ -82,7 +87,7 @@ def select_posts(feed, *, handles, mentions=None, now=None, mobile=False):
         post_id = str(row.get("tweet_id", ""))
         match = POST.fullmatch(str(row.get("url", "")))
         if not match or match[1].casefold() != handle.casefold() or match[2] != post_id:
-            causes["POST_IDENTITY_MISMATCH"] += 1
+            drop(post_id, "POST_IDENTITY_MISMATCH")
             continue
         if post_id in seen:
             continue
@@ -90,21 +95,21 @@ def select_posts(feed, *, handles, mentions=None, now=None, mobile=False):
         try:
             posted = clock(row["posted_utc"])
         except (ValueError, KeyError, TypeError):
-            causes["POST_TIME_INVALID"] += 1
+            drop(post_id, "POST_TIME_INVALID")
             continue
         age = (now - posted).total_seconds()
         replies = row.get("reply_count", row.get("metrics", {}).get("replies"))
         replies = replies if type(replies) is int and replies >= 0 else None
-        if (not 0 <= age < 3600) if mobile else (not 0 <= age <= BUILD_WINDOW_SECONDS):
-            causes["POST_OUTSIDE_60_MINUTE_WINDOW" if mobile else "POST_OUTSIDE_120_MINUTE_BUILD_WINDOW"] += 1
+        if (not 0 <= age <= fact_policy.SEND_SECONDS) if mobile else (not 0 <= age <= BUILD_WINDOW_SECONDS):
+            drop(post_id, "TARGET_OVER_15_MINUTES_AT_SEND" if mobile else "POST_OUTSIDE_120_MINUTE_BUILD_WINDOW")
         elif mobile and replies is not None and replies >= 20:
-            causes["POST_ALREADY_HAS_20_REPLIES"] += 1
+            drop(post_id, "POST_ALREADY_HAS_20_REPLIES")
         elif row.get("is_retweet") or text.startswith("RT @"):
-            causes["RETWEET_NOT_ORIGINAL_TARGET"] += 1
+            drop(post_id, "RETWEET_NOT_ORIGINAL_TARGET")
         elif kind == "target" and not TOPIC.search(text):
-            causes["NO_SIX_MARKET_OR_MACRO_TOPIC"] += 1
+            drop(post_id, "NO_SIX_MARKET_OR_MACRO_TOPIC")
         elif handle.casefold() == "capitalnicle":
-            causes["OWN_POST_NOT_REPLY_TARGET"] += 1
+            drop(post_id, "OWN_POST_NOT_REPLY_TARGET")
         else:
             selected.append({
                 "kind": kind, "post_id": post_id, "post_url": row["url"],
@@ -116,7 +121,8 @@ def select_posts(feed, *, handles, mentions=None, now=None, mobile=False):
     return selected, dict(causes)
 
 
-def held_sources(store, *, desk_message_id=None, call_message_id=None, include_desk=True, include_calls=True):
+def held_sources(store, *, desk_message_id=None, call_message_id=None, include_desk=True, include_calls=True,
+                 fact_only=False):
     """Reuse the source owner's public projection and our frozen public calls."""
     sources = []
     rows = (([store.get_outbox_message(desk_message_id)] if desk_message_id else
@@ -168,21 +174,80 @@ def held_sources(store, *, desk_message_id=None, call_message_id=None, include_d
             "rights_class": "CC_OWN_ANALYSIS", "store_message_id": row["message_id"],
             "store_payload_sha256": digest(data), "plan_id": data.get("plan_id"),
         })
+    if fact_only:
+        facts = []
+        for source in sources:
+            for sentence in re.split(r"(?<=[.!?])\s+|\n", source["excerpt"]):
+                if NUMBER.search(sentence):
+                    facts.append({**source, "parent_source_id": source["source_id"],
+                        "source_id": source["source_id"] + "#fact-" + digest(sentence)[:16], "excerpt": sentence})
+        return facts
     return sources
+
+
+def resolve_fact_source(store, bound):
+    """Read the exact owning source again; an issued pack never refreshes a fact."""
+    if bound["kind"] == "HELD_MARKET_FACT":
+        from live_contentops.x_reply_fact_sources_v1 import resolve
+        return resolve(bound)
+    options = {"desk_message_id" if bound["kind"] == "MAIN_PUBLIC_DESK_FIELD" else "call_message_id":
+               bound["store_message_id"], "include_desk": bound["kind"] == "MAIN_PUBLIC_DESK_FIELD",
+               "include_calls": bound["kind"] == "FROZEN_PUBLIC_CALL", "fact_only": bool(bound.get("parent_source_id"))}
+    source = next((s for s in held_sources(store, **options) if s["source_id"] == bound["source_id"]), None)
+    if not source or source["store_payload_sha256"] != bound["store_payload_sha256"]:
+        raise ValueError("REPLY_SOURCE_BINDING_CHANGED")
+    return source
+
+
+def recheck_mobile_item(store, item, *, now):
+    fact_policy.check_send_time(item, now=now)
+    bound = item["sources"][0]
+    # Older issued packs remain immutable, but never bypass today's send check.
+    if "kind" not in bound:
+        row = store.get_outbox_message(bound["store_message_id"])
+        bound = {**bound, "kind": "MAIN_PUBLIC_DESK_FIELD" if row and row["destination"] == "internal:cc-report-feed" else "FROZEN_PUBLIC_CALL"}
+    source = resolve_fact_source(store, bound)
+    draft = item.get("draft_binding") or {"draft_text": item["draft_text"], "fact_text": item.get("fact_text")}
+    return fact_policy.check_fact(item, source, now=now, draft=draft)
 
 
 def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mentions_path=None, now=None,
             automated_mentions=False, reply_policy=None):
     now = now or utcnow()
     feed = read_json(feed_path)
+    drops = []
     posts, causes = select_posts(feed, handles=target_handles(targets), now=now,
                                 mentions=read_json(mentions_path) if mentions_path else None,
-                                mobile=reply_policy == MOBILE_POLICY)
-    sources = held_sources(store)
+                                mobile=reply_policy == MOBILE_POLICY, drops=drops)
+    mobile = reply_policy == MOBILE_POLICY
+    sources = held_sources(store, fact_only=mobile)
+    source_gaps = []
+    if mobile:
+        from live_contentops.x_reply_fact_sources_v1 import load
+        extra, source_gaps = load(now=now)
+        sources.extend(extra)
+        usable = []
+        for post in posts:
+            ids, refusals = [], Counter()
+            for source in sources:
+                try:
+                    fact_policy.check_fact(post, source, now=now)
+                    ids.append(source["source_id"])
+                except (ValueError, KeyError, TypeError) as exc:
+                    refusals[str(exc) if isinstance(exc, ValueError) else "NO_USABLE_FACT"] += 1
+            if ids:
+                post["usable_source_ids"] = ids
+                usable.append(post)
+            else:
+                drops.append({"post_id": post["post_id"], "cause": "NO_USABLE_FACT", "fact_refusals": dict(refusals),
+                              "markets": sorted(fact_policy.markets(post["post_text"]))})
+                causes["NO_USABLE_FACT"] = causes.get("NO_USABLE_FACT", 0) + 1
+        posts = usable
     request = {
         "schema_version": "contentops.x_reply_pack_request.v1", "prepared_at_utc": now.isoformat(),
         "feed_generated_at_utc": feed["generated_at_utc"], "feed_sha256": digest(feed),
         "candidates": posts, "selection_causes": causes, "sources": sources,
+        "dropped_candidates": drops, "source_gaps": source_gaps,
         "audience_feedback": report_manual_replies(store, now=now),
         "instructions": (
             "Author English replies for Jim to review and post himself (decisions 122 and 123). "
@@ -225,6 +290,13 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
             "If a supplied source has an admitted chart/table image that adds useful information, "
             "set include_image=true on that item; never invent an image or its values. "
             "Use the fourteen-day audience feedback for selection; unknown metrics stay unknown."
+            " CC495_REPLY_FACT_V1: use only the target's usable_source_ids. Today's move needs a same-session "
+            "price, yield or priced-in fact observed no earlier than 60 minutes before the post. "
+            "A daily fact may be one trading day old; say its day. Positioning is at most 3 calendar days old "
+            "and only answers a positioning post, never today's move. A base rate states count, denominator "
+            "and period, computed through the last completed market day. Use the same market; another index "
+            "never substitutes. A yield/dollar driver must name both markets and explain the link in words. "
+            "No usable fact means omit the target with its specific cause. Never draft to fill a quota."
         )
     if automated_mentions:
         request["instructions"] += (
@@ -337,6 +409,7 @@ def validate_mobile_draft(draft, post, source, *, now):
     checked = re.sub(r"\b(?:earlier|dated|prior) (?:bullish|bearish) positioning\b",
                      "dated positioning", text, flags=re.I)
     check_publication_copy({"reply": checked}, require_notice=False)
+    fact_policy.check_fact(post, source, now=now, draft=draft)
     return text
 
 
@@ -388,10 +461,11 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
     for bound in request["sources"]:
         if bound["source_id"] not in {d.get("source_id") for d in response.get("items", [])}:
             continue
-        options = {"desk_message_id" if bound["kind"] == "MAIN_PUBLIC_DESK_FIELD" else "call_message_id":
-                   bound["store_message_id"], "include_desk": bound["kind"] == "MAIN_PUBLIC_DESK_FIELD",
-                   "include_calls": bound["kind"] == "FROZEN_PUBLIC_CALL"}
-        sources.update({s["source_id"]: s for s in held_sources(store, **options)})
+        try:
+            source = resolve_fact_source(store, bound)
+            sources[source["source_id"]] = source
+        except (ValueError, OSError, KeyError):
+            pass
     published_urls = {d["public_object_url"] for d in store.list_platform_dispatches()
                       if d["platform"] == "substack" and d["status"] == "DISPATCH_CONFIRMED"
                       and d.get("public_object_url")}
@@ -430,13 +504,14 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
             items.append({
                 **post, "draft_text": text,
                 "intent_url": ("https://x.com/intent/tweet?" if mobile else "https://x.com/intent/post?") + urlencode({"in_reply_to": post_id, "text": text}),
-                "stale_at_utc": (clock(post["post_time_utc"]) + timedelta(seconds=3600 if mobile else TAB_LIFETIME_SECONDS)).isoformat(),
+                "stale_at_utc": (clock(post["post_time_utc"]) + timedelta(seconds=fact_policy.SEND_SECONDS if mobile else TAB_LIFETIME_SECONDS)).isoformat(),
                 **({"fact_text": draft["fact_text"], "fact_source": draft["source_name"] + ", " + draft["date_text"],
+                    "fact_binding": fact_policy.check_fact(post, source, now=now, draft=draft), "draft_binding": draft,
                     "draft_ready_at_utc": drafted.isoformat(),
                     "post_to_draft_minutes": (drafted - clock(post["post_time_utc"])).total_seconds() / 60} if mobile else {}),
                 **({"image": source["image"]} if mobile and draft.get("include_image") is True and source.get("image") else {}),
-                "sources": [{k: source[k] for k in ("source_id", "label", "known_at_utc", "rights_class",
-                                                    "store_message_id", "store_payload_sha256")}],
+                "sources": [{k: source[k] for k in ("source_id", "label", "known_at_utc", "rights_class", "kind",
+                                                    "store_message_id", "store_payload_sha256", "parent_source_id", "artifact_binding") if k in source}],
                 "point": draft["point"], "reply_shape": draft.get("reply_shape"),
                 "editorial_call": response.get("editorial_call", {}),
             })
@@ -457,7 +532,8 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
     pack = {
         "schema_version": "contentops.x_reply_pack.v1", "built_at_utc": now.isoformat(),
         "valid_until_utc": max((clock(i["stale_at_utc"]) for i in items), default=now + timedelta(seconds=TAB_LIFETIME_SECONDS)).isoformat(),
-        "none_reason": reason, "short_reason": short, "items": items, "omissions": omitted,
+        "none_reason": reason, "short_reason": short, "items": items,
+        "omissions": [*request.get("dropped_candidates", []), *omitted],
         "selection_causes": causes, "request_sha256": expected, "response_sha256": digest(response),
         "feed_generated_at_utc": feed["generated_at_utc"], "feed_sha256": digest(feed),
         "editorial_call": response.get("editorial_call", {}), "public_write_performed": False,

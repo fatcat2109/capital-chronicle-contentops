@@ -16,6 +16,7 @@ def test_real_minute_entry_orders_bot_before_export_and_dry_run_calls_no_bot(tmp
     from live_contentops import x_reply_bot_v1 as bot
     from live_contentops import x_reply_tabs_v1 as tabs
     from live_contentops import event_timestamp_v1, event_pack_v1, plan_status_posts_v1
+    from live_contentops import audience_collection_v1, model_invocation_usage_v1
     order = []
     def refresh(store, **options):
         order.append("private-draft")
@@ -31,6 +32,8 @@ def test_real_minute_entry_orders_bot_before_export_and_dry_run_calls_no_bot(tmp
     monkeypatch.setattr(event_timestamp_v1, "maintain_timestamps", lambda: {"status": "UNCHANGED"})
     monkeypatch.setattr(event_pack_v1, "run_due_packs", lambda *a, **k: [])
     monkeypatch.setattr(plan_status_posts_v1, "record_run", lambda *a: tmp_path / "record.json")
+    monkeypatch.setattr(audience_collection_v1, "run_collection", lambda *a, **k: {"collected": 0})
+    monkeypatch.setattr(model_invocation_usage_v1, "import_native_invocations", lambda *a, **k: {})
     class Output(io.StringIO):
         def reconfigure(self, **kw):
             pass
