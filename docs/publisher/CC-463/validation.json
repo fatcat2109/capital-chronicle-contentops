@@ -1,0 +1,64 @@
+{
+  "recorded_at_utc": "2026-11-11T15:33:58.462160+00:00",
+  "status": "PASS",
+  "distinct_targeted_checks": 180,
+  "runs": [
+    {
+      "artifact": "article-boundary-regression.xml",
+      "passed": 7,
+      "seconds": 6.131
+    },
+    {
+      "artifact": "article-media-regression.xml",
+      "passed": 5,
+      "seconds": 1.954
+    },
+    {
+      "artifact": "article-snapshot-regression.xml",
+      "passed": 19,
+      "seconds": 6.614
+    },
+    {
+      "artifact": "chart-regression.xml",
+      "passed": 42,
+      "seconds": 17.777
+    },
+    {
+      "artifact": "contract-tests.xml",
+      "passed": 28,
+      "seconds": 6.052
+    },
+    {
+      "artifact": "coordinator-regression.xml",
+      "passed": 7,
+      "seconds": 6.119
+    },
+    {
+      "artifact": "event-plan-regression.xml",
+      "passed": 44,
+      "seconds": 16.381
+    },
+    {
+      "artifact": "plan-analysis-regression.xml",
+      "passed": 51,
+      "seconds": 22.214
+    }
+  ],
+  "full_suite_run": false,
+  "parallel_pytest": false,
+  "dry_run": {
+    "status": "OK",
+    "contract_version": "2.0.0",
+    "rendered_count": 60,
+    "would_queue": [],
+    "export_generated_at_utc": "2026-11-11T15:32:08.837345Z"
+  },
+  "portrait": {
+    "artifact": "portrait-capture.json",
+    "pixels_inspected": true,
+    "native_ratio": "4:5",
+    "live_instagram_post": false
+  },
+  "live_acceptance": "NOT_YET_OBSERVED",
+  "required_observation": "one complete live day, live Instagram inspection, then seven days with no violation"
+}

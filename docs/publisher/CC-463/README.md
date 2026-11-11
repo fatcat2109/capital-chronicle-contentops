@@ -12,6 +12,8 @@ The existing `published_images_v1.jsonl` now retains image type and scale-check 
 
 Run `python scripts/audit_publication_images_cc463.py --register <existing published_images_v1.jsonl> --day YYYY-MM-DD` for a read-only daily count and first-image check. An unfinished day returns `OBSERVATION_PENDING`; an empty day cannot pass. Text fallbacks are counted explicitly. The existing two-article cap still counts those pieces. This adds no watcher, ledger or schedule.
 
+Native writer requests now require the exact `macro_chart_symbol` (`ECONOMICS:` or `FRED:`) for macro-data pieces. Structured event inputs accept that field or a source-bound original `fred_graph` asset. The series cannot be inferred from a title or an unlabelled headline number. The same chart service captures it; a locally drawn release card cannot replace it. Current event derivatives also use the already-restored eight-channel registry, including YouTube. Historical event packets keep their exact bytes.
+
 Launch configuration is `gpt-6.1-sol/max`, read from the active Ops-dispatched process arguments, labelled `CONFIGURED_NOT_OBSERVED`. No model call is inferred from those arguments. This run changes no schedule and sends no message to another chat.
 
 Build checks, integration, public readback and the required full live day plus seven-day observation are recorded separately below. Passing tests do not complete that observation period.

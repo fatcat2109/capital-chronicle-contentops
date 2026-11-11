@@ -357,6 +357,15 @@ def validate_plan(store, work_item_id, plan):
     for asset in packet.get("media_assets", []):
         if sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]:
             raise ValueError("PLAN_ANALYSIS_MEDIA_BYTES_CHANGED")
+        if asset.get("modality") == "tradingview_chart_snapshot":
+            from .tradingview_snapshot_v1 import validate_snapshot_asset
+            validate_snapshot_asset(asset, {"market_asset": packet["source_plan"]["asset_id"]})
+            if asset.get("plan_overlay"):
+                from .tradingview_plan_overlay_v1 import validate as validate_overlay
+                validate_overlay(asset, {"key": "plan-analysis-" + packet["plan_id"],
+                    "symbol": packet["source_plan"]["asset_id"],
+                    "levels": posts._display_plan(posts._built_plan(packet["source_plan"]))})
+            continue
         if packet["source_plan"].get("zone"):
             candidate, _, _ = _owner_candidate(packet["source_plan"], run)
             expected = {key:{field:candidate["directional_entries"][key].get(field)

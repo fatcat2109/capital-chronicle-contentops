@@ -250,6 +250,14 @@ def _fred(asset):
             or "FRED" not in str(asset.get("credit") or "") or not asset.get("rights_basis")
             or not asset.get("sha256") or sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]):
         raise ImageContractError("MACRO_SOURCE_GRAPH_BINDING_INVALID")
+    original = Path(str(graph.get("source_path") or ""))
+    if not original.is_file() or sha256(original.read_bytes()).hexdigest() != graph.get("source_sha256"):
+        raise ImageContractError("MACRO_SOURCE_GRAPH_ORIGINAL_REQUIRED")
+    from PIL import Image, ImageChops
+    with Image.open(original) as source_image, Image.open(asset["path"]) as delivered:
+        if source_image.size != delivered.size or ImageChops.difference(
+                source_image.convert("RGB"), delivered.convert("RGB")).getbbox():
+            raise ImageContractError("MACRO_SOURCE_GRAPH_PIXELS_CHANGED")
 
 
 def bounded_text_fallback(article, output_dir, *, now=None):
@@ -313,6 +321,13 @@ def validate_write(coordinator, intent, destination):
             tv.validate_snapshot_asset(lead)
         else:
             raise ImageContractError("MACRO_SOURCE_GRAPH_REQUIRED")
+        if destination == "instagram_business" and image_type(lead) == "FRED_GRAPH":
+            from PIL import Image
+            with Image.open(lead["path"]) as original:
+                if abs(original.width / original.height - .8) > .003 or lead.get("fred_graph", {}).get("padded"):
+                    raise ImageContractError("INSTAGRAM_NATIVE_4X5_CHART_REQUIRED")
+            return {"policy": POLICY, "markets": sorted(markets), "macro": True,
+                    "first_image_type": "FRED_GRAPH"}
     else:
         if image_type(lead) != "TRADINGVIEW_MARKET_CHART" or lead.get("preceding_card"):
             raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")

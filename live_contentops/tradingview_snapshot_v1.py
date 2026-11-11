@@ -87,6 +87,8 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     tv_symbol = SYMBOLS.get(market, market)
     title = row.get("instrument_title") or NAMES.get(market, market)
     interval = interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
+    if market.startswith(("ECONOMICS:", "FRED:")):
+        interval = "D"
     suffix = "" if ratio == "16:9" else "_" + ratio.replace(":", "x")
     state_path = folder / ("tradingview_capture" + suffix + "_v1.json")
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {
@@ -557,7 +559,7 @@ def prepare_contract_article(article, assets, *, output_dir, selected_candidate=
     first = next((a for a in assets if image_type(a) == "FRED_GRAPH"), None) if macro else None
     symbol = article.get("macro_chart_symbol") if macro else market
     if macro and not first and not re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(symbol or "")):
-        raise SnapshotError("MACRO_SOURCE_SERIES_SYMBOL_REQUIRED")
+        raise ValueError("MACRO_SOURCE_SERIES_SYMBOL_REQUIRED")
     folder = Path(output_dir) / "media" / "tradingview"
     key = hashlib.sha256(json.dumps([symbol, article.get("title"), article.get("substack_body_markdown")],
         sort_keys=True).encode()).hexdigest()[:24]

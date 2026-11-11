@@ -294,3 +294,35 @@ def test_weekend_charts_use_the_last_close_with_dst_correct_et_clock(market):
     at, closed = contract.comparison_clock(market, summer)
     assert closed and at.hour == (20 if market == "US500" else 21)
     assert contract.comparison_clock("BTCUSD", captured) == (captured, False)
+
+
+def test_daily_audit_does_not_pass_empty_days_or_only_text_fallbacks(tmp_path):
+    import runpy
+    audit = runpy.run_path(str(Path(__file__).parents[1] / "scripts/audit_publication_images_cc463.py"))["audit"]
+    path = tmp_path / "published_images_v1.jsonl"
+    day = day_of(NOW)
+    later = NOW + timedelta(days=1)
+    assert audit(path, day, now=NOW)["status"] == "OBSERVATION_PENDING"
+    assert audit(path, day, now=later)["status"] == "NO_MARKET_POST_OBSERVED"
+    register = PublishedImages(path)
+    register.seed(piece_id="text", canonical_url=None, images=[], published_at=NOW.isoformat(),
+        observation_ref="coordinator:text", market="US500", image_contract=contract.POLICY,
+        text_fallback={"policy": contract.POLICY, "first_causes": ["CONTROLLED_CAPTURE_FAILURE"]})
+    report = audit(path, day, now=later)
+    assert report["status"] == "NO_MARKET_CHART_OBSERVED" and report["text_fallback_posts"] == 1
+    register.seed(piece_id="chart", canonical_url=None, images=[chart(tmp_path)], published_at=NOW.isoformat(),
+        observation_ref="coordinator:chart", market="US500", image_contract=contract.POLICY)
+    assert audit(path, day, now=later)["status"] == "PASS"
+
+
+def test_daily_audit_flags_a_market_post_with_a_drawn_first_image(tmp_path):
+    import runpy
+    audit = runpy.run_path(str(Path(__file__).parents[1] / "scripts/audit_publication_images_cc463.py"))["audit"]
+    path = tmp_path / "published_images_v1.jsonl"
+    asset = chart(tmp_path)
+    asset.update(modality="plan_call_card", card_kind="CALL_CARD")
+    asset.pop("tradingview_snapshot")
+    PublishedImages(path).seed(piece_id="wrong", canonical_url=None, images=[asset], published_at=NOW.isoformat(),
+        observation_ref="coordinator:wrong", market="US500", image_contract=contract.POLICY)
+    result = audit(path, day_of(NOW), now=NOW + timedelta(days=1))
+    assert result["status"] == "FAIL" and len(result["violations"]) == 1

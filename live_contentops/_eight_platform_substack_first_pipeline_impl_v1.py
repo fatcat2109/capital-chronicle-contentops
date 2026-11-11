@@ -4154,6 +4154,9 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         frozen = intent["native_payload"]
         assets = intent.get("media_assets") or []
         article = _read_json(output_dir / "article_manifest_v1.json") if intent.get("event_pack") else {}
+        if destination != "substack" and "media_asset_ids" in frozen:
+            by_id = {asset["asset_id"]: asset for asset in assets}
+            assets = [by_id[asset_id] for asset_id in frozen["media_asset_ids"] if asset_id in by_id]
         return {"output_dir":output_dir,"article":article,"selection":{},"media_assets":assets if intent.get("event_pack") or frozen.get("media_asset_ids") else [],
             "delivery_only_assets":[],"payloads":{destination:frozen},
             "local_media":str(assets[0]["path"]) if frozen.get("media_asset_ids") and assets else "",

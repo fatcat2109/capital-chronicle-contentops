@@ -8,11 +8,18 @@ import pytest
 from live_contentops import event_pack_v1 as packs
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from tests.test_event_public_record_v1 import frozen_file, EVENT, RELEASE
-from tests.test_publication_coordinator_v1 import _coordinator, _set_mode, FixtureTransport
+from tests.test_publication_coordinator_v1 import _coordinator as _base_coordinator, _set_mode, FixtureTransport
 
 PREVIEW = datetime(2026, 11, 6, 10, tzinfo=timezone.utc)
 ARRIVAL = datetime(2026, 11, 6, 13, 32, tzinfo=timezone.utc)
 REVIEW = datetime(2026, 11, 7, 12, tzinfo=timezone.utc)
+
+
+def _coordinator(*args, **kwargs):
+    """These retained event packets exercise their pre-decision-124 epoch."""
+    store, runtime, coordinator = _base_coordinator(*args, **kwargs)
+    coordinator._clock = lambda: PREVIEW
+    return store, runtime, coordinator
 
 
 def write(tmp_path, name, value, seal=False):
@@ -155,13 +162,13 @@ def test_coordinator_publishes_once_then_readbacks_and_all_registered_derivative
             "public_object_url": status["canonical_url"], "observed_media_sha256": [parent["media_assets"][0]["sha256"]],
             "public_image_urls": ["https://substack-post-media.s3.amazonaws.com/public/images/controlled.png"]}}))
     derived = packs.register_derivatives(store, parent)
-    assert len(derived["plan"]["destinations"]) == 7
+    assert len(derived["plan"]["destinations"]) == 8
     coordinator.allow_prior_confirmed_distribution = True
     outcome = coordinator.publish_plan(derived["identity"], derived["plan"])
     assert all(v["status"] == "DISPATCH_CONFIRMED" for v in outcome["per_destination"].values()), outcome
-    assert len(runtime.publish_calls) == 8
+    assert len(runtime.publish_calls) == 9
     coordinator.publish_plan(derived["identity"], derived["plan"])
-    assert len(runtime.publish_calls) == 8
+    assert len(runtime.publish_calls) == 9
 
 
 def test_minute_entry_resumes_same_stage_and_fresh_native_feed_uses_it(tmp_path):

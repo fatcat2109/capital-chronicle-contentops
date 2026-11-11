@@ -23,10 +23,11 @@ def audit(path, day, *, now=None):
     violations = [p["record_id"] for p in market_posts if not p.get("text_fallback") and (
         p.get("image_contract") != POLICY or p.get("lead_image_type") != "TRADINGVIEW_MARKET_CHART")]
     unknown = [p["record_id"] for p in posts if p.get("lead_image_type") == "UNKNOWN"]
+    charts = [p for p in market_posts if p.get("lead_image_type") == "TRADINGVIEW_MARKET_CHART"]
     return {**report, "status": "OBSERVATION_PENDING" if not complete else
         "FAIL" if violations else "NO_MARKET_POST_OBSERVED" if not market_posts else
-        "INCOMPLETE_IMAGE_TYPES" if unknown else "PASS",
-        "whole_day_elapsed": complete, "market_posts": len(market_posts),
+        "NO_MARKET_CHART_OBSERVED" if not charts else "INCOMPLETE_IMAGE_TYPES" if unknown else "PASS",
+        "whole_day_elapsed": complete, "market_posts": len(market_posts), "market_chart_posts": len(charts),
         "violations": violations, "unknown_type_records": unknown,
         "text_fallback_posts": sum(bool(p.get("text_fallback")) for p in market_posts),
         "public_write_performed": False, "schedule_changed": False}

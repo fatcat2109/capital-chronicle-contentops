@@ -211,8 +211,9 @@ def apply(asset, row, *, require_verified=True):
         overlay["price_scale_check"] = check
         if check["level_offset"]:
             delta = check["level_offset"]
+            when = "at last close" if check.get("comparison_basis") == "LAST_CLOSE" else "at capture"
             overlay["basis_label"] = ("WTI futures = plan feed " + ("+" if delta >= 0 else "-")
-                + f" {abs(delta):.3f} USD/bbl at capture")
+                + f" {abs(delta):.3f} USD/bbl {when}")
     source = Path(asset["path"])
     with Image.open(source) as image:
         image = image.convert("RGB")
