@@ -1,0 +1,401 @@
+{
+  "schema": "image_input_v1",
+  "post_id": "cc465-btcusd",
+  "template": "call",
+  "market": "BTCUSD",
+  "plan": {
+    "market": "BTCUSD",
+    "market_name": "Bitcoin",
+    "direction": "SHORT",
+    "horizon_label": "Mid-term",
+    "status_label": "Expired, no entry",
+    "entry_low": 75150.0,
+    "entry_high": 75300.0,
+    "invalidation": 75700.0,
+    "target": null,
+    "main_probability_pct": 52.0,
+    "alt_probability_pct": 38.0,
+    "time_exit_et": "16 Nov, 4:00 PM ET",
+    "entry_window_ends_et": ""
+  },
+  "source_binding": {
+    "input_sha256": "597c7e50bb68d39d775875bd010b20d5286656b56ab35d1a1845c8fecde943fb",
+    "source_sha256": "77abeeb11b040b6a7a331b7c9bf31ce3a30f9342b04033578e36f93a0a46124b",
+    "record": {
+      "key": "cc465-btcusd",
+      "symbol": "BTCUSD",
+      "at_utc": "2026-11-10T06:23:56.897696Z",
+      "state": "EXPIRED",
+      "source_plan": {
+        "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+        "asset_id": "BTCUSD",
+        "cancel_conditions": [],
+        "cancel_kind": null,
+        "cancel_level": null,
+        "check_age_seconds": 29.712555,
+        "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+        "conditions": [
+          {
+            "kind": "COMPLETED_BAR",
+            "predicates": [
+              {
+                "field": "high",
+                "operator": "GTE",
+                "threshold": 75150.0
+              }
+            ],
+            "timeframe": "M15"
+          }
+        ],
+        "data_state": "AVAILABLE",
+        "decision_record_id": "decision:request-caddf8cbb6c3311b:BTCUSD",
+        "direction": "BEARISH",
+        "entries": [
+          {
+            "kind": "LIMIT",
+            "zone_high": 75300.0,
+            "zone_low": 75150.0
+          }
+        ],
+        "entries_first_cause": null,
+        "entry_deadline_utc": "2026-11-16T20:00:00Z",
+        "expires_at_utc": "2026-11-16T20:00:00Z",
+        "first_cause": null,
+        "forecast_probabilities": {
+          "horizon_end_utc": "2026-11-16T21:00:00Z",
+          "missing_reasons": [
+            "TYPED_PROBABILITIES_NOT_RECORDED"
+          ],
+          "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+          "probability_target_before_stop_pct": null,
+          "probability_touch_pct": null,
+          "probability_up_pct": null,
+          "reference_at_utc": "2026-11-10T05:11:09Z",
+          "reference_price": 74754.57
+        },
+        "invalidation_conditions": [
+          {
+            "field": "high",
+            "operator": "GTE",
+            "threshold": 75700.0
+          }
+        ],
+        "kind": "WATCH",
+        "not_before_utc": "2026-11-10T06:30:00Z",
+        "outcome": {
+          "first_cause": "UNTRIGGERED_PLAN_ENDED",
+          "outcome_id": null,
+          "public_call_id": "call_f6da00b4e26ac4eb2ad06528",
+          "result": null,
+          "score": null,
+          "state": "NOT_SCORED_UNTRIGGERED"
+        },
+        "plan_id": "plan_5484e97382bbb0b3a0b6f2c4",
+        "public_instrument": {
+          "contract_first_cause": null,
+          "contract_month": "2026-11",
+          "direction": null,
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_high": null,
+              "zone_low": null
+            }
+          ],
+          "exchange": "CME",
+          "invalidation_level": null,
+          "kind": "FUT",
+          "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+          "name": "Micro Bitcoin",
+          "symbol": "MBT",
+          "zone_high": null,
+          "zone_low": null
+        },
+        "public_instrument_first_cause": null,
+        "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+        "registration_hash": "443e4f1c40ac72469b0e83eaa0956fb3c5bf5b4dfb1975e992be04ea2cc2159d",
+        "review_at_utc": "2026-11-11T07:00:00Z",
+        "run_id": "request-caddf8cbb6c3311b",
+        "scenario_analysis": {
+          "acceptance": "every bounce since 9 Nov failed under 75,512: accepted.",
+          "base_case": {
+            "market_move": "BTC fails again under the 75,354-75,512 lower highs and retests the lower levels within five sessions.",
+            "probability_pct": 52.0
+          },
+          "confirmations": "(1) three lower H1 highs during an equity rally; (2) the Asia low 74,271.17 undercut the overnight base; (3) BTC lagged the Nasdaq on 9 Nov (context).",
+          "driver": "crypto flows; MIXED against the USD leg (BTC jumped 0.9 percent in the 9 Nov 19:30Z USD-down bar, then faded; a connectedness receiver from US500).",
+          "field_first_causes": {
+            "acceptance": null,
+            "confirmations": null,
+            "driver": null,
+            "invalidation_reason": null,
+            "invalidation_text": null,
+            "mechanism": null,
+            "opposite_mechanism": null,
+            "positioning": null,
+            "priced": null,
+            "why_no_open": null,
+            "zone_reason": null
+          },
+          "horizon_end_utc": "2026-11-16T21:00:00Z",
+          "invalidation_reason": "above 75,511.91 and the 8 Nov 23:00Z high 75,651.26 the lower-high sequence breaks.",
+          "invalidation_text": "or a soft-CPI squeeze above 75,700 with equities rising.",
+          "main_alternative": {
+            "market_move": "a soft CPI and equity risk-on squeeze shorts above 75,700.",
+            "probability_pct": 38.0
+          },
+          "mechanism": "crypto-specific outflows and relative weakness: lower H1 highs 75,511.91 (9 Nov 02:00Z), 75,492.84 (15:00Z) and 75,354.13 (10 Nov 00:00Z) while US500 rallied 2.54 percent; spot BTC and ETH ETF net outflow 530 million USD on 5 Nov and ETH/BTC at its lowest since July (context).",
+          "missing_fields": [],
+          "opposite_mechanism": "a soft CPI risk-on impulse reaches BTC intraday and squeezes shorts near the 200-day (about 73,150, CoinDesk, context).",
+          "positioning": "CME non-commercial net long only 2,230 of 17,527 open interest (3 Nov); about 913 million USD of longs liquidated on 9 Nov (context), so forced selling is partly spent.",
+          "priced": "5-day -6.43 percent (1.37 vol-normalized), 1-day +0.66 percent against US500 +2.54.",
+          "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+          "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+          "source_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+          "why_no_open": "74,755 sits mid-range above support; no in-bounds entry clears 1.25.",
+          "zone_reason": "Sell Limit under the latest lower high 75,354.13."
+        },
+        "scenario_first_cause": null,
+        "status": "EXPIRED",
+        "status_at_utc": "2026-11-10T13:30:00Z",
+        "status_label": "Expired",
+        "trigger_hash": "2751cfec4e86b5978f4575f2a0a75c246741a2c3818220d9586afa8e72377812",
+        "zone": {
+          "maximum": 75300.0,
+          "minimum": 75150.0
+        }
+      },
+      "levels": {
+        "direction": "bearish",
+        "zone_low": 75150.0,
+        "zone_high": 75300.0,
+        "cancel_level": null,
+        "target": null,
+        "invalidation_level": 75700.0,
+        "valid_until_utc": "2026-11-16T20:00:00Z",
+        "scenario_analysis": {
+          "acceptance": "every bounce since 9 Nov failed under 75,512: accepted.",
+          "base_case": {
+            "market_move": "BTC fails again under the 75,354-75,512 lower highs and retests the lower levels within five sessions.",
+            "probability_pct": 52.0
+          },
+          "confirmations": "(1) three lower H1 highs during an equity rally; (2) the Asia low 74,271.17 undercut the overnight base; (3) BTC lagged the Nasdaq on 9 Nov (context).",
+          "driver": "crypto flows; MIXED against the USD leg (BTC jumped 0.9 percent in the 9 Nov 19:30Z USD-down bar, then faded; a connectedness receiver from US500).",
+          "field_first_causes": {
+            "acceptance": null,
+            "confirmations": null,
+            "driver": null,
+            "invalidation_reason": null,
+            "invalidation_text": null,
+            "mechanism": null,
+            "opposite_mechanism": null,
+            "positioning": null,
+            "priced": null,
+            "why_no_open": null,
+            "zone_reason": null
+          },
+          "horizon_end_utc": "2026-11-16T21:00:00Z",
+          "invalidation_reason": "above 75,511.91 and the 8 Nov 23:00Z high 75,651.26 the lower-high sequence breaks.",
+          "invalidation_text": "or a soft-CPI squeeze above 75,700 with equities rising.",
+          "main_alternative": {
+            "market_move": "a soft CPI and equity risk-on squeeze shorts above 75,700.",
+            "probability_pct": 38.0
+          },
+          "mechanism": "crypto-specific outflows and relative weakness: lower H1 highs 75,511.91 (9 Nov 02:00Z), 75,492.84 (15:00Z) and 75,354.13 (10 Nov 00:00Z) while US500 rallied 2.54 percent; spot BTC and ETH ETF net outflow 530 million USD on 5 Nov and ETH/BTC at its lowest since July (context).",
+          "missing_fields": [],
+          "opposite_mechanism": "a soft CPI risk-on impulse reaches BTC intraday and squeezes shorts near the 200-day (about 73,150, CoinDesk, context).",
+          "positioning": "CME non-commercial net long only 2,230 of 17,527 open interest (3 Nov); about 913 million USD of longs liquidated on 9 Nov (context), so forced selling is partly spent.",
+          "priced": "5-day -6.43 percent (1.37 vol-normalized), 1-day +0.66 percent against US500 +2.54.",
+          "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+          "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+          "source_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+          "why_no_open": "74,755 sits mid-range above support; no in-bounds entry clears 1.25.",
+          "zone_reason": "Sell Limit under the latest lower high 75,354.13."
+        },
+        "entries": [
+          {
+            "kind": "LIMIT",
+            "zone_low": 75150.0,
+            "zone_high": 75300.0
+          }
+        ],
+        "public_instrument": {
+          "name": "Micro Bitcoin",
+          "symbol": "MBT",
+          "kind": "FUT",
+          "exchange": "CME",
+          "contract_month": "2026-11",
+          "direction": null,
+          "zone_low": null,
+          "zone_high": null,
+          "invalidation_level": null,
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_low": null,
+              "zone_high": null
+            }
+          ]
+        },
+        "mechanism": null,
+        "priced": null,
+        "positioning": null,
+        "driver": null,
+        "acceptance": null,
+        "zone_reason": null,
+        "invalidation_reason": null,
+        "confirmations": null,
+        "opposite_mechanism": null,
+        "invalidation_text": null,
+        "price_basis": "plan",
+        "tick_size": null,
+        "time_exit_utc": "2026-11-16T21:00:00Z",
+        "entry_deadline_utc": "2026-11-16T20:00:00Z",
+        "chance_label": "Base-case chance",
+        "chance_pct": 52.0,
+        "short_id": "f6da00b4",
+        "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+        "reader_reasons": [],
+        "image_source_plan": {
+          "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+          "asset_id": "BTCUSD",
+          "cancel_conditions": [],
+          "cancel_kind": null,
+          "cancel_level": null,
+          "check_age_seconds": 29.712555,
+          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "conditions": [
+            {
+              "kind": "COMPLETED_BAR",
+              "predicates": [
+                {
+                  "field": "high",
+                  "operator": "GTE",
+                  "threshold": 75150.0
+                }
+              ],
+              "timeframe": "M15"
+            }
+          ],
+          "data_state": "AVAILABLE",
+          "decision_record_id": "decision:request-caddf8cbb6c3311b:BTCUSD",
+          "direction": "BEARISH",
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_high": 75300.0,
+              "zone_low": 75150.0
+            }
+          ],
+          "entries_first_cause": null,
+          "entry_deadline_utc": "2026-11-16T20:00:00Z",
+          "expires_at_utc": "2026-11-16T20:00:00Z",
+          "first_cause": null,
+          "forecast_probabilities": {
+            "horizon_end_utc": "2026-11-16T21:00:00Z",
+            "missing_reasons": [
+              "TYPED_PROBABILITIES_NOT_RECORDED"
+            ],
+            "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+            "probability_target_before_stop_pct": null,
+            "probability_touch_pct": null,
+            "probability_up_pct": null,
+            "reference_at_utc": "2026-11-10T05:11:09Z",
+            "reference_price": 74754.57
+          },
+          "invalidation_conditions": [
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 75700.0
+            }
+          ],
+          "kind": "WATCH",
+          "not_before_utc": "2026-11-10T06:30:00Z",
+          "outcome": {
+            "first_cause": "UNTRIGGERED_PLAN_ENDED",
+            "outcome_id": null,
+            "public_call_id": "call_f6da00b4e26ac4eb2ad06528",
+            "result": null,
+            "score": null,
+            "state": "NOT_SCORED_UNTRIGGERED"
+          },
+          "plan_id": "plan_5484e97382bbb0b3a0b6f2c4",
+          "public_instrument": {
+            "contract_first_cause": null,
+            "contract_month": "2026-11",
+            "direction": null,
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_high": null,
+                "zone_low": null
+              }
+            ],
+            "exchange": "CME",
+            "invalidation_level": null,
+            "kind": "FUT",
+            "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+            "name": "Micro Bitcoin",
+            "symbol": "MBT",
+            "zone_high": null,
+            "zone_low": null
+          },
+          "public_instrument_first_cause": null,
+          "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+          "registration_hash": "443e4f1c40ac72469b0e83eaa0956fb3c5bf5b4dfb1975e992be04ea2cc2159d",
+          "review_at_utc": "2026-11-11T07:00:00Z",
+          "run_id": "request-caddf8cbb6c3311b",
+          "scenario_analysis": {
+            "acceptance": "every bounce since 9 Nov failed under 75,512: accepted.",
+            "base_case": {
+              "market_move": "BTC fails again under the 75,354-75,512 lower highs and retests the lower levels within five sessions.",
+              "probability_pct": 52.0
+            },
+            "confirmations": "(1) three lower H1 highs during an equity rally; (2) the Asia low 74,271.17 undercut the overnight base; (3) BTC lagged the Nasdaq on 9 Nov (context).",
+            "driver": "crypto flows; MIXED against the USD leg (BTC jumped 0.9 percent in the 9 Nov 19:30Z USD-down bar, then faded; a connectedness receiver from US500).",
+            "field_first_causes": {
+              "acceptance": null,
+              "confirmations": null,
+              "driver": null,
+              "invalidation_reason": null,
+              "invalidation_text": null,
+              "mechanism": null,
+              "opposite_mechanism": null,
+              "positioning": null,
+              "priced": null,
+              "why_no_open": null,
+              "zone_reason": null
+            },
+            "horizon_end_utc": "2026-11-16T21:00:00Z",
+            "invalidation_reason": "above 75,511.91 and the 8 Nov 23:00Z high 75,651.26 the lower-high sequence breaks.",
+            "invalidation_text": "or a soft-CPI squeeze above 75,700 with equities rising.",
+            "main_alternative": {
+              "market_move": "a soft CPI and equity risk-on squeeze shorts above 75,700.",
+              "probability_pct": 38.0
+            },
+            "mechanism": "crypto-specific outflows and relative weakness: lower H1 highs 75,511.91 (9 Nov 02:00Z), 75,492.84 (15:00Z) and 75,354.13 (10 Nov 00:00Z) while US500 rallied 2.54 percent; spot BTC and ETH ETF net outflow 530 million USD on 5 Nov and ETH/BTC at its lowest since July (context).",
+            "missing_fields": [],
+            "opposite_mechanism": "a soft CPI risk-on impulse reaches BTC intraday and squeezes shorts near the 200-day (about 73,150, CoinDesk, context).",
+            "positioning": "CME non-commercial net long only 2,230 of 17,527 open interest (3 Nov); about 913 million USD of longs liquidated on 9 Nov (context), so forced selling is partly spent.",
+            "priced": "5-day -6.43 percent (1.37 vol-normalized), 1-day +0.66 percent against US500 +2.54.",
+            "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+            "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+            "source_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+            "why_no_open": "74,755 sits mid-range above support; no in-bounds entry clears 1.25.",
+            "zone_reason": "Sell Limit under the latest lower high 75,354.13."
+          },
+          "scenario_first_cause": null,
+          "status": "EXPIRED",
+          "status_at_utc": "2026-11-10T13:30:00Z",
+          "status_label": "Expired",
+          "trigger_hash": "2751cfec4e86b5978f4575f2a0a75c246741a2c3818220d9586afa8e72377812",
+          "zone": {
+            "maximum": 75300.0,
+            "minimum": 75150.0
+          }
+        }
+      }
+    }
+  }
+}

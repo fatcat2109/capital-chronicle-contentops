@@ -1,0 +1,171 @@
+{
+  "schema": "image_input_v1",
+  "post_id": "cc465-us500-expiry",
+  "template": "result",
+  "market": "US500",
+  "plan": {
+    "market": "US500",
+    "market_name": "S&P 500",
+    "direction": "LONG",
+    "horizon_label": "Mid-term",
+    "status_label": "Expired, no entry",
+    "entry_low": 7522.0,
+    "entry_high": 7528.0,
+    "invalidation": 7498.0,
+    "target": null,
+    "main_probability_pct": 52.0,
+    "alt_probability_pct": 38.0,
+    "time_exit_et": "16 Nov, 4:00 PM ET",
+    "entry_window_ends_et": ""
+  },
+  "result": {
+    "r": null,
+    "outcome_label": "Expired, no entry",
+    "held_text": "",
+    "entry_time_et": "",
+    "exit_time_et": "10 Nov, 8:00 AM ET"
+  },
+  "source_binding": {
+    "input_sha256": "8e1bf2d46f90a2f63b19ae91900555f09da34d52aaf6e9bba9d495543fce34c8",
+    "source_sha256": "2c0510f87f183098f7be24561210cf276e5dd3c9cc5f56ab7c9132570fa9ef04",
+    "record": {
+      "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+      "asset_id": "US500",
+      "cancel_conditions": [],
+      "cancel_kind": null,
+      "cancel_level": null,
+      "check_age_seconds": 30.872285,
+      "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+      "conditions": [
+        {
+          "kind": "COMPLETED_BAR",
+          "predicates": [
+            {
+              "field": "low",
+              "operator": "LTE",
+              "threshold": 7528.0
+            }
+          ],
+          "timeframe": "M15"
+        }
+      ],
+      "data_state": "AVAILABLE",
+      "decision_record_id": "decision:request-caddf8cbb6c3311b:US500",
+      "direction": "BULLISH",
+      "entries": [
+        {
+          "kind": "LIMIT",
+          "zone_high": 7528.0,
+          "zone_low": 7522.0
+        }
+      ],
+      "entries_first_cause": null,
+      "entry_deadline_utc": "2026-11-10T13:15:00Z",
+      "expires_at_utc": "2026-11-10T13:15:00Z",
+      "first_cause": null,
+      "forecast_probabilities": {
+        "horizon_end_utc": "2026-11-16T21:00:00Z",
+        "missing_reasons": [
+          "TYPED_PROBABILITIES_NOT_RECORDED"
+        ],
+        "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+        "probability_target_before_stop_pct": null,
+        "probability_touch_pct": null,
+        "probability_up_pct": null,
+        "reference_at_utc": "2026-11-10T05:11:07Z",
+        "reference_price": 7565.4
+      },
+      "invalidation_conditions": [
+        {
+          "field": "low",
+          "operator": "LTE",
+          "threshold": 7498.0
+        }
+      ],
+      "kind": "WATCH",
+      "not_before_utc": "2026-11-10T06:30:00Z",
+      "outcome": {
+        "first_cause": "UNTRIGGERED_PLAN_ENDED",
+        "outcome_id": null,
+        "public_call_id": "call_6845d7baa8bbb8726f2e8a33",
+        "result": null,
+        "score": null,
+        "state": "NOT_SCORED_UNTRIGGERED"
+      },
+      "plan_id": "plan_9efa90f940d37e632b24126c",
+      "public_instrument": {
+        "contract_first_cause": null,
+        "contract_month": "2026-12",
+        "direction": null,
+        "entries": [
+          {
+            "kind": "LIMIT",
+            "zone_high": null,
+            "zone_low": null
+          }
+        ],
+        "exchange": "CME",
+        "invalidation_level": null,
+        "kind": "FUT",
+        "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+        "name": "Micro E-mini S&P 500",
+        "symbol": "MES",
+        "zone_high": null,
+        "zone_low": null
+      },
+      "public_instrument_first_cause": null,
+      "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+      "registration_hash": "39374ce9bc524cf41603cc492f4adb7ef08203522f4dc776ddaa15ad5eb31903",
+      "review_at_utc": "2026-11-10T13:00:00Z",
+      "run_id": "request-caddf8cbb6c3311b",
+      "scenario_analysis": {
+        "acceptance": "accepted in Asia, unconfirmed; CPI and cash-open reaction not observed.",
+        "base_case": {
+          "market_move": "the 9 Nov relief rally holds its 7500-7520 base and extends above the 7582 high within five sessions.",
+          "probability_pct": 52.0
+        },
+        "confirmations": "(1) the 19:30Z bar's joint move with oil and DXY; (2) Asia follow-through (Nikkei +3.0, KOSPI +5.4 percent, context); (3) no Asia break of 7549.",
+        "driver": "MIXED (rates and oil against AI-credit stress and IPO supply).",
+        "field_first_causes": {
+          "acceptance": null,
+          "confirmations": null,
+          "driver": null,
+          "invalidation_reason": null,
+          "invalidation_text": null,
+          "mechanism": null,
+          "opposite_mechanism": null,
+          "positioning": null,
+          "priced": null,
+          "why_no_open": null,
+          "zone_reason": null
+        },
+        "horizon_end_utc": "2026-11-16T21:00:00Z",
+        "invalidation_reason": "7500.73 (9 Nov 15:00Z H1 low) is the base of the cash-open surge; 7549.14 (10 Nov 03:00Z H1 low) is the Asia floor.",
+        "invalidation_text": "or a hot CPI with US500 under 7500.",
+        "main_alternative": {
+          "market_move": "a hot CPI or AI-credit stress fades the rally back into 7440-7500.",
+          "probability_pct": 38.0
+        },
+        "mechanism": "a global risk impulse from US-Iran de-escalation and lower oil (context); US500 +2.54 percent on 9 Nov, +34 points in the 19:30Z oil-flush bar, and an Asia range 7549.14-7568.33 that held.",
+        "missing_fields": [],
+        "opposite_mechanism": "a hot CPI or chip-credit widening; a measured precedent is the 5 Nov 15:00Z H1 drop of 180 points (7580.02 to 7399.78).; wrong on a hot print.",
+        "positioning": "E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows (context).",
+        "priced": "1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.",
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+        "source_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+        "why_no_open": "7565 is mid-range between the base and the high; no in-bounds entry clears 1.25.",
+        "zone_reason": "Buy Limit above the 9 Nov 16:00Z H1 low 7519.48 (the post-open base); Buy Stop beyond the 9 Nov 20:00Z high 7581.97, where a MIXED-channel continuation belongs."
+      },
+      "scenario_first_cause": null,
+      "status": "EXPIRED",
+      "status_at_utc": "2026-11-10T13:00:00Z",
+      "status_label": "Expired",
+      "trigger_hash": "a720191eb162ce560a32335eb338e4883571512c60342d7f2a0c8ce97b9d8108",
+      "zone": {
+        "maximum": 7528.0,
+        "minimum": 7522.0
+      }
+    }
+  }
+}

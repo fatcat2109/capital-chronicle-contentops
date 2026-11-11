@@ -1,0 +1,840 @@
+{
+  "asset_id": "cc465-cc469d9b4840b9d94e679464",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-btcusd-expiry-result-1-T.png",
+  "sha256": "cc469d9b4840b9d94e6794645734ea58e5dbd12e0e3b06cda9a640ced54dbd56",
+  "width": 1080,
+  "height": 1350,
+  "mime_type": "image/png",
+  "alt_text": "TradingView 4h chart of Bitcoin.",
+  "modality": "tradingview_chart_snapshot",
+  "credit": "Chart: TradingView",
+  "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+  "image_template": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "template": "result",
+    "master": "T",
+    "image_number": 1,
+    "page": 0,
+    "input": {
+      "schema": "image_input_v1",
+      "post_id": "cc465-btcusd-expiry",
+      "template": "result",
+      "market": "BTCUSD",
+      "plan": {
+        "market": "BTCUSD",
+        "market_name": "Bitcoin",
+        "direction": "SHORT",
+        "horizon_label": "Mid-term",
+        "status_label": "Expired, no entry",
+        "entry_low": 75150.0,
+        "entry_high": 75300.0,
+        "invalidation": 75700.0,
+        "target": null,
+        "main_probability_pct": 52.0,
+        "alt_probability_pct": 38.0,
+        "time_exit_et": "16 Nov, 4:00 PM ET",
+        "entry_window_ends_et": ""
+      },
+      "result": {
+        "r": null,
+        "outcome_label": "Expired, no entry",
+        "held_text": "",
+        "entry_time_et": "",
+        "exit_time_et": "10 Nov, 8:30 AM ET"
+      },
+      "source_binding": {
+        "input_sha256": "221bda440bf32665e84fa4f578d355e18fdbc2fd0ba6351df318ba302ec06d99",
+        "source_sha256": "edfb4e693b3720754cd85b0482311e9fca4691ad0dc08e124b654017859d6815",
+        "record": {
+          "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+          "asset_id": "BTCUSD",
+          "cancel_conditions": [],
+          "cancel_kind": null,
+          "cancel_level": null,
+          "check_age_seconds": 29.712555,
+          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "conditions": [
+            {
+              "kind": "COMPLETED_BAR",
+              "predicates": [
+                {
+                  "field": "high",
+                  "operator": "GTE",
+                  "threshold": 75150.0
+                }
+              ],
+              "timeframe": "M15"
+            }
+          ],
+          "data_state": "AVAILABLE",
+          "decision_record_id": "decision:request-caddf8cbb6c3311b:BTCUSD",
+          "direction": "BEARISH",
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_high": 75300.0,
+              "zone_low": 75150.0
+            }
+          ],
+          "entries_first_cause": null,
+          "entry_deadline_utc": "2026-11-16T20:00:00Z",
+          "expires_at_utc": "2026-11-16T20:00:00Z",
+          "first_cause": null,
+          "forecast_probabilities": {
+            "horizon_end_utc": "2026-11-16T21:00:00Z",
+            "missing_reasons": [
+              "TYPED_PROBABILITIES_NOT_RECORDED"
+            ],
+            "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+            "probability_target_before_stop_pct": null,
+            "probability_touch_pct": null,
+            "probability_up_pct": null,
+            "reference_at_utc": "2026-11-10T05:11:09Z",
+            "reference_price": 74754.57
+          },
+          "invalidation_conditions": [
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 75700.0
+            }
+          ],
+          "kind": "WATCH",
+          "not_before_utc": "2026-11-10T06:30:00Z",
+          "outcome": {
+            "first_cause": "UNTRIGGERED_PLAN_ENDED",
+            "outcome_id": null,
+            "public_call_id": "call_f6da00b4e26ac4eb2ad06528",
+            "result": null,
+            "score": null,
+            "state": "NOT_SCORED_UNTRIGGERED"
+          },
+          "plan_id": "plan_5484e97382bbb0b3a0b6f2c4",
+          "public_instrument": {
+            "contract_first_cause": null,
+            "contract_month": "2026-11",
+            "direction": null,
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_high": null,
+                "zone_low": null
+              }
+            ],
+            "exchange": "CME",
+            "invalidation_level": null,
+            "kind": "FUT",
+            "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+            "name": "Micro Bitcoin",
+            "symbol": "MBT",
+            "zone_high": null,
+            "zone_low": null
+          },
+          "public_instrument_first_cause": null,
+          "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+          "registration_hash": "443e4f1c40ac72469b0e83eaa0956fb3c5bf5b4dfb1975e992be04ea2cc2159d",
+          "review_at_utc": "2026-11-11T07:00:00Z",
+          "run_id": "request-caddf8cbb6c3311b",
+          "scenario_analysis": {
+            "acceptance": "every bounce since 9 Nov failed under 75,512: accepted.",
+            "base_case": {
+              "market_move": "BTC fails again under the 75,354-75,512 lower highs and retests the lower levels within five sessions.",
+              "probability_pct": 52.0
+            },
+            "confirmations": "(1) three lower H1 highs during an equity rally; (2) the Asia low 74,271.17 undercut the overnight base; (3) BTC lagged the Nasdaq on 9 Nov (context).",
+            "driver": "crypto flows; MIXED against the USD leg (BTC jumped 0.9 percent in the 9 Nov 19:30Z USD-down bar, then faded; a connectedness receiver from US500).",
+            "field_first_causes": {
+              "acceptance": null,
+              "confirmations": null,
+              "driver": null,
+              "invalidation_reason": null,
+              "invalidation_text": null,
+              "mechanism": null,
+              "opposite_mechanism": null,
+              "positioning": null,
+              "priced": null,
+              "why_no_open": null,
+              "zone_reason": null
+            },
+            "horizon_end_utc": "2026-11-16T21:00:00Z",
+            "invalidation_reason": "above 75,511.91 and the 8 Nov 23:00Z high 75,651.26 the lower-high sequence breaks.",
+            "invalidation_text": "or a soft-CPI squeeze above 75,700 with equities rising.",
+            "main_alternative": {
+              "market_move": "a soft CPI and equity risk-on squeeze shorts above 75,700.",
+              "probability_pct": 38.0
+            },
+            "mechanism": "crypto-specific outflows and relative weakness: lower H1 highs 75,511.91 (9 Nov 02:00Z), 75,492.84 (15:00Z) and 75,354.13 (10 Nov 00:00Z) while US500 rallied 2.54 percent; spot BTC and ETH ETF net outflow 530 million USD on 5 Nov and ETH/BTC at its lowest since July (context).",
+            "missing_fields": [],
+            "opposite_mechanism": "a soft CPI risk-on impulse reaches BTC intraday and squeezes shorts near the 200-day (about 73,150, CoinDesk, context).",
+            "positioning": "CME non-commercial net long only 2,230 of 17,527 open interest (3 Nov); about 913 million USD of longs liquidated on 9 Nov (context), so forced selling is partly spent.",
+            "priced": "5-day -6.43 percent (1.37 vol-normalized), 1-day +0.66 percent against US500 +2.54.",
+            "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+            "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+            "source_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+            "why_no_open": "74,755 sits mid-range above support; no in-bounds entry clears 1.25.",
+            "zone_reason": "Sell Limit under the latest lower high 75,354.13."
+          },
+          "scenario_first_cause": null,
+          "status": "EXPIRED",
+          "status_at_utc": "2026-11-10T13:30:00Z",
+          "status_label": "Expired",
+          "trigger_hash": "2751cfec4e86b5978f4575f2a0a75c246741a2c3818220d9586afa8e72377812",
+          "zone": {
+            "maximum": 75300.0,
+            "minimum": 75150.0
+          }
+        }
+      }
+    },
+    "snapshot": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\T\\BTCUSD_2026-11-11_16-45-33.png",
+      "sha256": "29f62f4d7d4094eeeabd763bd3663165db056a9c57112cbd176638e7920562dd",
+      "width": 1080,
+      "height": 850,
+      "chart_geometry": {
+        "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+        "pane_box": [
+          10,
+          27,
+          998,
+          762
+        ],
+        "axis_origin": [
+          998,
+          27
+        ],
+        "axis_pixel_match": 1.0,
+        "mode": "linear",
+        "slope": -0.04927900564747743,
+        "intercept": 4282.242833116278,
+        "max_label_error_px": 0.5858179628494327,
+        "grid_checks": [
+          {
+            "price": 72000.0,
+            "page_y_in_download": 734.0441306445846,
+            "grid_y": 734,
+            "error_px": 0.04413064458458393
+          },
+          {
+            "price": 73000.0,
+            "page_y_in_download": 684.7753023288874,
+            "grid_y": 685,
+            "error_px": 0.22469767111260808
+          },
+          {
+            "price": 74000.0,
+            "page_y_in_download": 635.5064740131903,
+            "grid_y": 635,
+            "error_px": 0.5064740131903136
+          },
+          {
+            "price": 75000.0,
+            "page_y_in_download": 586.2376456974932,
+            "grid_y": 586,
+            "error_px": 0.23764569749323528
+          },
+          {
+            "price": 76000.0,
+            "page_y_in_download": 536.968817381796,
+            "grid_y": 537,
+            "error_px": 0.031182618203956736
+          },
+          {
+            "price": 77000.0,
+            "page_y_in_download": 487.69998906609896,
+            "grid_y": 488,
+            "error_px": 0.30001093390103506
+          },
+          {
+            "price": 78000.0,
+            "page_y_in_download": 438.43116075040183,
+            "grid_y": 438,
+            "error_px": 0.4311607504018298
+          },
+          {
+            "price": 79000.0,
+            "page_y_in_download": 389.16233243470475,
+            "grid_y": 389,
+            "error_px": 0.16233243470475145
+          },
+          {
+            "price": 80000.0,
+            "page_y_in_download": 339.8935041190076,
+            "grid_y": 340,
+            "error_px": 0.10649588099238372
+          },
+          {
+            "price": 81000.0,
+            "page_y_in_download": 290.6246758033105,
+            "grid_y": 290,
+            "error_px": 0.6246758033104811
+          },
+          {
+            "price": 82000.0,
+            "page_y_in_download": 241.35584748761346,
+            "grid_y": 241,
+            "error_px": 0.35584748761345963
+          },
+          {
+            "price": 83000.0,
+            "page_y_in_download": 192.08701917191627,
+            "grid_y": 192,
+            "error_px": 0.08701917191626762
+          },
+          {
+            "price": 84000.0,
+            "page_y_in_download": 142.8181908562192,
+            "grid_y": 143,
+            "error_px": 0.1818091437808107
+          },
+          {
+            "price": 85000.0,
+            "page_y_in_download": 93.54936254052211,
+            "grid_y": 93,
+            "error_px": 0.549362540522111
+          },
+          {
+            "price": 86000.0,
+            "page_y_in_download": 44.28053422482492,
+            "grid_y": 44,
+            "error_px": 0.28053422482491897
+          }
+        ],
+        "source_sha256": "29f62f4d7d4094eeeabd763bd3663165db056a9c57112cbd176638e7920562dd"
+      },
+      "capture_ratio": "16:9",
+      "capture_viewport": {
+        "width": 1466,
+        "height": 844
+      },
+      "tv_symbol": "COINBASE:BTCUSD",
+      "interval": "240",
+      "interval_label": "4h",
+      "legend": "4h",
+      "page_title": "BTCUSD 74,151.48 ▲ +0.62%",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+      "suggested_filename": "BTCUSD_2026-11-11_16-45-33.png",
+      "captured_at_utc": "2026-11-11T16:45:34.141076+00:00",
+      "seconds": 8.4,
+      "template_chart_size": [
+        1080,
+        850
+      ],
+      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    },
+    "framing": {
+      "box": [
+        0,
+        170,
+        1080,
+        1020
+      ],
+      "original_size": [
+        1080,
+        850
+      ],
+      "paste_box": [
+        0,
+        170,
+        1080,
+        1020
+      ],
+      "scale": 1.0,
+      "shape_error": 0.0,
+      "paper_margin_fraction": 0.0
+    },
+    "levels": {
+      "required": true,
+      "levels_visible": true,
+      "pane_box": [
+        22.0,
+        259.0,
+        986.0,
+        920.0
+      ],
+      "entry_colour": "#1F5FBF",
+      "target_visible": false
+    },
+    "texts": [
+      {
+        "text": "Invalidation 75,700",
+        "box": [
+          34.0,
+          703.8221056022371,
+          289.0,
+          728.8221056022371
+        ],
+        "zone": [
+          34.0,
+          703.8221056022371,
+          301.0,
+          737.8221056022371
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Invalidation 75,700",
+            "mono": false
+          }
+        ],
+        "colour": "red",
+        "field": "chart_level"
+      },
+      {
+        "text": "Entry 75,150–75,300",
+        "box": [
+          34.0,
+          749.8221056022371,
+          314.0,
+          775.8221056022371
+        ],
+        "zone": [
+          34.0,
+          749.8221056022371,
+          326.0,
+          783.8221056022371
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry 75,150–75,300",
+            "mono": false
+          }
+        ],
+        "colour": "blue",
+        "field": "chart_level"
+      },
+      {
+        "text": "Bitcoin",
+        "box": [
+          68,
+          28,
+          283,
+          76
+        ],
+        "zone": [
+          68,
+          28,
+          1040,
+          104
+        ],
+        "size": 64,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Bitcoin",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "title"
+      },
+      {
+        "text": "SHORT",
+        "box": [
+          319,
+          44,
+          452,
+          73
+        ],
+        "zone": [
+          319,
+          44,
+          456,
+          91
+        ],
+        "size": 38,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "SHORT",
+            "mono": false
+          }
+        ],
+        "colour": "#FFFFFF",
+        "field": "direction"
+      },
+      {
+        "text": "Mid-term",
+        "box": [
+          40,
+          113,
+          191,
+          140
+        ],
+        "zone": [
+          40,
+          113,
+          1040,
+          162
+        ],
+        "size": 34,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Mid-term",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "horizon"
+      },
+      {
+        "text": "No entry",
+        "box": [
+          885.0,
+          113,
+          1040.0,
+          148
+        ],
+        "zone": [
+          885.0,
+          113,
+          1040,
+          168
+        ],
+        "size": 38,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "No entry",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "status"
+      },
+      {
+        "text": "Outcome",
+        "box": [
+          40,
+          1030,
+          175,
+          1055
+        ],
+        "zone": [
+          40,
+          1030,
+          1040,
+          1068
+        ],
+        "size": 32,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Outcome",
+            "mono": false
+          }
+        ],
+        "colour": "muted",
+        "field": "cell_label"
+      },
+      {
+        "text": "Expired, no entry",
+        "box": [
+          40,
+          1070,
+          306,
+          1102
+        ],
+        "zone": [
+          40,
+          1070,
+          1040,
+          1133
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Expired, no entry",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "Outcome"
+      },
+      {
+        "text": "Entry to exit",
+        "box": [
+          40,
+          1130,
+          222,
+          1160
+        ],
+        "zone": [
+          40,
+          1130,
+          1040,
+          1168
+        ],
+        "size": 32,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry to exit",
+            "mono": false
+          }
+        ],
+        "colour": "muted",
+        "field": "cell_label"
+      },
+      {
+        "text": "10 Nov, 8:30 AM ET",
+        "box": [
+          40,
+          1170,
+          400,
+          1199
+        ],
+        "zone": [
+          40,
+          1170,
+          1040,
+          1233
+        ],
+        "size": 34,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "10 Nov, 8:30 AM ET",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "Entry to exit"
+      },
+      {
+        "text": "CAPITAL CHRONICLE",
+        "box": [
+          640.0,
+          1302,
+          1040.0,
+          1331
+        ],
+        "zone": [
+          640.0,
+          1302,
+          1040,
+          1343
+        ],
+        "size": 38,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "CAPITAL CHRONICLE",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "wordmark"
+      }
+    ],
+    "notes": [],
+    "alt_text": "TradingView 4h chart of Bitcoin.",
+    "chart": true,
+    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+  },
+  "tradingview_snapshot": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\BTCUSD\\T\\BTCUSD_2026-11-11_16-45-33.png",
+    "sha256": "29f62f4d7d4094eeeabd763bd3663165db056a9c57112cbd176638e7920562dd",
+    "width": 1080,
+    "height": 850,
+    "chart_geometry": {
+      "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+      "pane_box": [
+        10,
+        27,
+        998,
+        762
+      ],
+      "axis_origin": [
+        998,
+        27
+      ],
+      "axis_pixel_match": 1.0,
+      "mode": "linear",
+      "slope": -0.04927900564747743,
+      "intercept": 4282.242833116278,
+      "max_label_error_px": 0.5858179628494327,
+      "grid_checks": [
+        {
+          "price": 72000.0,
+          "page_y_in_download": 734.0441306445846,
+          "grid_y": 734,
+          "error_px": 0.04413064458458393
+        },
+        {
+          "price": 73000.0,
+          "page_y_in_download": 684.7753023288874,
+          "grid_y": 685,
+          "error_px": 0.22469767111260808
+        },
+        {
+          "price": 74000.0,
+          "page_y_in_download": 635.5064740131903,
+          "grid_y": 635,
+          "error_px": 0.5064740131903136
+        },
+        {
+          "price": 75000.0,
+          "page_y_in_download": 586.2376456974932,
+          "grid_y": 586,
+          "error_px": 0.23764569749323528
+        },
+        {
+          "price": 76000.0,
+          "page_y_in_download": 536.968817381796,
+          "grid_y": 537,
+          "error_px": 0.031182618203956736
+        },
+        {
+          "price": 77000.0,
+          "page_y_in_download": 487.69998906609896,
+          "grid_y": 488,
+          "error_px": 0.30001093390103506
+        },
+        {
+          "price": 78000.0,
+          "page_y_in_download": 438.43116075040183,
+          "grid_y": 438,
+          "error_px": 0.4311607504018298
+        },
+        {
+          "price": 79000.0,
+          "page_y_in_download": 389.16233243470475,
+          "grid_y": 389,
+          "error_px": 0.16233243470475145
+        },
+        {
+          "price": 80000.0,
+          "page_y_in_download": 339.8935041190076,
+          "grid_y": 340,
+          "error_px": 0.10649588099238372
+        },
+        {
+          "price": 81000.0,
+          "page_y_in_download": 290.6246758033105,
+          "grid_y": 290,
+          "error_px": 0.6246758033104811
+        },
+        {
+          "price": 82000.0,
+          "page_y_in_download": 241.35584748761346,
+          "grid_y": 241,
+          "error_px": 0.35584748761345963
+        },
+        {
+          "price": 83000.0,
+          "page_y_in_download": 192.08701917191627,
+          "grid_y": 192,
+          "error_px": 0.08701917191626762
+        },
+        {
+          "price": 84000.0,
+          "page_y_in_download": 142.8181908562192,
+          "grid_y": 143,
+          "error_px": 0.1818091437808107
+        },
+        {
+          "price": 85000.0,
+          "page_y_in_download": 93.54936254052211,
+          "grid_y": 93,
+          "error_px": 0.549362540522111
+        },
+        {
+          "price": 86000.0,
+          "page_y_in_download": 44.28053422482492,
+          "grid_y": 44,
+          "error_px": 0.28053422482491897
+        }
+      ],
+      "source_sha256": "29f62f4d7d4094eeeabd763bd3663165db056a9c57112cbd176638e7920562dd"
+    },
+    "capture_ratio": "16:9",
+    "capture_viewport": {
+      "width": 1466,
+      "height": 844
+    },
+    "tv_symbol": "COINBASE:BTCUSD",
+    "interval": "240",
+    "interval_label": "4h",
+    "legend": "4h",
+    "page_title": "BTCUSD 74,151.48 ▲ +0.62%",
+    "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+    "suggested_filename": "BTCUSD_2026-11-11_16-45-33.png",
+    "captured_at_utc": "2026-11-11T16:45:34.141076+00:00",
+    "seconds": 8.4,
+    "template_chart_size": [
+      1080,
+      850
+    ],
+    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+  },
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true,
+  "image_quality": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "image_sha256": "cc469d9b4840b9d94e6794645734ea58e5dbd12e0e3b06cda9a640ced54dbd56",
+    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "template": "result",
+    "master": "T",
+    "score": 0,
+    "points": {
+      "1": false,
+      "2": false,
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false
+    },
+    "passed": false,
+    "code": {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "cc469d9b4840b9d94e6794645734ea58e5dbd12e0e3b06cda9a640ced54dbd56",
+      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "template": "result",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": false,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ]
+    },
+    "vision": {
+      "points": {},
+      "status": "NOT_RUN"
+    },
+    "reviewed_at_utc": "2026-11-11T17:02:21.784841+00:00"
+  }
+}

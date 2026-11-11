@@ -1,0 +1,998 @@
+{
+  "asset_id": "cc465-d255d667f76d722ea880671d",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-eurusd-call-1-W.png",
+  "sha256": "d255d667f76d722ea880671d98bfb3e6138e95d6b8786af33e5f87e2ef38b578",
+  "width": 1600,
+  "height": 900,
+  "mime_type": "image/png",
+  "alt_text": "TradingView 4h chart of EUR/USD.",
+  "modality": "tradingview_chart_snapshot",
+  "credit": "Chart: TradingView",
+  "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+  "image_template": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "template": "call",
+    "master": "W",
+    "image_number": 1,
+    "page": 0,
+    "input": {
+      "schema": "image_input_v1",
+      "post_id": "cc465-eurusd",
+      "template": "call",
+      "market": "EURUSD",
+      "plan": {
+        "market": "EURUSD",
+        "market_name": "EUR/USD",
+        "direction": "SHORT",
+        "horizon_label": "Mid-term",
+        "status_label": "Expired, no entry",
+        "entry_low": 1.1188,
+        "entry_high": 1.1194,
+        "invalidation": 1.1218,
+        "target": null,
+        "main_probability_pct": 55.0,
+        "alt_probability_pct": 35.0,
+        "time_exit_et": "13 Nov, 3:00 AM ET",
+        "entry_window_ends_et": ""
+      },
+      "source_binding": {
+        "input_sha256": "bef6fd1e58bd92e5e5bc76051344ed3a59f9f0cdb64694e5656eb947d56ca1bb",
+        "source_sha256": "575354990aa4908235a2c43b7747066ab22c7d8883fcd245f665cd6c27db8515",
+        "record": {
+          "key": "cc465-eurusd",
+          "symbol": "EURUSD",
+          "at_utc": "2026-11-10T16:18:25.849991Z",
+          "state": "EXPIRED",
+          "source_plan": {
+            "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+            "asset_id": "EURUSD",
+            "cancel_conditions": [],
+            "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+            "cancel_level": null,
+            "check_age_seconds": 30.034605,
+            "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+            "conditions": [
+              {
+                "kind": "COMPLETED_BAR",
+                "predicates": [
+                  {
+                    "field": "high",
+                    "operator": "GTE",
+                    "threshold": 1.1188
+                  }
+                ],
+                "timeframe": "M15"
+              }
+            ],
+            "data_state": "AVAILABLE",
+            "decision_record_id": "decision:request-9f7c39e808aef09c:EURUSD",
+            "direction": "BEARISH",
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_high": 1.1194,
+                "zone_low": 1.1188
+              }
+            ],
+            "entries_first_cause": null,
+            "entry_deadline_utc": "2026-11-11T20:00:00Z",
+            "expires_at_utc": "2026-11-11T20:00:00Z",
+            "first_cause": null,
+            "forecast_probabilities": {
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "missing_reasons": [],
+              "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+              "probability_target_before_stop_pct": 50,
+              "probability_touch_pct": 60,
+              "probability_up_pct": 40,
+              "reference_at_utc": "2026-11-10T15:05:01Z",
+              "reference_price": 1.11813
+            },
+            "invalidation_conditions": [
+              {
+                "field": "high",
+                "operator": "GTE",
+                "threshold": 1.1218
+              }
+            ],
+            "kind": "WATCH",
+            "not_before_utc": "2026-11-10T16:30:00Z",
+            "outcome": {
+              "first_cause": "UNTRIGGERED_PLAN_ENDED",
+              "outcome_id": null,
+              "public_call_id": "call_2649b7500e29d4b04d954f16",
+              "result": null,
+              "score": null,
+              "state": "NOT_SCORED_UNTRIGGERED"
+            },
+            "plan_id": "plan_a4df2fdd4daa648a59d5a121",
+            "public_instrument": {
+              "contract_first_cause": null,
+              "contract_month": null,
+              "direction": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": null,
+                  "zone_low": null
+                }
+              ],
+              "exchange": "IDEALPRO",
+              "invalidation_level": null,
+              "kind": "SPOT",
+              "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+              "name": "Euro",
+              "symbol": "EUR.USD",
+              "zone_high": null,
+              "zone_low": null
+            },
+            "public_instrument_first_cause": null,
+            "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+            "registration_hash": "dc1b005215d67a8ae0da5275e1787cd6b2942c680110cf772a71db93b5cfafcf",
+            "review_at_utc": "2026-11-11T12:00:00Z",
+            "run_id": "request-9f7c39e808aef09c",
+            "scenario_analysis": {
+              "acceptance": null,
+              "base_case": {
+                "market_move": "EURUSD stays below the 1.1199 release level and falls through the 9 Nov low 1.11465 toward lower levels before 13 Nov 08:00Z, as the hot print widens the US-euro front-end gap.",
+                "probability_pct": 55.0
+              },
+              "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured break of 1.1199 in the release second with every USD pair USD-up; (3) the US-euro 2-year gap of 4.51% against 2.96% (dated 5-6 Nov).",
+              "driver": "USD leg, CLEAR in sign (6 Nov -0.79% with USDJPY +0.64%; today with every USD pair); the 9 Nov +0.68% was EUR-specific (USDJPY -0.19%); the rates link is weak (-0.16 over 20 days, -0.25 over 60).",
+              "field_first_causes": {
+                "acceptance": "EMPTY_LABEL",
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "invalidation_reason": "1.12180 sits above the 1.12161 H1 flag base (06:52Z ledger) and 1.1199, below the 9 Nov D1 high 1.12250; a trade there means EUR-specific buying has reclaimed the pre-release flag.",
+              "invalidation_text": "any trade above 1.12180; the thesis is also broken by an M15 close above 1.12161 while USDJPY falls below 158.20, a new hawkish ECB signal beyond Nagel's 14:54Z remarks, or the US 2y giving back most of its CPI rise.",
+              "main_alternative": {
+                "market_move": "EUR-specific demand and covering of crowded EUR shorts lift EURUSD back above 1.1218, as on 9 Nov when the whole 6 Nov USD move reversed in one session.",
+                "probability_pct": 35.0
+              },
+              "mechanism": "the USD leg; EURUSD's 20-day beta to DXY is -1.09 with correlation -0.97 (Primary's figure, not re-verified by the Critical), the purest USD expression in the set; captured 1.12223 (9 Nov close) to 1.11813 at 15:05:01Z, -0.37% or -0.71 ATR (ATR 0.00581); the 2-year gap was US2Y 4.51% (6 Nov) against EA2Y 2.96% (5 Nov) before today's US rise (context).",
+              "missing_fields": [],
+              "opposite_mechanism": "EUR-specific demand plus covering of an 18%-of-OI EUR short (the 9 Nov pattern) and hawkish-leaning ECB remarks (Nagel 14:54Z, context).",
+              "positioning": "EUR speculators net short 157,791 of 876,122 (18%, COT 3 Nov), covering risk above 1.1216-1.1225; late 9 Nov EUR longs were flushed below 1.1199 at 13:30:01Z. Crowd trade: short EUR, wrong on a repeat of 6-9 Nov, when the whole NFP USD move was retraced the next session.",
+              "priced": "prior_pricing AMBIGUOUS, with the set's largest one-day vol-normalised move (2.18, the 9 Nov +0.67%); 5-day +0.26 ATR (3 Nov close 1.12070 to 9 Nov 1.12223); the capture sits -0.21 ATR under the 20-day mean 1.11934, -1.69 under the 50-day 1.12796 and -5.53 under the 200-day 1.15026; 20-day range 1.11044-1.12731, capture mid-range; T0, the 48 h to 15 min drift and the implied move are not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+              "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "why_no_open": "the capture 1.11813 sits 7-13 pips under the reviewed selling zone and only 35 pips above the 9 Nov low, leaving too little room before the 1.11309-1.11499 base.",
+              "zone_reason": "1.11880-1.11940 retests the broken 6 Nov Asia floor 1.1187-1.1191 and the 29 Oct D1 high 1.11922, under the 1.1199 release level."
+            },
+            "scenario_first_cause": null,
+            "status": "EXPIRED",
+            "status_at_utc": "2026-11-10T18:30:00Z",
+            "status_label": "Expired",
+            "trigger_hash": "dd65dd1c34ddf77a532fff047d6f3d4d558b5960cf03fa6c29dc7db1c0a0729f",
+            "zone": {
+              "maximum": 1.1194,
+              "minimum": 1.1188
+            }
+          },
+          "levels": {
+            "direction": "bearish",
+            "zone_low": 1.1188,
+            "zone_high": 1.1194,
+            "cancel_level": null,
+            "target": null,
+            "invalidation_level": 1.1218,
+            "valid_until_utc": "2026-11-11T20:00:00Z",
+            "scenario_analysis": {
+              "acceptance": null,
+              "base_case": {
+                "market_move": "EURUSD stays below the 1.1199 release level and falls through the 9 Nov low 1.11465 toward lower levels before 13 Nov 08:00Z, as the hot print widens the US-euro front-end gap.",
+                "probability_pct": 55.0
+              },
+              "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured break of 1.1199 in the release second with every USD pair USD-up; (3) the US-euro 2-year gap of 4.51% against 2.96% (dated 5-6 Nov).",
+              "driver": "USD leg, CLEAR in sign (6 Nov -0.79% with USDJPY +0.64%; today with every USD pair); the 9 Nov +0.68% was EUR-specific (USDJPY -0.19%); the rates link is weak (-0.16 over 20 days, -0.25 over 60).",
+              "field_first_causes": {
+                "acceptance": "EMPTY_LABEL",
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "invalidation_reason": "1.12180 sits above the 1.12161 H1 flag base (06:52Z ledger) and 1.1199, below the 9 Nov D1 high 1.12250; a trade there means EUR-specific buying has reclaimed the pre-release flag.",
+              "invalidation_text": "any trade above 1.12180; the thesis is also broken by an M15 close above 1.12161 while USDJPY falls below 158.20, a new hawkish ECB signal beyond Nagel's 14:54Z remarks, or the US 2y giving back most of its CPI rise.",
+              "main_alternative": {
+                "market_move": "EUR-specific demand and covering of crowded EUR shorts lift EURUSD back above 1.1218, as on 9 Nov when the whole 6 Nov USD move reversed in one session.",
+                "probability_pct": 35.0
+              },
+              "mechanism": "the USD leg; EURUSD's 20-day beta to DXY is -1.09 with correlation -0.97 (Primary's figure, not re-verified by the Critical), the purest USD expression in the set; captured 1.12223 (9 Nov close) to 1.11813 at 15:05:01Z, -0.37% or -0.71 ATR (ATR 0.00581); the 2-year gap was US2Y 4.51% (6 Nov) against EA2Y 2.96% (5 Nov) before today's US rise (context).",
+              "missing_fields": [],
+              "opposite_mechanism": "EUR-specific demand plus covering of an 18%-of-OI EUR short (the 9 Nov pattern) and hawkish-leaning ECB remarks (Nagel 14:54Z, context).",
+              "positioning": "EUR speculators net short 157,791 of 876,122 (18%, COT 3 Nov), covering risk above 1.1216-1.1225; late 9 Nov EUR longs were flushed below 1.1199 at 13:30:01Z. Crowd trade: short EUR, wrong on a repeat of 6-9 Nov, when the whole NFP USD move was retraced the next session.",
+              "priced": "prior_pricing AMBIGUOUS, with the set's largest one-day vol-normalised move (2.18, the 9 Nov +0.67%); 5-day +0.26 ATR (3 Nov close 1.12070 to 9 Nov 1.12223); the capture sits -0.21 ATR under the 20-day mean 1.11934, -1.69 under the 50-day 1.12796 and -5.53 under the 200-day 1.15026; 20-day range 1.11044-1.12731, capture mid-range; T0, the 48 h to 15 min drift and the implied move are not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+              "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "why_no_open": "the capture 1.11813 sits 7-13 pips under the reviewed selling zone and only 35 pips above the 9 Nov low, leaving too little room before the 1.11309-1.11499 base.",
+              "zone_reason": "1.11880-1.11940 retests the broken 6 Nov Asia floor 1.1187-1.1191 and the 29 Oct D1 high 1.11922, under the 1.1199 release level."
+            },
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_low": 1.1188,
+                "zone_high": 1.1194
+              }
+            ],
+            "public_instrument": {
+              "name": "Euro",
+              "symbol": "EUR.USD",
+              "kind": "SPOT",
+              "exchange": "IDEALPRO",
+              "contract_month": null,
+              "direction": null,
+              "zone_low": null,
+              "zone_high": null,
+              "invalidation_level": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_low": null,
+                  "zone_high": null
+                }
+              ]
+            },
+            "mechanism": null,
+            "priced": null,
+            "positioning": null,
+            "driver": null,
+            "acceptance": null,
+            "zone_reason": null,
+            "invalidation_reason": null,
+            "confirmations": null,
+            "opposite_mechanism": null,
+            "invalidation_text": null,
+            "price_basis": "plan",
+            "tick_size": null,
+            "time_exit_utc": "2026-11-13T08:00:00Z",
+            "entry_deadline_utc": "2026-11-11T20:00:00Z",
+            "chance_label": "Base-case chance",
+            "chance_pct": 55.0,
+            "short_id": "2649b750",
+            "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+            "reader_reasons": [],
+            "image_source_plan": {
+              "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "asset_id": "EURUSD",
+              "cancel_conditions": [],
+              "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+              "cancel_level": null,
+              "check_age_seconds": 30.034605,
+              "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+              "conditions": [
+                {
+                  "kind": "COMPLETED_BAR",
+                  "predicates": [
+                    {
+                      "field": "high",
+                      "operator": "GTE",
+                      "threshold": 1.1188
+                    }
+                  ],
+                  "timeframe": "M15"
+                }
+              ],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:request-9f7c39e808aef09c:EURUSD",
+              "direction": "BEARISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 1.1194,
+                  "zone_low": 1.1188
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-11T20:00:00Z",
+              "expires_at_utc": "2026-11-11T20:00:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "missing_reasons": [],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": 50,
+                "probability_touch_pct": 60,
+                "probability_up_pct": 40,
+                "reference_at_utc": "2026-11-10T15:05:01Z",
+                "reference_price": 1.11813
+              },
+              "invalidation_conditions": [
+                {
+                  "field": "high",
+                  "operator": "GTE",
+                  "threshold": 1.1218
+                }
+              ],
+              "kind": "WATCH",
+              "not_before_utc": "2026-11-10T16:30:00Z",
+              "outcome": {
+                "first_cause": "UNTRIGGERED_PLAN_ENDED",
+                "outcome_id": null,
+                "public_call_id": "call_2649b7500e29d4b04d954f16",
+                "result": null,
+                "score": null,
+                "state": "NOT_SCORED_UNTRIGGERED"
+              },
+              "plan_id": "plan_a4df2fdd4daa648a59d5a121",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": null,
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "IDEALPRO",
+                "invalidation_level": null,
+                "kind": "SPOT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Euro",
+                "symbol": "EUR.USD",
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+              "registration_hash": "dc1b005215d67a8ae0da5275e1787cd6b2942c680110cf772a71db93b5cfafcf",
+              "review_at_utc": "2026-11-11T12:00:00Z",
+              "run_id": "request-9f7c39e808aef09c",
+              "scenario_analysis": {
+                "acceptance": null,
+                "base_case": {
+                  "market_move": "EURUSD stays below the 1.1199 release level and falls through the 9 Nov low 1.11465 toward lower levels before 13 Nov 08:00Z, as the hot print widens the US-euro front-end gap.",
+                  "probability_pct": 55.0
+                },
+                "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured break of 1.1199 in the release second with every USD pair USD-up; (3) the US-euro 2-year gap of 4.51% against 2.96% (dated 5-6 Nov).",
+                "driver": "USD leg, CLEAR in sign (6 Nov -0.79% with USDJPY +0.64%; today with every USD pair); the 9 Nov +0.68% was EUR-specific (USDJPY -0.19%); the rates link is weak (-0.16 over 20 days, -0.25 over 60).",
+                "field_first_causes": {
+                  "acceptance": "EMPTY_LABEL",
+                  "confirmations": null,
+                  "driver": null,
+                  "invalidation_reason": null,
+                  "invalidation_text": null,
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": null,
+                  "priced": null,
+                  "why_no_open": null,
+                  "zone_reason": null
+                },
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "invalidation_reason": "1.12180 sits above the 1.12161 H1 flag base (06:52Z ledger) and 1.1199, below the 9 Nov D1 high 1.12250; a trade there means EUR-specific buying has reclaimed the pre-release flag.",
+                "invalidation_text": "any trade above 1.12180; the thesis is also broken by an M15 close above 1.12161 while USDJPY falls below 158.20, a new hawkish ECB signal beyond Nagel's 14:54Z remarks, or the US 2y giving back most of its CPI rise.",
+                "main_alternative": {
+                  "market_move": "EUR-specific demand and covering of crowded EUR shorts lift EURUSD back above 1.1218, as on 9 Nov when the whole 6 Nov USD move reversed in one session.",
+                  "probability_pct": 35.0
+                },
+                "mechanism": "the USD leg; EURUSD's 20-day beta to DXY is -1.09 with correlation -0.97 (Primary's figure, not re-verified by the Critical), the purest USD expression in the set; captured 1.12223 (9 Nov close) to 1.11813 at 15:05:01Z, -0.37% or -0.71 ATR (ATR 0.00581); the 2-year gap was US2Y 4.51% (6 Nov) against EA2Y 2.96% (5 Nov) before today's US rise (context).",
+                "missing_fields": [],
+                "opposite_mechanism": "EUR-specific demand plus covering of an 18%-of-OI EUR short (the 9 Nov pattern) and hawkish-leaning ECB remarks (Nagel 14:54Z, context).",
+                "positioning": "EUR speculators net short 157,791 of 876,122 (18%, COT 3 Nov), covering risk above 1.1216-1.1225; late 9 Nov EUR longs were flushed below 1.1199 at 13:30:01Z. Crowd trade: short EUR, wrong on a repeat of 6-9 Nov, when the whole NFP USD move was retraced the next session.",
+                "priced": "prior_pricing AMBIGUOUS, with the set's largest one-day vol-normalised move (2.18, the 9 Nov +0.67%); 5-day +0.26 ATR (3 Nov close 1.12070 to 9 Nov 1.12223); the capture sits -0.21 ATR under the 20-day mean 1.11934, -1.69 under the 50-day 1.12796 and -5.53 under the 200-day 1.15026; 20-day range 1.11044-1.12731, capture mid-range; T0, the 48 h to 15 min drift and the implied move are not observed.",
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+                "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+                "why_no_open": "the capture 1.11813 sits 7-13 pips under the reviewed selling zone and only 35 pips above the 9 Nov low, leaving too little room before the 1.11309-1.11499 base.",
+                "zone_reason": "1.11880-1.11940 retests the broken 6 Nov Asia floor 1.1187-1.1191 and the 29 Oct D1 high 1.11922, under the 1.1199 release level."
+              },
+              "scenario_first_cause": null,
+              "status": "EXPIRED",
+              "status_at_utc": "2026-11-10T18:30:00Z",
+              "status_label": "Expired",
+              "trigger_hash": "dd65dd1c34ddf77a532fff047d6f3d4d558b5960cf03fa6c29dc7db1c0a0729f",
+              "zone": {
+                "maximum": 1.1194,
+                "minimum": 1.1188
+              }
+            }
+          }
+        }
+      }
+    },
+    "snapshot": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\W\\EURUSD_2026-11-11_16-43-20.png",
+      "sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160",
+      "width": 1600,
+      "height": 700,
+      "chart_geometry": {
+        "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+        "pane_box": [
+          10,
+          27,
+          1524,
+          612
+        ],
+        "axis_origin": [
+          1524,
+          27
+        ],
+        "axis_pixel_match": 1.0,
+        "mode": "linear",
+        "slope": -10097.859932410587,
+        "intercept": 11754.68036429742,
+        "max_label_error_px": 0.7893591161828226,
+        "grid_checks": [
+          {
+            "price": 1.11,
+            "page_y_in_download": 545.875497443591,
+            "grid_y": 546,
+            "error_px": 0.12450255640897012
+          },
+          {
+            "price": 1.115,
+            "page_y_in_download": 495.4116559930335,
+            "grid_y": 496,
+            "error_px": 0.5883440069665085
+          },
+          {
+            "price": 1.12,
+            "page_y_in_download": 444.9478145424759,
+            "grid_y": 445,
+            "error_px": 0.05218545752410364
+          },
+          {
+            "price": 1.125,
+            "page_y_in_download": 394.4839730919183,
+            "grid_y": 395,
+            "error_px": 0.5160269080816988
+          },
+          {
+            "price": 1.13,
+            "page_y_in_download": 344.0201316413608,
+            "grid_y": 344,
+            "error_px": 0.020131641360819685
+          },
+          {
+            "price": 1.135,
+            "page_y_in_download": 293.5562901908032,
+            "grid_y": 294,
+            "error_px": 0.4437098091967755
+          },
+          {
+            "price": 1.14,
+            "page_y_in_download": 243.0924487402457,
+            "grid_y": 243,
+            "error_px": 0.09244874024568617
+          },
+          {
+            "price": 1.145,
+            "page_y_in_download": 192.62860728968815,
+            "grid_y": 193,
+            "error_px": 0.37139271031185217
+          },
+          {
+            "price": 1.15,
+            "page_y_in_download": 142.1647658391306,
+            "grid_y": 143,
+            "error_px": 0.8352341608693905
+          },
+          {
+            "price": 1.155,
+            "page_y_in_download": 91.70092438857307,
+            "grid_y": 92,
+            "error_px": 0.29907561142692884
+          },
+          {
+            "price": 1.16,
+            "page_y_in_download": 41.23708293801553,
+            "grid_y": 42,
+            "error_px": 0.7629170619844672
+          }
+        ],
+        "source_sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160"
+      },
+      "capture_ratio": "16:9",
+      "capture_viewport": {
+        "width": 1986,
+        "height": 694
+      },
+      "tv_symbol": "FX_IDC:EURUSD",
+      "interval": "240",
+      "interval_label": "4h",
+      "legend": "4h",
+      "page_title": "EURUSD 1.10941 ▼ −0.6%",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:EURUSD&interval=240",
+      "suggested_filename": "EURUSD_2026-11-11_16-43-20.png",
+      "captured_at_utc": "2026-11-11T16:43:20.335642+00:00",
+      "seconds": 7.1,
+      "template_chart_size": [
+        1600,
+        700
+      ],
+      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    },
+    "framing": {
+      "box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "original_size": [
+        1600,
+        700
+      ],
+      "paste_box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "scale": 1.0,
+      "shape_error": 0.0,
+      "paper_margin_fraction": 0.0
+    },
+    "levels": {
+      "required": true,
+      "levels_visible": true,
+      "pane_box": [
+        22.0,
+        193.0,
+        1512.0,
+        704.0
+      ],
+      "entry_colour": "#1F5FBF",
+      "target_visible": false
+    },
+    "texts": [
+      {
+        "text": "Invalidation 1.1218",
+        "box": [
+          34.0,
+          512.9010921192239,
+          273.0,
+          534.9010921192239
+        ],
+        "zone": [
+          34.0,
+          512.9010921192239,
+          285.0,
+          546.9010921192239
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Invalidation 1.1218",
+            "mono": false
+          }
+        ],
+        "colour": "red",
+        "field": "chart_level"
+      },
+      {
+        "text": "Entry 1.1188–1.1194",
+        "box": [
+          34.0,
+          558.9010921192239,
+          288.0,
+          584.9010921192239
+        ],
+        "zone": [
+          34.0,
+          558.9010921192239,
+          300.0,
+          592.9010921192239
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry 1.1188–1.1194",
+            "mono": false
+          }
+        ],
+        "colour": "blue",
+        "field": "chart_level"
+      },
+      {
+        "text": "EUR/USD",
+        "box": [
+          76,
+          20,
+          333,
+          63
+        ],
+        "zone": [
+          76,
+          20,
+          1552,
+          92
+        ],
+        "size": 56,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "EUR/USD",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "title"
+      },
+      {
+        "text": "SHORT",
+        "box": [
+          369,
+          34,
+          496,
+          62
+        ],
+        "zone": [
+          369,
+          34,
+          500,
+          78
+        ],
+        "size": 36,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "SHORT",
+            "mono": false
+          }
+        ],
+        "colour": "#FFFFFF",
+        "field": "direction"
+      },
+      {
+        "text": "Mid-term",
+        "box": [
+          530,
+          36,
+          690,
+          64
+        ],
+        "zone": [
+          530,
+          36,
+          1552,
+          90
+        ],
+        "size": 36,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Mid-term",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "horizon"
+      },
+      {
+        "text": "Expired, no entry",
+        "box": [
+          1262.0,
+          36,
+          1552.0,
+          69
+        ],
+        "zone": [
+          1262.0,
+          36,
+          1552,
+          98
+        ],
+        "size": 36,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Expired, no entry",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "status"
+      },
+      {
+        "text": "Entry 1.1188–1.1194 · Invalidation 1.1218",
+        "box": [
+          48,
+          808,
+          794,
+          841
+        ],
+        "zone": [
+          48,
+          808,
+          1552,
+          851
+        ],
+        "size": 36,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry ",
+            "mono": false
+          },
+          {
+            "text": "1.1188–1.1194",
+            "mono": true
+          },
+          {
+            "text": " · Invalidation ",
+            "mono": false
+          },
+          {
+            "text": "1.1218",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "Main 55% · Alternative 35% · Time exit 13 Nov, 3:00 AM ET",
+        "box": [
+          48,
+          852,
+          1077,
+          882
+        ],
+        "zone": [
+          48,
+          852,
+          1552,
+          895
+        ],
+        "size": 36,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Main ",
+            "mono": false
+          },
+          {
+            "text": "55%",
+            "mono": true
+          },
+          {
+            "text": " · Alternative ",
+            "mono": false
+          },
+          {
+            "text": "35%",
+            "mono": true
+          },
+          {
+            "text": " · Time exit ",
+            "mono": false
+          },
+          {
+            "text": "13 Nov, 3:00 AM ET",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "CAPITAL CHRONICLE",
+        "box": [
+          1174.0,
+          852,
+          1552.0,
+          880
+        ],
+        "zone": [
+          1174.0,
+          852,
+          1552,
+          893
+        ],
+        "size": 36,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "CAPITAL CHRONICLE",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "wordmark"
+      }
+    ],
+    "notes": [],
+    "alt_text": "TradingView 4h chart of EUR/USD.",
+    "chart": true,
+    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+  },
+  "tradingview_snapshot": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\EURUSD\\W\\EURUSD_2026-11-11_16-43-20.png",
+    "sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160",
+    "width": 1600,
+    "height": 700,
+    "chart_geometry": {
+      "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+      "pane_box": [
+        10,
+        27,
+        1524,
+        612
+      ],
+      "axis_origin": [
+        1524,
+        27
+      ],
+      "axis_pixel_match": 1.0,
+      "mode": "linear",
+      "slope": -10097.859932410587,
+      "intercept": 11754.68036429742,
+      "max_label_error_px": 0.7893591161828226,
+      "grid_checks": [
+        {
+          "price": 1.11,
+          "page_y_in_download": 545.875497443591,
+          "grid_y": 546,
+          "error_px": 0.12450255640897012
+        },
+        {
+          "price": 1.115,
+          "page_y_in_download": 495.4116559930335,
+          "grid_y": 496,
+          "error_px": 0.5883440069665085
+        },
+        {
+          "price": 1.12,
+          "page_y_in_download": 444.9478145424759,
+          "grid_y": 445,
+          "error_px": 0.05218545752410364
+        },
+        {
+          "price": 1.125,
+          "page_y_in_download": 394.4839730919183,
+          "grid_y": 395,
+          "error_px": 0.5160269080816988
+        },
+        {
+          "price": 1.13,
+          "page_y_in_download": 344.0201316413608,
+          "grid_y": 344,
+          "error_px": 0.020131641360819685
+        },
+        {
+          "price": 1.135,
+          "page_y_in_download": 293.5562901908032,
+          "grid_y": 294,
+          "error_px": 0.4437098091967755
+        },
+        {
+          "price": 1.14,
+          "page_y_in_download": 243.0924487402457,
+          "grid_y": 243,
+          "error_px": 0.09244874024568617
+        },
+        {
+          "price": 1.145,
+          "page_y_in_download": 192.62860728968815,
+          "grid_y": 193,
+          "error_px": 0.37139271031185217
+        },
+        {
+          "price": 1.15,
+          "page_y_in_download": 142.1647658391306,
+          "grid_y": 143,
+          "error_px": 0.8352341608693905
+        },
+        {
+          "price": 1.155,
+          "page_y_in_download": 91.70092438857307,
+          "grid_y": 92,
+          "error_px": 0.29907561142692884
+        },
+        {
+          "price": 1.16,
+          "page_y_in_download": 41.23708293801553,
+          "grid_y": 42,
+          "error_px": 0.7629170619844672
+        }
+      ],
+      "source_sha256": "1c054ec0bbab40a2b24bca19244de7217989c26414735408a0749972f2fb1160"
+    },
+    "capture_ratio": "16:9",
+    "capture_viewport": {
+      "width": 1986,
+      "height": 694
+    },
+    "tv_symbol": "FX_IDC:EURUSD",
+    "interval": "240",
+    "interval_label": "4h",
+    "legend": "4h",
+    "page_title": "EURUSD 1.10941 ▼ −0.6%",
+    "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:EURUSD&interval=240",
+    "suggested_filename": "EURUSD_2026-11-11_16-43-20.png",
+    "captured_at_utc": "2026-11-11T16:43:20.335642+00:00",
+    "seconds": 7.1,
+    "template_chart_size": [
+      1600,
+      700
+    ],
+    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+  },
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true,
+  "image_quality": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "image_sha256": "d255d667f76d722ea880671d98bfb3e6138e95d6b8786af33e5f87e2ef38b578",
+    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "template": "call",
+    "master": "W",
+    "score": 0,
+    "points": {
+      "1": false,
+      "2": false,
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false
+    },
+    "passed": false,
+    "code": {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "d255d667f76d722ea880671d98bfb3e6138e95d6b8786af33e5f87e2ef38b578",
+      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": false,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ]
+    },
+    "vision": {
+      "points": {},
+      "status": "NOT_RUN"
+    },
+    "reviewed_at_utc": "2026-11-11T17:02:20.189104+00:00"
+  }
+}

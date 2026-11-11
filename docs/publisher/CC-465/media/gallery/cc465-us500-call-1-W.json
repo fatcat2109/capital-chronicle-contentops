@@ -1,0 +1,1086 @@
+{
+  "asset_id": "cc465-d83f8693d7203822d1c5b441",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-us500-call-1-W.png",
+  "sha256": "d83f8693d7203822d1c5b44175428d693436f90e5e2d020776eea1fb58961ab0",
+  "width": 1600,
+  "height": 900,
+  "mime_type": "image/png",
+  "alt_text": "TradingView 4h chart of S&P 500.",
+  "modality": "tradingview_chart_snapshot",
+  "credit": "Chart: TradingView",
+  "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+  "image_template": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "template": "call",
+    "master": "W",
+    "image_number": 1,
+    "page": 0,
+    "input": {
+      "schema": "image_input_v1",
+      "post_id": "cc465-us500",
+      "template": "call",
+      "market": "US500",
+      "plan": {
+        "market": "US500",
+        "market_name": "S&P 500",
+        "direction": "LONG",
+        "horizon_label": "Mid-term",
+        "status_label": "Expired, no entry",
+        "entry_low": 7522.0,
+        "entry_high": 7528.0,
+        "invalidation": 7498.0,
+        "target": null,
+        "main_probability_pct": 52.0,
+        "alt_probability_pct": 38.0,
+        "time_exit_et": "16 Nov, 4:00 PM ET",
+        "entry_window_ends_et": ""
+      },
+      "source_binding": {
+        "input_sha256": "349341fb27c2d6f50985bd3e3f4b56ab1139da779a9ae060650db3834b76c26c",
+        "source_sha256": "197b8b6c2c5081555f8f722d00697d12709fc9226add6cea3c6f4f7760881d93",
+        "record": {
+          "key": "cc465-us500",
+          "symbol": "US500",
+          "at_utc": "2026-11-10T06:23:56.897696Z",
+          "state": "EXPIRED",
+          "source_plan": {
+            "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+            "asset_id": "US500",
+            "cancel_conditions": [],
+            "cancel_kind": null,
+            "cancel_level": null,
+            "check_age_seconds": 30.872285,
+            "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+            "conditions": [
+              {
+                "kind": "COMPLETED_BAR",
+                "predicates": [
+                  {
+                    "field": "low",
+                    "operator": "LTE",
+                    "threshold": 7528.0
+                  }
+                ],
+                "timeframe": "M15"
+              }
+            ],
+            "data_state": "AVAILABLE",
+            "decision_record_id": "decision:request-caddf8cbb6c3311b:US500",
+            "direction": "BULLISH",
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_high": 7528.0,
+                "zone_low": 7522.0
+              }
+            ],
+            "entries_first_cause": null,
+            "entry_deadline_utc": "2026-11-10T13:15:00Z",
+            "expires_at_utc": "2026-11-10T13:15:00Z",
+            "first_cause": null,
+            "forecast_probabilities": {
+              "horizon_end_utc": "2026-11-16T21:00:00Z",
+              "missing_reasons": [
+                "TYPED_PROBABILITIES_NOT_RECORDED"
+              ],
+              "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+              "probability_target_before_stop_pct": null,
+              "probability_touch_pct": null,
+              "probability_up_pct": null,
+              "reference_at_utc": "2026-11-10T05:11:07Z",
+              "reference_price": 7565.4
+            },
+            "invalidation_conditions": [
+              {
+                "field": "low",
+                "operator": "LTE",
+                "threshold": 7498.0
+              }
+            ],
+            "kind": "WATCH",
+            "not_before_utc": "2026-11-10T06:30:00Z",
+            "outcome": {
+              "first_cause": "UNTRIGGERED_PLAN_ENDED",
+              "outcome_id": null,
+              "public_call_id": "call_6845d7baa8bbb8726f2e8a33",
+              "result": null,
+              "score": null,
+              "state": "NOT_SCORED_UNTRIGGERED"
+            },
+            "plan_id": "plan_9efa90f940d37e632b24126c",
+            "public_instrument": {
+              "contract_first_cause": null,
+              "contract_month": "2026-12",
+              "direction": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": null,
+                  "zone_low": null
+                }
+              ],
+              "exchange": "CME",
+              "invalidation_level": null,
+              "kind": "FUT",
+              "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+              "name": "Micro E-mini S&P 500",
+              "symbol": "MES",
+              "zone_high": null,
+              "zone_low": null
+            },
+            "public_instrument_first_cause": null,
+            "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+            "registration_hash": "39374ce9bc524cf41603cc492f4adb7ef08203522f4dc776ddaa15ad5eb31903",
+            "review_at_utc": "2026-11-10T13:00:00Z",
+            "run_id": "request-caddf8cbb6c3311b",
+            "scenario_analysis": {
+              "acceptance": "accepted in Asia, unconfirmed; CPI and cash-open reaction not observed.",
+              "base_case": {
+                "market_move": "the 9 Nov relief rally holds its 7500-7520 base and extends above the 7582 high within five sessions.",
+                "probability_pct": 52.0
+              },
+              "confirmations": "(1) the 19:30Z bar's joint move with oil and DXY; (2) Asia follow-through (Nikkei +3.0, KOSPI +5.4 percent, context); (3) no Asia break of 7549.",
+              "driver": "MIXED (rates and oil against AI-credit stress and IPO supply).",
+              "field_first_causes": {
+                "acceptance": null,
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-16T21:00:00Z",
+              "invalidation_reason": "7500.73 (9 Nov 15:00Z H1 low) is the base of the cash-open surge; 7549.14 (10 Nov 03:00Z H1 low) is the Asia floor.",
+              "invalidation_text": "or a hot CPI with US500 under 7500.",
+              "main_alternative": {
+                "market_move": "a hot CPI or AI-credit stress fades the rally back into 7440-7500.",
+                "probability_pct": 38.0
+              },
+              "mechanism": "a global risk impulse from US-Iran de-escalation and lower oil (context); US500 +2.54 percent on 9 Nov, +34 points in the 19:30Z oil-flush bar, and an Asia range 7549.14-7568.33 that held.",
+              "missing_fields": [],
+              "opposite_mechanism": "a hot CPI or chip-credit widening; a measured precedent is the 5 Nov 15:00Z H1 drop of 180 points (7580.02 to 7399.78).; wrong on a hot print.",
+              "positioning": "E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows (context).",
+              "priced": "1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+              "source_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+              "why_no_open": "7565 is mid-range between the base and the high; no in-bounds entry clears 1.25.",
+              "zone_reason": "Buy Limit above the 9 Nov 16:00Z H1 low 7519.48 (the post-open base); Buy Stop beyond the 9 Nov 20:00Z high 7581.97, where a MIXED-channel continuation belongs."
+            },
+            "scenario_first_cause": null,
+            "status": "EXPIRED",
+            "status_at_utc": "2026-11-10T13:00:00Z",
+            "status_label": "Expired",
+            "trigger_hash": "a720191eb162ce560a32335eb338e4883571512c60342d7f2a0c8ce97b9d8108",
+            "zone": {
+              "maximum": 7528.0,
+              "minimum": 7522.0
+            }
+          },
+          "levels": {
+            "direction": "bullish",
+            "zone_low": 7522.0,
+            "zone_high": 7528.0,
+            "cancel_level": null,
+            "target": null,
+            "invalidation_level": 7498.0,
+            "valid_until_utc": "2026-11-10T13:15:00Z",
+            "scenario_analysis": {
+              "acceptance": "accepted in Asia, unconfirmed; CPI and cash-open reaction not observed.",
+              "base_case": {
+                "market_move": "the 9 Nov relief rally holds its 7500-7520 base and extends above the 7582 high within five sessions.",
+                "probability_pct": 52.0
+              },
+              "confirmations": "(1) the 19:30Z bar's joint move with oil and DXY; (2) Asia follow-through (Nikkei +3.0, KOSPI +5.4 percent, context); (3) no Asia break of 7549.",
+              "driver": "MIXED (rates and oil against AI-credit stress and IPO supply).",
+              "field_first_causes": {
+                "acceptance": null,
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-16T21:00:00Z",
+              "invalidation_reason": "7500.73 (9 Nov 15:00Z H1 low) is the base of the cash-open surge; 7549.14 (10 Nov 03:00Z H1 low) is the Asia floor.",
+              "invalidation_text": "or a hot CPI with US500 under 7500.",
+              "main_alternative": {
+                "market_move": "a hot CPI or AI-credit stress fades the rally back into 7440-7500.",
+                "probability_pct": 38.0
+              },
+              "mechanism": "a global risk impulse from US-Iran de-escalation and lower oil (context); US500 +2.54 percent on 9 Nov, +34 points in the 19:30Z oil-flush bar, and an Asia range 7549.14-7568.33 that held.",
+              "missing_fields": [],
+              "opposite_mechanism": "a hot CPI or chip-credit widening; a measured precedent is the 5 Nov 15:00Z H1 drop of 180 points (7580.02 to 7399.78).; wrong on a hot print.",
+              "positioning": "E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows (context).",
+              "priced": "1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+              "source_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+              "why_no_open": "7565 is mid-range between the base and the high; no in-bounds entry clears 1.25.",
+              "zone_reason": "Buy Limit above the 9 Nov 16:00Z H1 low 7519.48 (the post-open base); Buy Stop beyond the 9 Nov 20:00Z high 7581.97, where a MIXED-channel continuation belongs."
+            },
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_low": 7522.0,
+                "zone_high": 7528.0
+              }
+            ],
+            "public_instrument": {
+              "name": "Micro E-mini S&P 500",
+              "symbol": "MES",
+              "kind": "FUT",
+              "exchange": "CME",
+              "contract_month": "2026-12",
+              "direction": null,
+              "zone_low": null,
+              "zone_high": null,
+              "invalidation_level": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_low": null,
+                  "zone_high": null
+                }
+              ]
+            },
+            "mechanism": null,
+            "priced": null,
+            "positioning": null,
+            "driver": null,
+            "acceptance": null,
+            "zone_reason": null,
+            "invalidation_reason": null,
+            "confirmations": null,
+            "opposite_mechanism": null,
+            "invalidation_text": null,
+            "price_basis": "plan",
+            "tick_size": null,
+            "time_exit_utc": "2026-11-16T21:00:00Z",
+            "entry_deadline_utc": "2026-11-10T13:15:00Z",
+            "chance_label": "Base-case chance",
+            "chance_pct": 52.0,
+            "short_id": "6845d7ba",
+            "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+            "reader_reasons": [],
+            "image_source_plan": {
+              "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+              "asset_id": "US500",
+              "cancel_conditions": [],
+              "cancel_kind": null,
+              "cancel_level": null,
+              "check_age_seconds": 30.872285,
+              "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+              "conditions": [
+                {
+                  "kind": "COMPLETED_BAR",
+                  "predicates": [
+                    {
+                      "field": "low",
+                      "operator": "LTE",
+                      "threshold": 7528.0
+                    }
+                  ],
+                  "timeframe": "M15"
+                }
+              ],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:request-caddf8cbb6c3311b:US500",
+              "direction": "BULLISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 7528.0,
+                  "zone_low": 7522.0
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-10T13:15:00Z",
+              "expires_at_utc": "2026-11-10T13:15:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-16T21:00:00Z",
+                "missing_reasons": [
+                  "TYPED_PROBABILITIES_NOT_RECORDED"
+                ],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": null,
+                "probability_touch_pct": null,
+                "probability_up_pct": null,
+                "reference_at_utc": "2026-11-10T05:11:07Z",
+                "reference_price": 7565.4
+              },
+              "invalidation_conditions": [
+                {
+                  "field": "low",
+                  "operator": "LTE",
+                  "threshold": 7498.0
+                }
+              ],
+              "kind": "WATCH",
+              "not_before_utc": "2026-11-10T06:30:00Z",
+              "outcome": {
+                "first_cause": "UNTRIGGERED_PLAN_ENDED",
+                "outcome_id": null,
+                "public_call_id": "call_6845d7baa8bbb8726f2e8a33",
+                "result": null,
+                "score": null,
+                "state": "NOT_SCORED_UNTRIGGERED"
+              },
+              "plan_id": "plan_9efa90f940d37e632b24126c",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": "2026-12",
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "CME",
+                "invalidation_level": null,
+                "kind": "FUT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Micro E-mini S&P 500",
+                "symbol": "MES",
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+              "registration_hash": "39374ce9bc524cf41603cc492f4adb7ef08203522f4dc776ddaa15ad5eb31903",
+              "review_at_utc": "2026-11-10T13:00:00Z",
+              "run_id": "request-caddf8cbb6c3311b",
+              "scenario_analysis": {
+                "acceptance": "accepted in Asia, unconfirmed; CPI and cash-open reaction not observed.",
+                "base_case": {
+                  "market_move": "the 9 Nov relief rally holds its 7500-7520 base and extends above the 7582 high within five sessions.",
+                  "probability_pct": 52.0
+                },
+                "confirmations": "(1) the 19:30Z bar's joint move with oil and DXY; (2) Asia follow-through (Nikkei +3.0, KOSPI +5.4 percent, context); (3) no Asia break of 7549.",
+                "driver": "MIXED (rates and oil against AI-credit stress and IPO supply).",
+                "field_first_causes": {
+                  "acceptance": null,
+                  "confirmations": null,
+                  "driver": null,
+                  "invalidation_reason": null,
+                  "invalidation_text": null,
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": null,
+                  "priced": null,
+                  "why_no_open": null,
+                  "zone_reason": null
+                },
+                "horizon_end_utc": "2026-11-16T21:00:00Z",
+                "invalidation_reason": "7500.73 (9 Nov 15:00Z H1 low) is the base of the cash-open surge; 7549.14 (10 Nov 03:00Z H1 low) is the Asia floor.",
+                "invalidation_text": "or a hot CPI with US500 under 7500.",
+                "main_alternative": {
+                  "market_move": "a hot CPI or AI-credit stress fades the rally back into 7440-7500.",
+                  "probability_pct": 38.0
+                },
+                "mechanism": "a global risk impulse from US-Iran de-escalation and lower oil (context); US500 +2.54 percent on 9 Nov, +34 points in the 19:30Z oil-flush bar, and an Asia range 7549.14-7568.33 that held.",
+                "missing_fields": [],
+                "opposite_mechanism": "a hot CPI or chip-credit widening; a measured precedent is the 5 Nov 15:00Z H1 drop of 180 points (7580.02 to 7399.78).; wrong on a hot print.",
+                "positioning": "E-mini non-commercial net short 129,414 (3 Nov, before the 5 Nov drop and the rally; current positioning not observed); record levered-ETF inflows (context).",
+                "priced": "1-day +2.54 percent (1.81 vol-normalized), drift +1.41 D1 ATR from the 6 Nov close 7383.33, about 82 under the 20-day close mean; VIX not observed.",
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+                "source_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+                "why_no_open": "7565 is mid-range between the base and the high; no in-bounds entry clears 1.25.",
+                "zone_reason": "Buy Limit above the 9 Nov 16:00Z H1 low 7519.48 (the post-open base); Buy Stop beyond the 9 Nov 20:00Z high 7581.97, where a MIXED-channel continuation belongs."
+              },
+              "scenario_first_cause": null,
+              "status": "EXPIRED",
+              "status_at_utc": "2026-11-10T13:00:00Z",
+              "status_label": "Expired",
+              "trigger_hash": "a720191eb162ce560a32335eb338e4883571512c60342d7f2a0c8ce97b9d8108",
+              "zone": {
+                "maximum": 7528.0,
+                "minimum": 7522.0
+              }
+            }
+          }
+        }
+      }
+    },
+    "snapshot": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\W\\SPX_2026-11-11_16-43-03.png",
+      "sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d",
+      "width": 1600,
+      "height": 700,
+      "chart_geometry": {
+        "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+        "pane_box": [
+          10,
+          27,
+          1524,
+          612
+        ],
+        "axis_origin": [
+          1524,
+          27
+        ],
+        "axis_pixel_match": 1.0,
+        "mode": "linear",
+        "slope": -0.7890299153965781,
+        "intercept": 6275.230522048884,
+        "max_label_error_px": 0.34734535900679475,
+        "grid_checks": [
+          {
+            "price": 7200.0,
+            "page_y_in_download": 594.2066065055964,
+            "grid_y": 594,
+            "error_px": 0.20660650559636906
+          },
+          {
+            "price": 7240.0,
+            "page_y_in_download": 562.6441425630906,
+            "grid_y": 563,
+            "error_px": 0.3558574369094458
+          },
+          {
+            "price": 7280.0,
+            "page_y_in_download": 531.0816786205849,
+            "grid_y": 531,
+            "error_px": 0.08167862058485298
+          },
+          {
+            "price": 7320.0,
+            "page_y_in_download": 499.519214678079,
+            "grid_y": 499,
+            "error_px": 0.5192146780789813
+          },
+          {
+            "price": 7360.0,
+            "page_y_in_download": 467.95675073557317,
+            "grid_y": 468,
+            "error_px": 0.043249264426833633
+          },
+          {
+            "price": 7400.0,
+            "page_y_in_download": 436.3942867930674,
+            "grid_y": 436,
+            "error_px": 0.3942867930674083
+          },
+          {
+            "price": 7440.0,
+            "page_y_in_download": 404.8318228505616,
+            "grid_y": 405,
+            "error_px": 0.16817714943840656
+          },
+          {
+            "price": 7480.0,
+            "page_y_in_download": 373.2693589080558,
+            "grid_y": 373,
+            "error_px": 0.26935890805577856
+          },
+          {
+            "price": 7520.0,
+            "page_y_in_download": 341.70689496554996,
+            "grid_y": 342,
+            "error_px": 0.29310503445003633
+          },
+          {
+            "price": 7560.0,
+            "page_y_in_download": 310.14443102304415,
+            "grid_y": 310,
+            "error_px": 0.1444310230441488
+          },
+          {
+            "price": 7600.0,
+            "page_y_in_download": 278.58196708053833,
+            "grid_y": 278,
+            "error_px": 0.5819670805383339
+          },
+          {
+            "price": 7640.0,
+            "page_y_in_download": 247.01950313803252,
+            "grid_y": 247,
+            "error_px": 0.01950313803251902
+          },
+          {
+            "price": 7680.0,
+            "page_y_in_download": 215.45703919552676,
+            "grid_y": 215,
+            "error_px": 0.457039195526761
+          },
+          {
+            "price": 7720.0,
+            "page_y_in_download": 183.89457525302095,
+            "grid_y": 184,
+            "error_px": 0.10542474697905391
+          },
+          {
+            "price": 7760.0,
+            "page_y_in_download": 152.33211131051513,
+            "grid_y": 152,
+            "error_px": 0.3321113105151312
+          },
+          {
+            "price": 7800.0,
+            "page_y_in_download": 120.76964736800926,
+            "grid_y": 121,
+            "error_px": 0.23035263199074052
+          },
+          {
+            "price": 7840.0,
+            "page_y_in_download": 89.20718342550344,
+            "grid_y": 89,
+            "error_px": 0.2071834255034446
+          },
+          {
+            "price": 7880.0,
+            "page_y_in_download": 57.64471948299763,
+            "grid_y": 58,
+            "error_px": 0.3552805170023703
+          }
+        ],
+        "source_sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d"
+      },
+      "capture_ratio": "16:9",
+      "capture_viewport": {
+        "width": 1986,
+        "height": 694
+      },
+      "tv_symbol": "SP:SPX",
+      "interval": "240",
+      "interval_label": "4h",
+      "legend": "4h",
+      "page_title": "SPX 7,610.90 ▲ +1.2%",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+      "suggested_filename": "SPX_2026-11-11_16-43-03.png",
+      "captured_at_utc": "2026-11-11T16:43:03.417102+00:00",
+      "seconds": 7.9,
+      "template_chart_size": [
+        1600,
+        700
+      ],
+      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    },
+    "framing": {
+      "box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "original_size": [
+        1600,
+        700
+      ],
+      "paste_box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "scale": 1.0,
+      "shape_error": 0.0,
+      "paper_margin_fraction": 0.0
+    },
+    "levels": {
+      "required": true,
+      "levels_visible": true,
+      "pane_box": [
+        22.0,
+        193.0,
+        1512.0,
+        704.0
+      ],
+      "entry_colour": "#1F5FBF",
+      "target_visible": false
+    },
+    "texts": [
+      {
+        "text": "Entry 7,522–7,528",
+        "box": [
+          34.0,
+          423.780408689634,
+          282.0,
+          449.780408689634
+        ],
+        "zone": [
+          34.0,
+          423.780408689634,
+          294.0,
+          457.780408689634
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry 7,522–7,528",
+            "mono": false
+          }
+        ],
+        "colour": "blue",
+        "field": "chart_level"
+      },
+      {
+        "text": "Invalidation 7,498",
+        "box": [
+          34.0,
+          469.780408689634,
+          273.0,
+          494.780408689634
+        ],
+        "zone": [
+          34.0,
+          469.780408689634,
+          285.0,
+          503.780408689634
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Invalidation 7,498",
+            "mono": false
+          }
+        ],
+        "colour": "red",
+        "field": "chart_level"
+      },
+      {
+        "text": "S&P 500",
+        "box": [
+          76,
+          20,
+          319,
+          63
+        ],
+        "zone": [
+          76,
+          20,
+          1552,
+          92
+        ],
+        "size": 56,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "S&P 500",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "title"
+      },
+      {
+        "text": "LONG",
+        "box": [
+          355,
+          34,
+          458,
+          62
+        ],
+        "zone": [
+          355,
+          34,
+          462,
+          78
+        ],
+        "size": 36,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "LONG",
+            "mono": false
+          }
+        ],
+        "colour": "#FFFFFF",
+        "field": "direction"
+      },
+      {
+        "text": "Mid-term",
+        "box": [
+          492,
+          36,
+          652,
+          64
+        ],
+        "zone": [
+          492,
+          36,
+          1552,
+          90
+        ],
+        "size": 36,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Mid-term",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "horizon"
+      },
+      {
+        "text": "Expired, no entry",
+        "box": [
+          1262.0,
+          36,
+          1552.0,
+          69
+        ],
+        "zone": [
+          1262.0,
+          36,
+          1552,
+          98
+        ],
+        "size": 36,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Expired, no entry",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "status"
+      },
+      {
+        "text": "Entry 7,522–7,528 · Invalidation 7,498",
+        "box": [
+          48,
+          808,
+          728,
+          841
+        ],
+        "zone": [
+          48,
+          808,
+          1552,
+          851
+        ],
+        "size": 36,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry ",
+            "mono": false
+          },
+          {
+            "text": "7,522–7,528",
+            "mono": true
+          },
+          {
+            "text": " · Invalidation ",
+            "mono": false
+          },
+          {
+            "text": "7,498",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "Main 52% · Alternative 38% · Time exit 16 Nov, 4:00 PM ET",
+        "box": [
+          48,
+          852,
+          1077,
+          882
+        ],
+        "zone": [
+          48,
+          852,
+          1552,
+          895
+        ],
+        "size": 36,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Main ",
+            "mono": false
+          },
+          {
+            "text": "52%",
+            "mono": true
+          },
+          {
+            "text": " · Alternative ",
+            "mono": false
+          },
+          {
+            "text": "38%",
+            "mono": true
+          },
+          {
+            "text": " · Time exit ",
+            "mono": false
+          },
+          {
+            "text": "16 Nov, 4:00 PM ET",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "CAPITAL CHRONICLE",
+        "box": [
+          1174.0,
+          852,
+          1552.0,
+          880
+        ],
+        "zone": [
+          1174.0,
+          852,
+          1552,
+          893
+        ],
+        "size": 36,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "CAPITAL CHRONICLE",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "wordmark"
+      }
+    ],
+    "notes": [],
+    "alt_text": "TradingView 4h chart of S&P 500.",
+    "chart": true,
+    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+  },
+  "tradingview_snapshot": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\US500\\W\\SPX_2026-11-11_16-43-03.png",
+    "sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d",
+    "width": 1600,
+    "height": 700,
+    "chart_geometry": {
+      "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+      "pane_box": [
+        10,
+        27,
+        1524,
+        612
+      ],
+      "axis_origin": [
+        1524,
+        27
+      ],
+      "axis_pixel_match": 1.0,
+      "mode": "linear",
+      "slope": -0.7890299153965781,
+      "intercept": 6275.230522048884,
+      "max_label_error_px": 0.34734535900679475,
+      "grid_checks": [
+        {
+          "price": 7200.0,
+          "page_y_in_download": 594.2066065055964,
+          "grid_y": 594,
+          "error_px": 0.20660650559636906
+        },
+        {
+          "price": 7240.0,
+          "page_y_in_download": 562.6441425630906,
+          "grid_y": 563,
+          "error_px": 0.3558574369094458
+        },
+        {
+          "price": 7280.0,
+          "page_y_in_download": 531.0816786205849,
+          "grid_y": 531,
+          "error_px": 0.08167862058485298
+        },
+        {
+          "price": 7320.0,
+          "page_y_in_download": 499.519214678079,
+          "grid_y": 499,
+          "error_px": 0.5192146780789813
+        },
+        {
+          "price": 7360.0,
+          "page_y_in_download": 467.95675073557317,
+          "grid_y": 468,
+          "error_px": 0.043249264426833633
+        },
+        {
+          "price": 7400.0,
+          "page_y_in_download": 436.3942867930674,
+          "grid_y": 436,
+          "error_px": 0.3942867930674083
+        },
+        {
+          "price": 7440.0,
+          "page_y_in_download": 404.8318228505616,
+          "grid_y": 405,
+          "error_px": 0.16817714943840656
+        },
+        {
+          "price": 7480.0,
+          "page_y_in_download": 373.2693589080558,
+          "grid_y": 373,
+          "error_px": 0.26935890805577856
+        },
+        {
+          "price": 7520.0,
+          "page_y_in_download": 341.70689496554996,
+          "grid_y": 342,
+          "error_px": 0.29310503445003633
+        },
+        {
+          "price": 7560.0,
+          "page_y_in_download": 310.14443102304415,
+          "grid_y": 310,
+          "error_px": 0.1444310230441488
+        },
+        {
+          "price": 7600.0,
+          "page_y_in_download": 278.58196708053833,
+          "grid_y": 278,
+          "error_px": 0.5819670805383339
+        },
+        {
+          "price": 7640.0,
+          "page_y_in_download": 247.01950313803252,
+          "grid_y": 247,
+          "error_px": 0.01950313803251902
+        },
+        {
+          "price": 7680.0,
+          "page_y_in_download": 215.45703919552676,
+          "grid_y": 215,
+          "error_px": 0.457039195526761
+        },
+        {
+          "price": 7720.0,
+          "page_y_in_download": 183.89457525302095,
+          "grid_y": 184,
+          "error_px": 0.10542474697905391
+        },
+        {
+          "price": 7760.0,
+          "page_y_in_download": 152.33211131051513,
+          "grid_y": 152,
+          "error_px": 0.3321113105151312
+        },
+        {
+          "price": 7800.0,
+          "page_y_in_download": 120.76964736800926,
+          "grid_y": 121,
+          "error_px": 0.23035263199074052
+        },
+        {
+          "price": 7840.0,
+          "page_y_in_download": 89.20718342550344,
+          "grid_y": 89,
+          "error_px": 0.2071834255034446
+        },
+        {
+          "price": 7880.0,
+          "page_y_in_download": 57.64471948299763,
+          "grid_y": 58,
+          "error_px": 0.3552805170023703
+        }
+      ],
+      "source_sha256": "8df98815bc297437281687a3703c8fb4d32aeffb7e17fbd77686489293d8378d"
+    },
+    "capture_ratio": "16:9",
+    "capture_viewport": {
+      "width": 1986,
+      "height": 694
+    },
+    "tv_symbol": "SP:SPX",
+    "interval": "240",
+    "interval_label": "4h",
+    "legend": "4h",
+    "page_title": "SPX 7,610.90 ▲ +1.2%",
+    "chart_url": "https://www.tradingview.com/chart/?symbol=SP:SPX&interval=240",
+    "suggested_filename": "SPX_2026-11-11_16-43-03.png",
+    "captured_at_utc": "2026-11-11T16:43:03.417102+00:00",
+    "seconds": 7.9,
+    "template_chart_size": [
+      1600,
+      700
+    ],
+    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+  },
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true,
+  "image_quality": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "image_sha256": "d83f8693d7203822d1c5b44175428d693436f90e5e2d020776eea1fb58961ab0",
+    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "template": "call",
+    "master": "W",
+    "score": 0,
+    "points": {
+      "1": false,
+      "2": false,
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false
+    },
+    "passed": false,
+    "code": {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "d83f8693d7203822d1c5b44175428d693436f90e5e2d020776eea1fb58961ab0",
+      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": false,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ]
+    },
+    "vision": {
+      "points": {},
+      "status": "NOT_RUN"
+    },
+    "reviewed_at_utc": "2026-11-11T17:02:19.692823+00:00"
+  }
+}

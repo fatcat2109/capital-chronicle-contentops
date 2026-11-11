@@ -93,11 +93,24 @@ class Canvas:
         value = str(value)
         size = size or (36 if self.master == "W" else 34)
         face = font(size, weight, mono)
+        numeric = re.compile(r"\d{1,2} [A-Z][a-z]{2}, \d{1,2}:\d{2} [AP]M ET|[+−]?\d[\d,.:]*(?:[–−]\d[\d,.:]*)?(?:%|R)?")
+        mixed = not mono and key not in {"title", "direction", "horizon", "status", "wordmark", "cell_label", "chart_level", "map.market", "week.market"}
+        def runs(line):
+            if not mixed:
+                return [(line, face, mono)]
+            result=[];at=0
+            for match in numeric.finditer(line):
+                if match.start()>at:result.append((line[at:match.start()],face,False))
+                result.append((match[0],font(size,500,True),True));at=match.end()
+            if at<len(line):result.append((line[at:],face,False))
+            return result
+        def length(line):
+            return sum(self.draw.textlength(part,font=f) for part,f,_ in runs(line))
         x, y, right, bottom = box
         words, lines, current = value.split(), [], ""
         for word in words:
             test = (current + " " + word).strip()
-            if self.draw.textlength(test, font=face) > right - x:
+            if length(test) > right - x:
                 if not current or wrap == 1:
                     if optional:
                         return
@@ -111,17 +124,22 @@ class Canvas:
                 return
             raise LayoutError("IMAGE_TEXT_DOES_NOT_FIT", key, value=value, maximum_lines=wrap)
         for line in lines:
-            bounds = self.draw.textbbox((0, 0), line, font=face)
-            height = bounds[3] - bounds[1]
-            actual = [x, y, x + bounds[2] - bounds[0], y + height]
+            parts=runs(line)
+            bounds = [self.draw.textbbox((0,0),part,font=f) for part,f,_ in parts]
+            height = max(b[3]-b[1] for b in bounds)
+            actual = [x, y, x + math.ceil(length(line)), y + height]
             if actual[2] > right or actual[3] > bottom:
                 raise LayoutError("IMAGE_TEXT_CLIPPED", key, value=value)
-            self.draw.text((x-bounds[0], y-bounds[1]), line, font=face, fill=COLOURS.get(colour, colour))
+            pen=x;recorded=[]
+            for (part,f,is_mono),bounds in zip(parts,bounds):
+                self.draw.text((pen-bounds[0],y-bounds[1]),part,font=f,fill=COLOURS.get(colour,colour))
+                pen+=self.draw.textlength(part,font=f)
+                recorded.append({"text":part,"mono":is_mono})
             self.texts.append({"text": line, "box": actual, "zone": list(box), "size": size,
-                               "weight": weight, "mono": mono, "colour": colour, "field": key})
+                               "weight": weight, "mono": mono, "runs":recorded,"colour": colour, "field": key})
             y += size + 8
 
-    def heading(self, title, right="", *, direction=None, horizon="", status=""):
+    def heading(self, title, right="", *, direction=None, horizon="", status="", result_value=None):
         wide = self.master == "W"
         w = self.image.width; m = self.margin
         self.draw.rectangle((m, 24, m+11, 79 if wide else 95), fill=COLOURS["yellow"])
@@ -146,12 +164,15 @@ class Canvas:
                 title_end = hx + self.draw.textlength(horizon, font=font(36, 600))
         value = right or status
         if value:
-            f = font(36 if wide else 38, 600)
+            result_figure = result_value is not None
+            right_size = (64 if wide else 72) if result_figure else (36 if wide else 38)
+            f = font(right_size, 500 if result_figure else 600, result_figure)
             x = w-m-self.draw.textlength(value, font=f)
             if wide and x < title_end+24:
                 raise LayoutError("IMAGE_HEADER_COLLISION", "status")
-            self.text(value, (x, 36 if wide else 113, w-m, 94 if wide else 166),
-                      size=36 if wide else 38, weight=600, key="status")
+            colour = "green" if result_figure and result_value > 0 else "red" if result_figure and result_value < 0 else "ink"
+            self.text(value, (x, 22 if wide and result_figure else 36 if wide else 106 if result_figure else 113, w-m, 98 if wide else 168),
+                      size=right_size, weight=500 if result_figure else 600, mono=result_figure, colour=colour, key="status")
 
     def footer(self, lines=(), cells=()):
         m, w = self.margin, self.image.width
@@ -160,10 +181,12 @@ class Canvas:
                 self.text(line, (m, 808+i*44, w-m, 851+i*44), key="footer")
             y = 852
         else:
-            for i, (label, value, mono) in enumerate(cells):
-                x, y = m+(i%2)*540, 1030+(i//2)*108
-                self.text(label, (x, y, x+460, y+38), size=32, colour="muted", key="cell_label")
-                self.text(value, (x, y+40, x+460, y+103), size=48 if mono else 34, mono=mono, key=label)
+            visible=[c for c in cells if c[1]]
+            sparse=len(visible)<=2
+            for i, (label, value, mono) in enumerate(visible):
+                x, y = (m,1030+i*100) if sparse else (m+(i%2)*540,1030+(i//2)*108)
+                self.text(label, (x, y, x+(1000 if sparse else 460), y+38), size=32, colour="muted", key="cell_label")
+                self.text(value, (x, y+40, x+(1000 if sparse else 460), y+103), size=48 if mono else 34, mono=mono, key=label)
             if lines:
                 self.text(lines[-1], (m, 1248, w-m, 1292), key="footer", optional=False)
             y = 1302
@@ -277,12 +300,12 @@ def _chart(canvas, data, snapshot):
             line1 = " · ".join(s for s in ("Entry "+entry,"Invalidation "+p(plan.get("invalidation")),target_line) if s)
             line2 = " · ".join(s for s in (odds,"Time exit "+plan["time_exit_et"] if plan.get("time_exit_et") else "") if s)
             cells = [("Entry",entry,True),("Invalidation",p(plan.get("invalidation")),True),
-                     ("Target" if target else "Entry window ends",target or plan.get("entry_window_ends_et",""),bool(target)),
+                     (("Target" if levels.get("target_visible") else "Target (beyond this chart)") if target else "Entry window ends",target or plan.get("entry_window_ends_et",""),bool(target)),
                      ("Time exit",plan.get("time_exit_et",""),False)]
             canvas.footer([line1,line2] if canvas.master == "W" else [odds],cells)
         else:
             result = data["result"]
-            canvas.heading(MARKETS[market],right=r_text(result.get("r")),direction=plan.get("direction"),horizon=horizon)
+            canvas.heading(MARKETS[market],right=r_text(result.get("r")),direction=plan.get("direction"),horizon=horizon,result_value=result.get("r"))
             outcome = field(result,"outcome_label",24)
             if outcome not in {"Target reached","Stopped at invalidation","Time exit","Closed early","Expired, no entry"}:
                 raise LayoutError("IMAGE_OUTCOME_INVALID")
@@ -290,8 +313,9 @@ def _chart(canvas, data, snapshot):
                      "Best "+r_text(result["best_r"]) if result.get("best_r") is not None else "",
                      "Worst "+r_text(result["worst_r"]) if result.get("worst_r") is not None else "") if s)
             times = " to ".join(s for s in (result.get("entry_time_et"),result.get("exit_time_et")) if s)
+            excursion=(r_text(result["best_r"])+" / "+r_text(result["worst_r"])) if result.get("best_r") is not None and result.get("worst_r") is not None else ""
             cells=[("Outcome",outcome,False),("Held",result.get("held_text",""),False),
-                   ("Best and worst",r_text(result.get("best_r"))+" / "+r_text(result.get("worst_r")),False),
+                   ("Best and worst",excursion,False),
                    ("Entry to exit",result.get("time_range_short") or times,False)]
             canvas.footer([line1,times] if canvas.master == "W" else [],cells)
             path = result.get("path")
@@ -305,12 +329,21 @@ def _chart(canvas, data, snapshot):
         values=[label+" "+field(event,key,16,required=False) for label,key in
                 (("Consensus","consensus"),("Previous","previous"),("Implied move","implied_move")) if event.get(key)]
         line=" · ".join(values)
-        canvas.footer([line,"Chart: "+MARKETS[market]] if canvas.master == "W" else ["Chart: "+MARKETS[market]],
-                      [(label,field(event,key,16,required=False),False) for label,key in (("Consensus","consensus"),("Previous","previous"),("Implied move","implied_move"))])
+        cells=[(label,field(event,key,16,required=False),False) for label,key in (("Consensus","consensus"),("Previous","previous"),("Implied move","implied_move")) if event.get(key)]
+        cells.extend([("Release",field(event,"time_et",30),False),("Chart",MARKETS[market],False)])
+        canvas.footer([line,"Chart: "+MARKETS[market]] if canvas.master == "W" else [],cells[:4])
     else:
         morning=data["map"]
         canvas.heading("Morning map",field(morning,"date_et",16))
-        canvas.footer([field(morning,"lead_line",72)] if canvas.master == "W" else [field(morning,"lead_line",72)])
+        lead=next((r for r in morning.get("rows",[]) if r["market"]==market),None)
+        cells=[]
+        if lead:
+            move=lead["change_1d_pct"]
+            change=("+" if move>0 else "−" if move<0 else "")+f"{abs(move):.1f}%" if move is not None else "—"
+            if move is None:canvas.notes.append("MORNING_MAP_CHANGE_NOT_EXPORTED")
+            cells=[("Last",p(lead["last"]),True),("1-day move",change,True),
+                   ("State",lead["state_word"] or "—",False),("Today",lead["driver_line"] or "—",False)]
+        canvas.footer([field(morning,"lead_line",72)],cells)
     return framing, levels
 
 
@@ -343,18 +376,22 @@ def _table(canvas,data,page):
         if not 2 <= len(scenarios) <= 3:raise LayoutError("IMAGE_SCENARIO_COUNT")
         canvas.heading(field(event,"name",28))
         for i,row in enumerate(scenarios):
-            y=top+i*(200 if wide else 320);height=200 if wide else 320
+            height=(bottom-top)//len(scenarios)
+            y=top+i*height
             if i%2:canvas.draw.rectangle((m,y,w-m,y+height),fill=COLOURS["zebra"])
             if i==0:canvas.draw.rectangle((m,y,m+11,y+height),fill=COLOURS["yellow"])
             canvas.text(field(row,"name",14),(m+28,y+12,m+330,y+58),weight=600,key="scenario.name")
             canvas.text(str(row["probability_pct"])+"%",(m+350,y+12,m+510,y+58),mono=True,key="scenario.probability")
-            canvas.text(field(row,"trigger",30),(m+550 if wide else m+28,y+12 if wide else y+66,w-m-20,y+58 if wide else y+112),key="scenario.trigger")
-            canvas.text(field(row,"reading",72),(m+28,y+70 if wide else y+130,w-m-20,y+122 if wide else y+222),wrap=1 if wide else 2,key="scenario.reading")
+            # Two-scenario tables use the available row height; they never leave
+            # a vacant third block or shrink the required type.
+            step=(height-56)//4
+            canvas.text(field(row,"trigger",30),(m+28,y+step+12,w-m-20,y+step+58),key="scenario.trigger")
+            canvas.text(field(row,"reading",72),(m+28,y+step*2+12,w-m-20,y+step*2+104),wrap=1 if wide else 2,key="scenario.reading")
             x=m+28
             for reaction in row.get("reactions",[]):
                 if reaction["market"] not in MARKETS or reaction["direction"] not in {"up","down","flat"}:raise LayoutError("IMAGE_REACTION_INVALID")
                 label=MARKETS[reaction["market"]];tw=canvas.draw.textlength(label,font=font(36 if wide else 34))
-                ry=y+142 if wide else y+264
+                ry=y+height-58
                 canvas.text(label,(x,ry,x+tw+2,ry+46),key="reaction")
                 x+=tw+12;_arrow(canvas,x,ry+10,reaction["direction"]);x+=54
                 if x>w-m:raise LayoutError("IMAGE_TEXT_DOES_NOT_FIT","reactions")
@@ -364,36 +401,49 @@ def _table(canvas,data,page):
         if [r["market"] for r in rows] != list(ORDER):raise LayoutError("IMAGE_MAP_MARKET_ORDER")
         canvas.heading("Morning map",field(morning,"date_et",16))
         for i,row in enumerate(rows):
-            y=top+i*(100 if wide else 160)
-            if i%2:canvas.draw.rectangle((m,y,w-m,y+(100 if wide else 160)),fill=COLOURS["zebra"])
+            row_height=(bottom-top)//6
+            y=top+i*row_height
+            if i%2:canvas.draw.rectangle((m,y,w-m,y+row_height),fill=COLOURS["zebra"])
             canvas.text(MARKETS[row["market"]],(m+12,y+8,m+310,y+54),weight=600,key="map.market")
-            canvas.text(price(row["last"],row["market"]),(m+350,y+8,m+600,y+54),mono=True,key="map.last")
-            change=row["change_1d_pct"];move=("+" if change>0 else "−" if change<0 else "")+f"{abs(change):.1f}%"
-            canvas.text(move,(m+620,y+8,m+795,y+54),mono=True,colour="green" if change>0 else "red" if change<0 else "muted",key="map.change")
-            if wide:canvas.text(field(row,"state_word",13),(m+880,y+8,w-m-12,y+54),key="map.state")
-            view=field(row,"view_line",34);driver=field(row,"driver_line",34)
+            canvas.text(price(row["last"],row["market"]),(m+350 if wide else m+300,y+8,m+600 if wide else m+550,y+54),mono=True,key="map.last")
+            change=row["change_1d_pct"]
+            if change is None:
+                move="—";canvas.notes.append("MORNING_MAP_CHANGE_NOT_EXPORTED")
+            else:move=("+" if change>0 else "−" if change<0 else "")+f"{abs(change):.1f}%"
+            canvas.text(move,(m+620 if wide else m+550,y+8,m+795 if wide else m+720,y+54),mono=True,colour="green" if change is not None and change>0 else "red" if change is not None and change<0 else "muted",key="map.change")
+            state=field(row,"state_word",13,required=False)
+            if not state:canvas.notes.append("MORNING_MAP_STATE_NOT_EXPORTED")
+            canvas.text(state or "—",(m+880 if wide else m+740,y+8,w-m-12,y+54),key="map.state")
+            view=field(row,"view_line",34);driver=field(row,"driver_line",34,required=False) or "—"
             canvas.text("View: "+view,(m+12,y+56,w-m-12,y+100),key="map.view")
             canvas.text("Today: "+driver,(m+820 if wide else m+12,y+56 if wide else y+106,w-m-12,y+100 if wide else y+152),key="map.driver")
+            canvas.draw.line((m,y+row_height,w-m,y+row_height),fill=COLOURS["rule"],width=2)
     else:
         week=data["week"];limit=6 if wide else 8;rows=week["rows"][page*limit:(page+1)*limit]
         canvas.heading("Weekly scorecard",str(week["start"])+"–"+str(week["end"]))
-        stats=f"{week['calls_closed']} calls closed · {week['hit_rate_pct']}% right · {r_text(week['total_r'])} total · {r_text(week['avg_r'])} average"
+        stats=f"{week['calls_closed']} calls closed"
+        if week.get('hit_rate_pct') is not None:stats+=f" · {week['hit_rate_pct']}% right"
+        if week.get('total_r') is not None and week.get('avg_r') is not None:
+            stats+=f" · {r_text(week['total_r'])} total · {r_text(week['avg_r'])} average"
+        else:canvas.notes.append("WEEK_R_RESULT_NOT_EXPORTED")
         canvas.text(stats,(m+12,top+8,w-m-12,top+100),wrap=1 if wide else 2,key="week.stats")
         top+=100 if not wide else 92
         for i,row in enumerate(rows):
-            y=top+i*(88 if wide else 108);height=88 if wide else 108
+            height=(bottom-top)//max(1,len(rows))
+            y=top+i*height
             if i%2:canvas.draw.rectangle((m,y,w-m,y+height),fill=COLOURS["zebra"])
             if wide:
                 # Outcome shares a two-line cell; the font stays at 36 px.
                 columns=[(12,300,MARKETS[row['market']],False),(320,470,row['direction'],False),
                          (480,695,row['horizon_label'],False),(710,880,"Said "+str(row['main_probability_pct'])+"%",False),
-                         (900,1270,row['outcome_label'],False),(1290,1500,r_text(row['r']),True)]
+                         (900,1270,row['outcome_label'],False),(1290,1500,r_text(row['r']) if row.get('r') is not None else "—",True)]
                 for a,b,value,mono in columns:canvas.text(value,(m+a,y+8,m+b,y+height-4),mono=mono,wrap=2,key="week.row")
             else:
                 canvas.text(MARKETS[row['market']]+" · "+row['direction'],(m+12,y+8,w-m-210,y+54),key="week.market")
-                canvas.text(r_text(row['r']),(w-m-200,y+8,w-m-12,y+54),mono=True,key="week.r")
+                canvas.text(r_text(row['r']) if row.get('r') is not None else "—",(w-m-200,y+8,w-m-12,y+54),mono=True,key="week.r")
                 value=row['horizon_label']+" · Said "+str(row['main_probability_pct'])+"% · "+row['outcome_label']
                 canvas.text(value,(m+12,y+58,w-m-12,y+height-4),key="week.row")
+            canvas.draw.line((m,y+height,w-m,y+height),fill=COLOURS["rule"],width=2)
         if week.get("wrong_note"):
             note=field(week,"wrong_note",60,required=False)
             canvas.text("Where we were wrong: "+note,(m,810 if wide else 1240,w-m,h-12),key="week.wrong",optional=True)
@@ -418,6 +468,10 @@ def compile_image(data,master,snapshot=None,*,image_number=1,page=0):
         if not snapshot:raise LayoutError("IMAGE_TRADINGVIEW_CAPTURE_REQUIRED")
         from .tradingview_snapshot_v1 import SYMBOLS
         if snapshot.get("tv_symbol") != SYMBOLS.get(data.get("market")):raise LayoutError("IMAGE_CHART_SYMBOL_MISMATCH")
+        if data.get("event_cutoff_utc"):
+            from .publication_image_contract_v1 import utc
+            if utc(snapshot["captured_at_utc"])>utc(data["event_cutoff_utc"]):
+                raise LayoutError("IMAGE_RETROSPECTIVE_CAPTURE_AFTER_EVENT")
         framing,levels=_chart(canvas,data,snapshot)
     else:framing,levels=_table(canvas,data,page)
     alt=data.get("alt_text") or (("TradingView "+str(snapshot.get("interval_label"))+" chart of "+MARKETS[data["market"]]+".") if chart
@@ -431,7 +485,7 @@ def compile_image(data,master,snapshot=None,*,image_number=1,page=0):
 
 
 def template_revision():
-    return digest({"source":sha256(Path(__file__).read_bytes()).hexdigest(),
+    return digest({"source":sha256(Path(__file__).read_text(encoding="utf-8-sig").replace("\r\n","\n").encode()).hexdigest(),
                    "fonts":{p.name:sha256(p.read_bytes()).hexdigest() for p in FONTS.glob('*.ttf')}})
 
 

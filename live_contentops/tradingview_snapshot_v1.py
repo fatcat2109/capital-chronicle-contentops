@@ -73,7 +73,7 @@ PLAN_ATTEMPTS = 2
 
 
 def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
-                  now: datetime | None = None, ratio: str = "16:9") -> dict | None:
+                  now: datetime | None = None, ratio: str = "16:9", image_input=None) -> dict | None:
     """CC-459's bounded capture/cache owner. A None result means text after two failures.
 
     Only image artifacts are cached; this is not another scheduler or publication store.
@@ -90,6 +90,13 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     if market.startswith(("ECONOMICS:", "FRED:")):
         interval = "D"
     suffix = "" if ratio == "16:9" else "_" + ratio.replace(":", "x")
+    if image_input:
+        suffix += "_cc465"
+    def image_asset(taken):
+        if image_input:
+            from .image_quality_v1 import prepare_asset
+            return prepare_asset(image_input,"W" if ratio=="16:9" else "T",media,taken)
+        return snapshot_asset(market,title,taken,media,ratio)
     state_path = folder / ("tradingview_capture" + suffix + "_v1.json")
     state = json.loads(state_path.read_text(encoding="utf-8")) if state_path.is_file() else {
         "key": row["key"], "market": market, "started_at_utc": now.isoformat(), "attempts": 0}
@@ -116,7 +123,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
         if prior.get("tv_symbol") == tv_symbol and _sha256(Path(prior["path"])) == prior["sha256"]:
             taken = prior
     if taken:
-        asset = snapshot_asset(market, title, taken, media, ratio)
+        asset = image_asset(taken)
         validate_snapshot_asset(asset)
         if state.get("status") != "CAPTURED":
             state.update(status="CAPTURED", snapshot=taken, cache_hit=True)
@@ -124,6 +131,8 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             record_outcome({k: v for k, v in state.items() if k != "snapshot"})
         return asset
     if state.get("status") == "TEXT_ONLY":
+        if image_input:
+            raise SnapshotPending(state.get("cause") or "IMAGE_TRADINGVIEW_CAPTURE_REQUIRED")
         return None
     deadline = _utc(state["started_at_utc"]) + timedelta(seconds=PLAN_WAIT_SECONDS)
     while state["attempts"] < PLAN_ATTEMPTS and datetime.now(timezone.utc) < deadline:
@@ -141,8 +150,9 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             else:
                 remaining = (deadline - datetime.now(timezone.utc)).total_seconds()
                 taken = capture(market, interval, media / "4x5" if suffix else media,
-                    timeout=min(TIMEOUT_SECONDS, max(1, remaining)), ratio=ratio)
-            asset = snapshot_asset(market, title, taken, media, ratio)
+                    timeout=min(TIMEOUT_SECONDS, max(1, remaining)), ratio=ratio,
+                    **({"chart_size":(1600,700) if ratio=="16:9" else (1080,850)} if image_input else {}))
+            asset = image_asset(taken)
             validate_snapshot_asset(asset)
             state.update(status="CAPTURED", snapshot=taken, cache_hit=False)
             save()
@@ -155,8 +165,12 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             state["cause"] = str(exc)[:200]
             save()
     state.update(status="TEXT_ONLY", cause=state.get("first_cause") or "TRADINGVIEW_CAPTURE_WAIT_EXPIRED")
+    if image_input:
+        state["status"] = "IMAGE_HELD"
     save()
     record_outcome(state)
+    if image_input:
+        raise SnapshotPending(state["cause"])
     return None
 
 
@@ -548,6 +562,9 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
 def prepare_contract_article(article, assets, *, output_dir, selected_candidate=None, snapshot=None):
     """Decision 124 using the existing bounded capture and image owner."""
     from copy import deepcopy
+    if article.get("image_input_v1"):
+        from .image_quality_v1 import prepare_article_media
+        return prepare_article_media(article, assets, output_dir=output_dir, snapshot=snapshot)
     from .publication_image_contract_v1 import POLICY as CONTRACT, _macro, image_type
     article, assets = deepcopy(article), deepcopy(assets)
     aliases = {"GOLD": "XAUUSD", **{m: m for m in SYMBOLS}}

@@ -28,7 +28,7 @@ def input_record(template="call", market="USDJPY"):
                    "scenarios":[{"name":name,"trigger":"Core at 0.3% or more","probability_pct":chance,
                                  "reading":"Rates rise as inflation stays firm.",
                                  "reactions":[{"market":"XAUUSD","direction":"down"},{"market":"USDJPY","direction":"up"}]} for name,chance in [("Hot",55),("Cool",30)]]},
-          "result":{"r":None,"outcome_label":"Expired, no entry","held_text":"", "entry_time_et":"", "exit_time_et":""},
+          "result":{"r":None,"outcome_label":"Expired, no entry","held_text":"", "entry_time_et":"", "exit_time_et":"12 Nov, 9:42 AM ET"},
           "map":{"date_et":"Thu 12 Nov","lead_line":"Rates remain the main driver.",
                  "rows":[{"market":m,"last":158.,"change_1d_pct":.5,"state_word":"Range",
                           "view_line":"No view","driver_line":"PPI Friday"} for m in templates.ORDER]},
@@ -66,6 +66,14 @@ def yes_review(image):
     v={"image_sha256":image["sha256"],"template_revision":image["image_template"]["template_revision"],
        "points":{str(i):True for i in range(1,11)},"reasons":{str(i):"controlled test response" for i in range(1,11)}}
     return quality.combine(c,v)
+
+
+def vision_response(args,*,cwd,timeout,input):
+    value={"image_seen":True,"points":{str(i):True for i in range(1,11)},
+           "reasons":{str(i):"controlled visual response" for i in range(1,11)}}
+    trace={"event":"step_update","step_update":{"type":"tool","name":"read_file"}}
+    final={"event":"result","result":{"status":"SUCCESS","response":json.dumps(value)}}
+    return subprocess.CompletedProcess(args,0,(json.dumps(trace)+"\n"+json.dumps(final)).encode(),b"")
 
 
 def publication_message(tmp_path,image):
@@ -180,14 +188,92 @@ def test_daily_random_sampling_uses_existing_published_records_and_weekly_needs_
     assert quality.weekly_sample([{"image_sha256":str(i),"score":8,"passed":True} for i in range(20)])["passed"]
 
 
-def test_actual_vision_request_carries_png_and_records_configuration_without_printing_bytes(tmp_path):
+def test_actual_vision_request_reads_local_png_and_records_configuration_without_sending_bytes(tmp_path):
     image=asset(tmp_path);seen=[]
     def run(args,*,cwd,timeout,input):
         message=json.loads(input);seen.append(message)
-        assert message["message"]["content"][1]["source"]["type"]=="base64"
-        value={"points":{str(i):True for i in range(1,11)},"reasons":{str(i):"controlled response" for i in range(1,11)}}
+        assert len(message["message"]["content"])==1 and str(Path(image["path"]).resolve()) in message["message"]["content"][0]["text"]
+        assert '--mode' in args and 'plan' in args
+        value={"image_seen":True,"points":{str(i):True for i in range(1,11)},"reasons":{str(i):"controlled response" for i in range(1,11)}}
         final={"event":"result","result":{"status":"SUCCESS","response":json.dumps(value),"session_id":"controlled"}}
-        return subprocess.CompletedProcess(args,0,json.dumps(final).encode(),b"")
+        trace={"event":"step_update","step_update":{"type":"tool","name":"read_file"}}
+        return subprocess.CompletedProcess(args,0,(json.dumps(trace)+'\n'+json.dumps(final)).encode(),b"")
     review=quality.review_vision(image,runner=run)
     assert len(seen)==1 and review["status"]=="REVIEWED" and review["observed_session_id"]=="controlled"
     assert review["configuration_status"]=="CONFIGURED_NOT_OBSERVED" and "base64" not in json.dumps(review)
+
+
+def test_new_plan_image_path_consumes_the_bound_ledger_and_returns_the_native_template(tmp_path,monkeypatch):
+    from live_contentops import plan_status_posts_v1 as posts
+    monkeypatch.setattr(tv,"OUTCOMES",tmp_path/"outcomes.jsonl")
+    monkeypatch.setattr(quality,"review_vision",lambda image,**kw:yes_review(image)["vision"])
+    taken=capture(tmp_path)
+    row={"kind":"setup","key":"plan-current","symbol":"USDJPY","state":"WAITING","at_utc":NOW.isoformat(),
+         "time_exit_utc":"2026-12-01T14:07:00Z","levels":{"zone_low":158.,"zone_high":158.3,
+         "invalidation_level":157.15,"direction":"bearish","chance_pct":55,"target":None,
+         "valid_until_utc":"2026-11-18T16:00:00Z","image_source_plan":{"scenario_analysis":{
+             "base_case":{"probability_pct":55},"main_alternative":{"probability_pct":30}}}}}
+    image,credited=posts._post_image(row,tmp_path/"post",snapshot=lambda *a,**k:taken)
+    assert credited and image["image_template"]["template"]=="call"
+    assert image["image_template"]["input"]["plan"]["alt_probability_pct"]==30
+    assert image["image_quality"]["passed"]
+
+
+def test_structured_article_owner_builds_native_masters_and_platform_choices(tmp_path,monkeypatch):
+    monkeypatch.setattr(quality,"review_vision",lambda image,**kw:yes_review(image)["vision"])
+    data=input_record("event")
+    def snapshot(market,interval,folder,*,chart_size):
+        folder.mkdir(parents=True,exist_ok=True)
+        return capture(folder,"W" if chart_size==(1600,700) else "T")
+    article,images=tv.prepare_contract_article({"image_input_v1":data},[],output_dir=tmp_path,snapshot=snapshot)
+    assert len(images)==4
+    indexed={a['asset_id']:a for a in images}
+    assert indexed[article["native_destination_media"]["threads"][0]]["image_template"]["master"]=="T"
+    assert indexed[article["native_destination_media"]["x"][0]]["image_template"]["master"]=="W"
+    assert all(a["image_quality"]["passed"] for a in images)
+
+
+def test_unsupported_image_protocol_and_no_observed_pixel_read_never_create_scores(tmp_path):
+    image=asset(tmp_path)
+    def rejected(args,**kwargs):
+        result={"event":"result","result":{"status":"ERROR","conversation_id":"protocol-test",
+                "error":'stream input content block type "image" is not supported (only "text")',
+                "usage":{"total_tokens":0},"response":""}}
+        return subprocess.CompletedProcess(args,1,json.dumps(result).encode(),b"")
+    record=quality.review_vision(image,runner=rejected)
+    assert record["cause"]=="ValueError:AGY_IMAGE_INPUT_UNSUPPORTED" and record["points"]=={}
+    assert record["observed_usage"]["total_tokens"]==0
+    def text_guess(args,**kwargs):
+        value={"image_seen":True,"points":{str(i):True for i in range(1,11)},"reasons":{str(i):"guess" for i in range(1,11)}}
+        return subprocess.CompletedProcess(args,0,json.dumps({"event":"result","result":{"status":"SUCCESS","response":json.dumps(value)}}).encode(),b"")
+    assert quality.review_vision(image,runner=text_guess)["cause"]=="ValueError:AGY_IMAGE_PIXELS_NOT_OBSERVED"
+
+
+def test_missing_source_r_never_becomes_a_no_entry_result_or_weekly_zero(tmp_path):
+    from live_contentops.image_template_inputs_v1 import from_result
+    row={"key":"result","kind":"result","symbol":"USDJPY","state":"RESULT","at_utc":NOW.isoformat(),
+         "levels":{"zone_low":158.,"zone_high":158.3,"invalidation_level":157.15,"direction":"bearish",
+                   "image_source_plan":{"outcome":{"state":"SCORED","score":{"result":"STOPPED"}}}}}
+    with pytest.raises(ValueError,match="IMAGE_R_RESULT_NOT_EXPORTED"):from_result(row)
+    data=input_record("weekly");data["week"]["total_r"]=None;data["week"]["avg_r"]=None;data=bind(data,data)
+    image=asset(tmp_path,template="weekly",data=data)
+    check=quality.code_check(image)
+    assert not check["passed"] and "WEEK_R_RESULT_NOT_EXPORTED" in check["causes"]
+
+
+def test_numeric_change_and_retrospective_lookahead_are_refused(tmp_path):
+    data=input_record();data["plan"]["entry_low"]=149.37
+    # Updating the input hash cannot introduce a number absent from the source.
+    data=bind(data,data["source_binding"]["record"])
+    with pytest.raises(ValueError,match="IMAGE_NUMBER_NOT_IN_BOUND_SOURCE"):asset(tmp_path,data=data)
+    data=input_record();data["event_cutoff_utc"]="2026-11-11T13:30:00Z";data=bind(data,data)
+    with pytest.raises(ValueError,match="IMAGE_RETROSPECTIVE_CAPTURE_AFTER_EVENT"):asset(tmp_path,data=data)
+
+
+def test_template_acceptance_requires_twelve_distinct_real_images():
+    revision="controlled-revision"
+    reviews=[{"template":"call","template_revision":revision,"score":10,"passed":True,"real_snapshot":True,
+              "market":market,"master":master,"image_sha256":market+master} for market in templates.ORDER for master in ("W","T")]
+    assert quality.template_acceptance(reviews,"call",revision)["passed"]
+    assert not quality.template_acceptance(reviews[:-1],"call",revision)["passed"]
+    assert not quality.template_acceptance([{**row,"image_sha256":"same"} for row in reviews],"call",revision)["passed"]

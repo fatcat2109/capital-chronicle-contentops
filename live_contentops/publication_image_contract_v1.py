@@ -293,6 +293,9 @@ def validate_write(coordinator, intent, destination):
     # scorecards, at the same sole publication boundary as CC-463.
     templates = [a for a in assets if a.get("image_template")]
     if templates:
+        if (any(a["image_template"].get("chart") for a in templates)
+                and (article.get("paid") or article.get("paywall") or article.get("audience") in {"paid", "paid_subscribers"})):
+            raise ImageContractError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
         from .image_quality_v1 import validate_asset
         for asset in templates:
             try:

@@ -106,6 +106,10 @@ def card_plan(raw):
     plan["short_id"] = re.sub(r"^(?:call|plan)_", "", str(call_id))[:8]
     plan["registered_at_utc"] = raw.get("registered_at_utc") or raw.get("not_before_utc")
     plan["reader_reasons"] = raw.get("reader_reasons", raw.get("freeze_reasons", []))
+    # CC-465 applies to new preparations; historical-clock replays retain the
+    # earlier image contract and frozen packages never gain new source fields.
+    if datetime.now(timezone.utc) >= datetime(2026, 11, 11, 16, 25, tzinfo=timezone.utc):
+        plan["image_source_plan"] = raw
     return plan
 
 

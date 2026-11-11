@@ -1,0 +1,974 @@
+{
+  "asset_id": "cc465-0a07500453812cb039838f67",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\gallery\\cc465-usoil-call-1-W.png",
+  "sha256": "0a07500453812cb039838f6731dfa376344bdc5ffde6f73eb0aa0477e8783847",
+  "width": 1600,
+  "height": 900,
+  "mime_type": "image/png",
+  "alt_text": "TradingView 4h chart of WTI crude oil.",
+  "modality": "tradingview_chart_snapshot",
+  "credit": "Chart: TradingView",
+  "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+  "image_template": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "template": "call",
+    "master": "W",
+    "image_number": 1,
+    "page": 0,
+    "input": {
+      "schema": "image_input_v1",
+      "post_id": "cc465-usoil",
+      "template": "call",
+      "market": "USOIL",
+      "plan": {
+        "market": "USOIL",
+        "market_name": "WTI crude oil",
+        "direction": "SHORT",
+        "horizon_label": "Mid-term",
+        "status_label": "In position",
+        "entry_low": 85.25,
+        "entry_high": 85.5,
+        "invalidation": 86.15,
+        "target": null,
+        "main_probability_pct": 55.0,
+        "alt_probability_pct": 35.0,
+        "time_exit_et": "13 Nov, 3:00 AM ET",
+        "entry_window_ends_et": ""
+      },
+      "source_binding": {
+        "input_sha256": "37f97eba62540c12f6031ffe6380c2a7c53c37bd21b08853f83a117b330e855e",
+        "source_sha256": "264e236962c4ff758ce8d1d1f10a0321a042fc8e39fde8c6de7a70ee72b049b3",
+        "record": {
+          "key": "cc465-usoil",
+          "symbol": "USOIL",
+          "at_utc": "2026-11-10T16:18:25.849991Z",
+          "state": "FILLED",
+          "source_plan": {
+            "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+            "asset_id": "USOIL",
+            "cancel_conditions": [],
+            "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+            "cancel_level": null,
+            "check_age_seconds": 31.223767,
+            "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+            "conditions": [
+              {
+                "kind": "COMPLETED_BAR",
+                "predicates": [
+                  {
+                    "field": "high",
+                    "operator": "GTE",
+                    "threshold": 85.25
+                  }
+                ],
+                "timeframe": "M15"
+              }
+            ],
+            "data_state": "AVAILABLE",
+            "decision_record_id": "decision:request-9f7c39e808aef09c:USOIL",
+            "direction": "BEARISH",
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_high": 85.5,
+                "zone_low": 85.25
+              }
+            ],
+            "entries_first_cause": null,
+            "entry_deadline_utc": "2026-11-11T20:00:00Z",
+            "expires_at_utc": "2026-11-11T20:00:00Z",
+            "first_cause": null,
+            "forecast_probabilities": {
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "missing_reasons": [],
+              "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+              "probability_target_before_stop_pct": 45,
+              "probability_touch_pct": 55,
+              "probability_up_pct": 40,
+              "reference_at_utc": "2026-11-10T15:05:02Z",
+              "reference_price": 84.358
+            },
+            "invalidation_conditions": [
+              {
+                "field": "high",
+                "operator": "GTE",
+                "threshold": 86.15
+              }
+            ],
+            "kind": "WATCH",
+            "not_before_utc": "2026-11-10T16:30:00Z",
+            "outcome": {
+              "first_cause": null,
+              "outcome_id": "outcome_b4e90d3d5d45934652391c7d8773d1b2",
+              "public_call_id": "call_cb3fd1c57eba290b852911f2",
+              "result": "STOPPED",
+              "score": {
+                "asset_id": "USOIL",
+                "content_hash": "19c444c68c82b9e69345b7eadb49a89766cd4c1e8f72bfd120cc83176e6473d5",
+                "corrects_outcome_id": null,
+                "decision_record_id": "decision:request-9f7c39e808aef09c:USOIL",
+                "direction": "BEARISH",
+                "frozen_at_utc": "2026-11-10T16:18:07.013984Z",
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "outcome_id": "outcome_b4e90d3d5d45934652391c7d8773d1b2",
+                "plan_id": "plan_5a5b965487f7fe4318d12140",
+                "public_call_id": "call_cb3fd1c57eba290b852911f2",
+                "resolved_at_utc": "2026-11-11T10:09:16.180000Z",
+                "result": "STOPPED",
+                "score_basis": "BROKER_STOP_LOSS",
+                "scored_at_utc": "2026-11-11T10:11:10.476241Z",
+                "source_hash": "7277fd7852fe9231d3956487762f6f46ec0c0c70b3728965dcd8c2dd4c117e4e",
+                "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+                "triggered_at_utc": "2026-11-10T16:38:02.902000Z"
+              },
+              "state": "SCORED"
+            },
+            "plan_id": "plan_5a5b965487f7fe4318d12140",
+            "public_instrument": {
+              "contract_first_cause": null,
+              "contract_month": "2026-12",
+              "direction": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": null,
+                  "zone_low": null
+                }
+              ],
+              "exchange": "NYMEX",
+              "invalidation_level": null,
+              "kind": "FUT",
+              "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+              "name": "Micro WTI crude oil",
+              "symbol": "MCL",
+              "zone_high": null,
+              "zone_low": null
+            },
+            "public_instrument_first_cause": null,
+            "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+            "registration_hash": "10f93e134fa0b9dcdccae9242e6cdffcd8d4aa669c0c3ae87f7bd06c4ba0c267",
+            "review_at_utc": "2026-11-11T12:00:00Z",
+            "run_id": "request-9f7c39e808aef09c",
+            "scenario_analysis": {
+              "acceptance": "not a CPI reaction trade; the oil-specific decline held through the release (about 84.59 near 12:00Z, CNBC context; 84.358 at 15:05Z), with the dossier capture (run started 09:30:56Z) at 83.872, already under the 9 Nov low 84.237.",
+              "base_case": {
+                "market_move": "WTI's own supply-and-peace liquidation continues, a bounce fails under the broken 4-5 Nov lows 86.02-86.59, and WTI falls back to about lower levels, just above the 31 Aug low 83.364, before 13 Nov 08:00Z.",
+                "probability_pct": 55.0
+              },
+              "confirmations": "(1) the captured -1.39% against the USD's sign; (2) the break of the 9 Nov D1 low 84.237 (83.872 at the dossier capture); (3) -15.40% over ten sessions with no D1 close back above 86.02 since 9 Nov.",
+              "driver": "CLEAR for oil's own channel; no measured CPI channel; 20-day correlation -0.55 to US500 and -0.05 to US10Y changes.",
+              "field_first_causes": {
+                "acceptance": null,
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "invalidation_reason": "86.15 sits above the broken 5 Nov D1 low 86.02 (the 4 Nov low 86.59 is next); a trade there means the bounce has reclaimed broken support.",
+              "invalidation_text": "any trade above 86.15; the thesis is also broken by an M15 close above 86.02, a confirmed Saudi export outage from the pipeline attack, or a collapse of the Iran talks.",
+              "main_alternative": {
+                "market_move": "a supply-shock squeeze from the stretched low, such as damage from the Houthi strike on the Saudi East-West pipeline, lifts WTI above 86.15 before 13 Nov 08:00Z.",
+                "probability_pct": 35.0
+              },
+              "mechanism": "oil's own driver, not CPI: WTI fell 1.39% today while the USD rose, against its +0.30 20-day DXY correlation (DXY beta +3.05), and fell 4.42% on the USD-down 9 Nov; the stated cause, the war and supply premium unwinding (Brent under 90, remarks that the Iran war could end 'fairly soon', Hormuz flows largely recovered; CNBC and ING, context), has no admitted row; the October CPI energy component (+0.7% m/m, gasoline +1.0%) reflects past oil at 98-104.",
+              "missing_fields": [],
+              "opposite_mechanism": "a squeeze from the stretched low on a supply headline (the Houthi strike on Saudi East-West pipeline pumping stations, 14:12Z, context) or a reversal of the peace narrative inside the horizon.",
+              "positioning": "WTI speculators net long 80,289 (324,523 long vs 244,234 short) with 594,556 spreading of 1,908,732 open interest (COT 3 Nov at a 95.77 close; today's length not observed after a further -12%); flow levels are the broken 9 Nov low 84.237 and the 31 Aug low 83.364. Crowd trade: selling oil after -15% in ten days, wrong on a supply-shock squeeze through 86.02-86.59.",
+              "priced": "prior_pricing AMBIGUOUS; 10-day -15.40%, 5-day -2.62 ATR (3 Nov close 95.77 to 9 Nov 85.547; ATR 3.896); the capture sits -3.17 ATR under the 20-day mean 96.72, -2.57 under the 50-day 94.36 and -1.12 under the 200-day 88.74; 20-day z -2.09; 20-day range 84.237-104.037; ATR percentile 55.8; the dossier's CPI event matrix had no WTI cell; implied move not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+              "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "why_no_open": "the capture 84.358 sits 0.89-1.14 under the reviewed selling zone at a -2.09 z-score; selling there sells an exhausted low (the Gemini 06:53Z concern).",
+              "zone_reason": "85.25-85.50 retests the 1 Sep D1 low 85.271, the 05:00Z H1 high 85.353 (06:52Z ledger) and the 9 Nov close 85.547, under the broken 4-5 Nov lows."
+            },
+            "scenario_first_cause": null,
+            "status": "FILLED",
+            "status_at_utc": "2026-11-10T16:38:02.902000Z",
+            "status_label": "Filled",
+            "trigger_hash": "5357d20c4d847fd374e64ec77e0379b9ef1457562d60542d6576c823577e746d",
+            "zone": {
+              "maximum": 85.5,
+              "minimum": 85.25
+            }
+          },
+          "levels": {
+            "direction": "bearish",
+            "zone_low": 85.25,
+            "zone_high": 85.5,
+            "cancel_level": null,
+            "target": null,
+            "invalidation_level": 86.15,
+            "valid_until_utc": "2026-11-11T20:00:00Z",
+            "scenario_analysis": {
+              "acceptance": "not a CPI reaction trade; the oil-specific decline held through the release (about 84.59 near 12:00Z, CNBC context; 84.358 at 15:05Z), with the dossier capture (run started 09:30:56Z) at 83.872, already under the 9 Nov low 84.237.",
+              "base_case": {
+                "market_move": "WTI's own supply-and-peace liquidation continues, a bounce fails under the broken 4-5 Nov lows 86.02-86.59, and WTI falls back to about lower levels, just above the 31 Aug low 83.364, before 13 Nov 08:00Z.",
+                "probability_pct": 55.0
+              },
+              "confirmations": "(1) the captured -1.39% against the USD's sign; (2) the break of the 9 Nov D1 low 84.237 (83.872 at the dossier capture); (3) -15.40% over ten sessions with no D1 close back above 86.02 since 9 Nov.",
+              "driver": "CLEAR for oil's own channel; no measured CPI channel; 20-day correlation -0.55 to US500 and -0.05 to US10Y changes.",
+              "field_first_causes": {
+                "acceptance": null,
+                "confirmations": null,
+                "driver": null,
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "mechanism": null,
+                "opposite_mechanism": null,
+                "positioning": null,
+                "priced": null,
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "horizon_end_utc": "2026-11-13T08:00:00Z",
+              "invalidation_reason": "86.15 sits above the broken 5 Nov D1 low 86.02 (the 4 Nov low 86.59 is next); a trade there means the bounce has reclaimed broken support.",
+              "invalidation_text": "any trade above 86.15; the thesis is also broken by an M15 close above 86.02, a confirmed Saudi export outage from the pipeline attack, or a collapse of the Iran talks.",
+              "main_alternative": {
+                "market_move": "a supply-shock squeeze from the stretched low, such as damage from the Houthi strike on the Saudi East-West pipeline, lifts WTI above 86.15 before 13 Nov 08:00Z.",
+                "probability_pct": 35.0
+              },
+              "mechanism": "oil's own driver, not CPI: WTI fell 1.39% today while the USD rose, against its +0.30 20-day DXY correlation (DXY beta +3.05), and fell 4.42% on the USD-down 9 Nov; the stated cause, the war and supply premium unwinding (Brent under 90, remarks that the Iran war could end 'fairly soon', Hormuz flows largely recovered; CNBC and ING, context), has no admitted row; the October CPI energy component (+0.7% m/m, gasoline +1.0%) reflects past oil at 98-104.",
+              "missing_fields": [],
+              "opposite_mechanism": "a squeeze from the stretched low on a supply headline (the Houthi strike on Saudi East-West pipeline pumping stations, 14:12Z, context) or a reversal of the peace narrative inside the horizon.",
+              "positioning": "WTI speculators net long 80,289 (324,523 long vs 244,234 short) with 594,556 spreading of 1,908,732 open interest (COT 3 Nov at a 95.77 close; today's length not observed after a further -12%); flow levels are the broken 9 Nov low 84.237 and the 31 Aug low 83.364. Crowd trade: selling oil after -15% in ten days, wrong on a supply-shock squeeze through 86.02-86.59.",
+              "priced": "prior_pricing AMBIGUOUS; 10-day -15.40%, 5-day -2.62 ATR (3 Nov close 95.77 to 9 Nov 85.547; ATR 3.896); the capture sits -3.17 ATR under the 20-day mean 96.72, -2.57 under the 50-day 94.36 and -1.12 under the 200-day 88.74; 20-day z -2.09; 20-day range 84.237-104.037; ATR percentile 55.8; the dossier's CPI event matrix had no WTI cell; implied move not observed.",
+              "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+              "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+              "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "why_no_open": "the capture 84.358 sits 0.89-1.14 under the reviewed selling zone at a -2.09 z-score; selling there sells an exhausted low (the Gemini 06:53Z concern).",
+              "zone_reason": "85.25-85.50 retests the 1 Sep D1 low 85.271, the 05:00Z H1 high 85.353 (06:52Z ledger) and the 9 Nov close 85.547, under the broken 4-5 Nov lows."
+            },
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_low": 85.25,
+                "zone_high": 85.5
+              }
+            ],
+            "public_instrument": {
+              "name": "Micro WTI crude oil",
+              "symbol": "MCL",
+              "kind": "FUT",
+              "exchange": "NYMEX",
+              "contract_month": "2026-12",
+              "direction": null,
+              "zone_low": null,
+              "zone_high": null,
+              "invalidation_level": null,
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_low": null,
+                  "zone_high": null
+                }
+              ]
+            },
+            "mechanism": null,
+            "priced": null,
+            "positioning": null,
+            "driver": null,
+            "acceptance": null,
+            "zone_reason": null,
+            "invalidation_reason": null,
+            "confirmations": null,
+            "opposite_mechanism": null,
+            "invalidation_text": null,
+            "price_basis": "plan",
+            "tick_size": null,
+            "time_exit_utc": "2026-11-13T08:00:00Z",
+            "entry_deadline_utc": "2026-11-11T20:00:00Z",
+            "chance_label": "Base-case chance",
+            "chance_pct": 55.0,
+            "short_id": "cb3fd1c5",
+            "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+            "reader_reasons": [],
+            "image_source_plan": {
+              "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "asset_id": "USOIL",
+              "cancel_conditions": [],
+              "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+              "cancel_level": null,
+              "check_age_seconds": 31.223767,
+              "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+              "conditions": [
+                {
+                  "kind": "COMPLETED_BAR",
+                  "predicates": [
+                    {
+                      "field": "high",
+                      "operator": "GTE",
+                      "threshold": 85.25
+                    }
+                  ],
+                  "timeframe": "M15"
+                }
+              ],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:request-9f7c39e808aef09c:USOIL",
+              "direction": "BEARISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 85.5,
+                  "zone_low": 85.25
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-11T20:00:00Z",
+              "expires_at_utc": "2026-11-11T20:00:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "missing_reasons": [],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": 45,
+                "probability_touch_pct": 55,
+                "probability_up_pct": 40,
+                "reference_at_utc": "2026-11-10T15:05:02Z",
+                "reference_price": 84.358
+              },
+              "invalidation_conditions": [
+                {
+                  "field": "high",
+                  "operator": "GTE",
+                  "threshold": 86.15
+                }
+              ],
+              "kind": "WATCH",
+              "not_before_utc": "2026-11-10T16:30:00Z",
+              "outcome": {
+                "first_cause": null,
+                "outcome_id": "outcome_b4e90d3d5d45934652391c7d8773d1b2",
+                "public_call_id": "call_cb3fd1c57eba290b852911f2",
+                "result": "STOPPED",
+                "score": {
+                  "asset_id": "USOIL",
+                  "content_hash": "19c444c68c82b9e69345b7eadb49a89766cd4c1e8f72bfd120cc83176e6473d5",
+                  "corrects_outcome_id": null,
+                  "decision_record_id": "decision:request-9f7c39e808aef09c:USOIL",
+                  "direction": "BEARISH",
+                  "frozen_at_utc": "2026-11-10T16:18:07.013984Z",
+                  "horizon_end_utc": "2026-11-13T08:00:00Z",
+                  "outcome_id": "outcome_b4e90d3d5d45934652391c7d8773d1b2",
+                  "plan_id": "plan_5a5b965487f7fe4318d12140",
+                  "public_call_id": "call_cb3fd1c57eba290b852911f2",
+                  "resolved_at_utc": "2026-11-11T10:09:16.180000Z",
+                  "result": "STOPPED",
+                  "score_basis": "BROKER_STOP_LOSS",
+                  "scored_at_utc": "2026-11-11T10:11:10.476241Z",
+                  "source_hash": "7277fd7852fe9231d3956487762f6f46ec0c0c70b3728965dcd8c2dd4c117e4e",
+                  "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+                  "triggered_at_utc": "2026-11-10T16:38:02.902000Z"
+                },
+                "state": "SCORED"
+              },
+              "plan_id": "plan_5a5b965487f7fe4318d12140",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": "2026-12",
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "NYMEX",
+                "invalidation_level": null,
+                "kind": "FUT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Micro WTI crude oil",
+                "symbol": "MCL",
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+              "registration_hash": "10f93e134fa0b9dcdccae9242e6cdffcd8d4aa669c0c3ae87f7bd06c4ba0c267",
+              "review_at_utc": "2026-11-11T12:00:00Z",
+              "run_id": "request-9f7c39e808aef09c",
+              "scenario_analysis": {
+                "acceptance": "not a CPI reaction trade; the oil-specific decline held through the release (about 84.59 near 12:00Z, CNBC context; 84.358 at 15:05Z), with the dossier capture (run started 09:30:56Z) at 83.872, already under the 9 Nov low 84.237.",
+                "base_case": {
+                  "market_move": "WTI's own supply-and-peace liquidation continues, a bounce fails under the broken 4-5 Nov lows 86.02-86.59, and WTI falls back to about lower levels, just above the 31 Aug low 83.364, before 13 Nov 08:00Z.",
+                  "probability_pct": 55.0
+                },
+                "confirmations": "(1) the captured -1.39% against the USD's sign; (2) the break of the 9 Nov D1 low 84.237 (83.872 at the dossier capture); (3) -15.40% over ten sessions with no D1 close back above 86.02 since 9 Nov.",
+                "driver": "CLEAR for oil's own channel; no measured CPI channel; 20-day correlation -0.55 to US500 and -0.05 to US10Y changes.",
+                "field_first_causes": {
+                  "acceptance": null,
+                  "confirmations": null,
+                  "driver": null,
+                  "invalidation_reason": null,
+                  "invalidation_text": null,
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": null,
+                  "priced": null,
+                  "why_no_open": null,
+                  "zone_reason": null
+                },
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "invalidation_reason": "86.15 sits above the broken 5 Nov D1 low 86.02 (the 4 Nov low 86.59 is next); a trade there means the bounce has reclaimed broken support.",
+                "invalidation_text": "any trade above 86.15; the thesis is also broken by an M15 close above 86.02, a confirmed Saudi export outage from the pipeline attack, or a collapse of the Iran talks.",
+                "main_alternative": {
+                  "market_move": "a supply-shock squeeze from the stretched low, such as damage from the Houthi strike on the Saudi East-West pipeline, lifts WTI above 86.15 before 13 Nov 08:00Z.",
+                  "probability_pct": 35.0
+                },
+                "mechanism": "oil's own driver, not CPI: WTI fell 1.39% today while the USD rose, against its +0.30 20-day DXY correlation (DXY beta +3.05), and fell 4.42% on the USD-down 9 Nov; the stated cause, the war and supply premium unwinding (Brent under 90, remarks that the Iran war could end 'fairly soon', Hormuz flows largely recovered; CNBC and ING, context), has no admitted row; the October CPI energy component (+0.7% m/m, gasoline +1.0%) reflects past oil at 98-104.",
+                "missing_fields": [],
+                "opposite_mechanism": "a squeeze from the stretched low on a supply headline (the Houthi strike on Saudi East-West pipeline pumping stations, 14:12Z, context) or a reversal of the peace narrative inside the horizon.",
+                "positioning": "WTI speculators net long 80,289 (324,523 long vs 244,234 short) with 594,556 spreading of 1,908,732 open interest (COT 3 Nov at a 95.77 close; today's length not observed after a further -12%); flow levels are the broken 9 Nov low 84.237 and the 31 Aug low 83.364. Crowd trade: selling oil after -15% in ten days, wrong on a supply-shock squeeze through 86.02-86.59.",
+                "priced": "prior_pricing AMBIGUOUS; 10-day -15.40%, 5-day -2.62 ATR (3 Nov close 95.77 to 9 Nov 85.547; ATR 3.896); the capture sits -3.17 ATR under the 20-day mean 96.72, -2.57 under the 50-day 94.36 and -1.12 under the 200-day 88.74; 20-day z -2.09; 20-day range 84.237-104.037; ATR percentile 55.8; the dossier's CPI event matrix had no WTI cell; implied move not observed.",
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+                "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+                "why_no_open": "the capture 84.358 sits 0.89-1.14 under the reviewed selling zone at a -2.09 z-score; selling there sells an exhausted low (the Gemini 06:53Z concern).",
+                "zone_reason": "85.25-85.50 retests the 1 Sep D1 low 85.271, the 05:00Z H1 high 85.353 (06:52Z ledger) and the 9 Nov close 85.547, under the broken 4-5 Nov lows."
+              },
+              "scenario_first_cause": null,
+              "status": "FILLED",
+              "status_at_utc": "2026-11-10T16:38:02.902000Z",
+              "status_label": "Filled",
+              "trigger_hash": "5357d20c4d847fd374e64ec77e0379b9ef1457562d60542d6576c823577e746d",
+              "zone": {
+                "maximum": 85.5,
+                "minimum": 85.25
+              }
+            }
+          }
+        }
+      }
+    },
+    "snapshot": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USOIL\\W\\CL1!_2026-11-11_16-43-58.png",
+      "sha256": "a4623c2a09126dab3ab46cef48f8b91c3343f817fedaa71cb2e1aab7bc38b2b5",
+      "width": 1600,
+      "height": 700,
+      "chart_geometry": {
+        "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+        "pane_box": [
+          10,
+          27,
+          1524,
+          612
+        ],
+        "axis_origin": [
+          1524,
+          27
+        ],
+        "axis_pixel_match": 1.0,
+        "mode": "linear",
+        "slope": -22.68086152922609,
+        "intercept": 2466.3915171532894,
+        "max_label_error_px": 0.3749386467898148,
+        "grid_checks": [
+          {
+            "price": 94.0,
+            "page_y_in_download": 334.35488364519176,
+            "grid_y": 335,
+            "error_px": 0.6451163548082377
+          },
+          {
+            "price": 98.0,
+            "page_y_in_download": 243.6490570227379,
+            "grid_y": 244,
+            "error_px": 0.35094297726209334
+          },
+          {
+            "price": 100.0,
+            "page_y_in_download": 198.29614371151104,
+            "grid_y": 199,
+            "error_px": 0.7038562884889643
+          },
+          {
+            "price": 102.0,
+            "page_y_in_download": 152.9432304002841,
+            "grid_y": 153,
+            "error_px": 0.05676959971589213
+          },
+          {
+            "price": 104.0,
+            "page_y_in_download": 107.59031708905724,
+            "grid_y": 108,
+            "error_px": 0.4096829109427631
+          },
+          {
+            "price": 106.0,
+            "page_y_in_download": 62.23740377783031,
+            "grid_y": 63,
+            "error_px": 0.7625962221696909
+          }
+        ],
+        "source_sha256": "a4623c2a09126dab3ab46cef48f8b91c3343f817fedaa71cb2e1aab7bc38b2b5"
+      },
+      "capture_ratio": "16:9",
+      "capture_viewport": {
+        "width": 1986,
+        "height": 694
+      },
+      "tv_symbol": "NYMEX:CL1!",
+      "interval": "240",
+      "interval_label": "4h",
+      "legend": "4h",
+      "page_title": "CL1! 88.26 ▲ +2.58%",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+      "suggested_filename": "CL1!_2026-11-11_16-43-58.png",
+      "captured_at_utc": "2026-11-11T16:43:58.490582+00:00",
+      "seconds": 10.4,
+      "template_chart_size": [
+        1600,
+        700
+      ],
+      "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+    },
+    "framing": {
+      "box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "original_size": [
+        1600,
+        700
+      ],
+      "paste_box": [
+        0,
+        104,
+        1600,
+        804
+      ],
+      "scale": 1.0,
+      "shape_error": 0.0,
+      "paper_margin_fraction": 0.0
+    },
+    "levels": {
+      "required": true,
+      "levels_visible": true,
+      "pane_box": [
+        22.0,
+        193.0,
+        1512.0,
+        704.0
+      ],
+      "entry_colour": "#1F5FBF",
+      "target_visible": false
+    },
+    "texts": [
+      {
+        "text": "Invalidation 86.15",
+        "box": [
+          34.0,
+          598.4352964104617,
+          268.0,
+          620.4352964104617
+        ],
+        "zone": [
+          34.0,
+          598.4352964104617,
+          280.0,
+          632.4352964104617
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Invalidation 86.15",
+            "mono": false
+          }
+        ],
+        "colour": "red",
+        "field": "chart_level"
+      },
+      {
+        "text": "Entry 85.25–85.50",
+        "box": [
+          34.0,
+          644.4352964104617,
+          287.0,
+          670.4352964104617
+        ],
+        "zone": [
+          34.0,
+          644.4352964104617,
+          299.0,
+          678.4352964104617
+        ],
+        "size": 28,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry 85.25–85.50",
+            "mono": false
+          }
+        ],
+        "colour": "blue",
+        "field": "chart_level"
+      },
+      {
+        "text": "WTI crude oil",
+        "box": [
+          76,
+          20,
+          426,
+          63
+        ],
+        "zone": [
+          76,
+          20,
+          1552,
+          92
+        ],
+        "size": 56,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "WTI crude oil",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "title"
+      },
+      {
+        "text": "SHORT",
+        "box": [
+          462,
+          34,
+          589,
+          62
+        ],
+        "zone": [
+          462,
+          34,
+          593,
+          78
+        ],
+        "size": 36,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "SHORT",
+            "mono": false
+          }
+        ],
+        "colour": "#FFFFFF",
+        "field": "direction"
+      },
+      {
+        "text": "Mid-term",
+        "box": [
+          623,
+          36,
+          783,
+          64
+        ],
+        "zone": [
+          623,
+          36,
+          1552,
+          90
+        ],
+        "size": 36,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Mid-term",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "horizon"
+      },
+      {
+        "text": "In position",
+        "box": [
+          1375.0,
+          36,
+          1552.0,
+          69
+        ],
+        "zone": [
+          1375.0,
+          36,
+          1552,
+          98
+        ],
+        "size": 36,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "In position",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "status"
+      },
+      {
+        "text": "Entry 85.25–85.50 · Invalidation 86.15",
+        "box": [
+          48,
+          808,
+          728,
+          841
+        ],
+        "zone": [
+          48,
+          808,
+          1552,
+          851
+        ],
+        "size": 36,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Entry ",
+            "mono": false
+          },
+          {
+            "text": "85.25–85.50",
+            "mono": true
+          },
+          {
+            "text": " · Invalidation ",
+            "mono": false
+          },
+          {
+            "text": "86.15",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "Main 55% · Alternative 35% · Time exit 13 Nov, 3:00 AM ET",
+        "box": [
+          48,
+          852,
+          1077,
+          882
+        ],
+        "zone": [
+          48,
+          852,
+          1552,
+          895
+        ],
+        "size": 36,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Main ",
+            "mono": false
+          },
+          {
+            "text": "55%",
+            "mono": true
+          },
+          {
+            "text": " · Alternative ",
+            "mono": false
+          },
+          {
+            "text": "35%",
+            "mono": true
+          },
+          {
+            "text": " · Time exit ",
+            "mono": false
+          },
+          {
+            "text": "13 Nov, 3:00 AM ET",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "footer"
+      },
+      {
+        "text": "CAPITAL CHRONICLE",
+        "box": [
+          1174.0,
+          852,
+          1552.0,
+          880
+        ],
+        "zone": [
+          1174.0,
+          852,
+          1552,
+          893
+        ],
+        "size": 36,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "CAPITAL CHRONICLE",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "wordmark"
+      }
+    ],
+    "notes": [],
+    "alt_text": "TradingView 4h chart of WTI crude oil.",
+    "chart": true,
+    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81"
+  },
+  "tradingview_snapshot": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\publisher-b-exec\\docs\\publisher\\CC-465\\media\\captures\\USOIL\\W\\CL1!_2026-11-11_16-43-58.png",
+    "sha256": "a4623c2a09126dab3ab46cef48f8b91c3343f817fedaa71cb2e1aab7bc38b2b5",
+    "width": 1600,
+    "height": 700,
+    "chart_geometry": {
+      "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+      "pane_box": [
+        10,
+        27,
+        1524,
+        612
+      ],
+      "axis_origin": [
+        1524,
+        27
+      ],
+      "axis_pixel_match": 1.0,
+      "mode": "linear",
+      "slope": -22.68086152922609,
+      "intercept": 2466.3915171532894,
+      "max_label_error_px": 0.3749386467898148,
+      "grid_checks": [
+        {
+          "price": 94.0,
+          "page_y_in_download": 334.35488364519176,
+          "grid_y": 335,
+          "error_px": 0.6451163548082377
+        },
+        {
+          "price": 98.0,
+          "page_y_in_download": 243.6490570227379,
+          "grid_y": 244,
+          "error_px": 0.35094297726209334
+        },
+        {
+          "price": 100.0,
+          "page_y_in_download": 198.29614371151104,
+          "grid_y": 199,
+          "error_px": 0.7038562884889643
+        },
+        {
+          "price": 102.0,
+          "page_y_in_download": 152.9432304002841,
+          "grid_y": 153,
+          "error_px": 0.05676959971589213
+        },
+        {
+          "price": 104.0,
+          "page_y_in_download": 107.59031708905724,
+          "grid_y": 108,
+          "error_px": 0.4096829109427631
+        },
+        {
+          "price": 106.0,
+          "page_y_in_download": 62.23740377783031,
+          "grid_y": 63,
+          "error_px": 0.7625962221696909
+        }
+      ],
+      "source_sha256": "a4623c2a09126dab3ab46cef48f8b91c3343f817fedaa71cb2e1aab7bc38b2b5"
+    },
+    "capture_ratio": "16:9",
+    "capture_viewport": {
+      "width": 1986,
+      "height": 694
+    },
+    "tv_symbol": "NYMEX:CL1!",
+    "interval": "240",
+    "interval_label": "4h",
+    "legend": "4h",
+    "page_title": "CL1! 88.26 ▲ +2.58%",
+    "chart_url": "https://www.tradingview.com/chart/?symbol=NYMEX:CL1!&interval=240",
+    "suggested_filename": "CL1!_2026-11-11_16-43-58.png",
+    "captured_at_utc": "2026-11-11T16:43:58.490582+00:00",
+    "seconds": 10.4,
+    "template_chart_size": [
+      1600,
+      700
+    ],
+    "price_scale_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE"
+  },
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true,
+  "image_quality": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "image_sha256": "0a07500453812cb039838f6731dfa376344bdc5ffde6f73eb0aa0477e8783847",
+    "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+    "template": "call",
+    "master": "W",
+    "score": 0,
+    "points": {
+      "1": false,
+      "2": false,
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false
+    },
+    "passed": false,
+    "code": {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "0a07500453812cb039838f6731dfa376344bdc5ffde6f73eb0aa0477e8783847",
+      "template_revision": "f56011da2f88790313f732b997cd6f810afb0e9c650cd2bd4d14527fd8639f81",
+      "template": "call",
+      "master": "W",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": false,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 9,
+      "passed": false,
+      "causes": [
+        "TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED"
+      ]
+    },
+    "vision": {
+      "points": {},
+      "status": "NOT_RUN"
+    },
+    "reviewed_at_utc": "2026-11-11T17:02:21.155319+00:00"
+  }
+}

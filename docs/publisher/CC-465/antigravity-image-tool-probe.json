@@ -1,0 +1,34 @@
+{
+  "returncode": 0,
+  "events": [
+    {
+      "event": "init",
+      "keys": [
+        "event",
+        "conversation_id",
+        "init"
+      ]
+    },
+    {
+      "event": "result",
+      "keys": [
+        "event",
+        "result"
+      ],
+      "result": {
+        "conversation_id": "5b5d79df-e06c-4ca1-a1de-e89e0f8841fa",
+        "status": "SUCCESS",
+        "response": "{\n  \"image_seen\": true,\n  \"tool_used\": \"read_file\",\n  \"created_with_line\": \"Created with TradingView.com, Nov 11, 2026 16:43 UTC\",\n  \"entry_label\": \"Entry 158.30–158.38\",\n  \"footer_time\": \"13 Nov, 3:00 AM ET\",\n  \"reason\": \"Image successfully loaded and inspected via read_file tool showing the full USD/JPY chart and details.\"\n}\n",
+        "duration_seconds": 31.1785235,
+        "num_turns": 1,
+        "usage": {
+          "input_tokens": 22637,
+          "output_tokens": 3068,
+          "thinking_tokens": 2877,
+          "cache_read_tokens": 20079,
+          "total_tokens": 25705
+        }
+      }
+    }
+  ]
+}

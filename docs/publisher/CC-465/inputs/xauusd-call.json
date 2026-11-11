@@ -1,0 +1,397 @@
+{
+  "schema": "image_input_v1",
+  "post_id": "cc465-xauusd",
+  "template": "call",
+  "market": "XAUUSD",
+  "plan": {
+    "market": "XAUUSD",
+    "market_name": "Gold",
+    "direction": "SHORT",
+    "horizon_label": "Mid-term",
+    "status_label": "Expired, no entry",
+    "entry_low": 4062.0,
+    "entry_high": 4070.0,
+    "invalidation": 4096.0,
+    "target": null,
+    "main_probability_pct": 50.0,
+    "alt_probability_pct": 40.0,
+    "time_exit_et": "13 Nov, 3:00 AM ET",
+    "entry_window_ends_et": ""
+  },
+  "source_binding": {
+    "input_sha256": "a6fa80d7b68ba40a820443d72120148759f09efe6e7d17fdbfd305ab94cf3f34",
+    "source_sha256": "430fbce21753155e80a49a82e0253825de8e0b822d8d69bdd3740000d2ee876e",
+    "record": {
+      "key": "cc465-xauusd",
+      "symbol": "XAUUSD",
+      "at_utc": "2026-11-10T16:18:25.849991Z",
+      "state": "EXPIRED",
+      "source_plan": {
+        "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+        "asset_id": "XAUUSD",
+        "cancel_conditions": [],
+        "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+        "cancel_level": null,
+        "check_age_seconds": 32.30027,
+        "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+        "conditions": [
+          {
+            "kind": "COMPLETED_BAR",
+            "predicates": [
+              {
+                "field": "high",
+                "operator": "GTE",
+                "threshold": 4062.0
+              }
+            ],
+            "timeframe": "M15"
+          }
+        ],
+        "data_state": "AVAILABLE",
+        "decision_record_id": "decision:request-9f7c39e808aef09c:XAUUSD",
+        "direction": "BEARISH",
+        "entries": [
+          {
+            "kind": "LIMIT",
+            "zone_high": 4070.0,
+            "zone_low": 4062.0
+          }
+        ],
+        "entries_first_cause": null,
+        "entry_deadline_utc": "2026-11-11T20:00:00Z",
+        "expires_at_utc": "2026-11-11T20:00:00Z",
+        "first_cause": null,
+        "forecast_probabilities": {
+          "horizon_end_utc": "2026-11-13T08:00:00Z",
+          "missing_reasons": [],
+          "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+          "probability_target_before_stop_pct": 45,
+          "probability_touch_pct": 60,
+          "probability_up_pct": 40,
+          "reference_at_utc": "2026-11-10T15:05:02Z",
+          "reference_price": 4050.952
+        },
+        "invalidation_conditions": [
+          {
+            "field": "high",
+            "operator": "GTE",
+            "threshold": 4096.0
+          }
+        ],
+        "kind": "WATCH",
+        "not_before_utc": "2026-11-10T16:30:00Z",
+        "outcome": {
+          "first_cause": "UNTRIGGERED_PLAN_ENDED",
+          "outcome_id": null,
+          "public_call_id": "call_d5cc28ee8fda0b24d51593a6",
+          "result": null,
+          "score": null,
+          "state": "NOT_SCORED_UNTRIGGERED"
+        },
+        "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+        "public_instrument": {
+          "contract_first_cause": null,
+          "contract_month": "2026-12",
+          "direction": null,
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_high": null,
+              "zone_low": null
+            }
+          ],
+          "exchange": "COMEX",
+          "invalidation_level": null,
+          "kind": "FUT",
+          "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+          "name": "Micro gold",
+          "symbol": "MGC",
+          "zone_high": null,
+          "zone_low": null
+        },
+        "public_instrument_first_cause": null,
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "registration_hash": "1a45c9646aa9d0a1120a3d0957f16f5bc46a37925f8e72946cab81c9b6e985d3",
+        "review_at_utc": "2026-11-11T12:00:00Z",
+        "run_id": "request-9f7c39e808aef09c",
+        "scenario_analysis": {
+          "acceptance": "accepted so far: about 4057 at 13:58Z (Reuters, context) and 4050.95 at 15:05Z, below every earlier price on record today (4080-4104, 09:00-10:20Z); the exact T0 level is not observed, and on 6 Nov the reaction also held at T0+30 min and T0+2 h before closing back through the pre-release level, so acceptance at T0+95 min does not separate today from 6 Nov.",
+          "base_case": {
+            "market_move": "gold stays below the broken 4054-4073 support zone and falls through the 6 Nov low 4026.88 toward lower levels before 13 Nov 08:00Z, as the hike repricing lifts real yields and the dollar.",
+            "probability_pct": 50.0
+          },
+          "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured -2.13% with every USD pair USD-up and the break of the 9 Nov D1 low 4054.825; (3) crowded speculative length (45% of open interest net long, 3 Nov).",
+          "driver": "MIXED inside sessions, CLEAR in D1 sign.; D1 sign followed the USD leg on 4 Nov (+3.23% with EURUSD +0.25%), 6 Nov (-0.36% with -0.79%), 9 Nov (+2.06% with +0.68%) and today (-2.13% with -0.37%); but today's move is about 5.8 times the USD leg, about -1.20% of it came by 09:30Z with EURUSD +0.08%, and the 6 Nov release session went +0.20% against DXY +0.23%; 20-day DXY beta -1.17 (correlation -0.22), 20-day US10Y correlation +0.09.",
+          "field_first_causes": {
+            "acceptance": null,
+            "confirmations": null,
+            "driver": null,
+            "invalidation_reason": null,
+            "invalidation_text": null,
+            "mechanism": null,
+            "opposite_mechanism": null,
+            "positioning": null,
+            "priced": null,
+            "why_no_open": null,
+            "zone_reason": null
+          },
+          "horizon_end_utc": "2026-11-13T08:00:00Z",
+          "invalidation_reason": "4096 sits above 4080, where today's earlier long was stopped, and the 4084.40 H1 floor of the 06:52Z ledger, and below 4104 (09:00Z) and the 6 Nov high 4107.09; a trade there means the release reaction failed.",
+          "invalidation_text": "any trade above 4096; the thesis is also broken by an M15 close above 4084.40 while EURUSD is back above 1.1199, a metals-only rebound of more than 0.9% with DXY flat, a Fed push-back on a December hike, or the US 2y giving back most of its CPI rise.",
+          "main_alternative": {
+            "market_move": "crowded-long dip buying returns, as on 6-9 Nov, and gold climbs back above 4096 before 13 Nov 08:00Z.",
+            "probability_pct": 40.0
+          },
+          "mechanism": "the hot core print pushes the US front end toward a December hike (context: about a full hike priced, 2y +15-17 bp), raising real yields and firming the USD against a non-yielding asset whose speculators held 45% of open interest net long (3 Nov), with forced selling below the broken 8-9 Nov lows 4054.21/4054.83; captured 4139.17 (9 Nov close) to a 4050.952 bid at 15:05:02Z, -2.13% or -1.20 D1 ATR (ATR 73.38).",
+          "missing_fields": [],
+          "opposite_mechanism": "metals-specific dip buying by the crowded long base, as on 6-9 Nov, with mean reversion to the 20-day mean 4039.15 and support at the 6 Nov NFP low 4026.88, where last week's short stopped making progress (H1 low 4029.79).",
+          "positioning": "speculators net long 179,548 of 399,169 (45%, COT 3 Nov, before the run to 4148.76; today's length not observed); flow-forcing levels are the broken 4054.2-4054.8 lows, then the 6 Nov D1 low 4026.88; ETF stocks were flat 2-6 Nov (GLD 1040.51 to 1041.37 t, IAU 461.62 to 460.81 t) and say nothing about 9-10 Nov dip demand. Crowd trade: long gold, wrong while gold stays under 4073.55-4084.40; this short is wrong on a metals-only rebound like 9 Nov 00:30-01:00Z (+0.91%, about 37 points, DXY -0.03%).",
+          "priced": "prior_pricing AMBIGUOUS; the +2.74 ATR five-session run-up (3 Nov close 3938.16 to 9 Nov 4139.17) is fully given back; the capture sits +0.16 ATR over the 20-day mean 4039.15, -1.36 under the 50-day 4150.44 and -3.96 under the 200-day 4341.80; 20-day range 3870.03-4190.65; ATR percentile 15.3 before today; the dossier IN_LINE band (about -2.6% to +2.8%) contains today's move; the 48 h to 15 min drift, T0 level and implied move are not observed.",
+          "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+          "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+          "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+          "why_no_open": "the capture sits 11-19 points under the reviewed selling zone, near the release low; selling there would repeat the 6 Nov release chase that reversed.",
+          "zone_reason": "4062-4070 sells a retest of the broken support cluster: the 5 Nov D1 low 4061.41, the 4 Nov close 4065.54, the 6 Nov release-session close 4066.0 (dated review), the 6 Nov D1 close 4071.23 and the 4 Nov high 4071.63, under the 8 Nov Sunday-stub high 4073.55 (weak, 8,686 ticks)."
+        },
+        "scenario_first_cause": null,
+        "status": "EXPIRED",
+        "status_at_utc": "2026-11-10T18:30:00Z",
+        "status_label": "Expired",
+        "trigger_hash": "b98efe191ada850025bea30208802465a323ca2547f6e38bb89eb351b8d943cd",
+        "zone": {
+          "maximum": 4070.0,
+          "minimum": 4062.0
+        }
+      },
+      "levels": {
+        "direction": "bearish",
+        "zone_low": 4062.0,
+        "zone_high": 4070.0,
+        "cancel_level": null,
+        "target": null,
+        "invalidation_level": 4096.0,
+        "valid_until_utc": "2026-11-11T20:00:00Z",
+        "scenario_analysis": {
+          "acceptance": "accepted so far: about 4057 at 13:58Z (Reuters, context) and 4050.95 at 15:05Z, below every earlier price on record today (4080-4104, 09:00-10:20Z); the exact T0 level is not observed, and on 6 Nov the reaction also held at T0+30 min and T0+2 h before closing back through the pre-release level, so acceptance at T0+95 min does not separate today from 6 Nov.",
+          "base_case": {
+            "market_move": "gold stays below the broken 4054-4073 support zone and falls through the 6 Nov low 4026.88 toward lower levels before 13 Nov 08:00Z, as the hike repricing lifts real yields and the dollar.",
+            "probability_pct": 50.0
+          },
+          "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured -2.13% with every USD pair USD-up and the break of the 9 Nov D1 low 4054.825; (3) crowded speculative length (45% of open interest net long, 3 Nov).",
+          "driver": "MIXED inside sessions, CLEAR in D1 sign.; D1 sign followed the USD leg on 4 Nov (+3.23% with EURUSD +0.25%), 6 Nov (-0.36% with -0.79%), 9 Nov (+2.06% with +0.68%) and today (-2.13% with -0.37%); but today's move is about 5.8 times the USD leg, about -1.20% of it came by 09:30Z with EURUSD +0.08%, and the 6 Nov release session went +0.20% against DXY +0.23%; 20-day DXY beta -1.17 (correlation -0.22), 20-day US10Y correlation +0.09.",
+          "field_first_causes": {
+            "acceptance": null,
+            "confirmations": null,
+            "driver": null,
+            "invalidation_reason": null,
+            "invalidation_text": null,
+            "mechanism": null,
+            "opposite_mechanism": null,
+            "positioning": null,
+            "priced": null,
+            "why_no_open": null,
+            "zone_reason": null
+          },
+          "horizon_end_utc": "2026-11-13T08:00:00Z",
+          "invalidation_reason": "4096 sits above 4080, where today's earlier long was stopped, and the 4084.40 H1 floor of the 06:52Z ledger, and below 4104 (09:00Z) and the 6 Nov high 4107.09; a trade there means the release reaction failed.",
+          "invalidation_text": "any trade above 4096; the thesis is also broken by an M15 close above 4084.40 while EURUSD is back above 1.1199, a metals-only rebound of more than 0.9% with DXY flat, a Fed push-back on a December hike, or the US 2y giving back most of its CPI rise.",
+          "main_alternative": {
+            "market_move": "crowded-long dip buying returns, as on 6-9 Nov, and gold climbs back above 4096 before 13 Nov 08:00Z.",
+            "probability_pct": 40.0
+          },
+          "mechanism": "the hot core print pushes the US front end toward a December hike (context: about a full hike priced, 2y +15-17 bp), raising real yields and firming the USD against a non-yielding asset whose speculators held 45% of open interest net long (3 Nov), with forced selling below the broken 8-9 Nov lows 4054.21/4054.83; captured 4139.17 (9 Nov close) to a 4050.952 bid at 15:05:02Z, -2.13% or -1.20 D1 ATR (ATR 73.38).",
+          "missing_fields": [],
+          "opposite_mechanism": "metals-specific dip buying by the crowded long base, as on 6-9 Nov, with mean reversion to the 20-day mean 4039.15 and support at the 6 Nov NFP low 4026.88, where last week's short stopped making progress (H1 low 4029.79).",
+          "positioning": "speculators net long 179,548 of 399,169 (45%, COT 3 Nov, before the run to 4148.76; today's length not observed); flow-forcing levels are the broken 4054.2-4054.8 lows, then the 6 Nov D1 low 4026.88; ETF stocks were flat 2-6 Nov (GLD 1040.51 to 1041.37 t, IAU 461.62 to 460.81 t) and say nothing about 9-10 Nov dip demand. Crowd trade: long gold, wrong while gold stays under 4073.55-4084.40; this short is wrong on a metals-only rebound like 9 Nov 00:30-01:00Z (+0.91%, about 37 points, DXY -0.03%).",
+          "priced": "prior_pricing AMBIGUOUS; the +2.74 ATR five-session run-up (3 Nov close 3938.16 to 9 Nov 4139.17) is fully given back; the capture sits +0.16 ATR over the 20-day mean 4039.15, -1.36 under the 50-day 4150.44 and -3.96 under the 200-day 4341.80; 20-day range 3870.03-4190.65; ATR percentile 15.3 before today; the dossier IN_LINE band (about -2.6% to +2.8%) contains today's move; the 48 h to 15 min drift, T0 level and implied move are not observed.",
+          "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+          "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+          "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+          "why_no_open": "the capture sits 11-19 points under the reviewed selling zone, near the release low; selling there would repeat the 6 Nov release chase that reversed.",
+          "zone_reason": "4062-4070 sells a retest of the broken support cluster: the 5 Nov D1 low 4061.41, the 4 Nov close 4065.54, the 6 Nov release-session close 4066.0 (dated review), the 6 Nov D1 close 4071.23 and the 4 Nov high 4071.63, under the 8 Nov Sunday-stub high 4073.55 (weak, 8,686 ticks)."
+        },
+        "entries": [
+          {
+            "kind": "LIMIT",
+            "zone_low": 4062.0,
+            "zone_high": 4070.0
+          }
+        ],
+        "public_instrument": {
+          "name": "Micro gold",
+          "symbol": "MGC",
+          "kind": "FUT",
+          "exchange": "COMEX",
+          "contract_month": "2026-12",
+          "direction": null,
+          "zone_low": null,
+          "zone_high": null,
+          "invalidation_level": null,
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_low": null,
+              "zone_high": null
+            }
+          ]
+        },
+        "mechanism": null,
+        "priced": null,
+        "positioning": null,
+        "driver": null,
+        "acceptance": null,
+        "zone_reason": null,
+        "invalidation_reason": null,
+        "confirmations": null,
+        "opposite_mechanism": null,
+        "invalidation_text": null,
+        "price_basis": "plan",
+        "tick_size": null,
+        "time_exit_utc": "2026-11-13T08:00:00Z",
+        "entry_deadline_utc": "2026-11-11T20:00:00Z",
+        "chance_label": "Base-case chance",
+        "chance_pct": 50.0,
+        "short_id": "d5cc28ee",
+        "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+        "reader_reasons": [],
+        "image_source_plan": {
+          "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+          "asset_id": "XAUUSD",
+          "cancel_conditions": [],
+          "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+          "cancel_level": null,
+          "check_age_seconds": 32.30027,
+          "checked_at_utc": "2026-11-11T17:01:36.094541Z",
+          "conditions": [
+            {
+              "kind": "COMPLETED_BAR",
+              "predicates": [
+                {
+                  "field": "high",
+                  "operator": "GTE",
+                  "threshold": 4062.0
+                }
+              ],
+              "timeframe": "M15"
+            }
+          ],
+          "data_state": "AVAILABLE",
+          "decision_record_id": "decision:request-9f7c39e808aef09c:XAUUSD",
+          "direction": "BEARISH",
+          "entries": [
+            {
+              "kind": "LIMIT",
+              "zone_high": 4070.0,
+              "zone_low": 4062.0
+            }
+          ],
+          "entries_first_cause": null,
+          "entry_deadline_utc": "2026-11-11T20:00:00Z",
+          "expires_at_utc": "2026-11-11T20:00:00Z",
+          "first_cause": null,
+          "forecast_probabilities": {
+            "horizon_end_utc": "2026-11-13T08:00:00Z",
+            "missing_reasons": [],
+            "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+            "probability_target_before_stop_pct": 45,
+            "probability_touch_pct": 60,
+            "probability_up_pct": 40,
+            "reference_at_utc": "2026-11-10T15:05:02Z",
+            "reference_price": 4050.952
+          },
+          "invalidation_conditions": [
+            {
+              "field": "high",
+              "operator": "GTE",
+              "threshold": 4096.0
+            }
+          ],
+          "kind": "WATCH",
+          "not_before_utc": "2026-11-10T16:30:00Z",
+          "outcome": {
+            "first_cause": "UNTRIGGERED_PLAN_ENDED",
+            "outcome_id": null,
+            "public_call_id": "call_d5cc28ee8fda0b24d51593a6",
+            "result": null,
+            "score": null,
+            "state": "NOT_SCORED_UNTRIGGERED"
+          },
+          "plan_id": "plan_fbaba16c5773ca1e2ead16d8",
+          "public_instrument": {
+            "contract_first_cause": null,
+            "contract_month": "2026-12",
+            "direction": null,
+            "entries": [
+              {
+                "kind": "LIMIT",
+                "zone_high": null,
+                "zone_low": null
+              }
+            ],
+            "exchange": "COMEX",
+            "invalidation_level": null,
+            "kind": "FUT",
+            "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+            "name": "Micro gold",
+            "symbol": "MGC",
+            "zone_high": null,
+            "zone_low": null
+          },
+          "public_instrument_first_cause": null,
+          "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+          "registration_hash": "1a45c9646aa9d0a1120a3d0957f16f5bc46a37925f8e72946cab81c9b6e985d3",
+          "review_at_utc": "2026-11-11T12:00:00Z",
+          "run_id": "request-9f7c39e808aef09c",
+          "scenario_analysis": {
+            "acceptance": "accepted so far: about 4057 at 13:58Z (Reuters, context) and 4050.95 at 15:05Z, below every earlier price on record today (4080-4104, 09:00-10:20Z); the exact T0 level is not observed, and on 6 Nov the reaction also held at T0+30 min and T0+2 h before closing back through the pre-release level, so acceptance at T0+95 min does not separate today from 6 Nov.",
+            "base_case": {
+              "market_move": "gold stays below the broken 4054-4073 support zone and falls through the 6 Nov low 4026.88 toward lower levels before 13 Nov 08:00Z, as the hike repricing lifts real yields and the dollar.",
+              "probability_pct": 50.0
+            },
+            "confirmations": "(1) BLS core CPI +0.3% m/m against 0.2% consensus; (2) the captured -2.13% with every USD pair USD-up and the break of the 9 Nov D1 low 4054.825; (3) crowded speculative length (45% of open interest net long, 3 Nov).",
+            "driver": "MIXED inside sessions, CLEAR in D1 sign.; D1 sign followed the USD leg on 4 Nov (+3.23% with EURUSD +0.25%), 6 Nov (-0.36% with -0.79%), 9 Nov (+2.06% with +0.68%) and today (-2.13% with -0.37%); but today's move is about 5.8 times the USD leg, about -1.20% of it came by 09:30Z with EURUSD +0.08%, and the 6 Nov release session went +0.20% against DXY +0.23%; 20-day DXY beta -1.17 (correlation -0.22), 20-day US10Y correlation +0.09.",
+            "field_first_causes": {
+              "acceptance": null,
+              "confirmations": null,
+              "driver": null,
+              "invalidation_reason": null,
+              "invalidation_text": null,
+              "mechanism": null,
+              "opposite_mechanism": null,
+              "positioning": null,
+              "priced": null,
+              "why_no_open": null,
+              "zone_reason": null
+            },
+            "horizon_end_utc": "2026-11-13T08:00:00Z",
+            "invalidation_reason": "4096 sits above 4080, where today's earlier long was stopped, and the 4084.40 H1 floor of the 06:52Z ledger, and below 4104 (09:00Z) and the 6 Nov high 4107.09; a trade there means the release reaction failed.",
+            "invalidation_text": "any trade above 4096; the thesis is also broken by an M15 close above 4084.40 while EURUSD is back above 1.1199, a metals-only rebound of more than 0.9% with DXY flat, a Fed push-back on a December hike, or the US 2y giving back most of its CPI rise.",
+            "main_alternative": {
+              "market_move": "crowded-long dip buying returns, as on 6-9 Nov, and gold climbs back above 4096 before 13 Nov 08:00Z.",
+              "probability_pct": 40.0
+            },
+            "mechanism": "the hot core print pushes the US front end toward a December hike (context: about a full hike priced, 2y +15-17 bp), raising real yields and firming the USD against a non-yielding asset whose speculators held 45% of open interest net long (3 Nov), with forced selling below the broken 8-9 Nov lows 4054.21/4054.83; captured 4139.17 (9 Nov close) to a 4050.952 bid at 15:05:02Z, -2.13% or -1.20 D1 ATR (ATR 73.38).",
+            "missing_fields": [],
+            "opposite_mechanism": "metals-specific dip buying by the crowded long base, as on 6-9 Nov, with mean reversion to the 20-day mean 4039.15 and support at the 6 Nov NFP low 4026.88, where last week's short stopped making progress (H1 low 4029.79).",
+            "positioning": "speculators net long 179,548 of 399,169 (45%, COT 3 Nov, before the run to 4148.76; today's length not observed); flow-forcing levels are the broken 4054.2-4054.8 lows, then the 6 Nov D1 low 4026.88; ETF stocks were flat 2-6 Nov (GLD 1040.51 to 1041.37 t, IAU 461.62 to 460.81 t) and say nothing about 9-10 Nov dip demand. Crowd trade: long gold, wrong while gold stays under 4073.55-4084.40; this short is wrong on a metals-only rebound like 9 Nov 00:30-01:00Z (+0.91%, about 37 points, DXY -0.03%).",
+            "priced": "prior_pricing AMBIGUOUS; the +2.74 ATR five-session run-up (3 Nov close 3938.16 to 9 Nov 4139.17) is fully given back; the capture sits +0.16 ATR over the 20-day mean 4039.15, -1.36 under the 50-day 4150.44 and -3.96 under the 200-day 4341.80; 20-day range 3870.03-4190.65; ATR percentile 15.3 before today; the dossier IN_LINE band (about -2.6% to +2.8%) contains today's move; the 48 h to 15 min drift, T0 level and implied move are not observed.",
+            "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+            "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+            "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+            "why_no_open": "the capture sits 11-19 points under the reviewed selling zone, near the release low; selling there would repeat the 6 Nov release chase that reversed.",
+            "zone_reason": "4062-4070 sells a retest of the broken support cluster: the 5 Nov D1 low 4061.41, the 4 Nov close 4065.54, the 6 Nov release-session close 4066.0 (dated review), the 6 Nov D1 close 4071.23 and the 4 Nov high 4071.63, under the 8 Nov Sunday-stub high 4073.55 (weak, 8,686 ticks)."
+          },
+          "scenario_first_cause": null,
+          "status": "EXPIRED",
+          "status_at_utc": "2026-11-10T18:30:00Z",
+          "status_label": "Expired",
+          "trigger_hash": "b98efe191ada850025bea30208802465a323ca2547f6e38bb89eb351b8d943cd",
+          "zone": {
+            "maximum": 4070.0,
+            "minimum": 4062.0
+          }
+        }
+      }
+    }
+  }
+}
