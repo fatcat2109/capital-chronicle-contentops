@@ -2330,6 +2330,9 @@ def _native_preview_bundle(
         canonical_url=pending_url,
         media_asset_ids=media_asset_ids,
     )
+    if article.get("tradingview_instagram_skip"):
+        payloads["instagram_business"].update(media_asset_ids=[], delivery_state="SKIPPED_IMAGE_REQUIRED",
+            skip_reason=article["tradingview_instagram_skip"])
     publisher = str((epistemic_state or {}).get("primary_reporting_publisher") or "").strip()
     attribution_names = [publisher.casefold()] if publisher else []
     bound_publisher = next((s for s in article.get("public_source_bindings", [])
@@ -2597,7 +2600,8 @@ def _build_simple_publication_lifecycle_plan(
         "accepted_evidence_ids": list(context["accepted_evidence_ids"]),
         "accepted_evidence_sha256": context["accepted_evidence_sha256"],
         "source_provenance_binding_preserved": True,
-        **({"media_asset_count": len(media_assets)} if article.get("volume_policy") or article.get("text_first") else {}),
+        **({"media_asset_count": len(media_assets)} if article.get("volume_policy") or article.get("text_first")
+            or article.get("publication_image_contract") else {}),
         "epistemic_state": dict(epistemic_state or {}),
         "publication_window": {"window_identity": run_id},
         "package_identity": package_identity,
@@ -2628,7 +2632,8 @@ def _build_simple_publication_lifecycle_plan(
                     "reason": "Instagram requires an admitted image; other destinations can proceed.",
                     "disposition": "SKIPPED_IMAGE_REQUIRED", "status": "SKIPPED_IMAGE_REQUIRED"}]
                 if preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_IMAGE_REQUIRED" else []),
-        **({"image_optional_policy": "CC-172" if article.get("visual_repair_disposition", {}).get("policy") == "CC-172" else "JIM_DECISION_39"}
+        **({"image_optional_policy": "JIM_DECISION_124" if article.get("publication_image_contract") else
+            "CC-172" if article.get("visual_repair_disposition", {}).get("policy") == "CC-172" else "JIM_DECISION_39"}
             if preview_packages.get("instagram_business", {}).get("delivery_state") == "SKIPPED_IMAGE_REQUIRED" else {}),
         **({"text_first": article["text_first"]} if article.get("text_first") else {}),
         **({"volume_policy": article["volume_policy"], "volume_policy_cutoff_utc": article["volume_policy_cutoff_utc"],

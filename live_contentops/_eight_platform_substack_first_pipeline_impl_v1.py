@@ -4154,7 +4154,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         frozen = intent["native_payload"]
         assets = intent.get("media_assets") or []
         article = _read_json(output_dir / "article_manifest_v1.json") if intent.get("event_pack") else {}
-        return {"output_dir":output_dir,"article":article,"selection":{},"media_assets":assets if intent.get("event_pack") else [],
+        return {"output_dir":output_dir,"article":article,"selection":{},"media_assets":assets if intent.get("event_pack") or frozen.get("media_asset_ids") else [],
             "delivery_only_assets":[],"payloads":{destination:frozen},
             "local_media":str(assets[0]["path"]) if frozen.get("media_asset_ids") and assets else "",
             "delivery_local_media":"","public_image_url":frozen.get("image_url", ""),
@@ -4178,6 +4178,8 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         and not [*(frozen_for_media.get("media_asset_ids") or []),
                  *(asset_id for post in frozen_for_media.get("posts") or []
                    if isinstance(post, Mapping) for asset_id in post.get("media_asset_ids") or [])])
+    bounded_text = bool(article.get("tradingview_text_fallback")
+        and article.get("publication_image_contract") == "CC463_TRADINGVIEW_FIRST_V1")
     # Decision 61 floor: a copy with no image takes the run's first reviewed chart or
     # card (Capital Chronicle's own render, already on the canonical), so every
     # destination shows the same reviewed image. Only a run with none gets a new card.
@@ -4205,7 +4207,7 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
             known = {row.get("asset_id") for row in media_assets}
             media_assets = [*media_assets, *(row for row in rebuilt_view["media_assets"]
                                              if row.get("asset_id") not in known)]
-    elif intent.get("post_image_policy") and (not context.get("post_image_policy") or frozen_without_media):
+    elif not bounded_text and intent.get("post_image_policy") and (not context.get("post_image_policy") or frozen_without_media):
         # Decision 61: a finalized copy with no selected image gets one here too.
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
         image_selection = post_image_view({"article": article, "media_assets": media_assets,
@@ -4298,10 +4300,11 @@ def _durable_intent_inputs(intent: Mapping[str, Any]) -> dict[str, Any]:
         # The selected card/chart must reach both local-upload and URL transports.
         selected_payload = payloads.get(destination) or {}
         if "media_asset_ids" in selected_payload:
-            selected_ids = set(selected_payload["media_asset_ids"])
-            selected_ids.update(asset_id for post in selected_payload.get("posts") or []
-                for asset_id in post.get("media_asset_ids") or [])
-            media_assets = [asset for asset in media_assets if asset.get("asset_id") in selected_ids]
+            selected_ids = list(dict.fromkeys([*selected_payload["media_asset_ids"],
+                *(asset_id for post in selected_payload.get("posts") or []
+                  for asset_id in post.get("media_asset_ids") or [])]))
+            selected_by_id = {asset["asset_id"]: asset for asset in media_assets}
+            media_assets = [selected_by_id[asset_id] for asset_id in selected_ids if asset_id in selected_by_id]
         from live_contentops.v1_simple_gemini_newsroom_v1 import canonical_photo_attribution_payload
         payloads[destination] = canonical_photo_attribution_payload(payloads[destination], article=article,
             media_assets=media_assets, canonical_url=canonical_url)

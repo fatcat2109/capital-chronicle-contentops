@@ -1023,7 +1023,11 @@ class NativeDesktopTurn:
                 "article section heading), data_spec (exact source series/units/periods/transform/chart form). "
                 "Only a short news brief may be text-only. An ANALYSIS that is not about a data release or a policy decision "
                 "(a house view, an explainer, market commentary) sets analysis_scope OTHER_ANALYSIS with a one-line "
-                "analysis_scope_reason and may use the charts that serve its argument, or none. A missing optional contextual photo never holds analysis; "
+                "analysis_scope_reason and may use the charts that serve its argument, or none. "
+                "Decision 124: a market post leads with the existing TradingView service's chart; "
+                "a macro-data post sets macro_chart_symbol to its exact admitted ECONOMICS: or FRED: series, "
+                "or supplies an original, source-bound FRED graph. Never substitute a drawn headline/bar card. "
+                "A missing optional contextual photo never holds analysis; "
                 "use a relevant public-domain or licensed image when available. Missing analysis charts require source recovery; never "
                 "relabel analysis, manufacture data or pad panels. Choose contextual_photo_ids and exact "
                 "media subsets for all six keys telegram,discord,linkedin,facebook_page,instagram_business,"
@@ -1649,7 +1653,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
                if final_visual_repair.get("channel_media_after_drop") else {}),
             "visual_repair_disposition": {"policy": "CC-172", "repair_rounds": 1, "dropped_asset_ids": sorted(dropped)}}
     allowed = {d["url"] for d in result.get("evidence", [])}
-    if corrected_article.get("market_asset"):
+    from .publication_image_contract_v1 import _macro as macro_image_scope
+    if corrected_article.get("market_asset") or macro_image_scope(corrected_article, {}):
         from live_contentops.article_publication_quality_v1 import prepare_market_snapshot
         registered = store.get_outbox_message("native-operation-binding-" + sha256_of(run_id))
         operation = json.loads(registered["payload"]) if registered else {}
@@ -1662,7 +1667,8 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
     reader_first = corrected_article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     from live_contentops.native_newsroom_volume_v1 import photo_less_brief
-    minimum_assets = 0 if drop_failed_visuals or photo_less_brief({**result, "article": corrected_article, "media_assets": assets}) else 1
+    minimum_assets = 0 if (drop_failed_visuals or corrected_article.get("tradingview_text_fallback")
+        or photo_less_brief({**result, "article": corrected_article, "media_assets": assets})) else 1
     if not minimum_assets <= len(assets) <= (8 if reader_first else 3) or _private(assets):
         raise ValueError("BOUNDED_PUBLIC_MEDIA_REQUIRED")
     # The owned quantitative visual carries the story's evidence into short-form

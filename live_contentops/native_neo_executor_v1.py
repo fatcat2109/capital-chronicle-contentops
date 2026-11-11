@@ -248,6 +248,10 @@ class NativeNeoExecutor:
                     message = self.store.get_outbox_message(dispatch["message_id"])
                     effective = coordinator._effective_message(message)
                     intent = json.loads(effective["payload"])
+                    from .publication_image_contract_v1 import validate_write
+                    validate_write(coordinator, {**intent,
+                        **({"native_payload": request["native_payload"]} if request.get("native_payload") else {})},
+                        request["destination"])
                     before_article_write(coordinator, {**intent,
                         **({"native_payload": request["native_payload"]} if request.get("native_payload") else {})},
                         request["destination"])

@@ -526,6 +526,10 @@ def require_publication_image(destination, data):
         selected.update(a for post in payload.get("posts") or [] for a in post.get("media_asset_ids") or [])
         assets = [a for a in assets if a.get("asset_id") in selected]
     if not assets:
+        from .publication_image_contract_v1 import bounded_text_fallback
+        if destination != "instagram_business" and bounded_text_fallback(
+                data.get("article") or {}, data.get("output_dir") or ""):
+            return
         raise ValueError("EVERY_POST_IMAGE_REQUIRED:" + destination)
     from PIL import Image
     for asset in assets:

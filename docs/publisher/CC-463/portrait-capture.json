@@ -1,0 +1,29 @@
+{
+  "status": "CAPTURE_NOT_ADMITTED",
+  "cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+  "capture": {
+    "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-463\\media\\gold-4x5\\XAUUSD_2026-11-11_15-04-37.png",
+    "suggested_filename": "XAUUSD_2026-11-11_15-04-37.png",
+    "legend": "4h",
+    "page_title": "XAUUSD 4,014.240 \u25bc \u22120.44%",
+    "captured_at_utc": "2026-11-11T15:04:37.177232+00:00",
+    "seconds": 21.9,
+    "capture_ratio": "4:5",
+    "capture_viewport": {
+      "height": 1354,
+      "width": 1474
+    },
+    "sha256": "f7f7b635192e16a3260a743e452b5a461a6087e71a2058cfe415dd02e48b4441",
+    "width": 1088,
+    "height": 1360
+  },
+  "visual_inspection": {
+    "inspected": true,
+    "native_4x5": true,
+    "padding_added": false,
+    "header_legend_axis_logo_visible": true,
+    "live_post": false,
+    "admission_cause": "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE",
+    "note": "Inspected the exact downloaded chart, not a public Instagram post."
+  }
+}

@@ -2936,7 +2936,10 @@ class DurablePublicationCoordinator:
             from .publication_image_contract_v1 import ImageContractError, validate_write
             try:
                 validate_write(self, intent, destination)
-            except ImageContractError as image_error:
+            except (ValueError, OSError, KeyError, TypeError) as image_error:
+                if not isinstance(image_error, ImageContractError):
+                    image_error = ImageContractError("PUBLICATION_IMAGE_CONTRACT_INVALID",
+                        first_cause=str(image_error)[:180] if isinstance(image_error, ValueError) else type(image_error).__name__)
                 claimed = self.store.claim_platform_dispatch_attempt(
                     dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform=destination,
                     expected_status=existing.get("status") if existing else None)

@@ -85,8 +85,9 @@ def test_the_attribution_is_never_cropped_and_the_frame_is_16_by_9(queued):
         # logo included, is in the post image unchanged.
         assert list(framed.convert("RGB").crop((left, top, right, bottom)).getdata()) == \
             list(original.convert("RGB").getdata())
-    portrait = tv.frame(FIXTURE, Path(plan_["output_dir"]) / "ig.png", "4:5")
-    assert abs(portrait["width"] / portrait["height"] - 4 / 5) < 0.005
+    # Decision 124 replaces the older padded Instagram variant.
+    with pytest.raises(tv.SnapshotError, match="INSTAGRAM_NATIVE_4X5_CHART_REQUIRED"):
+        tv.frame(FIXTURE, Path(plan_["output_dir"]) / "ig.png", "4:5")
 
 
 def test_no_level_or_target_is_drawn_and_no_target_is_kept(queued):

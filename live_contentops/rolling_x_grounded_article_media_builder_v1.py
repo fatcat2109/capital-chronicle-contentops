@@ -1220,6 +1220,14 @@ def post_image_view(result, *, output_dir):
     from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
     view = deepcopy(result)
     article, documents = view["article"], view.get("evidence", [])
+    from .publication_image_contract_v1 import POLICY as IMAGE_CONTRACT
+    if article.get("publication_image_contract") == IMAGE_CONTRACT and article.get("tradingview_text_fallback"):
+        # The coordinator and transport re-read the existing bounded capture
+        # result. Never generate a drawn substitute for this text fallback.
+        view["media_assets"] = []
+        view["post_image_policy"] = {"policy": IMAGE_CONTRACT, "floor": "BOUNDED_CAPTURE_TEXT_FALLBACK",
+                                     "default_asset_id": None, "channel_media": article["native_destination_media"]}
+        return view
     evidence_hash = (view.get("accepted_evidence_sha256") or
                      view.get("simple_result", {}).get("accepted_evidence_sha256") or
                      view.get("simple_result", {}).get("publication_lifecycle_plan", {}).get("accepted_evidence_sha256"))
@@ -1231,6 +1239,9 @@ def post_image_view(result, *, output_dir):
                 validate_snapshot_asset(asset, market=article.get("market_asset"))
                 from live_contentops.tradingview_snapshot_v1 import validate_snapshot_asset as validate_delivery_snapshot
                 validate_delivery_snapshot(asset, article)
+            elif asset.get("modality") == "fred_graph":
+                from .publication_image_contract_v1 import _fred
+                _fred(asset)
             elif asset.get("modality") == "documentary_photo":
                 validate_contextual_photo(asset, require_pixel_review=False)
             elif asset.get("modality") == "source_bound_data_card":
@@ -1255,6 +1266,7 @@ def post_image_view(result, *, output_dir):
     charts = [a for a in usable if a.get("modality") == "source_backed_chart"]
     cards = [a for a in usable if a.get("modality") == "source_bound_data_card"]
     snapshots = [a for a in usable if a.get("modality") == "tradingview_chart_snapshot"]
+    snapshots.extend(a for a in usable if a.get("modality") == "fred_graph")
     if not charts and not cards and not snapshots:
         charts = [build_post_image_card(article, output_dir=output_dir, accepted_evidence_sha256=evidence_hash)]
         usable.insert(0, charts[0])
@@ -1268,6 +1280,8 @@ def post_image_view(result, *, output_dir):
                or (decision or {}).get("channel_media") or {})
     choices = {d: [i for i in choices.get(d, []) if i in allowed] or [default]
                for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+    if article.get("tradingview_instagram_skip"):
+        choices["instagram_business"] = []
     article["native_destination_media"] = choices
     if decision:
         original_charts = {c["asset_id"]: c for c in decision.get("charts", [])}

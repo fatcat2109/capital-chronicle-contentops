@@ -48,7 +48,8 @@ def test_installed_status_run_distributes_all_eight_and_resumes_without_duplicat
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     runtime = FixtureTransport()
     coordinator = Coordinator(store=store, transport_runtime=runtime,
-        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED"})
+        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED"},
+        clock=lambda: datetime(2026, 11, 10, 2, tzinfo=timezone.utc))
     coordinator.allow_prior_confirmed_distribution = True
 
     def publish(value_store, value):

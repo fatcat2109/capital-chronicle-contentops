@@ -6,13 +6,14 @@ price-scale comparison; no terminal, account or order API is imported.
 """
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, time, timedelta, timezone
 from hashlib import sha256
 import json
 import math
 from pathlib import Path
 import re
 from urllib.parse import urlparse, parse_qs
+from zoneinfo import ZoneInfo
 
 POLICY = "CC463_TRADINGVIEW_FIRST_V1"
 EFFECTIVE_FROM = datetime(2026, 11, 11, 14, 39, tzinfo=timezone.utc)
@@ -20,8 +21,9 @@ QUOTE_SKEW_SECONDS = 120
 QUOTE_ROOT = Path(r"A:\Capital Chronicle\ResearchRuns\claude-main-research")
 # Percentage differences, not fractions. Initial limits and the retained
 # observations (including their clock separation) are in CC-463/README.md.
-MAX_DIFFERENCE_PCT = {"XAUUSD": .25, "US500": 1., "EURUSD": .10,
-                      "USDJPY": .10, "USOIL": 1.50, "BTCUSD": .25}
+MAX_DIFFERENCE_PCT = {"XAUUSD": .15, "US500": .15, "EURUSD": .15,
+                      "USDJPY": .15, "USOIL": .40, "BTCUSD": .40}
+ET = ZoneInfo("America/New_York")
 
 
 class ImageContractError(ValueError):
@@ -58,6 +60,31 @@ def chart_last_price(title):
     return number(match[1].replace(",", ""))
 
 
+def comparison_clock(market, captured_at):
+    """Ops Product's 11 Nov closed-market amendment; ET, including DST.
+
+    Cash SPX uses 09:30–16:00 weekdays. The common weekend closure for the
+    other non-crypto charts uses Friday 17:00 through Sunday 18:00. No live
+    broker/chart gap is compared while a chart is frozen at that close.
+    """
+    captured = utc(captured_at)
+    local = captured.astimezone(ET)
+    if market == "BTCUSD":
+        return captured, False
+    if market == "US500":
+        if local.weekday() < 5 and time(9, 30) <= local.time() < time(16):
+            return captured, False
+        day = local.date() if local.weekday() < 5 and local.time() >= time(16) else local.date() - timedelta(days=1)
+        while day.weekday() >= 5:
+            day -= timedelta(days=1)
+        return datetime.combine(day, time(16), ET).astimezone(timezone.utc), True
+    if (local.weekday() == 5 or local.weekday() == 6 and local.time() < time(18)
+            or local.weekday() == 4 and local.time() >= time(17)):
+        friday = local.date() - timedelta(days=(local.weekday() - 4) % 7)
+        return datetime.combine(friday, time(17), ET).astimezone(timezone.utc), True
+    return captured, False
+
+
 def saved_main_quote(market, captured_at, *, root=None):
     """Use the nearest exact tick already held by Main, with both clocks bound.
 
@@ -65,7 +92,8 @@ def saved_main_quote(market, captured_at, *, root=None):
     recently written captures are parsed. No account fields leave this reader.
     An injected root keeps tests completely separate from the operating files.
     """
-    at, root = utc(captured_at), Path(root or QUOTE_ROOT)
+    capture_at, root = utc(captured_at), Path(root or QUOTE_ROOT)
+    at, closed = comparison_clock(market, capture_at)
     paths = []
     for pattern in ("t2-runs/*/request/capture.json", "brain-runs/*/request/capture.json",
                     "brain-runs/*/shadow-driver/request/capture.json",
@@ -92,19 +120,21 @@ def saved_main_quote(market, captured_at, *, root=None):
             bid, ask = number(tick["bid"]), number(tick["ask"])
             known = utc(data["known_at_utc"])
             skew = (at - tick_at).total_seconds()
-            if bid > ask or not -2 <= skew <= QUOTE_SKEW_SECONDS or known > at:
+            if bid > ask or not -2 <= skew <= QUOTE_SKEW_SECONDS or known > capture_at:
                 continue
             candidates.append((abs(skew), {"market": market, "instrument": market,
                 "price": (bid + ask) / 2, "quoted_at_utc": tick_at.isoformat(),
                 "known_at_utc": known.isoformat(), "source_path": str(path.resolve()),
                 "source_sha256": sha256(raw).hexdigest(), "source_content_hash": data["content_hash"],
-                "price_basis": "plan_feed"}))
+                "price_basis": "plan_feed", "comparison_basis": "LAST_CLOSE" if closed else "AT_CAPTURE",
+                "comparison_at_utc": at.isoformat()}))
         except (OSError, ValueError, TypeError, KeyError, OverflowError):
             continue
         if len(candidates) >= 3:
             break
     if not candidates:
-        raise ImageContractError("TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE", market=market,
+        raise ImageContractError("TRADINGVIEW_LAST_CLOSE_MAIN_QUOTE_UNAVAILABLE" if closed else
+                                 "TRADINGVIEW_CONTEMPORANEOUS_MAIN_QUOTE_UNAVAILABLE", market=market,
                                  maximum_clock_skew_seconds=QUOTE_SKEW_SECONDS)
     return min(candidates, key=lambda item: item[0])[1]
 
@@ -117,7 +147,8 @@ def compare_scale(market, snapshot, quote):
         raise ImageContractError("TRADINGVIEW_PLAN_QUOTE_INSTRUMENT_MISMATCH")
     price = chart_last_price(snapshot.get("page_title"))
     own = number(quote.get("price"))
-    skew = (utc(snapshot["captured_at_utc"]) - utc(quote["quoted_at_utc"])).total_seconds()
+    comparison_at, closed = comparison_clock(market, snapshot["captured_at_utc"])
+    skew = (comparison_at - utc(quote["quoted_at_utc"])).total_seconds()
     if not -2 <= skew <= QUOTE_SKEW_SECONDS or utc(quote["known_at_utc"]) > utc(snapshot["captured_at_utc"]):
         raise ImageContractError("TRADINGVIEW_PLAN_QUOTE_STALE", clock_skew_seconds=skew)
     if not quote.get("source_path") or not quote.get("source_sha256"):
@@ -127,6 +158,7 @@ def compare_scale(market, snapshot, quote):
     result = {"policy": POLICY, "market": market, "tv_symbol": SYMBOLS[market],
         "chart_sha256": snapshot["sha256"], "chart_price": price, "quote": dict(quote),
         "captured_at_utc": snapshot["captured_at_utc"], "clock_skew_seconds": skew,
+        "comparison_basis": "LAST_CLOSE" if closed else "AT_CAPTURE", "comparison_at_utc": comparison_at.isoformat(),
         "difference": difference, "difference_pct": difference_pct,
         "maximum_difference_pct": MAX_DIFFERENCE_PCT[market],
         "level_offset": difference if market == "USOIL" and quote.get("price_basis") != "chart_futures" else 0.}
@@ -180,7 +212,25 @@ def scope(store, intent, article):
         row = _row_payload(store, str(intent["plan_status_post"]))
         members = [_row_payload(store, key) for key in row["card_keys"]] if row.get("kind") == "run" else [row]
         return {m["symbol"]: m for m in members if m.get("symbol") in SYMBOLS}, False
-    market = article.get("market_asset") or intent.get("market_asset")
+    market = (article.get("market_asset") or intent.get("market_asset")
+              or article.get("asset_id") or (article.get("frozen_public_record") or {}).get("asset_id"))
+    page_id = intent.get("plan_analysis_page")
+    if intent.get("plan_analysis_link"):
+        link = store.get_outbox_message(str(intent["plan_analysis_link"]))
+        if link:
+            page_id = json.loads(link["payload"]).get("page_id")
+    if page_id:
+        held = store.get_outbox_message(str(page_id))
+        if held:
+            market = (json.loads(held["payload"]).get("source_plan") or {}).get("asset_id") or market
+    if market not in SYMBOLS:
+        # Use structured source scope where it exists. Never decide the market
+        # from prose or guess one out of a six-market report.
+        values = article.get("asset_ids") or intent.get("asset_ids") or []
+        values = [values] if isinstance(values, str) else values
+        markets = {value for value in values if value in SYMBOLS}
+        if len(markets) == 1:
+            market = next(iter(markets))
     # Economic releases lead with the source series, even if their analysis also
     # discusses one financial market. Pure market commentary uses its market.
     return ({market: None} if market in SYMBOLS else {}), _macro(article, intent)
@@ -202,6 +252,22 @@ def _fred(asset):
         raise ImageContractError("MACRO_SOURCE_GRAPH_BINDING_INVALID")
 
 
+def bounded_text_fallback(article, output_dir, *, now=None):
+    if article.get("publication_image_contract") != POLICY or not article.get("tradingview_text_fallback"):
+        return None
+    path = Path(str(article.get("tradingview_capture_state_path") or "")).resolve()
+    if not path.is_relative_to(Path(output_dir).resolve()) or not path.is_file():
+        return None
+    state = json.loads(path.read_bytes())
+    market = article.get("macro_chart_symbol") if _macro(article, {}) else article.get("market_asset")
+    elapsed = ((now or datetime.now(timezone.utc)) - utc(state["started_at_utc"])).total_seconds()
+    if (state.get("key") != article.get("tradingview_capture_key") or state.get("market") != market
+            or state.get("status") != "TEXT_ONLY" or not state.get("cause")
+            or not (state.get("attempts", 0) >= 2 or elapsed >= 300)):
+        return None
+    return state
+
+
 def validate_write(coordinator, intent, destination):
     """Check actual transport-selected media, once, for every fresh post type."""
     if coordinator._clock() < EFFECTIVE_FROM:
@@ -220,11 +286,17 @@ def validate_write(coordinator, intent, destination):
     if not assets:
         # Only the existing bounded capture owner can establish exhaustion.
         folder = Path(str(intent.get("output_dir") or ""))
+        article_state = bounded_text_fallback(article, folder, now=coordinator._clock())
+        if destination != "instagram_business" and article_state:
+            return {"policy": POLICY, "text_fallback": True,
+                    "first_causes": [article_state.get("first_cause") or article_state["cause"]]}
         rows = list(markets.values())
         states = []
         for row in rows:
             path = (folder.parent / row["key"] if row else folder) / "tradingview_capture_v1.json"
             state = json.loads(path.read_bytes()) if path.is_file() else {}
+            if row and (state.get("key") != row["key"] or state.get("market") != row["symbol"]):
+                state = {}
             states.append(state)
         if (destination != "instagram_business" and states and all(
                 s.get("status") == "TEXT_ONLY" and (s.get("attempts", 0) >= 2
@@ -263,6 +335,12 @@ def validate_write(coordinator, intent, destination):
                 overlay = asset.get("plan_overlay") or {}
                 if overlay.get("price_scale_check") != check or not overlay.get("basis_label"):
                     raise ImageContractError("TRADINGVIEW_WTI_BASIS_LABEL_REQUIRED")
+        if intent.get("plan_status_post") and not (intent.get("native_payload") or {}).get("reuse_run_carousel"):
+            # A multi-market root represents every member, not an arbitrary
+            # first market. Single-image routes keep their established lead.
+            if destination == "instagram_business" and set(markets) != {
+                    m for m in markets for a in assets if (a.get("tradingview_snapshot") or {}).get("tv_symbol") == tv.SYMBOLS[m]}:
+                raise ImageContractError("TRADINGVIEW_RUN_MARKET_CHART_MISSING")
     if destination == "instagram_business":
         for asset in assets:
             snap = asset.get("tradingview_snapshot") or {}

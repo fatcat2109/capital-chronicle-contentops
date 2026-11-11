@@ -131,10 +131,15 @@ class PublishedImages:
                 kind = item.get("image_type", "UNKNOWN")
                 counts[kind] = counts.get(kind, 0) + 1
             posts.append({"record_id": row["record_id"], "piece_id": row["piece_id"],
-                "destination": row.get("destination"), "market": row.get("market"),
+                "destination": row.get("destination"), "market": row.get("market") or next((
+                    i.get("price_scale_check", {}).get("market") for i in row["images"]
+                    if i.get("price_scale_check")), None),
                 "lead_image_type": next((i.get("image_type", "UNKNOWN") for i in row["images"]
                     if i["asset_id"] == row["lead_asset_id"]), None),
-                "image_contract": row.get("image_contract"), "observation_ref": row.get("observation_ref")})
+                "image_contract": row.get("image_contract") or next((
+                    i.get("price_scale_check", {}).get("policy") for i in row["images"]
+                    if i.get("price_scale_check")), None),
+                "text_fallback": row.get("text_fallback"), "observation_ref": row.get("observation_ref")})
         return {"day": day, "counts_by_type": counts, "observed_posts": posts}
 
     def _daily_pieces(self, rows, now):
@@ -148,8 +153,9 @@ class PublishedImages:
                           if day_of(row["published_at_utc"]) == day)
         return pieces
 
-    def reserve(self, *, piece_id, assets, lead_asset_id, now, canonical_url=None, enforce_cap=True):
-        if not assets or lead_asset_id not in {a.get("asset_id") for a in assets}:
+    def reserve(self, *, piece_id, assets, lead_asset_id, now, canonical_url=None, enforce_cap=True,
+                text_fallback=None, market=None, image_contract=None):
+        if ((not assets and not text_fallback) or (assets and lead_asset_id not in {a.get("asset_id") for a in assets})):
             raise ImagePolicyError("IMAGE_MISSING")
         images = []
         for asset in assets:
@@ -188,7 +194,8 @@ class PublishedImages:
             row = {"record_id": record_id, "piece_id": piece_id, "state": "RESERVED",
                    "day": day_of(now), "recorded_at_utc": now.astimezone(timezone.utc).isoformat(),
                    "canonical_url": canonical_url, "counts_as_article": enforce_cap,
-                   "lead_asset_id": lead_asset_id, "images": images}
+                   "lead_asset_id": lead_asset_id, "images": images, "market": market,
+                   "image_contract": image_contract, "text_fallback": text_fallback}
             _append(handle, row)
             return row
 
@@ -213,9 +220,9 @@ class PublishedImages:
 
     def seed(self, *, piece_id, canonical_url, images, published_at, observation_ref,
              counts_as_article=True, clock_basis="OBSERVED_PUBLICATION_CLOCK", destination=None,
-             market=None, image_contract=None):
+             market=None, image_contract=None, text_fallback=None):
         """Admit exact retained send bytes or bytes from an observed public image URL."""
-        if not images or not observation_ref:
+        if (not images and not text_fallback) or not observation_ref:
             raise ImagePolicyError("PUBLISHED_IMAGE_OBSERVATION_REQUIRED")
         from .publication_image_contract_v1 import image_type
         bound = [{"asset_id": str(i.get("asset_id") or index), "image_type": image_type(i),
@@ -229,9 +236,10 @@ class PublishedImages:
                "published_at_utc": published_at,
                "publication_clock_basis": clock_basis,
                "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
-               "counts_as_article": counts_as_article, "lead_asset_id": bound[0]["asset_id"],
+               "counts_as_article": counts_as_article, "lead_asset_id": bound[0]["asset_id"] if bound else None,
                "images": bound, "observation_ref": observation_ref,
-               "destination": destination, "market": market, "image_contract": image_contract}
+               "destination": destination, "market": market, "image_contract": image_contract,
+               "text_fallback": text_fallback}
         with _locked_feed(self.path) as handle:
             prior = [r for r in _read(handle.read()) if r["record_id"] == record_id]
             if prior and all(prior[-1].get(k) == row.get(k) for k in row if k != "recorded_at_utc"):

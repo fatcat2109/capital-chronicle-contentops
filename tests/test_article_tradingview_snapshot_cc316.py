@@ -1,5 +1,6 @@
 """Article -> frozen plan -> actual transport inputs. All captures/transports are controlled."""
 from copy import deepcopy
+from datetime import datetime, timezone
 import json
 from pathlib import Path
 import shutil
@@ -15,6 +16,16 @@ from test_post_image_policy_v1 import packet
 
 FIXTURE = Path(__file__).parent / "fixtures/cc314/SPX500USD_2026-11-05_13-21-11.png"
 CANONICAL = "https://capitalchronicle.substack.com/p/cc316-controlled"
+
+
+@pytest.fixture(autouse=True)
+def historical_cc316_epoch(monkeypatch):
+    """These retained decision-82 packets precede decision 124."""
+    class HistoricalClock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return datetime(2026, 11, 9, 18, tzinfo=timezone.utc)
+    monkeypatch.setattr(tv, "datetime", HistoricalClock)
 
 
 @pytest.fixture

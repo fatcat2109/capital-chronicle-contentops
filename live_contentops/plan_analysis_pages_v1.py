@@ -7,6 +7,7 @@ then renders them; it does not invent an explanation or a missing scenario.
 from __future__ import annotations
 
 from decimal import Decimal
+from datetime import datetime, timezone
 from hashlib import sha256
 from html import escape
 import json
@@ -211,6 +212,13 @@ def _public_geometry(plan, run):
 
 def _card(plan, run, folder, manuscript):
     """One new owned diagram of this run's levels; no later price history."""
+    from .publication_image_contract_v1 import EFFECTIVE_FROM
+    if posts._utc(run["freeze"]["frozen_at_utc"]) >= EFFECTIVE_FROM:
+        row = {"key": "plan-analysis-" + plan["plan_id"], "symbol": plan["asset_id"],
+               "at_utc": run["freeze"]["frozen_at_utc"],
+               "instrument_title": manuscript["title"],
+               "levels": posts._display_plan(posts._built_plan(plan))}
+        return posts._post_image(row, folder)[0]
     from .plan_analysis_media_v1 import render as render_card
     candidate, _, _ = _owner_candidate(plan, run)
     return render_card(plan,candidate,folder / 'media',frozen_at=run['freeze']['frozen_at_utc'])
@@ -258,7 +266,15 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT):
               "freeze": {k: freeze[k] for k in ("frozen_at_utc", "immutable_hash")},
               "authorship": manuscript.get("authorship", {}), "manuscript": manuscript, "run_root": str(Path(run_root)),
               "source_plan": plan, "media_assets": [card] if card else [], "output_dir": str(folder.resolve())}
-    (folder / "run_context_v1.json").write_bytes(canonical_bytes({"article": {"title": payload["title"], "body": body},
+    article = {"title": payload["title"], "body": body, "market_asset": plan.get("asset_id")}
+    state = folder / "tradingview_capture_v1.json"
+    if state.is_file():
+        from .publication_image_contract_v1 import POLICY
+        capture_state = json.loads(state.read_bytes())
+        article.update(publication_image_contract=POLICY,
+            tradingview_capture_state_path=str(state.resolve()), tradingview_capture_key=capture_state["key"],
+            tradingview_text_fallback=capture_state.get("status") == "TEXT_ONLY")
+    (folder / "run_context_v1.json").write_bytes(canonical_bytes({"article": article,
         "selection": {}, "media": {"assets": packet["media_assets"]}}))
     (folder / "page.json").write_bytes(canonical_bytes(packet))
     return packet

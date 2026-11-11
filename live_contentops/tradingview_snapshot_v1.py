@@ -84,6 +84,8 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     folder.mkdir(parents=True, exist_ok=True)
     media = folder / "media_assets"
     market = row["symbol"]
+    tv_symbol = SYMBOLS.get(market, market)
+    title = row.get("instrument_title") or NAMES.get(market, market)
     interval = interval_for((row.get("levels") or {}).get("valid_until_utc"), row["at_utc"])
     suffix = "" if ratio == "16:9" else "_" + ratio.replace(":", "x")
     state_path = folder / ("tradingview_capture" + suffix + "_v1.json")
@@ -95,13 +97,13 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     def save():
         state_path.write_text(json.dumps(state, sort_keys=True), encoding="utf-8")
 
-    cache_file = folder.parent / "tradingview_cache" / (market + suffix + ".json")
+    cache_file = folder.parent / "tradingview_cache" / (market.replace(":", "-") + suffix + ".json")
     taken = None
     try:
         cached = json.loads(cache_file.read_text(encoding="utf-8"))
         captured = _utc(cached.get("captured_at_utc"))
         if (captured and 0 <= (now - captured).total_seconds() < PLAN_CACHE_SECONDS
-                and cached.get("tv_symbol") == SYMBOLS[market]
+                and cached.get("tv_symbol") == tv_symbol
                 and Path(cached["path"]).is_file() and _sha256(Path(cached["path"])) == cached["sha256"]):
             taken = cached
     except (OSError, ValueError, KeyError, TypeError):
@@ -109,10 +111,10 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
     # Preserve this exact post's successful image even when it resumes after the cache expires.
     if not taken and state.get("snapshot"):
         prior = state["snapshot"]
-        if prior.get("tv_symbol") == SYMBOLS[market] and _sha256(Path(prior["path"])) == prior["sha256"]:
+        if prior.get("tv_symbol") == tv_symbol and _sha256(Path(prior["path"])) == prior["sha256"]:
             taken = prior
     if taken:
-        asset = snapshot_asset(market, row.get("instrument_title") or NAMES[market], taken, media, ratio)
+        asset = snapshot_asset(market, title, taken, media, ratio)
         validate_snapshot_asset(asset)
         if state.get("status") != "CAPTURED":
             state.update(status="CAPTURED", snapshot=taken, cache_hit=True)
@@ -138,7 +140,7 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
                 remaining = (deadline - datetime.now(timezone.utc)).total_seconds()
                 taken = capture(market, interval, media / "4x5" if suffix else media,
                     timeout=min(TIMEOUT_SECONDS, max(1, remaining)), ratio=ratio)
-            asset = snapshot_asset(market, row.get("instrument_title") or NAMES[market], taken, media, ratio)
+            asset = snapshot_asset(market, title, taken, media, ratio)
             validate_snapshot_asset(asset)
             state.update(status="CAPTURED", snapshot=taken, cache_hit=False)
             save()
@@ -362,7 +364,7 @@ def validate_snapshot_asset(asset: Mapping[str, Any], article: Mapping[str, Any]
             or not asset.get("rights_basis") or snap.get("levels_drawn") != []
             or snap.get("target_drawn") is not False
             or (snap.get("tv_symbol") not in SYMBOLS.values() and not economic)
-            or (market and SYMBOLS.get(market) != snap.get("tv_symbol"))
+            or (market and not economic and SYMBOLS.get(market) != snap.get("tv_symbol"))
             or snap.get("chart_url") != chart_url(snap["tv_symbol"], snap["interval"])
             or snap.get("interval") not in INTERVAL_LABELS):
         raise ValueError("TRADINGVIEW_SNAPSHOT_BINDING_INVALID")
@@ -421,6 +423,10 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
     The writer names the discussed market. A single structured candidate asset can
     supply it too. We never pick an arbitrary market from a multi-market release.
     """
+    from .publication_image_contract_v1 import EFFECTIVE_FROM
+    if datetime.now(timezone.utc) >= EFFECTIVE_FROM:
+        return prepare_contract_article(article, assets, output_dir=output_dir,
+                                        selected_candidate=selected_candidate)
     from copy import deepcopy
     article, assets = deepcopy(article), deepcopy(assets)
     candidate = selected_candidate or {}
@@ -520,6 +526,73 @@ def prepare_article_snapshot(article: Mapping[str, Any], assets: list[dict], *, 
         if article.get("visual_editorial_decision"):
             article["visual_editorial_decision"]["channel_media"] = choices
             article["visual_editorial_decision"]["tradingview_snapshot_asset_ids"] = [selected["asset_id"]]
+    return article, assets
+
+
+def prepare_contract_article(article, assets, *, output_dir, selected_candidate=None, snapshot=None):
+    """Decision 124 using the existing bounded capture and image owner."""
+    from copy import deepcopy
+    from .publication_image_contract_v1 import POLICY as CONTRACT, _macro, image_type
+    article, assets = deepcopy(article), deepcopy(assets)
+    aliases = {"GOLD": "XAUUSD", **{m: m for m in SYMBOLS}}
+    value = article.get("market_asset")
+    if not value:
+        ids = (selected_candidate or {}).get("asset_ids") or []
+        ids = [ids] if isinstance(ids, str) else ids
+        markets = {aliases[str(v).upper()] for v in ids if str(v).upper() in aliases}
+        value = next(iter(markets)) if len(markets) == 1 else None
+    market = aliases.get(str(value).upper())
+    macro = _macro(article, {})
+    if not market and not macro:
+        return article, assets
+    if market:
+        article["market_asset"] = market
+    # Retrospectives must use an event-bound retained chart, never today's
+    # capture. Rights and historical objects retain their existing restrictions.
+    if article.get("retrospective") or "Retrospective analysis, written on" in str(article.get("substack_body_markdown")):
+        return article, assets
+    if article.get("paid") or article.get("paywall") or article.get("audience") in {"paid", "paid_subscribers"}:
+        raise SnapshotError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
+    article["publication_image_contract"] = CONTRACT
+    first = next((a for a in assets if image_type(a) == "FRED_GRAPH"), None) if macro else None
+    symbol = article.get("macro_chart_symbol") if macro else market
+    if macro and not first and not re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(symbol or "")):
+        raise SnapshotError("MACRO_SOURCE_SERIES_SYMBOL_REQUIRED")
+    folder = Path(output_dir) / "media" / "tradingview"
+    key = hashlib.sha256(json.dumps([symbol, article.get("title"), article.get("substack_body_markdown")],
+        sort_keys=True).encode()).hexdigest()[:24]
+    row = {"key": key, "symbol": symbol, "instrument_title": article["title"],
+           "at_utc": datetime.now(timezone.utc).isoformat(), "levels": {}}
+    if not first:
+        first = plan_snapshot(row, folder, snapshot=snapshot)
+        article.update(tradingview_capture_state_path=str((folder / "tradingview_capture_v1.json").resolve()),
+                       tradingview_capture_key=key)
+    from .destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    if first is None:
+        article.update(tradingview_text_fallback=True, lead_image_asset_id=None,
+            tradingview_instagram_skip="TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED")
+        choices = {d: [] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+        article.update(native_destination_media=choices, post_visual_destination_media=choices)
+        return article, []
+    first.update(article_inclusion=True, canonical_article_media=True, placement_after="introduction")
+    # No locally drawn headline card leads a new market or macro article.
+    rest = [a for a in assets if a["asset_id"] != first["asset_id"] and not a.get("post_card_binding")]
+    assets = [first, *rest]
+    portrait = None
+    if first.get("modality") == "tradingview_chart_snapshot":
+        portrait = plan_snapshot(row, folder, snapshot=snapshot, ratio="4:5")
+        if portrait:
+            portrait.update(derivative_only=True, article_inclusion=False, canonical_article_media=False)
+            assets.append(portrait)
+    if not portrait:
+        article["tradingview_instagram_skip"] = "TRADINGVIEW_PORTRAIT_CAPTURE_FAILED_IMAGE_REQUIRED"
+    choices = {d: [first["asset_id"]] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS}
+    choices["instagram_business"] = [portrait["asset_id"]] if portrait else []
+    article.update(lead_image_asset_id=first["asset_id"], tradingview_snapshot_asset_ids=[first["asset_id"]],
+                   native_destination_media=choices, post_visual_destination_media=choices)
+    if article.get("visual_editorial_decision"):
+        article["visual_editorial_decision"].update(channel_media=choices,
+            tradingview_snapshot_asset_ids=[first["asset_id"]] if first.get("tradingview_snapshot") else [])
     return article, assets
 
 
