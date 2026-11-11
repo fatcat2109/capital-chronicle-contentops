@@ -2751,6 +2751,22 @@ class DurablePublicationCoordinator:
         registration = self._intent_registration(destination, intent)
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        if existing is None:
+            from .audience_feedback_v1 import stopped_type_for_new_message
+            stopped = stopped_type_for_new_message(self.store, message, intent)
+            if stopped:
+                claimed = self.store.claim_platform_dispatch_attempt(dispatch_id=ids["dispatch_id"],
+                    message_id=ids["message_id"], platform=destination, expected_status=None)
+                if not claimed:
+                    actual = self.store.get_platform_dispatch(ids["dispatch_id"]) or {}
+                    return {"destination": destination, "status": actual.get("status", UNKNOWN_WRITE),
+                            "publish_called": False, "reason_code": "EXACT_DISPATCH_ALREADY_CLAIMED"}
+                self.store.set_dispatch_status(ids["dispatch_id"], DEFINITE_NO_WRITE)
+                self.store.set_outbox_status(ids["message_id"], DEFINITE_NO_WRITE)
+                self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
+                    work_item_id=intent["work_item_id"], status=stopped["reason_code"])
+                return {**stopped, "destination": destination, "dispatch_id": ids["dispatch_id"],
+                        "status": DEFINITE_NO_WRITE, "publish_called": False}
         restored_x_no_write = False
         restored_substack_no_write = False
         repaired_composer_no_write = False

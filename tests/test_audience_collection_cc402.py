@@ -1,4 +1,5 @@
 import json
+import pytest
 from datetime import datetime, timezone
 
 from live_contentops.audience_collection_v1 import run_collection
@@ -8,6 +9,16 @@ from live_contentops import destination_performance_observer_v1 as observer
 from live_contentops.channel_engagement_v1 import weekly_channel_engagement, weekly_audience_lines
 
 NOW = datetime(2026, 11, 11, 6, tzinfo=timezone.utc)
+
+
+@pytest.fixture(autouse=True)
+def fixed_collection_clock(monkeypatch):
+    from live_contentops import audience_collection_v1 as audience
+    class Clock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return NOW.astimezone(tz) if tz is not None else NOW.replace(tzinfo=None)
+    monkeypatch.setattr(audience, "datetime", Clock)
 
 
 def seed(tmp_path, routes=("threads", "telegram")):

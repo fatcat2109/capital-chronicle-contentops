@@ -118,7 +118,7 @@ class PublicTelegramMetrics:
     def __init__(self, client=None):
         if client is None:
             from .neo_endpoint_executor_v1 import NeoMcpClient
-            client = NeoMcpClient()
+            client = NeoMcpClient(task_name="audience metrics", group_title=GROUP)
         self.client, self.page, self.group = client, None, None
 
     def _open(self, object_id):
