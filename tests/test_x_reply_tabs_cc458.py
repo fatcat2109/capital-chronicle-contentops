@@ -186,6 +186,31 @@ def test_jim_can_clear_a_previously_ready_box_without_agent_refilling_it(setup):
     assert state["tabs"][0]["status"] == "JIM_EDIT_PRESERVED"
 
 
+def test_compact_parent_without_permalink_and_x_trailing_space_are_verified(setup):
+    neo = Neo()
+    row = {**item(1), "post_text": "Gold rises on inflation"}
+    page, _ = neo.open_draft(row, None)
+    tab = {**row, "page_id": page}
+    neo.current[page]["rows"] = []  # X's compact dialog parent has no timestamp permalink.
+    neo.current[page]["reply_parent"] = {"post_id": "1", "author_handle": "FirstSquawk", "text": row["post_text"]}
+    neo.current[page]["editors"] = [row["draft_text"] + " "]
+    assert neo.ensure_draft(tab, neo.inspect(page)) == "READY_FOR_JIM"
+    assert tab["verified_browser_text"] == row["draft_text"] + " "
+    neo.current[page]["reply_parent"]["post_id"] = "2"
+    assert neo.ensure_draft(tab, neo.inspect(page)) == "TARGET_OR_COMPOSER_UNAVAILABLE"
+    assert not neo.filled
+
+
+def test_whitespace_edit_after_verification_is_jims_to_keep(setup):
+    store, _, _ = setup
+    neo, state = Neo(), tabs.latest_state(store)
+    page = seed_tab(state, neo, item(1))
+    state["tabs"][0].update(status="READY_FOR_JIM", verified_browser_text="Draft 1 ")
+    neo.current[page]["editors"] = ["Draft 1  "]
+    tabs.sync_tabs(store, state, {"items": []}, neo, now=NOW)
+    assert state["tabs"][0]["status"] == "JIM_EDIT_PRESERVED" and not neo.filled
+
+
 def test_failed_drafter_leaves_group_unchanged_and_waits_two_hours(setup):
     store, _, root = setup
     neo = Neo()

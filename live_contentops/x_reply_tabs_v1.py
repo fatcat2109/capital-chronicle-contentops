@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from datetime import timedelta
+from html import unescape
 import json
 from pathlib import Path
 import re
@@ -322,10 +323,17 @@ class NeoReplyTabs:
     def ensure_draft(self, tab, observed):
         target = any(r["tweet_id"] == tab["post_id"] and r["handle"].casefold() == tab["author_handle"].casefold()
                      for r in observed["rows"])
+        parent = observed.get("reply_parent")
+        if parent:
+            def norm(text):
+                return " ".join(unescape(text).split())
+            target = (parent["post_id"] == tab["post_id"]
+                      and parent["author_handle"].casefold() == tab["author_handle"].casefold()
+                      and bool(tab.get("post_text")) and norm(parent["text"]) == norm(tab["post_text"]))
         if not target or len(observed["editors"]) != 1:
             return "TARGET_OR_COMPOSER_UNAVAILABLE"
         actual = observed["editors"][0]
-        if actual and actual != tab["draft_text"]:
+        if actual and actual.rstrip() != tab["draft_text"].rstrip():
             return "JIM_EDIT_PRESERVED"
         if not actual:
             fields = observed["textboxes"]
@@ -333,7 +341,12 @@ class NeoReplyTabs:
                 return "COMPOSER_NOT_UNIQUE"
             self.client.act(tab["page_id"], "fill", ref=fields[0]["ref"], value=tab["draft_text"])
             observed = self.inspect(tab["page_id"])
-        return "READY_FOR_JIM" if observed["editors"] == [tab["draft_text"]] else "DRAFT_NOT_RETAINED"
+        if len(observed["editors"]) == 1 and observed["editors"][0].rstrip() == tab["draft_text"].rstrip():
+            # X adds a trailing composer space. Record that exact initial value
+            # so even a later whitespace edit by Jim remains his edit.
+            tab["verified_browser_text"] = observed["editors"][0]
+            return "READY_FOR_JIM"
+        return "DRAFT_NOT_RETAINED"
 
     def capture_inputs(self, store, root):
         """Reuse the held observer with bounded visible own-reply and mention rows."""
@@ -387,6 +400,11 @@ def sync_tabs(store, state, pack, driver, *, now):
     kept, actions = [], []
     original_tabs = list(state["tabs"])
     for index, tab in enumerate(original_tabs):
+        if not tab.get("post_text"):
+            source = next((item for item in pack["items"] if item["post_id"] == tab["post_id"]
+                           and item["draft_text"] == tab["draft_text"]), None)
+            if source:
+                tab["post_text"] = source.get("post_text")
         page = pages.get(tab["page_id"])
         if not page:
             actions.append({"post_id": tab["post_id"], "action": "ALREADY_CLOSED"})
@@ -399,7 +417,10 @@ def sync_tabs(store, state, pack, driver, *, now):
             continue
         observed = driver.inspect(tab["page_id"])
         texts = observed["editors"]
-        edited = any(text and text != tab["draft_text"] for text in texts) or len(texts) > 1
+        baseline = tab.get("verified_browser_text", tab["draft_text"])
+        verified = tab.get("status") in {"READY_FOR_JIM", "JIM_EDIT_PRESERVED"} or "verified_browser_text" in tab
+        edited = any(text and (text != baseline if verified else text.rstrip() != baseline.rstrip())
+                     for text in texts) or len(texts) > 1
         if tab.get("status") in {"READY_FOR_JIM", "JIM_EDIT_PRESERVED"} and texts == [""]:
             edited = True  # Jim may have deliberately cleared a previously verified box.
         if not texts and tab["post_id"] not in sent:
@@ -428,6 +449,7 @@ def sync_tabs(store, state, pack, driver, *, now):
             continue
         page_id, group = driver.open_draft(item, state["group_id"])
         tab = {**{k: item[k] for k in ("post_id", "post_url", "post_time_utc", "author_handle", "draft_text", "intent_url")},
+               "post_text": item.get("post_text"),
                "page_id": page_id, "waiting_url": item["intent_url"]}
         state["group_id"] = group
         state["tabs"].append(tab)

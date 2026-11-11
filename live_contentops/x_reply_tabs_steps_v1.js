@@ -7,6 +7,15 @@ const result = await page.evaluateInPage(() => {
   const scope = document.querySelector('[role="dialog"]') || document;
   const editors = Array.from(scope.querySelectorAll('[contenteditable="true"][role="textbox"]'))
     .filter(visible).map(e => e.innerText.replace(/\r\n/g, '\n'));
+  // X's compact reply-parent article has no permalink around its time.
+  // Bind its visible author/text to the exact in_reply_to intent parameter.
+  const parent = document.querySelector('[role="dialog"] article');
+  const handle = parent && Array.from(parent.querySelectorAll('span')).map(e => e.textContent.trim())
+    .find(t => /^@[A-Za-z0-9_]+$/.test(t));
+  const reply_parent = parent && handle ? {
+    post_id:new URL(location.href).searchParams.get('in_reply_to'),
+    author_handle:handle.slice(1), text:parent.querySelector('[data-testid="tweetText"]')?.innerText || ''
+  } : null;
   const count = label => {
     const m = String(label || '').match(/^([\d,]+)(?:\s|$)/);
     return m ? Number(m[1].replace(/,/g, '')) : null;
@@ -35,7 +44,7 @@ const result = await page.evaluateInPage(() => {
     const index = rows.findIndex(r => r.tweet_id === current[1]);
     if (index > 0) rows[index].in_reply_to_status_id = rows[index - 1].tweet_id;
   }
-  return {authenticated:Boolean(authenticated), editors, rows};
+  return {authenticated:Boolean(authenticated), editors, rows, reply_parent};
 });
 if (result.writtenToFile || !Object.prototype.hasOwnProperty.call(result, 'value'))
   throw new Error('REPLY_DOM_RESULT_UNAVAILABLE');
