@@ -1,0 +1,194 @@
+{
+  "item": "CC-425",
+  "observed_at_utc": "2026-11-11T08:23:40.300133+00:00",
+  "branch": "backlog/cc-425-cpi-reaction-page",
+  "code_commit": "54b5af46678f49d070f521dabcb12464502f0da7",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "source_export_sha256": "5aec0a3da9141dc8a2120ee629486aae30dc658d3b1f838e2727bdf2d7f9e750",
+  "source_known_at_utc": "2026-11-10T09:31:46.640512Z",
+  "source_original_table_sha256": [
+    "9a35618e34f86afbc5002b28771e5ced2f8467456cf7755ffff008266cea4053",
+    "7d5ecd3d5f959f9204a63457ab626076b0f937f287ff6c15dde39a662883481d",
+    "445ceccf3d1dcb5bbed07ae467d7ca901e8a645859ece4085c8a7c5a99a58efa",
+    "73aeb33decdd2fa8104cc2091b3e8441abb341ec7708296dc5f6af917a7b3e4e",
+    "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236"
+  ],
+  "operation_id": "cc425-cpi-reaction-history-20261111-v1",
+  "binding_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc425-cpi-reaction-history-20261111-v1\\binding.json",
+  "qualified_article_count": 1,
+  "derivative_intent_count": 8,
+  "article_identity": "08d670ac572144224b951de4d57e5b29f572a7ddf1872df9a5f9d8de125ff18d",
+  "article_revision": "dcdc65b076fa42f1b0d52edb03fd593bcea711fe73d5aac4c04a7d6e672435bc",
+  "preview_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\review.html",
+  "preview_sha256": "29173f14f10ff1771d6ae2a1d00a63d412ef25fd6fadc25df5b46bde79ec5913",
+  "table_count": 5,
+  "public_write_performed": false,
+  "unknown_write_count": 0,
+  "remaining": [
+    "Ops Product table review required by CC-417",
+    "CC-417 November map/result and original data clock update",
+    "Canonical Substack publication/readback and exact CPI-review link"
+  ],
+  "top_level_launch": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "observation_source": "Live ancestor codex.exe launch argument readback; runtime values were not exposed"
+  },
+  "native_editorial_execution": {
+    "configured_not_observed_count": 4,
+    "configured_not_observed_roles": [
+      {
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_c134992d26d8",
+        "role": "select",
+        "stage": "select"
+      },
+      {
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_136a0e25ec14",
+        "role": "select",
+        "stage": "media-plan"
+      },
+      {
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_write_851105f5e42d",
+        "role": "write",
+        "stage": "write"
+      },
+      {
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_write_851105f5e42d",
+        "role": "revise",
+        "stage": "revise"
+      }
+    ],
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 3,
+    "native_invocation_identity_unknown_count": 0,
+    "observations": [
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact frozen desktop_request_select.json requested_model and requested_reasoning_effort fields; configured values are not observed runtime telemetry.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_c134992d26d8",
+        "model": null,
+        "observation_source": "Supported native task context supplies canonical task name /root/native_select_c134992d26d8; actual model and effort are unavailable in that context.",
+        "reasoning_effort": null,
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "exact frozen native request",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_136a0e25ec14",
+        "model": null,
+        "observation_source": "Canonical task name supplied in supported native subagent context. Actual model and reasoning effort are not exposed in this role context.",
+        "reasoning_effort": null,
+        "role": "select",
+        "stage": "media-plan",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc425-cpi-reaction-history-20261111-v1\\desktop_request_write.json",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_write_851105f5e42d",
+        "model": null,
+        "observation_source": "Native subagent task identity is supplied by the collaboration runtime. This turn exposes no supported runtime model or reasoning-effort telemetry. Model and effort are recorded only as configured by the exact frozen native request; no environment, credential, session/config secret or process-argument inspection was performed.",
+        "reasoning_effort": null,
+        "role": "write",
+        "speed": "standard",
+        "stage": "write",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc425-cpi-reaction-history-20261111-v1\\desktop_request_revise.json",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "max",
+        "invocation_id": "/root/native_write_851105f5e42d",
+        "model": null,
+        "observation_source": "Native subagent task identity is supplied by the collaboration runtime. This turn exposes no supported runtime model or reasoning-effort telemetry. Model and effort are recorded only as configured by the exact frozen native request; no environment, credential, session/config secret or process-argument inspection was performed.",
+        "reasoning_effort": null,
+        "role": "revise",
+        "speed": "standard",
+        "stage": "revise",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [],
+    "observed_models": [],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "final-visual": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "visual-edit": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 4,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "preexisting_logs": [
+    {
+      "path": "docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "observed_before_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "observed_after_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "included_in_delivery": false
+    },
+    {
+      "path": "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "observed_before_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "observed_after_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "included_in_delivery": false
+    }
+  ],
+  "writer_render_review": {
+    "path": "docs\\publisher\\CC-425\\writer-render-review.json",
+    "sha256": "990fa64d218045883cbf95cb41768ae70ff55eaff1b744c4f0f3fd39f199395e",
+    "preview_sha256": "29173f14f10ff1771d6ae2a1d00a63d412ef25fd6fadc25df5b46bde79ec5913"
+  }
+}

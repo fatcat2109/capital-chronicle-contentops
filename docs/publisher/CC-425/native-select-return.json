@@ -1,0 +1,32 @@
+{
+  "request_sha256": "c134992d26d86cde3099b568d67dbb92bdca19afda4575442845feaf41eddefb",
+  "output": {
+    "ordered_candidate_plan": [{
+      "angle": "A dated reference to how six markets reacted after CPI releases since 2024, comparing each supplied horizon while keeping forecast sources, measured instruments, proxies and denominators separate.",
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "candidate_id": "simple-story-464432d3937424b0570e6c5f",
+      "evidence_plan": "Resolve only the exact CC-417 public desk export already bound to this operation. Read all five structured tables and all six markets across the four supplied horizons. Retain each forecast source, price series, proxy label, gap, observed sample and eligible denominator; code owns arithmetic and table insertion at [[CPI_REACTION_TABLES]]. Determine the last release actually present from the export, preserve its original data-capture clock, and distinguish immediate reactions from close-to-close observations without causal attribution. Prepare the CC-403 first-person reader argument, natural attribution and So what line. Name public instruments for each market without transferring measured returns across instruments. The producer predates the November release and lacks its frozen map/result: record that exact gap and do useful preparation from the held historical sample. Do not invent a November outcome, current map, forecast or scenario probability. Preserve the 2026-11-11T07:03:57.302409Z operation cutoff and existing source ledger and limit; no external retrieval is requested for this role. Ops Product must read the table before the first post. After producer refresh and that named review, revise this same article through the existing owners and coordinator; this preparation sends nothing.",
+      "primary_reader_question": "What can the historical CPI reaction tables tell us about differences between an immediate move and the later close, and where do their samples and instruments limit comparison?",
+      "research_queries": ["CC-417 public desk export CPI reactions since 2024 six markets four horizons forecast sources eligible denominators"],
+      "selection_rationale": "This is the exact CC-425 owner request and an unpublished, source-bound historical reference with a useful comparison question. Select it as a document lens rather than a new release report or daily wrap. The two EIA candidates describe unchanged dated observations and producer wire corrections, offering no independent new article for this operation. The missing November map/result limits the later revision and first-post step, while the retained historical observations support preparation now."
+    }],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select only the requested CPI historical reference. Prepare the exact held CC-417 comparison and preserve every source and sample distinction. Record the missing November frozen map/result for the existing revision and named Ops Product table review; no new edition, source retrieval or publication.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_select_c134992d26d8",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native task context supplies canonical task name /root/native_select_c134992d26d8; actual model and effort are unavailable in that context.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "Exact frozen desktop_request_select.json requested_model and requested_reasoning_effort fields; configured values are not observed runtime telemetry."
+  }
+}

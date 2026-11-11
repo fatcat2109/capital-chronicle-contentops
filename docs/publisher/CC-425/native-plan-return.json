@@ -1,0 +1,94 @@
+{
+  "request_sha256": "136a0e25ec14528f4d68dcc509e83526de7b7cdd3cafec8c129452313a10ae26",
+  "output": {
+    "story_plan": {
+      "thesis": "Use the held CPI reaction history as a statistical reference for how each market moved across release horizons. Lead with the limits of incomplete coverage and source-specific samples. Preserve the selected historical-reference scope and the frozen Main capture at 2026-11-10T09:31:46.640512Z.",
+      "photo_plan": {
+        "proposal": "Use an original chart of the bound computed reaction changes as the lead visual. Optional contextual discovery may seek an authentic BLS or US consumer-price collection photograph through the existing media owner.",
+        "evidence_required": [
+          "Exact source URL and original bytes",
+          "Creator and exact public-domain status or reuse license",
+          "Identity and depicted date",
+          "Archive caption where applicable",
+          "Prior-publication image hash check"
+        ],
+        "discovery_status": "No photograph discovered or licensed in this role return. No external acquisition performed.",
+        "caption_direction": "Describe the actual depicted subject and archive date. Keep contextual photography distinct from the historical release observations."
+      },
+      "chart_plan": [
+        {
+          "purpose": "Make individual release reactions and missing endpoints inspectable",
+          "proposal": "Market-specific heatmaps or small-multiple dot plots using the Market reactions table, with the full reference table retained",
+          "source_table_sha256": "9a35618e34f86afbc5002b28771e5ced2f8467456cf7755ffff008266cea4053",
+          "series": "Existing computed percentage changes from the exact close at release to +5m, +30m, 4 p.m. ET close and the following weekday 4 p.m. ET close",
+          "rules": [
+            "Preserve every release date, reference month, market, provider and proxy identity",
+            "Separate providers and instruments, including index and futures proxies",
+            "Render absent exact endpoints as gaps",
+            "Use supplied computed values without filling or smoothing",
+            "Keep six-market coverage visible even where observations are absent"
+          ]
+        },
+        {
+          "purpose": "Explain which observations support each comparison",
+          "proposal": "Compact coverage graphic or table adjacent to reaction charts",
+          "source_table_sha256": "7d5ecd3d5f959f9204a63457ab626076b0f937f287ff6c15dde39a662883481d",
+          "rules": [
+            "Use existing coverage counts exactly",
+            "Retain missingness and source windows",
+            "Do not present a contiguous observation history when gaps exist"
+          ]
+        },
+        {
+          "purpose": "Show the release information available in the historical packet",
+          "proposal": "Optional separate headline and core monthly first-print panels",
+          "source_table_sha256": "445ceccf3d1dcb5bbed07ae467d7ca901e8a645859ece4085c8a7c5a99a58efa",
+          "rules": [
+            "Use dated BLS seasonally adjusted monthly percent changes exactly",
+            "Keep headline and core distinct",
+            "Leave unavailable first prints blank",
+            "Retain the full bound historical window",
+            "This historical-reference page uses its admitted observations. A new release-analysis package would require its own source-bound latest changes and component history"
+          ]
+        },
+        {
+          "purpose": "Expose source-specific descriptive comparisons",
+          "proposal": "Optional faceted dots or table of supplied hot, in-line and cool mean and median moves with observed n and total count",
+          "source_table_sha256": "a25a398ce1da479688d078e5694db482e6ef5303c4b75a93b50917f65ab5d236",
+          "classification_source_table_sha256": "73aeb33decdd2fa8104cc2091b3e8441abb341ec7708296dc5f6af917a7b3e4e",
+          "rules": [
+            "Keep forecast source, CPI measure, price series and horizon separate",
+            "Copy supplied means, medians, sample sizes and classifications",
+            "Retain later-retrieved forecast labels",
+            "Retain absent yardsticks and their stated cause",
+            "Describe changes around releases without causal or predictive claims",
+            "Do not turn category frequencies into scenario probabilities"
+          ]
+        }
+      ],
+      "source_requests": [],
+      "writer_constraints": [
+        "MAX chooses final count, chart form and placement from these proposals",
+        "Bind SOURCE_1, report:cc-cpi-reactions-since-2024 and the exact supplied table hashes in metadata",
+        "Use Capital Chronicle computed outputs and BLS first prints with natural attribution. Raw third-party prices and forecast tables remain excluded under public redistribution rights",
+        "The held packet lacks the frozen 10 November scenario map and its result. Preserve that capture-time fact and do not manufacture or update either",
+        "No new scenarios, forecasts or latest-release analysis are needed to complete this selected reference page",
+        "Keep historical observations bounded to their own release and endpoint clocks",
+        "Existing packet is adequate for these proposals. No new factual-source request is needed"
+      ]
+    }
+  },
+  "invocation_observation": {
+    "invocation_id": "/root/native_select_136a0e25ec14",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": null,
+    "reasoning_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "low",
+    "actual_configuration_unavailable": true,
+    "configuration_source": "exact frozen native request",
+    "observation_source": "Canonical task name supplied in supported native subagent context. Actual model and reasoning effort are not exposed in this role context."
+  }
+}

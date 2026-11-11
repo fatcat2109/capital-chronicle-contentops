@@ -1,0 +1,3 @@
+# Preserve the exact supported native returns, including their line endings.
+native-*-return.json -text -eol
+writer-render-review.json -text -eol

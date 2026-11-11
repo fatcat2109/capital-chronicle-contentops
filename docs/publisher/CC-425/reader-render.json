@@ -1,0 +1,19 @@
+{
+  "operation_id": "cc425-cpi-reaction-history-20261111-v1",
+  "article_identity": "08d670ac572144224b951de4d57e5b29f572a7ddf1872df9a5f9d8de125ff18d",
+  "article_revision": "dcdc65b076fa42f1b0d52edb03fd593bcea711fe73d5aac4c04a7d6e672435bc",
+  "preview_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\review.html",
+  "preview_sha256": "29173f14f10ff1771d6ae2a1d00a63d412ef25fd6fadc25df5b46bde79ec5913",
+  "tables": 5,
+  "media_assets": [
+    {
+      "asset_id": "cpi-gold-horizons-5aec0a3da914-v1",
+      "sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44"
+    },
+    {
+      "asset_id": "cc425-usda-grocery-20230622",
+      "sha256": "9068896edca5b08b498ab339f7e77df51092b5824babbf4bcd9bdbfbba174b08"
+    }
+  ],
+  "public_write_performed": false
+}
