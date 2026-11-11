@@ -35,6 +35,16 @@ def test_positioning_age_uses_actual_as_of_not_fresh_report_clock():
         policy.check_fact(post(), value, now=NOW)
 
 
+def test_a_report_date_in_the_fact_sentence_does_not_refresh_positioning():
+    value = source("On 11 Nov 2026, CFTC data for 3 Nov show 129,414 S&P 500 futures contracts net short.")
+    with pytest.raises(ValueError, match="FACT_POSITIONING_OVER_THREE_CALENDAR_DAYS"):
+        policy.check_fact(post("S&P 500 CFTC positioning"), value, now=NOW)
+
+
+def test_nasdaq_e_minis_are_not_classified_as_sp_futures():
+    assert "SPX" not in policy.markets("CFTC Nasdaq 100 e-minis positioning")
+
+
 @pytest.mark.parametrize("days,valid", [(3, True), (4, False)])
 def test_positioning_three_calendar_day_boundary(days, valid):
     value = source("CFTC yen contracts: 102,321.", kind="positioning", markets=["USDJPY"],

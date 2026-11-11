@@ -15,7 +15,7 @@ SEND_SECONDS = 15 * 60
 MARKETS = {
     "NDX": r"\b(?:nasdaq[ -]?100|ndx|nq(?:=f)?)\b",
     "NASDAQ": r"\bnasdaq\b",
-    "SPX": r"\b(?:s&p(?:\s*500)?|s\s*&\s*p(?:\s*500)?|spx|us500|es=f|e-mini(?:s)?)\b",
+    "SPX": r"\b(?:s&p(?:\s*500)?|s\s*&\s*p(?:\s*500)?|spx|us500|es=f)\b",
     "DOW": r"\b(?:dow|djia|us30)\b",
     "XAUUSD": r"\b(?:gold|xauusd|gc=f)\b",
     "XAGUSD": r"\b(?:silver|xagusd)\b",
@@ -95,7 +95,15 @@ def describe(source, fact_text=None):
     reference = utc(source["known_at_utc"]).astimezone(ET).date()
     kind = "positioning" if POSITIONING.search(sentence) else (
         "daily" if re.search(r"\b(?:close[ds]?|daily|official yield)\b", sentence, re.I) else "session")
-    observation = _day(sentence, reference)
+    # A report date in the same sentence cannot replace the data's own date.
+    explicit = re.search(r"\b(?:CFTC|COT|positioning|positions?|data)\b.{0,45}?\b(?:for|as of|dated)\s+", sentence, re.I)
+    if explicit:
+        observation = _day(sentence[explicit.end():], reference)
+    else:
+        date_pattern = (r"\b\d{4}-\d{2}-\d{2}\b|\b\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*(?:\s+20\d{2})?\b|"
+                        r"\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+\d{1,2}(?:,?\s+20\d{2})?\b")
+        dates = {_day(m[0], reference) for m in re.finditer(date_pattern, sentence, re.I)}
+        observation = next(iter(dates)) if len(dates) == 1 else None
     return {"kind": kind, "markets": sorted(markets(sentence) or markets(source.get("label", ""))),
             "as_of_date": observation.isoformat() if observation else None, "sentence": sentence}
 

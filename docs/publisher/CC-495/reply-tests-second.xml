@@ -51,7 +51,7 @@ dry = False
         monkeypatch.setattr(sys, "stdout", output)
 &gt;       cli.main(["--store", str(tmp_path / "store.sqlite3"), "--publish", *(["--dry-run"] if dry else [])])
 
-tests\test_x_reply_bot_entry_cc464.py:39: 
+tests\test_x_reply_bot_entry_cc464.py:39:
 _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
 scripts\plan_status_posts.py:178: in main
     result["audience_collection"] = run_collection(store, limit=4)

@@ -505,6 +505,7 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
               "schedule_changed": False, "artifact_path": str(root / "result.json")}
     stage_seconds = {}
     tick_started = perf_counter()
+    current_candidates = []
     try:
         bot = bot or TelegramBot()
         result["binding"] = process_updates(store, binding_path=binding_path, bot=bot, now=now)
@@ -539,7 +540,10 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
                       selection_causes=request["selection_causes"])
         tried = {json.loads(r["payload"])["post_id"] for r in store.list_outbox_messages(destination=ATTEMPTS)
                  if r["status"] != "AVAILABLE"}
+        result["dropped_candidates"].extend({"post_id": p["post_id"], "cause": "PREVIOUSLY_ATTEMPTED"}
+                                            for p in request["candidates"] if p["post_id"] in tried)
         request["candidates"] = [p for p in request["candidates"] if p["post_id"] not in tried][:12]
+        current_candidates = request["candidates"]
         if not request["candidates"]:
             result["status"] = "NO_NEW_ELIGIBLE_TARGETS"
             return result
@@ -576,8 +580,17 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
         # BotError strings are fixed/redacted; other exceptions can contain a URL or private chat.
         safe_cause = str(exc) if isinstance(exc, BotError) or (isinstance(exc, ValueError) and re.fullmatch(r"[A-Z0-9_]+", str(exc))) else type(exc).__name__
         result.update(status="REPLY_BOT_FAILED", cause=safe_cause)
+        result.setdefault("dropped_candidates", []).extend({"post_id": p["post_id"], "cause": safe_cause}
+                                                          for p in current_candidates)
     finally:
         result["ended_at_utc"] = packs.utcnow().isoformat()
+        # Failed/timeout calls still explain where this candidate's time went.
+        for stage, folder in (("ranking", "rank"), ("drafting", "writer")):
+            call_path = root / "editorial" / folder / "call.json"
+            if stage not in stage_seconds and call_path.is_file():
+                saved_call = packs.read_json(call_path)
+                stage_seconds[stage] = saved_call.get("elapsed_seconds") or (
+                    packs.clock(saved_call["ended_at_utc"])-packs.clock(saved_call["started_at_utc"])).total_seconds()
         result["stage_seconds"] = {"ranking": 0.0, "drafting": 0.0, "checks": 0.0, **stage_seconds,
                                    "whole_tick": perf_counter()-tick_started}
         packs.save_json(root / "result.json", result)

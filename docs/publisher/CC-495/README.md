@@ -51,6 +51,7 @@ Build evidence:
 - `reply-tests-initial.xml`: initial 75 passes and one obsolete 60-minute fixture.
 - `reply-tests-second.xml`: 58 passes and two test-isolation fixture corrections.
 - `fact-and-entry-tests.xml`: 27 passing policy, source-consumer and entry checks.
+- `reply-tests.xml`: 62 passing final policy, bot, held-source and minute-entry checks.
 
 Live integration, installed tests, source availability and the next three real
 private deliveries are recorded separately when observed. A Bot API confirmation

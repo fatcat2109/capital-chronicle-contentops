@@ -13,7 +13,7 @@
         selected, causes = packs.select_posts({"rows": rows}, handles={"firstsquawk"}, now=NOW, mobile=True)
 &gt;       assert {p["post_id"] for p in selected} == {"1", "4"}
 E       AssertionError: assert {'4'} == {'1', '4'}
-E         
+E
 E         Extra items in the right set:
 E         '1'
 E         Use -v to get more diff
