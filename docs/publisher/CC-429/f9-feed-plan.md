@@ -1,6 +1,6 @@
 # A small feed for readers' AI assistants
 
-The [8.9 KB JSON sample](f9-assistant-feed.json) contains one retained CPI event map, a six-market regime sheet and five historical call outcomes from Main's own outputs. Three markets have an explicit typed regime tag; three retain null because that field is absent on the matched candidate in the selected snapshot. A later prose interpretation is not substituted for a typed tag.
+The [JSON sample, under 9 KB](f9-assistant-feed.json) contains one retained CPI event map, a six-market regime sheet and five historical call outcomes from Main's own outputs. Three markets have an explicit typed regime tag; three retain null because that field is absent on the matched candidate in the selected snapshot. A later prose interpretation is not substituted for a typed tag.
 
 The event probabilities are Main's uncalibrated model estimates, conditional on the covered scalar first-print surprise. The UNMODELLED branch stays null. The sample copies the first matrix explicitly, not an average or complement of the two retained matrices. It is a dated sample, not a fresh CPI preview. The score count is the unique scored-call population in that selected export, not a claim about every published call, win rate or investment performance.
 

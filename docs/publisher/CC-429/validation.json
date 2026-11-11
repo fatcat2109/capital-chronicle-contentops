@@ -61,7 +61,7 @@
     "Two actual directory submission routes named"
   ],
   "validation": "Bounded artifact/source checks; no pytest suite or production execution",
-  "feed_bytes": 8949,
+  "feed_bytes": 8720,
   "typed_regime_rows": 3,
   "null_regime_rows": 3,
   "historical_score_rows": 5,
@@ -69,5 +69,5 @@
   "channel_sends": 0,
   "model_calls_by_validation": 0,
   "scope": "Preparation required by CC-429 / decision 111; not a launched product test",
-  "checked_at_utc": "2026-11-11T10:47:14.433031Z"
+  "checked_at_utc": "2026-11-11T10:49:31.027012Z"
 }
