@@ -83,6 +83,16 @@ def plan_forecasts(path):
             if not _number(value) or not 0 <= value <= 100:
                 raise ValueError("MAIN_PROBABILITY_PERCENT_INVALID")
             contract = deepcopy((values.get("target_contracts") or {}).get(field))
+            if contract is not None:
+                # A platform binding may identify the resolver; it may not
+                # silently turn an existing Main number into a different event.
+                if (contract.get("measure") != measure
+                        or utc(contract["horizon_start_utc"]) != utc(values["reference_at_utc"])
+                        or utc(contract["horizon_end_utc"]) != utc(values["horizon_end_utc"])):
+                    raise ValueError("MAIN_TARGET_BINDING_CHANGES_PROBABILITY_MEANING")
+                if field == "probability_up_pct" and contract.get("predicate") != {
+                        "operator": ">", "threshold": values.get("reference_price")}:
+                    raise ValueError("MAIN_TARGET_BINDING_CHANGES_PROBABILITY_MEANING")
             if contract is None:
                 contract = {"instrument": plan["asset_id"], "measure": measure,
                     "unit": values.get("target_unit"),
@@ -103,6 +113,7 @@ def plan_forecasts(path):
                 "reference_price": values.get("reference_price"),
                 "horizon_end_utc": values.get("horizon_end_utc"),
                 "probability_basis": values.get("probability_basis"),
+                "public_explanation": (values.get("public_explanations") or {}).get(field),
                 # Use any exact producer binding; otherwise expose every held
                 # target component, leaving resolver/unit/conditioning unknown.
                 "contract": contract,
@@ -139,7 +150,12 @@ def event_forecasts(path, *, observed_at_utc):
             "available_at_utc": observed_at_utc, "data_cutoff_utc": matrix["cutoff_utc"],
             "probability_basis": matrix.get("probability_measure"),
             "conditioning": matrix.get("probability_scope"),
-            "public_model_estimate": matrix.get("public_probabilities_eligible") is True,
+            # Decision 72 b admits our computed model estimates even when a
+            # private input fed them. Retain the old producer flag as evidence;
+            # do not turn its preparation/calibration label into a public wall.
+            "public_model_estimate": True,
+            "public_basis": "JIM_DECISION_72_B_OWN_COMPUTED_ESTIMATE",
+            "producer_public_probabilities_eligible": matrix.get("public_probabilities_eligible"),
             "contract": {"instrument": matrix["target"]["event_type"],
                 "measure": matrix["target"].get("measure_id"), "unit": matrix["target"].get("unit"),
                 "reference_period": matrix["target"].get("reference_period"),
@@ -181,9 +197,21 @@ def normalize_posts(posts):
 
 
 def _contract_valid(contract):
-    return isinstance(contract, dict) and all(contract.get(k) is not None for k in (
+    if not isinstance(contract, dict) or not all(contract.get(k) is not None for k in (
         "instrument", "measure", "unit", "horizon_start_utc", "horizon_end_utc",
-        "resolution_source", "conditioning"))
+        "resolution_source", "conditioning")):
+        return False
+    try:
+        return utc(contract["horizon_start_utc"]) <= utc(contract["horizon_end_utc"])
+    except (ValueError, TypeError, AttributeError):
+        return False
+
+
+def _contract_key(contract):
+    normalized = deepcopy(contract)
+    for key in ("horizon_start_utc", "horizon_end_utc"):
+        normalized[key] = utc(normalized[key]).isoformat()
+    return digest(normalized)
 
 
 def _forecast_body(question, forecast):
@@ -221,13 +249,18 @@ def _match(question, forecasts, *, as_of_utc, replay):
     topics = set(question.get("desk_topics") or [])
     related = topics | set(question.get("related_desk_topics") or [])
     candidates = [f for f in forecasts if related.intersection(f.get("assets", []))]
+    if question.get("metadata_cause"):
+        return None, question["metadata_cause"], candidates
+    if replay and question.get("close_at_utc") and utc(as_of_utc) < utc(question["close_at_utc"]):
+        return None, "CLOSED_ROUND_REPLAY_REQUIRES_CLOSED_QUESTION", candidates
     if not topics:
         return None, ("RELATED_MARKET_IS_NOT_THE_QUESTION_INSTRUMENT" if candidates else
                       "OUTSIDE_SIX_MARKETS_CPI_PAYROLL_SCOPE"), candidates
     contract = question.get("contract")
     if not _contract_valid(contract):
         return None, "PLATFORM_FULL_RESOLUTION_CONTRACT_UNAVAILABLE", candidates
-    exact = [f for f in candidates if _contract_valid(f.get("contract")) and f["contract"] == contract]
+    exact = [f for f in candidates if _contract_valid(f.get("contract"))
+             and _contract_key(f["contract"]) == _contract_key(contract)]
     if not exact:
         return None, "NO_EXACT_MAIN_TARGET_INSTRUMENT_HORIZON_RESOLVER", candidates
     close = question.get("close_at_utc")
@@ -237,8 +270,6 @@ def _match(question, forecasts, *, as_of_utc, replay):
     now, stop, start = utc(as_of_utc), utc(close), utc(opening)
     if not start < stop:
         return None, "PLATFORM_QUESTION_CLOCK_INVALID", candidates
-    if replay and now < stop:
-        return None, "CLOSED_ROUND_REPLAY_REQUIRES_CLOSED_QUESTION", candidates
     if not replay and not start <= now < stop:
         return None, "QUESTION_NOT_OPEN", candidates
     eligible = [f for f in exact if f.get("available_at_utc")
@@ -247,10 +278,14 @@ def _match(question, forecasts, *, as_of_utc, replay):
         return None, "MAIN_VERSION_AVAILABLE_AFTER_FORECAST_DEADLINE", candidates
     # Distinct source versions of the same forecast are not extra votes. Never
     # average, complement, clip, select the nicest answer, or replay one twice.
-    identities = {(f["forecast_id"], digest(f)) for f in eligible}
+    def meaning(f):
+        return (f["forecast_id"], _contract_key(f["contract"]), digest({k: f.get(k) for k in (
+            "format", "probability_yes", "continuous_cdf", "probability_yes_per_category", "scaling")}))
+
+    identities = {meaning(f) for f in eligible}
     if len(identities) != 1:
         return None, "AMBIGUOUS_EXACT_MAIN_FORECAST", candidates
-    forecast = eligible[0]
+    forecast = max(eligible, key=lambda f: (f.get("public_model_estimate") is True, utc(f["available_at_utc"])))
     if not forecast.get("public_model_estimate"):
         return None, forecast.get("public_restriction") or "PUBLIC_SOURCE_RIGHTS_NOT_RECORDED", candidates
     return forecast, None, candidates

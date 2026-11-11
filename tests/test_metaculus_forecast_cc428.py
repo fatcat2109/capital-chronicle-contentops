@@ -70,6 +70,17 @@ def test_closed_round_replay_does_not_backdate_an_input_version():
     f = forecast(); f["available_at_utc"] = "2026-11-11T07:00:00Z"
     assert run(q=q, f=f, replay=True)["answers"][0]["state"] == "MATCHED_REPLAY"
     assert run(q=q, f=f)["first_causes"] == {"QUESTION_NOT_OPEN": 1}
+    f["available_at_utc"] = q["close_at_utc"]
+    assert run(q=q, f=f, replay=True)["first_causes"] == {"MAIN_VERSION_AVAILABLE_AFTER_FORECAST_DEADLINE": 1}
+
+
+def test_equivalent_clocks_and_copied_provenance_do_not_block_the_same_forecast():
+    q = question(); q["contract"]["horizon_end_utc"] = "2026-11-12T00:00:00+00:00"
+    f = forecast(); copied = deepcopy(f)
+    copied["source"]["path"] = "same-public-forecast-copy.json"
+    result = compile_round({"round_id": "fixture", "questions": [q]},
+        [{"forecasts": [f, copied]}], as_of_utc=NOW, replay=False)
+    assert result["matched_count"] == 1
 
 
 def test_incomplete_or_hidden_metadata_and_post_id_do_not_become_question_id():
@@ -171,15 +182,49 @@ def test_actual_cli_consumes_main_output_and_remains_network_free(tmp_path, monk
     assert result["question_count"] == result["abstained_count"] == 1
 
 
+def test_cli_carries_a_fully_bound_main_forecast_into_the_actual_api_body(tmp_path, capsys):
+    plan = tmp_path / "plan.public.json"
+    doc = public_plan(plan)
+    doc["generated_at_utc"] = "2026-11-10T09:00:00Z"
+    doc["plans"][0]["registered_at_utc"] = "2026-11-10T09:00:00Z"
+    values = doc["plans"][0]["forecast_probabilities"]
+    binding = {**deepcopy(CONTRACT), "measure": "TERMINAL_ABOVE_REFERENCE",
+               "predicate": {"operator": ">", "threshold": 85000}}
+    values.update(reference_at_utc=binding["horizon_start_utc"], horizon_end_utc=binding["horizon_end_utc"], reference_price=85000)
+    values["target_contracts"] = {"probability_up_pct": binding}
+    values["public_explanations"] = {"probability_up_pct": "Capital Chronicle's uncalibrated model estimates a 46% chance for the exact threshold and deadline."}
+    doc["content_hash"] = digest({k: v for k, v in doc.items() if k != "content_hash"})
+    plan.write_text(json.dumps(doc))
+    q = question(); q.update(open_at_utc="2026-11-10T08:00:00Z", close_at_utc="2026-11-10T11:00:00Z", contract=binding)
+    questions = tmp_path / "questions.json"; questions.write_text(json.dumps({"round_id": "fixture", "questions": [q]}))
+    output = tmp_path / "result.json"
+    assert main(["--questions", str(questions), "--plan-export", str(plan), "--output", str(output)]) == 0
+    capsys.readouterr()
+    result = json.loads(output.read_bytes())
+    assert result["matched_count"] == 1 and result["submission_count"] == 0
+    assert result["prepared_requests"][0]["json"]["forecasts"] == [{"question": 901, "probability_yes": 0.46}]
+
+
+def test_a_new_binding_cannot_relabel_an_existing_main_number(tmp_path):
+    plan = tmp_path / "plan.public.json"; doc = public_plan(plan)
+    doc["plans"][0]["forecast_probabilities"]["target_contracts"] = {"probability_up_pct": deepcopy(CONTRACT)}
+    doc["content_hash"] = digest({k: v for k, v in doc.items() if k != "content_hash"})
+    plan.write_text(json.dumps(doc))
+    with pytest.raises(ValueError, match="MAIN_TARGET_BINDING_CHANGES_PROBABILITY_MEANING"):
+        plan_forecasts(plan)
+
+
 def test_event_matrix_projection_uses_own_estimates_and_omits_raw_inputs(tmp_path):
     path = tmp_path / "matrix.json"
     path.write_text(json.dumps({"target": {"event_id": "fixture-cpi", "event_type": "US_CPI"}, "matrices": [{
         "target": {"event_type": "US_CPI"}, "bands": {"actual_boundaries": [0.1, 0.2]},
         "branches": [{"branch": "IN_LINE", "probability": 0.7}], "cutoff_utc": "2026-11-10T10:00:00Z",
         "probability_scope": "CONDITIONAL_ON_COVERED_SCALAR_FIRST_PRINT_SURPRISE",
-        "public_probabilities_eligible": True, "sources": {"raw_consensus": "NEVER_EXPORT"}}]}))
+        "public_probabilities_eligible": False, "sources": {"raw_consensus": "NEVER_EXPORT"}}]}))
     result = event_forecasts(path, observed_at_utc=NOW)
     assert result["forecasts"][0]["probabilities"] == {"IN_LINE": 0.7}
     assert result["forecasts"][0]["available_at_utc"] == NOW
     assert result["forecasts"][0]["data_cutoff_utc"] == "2026-11-10T10:00:00Z"
+    assert result["forecasts"][0]["public_model_estimate"] is True
+    assert result["forecasts"][0]["producer_public_probabilities_eligible"] is False
     assert "NEVER_EXPORT" not in json.dumps(result)

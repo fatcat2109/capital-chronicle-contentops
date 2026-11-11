@@ -1,7 +1,7 @@
 {
   "schema_version": "contentops.metaculus_dry_run.v1",
   "round_id": "minibench-2026-10-19",
-  "generated_at_utc": "2026-11-11T09:56:51.351633Z",
+  "generated_at_utc": "2026-11-11T10:14:32.069938Z",
   "mode": "CLOSED_ROUND_REPLAY",
   "question_count": 60,
   "matched_count": 0,
@@ -17,8 +17,8 @@
   "external_rank": null,
   "listing_consistency": "ADVERTISED_COUNT_DIFFERS_FROM_UNIQUE_VISIBLE_POSTS",
   "advertised_question_count": 59,
-  "private_result": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc428-external-score-pilot\\dry-run.json",
-  "private_result_sha256": "813b6218937472d61b6efac54278a0093108473a0945986f1fed131bbccbd1b6",
+  "private_result": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc428-external-score-pilot\\dry-run-final.json",
+  "private_result_sha256": "dd616ba366f05f93d01fc88611774fff168053b4e3f5b84798315b7ce626f6af",
   "input_inventory_counts": [
     {
       "kind": "MAIN_PUBLIC_PLAN_EXPORT",
@@ -31,6 +31,64 @@
     {
       "kind": "MAIN_EVENT_SCENARIO_MATRIX",
       "forecast_count": 2
+    }
+  ],
+  "public_input_history": "Earlier raw-input branch reference removed; clean branch excludes its commits; GitHub retained-history purge unverified.",
+  "test_count": 25,
+  "latest_main_model_estimates": [
+    {
+      "market": "XAUUSD",
+      "terminal_above_reference_pct": 42,
+      "touch_plan_entry_pct": 65,
+      "target_before_stop_pct": 36,
+      "horizon_end_utc": "2026-11-13T13:15:00Z",
+      "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+      "source_export_generated_at_utc": "2026-11-11T09:56:09.512950Z"
+    },
+    {
+      "market": "BTCUSD",
+      "terminal_above_reference_pct": 46,
+      "touch_plan_entry_pct": 48,
+      "target_before_stop_pct": 38,
+      "horizon_end_utc": "2026-12-02T02:07:07Z",
+      "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+      "source_export_generated_at_utc": "2026-11-11T09:56:09.512950Z"
+    },
+    {
+      "market": "US500",
+      "terminal_above_reference_pct": 47,
+      "touch_plan_entry_pct": 55,
+      "target_before_stop_pct": 37,
+      "horizon_end_utc": "2026-12-02T02:07:07Z",
+      "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+      "source_export_generated_at_utc": "2026-11-11T09:56:09.512950Z"
+    },
+    {
+      "market": "EURUSD",
+      "terminal_above_reference_pct": 42,
+      "touch_plan_entry_pct": 50,
+      "target_before_stop_pct": 34,
+      "horizon_end_utc": "2026-11-13T13:15:00Z",
+      "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+      "source_export_generated_at_utc": "2026-11-11T09:56:09.512950Z"
+    },
+    {
+      "market": "USDJPY",
+      "terminal_above_reference_pct": 56,
+      "touch_plan_entry_pct": 55,
+      "target_before_stop_pct": 38,
+      "horizon_end_utc": "2026-11-13T13:15:00Z",
+      "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+      "source_export_generated_at_utc": "2026-11-11T09:56:09.512950Z"
+    },
+    {
+      "market": "USOIL",
+      "terminal_above_reference_pct": 46,
+      "touch_plan_entry_pct": 50,
+      "target_before_stop_pct": 33,
+      "horizon_end_utc": "2026-12-02T02:07:07Z",
+      "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+      "source_export_generated_at_utc": "2026-11-11T09:56:09.512950Z"
     }
   ]
 }

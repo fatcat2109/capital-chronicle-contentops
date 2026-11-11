@@ -1,0 +1,164 @@
+{
+  "schema_version": "contentops.external_record_pilot_sources.v1",
+  "item_id": "CC-428",
+  "checked_at_utc": "2026-11-11T10:12:52.045967Z",
+  "record_kind": "Paraphrased source/rules review; no platform dataset or third-party prose reproduction",
+  "prior_record": {
+    "path": "docs/publisher/CC-393/platform-rules.json",
+    "sha256": "6e9c1a848ecf8900ca4342d2e349c3d7622c3bec85ab8e548e34c9caf39b53b2"
+  },
+  "source_clocks": "checked_at_utc is this review clock, not a source publication/effective date; individual access limits are retained.",
+  "metaculus": [
+    {
+      "source_id": "resources",
+      "url": "https://www.metaculus.com/notebooks/38928/aib-resource-page/",
+      "access": "BrowserOS Neo; full retained page read",
+      "source_edited_date": "2026-11-10",
+      "findings": [
+        "MiniBench normally starts on alternate Mondays, with roughly 60 questions.",
+        "Three-hour windows; one forecast per question.",
+        "No owner forecasts, preview-based tuning or reruns of unwanted answers. Closed-question development is permitted.",
+        "Private comments may become public.",
+        "Solo-founder prize classification does not grant commercial API rights. Human-owned registration precedes entry."
+      ]
+    },
+    {
+      "source_id": "api",
+      "url": "https://www.metaculus.com/api/",
+      "access": "BrowserOS Neo; API 2.0.0 description, numeric schema and atomic-request example read; static YAML download timed out and a CLI retrieval returned HTTP 403. No further download was attempted. A native dialog was not observed or controlled.",
+      "findings": [
+        "Authenticated access required; a hidden field may be present as null.",
+        "Post IDs differ from underlying question IDs. Group children retain their own question IDs.",
+        "Commercial use needs a written agreement; model development/evaluation has separate written-permission conditions.",
+        "Numeric submissions require a 201-point CDF on the exact question scale.",
+        "POST /api/questions/bulk-forecast-comment/ accepts forecasts and private comments atomically; 201 means saved, 400 means none saved, 403 means acting-account permission denied.",
+        "No API call, token, credential inspection or actual request was made by the rehearsal."
+      ]
+    },
+    {
+      "source_id": "terms",
+      "url": "https://www.metaculus.com/terms-of-use/",
+      "access": "BrowserOS Neo public terms read after the closed-question observations were collected",
+      "findings": [
+        "General automated website collection and redistribution are not granted by the ordinary terms. Official API/Metaculus-provided automated interfaces have their own terms.",
+        "No future question acquisition through Neo is part of the delivery; use an allowed official interface after account/access setup.",
+        "The raw observations remain in the local item result. The clean delivery branch excludes them.",
+        "No training, outcome-based evaluation, externally scored forecast, commercial permission or terms acceptance is claimed."
+      ]
+    },
+    {
+      "source_id": "market-pulse",
+      "url": "https://www.metaculus.com/tournament/market-pulse-26q4/",
+      "access": "BrowserOS Neo; tournament and Bot Participation Rules read",
+      "findings": [
+        "Q4 2026 tournament uses spot scoring at each question close.",
+        "One entry is allowed, either as a bot or as a person.",
+        "Questions include rolling numeric groups: futures return spreads, yields, volatility and company results. Spot direction/touch/target-before-stop forecasts do not supply those distributions."
+      ]
+    },
+    {
+      "source_id": "calendar",
+      "url": "https://www.metaculus.com/tournament/minibench/",
+      "access": "BrowserOS Neo; tournament header only used for calendar",
+      "findings": [
+        "Observed active start date: 2026-11-02. Observed end date: 2026-11-20.",
+        "Nominal next start derived from the published 14-day interval: 2026-11-16; opening hour unknown and organiser scheduling may change."
+      ]
+    }
+  ],
+  "partner_sources": [
+    {
+      "partner": "Traderade",
+      "urls": [
+        "https://www.traderade.com/",
+        "https://www.traderade.com/terms",
+        "https://www.traderade.com/contact"
+      ],
+      "access": "BrowserOS Neo; full terms and relevant home/contact text read",
+      "findings": [
+        "Audience spans stocks, futures, commodities, FX and fixed income; the site describes AI-driven analysis tools.",
+        "Contact page expressly invites press and partnership enquiries at hello@traderade.com.",
+        "Member contributions may be treated as non-confidential/non-proprietary. No outside syndication or AI-assistance acceptance was inferred."
+      ]
+    },
+    {
+      "partner": "The Blind Spot",
+      "urls": [
+        "https://the-blindspot.com/about-us/",
+        "https://the-blindspot.com/terms-conditions/"
+      ],
+      "access": "BrowserOS Neo about page; primary-publisher terms via web reader/index",
+      "findings": [
+        "Finance/markets analysis and commentary; the about page publishes admin@the-blindspot.com.",
+        "No unsolicited promotional use of its publication. Comments carry broad reuse rights and need not retain attribution.",
+        "Use a separate editor agreement for credited original analysis. AI-contribution policy not established."
+      ]
+    },
+    {
+      "partner": "The Macro Compass",
+      "urls": [
+        "https://themacrocompass.org/",
+        "https://themacrocompass.org/termsconditions/"
+      ],
+      "access": "BrowserOS Neo; home and full AIS customer terms read",
+      "findings": [
+        "Macro policy/release and cross-asset education/research audience.",
+        "AIS/licensors retain their IP and customer redistribution is limited. Customer terms are not an incoming-content agreement.",
+        "Public media contact: media@themacrocompass.com. AI and incoming-syndication acceptance not established."
+      ]
+    },
+    {
+      "partner": "Macro Hive",
+      "urls": [
+        "https://macrohive.com/newsletter/",
+        "https://macrohive.com/our-products/",
+        "https://macrohive.com/terms-of-use/",
+        "https://macrohive.com/terms-and-conditions/"
+      ],
+      "access": "Neo returned connection resets; direct web opens returned 403; primary-publisher indexed text supplied partial terms/product reads",
+      "findings": [
+        "Free weekly macro/markets newsletter; products list an AI investor briefing.",
+        "Website terms reserve its content/IP and limit redistribution; subscription terms govern purchasing its products.",
+        "No contributor licence, exact partnership recipient or AI-assisted submission acceptance was established."
+      ]
+    },
+    {
+      "partner": "MacroVoices Research Roundup",
+      "urls": [
+        "https://www.macrovoices.com/",
+        "https://www.macrovoices.com/mobile-home/86-general-site-content",
+        "https://www.macrovoices.com/contact"
+      ],
+      "access": "BrowserOS Neo home; primary-publisher indexed site/contact text. Neo contact body empty.",
+      "findings": [
+        "Global macro podcast and weekly Research Roundup distribution.",
+        "No current sitewide incoming-syndication or AI-contribution licence found in the bounded reviewed pages/search.",
+        "Third-party guest research licences are separate and do not grant our pilot rights. Exact recipient not established."
+      ]
+    }
+  ],
+  "contract_checklist_from_cc393": {
+    "automation_delivery": "Name the allowed receiving route, format, rate, edits and any platform rules. No implied account access or browser write.",
+    "ai_content": "Expressly accept AI-assisted work, disclosures and editor responsibility.",
+    "financial_content_rights": "Original prose/computed outputs and cleared visuals only; notices, conflicts, corrections, attribution, takedown and retention.",
+    "identity": "Capital Chronicle public credit; required legal identity supplied confidentially by Jim.",
+    "person_steps": "Jim signs contracts and handles identity, credentials and any payment; the item performs none."
+  },
+  "held_source_search": {
+    "public_plan_export": "77 plans in the retained public snapshot; 42 typed six-market probabilities projected.",
+    "public_report_outbox": "15 held public-report.json files searched; no continuous_cdf field found.",
+    "desk_record_export": "Retained public desk export inspected: 47 asset dossiers, 21 calendar entries, 10 series, two decisions, two event cards; no fixture passed off as current evidence.",
+    "event_bundles": "Held CPI 2026-11-10 and payroll 2026-11-06 scenario matrices projected; their raw inputs stay out of requests.",
+    "data_research": "No data/research directory exists in this worktree or at A:/Capital Chronicle/data/research.",
+    "scope": "This is a bounded statement about the inspected held outputs, not a claim that every private Main report or every account was searched."
+  },
+  "actions": {
+    "metaculus_submission": 0,
+    "outreach": 0,
+    "account_creation": 0,
+    "terms_acceptance": 0,
+    "schedule_change": 0,
+    "claude_session_started": 0,
+    "native_desktop_control": 0
+  }
+}

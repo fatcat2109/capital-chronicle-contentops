@@ -1,7 +1,13 @@
 # CC-428 — external forecast rehearsal and partner pilot
 
-The closed-round rehearsal is built. It uses Main's held numbers and makes no
-submission. The partner shortlist and offer are being completed in this item.
+The closed-round rehearsal, five-partner shortlist, one-page offer and unsent first
+message are prepared for Ops Product's review. The recommended first partner is
+Traderade. The rehearsal uses Main's held numbers and makes no submission.
+
+- [Five candidates, their audiences and terms](partner-shortlist.md).
+- [One-page pilot offer](partner-offer.md).
+- [Metaculus rules and prepared account step](metaculus-next-action.md).
+- [Primary sources, access limits and CC-393 contract checklist](rules-and-sources.json).
 
 ## Forecast result
 
@@ -27,9 +33,32 @@ registration time or data cutoff is not used to backdate a later source version.
 The full answers and binary source snapshot are retained locally under
 `A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc428-external-score-pilot`.
 The raw platform question list and full inputs are excluded from the public delivery.
+An earlier raw-input commit was pushed before repository visibility was checked.
+Its remote branch reference was removed. This clean delivery excludes those
+commits; purging GitHub's retained history is not verified. The exact earlier
+commit and correction are recorded in the local result for Ops Product.
 The event inventory contains only Main's own estimates and target/band definitions;
 raw consensus, prediction-market data, execution and outcome rows are not compiled
 into comments or requests.
+
+The six latest registered Main forecasts in the retained snapshot are below.
+These are **uncalibrated model estimates**, with three distinct probability
+targets. They are neither trade win rates nor Metaculus answers. The complete
+source inventory keeps all 42 probabilities, not just these six plans.
+
+| Market | Terminal above reference, % | Touch plan entry, % | Target before stop, % | Horizon end, GMT+7 |
+|---|---:|---:|---:|---|
+| Gold | 42 | 65 | 36 | 13 Nov 2026 20:15 |
+| Bitcoin | 46 | 48 | 38 | 2 Dec 2026 09:07:07 |
+| US equities | 47 | 55 | 37 | 2 Dec 2026 09:07:07 |
+| EUR/USD | 42 | 50 | 34 | 13 Nov 2026 20:15 |
+| USD/JPY | 56 | 55 | 38 | 13 Nov 2026 20:15 |
+| WTI | 46 | 50 | 33 | 2 Dec 2026 09:07:07 |
+
+The held CPI/payroll matrices retain their source-period definitions and conditional
+scenario probabilities. They are not full release-value CDFs. The 15 held public
+report files also supplied no `continuous_cdf` field. No new forecast, interpolated
+distribution or retrospective score was manufactured to fill that gap.
 
 ## Implementation and validation
 
@@ -39,6 +68,11 @@ question IDs distinct, supports binary, numeric CDF and multiple-choice bodies,
 and compiles the documented atomic forecast/private-comment API request. It
 does not estimate a distribution, fit a CDF to a point, complement a probability,
 or reuse a conditional trading probability as an unconditional price forecast.
+Equivalent UTC representations and copied source provenance do not block an
+unchanged forecast. An explicit producer binding may identify a resolver but
+cannot change the original probability's target or interval. Main's own computed
+estimates remain usable under decision 72 b; an old preparation label is recorded
+rather than used as a gate.
 
 The [CLI](../../../scripts/run_metaculus_dry_run.py) reads Main's public output
 directly. Its CC-428 command has no credentials, network client or send switch;
@@ -49,11 +83,13 @@ existing sole publication owner after the account/terms step, not a new publishe
 python scripts/run_metaculus_dry_run.py --questions 'A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc428-external-score-pilot\round-questions.json' --plan-export 'A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc428-external-score-pilot\inputs\plan-status.public.json.gz' --event-matrix 'A:\Capital Chronicle\ResearchRuns\main-event-forecast-scores\bundles\US_CPI_20261110\event-scenario-matrices.json' --event-matrix 'A:\Capital Chronicle\ResearchRuns\main-event-forecast-scores\bundles\US_NFP_20261106\event-scenario-matrices.json' --output 'A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc428-external-score-pilot\dry-run.json'
 ```
 
-The [focused tests](targeted-tests.xml) pass 22 cases. They exercise the actual CLI
+The [focused tests](targeted-tests.xml) pass 25 cases. They exercise the actual CLI
 consumer, source-number preservation, hash verification, question/group IDs,
 deadline/look-ahead rejection, incompatible propositions/distributions, conflicting
 inputs, duplicate questions and the existing public-text/link/time guards.
-The first test output is retained separately; its two fixture errors were corrected.
+An exact, fully bound fixture also reaches the real CLI's API request body with
+its original 46% estimate. That proves the consumer path, not a live submission.
+The first test output is retained separately; its fixture errors were corrected.
 The changed files also pass Ruff's `F` checks. No broad suite was run.
 
 ## Execution record
@@ -70,3 +106,12 @@ schedule or desktop control was performed. Existing telemetry WIP remains outsid
 this item's commits. The source/rules review uses the no-red-tape and BrowserOS Neo
 skills; read-only primary-source web results supplement individual sites that
 returned a connection reset or HTTP 403.
+
+The raw question observations were collected before the updated Metaculus terms
+were read. Future acquisition must use an allowed official interface under its
+terms; the delivery does not claim that Neo collection was platform-authorised.
+The current evidence proves source mapping and request compilation. It does not
+activate a live contest transport, general-topic forecasting service or outside
+score. The dispatch's finish rule leaves this build **BUILT_UNMERGED (Ops review
+pending)**. Ops Product records Jim's prepared account action and selects the
+partner; Jim confirms the first message at the moment it is sent.
