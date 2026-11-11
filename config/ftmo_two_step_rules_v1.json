@@ -1,6 +1,6 @@
 {
   "schema_version": "contentops.prop_rules.v1",
-  "version": "ftmo-cfd-2-step-2026-11-11",
+  "version": "ftmo-cfd-2-step-2026-11-11-r2",
   "program": "FTMO_CFD_2_STEP",
   "account_type": "STANDARD",
   "day_timezone": "Europe/Prague",
@@ -89,8 +89,17 @@
       "clock_precision": "DATE_ONLY_BROWSER_RETURN",
       "capture_path": "docs/publisher/CC-427/sources/ftmo-weekend.md",
       "capture_sha256": "03e6245b7f54f431415a2047a4f2d15f35579340879069a7338552831008cf4b"
+    },
+    "program_overview": {
+      "url": "https://ftmo.com/en/2-step-challenge/",
+      "observed_on_utc": "2026-11-11",
+      "observed_at_utc": null,
+      "clock_precision": "DATE_ONLY_BROWSER_RETURN",
+      "capture_path": "docs/publisher/CC-427/sources/ftmo-2-step-overview.md",
+      "capture_sha256": "d54ef30c992e8e77bb5a8b54c815d3ad3e9ebdfd2805dc631fbf9ac45f8c8240"
     }
   },
   "scope_limit": "Numeric objectives and the two named execution restrictions only; no certification of forbidden-practices, eligibility or all contract terms.",
-  "affiliate_link": null
+  "affiliate_link": null,
+  "trading_period": "UNLIMITED"
 }

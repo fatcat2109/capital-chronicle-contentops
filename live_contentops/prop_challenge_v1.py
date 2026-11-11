@@ -18,6 +18,7 @@ from zoneinfo import ZoneInfo
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 
 SCHEMA = "contentops.prop_challenge.v1"
+AUTHORSHIP = "CAPITAL_CHRONICLE_PROP_CHALLENGE_AUDIT"
 RULES_PATH = Path(__file__).resolve().parents[1] / "config/ftmo_two_step_rules_v1.json"
 PRAGUE = ZoneInfo("Europe/Prague")
 ET = ZoneInfo("America/New_York")
@@ -56,6 +57,10 @@ def position_reference(ticket):
 
 def load_rules(path=RULES_PATH):
     rules = json.loads(Path(path).read_bytes())
+    return validate_rules(rules)
+
+
+def validate_rules(rules):
     if (rules.get("schema_version") != "contentops.prop_rules.v1"
             or rules.get("program") != "FTMO_CFD_2_STEP"
             or rules.get("day_timezone") != "Europe/Prague"):
@@ -277,6 +282,13 @@ def evaluate(dataset, rules, *, phase="challenge"):
 
 def source_document(report, rules):
     """A public aggregate source, never a private statement in a writer prompt."""
+    fields = {"schema_version", "month", "cutoff_utc", "source_known_at_utc", "program", "phase",
+        "rule_version", "rules_sha256", "private_dataset_sha256", "model", "trade_count", "closed_trade_count",
+        "open_trade_count", "trading_days", "booked_model_change_pct", "excluded_operations_test_count",
+        "excluded_cash_record_count", "equity_path_complete", "equity_path_cause", "observed_flat_checkpoint_count",
+        "rules", "overall"}
+    if set(report) != fields or report["model"] != rules["model"]:
+        raise ValueError("PROP_PUBLIC_AGGREGATE_FIELDS_REQUIRED")
     text = (f"FTMO 2-Step {report['phase']}, {report['month']}, as of {report['cutoff_utc']}.\n"
             f"Model risk: {report['model']['risk_pct_initial_capital']}% of starting model capital per frozen original risk unit.\n"
             f"Desk positions: {report['trade_count']}; closed: {report['closed_trade_count']}; open: {report['open_trade_count']}.\n"
@@ -292,11 +304,13 @@ def source_document(report, rules):
              "This is a model replay of recorded executions, not an FTMO account result, certification or a strategy to copy. "
              "FTMO's forbidden-practices rules remain separate; this audit does not certify compliance with every contractual term.")
     digest = hashlib.sha256(text.encode()).hexdigest()
-    binding = {"report": report, "rules_sha256": sha256_of(rules), "text_sha256": digest}
+    binding = {"report": report, "rules": rules, "rules_sha256": sha256_of(rules), "text_sha256": digest}
     return {"document_id": "prop-challenge-" + sha256_of(report), "source_id": "SOURCE_1",
             "url": "urn:cc-public-report:prop-challenge:" + sha256_of(binding),
             "source_url": "urn:cc-public-report:prop-challenge:" + sha256_of(binding),
             "publisher": "Capital Chronicle", "published_at_utc": report["source_known_at_utc"],
+            "published_at_source": "HELD_SOURCE_CAPTURE_NOT_PUBLIC_PUBLICATION",
+            "data_cutoff_utc": report["cutoff_utc"],
             "canonical_content_text": text, "canonical_content_sha256": digest,
             "raw_sha256": sha256_of(report), "content_truncated": False,
             "public_claim_allowed": True, "source_authority_class": "capital_chronicle_computed_model",
@@ -314,7 +328,41 @@ def verified_source_metadata(document):
             or document.get("canonical_content_sha256") != binding["text_sha256"]
             or hashlib.sha256(document.get("canonical_content_text", "").encode()).hexdigest() != binding["text_sha256"]):
         raise ValueError("PROP_PUBLIC_SOURCE_CHANGED")
-    expected = source_document(binding["report"], load_rules())
+    frozen_rules = validate_rules(binding["rules"])
+    if (binding["rules_sha256"] != sha256_of(frozen_rules)
+            or binding["report"]["rules_sha256"] != sha256_of(frozen_rules)):
+        raise ValueError("PROP_FROZEN_RULES_CHANGED")
+    expected = source_document(binding["report"], frozen_rules)
     if expected != document:
         raise ValueError("PROP_PUBLIC_SOURCE_CHANGED")
     return binding
+
+
+def retained_record(spec, document):
+    """Project this computed output into the existing retained-source library."""
+    from .event_article_guard_v1 import check_publication_copy
+    verified_source_metadata(document)
+    if (spec.get("authorship_class") != AUTHORSHIP or spec.get("authority_ref") != "BACKLOG_CC427_JIM_DECISION_111"
+            or spec.get("document_sha256") != sha256_of(document)
+            or instant(spec["revision_at_utc"]) < instant(document["data_cutoff_utc"])):
+        raise ValueError("PROP_RETAINED_SOURCE_BINDING_INVALID")
+    title = spec["headline_text"]
+    text = document["canonical_content_text"]
+    check_publication_copy({"text": text, "title": title}, require_notice=False)
+    permission = {**document["source_reuse_constraints"], "provider_safe": True,
+                  "MODEL_INPUT_ALLOWED": True, "LLM_INPUT_ALLOWED": True, "INTERNAL_ANALYSIS_ALLOWED": True,
+                  "permitted_consumers": ["internal_research", "narrative_context"],
+                  "source_capture_sha256": spec["document_sha256"]}
+    known = document["published_at_utc"]
+    return {"headline_id": spec["headline_id"], "headline_text": title,
+            "text_sha256": hashlib.sha256(title.encode()).hexdigest(),
+            "source_identity": "Capital Chronicle model audit", "source_account": "Capital Chronicle",
+            "source_platform": AUTHORSHIP, "source_url": document["source_url"],
+            "source_timestamp_utc": known, "headline_timestamp": known,
+            "known_at_utc": known, "retrieval_time_utc": known, "revision_at_utc": spec["revision_at_utc"],
+            "revision_clock_basis": "MODEL_AUDIT_PREPARATION_NOT_NEW_DATA_CAPTURE",
+            "rights_state": "CAPITAL_CHRONICLE_OWN_AGGREGATE_MODEL_OUTPUT",
+            "source_permissions": permission, "permitted_source_text": text,
+            "document": document, "research_metadata": {"period_relation": "MONTH_TO_DATE_REPLAY",
+                "data_cutoff_utc": document["data_cutoff_utc"],
+                "public_report_sha256": document["raw_sha256"]}}

@@ -215,3 +215,37 @@ def test_foreign_fingerprint_is_not_confused_with_stable_account(tmp_path):
     # The adapter's real contract uses an observation fingerprint and a stable
     # account binding for different identities. Their inequality is expected.
     assert held_dataset(path, root, month="2026-11", cutoff_utc="2026-11-11T09:00:00Z")["trades"]
+
+
+def test_real_retained_library_admits_output_to_writer(tmp_path, rules):
+    from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+    from live_contentops.prop_challenge_v1 import AUTHORSHIP
+    doc = source_document(evaluate(dataset(trade()), rules), rules)
+    (tmp_path / "doc.json").write_bytes(canonical_bytes(doc))
+    spec = {"authorship_class": AUTHORSHIP, "authority_ref": "BACKLOG_CC427_JIM_DECISION_111",
+        "headline_id": "prop-fixture", "headline_text": "Our recorded model challenge check",
+        "capture_path": "doc.json", "document_sha256": sha256_of(doc), "revision_at_utc": "2026-11-11T09:01:00Z"}
+    (tmp_path / "index.json").write_bytes(canonical_bytes({"schema_version": "contentops.retained_source_research.v1", "records": [spec]}))
+    held = RetainedSourceResearch(tmp_path)
+    assert held.gaps == []
+    assert _source_pack([held.records["prop-fixture"]["document"]])[0]["prop_challenge_binding"] == doc["prop_challenge_binding"]
+    doc["canonical_content_text"] += " Altered public result."
+    (tmp_path / "doc.json").write_bytes(canonical_bytes(doc))
+    assert RetainedSourceResearch(tmp_path).gaps
+
+
+def test_public_projection_refuses_accidental_raw_account_fields(rules):
+    report = evaluate(dataset(trade()), rules)
+    report["account"] = {"balance": "fixture-private-value"}
+    with pytest.raises(ValueError, match="PUBLIC_AGGREGATE_FIELDS_REQUIRED"):
+        source_document(report, rules)
+
+
+def test_later_rules_version_does_not_reinterpret_frozen_source(rules):
+    previous = deepcopy(rules)
+    previous["version"] = "retained-original-version"
+    doc = source_document(evaluate(dataset(trade()), previous), previous)
+    assert verified_source_metadata(doc)["rules"]["version"] == "retained-original-version"
+    doc["prop_challenge_binding"]["rules"]["phases"]["challenge"]["profit_target_pct"] = "12"
+    with pytest.raises(ValueError, match="PUBLIC_SOURCE_CHANGED|FROZEN_RULES_CHANGED"):
+        verified_source_metadata(doc)

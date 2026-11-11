@@ -350,6 +350,9 @@ class RetainedSourceResearch:
         return target.read_bytes()
 
     def _verify(self, spec: Mapping[str, Any]) -> dict[str, Any]:
+        from live_contentops.prop_challenge_v1 import AUTHORSHIP as PROP_AUTHORSHIP, retained_record
+        if spec.get("authorship_class") == PROP_AUTHORSHIP:
+            return retained_record(spec, json.loads(self._read(spec["capture_path"])))
         from live_contentops.main_report_projection_source_v1 import AUTHORSHIP, verify_projection
         if spec.get("authorship_class") == AUTHORSHIP:
             return verify_projection(spec)
