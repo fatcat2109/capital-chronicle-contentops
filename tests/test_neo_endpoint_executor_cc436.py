@@ -634,6 +634,48 @@ def test_loading_composer_observes_its_exact_editor_before_filling():
     assert client.actions==[('fill',{'ref':'exact-editor','value':'The frozen call.'})]
 
 
+def test_image_thread_uses_the_focused_add_post_button_and_retains_both_texts():
+    class Client:
+        def __init__(self):self.count=1;self.focus=None;self.filled={};self.uploads=[]
+        def call(self,name,args):
+            if name=='upload':self.uploads.extend(args['files'])
+        def wait(self,*args):pass
+        def snapshot(self,page):return {'refs':[
+            {'role':'textbox','name':'Post text','ref':'editor-'+str(i)} for i in range(self.count)]+[
+            {'role':'button','name':'Add post','ref':'add'}, {'role':'button','name':'Choose Files','ref':'upload'}]}
+        def run(self,page,phase):
+            assert phase=='add_post_focused'
+            return {'focused':self.focus=='add'}
+        def act(self,page,kind,**values):
+            if kind=='click':pytest.fail('Image upload moved the Add post click point into Crop media')
+            if kind=='focus':self.focus=values['ref']
+            if kind=='press':
+                assert self.focus=='add' and values['key']=='Enter';self.count+=1
+            if kind=='fill':self.filled[values['ref']]=values['value']
+    client=Client()
+    request={'destination':'x','native_payload':{'posts':[{'text':'Bound lead.'},{'text':'Bound disclosure.'}]},
+        'content_binding':{'media_manifest':[{'path':'own-media/card.png'}]}}
+    assert neo.NeoBrowserDriver(client).prepare(request,1)==['Bound lead.','Bound disclosure.']
+    assert client.filled=={'editor-0':'Bound lead.','editor-1':'Bound disclosure.'}
+    assert client.uploads==['own-media/card.png']
+
+
+def test_own_crop_dialog_is_cancelled_before_discarding_an_unsent_thread():
+    class Client(neo.NeoMcpClient):
+        def __init__(self):self.step=0;self.actions=[]
+        def call(self,name,args):assert name=='snapshot'
+        def snapshot(self,page):
+            if self.step==0:return {'text':'dialog "Crop media"','refs':[{'role':'button','name':'Back','ref':'back'}]}
+            if self.step==1:return {'url':'https://x.com/compose/post','refs':[{'role':'button','name':'Close','ref':'close'}]}
+            return {'text':'alertdialog "Save post?"','refs':[{'role':'button','name':'Discard','ref':'discard'}]}
+        def wait(self,*args):pass
+        def run(self,page,phase):assert phase=='composer';return ['Bound unsent copy']
+        def act(self,page,kind,**kw):
+            assert kind=='click';self.actions.append(kw['ref']);self.step+=1
+    client=Client();client.clear_task_draft(1)
+    assert client.actions==['back','close','discard']
+
+
 @pytest.mark.parametrize('author_verified',[True,False])
 def test_note_reply_profile_alias_requires_the_exact_object_under_its_bound_handle(author_verified):
     text='The original conditional call remains in force.'

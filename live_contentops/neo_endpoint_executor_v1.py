@@ -189,6 +189,14 @@ class NeoMcpClient:
             if (getattr(self,"last_error",{}).get("classification")=="BEFOREUNLOAD"):
                 self.act(page,"dialog_accept")
             return
+        if 'dialog "Crop media"' in snapshot.get("text",""):
+            back=next((r for r in snapshot["refs"] if r["role"]=="button" and r["name"]=="Back"),None)
+            if not back:
+                return
+            # Cancel the image editor; never save a crop of a source-bound card.
+            self.act(page,"click",ref=back["ref"])
+            self.wait(page,'[data-testid="tweetTextarea_0"][contenteditable="true"]')
+            snapshot=self.snapshot(page)
         discard=next((r for r in snapshot["refs"] if r["role"]=="button" and r["name"]=="Discard"),None)
         if discard and 'alertdialog "Save post?"' in snapshot.get("text",""):
             self.act(page,"click",ref=discard["ref"])
@@ -591,7 +599,13 @@ class NeoBrowserDriver:
         media=(request.get("content_binding") or {}).get("media_manifest") or []
         for index,text in enumerate(posts):
             if index:
-                self.client.act(page,"click",ref=self._ref(page,"button",{"Add post"},last=True))
+                # An uploaded preview can move under this button's click point
+                # and open Crop media. Activate the exact observed button by
+                # keyboard, after verifying focus, so the source image stays intact.
+                self.client.act(page,"focus",ref=self._ref(page,"button",{"Add post"},last=True))
+                if self.client.run(page,"add_post_focused").get("focused") is not True:
+                    raise NeoEndpointError("NEO_ADD_POST_FOCUS_NOT_CONFIRMED")
+                self.client.act(page,"press",key="Enter")
                 self.client.wait(page,f'[role="dialog"] [data-testid="tweetTextarea_{index}"][contenteditable="true"][role="textbox"]')
             def editor_refs():
                 return [r for r in self.client.snapshot(page)["refs"] if r["role"] == "textbox"
