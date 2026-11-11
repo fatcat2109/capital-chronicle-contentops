@@ -908,6 +908,61 @@ def test_dispatched_seals_preserve_unchanged_review_across_converter_change(tmp_
         assert actual == result
         assert _prepared_packet(store, binding)[1] == plan
 
+@pytest.mark.parametrize("dispatched", [False, True])
+def test_frozen_seven_channel_packet_survives_youtube_restoration(tmp_path, monkeypatch, dispatched):
+    """Decision 121 changes new work; exact dispatched seven-channel bytes stay readable."""
+    from hashlib import sha256
+    from live_contentops.newsroom_production_day_v1 import _logical_hash
+    from live_contentops.v1_simple_publication_handoff_v1 import SimplePublicationHandoffError
+
+    store, binding, _, _, _ = seeded(tmp_path, monkeypatch)
+    sealed, plan, root = _prepared_packet(store, binding)
+    record_path = root / "qualified_article_record_v1.json"
+    record = json.loads(record_path.read_bytes())
+    record["derivative_package_intents"] = [r for r in record["derivative_package_intents"]
+                                             if r["destination"] != "youtube"]
+    record["derivative_package_intent_count"] = len(record["derivative_package_intents"])
+    record["record_sha256"] = _logical_hash({k: v for k, v in record.items() if k != "record_sha256"})
+    record_path.write_bytes(canonical_bytes(record))
+    plan["destinations"] = [r for r in plan["destinations"] if r["destination"] != "youtube"]
+    plan["plan_hash"] = sha256_of({k: v for k, v in plan.items() if k != "plan_hash"})
+    (root / "publication_lifecycle_plan_v1.json").write_bytes(canonical_bytes(plan))
+
+    # Represent a packet sealed under the seven-channel policy in this disposable store.
+    prepared_rows = store.list_outbox_messages(destination="internal:native-prepared-handoff")
+    prepared_row = prepared_rows[-1]
+    packet = json.loads(prepared_row["payload"])
+    packet["plan_hash"] = plan["plan_hash"]
+    sealed["plan_hash"] = plan["plan_hash"]
+    sealed["prepared_handoff_sha256"] = sha256_of(packet)
+    sealed["artifact_sha256"] = {name: sha256((root / name).read_bytes()).hexdigest()
+                                  for name in sealed["artifact_sha256"]}
+    sealed_row = store.list_outbox_messages(destination="internal:native-publication-binding")[-1]
+    with store.get_connection() as conn:
+        conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?",
+                     (canonical_bytes(packet).decode(), prepared_row["message_id"]))
+        conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?",
+                     (canonical_bytes(sealed).decode(), sealed_row["message_id"]))
+    if dispatched:
+        store.create_work_item(story_id=binding["run_id"], work_item_id=binding["run_id"],
+                               title="Controlled historical publication", target_surface="TEST")
+        store.register_outbox_message(message_id="historical-substack", work_item_id=binding["run_id"],
+                                       destination="substack", payload="{}")
+        store.register_platform_dispatch(dispatch_id="historical-dispatch", message_id="historical-substack",
+                                         platform="substack", status="UNKNOWN_WRITE")
+    before = {path.name: path.read_bytes() for path in root.iterdir() if path.is_file()}
+    dispatches = store.get_dispatches_for_work_item(binding["run_id"])
+    if dispatched:
+        operation = NativeReviewedPublication(store, binding, native_invocation_id=None)
+        assert operation.validate() == (plan, root)
+        assert "youtube" not in {r["destination"] for r in plan["destinations"]}
+    else:
+        with pytest.raises(SimplePublicationHandoffError, match="qualified_record_not_valid_for_slot"):
+            _prepared_packet(store, binding)
+    assert store.get_dispatches_for_work_item(binding["run_id"]) == dispatches
+    assert {path.name: path.read_bytes() for path in root.iterdir() if path.is_file()} == before
+
+
 @pytest.fixture(autouse=True)
 def x_neo_bar_lifted_for_the_sample(monkeypatch):
     """These tests use X as the sample destination for the Neo publishing machinery, which Substack, LinkedIn

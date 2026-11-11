@@ -57,25 +57,34 @@ def _prepared_packet(store, binding):
     image_view = post_image_view(result, output_dir=base.parent / "media" / "post-images")
     image_revision = sha256_of([native_review_revision(result), image_view["post_image_policy"],
                                [a["sha256"] for a in image_view["media_assets"]]])
+    sealed = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=DESTINATION)
+        if r["destination"] == DESTINATION and json.loads(r["payload"]).get("run_id") == binding["run_id"]]
+    prior = sealed[-1] if sealed else {}
+    frozen = bool(prior and store.get_dispatches_for_work_item(binding["run_id"])
+        and prior.get("binding_sha256") == sha256_of(binding)
+        and prior.get("native_result_sha256") == sha256_of(result)
+        and prior.get("prepared_handoff_sha256") == sha256_of(packet)
+        and prior.get("plan_hash") == packet.get("plan_hash")
+        and set(prior.get("artifact_sha256", {})) == set(ARTIFACTS)
+        and all((root / name).is_file() and sha256((root / name).read_bytes()).hexdigest() == digest
+                for name, digest in prior["artifact_sha256"].items()))
     if root not in {base, base / native_review_revision(result), base / image_revision}:
         # Current compiler policy may change the review revision without changing
         # any sent bytes. The existing dispatched packet keeps its original path,
         # plan and object identity; only exact original seals admit that path.
-        sealed = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=DESTINATION)
-            if r["destination"] == DESTINATION and json.loads(r["payload"]).get("run_id") == binding["run_id"]]
-        dispatched = store.get_dispatches_for_work_item(binding["run_id"])
-        prior = sealed[-1] if sealed else {}
-        if (root.parent != base or not dispatched or prior.get("native_result_sha256") != sha256_of(result)
-                or prior.get("plan_hash") != packet.get("plan_hash")
-                or not all((root / name).is_file() and sha256((root / name).read_bytes()).hexdigest() == digest
-                           for name, digest in prior.get("artifact_sha256", {}).items())
-                or set(prior.get("artifact_sha256", {})) != set(ARTIFACTS)):
+        if root.parent != base or not frozen:
             raise ValueError("REVIEWED_HANDOFF_PATH_CHANGED")
     if not all((root / name).is_file() for name in ARTIFACTS):
         raise ValueError("REVIEWED_HANDOFF_ARTIFACT_MISSING")
-    plan = SimplePublicationHandoffV1(store=store, coordinator=None).ensure_plan(
-        slot_id=binding["run_id"], slot_output_dir=root
-    )
+    if frozen:
+        # A reopened route applies to new work, not an exact sealed dispatch.
+        # Read its original plan without requalifying it against today's route
+        # set or reconstructing any historical artifact. New packets stay strict.
+        plan = json.loads((root / "publication_lifecycle_plan_v1.json").read_bytes())
+    else:
+        plan = SimplePublicationHandoffV1(store=store, coordinator=None).ensure_plan(
+            slot_id=binding["run_id"], slot_output_dir=root
+        )
     if (
         plan["plan_hash"] != packet["plan_hash"]
         or plan["article_identity"] != result["article_identity"]

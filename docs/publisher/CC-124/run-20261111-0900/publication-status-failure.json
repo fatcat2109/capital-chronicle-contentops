@@ -1,0 +1,8 @@
+{
+  "command": "publication-status",
+  "binding": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\binding.json",
+  "exit_code": 1,
+  "error_type": "SimplePublicationHandoffError",
+  "cause": "qualified_record_not_valid_for_slot",
+  "observation": "Installed CLI failed at _validated_qualified_record while projecting the already dispatched CPI preview; the preserved record has seven derivatives and the current required set has eight."
+}

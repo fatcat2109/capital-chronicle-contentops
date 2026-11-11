@@ -1,0 +1,36 @@
+{
+  "run_id": "cc338-cpi-preview-20261110-v1",
+  "plan_hash": "1c37ddb23ba19be02aec9a490c2d2feb8b0b9ff45822060c2c4715a395e8ec58",
+  "files": [
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\reviewed-handoff\\899c40614865caa2df835825e48aed89462c33704ff71d9a5dc1cf1ecacbe340\\article_manifest_v1.json",
+      "bytes": 53169,
+      "sha256": "eec5b220164f084f2740a9359d05a9ac373fc2f9af81db8badcc8abc9ffb3ccc",
+      "sealed_sha256": "eec5b220164f084f2740a9359d05a9ac373fc2f9af81db8badcc8abc9ffb3ccc"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\reviewed-handoff\\899c40614865caa2df835825e48aed89462c33704ff71d9a5dc1cf1ecacbe340\\native_derivative_previews_v1.json",
+      "bytes": 21407,
+      "sha256": "8f9e3bf71578aff6f4f87b675ee459268d972d7cc72c5a0d4451b917e2717926",
+      "sealed_sha256": "8f9e3bf71578aff6f4f87b675ee459268d972d7cc72c5a0d4451b917e2717926"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\reviewed-handoff\\899c40614865caa2df835825e48aed89462c33704ff71d9a5dc1cf1ecacbe340\\publication_lifecycle_plan_v1.json",
+      "bytes": 12626,
+      "sha256": "5825a1643bb10fb6483e36ab3899cd9a6a1dfab73aab7f79538ef4b3d7e91d8e",
+      "sealed_sha256": "5825a1643bb10fb6483e36ab3899cd9a6a1dfab73aab7f79538ef4b3d7e91d8e"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\reviewed-handoff\\899c40614865caa2df835825e48aed89462c33704ff71d9a5dc1cf1ecacbe340\\qualified_article_record_v1.json",
+      "bytes": 46600,
+      "sha256": "c1c8761a4614b343badc49c9552e6a7d5767ed981ba98832c59f6aa667bfe442",
+      "sealed_sha256": "c1c8761a4614b343badc49c9552e6a7d5767ed981ba98832c59f6aa667bfe442"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\reviewed-handoff\\899c40614865caa2df835825e48aed89462c33704ff71d9a5dc1cf1ecacbe340\\run_context_v1.json",
+      "bytes": 1074670,
+      "sha256": "486c98417d3d419c17d80fe22b33cea0571dfc3ec88bbf48be09bba8bda86875",
+      "sealed_sha256": "486c98417d3d419c17d80fe22b33cea0571dfc3ec88bbf48be09bba8bda86875"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="14.967" timestamp="2026-11-11T09:12:22.240757+07:00" hostname="J-P"><testcase classname="tests.test_native_desktop_publication_v1" name="test_frozen_seven_channel_packet_survives_youtube_restoration[False]" time="8.650" /><testcase classname="tests.test_native_desktop_publication_v1" name="test_frozen_seven_channel_packet_survives_youtube_restoration[True]" time="4.051"><failure message="live_contentops.v1_simple_publication_handoff_v1.SimplePublicationHandoffError: qualified_record_not_valid_for_slot">tests\test_native_desktop_publication_v1.py:957: in test_frozen_seven_channel_packet_survives_youtube_restoration
+    assert operation.validate() == (plan, root)
+           ^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_desktop_publication_v1.py:497: in validate
+    value, plan, root = _prepared_packet(self.store, self.binding)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\native_desktop_publication_v1.py:76: in _prepared_packet
+    plan = SimplePublicationHandoffV1(store=store, coordinator=None).ensure_plan(
+live_contentops\v1_simple_publication_handoff_v1.py:210: in ensure_plan
+    record = _validated_qualified_record(root, slot_id)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\v1_simple_publication_handoff_v1.py:117: in _validated_qualified_record
+    raise SimplePublicationHandoffError("qualified_record_not_valid_for_slot")
+E   live_contentops.v1_simple_publication_handoff_v1.SimplePublicationHandoffError: qualified_record_not_valid_for_slot</failure></testcase></testsuite></testsuites>
