@@ -865,6 +865,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     title = (row["lead"] if row["kind"] == "run" else
              f"{row['instrument_title']} · #{row['short_id']} · "
              + (ending_words(row) if row["kind"] == "result" else "call card" if row["kind"] == "setup" else "update"))
+    if row.get("reader_contract"):
+        title = row["reader_fields"]["hook"]["text"]
     article = {"title": title, "dek": row["lead"], "body": row["text"],
                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     # Registered packages keep exact bytes for readback/reconciliation. This
@@ -887,6 +889,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             if card is None:
                 all_carousel_images = False
                 continue
+            if row.get("reader_contract") and row["reader_fields"].get("alt_text"):
+                card = {**card, "alt_text": row["reader_fields"]["alt_text"]["text"]}
             if host is None:
                 from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
             local_manifest_path = member_folder / "delivery_media_manifest_v1.json"
@@ -910,6 +914,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
                         if hosted["media_asset_id"] not in {a["media_asset_id"] for a in manifest["assets"]}:
                             manifest["assets"].append(hosted)
                     continue
+                if row.get("reader_contract") and row["reader_fields"].get("alt_text"):
+                    carousel_card = {**carousel_card, "alt_text": row["reader_fields"]["alt_text"]["text"]}
                 if not posts._hosted(local_manifest_path, carousel_card):
                     delivery = host(work_item_id=member["key"], delivery_only_assets=[carousel_card], existing_manifest=None,
                                     article_assets=[], article=article, source_documents=[])
@@ -940,6 +946,10 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             "chart_credit": chart_credit, "status_post_chart_policy": "CC459_TRADINGVIEW",
             "status_post_parents": parents, "status_post_instagram_carousel": carousel,
             "status_post_skipped_destinations": skipped}
+        if row.get("reader_contract"):
+            context["reader_contract"] = row["reader_contract"]
+            context["reader_source"] = row["reader_source"]
+            context["reader_fields"] = row["reader_fields"]
         context_path.write_bytes(canonical_bytes(context))
     payloads = destination_payloads(row, card_id=card["asset_id"] if card else None,
                                   parents=parents, carousel=carousel, chart_credit=chart_credit,

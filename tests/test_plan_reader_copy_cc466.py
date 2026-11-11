@@ -95,3 +95,26 @@ def test_source_force_cannot_be_replaced_by_technical_only():
 def test_et_twelve_hour_conversion_uses_date_correct_zone():
     assert reader.et('2026-11-11T16:20:00Z')=='Wed 11 Nov, 11:20 AM ET'
     assert reader.et('2026-07-11T16:20:00Z')=='Sat 11 Jul, 12:20 PM ET'
+
+
+def test_r_result_is_exported_not_inferred_from_stopped():
+    assert reader.result_r({'outcome':{'result':'STOPPED'}}) is None
+    assert str(reader.result_r({'outcome':{'score':{'result_r':-1.0}}}))=='-1.0'
+    source,fields=source_and_fields()
+    fields.pop('scenario_main');fields.pop('scenario_alt')
+    fields['result_line']={'text':'Gold, short from 3 Nov: stopped out. Result: −1.0R.','source_ids':['3']}
+    fields['points']=[]
+    source['sources'][3]['text']='Gold short 3 Nov stopped out. -1.0'
+    source['result_r']='-1.0'
+    assert reader.validate_fields(fields,source)
+    source['result_r']='-0.8'
+    with pytest.raises(ValueError,match='R_RESULT_NOT_IN_EXPORT'):
+        reader.validate_fields(fields,source)
+
+
+def test_signed_r_result_exception_keeps_money_volume_and_account_private():
+    from live_contentops.event_article_guard_v1 import public_execution_copy_forbidden
+    assert not public_execution_copy_forbidden('Result: −1.0R.')
+    assert public_execution_copy_forbidden('Result: −1.0R. The size is 2 lots.')
+    assert public_execution_copy_forbidden('The account balance is 100000.')
+    assert public_execution_copy_forbidden('We made 2R.')

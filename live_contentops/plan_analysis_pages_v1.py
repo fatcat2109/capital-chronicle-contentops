@@ -62,8 +62,15 @@ def _numbers(text):
     # A sign and a percentage are material. A scalar probability of 55 can
     # support '55%' but never a made-up complement or a changed magnitude.
     from .event_article_guard_v1 import NAMED_NUMBER
-    return {format(Decimal(m.group().replace(',', '').replace('−', '-').rstrip('%')).normalize(), 'f')
-            for m in _NUM.finditer(NAMED_NUMBER.sub('', str(text)))}
+    text = str(text)
+    # A stated decline and a signed negative are the same sourced magnitude.
+    # An unsigned rise never gains that equivalence.
+    text = re.sub(r"\b(?:down|fell|declined|dropped|lost)\s+(\d+(?:\.\d+)?%)", r"-\1", text, flags=re.I)
+    text = re.sub(r"\b(\d+(?:\.\d+)?%)\s+(?:decline|fall|drop|decrease)\b", r"-\1", text, flags=re.I)
+    values = {format(Decimal(m.group().replace(',', '').replace('−', '-').rstrip('%')).normalize(), 'f')
+              for m in _NUM.finditer(NAMED_NUMBER.sub('', text))}
+    values.update(re.findall(r"\b(?:SMA|ATR|M|H)(\d+)\b", text))
+    return values
 
 
 def _pointer(value, pointer):
@@ -147,6 +154,8 @@ def _source_text(run, ref):
     if ref.get("transform") == "ET12":
         from .plan_reader_copy_v1 import et
         return et(value)
+    if ref.get("transform") == "TIMEFRAME_WORDS":
+        return re.sub(r"\bM(\d+)\b", r"\1-minute", str(value))
     if ref.get("transform"):
         raise ValueError("PLAN_ANALYSIS_SOURCE_TRANSFORM_INVALID")
     return str(value)
@@ -267,7 +276,7 @@ def _assemble(plan, manuscript, run):
     public_filter(body)
     if reader:
         check_text(body, source="\n".join(_source_text(run, ref) for section in manuscript["sections"].values()
-            for paragraph in section["paragraphs"] for ref in paragraph["refs"]) + "\n" + body,
+            for paragraph in section["paragraphs"] for ref in paragraph["refs"]),
             check_numbers=False, prose=False)
     payload = {"title": manuscript["title"], "subtitle": manuscript["subtitle"], "body_markdown": body}
     return payload, paragraphs, geometry_bindings
@@ -283,11 +292,18 @@ def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT):
     folder = Path(output_dir)
     folder.mkdir(parents=True, exist_ok=True)
     card = _card(plan, run, folder, manuscript) if plan.get("asset_id") in posts.MARKETS and plan.get("zone") else None
+    if card and manuscript.get("reader_contract") == "CC466_V1":
+        card = {**card, "article_inclusion": True, "canonical_article_media": True,
+                "placement_after": manuscript["introduction"], "article_section": "introduction",
+                "canonical_article_section_association": "introduction"}
     (folder / "article.md").write_text("# " + payload["title"] + "\n\n" + body, encoding="utf-8")
     html = '<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
     html += '<style>body{font:18px/1.65 Georgia,serif;max-width:760px;margin:36px auto;padding:0 22px;color:#18252b}h1{line-height:1.2}h2{font:600 24px/1.3 system-ui;margin-top:2em}p{overflow-wrap:anywhere}</style>'
     html += '<h1>' + escape(payload['title']) + '</h1><p>' + escape(payload['subtitle']) + '</p>'
-    html += ''.join('<h2>' + escape(p[3:]) + '</h2>' if p.startswith('## ') else '<p>' + escape(p) + '</p>' for p in paragraphs)
+    for index, paragraph in enumerate(paragraphs):
+        html += '<h2>' + escape(paragraph[3:]) + '</h2>' if paragraph.startswith('## ') else '<p>' + escape(paragraph).replace('\n','<br>') + '</p>'
+        if index == 0 and card:
+            html += '<figure style="margin:24px 0"><img style="width:100%;height:auto" src="' + escape(Path(card['path']).as_uri()) + '" alt="' + escape(card['alt_text']) + '"><figcaption>' + escape(card['caption']) + '</figcaption></figure>'
     (folder / "article.html").write_text(html, encoding="utf-8")
     packet = {"schema_version": "contentops.plan_analysis_page.v1", "plan_id": plan["plan_id"],
               "registration_hash": plan["registration_hash"], "run_id": plan["run_id"],

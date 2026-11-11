@@ -153,9 +153,15 @@ def source_packet(plan, run):
     if scenario.get("horizon_end_utc"):
         lines.append({"id":"s"+str(len(lines)), "layer":"plan", "text":et(scenario["horizon_end_utc"]),
             "ref":{"file":"plan-export", "pointer":"/scenario_analysis/horizon_end_utc", "transform":"ET12"}})
+    for parent,pointer in ((plan.get("outcome") or {},"/outcome"),
+                           ((plan.get("outcome") or {}).get("score") or {},"/outcome/score")):
+        for key in ("result_r","realized_r","r_multiple","resolved_at_utc","result"):
+            if parent.get(key) is not None:
+                add("result","plan-export",pointer+"/"+key,parent[key])
     return {"plan_id": plan["plan_id"], "registration_hash": plan["registration_hash"],
             "asset_id": plan["asset_id"], "sources": lines,
             "scenario_analysis": scenario,
+            "result_r": str(result_r(plan)) if result_r(plan) is not None else None,
             "source_manifest": run["manifest"], "frozen_at_utc": run["freeze"]["frozen_at_utc"],
             "missing_export_fields": ["scenario_analysis." + k for k in mapping if not scenario.get(k)]}
 
@@ -174,6 +180,18 @@ def validate_fields(fields, source):
 
     field(fields["hook"], 96)
     points = fields["points"]
+    if fields.get("result_line"):
+        text=field(fields["result_line"])
+        match=re.search(r"Result: ([+−-]\d+\.\d)R\.",text)
+        if not match:
+            raise ValueError("CC466_SIGNED_R_RESULT_REQUIRED")
+        if source.get("result_r") is None or Decimal(match[1].replace("−","-")) != Decimal(source["result_r"]):
+            raise ValueError("CC466_R_RESULT_NOT_IN_EXPORT")
+        if not isinstance(points,list) or len(points)>2:
+            raise ValueError("CC466_TWO_RESULT_REVIEW_LINES_MAXIMUM")
+        for point in points:
+            field(point,90)
+        return checks
     if not isinstance(points, list) or not 1 <= len(points) <= 5:
         raise ValueError("CC466_ONE_TO_FIVE_SOURCED_LAYERS_REQUIRED")
     order = [key for key, _ in LAYERS]
@@ -246,26 +264,31 @@ def payloads(row, card_id, *, chart_credit=False, parents=None):
     if not re.fullmatch(r"https://capitalchronicle\.substack\.com/p/[a-z0-9-]+", url):
         raise ValueError("CC466_CONFIRMED_PLAN_PAGE_REQUIRED")
     hook = fields["hook"]["text"]
-    scenarios = [fields["scenario_main"]["text"]]
+    scenarios = [fields["scenario_main"]["text"]] if fields.get("scenario_main") else []
     if fields.get("scenario_alt"):
         scenarios.append(fields["scenario_alt"]["text"])
     labels = dict(LAYERS)
-    points = [labels[p["layer"]] + ": " + p["text"] for p in fields["points"]]
+    points = [labels.get(p["layer"],"Review") + ": " + p["text"] for p in fields["points"]]
     window = fields.get("window", {}).get("text", "")
     call_line = row.get("reader_call_line", "")
     credit = "\n\n" + posts.CHART_CREDIT if chart_credit else ""
     long = "\n\n".join(filter(None, [hook, "\n".join(points), "\n".join(scenarios), window,
                                           call_line, "Full analysis: " + url, NOTICES])) + credit
-    root = hook + "\n\n" + "\n".join(scenarios)
+    result_line=fields.get("result_line",{}).get("text","")
+    if result_line:
+        long="\n\n".join([result_line,"\n".join(points),"R is the risk planned at entry.",
+            "Every call and its result: "+url,NOTICES])+credit
+    root = (result_line if result_line else hook + "\n\n" + "\n".join(scenarios))
     link_reply = "Full analysis, and what would change our mind: " + url + "\n\n" + NOTICES
     reasons = "\n".join(points[:3]) + ("\n" + call_line if call_line else "")
     x_parts = [root, link_reply, reasons]
     # Attribution stays with the chart. It does not push the root's link back in.
     if credit:
         x_parts[2] += credit
+    x_parts=[part for part in x_parts if part.strip()]
     if any(posts._x_length(part) > 280 for part in x_parts):
         raise ValueError("CC466_X_FIELD_SET_TOO_LONG_REWRITE_REQUIRED")
-    threads_root = "\n\n".join([hook, "\n".join(scenarios), "Full analysis: " + url, NOTICES])
+    threads_root = "\n\n".join([root, "Full analysis: " + url, NOTICES])
     thread_parts = [threads_root, reasons + credit]
     if any(len(part) > 500 for part in thread_parts):
         raise ValueError("CC466_THREADS_FIELD_SET_TOO_LONG_REWRITE_REQUIRED")

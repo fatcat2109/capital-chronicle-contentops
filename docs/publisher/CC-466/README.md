@@ -24,3 +24,15 @@ The first native MAX page call timed out after 180 seconds. That failure is
 retained. The next bounded call uses a shorter writing range and a 300-second
 limit; it has no provider or model substitution. Source state, build integration
 and live/public acceptance remain separate.
+
+The reader/result slice passed 175 targeted checks in 11.29 seconds
+(`final-copy-tests.xml`). Signed R is allowed only in the sourced result grammar;
+size, money and account checks remain. A source-bound 617-word EUR/USD page and
+its current TradingView media were rendered and inspected. The first native page
+request has an observed Substack identity; the exact pending publish request and
+draft are retained in `editorial/eurusd/page/`.
+
+AGY 1.5.5 lists the configured Gemini 3.8 Flash High model. Three bounded calls
+returned no text (60/120-second stream, then a 120-second direct request).
+`native-model-limits.json` retains those failures. No variant is claimed authored
+by AGY when it returned none, and no substitute provider was used.

@@ -194,6 +194,9 @@ class PublicOutputError(ValueError):
 
 def public_execution_copy_forbidden(text: str) -> bool:
     """Keep position calls private while allowing a central bank's policy target."""
+    # CC-466: an explicitly sourced result in R is public; cash, size and
+    # account identifiers remain private. Only the signed result grammar is exempt.
+    text = re.sub(r"\bResult: [+−-]\d+\.\dR\.", "Result: recorded.", text)
     if _PRIVATE_TEXT.search(text):
         return True
     for match in _INSTRUCTION.finditer(text):
