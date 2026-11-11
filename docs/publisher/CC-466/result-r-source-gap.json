@@ -1,0 +1,30 @@
+{
+  "observed_at_utc": "2026-11-11T18:22:58.503837+00:00",
+  "public_export_path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+  "sha256": "3aad80429a375c7fbf9ab21e31694e33bb824ae370ace48e1ef7698d015d7000",
+  "plan_count": 83,
+  "nonempty_outcome_scores": 5,
+  "score_fields": [
+    "asset_id",
+    "content_hash",
+    "corrects_outcome_id",
+    "decision_record_id",
+    "direction",
+    "frozen_at_utc",
+    "horizon_end_utc",
+    "outcome_id",
+    "plan_id",
+    "public_call_id",
+    "resolved_at_utc",
+    "result",
+    "score_basis",
+    "scored_at_utc",
+    "source_hash",
+    "source_plan_hash",
+    "triggered_at_utc"
+  ],
+  "explicit_result_r_fields": [],
+  "requirement": "CC-466 numbers match the export; STOPPED/HIT never imply an invented R value.",
+  "requested_public_field": "outcome.score.result_r",
+  "search_scope": "Main public plan/outcome/score fields, source-bound analyst run, held plan-page packets, CC-471 and overhaul public-result contract. This states an absent public field, not an absence of private trading records."
+}
