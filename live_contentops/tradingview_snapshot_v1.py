@@ -273,7 +273,8 @@ def _run_worker(args: dict, *, timeout: float, python: str | None) -> dict:
 
 
 def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEOUT_SECONDS,
-            worker=None, python: str | None = None, ratio: str = "16:9", quote_provider=None) -> dict:
+            worker=None, python: str | None = None, ratio: str = "16:9", quote_provider=None,
+            chart_size: tuple[int, int] | None = None) -> dict:
     """One TradingView Download image of the market at the interval, checked before use."""
     economic = bool(re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(market)))
     if (market not in SYMBOLS and not economic) or interval not in INTERVAL_LABELS or ratio not in RATIOS:
@@ -283,6 +284,10 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
     out_dir.mkdir(parents=True, exist_ok=True)
     args = {"url": chart_url(tv_symbol, interval), "out_dir": str(out_dir),
             "budget_ms": int(timeout * 1000) - 8000, "ratio": ratio}
+    if chart_size is not None:
+        if tuple(chart_size) not in {(1600, 700), (1080, 850)}:
+            raise SnapshotError("IMAGE_CHART_CAPTURE_SIZE_UNSUPPORTED")
+        args["chart_size"] = list(chart_size)
     result = (worker or (lambda a: _run_worker(a, timeout=timeout, python=python)))(args)
     path = Path(str(result.get("path") or ""))
     ticker = tv_symbol.split(":", 1)[1]
@@ -309,7 +314,10 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
             scale = {"chart_geometry": geometry(result)}
         except (ValueError, KeyError, OSError, StopIteration, ZeroDivisionError) as exc:
             scale = {"chart_geometry_cause": str(exc) or "TRADINGVIEW_PRICE_SCALE_NOT_USABLE"}
-    if ratio == "4:5" and abs(size[0] / size[1] - .8) > .003:
+    if chart_size and (min(size[0]/chart_size[0], size[1]/chart_size[1]) < .97
+            or abs(size[0]/size[1]/(chart_size[0]/chart_size[1])-1) > .03):
+        raise SnapshotError("IMAGE_CHART_CAPTURE_SHAPE")
+    if not chart_size and ratio == "4:5" and abs(size[0] / size[1] - .8) > .003:
         raise SnapshotError("INSTAGRAM_NATIVE_4X5_CHART_REQUIRED")
     taken = {"path": str(path), "sha256": _sha256(path), "width": size[0], "height": size[1], **scale,
             "capture_ratio": ratio, "capture_viewport": result.get("capture_viewport"),
@@ -317,6 +325,8 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
             "legend": legend, "page_title": result.get("page_title"), "chart_url": args["url"],
             "suggested_filename": result.get("suggested_filename"),
             "captured_at_utc": result.get("captured_at_utc"), "seconds": result.get("seconds")}
+    if chart_size:
+        taken["template_chart_size"] = list(chart_size)
     if not economic and (worker is None or quote_provider is not None):
         from .publication_image_contract_v1 import bind_scale
         taken = bind_scale(market, taken,
@@ -355,6 +365,10 @@ def snapshot_asset(market: str, title: str, snapshot: Mapping[str, Any], out_dir
 def validate_snapshot_asset(asset: Mapping[str, Any], article: Mapping[str, Any] | None = None) -> None:
     """Validate the exact download and uncropped pixels; never treat it as a data series."""
     from PIL import Image, ImageChops
+    if asset.get("image_template"):
+        from .image_quality_v1 import validate_asset
+        validate_asset(asset, require_vision=False)
+        return
     snap = asset["tradingview_snapshot"]
     market = (article or {}).get("market_asset")
     if ((article or {}).get("paid") or (article or {}).get("paywall")
@@ -697,12 +711,16 @@ def _worker(args: dict) -> dict:
                 from PIL import Image
                 with Image.open(target) as image:
                     width, height = image.size
-                if args.get("ratio") != "4:5" or width * 5 == height * 4:
+                wanted = args.get("chart_size")
+                if wanted and (width, height) == tuple(wanted):
+                    break
+                if not wanted and (args.get("ratio") != "4:5" or width * 5 == height * 4):
                     break
                 if shape_attempt == 2:
                     raise SnapshotError("INSTAGRAM_NATIVE_4X5_CHART_REQUIRED")
-                target_height = -(-height // 5) * 5
-                viewport = {"width": viewport["width"] + target_height * 4 // 5 - width,
+                target_height = wanted[1] if wanted else -(-height // 5) * 5
+                target_width = wanted[0] if wanted else target_height * 4 // 5
+                viewport = {"width": viewport["width"] + target_width - width,
                             "height": viewport["height"] + target_height - height}
                 page.set_viewport_size(viewport)
                 page.wait_for_timeout(500)  # bounded canvas repaint after resize

@@ -283,14 +283,33 @@ def validate_write(coordinator, intent, destination):
     from .article_publication_quality_v1 import article_inputs
     article, _, _ = article_inputs(intent)
     markets, macro = scope(coordinator.store, intent, article)
-    if not markets and not macro:
-        return None
     from ._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
     data = _durable_intent_inputs(intent)
     assets = data["media_assets"]
     if destination == "substack":
         assets = [a for a in assets if a.get("article_inclusion") is not False
                   and a.get("canonical_article_media") is not False]
+    # CC-465 checks the exact transport-selected PNGs, including table-only
+    # scorecards, at the same sole publication boundary as CC-463.
+    templates = [a for a in assets if a.get("image_template")]
+    if templates:
+        from .image_quality_v1 import validate_asset
+        for asset in templates:
+            try:
+                validate_asset(asset, destination=destination)
+            except ValueError as exc:
+                raise ImageContractError(str(exc), image_sha256=asset.get("sha256")) from exc
+        first = assets[0].get("image_template") or {}
+        if first.get("template") != "weekly" and not first.get("chart"):
+            raise ImageContractError("TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE")
+        for asset in templates:
+            meta = asset["image_template"]
+            if meta["chart"] and markets and meta["input"].get("market") not in markets:
+                raise ImageContractError("TRADINGVIEW_MARKET_SYMBOL_MISMATCH")
+        return {"policy": "CC465_IMAGE_TEMPLATES_V1", "images": len(templates),
+                "scores": [a["image_quality"]["score"] for a in templates]}
+    if not markets and not macro:
+        return None
     if not assets:
         # Only the existing bounded capture owner can establish exhaustion.
         folder = Path(str(intent.get("output_dir") or ""))
@@ -314,7 +333,7 @@ def validate_write(coordinator, intent, destination):
         raise ImageContractError("MACRO_SOURCE_GRAPH_REQUIRED" if macro else "TRADINGVIEW_FIRST_IMAGE_REQUIRED")
     from . import tradingview_snapshot_v1 as tv
     lead = assets[0]
-    if macro:
+    if macro and not templates:
         if image_type(lead) == "FRED_GRAPH":
             _fred(lead)
         elif image_type(lead) == "TRADINGVIEW_ECONOMIC_CHART":
@@ -358,6 +377,8 @@ def validate_write(coordinator, intent, destination):
                 raise ImageContractError("TRADINGVIEW_RUN_MARKET_CHART_MISSING")
     if destination == "instagram_business":
         for asset in assets:
+            if asset.get("image_template"):
+                continue  # The native T master and chart box were checked above.
             snap = asset.get("tradingview_snapshot") or {}
             framing = snap.get("framing") or {}
             if (framing.get("mode") != "NATIVE_VIEWPORT" or snap.get("capture_ratio") != "4:5"

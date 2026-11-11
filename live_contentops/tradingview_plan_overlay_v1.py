@@ -152,7 +152,8 @@ def _draw(image, overlay, offset):
         draw.text((left + 15, top + 2), label, font=font, fill=(31, 60, 80, 255))
         top += 30
     markers = []
-    colors = {"Entry low": (25,110,95,255), "Entry high": (25,110,95,255),
+    entry_colour = (31,95,191,255) if overlay.get("entry_colour") == "blue" else (25,110,95,255)
+    colors = {"Entry low": entry_colour, "Entry high": entry_colour,
               "Invalidation": (175,40,57,255), "Target": (31,83,160,255)}
     from .plan_call_cards_v1 import level as display_level
     for label, price in [("Entry low",levels.get("zone_low")), ("Entry high",levels.get("zone_high")),
@@ -172,7 +173,8 @@ def _draw(image, overlay, offset):
         ya,yb = sorted((_price_y(scale,display_level(low,levels).replace(",", ""))+oy,
                         _price_y(scale,display_level(high,levels).replace(",", ""))+oy))
         if yb >= top and ya <= bottom:
-            draw.rectangle((left,max(top,round(ya)),right,min(bottom,round(yb))), fill=(25,140,110,35))
+            fill = (31,95,191,36) if overlay.get("entry_colour") == "blue" else (25,140,110,35)
+            draw.rectangle((left,max(top,round(ya)),right,min(bottom,round(yb))), fill=fill)
     markers.sort(key=lambda m:m["y"])
     label_y = [max(top,min(bottom-24,m["y"]-10)) for m in markers]
     for i in range(1,len(label_y)):
@@ -204,7 +206,7 @@ def apply(asset, row, *, require_verified=True):
     if not scale or scale.get("policy") != POLICY or scale["source_sha256"] != asset["tradingview_snapshot"]["sha256"]:
         raise ValueError("TRADINGVIEW_PRICE_SCALE_NOT_CAPTURED_OR_BOUND")
     result = deepcopy(asset)
-    overlay = {"policy": POLICY, "scale": scale, "source": source_binding(row)}
+    overlay = {"policy": POLICY, "scale": scale, "source": source_binding(row), "entry_colour": "blue"}
     if asset["tradingview_snapshot"].get("price_scale_check"):
         from .publication_image_contract_v1 import validate_scale
         check = validate_scale(row["symbol"], asset["tradingview_snapshot"])
