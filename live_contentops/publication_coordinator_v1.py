@@ -4103,7 +4103,8 @@ class DurablePublicationCoordinator:
         result = []
         for message in messages:
             if (message["status"] == "PLAN_POST_SETTLED"
-                    and json.loads(message["payload"]).get("plan_status_post")):
+                    and any(json.loads(message["payload"]).get(key)
+                            for key in ("plan_status_post", "plan_analysis_link"))):
                 # CC-515 closed this minute-work obligation. Original uncertain
                 # dispatches remain available to explicit exact-object readback.
                 continue

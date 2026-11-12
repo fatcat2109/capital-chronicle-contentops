@@ -164,10 +164,15 @@ def test_late_analysis_link_leaves_automatic_work_but_preserves_unknown_readback
     assert bool(result) is closed
     assert store.get_platform_dispatch(ids["dispatch_id"]) == dispatch_before
     assert store.get_outbox_message(value["link_id"])["payload"] == payload_before
+    recovery_ids = {r["message_id"] for r in coordinator._recovery_messages()}
+    assert (ids["message_id"] not in recovery_ids) is closed
     if closed:
         assert result["status"] == "SETTLED"
         assert store.get_outbox_message(ids["message_id"])["status"] == "PLAN_POST_SETTLED"
         assert pages._resume_link(store, value, True)["status"] == "SETTLED"
+        path = posts.record_run({"status": "OK", "publication": {"analysis_distribution": {"links": [
+            {"link_id": value["link_id"], "destination": "substack_notes", "outcome": result}]}}}, tmp_path / "runs")
+        assert json.loads(path.read_text())["analysis_links"][0]["cause"] == result["cause"]
         executor = NativeNeoExecutor(store, operation_id=value["link_id"], output_dir=tmp_path,
                                      native_invocation_id="fixture")
         request = {"action": "READBACK", "destination": "substack_notes", "request_sha256": "b" * 64,

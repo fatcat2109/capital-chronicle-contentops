@@ -143,3 +143,16 @@ The first normal minute result at **21:21:55 GMT+7** reports **73 SETTLED, 14 pe
 The new minute result also exposes a separate local derivative defect: a retained plan-page packet with an omitted fundamental layer raises a literal `KeyError('fundamental')` while composing its Telegram/Notes links. The Publisher integration corrected that consumer to omit absent source layers under CC-466's current contract. Other retained results name `outcome.score.result_r` absent, `PLAN_CARD_REPLY_PARENT_CHANGED`, and `SUBSTACK_PLAN_PAGE_NOT_CONFIRMED`; their exact causes stay attached.
 
 The preserved request after the first install belonged to the 10 November Notes plan-page link `plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-substack_notes`. The same 24-hour automatic-work limit now covers plan-page links and run indexes as well as status-card roots. Settling changes the internal work statuses and adds its cause to the existing incident table; it never changes the original payload or dispatch certainty. Recent links continue, and the same exact-object readback remains available for late `UNKNOWN_WRITE` copies. The targeted test exercises both the consumer and stored-browser drain, with a recent live control.
+
+Acceptance is split by observation, not by code delivery. The installed row and queue consumers pass their tests and the normal minute run proves the stale queue cleanup. The full-day target is still **NOT OBSERVED**, with its exact next check at **14 November 00:00 GMT+7**. The item remains open for that observation; no Ops review, credential action, schedule change or manual test post is required.
+
+| Destination | Latest exact cause retained in the normal minute result |
+|---|---|
+| X plan links | `PLAN_ANALYSIS_PARENT_NOT_CONFIRMED`; the unsent current setup also has `SUBSTACK_PLAN_PAGE_NOT_CONFIRMED`. Historical wrong-image/profile causes remain in the attempt table above. |
+| LinkedIn member | `DESTINATION_FAILED_ET_DAY_SKIP`; its bound first attempt records `TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE` before HTTP. No platform restriction or accepted write is inferred. |
+| LinkedIn company | `NO_NEW_ARTICLE_INTENT_SINCE_CC454_INSTALL`; decision 121 keeps historical refusals closed and does not add call-card posts. |
+| YouTube | `NO_NEW_ARTICLE_INTENT_SINCE_CC454_INSTALL`; the next natural article supplies the allowed route's outcome. |
+| Discord | Earlier bot-token thread failures keep their cause; new cards use CC-437's existing channel route. Current old child packages retain `PLAN_CARD_REPLY_PARENT_CHANGED` rather than being sent under a different parent. |
+| Substack Notes | The old plan-page `UNKNOWN_WRITE` automatic readback now obeys the same 24-hour settlement limit. Its exact dispatch and explicit readback remain. |
+
+The normal minute result at **21:40:55 GMT+7** observes the old Notes plan-page link as SETTLED, with zero stored-browser requests and zero waiting roots older than 24 hours. `live-final-readback.json` preserves that observation. The final two-case regression also proves general automatic coordinator recovery omits a settled link, a recent uncertain link remains eligible, exact readback still runs, and the existing minute record retains the settlement cause. It passed in 3.03 seconds during the short-test window.

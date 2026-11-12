@@ -988,6 +988,7 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
             per = outcome.get("per_destination") or (outcome.get("recovery_preflight") or {}).get("per_destination") or {}
             line["analysis_links"].append({
                 **{k: row[k] for k in ("page_id", "destination", "link_id", "state", "cause") if k in row},
+                **({"cause": outcome["cause"]} if outcome.get("cause") and not row.get("cause") else {}),
                 "status": (outcome.get("state") or outcome.get("status")
                            or outcome.get("distribution_status") or row.get("state")),
                 "per_destination": {d: v.get("status") for d, v in per.items()},

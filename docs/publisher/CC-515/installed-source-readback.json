@@ -1,6 +1,6 @@
 {
-  "observed_at_utc": "2026-11-12T14:19:12.515003+00:00",
-  "operating_head": "33f5ad09b615b3d205e955f120c82cb976093417",
+  "observed_at_utc": "2026-11-12T14:36:20.276541+00:00",
+  "operating_head": "51daa2b70744d617b51c2e645464e017404583d0",
   "files": [
     {
       "path": "live_contentops/plan_status_posts_v1.py",
@@ -20,15 +20,19 @@
     {
       "path": "live_contentops/neo_endpoint_executor_v1.py",
       "matches_committed_blob_after_line_endings": true,
-      "sha256": "08384b8826b9744c356e75052e0a8002a0c81b3eb68b8772821f578ec4b5946f"
+      "sha256": "8512b8b041687c472d6edc92108ae4466f82ec26a05bfc5b3ef3743d12020645"
     },
     {
       "path": "live_contentops/publication_coordinator_v1.py",
       "matches_committed_blob_after_line_endings": true,
       "sha256": "f3ca87ab6680f65985af29813ec53b835c8ed3efc13ad7cd4c4df6526bde0185"
+    },
+    {
+      "path": "live_contentops/plan_analysis_pages_v1.py",
+      "matches_committed_blob_after_line_endings": true,
+      "sha256": "ba01f4e8dac1e93763b5f67661e8fb5bf3d26c5fb042ee737726b7689ca22b6a"
     }
   ],
-  "all_match": true,
   "preserved_wip": [
     {
       "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
@@ -71,6 +75,7 @@
       "unchanged": true
     }
   ],
+  "all_match": true,
   "schedule_changes": 0,
   "application_restarts": 0
 }
