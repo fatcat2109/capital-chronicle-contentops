@@ -64,10 +64,40 @@ python docs/publisher/CC-510/replay.py
 python docs/publisher/CC-510/replay.py --producer-check --output docs/publisher/CC-510/producer-readback.json
 ```
 
-Publisher-B performed no live consumer tick, Telegram send, schedule change,
-Main edit, deployment or application restart. Under CC-510's integration line,
-the first Publisher stream merges onto its current operating HEAD, runs the
-targeted checks and reads back the next real private draft. The backlog returns
-to `OPEN (integrate ...)` with Owner `Codex Publisher`; there is no Ops review
-step. The next phone draft using a base rate must show its count, period and
-`Fact: base rate through <date>` before the item is DONE.
+Publisher-B delivered `72cb1b12372586c2772d4c3b836475a4f0698e28` without a live
+consumer tick, Telegram send, schedule change, Main edit or application restart.
+
+The first Publisher stream integrated it with CC-509 at
+`d346c0d688cdc41f5238d5384a0c7a3f111f0595`, from the current operating HEAD
+`0f96aee9a23eb888eba98f4eb7dd65347f124b96`. Both quote supplementation and
+base-rate collection remain in the mobile fact collector. The phone formatter
+preserves the elapsed age for quotes and adds the base-rate cutoff label.
+[integration.json](integration.json) records the launch configuration, source
+hashes, preserved uncommitted files, live tag and rollback tag. Runtime model and
+effort telemetry remain unavailable; launch arguments were `gpt-6.1-sol / max`,
+labelled `CONFIGURED_NOT_OBSERVED`.
+
+[installed-tests.xml](installed-tests.xml) records 140 passing targeted checks
+from `A:/Capital Chronicle/ContentOps` in 55.87 seconds, using one pytest process.
+The added combined-source test proves that a current quote and both historical
+horizons enter the same candidate and ranking input, with the larger base-rate
+sample first. Unit tests inject their statistics producer rather than reading
+the live Data store. No schedule or application was changed.
+
+[installed-producer-readback.json](installed-producer-readback.json) contains 12
+real producer answers for the six explicit fixture conditions and both horizons,
+with no gaps. One Bitcoin query took 2.33 seconds; all others took less than two.
+These fixture queries read held history; they are not a natural phone delivery.
+
+[installed-consumer-readback.json](installed-consumer-readback.json) records the
+existing minute consumer after installation. The 19:33 GMT+7 run supplied one
+eligible target to the actual ranker. That target had no supported move condition,
+so no base rate was requested. The ranker rejected its session fact as
+`NO_ADDED_FACT_ABOVE_QUALITY_FLOOR`; no writer or send ran. No manual tick or
+replacement scheduler was added, and no score, target clock or source was changed.
+
+The code is live. The remaining acceptance evidence is
+`BASE_RATE_PHONE_PROOF_PENDING`: the next natural private draft using a base rate
+must show its count, period and `Fact: base rate through <date>`. The observed
+cause is `NO_MATCHING_MOVE_HEADLINE_IN_OBSERVED_TARGETS`. The existing minute
+consumer continues this path; no person action or Ops review is pending.

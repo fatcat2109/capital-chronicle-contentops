@@ -1,0 +1,77 @@
+{
+  "item": "CC-510",
+  "read_at_utc": "2026-11-12T12:34:47.107366+00:00",
+  "installed_at_utc": "2026-11-12T12:31:37.228267+00:00",
+  "existing_minute_consumer_only": true,
+  "manual_ticks": 0,
+  "public_submit_actions": 0,
+  "private_base_rate_delivery_count": 0,
+  "runs": [
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T123327-8ef55efe\\result.json",
+      "sha256": "484b64cf8d42aab5aa61ed3e9a0acbcb234a76eb25bc7d1fd5dd68cfb3a75a5b",
+      "started_at_utc": "2026-11-12T12:33:27.417040+00:00",
+      "ended_at_utc": "2026-11-12T12:33:52.023096+00:00",
+      "status": "NO_FRESH_UNSENT_DRAFTS",
+      "cause": null,
+      "stage_seconds": {
+        "ranking": 17.736630899991724,
+        "drafting": 0.0,
+        "checks": 0.06530140001268592,
+        "filter": 3.4437572000024375,
+        "whole_tick": 24.551399099989794
+      },
+      "selection_causes": {
+        "NO_SIX_MARKET_OR_MACRO_TOPIC": 15,
+        "TARGET_OVER_15_MINUTES_AT_SEND": 800,
+        "NO_USABLE_FACT": 1
+      },
+      "drop_causes": {
+        "NO_SIX_MARKET_OR_MACRO_TOPIC": 15,
+        "TARGET_OVER_15_MINUTES_AT_SEND": 800,
+        "NO_USABLE_FACT": 1,
+        "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR": 1
+      },
+      "delivery_count": 0,
+      "request": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T123327-8ef55efe\\reply-pack-request-eccb274b726e967f.json",
+        "sha256": "196bd4502e9ec1eea74f85151a233f9e3500a5ab2e521801bcb5393550b20119",
+        "request_sha256": "eccb274b726e967f1e1229004e90a23b7d5dc546535668fd55c02b05e904c46e",
+        "candidate_count": 1,
+        "base_rate_source_count": 0,
+        "candidates": [
+          {
+            "post_id": "2120854245125902725",
+            "post_text_sha256": "34d9b4170b180a7c28096757f9fc5ff128a2886ffe1d9cd79a77fddade635f71",
+            "supported_move_conditions": [],
+            "usable_fact_kinds": [
+              "daily",
+              "session"
+            ]
+          }
+        ]
+      },
+      "ranking_call": {
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T123327-8ef55efe\\editorial\\rank\\call.json",
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "runtime_model": null,
+        "runtime_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "elapsed_seconds": 17.731999199997517,
+        "status": "RETURNED"
+      },
+      "editorial_response": {
+        "items": [],
+        "omissions": [
+          {
+            "post_id": "2120854245125902725",
+            "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"
+          }
+        ]
+      }
+    }
+  ],
+  "first_cause": "NO_MATCHING_MOVE_HEADLINE_IN_OBSERVED_TARGETS",
+  "completion_pending": "The next natural private draft using a producer-counted base rate must show count, period and Fact: base rate through <date>."
+}
