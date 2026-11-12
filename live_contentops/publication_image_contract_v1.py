@@ -313,6 +313,15 @@ def validate_write(coordinator, intent, destination):
     from ._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
     data = _durable_intent_inputs(intent)
     assets = data["media_assets"]
+    if intent.get("plan_analysis_link") and not assets:
+        # CC-432's exact replies and canonical link previews already point to
+        # the illustrated page/card. CC-466 also keeps link/notice replies
+        # separate from the chart root. Validate that binding before accepting
+        # text; a new root or an attached image keeps the full image contract.
+        from .plan_analysis_pages_v1 import validate_link_intent
+        link = validate_link_intent(coordinator.store, intent)
+        if not link.get("original_analysis_root"):
+            return {"policy": POLICY, "confirmed_analysis_link": link["canonical_url"]}
     if destination == "substack":
         assets = [a for a in assets if a.get("article_inclusion") is not False
                   and a.get("canonical_article_media") is not False]

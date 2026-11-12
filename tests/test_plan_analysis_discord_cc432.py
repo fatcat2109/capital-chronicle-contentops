@@ -42,7 +42,7 @@ def test_installed_consumer_sends_analysis_to_existing_run_thread_and_exact_card
     monkeypatch.setattr(pages, "publish_link", publish)
     result = posts.publish_ready(store)
     discord = next(r for r in result["analysis_distribution"]["links"] if r["destination"] == "discord")
-    assert discord["outcome"]["per_destination"]["discord"]["status"] == "DISPATCH_CONFIRMED"
+    assert discord["outcome"]["per_destination"]["discord"]["status"] == "DISPATCH_CONFIRMED", json.dumps(discord["outcome"]["per_destination"], indent=2)
     assert observed[0]["discord_thread_parent_id"] == "700"
     assert observed[0]["reply_to_id"] == "parent-discord"
     assert packet["summary"]["macro"] in observed[0]["full_text"]
@@ -60,6 +60,20 @@ def test_thread_substitution_is_refused_before_publication(ready):
         connection.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?", (json.dumps(link), link["link_id"]))
     with pytest.raises(ValueError, match="PLAN_ANALYSIS_DISCORD_THREAD_CHANGED"):
         pages.validate_link_plan(store, link["link_id"], link["plan"])
+
+
+@pytest.mark.parametrize("field", ["reply_to_id", "discord_thread_parent_id", "text"])
+def test_text_reply_image_contract_still_checks_exact_canonical_and_parent(ready,field):
+    from live_contentops.publication_image_contract_v1 import validate_write
+    store,packet,original=ready
+    bot_card(store,original)
+    link=pages.register_link(store,packet,original_key=original,destination="discord")
+    coordinator=Coordinator(store=store,transport_runtime=None)
+    coordinator.register_plan(link["link_id"],link["plan"])
+    intent=json.loads(store.list_outbox_messages(destination="discord")[-1]["payload"])
+    intent["native_payload"][field]="unrelated"
+    with pytest.raises(ValueError):
+        validate_write(coordinator,intent,"discord")
 
 
 def test_frozen_legacy_link_keeps_its_original_thread_bytes(ready):
@@ -120,7 +134,7 @@ def test_real_coordinator_and_api_route_confirm_text_link_inside_the_card_thread
         readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"})
     posts.scope_to_post(coordinator, link["link_id"], link["plan"])
     result = coordinator.publish_plan(link["link_id"], link["plan"])
-    assert result["per_destination"]["discord"]["status"] == "DISPATCH_CONFIRMED", result
+    assert result["per_destination"]["discord"]["status"] == "DISPATCH_CONFIRMED", json.dumps(result["per_destination"], indent=2)
     assert pages.link_status(store, link)["confirmed"]
     assert sum(method == "POST" for method, _ in calls) == 1
     coordinator.publish_plan(link["link_id"], link["plan"])
