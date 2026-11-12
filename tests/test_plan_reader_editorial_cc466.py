@@ -158,3 +158,68 @@ def test_explicit_native_retry_preserves_the_failure_and_caches_its_return(tmp_p
     assert second['artifact_path']!=first['artifact_path']
     assert editorial.text_call('Exact input.',root=tmp_path,runner=runner)==second
     assert len(calls)==3
+
+
+def test_explicit_page_resume_reuses_exact_source_and_retains_failed_writer(source,tmp_path,monkeypatch):
+    from functools import partial
+    from pathlib import Path
+    import subprocess
+    root,_,plan,_=source
+    plan['scenario_analysis']={'mechanism':'Base chance 55%; support 1.12; alternative 35%.'}
+    basis=reader.source_packet(plan,pages.load_run(plan,run_root=root))
+    ref=next(s['id'] for s in basis['sources'] if '55' in s['text'] and '1.12' in s['text'])
+    prose=('We assign the base case a 55% chance. We place support at 1.12. '
+           'We give the alternative a 35% chance. ')*4
+    value={'title':'EUR/USD: a conditional dollar view','subtitle':'We weigh the case and its countercase.',
+           'introduction':'We weigh a dated conditional view.',
+           'sections':{key:{'paragraphs':[{'text':prose.strip(),'source_ids':[ref]}],
+                             'summary':'We assign the base case a 55% chance.'}
+                       for key,_ in pages.READER_SECTIONS}}
+    calls=[]
+    def runner(args,**kw):
+        calls.append(kw['input'])
+        if len(calls)==1:
+            return subprocess.CompletedProcess(args,1,b'',b'Usage limit.')
+        return subprocess.CompletedProcess(args,0,json.dumps(value).encode(),b'')
+    monkeypatch.setattr(editorial.shutil,'which',lambda _: 'codex.exe')
+    call=partial(editorial.text_call,runner=runner)
+    folder=tmp_path/'page'
+    first=editorial.prepare_page(plan,output_dir=folder,run_root=root,call=call)
+    assert first['status']=='PAGE_TEXT_UNAVAILABLE'
+    failure=Path(first['calls'][0]['artifact_path'])
+    original_bytes=failure.read_bytes()
+    assert editorial.prepare_page(plan,output_dir=folder,run_root=root,call=call)==first
+    assert len(calls)==1
+    resumed=editorial.prepare_page(plan,output_dir=folder,run_root=root,call=call,retry_failed=True)
+    assert resumed['status']=='PREPARED',resumed
+    assert failure.read_bytes()==original_bytes
+    assert calls[0]==calls[1]
+    assert resumed['packet']['registration_hash']==plan['registration_hash']
+    assert resumed['packet']['numeric_bindings']
+    store=ContentOpsDurableStore(tmp_path/'resumed.sqlite3')
+    packet=pages.register_page(store,resumed['packet'])
+    assert json.loads(store.get_outbox_message(packet['page_id'])['payload'])['native_payload']==packet['native_payload']
+    editorial.prepare_page(plan,output_dir=folder,run_root=root,call=call)
+    assert len(calls)==2
+
+
+def test_page_resume_cli_registers_return_for_live_consumer_without_reauthoring(source,tmp_path,monkeypatch):
+    from scripts import plan_analysis_pages as cli
+    root,_,plan,manuscript=source
+    packet=pages.render(plan,manuscript,run_root=root,output_dir=tmp_path/'page')
+    store=ContentOpsDurableStore(tmp_path/'cli.sqlite3')
+    calls=[]
+    def prepare(selected,**kwargs):
+        calls.append((selected,kwargs))
+        return {'status':'PREPARED','packet':packet}
+    monkeypatch.setattr(cli,'read_export',lambda:{'status':{'plans':[plan]}})
+    monkeypatch.setattr(editorial,'prepare_page',prepare)
+    args=['prepare-page','--plan-id',plan['plan_id'],'--store',str(store.db_path),
+          '--output-dir',str(tmp_path/'page'),'--retry-failed-text','--result',str(tmp_path/'result.json')]
+    assert cli.main(args)==0
+    assert calls==[(plan,{'output_dir':tmp_path/'page','retry_failed':True})]
+    held=store.get_outbox_message('plan-analysis-'+plan['plan_id'])
+    assert json.loads(held['payload'])['native_payload']==packet['native_payload']
+    assert cli.main(args)==0
+    assert len(calls)==1
+    assert store.list_outbox_messages(destination='substack')==[]

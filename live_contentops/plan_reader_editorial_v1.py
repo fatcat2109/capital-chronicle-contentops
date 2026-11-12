@@ -159,14 +159,15 @@ def check_manuscript(value, source, plan, run):
     return {"numeric_bindings":bound,"checks":reports,"word_count":word_count}
 
 
-def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call):
+def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, retry_failed=False):
     folder=Path(output_dir)
     run=pages.load_run(plan,run_root=run_root)
     source=reader.source_packet(plan,run)
     prompt=manuscript_prompt(source)
     records=[]
     for attempt in range(2):
-        record=call(prompt,root=folder/"page-writer",writer=True)
+        record=call(prompt,root=folder/"page-writer",writer=True,
+                    **({"retry_failed": True} if retry_failed else {}))
         records.append({k:v for k,v in record.items() if k!="output"})
         if record["status"]!="RETURNED":
             return {"status":"PAGE_TEXT_UNAVAILABLE","cause":record.get("cause"),"calls":records}
