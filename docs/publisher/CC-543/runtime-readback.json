@@ -1,0 +1,68 @@
+{
+  "export_generated_at_utc": "2026-11-12T23:14:48.010755Z",
+  "first_immediate_run": [
+    {
+      "at_utc": "2026-11-12T21:57:40.047201Z",
+      "cause": null,
+      "phase": "IMMEDIATE_ALERTS",
+      "posts": [],
+      "queued": 0,
+      "status": "OK"
+    }
+  ],
+  "first_runtime_observation": true,
+  "immediate_run_count": 29,
+  "last_immediate_runs": [
+    {
+      "at_utc": "2026-11-12T23:09:29.859329Z",
+      "cause": null,
+      "phase": "IMMEDIATE_ALERTS",
+      "posts": [],
+      "queued": 0,
+      "status": "OK"
+    },
+    {
+      "at_utc": "2026-11-12T23:12:29.378603Z",
+      "cause": null,
+      "phase": "IMMEDIATE_ALERTS",
+      "posts": [],
+      "queued": 0,
+      "status": "OK"
+    }
+  ],
+  "latest_plans": [
+    {
+      "asset_id": "EURUSD",
+      "plan_id": "plan_45bec31221424f5b47b02ac3",
+      "registered_at_utc": "2026-11-12T06:17:26.006816Z",
+      "status": "EXPIRED"
+    },
+    {
+      "asset_id": "USOIL",
+      "plan_id": "plan_36f7532de32e34c1ce6455b3",
+      "registered_at_utc": "2026-11-12T06:17:26.006816Z",
+      "status": "CLOSED"
+    },
+    {
+      "asset_id": "XAUUSD",
+      "plan_id": "plan_230a9464a193ca7a377d0c41",
+      "registered_at_utc": "2026-11-12T13:19:23.123369Z",
+      "status": "EXPIRED"
+    },
+    {
+      "asset_id": "USOIL",
+      "plan_id": "plan_5556d93fba0baaf67f944e2d",
+      "registered_at_utc": "2026-11-12T17:40:00.360572Z",
+      "status": "EXPIRED"
+    },
+    {
+      "asset_id": "XAUUSD",
+      "plan_id": "plan_208ff18176c47f7d5de7ca37",
+      "registered_at_utc": "2026-11-12T17:40:00.360572Z",
+      "status": "EXPIRED"
+    }
+  ],
+  "new_alerts": [],
+  "observed_at_utc": "2026-11-12T23:15:28.894266+00:00",
+  "read_only": true
+}
