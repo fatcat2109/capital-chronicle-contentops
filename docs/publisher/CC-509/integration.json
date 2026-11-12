@@ -1,0 +1,73 @@
+{
+  "item": "CC-509",
+  "installed_at_utc": "2026-11-12T11:33:18.387499+00:00",
+  "previous_operating_head": "5e115106f0bf79b56135cbd2023f17bd6237496b",
+  "installed_head": "b3e4c50b9becbaffc2fb387d5781f9857f2b1934",
+  "source_head": "b3e4c50b9becbaffc2fb387d5781f9857f2b1934",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "preserved_operating_files": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+      "before_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "before_bytes": 3959,
+      "unchanged_or_appended": true
+    },
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+      "before_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "before_bytes": 19341,
+      "unchanged_or_appended": true
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+      "before_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "before_bytes": 39129,
+      "unchanged_or_appended": true
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+      "before_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "before_bytes": 6166,
+      "unchanged_or_appended": true
+    },
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "before_sha256": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0",
+      "before_bytes": 1382937,
+      "unchanged_or_appended": true
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "before_sha256": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51",
+      "before_bytes": 68878,
+      "unchanged_or_appended": true
+    }
+  },
+  "preserved_lane_files": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+  },
+  "live_tag": "contentops-live-20261112-cc509",
+  "rollback_tag": "contentops-rollback-20261112-cc509",
+  "schedule_changed": false,
+  "applications_restarted": false,
+  "followup_install": {
+    "installed_at_utc": "2026-11-12T11:39:06.025172+00:00",
+    "previous_head": "b3e4c50b9becbaffc2fb387d5781f9857f2b1934",
+    "installed_head": "05586a4aeac7d3dad1cb992607e22fb1ae01b9ea",
+    "live_tag": "contentops-live-20261112-cc509-r2",
+    "rollback_tag": "contentops-rollback-20261112-cc509-r2"
+  },
+  "final_source_install": {
+    "installed_at_utc": "2026-11-12T11:48:34.290020+00:00",
+    "previous_head": "05586a4aeac7d3dad1cb992607e22fb1ae01b9ea",
+    "installed_head": "c9e762f1199b3c21dc4a7a8de91107b9831e2584",
+    "live_tag": "contentops-live-20261112-cc509-r3",
+    "rollback_tag": "contentops-rollback-20261112-cc509-r3"
+  },
+  "installed_source_hash_matches": {
+    "live_contentops/chart_price_reference_v1.py": true,
+    "live_contentops/public_market_quote_v1.py": true,
+    "live_contentops/tradingview_snapshot_v1.py": true,
+    "live_contentops/x_reply_bot_v1.py": true,
+    "live_contentops/x_reply_fact_sources_v1.py": true,
+    "live_contentops/x_reply_pack_v1.py": true,
+    "tests/conftest.py": true,
+    "tests/test_chart_price_reference_cc489.py": true,
+    "tests/test_public_market_quote_cc509.py": true
+  }
+}

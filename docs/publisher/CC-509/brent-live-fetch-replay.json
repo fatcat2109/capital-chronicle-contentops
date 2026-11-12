@@ -1,0 +1,67 @@
+{
+  "source_post_id": "2120814310456963146",
+  "original_post_time_utc": "2026-11-12T09:41:49.094000+00:00",
+  "checked_at_utc": "2026-11-12T11:34:44.008206+00:00",
+  "same_session_fact_count": 1,
+  "quote_fetches": [
+    {
+      "market": "BRENT",
+      "source_kind": "PLAN_STATUS_EXPORT",
+      "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+      "fetch_seconds": 0.0
+    },
+    {
+      "market": "BRENT",
+      "source_kind": "BAR_STORE_M1_CLOSE",
+      "cause": "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE",
+      "fetch_seconds": 0.0
+    },
+    {
+      "market": "BRENT",
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "status": "USED",
+      "source": "Yahoo Finance",
+      "source_symbol": "BZ=F",
+      "observed_at_utc": "2026-11-12T11:24:31+00:00",
+      "fetch_seconds": 0.2621297999867238,
+      "cache_hit": false
+    }
+  ],
+  "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\cc509-replay-20261112T113443\\request.json",
+  "request_sha256": "b5ff382e0466f34cb37c9f9db9941df105141957caf00c719fee91db39658490",
+  "historical_replay": true,
+  "public_writes": 0,
+  "private_messages_sent": 0,
+  "status": "RANKING_RETURNED",
+  "response_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\cc509-replay-20261112T113443\\editorial\\response.json",
+  "item_count": 0,
+  "omissions": [
+    {
+      "post_id": "2120814310456963146",
+      "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"
+    }
+  ],
+  "editorial_call": {
+    "ranker": {
+      "configured_model": "gemini-3.8-flash-high",
+      "configured_effort": "high",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "started_at_utc": "2026-11-12T11:34:44.027483+00:00",
+      "public_submit_actions": 0,
+      "returncode": 0,
+      "status": "RETURNED",
+      "ended_at_utc": "2026-11-12T11:36:03.374741+00:00",
+      "elapsed_seconds": 79.3471031000081
+    },
+    "writer": null
+  },
+  "stage_seconds": {
+    "ranking": 79.35120220000681,
+    "drafting": 0.0
+  },
+  "rank_prompt_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\cc509-replay-20261112T113443\\editorial\\rank\\prompt.txt",
+  "ranking_called_with_fact": true,
+  "ended_at_utc": "2026-11-12T11:36:03.392050+00:00"
+}

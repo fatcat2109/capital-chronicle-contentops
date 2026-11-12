@@ -2,7 +2,8 @@
 
 The minute export is preferred when it actually contains a timed price. Otherwise
 use an exact-instrument completed M1 close from CC-481's existing store, then
-Main's saved tick. Private bar values stay inside the image check's metadata.
+CC-509's public quote. Main's saved tick is a final held fallback. Private bar
+values stay inside the image check's metadata.
 """
 from __future__ import annotations
 

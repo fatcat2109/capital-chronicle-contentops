@@ -46,3 +46,49 @@ Launch readback found `gpt-6.1-sol` with effort `max`, labelled
 `CONFIGURED_NOT_OBSERVED`; this describes the configured launch, not runtime
 model telemetry. Integration and live observations are recorded below when
 performed. Tests alone do not claim a phone delivery or a live compared chart.
+
+The code was fast-forwarded into `A:/Capital Chronicle/ContentOps` at
+18:33 GMT+7 on 12 November, followed by the fact-clock correction at
+18:39 GMT+7 and the source-order change at 18:48 GMT+7. The live and rollback tags, exact commits and preserved-file
+checks are in [integration.json](integration.json). No schedule or application
+was changed. The minute consumer ran the installed code; its readback is
+[installed-consumer-readback.json](installed-consumer-readback.json).
+
+The real [Brent replay](brent-live-fetch-replay.json) retained the original
+09:41:49Z post clock and exact target text. A live quote supplied a same-session
+fact to the actual Antigravity ranking call. It returned in 79.35 seconds with
+`NO_ADDED_FACT_ABOVE_QUALITY_FLOOR`. No draft or message was sent. This proves
+the acquisition-to-ranking path; it does not turn an expired post into a fresh
+phone opportunity. The call's configured model/effort and unavailable runtime
+telemetry are retained in that evidence and the existing Runtime role artifact.
+
+The installed [EUR/USD chart capture](installed-chart-capture.json) used the
+actual TradingView download and the shared Yahoo observation captured before
+the image. It was bound `AT_CAPTURE`, with a 70.50-second quote age and
+0.02254% difference against the unchanged 0.15% limit. The binary image and
+complete snapshot metadata stay at the recorded Runtime paths. This was a
+separate capture proof, not a dispatched public plan card. The
+[spot-source readback](spot-source-readback.json) also observed current CNBC
+gold and dollar-index quotes inside the chart's two-minute window.
+
+The implementation is live. Completion still requires the next natural
+on-topic target's private delivery within 15 minutes, and the next naturally
+dispatched plan chart's compared binding. The observed minute runs have no
+eligible target with an identified market. Two fresh Oman tanker headlines
+were refused as `FACT_MARKET_UNIDENTIFIED` under the unchanged CC-495 rule;
+their exact causes remain in the installed result. The existing consumer
+continues; no target clock,
+ranking score, expired plan, public object or issued request was changed to
+manufacture either proof. Those pending live observations keep CC-509 open
+as a named blocked result, with no person action or Ops review step.
+
+Installed checks passed 100 regressions after the fact-clock correction.
+The final source-order change then passed 72 installed checks, covering the
+public quote, actual capture, private delivery and chart reader paths. See
+[installed-tests.xml](installed-tests.xml) and
+[installed-final-source-order-tests.xml](installed-final-source-order-tests.xml).
+The remaining source limitation is explicit: the free WTI futures quote was
+about ten minutes delayed. It can support the reply rule when current enough,
+but fails the chart's two-minute comparison unless Main or native M1 supplies
+the fresher reference. Its exact source clock stays recorded; the limit was
+not widened. Closed cash indices can use a fresh yield driver in replies.
