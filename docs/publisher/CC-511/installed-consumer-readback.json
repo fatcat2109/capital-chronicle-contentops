@@ -1,0 +1,166 @@
+{
+  "item": "CC-511",
+  "read_at_utc": "2026-11-12T13:26:30.711998+00:00",
+  "installed_at_utc": "2026-11-12T13:20:22.834185+00:00",
+  "existing_minute_consumer_only": true,
+  "manual_ticks": 0,
+  "public_submit_actions_by_this_run": 0,
+  "schedule_changed": false,
+  "new_schema_observed_in_natural_run": true,
+  "cc511_request_observed": true,
+  "runs": [
+    {
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T132226-de821ae6\\result.json",
+      "sha256": "a9dfd8c63712d0fabf1c8063709aa5b31f49d61563673363fc175ffdcd638647",
+      "started_at_utc": "2026-11-12T13:22:26.677588+00:00",
+      "ended_at_utc": "2026-11-12T13:24:05.287081+00:00",
+      "status": "REPLY_BOT_FAILED",
+      "cause": "AGY_RANK_TIMEOUT_90S",
+      "selection_causes": {
+        "NO_SIX_MARKET_OR_MACRO_TOPIC": 10,
+        "TARGET_OVER_15_MINUTES_AT_SEND": 812,
+        "NO_USABLE_FACT": 3
+      },
+      "stage_seconds": {
+        "ranking": 90.31125179999799,
+        "drafting": 0.0,
+        "checks": 0.0,
+        "filter": 6.056337600006373,
+        "whole_tick": 98.5837884000066
+      },
+      "delivery_count": 0,
+      "requests": [
+        {
+          "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T132226-de821ae6\\reply-pack-request-3338c842a5048664.json",
+          "sha256": "a1067f6ce2c135d3c474aa98d72f513fb154b8d2fc2498373d7df886c62d1725",
+          "cc511_instruction_observed": true,
+          "candidate_count": 7,
+          "linked_candidates": [
+            {
+              "post_id": "2120868214494159285",
+              "market_links": [
+                {
+                  "driver": "US_INDEX_WEIGHTS_AND_SECTORS",
+                  "markets": [
+                    "NDX",
+                    "SPX"
+                  ],
+                  "relationship": "Large US index weights and their sectors feed the named US equity indices.",
+                  "subjects": [
+                    "nvidia"
+                  ]
+                }
+              ],
+              "usable_fact_count": 13
+            },
+            {
+              "post_id": "2120867606563537186",
+              "market_links": [
+                {
+                  "driver": "US_INDEX_WEIGHTS_AND_SECTORS",
+                  "markets": [
+                    "NDX",
+                    "SPX"
+                  ],
+                  "relationship": "Large US index weights and their sectors feed the named US equity indices.",
+                  "subjects": [
+                    "nvidia"
+                  ]
+                }
+              ],
+              "usable_fact_count": 13
+            }
+          ],
+          "funnel_summary": {
+            "seen_post_ids": 832,
+            "on_topic": 10
+          }
+        },
+        {
+          "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T132226-de821ae6\\reply-pack-request-e6fe1b56e6643ef2.json",
+          "sha256": "6dd4ef89a622fa7fa2d9eb52aa32dd08da52f8a8210f5fec734095ba6b581d00",
+          "cc511_instruction_observed": true,
+          "candidate_count": 7,
+          "linked_candidates": [
+            {
+              "post_id": "2120868214494159285",
+              "market_links": [
+                {
+                  "driver": "US_INDEX_WEIGHTS_AND_SECTORS",
+                  "markets": [
+                    "NDX",
+                    "SPX"
+                  ],
+                  "relationship": "Large US index weights and their sectors feed the named US equity indices.",
+                  "subjects": [
+                    "nvidia"
+                  ]
+                }
+              ],
+              "usable_fact_count": 13
+            },
+            {
+              "post_id": "2120867606563537186",
+              "market_links": [
+                {
+                  "driver": "US_INDEX_WEIGHTS_AND_SECTORS",
+                  "markets": [
+                    "NDX",
+                    "SPX"
+                  ],
+                  "relationship": "Large US index weights and their sectors feed the named US equity indices.",
+                  "subjects": [
+                    "nvidia"
+                  ]
+                }
+              ],
+              "usable_fact_count": 13
+            }
+          ],
+          "funnel_summary": {
+            "seen_post_ids": 832,
+            "on_topic": 10
+          }
+        }
+      ],
+      "calls": [
+        {
+          "role": "rank",
+          "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T132226-de821ae6\\editorial\\rank\\call.json",
+          "sha256": "0a3426a8e936c9b7f67bfc22cd1e4e24240175a5b34b0934e54cfbf261e1c891",
+          "configured_model": "gemini-3.8-flash-high",
+          "configured_effort": "high",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "started_at_utc": "2026-11-12T13:22:34.973141+00:00",
+          "ended_at_utc": "2026-11-12T13:24:05.284570+00:00",
+          "elapsed_seconds": 90.31125179999799,
+          "status": "TIMEOUT"
+        }
+      ],
+      "funnel_summary": {
+        "seen_post_ids": 832,
+        "on_topic": 10,
+        "with_fact_post_ids": 7,
+        "ranking_input_post_ids": 7,
+        "on_topic_post_ids": [
+          "2120868799042007261",
+          "2120868664799047904",
+          "2120868592048828417",
+          "2120868458460221542",
+          "2120868214494159285",
+          "2120867774654263581",
+          "2120867685835915555",
+          "2120867606563537186",
+          "2120867490456653936",
+          "2120866802758779214"
+        ]
+      }
+    }
+  ],
+  "distinct_linked_candidates_with_usable_facts": 2,
+  "request_entries_with_linked_usable_facts": 4,
+  "first_live_consumer_code_head": "4a106a6ae19bf952e2294040d7754555e4d212da",
+  "final_installed_code_head": "97d8d9aa928914d8a121297a7b251ced2fea2115"
+}

@@ -1,0 +1,85 @@
+{
+  "item": "CC-511",
+  "recorded_at_utc": "2026-11-12T13:30:00.286086+00:00",
+  "window_start_utc": "2026-11-12T14:30:00+00:00",
+  "window_end_utc": "2026-11-12T21:00:00+00:00",
+  "observed_cutoff_utc": null,
+  "session_state": "SESSION_NOT_STARTED",
+  "window_elapsed": false,
+  "runs_read": 0,
+  "counts_distinct_posts": {
+    "seen": 0,
+    "fresh": 0,
+    "on_topic": 0,
+    "with_fact": 0,
+    "ranking_input": 0,
+    "above_floor": 0,
+    "authored": 0,
+    "validated": 0,
+    "sent": 0
+  },
+  "run_statuses": {},
+  "stage_minutes": {
+    "filter": {
+      "runs_recorded": 0,
+      "runs_with_work": 0,
+      "total_minutes": 0,
+      "median_active_minutes": null,
+      "max_minutes": null
+    },
+    "ranking": {
+      "runs_recorded": 0,
+      "runs_with_work": 0,
+      "total_minutes": 0,
+      "median_active_minutes": null,
+      "max_minutes": null
+    },
+    "drafting": {
+      "runs_recorded": 0,
+      "runs_with_work": 0,
+      "total_minutes": 0,
+      "median_active_minutes": null,
+      "max_minutes": null
+    },
+    "checks": {
+      "runs_recorded": 0,
+      "runs_with_work": 0,
+      "total_minutes": 0,
+      "median_active_minutes": null,
+      "max_minutes": null
+    },
+    "whole_tick": {
+      "runs_recorded": 0,
+      "runs_with_work": 0,
+      "total_minutes": 0,
+      "median_active_minutes": null,
+      "max_minutes": null
+    },
+    "telegram_send": {
+      "confirmed_sends": 0,
+      "minutes": []
+    }
+  },
+  "post_to_send_minutes": [],
+  "on_topic_without_authored_draft": [],
+  "on_topic_without_validated_draft": [],
+  "first_undrafted_causes": {},
+  "first_unvalidated_causes": {},
+  "coverage": {
+    "first_run_started_at_utc": null,
+    "last_run_ended_at_utc": null,
+    "max_between_run_gap_minutes": null
+  },
+  "gaps": [],
+  "posts": [],
+  "runs": [],
+  "artifacts": [],
+  "semantics": {
+    "seen": "Distinct target IDs retained in result, request or funnel records, including stale targets.",
+    "on_topic": "Passed topic checks in that original run; the new map is never backdated.",
+    "above_floor": "Recorded ranking acceptance; legacy absent scores stay unobserved.",
+    "authored": "Writer returned a draft; validated counts separately represent pack checks.",
+    "sent": "Bot API confirmation in the original run; a public reply or phone read is not inferred.",
+    "timings": "Measured stage duration, not invented candidate latency. Zero sends gives no delivery latency."
+  }
+}
