@@ -1,0 +1,16 @@
+{
+  "process_id": 38384,
+  "process_start_utc": "2026-11-12T06:39:42.766791Z",
+  "observed_launch_arguments": [
+    "--model",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"max\""
+  ],
+  "configuration_evidence": "Live Win32_Process command line read in this run",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "actual_editorial_calls": 0,
+  "base_commit": "bf82ed4a7f5a60090b8ee61bcc4e4041c9734e4b",
+  "remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_reason": "Current ContentOps operating HEAD; remote master is an older ancestor."
+}

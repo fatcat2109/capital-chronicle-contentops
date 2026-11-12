@@ -1,0 +1,60 @@
+{
+  "observed_at_utc": "2026-11-12T06:45:15.603877+00:00",
+  "production_day": "2026-11-12",
+  "daily_article_limit": 2,
+  "article_slots_in_use": [],
+  "active_leases": [
+    {
+      "lease_id": "lease_9493de018ccb76fd",
+      "lease_key": "cc466-plan-page-editorial",
+      "status": "ACTIVE",
+      "expires_at": "2026-11-12T06:55:30.849200+00:00"
+    }
+  ],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-12T05:12:12.005725Z",
+    "content_hash": "336e649880554cc46829e735a5a17fd6721ad70c68357d0faf2049e39330a4df",
+    "plan_count": 83,
+    "latest_plan_registration_utc": "2026-11-11T16:20:07.062029Z",
+    "latest_six_market_scenarios": [
+      {
+        "asset_id": "XAUUSD",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "US500",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "EURUSD",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 50.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "USDJPY",
+        "registered_at_utc": "2026-11-11T06:31:04.626225Z",
+        "base_probability_pct": 55.0,
+        "alternative_probability_pct": 30.0
+      },
+      {
+        "asset_id": "USOIL",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 45.0,
+        "alternative_probability_pct": 35.0
+      },
+      {
+        "asset_id": "BTCUSD",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "base_probability_pct": 50.0,
+        "alternative_probability_pct": 35.0
+      }
+    ]
+  },
+  "clock_use": "Export generation and plan registration do not refresh the underlying analysis capture.",
+  "publication_status_cli": "No article operation allocated; no global unknown-write count or channel readback claimed."
+}

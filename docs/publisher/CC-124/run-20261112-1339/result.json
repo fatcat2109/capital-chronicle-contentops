@@ -1,0 +1,38 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-12T06:45:15.603877+00:00",
+  "new_articles": 0,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:7112s",
+  "standing_status": "OPEN",
+  "choice": "Consume the new T2 ranking and retained Main reports/plans; issue no filler because even the new T2 original capture exceeds CC-403's 60-minute deadline. The latest shock attempt supplies no analytical output.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "production_day": "2026-11-12",
+  "article_slots_in_use": 0,
+  "daily_article_limit": 2,
+  "next_due_gmt7": "12 Nov 2026 18:30 GMT+7",
+  "next_due_reason": "Align the next standing opportunity with the pre-US note under decision 98; no host schedule is changed.",
+  "next_action": "At the pre-US note opportunity consume any new completed Main analysis through the same owners.",
+  "next_actor": "Codex Publisher; Ops Live owns Main analysis production.",
+  "acceptance": "Installed source, clock, plan and daily-count consumers read successfully; no new publication/readback acceptance claimed.",
+  "launch_observation": {
+    "process_id": 38384,
+    "process_start_utc": "2026-11-12T06:39:42.766791Z",
+    "observed_launch_arguments": [
+      "--model",
+      "gpt-6.1-sol",
+      "-c",
+      "model_reasoning_effort=\"max\""
+    ],
+    "configuration_evidence": "Live Win32_Process command line read in this run",
+    "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_editorial_calls": 0,
+    "base_commit": "bf82ed4a7f5a60090b8ee61bcc4e4041c9734e4b",
+    "remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+    "base_reason": "Current ContentOps operating HEAD; remote master is an older ancestor."
+  }
+}
