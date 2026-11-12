@@ -1,0 +1,17 @@
+{
+  "item": "CC-510",
+  "branch": "backlog/cc-510-reply-base-rates",
+  "base": "5e115106f0bf79b56135cbd2023f17bd6237496b",
+  "base_reason": "CC-510 explicitly names the current ContentOps operating HEAD as its base.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "launch_arguments_readback": true,
+  "launch_process_id": 31968,
+  "initial_worktree_clean": true,
+  "interruption_check_at_utc": "2026-11-12T11:21:37Z",
+  "remote_branch_existed_at_interruption_check": false,
+  "live_step_performed": false,
+  "schedule_changed": false,
+  "integration_owner": "Codex Publisher first stream; CC-510 integration line and decision 120"
+}

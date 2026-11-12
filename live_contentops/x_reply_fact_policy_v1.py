@@ -141,6 +141,9 @@ def check_fact(post, source, *, now, draft=None):
             raise ValueError("FACT_DRIVER_LINK_NOT_STATED")
     day = now.astimezone(ET).date()
     if kind == "base_rate":  # rule 4
+        if fact.get("headline_condition"):
+            from live_contentops.x_reply_base_rates_v1 import check_condition
+            check_condition(post, fact, draft)
         through = date.fromisoformat(fact["through_date"]) if fact.get("through_date") else None
         if (type(fact.get("count")) is not int or type(fact.get("sample_count")) is not int
                 or not 0 <= fact["count"] <= fact["sample_count"] or fact["sample_count"] < 1

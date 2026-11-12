@@ -187,6 +187,9 @@ def held_sources(store, *, desk_message_id=None, call_message_id=None, include_d
 
 def resolve_fact_source(store, bound):
     """Read the exact owning source again; an issued pack never refreshes a fact."""
+    if bound["kind"] == "HELD_REPLY_BASE_RATE":
+        from live_contentops.x_reply_base_rates_v1 import resolve
+        return resolve(bound)
     if bound["kind"] == "HELD_MARKET_FACT":
         from live_contentops.x_reply_fact_sources_v1 import resolve
         return resolve(bound)
@@ -226,6 +229,10 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
         from live_contentops.x_reply_fact_sources_v1 import load
         extra, source_gaps = load(now=now)
         sources.extend(extra)
+        from live_contentops.x_reply_base_rates_v1 import collect
+        base_rates, base_rate_gaps = collect(posts, now=now)
+        sources.extend(base_rates)
+        source_gaps.extend(base_rate_gaps)
         usable = []
         for post in posts:
             ids, refusals = [], Counter()
@@ -290,11 +297,14 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
             "If a supplied source has an admitted chart/table image that adds useful information, "
             "set include_image=true on that item; never invent an image or its values. "
             "Use the fourteen-day audience feedback for selection; unknown metrics stay unknown."
-            " CC495_REPLY_FACT_V1: use only the target's usable_source_ids. Today's move needs a same-session "
-            "price, yield or priced-in fact observed no earlier than 60 minutes before the post. "
+            " CC495_REPLY_FACT_V1: use only the target's usable_source_ids. A same-session "
+            "price, yield or priced-in fact is observed no earlier than 60 minutes before the post. "
             "A daily fact may be one trading day old; say its day. Positioning is at most 3 calendar days old "
-            "and only answers a positioning post, never today's move. A base rate states count, denominator "
-            "and period, computed through the last completed market day. Use the same market; another index "
+            "and only answers a positioning post, never today's move. A base rate is usable at any time, "
+            "including for today's move. State count, denominator "
+            "and period. Preserve a supplied historical daily "
+            "analogue as daily, not an intraday measurement. State its forward horizon (next-session or five-session) "
+            "with computation through the last completed market day. Use the same market; another index "
             "never substitutes. Preserve a base rate's condition_text and reaction window: a hot core CPI "
             "30-minute count is never an all-CPI or full-day count. State count and period in one sentence. "
             "Use its actual historical sample end date, never its report/capture date. "

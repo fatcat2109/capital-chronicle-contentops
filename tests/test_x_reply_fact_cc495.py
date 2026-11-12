@@ -142,6 +142,8 @@ def test_send_deadline_is_checked_at_the_actual_send_boundary():
 
 @pytest.fixture
 def consumer(tmp_path, monkeypatch):
+    from live_contentops import x_reply_base_rates_v1
+    monkeypatch.setattr(x_reply_base_rates_v1, "collect", lambda *a, **kw: ([], []))
     root = tmp_path / "intake"
     path = root / "completed-bars/bars.sqlite3"
     path.parent.mkdir(parents=True)
