@@ -93,7 +93,7 @@ def page_footer(plan, freeze, *, legacy=False):
             status]
 
 
-def source_packet(plan, run):
+def source_packet(plan, run, *, original_probabilities=False):
     """Whitelisted original analysis, not accounts, execution or raw input tables."""
     from . import plan_analysis_pages_v1 as pages
     lines = []
@@ -117,7 +117,8 @@ def source_packet(plan, run):
             lines.append({"id": "s" + str(len(lines)), "layer": layer, "text": " ".join(safe),
                           "ref": {"file": filename, "pointer": pointer}})
 
-    scenario = plan.get("scenario_analysis") or {}
+    scenario = json.loads(json.dumps(plan.get("scenario_analysis") or {}))
+    original_probability = None
     mapping = {"mechanism": "macro", "driver": "macro", "priced": "priced_in", "positioning": "positioning",
                "acceptance": "story", "confirmations": "macro", "zone_reason": "technical",
                "invalidation_text": "invalidation", "invalidation_reason": "invalidation",
@@ -134,6 +135,21 @@ def source_packet(plan, run):
             add("analysis", filename, pointer + "/" + key, candidate.get(key))
     except (KeyError, StopIteration, ValueError):
         candidate = {}
+    if original_probabilities and (scenario.get("base_case") or {}).get("probability_pct") is None:
+        # Some Main exports omit an odds field that the bound original owner
+        # explicitly wrote. Use only that directional statement, never 100-p,
+        # a touch probability, a target-first probability or a base rate.
+        direction = str(plan.get("direction") or "").upper()
+        movement = "lower" if direction in {"BEARISH", "SHORT"} else "higher" if direction in {"BULLISH", "LONG"} else None
+        rationale = next((s for s in lines if s["ref"] == {"file": filename, "pointer": pointer + "/rationale"}), None) if candidate else None
+        matches = list(re.finditer(r"(?<![\d.])(\d{1,3}(?:\.\d+)?)%\s+" + movement + r"\s+at\s+(?:the\s+)?exit\b",
+                                  rationale["text"], re.I)) if movement and rationale else []
+        if len(matches) == 1 and 0 <= Decimal(matches[0][1]) <= 100:
+            value = float(matches[0][1])
+            probability = int(value) if value.is_integer() else value
+            scenario["base_case"] = {**(scenario.get("base_case") or {}), "probability_pct": probability}
+            original_probability = {"probability_pct": probability, "direction": movement,
+                "statement": matches[0][0], "ref": rationale["ref"], "source_id": rationale["id"]}
     primary = run["documents"].get("primary-native.json", {})
     for index, value in enumerate(primary.get("candidate_evaluations", [])):
         if value.get("candidate_id") != candidate.get("candidate_id"):
@@ -169,7 +185,9 @@ def source_packet(plan, run):
             "scenario_analysis": scenario,
             "result_r": str(result_r(plan)) if result_r(plan) is not None else None,
             "source_manifest": run["manifest"], "frozen_at_utc": run["freeze"]["frozen_at_utc"],
-            "missing_export_fields": ["scenario_analysis." + k for k in mapping if not scenario.get(k)]}
+            "missing_export_fields": ["scenario_analysis." + k for k in mapping if not scenario.get(k)],
+            **({"source_contract": "CC432_ORIGINAL_PROBABILITY_V1", "original_probability_binding": original_probability}
+               if original_probability else {})}
 
 
 def validate_fields(fields, source):

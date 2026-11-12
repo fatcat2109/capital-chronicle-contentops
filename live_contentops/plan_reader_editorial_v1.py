@@ -194,6 +194,9 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
     if not source:
         run=pages.load_run(packet["source_plan"],run_root=Path(packet["run_root"]))
         source=reader.source_packet(packet["source_plan"],run)
+    if (source.get("scenario_analysis", {}).get("base_case") or {}).get("probability_pct") is None:
+        run=pages.load_run(packet["source_plan"],run_root=Path(packet["run_root"]))
+        source=reader.source_packet(packet["source_plan"],run,original_probabilities=True)
     call_fields=reader.attach_call(row) if row.get("kind")!="result" else {"reader_call_line":"","conditional_calls":[]}
     prompt=GUIDANCE+(
         "Write platform fields and alt text for this source-bound plan. Hook names today's market force, not its technical levels. "
@@ -209,7 +212,7 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
         '"scenario_main":{"text":"Main (50%): ... .","source_ids":["s1"]},"scenario_alt":null,'
         '"alt_text":{"text":"... .","source_ids":["s0"]}}.\n'
     )+json.dumps({"sources":[{k:s[k] for k in ("id","layer","text")} for s in source["sources"]
-                    if s["layer"] not in {"analysis","invalidation","story"}],
+                    if s["layer"] != "invalidation"],
                  "scenarios":source["scenario_analysis"],"call_line":call_fields["reader_call_line"]},ensure_ascii=False)
     if row.get("kind")=="result":
         prompt=GUIDANCE+(
@@ -332,7 +335,8 @@ def validate_reader_row(store, row):
     if not packet or not publication or publication["canonical_url"] != row["analysis_publication"]["canonical_url"]:
         raise ValueError("CC466_CANONICAL_PAGE_NOT_CONFIRMED")
     run=pages.load_run(plan,run_root=Path(packet["run_root"]))
-    source=reader.source_packet(plan,run)
+    source=reader.source_packet(plan,run,
+        original_probabilities=row["reader_source"].get("source_contract") == "CC432_ORIGINAL_PROBABILITY_V1")
     if source != row["reader_source"] or plan["registration_hash"] != row["source_plan_registration"]:
         raise ValueError("CC466_ANALYSIS_SOURCE_CHANGED")
     reader.validate_fields(row["reader_fields"],source)
