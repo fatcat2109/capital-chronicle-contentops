@@ -246,6 +246,16 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
     if (old.get("image_sha256")==asset["sha256"]
             and old.get("template_revision")==asset["image_template"]["template_revision"]):
         review=old.get("vision") or {}
+        from .light_model_caller_v1 import POLICY
+        # A pre-CC-512 failed review never ran the second caller. Continue it
+        # once under the new policy, retaining the exact prior metadata bytes.
+        if (code["passed"] and review.get("status")=="REVIEW_UNAVAILABLE"
+                and review.get("light_call",{}).get("policy")!=POLICY):
+            previous_bytes=record_path.read_bytes()
+            retained=record_path.parent/(record_path.stem+".prior-vision-"+sha256(previous_bytes).hexdigest()+".json")
+            if not retained.exists():retained.write_bytes(previous_bytes)
+            review=review_vision(asset,runner=vision_runner)
+            review["retained_prior_failure_path"]=str(retained)
     elif code["passed"]:
         review=review_vision(asset,runner=vision_runner)
     else:

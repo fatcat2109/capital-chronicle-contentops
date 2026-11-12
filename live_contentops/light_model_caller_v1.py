@@ -24,6 +24,7 @@ from .agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
 # in CC-512's diagnosis; they cannot establish a completed-call percentile.
 AGY_TIMEOUT = 65
 CODEX_TIMEOUT = 65
+CODEX_IMAGE_TIMEOUT = 120
 CODEX_MODEL, CODEX_EFFORT = "gpt-6.1-sol", "low"
 POLICY = "cc512-light-caller-v1"
 
@@ -213,11 +214,12 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
     start, answer = perf_counter(), b""
     for caller in ("antigravity", "codex"):
         run = runner or (_run if caller == "antigravity" else _run_codex)
+        limit = AGY_TIMEOUT if caller == "antigravity" else CODEX_IMAGE_TIMEOUT if image is not None else CODEX_TIMEOUT
         attempt = {"caller": caller, "started_at_utc": _now(), "status": "FAILED",
             "configured_model": MODEL if caller == "antigravity" else CODEX_MODEL,
             "configured_effort": EFFORT if caller == "antigravity" else CODEX_EFFORT,
             "configuration_status": "CONFIGURED_NOT_OBSERVED",
-            "timeout_seconds": AGY_TIMEOUT if caller == "antigravity" else CODEX_TIMEOUT}
+            "timeout_seconds": limit}
         raw, err, then, eligible = b"", b"", perf_counter(), False
         try:
             if image is not None and sha256(image.read_bytes()).hexdigest() != record["image_sha256"]:
@@ -252,7 +254,7 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
                         args += ["--output-schema", str(schema_path)]
                     # communicate() sends this exact prompt then closes stdin (EOF);
                     # there is no interactive input, shell interpolation or size truncation.
-                    done = run(args + ["-"], cwd=cwd, timeout=CODEX_TIMEOUT, input=prompt.encode())
+                    done = run(args + ["-"], cwd=cwd, timeout=limit, input=prompt.encode())
                     raw, err = done.stdout, done.stderr
                     if getattr(done, "turn_completed", False):
                         attempt["turn_completed_seconds"] = done.completion_seconds
@@ -275,7 +277,7 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
         except subprocess.TimeoutExpired as exc:
             raw, err = exc.output or b"", exc.stderr or b""
             eligible = True
-            attempt.update(status="TIMEOUT", cause=timeout_cause if caller == "antigravity" else "CODEX_LIGHT_TIMEOUT_65S")
+            attempt.update(status="TIMEOUT", cause=timeout_cause if caller == "antigravity" else "CODEX_LIGHT_TIMEOUT_" + str(limit) + "S")
         except Exception as exc:
             attempt["cause"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
             if isinstance(exc, OSError):

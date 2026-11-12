@@ -13,6 +13,7 @@ from live_contentops import image_quality_v1 as quality
 from live_contentops import plan_reader_editorial_v1 as editorial
 from live_contentops import x_reply_bot_v1 as replies
 from test_image_templates_cc465 import asset
+from copy import deepcopy
 
 
 @pytest.fixture(autouse=True)
@@ -176,3 +177,23 @@ def test_native_codex_adapter_uses_completed_turn_and_closed_stdin_instead_of_ha
     assert done.returncode==0 and done.turn_completed
     assert light._codex_observations(done.stdout,{})==b'{"eof":true}'
     assert done.completion_seconds < 8 and perf_counter()-started < 15
+
+
+def test_next_image_preparation_continues_legacy_failure_once_and_keeps_original_bytes(tmp_path,monkeypatch):
+    from live_contentops import image_templates_v1 as templates
+    image=asset(tmp_path)
+    old_review={"status":"REVIEW_UNAVAILABLE","cause":"AGY_VISION_TIMEOUT_125S","points":{}}
+    image["image_quality"]=quality.combine(quality.code_check(image),old_review)
+    path=Path(image["path"]).with_suffix('.json')
+    original=json.dumps(image).encode();path.write_bytes(original)
+    monkeypatch.setattr(templates,'render',lambda *a,**k:deepcopy(image))
+    monkeypatch.setattr(quality,'ACCEPTANCE_CONTROL',tmp_path/'absent-control.json')
+    output={"image_seen":True,"points":{str(i):True for i in range(1,11)},
+        "reasons":{str(i):"Observed attached image." for i in range(1,11)}}
+    calls=[]
+    returned=quality.prepare_asset({},'W',tmp_path,vision_runner=fallback_runner(output,'timeout',calls))
+    review=returned['image_quality']['vision']
+    assert review['answered_by']=='codex' and len(calls)==2
+    assert Path(review['retained_prior_failure_path']).read_bytes()==original
+    again=quality.prepare_asset({},'W',tmp_path,vision_runner=lambda *a,**k:pytest.fail('already reviewed'))
+    assert again['image_quality']['vision']==review
