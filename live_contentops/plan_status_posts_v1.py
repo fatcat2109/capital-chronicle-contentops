@@ -1324,7 +1324,7 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
     """CC-459: every new plan image is TradingView; after two failures use text."""
     from live_contentops import tradingview_snapshot_v1 as tv
     image_input = None
-    if (row.get("levels") or {}).get("image_source_plan") and row.get("kind") in {"setup", "result"}:
+    if not source_snapshot and (row.get("levels") or {}).get("image_source_plan") and row.get("kind") in {"setup", "result"}:
         from .image_template_inputs_v1 import from_plan, from_result
         image_input = from_result(row) if row.get("kind") == "result" else from_plan(row)
     asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio,

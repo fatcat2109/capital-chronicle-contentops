@@ -38,6 +38,14 @@ def test_confirmed_page_chart_feeds_social_consumer_after_capture_failure(ready,
     state=json.loads((folder/'tradingview_capture_v1.json').read_bytes())
     assert state['status']=='CAPTURED' and state['attempts']==2
     assert state['first_cause']=='TRADINGVIEW_SNAPSHOT_TIMEOUT'
+    # A page snapshot keeps its original aspect and attribution. The fresh
+    # card template's different capture shape must not crop or recapture it.
+    from live_contentops import plan_status_posts_v1 as posts
+    row.update(kind='setup',instrument_title='EUR/USD')
+    row['levels']['image_source_plan']={'held':'original plan'}
+    image,credit=posts._post_image(row,tmp_path/'card',source_snapshot=source,snapshot=forbidden)
+    assert credit and image['tradingview_snapshot']['sha256']==taken['sha256']
+    tv.validate_snapshot_asset(image)
     changed=deepcopy(row);changed['analysis_publication']['canonical_url']='https://capitalchronicle.substack.com/p/another-plan'
     assert cards._confirmed_page_snapshot(store,changed) is None
     changed=deepcopy(row);changed['source_plan']['registration_hash']='wrong'
