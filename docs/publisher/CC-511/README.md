@@ -12,6 +12,12 @@ consumer checks pass: **86 passed in 20.37 seconds**, in one pytest process
 (`topic-consumer-tests.xml`). They exercise topic selection, fact relevance,
 age, quote selection and the actual ranking-input builder.
 
+The next checkpoint adds the offline session reporter and stage observations to
+the existing run results: **74 passed in 25.08 seconds**
+(`funnel-bot-tests.xml`). Saved ranking acceptance remains visible if the writer
+times out. Returned drafts, validated drafts and confirmed private sends are
+counted separately. A company cannot borrow another company's driver sentence.
+
 The code is being integrated by the first Publisher stream. No schedule change,
 application restart, public reply or manual production tick is part of this item.
 Jim remains the sender of public replies.

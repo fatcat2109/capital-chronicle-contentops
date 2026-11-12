@@ -300,7 +300,8 @@ def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=No
         "Return JSON {ranking:[{post_id,quality_score,reason}]}. Integer score 0-100: high scores require "
         "a specific useful new sourced fact, an early relevant post, and room to be seen among replies. "
         "An unknown reply count is uncertain, not zero. No padding. Prefer evidence gaps our held "
-        "positioning, base rates or priced-in data can answer. Audience metrics are private selection only.\n" +
+        "positioning, base rates or priced-in data can answer. Audience metrics are private selection only. "
+        "market_links explain relevance only; they do not prove causation or a market reaction.\n" +
         json.dumps({"candidates": rank_candidates,
                     "audience_feedback": request["audience_feedback"]}, ensure_ascii=False))
     started = perf_counter()
@@ -315,6 +316,7 @@ def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=No
                       for p in candidates if p["post_id"] not in {r["post_id"] for r in ranked}],
         "editorial_call": {"ranker": rank_call, "writer": None},
         "stage_seconds": {"ranking": ranking_seconds, "drafting": 0.0},
+        "ranked_above_floor_post_ids": [r["post_id"] for r in ranked],
         "remaining_quality_post_ids": [r["post_id"] for r in ranked[1:]]}
     if not ranked:
         response["omissions"] = [{"post_id": p["post_id"], "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"} for p in candidates]
@@ -567,6 +569,8 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
         result.update(dropped_candidates=request.get("dropped_candidates", []), source_gaps=request.get("source_gaps", []),
                       quote_fetches=request.get("quote_fetches", []),
                       selection_causes=request["selection_causes"])
+        result["funnel"] = {**request.get("funnel", {}),
+                            "with_fact_post_ids": [p["post_id"] for p in request["candidates"]]}
         for post in request["candidates"]:
             post["fact_context_sha256"] = packs.digest({"policy": packs.fact_policy.POLICY,
                 "post_text": post["post_text"], "usable_source_ids": sorted(post["usable_source_ids"])})
@@ -580,8 +584,12 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
                                             for p in request["candidates"] if p["post_id"] in sent_posts)
         # A ranking made without these facts is not a reason to hide new evidence.
         # An unchanged rejected opportunity is not sent through another model call.
-        request["candidates"] = [p for p in request["candidates"]
-                                 if p["attempt_key"] not in tried and p["post_id"] not in sent_posts][:12]
+        eligible = [p for p in request["candidates"]
+                    if p["attempt_key"] not in tried and p["post_id"] not in sent_posts]
+        result["dropped_candidates"].extend({"post_id": p["post_id"], "cause": "RANK_BATCH_LIMIT_12"}
+                                            for p in eligible[12:])
+        request["candidates"] = eligible[:12]
+        result["funnel"]["ranking_input_post_ids"] = [p["post_id"] for p in request["candidates"]]
         current_candidates = request["candidates"]
         if not request["candidates"]:
             result["status"] = "NO_NEW_ELIGIBLE_TARGETS"
@@ -598,6 +606,11 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
                 store.set_outbox_status(key, "RANKING")
         response = (drafter or rank_and_draft)(ready["request_path"], output_dir=root / "editorial")
         authored = packs.read_json(response)
+        result["funnel"].update(
+            ranked_above_floor_post_ids=authored.get("ranked_above_floor_post_ids", []),
+            authored_post_ids=[str(p["post_id"]) for p in authored.get("items", [])])
+        result["dropped_candidates"].extend({"post_id": key, "cause": "QUALITY_TARGET_QUEUED_FOR_NEXT_TICK"}
+                                            for key in authored.get("remaining_quality_post_ids", []))
         stage_seconds.update(authored.get("stage_seconds", {}))
         remaining = authored.get("remaining_quality_post_ids", [])
         for post in request["candidates"]:
@@ -610,7 +623,10 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
         result["pack"] = built
         stage_seconds["checks"] = perf_counter()-check_started
         saved_pack = packs.read_json(built["pack_path"])
-        result["dropped_candidates"] = saved_pack["omissions"]
+        existing_drops = {packs.digest(row) for row in result["dropped_candidates"]}
+        result["dropped_candidates"].extend(row for row in saved_pack["omissions"]
+                                            if packs.digest(row) not in existing_drops)
+        result["funnel"]["validated_draft_post_ids"] = [str(p["post_id"]) for p in saved_pack["items"]]
         result["delivery"] = deliver_pack(store, built["store_message_id"], binding_path=binding_path,
             bot=bot, now=finished if drafter else None, tabs_control=binding_path.parent / "x_reply_tabs.json",
             stage_seconds=stage_seconds)

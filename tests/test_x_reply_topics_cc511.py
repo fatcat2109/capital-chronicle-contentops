@@ -103,6 +103,12 @@ def test_forged_relationship_metadata_never_admits_an_unrelated_fact():
         policy.check_fact(target, source("XAUUSD"), now=NOW)
 
 
+def test_another_company_cannot_supply_the_targets_driver_sentence():
+    with pytest.raises(ValueError, match="FACT_DRIVER_LINK_NOT_STATED"):
+        policy.check_fact(post("Nvidia shares slide premarket"), source("NDX"), now=NOW,
+                          draft={"draft_text": "Tesla's share slide pressures Nasdaq 100, at 20,000 points."})
+
+
 def test_new_topic_still_requires_a_fresh_source_observation():
     fact = source("NDX")
     fact["fact_binding"]["observed_at_utc"] = (NOW-timedelta(days=1)).isoformat()
@@ -138,6 +144,9 @@ def test_linked_markets_feed_the_existing_quote_and_rank_consumers(tmp_path, mon
         "tweet_id": target["post_id"], "text": target["post_text"], "handle": "FirstSquawk",
         "url": "https://x.com/FirstSquawk/status/123", "posted_utc": target["post_time_utc"]}]})
     ready = packs.prepare(None, feed_path=feed, output_root=tmp_path, now=NOW, reply_policy=packs.MOBILE_POLICY)
+    request = packs.read_json(ready["request_path"])
+    assert "CC511: market_links" in request["instructions"]
+    assert request["funnel"]["on_topic"][0]["post_id"] == target["post_id"]
     captured = []
 
     def ranker(prompt, **kwargs):

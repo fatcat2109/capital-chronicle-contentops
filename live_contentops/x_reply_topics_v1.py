@@ -7,6 +7,28 @@ from __future__ import annotations
 
 import re
 
+SUBJECTS = {
+    "nvidia": r"\b(?:nvidia|nvda)\b", "apple": r"\b(?:apple|aapl)\b",
+    "microsoft": r"\b(?:microsoft|msft)\b", "amazon": r"\b(?:amazon|amzn)\b",
+    "alphabet": r"\b(?:alphabet|googl?)\b", "meta": r"\bmeta\b",
+    "tesla": r"\b(?:tesla|tsla)\b", "broadcom": r"\b(?:broadcom|avgo)\b",
+    "mag7": r"\b(?:mag[ -]?7|magnificent seven)\b",
+    "chips": r"\b(?:chips?|chipstocks|chipmakers?|semiconductors?)\b",
+    "us_sector": r"\b(?:banks?|financials?|energy|retail|industrials?|tech(?:nology)?)\b",
+    "dax": r"\bdax\b", "iran": r"\biran\b", "israel": r"\bisrael\b",
+    "middle_east": r"\b(?:middle east|gulf|hormuz)\b", "saudi": r"\bsaudi\b",
+    "red_sea": r"\b(?:houthis?|red sea)\b", "russia": r"\brussi[an]+\b",
+    "ukraine": r"\bukrain\w*\b", "black_sea": r"\bblack sea\b",
+    "fed": r"\b(?:fed|fomc|federal reserve|powell|waller|williams|bostic|daly|goolsbee|warsh)\b",
+    "ecb": r"\b(?:ecb|european central bank|lagarde)\b",
+    "boj": r"\b(?:boj|bank of japan|ueda)\b",
+    "treasury": r"\btreasur\w*\b", "jgb": r"\bjgb\b", "bund": r"\bbund\b",
+    "government_bonds": r"\bgovernment bonds?\b", "opec": r"\bopec\b",
+    "inventory": r"\b(?:eia|api|crude|petroleum|cushing)\b",
+    "bitcoin": r"\b(?:bitcoin|btc|ibit|fbtc|gbtc)\b",
+    "crypto": r"\b(?:crypto|digital assets?|coinbase)\b",
+}
+
 
 def _has(pattern, text):
     return bool(re.search(pattern, text, re.I))
@@ -17,7 +39,8 @@ def driver_links(text):
     links = []
 
     def add(key, markets, relationship):
-        links.append({"driver": key, "markets": markets, "relationship": relationship})
+        links.append({"driver": key, "markets": markets, "relationship": relationship,
+                      "subjects": [name for name, pattern in SUBJECTS.items() if _has(pattern, text)]})
 
     equity_event = _has(
         r"\b(?:shares?|stocks?|chipstocks|semiconductors?|chipmakers?|earnings|revenues?|"

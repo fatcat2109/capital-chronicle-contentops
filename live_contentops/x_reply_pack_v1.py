@@ -226,6 +226,8 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
                                 mentions=read_json(mentions_path) if mentions_path else None,
                                 mobile=reply_policy == MOBILE_POLICY, drops=drops)
     mobile = reply_policy == MOBILE_POLICY
+    funnel = {"seen_post_ids": sorted({p["post_id"] for p in [*posts, *drops]}),
+              "on_topic": [{k: post[k] for k in ("post_id", "post_time_utc")} for post in posts]}
     sources = held_sources(store, fact_only=mobile)
     source_gaps, quote_fetches = [], []
     if mobile:
@@ -260,6 +262,7 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
         "feed_generated_at_utc": feed["generated_at_utc"], "feed_sha256": digest(feed),
         "candidates": posts, "selection_causes": causes, "sources": sources,
         "dropped_candidates": drops, "source_gaps": source_gaps, "quote_fetches": quote_fetches,
+        "funnel": funnel,
         "audience_feedback": report_manual_replies(store, now=now),
         "instructions": (
             "Author English replies for Jim to review and post himself (decisions 122 and 123). "
@@ -318,6 +321,9 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
             "30-minute count is never an all-CPI or full-day count. State count and period in one sentence. "
             "Use its actual historical sample end date, never its report/capture date. "
             "A yield/dollar driver must name both markets and explain the link in words. "
+            "CC511: market_links describe relevance, never a measured reaction. When using a linked-market "
+            "fact, name the target's actual driver, the fact's market and their relationship in the same "
+            "sentence. Never present a linked index's price as the target driver's price. "
             "No usable fact means omit the target with its specific cause. Never draft to fill a quota."
         )
     if automated_mentions:

@@ -69,7 +69,10 @@ def markets(text):
 def target_markets(post):
     """Keep explicit instruments distinct; otherwise include the named driver map."""
     direct = markets(post["post_text"])
-    if direct - {"EQUITIES", "RATES"}:
+    specific = direct - {"EQUITIES", "RATES"}
+    if specific == {"USDJPY"} and not re.search(r"\b(?:usd\s*/?\s*jpy|yen)\b", post["post_text"], re.I):
+        specific = set()  # A BoJ speaker is a driver, not an explicit yen quote.
+    if specific:
         return direct
     return direct | {market for link in driver_links(post["post_text"]) for market in link["markets"]}
 
@@ -145,10 +148,11 @@ def check_fact(post, source, *, now, draft=None):
         "EQUITIES" in explicit and bool(fact_markets & {"SPX", "NDX", "NASDAQ", "DOW"}))
     linked = not direct and bool((targets - explicit) & fact_markets)
     if linked:
-        drivers = {link["driver"] for link in driver_links(post["post_text"])
-                   if set(link["markets"]) & fact_markets}
+        links = [link for link in driver_links(post["post_text"]) if set(link["markets"]) & fact_markets]
         if draft and not any(markets(sentence) & fact_markets and RELATION.search(sentence)
-                             and drivers & {link["driver"] for link in driver_links(sentence)}
+                             and any(original["driver"] == stated["driver"]
+                                     and set(original["subjects"]) & set(stated["subjects"])
+                                     for original in links for stated in driver_links(sentence))
                              for sentence in re.split(r"(?<=[.!?])\s+", draft["draft_text"])):
             raise ValueError("FACT_DRIVER_LINK_NOT_STATED")
     elif not direct:
