@@ -33,6 +33,8 @@ class FakeBot:
 
 @pytest.fixture
 def setup(tmp_path, monkeypatch):
+    from live_contentops import x_reply_base_rates_v1
+    monkeypatch.setattr(x_reply_base_rates_v1, "collect", lambda *a, **kw: ([], []))
     from live_contentops import x_reply_fact_sources_v1
     monkeypatch.setattr(x_reply_fact_sources_v1, "load", lambda **kwargs: ([], []))
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3", auto_migrate=True)

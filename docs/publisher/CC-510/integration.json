@@ -1,0 +1,81 @@
+{
+  "item": "CC-510",
+  "source_branch": "backlog/cc-510-reply-base-rates",
+  "source_head": "72cb1b12372586c2772d4c3b836475a4f0698e28",
+  "previous_operating_head": "0f96aee9a23eb888eba98f4eb7dd65347f124b96",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "integration_branch": "backlog/cc-510-integrate-reply-base-rates",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "launch_process_id": 40212,
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "runtime_model": null,
+  "runtime_effort": null,
+  "preserved_operating_files": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "bytes": 3959
+    },
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "bytes": 19341
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "bytes": 39129
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "bytes": 6166
+    },
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "sha256": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0",
+      "bytes": 1382937
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "sha256": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51",
+      "bytes": 68878
+    }
+  },
+  "preserved_lane_files": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "bytes": 992508
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "bytes": 10337
+    }
+  },
+  "schedule_changed": false,
+  "applications_restarted": false,
+  "merge_resolution": "Keep CC-509 quote supplementation and session-age text plus CC-510 statistics collection and base-rate label.",
+  "merge_recovery": "12 source-identical untracked files preserved after a Windows unlink failure; no user WIP removed.",
+  "test_evidence": {
+    "integration-consumer-tests.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "102",
+        "time": "359.446",
+        "timestamp": "2026-11-12T19:20:05.757988+07:00",
+        "hostname": "J-P"
+      }
+    ],
+    "combined-source-tests.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "77",
+        "time": "7.539",
+        "timestamp": "2026-11-12T19:30:28.203522+07:00",
+        "hostname": "J-P"
+      }
+    ]
+  },
+  "combined_consumer_test": "Source-bound session quote and two producer-counted horizons enter the same candidate and ranking input; session first, then larger base-rate sample."
+}

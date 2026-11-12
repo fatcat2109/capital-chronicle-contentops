@@ -26,4 +26,8 @@ def _disable_intake_lane_for_tests(monkeypatch, tmp_path):
     def no_live_quote(url):
         raise public_market_quote_v1.QuoteError("PUBLIC_QUOTE_TEST_RESPONSE_NOT_SUPPLIED")
     monkeypatch.setattr(public_market_quote_v1, "http_read", no_live_quote)
+    from live_contentops import x_reply_base_rates_v1
+    def no_live_statistics(*args, **kwargs):
+        raise ValueError("BASE_RATE_TEST_PRODUCER_NOT_SUPPLIED")
+    monkeypatch.setattr(x_reply_base_rates_v1, "Producer", no_live_statistics)
     yield
