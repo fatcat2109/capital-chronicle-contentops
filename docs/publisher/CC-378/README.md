@@ -1,5 +1,31 @@
 # CC-378 — Antigravity light text and claim check
 
+## Live integration — 12 November 2026
+
+Decision 120 removes the earlier Ops-review wait. Publisher squashed the two
+record-validation commits onto operating HEAD `e16ddb8c`, pushed
+`backlog/cc-378-record-validation-squashed`, and fast-forwarded the operating
+root to `cbd97553`. The article submit, preparation and derivative compiler use
+the installed module. Rollback is `contentops-rollback-20261112-cc378-r114`.
+
+All 40 targeted tests passed in the delivery worktree and again in the operating
+root. Recorded Antigravity output reaches the actual compiler; forced failures
+keep publication moving with the existing copy. Existing uncommitted files were
+preserved. The live source and runtime evidence are recorded in
+[integration-20261112.json](integration-20261112.json).
+
+The fresh operating-root agy 1.5.6 call returned `AGY_TIMEOUT_120S` after its
+120-second limit. The installed consumer read that real `AGY_UNAVAILABLE` record
+and compiled fallback payloads for all eight current destinations, preserving the
+original article and alt text. No retry or public write was made.
+
+Full publication acceptance remains blocked on that missing completed return and
+the next two CC-124 pieces: their
+claim lists, Publisher flag decisions, alt text, social variants and exact public
+readbacks. Integration and a controlled runtime call do not establish those
+publications. No historical request or public article is rewritten to supply them.
+
+
 ## Decision 114 delivery — 11 November 2026
 
 The reopened delivery checks claims and light copy against the retained record.
