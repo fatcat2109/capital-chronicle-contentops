@@ -197,7 +197,9 @@ def message_for(item, *, number, now):
 
 
 def _json_response(raw):
-    text = raw.decode("utf-8").strip()
+    # The shared caller unwraps the CLI envelope before this consumer sees it.
+    # Its returned response may still be a fenced JSON object (observed live).
+    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", raw.decode("utf-8").strip())
     if text.startswith('{"event"'):
         events = [json.loads(line) for line in text.splitlines() if line.strip()]
         value = next((e["result"] for e in reversed(events) if e.get("event") == "result"), {})

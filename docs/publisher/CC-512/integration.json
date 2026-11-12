@@ -28,5 +28,16 @@
   "preserved_wip": "integration-preserved-wip.json",
   "public_write_performed": false,
   "schedule_changed": false,
-  "desktop_automation_performed": false
+  "desktop_automation_performed": false,
+  "resumed_launch": {
+    "pid": 4644,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "observed_arguments": "exec resume --model gpt-6.1-sol -c model_reasoning_effort=max"
+  },
+  "interruption": {
+    "prior_native_image_attempt": "Runtime/ContentOps/daily_app_outputs/owner-manual/cc512-light-caller-integration/media/cc465-retained-cpi-layout-event-2-T.vision/20261112T133846803758Z",
+    "outcome": "No completion artifact survived the turn interruption; original prompt and schema retained; no answer or timeout inferred."
+  }
 }

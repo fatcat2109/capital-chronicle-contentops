@@ -98,6 +98,29 @@ def test_second_failure_keeps_the_first_named_cause_and_never_retries(tmp_path, 
     assert (tmp_path/"antigravity-stdout.txt").read_bytes() == (b"partial" if first=="timeout" else b'{"status":"SUCCESS","response":""}')
 
 
+@pytest.mark.parametrize("role", ["variants", "ranking"])
+@pytest.mark.parametrize("caller", ["antigravity", "codex"])
+def test_consumers_accept_fenced_json_after_the_shared_caller_unwraps_it(tmp_path, role, caller):
+    value = {"ranking": [{"post_id": "source-post", "quality_score": 81}]} if role == "ranking" else {"hook": "Source-bound text."}
+    response = "```json\n" + json.dumps(value) + "\n```"
+    calls = []
+    def run(args, **kwargs):
+        calls.append(args)
+        if args[0] == light.AGY:
+            return subprocess.CompletedProcess(args, 0, json.dumps({"event": "result", "result": {
+                "status": "SUCCESS", "response": response if caller == "antigravity" else ""}}).encode(), b"")
+        return subprocess.CompletedProcess(args, 0, json.dumps({"type": "item.completed", "item": {
+            "type": "agent_message", "text": response}}).encode(), b"")
+    if role == "variants":
+        record = editorial.text_call("Exact source-bound request.", root=tmp_path, runner=run)
+        assert record["output"] == value
+    else:
+        returned, record = replies._text_call("Exact source-bound request.", root=tmp_path, runner=run)
+        assert returned == value
+    assert record["status"] == "RETURNED" and record["answered_by"] == caller
+    assert len(calls) == (1 if caller == "antigravity" else 2)
+
+
 @pytest.mark.parametrize("output,code", [(b'{"broken":',0), (b'{"status":"ERROR","response":"Denied"}',0), (b'bad',1)])
 def test_invalid_or_rejected_nonempty_output_does_not_call_a_second_model(tmp_path,output,code):
     calls=[]

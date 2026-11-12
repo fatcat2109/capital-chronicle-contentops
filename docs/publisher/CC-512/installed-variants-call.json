@@ -1,0 +1,577 @@
+{
+  "item": "CC-512",
+  "role": "variants",
+  "started_at_utc": "2026-11-12T13:45:15.243398+00:00",
+  "public_write_performed": false,
+  "issued_payload_changed": false,
+  "consumer_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\plan_reader_editorial_v1.py",
+  "post_key": "plan-status-post-0fee4b9450de5a81488e9d30f67d49cd",
+  "plan_id": "plan_1ff14f488bdc84b20a3f51d2",
+  "canonical_confirmed": true,
+  "result": {
+    "status": "PREPARED",
+    "reader_fields": {
+      "hook": {
+        "text": "I see hot October inflation and rate hike expectations driving dollar strength.",
+        "source_ids": [
+          "s0"
+        ]
+      },
+      "points": [
+        {
+          "layer": "macro",
+          "text": "I see CPI lifting the dollar.",
+          "source_ids": [
+            "s0"
+          ]
+        },
+        {
+          "layer": "priced_in",
+          "text": "I see a December hike 91% priced.",
+          "source_ids": [
+            "s2"
+          ]
+        },
+        {
+          "layer": "positioning",
+          "text": "I see crowded euro shorts.",
+          "source_ids": [
+            "s3"
+          ]
+        }
+      ],
+      "scenario_main": {
+        "text": "Main (50%): I expect lower levels before 1.11390 by Fri 13 Nov, 8:15 AM ET.",
+        "source_ids": [
+          "s10",
+          "s11",
+          "s28"
+        ]
+      },
+      "scenario_alt": {
+        "text": "Alternative (35%): I see short covering lifting EURUSD above 1.11390 before lower levels.",
+        "source_ids": [
+          "s12",
+          "s13"
+        ]
+      },
+      "alt_text": {
+        "text": "I describe the TradingView EUR/USD price chart with the plan zone at 1.1101–1.1108, broken floor at 1.11044, and failure level above 1.11390.",
+        "source_ids": [
+          "s6",
+          "s10",
+          "s24",
+          "s25"
+        ]
+      }
+    },
+    "reader_source": {
+      "plan_id": "plan_1ff14f488bdc84b20a3f51d2",
+      "registration_hash": "b07b0de9d3306cb99cc8dd7bb95726e0f5717e3df9465b9850277736d078e832",
+      "asset_id": "EURUSD",
+      "sources": [
+        {
+          "id": "s0",
+          "layer": "macro",
+          "text": "the USD leg itself - the hot October CPI and the hike repricing (context) widen the US-euro front-end gap (US2Y 4.51% on 6 Nov against EA2Y 2.958% on 5 Nov, about 155 bp before the print; post-CPI yields not observed) and broke EURUSD through its 20-day and 300-session floor 1.11044 (29 Oct D1 low) to 1.10867, one-for-one with DXY today; regime RANGE (EVENT-PENDING) at -0.10 of 1.11044-1.12731, below the range; the plan follows two down days (10 Nov -0.48%, 11 Nov -0.74%) only on a retest, and what differs from the 49.3% three-session continuation base rate (as quoted by the 06:30Z run) is the break of the lowest D1 low in the 300 retained sessions.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/mechanism"
+          }
+        },
+        {
+          "id": "s1",
+          "layer": "macro",
+          "text": "CLEAR - the USD leg (-1.28 ATR against DXY +1.42 ATR at the capture); secondary and opposite: ECB upside-risk talk (context: Makhlouf).",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/driver"
+          }
+        },
+        {
+          "id": "s2",
+          "layer": "priced_in",
+          "text": "-0.74% (-1.28 ATR) today after -0.48%; the 10 Nov close 1.11688 was -0.34 ATR under SMA20 1.11905, -1.59 under SMA50 1.12711 and -5.16 under SMA200 1.15007 (06:30Z reading); 18 pips under the 20-day low; a December hike about 91% priced (context); implied move and risk reversals not observed.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/priced"
+          }
+        },
+        {
+          "id": "s3",
+          "layer": "positioning",
+          "text": "COT as of 3 Nov EUR non-commercials net short 157,791 of 876,122 open interest (18%), the crowded side, entry levels not observed; 9 Nov rally longs above 1.1200 trapped.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/positioning"
+          }
+        },
+        {
+          "id": "s4",
+          "layer": "story",
+          "text": "the break held from 1.1097 (14:08Z post, context) to 1.10867 at the 15:05Z capture; the 30-minute path after the break and today's low are not observed.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/acceptance"
+          }
+        },
+        {
+          "id": "s5",
+          "layer": "macro",
+          "text": "(1) the BLS October CPI print; (2) the D1 floor break at the capture (1.10867 under 1.11044); (3) DXY +1.42 ATR to its year-to-date high.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/confirmations"
+          }
+        },
+        {
+          "id": "s6",
+          "layer": "technical",
+          "text": "the sell zone 1.11010-1.11080 straddles the broken floor 1.11044 (29 Oct D1 low) under the 14 and 28 Oct D1 lows 1.11129, at -0.02 to +0.02 of the range.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/zone_reason"
+          }
+        },
+        {
+          "id": "s7",
+          "layer": "invalidation",
+          "text": "a D1 close back above 1.11390, or official US2Y on 12 Nov back under its pre-CPI 4.51%.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/invalidation_text"
+          }
+        },
+        {
+          "id": "s8",
+          "layer": "invalidation",
+          "text": "1.11390 clears the 6 Nov 14:00Z H1 low 1.11309, the 30 Oct D1 low 1.11365 and the 6-8 Nov H1 lows 1.11362-1.11372; back above that cluster the break has failed.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/invalidation_reason"
+          }
+        },
+        {
+          "id": "s9",
+          "layer": "scenarios",
+          "text": "covering by the 18%-of-open-interest speculative short after a -1.28 ATR day (the 9 Nov session reversed all of 6 Nov), helped by ECB upside-risk talk and the euro-area GDP flash on 13 Nov (time not observed); crowd trade: selling euro at a 12-month low, wrong on a squeeze through 1.1104-1.1139.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/opposite_mechanism"
+          }
+        },
+        {
+          "id": "s10",
+          "layer": "scenarios",
+          "text": "EURUSD trades at or below lower levels before it trades at or above 1.11390 by 13 Nov 13:15Z.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/base_case/market_move"
+          }
+        },
+        {
+          "id": "s11",
+          "layer": "scenarios",
+          "text": "50.0",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/base_case/probability_pct"
+          }
+        },
+        {
+          "id": "s12",
+          "layer": "scenarios",
+          "text": "short covering lifts EURUSD back above 1.11390, into the 6 Nov lows, before it trades at lower levels.",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/main_alternative/market_move"
+          }
+        },
+        {
+          "id": "s13",
+          "layer": "scenarios",
+          "text": "35.0",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/main_alternative/probability_pct"
+          }
+        },
+        {
+          "id": "s14",
+          "layer": "analysis",
+          "text": "Base case (50%): EURUSD trades at or below 1.10400 before it trades at or above 1.11390 by 13 Nov 13:15Z. Mechanism: the USD leg itself - the hot October CPI and the hike repricing (context) widen the US-euro front-end gap (US2Y 4.51% on 6 Nov against EA2Y 2.958% on 5 Nov, about 155 bp before the print; post-CPI yields not observed) and broke EURUSD through its 20-day and 300-session floor 1.11044 (29 Oct D1 low) to 1.10867, one-for-one with DXY today; regime RANGE (EVENT-PENDING) at -0.10 of 1.11044-1.12731, below the range; the plan follows two down days (10 Nov -0.48%, 11 Nov -0.74%) only on a retest, and what differs from the 49.3% three-session continuation base rate (as quoted by the 06:30Z run) is the break of the lowest D1 low in the 300 retained sessions. Priced: -0.74% (-1.28 ATR) today after -0.48%; the 10 Nov close 1.11688 was -0.34 ATR under SMA20 1.11905, -1.59 under SMA50 1.12711 and -5.16 under SMA200 1.15007 (06:30Z reading); 18 pips under the 20-day low; a December hike about 91% priced (context); implied move and risk reversals not observed. Positioning: COT as of 3 Nov EUR non-commercials net short 157,791 of 876,122 open interest (18%), the crowded side, entry levels not observed; 9 Nov rally longs above 1.1200 trapped. Driver: CLEAR - the USD leg (-1.28 ATR against DXY +1.42 ATR at the capture); secondary and opposite: ECB upside-risk talk (context: Makhlouf). Acceptance: the break held from 1.1097 (14:08Z post, context) to 1.10867 at the 15:05Z capture; the 30-minute path after the break and today's low are not observed. Zone reason: the sell zone 1.11010-1.11080 straddles the broken floor 1.11044 (29 Oct D1 low) under the 14 and 28 Oct D1 lows 1.11129, at -0.02 to +0.02 of the range. Invalidation reason: 1.11390 clears the 6 Nov 14:00Z H1 low 1.11309, the 30 Oct D1 low 1.11365 and the 6-8 Nov H1 lows 1.11362-1.11372; back above that cluster the break has failed. Confirmations: (1) the BLS October CPI print; (2) the D1 floor break at the capture (1.10867 under 1.11044); (3) DXY +1.42 ATR to its year-to-date high. Invalidation: a D1 close back above 1.11390, or official US2Y on 12 Nov back under its pre-CPI 4.51%. Why no OPEN: the capture sits 14-21 pips under the zone, and selling the 12-month low into an 18% net short is the crowd trade this plan avoids. Opposite mechanism: covering by the 18%-of-open-interest speculative short after a -1.28 ATR day (the 9 Nov session reversed all of 6 Nov), helped by ECB upside-risk talk and the euro-area GDP flash on 13 Nov (time not observed); crowd trade: selling euro at a 12-month low, wrong on a squeeze through 1.1104-1.1139. Plan (private): STARTER WATCH SHORT; pullback SELL_LIMIT 1.11010-1.11080 (entry 1.11035), stop 1.11390, take-profit 1.10400 (a projection: no retained structure below the floor, 0.73 ATR under the capture); after-cost R:R 1.32 at 1.11010 and 1.77 at 1.11080 (reserve 0.00047 = commission 7 USD a lot = 0.00007 + fees 0 + 2 pips adverse x 2; capture bid = ask 1.10867 OBSERVED_ZERO_SPREAD_BROKER_REPORTED, a real zero spread; swap 0 by decision 49); 0.74 at the capture. Synthesis raised the band's low edge from 1.11000 to 1.11010 (Critical: under a pip of margin at 1.11000); target unchanged. Breakout SELL_STOP UNPRICED. Stop 31-38 pips = 0.48-0.59 D1 ATR (0.00644), 1-3 usual 4-hour ranges (12-33 pips on the H1 bars). Probabilities (UNCALIBRATED_HYBRID_JUDGMENT): base case from the random-walk touch-first anchor 53% (46.7 pips down to 1.10400 against 52.3 up to 1.11390), +2 for repricing cash Treasuries have not yet traded, -5 for the crowded short after a -1.28 ATR day, = 50%; touch of 1.11010-1.11080 before 2026-11-12T21:00Z 68%; target before stop after a fill 37% (random walk 36% from 1.11035: 35.5 pips to the stop against 63.5 to the target, +3 for the dollar impulse with rate futures already repriced, -2 for crowding); expected value about -0.09R per fill (0.37 x 1.46 - 0.63): no measured edge, kept under decision 109.2a. Releases inside the hold: JP Corporate Goods Price Index 2026-11-11T23:50Z HOLD; UK GDP 2026-11-12T07:00Z HOLD; 12 Nov cash Treasury reopening HOLD; euro-area GDP flash 13 Nov (time not observed) HOLD with a stop of 0.48-0.59 ATR; US PPI 2026-11-13T13:30Z FLAT through the 13:15Z planned exit. Standing: AMEND the 06:30Z EURUSD WATCH SHORT of request-a24fbc75cf8c5c6c (SELL_LIMIT 1.11920-1.12020, stop 1.12320) into this plan (changed fact: the 20-day floor 1.11044 broke and the old zone now sits above this thesis's invalidation 1.11390); the older request-9f7c39e808aef09c sell 1.11880-1.11940 likewise sits above it. Stop comparison: distance 0.00355 against the 06:30Z plan's 0.00350 - no tightening. Desk outcome (private, dated cases): epv_f93442e5663be081cdcc81a8 SHORT entered 2026-11-06T08:32Z at 1.1187 on a retest of a broken Asia floor, time exit 13:17Z at 1.11661, +1.23R, MFE 1.65R, MAE -0.31R, USD channel not observed - the same structure type, one case; epv_b18dbac3391e9087d31d7ff9 LONG entered 2026-11-10T10:11Z at 1.12215, broker stop at the CPI second 13:30:01Z at 1.1199, -1.0R, MFE 0.2R. Scenario ledger: request-a24fbc75cf8c5c6c, plan 7ba1301148f54d3dbb6040585a1fe7249e6cef8e873ac4dae57cb67f5a7a008a, frozen 2026-11-11T06:30:37Z: WATCH SHORT, Base case 45% (1.11309 or lower before above 1.12320), Main alternative 35%: the base case printed without its zone filling; request-d14441f1a7f5bd59 (frozen 2026-11-11T03:18:49Z, 21 days) Base 50%, alternative 35%; request-9f7c39e808aef09c (frozen 2026-11-10T16:18:07Z) Base 55%, alternative 35%. Today's 50/35 is a new definition below the broken floor, moved on price and dated context, not a new admitted fact. this plan anchors on the broken floor and the 6 Nov lows. Critical dissent (kept): the target is a projection; the stop sits 2.2 pips above the 6 Nov 19:00Z low 1.11362; ECB talk and an 18% net short are the squeeze path; expected value negative by these odds. Main alternative (35%): short covering lifts EURUSD back above 1.11390, into the 6 Nov lows, before it trades at 1.10400.",
+          "ref": {
+            "file": "owner-native.json",
+            "pointer": "/candidates/1/rationale"
+          }
+        },
+        {
+          "id": "s15",
+          "layer": "analysis",
+          "text": "Before a fill: a completed M15 high at or above 1.11390 cancels the pullback leg. Thesis: a D1 close back above 1.11390, or official US2Y on 12 Nov back under 4.51%. After a fill the frozen broker stop 1.11390 applies; time exit 2026-11-13T13:15:00Z.",
+          "ref": {
+            "file": "owner-native.json",
+            "pointer": "/candidates/1/invalidation"
+          }
+        },
+        {
+          "id": "s16",
+          "layer": "analysis",
+          "text": "SHORT EURUSD (STARTER) to 2026-11-13T13:15Z: the hot October CPI and the hike repricing widen the US-euro front-end gap (US2Y 4.51% on 6 Nov against EA2Y 2.958% on 5 Nov, about 155 bp before the CPI) and broke the euro through its 20-day floor 1.11044 to 1.10867 (context: lowest since May 2025); sell the retest of the broken floor. Base case (50%): EURUSD trades at or below 1.10400 before it trades at or above 1.11390 by 13 Nov 13:15Z. Probability: the base rate, plus or minus, because: the base_rate_sheet's EURUSD 3-session any-day continuation is 49.3% (n=225, Wilson 42.9-55.8) and 52.9% after 1.5 SD days (n=17), as quoted by the 06:30Z run on the same 10 Nov bar; the random-walk touch-first estimate from 1.10867 (47 pips down against 52 up) is 53%; plus 2 for the fresh repricing that cash Treasuries have not yet traded, minus 5 for the crowded speculative euro short after a -1.28 ATR day. Main alternative (35%): short covering lifts EURUSD back above 1.11390, into the 6 Nov lows, before 1.10400. Ledger: request-a24fbc75cf8c5c6c, plan 7ba1301148f54d3dbb6040585a1fe7249e6cef8e873ac4dae57cb67f5a7a008a, frozen 2026-11-11T06:30:37Z: WATCH SHORT, Base case 45% (1.11309 or lower before above 1.12320), Main alternative 35%: the base case printed (price 1.10867) without its 1.11920-1.12020 sell zone filling (no EURUSD fill in the desk record at 15:05Z); request-d14441f1a7f5bd59 (03:18Z, 21 days) WATCH SHORT, Base 50%, alternative 35%; request-9f7c39e808aef09c (frozen 2026-11-10T16:18:07Z) WATCH SHORT 1.11880-1.11940, Base 55%, alternative 35%. Today's 50/35 is a new definition below the broken floor; it moved on price and dated context, not a new admitted fact.",
+          "ref": {
+            "file": "primary-native.json",
+            "pointer": "/candidate_evaluations/1/directional_thesis"
+          }
+        },
+        {
+          "id": "s17",
+          "layer": "analysis",
+          "text": "The USD leg itself: a higher expected Fed path against an ECB on hold widens the rate gap and lowers EURUSD; today the pair moved one-for-one with DXY. Regime RANGE (EVENT-PENDING) at -0.10 of 1.11044-1.12731, i.e. below the floor; the sell zone 1.11000-1.11080 sits at -0.03 to +0.02 of the range, on the broken floor itself. The plan follows two down days (10 Nov -0.48%, 11 Nov -0.74%) only after a retrace; what differs from the base rate is a structural break of the 300-session floor (06:30Z run reading of the retained sessions; context: 12-month low). Second-order: (1) Priced: 11 Nov -0.74% (-1.28 ATR) after 10 Nov -0.48%; 10 Nov close 1.11688 was -0.34 ATR under SMA20 1.11905, -1.59 under SMA50 1.12711, -5.16 under SMA200 1.15007 (06:30Z run); price is 18 pips under the 20-day low 1.11044; context: December hike about 91% priced; implied move and risk reversals not observed. (2) Who must act: COT 3 Nov EUR speculators net short 157,791 of 876,122 (18%) - the crowded side, covering on a reclaim of 1.1104-1.1139; 9 Nov rally longs above 1.1200 are trapped. (3) Driver: CLEAR (the USD leg is the instrument; today -1.28 ATR with DXY +1.42 ATR); secondary and opposite: ECB rhetoric (context: Makhlouf sees upside inflation risks; German final CPI 2.8% as expected). (4) Acceptance: the break held from the 14:08Z post at 1.1097 to the 15:05Z capture at 1.10867; today's low and the 30-minute path after the break are not observed (H1 rows end 10 Nov 05:00Z). (5) Crowd trade: selling euro at a 12-month low with speculators already 18% net short; wrong on a squeeze through 1.1104-1.1139, which the plan avoids by selling the retest and leaving the low alone.",
+          "ref": {
+            "file": "primary-native.json",
+            "pointer": "/candidate_evaluations/1/mechanism_and_transmission"
+          }
+        },
+        {
+          "id": "s18",
+          "layer": "analysis",
+          "text": "Crowded speculative euro short after a -1.28 ATR day; the 9 Nov session reversed the whole 6 Nov move in one session; ECB hawkish rhetoric (context); the dollar move happened without cash Treasuries. Desk outcomes (private, dated cases): epv_f93442e5663be081cdcc81a8 SHORT entered 2026-11-06T08:32Z at 1.1187 on a retest of a broken Asia floor, time exit 13:17Z at 1.11661, +1.23R, MFE 1.65R, MAE -0.31R, USD channel not observed - the same retest-of-broken-floor structure as this plan; epv_b18dbac3391e9087d31d7ff9 LONG entered 2026-11-10T10:11Z at 1.12215, broker stop at the CPI second 13:30:01Z at 1.1199, -1.0R, MFE 0.2R. this plan anchors on the broken floor and the 6 Nov lows.",
+          "ref": {
+            "file": "primary-native.json",
+            "pointer": "/candidate_evaluations/1/material_counterevidence"
+          }
+        },
+        {
+          "id": "s19",
+          "layer": "analysis",
+          "text": "Before a fill: an M15 high at or above 1.11390 cancels the pullback leg. Thesis: a D1 close back above 1.11390 (the broken floor and the 6 Nov lows reclaimed), or official US front-end yields on 12 Nov back under their pre-CPI 4.51%. After a fill the frozen broker stop 1.11390 applies.",
+          "ref": {
+            "file": "primary-native.json",
+            "pointer": "/candidate_evaluations/1/invalidation"
+          }
+        },
+        {
+          "id": "s20",
+          "layer": "plan",
+          "text": "BEARISH",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/direction"
+          }
+        },
+        {
+          "id": "s21",
+          "layer": "plan",
+          "text": "2026-11-12T21:00:00Z",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/entry_deadline_utc"
+          }
+        },
+        {
+          "id": "s22",
+          "layer": "plan",
+          "text": "2026-11-11T16:20:07.062029Z",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/registered_at_utc"
+          }
+        },
+        {
+          "id": "s23",
+          "layer": "plan",
+          "text": "2026-11-13T13:15:00Z",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/horizon_end_utc"
+          }
+        },
+        {
+          "id": "s24",
+          "layer": "plan",
+          "text": "1.1108",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/zone/maximum"
+          }
+        },
+        {
+          "id": "s25",
+          "layer": "plan",
+          "text": "1.1101",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/zone/minimum"
+          }
+        },
+        {
+          "id": "s26",
+          "layer": "plan",
+          "text": "Wed 11 Nov, 11:20 AM ET",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/registered_at_utc",
+            "transform": "ET12"
+          }
+        },
+        {
+          "id": "s27",
+          "layer": "plan",
+          "text": "Thu 12 Nov, 4:00 PM ET",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/entry_deadline_utc",
+            "transform": "ET12"
+          }
+        },
+        {
+          "id": "s28",
+          "layer": "plan",
+          "text": "Fri 13 Nov, 8:15 AM ET",
+          "ref": {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/horizon_end_utc",
+            "transform": "ET12"
+          }
+        }
+      ],
+      "scenario_analysis": {
+        "acceptance": "the break held from 1.1097 (14:08Z post, context) to 1.10867 at the 15:05Z capture; the 30-minute path after the break and today's low are not observed.",
+        "base_case": {
+          "market_move": "EURUSD trades at or below lower levels before it trades at or above 1.11390 by 13 Nov 13:15Z.",
+          "probability_pct": 50.0
+        },
+        "confirmations": "(1) the BLS October CPI print; (2) the D1 floor break at the capture (1.10867 under 1.11044); (3) DXY +1.42 ATR to its year-to-date high.",
+        "driver": "CLEAR - the USD leg (-1.28 ATR against DXY +1.42 ATR at the capture); secondary and opposite: ECB upside-risk talk (context: Makhlouf).",
+        "field_first_causes": {
+          "acceptance": null,
+          "confirmations": null,
+          "driver": null,
+          "invalidation_reason": null,
+          "invalidation_text": null,
+          "mechanism": null,
+          "opposite_mechanism": null,
+          "positioning": null,
+          "priced": null,
+          "why_no_open": null,
+          "zone_reason": null
+        },
+        "horizon_end_utc": "2026-11-13T13:15:00Z",
+        "invalidation_reason": "1.11390 clears the 6 Nov 14:00Z H1 low 1.11309, the 30 Oct D1 low 1.11365 and the 6-8 Nov H1 lows 1.11362-1.11372; back above that cluster the break has failed.",
+        "invalidation_text": "a D1 close back above 1.11390, or official US2Y on 12 Nov back under its pre-CPI 4.51%.",
+        "main_alternative": {
+          "market_move": "short covering lifts EURUSD back above 1.11390, into the 6 Nov lows, before it trades at lower levels.",
+          "probability_pct": 35.0
+        },
+        "mechanism": "the USD leg itself - the hot October CPI and the hike repricing (context) widen the US-euro front-end gap (US2Y 4.51% on 6 Nov against EA2Y 2.958% on 5 Nov, about 155 bp before the print; post-CPI yields not observed) and broke EURUSD through its 20-day and 300-session floor 1.11044 (29 Oct D1 low) to 1.10867, one-for-one with DXY today; regime RANGE (EVENT-PENDING) at -0.10 of 1.11044-1.12731, below the range; the plan follows two down days (10 Nov -0.48%, 11 Nov -0.74%) only on a retest, and what differs from the 49.3% three-session continuation base rate (as quoted by the 06:30Z run) is the break of the lowest D1 low in the 300 retained sessions.",
+        "missing_fields": [],
+        "opposite_mechanism": "covering by the 18%-of-open-interest speculative short after a -1.28 ATR day (the 9 Nov session reversed all of 6 Nov), helped by ECB upside-risk talk and the euro-area GDP flash on 13 Nov (time not observed); crowd trade: selling euro at a 12-month low, wrong on a squeeze through 1.1104-1.1139.",
+        "positioning": "COT as of 3 Nov EUR non-commercials net short 157,791 of 876,122 open interest (18%), the crowded side, entry levels not observed; 9 Nov rally longs above 1.1200 trapped.",
+        "priced": "-0.74% (-1.28 ATR) today after -0.48%; the 10 Nov close 1.11688 was -0.34 ATR under SMA20 1.11905, -1.59 under SMA50 1.12711 and -5.16 under SMA200 1.15007 (06:30Z reading); 18 pips under the 20-day low; a December hike about 91% priced (context); implied move and risk reversals not observed.",
+        "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+        "source_plan_hash": "1912c435a56411b4545adbe8b34bdcf23aca03bd1fab6e259865730a15970011",
+        "source_result_hash": "d5a145e27e629d5130e99c8f4d42857e888ec24d68b22357f057bd5d9a98ba45",
+        "why_no_open": "the capture sits 14-21 pips under the zone, and selling the 12-month low into an 18% net short is the crowd trade this plan avoids.",
+        "zone_reason": "the sell zone 1.11010-1.11080 straddles the broken floor 1.11044 (29 Oct D1 low) under the 14 and 28 Oct D1 lows 1.11129, at -0.02 to +0.02 of the range."
+      },
+      "result_r": null,
+      "source_manifest": {
+        "role-pack.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\role-pack.json",
+          "sha256": "09aa3a2684d5aa917af68bfe74ba3fcc9ddfde5496ea361f064788522aa4b9b4",
+          "bytes": 1469948
+        },
+        "role-evidence.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\role-evidence.json",
+          "sha256": "faf1d4dd8bc6feaa9aa6ab0679afcc9b543c5f1e28ba3f33924a30960832cc5b",
+          "bytes": 2975966
+        },
+        "integrated-owner-record.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\integrated-owner-record.json",
+          "sha256": "35ad12b726361b4f5f5fe4ecb2da734487d752bcdd6cc11811f911ab477afc03",
+          "bytes": 6489809
+        },
+        "plan-geometry.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\plan-geometry.json",
+          "sha256": "6c3d6fab803743645396869c4ac3a6263e739d0afed8413a5d88a90f8c492cec",
+          "bytes": 8062
+        },
+        "options-context.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\options-context.json",
+          "sha256": "5b7d8e9f1c31c4186da77bba1fcabb298282840f7902599c98330ee37662696d",
+          "bytes": 34973
+        },
+        "final-decision-freeze.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\final-decision-freeze.json",
+          "sha256": "97218d7198b8fb49862b860e74a1101087d4943ae25b1a92093ccccafc55f068",
+          "bytes": 1886
+        },
+        "desktop-manual-result.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\desktop-manual-result.json",
+          "sha256": "2b5c8bb9cc0e863d61cfe9aa72da0ee655069cbf483cff2adf8a021b8517e986",
+          "bytes": 493133
+        },
+        "primary-native.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\primary-native.json",
+          "sha256": "bc8a3e79be6e56366ae79e4284d236dc12fd8b93f9c592ff95fd7b60ac44686f",
+          "bytes": 94693
+        },
+        "critical-native.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\critical-native.json",
+          "sha256": "05a94e52fc3c8a36f07edc7045d6f602844064b672452a3c40ee6cae7db2f4be",
+          "bytes": 70940
+        },
+        "owner-native.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\owner-native.json",
+          "sha256": "1789437d4b786a30d4846c94d50e9377d729bd5d85966fc38b6ede912644774d",
+          "bytes": 111659
+        },
+        "market-context.json": {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\requests\\request-f342a3cfaca32345\\market-context.json",
+          "sha256": "98cac90c1e7cbdaa74ca75abdb235c2cfb3c82d24e43f8563fc3fd5949c41dcf",
+          "bytes": 15403
+        }
+      },
+      "frozen_at_utc": "2026-11-11T16:19:37.447439Z",
+      "missing_export_fields": []
+    },
+    "reader_checks": [
+      {
+        "status": "PASS",
+        "automatic_acronyms": [],
+        "unknown_acronyms": []
+      },
+      {
+        "status": "PASS",
+        "automatic_acronyms": [],
+        "unknown_acronyms": []
+      },
+      {
+        "status": "PASS",
+        "automatic_acronyms": [],
+        "unknown_acronyms": []
+      },
+      {
+        "status": "PASS",
+        "automatic_acronyms": [],
+        "unknown_acronyms": []
+      },
+      {
+        "status": "PASS",
+        "automatic_acronyms": [],
+        "unknown_acronyms": []
+      },
+      {
+        "status": "PASS",
+        "automatic_acronyms": [
+          "EURUSD"
+        ],
+        "unknown_acronyms": []
+      },
+      {
+        "status": "PASS",
+        "automatic_acronyms": [],
+        "unknown_acronyms": []
+      }
+    ],
+    "variant_calls": [
+      {
+        "configured_model": "gpt-6.1-sol",
+        "configured_effort": "low",
+        "runtime_model": null,
+        "runtime_effort": null,
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "started_at_utc": "2026-11-12T13:45:15.632017+00:00",
+        "prompt_sha256": "e22ec9d5657e0a87d040d574bebbb223dc74f623d902d224bc9f6b1321a6dfe5",
+        "status": "RETURNED",
+        "light_call": {
+          "policy": "cc512-light-caller-v1",
+          "status": "RETURNED",
+          "started_at_utc": "2026-11-12T13:45:15.633177+00:00",
+          "prompt_sha256": "de67f37646a64b8a4ea6e501535a77b36a9638a098b9e8efea90b964cee4ea30",
+          "prompt_bytes": 9835,
+          "attempts": [
+            {
+              "caller": "antigravity",
+              "started_at_utc": "2026-11-12T13:45:15.633223+00:00",
+              "status": "TIMEOUT",
+              "configured_model": "gemini-3.8-flash-high",
+              "configured_effort": "high",
+              "configuration_status": "CONFIGURED_NOT_OBSERVED",
+              "timeout_seconds": 65,
+              "cause": "AGY_VARIANTS_TIMEOUT_120S",
+              "ended_at_utc": "2026-11-12T13:46:20.981413+00:00",
+              "elapsed_seconds": 65.34807160000491,
+              "stdout_bytes": 1525,
+              "stderr_bytes": 0,
+              "output_sha256": "826c6ab23b761d21bddd700ea85d939a4a0da9a403bfce867d235bea8796f753",
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "caller": "codex",
+              "started_at_utc": "2026-11-12T13:46:20.982256+00:00",
+              "status": "RETURNED",
+              "configured_model": "gpt-6.1-sol",
+              "configured_effort": "low",
+              "configuration_status": "CONFIGURED_NOT_OBSERVED",
+              "timeout_seconds": 65,
+              "turn_completed_seconds": 16.697245800009114,
+              "observed_session_id": "01a1d002-69d1-7871-a5a7-350828067d27",
+              "observed_usage": {
+                "input_tokens": 17245,
+                "cached_input_tokens": 8832,
+                "cache_write_input_tokens": 0,
+                "output_tokens": 486,
+                "reasoning_output_tokens": 153
+              },
+              "image_attached": false,
+              "returncode": 0,
+              "ended_at_utc": "2026-11-12T13:46:38.553593+00:00",
+              "elapsed_seconds": 17.57130560000951,
+              "stdout_bytes": 1517,
+              "stderr_bytes": 0,
+              "output_sha256": "e33c51d1b9d13cbd1c700adf10bacd1acde2bb5e91606fa8b5746747b6c6d391",
+              "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          ],
+          "answered_by": "codex",
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "answer_seconds": 17.57130560000951,
+          "configured_model": "gpt-6.1-sol",
+          "configured_effort": "low",
+          "observed_session_id": "01a1d002-69d1-7871-a5a7-350828067d27",
+          "observed_usage": {
+            "input_tokens": 17245,
+            "cached_input_tokens": 8832,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 486,
+            "reasoning_output_tokens": 153
+          },
+          "ended_at_utc": "2026-11-12T13:46:38.554246+00:00",
+          "elapsed_seconds": 82.92086830000335,
+          "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc512-light-caller-integration\\plan-status-post-0fee4b9450de5a81488e9d30f67d49cd\\agy-variants\\e22ec9d5657e0a87d040d574bebbb223dc74f623d902d224bc9f6b1321a6dfe5\\light\\light-call.json",
+          "first_cause": "AGY_VARIANTS_TIMEOUT_120S"
+        },
+        "answered_by": "codex",
+        "elapsed_seconds": 82.92086830000335,
+        "ended_at_utc": "2026-11-12T13:46:38.584264+00:00",
+        "output_sha256": "e33c51d1b9d13cbd1c700adf10bacd1acde2bb5e91606fa8b5746747b6c6d391",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc512-light-caller-integration\\plan-status-post-0fee4b9450de5a81488e9d30f67d49cd\\agy-variants\\e22ec9d5657e0a87d040d574bebbb223dc74f623d902d224bc9f6b1321a6dfe5\\result.json"
+      }
+    ],
+    "unknown_acronyms_logged": [],
+    "reader_call_line": "We are bearish on EUR/USD if price reaches 1.1101–1.1108. Wrong above 1.1139. Ends Fri 13 Nov, 8:15 AM ET.",
+    "conditional_calls": [
+      {
+        "market": "EUR/USD",
+        "condition": "price reaches 1.1101–1.1108",
+        "direction": "bearish",
+        "horizon": "Fri 13 Nov, 8:15 AM ET",
+        "invalidation": "above 1.1139"
+      }
+    ]
+  },
+  "status": "PREPARED",
+  "ended_at_utc": "2026-11-12T13:46:38.626619+00:00"
+}

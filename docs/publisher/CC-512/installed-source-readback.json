@@ -1,0 +1,30 @@
+{
+  "operating_head": "030bd1c0dcdaa311324a87ca4571d92eb52929eb",
+  "files": [
+    {
+      "path": "live_contentops/image_quality_v1.py",
+      "matches_committed_blob": true
+    },
+    {
+      "path": "live_contentops/light_model_caller_v1.py",
+      "matches_committed_blob": true
+    },
+    {
+      "path": "live_contentops/plan_reader_editorial_v1.py",
+      "matches_committed_blob": true
+    },
+    {
+      "path": "live_contentops/x_reply_bot_v1.py",
+      "matches_committed_blob": true
+    },
+    {
+      "path": "tests/test_light_model_caller_cc512.py",
+      "matches_committed_blob": true
+    },
+    {
+      "path": "tests/test_plan_reader_editorial_cc466.py",
+      "matches_committed_blob": true
+    }
+  ],
+  "all_match": true
+}
