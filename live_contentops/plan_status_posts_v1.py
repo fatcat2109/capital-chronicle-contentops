@@ -1320,7 +1320,7 @@ def plan_facts(row: Mapping[str, Any]) -> list[tuple[str, str]]:
 
 
 def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
-                ratio: str = "16:9") -> tuple[dict | None, bool]:
+                ratio: str = "16:9", source_snapshot=None) -> tuple[dict | None, bool]:
     """CC-459: every new plan image is TradingView; after two failures use text."""
     from live_contentops import tradingview_snapshot_v1 as tv
     image_input = None
@@ -1328,7 +1328,8 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
         from .image_template_inputs_v1 import from_plan, from_result
         image_input = from_result(row) if row.get("kind") == "result" else from_plan(row)
     asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio,
-                             **({"image_input": image_input} if image_input else {}))
+                             **({"image_input": image_input} if image_input else {}),
+                             **({"source_snapshot": source_snapshot} if source_snapshot else {}))
     if image_input:
         return asset, asset is not None
     if asset:

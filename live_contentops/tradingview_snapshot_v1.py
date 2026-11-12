@@ -73,7 +73,8 @@ PLAN_ATTEMPTS = 2
 
 
 def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot_allowed=None,
-                  now: datetime | None = None, ratio: str = "16:9", image_input=None) -> dict | None:
+                  now: datetime | None = None, ratio: str = "16:9", image_input=None,
+                  source_snapshot=None) -> dict | None:
     """CC-459's bounded capture/cache owner. A None result means text after two failures.
 
     Only image artifacts are cached; this is not another scheduler or publication store.
@@ -117,6 +118,15 @@ def plan_snapshot(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapsh
             taken = cached
     except (OSError, ValueError, KeyError, TypeError):
         pass
+    if not taken and source_snapshot:
+        source_time = _utc(source_snapshot.get("captured_at_utc"))
+        if (source_snapshot.get("tv_symbol") != tv_symbol or source_snapshot.get("interval") != interval
+                or source_snapshot.get("capture_ratio", "16:9") != ratio or source_time is None or source_time > now
+                or _sha256(Path(source_snapshot["path"])) != source_snapshot.get("sha256")):
+            raise SnapshotError("TRADINGVIEW_SOURCE_PAGE_SNAPSHOT_BINDING_CHANGED")
+        # The confirmed article's own image feeds its social card. Keep its
+        # actual capture clock and prior failures; this is no new observation.
+        taken = dict(source_snapshot)
     # Preserve this exact post's successful image even when it resumes after the cache expires.
     if not taken and state.get("snapshot"):
         prior = state["snapshot"]

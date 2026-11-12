@@ -961,6 +961,26 @@ def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_cre
     return result
 
 
+def _confirmed_page_snapshot(store, row, *, ratio="16:9"):
+    """Reuse this exact plan's confirmed article chart for its social card."""
+    if not row.get("analysis_publication") or not row.get("source_plan"):
+        return None
+    from . import plan_analysis_pages_v1 as pages
+    publication = pages.confirmed_publication(store, row["source_plan"])
+    if not publication or publication["canonical_url"] != row["analysis_publication"]["canonical_url"]:
+        return None
+    held = store.get_outbox_message("plan-analysis-" + row["plan_id"])
+    packet = json.loads(held["payload"])
+    from .tradingview_snapshot_v1 import validate_snapshot_asset, SYMBOLS
+    for asset in packet.get("media_assets") or []:
+        source = asset.get("tradingview_snapshot") or {}
+        if (source.get("tv_symbol") == SYMBOLS.get(row["symbol"])
+                and source.get("capture_ratio", "16:9") == ratio):
+            validate_snapshot_asset(asset)
+            return source
+    return None
+
+
 def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
                  snapshot=None, snapshot_allowed=None, **ignored):
     from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes
@@ -1003,7 +1023,9 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         manifest = {"status": "PASS", "assets": []}
         for member in members:
             member_folder = Path(root) / member["key"]
-            card, _ = posts._post_image(member, member_folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+            source_snapshot = _confirmed_page_snapshot(store, member)
+            card, _ = posts._post_image(member, member_folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed,
+                **({"source_snapshot": source_snapshot} if source_snapshot else {}))
             if card is None:
                 all_carousel_images = False
                 continue
