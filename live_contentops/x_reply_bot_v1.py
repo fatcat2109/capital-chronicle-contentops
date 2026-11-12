@@ -21,6 +21,7 @@ import urllib.request
 from uuid import uuid4
 
 from live_contentops import x_reply_pack_v1 as packs
+from live_contentops.light_model_caller_v1 import AGY_TIMEOUT, CODEX_TIMEOUT
 from live_contentops.secret_store_v1 import read_secret
 
 BINDING = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\x_reply_bot_binding.json")
@@ -30,7 +31,7 @@ EVENTS = "internal:x-reply-bot-event"
 RUNS = "internal:x-reply-bot-run"
 ATTEMPTS = "internal:x-reply-bot-attempt"
 WRITER_MODEL, WRITER_EFFORT = "gpt-6.1-sol", "max"
-RANK_TIMEOUT, WRITER_TIMEOUT = 90, 90
+RANK_TIMEOUT, WRITER_TIMEOUT = AGY_TIMEOUT + CODEX_TIMEOUT, 90
 QUALITY_FLOOR = 80
 
 
@@ -216,7 +217,7 @@ def _json_response(raw):
 
 def _text_call(prompt, *, root, writer=False, runner=None):
     """Bounded text CLI, no Claude/API fallback and no inherited project context."""
-    from live_contentops.agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
+    from live_contentops.agy_editorial_assist_v1 import MODEL, EFFORT
     root = Path(root)
     root.mkdir(parents=True, exist_ok=True)
     (root / "prompt.txt").write_text(prompt, encoding="utf-8")
@@ -229,7 +230,7 @@ def _text_call(prompt, *, root, writer=False, runner=None):
         if not writer:
             from .light_model_caller_v1 import call_light
             answer, light = call_light(prompt, root=root / "light", runner=runner,
-                timeout_cause="AGY_RANK_TIMEOUT_" + str(RANK_TIMEOUT) + "S", empty_cause="AGY_RANK_EMPTY_RESPONSE")
+                timeout_cause="AGY_RANK_TIMEOUT_" + str(AGY_TIMEOUT) + "S", empty_cause="AGY_RANK_EMPTY_RESPONSE")
             record_.update(light_call=light, answered_by=light["answered_by"])
             chosen = light["attempts"][-1] if light["status"] == "RETURNED" else light["attempts"][0]
             raw = (root / "light" / (chosen["caller"] + "-stdout.txt")).read_bytes()
@@ -244,22 +245,23 @@ def _text_call(prompt, *, root, writer=False, runner=None):
         with tempfile.TemporaryDirectory(prefix="cc464-text-") as cwd:
             if writer:
                 # Resolve the installed executable; do not assume an interactive shell or a versioned path.
-                import shutil
-                codex = shutil.which("codex.exe") or shutil.which("codex")
-                if not codex:
-                    candidates = list(Path(r"C:\Users\bullw\AppData\Local\OpenAI\Codex\bin").glob("*/codex.exe"))
-                    codex = str(max(candidates, key=lambda p: p.stat().st_mtime)) if candidates else None
-                if not codex:
-                    raise ValueError("CODEX_EXECUTABLE_NOT_FOUND")
+                from .light_model_caller_v1 import codex_executable, _run_codex, _codex_observations
+                codex = codex_executable()
                 result_path = Path(cwd) / "reply.json"
                 args = [codex, "exec", "--model", model, "-c", 'model_reasoning_effort="' + effort + '"',
                     "--ignore-user-config", "--ephemeral", "--skip-git-repo-check", "--sandbox", "read-only",
-                    "-c", 'approval_policy="never"', "--output-last-message", str(result_path), "-"]
-                result = (runner or _run)(args, cwd=cwd, timeout=WRITER_TIMEOUT, input=prompt.encode("utf-8"))
+                    "-c", 'approval_policy="never"', "-c", 'forced_login_method="chatgpt"',
+                    "-c", 'web_search="disabled"', "--disable", "shell_tool", "--disable", "multi_agent",
+                    "--disable", "view_image", "--disable", "apps", "--disable", "remote_plugin",
+                    "--disable", "hooks", "--json", "--output-last-message", str(result_path), "-"]
+                result = (runner or _run_codex)(args, cwd=cwd, timeout=WRITER_TIMEOUT, input=prompt.encode("utf-8"))
                 raw, err = result.stdout, result.stderr
                 if result.returncode:
                     raise ValueError("CODEX_EXIT_" + str(result.returncode))
-                answer = result_path.read_bytes() if result_path.is_file() else raw
+                final_message = _codex_observations(raw, record_)
+                answer = result_path.read_bytes() if result_path.is_file() else final_message or raw
+                if getattr(result, "turn_completed", False):
+                    record_["turn_completed_seconds"] = result.completion_seconds
             record_["returncode"] = result.returncode
             value = _json_response(answer)
             packs.save_json(root / "response.json", value)
@@ -268,7 +270,7 @@ def _text_call(prompt, *, root, writer=False, runner=None):
     except subprocess.TimeoutExpired as exc:
         raw, err = exc.output or b"", exc.stderr or b""
         record_["status"] = "TIMEOUT"
-        raise ValueError("CODEX_DRAFT_TIMEOUT_90S" if writer else "AGY_RANK_TIMEOUT_" + str(RANK_TIMEOUT) + "S") from None
+        raise ValueError("CODEX_DRAFT_TIMEOUT_90S" if writer else "AGY_RANK_TIMEOUT_" + str(AGY_TIMEOUT) + "S") from None
     except Exception as exc:
         record_.setdefault("status", "FAILED")
         record_["cause"] = str(exc) if "light_call" in record_ else type(exc).__name__
@@ -282,7 +284,7 @@ def _text_call(prompt, *, root, writer=False, runner=None):
 
 
 def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=None):
-    """AGY selects; one short stronger Codex call writes a sourced, non-form reply."""
+    """AGY selects; one stronger call covers the remaining quality draft slots."""
     request = packs.read_json(request_path)
     root = Path(output_dir)
     root.mkdir(parents=True, exist_ok=True)
@@ -321,28 +323,41 @@ def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=No
     ranked = [r for r in ranking.get("ranking", []) if r.get("post_id") in allowed
         and type(r.get("quality_score")) is int and QUALITY_FLOOR <= r["quality_score"] <= 100]
     ranked.sort(key=lambda r: -r["quality_score"])
+    limit = max(1, min(3, request.get("draft_limit", 1)))
+    targets, queued, expired, seen, authors = [], [], [], set(), set()
+    for ranked_post in ranked:
+        post = allowed[ranked_post["post_id"]]
+        if post["post_id"] in seen:
+            continue
+        seen.add(post["post_id"])
+        try:
+            packs.fact_policy.check_send_time(post, now=now or packs.utcnow())
+        except ValueError as exc:
+            expired.append({"post_id": post["post_id"], "cause": str(exc)})
+            continue
+        author = post["author_handle"].casefold()
+        if len(targets) >= limit or author in authors:
+            queued.append(post["post_id"])
+            continue
+        targets.append(post)
+        authors.add(author)
     response = {"request_sha256": request["request_sha256"], "items": [],
         "omissions": [{"post_id": p["post_id"], "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"}
                       for p in candidates if p["post_id"] not in {r["post_id"] for r in ranked}],
         "editorial_call": {"ranker": rank_call, "writer": None},
         "stage_seconds": {"ranking": ranking_seconds, "drafting": 0.0},
         "ranked_above_floor_post_ids": [r["post_id"] for r in ranked],
-        "remaining_quality_post_ids": [r["post_id"] for r in ranked[1:]]}
+        "remaining_quality_post_ids": queued}
+    response["omissions"].extend(expired)
     if not ranked:
         response["omissions"] = [{"post_id": p["post_id"], "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"} for p in candidates]
-    else:
-        chosen = allowed[ranked[0]["post_id"]]
-        try:
-            packs.fact_policy.check_send_time(chosen, now=now or packs.utcnow())
-        except ValueError as exc:
-            response["omissions"].append({"post_id": chosen["post_id"], "cause": str(exc)})
-            path = root / "response.json"
-            packs.save_json(path, response)
-            return path
+    elif targets:
+        source_ids = {source_id for post in targets for source_id in
+                      post.get("usable_source_ids", by_source)}
         # Keep the full public prose for the latest call per market, not its entry-level sentence.
         newest, fields = {}, []
         for source in request["sources"]:
-            if source["source_id"] not in chosen.get("usable_source_ids", [s["source_id"] for s in request["sources"]]):
+            if source["source_id"] not in source_ids:
                 continue
             if source["kind"] == "FROZEN_PUBLIC_CALL" and not source.get("parent_source_id"):
                 prior = newest.get(source["label"])
@@ -353,27 +368,36 @@ def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=No
         sources = [{k: s[k] for k in ("source_id", "label", "known_at_utc", "excerpt", "rights_class",
                     "context", "source_attribution", "image", "fact_binding") if k in s} for s in [*fields, *newest.values()]]
         # The complete source/request stays saved. Cap context by whole records, never sliced prose.
-        selected, size = [], 0
+        selected_sources, size = [], 0
         sources.sort(key=lambda s: (s["source_id"] not in {v["source_id"] for v in newest.values()},
                                     -len(s.get("excerpt", ""))))
         for source in sources:
             length = len(json.dumps(source, ensure_ascii=False))
             if size + length <= 65000:
-                selected.append(source)
+                selected_sources.append(source)
                 size += length
-        prompt = ("Text only. Use no tools. Return JSON only, without fences. " + request["instructions"] + "\n" +
-            json.dumps({"request_sha256": request["request_sha256"], "target": chosen, "sources": selected}, ensure_ascii=False))
+        prompt = ("Text only. Use no tools. Return JSON only, without fences. " + request["instructions"] +
+            " Draft only these ranked targets, at most one per target. Omit any without a useful supported addition; "
+            "one omitted target must not prevent drafting another. Each target keeps its own usable_source_ids.\n" +
+            json.dumps({"request_sha256": request["request_sha256"],
+                        **({"target": targets[0]} if len(targets) == 1 else {"targets": targets}),
+                        "max_drafts": len(targets), "sources": selected_sources}, ensure_ascii=False))
         started = perf_counter()
         authored, writer_call = (writer or _text_call)(prompt, root=root / "writer", writer=True)
         response["stage_seconds"]["drafting"] = perf_counter() - started
-        if any(str(d.get("post_id")) != chosen["post_id"] for d in authored.get("items", [])) or len(authored.get("items", [])) > 1:
+        authored_ids = [str(d.get("post_id")) for d in authored.get("items", [])]
+        if (not set(authored_ids) <= {post["post_id"] for post in targets}
+                or len(authored_ids) != len(set(authored_ids))):
             raise ValueError("WRITER_CHANGED_RANKED_TARGET")
         response["items"] = authored.get("items", [])
         response["omissions"].extend(authored.get("omissions", []))
-        if not response["items"] and not any(o.get("post_id") == chosen["post_id"] for o in response["omissions"]):
-            response["omissions"].append({"post_id": chosen["post_id"], "cause": "WRITER_RETURNED_NO_USABLE_FACT"})
+        for post in targets:
+            if post["post_id"] not in authored_ids and not any(o.get("post_id") == post["post_id"] for o in response["omissions"]):
+                response["omissions"].append({"post_id": post["post_id"], "cause": "WRITER_RETURNED_NO_USABLE_FACT"})
         response["editorial_call"]["writer"] = writer_call
         response["quality_score"] = ranked[0]["quality_score"]
+        response["quality_scores"] = {r["post_id"]: r["quality_score"] for r in ranked
+                                      if r["post_id"] in authored_ids}
     path = root / "response.json"
     packs.save_json(path, response)
     return path
@@ -503,9 +527,24 @@ def deliver_pack(store, pack_message_id, *, binding_path=BINDING, bot=None, now=
                 "reply_markup": {"inline_keyboard": [[{"text": "Open reply on X", "url": item["intent_url"]},
                     {"text": "Skip", "callback_data": "skip:" + key}]]}})
             when = datetime.fromtimestamp(sent["date"], timezone.utc)
+            total_seconds = (when - packs.clock(item["post_time_utc"])).total_seconds()
+            latency = {"post_to_ingestion": None, "ingestion_to_filter": None,
+                       "filter_to_delivery": None, "total": total_seconds}
+            try:
+                posted = packs.clock(item["post_time_utc"])
+                ingested = packs.clock(item["feed_seen_at_utc"])
+                selected = packs.clock(item["selected_at_utc"])
+                if posted <= ingested <= selected <= now:
+                    latency.update(post_to_ingestion=(ingested-posted).total_seconds(),
+                                   ingestion_to_filter=(selected-ingested).total_seconds(),
+                                   filter_to_delivery=(when-selected).total_seconds())
+            except (ValueError, KeyError, TypeError):
+                pass  # Old packs and unavailable ingestion clocks remain unknown.
             proof = {"kind": "private_draft_delivered", "delivery_id": key, "post_id": item["post_id"],
                 "message_id": sent["message_id"], "delivered_at_utc": when.isoformat(),
-                "post_to_delivery_minutes": (when - packs.clock(item["post_time_utc"])).total_seconds() / 60,
+                "post_to_delivery_minutes": total_seconds / 60,
+                "five_minute_target_met": 0 <= total_seconds <= 300,
+                "latency_seconds": latency,
                 "post_to_draft_minutes": item["post_to_draft_minutes"], "public_submit_actions": 0}
             proof.update(post_to_send_attempt_minutes=attempt_minutes, fact_binding=item["fact_binding"],
                          stage_seconds={**timings, "telegram_send": perf_counter()-send_started})
@@ -568,7 +607,8 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
                     store.set_outbox_status(delivery["message_id"], "DELIVERED")
         day = now.astimezone(packs.LOCAL).strftime("%Y-%m-%d")
         deliveries = store.list_outbox_messages(destination=DELIVERY)
-        if sum(json.loads(r["payload"])["delivery_day"] == day and r["status"] != "REFUSED_BEFORE_TEXT_SEND" for r in deliveries) >= 5:
+        used_slots = sum(json.loads(r["payload"])["delivery_day"] == day and r["status"] != "REFUSED_BEFORE_TEXT_SEND" for r in deliveries)
+        if used_slots >= 5:
             result["status"] = "FIVE_QUALITY_DRAFTS_TODAY"
             return result
         filter_started = perf_counter()
@@ -599,6 +639,10 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
         result["dropped_candidates"].extend({"post_id": p["post_id"], "cause": "RANK_BATCH_LIMIT_12"}
                                             for p in eligible[12:])
         request["candidates"] = eligible[:12]
+        # The 8.58-minute delivery waited a second tick after its first ranked
+        # peer failed validation. One bounded writer call now covers up to three
+        # strong, distinct-author targets without exceeding today's send slots.
+        request["draft_limit"] = min(3, 5-used_slots)
         result["funnel"]["ranking_input_post_ids"] = [p["post_id"] for p in request["candidates"]]
         current_candidates = request["candidates"]
         if not request["candidates"]:

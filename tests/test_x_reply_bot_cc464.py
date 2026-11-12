@@ -300,6 +300,142 @@ def test_ranker_never_pads_low_quality_candidates_or_calls_writer(setup):
     assert not packs.read_json(path)["items"]
 
 
+def two_targets(setup, *, first_age=2):
+    feed = mobile_input(setup, age=first_age)
+    value = packs.read_json(feed)
+    other = {**value["rows"][0], "handle": "financialjuice", "tweet_id": "456",
+             "url": "https://x.com/financialjuice/status/456",
+             "posted_utc": (NOW-timedelta(minutes=2)).isoformat()}
+    value["rows"].append(other)
+    packs.save_json(feed, value)
+    return feed
+
+
+def ranked_pair(*args, **kwargs):
+    return {"ranking": [{"post_id": "123", "quality_score": 92},
+                        {"post_id": "456", "quality_score": 88}]}, {}
+
+
+def test_one_writer_call_delivers_valid_peer_when_first_quality_draft_fails(setup):
+    store, binding, root = setup
+    feed = two_targets(setup)
+    calls = []
+    def draft(request_path, *, output_dir):
+        request = packs.read_json(request_path)
+        assert request["draft_limit"] == 3
+        def write(prompt, **kwargs):
+            calls.append("writer")
+            packet = json.loads(prompt.rsplit("\n", 1)[1])
+            assert [t["post_id"] for t in packet["targets"]] == ["123", "456"]
+            response = authored(request)
+            peer = {**response["items"][0], "post_id": "456"}
+            response["items"][0]["draft_text"] = "No bound fact or date."
+            response["items"].append(peer)
+            return response, {}
+        return botlane.rank_and_draft(request_path, output_dir=output_dir,
+                                     ranker=ranked_pair, writer=write, now=NOW)
+    transport = FakeBot()
+    result = botlane.refresh_due(store, binding_path=binding, feed_path=feed, output_root=root/"out",
+                                 bot=transport, drafter=draft, now=NOW)
+    assert calls == ["writer"] and result["status"] == "DELIVERED"
+    assert result["funnel"]["validated_draft_post_ids"] == ["456"]
+    assert result["delivery"]["delivered"][0]["five_minute_target_met"] is True
+    assert any(d["post_id"] == "123" for d in result["dropped_candidates"])
+    assert not any(d["cause"] == "QUALITY_TARGET_QUEUED_FOR_NEXT_TICK" for d in result["dropped_candidates"])
+    assert len([m for m, _ in transport.calls if m == "sendMessage"]) == 1
+    assert not store.list_platform_dispatches()
+
+
+def test_batch_respects_last_daily_slot_and_keeps_unwritten_peer_available(setup):
+    store, binding, root = setup
+    feed = two_targets(setup)
+    for n in range(4):
+        botlane.record(store, botlane.DELIVERY, {"delivery_day": "2026-11-11", "post_id": str(n)},
+                       key="prior-"+str(n), status="UNKNOWN_WRITE" if n == 0 else "DELIVERED")
+    def draft(request_path, *, output_dir):
+        request = packs.read_json(request_path)
+        assert request["draft_limit"] == 1
+        def write(prompt, **kwargs):
+            packet = json.loads(prompt.rsplit("\n", 1)[1])
+            assert packet["max_drafts"] == 1 and packet["target"]["post_id"] == "123"
+            return authored(request), {}
+        return botlane.rank_and_draft(request_path, output_dir=output_dir,
+                                     ranker=ranked_pair, writer=write, now=NOW)
+    result = botlane.refresh_due(store, binding_path=binding, feed_path=feed, output_root=root/"out",
+                                 bot=FakeBot(), drafter=draft, now=NOW)
+    assert len(result["delivery"]["delivered"]) == 1
+    assert len(store.list_outbox_messages(destination=botlane.DELIVERY)) == 5
+    attempts = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=botlane.ATTEMPTS)
+                if r["status"] == "AVAILABLE"]
+    assert [p["post_id"] for p in attempts] == ["456"]
+
+
+def test_expiry_during_ranking_skips_old_winner_and_writes_fresh_peer(setup):
+    store, _, root = setup
+    feed = two_targets(setup, first_age=14)
+    ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW, reply_policy=packs.MOBILE_POLICY)
+    def write(prompt, **kwargs):
+        packet = json.loads(prompt.rsplit("\n", 1)[1])
+        assert packet["target"]["post_id"] == "456"
+        response = authored(packs.read_json(ready["request_path"]))
+        response["items"][0]["post_id"] = "456"
+        return response, {}
+    path = botlane.rank_and_draft(ready["request_path"], output_dir=root/"native", ranker=ranked_pair,
+                                 writer=write, now=NOW+timedelta(minutes=2))
+    value = packs.read_json(path)
+    assert [d["post_id"] for d in value["items"]] == ["456"]
+    assert {"post_id": "123", "cause": "TARGET_OVER_15_MINUTES_AT_SEND"} in value["omissions"]
+
+
+@pytest.mark.parametrize("age", [2, 6])
+def test_delivery_measures_ingestion_and_tick_delays_without_relaxing_late_send_rule(setup, age):
+    store, binding, root = setup
+    feed = mobile_input(setup, age=age)
+    value = packs.read_json(feed)
+    value["rows"][0]["ingested_utc"] = (NOW-timedelta(minutes=1)).isoformat()
+    packs.save_json(feed, value)
+    result = botlane.refresh_due(store, binding_path=binding, feed_path=feed, output_root=root/"out",
+                                 bot=FakeBot(), drafter=draft_fixture, now=NOW)
+    proof = result["delivery"]["delivered"][0]
+    assert proof["five_minute_target_met"] is (age <= 5)
+    assert proof["latency_seconds"] == {"post_to_ingestion": (age-1)*60,
+        "ingestion_to_filter": 60, "filter_to_delivery": 0, "total": age*60}
+
+
+def test_pack_revalidation_keeps_original_ingestion_and_selection_clocks(setup):
+    store, _, root = setup
+    feed = mobile_input(setup)
+    value = packs.read_json(feed)
+    ingested = (NOW-timedelta(minutes=1)).isoformat()
+    value["rows"][0]["ingested_utc"] = ingested
+    packs.save_json(feed, value)
+    ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW, reply_policy=packs.MOBILE_POLICY)
+    response = root/"response.json"
+    packs.save_json(response, authored(packs.read_json(ready["request_path"])))
+    built = packs.build(store, request_path=ready["request_path"], response_path=response,
+                        feed_path=feed, output_root=root, now=NOW+timedelta(minutes=1))
+    item = packs.read_json(built["pack_path"])["items"][0]
+    assert item["feed_seen_at_utc"] == ingested and item["selected_at_utc"] == NOW.isoformat()
+
+
+def test_writer_consumes_completed_jsonl_turn_and_keeps_max_effort(tmp_path):
+    import subprocess
+    def run(args, **kwargs):
+        assert "--json" in args and 'model_reasoning_effort="max"' in args
+        for feature in ("shell_tool", "multi_agent", "apps", "remote_plugin", "hooks"):
+            assert args[args.index(feature)-1] == "--disable"
+        events = [{"type": "thread.started", "thread_id": "test-writer-session"},
+                  {"type": "item.completed", "item": {"type": "agent_message", "text": '{"items":[],"omissions":[]}'}},
+                  {"type": "turn.completed", "usage": {"output_tokens": 10}}]
+        result = subprocess.CompletedProcess(args, 0, "\n".join(json.dumps(e) for e in events).encode(), b"")
+        result.turn_completed, result.completion_seconds = True, 7.5
+        return result
+    answer, call = botlane._text_call("Return JSON only.", root=tmp_path, writer=True, runner=run)
+    assert answer == {"items": [], "omissions": []}
+    assert call["turn_completed_seconds"] == 7.5 and call["observed_session_id"] == "test-writer-session"
+    assert call["configuration_status"] == "CONFIGURED_NOT_OBSERVED"
+
+
 def test_paraphrased_private_addition_metadata_never_blocks_an_exact_public_fact(setup):
     store, _, root = setup
     feed = mobile_input(setup)
@@ -357,7 +493,7 @@ def test_native_timeout_keeps_partial_return_in_existing_call_artifacts(tmp_path
     import subprocess
     def run(args, **kwargs):
         raise subprocess.TimeoutExpired(args, kwargs["timeout"], output=b"partial native return", stderr=b"partial stderr")
-    with pytest.raises(ValueError, match="AGY_RANK_TIMEOUT_90S"):
+    with pytest.raises(ValueError, match="AGY_RANK_TIMEOUT_65S"):
         botlane._text_call("Return ranking.", root=tmp_path, runner=run)
     assert (tmp_path / "stdout.txt").read_bytes() == b"partial native return"
     assert packs.read_json(tmp_path / "call.json")["status"] == "TIMEOUT"

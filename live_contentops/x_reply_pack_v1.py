@@ -119,6 +119,8 @@ def select_posts(feed, *, handles, mentions=None, now=None, mobile=False, drops=
                 "post_text": text, "post_age_seconds_at_build": age,
                 **({"market_links": links} if links else {}),
                 **({"reply_count": replies} if mobile else {}),
+                **({"feed_seen_at_utc": row.get("ingested_utc"),
+                    "selected_at_utc": now.isoformat()} if mobile else {}),
             })
     selected.sort(key=lambda row: (row["kind"] != "mention", row["post_age_seconds_at_build"]))
     return selected, dict(causes)
@@ -531,6 +533,8 @@ def build(store, *, request_path, response_path, feed_path, output_root=PACK_ROO
                     drafted = clock(writer_clock)
             items.append({
                 **post, "draft_text": text,
+                **({k: original.get(k) for k in ("feed_seen_at_utc", "selected_at_utc")}
+                   if mobile else {}),
                 "intent_url": ("https://x.com/intent/tweet?" if mobile else "https://x.com/intent/post?") + urlencode({"in_reply_to": post_id, "text": text}),
                 "stale_at_utc": (clock(post["post_time_utc"]) + timedelta(seconds=fact_policy.SEND_SECONDS if mobile else TAB_LIFETIME_SECONDS)).isoformat(),
                 **({"fact_text": draft["fact_text"], "fact_source": draft["source_name"] + ", " + draft["date_text"],
