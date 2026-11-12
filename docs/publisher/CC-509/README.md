@@ -73,7 +73,7 @@ gold and dollar-index quotes inside the chart's two-minute window.
 
 The implementation is live. Completion still requires the next natural
 on-topic target's private delivery within 15 minutes, and the next naturally
-dispatched plan chart's compared binding. The observed minute runs have no
+dispatched plan chart's compared binding. The early minute runs had no
 eligible target with an identified market. Two fresh Oman tanker headlines
 were refused as `FACT_MARKET_UNIDENTIFIED` under the unchanged CC-495 rule;
 their exact causes remain in the installed result. The existing consumer
@@ -92,3 +92,15 @@ about ten minutes delayed. It can support the reply rule when current enough,
 but fails the chart's two-minute comparison unless Main or native M1 supplies
 the fresher reference. Its exact source clock stays recorded; the limit was
 not widened. Closed cash indices can use a fresh yield driver in replies.
+
+The 18:56 GMT+7 natural minute run then acquired fresh Bitcoin and spot gold
+quotes in 0.212 and 0.408 seconds respectively. Those facts reached the actual
+ranker for three current targets. It returned in 32.04 seconds with scores
+46, 42 and 34, below the unchanged 80 floor, so no writer or send ran.
+[natural-consumer-readback.json](natural-consumer-readback.json) records the
+exact targets, source clocks, source attempts, elapsed seconds and outcomes.
+An earlier natural call returned `AGY_RANK_TIMEOUT_90S`, already addressed by
+the separately assigned CC-512; it is retained as a failure. CC-509's quote
+acquisition itself is operating. The remaining first cause for the phone
+proof is `NO_ADDED_FACT_ABOVE_QUALITY_FLOOR`, followed by the next dispatched
+plan-chart observation; no person action is pending.

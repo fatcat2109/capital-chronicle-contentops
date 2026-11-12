@@ -1,0 +1,122 @@
+{
+  "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T115629-76dd7240\\result.json",
+  "read_at_utc": "2026-11-12T12:02:08.4042865Z",
+  "status": "NO_FRESH_UNSENT_DRAFTS",
+  "started_at_utc": "2026-11-12T11:56:29.461496+00:00",
+  "ended_at_utc": "2026-11-12T11:57:15.866152+00:00",
+  "selection_causes": {
+    "NO_SIX_MARKET_OR_MACRO_TOPIC": 5,
+    "TARGET_OVER_15_MINUTES_AT_SEND": 801
+  },
+  "quote_fetches": [
+    {
+      "market": "BTCUSD",
+      "source_kind": "PLAN_STATUS_EXPORT",
+      "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+      "fetch_seconds": 0.0
+    },
+    {
+      "market": "BTCUSD",
+      "source_kind": "BAR_STORE_M1_CLOSE",
+      "cause": "CHART_REFERENCE_STALE",
+      "fetch_seconds": 0.0
+    },
+    {
+      "market": "BTCUSD",
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "status": "USED",
+      "source": "Yahoo Finance",
+      "source_symbol": "BTC-USD",
+      "observed_at_utc": "2026-11-12T11:56:33+00:00",
+      "fetch_seconds": 0.21204549999674782,
+      "cache_hit": false
+    },
+    {
+      "market": "XAUUSD",
+      "source_kind": "PLAN_STATUS_EXPORT",
+      "cause": "PLAN_STATUS_LAST_PRICE_NOT_EXPORTED",
+      "fetch_seconds": 0.0
+    },
+    {
+      "market": "XAUUSD",
+      "source_kind": "BAR_STORE_M1_CLOSE",
+      "cause": "CHART_REFERENCE_STALE",
+      "fetch_seconds": 0.0
+    },
+    {
+      "market": "XAUUSD",
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "status": "USED",
+      "source": "CNBC",
+      "source_symbol": "XAU=",
+      "observed_at_utc": "2026-11-12T11:56:02.373000+00:00",
+      "fetch_seconds": 0.4076019000058295,
+      "cache_hit": false
+    }
+  ],
+  "stage_seconds": {
+    "ranking": 32.09626850001223,
+    "drafting": 0.0,
+    "checks": 1.4760008000012022,
+    "filter": 6.728290699989884,
+    "whole_tick": 46.236728899995796
+  },
+  "delivery": {
+    "status": "NO_FRESH_UNSENT_DRAFTS",
+    "delivered": [],
+    "causes": {},
+    "dropped_candidates": [],
+    "public_submit_actions": 0
+  },
+  "omissions": [
+    {
+      "post_id": "2120846004186431622",
+      "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"
+    },
+    {
+      "post_id": "2120845643694399805",
+      "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"
+    },
+    {
+      "post_id": "2120845357298909254",
+      "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"
+    }
+  ],
+  "editorial_call": {
+    "ranker": {
+      "configured_model": "gemini-3.8-flash-high",
+      "configured_effort": "high",
+      "runtime_model": null,
+      "runtime_effort": null,
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "started_at_utc": "2026-11-12T11:56:40.966063+00:00",
+      "public_submit_actions": 0,
+      "returncode": 0,
+      "status": "RETURNED",
+      "ended_at_utc": "2026-11-12T11:57:13.005154+00:00",
+      "elapsed_seconds": 32.03902559999551
+    },
+    "writer": null
+  },
+  "ranking": [
+    {
+      "post_id": "2120846004186431622",
+      "quality_score": 46,
+      "reason": "Early post focusing squarely on Bitcoin weakness. Sourced session spot data is available to quantify the move, but available CPI base rates do not directly address the technical drawdown claim, and reply visibility remains uncertain due to an unconfirmed reply count."
+    },
+    {
+      "post_id": "2120845643694399805",
+      "quality_score": 42,
+      "reason": "Timely post focused on Gold's multi-month low. Sourced spot data provides the exact session quote and delta, but does not verify the 52-week low context, CPI historical reaction stats lack direct relevance to the post's claim, and reply competition is uncertain."
+    },
+    {
+      "post_id": "2120845357298909254",
+      "quality_score": 34,
+      "reason": "Early market roundup covering multiple equities and assets. Available facts only cover Bitcoin and Gold spot, leaving the broader equity moves unaddressed. Broad multi-ticker summary posts offer weaker framing for targeted factual value add, alongside uncertain reply competition."
+    }
+  ],
+  "previous_natural_run_cause": "AGY_RANK_TIMEOUT_90S",
+  "previous_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T115128-6f93c1a2\\result.json",
+  "pending_phone_cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR",
+  "pending_chart": "NEXT_DISPATCHED_PLAN_CHART_COMPARISON_PENDING"
+}
