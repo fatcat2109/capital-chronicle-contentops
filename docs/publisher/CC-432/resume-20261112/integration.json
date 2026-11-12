@@ -1,0 +1,47 @@
+{
+  "root": "A:\\Capital Chronicle\\ContentOps",
+  "before_head": "5a512581c6ad3904f13a42498a1333aed268a366",
+  "installed_head": "323bc42763740a1b05e83b7ba672e3e44400007f",
+  "preexisting_wip_before": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51"
+  },
+  "preexisting_wip_after": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51"
+  },
+  "wip_preserved": true,
+  "source_hashes": {
+    "live_contentops/plan_reader_editorial_v1.py": "de749c49047cc0d841205b301080770942154a17c6dc9dc14c34d129ccccaf56",
+    "scripts/plan_analysis_pages.py": "b6b34249c78f7e5eba4e8ad517411ed0cfec2b9a27b4792ba395c87076d61c4f"
+  },
+  "link_fix": {
+    "installed_head": "9300507e16ca526ff4430c17bfc8f65406ae646b",
+    "wip_preserved": true,
+    "source_sha256": "0013479fb10f4707444a602b2792a733d762770e4efccb717c387eaeb370c7d1"
+  },
+  "lost_id_fix": {
+    "installed_head": "2dc3041cb16ef7b3010583114ec2e358dad5fcec",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/discord_live_adapter_v6.py": "360f520b34e54995343d77cedf4b1a0c31751511bce9e1141ac43d314b1282c0",
+      "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": "de0eb958dc925a1cd25107a0eea79401378683719691fa943462eaab8fb5d5e4"
+    }
+  },
+  "geometry_and_permalink_fix": {
+    "installed_head": "fe306b9804ab0d68e4d02164eae217d42bd05572",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/discord_live_adapter_v6.py": "579007c5ecc39b6ba1716cd9a61880deb4ee3bd80093136e0139b9141a346e32",
+      "live_contentops/tradingview_plan_overlay_v1.py": "9e62072ac1177192fa4260ebb0af7461ec9abab01603fd758be2377aa2e01bd8"
+    }
+  }
+}

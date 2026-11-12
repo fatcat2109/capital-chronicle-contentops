@@ -1,0 +1,32 @@
+{
+  "at_utc": "2026-11-12T15:30:22.672113+00:00",
+  "bot_token_available": true,
+  "public_writes": 0,
+  "store_access": "mode=ro",
+  "observations": [
+    {
+      "dispatch_id": "dispatch_25d42756d00c4019ff070863aa6b10e1",
+      "work_item_id": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "thread_id": "1569915426341920872",
+      "thread_parent_id": "1519311669216673802",
+      "thread_type": 11,
+      "guild_id": "1519310996030750782",
+      "messages_read": 1,
+      "expected_text_sha256": "2fb9f4e60d371f0eb17bc2a121e0a5fe1f8f72fb351fd37b33cd87a560aeddfa",
+      "exact_matches": [],
+      "page_covers_entire_thread": true
+    },
+    {
+      "dispatch_id": "dispatch_f97bd60d404a2849c413cc8aafaacbf9",
+      "work_item_id": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "thread_id": "1569915426341920872",
+      "thread_parent_id": "1519311669216673802",
+      "thread_type": 11,
+      "guild_id": "1519310996030750782",
+      "messages_read": 1,
+      "expected_text_sha256": "c5077d715a361c41b530dac17ee6efecfdecae23d5262082a4508c0735c792d1",
+      "exact_matches": [],
+      "page_covers_entire_thread": true
+    }
+  ]
+}
