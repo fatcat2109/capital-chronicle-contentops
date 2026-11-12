@@ -10,7 +10,11 @@ The Yahoo endpoint and six-market FX/futures symbols follow Data's installed
 quote read, rather than calling Data's bulk history importer, which writes its
 own archives and database. S&P 500 uses the cash index matching the chart; NDX
 and Brent extend that source map. CNBC's public quick-quote endpoint supplies
-US 2-year and 10-year Treasury yields with complete observation timestamps.
+spot gold, the dollar index, and US 2-year and 10-year Treasury yields with
+complete observation timestamps. Measured Yahoo gold and dollar-index quotes
+were ten minutes delayed; CNBC's spot quotes were current enough for the chart
+check's unchanged two-minute window. A closed cash index or failed direct
+source can use a live yield driver; rule 5 still requires its link in the reply.
 Yahoo's checked 2-year yield future was stale and is not a Treasury spot yield.
 
 Each actual quote retains source, URL, source symbol, instrument name/type,

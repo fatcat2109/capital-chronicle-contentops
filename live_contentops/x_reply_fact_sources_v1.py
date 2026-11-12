@@ -356,6 +356,10 @@ def supplement(posts, sources, *, now):
                     attempts.append({"market": market, "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
                         "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__,
                         **(exc.details if isinstance(exc, public.QuoteError) else {})})
+                    # A closed cash index or failed direct source can still use
+                    # a current yield driver. Rule 5 checks its explicit link.
+                    if market not in policy.DRIVERS and "US10Y" not in done and "US10Y" not in markets:
+                        markets.append("US10Y")
                     continue
             additions.append(_quote_source(observation))
     return additions, attempts, now

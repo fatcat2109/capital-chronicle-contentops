@@ -154,7 +154,8 @@ def test_fetch_failure_keeps_other_held_facts_and_seven_rule_checks(monkeypatch,
         attribution="desk", known=NOW.isoformat(), artifact={"kind": "test"})
     sources = [retained]
     added, attempts, _ = facts.supplement([target()], sources, now=NOW)
-    assert not added and sources == [retained] and len(calls) == 1
+    assert not added and sources == [retained] and len(calls) == 2
+    assert len(set(calls)) == 2  # direct and one driver, once each
     assert policy.check_fact(target(), retained, now=NOW)["kind"] == "base_rate"
     assert any(a.get("cause", "").startswith("PUBLIC_QUOTE_") for a in attempts)
 
@@ -263,12 +264,60 @@ def test_later_fetch_never_certifies_an_earlier_chart_and_mismatch_is_not_erased
 
 
 def test_future_is_named_and_existing_chart_limits_stay(monkeypatch):
-    wire(monkeypatch, "XAUUSD")
-    get("XAUUSD")
-    reference = prices.public_chart_quote("XAUUSD", NOW)
-    assert reference["instrument_name"] == "Gold futures" and reference["source_symbol"] == "GC=F"
-    snapshot = {"tv_symbol": tv.SYMBOLS["XAUUSD"], "page_title": "XAUUSD 100",
+    wire(monkeypatch, "USOIL")
+    get("USOIL")
+    reference = prices.public_chart_quote("USOIL", NOW)
+    assert reference["instrument_name"] == "WTI crude oil futures" and reference["source_symbol"] == "CL=F"
+    snapshot = {"tv_symbol": tv.SYMBOLS["USOIL"], "page_title": "USOIL 100",
                 "captured_at_utc": NOW.isoformat(), "sha256": "c" * 64}
     with pytest.raises(image.ImageContractError, match="PRICE_SCALE_MISMATCH"):
-        image.bind_scale("XAUUSD", snapshot)
+        image.bind_scale("USOIL", snapshot)
     assert image.MAX_DIFFERENCE_PCT["XAUUSD"] == .15 and image.MAX_DIFFERENCE_PCT["USOIL"] == .4
+
+
+def test_closed_index_uses_a_live_yield_driver_with_rule_five_still_enforced(monkeypatch):
+    monkeypatch.setattr(quotes, "utcnow", lambda: NOW)
+    def read(url):
+        return answer("US10Y") if "US10Y" in url else answer("US500", at=NOW-timedelta(days=1))
+    monkeypatch.setattr(quotes, "http_read", read)
+    post = target("S&P 500 rises")
+    added, attempts, _ = facts.supplement([post], [], now=NOW)
+    assert len(added) == 1 and added[0]["fact_binding"]["markets"] == ["US10Y"]
+    assert any(a.get("cause") == "PUBLIC_QUOTE_STALE" for a in attempts)
+    assert policy.check_fact(post, added[0], now=NOW)["kind"] == "session"
+    with pytest.raises(ValueError, match="FACT_DRIVER_LINK_NOT_STATED"):
+        policy.check_fact(post, added[0], now=NOW, draft={"draft_text": "A different market is moving."})
+
+
+def test_real_capture_prefetches_before_download_and_binds_that_quote(monkeypatch, tmp_path):
+    from test_tradingview_snapshot_cc314 import FIXTURE
+    calls = wire(monkeypatch, "EURUSD")
+    prepare = prices.prepare_chart_quote
+    monkeypatch.setattr(prices, "prepare_chart_quote", lambda market: prepare(market, now=NOW))
+    monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
+    path = tmp_path / "EURUSD_2026-11-12_16-00-05.png"
+    def download(args, **kwargs):
+        assert len(calls) == 1  # no quote first acquired after the image
+        path.write_bytes(FIXTURE.read_bytes())
+        return {"path": str(path), "suggested_filename": path.name, "legend": "EURUSD 4h",
+                "page_title": "EURUSD 92.03", "captured_at_utc": (NOW+timedelta(seconds=5)).isoformat()}
+    monkeypatch.setattr(tv, "_run_worker", download)
+    snapshot = tv.capture("EURUSD", "240", tmp_path)
+    check = snapshot["price_scale_check"]
+    assert check["comparison_basis"] == "AT_CAPTURE" and check["quote"]["source_symbol"] == "EURUSD=X"
+    assert json.loads(tv.OUTCOMES.read_text())["price_scale_check"] == check
+
+
+def test_public_quote_reaches_coordinator_and_existing_publication_image_register(monkeypatch, tmp_path):
+    from test_publication_image_contract_cc463 import message_with, snapshot
+    wire(monkeypatch, "US500")
+    get("US500", raw=answer("US500", value=7549.51))
+    taken = image.bind_scale("US500", snapshot())
+    asset = {**tv.snapshot_asset("US500", "S&P 500", taken, tmp_path),
+             "article_inclusion": True, "canonical_article_media": True}
+    _, runtime, coordinator, message = message_with(tmp_path / "run", [asset])
+    result = coordinator._dispatch_message(message, canonical_url=None)
+    assert result["status"] == "DISPATCH_CONFIRMED" and runtime.publish_calls == ["substack"]
+    from live_contentops.article_publication_quality_v1 import image_register
+    check = image_register(coordinator).records()[-1]["images"][0]["price_scale_check"]
+    assert check["quote"]["source_kind"] == "PUBLIC_ON_DEMAND_QUOTE"

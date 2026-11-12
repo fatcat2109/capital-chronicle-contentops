@@ -1,7 +1,8 @@
 """CC-509: one public quote per symbol/minute, shared by replies and charts.
 
 The Yahoo symbols/endpoint reuse Data's held YAHOO_FINANCE_CHART imports.
-CNBC's public quick quote supplies timed Treasury yields (never note futures).
+CNBC's public quick quote supplies timed spot gold, DXY and Treasury yields
+(never note futures passed off as yields).
 Only individual attributed facts may leave this runtime cache (host rule 7).
 """
 from __future__ import annotations
@@ -25,13 +26,13 @@ TIMEOUT = 5
 # Routing market, actual source instrument, public name and units are separate.
 SYMBOLS = {
     "US500": ("YAHOO", "^GSPC", "S&P 500 cash index", "points", "INDEX"),
-    "XAUUSD": ("YAHOO", "GC=F", "Gold futures", "USD per troy ounce", "FUTURE"),
+    "XAUUSD": ("CNBC", "XAU=", "Gold spot", "USD per troy ounce", "INDEX"),
     "EURUSD": ("YAHOO", "EURUSD=X", "EUR/USD spot", "USD per EUR", "CURRENCY"),
     "USDJPY": ("YAHOO", "JPY=X", "USD/JPY spot", "JPY per USD", "CURRENCY"),
     "USOIL": ("YAHOO", "CL=F", "WTI crude oil futures", "USD per barrel", "FUTURE"),
     "BTCUSD": ("YAHOO", "BTC-USD", "Bitcoin spot", "USD", "CRYPTOCURRENCY"),
     "NDX": ("YAHOO", "^NDX", "Nasdaq 100 cash index", "points", "INDEX"),
-    "DXY": ("YAHOO", "DX-Y.NYB", "US dollar index", "points", "INDEX"),
+    "DXY": ("CNBC", ".DXY", "US dollar index", "points", "INDEX"),
     "US2Y": ("CNBC", "US2Y", "US 2-year Treasury yield", "percent", "BOND"),
     "US10Y": ("CNBC", "US10Y", "US 10-year Treasury yield", "percent", "BOND"),
     "BRENT": ("YAHOO", "BZ=F", "Brent crude oil futures", "USD per barrel", "FUTURE"),
@@ -169,7 +170,9 @@ def parse(market, raw, *, received_at, seconds):
     _number(prior)
     delta = Decimal(str(value)) - Decimal(str(prior))
     return {"schema": "contentops.public_quote.v1", "market": market,
-        "source": "Yahoo Finance" if provider == "YAHOO" else "CNBC / Tradeweb",
+        "source": "Yahoo Finance" if provider == "YAHOO" else (
+            "CNBC / Tradeweb" if market in {"US2Y", "US10Y"} else "CNBC"),
+        "source_exchange": row.get("exchange", row.get("exchangeName")),
         "source_kind": "PUBLIC_ON_DEMAND_QUOTE", "source_url": source_url(market),
         "source_symbol": symbol, "instrument_name": label, "instrument_type": instrument_type,
         "value": float(value), "value_text": str(value), "unit": unit,
