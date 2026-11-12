@@ -13,6 +13,7 @@ import json
 import math
 from pathlib import Path
 import re
+import sqlite3
 import sys
 
 from live_contentops import x_reply_fact_policy_v1 as policy
@@ -140,9 +141,7 @@ class Producer:
             self.history = importlib.import_module("tools.data_foundation.market_history_v1")
             self.stats = stats.StatisticsTools(config["store_path"], series=config.get("series"),
                 as_of_utc=policy.utc(now).isoformat(), availability="as_known", events_path=config.get("events_path"))
-            spec = importlib.util.spec_from_file_location("_cc510_desk_odds", MAIN / "tools/product/desk_odds_v1.py")
-            self.odds_reader = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(self.odds_reader)
+            self.odds_reader = None
         finally:
             sys.path.pop(0)
             sys.dont_write_bytecode = before
@@ -154,6 +153,15 @@ class Producer:
         series = self.stats.series.get(market, {}).get("D1")
         if not series:
             return []
+        if self.odds_reader is None:
+            before = sys.dont_write_bytecode
+            sys.dont_write_bytecode = True
+            try:
+                spec = importlib.util.spec_from_file_location("_cc510_desk_odds", MAIN / "tools/product/desk_odds_v1.py")
+                self.odds_reader = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(self.odds_reader)
+            finally:
+                sys.dont_write_bytecode = before
         with self.history.MarketHistoryStore(self.stats.store_path, readonly=True) as store:
             result = store.history(market, "D1", series_id=series, as_of_utc=self.stats.as_of_utc,
                                    through_utc=completed_before, availability="as_known")
@@ -236,7 +244,7 @@ def collect(posts, *, now, producer=None, odds_path=ODDS, bindings=BINDINGS):
         for market in {MARKETS[c["market"]] for c in selected}:
             active = producer.active_rows(market, completed)
             contexts[market] = census_context(table, market, active)
-    except (OSError, ValueError, KeyError, TypeError) as exc:
+    except (OSError, ValueError, KeyError, TypeError, ImportError, sqlite3.Error) as exc:
         gaps.append({"cause": str(exc) if isinstance(exc, ValueError) else "DESK_ODDS_CONTEXT_UNAVAILABLE", "source": str(odds_path)})
     for condition in selected:
         for horizon in (1, 5):

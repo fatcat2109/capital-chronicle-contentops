@@ -2,6 +2,7 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 import json
 import math
+import sqlite3
 
 import pytest
 
@@ -143,6 +144,16 @@ def test_bad_producer_rows_are_named_and_other_facts_can_continue(census, mutati
 
 def test_census_unavailability_does_not_wall_off_usable_statistics(tmp_path):
     sources, gaps = rates.collect([post()], now=NOW, producer=Producer(), odds_path=tmp_path / "absent.json")
+    assert len(sources) == 2 and gaps[0]["cause"] == "DESK_ODDS_CONTEXT_UNAVAILABLE"
+
+
+@pytest.mark.parametrize("error", [FileNotFoundError("census reader"), sqlite3.OperationalError("database is locked")])
+def test_an_unreadable_census_reader_does_not_stop_statistics(census, error):
+    producer = Producer()
+    def unavailable(*a):
+        raise error
+    producer.active_rows = unavailable
+    sources, gaps = rates.collect([post()], now=NOW, producer=producer, odds_path=census)
     assert len(sources) == 2 and gaps[0]["cause"] == "DESK_ODDS_CONTEXT_UNAVAILABLE"
 
 
