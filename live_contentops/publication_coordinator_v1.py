@@ -2635,6 +2635,14 @@ class DurablePublicationCoordinator:
                         (dispatch_id, destination)).fetchone()
                     reconciliation = conn.execute("SELECT status FROM reconciliations WHERE reconciliation_id=?",
                         ("reconciliation_" + dispatch_id.removeprefix("dispatch_"),)).fetchone()
+                    if ((failure.get("reason_code") or failure.get("safe_error_classification")) == "EVERY_POST_IMAGE_REQUIRED:" + destination
+                            and failure.get("status") == DEFINITE_NO_WRITE and dispatch
+                            and dispatch["status"] == DEFINITE_NO_WRITE
+                            and not dispatch["public_object_id"] and not dispatch["public_object_url"]):
+                        # The per-post image check refused before HTTP. It still
+                        # checks every new intent, but cannot bar a later valid
+                        # card as if the platform itself had failed.
+                        local = True
                     confirmed = bool(dispatch and dispatch["status"] == DISPATCH_CONFIRMED
                         and dispatch["public_object_id"] and dispatch["public_object_url"]
                         and reconciliation and reconciliation["status"] == RECONCILED_CONFIRMED)

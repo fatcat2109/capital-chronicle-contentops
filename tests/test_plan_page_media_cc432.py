@@ -64,3 +64,24 @@ def test_source_snapshot_cannot_substitute_market_timeframe_ratio_or_bytes(tmp_p
     monkeypatch.setattr(tv,'OUTCOMES',tmp_path/'outcomes.jsonl')
     with pytest.raises(tv.SnapshotError,match='SOURCE_PAGE_SNAPSHOT_BINDING_CHANGED'):
         tv.plan_snapshot(row,tmp_path/'post',source_snapshot=changed,now=start+timedelta(minutes=30))
+
+
+@pytest.mark.parametrize('cause,status,object_id,blocked',[
+    ('EVERY_POST_IMAGE_REQUIRED:discord','DEFINITE_NO_WRITE',None,False),
+    ('EVERY_POST_IMAGE_REQUIRED:discord','UNKNOWN_WRITE',None,True),
+    ('EVERY_POST_IMAGE_REQUIRED:discord','DEFINITE_NO_WRITE','123',True),
+    ('DISCORD_HTTP_403','DEFINITE_NO_WRITE',None,True),
+])
+def test_local_missing_image_does_not_consume_platform_failure_circuit(tmp_path,cause,status,object_id,blocked):
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator as C
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    s=ContentOpsDurableStore(tmp_path/'circuit.sqlite3')
+    s.create_work_item(story_id='old',work_item_id='old',title='Old refused card',target_surface='MULTI_PLATFORM')
+    s.register_outbox_message(message_id='old-outbox',work_item_id='old',destination='discord',payload='{}')
+    s.register_platform_dispatch(dispatch_id='old-dispatch',message_id='old-outbox',platform='discord',
+        status=status,public_object_id=object_id)
+    c=C(store=s,transport_runtime=None)
+    c._record_destination_day_failure({'work_item_id':'old'},'discord',
+        {'dispatch_id':'old-dispatch','status':'DEFINITE_NO_WRITE','safe_error_classification':cause})
+    assert bool(c._destination_day_failure('discord')) is blocked
+    assert s.get_platform_dispatch('old-dispatch')['status']==status
