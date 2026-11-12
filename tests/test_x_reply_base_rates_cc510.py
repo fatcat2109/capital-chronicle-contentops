@@ -153,6 +153,19 @@ def test_threshold_is_converted_to_producers_log_return_units():
     assert words == "daily losses of at least 0.3%"
 
 
+def test_brent_crude_oil_never_uses_wti_and_unrelated_release_percent_is_not_the_move():
+    assert [c["market"] for c in rates.conditions("Brent crude oil falls 0.3%")] == ["BRENT"]
+    assert rates.conditions("Gold falls after CPI rises 3.2%")[0]["minimum_pct"] is None
+    assert rates.conditions("Gold falls nearly 1%")[0]["minimum_pct"] is None
+    assert rates.conditions("Gold rises -0.3%") == []
+
+
+@pytest.mark.parametrize("headline", ["Gold will rise 2%", "Gold could fall 2%", "Gold is likely to rise 2%",
+                                        "Gold to rise 2%", "Gold rises if yields fall"])
+def test_hypothetical_moves_are_not_observed_conditions(headline):
+    assert rates.conditions(headline) == []
+
+
 def test_resolve_reuses_the_original_as_known_query_and_detects_changed_counts(census, monkeypatch):
     producer = Producer()
     sources, _ = rates.collect([post()], now=NOW, producer=producer, odds_path=census)

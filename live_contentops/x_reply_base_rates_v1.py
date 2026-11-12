@@ -28,9 +28,10 @@ LABELS = {"US500": "S&P 500 futures", "USOIL": "WTI futures", "XAUUSD": "Gold fu
           "EURUSD": "EUR/USD", "USDJPY": "USD/JPY", "BTCUSD": "Bitcoin", "NDX": "Nasdaq 100",
           "NASDAQ": "Nasdaq", "BRENT": "Brent futures", "DXY": "Dollar index"}
 MOVE = re.compile(r"\b(ris(?:e[sn]?|ing)|rose|gain(?:s|ed|ing)?|jump(?:s|ed)?|surge[sd]?|"
-                  r"rall(?:y|ies|ied)|up|advance[sd]?|strengthen[sd]?|"
-                  r"fall(?:s|ing)?|fell|drop(?:s|ped)?|down|decline[sd]?|slip[sd]?|weaken[sd]?)\b", re.I)
-UP = re.compile(r"^(?:ris|rose|gain|jump|surge|rall|up|advance|strengthen)", re.I)
+                  r"rall(?:y|ies|ied)|up|higher|advance[sd]?|strengthen[sd]?|"
+                  r"fall(?:s|ing)?|fell|drop(?:s|ped)?|down|lower|decline[sd]?|slip[sd]?|"
+                  r"slide[sd]?|slid|tumble[sd]?|slump[sd]?|lose[sd]?|lost|weaken[sd]?)\b", re.I)
+UP = re.compile(r"^(?:ris|rose|gain|jump|surge|rall|up|higher|advance|strengthen)", re.I)
 
 
 def digest(value):
@@ -44,7 +45,10 @@ def conditions(text):
     if "NDX" in found:
         found.discard("NASDAQ")
     for market in found:
-        spans.extend((m.start(), m.end(), market) for m in re.finditer(policy.MARKETS[market], text, re.I))
+        for match in re.finditer(policy.MARKETS[market], text, re.I):
+            if market == "WTI" and re.search(r"\bbrent\s*$", text[:match.start()], re.I):
+                continue
+            spans.append((match.start(), match.end(), market))
     spans.sort()
     result = []
     for i, (start, end, market) in enumerate(spans):
@@ -63,8 +67,17 @@ def conditions(text):
             continue
         if not move and not signed:
             continue
+        if move and (re.search(r"\b(?:will|would|could|may|might|expected to|forecast to|set to|likely to|if|unless)\b", clause[:move.start()], re.I)
+                     or re.search(r"\bto\s*$", clause[:move.start()], re.I)
+                     or re.match(r"\s+(?:if|unless)\b", clause[move.end():], re.I)):
+            continue
         direction = ("up" if UP.match(move[1]) else "down") if move else ("down" if signed[1][0] in "-−" else "up")
-        amount = re.search(r"([+\-−]?\d+(?:\.\d+)?)\s*%", clause[move.end():] if move else clause)
+        # A CPI percent later in the sentence is not this market's move.
+        amount = re.match(r"\s*(?:by\s+|as much as\s+|at least\s+|more than\s+|over\s+)?"
+                          r"([+\-−]?\d+(?:\.\d+)?)\s*%", clause[move.end():]) if move else signed
+        if amount and ((amount[1].startswith(("-", "−")) and direction == "up")
+                       or (amount[1].startswith("+") and direction == "down")):
+            continue
         percent = abs(float(amount[1].replace("−", "-"))) if amount else None
         # A stronger yen is a lower USD/JPY, not a higher USD/JPY.
         if market == "USDJPY" and re.search(r"\byen\b", text[start:end], re.I):
