@@ -43,5 +43,43 @@
       "live_contentops/discord_live_adapter_v6.py": "579007c5ecc39b6ba1716cd9a61880deb4ee3bd80093136e0139b9141a346e32",
       "live_contentops/tradingview_plan_overlay_v1.py": "9e62072ac1177192fa4260ebb0af7461ec9abab01603fd758be2377aa2e01bd8"
     }
+  },
+  "original_odds_and_standalone_thread": {
+    "installed_head": "63acd74cb76288dac575b962a1bf1877167e649d",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/plan_analysis_pages_v1.py": "bbcd676496a4f9de9141250fcd2fc228bb30e70be36fc1f41610abaafe093d3a",
+      "live_contentops/plan_reader_copy_v1.py": "8dc5940fcdec292415e2cd7e3921a60fdb918ed353bd8cf28449444f0e80a75e",
+      "live_contentops/plan_reader_editorial_v1.py": "8b6b9d468b15ceab2d7aded626933a3ba117463957d5562a909e6c2714f4b1f2"
+    }
+  },
+  "confirmed_page_media_reuse": {
+    "installed_head": "1f1e35b93e4669f244994b9412e2207ea1b5153e",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/plan_call_cards_v1.py": "9a3eca3272f28e05294d46fe0ecce6aa8bdb4634a625d653d1c99be903bf0c47",
+      "live_contentops/plan_status_posts_v1.py": "b80a5289e07bb284ada1a0047f0a226e72852859b33e8e1d9646a6929e0a59a7",
+      "live_contentops/tradingview_snapshot_v1.py": "995545b9ef6c801ee284a0a98448bbcf2b04b1df16ed60288cac9b842c003dcf"
+    }
+  },
+  "shared_chart_geometry": {
+    "installed_head": "ef0367c535c23a3836a38f6e06a7e5db81a8589b",
+    "wip_preserved": true,
+    "source_hashes": {
+      "live_contentops/plan_status_posts_v1.py": "a14102effa735676f7e22ed09cfc9d9246e01b7f226d0b1f2887fdb382cac6c1",
+      "live_contentops/plan_call_cards_v1.py": "9a3eca3272f28e05294d46fe0ecce6aa8bdb4634a625d653d1c99be903bf0c47",
+      "live_contentops/tradingview_snapshot_v1.py": "995545b9ef6c801ee284a0a98448bbcf2b04b1df16ed60288cac9b842c003dcf"
+    }
+  },
+  "local_image_refusal": {
+    "installed_head": "1f7cfce00b39149ef95298068ecfc9b5c1ee8d4e",
+    "wip_preserved": true,
+    "source_sha256": "f77e33fea7691eb4535bb37e334b5bb87dff7f4be57b320d04b5a7caf893654e"
+  },
+  "canonical_link_copy": {
+    "before_head": "1f7cfce00b39149ef95298068ecfc9b5c1ee8d4e",
+    "installed_head": "48e72ce03b8ba86eada6c0c4b856bc0ef7406372",
+    "wip_preserved": true,
+    "source_sha256": "defea74e1e08cfab0c4e700d40b85a2463e6ac042ff5e283adf987ebec770bed"
   }
 }
