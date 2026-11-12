@@ -193,3 +193,20 @@ tap **Open reply on X**, review the target and filled text, then press **Reply**
 once. The existing observer imports that exact edge and both delays afterwards.
 Old messages 3 and 4 are expired and must not be sent. CC-458 stays parked.
 No schedule, application, Main source or trading state was changed.
+
+Final result, checked 13 November 2026 03:28 GMT+7: code `0a6a79a6` is pushed
+and integrated in the operating root, with live and rollback tags. The installed
+73 fact/driver checks pass; the earlier installed 87 bot/pack/caller and nine
+changed-writer checks also pass. `resume-20261113/final-live-readback.json` records
+the normal consumer using `draft_limit=2`, exact installed source hashes and
+preserved WIP. The latest completed tick had no candidate above the quality floor.
+Confirmed delivery ages remain 44.51 and 8.58 minutes, with zero five-minute
+deliveries and zero manual-reply readback rows. The 138.67-second historical MAX
+return proves the bounded writer can complete; it is not a current phone delivery.
+
+**BLOCKED: JIM_PHONE_OPEN_AND_FIRST_MANUAL_REPLY_REQUIRED (decisions 122–124).**
+All repair and integration work in this continuation is complete. The separate
+five-minute natural-delivery proof remains open; no replay or expired draft is
+sent to manufacture it. On the next unexpired private bot draft, Jim opens the
+filled reply, reviews it and sends once. The installed observer then records the
+exact reply and both delays. Nothing waits for Ops review or deployment.
