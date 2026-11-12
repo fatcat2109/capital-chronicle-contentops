@@ -160,6 +160,15 @@ def test_brent_crude_oil_never_uses_wti_and_unrelated_release_percent_is_not_the
     assert rates.conditions("Gold rises -0.3%") == []
 
 
+def test_silver_and_another_sentences_subject_never_become_gold_moves():
+    assert rates.conditions("Gold near $4,000. Silver rose 1.2%") == []
+    assert rates.conditions("Gold near $4,000 while silver rises 1.2%") == []
+    assert rates.conditions("Gold demand falls 2%") == []
+    assert rates.conditions("Gold near $4,000 after CPI rises 3.2%") == []
+    assert rates.conditions("Gold demand at a record high") == []
+    assert rates.conditions("Gold futures are now rising by 0.3%")[0]["minimum_pct"] == 0.3
+
+
 @pytest.mark.parametrize("headline", ["Gold will rise 2%", "Gold could fall 2%", "Gold is likely to rise 2%",
                                         "Gold to rise 2%", "Gold rises if yields fall"])
 def test_hypothetical_moves_are_not_observed_conditions(headline):

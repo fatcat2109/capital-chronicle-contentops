@@ -32,6 +32,9 @@ MOVE = re.compile(r"\b(ris(?:e[sn]?|ing)|rose|gain(?:s|ed|ing)?|jump(?:s|ed)?|su
                   r"fall(?:s|ing)?|fell|drop(?:s|ped)?|down|lower|decline[sd]?|slip[sd]?|"
                   r"slide[sd]?|slid|tumble[sd]?|slump[sd]?|lose[sd]?|lost|weaken[sd]?)\b", re.I)
 UP = re.compile(r"^(?:ris|rose|gain|jump|surge|rall|up|higher|advance|strengthen)", re.I)
+PREFIX = re.compile(r"(?:[\s,:;()\-]|\b(?:futures?|spot|cash|index|crude|oil|prices?|pair|is|are|was|were|has|have|had|"
+                    r"now|today|currently|last|still|again|briefly|slightly|sharply|further|extends?|extended|"
+                    r"edges?|edged|trades?|trading|at|hits?|sets?|reaches?|reached|a|an|new|fresh)\b)*", re.I)
 
 
 def digest(value):
@@ -41,7 +44,8 @@ def digest(value):
 def conditions(text):
     """Keep each market's own move, sign and percent; never substitute indices/oils."""
     spans = []
-    found = policy.markets(text) & MARKETS.keys()
+    # Unsupported markets still delimit clauses: silver's move cannot become gold's.
+    found = policy.markets(text) - {"EQUITIES", "RATES"}
     if "NDX" in found:
         found.discard("NASDAQ")
     for market in found:
@@ -52,13 +56,16 @@ def conditions(text):
     spans.sort()
     result = []
     for i, (start, end, market) in enumerate(spans):
+        if market not in MARKETS:
+            continue
         clause = text[end:spans[i + 1][0] if i + 1 < len(spans) else len(text)]
-        clause = clause[:150]
+        clause = re.split(r"[.!?]\s+", clause[:150], maxsplit=1)[0]
         record = re.search(r"\b(?:record|all[ -]time)\s+(high|low)\b", clause, re.I)
         record_high = re.search(r"\bat (?:a |a new |an all[ -]time )?record\b", clause, re.I)
         move = MOVE.search(clause)
         signed = re.search(r"(?<!\w)([+\-−]\d+(?:\.\d+)?)\s*%", clause)
-        if record or record_high:
+        signal = record_high or record
+        if signal and PREFIX.fullmatch(clause[:signal.start()]):
             direction = "down" if record and record[1].lower() == "low" else "up"
             if market == "USDJPY" and re.search(r"\byen\b", text[start:end], re.I):
                 direction = "down" if direction == "up" else "up"
@@ -67,9 +74,9 @@ def conditions(text):
             continue
         if not move and not signed:
             continue
-        if move and (re.search(r"\b(?:will|would|could|may|might|expected to|forecast to|set to|likely to|if|unless)\b", clause[:move.start()], re.I)
-                     or re.search(r"\bto\s*$", clause[:move.start()], re.I)
-                     or re.match(r"\s+(?:if|unless)\b", clause[move.end():], re.I)):
+        if not PREFIX.fullmatch(clause[:move.start() if move else signed.start()]):
+            continue
+        if move and re.match(r"\s+(?:if|unless)\b", clause[move.end():], re.I):
             continue
         direction = ("up" if UP.match(move[1]) else "down") if move else ("down" if signed[1][0] in "-−" else "up")
         # A CPI percent later in the sentence is not this market's move.
@@ -103,7 +110,7 @@ def query_for(condition, horizon, completed_before):
             # CC-481's return threshold is logarithmic, not percent. This is a
             # unit conversion of the headline, never an outcome computation.
             query["minimum" if direction == "up" else "maximum"] = math.log1p((percent if direction == "up" else -percent) / 100)
-            words += f" of at least {percent:g}%"
+            words += " of at least " + str(percent).removesuffix(".0") + "%"
     return {"market": MARKETS[condition["market"]], "condition": {**query, "through_utc": completed_before},
             "horizon": horizon}, words
 
