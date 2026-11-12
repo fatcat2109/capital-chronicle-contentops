@@ -331,9 +331,16 @@ def supplement(posts, sources, *, now):
                     attempts.append({"market": market, "source_kind": kind,
                                      "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__, "fetch_seconds": 0.})
             if observation is None:
-                held = [s for s in sources if policy.describe(s).get("kind") == "session"
-                        and (fact_market in policy.describe(s).get("markets", [])
-                             or set(policy.describe(s).get("markets", [])) & policy.DRIVERS)]
+                held = []
+                for source in sources:
+                    try:
+                        described = policy.describe(source)
+                        if described.get("kind") == "session" and (
+                                fact_market in described.get("markets", [])
+                                or set(described.get("markets", [])) & policy.DRIVERS):
+                            held.append(source)
+                    except (ValueError, KeyError, TypeError):
+                        continue
                 usable = False
                 for source in held:
                     try:
@@ -348,6 +355,7 @@ def supplement(posts, sources, *, now):
                 try:
                     observation = public.get(market, now=now)
                     now = max(now, policy.utc(observation["known_at_utc"]))
+                    policy.check_fact(post, _quote_source(observation), now=now)
                     attempts.append({"market": market, "source_kind": "PUBLIC_ON_DEMAND_QUOTE", "status": "USED",
                         "source": observation["source"], "source_symbol": observation["source_symbol"],
                         "observed_at_utc": observation["observed_at_utc"], "fetch_seconds": observation["request_seconds"],

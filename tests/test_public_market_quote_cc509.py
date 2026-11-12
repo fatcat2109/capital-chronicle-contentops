@@ -321,3 +321,20 @@ def test_public_quote_reaches_coordinator_and_existing_publication_image_registe
     from live_contentops.article_publication_quality_v1 import image_register
     check = image_register(coordinator).records()[-1]["images"][0]["price_scale_check"]
     assert check["quote"]["source_kind"] == "PUBLIC_ON_DEMAND_QUOTE"
+
+
+def test_fact_rule_one_searches_a_driver_when_direct_quote_is_too_old_for_post(monkeypatch):
+    monkeypatch.setattr(quotes, "utcnow", lambda: NOW)
+    def read(url):
+        return answer("US10Y") if "US10Y" in url else answer("BRENT", at=NOW-timedelta(minutes=70))
+    monkeypatch.setattr(quotes, "http_read", read)
+    added, attempts, _ = facts.supplement([target()], [], now=NOW)
+    assert added[0]["fact_binding"]["markets"] == ["US10Y"]
+    assert any(a.get("cause") == "FACT_SESSION_NOT_CURRENT_WITHIN_60_MINUTES" for a in attempts)
+
+
+def test_a_malformed_held_fact_does_not_hide_the_acquired_same_market_quote(monkeypatch):
+    wire(monkeypatch)
+    malformed = {"excerpt": "Brent with a broken clock", "known_at_utc": "bad"}
+    added, _, _ = facts.supplement([target()], [malformed], now=NOW)
+    assert added[0]["fact_binding"]["markets"] == ["BRENT"]
