@@ -295,7 +295,10 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         r"(?:HIT|STOPPED|EXPIRED|NOT TRIGGERED)(?: \(untriggered; not scored\))?"
         r"(?: \(correction\))?(?: \| end direction: (?:bullish|bearish|flat))?$",
         "", remainder)
-    if re.search(r"\b(?:bullish|bearish)\b", remainder, re.I):
+    # CC-432: a canonical link's path is an identifier, not a fresh call.
+    # Keep visible link labels and every source/privacy check in scope.
+    directional_prose = re.sub(r"https?://[^\s<>\"'()\[\]]+", "", remainder, flags=re.I)
+    if re.search(r"\b(?:bullish|bearish)\b", directional_prose, re.I):
         _fail("UNCONDITIONAL_CALL_FORBIDDEN", "copy")
     for call in calls:
         collect({k: v for k, v in call.items() if k != "direction"})
