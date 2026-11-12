@@ -108,6 +108,41 @@ def test_x_reply_thread_keeps_all_sections_links_and_weighted_limits(ready):
     assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
 
 
+@pytest.mark.parametrize("destination", ["telegram", "discord", "threads", "x", "substack_notes"])
+def test_new_reader_links_use_held_layers_without_legacy_section_requirements(source, tmp_path, destination):
+    root, _, plan, old = source
+    manuscript = {**old, "reader_contract": "CC466_V1", "title": "Rates shape the euro.",
+        "sections": {key: deepcopy(old["sections"]["macro"]) for key, _ in pages.READER_SECTIONS}}
+    labels = dict(pages.READER_SECTIONS)
+    for key, label in labels.items():
+        manuscript["sections"][key]["summary"] = "The " + label.lower() + " matters."
+    manuscript["sections"]["scenarios"]["summary"] = "Main (55%): conditions hold. Alternative (35%): conditions change."
+    store = ContentOpsDurableStore(tmp_path / "reader.sqlite3")
+    packet = pages.register_page(store, pages.render(plan, manuscript, run_root=root, output_dir=tmp_path / "reader"))
+    confirm(store, packet["page_id"], packet["plan"]["plan_hash"], "substack", "123",
+            "https://capitalchronicle.substack.com/p/full-original-plan")
+    original = "original-call"
+    store.create_work_item(story_id=original, work_item_id=original, title="Original call", target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(message_id=original, work_item_id=original, destination=posts.DESTINATION,
+        payload=json.dumps({"key": original, "plan_id": packet["plan_id"], "kind": "setup", "state": "WAITING"}),
+        status="PUBLISHED")
+    confirm(store, original, sha256(("plan-status-post:" + original).encode()).hexdigest(), destination,
+            "parent-" + destination, "https://example.test/" + destination + "/parent")
+    value = pages.register_link(store, packet, original_key=original, destination=destination)
+    text = value["native_payload"]["full_text"]
+    assert "Fundamental:" not in text and "Geopolitical:" not in text and "Desk review:" not in text
+    assert "Main (55%):" in text and "Alternative (35%):" in text
+    forces = [line for line in text.splitlines() if any(line.startswith(label + ":")
+        for label in ("Macro", "Priced in", "Positioning", "Fear", "Story", "Structure"))]
+    assert 0 < len(forces) <= (3 if destination in {"x", "threads"} else 5)
+    assert all(line.split(": ", 1)[1] in packet["summary"].values() for line in forces)
+    assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
+    before = store.get_outbox_message(value["link_id"])["payload"]
+    packet["summary"]["macro"] = "A later revision must not replace this issued link."
+    assert pages.register_link(store, packet, original_key=original, destination=destination) == value
+    assert store.get_outbox_message(value["link_id"])["payload"] == before
+
+
 @pytest.mark.parametrize("parent", ["correct", "wrong", "missing"])
 def test_x_analysis_readback_requires_the_original_card_parent(parent):
     from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff, IDENTITIES

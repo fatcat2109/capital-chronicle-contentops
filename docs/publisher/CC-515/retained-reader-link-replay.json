@@ -1,0 +1,16 @@
+[
+  {
+    "destination": "telegram",
+    "characters": 739,
+    "uses_bound_summaries": true,
+    "missing_legacy_layer": true,
+    "public_check": "PASS"
+  },
+  {
+    "destination": "substack_notes",
+    "characters": 739,
+    "uses_bound_summaries": true,
+    "missing_legacy_layer": true,
+    "public_check": "PASS"
+  }
+]

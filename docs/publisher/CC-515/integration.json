@@ -73,5 +73,13 @@
   "remaining_acceptance": [
     "Observe the first complete post-install GMT+7 day below 200 internal Neo requests.",
     "Record the next naturally eligible X/LinkedIn article or plan outcome, and company LinkedIn/YouTube article outcome, or their exact cause."
-  ]
+  ],
+  "reader_link_correction": {
+    "cause": "KeyError(fundamental) in the first installed minute result",
+    "checks": "reader-link-consumers.xml",
+    "passed": 46,
+    "retained_packet_replay": "retained-reader-link-replay.json",
+    "new_reader_only": true,
+    "issued_links_immutable": true
+  }
 }

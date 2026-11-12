@@ -520,7 +520,7 @@ def continue_page(store, packet, *, invocation_id, rollout, command="resume", re
 
 
 def structured_summary(packet, destination, canonical_url, authored_summary=None, *, version=1):
-    """Keep all seven headings and the real URL; spend remaining room on detail."""
+    """Use the bound reader contract; preserve the original seven-section dialect."""
     limits = {"telegram": 4096, "discord": 2000, "threads": 500, "facebook_page": 60000,
               "instagram_business": 2200, "x": 10000, "substack_notes": 10000, "linkedin": 3000}
     limit = limits[destination]
@@ -534,6 +534,24 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
         if len(text)>limit:
             raise ValueError('PLAN_ANALYSIS_SUMMARY_LIMIT:'+destination)
         return text
+    if packet["manuscript"].get("reader_contract") == "CC466_V1":
+        # The nine-section page has no legacy fundamental/geopolitical fields.
+        # Reuse its authored summaries, never invent or cut a sentence to fit.
+        summary = packet["summary"]
+        force_labels = (("macro", "Macro"), ("priced_in", "Priced in"),
+            ("positioning", "Positioning"), ("fear", "Fear"), ("story", "Story"),
+            ("technical", "Structure"))
+        maximum = 3 if destination in {"x", "threads"} else 5
+        lines = [label + ": " + summary[key] for key, label in force_labels if summary.get(key)][:maximum]
+        scenarios = ["Scenarios: " + summary["scenarios"]] if summary.get("scenarios") else []
+        while True:
+            text = "\n".join([lead, *lines, *scenarios, footer])
+            if len(text) <= limit:
+                public_filter(text)
+                return text
+            if not lines:
+                raise ValueError("PLAN_ANALYSIS_SUMMARY_LIMIT:" + destination)
+            lines.pop()
     labels = {"macro":"Macro", "fundamental":"Fundamental", "technical":"Technical", "geopolitical":"Geopolitical",
               "priced_in":"Priced in", "scenarios":"Scenarios", "desk_process":"Desk review"}
     summaries = [labels[k] + ": " + packet["summary"][k] for k, _ in SECTIONS]
