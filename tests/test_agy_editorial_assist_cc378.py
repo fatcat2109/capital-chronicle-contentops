@@ -209,3 +209,94 @@ def test_compiler_rejecting_suggestions_retains_the_original_article(tmp_path, m
     assert "publisher_light_variants" not in article
     assert article["substack_body_markdown"] == packet()[0]["substack_body_markdown"]
     assert article["agy_light_assist"]["rejected_suggestions"]
+
+
+@pytest.mark.parametrize("span,quote", [("20", "2"), ("-2", "2"), ("2%", "2")])
+def test_claim_cannot_launder_a_different_value_sign_or_unit(tmp_path, span, quote):
+    draft, sources, assets = packet()
+    draft["substack_body_markdown"] = "The source reports " + span + " observations."
+    output = recorded_output()
+    output["claims"] = [{"claim_id": "wrong-value", "draft_span": span, "kind": "number",
+                         "source_line_ids": ["L2"], "source_quote": quote, "flag": ""}]
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(output))
+    assert record["status"] == "AGY_AVAILABLE"
+    assert any(f["claim_id"] == "wrong-value" and f["cause"] == "CLAIM_NUMBER_NOT_IN_SOURCE_QUOTE"
+               for f in record["flags"])
+    # A first-pass flag stays a Publisher input, never an article veto.
+    approve(tmp_path, record)
+    article, _ = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert article["substack_body_markdown"] == draft["substack_body_markdown"]
+
+
+def test_number_and_attribution_coverage_is_exact(tmp_path):
+    draft, sources, assets = packet()
+    draft["substack_body_markdown"] = "Controlled fixture reports 2 observations and 20 checks."
+    output = recorded_output()
+    output["claims"] = [{"claim_id": "twenty", "draft_span": "20", "kind": "number",
+                         "source_line_ids": [], "source_quote": "", "flag": "No source."}]
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(output))
+    assert any(f["cause"] == "NUMBER_NOT_LISTED" and f["draft_span"] == "2" for f in record["flags"])
+    assert any(f["cause"] == "ATTRIBUTION_NOT_LISTED" for f in record["flags"])
+
+
+@pytest.mark.parametrize("source_field", ["source_id", "url", "retrieved_at_utc"])
+def test_draft_and_source_metadata_cannot_authorize_social_numbers(tmp_path, source_field):
+    draft, sources, assets = packet()
+    draft["substack_body_markdown"] += " There are 999 checks."
+    sources[0][source_field] = "999"
+    output = recorded_output()
+    output["variants"]["telegram"] = "There are 999 checks."
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(output))
+    approve(tmp_path, record)
+    article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert "telegram" not in article["publisher_light_variants"]
+    assert set(article["publisher_light_variants"]) == {"x", "threads", "discord"}
+    assert article["agy_light_assist"]["rejected_suggestions"] == ["AGY_UNSUPPORTED_NUMBER"]
+    assert media[0]["alt_text"] == recorded_output()["alt_text"][0]["text"]
+    assert article["substack_body_markdown"] == draft["substack_body_markdown"]
+
+
+def test_matching_a_metadata_quote_does_not_support_a_claim(tmp_path):
+    draft, sources, assets = packet()
+    draft["substack_body_markdown"] += " There are 999 checks."
+    sources[0]["document_id"] = "999"
+    output = recorded_output()
+    output["claims"] = [{"claim_id": "metadata", "draft_span": "999", "kind": "number",
+                         "source_line_ids": ["L3"], "source_quote": "999", "flag": ""}]
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(output))
+    assert record["flags"][0]["cause"] == "SOURCE_LINE_UNMATCHED"
+
+
+def test_named_dates_and_attributions_are_checked_against_the_quote(tmp_path):
+    draft, sources, assets = packet()
+    draft["substack_body_markdown"] = "According to Invented Agency, the release is Tuesday in November."
+    sources[0]["text"] = "The release is Wednesday in November."
+    output = recorded_output()
+    output["claims"] = [
+        {"claim_id": "wrong-day", "draft_span": "Tuesday", "kind": "date",
+         "source_line_ids": ["L2"], "source_quote": "Wednesday", "flag": ""},
+        {"claim_id": "wrong-publisher", "draft_span": "According to Invented Agency", "kind": "attribution",
+         "source_line_ids": ["L2"], "source_quote": "The release", "flag": ""}]
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(output))
+    causes = {f["cause"] for f in record["flags"]}
+    assert causes == {"CLAIM_DATE_NOT_IN_SOURCE_QUOTE", "CLAIM_ATTRIBUTION_NOT_IN_SOURCE_LINES", "DATE_NOT_LISTED"}
+    assert any(f["cause"] == "DATE_NOT_LISTED" and f["draft_span"] == "November" for f in record["flags"])
+
+
+@pytest.mark.parametrize("extra,cause", [("The release is Tuesday.", "AGY_UNSUPPORTED_DATE"),
+                                        ("According to Invented Agency, there are 2 observations.",
+                                         "AGY_UNSUPPORTED_ATTRIBUTION")])
+def test_light_copy_checks_dates_and_attributions_without_blocking_other_outputs(tmp_path, extra, cause):
+    draft, sources, assets = packet()
+    # Even an unsupported attribution/date repeated from the draft must be
+    # rejected by the source-record check before the real compiler consumes it.
+    draft["substack_body_markdown"] += " " + extra
+    output = recorded_output()
+    output["variants"]["telegram"] = extra
+    output["alt_text"][0]["text"] = "The chart is dated Tuesday."
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=fake_runner(output))
+    approve(tmp_path, record)
+    article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert media[0]["alt_text"] == assets[0]["alt_text"]
+    assert set(article["publisher_light_variants"]) == {"x", "threads", "discord"}
+    assert cause in article["agy_light_assist"]["rejected_suggestions"]

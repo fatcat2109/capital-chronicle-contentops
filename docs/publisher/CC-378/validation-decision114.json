@@ -1,0 +1,56 @@
+{
+  "scope": "CC-378 decision 114 record validation",
+  "verified_utc": "2026-11-11T05:58:01.483513+00:00",
+  "base": "789dcfc4a9ba4d1dfb9153730c595edf252b9732",
+  "base_choice": "Current Publisher operating-root HEAD; origin/master is 910 commits behind and lacks the active article consumer.",
+  "top_level_configuration": {
+    "model": "gpt-6.1-sol",
+    "effort": "high",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "source": "Read back active CC-378 codex.exe launch arguments, PID 49080."
+  },
+  "runtime_probe": {
+    "status": "AGY_AVAILABLE",
+    "cause": null,
+    "agy": "C:\\Users\\bullw\\.gemini\\bin\\agy.exe",
+    "agy_version": "1.5.5",
+    "model": "gemini-3.8-flash-high",
+    "effort": "high",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "started_utc": "2026-11-11T05:50:37.211072+00:00",
+    "ended_utc": "2026-11-11T05:52:18.715615+00:00",
+    "prompt_sha256": "d44f9c4e147dedc3b3a18ef64acd9bc3380bb02caf07c150bf72e1c4b5bf2304",
+    "output_sha256": "c60892e73c2f637c2d711afacb164c042f6e3b9bf5fac2f65ef2428383ba4027",
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\cc378-decision114-probe-20261111\\agy-light-assist\\d44f9c4e147dedc3b3a18ef64acd9bc3380bb02caf07c150bf72e1c4b5bf2304\\agy_light_assist_v1.json"
+  },
+  "checks": [
+    {
+      "command": "python -m pytest -q tests/test_agy_editorial_assist_cc378.py --disable-warnings --maxfail=1",
+      "result": "24 passed in 3.62s",
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec"
+    },
+    {
+      "command": "python -m pytest -q tests/test_agy_editorial_assist_cc378.py tests/test_daily_note_first_draft_cc403.py --disable-warnings --maxfail=1",
+      "result": "40 passed in 11.72s",
+      "cwd": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "max_test_processes": 1
+    }
+  ],
+  "remaining_acceptance": "Two CC-124 pieces with Publisher flag decisions and exact published alt/copy readbacks; not established by this probe or tests.",
+  "delivery": {
+    "status": "BUILT_UNMERGED (Ops review pending)",
+    "branch": "backlog/cc-378-record-validation",
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "operating_root_head_at_start": "789dcfc4a9ba4d1dfb9153730c595edf252b9732",
+    "new_source_integrated": false,
+    "reason": "Run instruction requests BUILT_UNMERGED after build and tests for Ops review.",
+    "unrelated_changes": "Existing telemetry/dispatch ledgers and all unrelated untracked artifacts remain outside this delivery."
+  },
+  "retained_article_observation": {
+    "searched_root": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs",
+    "latest_assist_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc338-cpi-preview-20261110-v1\\agy_light_assist_v1.json",
+    "status": "AGY_UNAVAILABLE",
+    "cause": "AGY_TIMEOUT_120S",
+    "successful_two_piece_readbacks_established": false
+  }
+}
