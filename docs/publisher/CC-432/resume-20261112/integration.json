@@ -81,5 +81,34 @@
     "installed_head": "48e72ce03b8ba86eada6c0c4b856bc0ef7406372",
     "wip_preserved": true,
     "source_sha256": "defea74e1e08cfab0c4e700d40b85a2463e6ac042ff5e283adf987ebec770bed"
+  },
+  "bot_client_identity": {
+    "before_head": "48e72ce03b8ba86eada6c0c4b856bc0ef7406372",
+    "installed_head": "ae6fadbd4e14dcbab4d54b810b72bba84bc6ed83",
+    "wip_preserved_during_integration": true,
+    "wip_hashes_before": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "ffc0def4f9e876fcd34587d3708d4a765f66d7c001ca446c73c4781414435c1f",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34"
+    },
+    "wip_hashes_after": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "ffc0def4f9e876fcd34587d3708d4a765f66d7c001ca446c73c4781414435c1f",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34"
+    },
+    "source_sha256": "1e3d51cd708829bf112c5f52bfee41fdb7e3acf775a8828a0aee3d6a842e0601",
+    "note": "Live dispatch appends to its existing telemetry and duplicate ledger; integration preserves their complete current bytes."
+  },
+  "immutable_link_recovery": {
+    "before_head": "ae6fadbd4e14dcbab4d54b810b72bba84bc6ed83",
+    "installed_head": "81c99ae90936f89c2613fc2c55117420775731ae",
+    "wip_preserved_during_integration": true,
+    "source_sha256": "c60d2458dd3b0c5ae048094bd8a351a7261af647e30e1a2fd609ddb2dfd97778"
   }
 }
