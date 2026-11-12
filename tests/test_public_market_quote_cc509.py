@@ -338,3 +338,19 @@ def test_a_malformed_held_fact_does_not_hide_the_acquired_same_market_quote(monk
     malformed = {"excerpt": "Brent with a broken clock", "known_at_utc": "bad"}
     added, _, _ = facts.supplement([target()], [malformed], now=NOW)
     assert added[0]["fact_binding"]["markets"] == ["BRENT"]
+
+
+def test_public_chart_quote_precedes_legacy_saved_tick_after_the_first_two_sources(monkeypatch):
+    wire(monkeypatch, "EURUSD")
+    get("EURUSD")
+    def legacy(*a, **kw):
+        pytest.fail("CC-509 source order: public quote before legacy saved ticks")
+    monkeypatch.setattr(image, "saved_main_quote", legacy)
+    assert prices.saved_chart_quote("EURUSD", NOW)["source_kind"] == "PUBLIC_ON_DEMAND_QUOTE"
+
+
+def test_capture_acquires_after_main_and_native_even_with_a_held_legacy_tick(monkeypatch):
+    calls = wire(monkeypatch, "EURUSD")
+    monkeypatch.setattr(image, "saved_main_quote", lambda *a, **kw: {"price": 100})
+    prices.prepare_chart_quote("EURUSD", now=NOW)
+    assert len(calls) == 1

@@ -175,11 +175,13 @@ def prepare_chart_quote(market, *, now=None):
     """The existing capture calls this once, ahead of its image observation."""
     from . import public_market_quote_v1 as public
     now = now or datetime.now(timezone.utc)
-    try:
-        saved_chart_quote(market, now)
-        return
-    except contract.ImageContractError:
-        pass
+    for read in (lambda: plan_status_quote(market, now, PLAN_STATUS_PATH),
+                 lambda: bar_store_quote(market, now, BAR_STORE)):
+        try:
+            read()
+            return
+        except (OSError, ValueError, KeyError, TypeError, OverflowError, sqlite3.Error):
+            pass
     at, _ = contract.comparison_clock(market, now)
     try:
         public.get(market, now=now, max_age_seconds=contract.QUOTE_SKEW_SECONDS, reference_at=at)
@@ -194,8 +196,8 @@ def saved_chart_quote(market, captured_at, *, export_path=None, bar_store=None, 
     for kind, read in (
         ("PLAN_STATUS_EXPORT", lambda: plan_status_quote(market, captured_at, export_path or PLAN_STATUS_PATH)),
         ("BAR_STORE_M1_CLOSE", lambda: bar_store_quote(market, captured_at, bar_store or BAR_STORE)),
-        ("MAIN_SAVED_TICK", lambda: contract.saved_main_quote(market, captured_at, root=root)),
         ("PUBLIC_ON_DEMAND_QUOTE", lambda: public_chart_quote(market, captured_at)),
+        ("MAIN_SAVED_TICK", lambda: contract.saved_main_quote(market, captured_at, root=root)),
     ):
         try:
             quote = read()
