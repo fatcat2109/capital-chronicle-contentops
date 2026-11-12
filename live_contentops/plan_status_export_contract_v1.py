@@ -21,7 +21,7 @@ LEGACY_CONTRACT = "legacy/schema-1.0.0"
 TEXT = {"type": "string", "minLength": 1}
 CLOCK = {**TEXT, "format": "date-time"}
 NUMBER = {"type": "number"}
-STATES = ["WAITING", "TRIGGERED", "FILLED", "CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED"]
+STATES = ["WAITING", "TRIGGERED", "FILLED", "CLOSED", "CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED"]
 
 
 def _object(required, properties):

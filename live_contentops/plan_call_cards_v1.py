@@ -20,7 +20,7 @@ EFFECTIVE = datetime(2026, 11, 10, 2, 11, tzinfo=timezone.utc)
 FORMAT = 4
 API_DESTINATIONS = ("telegram", "discord", "threads", "facebook_page", "instagram_business", "linkedin")
 DESTINATIONS = (*API_DESTINATIONS, "x", "substack_notes")
-TERMINAL = {"CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED"}
+TERMINAL = {"CLOSED", "CANCELLED", "INVALIDATED", "EXPIRED", "VIEW_CHANGED"}
 NOTICES = f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
 # A definite no-write is a settled destination, not work that can consume every
 # minute's first five card slots forever. Uncertain sends remain recovery work.
@@ -289,6 +289,7 @@ def compose(row):
             lead = prefix + f"an entry filled at {_clock(row['at_utc'])}; the position is open."
         else:
             words = {"CANCELLED": "the plan was withdrawn", "VIEW_CHANGED": "the view changed",
+                     "CLOSED": "Capital Chronicle's position closed",
                      "INVALIDATED": "the idea's invalidation condition was reached",
                      "EXPIRED": "the entry window ended"}.get(row["state"], "the state changed")
             lead = prefix + f"{words} at {_clock(row['at_utc'])}."
@@ -542,6 +543,9 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             continue
         if row["key"] in prior:
             already.append(row["key"])
+            continue
+        if row["to"] in posts.ACTIVE and current_states.get(pid) == "CLOSED":
+            skipped.append({"key": row["key"], "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT"})
             continue
         if row["to"] in {"TRIGGERED", "FILLED"} and pid in confirmed_fills:
             skipped.append({"key": row["key"], "cause": "FILL_CONFIRMATION_ALREADY_PUBLISHED_OR_PENDING",

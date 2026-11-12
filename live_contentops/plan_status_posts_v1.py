@@ -40,7 +40,7 @@ MARKETS = {
 TITLES = {"XAUUSD": "Gold", "US500": "S&P 500", "EURUSD": "EUR/USD", "USDJPY": "USD/JPY",
           "USOIL": "US crude oil", "BTCUSD": "Bitcoin"}
 KINDS = {"WAITING": "setup", "TRIGGERED": "triggered", "FILLED": "triggered", "CANCELLED": "cancelled",
-         "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
+         "CLOSED": "closed", "INVALIDATED": "invalidated", "EXPIRED": "expired", "VIEW_CHANGED": "view_changed"}
 # Decisions 106 and 117 permit confirming a position; account, exact fill price, size and P&L stay private.
 # Section 4.4: none of these may reach a reader.
 INTERNAL = re.compile(
@@ -549,6 +549,8 @@ def compose(row: Mapping[str, Any], *, delayed_at: datetime | None = None,
                     "horizon": f"the period to {_when(plan['valid_until_utc'])}", "invalidation": invalid}
             calls = [call]
             lines = [lines[0], conditional_call_text(call)]
+    elif to == "CLOSED":
+        lines = [f"{title}: Capital Chronicle's position closed at {_when(row['at_utc'])}."]
     elif to in {"CANCELLED", "INVALIDATED"}:
         reason = {
             "RUNAWAY_CANCEL": "price moved away before reaching the zone",
