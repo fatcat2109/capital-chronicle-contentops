@@ -1,0 +1,27 @@
+{
+  "observed_at_utc": "2026-11-12T13:30:54.521244+00:00",
+  "status": "PASS",
+  "source": "Main public export admitted through its current reader; private synthetic status mutation",
+  "rejected_plan_id": "plan_09125dacd06e67f5030fcba6",
+  "input_plan_count": 87,
+  "retained_plan_count": 86,
+  "quarantined_rows": [
+    {
+      "document": "status",
+      "index": 1,
+      "plan_id": "plan_09125dacd06e67f5030fcba6",
+      "field": "status.plans[1].status",
+      "detail": "invalid enum",
+      "contract_version": "2.0.0"
+    }
+  ],
+  "consumer_projection": {
+    "status_content_hash": "3b6f4dd18e14da2696e28300e3a889ef7b7824d7f7b041af857cb2f96a7ca9ad",
+    "transitions_content_hash": "853c0ff71c76948b23a358277156b30cb733b8840c51f8e79ce23891f19c9eea",
+    "source_status_content_hash": "7df87163e31b5ef065a9cccd38562e9c02dca937d89463d1f387ea35bb7becb5",
+    "source_transitions_content_hash": "485b4e053849591cdf7de1551e7c335297d7fc60065439ef17e558084c24db83"
+  },
+  "live_source_files_written": false,
+  "public_write_performed": false,
+  "production_store_writes": 0
+}

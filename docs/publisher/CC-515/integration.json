@@ -1,0 +1,62 @@
+{
+  "state": "MERGE_VALIDATED",
+  "branch": "backlog/cc-515-minute-consumer-integrate",
+  "operating_base": "b896aaa9f129cd338ffafdb1543b753cf5554dc8",
+  "delivery_commit": "bc4d7d44918f36596587fe1f010e8a29fd9f76bd",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "telemetry": "CONFIGURED_NOT_OBSERVED",
+  "passing_checks": [
+    {
+      "path": "integration-minute-contract.xml",
+      "tests": 60,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 133.749
+    },
+    {
+      "path": "integration-queue-record.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 2.376
+    },
+    {
+      "path": "integration-transports.xml",
+      "tests": 198,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 304.999
+    }
+  ],
+  "interrupted_checks": [
+    {
+      "path": "integration-endpoint-coordinator.txt",
+      "cause": "session interrupted before final result; no completion and no live pytest process on resume",
+      "counted_as_pass": false
+    }
+  ],
+  "unrelated_wip_preserved": true,
+  "schedule_changes": 0,
+  "native_app_control": 0,
+  "preserved_wip_hashes": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    "A:\\Capital Chronicle\\ContentOps": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "d587f0235e793405a5a5118d81a2e3dc82fc719052f891c364e23c44e80769e0",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "e35dc5292d428f184cb3e26c6e4722ee795cd0ae55753146d7a291bbaa77aa51"
+    }
+  },
+  "integration_notes": [
+    "Merged the exact Publisher-B delivery onto the current operating HEAD, retaining CC-511 and CC-512.",
+    "Added the live pending/older-than-24-hours count to the existing minute result; no new store or schedule.",
+    "The interrupted transport run has no final result and is excluded; the serial final rerun replaces it."
+  ],
+  "total_passing_cases": 259
+}

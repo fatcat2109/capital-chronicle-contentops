@@ -123,6 +123,9 @@ def bound(store,tmp_path,work,url):
 @pytest.fixture(autouse=True)
 def isolated_control(monkeypatch):
     monkeypatch.setattr('live_contentops.llm_operator_control_v1.assert_llm_operator_execution_enabled',lambda:None)
+    # Endpoint fixtures exercise exact transport bytes; they have no article
+    # workspace. Real image validation has its own CC-463/465 asset fixtures.
+    monkeypatch.setattr('live_contentops.publication_image_contract_v1.validate_write',lambda *a:None)
 
 
 @pytest.mark.parametrize('destination',['x','substack_notes'])
@@ -189,7 +192,9 @@ from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator
 from live_contentops.neo_endpoint_executor_v1 import NeoMcpClient
 from live_contentops import llm_operator_control_v1
 from live_contentops import neo_destination_handoff_v1
+from live_contentops import publication_image_contract_v1
 llm_operator_control_v1.assert_llm_operator_execution_enabled=lambda:None
+publication_image_contract_v1.validate_write=lambda *a:None
 neo_destination_handoff_v1.SUSPENDED_ROUTES_FILE=Path(sys.argv[1]).parent/'fixture-suspended-routes-absent.json'
 s=ContentOpsDurableStore(Path(sys.argv[1]),auto_migrate=False)
 class ImageHttp:
@@ -304,7 +309,19 @@ def test_cli_publish_passes_automatic_transport_to_the_real_consumer(tmp_path,mo
     from scripts import plan_status_posts as cli
     from live_contentops import plan_status_posts_v1 as posts,plan_analysis_pages_v1 as pages
     from live_contentops import pinned_result_scorecard_v1,event_timestamp_v1,event_pack_v1
+    from live_contentops import plan_reader_editorial_v1, x_reply_bot_v1, x_reply_tabs_v1
+    from live_contentops import audience_collection_v1, model_invocation_usage_v1
     store=copied_store(tmp_path);seen=[]
+    # New minute consumers are outside this transport test. In particular, no
+    # real Main export or editorial CLI may be used by a controlled fixture.
+    monkeypatch.setattr(posts,'read_export',lambda *a,**kw:{'status':{'plans':[]}})
+    monkeypatch.setattr(plan_reader_editorial_v1,'run_due',lambda *a,**kw:{'status':'OK','pages':[]})
+    monkeypatch.setattr(x_reply_bot_v1,'refresh_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
+    monkeypatch.setattr(x_reply_bot_v1,'observe_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
+    monkeypatch.setattr(x_reply_tabs_v1,'refresh_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
+    monkeypatch.setattr(audience_collection_v1,'run_collection',lambda *a,**kw:{'collected':0})
+    monkeypatch.setattr(model_invocation_usage_v1,'import_native_invocations',lambda *a,**kw:{'imported':0})
+    monkeypatch.setattr(neo,'resume_stored_requests',lambda *a,**kw:{'requests':[]})
     monkeypatch.setattr(cli,'queue_posts',lambda *a,**kw:{'status':'OK','latest_states':{},'active_recoveries':{}})
     monkeypatch.setattr(pinned_result_scorecard_v1,'refresh_scorecard',lambda *a,**kw:{'status':'CONFIRMED'})
     monkeypatch.setattr(pages,'resume_discord_links',lambda *a,**kw:[])
@@ -483,7 +500,7 @@ def test_api_complete_parent_drains_its_exact_stored_request_without_rebuilding(
         assert state['posts'].keys()=={'x'}
 
 
-def test_expired_claimed_step_still_reads_back_without_another_click(tmp_path):
+def test_expired_claimed_step_leaves_minute_work_but_keeps_explicit_readback_without_another_click(tmp_path):
     store=copied_store(tmp_path);ids,value=message(store,'x')
     c,e=bind_native_neo_coordinator(store,operation_id=value['work_item_id'],output_dir=tmp_path/'issued',
         native_invocation_id='lost-agent',allow_publish=True)
@@ -494,8 +511,11 @@ def test_expired_claimed_step_still_reads_back_without_another_click(tmp_path):
         destination='internal:plan-status-post',payload=json.dumps({'kind':'setup','at_utc':'2026-01-01T00:00:00Z'}),status='PUBLISHED')
     with endpoint() as (url,state):
         result=neo.resume_stored_requests(store,client=neo.NeoMcpClient(url),output_root=tmp_path/'resumed')
-        assert result['requests']
-        assert result['requests'][0]['status']!='PLAN_STATUS_X_STALE_NOT_POSTED'
+        assert result['requests']==[]
+        assert store.get_outbox_message(value['work_item_id'])['status']=='SETTLED'
+        c2,e2=bound(store,tmp_path,value['work_item_id'],url)
+        explicit=c2.readback_existing_dispatch(ids['dispatch_id'])
+        assert explicit['publish_called'] is False
         assert not state['posts']
         assert any(name=='run' and '"phase": "readback"' in args['code'] for name,args in state['calls'])
 

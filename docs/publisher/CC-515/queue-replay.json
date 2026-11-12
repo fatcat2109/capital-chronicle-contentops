@@ -1,0 +1,1435 @@
+{
+  "all_dispatch_states_and_public_identities_identical": true,
+  "all_original_payloads_identical": true,
+  "closed": [
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-8f03278909eef336308a22926f653fa7",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-bfa6c39bd61d07e98351a77a2f4a2fbb",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-2a8b7bfb93a247763399c6d9a29f3f15",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-eb86375e30461310fb15e19f298f1b75",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-9ee9217737350a61590c7a15e7d414bb",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-62e108f0c2d4a11b160915be698a5d35",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-d51de3e9b43f837e6b107da68c0e9af3",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-097f2d267b4765e14c0a251f43b2c07c",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-a46a28d7f0805b58487d6160ba7e11ab",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-ebedfdbf3e4a7442412a52db2b2c0c7f",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-470310cdd836c88ead28a9cd8d32a3ca",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-0d7a185d078ad1cb6f831e4701c48dcb",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-0a7bc078a0aae0982d8b3dfcce036eb7",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-1bb78f2cd9b84d5c72a1805231eb8e29",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-2f6c36af8ff39e889a67de04ea6cfb44",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-8e15a61dadf995599a0c114fe3180f66",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-b7455e9ba43fc44c6cfdb45059f5ca70",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "telegram": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-56513e3d3b357a07cb0ac55164ef974c",
+      "per_destination": {
+        "discord": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-e3cd18700ff689b41c20673bf93071f7",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "CARD_PARENT_DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-8b919d4086be22b5c1340bded822ab69",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "threads": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-052545eb02f3fbc72c0bfb30c9a9b048",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "threads": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-6f6ef2f82ff345425cc74b5c14e8c6b3",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "threads": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-a8dc64408d816fc67f764a0aedd02bb9",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "threads": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-cef8beddd4a508e9fb45e81b95883ba4",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "threads": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-91e901549fa0f118686df4f9bc23f69a",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "threads": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-57d1814f092cfdd78ad52daa200892fc",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-6157d85ff0cb2cf54df3e7b38ffe19ce",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-d7fd7a6b2e1004f9811d7d46a6941712",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-f50b10cd1c83ffa2eed584803a6beb58",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-run-post-0f7373b56ee14adff33cc0d1b78326cc",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-9f3f6a230025fc4f67180a24e1eb7dd5",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-34a7c39e7cacdabe466393fb1868f3a9",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-e5c701475be18b01f394d84a6426cd94",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-8bf6cec08f3fe395f08a0b97647d34f8",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-3f75cd104701fc96b423adf1df539be9",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-run-post-9fb18e4d2bcb965c7c4115d61b6eedf7",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-cb6298d12706adf6753e1bbef978090e",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-result-post-d7619627a9db7e9711568e59d4474682",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "threads": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-6c9969838ea89afe7842aa9548fa05fb",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-b57790826862e11ad9ad0f7a5c056465",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-1a27d35150b0dfac17c50a7e3ee7f4fc",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-e4a73fd28a59f19b36c32b0250af134a",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-da7965850d8b89a240b4684cdcb89c87",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-result-post-f90ece30f44c02d842cefba4de9135bf",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-529e169c05f0c9159e38bbddf4a7368c",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-result-post-cbfa3897e8a80c15852b674a2b01adf8",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-run-post-07e17d29c783da2869b0edae669bc714",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-4115a57ea7c33decff2382a8a6434125",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-5cedcd8aef91e5ceec503ff30b81f946",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-run-post-074c47181a90a973118c3f48e0c8d271",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-8e5f5b99c390325cce3114a35faa45ad",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-67a7a2cb3435d7a6a19d1d07cf47d0e0",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-9c635bacd0d46dc458f628609214da42",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "substack_notes": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-b1087d8c9414caa106d8a2a27a7b6701",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_NOT_CONFIRMED",
+      "destination_causes": {
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-status-post-c51f9acb2106e2410ebdadb5b1da39c4",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_NOT_CONFIRMED",
+      "destination_causes": {
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-91e77fbcc6dbe51fd170aebcfdf08ee6",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_NOT_CONFIRMED",
+      "destination_causes": {
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-35f59c0e8bd8e2fbfb3a28d252798e47",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_NOT_CONFIRMED",
+      "destination_causes": {
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-3c1ff7f3f66e955829cf8106c52496c5",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-36f1c673b8ec94e7c56189bc6b0bddcb",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "linkedin": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+      "per_destination": {
+        "discord": "DISPATCH_CONFIRMED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "linkedin": "SETTLED",
+        "substack_notes": "DISPATCH_CONFIRMED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "DISPATCH_CONFIRMED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-6ec50cce7f1a5a69028b53fa591b4cb3",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "DISPATCH_CONFIRMED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "threads": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "DISPATCH_CONFIRMED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "DISPATCH_CONFIRMED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-7dc021ddf9f11219a83767911e95d922",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "DISPATCH_CONFIRMED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-f02e9767848f9fd7cf6d16825eaed203",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "DISPATCH_CONFIRMED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-status-post-4f393682398d7e4531df3cf59b0782da",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "linkedin": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "x": "PUBLISHING_OLDER_THAN_24_HOURS"
+      },
+      "key": "plan-run-post-d512a50576b334d1032a3be3bdf8aedf",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "linkedin": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-57675bae0e3c7cd8830c56cddc9ab6c8",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-0173b6470476f294d3f422efec9cfbd3",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "CARD_PARENT_DEFINITE_NO_WRITE",
+      "destination_causes": {
+        "discord": "CARD_PARENT_DEFINITE_NO_WRITE",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_DEFINITE_NO_WRITE"
+      },
+      "key": "plan-status-post-650d42c1bddb456acf57fb4939d5926d",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "PUBLISHING_OLDER_THAN_24_HOURS",
+      "destination_causes": {
+        "discord": "PUBLISHING_OLDER_THAN_24_HOURS",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-a98210f44571bfb7516d03f07b4b1c3f",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "DISPATCH_CONFIRMED",
+        "instagram_business": "DISPATCH_CONFIRMED",
+        "substack_notes": "SETTLED",
+        "telegram": "DISPATCH_CONFIRMED",
+        "threads": "DISPATCH_CONFIRMED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    },
+    {
+      "cause": "LATE_STATE_LIMIT_24_HOURS",
+      "destination_causes": {
+        "discord": "LATE_STATE_LIMIT_24_HOURS",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "LATE_STATE_LIMIT_24_HOURS",
+        "threads": "LATE_STATE_LIMIT_24_HOURS",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "key": "plan-result-post-3b8434a5e66fc3b19b0fed6f9b22c76a",
+      "per_destination": {
+        "discord": "SETTLED",
+        "facebook_page": "SETTLED",
+        "instagram_business": "SETTLED",
+        "substack_notes": "SETTLED",
+        "telegram": "SETTLED",
+        "threads": "SETTLED",
+        "x": "SETTLED"
+      },
+      "status": "SETTLED"
+    }
+  ],
+  "elapsed_seconds": 34.199,
+  "observed_at_utc": "2026-11-12T13:32:13.416828+00:00",
+  "pending_after": 15,
+  "pending_before": 87,
+  "pending_older_than_24_hours_after": 0,
+  "pending_older_than_24_hours_before": 72,
+  "production_store_writes": 0,
+  "public_write_performed": false,
+  "remaining_keys": [
+    "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+    "plan-status-post-0fee4b9450de5a81488e9d30f67d49cd",
+    "plan-status-post-a59b5a488656152d2df1ec1729ee3eb5",
+    "plan-status-post-a2a172c77f7a172d33cb2ac50c0b6947",
+    "plan-status-post-6b1d1b45c769342760ceb96f57b0c775",
+    "plan-status-post-3c8732ac99de4e1e2b742da1bf615116",
+    "plan-result-post-aa4f00432677c019741a6c12a9717f81",
+    "plan-result-post-b707b375fdd37affb2da55bb492a55c3",
+    "plan-result-post-eaa40a7af035752e0eb902af20f598be",
+    "plan-result-post-45a70abda9ff5b927fb1c035e663003e",
+    "plan-result-post-0ec52097d82976d8bf83eff21f231287",
+    "plan-result-post-5ee23a334e28ad555df3f156f2fbd9e0",
+    "plan-result-post-ae66a2cbf57b4458b6bcd4f0ee9169f2",
+    "plan-result-post-07b268e76b668684acc3ae66d69ae7e7",
+    "plan-status-post-37f4a7ca63df69d5864655fbe2494bae"
+  ],
+  "replay_store": "isolated temporary projection; no publication methods invoked",
+  "source_records_deleted": 0,
+  "source_store_access": "sqlite mode=ro"
+}

@@ -1,0 +1,93 @@
+{
+  "observed_at_utc": "2026-11-12T13:36:12.913772+00:00",
+  "base_commit": "e16ddb8caf45cd859d6584c82425a1425967b86d",
+  "branch": "backlog/cc-515-minute-consumer-recovery",
+  "code_substep_commit": "48db89b7699fd2bac97c41ef7186875752735586",
+  "configuration": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "initial_launch_pid": 32164
+  },
+  "targeted_runs": [
+    {
+      "artifact": "tests-minute-discord.xml",
+      "tests": 42,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 143.981
+    },
+    {
+      "artifact": "tests-endpoint.xml",
+      "tests": 52,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 59.308
+    },
+    {
+      "artifact": "tests-coordinator.xml",
+      "tests": 118,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 175.899
+    },
+    {
+      "artifact": "tests-contract-image.xml",
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 32.629
+    }
+  ],
+  "unique_passing_cases": 258,
+  "test_execution": "One pytest process owned by this run at a time; no -n, no shards, targeted files only.",
+  "test_execution_corrections": [
+    "An early overlapping coordinator test was stopped and excluded; serial rerun passed.",
+    "Outdated CLI fixture invoked a temporary editorial child; isolated in tests, excluded, and recorded in test-isolation-correction.json.",
+    "Image-free coordinator/endpoint fixtures failed the newer image guard; transport fixtures now explicitly stub that guard. Real image contract tests pass separately."
+  ],
+  "static_checks": {
+    "python_ast": "PASS",
+    "git_diff_check": "PASS",
+    "new_ruff_failures": 0,
+    "preexisting_lint": {
+      "live_contentops/neo_endpoint_executor_v1.py": {
+        "E701": 12,
+        "E702": 1
+      }
+    }
+  },
+  "queue_replay": {
+    "artifact": "queue-replay.json",
+    "state": "PASS_ON_ISOLATED_PROJECTION",
+    "pending_before": 87,
+    "pending_after": 15,
+    "pending_older_than_24_hours_after": 0,
+    "payloads_and_dispatch_identities_preserved": true
+  },
+  "actual_main_reader_private_fixture": "main-reader-isolation.json",
+  "production_store_writes_by_implementation": 0,
+  "live_root_writes": 0,
+  "schedule_changes": 0,
+  "public_posts_claimed": 0,
+  "remaining_live_acceptance": [
+    "First Publisher stream integrates/tags and observes next minute record.",
+    "Zero live pending roots older than 24 hours, next complete day <200 request packets with all fresh posts retained.",
+    "Next natural X/member LinkedIn/company LinkedIn and YouTube outcomes with exact public readback or first cause."
+  ],
+  "integration_route": "CC-515 item: transfer to Codex Publisher as OPEN (integrate branch @ sha); no Ops review step.",
+  "final_changed_path_recheck": {
+    "artifact": "tests-final-queue.xml",
+    "tests": 9,
+    "failures": 0,
+    "errors": 0,
+    "elapsed_seconds": 9.609,
+    "duplicates_cases_already_counted": true
+  },
+  "operating_head_at_delivery": "71633590d8647ba1bee8fc3df5db582e04f37cac",
+  "integration_not_applied_by_this_stream": true,
+  "superseded_test_evidence": [
+    "tests-initial-coordinator.txt",
+    "tests-initial-minute.xml"
+  ]
+}

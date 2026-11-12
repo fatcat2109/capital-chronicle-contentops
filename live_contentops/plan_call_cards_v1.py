@@ -27,6 +27,8 @@ NOTICES = f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}"
 SETTLED_DISPATCHES = frozenset({"DISPATCH_CONFIRMED", "DEFINITE_NO_WRITE",
     "DERIVATIVE_EXPIRED_STALE_NO_WRITE", "DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE",
     "EXTERNAL_REMOVAL_REPORTED_NO_RETRY", "UNSENT_MEDIA_SUPERSEDED"})
+SETTLED_POST = "SETTLED"
+SETTLED_COPY = "PLAN_POST_SETTLED"
 GLOSSARY = {
     "DXY": "the US dollar index", "COT": "the futures positioning report",
     "M15": "short-interval", "M5": "short-interval", "H1": "hourly",
@@ -412,6 +414,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     try:
         export = posts.read_export(export_dir, **reader)
         version = posts.validate_export_contract(export)
+        quarantined = posts.record_row_failures(store, export, dry_run=dry_run)
         freshness = posts.export_freshness(export, now)
         if freshness["export_age_seconds"] > posts.EXPORT_MAX_AGE_MINUTES * 60:
             return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
@@ -612,6 +615,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 destination=posts.DESTINATION, payload=json.dumps(item, sort_keys=True, ensure_ascii=False), status=posts.READY)
         queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text")})
     return {"status": "OK", "dry_run": dry_run, "format": FORMAT, **freshness,
+            "quarantined_rows": quarantined,
             "contract_version": version, "source_content_hash": export["status"].get("content_hash"),
             **({"rendered_posts": rendered, "rendered_count": len(rendered)} if render_all else {}),
             "max_export_age_minutes": posts.EXPORT_MAX_AGE_MINUTES, "transitions_read": len(source_rows),
@@ -648,12 +652,102 @@ def _skipped_images(root, row):
     return []
 
 
+def _settlement_id(key, destination):
+    return "plan-post-settled-" + hashlib.sha256((key + "|" + destination).encode()).hexdigest()[:32]
+
+
+def _post_destinations(row):
+    return destinations_for(row) if row.get("format") == FORMAT else posts.POST_DESTINATIONS
+
+
+def settled_destinations(store, row):
+    """CC-515: destination closures in the existing incident audit, not send evidence."""
+    if not hasattr(store, "get_read_only_connection"):
+        return {}
+    ids = {_settlement_id(row["key"], d): d for d in _post_destinations(row)}
+    with store.get_read_only_connection() as conn:
+        records = conn.execute("SELECT incident_id, description FROM incidents WHERE incident_id IN ("
+            + ",".join("?" for _ in ids) + ")", tuple(ids)).fetchall()
+    return {ids[r["incident_id"]]: json.loads(r["description"]) for r in records}
+
+
+def settle_pending(store, outbox, row, *, now, root=None):
+    """Close dead destination work; retain exact dispatch/claim/object truth.
+
+    A late UNKNOWN_WRITE remains UNKNOWN_WRITE, available to explicit readback.
+    Settling its minute-work obligation never asserts an absent public write.
+    """
+    from .publication_coordinator_v1 import DurablePublicationCoordinator
+    settled = settled_destinations(store, row)
+    age = posts._age_minutes(row, now)
+    late = age > posts.LATE_STATE_HOURS * 60
+    confirmed = set()
+    resumable = set(_ready_destinations(store, row, root=root)) if not late and row.get("format") == FORMAT else set()
+    parent_message = store.get_outbox_message(row["parent_key"]) if row.get("parent_key") else None
+    parent_row = json.loads(parent_message["payload"]) if parent_message else {}
+    parent_late = bool(parent_row.get("at_utc") and posts._age_minutes(parent_row, now) > posts.LATE_STATE_HOURS * 60)
+    for destination in _post_destinations(row):
+        dispatch = _dispatch(store, row["key"], destination)
+        if dispatch and dispatch.get("status") == "DISPATCH_CONFIRMED":
+            confirmed.add(destination)
+            continue
+        if destination in settled:
+            continue
+        cause = None
+        # A possibly-sent child keeps its readback until the late-state limit.
+        unstarted = not dispatch or dispatch.get("status") in SETTLED_DISPATCHES
+        parent_needed = bool(row.get("parent_key") and not
+            (destination == "discord" and row.get("discord_delivery") == "channel"))
+        if parent_needed and not _reference(store, row["parent_key"], destination):
+            parent = _dispatch(store, row["parent_key"], destination) or {}
+            if (unstarted and parent.get("status") in SETTLED_DISPATCHES - {"DISPATCH_CONFIRMED"}
+                    and not parent.get("public_object_id") and not parent.get("public_object_url")):
+                cause = "CARD_PARENT_" + parent["status"]
+            elif late or (parent_late and unstarted):
+                cause = "CARD_PARENT_NOT_CONFIRMED"
+        if cause is None and late:
+            cause = "PUBLISHING_OLDER_THAN_24_HOURS" if outbox["status"] == "PUBLISHING" else "LATE_STATE_LIMIT_24_HOURS"
+        if (cause is None and dispatch and destination not in resumable
+                and dispatch.get("status") in SETTLED_DISPATCHES - {"DISPATCH_CONFIRMED"}
+                and not dispatch.get("public_object_id") and not dispatch.get("public_object_url")):
+            cause = "DESTINATION_" + dispatch["status"]
+        if cause is None:
+            continue
+        detail = {"key": row["key"], "destination": destination, "cause": cause,
+            "parent_key": row.get("parent_key"), "source_at_utc": row["at_utc"],
+            "late_state_hours": posts.LATE_STATE_HOURS,
+            "dispatch_id": (dispatch or {}).get("dispatch_id"),
+            "dispatch_status": (dispatch or {}).get("status"),
+            "public_object_id": (dispatch or {}).get("public_object_id"),
+            "public_object_url": (dispatch or {}).get("public_object_url"),
+            "public_write_performed": False, "automatic_work_closed": True}
+        store.register_incident(incident_id=_settlement_id(row["key"], destination),
+            work_item_id=outbox.get("work_item_id"), severity="RECOVERY_AUDIT",
+            description=json.dumps(detail, sort_keys=True))
+        settled[destination] = detail
+        ids = DurablePublicationCoordinator._ids(row["key"],
+            hashlib.sha256(("plan-status-post:" + row["key"]).encode()).hexdigest(), destination)
+        if store.get_outbox_message(ids["message_id"]):
+            store.set_outbox_status(ids["message_id"], SETTLED_COPY)
+    skipped = {d["destination"] for d in _skipped_images(root, row)}
+    if set(_post_destinations(row)) <= confirmed | set(settled) | skipped:
+        status = SETTLED_POST if settled else "PUBLISHED"
+        store.set_outbox_status(row["key"], status)
+        return {"key": row["key"], "status": status,
+            "cause": next(iter(settled.values()))["cause"] if settled else "ALL_DESTINATIONS_CONFIRMED",
+            "per_destination": {d: "DISPATCH_CONFIRMED" if d in confirmed else SETTLED_POST
+                for d in _post_destinations(row)},
+            "destination_causes": {d: v["cause"] for d, v in settled.items()}}
+    return None
+
+
 def _ready_destinations(store, row, root=None):
     """A settled/parent-waiting copy cannot starve unrelated cards of a slot."""
     ready = []
     skipped = {s["destination"] for s in _skipped_images(root, row)}
+    settled = settled_destinations(store, row)
     for destination in destinations_for(row):
-        if destination in skipped:
+        if destination in skipped or destination in settled:
             continue
         dispatch = _dispatch(store, row["key"], destination)
         if dispatch and dispatch.get("status") in SETTLED_DISPATCHES:
@@ -690,7 +784,11 @@ def _can_retire_unstarted(store, row):
 def _parents(store, row, destinations, previous):
     parents = dict(previous or {})
     deferred = []
+    settled = settled_destinations(store, row)
     for destination in destinations:
+        if destination in settled:
+            parents.pop(destination, None)
+            continue
         if destination == "discord" and row.get("discord_delivery") == "channel":
             # A channel post needs no run/thread parent. Its route was frozen
             # when this new card entered the existing outbox.
@@ -869,7 +967,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     from . import tradingview_snapshot_v1 as tv
     row = posts._row_payload(store, key)
-    destinations = tuple(d for d in destinations if d in destinations_for(row))
+    settled = settled_destinations(store, row)
+    destinations = tuple(d for d in destinations if d in destinations_for(row) and d not in settled)
     folder = Path(root) / key
     folder.mkdir(parents=True, exist_ok=True)
     context_path = folder / "run_context_v1.json"
@@ -1064,15 +1163,18 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         if row.get("format") == FORMAT and outbox["status"] in {posts.READY, "PUBLISHING"}:
             pending.append((outbox, row))
     def priority(pair):
-        outbox, row = pair
-        api_done = all((_dispatch(store, row["key"], d) or {}).get("status") in SETTLED_DISPATCHES
-                       for d in API_DESTINATIONS if d in destinations_for(row))
-        return (0 if row["kind"] == "run" else 5 if api_done else 4 if outbox["status"] == "PUBLISHING" else
-                {"setup": 1, "update": 2, "result": 3}[row["kind"]], row["at_utc"])
+        _, row = pair
+        # Run roots precede their children; each budget goes to newest live work.
+        return (0 if row["kind"] == "run" else 1, -posts._utc(row["at_utc"]).timestamp(),
+                {"run": 0, "setup": 1, "update": 2, "result": 3}[row["kind"]])
     pending.sort(key=priority)
     results, calls, browser_only = [], 0, 0
     for outbox, row in pending:
         key = row["key"]
+        settled = settle_pending(store, outbox, row, now=now, root=root)
+        if settled:
+            results.append(settled)
+            continue
         if row.get("reader_contract") == "CC466_V1" and not row.get("reader_fields"):
             from .plan_reader_editorial_v1 import prepare_social_row
             prepared = prepare_social_row(store, row, root=root)
@@ -1144,11 +1246,13 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             required = destinations_for(row)
             confirmed = {d for d in required if _reference(store, key, d)}
             skipped = {d["destination"] for d in plan.get("skipped_destinations") or []}
-            done = len(confirmed | skipped) == len(required)
-            store.set_outbox_status(key, "PUBLISHED" if done else "PUBLISHING")
-            results.append({"key": key, "status": "PUBLISHED" if done else "PUBLISHING",
+            settled = settled_destinations(store, row)
+            done = set(required) <= confirmed | skipped | set(settled)
+            status = SETTLED_POST if done and settled else "PUBLISHED" if done else "PUBLISHING"
+            store.set_outbox_status(key, status)
+            results.append({"key": key, "status": status,
                 "per_destination": states, "confirmed_destinations": sorted(confirmed),
-                "destination_causes": posts.destination_causes(outcome),
+                "destination_causes": {**posts.destination_causes(outcome), **{d: v["cause"] for d,v in settled.items()}},
                 "deferred_destinations": plan["deferred_destinations"],
                 "skipped_destinations": plan.get("skipped_destinations", [])})
         except (OSError, ValueError, KeyError, TypeError) as exc:

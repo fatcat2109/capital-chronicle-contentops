@@ -20,7 +20,7 @@ import unicodedata
 from typing import Any, Mapping
 
 from .plan_status_export_contract_v1 import (
-    PlanExportContractError, rejected_export, validate_export_contract,
+    PlanExportContractError, export_row_failures, record_row_failures, rejected_export, validate_export_contract,
 )
 
 from live_contentops.event_article_guard_v1 import (
@@ -86,19 +86,85 @@ events = read_public_transitions(folder + "/plan-transitions.public.json", statu
 sys.stdout.write(json.dumps({"status": status, "transitions": events}))
 """
 
+# An in-memory consumer projection. Original seals are checked BEFORE removing
+# any row; Main's schemas and semantic reader still validate everything used.
+# No file in Main or the export directory is changed.
+_ROW_READER = """import datetime as dt, json, sys, tempfile
+from pathlib import Path
+from jsonschema import Draft202012Validator, FormatChecker
+from tools.product import plan_status_export_v1 as owner
+packet = json.load(sys.stdin)
+export, failures = packet['export'], packet['failures']
+status, events = owner._seal(export['status']), owner._seal(export['transitions'])
+if (events['status_content_hash'] != status['content_hash']
+        or events['generated_at_utc'] != status['generated_at_utc']):
+    raise owner.PlanStatusError('PUBLIC_PLAN_SNAPSHOT_MISMATCH')
+ids = [p.get('plan_id') for p in status['plans'] if isinstance(p, dict) and isinstance(p.get('plan_id'), str)]
+if len(set(ids)) != len(ids):
+    raise owner.PlanStatusError('PUBLIC_PLAN_ID_DUPLICATE')
+schema_root = Path(owner.__file__).resolve().parents[2] / 'schemas/publication'
+for document, field, name in [('status', 'plans', 'CapitalChroniclePlanStatusV1'),
+                               ('transitions', 'transitions', 'CapitalChroniclePlanTransitionsV1')]:
+    schema = json.loads((schema_root / (name + '.schema.json')).read_bytes())
+    for error in Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(export[document]):
+        path = list(error.absolute_path)
+        if len(path) < 2 or path[0] != field or not isinstance(path[1], int):
+            raise owner.PlanStatusError('PUBLIC_PLAN_ENVELOPE_SCHEMA_INVALID')
+        if any(r['document'] == document and r['index'] == path[1] for r in failures):
+            continue
+        row = export[document][field][path[1]]
+        failures.append({'document': document, 'index': path[1],
+            'plan_id': row.get('plan_id') if isinstance(row, dict) else None,
+            'field': document + '.' + ''.join('[' + str(p) + ']' if isinstance(p, int)
+                else ('.' if i else '') + p for i,p in enumerate(path)),
+            'detail': 'invalid producer ' + error.validator,
+            'contract_version': packet['contract_version']})
+bad_ids = {r['plan_id'] for r in failures if isinstance(r.get('plan_id'), str)}
+def kept(document, field):
+    bad = {r['index'] for r in failures if r['document'] == document}
+    return [row for i, row in enumerate(export[document][field])
+            if i not in bad and row.get('plan_id') not in bad_ids]
+view = {**status, 'plans': kept('status', 'plans')}
+view['content_hash'] = owner.sha256({k:v for k,v in view.items() if k != 'content_hash'})
+view = owner.validate_public_status(view, as_of=dt.datetime.now(dt.timezone.utc).isoformat())
+joined = {**events, 'transitions': kept('transitions', 'transitions'), 'status_content_hash': view['content_hash']}
+joined['content_hash'] = owner.sha256({k:v for k,v in joined.items() if k != 'content_hash'})
+with tempfile.TemporaryDirectory(prefix='cc515-public-projection-') as folder:
+    path = Path(folder) / 'transitions.json'
+    path.write_text(json.dumps(joined, allow_nan=False), encoding='utf-8')
+    joined = owner.read_public_transitions(path, status=view)
+projection = {'status_content_hash':view['content_hash'], 'transitions_content_hash':joined['content_hash'],
+    'source_status_content_hash':status['content_hash'], 'source_transitions_content_hash':events['content_hash']}
+view['content_hash'] = status['content_hash']
+joined['content_hash'] = events['content_hash']
+joined['status_content_hash'] = events['status_content_hash']
+sys.stdout.write(json.dumps({'status':view, 'transitions':joined, 'quarantined_rows':failures,
+    'consumer_projection':projection}, allow_nan=False))
+"""
+
 
 def read_export(export_dir: Path = EXPORT_DIR, *, main_root: Path = MAIN_ROOT, python: str | None = None) -> dict:
     """Both export documents, validated and joined by CC-307's own read_public_transitions."""
     import subprocess
     import sys
-    # Diagnose consumer field/version changes before the producer's generic
-    # schema/hash refusal. Validate the actual returned snapshot again below.
-    validate_export_contract({"status": json.loads((Path(export_dir) / "plan-status.public.json").read_bytes()),
-                              "transitions": json.loads((Path(export_dir) / "plan-transitions.public.json").read_bytes())})
     flags = getattr(subprocess, "CREATE_NO_WINDOW", 0)
     for attempt in (1, 2):
-        done = subprocess.run([python or sys.executable, "-B", "-c", _READER, str(export_dir)], cwd=str(main_root),
-                              capture_output=True, text=True, encoding="utf-8", timeout=120, creationflags=flags)
+        snapshot = {"status": json.loads((Path(export_dir) / "plan-status.public.json").read_bytes()),
+                    "transitions": json.loads((Path(export_dir) / "plan-transitions.public.json").read_bytes())}
+        failures = export_row_failures(snapshot)
+        def run_rows():
+            return subprocess.run([python or sys.executable, "-B", "-c", _ROW_READER], cwd=str(main_root),
+                input=json.dumps({"export": snapshot, "failures": failures,
+                                  "contract_version": validate_export_contract({
+                                      "status": {**snapshot['status'], 'plans': []},
+                                      "transitions": {**snapshot['transitions'], 'transitions': []}})}),
+                capture_output=True, text=True, encoding="utf-8", timeout=120, creationflags=flags)
+        done = run_rows() if failures else subprocess.run(
+            [python or sys.executable, "-B", "-c", _READER, str(export_dir)], cwd=str(main_root),
+            capture_output=True, text=True, encoding="utf-8", timeout=120, creationflags=flags)
+        if done.returncode and not failures and any(cause in done.stderr for cause in (
+                "PUBLIC_PLAN_STATUS_SCHEMA_INVALID", "PUBLIC_PLAN_TRANSITIONS_SCHEMA_INVALID")):
+            done = run_rows()
         if done.returncode == 0:
             export = json.loads(done.stdout)
             validate_export_contract(export)
@@ -219,6 +285,8 @@ def read_transitions(export_dir: Path = EXPORT_DIR, *, now: datetime | None = No
     if not (Path(export_dir) / "plan-status.public.json").is_file():
         return []
     export = read_export(export_dir, **kwargs)
+    if freshness is not None:
+        freshness["quarantined_rows"] = export.get("quarantined_rows") or []
     if max_age_minutes is not None or freshness is not None:
         info = export_freshness(export, now)
         if freshness is not None:
@@ -705,6 +773,7 @@ def queue_posts(store, export_dir: Path = EXPORT_DIR, *, now: datetime | None = 
             return {"status": "EXPORT_STALE", "cause": cause, **freshness, "max_export_age_minutes": limit}
         return {"status": "EXPORT_UNREADABLE", "cause": cause}
     freshness["max_export_age_minutes"] = limit
+    freshness["quarantined_rows"] = record_row_failures(store, freshness, dry_run=dry_run)
     oldest = now.timestamp() - window_minutes * 60
     queued, existing, skipped, too_old = [], [], [], 0
     rationale_causes = {}
@@ -872,11 +941,13 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
             "cause": result.get("cause"),
             "contract_version": result.get("contract_version"), "failed_field": result.get("failed_field"),
             "incident_id": result.get("incident_id"),
+            "quarantined_rows": result.get("quarantined_rows") or [],
             "export_generated_at_utc": result.get("export_generated_at_utc"),
             "export_age_seconds": result.get("export_age_seconds"),
             "max_export_age_minutes": result.get("max_export_age_minutes"),
             "queued": len(result.get("queued") or []), "not_posted": len(result.get("not_posted") or []),
             "publication": (result.get("publication") or {}).get("status"), "posts_by_status": published,
+            "pending_post_queue": (result.get("publication") or {}).get("pending_post_queue"),
             # CC-437: pythonw has no stdout. Counts hid the exact cards that
             # repeatedly failed preparation or waited behind a parent/limit.
             "posts": [{k: post[k] for k in ("key", "status", "cause", "per_destination",
@@ -1509,6 +1580,11 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
         payload = json.loads(row["payload"])
         if payload.get("format") == 4:
             continue  # CC-399 uses run -> card -> later-post dependency ordering below.
+        from .plan_call_cards_v1 import settle_pending
+        settled = settle_pending(store, row, payload, now=now, root=root)
+        if settled:
+            results.append(settled)
+            continue
         recovered = _recoverable(payload, active_recoveries, now)
         freshness = LATE_STATE_HOURS * 60 if recovered else freshness_limit_minutes(payload)
         if row["status"] == READY:
@@ -1582,7 +1658,14 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
                                  snapshot=snapshot, snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
     from .plan_analysis_pages_v1 import distribute_links
     links = distribute_links(store, **({"automatic_neo": True} if automatic_neo else {}))
-    return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links}
+    pending_ages = [_age_minutes(json.loads(row["payload"]), now)
+        for row in store.list_outbox_messages(destination=DESTINATION)
+        if row["status"] in {READY, "PUBLISHING"}]
+    queue_health = {"pending": len(pending_ages),
+        "older_than_24_hours": sum(age > LATE_STATE_HOURS * 60 for age in pending_ages),
+        "oldest_age_minutes": round(max(pending_ages), 3) if pending_ages else None}
+    return {"status": "OK", "posts": results + card_results["posts"], "analysis_distribution": links,
+            "pending_post_queue": queue_health}
 
 
 def destination_causes(outcome: Mapping[str, Any]) -> dict:
@@ -1633,6 +1716,9 @@ def pending_x(store, *, now: datetime | None = None, destination: str = "x") -> 
                                      allow_publish=True, identity_at_action=True)
         for packet in executor.pending():
             request = packet["request"]
+            from .plan_call_cards_v1 import settled_destinations
+            if request.get("destination") in settled_destinations(store, payload):
+                continue
             if request.get("destination") == destination:
                 pending.append({"key": row["message_id"], "request_sha256": request["request_sha256"],
                                 "action": request["action"], "age_minutes": round(_age_minutes(payload, now), 1),

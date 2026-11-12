@@ -2733,7 +2733,29 @@ class DurablePublicationCoordinator:
             work_item_id=intent["work_item_id"], severity="DISPATCH_FAILURE",
             description=_canonical_json({**detail, "destination": destination, "et_day": day}))
 
-    def _dispatch_message(
+    def _dispatch_message(self, message, *, canonical_url, explicit_reconciled_absent_retry=False,
+                          explicit_transport_correction_retry=False, recovery_public_object_url=None):
+        outcome = self._dispatch_message_once(message, canonical_url=canonical_url,
+            explicit_reconciled_absent_retry=explicit_reconciled_absent_retry,
+            explicit_transport_correction_retry=explicit_transport_correction_retry,
+            recovery_public_object_url=recovery_public_object_url)
+        if outcome.get("status") == DEFINITE_NO_WRITE:
+            # CC-515: a per-day first failure lost later attempts' causes. Keep
+            # each fixed cause in the existing exact-dispatch readback audit.
+            cause = outcome.get("reason_code") or outcome.get("safe_error_classification")
+            if cause:
+                dispatch_id = outcome.get("dispatch_id") or "dispatch_" + str(
+                    message["message_id"]).removeprefix("outbox_")
+                if self.store.get_platform_dispatch(dispatch_id):
+                    record = {"dispatch_id": dispatch_id, "destination": message["destination"],
+                        "status": DEFINITE_NO_WRITE, "reason_code": str(cause)[:200],
+                        "publish_called": bool(outcome.get("publish_called")), "public_write_performed": False}
+                    payload = _canonical_json(record)
+                    self.store.register_readback(readback_id="no-write-cause-" + _hash(payload)[:32],
+                        dispatch_id=dispatch_id, readback_data=payload)
+        return outcome
+
+    def _dispatch_message_once(
         self,
         message: Mapping[str, Any],
         *,
@@ -4080,6 +4102,11 @@ class DurablePublicationCoordinator:
             messages = self.store.list_outbox_messages()
         result = []
         for message in messages:
+            if (message["status"] == "PLAN_POST_SETTLED"
+                    and json.loads(message["payload"]).get("plan_status_post")):
+                # CC-515 closed this minute-work obligation. Original uncertain
+                # dispatches remain available to explicit exact-object readback.
+                continue
             if message["status"] == "UNSENT_MEDIA_SUPERSEDED":
                 dispatch = self.store.get_platform_dispatch("dispatch_" + str(message["message_id"]).removeprefix("outbox_"))
                 if not dispatch or (dispatch["status"] in {DEFINITE_NO_WRITE, RECONCILED_ABSENT_SAFE_TO_RETRY}

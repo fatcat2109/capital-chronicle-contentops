@@ -108,6 +108,62 @@ def validate_export_contract(export):
     return version
 
 
+def export_row_failures(export):
+    """CC-515: refuse envelope drift; isolate row drift by its original path.
+
+    This does not admit a snapshot. Main must still verify both original seals,
+    their join, and the remaining rows before the composer can use them.
+    """
+    version = contract_version(export)
+    envelope = dict(export)
+    for document, field in (("status", "plans"), ("transitions", "transitions")):
+        value = export.get(document)
+        if isinstance(value, Mapping) and isinstance(value.get(field), list):
+            envelope[document] = {**value, field: []}
+    validate_export_contract(envelope)
+    failures = []
+    for error in _VALIDATOR.iter_errors(export):
+        path = list(error.absolute_path)
+        if (len(path) < 3 or (path[0], path[1]) not in
+                {("status", "plans"), ("transitions", "transitions")} or not isinstance(path[2], int)):
+            # Preserve the existing exact envelope/version error.
+            validate_export_contract(export)
+        if any(r["document"] == path[0] and r["index"] == path[2] for r in failures):
+            continue  # Retain the first cause for a row.
+        if error.validator == "required":
+            path.append(next(key for key in error.validator_value if key not in error.instance))
+        field = "".join(f"[{part}]" if isinstance(part, int) else ("." if i else "") + part
+                        for i, part in enumerate(path))
+        row = export[path[0]][path[1]][path[2]]
+        failures.append({"document": path[0], "index": path[2],
+            "plan_id": row.get("plan_id") if isinstance(row, Mapping) else None,
+            "field": field, "detail": "missing required field" if error.validator == "required"
+            else "invalid " + error.validator, "contract_version": version})
+    # Non-finite numbers in a row are also local; elsewhere they corrupt the file.
+    for document, field in (("status", "plans"), ("transitions", "transitions")):
+        for index, row in enumerate(export[document][field]):
+            try:
+                json.dumps(row, allow_nan=False)
+            except ValueError:
+                failures.append({"document": document, "index": index,
+                    "plan_id": row.get("plan_id") if isinstance(row, Mapping) else None,
+                    "field": f"{document}.{field}[{index}]", "detail": "non-finite number",
+                    "contract_version": version})
+    return failures
+
+
+def record_row_failures(store, export, *, dry_run):
+    """Keep the first row cause in the existing incident table, never a new queue."""
+    failures = []
+    for row in export.get("quarantined_rows") or []:
+        error = PlanExportContractError("PLAN_EXPORT_CONTRACT_ROW_INVALID", row["field"],
+            row["contract_version"], f"plan_id={row.get('plan_id')}; {row['detail']}")
+        incident = rejected_export(store, error, dry_run=dry_run)
+        failures.append({**row, "cause": str(error), "incident_id": incident["incident_id"],
+                         "incident_recorded": incident["incident_recorded"]})
+    return failures
+
+
 def rejected_export(store, error, *, dry_run):
     """One existing-store incident per unknown version (or failed field), no post."""
     identity = error.cause + "|" + error.version

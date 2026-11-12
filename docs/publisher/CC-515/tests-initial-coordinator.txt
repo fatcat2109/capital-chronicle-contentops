@@ -1,0 +1,430 @@
+...............FFFFFFF..FFFFFFFFFFFFF.FFFFFFFFFFFFFFFFFFFFF.FF.FFF..FFF. [ 61%]
+...F...............FF.F.FFFFF.FF..FFFFFFF..F..                           [100%]
+================================== FAILURES ===================================
+_____ test_simultaneous_api_dispatchers_cross_provider_boundary_only_once _____
+tests\test_publication_coordinator_v1.py:481: in test_simultaneous_api_dispatchers_cross_provider_boundary_only_once
+    assert transport.publish_calls == ["telegram"]
+E   AssertionError: assert [] == ['telegram']
+E
+E     Right contains one more item: 'telegram'
+E     Use -v to get more diff
+_ test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[None] _
+tests\test_publication_coordinator_v1.py:499: in test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once
+    original = next(d for d in store.list_platform_dispatches() if d["platform"] == "telegram")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[text] _
+tests\test_publication_coordinator_v1.py:499: in test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once
+    original = next(d for d in store.list_platform_dispatches() if d["platform"] == "telegram")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[account] _
+tests\test_publication_coordinator_v1.py:499: in test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once
+    original = next(d for d in store.list_platform_dispatches() if d["platform"] == "telegram")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[photo] _
+tests\test_publication_coordinator_v1.py:499: in test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once
+    original = next(d for d in store.list_platform_dispatches() if d["platform"] == "telegram")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[removal] _
+tests\test_publication_coordinator_v1.py:499: in test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once
+    original = next(d for d in store.list_platform_dispatches() if d["platform"] == "telegram")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[stale] _
+tests\test_publication_coordinator_v1.py:499: in test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once
+    original = next(d for d in store.list_platform_dispatches() if d["platform"] == "telegram")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+__ test_quality_probation_derivative_readiness_hold_does_not_veto_canonical ___
+tests\test_publication_coordinator_v1.py:581: in test_quality_probation_derivative_readiness_hold_does_not_veto_canonical
+    assert result["canonical_article_real_published"] is True
+E   assert False is True
+_ test_delivery_media_preparation_is_after_canonical_readback_and_before_derivatives _
+tests\test_publication_coordinator_v1.py:626: in test_delivery_media_preparation_is_after_canonical_readback_and_before_derivatives
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E   AssertionError: assert 'CANONICAL_NOT_CONFIRMED' == 'FULL_V1_NINE...ION_CONFIRMED'
+E
+E     - FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E     + CANONICAL_NOT_CONFIRMED
+_ test_delivery_media_preparation_failure_is_destination_local_after_canonical _
+tests\test_publication_coordinator_v1.py:666: in test_delivery_media_preparation_failure_is_destination_local_after_canonical
+    assert result["distribution_status"] == PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+E   AssertionError: assert 'CANONICAL_NOT_CONFIRMED' == 'PARTIAL_DIST...VERY_REQUIRED'
+E
+E     - PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+E     + CANONICAL_NOT_CONFIRMED
+____________ test_quality_probation_full_nine_surface_confirmation ____________
+tests\test_publication_coordinator_v1.py:693: in test_quality_probation_full_nine_surface_confirmation
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E   AssertionError: assert 'CANONICAL_NOT_CONFIRMED' == 'FULL_V1_NINE...ION_CONFIRMED'
+E
+E     - FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E     + CANONICAL_NOT_CONFIRMED
+_ test_quality_probation_postcanonical_failure_preserves_canonical_and_continues _
+tests\test_publication_coordinator_v1.py:723: in test_quality_probation_postcanonical_failure_preserves_canonical_and_continues
+    assert result["canonical_article_real_published"] is True
+E   assert False is True
+____ test_unresolved_quality_distribution_obligation_blocks_new_canonical _____
+tests\test_publication_coordinator_v1.py:753: in test_unresolved_quality_distribution_obligation_blocks_new_canonical
+    assert first["distribution_status"] == PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+E   AssertionError: assert 'CANONICAL_NOT_CONFIRMED' == 'PARTIAL_DIST...VERY_REQUIRED'
+E
+E     - PARTIAL_DISTRIBUTION_RECOVERY_REQUIRED
+E     + CANONICAL_NOT_CONFIRMED
+_ test_owner_quarantined_legacy_unknown_is_untouched_and_does_not_block_fresh_plan _
+tests\test_publication_coordinator_v1.py:864: in test_owner_quarantined_legacy_unknown_is_untouched_and_does_not_block_fresh_plan
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E   AssertionError: assert 'CANONICAL_NOT_CONFIRMED' == 'FULL_V1_NINE...ION_CONFIRMED'
+E
+E     - FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E     + CANONICAL_NOT_CONFIRMED
+_____ test_recovery_delivery_media_ignores_only_owner_quarantined_unknown _____
+tests\test_publication_coordinator_v1.py:959: in test_recovery_delivery_media_ignores_only_owner_quarantined_unknown
+    assert recovery["backlog_remaining"] == 0
+E   assert 8 == 0
+___ test_stable_provider_id_confirms_distribution_with_readback_limitation ____
+tests\test_publication_coordinator_v1.py:990: in test_stable_provider_id_confirms_distribution_with_readback_limitation
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E   AssertionError: assert 'CANONICAL_NOT_CONFIRMED' == 'FULL_V1_NINE...ION_CONFIRMED'
+E
+E     - FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E     + CANONICAL_NOT_CONFIRMED
+_ test_metrics_collection_requires_exact_confirmed_reconciled_dispatch_binding _
+tests\test_publication_coordinator_v1.py:1014: in test_metrics_collection_requires_exact_confirmed_reconciled_dispatch_binding
+    assert result["status"] == "COLLECTED"
+E   AssertionError: assert 'UNAVAILABLE' == 'COLLECTED'
+E
+E     - COLLECTED
+E     + UNAVAILABLE
+_______________ test_case_a_api_success_and_case_b_cdp_success ________________
+tests\test_publication_coordinator_v1.py:1034: in test_case_a_api_success_and_case_b_cdp_success
+    assert result["per_destination"]["telegram"]["status"] == DISPATCH_CONFIRMED
+E   AssertionError: assert 'WAITING_CANONICAL_URL' == 'DISPATCH_CONFIRMED'
+E
+E     - DISPATCH_CONFIRMED
+E     + WAITING_CANONICAL_URL
+___ test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once ____
+tests\test_publication_coordinator_v1.py:1064: in test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once
+    assert result["canonical_article_real_published"] is True
+E   assert False is True
+___ test_one_derivative_failure_does_not_block_remaining_ready_derivatives ____
+tests\test_publication_coordinator_v1.py:1092: in test_one_derivative_failure_does_not_block_remaining_ready_derivatives
+    assert result["canonical_article_real_published"] is True
+E   assert False is True
+_ test_persisted_verified_readback_replay_restores_confirmed_without_provider_call _
+tests\test_publication_coordinator_v1.py:1140: in test_persisted_verified_readback_replay_restores_confirmed_without_provider_call
+    assert result["per_destination"]["telegram"]["reconciliation_status"] == (
+E   AssertionError: assert 'PUBLICATION_...TRACT_INVALID' == 'RECONCILED_CONFIRMED'
+E
+E     - RECONCILED_CONFIRMED
+E     + PUBLICATION_IMAGE_CONTRACT_INVALID
+_ test_substack_confirmed_with_unready_derivative_is_real_partial_publication _
+tests\test_publication_coordinator_v1.py:1173: in test_substack_confirmed_with_unready_derivative_is_real_partial_publication
+    assert result["canonical_article_real_published"] is True
+E   assert False is True
+_ test_substack_without_valid_canonical_url_is_not_real_and_derivatives_wait __
+tests\test_publication_coordinator_v1.py:1206: in test_substack_without_valid_canonical_url_is_not_real_and_derivatives_wait
+    assert result["per_destination"]["substack"]["reconciliation_status"] == (
+E   AssertionError: assert 'PUBLICATION_...TRACT_INVALID' == 'RECONCILIATION_PENDING'
+E
+E     - RECONCILIATION_PENDING
+E     + PUBLICATION_IMAGE_CONTRACT_INVALID
+_ test_substack_2xx_outcome_is_evidence_only_and_strict_unknown_still_blocks_derivatives _
+tests\test_publication_coordinator_v1.py:1257: in test_substack_2xx_outcome_is_evidence_only_and_strict_unknown_still_blocks_derivatives
+    assert substack["status"] == UNKNOWN_WRITE
+E   AssertionError: assert 'DEFINITE_NO_WRITE' == 'UNKNOWN_WRITE'
+E
+E     - UNKNOWN_WRITE
+E     + DEFINITE_NO_WRITE
+__ test_strict_readback_can_recover_valid_substack_url_and_idempotent_status __
+tests\test_publication_coordinator_v1.py:1307: in test_strict_readback_can_recover_valid_substack_url_and_idempotent_status
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_derivative_failure_never_erases_reconciled_substack_truth[definite_failure] _
+tests\test_publication_coordinator_v1.py:1358: in test_derivative_failure_never_erases_reconciled_substack_truth
+    assert result["canonical_article_real_published"] is True
+E   assert False is True
+_ test_derivative_failure_never_erases_reconciled_substack_truth[unknown_write] _
+tests\test_publication_coordinator_v1.py:1358: in test_derivative_failure_never_erases_reconciled_substack_truth
+    assert result["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[decision39-True] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[legacy-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[same_article-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[unknown_canonical-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[unverified_canonical-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[missing_readback-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[unbound_obligation-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete-True] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_same_article-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_wrong_id-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_missing_url-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_missing_proof-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+_ test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_legacy-False] _
+tests\test_publication_coordinator_v1.py:1418: in test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+______________ test_case_c_crash_before_adapter_safe_resume_once ______________
+tests\test_publication_coordinator_v1.py:1456: in test_case_c_crash_before_adapter_safe_resume_once
+    assert first["publish_calls"] == 1
+E   assert 0 == 1
+__ test_case_e_provider_accepted_response_lost_reconciles_without_duplicate ___
+tests\test_publication_coordinator_v1.py:1485: in test_case_e_provider_accepted_response_lost_reconciles_without_duplicate
+    assert row["status"] == DISPATCH_CONFIRMED
+E   AssertionError: assert 'DEFINITE_NO_WRITE' == 'DISPATCH_CONFIRMED'
+E
+E     - DISPATCH_CONFIRMED
+E     + DEFINITE_NO_WRITE
+__________ test_case_f_ambiguous_write_remains_pending_without_retry __________
+tests\test_publication_coordinator_v1.py:1497: in test_case_f_ambiguous_write_remains_pending_without_retry
+    assert result["per_destination"]["telegram"]["reconciliation_status"] == RECONCILIATION_PENDING
+E   AssertionError: assert 'PUBLICATION_...TRACT_INVALID' == 'RECONCILIATION_PENDING'
+E
+E     - RECONCILIATION_PENDING
+E     + PUBLICATION_IMAGE_CONTRACT_INVALID
+__________________ test_case_g_expired_destination_isolated ___________________
+tests\test_publication_coordinator_v1.py:1555: in test_case_g_expired_destination_isolated
+    assert result["per_destination"]["linkedin"]["status"] == "REAUTH_REQUIRED"
+E   AssertionError: assert 'DEFINITE_NO_WRITE' == 'REAUTH_REQUIRED'
+E
+E     - REAUTH_REQUIRED
+E     + DEFINITE_NO_WRITE
+_____ test_explicit_substack_retry_requires_reconciled_absent_exact_draft _____
+tests\test_publication_coordinator_v1.py:1602: in test_explicit_substack_retry_requires_reconciled_absent_exact_draft
+    assert first["status"] == DISPATCH_CONFIRMED
+E   AssertionError: assert 'DEFINITE_NO_WRITE' == 'DISPATCH_CONFIRMED'
+E
+E     - DISPATCH_CONFIRMED
+E     + DEFINITE_NO_WRITE
+_ test_next_run_drains_reconciled_absent_derivative_once_under_same_identity __
+tests\test_publication_coordinator_v1.py:1628: in test_next_run_drains_reconciled_absent_derivative_once_under_same_identity
+    assert first["publish_calls"] == 1
+E   assert 0 == 1
+_ test_exact_dispatch_quarantine_survives_restart_and_allows_other_operations _
+tests\test_publication_coordinator_v1.py:1697: in test_exact_dispatch_quarantine_survives_restart_and_allows_other_operations
+    store, transport, coordinator, ids = _quarantined_derivative_fixture(tmp_path)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_publication_coordinator_v1.py:1687: in _quarantined_derivative_fixture
+    store.set_dispatch_status(ids["dispatch_id"], UNKNOWN_WRITE)
+live_contentops\durable_operational_store_v1.py:1435: in set_dispatch_status
+    raise WorkItemNotFoundError(f"dispatch {dispatch_id} not found")
+E   live_contentops.durable_operational_store_v1.WorkItemNotFoundError: dispatch dispatch_69b3cdc8f4fab67ae9409a025f97d641 not found
+_ test_quarantine_does_not_hide_another_unknown_or_allow_canonical_isolation __
+tests\test_publication_coordinator_v1.py:1721: in test_quarantine_does_not_hide_another_unknown_or_allow_canonical_isolation
+    store, transport, coordinator, ids = _quarantined_derivative_fixture(tmp_path)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_publication_coordinator_v1.py:1687: in _quarantined_derivative_fixture
+    store.set_dispatch_status(ids["dispatch_id"], UNKNOWN_WRITE)
+live_contentops\durable_operational_store_v1.py:1435: in set_dispatch_status
+    raise WorkItemNotFoundError(f"dispatch {dispatch_id} not found")
+E   live_contentops.durable_operational_store_v1.WorkItemNotFoundError: dispatch dispatch_69b3cdc8f4fab67ae9409a025f97d641 not found
+__ test_new_article_refuses_to_start_while_safe_backlog_remains_after_budget __
+tests\test_publication_coordinator_v1.py:1757: in test_new_article_refuses_to_start_while_safe_backlog_remains_after_budget
+    assert len(transport.publish_calls) == 9
+E   assert 0 == 9
+E    +  where 0 = len([])
+E    +    where [] = <test_publication_coordinator_v1.FixtureTransport object at 0x000001BD1CD49F60>.publish_calls
+______ test_exactly_one_write_mixed_transport_duplicate_restart_recovery ______
+tests\test_publication_coordinator_v1.py:1792: in test_exactly_one_write_mixed_transport_duplicate_restart_recovery
+    assert len(store.list_platform_dispatches()) == 5
+E   AssertionError: assert 1 == 5
+E    +  where 1 = len([{'dispatch_id': 'dispatch_45f9baa9320ac43a47a0408cd45c302c', 'dispatched_at': '2026-11-12T13:02:38.461142+00:00', 'message_id': 'outbox_45f9baa9320ac43a47a0408cd45c302c', 'platform': 'substack', ...}])
+E    +    where [{'dispatch_id': 'dispatch_45f9baa9320ac43a47a0408cd45c302c', 'dispatched_at': '2026-11-12T13:02:38.461142+00:00', 'message_id': 'outbox_45f9baa9320ac43a47a0408cd45c302c', 'platform': 'substack', ...}] = list_platform_dispatches()
+E    +      where list_platform_dispatches = <live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x000001BD20DD4ED0>.list_platform_dispatches
+____________ test_exact_work_item_recovery_reads_only_its_payloads ____________
+tests\test_publication_coordinator_v1.py:1978: in test_exact_work_item_recovery_reads_only_its_payloads
+    assert first["canonical_article_real_published"] is True
+E   assert False is True
+__________ test_browser_publication_uses_exact_destination_jit_only ___________
+tests\test_publication_coordinator_v1.py:2008: in test_browser_publication_uses_exact_destination_jit_only
+    assert result["canonical_article_real_published"] is True
+E   assert False is True
+___________ test_failed_jit_is_not_reprobed_on_every_recovery_tick ____________
+tests\test_publication_coordinator_v1.py:2042: in test_failed_jit_is_not_reprobed_on_every_recovery_tick
+    assert len(readiness.jit_destinations) == 1
+E   assert 0 == 1
+E    +  where 0 = len([])
+E    +    where [] = <test_publication_coordinator_v1._ExactJitReadiness object at 0x000001BD209B5350>.jit_destinations
+_ test_explicit_transport_correction_is_exact_and_one_shot[False-instagram_business-DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE-RECONCILED_ABSENT_SAFE_TO_RETRY] _
+tests\test_publication_coordinator_v1.py:2102: in test_explicit_transport_correction_is_exact_and_one_shot
+    dispatch = next(
+E   StopIteration
+_ test_explicit_transport_correction_is_exact_and_one_shot[False-facebook_page-DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE-RECONCILED_ABSENT_SAFE_TO_RETRY] _
+tests\test_publication_coordinator_v1.py:2102: in test_explicit_transport_correction_is_exact_and_one_shot
+    dispatch = next(
+E   StopIteration
+_ test_explicit_transport_correction_is_exact_and_one_shot[True-instagram_business-DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE-RECONCILED_ABSENT_SAFE_TO_RETRY] _
+tests\test_publication_coordinator_v1.py:2102: in test_explicit_transport_correction_is_exact_and_one_shot
+    dispatch = next(
+E   StopIteration
+_ test_explicit_transport_correction_is_exact_and_one_shot[True-facebook_page-DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE-RECONCILED_ABSENT_SAFE_TO_RETRY] _
+tests\test_publication_coordinator_v1.py:2102: in test_explicit_transport_correction_is_exact_and_one_shot
+    dispatch = next(
+E   StopIteration
+___ test_linkedin_ambiguous_provider_cause_reaches_durable_incident[False] ____
+tests\test_publication_coordinator_v1.py:2171: in test_linkedin_ambiguous_provider_cause_reaches_durable_incident
+    assert any(json.loads(row[0]).get("safe_error_classification") ==
+E   assert False is not False
+E    +  where False = any(<generator object test_linkedin_ambiguous_provider_cause_reaches_durable_incident.<locals>.<genexpr> at 0x000001BD209ADE00>)
+_ test_explicit_member_transport_correction_needs_absence_and_is_one_shot[True] _
+tests\test_publication_coordinator_v1.py:2190: in test_explicit_member_transport_correction_needs_absence_and_is_one_shot
+    store.set_dispatch_status(ids["dispatch_id"], status)
+live_contentops\durable_operational_store_v1.py:1435: in set_dispatch_status
+    raise WorkItemNotFoundError(f"dispatch {dispatch_id} not found")
+E   live_contentops.durable_operational_store_v1.WorkItemNotFoundError: dispatch dispatch_e7db5e4367d320d36a12cc2839110f27 not found
+_ test_explicit_member_transport_correction_needs_absence_and_is_one_shot[False] _
+tests\test_publication_coordinator_v1.py:2190: in test_explicit_member_transport_correction_needs_absence_and_is_one_shot
+    store.set_dispatch_status(ids["dispatch_id"], status)
+live_contentops\durable_operational_store_v1.py:1435: in set_dispatch_status
+    raise WorkItemNotFoundError(f"dispatch {dispatch_id} not found")
+E   live_contentops.durable_operational_store_v1.WorkItemNotFoundError: dispatch dispatch_e7db5e4367d320d36a12cc2839110f27 not found
+______ test_durable_totals_survive_pending_callback_and_duplicate_resume ______
+tests\test_publication_coordinator_v1.py:2242: in test_durable_totals_survive_pending_callback_and_duplicate_resume
+    assert state["canonical_article_real_published"] is True
+E   assert False is True
+_____ test_confirmed_photo_credit_edit_is_exact_once_and_never_a_new_post _____
+tests\test_publication_coordinator_v1.py:2273: in test_confirmed_photo_credit_edit_is_exact_once_and_never_a_new_post
+    dispatch = next(d for d in store.list_platform_dispatches() if d["platform"] == "telegram")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[None] _
+tests\test_publication_coordinator_v1.py:2299: in test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once
+    dispatch = next(d for d in store.list_platform_dispatches() if d["platform"] == "discord")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[identity] _
+tests\test_publication_coordinator_v1.py:2299: in test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once
+    dispatch = next(d for d in store.list_platform_dispatches() if d["platform"] == "discord")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[text] _
+tests\test_publication_coordinator_v1.py:2299: in test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once
+    dispatch = next(d for d in store.list_platform_dispatches() if d["platform"] == "discord")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[media_present] _
+tests\test_publication_coordinator_v1.py:2299: in test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once
+    dispatch = next(d for d in store.list_platform_dispatches() if d["platform"] == "discord")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_ test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[missing] _
+tests\test_publication_coordinator_v1.py:2299: in test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once
+    dispatch = next(d for d in store.list_platform_dispatches() if d["platform"] == "discord")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   StopIteration
+_______ test_native_internal_records_never_become_dispatch_destinations _______
+tests\test_publication_coordinator_v1.py:2354: in test_native_internal_records_never_become_dispatch_destinations
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E   AssertionError: assert 'CANONICAL_NOT_CONFIRMED' == 'FULL_V1_NINE...ION_CONFIRMED'
+E
+E     - FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+E     + CANONICAL_NOT_CONFIRMED
+=========================== short test summary info ===========================
+FAILED tests/test_publication_coordinator_v1.py::test_simultaneous_api_dispatchers_cross_provider_boundary_only_once
+FAILED tests/test_publication_coordinator_v1.py::test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[None]
+FAILED tests/test_publication_coordinator_v1.py::test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[text]
+FAILED tests/test_publication_coordinator_v1.py::test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[account]
+FAILED tests/test_publication_coordinator_v1.py::test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[photo]
+FAILED tests/test_publication_coordinator_v1.py::test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[removal]
+FAILED tests/test_publication_coordinator_v1.py::test_verified_duplicate_survivor_preserves_removed_identity_and_counts_once[stale]
+FAILED tests/test_publication_coordinator_v1.py::test_quality_probation_derivative_readiness_hold_does_not_veto_canonical
+FAILED tests/test_publication_coordinator_v1.py::test_delivery_media_preparation_is_after_canonical_readback_and_before_derivatives
+FAILED tests/test_publication_coordinator_v1.py::test_delivery_media_preparation_failure_is_destination_local_after_canonical
+FAILED tests/test_publication_coordinator_v1.py::test_quality_probation_full_nine_surface_confirmation
+FAILED tests/test_publication_coordinator_v1.py::test_quality_probation_postcanonical_failure_preserves_canonical_and_continues
+FAILED tests/test_publication_coordinator_v1.py::test_unresolved_quality_distribution_obligation_blocks_new_canonical
+FAILED tests/test_publication_coordinator_v1.py::test_owner_quarantined_legacy_unknown_is_untouched_and_does_not_block_fresh_plan
+FAILED tests/test_publication_coordinator_v1.py::test_recovery_delivery_media_ignores_only_owner_quarantined_unknown
+FAILED tests/test_publication_coordinator_v1.py::test_stable_provider_id_confirms_distribution_with_readback_limitation
+FAILED tests/test_publication_coordinator_v1.py::test_metrics_collection_requires_exact_confirmed_reconciled_dispatch_binding
+FAILED tests/test_publication_coordinator_v1.py::test_case_a_api_success_and_case_b_cdp_success
+FAILED tests/test_publication_coordinator_v1.py::test_complete_v1_transaction_attempts_all_eight_ready_derivatives_once
+FAILED tests/test_publication_coordinator_v1.py::test_one_derivative_failure_does_not_block_remaining_ready_derivatives
+FAILED tests/test_publication_coordinator_v1.py::test_persisted_verified_readback_replay_restores_confirmed_without_provider_call
+FAILED tests/test_publication_coordinator_v1.py::test_substack_confirmed_with_unready_derivative_is_real_partial_publication
+FAILED tests/test_publication_coordinator_v1.py::test_substack_without_valid_canonical_url_is_not_real_and_derivatives_wait
+FAILED tests/test_publication_coordinator_v1.py::test_substack_2xx_outcome_is_evidence_only_and_strict_unknown_still_blocks_derivatives
+FAILED tests/test_publication_coordinator_v1.py::test_strict_readback_can_recover_valid_substack_url_and_idempotent_status
+FAILED tests/test_publication_coordinator_v1.py::test_derivative_failure_never_erases_reconciled_substack_truth[definite_failure]
+FAILED tests/test_publication_coordinator_v1.py::test_derivative_failure_never_erases_reconciled_substack_truth[unknown_write]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[decision39-True]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[legacy-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[same_article-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[unknown_canonical-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[unverified_canonical-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[missing_readback-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[unbound_obligation-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete-True]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_same_article-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_wrong_id-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_missing_url-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_missing_proof-False]
+FAILED tests/test_publication_coordinator_v1.py::test_decision39_prior_distribution_gap_keeps_unknown_write_and_allows_distinct_canonical[incomplete_legacy-False]
+FAILED tests/test_publication_coordinator_v1.py::test_case_c_crash_before_adapter_safe_resume_once
+FAILED tests/test_publication_coordinator_v1.py::test_case_e_provider_accepted_response_lost_reconciles_without_duplicate
+FAILED tests/test_publication_coordinator_v1.py::test_case_f_ambiguous_write_remains_pending_without_retry
+FAILED tests/test_publication_coordinator_v1.py::test_case_g_expired_destination_isolated
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_substack_retry_requires_reconciled_absent_exact_draft
+FAILED tests/test_publication_coordinator_v1.py::test_next_run_drains_reconciled_absent_derivative_once_under_same_identity
+FAILED tests/test_publication_coordinator_v1.py::test_exact_dispatch_quarantine_survives_restart_and_allows_other_operations
+FAILED tests/test_publication_coordinator_v1.py::test_quarantine_does_not_hide_another_unknown_or_allow_canonical_isolation
+FAILED tests/test_publication_coordinator_v1.py::test_new_article_refuses_to_start_while_safe_backlog_remains_after_budget
+FAILED tests/test_publication_coordinator_v1.py::test_exactly_one_write_mixed_transport_duplicate_restart_recovery
+FAILED tests/test_publication_coordinator_v1.py::test_exact_work_item_recovery_reads_only_its_payloads
+FAILED tests/test_publication_coordinator_v1.py::test_browser_publication_uses_exact_destination_jit_only
+FAILED tests/test_publication_coordinator_v1.py::test_failed_jit_is_not_reprobed_on_every_recovery_tick
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_transport_correction_is_exact_and_one_shot[False-instagram_business-DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE-RECONCILED_ABSENT_SAFE_TO_RETRY]
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_transport_correction_is_exact_and_one_shot[False-facebook_page-DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE-RECONCILED_ABSENT_SAFE_TO_RETRY]
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_transport_correction_is_exact_and_one_shot[True-instagram_business-DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE-RECONCILED_ABSENT_SAFE_TO_RETRY]
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_transport_correction_is_exact_and_one_shot[True-facebook_page-DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE-RECONCILED_ABSENT_SAFE_TO_RETRY]
+FAILED tests/test_publication_coordinator_v1.py::test_linkedin_ambiguous_provider_cause_reaches_durable_incident[False]
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_member_transport_correction_needs_absence_and_is_one_shot[True]
+FAILED tests/test_publication_coordinator_v1.py::test_explicit_member_transport_correction_needs_absence_and_is_one_shot[False]
+FAILED tests/test_publication_coordinator_v1.py::test_durable_totals_survive_pending_callback_and_duplicate_resume
+FAILED tests/test_publication_coordinator_v1.py::test_confirmed_photo_credit_edit_is_exact_once_and_never_a_new_post
+FAILED tests/test_publication_coordinator_v1.py::test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[None]
+FAILED tests/test_publication_coordinator_v1.py::test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[identity]
+FAILED tests/test_publication_coordinator_v1.py::test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[text]
+FAILED tests/test_publication_coordinator_v1.py::test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[media_present]
+FAILED tests/test_publication_coordinator_v1.py::test_missing_discord_photo_repair_requires_exact_existing_readback_and_is_once[missing]
+FAILED tests/test_publication_coordinator_v1.py::test_native_internal_records_never_become_dispatch_destinations
+68 failed, 50 passed in 94.12s (0:01:34)

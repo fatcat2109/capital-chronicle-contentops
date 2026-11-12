@@ -14,6 +14,19 @@ from test_plan_call_cards_cc399 import NOW, call, write
 from test_plan_status_posts_cc306 import main_root  # noqa: F401
 
 
+@pytest.fixture(autouse=True)
+def isolate_other_minute_consumers(monkeypatch):
+    from live_contentops import x_reply_bot_v1, x_reply_tabs_v1, event_timestamp_v1, event_pack_v1
+    from live_contentops import audience_collection_v1, model_invocation_usage_v1
+    monkeypatch.setattr(x_reply_bot_v1,"refresh_due",lambda *a,**kw:{"status":"NO_DUE_WORK"})
+    monkeypatch.setattr(x_reply_bot_v1,"observe_due",lambda *a,**kw:{"status":"NO_DUE_WORK"})
+    monkeypatch.setattr(x_reply_tabs_v1,"refresh_due",lambda *a,**kw:{"status":"NO_DUE_WORK"})
+    monkeypatch.setattr(event_timestamp_v1,"maintain_timestamps",lambda:{"status":"OK"})
+    monkeypatch.setattr(event_pack_v1,"run_due_packs",lambda *a,**kw:{"status":"OK"})
+    monkeypatch.setattr(audience_collection_v1,"run_collection",lambda *a,**kw:{"collected":0})
+    monkeypatch.setattr(model_invocation_usage_v1,"import_native_invocations",lambda *a,**kw:{"imported":0})
+
+
 def export(tmp_path, *, version=None):
     raw = call("contract_call")
     fields = {"contract_version": version} if version is not None else {}
@@ -72,12 +85,8 @@ def test_unknown_version_queues_nothing_and_files_one_incident_across_repeats(tm
 
 @pytest.mark.parametrize("document,transform,field", [
     ("plan-status.public.json", lambda value: value.update(calls=value.pop("plans")), "status.plans"),
-    ("plan-status.public.json", lambda value: value["plans"][0].update(entry_zone=value["plans"][0].pop("zone")),
-     "status.plans[0].zone"),
     ("plan-transitions.public.json", lambda value: value.update(events=value.pop("transitions")),
      "transitions.transitions"),
-    ("plan-transitions.public.json", lambda value: value["transitions"][0].update(
-        timestamp=value["transitions"][0].pop("at_utc")), "transitions.transitions[0].at_utc"),
 ])
 def test_renamed_fields_fail_before_the_producer_reader_with_exact_path(tmp_path, main_root, document, transform, field):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite")
@@ -253,8 +262,10 @@ def test_closed_current_state_stops_recovery_even_without_a_closure_transition(t
 def test_unknown_status_is_still_refused_at_its_exact_field(tmp_path, main_root):
     folder = export(tmp_path, version="2.0.0")
     mutate(folder, "plan-status.public.json", lambda value: value["plans"][0].update(status="UNKNOWN_STATUS"))
-    store = ContentOpsDurableStore(tmp_path / "store.sqlite")
-    result = queue(store, folder, main_root, dry_run=True)
-    assert result["status"] == "EXPORT_CONTRACT_REJECTED"
-    assert result["failed_field"] == "status.plans[0].status"
-    assert store.list_outbox_messages() == []
+    # The contract remains strict; CC-515 isolates this row at the consumer.
+    from live_contentops.plan_status_export_contract_v1 import PlanExportContractError
+    value = {"status": json.loads((folder / "plan-status.public.json").read_bytes()),
+             "transitions": json.loads((folder / "plan-transitions.public.json").read_bytes())}
+    with pytest.raises(PlanExportContractError) as exc:
+        validate_export_contract(value)
+    assert exc.value.field == "status.plans[0].status"
