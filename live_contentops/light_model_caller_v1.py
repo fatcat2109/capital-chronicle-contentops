@@ -8,11 +8,14 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
+import os
 from pathlib import Path
+import queue
 import re
 import shutil
 import subprocess
 import tempfile
+import threading
 from time import perf_counter
 
 from .agy_editorial_assist_v1 import AGY, MODEL, EFFORT, _run
@@ -41,6 +44,87 @@ def codex_executable():
     if not found:
         raise ValueError("CODEX_EXECUTABLE_NOT_FOUND")
     return found
+
+
+def _run_codex(args, *, cwd, timeout, input):
+    """A completed JSONL turn is the return, even if CLI teardown holds a pipe.
+
+    The CC-512 native diagnostic observed turn.completed followed by a 65s
+    communicate timeout. Never kill another session: this owns only its Popen.
+    """
+    proc = subprocess.Popen(args, cwd=cwd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    lines, output, errors = queue.Queue(), [], []
+    def read_stdout():
+        try:
+            for line in iter(proc.stdout.readline, b""):
+                output.append(line)
+                lines.put(line)
+        finally:
+            lines.put(None)
+    def read_stderr():
+        for line in iter(proc.stderr.readline, b""):
+            errors.append(line)
+    readers = [threading.Thread(target=read_stdout, daemon=True), threading.Thread(target=read_stderr, daemon=True)]
+    for thread in readers:
+        thread.start()
+    started, completed, expired, failure = perf_counter(), False, False, None
+    try:
+        proc.stdin.write(input)
+        proc.stdin.close()  # One finite request; no interactive stdin survives.
+        deadline = started + timeout
+        while True:
+            left = deadline - perf_counter()
+            if left <= 0:
+                expired = True
+                break
+            try:
+                line = lines.get(timeout=left)
+            except queue.Empty:
+                expired = True
+                break
+            if line is None:
+                break
+            try:
+                event = json.loads(line)
+            except ValueError:
+                continue
+            if event.get("type") == "turn.completed":
+                completed = True
+                completion_seconds = perf_counter() - started
+                break
+            if event.get("type") == "turn.failed":
+                break
+    except Exception as exc:
+        failure = exc
+    finally:
+        try:
+            proc.wait(timeout=1)
+        except subprocess.TimeoutExpired:
+            if os.name == "nt":
+                subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"], capture_output=True,
+                    timeout=5, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+            else:
+                proc.kill()
+            proc.wait(timeout=5)
+        for thread in readers:
+            thread.join(timeout=2)
+        # A descendant may have inherited a pipe after the CLI itself exited.
+        # Closing a stream under its blocked reader would reacquire its lock and
+        # recreate the hang. Daemon readers release it on EOF/process teardown.
+        if not readers[0].is_alive():
+            proc.stdout.close()
+        if not readers[1].is_alive():
+            proc.stderr.close()
+    raw, err = b"".join(output), b"".join(errors)
+    if failure:
+        raise failure
+    if expired:
+        raise subprocess.TimeoutExpired(args, timeout, output=raw, stderr=err)
+    result = subprocess.CompletedProcess(args, 0 if completed else (proc.returncode or 1), raw, err)
+    result.turn_completed = completed
+    result.completion_seconds = completion_seconds if completed else None
+    return result
 
 
 def _agy_answer(raw, record):
@@ -126,8 +210,9 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
     if schema is not None:
         schema_path = root / "output.schema.json"
         _save(schema_path, schema)
-    run, start, answer = runner or _run, perf_counter(), b""
+    start, answer = perf_counter(), b""
     for caller in ("antigravity", "codex"):
+        run = runner or (_run if caller == "antigravity" else _run_codex)
         attempt = {"caller": caller, "started_at_utc": _now(), "status": "FAILED",
             "configured_model": MODEL if caller == "antigravity" else CODEX_MODEL,
             "configured_effort": EFFORT if caller == "antigravity" else CODEX_EFFORT,
@@ -137,7 +222,7 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
         try:
             if image is not None and sha256(image.read_bytes()).hexdigest() != record["image_sha256"]:
                 raise ValueError("IMAGE_REVIEW_BYTES_CHANGED")
-            with tempfile.TemporaryDirectory(prefix="cc512-light-") as cwd:
+            with tempfile.TemporaryDirectory(prefix="cc512-light-", ignore_cleanup_errors=True) as cwd:
                 if caller == "antigravity":
                     args = [AGY, "--model", MODEL, "--effort", EFFORT, "--disable-slash-commands",
                         "--print-timeout", str(AGY_TIMEOUT) + "s", "--input-format", "stream-json",
@@ -169,6 +254,8 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
                     # there is no interactive input, shell interpolation or size truncation.
                     done = run(args + ["-"], cwd=cwd, timeout=CODEX_TIMEOUT, input=prompt.encode())
                     raw, err = done.stdout, done.stderr
+                    if getattr(done, "turn_completed", False):
+                        attempt["turn_completed_seconds"] = done.completion_seconds
                     final_message = _codex_observations(raw, attempt)
                     # JSONL startup/usage events alone are not an answer. Plain
                     # stdout is accepted for older CLIs and controlled runners.
@@ -191,6 +278,8 @@ def call_light(prompt, *, root, timeout_cause, empty_cause, runner=None, image=N
             attempt.update(status="TIMEOUT", cause=timeout_cause if caller == "antigravity" else "CODEX_LIGHT_TIMEOUT_65S")
         except Exception as exc:
             attempt["cause"] = str(exc) if isinstance(exc, ValueError) else type(exc).__name__
+            if isinstance(exc, OSError):
+                attempt.update(error_errno=exc.errno, error_winerror=getattr(exc, "winerror", None))
         attempt.update(ended_at_utc=_now(), elapsed_seconds=perf_counter() - then,
             stdout_bytes=len(raw), stderr_bytes=len(err), output_sha256=sha256(raw).hexdigest(), stderr_sha256=sha256(err).hexdigest())
         (root / (caller + "-stdout.txt")).write_bytes(raw)

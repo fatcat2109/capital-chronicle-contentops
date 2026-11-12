@@ -1,0 +1,77 @@
+{
+  "role": "ranking",
+  "test_forced_primary_failure": true,
+  "source_prompt_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T094326-e07d2ecc\\editorial\\rank\\prompt.txt",
+  "status": "RETURNED",
+  "answered_by": "codex",
+  "role_schema_pass": true,
+  "record": {
+    "policy": "cc512-light-caller-v1",
+    "status": "RETURNED",
+    "started_at_utc": "2026-11-12T12:20:05.725041+00:00",
+    "prompt_sha256": "c2bf23838257a5c288785b9f51fb535b23605ca4f596a90588c43f3ef2d8167d",
+    "prompt_bytes": 3549,
+    "attempts": [
+      {
+        "caller": "antigravity",
+        "started_at_utc": "2026-11-12T12:20:05.725151+00:00",
+        "status": "TIMEOUT",
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "cause": "TEST_FORCED_AGY_TIMEOUT",
+        "ended_at_utc": "2026-11-12T12:20:05.727308+00:00",
+        "elapsed_seconds": 0.0021653000003425404,
+        "stdout_bytes": 0,
+        "stderr_bytes": 0,
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "caller": "codex",
+        "started_at_utc": "2026-11-12T12:20:05.741634+00:00",
+        "status": "RETURNED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_effort": "low",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "turn_completed_seconds": 51.5073987999931,
+        "observed_session_id": "01a1cfb3-e752-76c1-8cd8-d0c7dadddc52",
+        "observed_usage": {
+          "input_tokens": 15481,
+          "cached_input_tokens": 8832,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 69,
+          "reasoning_output_tokens": 0
+        },
+        "image_attached": false,
+        "returncode": 0,
+        "ended_at_utc": "2026-11-12T12:20:58.958907+00:00",
+        "elapsed_seconds": 53.217158300001756,
+        "stdout_bytes": 645,
+        "stderr_bytes": 0,
+        "output_sha256": "3d9548f944ba54212583142203532ba2b61e26dbdfc3a55335ac4428f67b8d68",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "answered_by": "codex",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "answer_seconds": 53.217158300001756,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "low",
+    "observed_session_id": "01a1cfb3-e752-76c1-8cd8-d0c7dadddc52",
+    "observed_usage": {
+      "input_tokens": 15481,
+      "cached_input_tokens": 8832,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 69,
+      "reasoning_output_tokens": 0
+    },
+    "ended_at_utc": "2026-11-12T12:20:58.979383+00:00",
+    "elapsed_seconds": 53.25414589999127,
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\cc512-codex-return-35dtj4pa\\light-call.json",
+    "first_cause": "TEST_FORCED_AGY_TIMEOUT"
+  },
+  "public_write_performed": false
+}

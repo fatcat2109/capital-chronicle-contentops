@@ -3,6 +3,8 @@ from hashlib import sha256
 import json
 from pathlib import Path
 import subprocess
+import sys
+from time import perf_counter
 
 import pytest
 
@@ -163,3 +165,14 @@ def test_changed_image_is_not_attached_after_the_first_timeout(tmp_path):
     _,record=light.call_light("Exact image.",root=tmp_path/"calls",image=image,runner=run,
         timeout_cause="AGY_VISION_TIMEOUT_125S",empty_cause="EMPTY")
     assert len(calls)==1 and record["fallback_cause"]=="IMAGE_REVIEW_BYTES_CHANGED"
+
+
+def test_native_codex_adapter_uses_completed_turn_and_closed_stdin_instead_of_hanging_on_exit(tmp_path):
+    program=("import json,sys,time; data=sys.stdin.read(); "
+        "print(json.dumps({'type':'item.completed','item':{'type':'agent_message','text':data}}),flush=True); "
+        "print(json.dumps({'type':'turn.completed'}),flush=True); time.sleep(20)")
+    started=perf_counter()
+    done=light._run_codex([sys.executable,'-c',program],cwd=str(tmp_path),timeout=8,input=b'{"eof":true}')
+    assert done.returncode==0 and done.turn_completed
+    assert light._codex_observations(done.stdout,{})==b'{"eof":true}'
+    assert done.completion_seconds < 8 and perf_counter()-started < 15
