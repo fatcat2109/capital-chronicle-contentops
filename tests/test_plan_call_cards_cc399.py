@@ -352,6 +352,9 @@ def test_discord_threads_use_official_bot_route_and_exact_card_reference(monkeyp
     assert result["id"] == "67890"
     post = requests[-1]
     assert post.full_url == "https://discord.com/api/v10/channels/12345/messages"
+    assert post.get_header("User-agent") == adapter.BOT_USER_AGENT
+    assert post.get_header("User-agent").startswith("DiscordBot (")
+    assert post.get_header("Authorization") == "Bot test-token"
     assert json.loads(post.data)["message_reference"]["message_id"] == "98765"
     assert len([r for r in requests if r.get_method() == "POST"]) == 1
 
@@ -391,6 +394,7 @@ def test_first_bot_run_creates_one_thread_and_recovers_its_lost_return(monkeypat
         if url == webhook:
             return Response({"channel_id": channel})
         assert req.get_header("Authorization") == "Bot fixture-bot"
+        assert req.get_header("User-agent") == adapter.BOT_USER_AGENT
         if method == "GET" and url == f"https://discord.com/api/v10/channels/{run}":
             if not thread_exists:
                 raise HTTPError(url, 404, "Not Found", {}, None)

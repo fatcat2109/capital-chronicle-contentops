@@ -19,6 +19,7 @@ from typing import Any, Mapping
 from .secret_store_v1 import read_secret
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_DISCORD_AND_TELEGRAM_V0"
+BOT_USER_AGENT = "DiscordBot (https://capitalchronicle.substack.com, 1.0)"
 
 
 def _get_default_webhook_url() -> str:
@@ -129,7 +130,9 @@ def execute_discord_post(
     req.add_header("Content-Type", content_type)
     if bot_token:
         req.add_header("Authorization", "Bot " + bot_token)
-    req.add_header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
+    # Discord's HTTP API requires the bot's client-library identity and version.
+    req.add_header("User-Agent", BOT_USER_AGENT if bot_token else
+                   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36")
 
     try:
         with urllib.request.urlopen(req, timeout=15) as response:
@@ -186,7 +189,7 @@ def _ensure_call_thread(webhook, parent_id, name, token):
         req = urllib.request.Request(url, data=json.dumps(data).encode() if data else None,
                                      method=method or ("POST" if data else "GET"))
         req.add_header("Content-Type", "application/json")
-        req.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+        req.add_header("User-Agent", "CapitalChronicleContentOps/1.0" if url.startswith(webhook) else BOT_USER_AGENT)
         if not url.startswith(webhook):
             req.add_header("Authorization", "Bot " + token)
         with urllib.request.urlopen(req, timeout=15) as response:
@@ -245,7 +248,7 @@ def readback_discord_post(
     request = urllib.request.Request(url, method="GET")
     if token:
         request.add_header("Authorization", "Bot " + token)
-    request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+    request.add_header("User-Agent", BOT_USER_AGENT if token else "CapitalChronicleContentOps/1.0")
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
             payload = json.loads(response.read().decode("utf-8"))
@@ -268,7 +271,7 @@ def readback_discord_post(
         metadata_request = urllib.request.Request(
             "https://discord.com/api/v10/channels/" + str(thread_id), method="GET")
         metadata_request.add_header("Authorization", "Bot " + token)
-        metadata_request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+        metadata_request.add_header("User-Agent", BOT_USER_AGENT)
         try:
             with urllib.request.urlopen(metadata_request, timeout=15) as response:
                 thread = json.loads(response.read().decode("utf-8"))
@@ -358,7 +361,7 @@ def find_discord_thread_post(*, thread_id, expected_text, canonical_url,
     def get(path):
         request = urllib.request.Request("https://discord.com/api/v10/" + path, method="GET")
         request.add_header("Authorization", "Bot " + token)
-        request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+        request.add_header("User-Agent", BOT_USER_AGENT)
         with urllib.request.urlopen(request, timeout=15) as response:
             return json.loads(response.read().decode("utf-8"))
 
