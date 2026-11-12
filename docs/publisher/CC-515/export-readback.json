@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-12T13:17:53.193533+00:00",
+  "export_dir": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1",
+  "public_write_performed": false,
+  "production_store_writes": 0,
+  "status": "READ_VALIDATED",
+  "contract_version": "2.0.0",
+  "source_content_hash": "191d197a272f21d0f39ef9fea2976db995cb360bfa9c4be5b98aca57873b9a07",
+  "plans": 86,
+  "transitions": 169,
+  "quarantined_rows": [],
+  "export_generated_at_utc": "2026-11-12T13:17:23.119116Z",
+  "export_age_seconds": 31.0
+}

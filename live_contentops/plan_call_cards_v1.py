@@ -682,7 +682,7 @@ def settle_pending(store, outbox, row, *, now, root=None):
     age = posts._age_minutes(row, now)
     late = age > posts.LATE_STATE_HOURS * 60
     confirmed = set()
-    resumable = set(_ready_destinations(store, row, root=root)) if row.get("format") == FORMAT else set()
+    resumable = set(_ready_destinations(store, row, root=root)) if not late and row.get("format") == FORMAT else set()
     parent_message = store.get_outbox_message(row["parent_key"]) if row.get("parent_key") else None
     parent_row = json.loads(parent_message["payload"]) if parent_message else {}
     parent_late = bool(parent_row.get("at_utc") and posts._age_minutes(parent_row, now) > posts.LATE_STATE_HOURS * 60)
@@ -1163,12 +1163,10 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         if row.get("format") == FORMAT and outbox["status"] in {posts.READY, "PUBLISHING"}:
             pending.append((outbox, row))
     def priority(pair):
-        outbox, row = pair
-        api_done = all((_dispatch(store, row["key"], d) or {}).get("status") in SETTLED_DISPATCHES
-                       for d in API_DESTINATIONS if d in destinations_for(row))
+        _, row = pair
         # Run roots precede their children; each budget goes to newest live work.
         return (0 if row["kind"] == "run" else 1, -posts._utc(row["at_utc"]).timestamp(),
-                api_done, {"run": 0, "setup": 1, "update": 2, "result": 3}[row["kind"]])
+                {"run": 0, "setup": 1, "update": 2, "result": 3}[row["kind"]])
     pending.sort(key=priority)
     results, calls, browser_only = [], 0, 0
     for outbox, row in pending:

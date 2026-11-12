@@ -1404,10 +1404,10 @@
       "status": "SETTLED"
     }
   ],
-  "elapsed_seconds": 25.717,
-  "observed_at_utc": "2026-11-12T13:14:14.165588+00:00",
-  "pending_after": 14,
-  "pending_before": 86,
+  "elapsed_seconds": 34.199,
+  "observed_at_utc": "2026-11-12T13:32:13.416828+00:00",
+  "pending_after": 15,
+  "pending_before": 87,
   "pending_older_than_24_hours_after": 0,
   "pending_older_than_24_hours_before": 72,
   "production_store_writes": 0,
@@ -1426,7 +1426,8 @@
     "plan-result-post-0ec52097d82976d8bf83eff21f231287",
     "plan-result-post-5ee23a334e28ad555df3f156f2fbd9e0",
     "plan-result-post-ae66a2cbf57b4458b6bcd4f0ee9169f2",
-    "plan-result-post-07b268e76b668684acc3ae66d69ae7e7"
+    "plan-result-post-07b268e76b668684acc3ae66d69ae7e7",
+    "plan-status-post-37f4a7ca63df69d5864655fbe2494bae"
   ],
   "replay_store": "isolated temporary projection; no publication methods invoked",
   "source_records_deleted": 0,

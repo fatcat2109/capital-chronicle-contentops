@@ -14,6 +14,19 @@ from test_plan_call_cards_cc399 import NOW, call, write
 from test_plan_status_posts_cc306 import main_root  # noqa: F401
 
 
+@pytest.fixture(autouse=True)
+def isolate_other_minute_consumers(monkeypatch):
+    from live_contentops import x_reply_bot_v1, x_reply_tabs_v1, event_timestamp_v1, event_pack_v1
+    from live_contentops import audience_collection_v1, model_invocation_usage_v1
+    monkeypatch.setattr(x_reply_bot_v1,"refresh_due",lambda *a,**kw:{"status":"NO_DUE_WORK"})
+    monkeypatch.setattr(x_reply_bot_v1,"observe_due",lambda *a,**kw:{"status":"NO_DUE_WORK"})
+    monkeypatch.setattr(x_reply_tabs_v1,"refresh_due",lambda *a,**kw:{"status":"NO_DUE_WORK"})
+    monkeypatch.setattr(event_timestamp_v1,"maintain_timestamps",lambda:{"status":"OK"})
+    monkeypatch.setattr(event_pack_v1,"run_due_packs",lambda *a,**kw:{"status":"OK"})
+    monkeypatch.setattr(audience_collection_v1,"run_collection",lambda *a,**kw:{"collected":0})
+    monkeypatch.setattr(model_invocation_usage_v1,"import_native_invocations",lambda *a,**kw:{"imported":0})
+
+
 def export(tmp_path, *, version=None):
     raw = call("contract_call")
     fields = {"contract_version": version} if version is not None else {}
