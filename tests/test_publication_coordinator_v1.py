@@ -8,6 +8,17 @@ from pathlib import Path
 import pytest
 
 
+@pytest.fixture(autouse=True)
+def coordinator_transport_fixture_without_article_media(monkeypatch):
+    """These transport fixtures have no article/media files.
+
+    Exercise image validation with its real assets in test_publication_image_contract_cc463;
+    keep this file focused on the coordinator's dispatch and recovery behavior.
+    """
+    from live_contentops import publication_image_contract_v1
+    monkeypatch.setattr(publication_image_contract_v1, "validate_write", lambda *args: None)
+
+
 @pytest.fixture
 def cc401_copied_store(tmp_path):
     import sqlite3
