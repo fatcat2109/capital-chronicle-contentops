@@ -3013,9 +3013,18 @@ class DurablePublicationCoordinator:
             try:
                 validate_write(self, intent, destination)
             except (ValueError, OSError, KeyError, TypeError) as image_error:
+                reconciliation_reason = str(image_error)
                 if not isinstance(image_error, ImageContractError):
+                    details = {"exception_type": type(image_error).__name__,
+                               "first_cause": str(image_error)}
+                    if isinstance(image_error, OSError) and image_error.filename is not None:
+                        details["filename"] = str(image_error.filename)
                     image_error = ImageContractError("PUBLICATION_IMAGE_CONTRACT_INVALID",
-                        first_cause=str(image_error)[:180] if isinstance(image_error, ValueError) else type(image_error).__name__)
+                        **details)
+                    # The existing reconciliation is also the next run's
+                    # diagnosis: retain the exception and missing path there,
+                    # rather than only in this transient return value.
+                    reconciliation_reason = str(image_error) + ": " + _canonical_json(details)
                 claimed = self.store.claim_platform_dispatch_attempt(
                     dispatch_id=ids["dispatch_id"], message_id=ids["message_id"], platform=destination,
                     expected_status=existing.get("status") if existing else None)
@@ -3026,7 +3035,7 @@ class DurablePublicationCoordinator:
                 self.store.set_dispatch_status(ids["dispatch_id"], DEFINITE_NO_WRITE)
                 self.store.set_outbox_status(ids["message_id"], DEFINITE_NO_WRITE)
                 self.store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],
-                    work_item_id=intent["work_item_id"], status=str(image_error))
+                    work_item_id=intent["work_item_id"], status=reconciliation_reason)
                 return {"destination": destination, "status": DEFINITE_NO_WRITE, "publish_called": False,
                         "reason_code": str(image_error), "image_contract_details": image_error.details,
                         "dispatch_id": ids["dispatch_id"]}
