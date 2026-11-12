@@ -176,3 +176,57 @@ def test_text_link_readback_requires_body_link_thread_and_parent(monkeypatch, wr
     assert not observed["meaningful_media_visible"]
     assert not adapter.readback_discord_post(**kwargs, require_media=False,
         expected_image_sha256="f" * 64)["verified"]
+
+
+@pytest.mark.parametrize("case", ["found", "absent", "full_page", "wrong_thread", "foreign_author", "duplicate", "changed_body"])
+def test_coordinator_recovers_lost_discord_id_or_preserves_uncertainty(ready,monkeypatch,case):
+    from live_contentops import discord_live_adapter_v6 as adapter
+    from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
+    store,packet,original=ready
+    bot_card(store,original)
+    link=pages.register_link(store,packet,original_key=original,destination="discord")
+    coordinator=Coordinator(store=store,transport_runtime=CanonicalDestinationTransportRuntimeV1())
+    coordinator.register_plan(link["link_id"],link["plan"])
+    ids=Coordinator._ids(link["link_id"],link["plan"]["plan_hash"],"discord")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"],message_id=ids["message_id"],
+        platform="discord",status="UNKNOWN_WRITE")
+    message={"id":"901","channel_id":"700","guild_id":"42","content":link["native_payload"]["text"],
+        "author":{"id":"99","bot":True},"message_reference":{"message_id":"parent-discord"},
+        "attachments":[],"embeds":[]}
+    messages=[message]
+    if case=="absent": messages=[]
+    if case=="full_page": messages=[{**message,"id":str(1000+i),"content":"Unrelated post."} for i in range(100)]
+    if case=="foreign_author": message["author"]["id"]="98"
+    if case=="duplicate": messages.append({**message,"id":"902"})
+    if case=="changed_body": message["content"]="Other text: "+link["canonical_url"]
+    calls=[]
+    class Response:
+        def __init__(self,value): self.value=value
+        def __enter__(self):return self
+        def __exit__(self,*_):return None
+        def read(self):return json.dumps(self.value).encode()
+    def request(req,**kwargs):
+        assert req.get_method()=="GET"
+        calls.append(req.full_url)
+        if req.full_url.endswith('/users/@me'):return Response({'id':'99','bot':True})
+        if req.full_url.endswith('/channels/700'):
+            return Response({'id':'700','parent_id':'wrong' if case=='wrong_thread' else '1519311669216673802','type':11})
+        if req.full_url.endswith('/messages?limit=100'):return Response(messages)
+        assert req.full_url.endswith('/messages/901')
+        return Response(message)
+    monkeypatch.setattr(adapter,'read_secret',lambda name:'fixture')
+    monkeypatch.setattr(adapter.urllib.request,'urlopen',request)
+    result=coordinator.readback_existing_dispatch(ids['dispatch_id'])
+    dispatch=store.get_platform_dispatch(ids['dispatch_id'])
+    if case=='found':
+        assert result['reconciliation_status']=='RECONCILED_CONFIRMED',result
+        assert dispatch['status']=='DISPATCH_CONFIRMED'
+        assert dispatch['public_object_id']=='901'
+        assert dispatch['public_object_url']=='https://discord.com/channels/42/700/901'
+    elif case=='absent':
+        assert result['reconciliation_status']=='RECONCILED_ABSENT_SAFE_TO_RETRY',result
+        assert dispatch['status']=='RECONCILED_ABSENT_SAFE_TO_RETRY'
+    else:
+        assert result['reconciliation_status']=='RECONCILIATION_PENDING',result
+        assert dispatch['status']=='UNKNOWN_WRITE'
+    assert not result['public_write_performed'] and not result['publish_called']

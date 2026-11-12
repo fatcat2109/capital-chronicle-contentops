@@ -4877,6 +4877,14 @@ def _readback_one_destination_from_durable_intent(
                 "expected_parent_id": payloads[destination].get("reply_to_id")}
                if payloads[destination].get("discord_thread_parent_id") else {}),
         )
+    elif destination == "discord" and payloads[destination].get("discord_thread_parent_id"):
+        from live_contentops.discord_live_adapter_v6 import find_discord_thread_post
+        result = find_discord_thread_post(
+            thread_id=payloads[destination]["discord_thread_parent_id"], expected_text=text,
+            canonical_url=canonical_url, expected_parent_id=payloads[destination].get("reply_to_id"),
+            expected_image_sha256=(data["primary_media"] or {}).get("sha256"),
+            require_media=not (intent.get("plan_analysis_link") and not data["primary_media"]),
+        )
     elif destination == "threads" and public_object_id:
         from live_contentops.threads_adapter_v6 import readback_threads_chain, readback_threads_post
         package = payloads.get("threads") or {}

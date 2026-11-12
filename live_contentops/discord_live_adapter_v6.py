@@ -322,6 +322,70 @@ def readback_discord_post(
     }
 
 
+def find_discord_thread_post(*, thread_id, expected_text, canonical_url,
+                            expected_parent_id=None, expected_image_sha256=None,
+                            require_media=True):
+    """Recover a lost bot-message id by reading its exact registered thread.
+
+    A full 100-message page is incomplete evidence of absence. A wrong thread,
+    foreign author, changed body or multiple exact matches stays uncertain.
+    This operation sends only GET requests and never creates/unarchives a thread.
+    """
+    unavailable = {"status": "READBACK_UNAVAILABLE", "verified": False, "write_absent": False}
+    token = read_secret("DISCORD_BOT_TOKEN")
+    if not token or not str(thread_id or "").isdigit() or not expected_text:
+        return unavailable
+
+    def get(path):
+        request = urllib.request.Request("https://discord.com/api/v10/" + path, method="GET")
+        request.add_header("Authorization", "Bot " + token)
+        request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+        with urllib.request.urlopen(request, timeout=15) as response:
+            return json.loads(response.read().decode("utf-8"))
+
+    try:
+        from .destination_transport_registry_v1 import registration_for_destination
+        channel = get("channels/" + str(thread_id))
+        if (str(channel.get("id")) != str(thread_id)
+                or str(channel.get("parent_id")) != registration_for_destination("discord").expected_stable_id
+                or channel.get("type") not in {10, 11, 12}):
+            return {**unavailable, "cause": "DISCORD_CALL_THREAD_IDENTITY_MISMATCH"}
+        author = get("users/@me")
+        if not author.get("bot") or not str(author.get("id") or "").isdigit():
+            return {**unavailable, "cause": "DISCORD_BOT_IDENTITY_UNAVAILABLE"}
+        messages = get("channels/" + str(thread_id) + "/messages?limit=100")
+        if (not isinstance(messages, list)
+                or any(not isinstance(m, dict) or str(m.get("channel_id")) != str(thread_id)
+                       or not str(m.get("id") or "").isdigit() for m in messages)):
+            return {**unavailable, "cause": "DISCORD_THREAD_HISTORY_IDENTITY_MISMATCH"}
+        matches, uncertain = [], False
+        for message in messages:
+            content = str(message.get("content") or "")
+            own = str((message.get("author") or {}).get("id")) == str(author["id"])
+            parent = str((message.get("message_reference") or {}).get("message_id") or "")
+            if content == expected_text:
+                if own and (not expected_parent_id or parent == str(expected_parent_id)):
+                    matches.append(message)
+                else:
+                    uncertain = True
+            elif own and ((canonical_url and canonical_url in content)
+                          or content.startswith(expected_text.splitlines()[0])):
+                uncertain = True
+        if uncertain or len(matches) > 1:
+            return {**unavailable, "cause": "DISCORD_THREAD_MATCH_AMBIGUOUS", "messages_read": len(messages)}
+        if not matches:
+            complete = len(messages) < 100
+            return {"status": "NOT_FOUND" if complete else "READBACK_UNAVAILABLE", "verified": False,
+                    "write_absent": complete, "messages_read": len(messages), "thread_id": str(thread_id),
+                    "absence_basis": "COMPLETE_REGISTERED_DISCORD_THREAD_HISTORY" if complete else None}
+        result = readback_discord_post(message_id=matches[0]["id"], expected_text=expected_text,
+            canonical_url=canonical_url or "", thread_id=str(thread_id), expected_parent_id=expected_parent_id,
+            expected_image_sha256=expected_image_sha256, require_media=require_media)
+        return {**result, "id": matches[0]["id"], "messages_read": len(messages)}
+    except (OSError, ValueError, KeyError, TypeError):
+        return unavailable
+
+
 def execute_discord_comment(
     thread_id_or_url: str,
     message: str,
