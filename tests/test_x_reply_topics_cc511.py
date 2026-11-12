@@ -126,6 +126,25 @@ def test_relation_sentence_need_not_repeat_the_event_keywords():
                               draft={"draft_text": "Nvidia weighs on Nasdaq 100, at 20,000 points."})
 
 
+def test_returned_russian_supply_reply_states_its_real_wti_relationship():
+    target = post("UK GOVERNMENT SAYS UK SANCTIONS RUSSIA'S TOP TEN OIL PRODUCERS.")
+    draft = {"draft_text": "On 12 Nov 2026, Yahoo Finance showed WTI up 0.64 USD per barrel; Russian energy supply disruptions affect crude availability."}
+    assert policy.check_fact(target, source("WTI"), now=NOW, draft=draft)
+    draft["draft_text"] = "On 12 Nov 2026, Yahoo Finance showed WTI up 0.64 USD per barrel; Mexican supply disruptions affect crude availability."
+    with pytest.raises(ValueError, match="FACT_DRIVER_LINK_NOT_STATED"):
+        policy.check_fact(target, source("WTI"), now=NOW, draft=draft)
+
+
+@pytest.mark.parametrize("relationship", ["affects", "influences", "connects to"])
+def test_relation_vocabulary_keeps_the_original_company_and_exact_index(relationship):
+    target = post("Nvidia shares slide premarket")
+    draft = {"draft_text": f"Nvidia's slide {relationship} Nasdaq 100, at 20,000 points."}
+    assert policy.check_fact(target, source("NDX"), now=NOW, draft=draft)
+    with pytest.raises(ValueError, match="FACT_DRIVER_LINK_NOT_STATED"):
+        policy.check_fact(target, source("NDX"), now=NOW,
+                          draft={"draft_text": f"Tesla's slide {relationship} Nasdaq 100, at 20,000 points."})
+
+
 def test_a_second_subject_does_not_replace_the_original_link_subject():
     with pytest.raises(ValueError, match="FACT_DRIVER_LINK_NOT_STATED"):
         policy.check_fact(post("Nvidia CEO discusses Iran"), source("NDX"), now=NOW,

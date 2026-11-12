@@ -1,0 +1,54 @@
+{
+  "source_tick": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T133726-6f8f37ce",
+  "replay_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\replay-cc464-budget150-20261112T185038",
+  "historical_cutoff_utc": "2026-11-12T13:37:34.096389+00:00",
+  "telegram_send_actions": 0,
+  "x_submit_actions": 0,
+  "live_delivery_proof": false,
+  "status": "RETURNED",
+  "authored_ids": [
+    "2120873355427365250",
+    "2120872859266699313"
+  ],
+  "remaining_quality_post_ids": [],
+  "stage_seconds": {
+    "ranking": 5.570000212173909e-05,
+    "drafting": 138.67101089999778
+  },
+  "validation": [
+    {
+      "post_id": "2120873355427365250",
+      "status": "REFUSED",
+      "cause": "FACT_DRIVER_LINK_NOT_STATED"
+    },
+    {
+      "post_id": "2120872859266699313",
+      "status": "REFUSED",
+      "cause": "FACT_DRIVER_LINK_NOT_STATED"
+    }
+  ],
+  "writer_call": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "runtime_model": null,
+    "runtime_effort": null,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "started_at_utc": "2026-11-12T18:50:38.910969+00:00",
+    "public_submit_actions": 0,
+    "observed_session_id": "01a1d119-00fa-76d3-89dd-da69d116c603",
+    "observed_usage": {
+      "input_tokens": 17120,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 5578,
+      "reasoning_output_tokens": 5178
+    },
+    "turn_completed_seconds": 138.27252760001284,
+    "returncode": 0,
+    "status": "RETURNED",
+    "ended_at_utc": "2026-11-12T18:52:57.580627+00:00",
+    "elapsed_seconds": 138.66937340000004
+  },
+  "writer_prompt_bytes": 9014,
+  "replay_observed_at_utc": "2026-11-12T18:52:57.612661+00:00"
+}

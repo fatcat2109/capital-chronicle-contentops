@@ -158,6 +158,15 @@ Codex JSONL caller now consumes `turn.completed` directly for the MAX writer,
 with tool use disabled and session/usage telemetry retained. AGY's actual
 65-second timeout is recorded separately from its Codex fallback's 65 seconds.
 
+`native-budget150-replay.json` records the real MAX return after 138.67 seconds.
+It authored both selected targets. Its oil draft named WTI, Russian supply and
+their relationship with the verb "affect"; the check's narrow verb list rejected
+it. The measured false rejection is fixed, with positive and wrong-subject tests.
+`native-return-revalidated.json` admits that exact unchanged return; the other
+draft still fails its market relationship check. No new writing call, historical
+delivery, post clock adjustment or five-minute success is claimed. The 73 targeted
+fact/driver checks pass, including the retained wrong-market and stale-fact cases.
+
 New delivery observations retain post-to-ingestion, ingestion-to-filter and
 filter-to-delivery seconds, plus `five_minute_target_met`. Revalidation preserves
 the original clocks. Unavailable ingestion clocks stay unknown. Five minutes is

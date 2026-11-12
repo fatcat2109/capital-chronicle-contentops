@@ -1,0 +1,48 @@
+{
+  "observed_at_utc": "2026-11-12T18:52:11.632915+00:00",
+  "operating_head": "c2f8d228b01d9031c81b21934991edc43585b159",
+  "current_consumer": {
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T184836-bb8f9fbd\\result.json",
+    "started_at_utc": "2026-11-12T18:48:36.698057+00:00",
+    "ended_at_utc": "2026-11-12T18:50:14.151296+00:00",
+    "status": "NO_FRESH_UNSENT_DRAFTS",
+    "cause": null,
+    "binding_status": "BOUND",
+    "draft_limits": [
+      3
+    ],
+    "stage_seconds": {
+      "ranking": 86.49185720000241,
+      "drafting": 0.0,
+      "checks": 0.265922499995213,
+      "filter": 6.5809100000042235,
+      "whole_tick": 97.43981429999985
+    },
+    "ranking_input_count": 12,
+    "ranked_above_floor_count": 0
+  },
+  "confirmed_private_deliveries": [
+    {
+      "post_id": "2120543011537097030",
+      "delivered_at_utc": "2026-11-11T16:28:17+00:00",
+      "post_to_delivery_minutes": 44.510149999999996,
+      "under_five_minutes": false
+    },
+    {
+      "post_id": "2120872859266699313",
+      "delivered_at_utc": "2026-11-12T13:43:03+00:00",
+      "post_to_delivery_minutes": 8.5797,
+      "under_five_minutes": false
+    }
+  ],
+  "manual_reply_readback_rows": 0,
+  "phone_open_observed": false,
+  "neo_tab_gate": {
+    "enabled": false,
+    "parked_by": "CC-464",
+    "cause": "FIRST_PRIVATE_BOT_DRAFT_CONFIRMED"
+  },
+  "schedule_changed": false,
+  "x_submit_actions_this_run": 0,
+  "telegram_send_actions_this_run": 0
+}

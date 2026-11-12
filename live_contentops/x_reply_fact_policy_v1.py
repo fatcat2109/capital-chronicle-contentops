@@ -41,7 +41,8 @@ POSITIONING = re.compile(r"\b(?:cftc|cot|positioning|speculators?|net (?:long|sh
 DRIVERS = {"US2Y", "US10Y", "US30Y", "JP2Y", "JP10Y", "EA2Y", "EA10Y", "RATES", "DXY"}
 RELATION = re.compile(r"\b(?:weighs?|weights?|pressures?|supports?|headwinds?|tailwinds?|lifts?|"
                       r"helps?|hurts?|costs?|discount|sensitive|sensitivity|limits?|caps?|"
-                      r"drives?|driver|makes?|leaves?|raises?|lowers?|means?)\b", re.I)
+                      r"drives?|driver|makes?|leaves?|raises?|lowers?|means?|"
+                      r"affects?|influences?|connects?)\b", re.I)
 
 
 def utc(value):
