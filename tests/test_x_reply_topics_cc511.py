@@ -97,6 +97,18 @@ def test_an_explicit_index_never_takes_another_index_via_a_company_link():
                           draft={"draft_text": "Nvidia's slide pressures S&P 500 stocks, at 7,000 points."})
 
 
+def test_a_bank_sector_link_uses_spx_and_does_not_admit_the_nasdaq():
+    with pytest.raises(ValueError, match="FACT_MARKET_MISMATCH"):
+        policy.check_fact(post("US bank stocks fall after earnings"), source("NDX"), now=NOW)
+
+
+def test_a_boj_speaker_links_to_gold_without_a_claimed_yen_price():
+    target = post("BoJ speaker discusses policy")
+    assert "XAUUSD" in policy.target_markets(target)
+    assert policy.check_fact(target, source("XAUUSD"), now=NOW,
+                              draft={"draft_text": "BoJ policy drives gold's opportunity cost; gold is at 4,000 USD."})
+
+
 def test_forged_relationship_metadata_never_admits_an_unrelated_fact():
     target = post("A diplomatic appointment", market_links=driver_links("Iran war"))
     with pytest.raises(ValueError, match="FACT_MARKET_UNIDENTIFIED"):

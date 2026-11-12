@@ -145,7 +145,8 @@ def check_fact(post, source, *, now, draft=None):
     if not targets or not fact_markets:
         raise ValueError("FACT_MARKET_UNIDENTIFIED")  # rule 5
     direct = bool(explicit & fact_markets) or (
-        "EQUITIES" in explicit and bool(fact_markets & {"SPX", "NDX", "NASDAQ", "DOW"}))
+        "EQUITIES" in explicit and not driver_links(post["post_text"])
+        and bool(fact_markets & {"SPX", "NDX", "NASDAQ", "DOW"}))
     linked = not direct and bool((targets - explicit) & fact_markets)
     if linked:
         links = [link for link in driver_links(post["post_text"]) if set(link["markets"]) & fact_markets]
