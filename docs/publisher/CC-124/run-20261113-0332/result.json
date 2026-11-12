@@ -1,0 +1,25 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-12T20:35:47.699152+00:00",
+  "new_articles": 0,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:12055s",
+  "standing_status": "OPEN",
+  "choice": "Use the five new completed Main analyses in selection, preserving their original capture clocks; issue no filler because the newest cutoff was already expired at entry. Decision 89 and root CC-403 apply.",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "next_due_gmt7": "13 Nov 2026 09:32 GMT+7",
+  "next_due_reason": "Six hours after this run's original 03:32 start; no host schedule change.",
+  "next_action": "Consume any new completed Main analysis at the next standing opportunity. The PPI preview is 13 November's wrap (decision 98).",
+  "next_actor": "Codex Publisher; Ops Live owns Main analysis production.",
+  "acceptance": "Installed consumers executed successfully. No new publication/readback acceptance claimed.",
+  "actual_entry_utc": "2026-11-12T20:32:07.832155Z",
+  "latest_source_data_cutoff_utc": "2026-11-12T17:14:52.410928Z",
+  "publication_deadline_utc": "2026-11-12T18:14:52.410928+00:00",
+  "new_completed_analyses_found": 5,
+  "completed_analyses_assessed": 37,
+  "newest_analysis_candidates": 7
+}
