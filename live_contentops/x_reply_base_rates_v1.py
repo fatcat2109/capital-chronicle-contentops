@@ -194,6 +194,7 @@ def source_from_answer(answer, *, condition, query, condition_text, now, complet
             "period_text": period, "through_date": through, "sample_end_date": through,
             "condition_text": condition_text, "headline_condition": condition,
             "horizon_sessions": query["horizon"], "horizon_text": horizon_text,
+            "outcome_text": f"higher {horizon_text} closes",
             "series_id": answer["series_id"], "producer_tool": "stats_after",
             "rate_interval_95_pct": answer.get("rate_interval_95_pct"),
             "selection": answer.get("selection"), "zero_returns_in_denominator": answer.get("zero_returns_in_denominator")}
@@ -266,6 +267,8 @@ def check_condition(post, fact, draft=None):
         raise ValueError("FACT_BASE_RATE_TARGET_CONDITION_NOT_MET")
     if draft and fact["horizon_text"] not in draft["draft_text"]:
         raise ValueError("FACT_BASE_RATE_FORWARD_HORIZON_NOT_STATED")
+    if draft and fact.get("outcome_text") and fact["outcome_text"] not in draft["draft_text"]:
+        raise ValueError("FACT_BASE_RATE_FORWARD_OUTCOME_CHANGED")
 
 
 def resolve(bound):

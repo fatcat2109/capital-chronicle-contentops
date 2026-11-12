@@ -237,6 +237,16 @@ def test_private_consumer_collects_ranks_builds_rechecks_and_formats_base_rate(c
 def test_draft_cannot_change_the_condition_or_hide_the_forward_horizon(census):
     source = rates.collect([post()], now=NOW, producer=Producer(), odds_path=census)[0][0]
     for old, new, cause in [("daily gains of at least 0.5%", "daily gains", "CONDITION_NOT_STATED"),
-                             ("five-session", "later", "FORWARD_HORIZON_NOT_STATED")]:
+                             ("five-session", "later", "FORWARD_HORIZON_NOT_STATED"),
+                             ("higher", "lower", "FORWARD_OUTCOME_CHANGED")]:
         with pytest.raises(ValueError, match=cause):
             policy.check_fact(post(), source, now=NOW, draft={"draft_text": source["excerpt"].replace(old, new)})
+
+
+def test_a_thin_producer_sample_stays_usable_and_shows_its_exact_count(census):
+    producer = Producer()
+    producer.mutate = lambda a: {**a, "case_count": 1, "terminal_up": {"hits": 0, "n": 1}}
+    sources, gaps = rates.collect([post()], now=NOW, producer=producer, odds_path=census)
+    assert not gaps and len(sources) == 2
+    assert all("0 of 1" in source["excerpt"] for source in sources)
+    assert all(policy.check_fact(post(), source, now=NOW)["sample_count"] == 1 for source in sources)

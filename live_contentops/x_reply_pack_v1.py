@@ -304,6 +304,7 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
             "including for today's move. State count, denominator "
             "and period. Preserve a supplied historical daily "
             "analogue as daily, not an intraday measurement. State its forward horizon (next-session or five-session) "
+            "and preserve its outcome_text; a higher-close count is never a lower-close count. "
             "with computation through the last completed market day. Use the same market; another index "
             "never substitutes. Preserve a base rate's condition_text and reaction window: a hot core CPI "
             "30-minute count is never an all-CPI or full-day count. State count and period in one sentence. "
