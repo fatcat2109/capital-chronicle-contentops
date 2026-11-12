@@ -140,7 +140,7 @@ The valid opportunity waited another tick and another ranking call. The earlier
 tick's stage clocks also show that batching alone cannot guarantee five minutes;
 upstream tick delay and actual native call duration still count.
 
-The existing consumer now sends up to three qualified, distinct-author targets to
+The existing consumer now sends up to two qualified, distinct-author targets to
 one bounded MAX writing call, capped by the day's remaining delivery slots.
 Each draft still passes its own source, same-market, freshness, copy and private
 destination checks. A rejected peer does not delay another valid draft. The
@@ -150,8 +150,10 @@ and lets a fresh qualified peer proceed. Historical requests keep their bytes.
 
 The writer uses the three fact records per target that were supplied to ranking,
 with their complete context. Other usable sources remain in the saved request.
-This addresses the measured 90-second timeout in `native-batch-timeout.json`;
-that replay produced no final answer and made no delivery. The existing bounded
+Two native replays reached the old 90-second limit without a final answer,
+including the narrowed 9,014-byte prompt. Both failures remain in the evidence.
+The writer's finite limit is now 150 seconds for at most two drafts; its MAX role
+is unchanged. Neither failed replay made a delivery. The existing bounded
 Codex JSONL caller now consumes `turn.completed` directly for the MAX writer,
 with tool use disabled and session/usage telemetry retained. AGY's actual
 65-second timeout is recorded separately from its Codex fallback's 65 seconds.

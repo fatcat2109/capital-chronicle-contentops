@@ -31,7 +31,9 @@ EVENTS = "internal:x-reply-bot-event"
 RUNS = "internal:x-reply-bot-run"
 ATTEMPTS = "internal:x-reply-bot-attempt"
 WRITER_MODEL, WRITER_EFFORT = "gpt-6.1-sol", "max"
-RANK_TIMEOUT, WRITER_TIMEOUT = AGY_TIMEOUT + CODEX_TIMEOUT, 90
+# Two real MAX batch calls reached the old 90s ceiling without a final turn.
+# Keep one finite call, with room for the two separately grounded drafts.
+RANK_TIMEOUT, WRITER_TIMEOUT = AGY_TIMEOUT + CODEX_TIMEOUT, 150
 QUALITY_FLOOR = 80
 
 
@@ -270,7 +272,7 @@ def _text_call(prompt, *, root, writer=False, runner=None):
     except subprocess.TimeoutExpired as exc:
         raw, err = exc.output or b"", exc.stderr or b""
         record_["status"] = "TIMEOUT"
-        raise ValueError("CODEX_DRAFT_TIMEOUT_90S" if writer else "AGY_RANK_TIMEOUT_" + str(AGY_TIMEOUT) + "S") from None
+        raise ValueError(("CODEX_DRAFT_TIMEOUT_" + str(WRITER_TIMEOUT) + "S") if writer else "AGY_RANK_TIMEOUT_" + str(AGY_TIMEOUT) + "S") from None
     except Exception as exc:
         record_.setdefault("status", "FAILED")
         record_["cause"] = str(exc) if "light_call" in record_ else type(exc).__name__
@@ -325,7 +327,7 @@ def rank_and_draft(request_path, *, output_dir, ranker=None, writer=None, now=No
     ranked = [r for r in ranking.get("ranking", []) if r.get("post_id") in allowed
         and type(r.get("quality_score")) is int and QUALITY_FLOOR <= r["quality_score"] <= 100]
     ranked.sort(key=lambda r: -r["quality_score"])
-    limit = max(1, min(3, request.get("draft_limit", 1)))
+    limit = max(1, min(2, request.get("draft_limit", 1)))
     targets, queued, expired, seen, authors = [], [], [], set(), set()
     for ranked_post in ranked:
         post = allowed[ranked_post["post_id"]]
@@ -643,9 +645,9 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
                                             for p in eligible[12:])
         request["candidates"] = eligible[:12]
         # The 8.58-minute delivery waited a second tick after its first ranked
-        # peer failed validation. One bounded writer call now covers up to three
+        # peer failed validation. One bounded writer call now covers up to two
         # strong, distinct-author targets without exceeding today's send slots.
-        request["draft_limit"] = min(3, 5-used_slots)
+        request["draft_limit"] = min(2, 5-used_slots)
         result["funnel"]["ranking_input_post_ids"] = [p["post_id"] for p in request["candidates"]]
         current_candidates = request["candidates"]
         if not request["candidates"]:

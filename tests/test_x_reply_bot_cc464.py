@@ -348,7 +348,7 @@ def test_one_writer_call_delivers_valid_peer_when_first_quality_draft_fails(setu
     calls = []
     def draft(request_path, *, output_dir):
         request = packs.read_json(request_path)
-        assert request["draft_limit"] == 3
+        assert request["draft_limit"] == 2
         def write(prompt, **kwargs):
             calls.append("writer")
             packet = json.loads(prompt.rsplit("\n", 1)[1])
@@ -506,7 +506,7 @@ def test_headless_writer_has_explicit_model_effort_and_no_project_or_mcp_inherit
     def run(args, **kwargs):
         seen.extend(args)
         assert kwargs["input"] == b"Return JSON only."
-        assert kwargs["timeout"] == 90
+        assert kwargs["timeout"] == 150
         return subprocess.CompletedProcess(args, 0, b'{"items":[],"omissions":[]}', b"")
     _, call = botlane._text_call("Return JSON only.", root=tmp_path, writer=True, runner=run)
     assert seen[seen.index("--model") + 1] == "gpt-6.1-sol"
