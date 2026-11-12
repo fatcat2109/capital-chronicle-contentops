@@ -296,6 +296,9 @@ def capture(market: str, interval: str, out_dir: Path, *, timeout: float = TIMEO
     tv_symbol = market if economic else SYMBOLS[market]
     out_dir = Path(out_dir).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
+    if not economic and worker is None and quote_provider is None:
+        from .chart_price_reference_v1 import prepare_chart_quote
+        prepare_chart_quote(market)
     args = {"url": chart_url(tv_symbol, interval), "out_dir": str(out_dir),
             "budget_ms": int(timeout * 1000) - 8000, "ratio": ratio}
     if chart_size is not None:

@@ -180,11 +180,15 @@ def message_for(item, *, number, now):
     expiry = packs.clock(item["stale_at_utc"]).astimezone(packs.LOCAL)
     count = item.get("reply_count")
     replies = str(count) + " replies" if count is not None else "reply count unavailable"
+    fact_age = item['fact_binding']['age_text']
+    if item['fact_binding'].get('kind') == 'session' and item['fact_binding'].get('observed_at_utc'):
+        minutes = max(0, int((now - packs.clock(item['fact_binding']['observed_at_utc'])).total_seconds() / 60))
+        fact_age += f" ({minutes} min old)"
     return (f"REPLY {number} of 5 today · @{escape(item['author_handle'])} · posted {age} min ago · {replies}\n"
         f"“{escape(quoted_post(item['post_text']))}”\n{escape(item['post_url'])}\n\n"
         f"<code>{escape(item['draft_text'])}</code>\n\n"
         f"Fact: {escape(item['fact_text'])} ({escape(item['fact_source'])})\n"
-        f"Fact age: {escape(item['fact_binding']['age_text'])}\n"
+        f"Fact age: {escape(fact_age)}\n"
         f"Good until {expiry:%H:%M} (GMT+7) · {len(item['draft_text'])} of 240 characters")
 
 
@@ -554,6 +558,7 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
         request = packs.read_json(ready["request_path"])
         stage_seconds["filter"] = perf_counter()-filter_started
         result.update(dropped_candidates=request.get("dropped_candidates", []), source_gaps=request.get("source_gaps", []),
+                      quote_fetches=request.get("quote_fetches", []),
                       selection_causes=request["selection_causes"])
         for post in request["candidates"]:
             post["fact_context_sha256"] = packs.digest({"policy": packs.fact_policy.POLICY,

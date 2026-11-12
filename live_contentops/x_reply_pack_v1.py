@@ -221,11 +221,13 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
                                 mobile=reply_policy == MOBILE_POLICY, drops=drops)
     mobile = reply_policy == MOBILE_POLICY
     sources = held_sources(store, fact_only=mobile)
-    source_gaps = []
+    source_gaps, quote_fetches = [], []
     if mobile:
-        from live_contentops.x_reply_fact_sources_v1 import load
+        from live_contentops.x_reply_fact_sources_v1 import load, supplement
         extra, source_gaps = load(now=now)
         sources.extend(extra)
+        additional, quote_fetches, now = supplement(posts[:12], sources, now=now)
+        sources = additional + sources
         usable = []
         for post in posts:
             ids, refusals = [], Counter()
@@ -247,7 +249,7 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
         "schema_version": "contentops.x_reply_pack_request.v1", "prepared_at_utc": now.isoformat(),
         "feed_generated_at_utc": feed["generated_at_utc"], "feed_sha256": digest(feed),
         "candidates": posts, "selection_causes": causes, "sources": sources,
-        "dropped_candidates": drops, "source_gaps": source_gaps,
+        "dropped_candidates": drops, "source_gaps": source_gaps, "quote_fetches": quote_fetches,
         "audience_feedback": report_manual_replies(store, now=now),
         "instructions": (
             "Author English replies for Jim to review and post himself (decisions 122 and 123). "

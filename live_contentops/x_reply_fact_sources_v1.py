@@ -2,7 +2,7 @@
 
 SQLite is opened read-only. Only one cited fact enters a reply (host rule 7,
 Jim's decision 72 b); raw bars/tables retain their redistribution restriction.
-No acquisition, Main write, account connection or replacement producer occurs.
+CC-509 adds a bounded public quote only after held sources have been searched.
 """
 from __future__ import annotations
 
@@ -234,7 +234,12 @@ def load(*, now, root=INTAKE):
 
 def resolve(bound):
     artifact = bound["artifact_binding"]
-    if artifact["kind"] == "reaction_count":
+    if artifact["kind"] == "quote_observation":
+        from . import public_market_quote_v1 as public
+        observation = public.resolve(artifact["path"], artifact["sha256"])
+        source = _quote_source({**observation, "observation_path": artifact["path"],
+                               "observation_sha256": artifact["sha256"]})
+    elif artifact["kind"] == "reaction_count":
         raw = Path(artifact["path"]).read_bytes()
         if sha256(raw).hexdigest() != artifact["sha256"]:
             raise ValueError("REPLY_SOURCE_BINDING_CHANGED")
@@ -249,3 +254,108 @@ def resolve(bound):
     if not source or source["source_id"] != bound["source_id"] or source["store_payload_sha256"] != bound["store_payload_sha256"]:
         raise ValueError("REPLY_SOURCE_BINDING_CHANGED")
     return source
+
+
+def _quote_source(observation):
+    observed, known = policy.utc(observation["observed_at_utc"]), policy.utc(observation["known_at_utc"])
+    market = observation["market"]
+    fact_market = {"US500": "SPX", "USOIL": "WTI"}.get(market, market)
+    stamp = observed.astimezone(policy.ET).strftime("%d %b %Y, %I:%M %p ET").lstrip("0")
+    value = observation.get("value_text", str(observation["value"]))
+    change = observation.get("day_change")
+    change_text = (f", change from prior close {observation.get('day_change_text', str(change))} {observation.get('change_unit', observation['unit'])}"
+                   if change is not None else "")
+    excerpt = (f"{observation['instrument_name']}: {value} {observation['unit']}{change_text} "
+               f"({observation['source']}, {stamp}).")
+    fact = {"kind": "session", "markets": [fact_market], "as_of_date": observed.astimezone(policy.ET).date().isoformat(),
+            "observed_at_utc": observed.isoformat()}
+    artifact = {"kind": "quote_observation", "path": observation["observation_path"],
+                "sha256": observation["observation_sha256"]}
+    return _source(excerpt, fact, attribution=observation["source"], known=known.isoformat(), artifact=artifact)
+
+
+def supplement(posts, sources, *, now):
+    """Search Main, native M1, held same-session facts, then one public symbol.
+
+    Topic/age filtering has already happened. Failed acquisitions leave every
+    other held fact available and retain their own first cause and elapsed time.
+    """
+    from . import public_market_quote_v1 as public
+    from . import chart_price_reference_v1 as prices
+    now = policy.utc(now)
+    attempts, additions, done = [], [], set()
+    for post in posts:
+        requested = policy.markets(post["post_text"])
+        markets = sorted({public.ALIASES.get(m, m) for m in requested} & public.SYMBOLS.keys())
+        if not markets and requested & {"RATES", "EQUITIES"}:
+            markets = ["US10Y"]
+        if not markets and requested:
+            # A same-session dollar/yield can be tied to an unsupported target
+            # market by the existing rule 5; the writer must state that link.
+            markets = ["DXY"]
+        for market in markets:
+            if market in done:
+                continue
+            done.add(market)
+            fact_market = {"US500": "SPX", "USOIL": "WTI"}.get(market, market)
+            observation = None
+            for kind, read in (
+                ("PLAN_STATUS_EXPORT", lambda: prices.plan_status_quote(market, now, prices.PLAN_STATUS_PATH,
+                    max_age_seconds=4500, comparison_at=now)),
+                ("BAR_STORE_M1_CLOSE", lambda: prices.bar_store_quote(market, now, prices.BAR_STORE,
+                    max_age_seconds=4500, comparison_at=now)),
+            ):
+                try:
+                    q = read()
+                    observed = policy.utc(q["quoted_at_utc"])
+                    if observed.astimezone(policy.ET).date() != policy.utc(post["post_time_utc"]).astimezone(policy.ET).date():
+                        raise ValueError("FACT_SESSION_NOT_CURRENT_WITHIN_60_MINUTES")
+                    _, _, label, unit, _ = public.SYMBOLS[market]
+                    # Native prices are named as CFDs; a future keeps its own name.
+                    if kind == "BAR_STORE_M1_CLOSE":
+                        label = LABELS.get(market, (market, market))[1] + " CFD"
+                    candidate = {"market": market, "value": q["price"], "unit": unit,
+                        "instrument_name": label if kind != "PLAN_STATUS_EXPORT" else market + " Main quote",
+                        "source": "Exness" if kind == "BAR_STORE_M1_CLOSE" else "Capital Chronicle Main",
+                        "source_kind": kind, "observed_at_utc": q["quoted_at_utc"], "known_at_utc": q["known_at_utc"],
+                        "source_binding": {k: v for k, v in q.items() if k not in {
+                            "age_seconds", "capture_age_seconds", "comparison_at_utc", "comparison_basis"}},
+                        "prior_close": None, "day_change": None}
+                    # A fresh source can still be too old relative to this post.
+                    provisional = {**candidate, "observation_path": "not-saved", "observation_sha256": "not-saved"}
+                    policy.check_fact(post, _quote_source(provisional), now=now)
+                    observation = public.freeze(candidate)
+                    attempts.append({"market": market, "source_kind": kind, "status": "USED", "fetch_seconds": 0.})
+                    break
+                except (OSError, ValueError, KeyError, TypeError, sqlite3.Error) as exc:
+                    attempts.append({"market": market, "source_kind": kind,
+                                     "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__, "fetch_seconds": 0.})
+            if observation is None:
+                held = [s for s in sources if policy.describe(s).get("kind") == "session"
+                        and (fact_market in policy.describe(s).get("markets", [])
+                             or set(policy.describe(s).get("markets", [])) & policy.DRIVERS)]
+                usable = False
+                for source in held:
+                    try:
+                        policy.check_fact(post, source, now=now)
+                        usable = True
+                        break
+                    except (ValueError, KeyError, TypeError):
+                        pass
+                if usable:
+                    attempts.append({"market": market, "source_kind": "HELD_SAME_SESSION_FACT", "status": "USED", "fetch_seconds": 0.})
+                    continue
+                try:
+                    observation = public.get(market, now=now)
+                    now = max(now, policy.utc(observation["known_at_utc"]))
+                    attempts.append({"market": market, "source_kind": "PUBLIC_ON_DEMAND_QUOTE", "status": "USED",
+                        "source": observation["source"], "source_symbol": observation["source_symbol"],
+                        "observed_at_utc": observation["observed_at_utc"], "fetch_seconds": observation["request_seconds"],
+                        "cache_hit": observation["cache_hit"]})
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    attempts.append({"market": market, "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+                        "cause": str(exc) if isinstance(exc, ValueError) else type(exc).__name__,
+                        **(exc.details if isinstance(exc, public.QuoteError) else {})})
+                    continue
+            additions.append(_quote_source(observation))
+    return additions, attempts, now

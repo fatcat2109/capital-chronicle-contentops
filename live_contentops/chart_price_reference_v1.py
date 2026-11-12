@@ -38,14 +38,17 @@ def _unavailable(failures, cause):
     raise contract.ImageContractError(cause)
 
 
-def _reference(market, captured_at, price, price_at, known_at, **source):
+def _reference(market, captured_at, price, price_at, known_at, *, max_age_seconds=contract.QUOTE_SKEW_SECONDS,
+               comparison_at=None, **source):
     capture = contract.utc(captured_at)
     at, closed = contract.comparison_clock(market, capture)
+    if comparison_at is not None:
+        at, closed = contract.utc(comparison_at), False
     quoted, known = contract.utc(price_at), contract.utc(known_at)
     age = (at - quoted).total_seconds()
     if known > capture or quoted > known:
         raise contract.ImageContractError("CHART_REFERENCE_NOT_KNOWN_AT_CAPTURE")
-    if not 0 <= age <= contract.QUOTE_SKEW_SECONDS:
+    if not 0 <= age <= max_age_seconds:
         raise contract.ImageContractError("CHART_REFERENCE_STALE", price_at_utc=quoted.isoformat(),
                                           age_seconds=age)
     return {"market": market, "instrument": market, "price": contract.number(price),
@@ -56,7 +59,7 @@ def _reference(market, captured_at, price, price_at, known_at, **source):
             "reference_policy": POLICY, **source}
 
 
-def plan_status_quote(market, captured_at, path):
+def plan_status_quote(market, captured_at, path, *, max_age_seconds=contract.QUOTE_SKEW_SECONDS, comparison_at=None):
     """Never confuse an export/check clock, a plan level or an entry with a price."""
     path = Path(path)
     raw = path.read_bytes()
@@ -92,7 +95,8 @@ def plan_status_quote(market, captured_at, path):
             candidates.append(_reference(market, captured_at, quote["price"],
                 quote["quoted_at_utc"], known, source_kind="PLAN_STATUS_EXPORT",
                 source_path=str(path.resolve()), source_sha256=sha256(raw).hexdigest(),
-                source_content_hash=digest, price_basis="plan_feed"))
+                source_content_hash=digest, price_basis="plan_feed", max_age_seconds=max_age_seconds,
+                comparison_at=comparison_at))
         except (ValueError, KeyError, TypeError, OverflowError) as exc:
             failures.append(exc)
     if not candidates:
@@ -100,7 +104,7 @@ def plan_status_quote(market, captured_at, path):
     return min(candidates, key=lambda q: q["age_seconds"])
 
 
-def bar_store_quote(market, captured_at, path):
+def bar_store_quote(market, captured_at, path, *, max_age_seconds=contract.QUOTE_SKEW_SECONDS, comparison_at=None):
     """CC-481 M1 closes; no proxy futures/ETF, forming bar, invalid bar or future import.
 
     Source capture time remains known-at. A historical bar imported after an old
@@ -110,6 +114,8 @@ def bar_store_quote(market, captured_at, path):
     path = Path(path)
     capture = contract.utc(captured_at)
     at, _ = contract.comparison_clock(market, capture)
+    if comparison_at is not None:
+        at = contract.utc(comparison_at)
     candidates, failures = [], []
     # mode=ro refuses a missing file without creating one; query_only also
     # protects an existing store. The timeout bounds contention with its writer.
@@ -141,12 +147,45 @@ def bar_store_quote(market, captured_at, path):
                     source_path=source["path"], source_sha256=source["source_sha256"],
                     storage_path=str(path.resolve()), source_record_sha256=sha256(_canonical(dict(row))).hexdigest(),
                     source_id=source["source_id"], bar_start_utc=_iso(row["open_epoch"]),
-                    bar_end_utc=_iso(row["end_epoch"]), price_basis="plan_bar_close"))
+                    bar_end_utc=_iso(row["end_epoch"]), price_basis="plan_bar_close", max_age_seconds=max_age_seconds,
+                    comparison_at=comparison_at))
             except (ValueError, KeyError, TypeError, OverflowError) as exc:
                 failures.append(exc)
     if not candidates:
         _unavailable(failures, "BAR_STORE_EXACT_M1_PRICE_UNAVAILABLE")
     return min(candidates, key=lambda q: q["age_seconds"])
+
+
+def public_chart_quote(market, captured_at):
+    """Read only: acquire BEFORE the download, never backdate a later HTTP read."""
+    from . import public_market_quote_v1 as public
+    at, _ = contract.comparison_clock(market, captured_at)
+    observation = public.get(market, now=captured_at, fetch=False,
+        max_age_seconds=contract.QUOTE_SKEW_SECONDS, reference_at=at)
+    return _reference(market, captured_at, observation["value"], observation["observed_at_utc"],
+        observation["known_at_utc"], source_kind="PUBLIC_ON_DEMAND_QUOTE",
+        source=observation["source"], source_path=observation["observation_path"],
+        source_sha256=observation["observation_sha256"], source_url=observation["source_url"],
+        source_symbol=observation["source_symbol"], instrument_name=observation["instrument_name"],
+        instrument_type=observation["instrument_type"],
+        price_basis="chart_futures" if market == "USOIL" else "public_" + observation["instrument_type"].lower())
+
+
+def prepare_chart_quote(market, *, now=None):
+    """The existing capture calls this once, ahead of its image observation."""
+    from . import public_market_quote_v1 as public
+    now = now or datetime.now(timezone.utc)
+    try:
+        saved_chart_quote(market, now)
+        return
+    except contract.ImageContractError:
+        pass
+    at, _ = contract.comparison_clock(market, now)
+    try:
+        public.get(market, now=now, max_age_seconds=contract.QUOTE_SKEW_SECONDS, reference_at=at)
+    except (OSError, ValueError):
+        # The read after capture retains the exact failure. No missing quote veto.
+        pass
 
 
 def saved_chart_quote(market, captured_at, *, export_path=None, bar_store=None, root=None):
@@ -156,6 +195,7 @@ def saved_chart_quote(market, captured_at, *, export_path=None, bar_store=None, 
         ("PLAN_STATUS_EXPORT", lambda: plan_status_quote(market, captured_at, export_path or PLAN_STATUS_PATH)),
         ("BAR_STORE_M1_CLOSE", lambda: bar_store_quote(market, captured_at, bar_store or BAR_STORE)),
         ("MAIN_SAVED_TICK", lambda: contract.saved_main_quote(market, captured_at, root=root)),
+        ("PUBLIC_ON_DEMAND_QUOTE", lambda: public_chart_quote(market, captured_at)),
     ):
         try:
             quote = read()
@@ -168,10 +208,11 @@ def saved_chart_quote(market, captured_at, *, export_path=None, bar_store=None, 
                 quote["source_attempts"] = attempts
             return quote
         except (OSError, ValueError, KeyError, TypeError, OverflowError, sqlite3.Error) as exc:
+            from .public_market_quote_v1 import QuoteError
             attempts.append({"source_kind": kind,
-                "cause": str(exc) if isinstance(exc, contract.ImageContractError) else
+                "cause": str(exc) if isinstance(exc, (contract.ImageContractError, QuoteError)) else
                          "CHART_REFERENCE_SOURCE_UNREADABLE:" + type(exc).__name__,
-                **(exc.details if isinstance(exc, contract.ImageContractError) else {})})
+                **(exc.details if isinstance(exc, (contract.ImageContractError, QuoteError)) else {})})
     _, closed = contract.comparison_clock(market, captured_at)
     raise contract.ImageContractError(contract.QUOTE_ABSENT[int(closed)], market=market,
                                       source_attempts=attempts)

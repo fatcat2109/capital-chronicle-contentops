@@ -119,7 +119,7 @@ def test_unusable_bar_has_a_cause_and_never_refuses_a_chart(sources, problem):
     bound = contract.bind_scale("EURUSD", snap())
     check = contract.validate_scale("EURUSD", bound)
     assert check["comparison_basis"] == "NOT_COMPARED" and check["level_offset"] == 0
-    assert len(check["quote_source_attempts"]) == 3
+    assert len(check["quote_source_attempts"]) == 4
     if problem == "stale":
         assert check["quote_source_attempts"][1]["cause"] == "CHART_REFERENCE_STALE"
         assert check["quote_source_attempts"][1]["age_seconds"] == 180
