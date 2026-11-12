@@ -121,6 +121,17 @@ def test_another_company_cannot_supply_the_targets_driver_sentence():
                           draft={"draft_text": "Tesla's share slide pressures Nasdaq 100, at 20,000 points."})
 
 
+def test_relation_sentence_need_not_repeat_the_event_keywords():
+    assert policy.check_fact(post("Nvidia's board searches for a CEO"), source("NDX"), now=NOW,
+                              draft={"draft_text": "Nvidia weighs on Nasdaq 100, at 20,000 points."})
+
+
+def test_a_second_subject_does_not_replace_the_original_link_subject():
+    with pytest.raises(ValueError, match="FACT_DRIVER_LINK_NOT_STATED"):
+        policy.check_fact(post("Nvidia CEO discusses Iran"), source("NDX"), now=NOW,
+                          draft={"draft_text": "Iran supports Nasdaq 100, at 20,000 points."})
+
+
 def test_new_topic_still_requires_a_fresh_source_observation():
     fact = source("NDX")
     fact["fact_binding"]["observed_at_utc"] = (NOW-timedelta(days=1)).isoformat()

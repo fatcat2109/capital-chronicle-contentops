@@ -9,7 +9,7 @@ from datetime import date, datetime, timedelta, timezone
 import re
 from zoneinfo import ZoneInfo
 
-from live_contentops.x_reply_topics_v1 import driver_links
+from live_contentops.x_reply_topics_v1 import driver_links, names_link_subject
 
 ET = ZoneInfo("America/New_York")
 POLICY = "CC495_REPLY_FACT_V1"
@@ -151,9 +151,7 @@ def check_fact(post, source, *, now, draft=None):
     if linked:
         links = [link for link in driver_links(post["post_text"]) if set(link["markets"]) & fact_markets]
         if draft and not any(markets(sentence) & fact_markets and RELATION.search(sentence)
-                             and any(original["driver"] == stated["driver"]
-                                     and set(original["subjects"]) & set(stated["subjects"])
-                                     for original in links for stated in driver_links(sentence))
+                             and any(names_link_subject(link, sentence) for link in links)
                              for sentence in re.split(r"(?<=[.!?])\s+", draft["draft_text"])):
             raise ValueError("FACT_DRIVER_LINK_NOT_STATED")
     elif not direct:

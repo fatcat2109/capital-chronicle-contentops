@@ -28,6 +28,17 @@ SUBJECTS = {
     "bitcoin": r"\b(?:bitcoin|btc|ibit|fbtc|gbtc)\b",
     "crypto": r"\b(?:crypto|digital assets?|coinbase)\b",
 }
+SUBJECT_GROUPS = {
+    "US_INDEX_WEIGHTS_AND_SECTORS": {"nvidia", "apple", "microsoft", "amazon", "alphabet", "meta",
+                                     "tesla", "broadcom", "mag7", "chips", "us_sector"},
+    "DAX_RISK_APPETITE": {"dax"},
+    "MIDDLE_EAST_SUPPLY_AND_SAFETY": {"iran", "israel", "middle_east", "saudi", "red_sea"},
+    "RUSSIAN_ENERGY_SUPPLY": {"russia", "ukraine", "black_sea"},
+    "FED_POLICY": {"fed"}, "ECB_POLICY": {"ecb"}, "BOJ_POLICY": {"boj"},
+    "SOVEREIGN_RATES": {"treasury", "jgb", "bund", "government_bonds"},
+    "OIL_SUPPLY_AND_INVENTORIES": {"opec", "inventory"},
+    "BITCOIN_FLOWS_AND_REGULATION": {"bitcoin", "crypto"},
+}
 
 
 def _has(pattern, text):
@@ -40,7 +51,8 @@ def driver_links(text):
 
     def add(key, markets, relationship):
         links.append({"driver": key, "markets": markets, "relationship": relationship,
-                      "subjects": [name for name, pattern in SUBJECTS.items() if _has(pattern, text)]})
+                      "subjects": [name for name, pattern in SUBJECTS.items()
+                                   if name in SUBJECT_GROUPS[key] and _has(pattern, text)]})
 
     equity_event = _has(
         r"\b(?:shares?|stocks?|chipstocks|semiconductors?|chipmakers?|earnings|revenues?|"
@@ -104,3 +116,8 @@ def driver_links(text):
         add("BITCOIN_FLOWS_AND_REGULATION", ["BTCUSD"],
             "Bitcoin fund flows and digital-asset regulation change demand and access for Bitcoin.")
     return links
+
+
+def names_link_subject(link, sentence):
+    """A relation sentence can name the original driver without repeating its event."""
+    return any(_has(SUBJECTS[name], sentence) for name in link["subjects"])
