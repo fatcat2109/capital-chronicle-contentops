@@ -1,5 +1,5 @@
 {
-  "state": "MERGE_VALIDATED",
+  "state": "INSTALLED_MINUTE_RECOVERY_VERIFIED",
   "branch": "backlog/cc-515-minute-consumer-integrate",
   "operating_base": "b896aaa9f129cd338ffafdb1543b753cf5554dc8",
   "delivery_commit": "bc4d7d44918f36596587fe1f010e8a29fd9f76bd",
@@ -58,5 +58,20 @@
     "Added the live pending/older-than-24-hours count to the existing minute result; no new store or schedule.",
     "The interrupted transport run has no final result and is excluded; the serial final rerun replaces it."
   ],
-  "total_passing_cases": 259
+  "total_passing_cases": 259,
+  "integration_commit": "33f5ad09b615b3d205e955f120c82cb976093417",
+  "installed_at_utc": "2026-11-12T14:18:37.038918+00:00",
+  "operating_head": "33f5ad09b615b3d205e955f120c82cb976093417",
+  "live_tag": "contentops-live-20261112-cc515",
+  "rollback_tag": "contentops-rollback-20261112-cc515",
+  "live_minute_record_utc": "2026-11-12T14:21:55.877821Z",
+  "live_proof": "live-preservation-proof.json",
+  "installed_targeted_checks": {
+    "path": "installed-queue.xml",
+    "passed": 4
+  },
+  "remaining_acceptance": [
+    "Observe the first complete post-install GMT+7 day below 200 internal Neo requests.",
+    "Record the next naturally eligible X/LinkedIn article or plan outcome, and company LinkedIn/YouTube article outcome, or their exact cause."
+  ]
 }

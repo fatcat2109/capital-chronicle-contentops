@@ -1,0 +1,76 @@
+{
+  "observed_at_utc": "2026-11-12T14:19:12.515003+00:00",
+  "operating_head": "33f5ad09b615b3d205e955f120c82cb976093417",
+  "files": [
+    {
+      "path": "live_contentops/plan_status_posts_v1.py",
+      "matches_committed_blob_after_line_endings": true,
+      "sha256": "91dd8814bbc91c0bd8f306a12df9224a2b7a4eb972b257393a5ce22e9ea74fe3"
+    },
+    {
+      "path": "live_contentops/plan_call_cards_v1.py",
+      "matches_committed_blob_after_line_endings": true,
+      "sha256": "12168c5dcc98dd3b6739321ed475133f36df541154912dc16ea97bf3bc5712e3"
+    },
+    {
+      "path": "live_contentops/plan_status_export_contract_v1.py",
+      "matches_committed_blob_after_line_endings": true,
+      "sha256": "0e8a4c022f42ef9868b6209a94c9922c44f234e91514fca6b2a8c5543a08e136"
+    },
+    {
+      "path": "live_contentops/neo_endpoint_executor_v1.py",
+      "matches_committed_blob_after_line_endings": true,
+      "sha256": "08384b8826b9744c356e75052e0a8002a0c81b3eb68b8772821f578ec4b5946f"
+    },
+    {
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "matches_committed_blob_after_line_endings": true,
+      "sha256": "f3ca87ab6680f65985af29813ec53b835c8ed3efc13ad7cd4c4df6526bde0185"
+    }
+  ],
+  "all_match": true,
+  "preserved_wip": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    }
+  ],
+  "schedule_changes": 0,
+  "application_restarts": 0
+}
