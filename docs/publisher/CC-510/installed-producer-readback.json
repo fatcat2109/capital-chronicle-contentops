@@ -1,0 +1,539 @@
+{
+  "item": "CC-510",
+  "recorded_at_utc": "2026-11-12T12:31:50.910803+00:00",
+  "mode": "READ_ONLY_PRODUCER_QUERIES_FOR_SIX_FIXTURE_CONDITIONS; no bot tick or live/deploy step",
+  "source_count": 12,
+  "six_markets": [
+    "BTCUSD",
+    "EURUSD",
+    "SPX",
+    "USDJPY",
+    "WTI",
+    "XAUUSD"
+  ],
+  "horizons": [
+    1,
+    5
+  ],
+  "all_tool_calls_under_two_seconds": false,
+  "elapsed_seconds": 10.80876719999651,
+  "gaps": [],
+  "bindings_path": "A:\\Capital Chronicle\\main-jim-research-dashboard-20261025\\tools\\product\\cc_market_tools\\bindings.json",
+  "bindings_sha256": "44437006c407a2425b0421f12076470d1f0706f4b1bb0f7516cac60015268c96",
+  "desk_odds_path": "A:\\Capital Chronicle\\main-jim-research-dashboard-20261025\\data\\research\\desk-odds\\desk_odds_v1.json",
+  "desk_odds_sha256": "782180535ef44e5cf033b32b385b3615a95fda304103951775c6f2032284f537",
+  "adapter_sha256": "2e62dfdb1d134331db035ffb36b21d80ad960490df4c40a6e9dcc8982085d7b6",
+  "facts": [
+    {
+      "markets": [
+        "BTCUSD"
+      ],
+      "count": 550,
+      "sample_count": 1108,
+      "period_text": "2016-11-10 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily gains of at least 1.2%",
+      "horizon_sessions": 1,
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "producer_seconds": 2.331192600002396,
+      "source_id": "reply-base-rate-5a193fd30a81e3c7348eafc6bab889a9bf80bd424309a13b7d832d7de0babe58",
+      "source_count": 3,
+      "desk_odds_market": "BTCUSD",
+      "desk_odds_active_rows": [
+        {
+          "behaviour": "WITH_YARDSTICK_5",
+          "n": 499,
+          "mean_r": 0.09,
+          "t": 1.9,
+          "first_half_r": 0.2,
+          "second_half_r": -0.02,
+          "read": "PAID",
+          "side": "SHORT",
+          "condition": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "AGAINST_YARDSTICK_5",
+          "n": 499,
+          "mean_r": -0.078,
+          "t": -1.5,
+          "first_half_r": -0.16,
+          "second_half_r": 0.0,
+          "read": "LOST",
+          "side": "LONG",
+          "condition": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "BREAKOUT_WITH_TREND_20",
+          "n": 114,
+          "mean_r": 0.531,
+          "t": 2.9,
+          "first_half_r": 0.76,
+          "second_half_r": 0.3,
+          "read": "PAID_BOTH_HALVES",
+          "side": "SHORT",
+          "condition": "A close beyond the 20-session closing range in the direction of the 60-session change; stop 2 normal days trailed; up to 20 sessions."
+        },
+        {
+          "behaviour": "SHORT_WHILE_DOWN_20",
+          "n": 73,
+          "mean_r": 0.297,
+          "t": 1.2,
+          "first_half_r": 0.73,
+          "second_half_r": -0.12,
+          "read": "PAID",
+          "side": "SHORT",
+          "condition": "Short while the yardstick is DOWN; stop 1.5 normal days, trailed; up to 20 sessions."
+        }
+      ],
+      "producer_answer_sha256": "72e2585738a15232ec4843e4d2ddbce0d885177161ef377b10ddb25c3af4e993"
+    },
+    {
+      "markets": [
+        "WTI"
+      ],
+      "count": 551,
+      "sample_count": 988,
+      "period_text": "2016-11-14 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily losses of at least 0.3%",
+      "horizon_sessions": 1,
+      "series_id": "YAHOO_FINANCE:CL=F",
+      "producer_seconds": 0.3299047999898903,
+      "source_id": "reply-base-rate-c99f6ecfaf9b23b951eee43cccff994506ae6647b4ba7d0bb3ae3ac0a9e2cfef",
+      "source_count": 3,
+      "desk_odds_market": "USOIL",
+      "desk_odds_active_rows": [],
+      "producer_answer_sha256": "208df8c9d180dba4e455bd63bc48ad2021acb1e9c6a1daa33b0c959a80409591"
+    },
+    {
+      "markets": [
+        "XAUUSD"
+      ],
+      "count": 366,
+      "sample_count": 707,
+      "period_text": "2016-11-14 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily gains of at least 0.5%",
+      "horizon_sessions": 1,
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "producer_seconds": 0.39248290000250563,
+      "source_id": "reply-base-rate-b9812c620ab30afc6a6cfb01a662224702abc40c10f65f1a5b907d3cc28b59fc",
+      "source_count": 3,
+      "desk_odds_market": "XAUUSD",
+      "desk_odds_active_rows": [
+        {
+          "behaviour": "WITH_YARDSTICK_5",
+          "n": 349,
+          "mean_r": 0.053,
+          "t": 1.0,
+          "first_half_r": -0.0,
+          "second_half_r": 0.11,
+          "read": "PAID",
+          "side": "SHORT",
+          "condition": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "AGAINST_YARDSTICK_5",
+          "n": 349,
+          "mean_r": -0.106,
+          "t": -1.6,
+          "first_half_r": -0.08,
+          "second_half_r": -0.13,
+          "read": "LOST_BOTH_HALVES",
+          "side": "LONG",
+          "condition": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "SHORT_WHILE_DOWN_20",
+          "n": 41,
+          "mean_r": -0.197,
+          "t": -1.1,
+          "first_half_r": 0.16,
+          "second_half_r": -0.53,
+          "read": "LOST",
+          "side": "SHORT",
+          "condition": "Short while the yardstick is DOWN; stop 1.5 normal days, trailed; up to 20 sessions."
+        }
+      ],
+      "producer_answer_sha256": "e58d43508fa412c73ccd605ae9d342fdc4de86f85929b052669d19f0bf31b7f1"
+    },
+    {
+      "markets": [
+        "EURUSD"
+      ],
+      "count": 282,
+      "sample_count": 566,
+      "period_text": "2016-11-10 to 2026-11-11",
+      "through_date": "2026-11-11",
+      "condition_text": "daily losses of at least 0.3%",
+      "horizon_sessions": 1,
+      "series_id": "YAHOO_FINANCE:EURUSD=X",
+      "producer_seconds": 0.36261360000935383,
+      "source_id": "reply-base-rate-1529c3bb8a6d11aef98a25022e5f3405012a118e17c2bd288afb0cf9e5e7d5d8",
+      "source_count": 3,
+      "desk_odds_market": "EURUSD",
+      "desk_odds_active_rows": [
+        {
+          "behaviour": "WITH_YARDSTICK_5",
+          "n": 348,
+          "mean_r": -0.094,
+          "t": -2.3,
+          "first_half_r": -0.06,
+          "second_half_r": -0.13,
+          "read": "LOST_BOTH_HALVES",
+          "side": "SHORT",
+          "condition": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "AGAINST_YARDSTICK_5",
+          "n": 348,
+          "mean_r": -0.03,
+          "t": -0.5,
+          "first_half_r": -0.02,
+          "second_half_r": -0.04,
+          "read": "FLAT",
+          "side": "LONG",
+          "condition": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "SHORT_WHILE_DOWN_20",
+          "n": 61,
+          "mean_r": -0.237,
+          "t": -1.7,
+          "first_half_r": -0.16,
+          "second_half_r": -0.31,
+          "read": "LOST_BOTH_HALVES",
+          "side": "SHORT",
+          "condition": "Short while the yardstick is DOWN; stop 1.5 normal days, trailed; up to 20 sessions."
+        }
+      ],
+      "producer_answer_sha256": "c2d5c3d265ec8bb91cca0e83a2a8882f4cee8564a821e34c0ee91522ea12edc4"
+    },
+    {
+      "markets": [
+        "BTCUSD"
+      ],
+      "count": 246,
+      "sample_count": 497,
+      "period_text": "2016-11-10 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily gains of at least 1.2%",
+      "horizon_sessions": 5,
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "producer_seconds": 1.3025361000036355,
+      "source_id": "reply-base-rate-2f9fec76524cd31d31fed7a3bb019221b1fdc75a859ad2fccf1ec3e318903407",
+      "source_count": 3,
+      "desk_odds_market": "BTCUSD",
+      "desk_odds_active_rows": [
+        {
+          "behaviour": "WITH_YARDSTICK_5",
+          "n": 499,
+          "mean_r": 0.09,
+          "t": 1.9,
+          "first_half_r": 0.2,
+          "second_half_r": -0.02,
+          "read": "PAID",
+          "side": "SHORT",
+          "condition": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "AGAINST_YARDSTICK_5",
+          "n": 499,
+          "mean_r": -0.078,
+          "t": -1.5,
+          "first_half_r": -0.16,
+          "second_half_r": 0.0,
+          "read": "LOST",
+          "side": "LONG",
+          "condition": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "BREAKOUT_WITH_TREND_20",
+          "n": 114,
+          "mean_r": 0.531,
+          "t": 2.9,
+          "first_half_r": 0.76,
+          "second_half_r": 0.3,
+          "read": "PAID_BOTH_HALVES",
+          "side": "SHORT",
+          "condition": "A close beyond the 20-session closing range in the direction of the 60-session change; stop 2 normal days trailed; up to 20 sessions."
+        },
+        {
+          "behaviour": "SHORT_WHILE_DOWN_20",
+          "n": 73,
+          "mean_r": 0.297,
+          "t": 1.2,
+          "first_half_r": 0.73,
+          "second_half_r": -0.12,
+          "read": "PAID",
+          "side": "SHORT",
+          "condition": "Short while the yardstick is DOWN; stop 1.5 normal days, trailed; up to 20 sessions."
+        }
+      ],
+      "producer_answer_sha256": "a5c29e846f6d7cc6408cb67604e742d4d881296362db4aa967e72d676d7e75c7"
+    },
+    {
+      "markets": [
+        "USDJPY"
+      ],
+      "count": 240,
+      "sample_count": 474,
+      "period_text": "2016-11-10 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily gains of at least 0.4%",
+      "horizon_sessions": 1,
+      "series_id": "YAHOO_FINANCE:JPY=X",
+      "producer_seconds": 0.15100070000335108,
+      "source_id": "reply-base-rate-f9a64b9e492724d061ab7bbf411f32c050307298278d000068e8ba2b6f8d75bc",
+      "source_count": 1,
+      "desk_odds_market": "USDJPY",
+      "desk_odds_active_rows": [],
+      "producer_answer_sha256": "903552aa4191f8be64b1557c2def3db8b2882944fcfb6e2a7a9ff8347348c560"
+    },
+    {
+      "markets": [
+        "WTI"
+      ],
+      "count": 216,
+      "sample_count": 387,
+      "period_text": "2016-11-14 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily losses of at least 0.3%",
+      "horizon_sessions": 5,
+      "series_id": "YAHOO_FINANCE:CL=F",
+      "producer_seconds": 0.4108925000036834,
+      "source_id": "reply-base-rate-93cc11ab5170e707f1edd0ae5429409fb57bea9a610625d9e0a4243662b458e2",
+      "source_count": 3,
+      "desk_odds_market": "USOIL",
+      "desk_odds_active_rows": [],
+      "producer_answer_sha256": "81b757e0716958434ce0979bdb93fe1acf253ef7ec22f03effe74d0d16b22739"
+    },
+    {
+      "markets": [
+        "XAUUSD"
+      ],
+      "count": 193,
+      "sample_count": 331,
+      "period_text": "2016-11-14 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily gains of at least 0.5%",
+      "horizon_sessions": 5,
+      "series_id": "YAHOO_FINANCE:GC=F",
+      "producer_seconds": 0.4232793999981368,
+      "source_id": "reply-base-rate-0895c6ccca8ac0fdc7def80b388c235fad556db27f0c9ef9f7f2375411deaf7e",
+      "source_count": 3,
+      "desk_odds_market": "XAUUSD",
+      "desk_odds_active_rows": [
+        {
+          "behaviour": "WITH_YARDSTICK_5",
+          "n": 349,
+          "mean_r": 0.053,
+          "t": 1.0,
+          "first_half_r": -0.0,
+          "second_half_r": 0.11,
+          "read": "PAID",
+          "side": "SHORT",
+          "condition": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "AGAINST_YARDSTICK_5",
+          "n": 349,
+          "mean_r": -0.106,
+          "t": -1.6,
+          "first_half_r": -0.08,
+          "second_half_r": -0.13,
+          "read": "LOST_BOTH_HALVES",
+          "side": "LONG",
+          "condition": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "SHORT_WHILE_DOWN_20",
+          "n": 41,
+          "mean_r": -0.197,
+          "t": -1.1,
+          "first_half_r": 0.16,
+          "second_half_r": -0.53,
+          "read": "LOST",
+          "side": "SHORT",
+          "condition": "Short while the yardstick is DOWN; stop 1.5 normal days, trailed; up to 20 sessions."
+        }
+      ],
+      "producer_answer_sha256": "5295ce62879eaf37ece23074cb79a5c102db37ac5e5e7505ec2649229616423c"
+    },
+    {
+      "markets": [
+        "EURUSD"
+      ],
+      "count": 163,
+      "sample_count": 296,
+      "period_text": "2016-11-10 to 2026-11-11",
+      "through_date": "2026-11-11",
+      "condition_text": "daily losses of at least 0.3%",
+      "horizon_sessions": 5,
+      "series_id": "YAHOO_FINANCE:EURUSD=X",
+      "producer_seconds": 0.40956320000987034,
+      "source_id": "reply-base-rate-44cd0a402f9ffcb8bc4280f251d4ed0ec0fbc5c0d6d9f2a93325d290e230f0e3",
+      "source_count": 3,
+      "desk_odds_market": "EURUSD",
+      "desk_odds_active_rows": [
+        {
+          "behaviour": "WITH_YARDSTICK_5",
+          "n": 348,
+          "mean_r": -0.094,
+          "t": -2.3,
+          "first_half_r": -0.06,
+          "second_half_r": -0.13,
+          "read": "LOST_BOTH_HALVES",
+          "side": "SHORT",
+          "condition": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "AGAINST_YARDSTICK_5",
+          "n": 348,
+          "mean_r": -0.03,
+          "t": -0.5,
+          "first_half_r": -0.02,
+          "second_half_r": -0.04,
+          "read": "FLAT",
+          "side": "LONG",
+          "condition": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "SHORT_WHILE_DOWN_20",
+          "n": 61,
+          "mean_r": -0.237,
+          "t": -1.7,
+          "first_half_r": -0.16,
+          "second_half_r": -0.31,
+          "read": "LOST_BOTH_HALVES",
+          "side": "SHORT",
+          "condition": "Short while the yardstick is DOWN; stop 1.5 normal days, trailed; up to 20 sessions."
+        }
+      ],
+      "producer_answer_sha256": "d82826e2be83664ef07426c66b5f1b8e448a383bb933869bc87baea510389cdb"
+    },
+    {
+      "markets": [
+        "USDJPY"
+      ],
+      "count": 139,
+      "sample_count": 265,
+      "period_text": "2016-11-10 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily gains of at least 0.4%",
+      "horizon_sessions": 5,
+      "series_id": "YAHOO_FINANCE:JPY=X",
+      "producer_seconds": 0.1299767000018619,
+      "source_id": "reply-base-rate-88462599c5996e86ba5e9beb8150281499a11685537fd7c9a661b6fd54bc47e1",
+      "source_count": 1,
+      "desk_odds_market": "USDJPY",
+      "desk_odds_active_rows": [],
+      "producer_answer_sha256": "63f47f935067348ec1da34c874a2691e011516ad187809317e30201db673c51c"
+    },
+    {
+      "markets": [
+        "SPX"
+      ],
+      "count": 27,
+      "sample_count": 59,
+      "period_text": "2016-11-14 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily gains of at least 2.1%",
+      "horizon_sessions": 1,
+      "series_id": "YAHOO_FINANCE:ES=F",
+      "producer_seconds": 0.5171448000037344,
+      "source_id": "reply-base-rate-df7f56034b37262abac5c78ddab090e1d64d10a4ec5f6aa8ca4eb9fab1442feb",
+      "source_count": 3,
+      "desk_odds_market": "US500",
+      "desk_odds_active_rows": [
+        {
+          "behaviour": "WITH_YARDSTICK_5",
+          "n": 378,
+          "mean_r": -0.006,
+          "t": -0.1,
+          "first_half_r": 0.03,
+          "second_half_r": -0.04,
+          "read": "FLAT",
+          "side": "SHORT",
+          "condition": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "AGAINST_YARDSTICK_5",
+          "n": 378,
+          "mean_r": -0.111,
+          "t": -1.9,
+          "first_half_r": -0.17,
+          "second_half_r": -0.05,
+          "read": "LOST_BOTH_HALVES",
+          "side": "LONG",
+          "condition": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "SHORT_WHILE_DOWN_20",
+          "n": 30,
+          "mean_r": -0.3,
+          "t": -1.9,
+          "first_half_r": -0.17,
+          "second_half_r": -0.43,
+          "read": "LOST_BOTH_HALVES",
+          "side": "SHORT",
+          "condition": "Short while the yardstick is DOWN; stop 1.5 normal days, trailed; up to 20 sessions."
+        }
+      ],
+      "producer_answer_sha256": "a7ac44a55dd80c45cb129d5f927cd8b3a7b230e1758912922ee4650a094e47b6"
+    },
+    {
+      "markets": [
+        "SPX"
+      ],
+      "count": 20,
+      "sample_count": 46,
+      "period_text": "2016-11-14 to 2026-11-10",
+      "through_date": "2026-11-10",
+      "condition_text": "daily gains of at least 2.1%",
+      "horizon_sessions": 5,
+      "series_id": "YAHOO_FINANCE:ES=F",
+      "producer_seconds": 0.5317491000023438,
+      "source_id": "reply-base-rate-11b99b2db6a4cc565a3d97b8a1cd9e4b1f0201ff3b28b2b0f56a3e5677d087a7",
+      "source_count": 3,
+      "desk_odds_market": "US500",
+      "desk_odds_active_rows": [
+        {
+          "behaviour": "WITH_YARDSTICK_5",
+          "n": 378,
+          "mean_r": -0.006,
+          "t": -0.1,
+          "first_half_r": 0.03,
+          "second_half_r": -0.04,
+          "read": "FLAT",
+          "side": "SHORT",
+          "condition": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "AGAINST_YARDSTICK_5",
+          "n": 378,
+          "mean_r": -0.111,
+          "t": -1.9,
+          "first_half_r": -0.17,
+          "second_half_r": -0.05,
+          "read": "LOST_BOTH_HALVES",
+          "side": "LONG",
+          "condition": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions."
+        },
+        {
+          "behaviour": "SHORT_WHILE_DOWN_20",
+          "n": 30,
+          "mean_r": -0.3,
+          "t": -1.9,
+          "first_half_r": -0.17,
+          "second_half_r": -0.43,
+          "read": "LOST_BOTH_HALVES",
+          "side": "SHORT",
+          "condition": "Short while the yardstick is DOWN; stop 1.5 normal days, trailed; up to 20 sessions."
+        }
+      ],
+      "producer_answer_sha256": "7ccd684ce0d03115616426d099a1b6e4220bb2a7cc791d8ad46b436c5f0b1ab9"
+    }
+  ],
+  "public_submit_actions": 0
+}
