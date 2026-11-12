@@ -42,6 +42,35 @@ includes the stored-intent replay, missing-chart refusal, original-exception
 persistence and the coordinator's duplicate/recovery regressions. This was run
 before the 13 November load restriction, at approximately 04:37–04:45 GMT+7.
 
+The first repair is pushed as `b428c954`. The stored dispatch is also terminally
+refused, so fixing validation alone would leave preparation returning the same
+unsendable 12 November packet. The second sub-step changes the existing daily
+digest preparation: an older `DEFINITE_NO_WRITE` with no public ID or URL carries
+its held article records into the next day's digest. These records are already
+held titles, links and publication clocks, so no fresh reporting or replacement
+article is needed. Published digests alone consume article IDs and URLs. The
+next selection deduplicates the held records against the feed and canonical
+archive. Pending, unknown, partially identified and same-day attempts retain
+their frozen recovery path. No old packet, intent or dispatch is rewritten.
+
+The second sub-step passes 23 targeted checks in 29.45 seconds, recorded in
+[the digest consumer JUnit result](digest-consumer-tests.xml). They cover
+`tests/test_substack_daily_digest_cc548.py`, the existing CC-377 missed-article
+case, the native digest identity/publish/readback loop and its email receipt,
+cutoff/late-article selection, frozen pending-code continuation, existing public
+page sequencing, and `tests/test_daily_digest_1900_route_v1.py`. Final review
+also checks that a same-day or future refusal keeps its frozen identity. The
+final total is 175 distinct passing targeted checks; no full suite or parallel
+pytest workers were used.
+
+The consumer test uses the retained `substack:224293572` record with and without
+the public feed entry, builds the 13 November packet, passes its folderless
+intent through the actual coordinator and repaired image validator, and confirms
+one Substack dispatch with a fixture transport. A later digest excludes it.
+The existing native loop reaches `VERIFY_IDENTITY`, `PUBLISH` and `READBACK`
+with controlled tool returns. These are executable consumer checks, not public
+publication observations.
+
 Validation, delivery and the scheduled public readback are separate. The latest
 direct run instruction says this second stream must not perform a live or
 deploy step. The delivery therefore remains `BUILT_UNMERGED` for the first
