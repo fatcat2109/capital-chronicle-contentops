@@ -16,7 +16,7 @@ The gold plan was registered at **20:19:23 GMT+7** (13:19:23.123369Z). The first
 
 - [Original failing replay](replay-red.xml): the retained gold plan produced empty alert text.
 - [First passing replay](replay-green.xml): both API destinations confirmed at simulated registration plus one minute, chart attached, with model calls and page/browser publication unavailable; a repeated run created no duplicate.
-- Additional targeted state, reply, unchanged-payload, chart refusal and actual CLI-order checks are recorded beside this file as they complete.
+- [Alert/CLI checks](alerts-and-entry.xml): eight passed. [Reply and distribution checks](replies-and-distribution.xml): 41 passed, including unchanged alert payloads, delayed native portrait, filled/closed updates and the existing per-channel link consumers. A prior broad run had 53 passes and one test-only destination-order assertion; that assertion was corrected and the complete reply check passed in the 41-check run. The original failed run is retained in `consumer-regressions.xml`.
 - Top-level launch arguments observed on the resumed process: `gpt-6.1-sol`, effort `max`, **CONFIGURED_NOT_OBSERVED**. The change makes no editorial model call; test transports and page confirmation are controlled fixtures.
 
 The existing minute task has a five-minute execution limit and ignores a second instance. Sending alerts first therefore removes both quota dependence and the old ordering delay within that existing task. This timing argument is distinct from an observed next-plan publication. Installed-source identity, live and rollback tags, and the next plan's registration/publication clocks are recorded below after integration. No new Main registration or live latency is inferred from a replay.

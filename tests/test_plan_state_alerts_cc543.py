@@ -60,6 +60,7 @@ def test_gold_replay_queues_a_complete_alert_without_page_or_variants(replay, ma
     assert "https://" not in row["text"] and not row.get("parent_key")
     assert "demo" not in row["text"].lower() and "model position" not in row["text"].lower()
     assert posts.PUBLIC_NOTICE in row["text"] and posts.CONFLICTS_NOTICE in row["text"]
+    assert "Levels use the plan's prices." in row["text"]
 
 
 def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, main_root, monkeypatch, tmp_path, source):
@@ -231,3 +232,18 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     if not dry:
         result = json.loads(output.getvalue())
         assert result["plan_pages"]["cause"] == "RuntimeError:MODEL_QUOTA_UNAVAILABLE"
+
+
+def test_unknown_api_acceptance_is_read_back_without_republishing(replay, main_root, tmp_path):
+    store, folder, _, now = replay
+    queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+    runtime = FixtureTransport(raise_after_write=True, ambiguous=True)
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+        published_content_path=tmp_path / "published.jsonl")
+    for _ in range(2):
+        posts.publish_ready(store, now=now, latest_states=queued["latest_states"], root=tmp_path / "posts",
+            host=fake_host, coordinator_for=lambda *a: coordinator, immediate_only=True)
+    assert sorted(runtime.publish_calls) == ["discord", "telegram"]
+    row, = rows(store)
+    assert all(cards._dispatch(store, row["key"], d)["status"] == "UNKNOWN_WRITE" for d in ("telegram", "discord"))

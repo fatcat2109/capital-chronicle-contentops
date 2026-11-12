@@ -52,6 +52,8 @@ def compose(row):
         value = result_r(row.get("source_plan") or {}) if row["kind"] == "result" else None
         if value is not None:
             lines.append(f"Result: {value:+.1f}R.")
+    if row.get("price_basis") == "plan":
+        lines.append("Levels use the plan's prices.")
     if plan.get("target"):
         lines.append("Target level: " + "–".join(dict.fromkeys(cards.level(v, plan) for v in plan["target"])) + ".")
     until = row.get("entry_deadline_utc") or plan.get("valid_until_utc")
