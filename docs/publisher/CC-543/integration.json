@@ -1,0 +1,51 @@
+{
+  "application_restarted": false,
+  "base": "dfda65f03cf6f042827d37e8cd4bdd235eaca059",
+  "code_head": "d8eea92c63458e896753c07d66a71134b62ad222",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "integrated_at_utc": "2026-11-12T21:52:46+00:00",
+  "integration_reflog": "codex/contentops-local-publisher-20261030@{2026-11-13T04:52:46+07:00} merge backlog/cc-543-immediate-plan-posts: Fast-forward",
+  "item": "CC-543",
+  "live_tag": "contentops-live-20261113-cc543",
+  "model_calls_by_change": 0,
+  "next_live_latency_seconds": null,
+  "next_live_plan_registration_at_utc": null,
+  "next_live_telegram_publication_at_utc": null,
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "rollback_tag": "contentops-rollback-20261113-cc543",
+  "schedule_changed": false,
+  "source": [
+    {
+      "git_blob": "5b23b73bd109c1b077f7b000c393f102d267e4b6",
+      "installed_bytes": 5103,
+      "installed_sha256": "58488ea44e58654d2f86dbfd95ad84eedae9dd48c55ca03c85c0f8d560ee6a7c",
+      "path": "live_contentops/plan_state_alerts_v1.py"
+    },
+    {
+      "git_blob": "d192f003d3a487ccc9b8191326b86d327a980ff2",
+      "installed_bytes": 80094,
+      "installed_sha256": "dc0ac8affa04af68fc10d3bacd303257ce1aa8ba9c36a1c002479cddf38f4e0f",
+      "path": "live_contentops/plan_call_cards_v1.py"
+    },
+    {
+      "git_blob": "d482d5eb4ff404625149d7b1abdf7f66b2213b02",
+      "installed_bytes": 113111,
+      "installed_sha256": "c4720586aa8ef312f7e0acb085960c1848d6a7d5aad37efa8a82e639749fab95",
+      "path": "live_contentops/plan_status_posts_v1.py"
+    },
+    {
+      "git_blob": "3c0a4d143803f5b7fbc828ce04a41bba3653c8c3",
+      "installed_bytes": 65422,
+      "installed_sha256": "b0c1b89cb7b76e208b1a5931921344a662018d884efc9f1f0277fa419e266e2e",
+      "path": "live_contentops/plan_analysis_pages_v1.py"
+    },
+    {
+      "git_blob": "8ebb5a1d8e63333850695d6ed7002d591dd3aab0",
+      "installed_bytes": 13838,
+      "installed_sha256": "2f48c3bd1b60b24f8f37d3ad3714ec64ab3eaef4dc2b4a59f5570312392ec615",
+      "path": "scripts/plan_status_posts.py"
+    }
+  ],
+  "top_level_effort": "max",
+  "top_level_model": "gpt-6.1-sol"
+}
