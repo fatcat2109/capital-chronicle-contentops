@@ -105,6 +105,12 @@ def test_settled_discord_failures_and_parent_waits_do_not_starve_the_next_card(t
         def create_work_item(self, **kw):
             pass
 
+        def register_incident(self, **kw):
+            pass
+
+        def get_outbox_message(self, key):
+            return None
+
     def dispatch(store, key, destination):
         if key.startswith("old-") and destination in cards.API_DESTINATIONS:
             return {"status": "DEFINITE_NO_WRITE" if destination == "discord" else "DISPATCH_CONFIRMED"}
@@ -250,13 +256,15 @@ def test_expiry_omitted_from_post_events_does_not_revive_a_setup(five, main_root
     assert not any(row["kind"] == "setup" and row["plan_id"] == raw["plan_id"] for row in rows(store))
 
 
-def test_frozen_copy_survives_a_formatter_change_but_changed_intents_and_private_copy_do_not(monkeypatch):
+def test_frozen_copy_survives_a_formatter_change_but_changed_intents_and_private_copy_do_not(monkeypatch, tmp_path):
     row = {"format": 4, "kind": "update", "key": "frozen-update", "conditional_calls": [],
            "text": "Gold: the call is active.\n\n" + cards.NOTICES}
     native = {"full_text": row["text"]}
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({"media":{"assets":[]}}),encoding="utf-8")
     monkeypatch.setattr(posts, "_expected", lambda *a: (row, {"discord": native}))
     monkeypatch.setattr(cards, "compose", lambda *a: pytest.fail("frozen text must not be recomposed"))
     intent = {"plan_status_post": row["key"], "work_item_id": row["key"],
+              "output_dir": str(tmp_path),
               "destination_plan": {"destination": "discord"}, "native_payload": dict(native)}
     posts.validate_status_post_intent(None, intent)
     with pytest.raises(posts.PlanPostError, match="INTENT_COPY_CHANGED"):

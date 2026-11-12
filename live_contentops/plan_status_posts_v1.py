@@ -115,7 +115,8 @@ for document, field, name in [('status', 'plans', 'CapitalChroniclePlanStatusV1'
         row = export[document][field][path[1]]
         failures.append({'document': document, 'index': path[1],
             'plan_id': row.get('plan_id') if isinstance(row, dict) else None,
-            'field': document + '.' + '.'.join(str(p) for p in path),
+            'field': document + '.' + ''.join('[' + str(p) + ']' if isinstance(p, int)
+                else ('.' if i else '') + p for i,p in enumerate(path)),
             'detail': 'invalid producer ' + error.validator,
             'contract_version': packet['contract_version']})
 bad_ids = {r['plan_id'] for r in failures if isinstance(r.get('plan_id'), str)}
@@ -132,10 +133,13 @@ with tempfile.TemporaryDirectory(prefix='cc515-public-projection-') as folder:
     path = Path(folder) / 'transitions.json'
     path.write_text(json.dumps(joined, allow_nan=False), encoding='utf-8')
     joined = owner.read_public_transitions(path, status=view)
+projection = {'status_content_hash':view['content_hash'], 'transitions_content_hash':joined['content_hash'],
+    'source_status_content_hash':status['content_hash'], 'source_transitions_content_hash':events['content_hash']}
 view['content_hash'] = status['content_hash']
 joined['content_hash'] = events['content_hash']
 joined['status_content_hash'] = events['status_content_hash']
-sys.stdout.write(json.dumps({'status':view, 'transitions':joined, 'quarantined_rows':failures}, allow_nan=False))
+sys.stdout.write(json.dumps({'status':view, 'transitions':joined, 'quarantined_rows':failures,
+    'consumer_projection':projection}, allow_nan=False))
 """
 
 
@@ -1575,6 +1579,11 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
         payload = json.loads(row["payload"])
         if payload.get("format") == 4:
             continue  # CC-399 uses run -> card -> later-post dependency ordering below.
+        from .plan_call_cards_v1 import settle_pending
+        settled = settle_pending(store, row, payload, now=now, root=root)
+        if settled:
+            results.append(settled)
+            continue
         recovered = _recoverable(payload, active_recoveries, now)
         freshness = LATE_STATE_HOURS * 60 if recovered else freshness_limit_minutes(payload)
         if row["status"] == READY:
@@ -1699,6 +1708,9 @@ def pending_x(store, *, now: datetime | None = None, destination: str = "x") -> 
                                      allow_publish=True, identity_at_action=True)
         for packet in executor.pending():
             request = packet["request"]
+            from .plan_call_cards_v1 import settled_destinations
+            if request.get("destination") in settled_destinations(store, payload):
+                continue
             if request.get("destination") == destination:
                 pending.append({"key": row["message_id"], "request_sha256": request["request_sha256"],
                                 "action": request["action"], "age_minutes": round(_age_minutes(payload, now), 1),

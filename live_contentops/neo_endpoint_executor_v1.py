@@ -861,6 +861,20 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
         if not source or source["destination"] not in {posts.DESTINATION,"internal:plan-analysis-page"}:
             continue
         source_payload=json.loads(source["payload"])
+        source_payload.setdefault("key", operation)
+        if source["destination"] == posts.DESTINATION:
+            from .plan_call_cards_v1 import SETTLED_POST, settled_destinations, settle_pending
+            if source["status"] in {SETTLED_POST, posts.STALE, posts.SUPERSEDED}:
+                continue
+            # Legacy API-complete rows used PUBLISHED before their browser
+            # copies reconciled. Their old readbacks obey the same late limit.
+            if source_payload.get("at_utc") and posts._age_minutes(source_payload,
+                    datetime.now(timezone.utc)) > posts.LATE_STATE_HOURS * 60:
+                closed = settle_pending(store, source, source_payload, now=datetime.now(timezone.utc))
+                if closed:
+                    continue
+            if request["destination"] in settled_destinations(store, source_payload):
+                continue
         if source["destination"]=="internal:plan-analysis-page" and source_payload.get("link_id")!=operation:
             continue
         response_key="native-neo-"+sha256_of([operation,request["request_sha256"],"response"])
@@ -873,7 +887,8 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
     started=time.monotonic()
     outcomes=[]
     processed=0
-    for (operation,destination),(packet,source) in chosen.items():
+    for (operation,destination),(packet,source) in sorted(chosen.items(), key=lambda item:
+            item[1][1].get("at_utc") or item[1][0].get("created_at") or "", reverse=True):
         if processed>=limit or time.monotonic()-started>=budget_seconds:
             break
         request=packet["request"]
