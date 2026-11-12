@@ -52,6 +52,11 @@ def conditions(text):
         for match in re.finditer(policy.MARKETS[market], text, re.I):
             if market == "WTI" and re.search(r"\bbrent\s*$", text[:match.start()], re.I):
                 continue
+            if market == "DXY" and re.search(r"\b(?:aussie|australian|canadian|new zealand|nz|taiwan|"
+                r"hong kong|singapore|jamaican|fijian|namibian)(?:'s)?\s*$", text[:match.start()], re.I):
+                # Preserve a boundary, without treating another dollar as USD.
+                spans.append((match.start(), match.end(), "OTHER_DOLLAR"))
+                continue
             spans.append((match.start(), match.end(), market))
     spans.sort()
     result = []
