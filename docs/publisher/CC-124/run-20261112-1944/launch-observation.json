@@ -1,0 +1,20 @@
+{
+  "process_id": 6108,
+  "process_start_utc": "2026-11-12T12:48:49.6932780Z",
+  "source_session": "01a1cfc9-8990-7ab3-bfb5-2b3b17e3f5f9",
+  "observed_launch_arguments": [
+    "--model",
+    "gpt-6.1-sol",
+    "-c",
+    "model_reasoning_effort=\"max\""
+  ],
+  "model_argument_matches": true,
+  "effort_argument_matches": true,
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "configuration_evidence": "Current Win32_Process resume command line",
+  "actual_editorial_calls": 0,
+  "original_start_utc": "2026-11-12T12:44:13.649636Z",
+  "base_commit": "fa0091f3a4f0f54a1ed31879a915ad0fab79a97a",
+  "remote_default_commit": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_reason": "Current ContentOps operating HEAD; remote default is an older ancestor."
+}

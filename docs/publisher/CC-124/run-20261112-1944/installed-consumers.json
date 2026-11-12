@@ -1,0 +1,23 @@
+{
+  "observed_at_utc": "2026-11-12T12:53:52.920304+00:00",
+  "production_day": "2026-11-12",
+  "daily_article_limit": 2,
+  "article_slots_in_use": [],
+  "active_leases": [
+    {
+      "lease_id": "lease_9493de018ccb76fd",
+      "lease_key": "cc466-plan-page-editorial",
+      "status": "ACTIVE",
+      "expires_at": "2026-11-12T13:03:52.279599+00:00"
+    }
+  ],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-12T12:53:16.249805Z",
+    "content_hash": "4d480d64ad0fc309b1c4af5c2e4a87781cee75cc74c0e8e481090a26339b71ac",
+    "plan_count": 86,
+    "latest_plan_registration_utc": "2026-11-12T06:17:26.006816Z"
+  },
+  "clock_use": "Export generation does not refresh original analysis capture.",
+  "operation_allocated": false,
+  "channel_readbacks": "None performed by this run."
+}
