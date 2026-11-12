@@ -830,6 +830,38 @@ def link_status(store, value):
             "public_object_url": dispatch.get("public_object_url")}
 
 
+def settle_late_link(store, value, *, now=None):
+    """End a late link's automatic work, preserving its exact dispatch/readback."""
+    from .plan_call_cards_v1 import SETTLED_POST, SETTLED_COPY, SETTLED_DISPATCHES, _settlement_id
+    from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+    source = store.get_outbox_message(value["link_id"])
+    if not source:
+        return None
+    cause = "PLAN_ANALYSIS_LINK_OLDER_THAN_24_HOURS"
+    status = link_status(store, value)
+    if source["status"] == SETTLED_POST:
+        return {"status": SETTLED_POST, "cause": cause, "dispatch_status": status["status"]}
+    if status["confirmed"] or status["status"] in SETTLED_DISPATCHES:
+        return None
+    original = store.get_outbox_message(value.get("original_key", ""))
+    original_payload = json.loads(original["payload"]) if original else {}
+    at = original_payload.get("at_utc") or source["created_at"]
+    now = now or datetime.now(timezone.utc)
+    if (now - posts._utc(at)).total_seconds() <= posts.LATE_STATE_HOURS * 3600:
+        return None
+    ids = Coordinator._ids(value["link_id"], value["plan"]["plan_hash"], value["destination"])
+    detail = {"key": value["link_id"], "destination": value["destination"], "cause": cause,
+        "source_at_utc": at, "dispatch_id": ids["dispatch_id"], "dispatch_status": status["status"],
+        "public_object_id": status.get("public_object_id"), "public_object_url": status.get("public_object_url"),
+        "automatic_work_closed": True, "public_write_performed": False}
+    store.register_incident(incident_id=_settlement_id(value["link_id"], value["destination"]),
+        work_item_id=value["link_id"], severity="RECOVERY_AUDIT", description=json.dumps(detail, sort_keys=True))
+    if store.get_outbox_message(ids["message_id"]):
+        store.set_outbox_status(ids["message_id"], SETTLED_COPY)
+    store.set_outbox_status(value["link_id"], SETTLED_POST)
+    return {"status": SETTLED_POST, "cause": cause, "dispatch_status": status["status"]}
+
+
 def _resume_link(store, value, publish, *, automatic_neo=False):
     if not value.get("link_id"):
         return value
@@ -837,6 +869,9 @@ def _resume_link(store, value, publish, *, automatic_neo=False):
     from .plan_call_cards_v1 import SETTLED_DISPATCHES
     if status["confirmed"] or status["status"] in SETTLED_DISPATCHES or not publish:
         return status
+    settled = settle_late_link(store, value)
+    if settled:
+        return settled
     return publish_link(store, value, **({"automatic_neo": True} if automatic_neo else {}))
 
 

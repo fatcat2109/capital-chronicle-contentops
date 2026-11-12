@@ -81,5 +81,20 @@
     "retained_packet_replay": "retained-reader-link-replay.json",
     "new_reader_only": true,
     "issued_links_immutable": true
+  },
+  "late_analysis_links": {
+    "first_cause": "One old Notes plan-page readback after the first integration",
+    "exact_request": "requests-after-install.json",
+    "reason": "24-hour late-state limit named in CC-515",
+    "targeted_control_checks": {
+      "artifact": "analysis-late-links.xml",
+      "passed": 7
+    },
+    "dispatch_certainty_and_exact_object_readback_preserved": true,
+    "consumer_regressions": {
+      "artifact": "analysis-link-endpoint.xml",
+      "passed": 87,
+      "seconds": 75.1
+    }
   }
 }

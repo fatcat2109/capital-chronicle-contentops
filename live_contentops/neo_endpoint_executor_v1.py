@@ -877,6 +877,10 @@ def resume_stored_requests(store, *, limit=2, budget_seconds=20, client=None, ou
                 continue
         if source["destination"]=="internal:plan-analysis-page" and source_payload.get("link_id")!=operation:
             continue
+        if source["destination"] == "internal:plan-analysis-page":
+            from .plan_analysis_pages_v1 import settle_late_link
+            if settle_late_link(store, source_payload):
+                continue
         response_key="native-neo-"+sha256_of([operation,request["request_sha256"],"response"])
         if store.get_outbox_message(response_key):
             continue

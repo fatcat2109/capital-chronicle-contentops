@@ -1,6 +1,6 @@
 """Confirmed plan pages reach the existing run and transport consumers."""
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 import json
 
@@ -141,6 +141,48 @@ def test_new_reader_links_use_held_layers_without_legacy_section_requirements(so
     packet["summary"]["macro"] = "A later revision must not replace this issued link."
     assert pages.register_link(store, packet, original_key=original, destination=destination) == value
     assert store.get_outbox_message(value["link_id"])["payload"] == before
+
+
+@pytest.mark.parametrize("hours,closed", [(1, False), (25, True)])
+def test_late_analysis_link_leaves_automatic_work_but_preserves_unknown_readback(ready, tmp_path, monkeypatch, hours, closed):
+    from live_contentops import neo_endpoint_executor_v1 as neo
+    from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, SCHEMA, DESTINATION
+    store, packet, original = ready
+    value = pages.register_link(store, packet, original_key=original, destination="substack_notes")
+    parent = json.loads(store.get_outbox_message(original)["payload"])
+    parent["at_utc"] = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
+    with store.get_connection() as conn:
+        conn.execute("UPDATE outbox_messages SET payload=? WHERE message_id=?", (json.dumps(parent), original))
+    ids = Coordinator._ids(value["link_id"], value["plan"]["plan_hash"], "substack_notes")
+    coordinator = Coordinator(store=store, transport_runtime=object())
+    coordinator.register_plan(value["link_id"], value["plan"])
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="substack_notes", status="UNKNOWN_WRITE")
+    dispatch_before = store.get_platform_dispatch(ids["dispatch_id"])
+    payload_before = store.get_outbox_message(value["link_id"])["payload"]
+    result = pages.settle_late_link(store, value)
+    assert bool(result) is closed
+    assert store.get_platform_dispatch(ids["dispatch_id"]) == dispatch_before
+    assert store.get_outbox_message(value["link_id"])["payload"] == payload_before
+    if closed:
+        assert result["status"] == "SETTLED"
+        assert store.get_outbox_message(ids["message_id"])["status"] == "PLAN_POST_SETTLED"
+        assert pages._resume_link(store, value, True)["status"] == "SETTLED"
+        executor = NativeNeoExecutor(store, operation_id=value["link_id"], output_dir=tmp_path,
+                                     native_invocation_id="fixture")
+        request = {"action": "READBACK", "destination": "substack_notes", "request_sha256": "b" * 64,
+                   "work_item_id": value["link_id"], "dispatch_attempt_identity": ids["dispatch_id"]}
+        store.register_outbox_message(message_id=executor._key(request["request_sha256"], "request"),
+            work_item_id=value["link_id"], destination=DESTINATION, status="NATIVE_NEO_INTERNAL",
+            payload=json.dumps({"schema_version": SCHEMA, "operation_id": value["link_id"], "request": request}))
+        monkeypatch.setattr(__import__("live_contentops.native_neo_executor_v1", fromlist=["bind_native_neo_coordinator"]),
+            "bind_native_neo_coordinator", lambda *a, **kw: pytest.fail("settled link cannot bind browser"))
+        assert neo.resume_stored_requests(store)["requests"] == []
+        observed = []
+        monkeypatch.setattr(coordinator, "_reconcile", lambda dispatch, intent:
+            observed.append(dispatch["dispatch_id"]) or "RECONCILIATION_PENDING")
+        assert coordinator.readback_existing_dispatch(ids["dispatch_id"])["publish_called"] is False
+        assert observed == [ids["dispatch_id"]]
 
 
 @pytest.mark.parametrize("parent", ["correct", "wrong", "missing"])

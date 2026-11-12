@@ -1,8 +1,8 @@
 # CC-515: minute consumer recovery
 
-The branch isolates invalid plan rows, closes dead destination work and gives the minute budgets to the newest live posts. It reuses Main’s reader, the durable store and the sole publication coordinator. Publisher-B has not installed or published this delivery.
+CC-515 is integrated in the Publisher operating root. The first normal minute result closes 73 old obligations and reports zero waiting posts older than 24 hours. It retains every original payload and public dispatch identity. The first complete post-install day remains to be measured; no full-day request-count success is claimed.
 
-Base: operating HEAD `e16ddb8caf45cd859d6584c82425a1425967b86d`. The item-specific integration route is the first Publisher stream; this second stream changes no live source or schedule.
+The second-stream delivery was based on operating HEAD `e16ddb8caf45cd859d6584c82425a1425967b86d`. The first Publisher stream integrated it onto `b896aaa9f129cd338ffafdb1543b753cf5554dc8`. Exact source, tests, live and rollback tags are in `integration.json`; schedules are unchanged.
 
 ## Changed behavior
 
@@ -141,3 +141,5 @@ The merge `33f5ad09b615b3d205e955f120c82cb976093417` is installed at 21:18:37 GM
 The first normal minute result at **21:21:55 GMT+7** reports **73 SETTLED, 14 pending, zero older than 24 hours** and zero stored browser requests. `live-after-integration.json` retains the result; `live-preservation-proof.json` proves every baseline root and payload, all baseline dispatch states/public identities, and all 15 previously recent roots remain. One recent root settled its definite no-write destination; fourteen remain in the active queue. The one internal request after installation was an existing plan-page Notes readback, not an old status-card request (`requests-after-install.json`). The full-day count remains unobserved.
 
 The new minute result also exposes a separate local derivative defect: a retained plan-page packet with an omitted fundamental layer raises a literal `KeyError('fundamental')` while composing its Telegram/Notes links. The Publisher integration corrected that consumer to omit absent source layers under CC-466's current contract. Other retained results name `outcome.score.result_r` absent, `PLAN_CARD_REPLY_PARENT_CHANGED`, and `SUBSTACK_PLAN_PAGE_NOT_CONFIRMED`; their exact causes stay attached.
+
+The preserved request after the first install belonged to the 10 November Notes plan-page link `plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-substack_notes`. The same 24-hour automatic-work limit now covers plan-page links and run indexes as well as status-card roots. Settling changes the internal work statuses and adds its cause to the existing incident table; it never changes the original payload or dispatch certainty. Recent links continue, and the same exact-object readback remains available for late `UNKNOWN_WRITE` copies. The targeted test exercises both the consumer and stored-browser drain, with a recent live control.
