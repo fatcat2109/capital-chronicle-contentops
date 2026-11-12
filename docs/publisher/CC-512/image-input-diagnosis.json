@@ -1,0 +1,16 @@
+[
+  {
+    "asset": "docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-1-T.json",
+    "image_bytes": 86764,
+    "image_sha256": "a0837b959286895d71eb2754a3c12bb558f3686c792fd1a44343f61b00672d99",
+    "prompt_bytes": 3834,
+    "prompt_sha256": "01322c442fce412469c4870812e8fbfc35dc5265a557c036f2bb37d3388478d5"
+  },
+  {
+    "asset": "docs\\publisher\\CC-465\\media\\gallery\\cc465-retained-cpi-layout-event-2-T.json",
+    "image_bytes": 87847,
+    "image_sha256": "fb7321a8dc6fe60aa34ac1715309e3199379999c10b42969514b4a120206b0cb",
+    "prompt_bytes": 2886,
+    "prompt_sha256": "5b0a58f4174775391c9c622a4e80625c2401328776b8944e9bf67ab1d87b203d"
+  }
+]

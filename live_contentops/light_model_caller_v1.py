@@ -188,7 +188,8 @@ def _codex_observations(raw, record):
         item = event.get("item") or {}
         if item.get("type") == "agent_message" and isinstance(item.get("text"), str):
             messages.append(item["text"])
-        if item.get("type") in {"command_execution", "mcp_tool_call", "web_search", "tool_call"}:
+        if item.get("type") in {"command_execution", "mcp_tool_call", "web_search", "tool_call", "function_call",
+                "collab_tool_call", "image_generation_call", "local_shell_call", "computer_call"}:
             raise ValueError("CODEX_LIGHT_TOOL_USE_REFUSED")
     return messages[-1].encode() if messages else b""
 

@@ -34,8 +34,8 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
         legacy_light_failure = not writer and previous["status"] != "RETURNED" and previous.get("light_call",{}).get("policy") != POLICY
         if previous["status"]=="RETURNED" or (not retry_failed and not legacy_light_failure):
             return previous
-        # Only an explicit resume retries the same failed input. Retain the
-        # first failure and the new observed attempt under the same request.
+        # An explicit resume or first CC-512 continuation retains the first
+        # failure and the new observed attempt under the same request.
         artifact=artifact.parent/("resume-"+datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ"))/"result.json"
     artifact.parent.mkdir(parents=True, exist_ok=True)
     (artifact.parent / "prompt.txt").write_text(prompt, encoding="utf-8")
