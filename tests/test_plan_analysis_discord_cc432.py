@@ -102,6 +102,41 @@ def test_frozen_legacy_link_keeps_its_original_thread_bytes(ready):
     assert store.get_outbox_message(link["link_id"])["payload"] == payload
 
 
+def test_recovery_consumes_an_absent_text_link_without_refinalizing_its_bytes(ready):
+    store, packet, original = ready
+    bot_card(store, original)
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    runtime = FixtureTransport()
+    coordinator = Coordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"})
+    link = pages.register_link(store, packet, original_key=original, destination="discord")
+    posts.scope_to_post(coordinator, link["link_id"], link["plan"])
+    registered = coordinator.register_plan(link["link_id"], link["plan"])["registered"][0]
+    store.register_platform_dispatch(dispatch_id=registered["dispatch_id"],
+        message_id=registered["message_id"], platform="discord", status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    store.register_reconciliation(reconciliation_id=registered["reconciliation_id"],
+        work_item_id=link["link_id"], status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    store.set_outbox_status(registered["message_id"], "RECONCILED_ABSENT_SAFE_TO_RETRY")
+    before = store.get_outbox_message(registered["message_id"])["payload"]
+    coordinator.publish_plan(link["link_id"], link["plan"])
+    assert pages.link_status(store, link)["confirmed"]
+    assert runtime.publish_calls == ["discord"]
+    assert store.get_outbox_message(registered["message_id"])["payload"] == before
+    coordinator.publish_plan(link["link_id"], link["plan"])
+    assert runtime.publish_calls == ["discord"]
+
+
+def test_recovery_does_not_rebind_a_text_link_to_another_canonical(ready):
+    store, packet, original = ready
+    link = pages.register_link(store, packet, original_key=original, destination="discord")
+    coordinator = Coordinator(store=store, transport_runtime=FixtureTransport())
+    registered = coordinator.register_plan(link["link_id"], link["plan"])["registered"][0]
+    message = store.get_outbox_message(registered["message_id"])
+    with pytest.raises(ValueError, match="PLAN_ANALYSIS_LINK_CANONICAL_CHANGED"):
+        coordinator._finalize_derivative_intent(message, canonical_url="https://capitalchronicle.substack.com/p/other")
+    assert store.get_outbox_message(registered["message_id"])["payload"] == message["payload"]
+
+
 def test_real_coordinator_and_api_route_confirm_text_link_inside_the_card_thread(ready, monkeypatch):
     from live_contentops import discord_live_adapter_v6 as adapter, live_telemetry_v6 as telemetry
     from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1

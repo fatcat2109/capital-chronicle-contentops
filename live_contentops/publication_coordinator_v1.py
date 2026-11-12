@@ -3268,6 +3268,14 @@ class DurablePublicationCoordinator:
             from live_contentops.sourced_replies_v1 import validate_intent
             validate_intent(self.store, reply_intent)
             return "READY"
+        if reply_intent.get("plan_analysis_link"):
+            from live_contentops.plan_analysis_pages_v1 import validate_link_intent
+            validate_link_intent(self.store, reply_intent)
+            if reply_intent.get("canonical_url") != canonical_url:
+                raise ValueError("PLAN_ANALYSIS_LINK_CANONICAL_CHANGED")
+            # Its confirmed canonical and complete reply were bound before the
+            # first attempt. Recovery validates those bytes without rewriting.
+            return "READY"
         intent = json.loads(str(message["payload"]))
         if intent.get("canonical_url") == canonical_url and (
                 intent.get("post_image_policy") or not intent.get("native_payload")
