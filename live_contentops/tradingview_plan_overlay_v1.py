@@ -138,6 +138,10 @@ def _draw(image, overlay, offset):
     left, top, right, bottom = left+16+ox, top+62+oy, right-16+ox, bottom-12+oy
     draw = ImageDraw.Draw(image, "RGBA")
     levels = deepcopy(overlay["source"]["levels"])
+    if levels.get("target") is not None and not isinstance(levels["target"], (list, tuple)):
+        # Plan-page display geometry carries one exact target scalar; cards
+        # carry a sequence. Preserve the bound source and draw either shape.
+        levels["target"] = [levels["target"]]
     offset = (overlay.get("price_scale_check") or {}).get("level_offset", 0)
     if offset:
         for field in ("zone_low", "zone_high", "invalidation_level"):

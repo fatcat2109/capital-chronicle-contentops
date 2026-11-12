@@ -35,17 +35,21 @@ def test_six_real_captures_match_visible_axes_and_all_overlay_pixels(market, var
     assert asset["plan_overlay"]["source"]["source_content_hash"]
 
 
-def test_target_is_drawn_at_the_observed_scale_when_supplied(tmp_path):
+@pytest.mark.parametrize("scalar", [False, True])
+def test_target_is_drawn_at_the_observed_scale_when_supplied(tmp_path,scalar):
     _, asset = captured("EURUSD")
     source = deepcopy(asset["plan_overlay"]["source"])
     scale = asset["tradingview_snapshot"]["chart_geometry"]
     # An explicitly synthetic in-view target tests the renderer, not a market forecast.
     source["key"] = "controlled-target-test"
-    source["levels"]["target"] = [scale["grid_checks"][5]["price"]]
+    target=scale["grid_checks"][5]["price"]
+    source["levels"]["target"] = target if scalar else [target]
     plain = tv.snapshot_asset("EURUSD", "Controlled geometry test", asset["tradingview_snapshot"], tmp_path)
     marked = overlay.apply(plain,source)
     overlay.validate(marked,source)
     marker = next(m for m in marked["plan_overlay"]["markers"] if m["label"] == "Target")
+    assert marker['price']==target
+    assert marked['plan_overlay']['source']['levels']['target']==source['levels']['target']
     assert marker["edge"] is None and marker["error_px"] <= .5
     with Image.open(marked["path"]) as im:
         ox,oy = marked["tradingview_snapshot"]["framing"]["original_box"][:2]
