@@ -1,0 +1,9 @@
+{
+  "process_id": 24912,
+  "parent_process_id": 27748,
+  "process_start_utc": "2026-11-12T00:38:00.6791980Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "classification": "CONFIGURED_NOT_OBSERVED",
+  "evidence": "Read back the live process launch arguments; runtime model/effort telemetry not independently observed."
+}
