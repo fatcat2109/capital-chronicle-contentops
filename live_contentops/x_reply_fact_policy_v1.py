@@ -9,6 +9,8 @@ from datetime import date, datetime, timedelta, timezone
 import re
 from zoneinfo import ZoneInfo
 
+from live_contentops.x_reply_topics_v1 import driver_links
+
 ET = ZoneInfo("America/New_York")
 POLICY = "CC495_REPLY_FACT_V1"
 SEND_SECONDS = 15 * 60
@@ -62,6 +64,14 @@ def markets(text):
     if found & {"SPX", "NDX", "NASDAQ", "DOW"}:
         found.discard("EQUITIES")
     return found
+
+
+def target_markets(post):
+    """Keep explicit instruments distinct; otherwise include the named driver map."""
+    direct = markets(post["post_text"])
+    if direct - {"EQUITIES", "RATES"}:
+        return direct
+    return direct | {market for link in driver_links(post["post_text"]) for market in link["markets"]}
 
 
 def _day(text, reference):
@@ -127,16 +137,25 @@ def check_fact(post, source, *, now, draft=None):
         raise ValueError("NO_USABLE_FACT_KNOWN_AFTER_CHECK")
     fact = describe(source, (draft or {}).get("fact_text"))
     kind = fact.get("kind")
-    target_markets, fact_markets = markets(post["post_text"]), set(fact.get("markets", []))
-    if not target_markets or not fact_markets:
+    explicit = markets(post["post_text"])
+    targets, fact_markets = target_markets(post), set(fact.get("markets", []))
+    if not targets or not fact_markets:
         raise ValueError("FACT_MARKET_UNIDENTIFIED")  # rule 5
-    direct = bool(target_markets & fact_markets) or (
-        "EQUITIES" in target_markets and bool(fact_markets & {"SPX", "NDX", "NASDAQ", "DOW"}))
-    if not direct:
+    direct = bool(explicit & fact_markets) or (
+        "EQUITIES" in explicit and bool(fact_markets & {"SPX", "NDX", "NASDAQ", "DOW"}))
+    linked = not direct and bool((targets - explicit) & fact_markets)
+    if linked:
+        drivers = {link["driver"] for link in driver_links(post["post_text"])
+                   if set(link["markets"]) & fact_markets}
+        if draft and not any(markets(sentence) & fact_markets and RELATION.search(sentence)
+                             and drivers & {link["driver"] for link in driver_links(sentence)}
+                             for sentence in re.split(r"(?<=[.!?])\s+", draft["draft_text"])):
+            raise ValueError("FACT_DRIVER_LINK_NOT_STATED")
+    elif not direct:
         # Another index never substitutes, even if the writer invents a link.
         if fact_markets & {"SPX", "NDX", "NASDAQ", "DOW"} or not fact_markets & DRIVERS:
             raise ValueError("FACT_MARKET_MISMATCH")
-        if draft and not any(markets(s) & target_markets and markets(s) & fact_markets and RELATION.search(s)
+        if draft and not any(markets(s) & targets and markets(s) & fact_markets and RELATION.search(s)
                              for s in re.split(r"(?<=[.!?])\s+", draft["draft_text"])):
             raise ValueError("FACT_DRIVER_LINK_NOT_STATED")
     day = now.astimezone(ET).date()

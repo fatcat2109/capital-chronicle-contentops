@@ -22,6 +22,7 @@ from live_contentops.preview_link_guard_v1 import find_forbidden_link
 from live_contentops.public_time_v1 import public_timestamp, require_public_time
 from live_contentops.sourced_replies_v1 import clock, digest
 from live_contentops import x_reply_fact_policy_v1 as fact_policy
+from live_contentops.x_reply_topics_v1 import driver_links
 from tools.product.desk_record_projection_v1 import (
     MODEL_ESTIMATE_LABEL, PRIVATE_ONLY_RIGHTS, public_text_problems,
 )
@@ -78,6 +79,7 @@ def select_posts(feed, *, handles, mentions=None, now=None, mobile=False, drops=
     for row in [*feed.get("rows", []), *(mentions or {}).get("rows", [])]:
         handle = str(row.get("handle", "")).lstrip("@")
         text = str(row.get("text", ""))
+        links = driver_links(text)
         kind = "mention" if (
             re.search(r"(?<!\w)@Capitalnicle\b", text, re.I)
             or str(row.get("quoted_author_handle", "")).lstrip("@").casefold() == "capitalnicle"
@@ -106,7 +108,7 @@ def select_posts(feed, *, handles, mentions=None, now=None, mobile=False, drops=
             drop(post_id, "POST_ALREADY_HAS_20_REPLIES")
         elif row.get("is_retweet") or text.startswith("RT @"):
             drop(post_id, "RETWEET_NOT_ORIGINAL_TARGET")
-        elif kind == "target" and not TOPIC.search(text):
+        elif kind == "target" and not (TOPIC.search(text) or links):
             drop(post_id, "NO_SIX_MARKET_OR_MACRO_TOPIC")
         elif handle.casefold() == "capitalnicle":
             drop(post_id, "OWN_POST_NOT_REPLY_TARGET")
@@ -115,6 +117,7 @@ def select_posts(feed, *, handles, mentions=None, now=None, mobile=False, drops=
                 "kind": kind, "post_id": post_id, "post_url": row["url"],
                 "author_handle": handle, "post_time_utc": posted.isoformat(),
                 "post_text": text, "post_age_seconds_at_build": age,
+                **({"market_links": links} if links else {}),
                 **({"reply_count": replies} if mobile else {}),
             })
     selected.sort(key=lambda row: (row["kind"] != "mention", row["post_age_seconds_at_build"]))
@@ -249,7 +252,7 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
                 usable.append(post)
             else:
                 drops.append({"post_id": post["post_id"], "cause": "NO_USABLE_FACT", "fact_refusals": dict(refusals),
-                              "markets": sorted(fact_policy.markets(post["post_text"]))})
+                              "markets": sorted(fact_policy.target_markets(post))})
                 causes["NO_USABLE_FACT"] = causes.get("NO_USABLE_FACT", 0) + 1
         posts = usable
     request = {
@@ -260,6 +263,9 @@ def prepare(store, *, feed_path, output_root=PACK_ROOT, targets=TARGETS, mention
         "audience_feedback": report_manual_replies(store, now=now),
         "instructions": (
             "Author English replies for Jim to review and post himself (decisions 122 and 123). "
+            "A market_links relationship explains relevance only, never a measured reaction. "
+            "When using a linked-market fact, name the driver, the fact's market and their relationship "
+            "in the same sentence; never present one index's move as another index's move. "
             "Choose 3-5 useful target posts, at most one per target author, plus every useful mention. "
             "Never pad. Each draft is <=280 characters, contains one exact sourced number/fact and its "
             "public_timestamp, and adds an invalidation, priced-in comparison or dated pre-event view. "

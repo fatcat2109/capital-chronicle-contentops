@@ -1,0 +1,79 @@
+{
+  "item": "CC-511",
+  "source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_11_12.jsonl",
+  "use": "Eight exact retained headlines for the backlog acceptance test; no raw feed redistribution.",
+  "cases": [
+    {
+      "post_id": "2120671777005228327",
+      "author_handle": "zerohedge",
+      "text": "Voter ID Laws Win Big In Midterms Despite Blue Wave https://t.co/pu4MH7IHrG",
+      "posted_utc": "2026-11-12T00:15:26+00:00",
+      "expected_on_topic": false,
+      "source_line": 333,
+      "source_line_sha256": "debad004c34e260bea283671ef556e2f5c20555ca9bd039dc26b12cc2d8f15f7"
+    },
+    {
+      "post_id": "2120676646717952178",
+      "author_handle": "financialjuice",
+      "text": "South Korea presidential office: Likelihood of US-North Korea interaction around Apec seems low",
+      "posted_utc": "2026-11-12T00:34:47+00:00",
+      "expected_on_topic": false,
+      "source_line": 341,
+      "source_line_sha256": "4679dd1c5f8fd1065013b6ae1f694dfb42ca920d38a8c2e994f23245124662dc"
+    },
+    {
+      "post_id": "2120676632906412489",
+      "author_handle": "financialjuice",
+      "text": "South Korea's Lee to participate in Apec summit in Shenzhen on November 18-19: Korean presidential office",
+      "posted_utc": "2026-11-12T00:34:44+00:00",
+      "expected_on_topic": false,
+      "source_line": 342,
+      "source_line_sha256": "fd0a0ebea7ebb490062215acde25482f6310e6db6b481d0c8ddede6c9cf54a54"
+    },
+    {
+      "post_id": "2120679716785152473",
+      "author_handle": "FirstSquawk",
+      "text": "RUSSIA AND UKRAINE AGREED IN PRINCIPLE TO A MAJOR POW EXCHANGE WITHIN TWO TO THREE WEEKS, BUT US-MEDIATED TALKS IN ABU DHABI ENDED WITHOUT A PEACE BREAKTHROUGH. TERRITORIAL DISPUTES AND SECURITY GUARANTEES REMAIN KEY OBSTACLES.",
+      "posted_utc": "2026-11-12T00:46:59+00:00",
+      "expected_on_topic": false,
+      "source_line": 351,
+      "source_line_sha256": "dd51e4f36a165d3ffe09e570b53dfb48e3d4fee64d340937ee6626a7fb8f40ce"
+    },
+    {
+      "post_id": "2120790808869970260",
+      "author_handle": "FirstSquawk",
+      "text": "GERMANY'S DAX HITS RECORD HIGH FOR THE FIRST TIME SINCE LATE AUGUST, LAST UP 0.9%.",
+      "posted_utc": "2026-11-12T08:08:25+00:00",
+      "expected_on_topic": true,
+      "source_line": 682,
+      "source_line_sha256": "27caa2a65b268a8a2ac1a557d1575e35693acdb3dc88754faeceb1ec2f7a4a1b"
+    },
+    {
+      "post_id": "2120793832019120434",
+      "author_handle": "zerohedge",
+      "text": "Iran Security Chief Vows To Strike US Bases In Europe If War Restarts https://t.co/BpnhLjJDBX",
+      "posted_utc": "2026-11-12T08:20:26+00:00",
+      "expected_on_topic": true,
+      "source_line": 693,
+      "source_line_sha256": "8af38b1f6c3fcad7e1c219c62e9a05cbb477c7ce640e3782672c4dfc73ca4639"
+    },
+    {
+      "post_id": "2120810089867300908",
+      "author_handle": "FirstSquawk",
+      "text": "U.S. CHIPSTOCKS FALL PREMARKET FOLLOWING NVIDIA'S SLIDE",
+      "posted_utc": "2026-11-12T09:25:02+00:00",
+      "expected_on_topic": true,
+      "source_line": 712,
+      "source_line_sha256": "992fa43084da039331a32f6fc355cbe967c396754ea6e2186417fb2eaaebbfbd"
+    },
+    {
+      "post_id": "2120821778838945925",
+      "author_handle": "FirstSquawk",
+      "text": "UK OFCOM IMPOSING FINE ON META OF GBP 450,000",
+      "posted_utc": "2026-11-12T10:11:29+00:00",
+      "expected_on_topic": false,
+      "source_line": 725,
+      "source_line_sha256": "1c8964185c15b1c68f1b34bafa2b8a0e8500d9a6b966e202a35a13ab991b3c67"
+    }
+  ]
+}

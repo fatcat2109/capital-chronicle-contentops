@@ -285,7 +285,7 @@ def supplement(posts, sources, *, now):
     now = policy.utc(now)
     attempts, additions, done = [], [], set()
     for post in posts:
-        requested = policy.markets(post["post_text"])
+        requested = policy.target_markets(post)
         markets = sorted({public.ALIASES.get(m, m) for m in requested} & public.SYMBOLS.keys())
         if not markets and requested & {"RATES", "EQUITIES"}:
             markets = ["US10Y"]
