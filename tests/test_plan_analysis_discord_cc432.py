@@ -178,7 +178,7 @@ def test_text_link_readback_requires_body_link_thread_and_parent(monkeypatch, wr
         expected_image_sha256="f" * 64)["verified"]
 
 
-@pytest.mark.parametrize("case", ["found", "absent", "full_page", "wrong_thread", "foreign_author", "duplicate", "changed_body"])
+@pytest.mark.parametrize("case", ["found", "found_without_guild", "absent", "full_page", "wrong_thread", "foreign_author", "duplicate", "changed_body"])
 def test_coordinator_recovers_lost_discord_id_or_preserves_uncertainty(ready,monkeypatch,case):
     from live_contentops import discord_live_adapter_v6 as adapter
     from live_contentops.publication_coordinator_v1 import CanonicalDestinationTransportRuntimeV1
@@ -194,6 +194,7 @@ def test_coordinator_recovers_lost_discord_id_or_preserves_uncertainty(ready,mon
         "author":{"id":"99","bot":True},"message_reference":{"message_id":"parent-discord"},
         "attachments":[],"embeds":[]}
     messages=[message]
+    if case=="found_without_guild": message.pop('guild_id')
     if case=="absent": messages=[]
     if case=="full_page": messages=[{**message,"id":str(1000+i),"content":"Unrelated post."} for i in range(100)]
     if case=="foreign_author": message["author"]["id"]="98"
@@ -210,7 +211,7 @@ def test_coordinator_recovers_lost_discord_id_or_preserves_uncertainty(ready,mon
         calls.append(req.full_url)
         if req.full_url.endswith('/users/@me'):return Response({'id':'99','bot':True})
         if req.full_url.endswith('/channels/700'):
-            return Response({'id':'700','parent_id':'wrong' if case=='wrong_thread' else '1519311669216673802','type':11})
+            return Response({'id':'700','parent_id':'wrong' if case=='wrong_thread' else '1519311669216673802','type':11,'guild_id':'42'})
         if req.full_url.endswith('/messages?limit=100'):return Response(messages)
         assert req.full_url.endswith('/messages/901')
         return Response(message)
@@ -218,7 +219,7 @@ def test_coordinator_recovers_lost_discord_id_or_preserves_uncertainty(ready,mon
     monkeypatch.setattr(adapter.urllib.request,'urlopen',request)
     result=coordinator.readback_existing_dispatch(ids['dispatch_id'])
     dispatch=store.get_platform_dispatch(ids['dispatch_id'])
-    if case=='found':
+    if case in {'found','found_without_guild'}:
         assert result['reconciliation_status']=='RECONCILED_CONFIRMED',result
         assert dispatch['status']=='DISPATCH_CONFIRMED'
         assert dispatch['public_object_id']=='901'

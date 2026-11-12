@@ -262,6 +262,25 @@ def readback_discord_post(
     embeds = payload.get("embeds") if isinstance(payload.get("embeds"), list) else []
     channel_id = str(payload.get("channel_id") or "")
     guild_id = str(payload.get("guild_id") or "")
+    if thread_id and not guild_id:
+        # Discord's GET-message response normally omits guild_id. Read the
+        # registered thread metadata so its public permalink stays verifiable.
+        metadata_request = urllib.request.Request(
+            "https://discord.com/api/v10/channels/" + str(thread_id), method="GET")
+        metadata_request.add_header("Authorization", "Bot " + token)
+        metadata_request.add_header("User-Agent", "CapitalChronicleContentOps/1.0")
+        try:
+            with urllib.request.urlopen(metadata_request, timeout=15) as response:
+                thread = json.loads(response.read().decode("utf-8"))
+            from .destination_transport_registry_v1 import registration_for_destination
+            if (str(thread.get("id")) != str(thread_id)
+                    or str(thread.get("parent_id")) != registration_for_destination("discord").expected_stable_id
+                    or thread.get("type") not in {10, 11, 12}
+                    or not str(thread.get("guild_id") or "").isdigit()):
+                return {"status": "READBACK_UNAVAILABLE", "verified": False, "write_exists": True}
+            guild_id = str(thread["guild_id"])
+        except (OSError, ValueError, KeyError, TypeError):
+            return {"status": "READBACK_UNAVAILABLE", "verified": False, "write_exists": True}
     exact_identity = observed_id == str(message_id)
     text_verified = bool(expected_text and expected_text in content)
     canonical_verified = canonical_url in content
