@@ -412,6 +412,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     try:
         export = posts.read_export(export_dir, **reader)
         version = posts.validate_export_contract(export)
+        quarantined = posts.record_row_failures(store, export, dry_run=dry_run)
         freshness = posts.export_freshness(export, now)
         if freshness["export_age_seconds"] > posts.EXPORT_MAX_AGE_MINUTES * 60:
             return {"status": "EXPORT_STALE", "cause": posts.STALE_EXPORT, **freshness}
@@ -612,6 +613,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
                 destination=posts.DESTINATION, payload=json.dumps(item, sort_keys=True, ensure_ascii=False), status=posts.READY)
         queued.append({k: item[k] for k in ("key", "symbol", "state", "kind", "at_utc", "text")})
     return {"status": "OK", "dry_run": dry_run, "format": FORMAT, **freshness,
+            "quarantined_rows": quarantined,
             "contract_version": version, "source_content_hash": export["status"].get("content_hash"),
             **({"rendered_posts": rendered, "rendered_count": len(rendered)} if render_all else {}),
             "max_export_age_minutes": posts.EXPORT_MAX_AGE_MINUTES, "transitions_read": len(source_rows),
