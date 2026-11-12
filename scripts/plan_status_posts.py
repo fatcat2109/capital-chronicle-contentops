@@ -98,8 +98,20 @@ def main(argv=None) -> int:
             python=child_python(), dry_run=args.dry_run)}
         result["status"] = "OK" if result["scorecard"]["status"] in {"CONFIRMED", "PREVIEW"} else "SCORECARD_NOT_CONFIRMED"
     else:
-        # Decision 124: run private reply delivery first, before potentially slow
-        # chart/publication work. This reuses the minute entry without a new schedule.
+        # CC-543: the plan's API alerts precede every model/browser operation.
+        # The existing task has a five-minute lifetime; a previous slow slice
+        # therefore cannot consume this plan's entire ten-minute deadline.
+        result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
+                             render_all=args.dry_run, main_root=args.main_root, python=child_python())
+        if args.publish and not args.dry_run and result["status"] == "OK":
+            result["immediate_publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
+                active_recoveries=result.get("active_recoveries"), immediate_only=True)
+            # pythonw has no stdout and later editorial work may outlive the
+            # task. Save the actual API result in its existing run record now.
+            posts.record_run({**result, "phase": "IMMEDIATE_ALERTS", "publication": result["immediate_publication"]},
+                             args.store.parent / posts.RUN_RECORD_FOLDER)
+        # Decision 124's private delivery still precedes the slow editorial and
+        # browser phase, through this same minute entry and existing schedule.
         reply_bot = None
         if args.publish and not args.dry_run:
             from live_contentops.x_reply_bot_v1 import refresh_due as bot_refresh
@@ -117,11 +129,6 @@ def main(argv=None) -> int:
                     rollout=rollout, now=datetime.now(timezone.utc))
             except Exception as exc:
                 plan_pages = {"status":"CANONICAL_PENDING","cause":type(exc).__name__+":"+str(exc)[:160]}
-        from live_contentops.instagram_adapter_v6 import readback_analysis_profile_link
-        result = queue_posts(store, args.export_dir, window_minutes=args.window_minutes, dry_run=args.dry_run,
-                             render_all=args.dry_run,
-                             instagram_profile_reader=readback_analysis_profile_link if args.publish and not args.dry_run else None,
-                             main_root=args.main_root, python=child_python())
         if reply_bot is not None:
             result["reply_bot"] = reply_bot
         if plan_pages is not None:
@@ -130,10 +137,10 @@ def main(argv=None) -> int:
             result["validation"] = "PASS" if result["status"] == "OK" else "FAIL"
         if args.publish and not args.dry_run and result["status"] == "OK":
             from live_contentops.pinned_result_scorecard_v1 import refresh_scorecard
-            result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,
-                                                  python=child_python())
             result["publication"] = posts.publish_ready(store, latest_states=result.get("latest_states"),
                                                        active_recoveries=result.get("active_recoveries"), automatic_neo=True)
+            result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,
+                                                  python=child_python())
             from live_contentops.plan_analysis_pages_v1 import resume_discord_links
             result["publication"].setdefault("posts", []).extend(resume_discord_links(store,
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))

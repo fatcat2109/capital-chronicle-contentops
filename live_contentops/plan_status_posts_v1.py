@@ -954,6 +954,10 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
                 "destination_causes", "deferred_destinations") if k in post} for post in posts],
             "not_posted_details": [{k: row[k] for k in ("key", "plan_id", "cause") if k in row}
                                    for row in result.get("not_posted") or []]}
+    if result.get("phase"):
+        line["phase"] = result["phase"]
+    if result.get("plan_pages") is not None:
+        line["plan_pages"] = result["plan_pages"]
     if "scorecard" in result:
         line["scorecard"] = result["scorecard"]
     if "event_timestamp" in result:
@@ -1324,7 +1328,8 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
     """CC-459: every new plan image is TradingView; after two failures use text."""
     from live_contentops import tradingview_snapshot_v1 as tv
     image_input = None
-    if not source_snapshot and (row.get("levels") or {}).get("image_source_plan") and row.get("kind") in {"setup", "result"}:
+    if (not source_snapshot and not row.get("state_alert_contract")
+            and (row.get("levels") or {}).get("image_source_plan") and row.get("kind") in {"setup", "result"}):
         from .image_template_inputs_v1 import from_plan, from_result
         image_input = from_result(row) if row.get("kind") == "result" else from_plan(row)
     asset = tv.plan_snapshot(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed, ratio=ratio,
@@ -1485,7 +1490,9 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
     # Decision 82 / CC-459: exact readback remains available for old objects,
     # while a fresh write can never send the parked drawn levels picture.
     context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
-    if any(a.get("modality") != "tradingview_chart_snapshot" for a in (context.get("media") or {}).get("assets") or []):
+    assets = (context.get("media") or {}).get("assets") or []
+    if ((row.get("state_alert_contract") and not assets)
+            or any(a.get("modality") != "tradingview_chart_snapshot" for a in assets)):
         raise PlanPostError("JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED")
     if row.get("format") == 4:
         # Frozen copy is the authority. A later formatter or disclosure change
@@ -1556,7 +1563,8 @@ def _api_confirmed(store, key: str, *, root: Path = POST_ROOT) -> bool:
 
 
 def publish_ready(store, *, latest_states=None, active_recoveries=None, now: datetime | None = None, coordinator_for=None,
-                  root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None, automatic_neo=False) -> dict:
+                  root: Path = POST_ROOT, host=None, limit: int = 5, snapshot=None, automatic_neo=False,
+                  immediate_only=False) -> dict:
     """Post fresh rows to the API destinations (Telegram, Discord, Threads) through the sole
     coordinator, and exit. Never waits on agent work: X is not in this plan (see start_x).
 
@@ -1567,6 +1575,15 @@ def publish_ready(store, *, latest_states=None, active_recoveries=None, now: dat
     retry); a row with all three confirmed is done, so an idle run touches nothing.
     """
     now = now or datetime.now(timezone.utc)
+    if immediate_only:
+        import time
+        from .plan_call_cards_v1 import publish_ready as publish_cards
+        from .plan_state_alerts_v1 import IMMEDIATE_DESTINATIONS
+        started = time.monotonic()
+        return publish_cards(store, now=now, latest_states=latest_states, root=root, host=host,
+            coordinator_for=coordinator_for, limit=limit, automatic_neo=False,
+            destinations=IMMEDIATE_DESTINATIONS, snapshot=snapshot,
+            snapshot_allowed=lambda: time.monotonic() - started < SNAPSHOT_RUN_BUDGET_SECONDS)
     if coordinator_for is None:
         def coordinator_for(key, folder):
             from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator

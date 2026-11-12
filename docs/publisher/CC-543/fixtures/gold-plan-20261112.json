@@ -1,0 +1,157 @@
+{
+  "analysis_result_hash": "5b1cb828cad7ee0a1666b08c8abef896c86f50224404a98c1b3a771d970a6be9",
+  "asset_id": "XAUUSD",
+  "cancel_conditions": [],
+  "cancel_kind": null,
+  "cancel_level": null,
+  "check_age_seconds": 91.724952,
+  "checked_at_utc": "2026-11-12T13:19:23.123369Z",
+  "conditions": [],
+  "data_state": "AVAILABLE",
+  "decision_record_id": "decision:shock-20261112T123542Z:XAUUSD",
+  "direction": "BEARISH",
+  "entries": [
+    {
+      "kind": "LIMIT",
+      "zone_high": 3964.0,
+      "zone_low": 3954.0
+    }
+  ],
+  "entries_first_cause": null,
+  "entry_deadline_utc": "2026-11-13T06:00:00Z",
+  "entry_geometry": [],
+  "entry_mode": "TOUCH",
+  "expires_at_utc": "2026-11-13T06:00:00Z",
+  "first_cause": null,
+  "forecast_probabilities": {
+    "horizon_end_utc": "2026-11-13T13:15:00Z",
+    "missing_reasons": [],
+    "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+    "probability_target_before_stop_pct": 14,
+    "probability_touch_pct": 55,
+    "probability_up_pct": 45,
+    "reference_at_utc": "2026-11-12T12:40:01Z",
+    "reference_price": 3935.553
+  },
+  "horizon_lane": "SHORT",
+  "horizon_lane_first_cause": null,
+  "invalidation_conditions": [
+    {
+      "field": "close",
+      "operator": "GT",
+      "threshold": 3972.6
+    }
+  ],
+  "kind": "WATCH",
+  "last_price": 3977.998,
+  "last_price_at_utc": "2026-11-12T06:31:34.647600Z",
+  "last_price_first_cause": null,
+  "last_quote": {
+    "instrument": "XAUUSD",
+    "known_at_utc": "2026-11-12T06:31:34.647600Z",
+    "price": 3977.998,
+    "price_basis": "MID",
+    "quoted_at_utc": "2026-11-12T06:31:34.647600Z",
+    "source_hash": "2648765a14d9908bb309128a715ee3d6584b44e2a0813d20416c8d706d12ae3f"
+  },
+  "not_before_utc": "2026-11-12T13:30:00Z",
+  "outcome": {
+    "first_cause": "OUTCOME_NOT_YET_RESOLVED",
+    "outcome_id": null,
+    "public_call_id": "call_2bda765d56769720ec4dc146",
+    "result": null,
+    "result_r": null,
+    "result_r_basis": "NET_DEAL_CASH_OVER_FROZEN_INITIAL_RISK",
+    "result_r_first_cause": "OUTCOME_NOT_CLOSED",
+    "result_r_source_hash": null,
+    "score": null,
+    "state": "PENDING"
+  },
+  "plan_id": "plan_230a9464a193ca7a377d0c41",
+  "plan_key": "XAUUSD:SHORT",
+  "position_horizon_lane": null,
+  "public_instrument": {
+    "contract_first_cause": null,
+    "contract_month": "2026-12",
+    "direction": null,
+    "entries": [
+      {
+        "kind": "LIMIT",
+        "zone_high": null,
+        "zone_low": null
+      }
+    ],
+    "exchange": "COMEX",
+    "invalidation_level": null,
+    "kind": "FUT",
+    "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+    "name": "Micro gold",
+    "symbol": "MGC",
+    "target_first_cause": "TARGET_NOT_RECORDED",
+    "target_level": null,
+    "tick_size": null,
+    "zone_high": null,
+    "zone_low": null
+  },
+  "public_instrument_first_cause": null,
+  "registered_at_utc": "2026-11-12T13:19:23.123369Z",
+  "registration_hash": "2e9a7170c25e5a90935cc4b02a88ace95af9ec63344785ce7074b5af42e2dece",
+  "review_at_utc": "2026-11-13T06:00:00Z",
+  "run_id": "shock-20261112T123542Z",
+  "scenario_analysis": {
+    "acceptance": null,
+    "base_case": {
+      "market_move": null,
+      "probability_pct": null
+    },
+    "confirmations": null,
+    "driver": null,
+    "field_first_causes": {
+      "acceptance": "NOT_WRITTEN",
+      "confirmations": "NOT_WRITTEN",
+      "driver": "NOT_WRITTEN",
+      "invalidation_reason": "NOT_WRITTEN",
+      "invalidation_text": "NOT_WRITTEN",
+      "mechanism": "NOT_WRITTEN",
+      "opposite_mechanism": null,
+      "positioning": "NOT_WRITTEN",
+      "priced": "NOT_WRITTEN",
+      "why_no_open": "NOT_WRITTEN",
+      "zone_reason": "NOT_WRITTEN"
+    },
+    "horizon_end_utc": "2026-11-13T13:15:00Z",
+    "invalidation_reason": null,
+    "invalidation_text": null,
+    "main_alternative": {
+      "market_move": "A haven and short-covering squeeze: the 3919.89-3924.60 double low holds, the talks break or shorts cover before PPI, and price runs the stops above 3955.81 and 3972.5.",
+      "probability_pct": null
+    },
+    "mechanism": null,
+    "missing_fields": [
+      "base_case.probability_pct",
+      "base_case.market_move",
+      "main_alternative.probability_pct"
+    ],
+    "opposite_mechanism": "A haven and short-covering squeeze: the 3919.89-3924.60 double low holds, the talks break or shorts cover before PPI, and price runs the stops above 3955.81 and 3972.5.",
+    "positioning": null,
+    "priced": null,
+    "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+    "source_plan_hash": "f1de35e327b1306c433a27137eab15b18df8c56af8d79ac5164e8a6d044c2097",
+    "source_result_hash": "5b1cb828cad7ee0a1666b08c8abef896c86f50224404a98c1b3a771d970a6be9",
+    "why_no_open": null,
+    "zone_reason": null
+  },
+  "scenario_first_cause": null,
+  "status": "WAITING",
+  "status_at_utc": "2026-11-12T13:19:23.123369Z",
+  "status_label": "Waiting",
+  "target_first_cause": null,
+  "target_level": 3876.0,
+  "target_source_hash": "2e9a7170c25e5a90935cc4b02a88ace95af9ec63344785ce7074b5af42e2dece",
+  "target_tick_size": 0.001,
+  "trigger_hash": "7c99aefa7cb4b6f2106b1ee78869e511f20a2013f25eb394bf452611a577ab9e",
+  "zone": {
+    "maximum": 3964.0,
+    "minimum": 3954.0
+  }
+}

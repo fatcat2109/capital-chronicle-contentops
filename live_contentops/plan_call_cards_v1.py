@@ -233,6 +233,9 @@ def analysis_publication(raw):
 
 
 def compose(row):
+    if row.get("state_alert_contract") == "CC543_V1":
+        from .plan_state_alerts_v1 import compose as compose_alert
+        return compose_alert(row)
     if row.get("reader_contract") == "CC466_V1":
         from .plan_reader_copy_v1 import payloads
         if row.get("reader_fields"):
@@ -485,7 +488,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         from .plan_reader_copy_v1 import EFFECTIVE as READER_EFFECTIVE
         if now >= READER_EFFECTIVE:
             item.update(reader_contract="CC466_V1", source_plan=raw,
-                        source_plan_registration=raw.get("registration_hash"))
+                        source_plan_registration=raw.get("registration_hash"),
+                        state_alert_contract="CC543_V1")
         return item
 
     groups = {}
@@ -592,7 +596,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     items = {item["key"]: item for item in [*render_items, *payloads]}
     for item in items.values():
         if render_all:
-            if item.get("reader_contract") and not item.get("reader_fields"):
+            if item.get("reader_contract") and not item.get("reader_fields") and not item.get("state_alert_contract"):
                 rendered.append({"key":item["key"],"kind":item["kind"],"status":"EDITORIAL_INPUT_REQUIRED",
                     "cause":"CC466_SOURCED_FIELDS_NOT_PREPARED","destinations":{},"text":""})
                 continue
@@ -818,6 +822,10 @@ def _parents(store, row, destinations, previous):
 
 def destination_payloads(row, *, card_id, parents=None, carousel=None, chart_credit=False, complete_levels=False,
                          portrait_id=None):
+    if row.get("state_alert_contract") == "CC543_V1":
+        from .plan_state_alerts_v1 import payloads as alert_payloads
+        return alert_payloads(row, card_id=card_id, parents=parents, carousel=carousel,
+            chart_credit=chart_credit, complete_levels=complete_levels, portrait_id=portrait_id)
     if row.get("reader_contract") == "CC466_V1":
         from .plan_reader_copy_v1 import payloads
         return payloads(row, card_id, chart_credit=chart_credit, parents=parents, portrait_id=portrait_id)
@@ -993,7 +1001,10 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     folder.mkdir(parents=True, exist_ok=True)
     context_path = folder / "run_context_v1.json"
     previous = json.loads(context_path.read_bytes()) if context_path.is_file() else {}
-    if row.get("reader_contract") == "CC466_V1":
+    if row.get("state_alert_contract") == "CC543_V1":
+        from .plan_state_alerts_v1 import validate as validate_alert
+        validate_alert(row)
+    elif row.get("reader_contract") == "CC466_V1":
         from .plan_reader_editorial_v1 import validate_reader_row
         validate_reader_row(store, row)
     parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
@@ -1003,7 +1014,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     title = (row["lead"] if row["kind"] == "run" else
              f"{row['instrument_title']} · #{row['short_id']} · "
              + (ending_words(row) if row["kind"] == "result" else "call card" if row["kind"] == "setup" else "update"))
-    if row.get("reader_contract"):
+    if row.get("reader_contract") and not row.get("state_alert_contract"):
         title = row["reader_fields"]["hook"]["text"]
     article = {"title": title, "dek": row["lead"], "body": row["text"],
                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
@@ -1029,7 +1040,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             if card is None:
                 all_carousel_images = False
                 continue
-            if row.get("reader_contract") and row["reader_fields"].get("alt_text"):
+            if row.get("reader_fields") and row["reader_fields"].get("alt_text"):
                 card = {**card, "alt_text": row["reader_fields"]["alt_text"]["text"]}
             if host is None:
                 from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
@@ -1055,7 +1066,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
                         if hosted["media_asset_id"] not in {a["media_asset_id"] for a in manifest["assets"]}:
                             manifest["assets"].append(hosted)
                     continue
-                if row.get("reader_contract") and row["reader_fields"].get("alt_text"):
+                if row.get("reader_fields") and row["reader_fields"].get("alt_text"):
                     carousel_card = {**carousel_card, "alt_text": row["reader_fields"]["alt_text"]["text"]}
                 if not posts._hosted(local_manifest_path, carousel_card):
                     delivery = host(work_item_id=member["key"], delivery_only_assets=[carousel_card], existing_manifest=None,
@@ -1078,6 +1089,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             tv.record_outcome({"key": key, "market": row["symbol"], "destination": "instagram_business",
                                "status": "SKIPPED_IMAGE_REQUIRED", "cause": skipped[0]["cause"]})
         chart_credit = bool(assets)
+    if row.get("state_alert_contract") and not assets:
+        raise tv.SnapshotPending("JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED")
     skipped_names = {s["destination"] for s in skipped}
     chosen = [d for d in chosen if d not in skipped_names]
     card = assets[0] if assets else None
@@ -1089,7 +1102,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             "chart_credit": chart_credit, "status_post_chart_policy": "CC459_TRADINGVIEW",
             "status_post_parents": parents, "status_post_instagram_carousel": carousel,
             "status_post_skipped_destinations": skipped, "status_post_threads_image": portrait_id}
-        if row.get("reader_contract"):
+        if row.get("reader_contract") and not row.get("state_alert_contract"):
             context["reader_contract"] = row["reader_contract"]
             context["reader_source"] = row["reader_source"]
             context["reader_fields"] = row["reader_fields"]
@@ -1119,7 +1132,10 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
 
 def validate_parent_intent(store, row, intent):
     destination = intent["destination_plan"]["destination"]
-    if row.get("reader_contract") == "CC466_V1":
+    if row.get("state_alert_contract") == "CC543_V1":
+        from .plan_state_alerts_v1 import validate as validate_alert
+        validate_alert(row)
+    elif row.get("reader_contract") == "CC466_V1":
         from .plan_reader_editorial_v1 import validate_reader_row
         validate_reader_row(store, row)
     if row["kind"] == "setup" and row.get("time_exit_utc") and datetime.now(timezone.utc) >= posts._utc(row["time_exit_utc"]):
@@ -1173,7 +1189,7 @@ def readback_own_comment(destination, comment_id, parent_id, text):
 
 
 def publish_ready(store, *, now, latest_states=None, root, host=None, coordinator_for=None, limit=5, automatic_neo=False,
-                  snapshot=None, snapshot_allowed=None):
+                  snapshot=None, snapshot_allowed=None, destinations=None):
     if coordinator_for is None:
         def coordinator_for(key, folder):
             from .native_neo_executor_v1 import bind_native_neo_coordinator
@@ -1197,7 +1213,12 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         if settled:
             results.append(settled)
             continue
-        if row.get("reader_contract") == "CC466_V1" and not row.get("reader_fields"):
+        # The immediate pass never opens a page, calls a model or starts a
+        # browser route. Frozen historical packets retain their own recovery.
+        if destinations is not None and row.get("state_alert_contract") != "CC543_V1":
+            continue
+        if (row.get("reader_contract") == "CC466_V1" and not row.get("reader_fields")
+                and not row.get("state_alert_contract")):
             from .plan_reader_editorial_v1 import prepare_social_row
             prepared = prepare_social_row(store, row, root=root)
             if prepared["status"] != "PREPARED":
@@ -1233,6 +1254,10 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 "cause": "PLAN_UPDATE_SUPERSEDED_BY_" + latest_states[row["plan_id"]]})
             continue
         ready = _ready_destinations(store, row, root=root)
+        if destinations is not None:
+            ready = [d for d in ready if d in destinations]
+            if not ready:
+                continue
         if not ready:
             _, deferred = _parents(store, row, DESTINATIONS, {})
             results.append({"key": key, "status": "WAITING" if deferred else "SETTLED",
@@ -1251,7 +1276,8 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 continue
             calls += 1
         try:
-            plan = prepare_post(store, key, root=root, host=host, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
+            plan = prepare_post(store, key, root=root, host=host, snapshot=snapshot, snapshot_allowed=snapshot_allowed,
+                                **({"destinations": tuple(ready)} if destinations is not None else {}))
             if not plan["destinations"]:
                 results.append({"key": key, "status": "WAITING_FOR_CARD_PARENT",
                                 "cause": (plan["deferred_destinations"] or [{}])[0].get("cause", "CARD_PARENT_NOT_CONFIRMED"),
