@@ -30,7 +30,9 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
     if artifact.is_file():
         attempts=[artifact,*sorted(artifact.parent.glob("resume-*/result.json"))]
         previous=json.loads(attempts[-1].read_bytes())
-        if previous["status"]=="RETURNED" or not retry_failed:
+        from .light_model_caller_v1 import POLICY
+        legacy_light_failure = not writer and previous["status"] != "RETURNED" and previous.get("light_call",{}).get("policy") != POLICY
+        if previous["status"]=="RETURNED" or (not retry_failed and not legacy_light_failure):
             return previous
         # Only an explicit resume retries the same failed input. Retain the
         # first failure and the new observed attempt under the same request.
@@ -44,6 +46,19 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
         "status":"FAILED", "output":None}
     raw, err = b"", b""
     try:
+        if not writer:
+            from .light_model_caller_v1 import call_light
+            answer, light = call_light(prompt, root=artifact.parent / "light", runner=runner,
+                timeout_cause="AGY_VARIANTS_TIMEOUT_120S", empty_cause="AGY_VARIANTS_EMPTY_RESPONSE")
+            record.update(light_call=light, answered_by=light["answered_by"], elapsed_seconds=light["elapsed_seconds"])
+            chosen = light["attempts"][-1] if light["status"] == "RETURNED" else light["attempts"][0]
+            raw = (artifact.parent / "light" / (chosen["caller"] + "-stdout.txt")).read_bytes()
+            err = (artifact.parent / "light" / (chosen["caller"] + "-stderr.txt")).read_bytes()
+            if light["status"] != "RETURNED":
+                raise ValueError(light["cause"])
+            record.update(configured_model=light["configured_model"], configured_effort=light["configured_effort"],
+                status="RETURNED", output=_json_response(answer))
+            return record
         with tempfile.TemporaryDirectory(prefix="cc466-text-") as cwd:
             if writer:
                 codex = shutil.which("codex.exe") or shutil.which("codex")
@@ -59,14 +74,6 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
                 done = (runner or _run)(args,cwd=cwd,timeout=300,input=prompt.encode())
                 raw,err = done.stdout,done.stderr
                 answer = result_path.read_bytes() if result_path.is_file() else raw
-            else:
-                args=[AGY,"--model",model,"--effort",effort,"--disable-slash-commands",
-                    "--print-timeout","120s","--output-format","json","--print",prompt]
-                if len(prompt)>20000:
-                    raise ValueError("AGY_TEXT_PROMPT_TOO_LARGE")
-                done=(runner or _run)(args,cwd=cwd,timeout=120)
-                raw,err=done.stdout,done.stderr
-                answer=raw
             record["returncode"]=done.returncode
             if done.returncode:
                 raise ValueError("TEXT_CLI_EXIT_"+str(done.returncode))
@@ -76,12 +83,13 @@ def text_call(prompt, *, root, writer=False, runner=None, retry_failed=False):
             raw,err=exc.output or b"",exc.stderr or b""
             record["cause"]="PAGE_WRITER_TIMEOUT_300S" if writer else "AGY_VARIANTS_TIMEOUT_120S"
         else:
-            record["cause"]=type(exc).__name__+":"+str(exc)[:160]
-    (artifact.parent/"stdout.txt").write_bytes(raw)
-    (artifact.parent/"stderr.txt").write_bytes(err)
-    record.update(ended_at_utc=datetime.now(timezone.utc).isoformat(),
-        output_sha256=sha256(raw).hexdigest(),stderr_sha256=sha256(err).hexdigest(),artifact_path=str(artifact))
-    artifact.write_bytes(canonical_bytes(record))
+            record["cause"]=str(exc) if not writer and "light_call" in record else type(exc).__name__+":"+str(exc)[:160]
+    finally:
+        (artifact.parent/"stdout.txt").write_bytes(raw)
+        (artifact.parent/"stderr.txt").write_bytes(err)
+        record.update(ended_at_utc=datetime.now(timezone.utc).isoformat(),
+            output_sha256=sha256(raw).hexdigest(),stderr_sha256=sha256(err).hexdigest(),artifact_path=str(artifact))
+        artifact.write_bytes(canonical_bytes(record))
     return record
 
 
