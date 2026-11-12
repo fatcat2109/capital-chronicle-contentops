@@ -146,15 +146,19 @@ def summarize(root, *, start, end, asof):
                      "status": data["status"]})
 
     undrafted = []
-    for key in sorted(stage_sets["on_topic"] - stage_sets["authored"]):
+    unvalidated = []
+    for key in sorted(stage_sets["on_topic"] - stage_sets["validated"]):
         row = target(key)
         usable_causes = [c for c in row["causes"] if c["cause"] not in {
             "TARGET_OVER_15_MINUTES_AT_SEND", "POST_OUTSIDE_120_MINUTE_BUILD_WINDOW",
             "NO_SIX_MARKET_OR_MACRO_TOPIC", "POST_TIME_INVALID", "POST_IDENTITY_MISMATCH",
             "RETWEET_NOT_ORIGINAL_TARGET", "POST_ALREADY_HAS_20_REPLIES"}]
         first = usable_causes[0] if usable_causes else {"cause": "FIRST_CAUSE_NOT_RETAINED_IN_LEGACY_RUN"}
-        row["first_undrafted_cause"] = first
-        undrafted.append({"post_id": key, **first})
+        row["first_unvalidated_cause"] = first
+        unvalidated.append({"post_id": key, **first})
+        if key not in stage_sets["authored"]:
+            row["first_undrafted_cause"] = first
+            undrafted.append({"post_id": key, **first})
 
     stage_minutes = {}
     for name in ("filter", "ranking", "drafting", "checks", "whole_tick"):
@@ -181,7 +185,9 @@ def summarize(root, *, start, end, asof):
         "session_state": state, "window_elapsed": asof >= end, "runs_read": len(runs),
         "counts_distinct_posts": counts, "run_statuses": dict(statuses), "stage_minutes": stage_minutes,
         "post_to_send_minutes": list(deliveries.values()), "on_topic_without_authored_draft": undrafted,
+        "on_topic_without_validated_draft": unvalidated,
         "first_undrafted_causes": dict(Counter(r["cause"] for r in undrafted)),
+        "first_unvalidated_causes": dict(Counter(r["cause"] for r in unvalidated)),
         "coverage": {"first_run_started_at_utc": boundaries[0][0].isoformat() if boundaries else None,
             "last_run_ended_at_utc": boundaries[-1][1].isoformat() if boundaries else None,
             "max_between_run_gap_minutes": max(coverage_gaps) if coverage_gaps else None},

@@ -65,6 +65,8 @@ def test_confirmed_send_is_distinct_from_returned_or_validated_drafts(tmp_path):
     assert result["counts_distinct_posts"]["sent"] == 1
     assert result["post_to_send_minutes"][0]["post_to_delivery_minutes"] == 3.5
     assert result["stage_minutes"]["telegram_send"]["minutes"] == [2/60]
+    assert result["on_topic_without_authored_draft"] == []
+    assert [p["post_id"] for p in result["on_topic_without_validated_draft"]] == ["2"]
 
 
 def test_legacy_absent_stage_and_first_cause_are_named_unknown(tmp_path):
