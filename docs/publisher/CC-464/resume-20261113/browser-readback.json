@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-12T18:40:43.286139+00:00",
+  "source_url": "https://docs.x.com/x-for-websites/web-intents/overview",
+  "documented_behavior": "The documented reply endpoint is /intent/tweet with in_reply_to; Web Intents support mobile web and handlers in installed iOS and Android X apps.",
+  "phone_observed": false,
+  "existing_desktop_proof": "docs/publisher/CC-464/desktop-intent-proof.json",
+  "neo_own_reply_readback": {
+    "url": "https://x.com/Capitalnicle/with_replies",
+    "page_id": 174,
+    "latest_visible_own_post_id": "2120744512545017962",
+    "matching_bot_target_reply_seen": false,
+    "scope": "First six visible own timeline posts; latest own post was about 13 hours old. No global-absence claim."
+  },
+  "task_group_id": "32E6CF3FE88350ADDB8BC5D557815776",
+  "public_submit_actions": 0
+}

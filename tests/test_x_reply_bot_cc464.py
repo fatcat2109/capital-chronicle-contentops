@@ -300,6 +300,32 @@ def test_ranker_never_pads_low_quality_candidates_or_calls_writer(setup):
     assert not packs.read_json(path)["items"]
 
 
+def test_writer_receives_ranked_facts_with_full_context_and_no_unranked_hydration(setup):
+    store, _, root = setup
+    feed = mobile_input(setup)
+    ready = packs.prepare(store, feed_path=feed, output_root=root, now=NOW, reply_policy=packs.MOBILE_POLICY)
+    request = packs.read_json(ready["request_path"])
+    source = request["sources"][0]
+    for n in range(4):
+        extra = {**source, "source_id": "extra-"+str(n), "excerpt": source["excerpt"]+" Context."*(n+1)}
+        request["sources"].append(extra)
+        request["candidates"][0]["usable_source_ids"].append(extra["source_id"])
+    request["request_sha256"] = packs.digest({k:v for k,v in request.items() if k != "request_sha256"})
+    packs.save_json(ready["request_path"], request)
+    def rank(prompt, **kwargs):
+        packet = json.loads(prompt.rsplit("\n", 1)[1])
+        assert len(packet["candidates"][0]["available_facts"]) == 3
+        assert not any("source_id" in f for f in packet["candidates"][0]["available_facts"])
+        return {"ranking": [{"post_id": "123", "quality_score": 92}]}, {}
+    def write(prompt, **kwargs):
+        packet = json.loads(prompt.rsplit("\n", 1)[1])
+        assert len(packet["sources"]) == 3 and len(packet["target"]["usable_source_ids"]) == 3
+        assert {s["source_id"] for s in packet["sources"]} == {source["source_id"], "extra-0", "extra-1"}
+        assert next(s for s in packet["sources"] if s["source_id"] == "extra-1")["excerpt"].endswith(" Context. Context.")
+        return authored(request), {}
+    botlane.rank_and_draft(ready["request_path"], output_dir=root/"native", ranker=rank, writer=write, now=NOW)
+
+
 def two_targets(setup, *, first_age=2):
     feed = mobile_input(setup, age=first_age)
     value = packs.read_json(feed)

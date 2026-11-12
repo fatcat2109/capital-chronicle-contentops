@@ -123,3 +123,62 @@ Jim's one prepared action is to tap **Open reply on X** on private bot message 3
 and press Reply if he accepts the draft. A phone open and actual own-account reply
 cannot be inferred from the Bot API response or desktop intent proof. The first
 real reply feeds both delays and the 24-hour/fourteen-day audience record.
+
+## Continuation — 13 November 2026
+
+The previous result above records the first delivery. The current delivery branch
+continues from operating HEAD `42af12d1`, with the installed CC-495/509/510/511/512
+fact, quote, topic and caller fixes retained. The launch explicitly configured
+`gpt-6.1-sol/max`; its model and effort remain `CONFIGURED_NOT_OBSERVED`.
+
+`resume-20261113/timing-diagnosis.json` traces the second real private delivery:
+target `2120872859266699313`, posted at 20:34:28 GMT+7 on 12 November, reached
+Telegram at 20:43:03 GMT+7, **8.58 minutes** later. Its first ingestion lag was
+38.265 seconds. At 20:37 GMT+7 it already ranked above the quality floor, but the
+writer took a different target. That peer failed `FACT_DRIVER_LINK_NOT_STATED`.
+The valid opportunity waited another tick and another ranking call. The earlier
+tick's stage clocks also show that batching alone cannot guarantee five minutes;
+upstream tick delay and actual native call duration still count.
+
+The existing consumer now sends up to three qualified, distinct-author targets to
+one bounded MAX writing call, capped by the day's remaining delivery slots.
+Each draft still passes its own source, same-market, freshness, copy and private
+destination checks. A rejected peer does not delay another valid draft. The
+quality floor stays 80; the shared cap stays five, including uncertain sends.
+No draft is added to satisfy a count. Expiry during ranking skips that target
+and lets a fresh qualified peer proceed. Historical requests keep their bytes.
+
+The writer uses the three fact records per target that were supplied to ranking,
+with their complete context. Other usable sources remain in the saved request.
+This addresses the measured 90-second timeout in `native-batch-timeout.json`;
+that replay produced no final answer and made no delivery. The existing bounded
+Codex JSONL caller now consumes `turn.completed` directly for the MAX writer,
+with tool use disabled and session/usage telemetry retained. AGY's actual
+65-second timeout is recorded separately from its Codex fallback's 65 seconds.
+
+New delivery observations retain post-to-ingestion, ingestion-to-filter and
+filter-to-delivery seconds, plus `five_minute_target_met`. Revalidation preserves
+the original clocks. Unavailable ingestion clocks stay unknown. Five minutes is
+the measured target; CC-495's 15-minute send limit remains in force.
+
+Build and installed evidence is under `resume-20261113/`: the 72-check regression
+run, three additional clock checks, and 87 installed bot/pack/caller checks passed.
+The initial regression artifact retains its obsolete 90-second timeout fixture
+failure; the fixture and real timeout label were corrected. `integration-code.json`
+records the operating merge, matching source hashes and six preserved dirty files.
+Code `d3641bac` and its live/rollback tags are pushed. Subsequent bounded-context
+verification and exact current consumer readback are recorded alongside them.
+
+`browser-readback.json` records a fresh bounded own-replies view and the official
+[Web Intents documentation](https://docs.x.com/x-for-websites/web-intents/overview).
+The documented endpoint already supports reply identity, mobile web and installed
+app handlers; the existing exact desktop intent proof remains available. No
+matching manual reply was visible in the inspected newest posts or held readback
+rows. This establishes neither a phone opening nor global reply absence.
+
+The phone opening and Jim's first reply remain separate required observations.
+Jim's prepared action is unchanged: on the next **unexpired** private bot draft,
+tap **Open reply on X**, review the target and filled text, then press **Reply**
+once. The existing observer imports that exact edge and both delays afterwards.
+Old messages 3 and 4 are expired and must not be sent. CC-458 stays parked.
+No schedule, application, Main source or trading state was changed.

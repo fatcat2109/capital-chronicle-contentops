@@ -1,0 +1,167 @@
+{
+  "observed_at_utc": "2026-11-12T18:39:57.754035+00:00",
+  "runs_count": 548,
+  "run_status_counts": {
+    "NO_NEW_ELIGIBLE_TARGETS": 393,
+    "NO_FRESH_UNSENT_DRAFTS": 119,
+    "REPLY_BOT_FAILED": 35,
+    "DELIVERED": 1
+  },
+  "prior_delivery": [
+    {
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134126-d2aff1b3\\result.json",
+      "kind": "private_draft_delivered",
+      "delivery_id": "xrb-2120872859266699313",
+      "post_id": "2120872859266699313",
+      "message_id": 4,
+      "delivered_at_utc": "2026-11-12T13:43:03+00:00",
+      "post_to_delivery_minutes": 8.5797,
+      "post_to_draft_minutes": 8.557976700000001,
+      "public_submit_actions": 0,
+      "post_to_send_attempt_minutes": 8.578755283333333,
+      "fact_binding": {
+        "kind": "session",
+        "markets": [
+          "BRENT"
+        ],
+        "as_of_date": "2026-11-12",
+        "observed_at_utc": "2026-11-12T13:31:26+00:00",
+        "sentence": "Brent crude oil futures: 93.82 USD per barrel, change from prior close 1.06 USD per barrel (Yahoo Finance, 12 Nov 2026, 08:31 AM ET).",
+        "age_text": "today, 8:31 AM ET",
+        "checked_at_utc": "2026-11-12T13:43:02.932922+00:00",
+        "policy": "CC495_REPLY_FACT_V1"
+      },
+      "stage_seconds": {
+        "filter": 4.777249899998424,
+        "ranking": 37.22941890000948,
+        "drafting": 50.17092460001004,
+        "checks": 0.22036600000865292,
+        "telegram_send": 0.8785262000019429
+      }
+    }
+  ],
+  "measured_serial_delay": {
+    "first_tick": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T133726-6f8f37ce\\result.json",
+    "qualified_target_queued": "2120872859266699313",
+    "ranked_first_peer": "2120873355427365250",
+    "first_peer_refusal": "FACT_DRIVER_LINK_NOT_STATED",
+    "first_tick_stage_seconds": {
+      "ranking": 42.7713725999929,
+      "drafting": 81.88406569999643,
+      "checks": 0.18452500000421423,
+      "filter": 6.492299299992737,
+      "whole_tick": 134.529798699994
+    },
+    "queued_post_ids": [
+      "2120872859266699313"
+    ],
+    "next_delivery_post_to_minutes": 8.5797
+  },
+  "latest_runs": [
+    {
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T183027-7aa7c06c\\result.json",
+      "started_at_utc": "2026-11-12T18:30:27.302090+00:00",
+      "ended_at_utc": "2026-11-12T18:32:34.858311+00:00",
+      "status": "NO_FRESH_UNSENT_DRAFTS",
+      "cause": null,
+      "draft_limits": [
+        null,
+        null
+      ],
+      "stage_seconds": {
+        "ranking": 84.7334206999949,
+        "drafting": 0.0,
+        "checks": 0.5066325000079814,
+        "filter": 30.87482889999228,
+        "whole_tick": 127.50937240000349
+      },
+      "funnel_counts": {
+        "seen_post_ids": 1011,
+        "on_topic": 16,
+        "with_fact_post_ids": 16,
+        "ranking_input_post_ids": 12,
+        "ranked_above_floor_post_ids": 0,
+        "authored_post_ids": 0,
+        "validated_draft_post_ids": 0
+      },
+      "drop_causes": {
+        "NO_SIX_MARKET_OR_MACRO_TOPIC": 5,
+        "RETWEET_NOT_ORIGINAL_TARGET": 1,
+        "TARGET_OVER_15_MINUTES_AT_SEND": 989,
+        "PREVIOUSLY_ATTEMPTED": 1,
+        "RANK_BATCH_LIMIT_12": 3,
+        "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR": 12
+      }
+    },
+    {
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T183427-b4e2d19c\\result.json",
+      "started_at_utc": "2026-11-12T18:34:27.533164+00:00",
+      "ended_at_utc": "2026-11-12T18:36:06.392835+00:00",
+      "status": "NO_FRESH_UNSENT_DRAFTS",
+      "cause": null,
+      "draft_limits": [
+        null,
+        null
+      ],
+      "stage_seconds": {
+        "ranking": 84.5789206000045,
+        "drafting": 0.0,
+        "checks": 0.26070220000110567,
+        "filter": 9.25533830000495,
+        "whole_tick": 98.80540759999712
+      },
+      "funnel_counts": {
+        "seen_post_ids": 1012,
+        "on_topic": 15,
+        "with_fact_post_ids": 15,
+        "ranking_input_post_ids": 12,
+        "ranked_above_floor_post_ids": 0,
+        "authored_post_ids": 0,
+        "validated_draft_post_ids": 0
+      },
+      "drop_causes": {
+        "NO_SIX_MARKET_OR_MACRO_TOPIC": 2,
+        "RETWEET_NOT_ORIGINAL_TARGET": 1,
+        "TARGET_OVER_15_MINUTES_AT_SEND": 994,
+        "PREVIOUSLY_ATTEMPTED": 1,
+        "RANK_BATCH_LIMIT_12": 2,
+        "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR": 12
+      }
+    },
+    {
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T183727-3a72ab68\\result.json",
+      "started_at_utc": "2026-11-12T18:37:27.170430+00:00",
+      "ended_at_utc": "2026-11-12T18:39:08.792047+00:00",
+      "status": "NO_FRESH_UNSENT_DRAFTS",
+      "cause": null,
+      "draft_limits": [
+        null,
+        null
+      ],
+      "stage_seconds": {
+        "ranking": 89.1938203000027,
+        "drafting": 0.0,
+        "checks": 0.2970218999980716,
+        "filter": 6.182002700006706,
+        "whole_tick": 101.58656250000058
+      },
+      "funnel_counts": {
+        "seen_post_ids": 1014,
+        "on_topic": 16,
+        "with_fact_post_ids": 16,
+        "ranking_input_post_ids": 12,
+        "ranked_above_floor_post_ids": 0,
+        "authored_post_ids": 0,
+        "validated_draft_post_ids": 0
+      },
+      "drop_causes": {
+        "NO_SIX_MARKET_OR_MACRO_TOPIC": 3,
+        "RETWEET_NOT_ORIGINAL_TARGET": 1,
+        "TARGET_OVER_15_MINUTES_AT_SEND": 994,
+        "PREVIOUSLY_ATTEMPTED": 1,
+        "RANK_BATCH_LIMIT_12": 3,
+        "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR": 12
+      }
+    }
+  ]
+}
