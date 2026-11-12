@@ -1,11 +1,12 @@
 {
-  "observed_at_utc": "2026-11-12T14:36:20.276541+00:00",
-  "operating_head": "51daa2b70744d617b51c2e645464e017404583d0",
+  "observed_at_utc": "2026-11-12T14:43:10.977315+00:00",
+  "operating_head": "4662828b8b198624a01101d9ca21b6f394fb6b31",
+  "all_match": true,
   "files": [
     {
       "path": "live_contentops/plan_status_posts_v1.py",
       "matches_committed_blob_after_line_endings": true,
-      "sha256": "91dd8814bbc91c0bd8f306a12df9224a2b7a4eb972b257393a5ce22e9ea74fe3"
+      "sha256": "3e6b7c85fb1d10d24d35bbfd685f1f3aa4ff7b499b4cffe6acfa84f40e58eb15"
     },
     {
       "path": "live_contentops/plan_call_cards_v1.py",
@@ -25,7 +26,7 @@
     {
       "path": "live_contentops/publication_coordinator_v1.py",
       "matches_committed_blob_after_line_endings": true,
-      "sha256": "f3ca87ab6680f65985af29813ec53b835c8ed3efc13ad7cd4c4df6526bde0185"
+      "sha256": "3e62f66248294329dcf53405192155b30877657149072d73234fd7923eaeb206"
     },
     {
       "path": "live_contentops/plan_analysis_pages_v1.py",
@@ -75,7 +76,6 @@
       "unchanged": true
     }
   ],
-  "all_match": true,
   "schedule_changes": 0,
   "application_restarts": 0
 }

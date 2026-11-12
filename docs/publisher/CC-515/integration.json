@@ -1,5 +1,5 @@
 {
-  "state": "INSTALLED_MINUTE_RECOVERY_VERIFIED",
+  "state": "LIVE_ACCEPTANCE_OBSERVATION_PENDING",
   "branch": "backlog/cc-515-minute-consumer-integrate",
   "operating_base": "b896aaa9f129cd338ffafdb1543b753cf5554dc8",
   "delivery_commit": "bc4d7d44918f36596587fe1f010e8a29fd9f76bd",
@@ -61,7 +61,7 @@
   "total_passing_cases": 259,
   "integration_commit": "33f5ad09b615b3d205e955f120c82cb976093417",
   "installed_at_utc": "2026-11-12T14:18:37.038918+00:00",
-  "operating_head": "51daa2b70744d617b51c2e645464e017404583d0",
+  "operating_head": "4662828b8b198624a01101d9ca21b6f394fb6b31",
   "live_tag": "contentops-live-20261112-cc515",
   "rollback_tag": "contentops-rollback-20261112-cc515",
   "live_minute_record_utc": "2026-11-12T14:21:55.877821Z",
@@ -71,8 +71,8 @@
     "passed": 4
   },
   "remaining_acceptance": [
-    "Observe the first complete post-install GMT+7 day below 200 internal Neo requests.",
-    "Record the next naturally eligible X/LinkedIn article or plan outcome, and company LinkedIn/YouTube article outcome, or their exact cause."
+    "Complete GMT+7 day request count below 200; first possible full-day check 14 November 00:00 GMT+7.",
+    "Next naturally eligible public article/plan readback or exact destination cause; current causes retained in README."
   ],
   "reader_link_correction": {
     "cause": "KeyError(fundamental) in the first installed minute result",
@@ -103,7 +103,7 @@
     },
     "first_observed_minute_utc": "2026-11-12T14:40:55.466829Z"
   },
-  "latest_code_commit": "51daa2b70744d617b51c2e645464e017404583d0",
+  "latest_code_commit": "4662828b8b198624a01101d9ca21b6f394fb6b31",
   "latest_install_observed_at_utc": "2026-11-12T14:36:20.276541+00:00",
   "evidence_files": [
     {
@@ -144,5 +144,14 @@
   ],
   "required_next_check_gmt7": "2026-11-14 00:00 GMT+7",
   "full_day_request_target": "NOT_OBSERVED; first complete post-install GMT+7 day is 13 November",
-  "public_channel_outcomes": "exact present causes in README; no new article intent or public write invented"
+  "public_channel_outcomes": "exact present causes in README; no new article intent or public write invented",
+  "final_source_installed_observed_at_utc": "2026-11-12T14:43:10.977315+00:00",
+  "final_code_tag": "contentops-live-20261112-cc515-recovery-verified",
+  "final_installed_targeted_check": {
+    "artifact": "installed-final-link.xml",
+    "passed": 2,
+    "seconds": 4.39
+  },
+  "final_live_readback": "live-completion-readback.json",
+  "latest_observed_minute_record_utc": "2026-11-12T14:43:11.894118Z"
 }
