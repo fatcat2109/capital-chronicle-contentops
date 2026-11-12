@@ -1328,6 +1328,8 @@ def _post_image(row: Mapping[str, Any], folder: Path, *, snapshot=None, snapshot
     """CC-459: every new plan image is TradingView; after two failures use text."""
     from live_contentops import tradingview_snapshot_v1 as tv
     image_input = None
+    # CC-543 uses the existing CC-463 chart/scale/attribution checks. Its plain
+    # TradingView image must not wait for CC-465's model-reviewed template.
     if (not source_snapshot and not row.get("state_alert_contract")
             and (row.get("levels") or {}).get("image_source_plan") and row.get("kind") in {"setup", "result"}):
         from .image_template_inputs_v1 import from_plan, from_result

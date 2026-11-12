@@ -689,6 +689,10 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     original_payload = json.loads(original.get("payload") or "{}")
     discord_delivery = (original_payload.get("discord_delivery")
                         if destination == "discord" else None)
+    if destination == "discord" and original_payload.get("state_alert_contract"):
+        # CC-543 requires a reply under the alert, never a second channel root.
+        # The existing bot transport names missing credentials locally.
+        discord_delivery = "bot_thread"
     thread_parent = (_discord_analysis_thread(store, original_payload, parent)
                      if destination == "discord" and discord_delivery != "channel" else None)
     text = structured_summary(packet, destination, status["canonical_url"],authored_summary, version=2)

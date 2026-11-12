@@ -120,11 +120,11 @@ def test_cc466_new_consumer_queues_only_plans_and_dry_run_has_no_old_count_copy(
     result=posts.queue_posts(store,folder,now=now,main_root=main_root,python=sys.executable)
     queued=rows(store)
     assert len(queued)==5 and all(r['kind']=='setup' and r['reader_contract']=='CC466_V1' for r in queued)
-    assert all(not r.get('parent_key') and not r.get('text') for r in queued)
+    assert all(not r.get('parent_key') and r.get('text') and r['state_alert_contract']=='CC543_V1' for r in queued)
     dry=posts.queue_posts(store,folder,now=now,main_root=main_root,python=sys.executable,
                           dry_run=True,render_all=True)
-    assert all(r['status']=='EDITORIAL_INPUT_REQUIRED' for r in dry['rendered_posts'])
-    assert all(not r['destinations'] for r in dry['rendered_posts'])
+    assert all(r['destinations'] for r in dry['rendered_posts'])
+    assert all('run:' not in r['text'] for r in dry['rendered_posts'])
 
 
 def test_upgrade_reuses_legacy_shared_work_item_genesis(five, main_root):

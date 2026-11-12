@@ -489,7 +489,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         if now >= READER_EFFECTIVE:
             item.update(reader_contract="CC466_V1", source_plan=raw,
                         source_plan_registration=raw.get("registration_hash"),
-                        state_alert_contract="CC543_V1")
+                        state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
         return item
 
     groups = {}
@@ -810,7 +810,8 @@ def _parents(store, row, destinations, previous):
             continue
         parent = {**ref, "parent_key": row["parent_key"]}
         if destination == "discord":
-            root = _reference(store, row.get("run_key") or row["parent_key"], destination)
+            root_key = row["parent_key"] if row.get("state_alert_contract") else row.get("run_key") or row["parent_key"]
+            root = _reference(store, root_key, destination)
             if not root:
                 deferred.append({"destination": destination, "cause": "RUN_PARENT_NOT_CONFIRMED"})
                 continue
@@ -1089,6 +1090,34 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             tv.record_outcome({"key": key, "market": row["symbol"], "destination": "instagram_business",
                                "status": "SKIPPED_IMAGE_REQUIRED", "cause": skipped[0]["cause"]})
         chart_credit = bool(assets)
+    if frozen and row.get("state_alert_contract") and "instagram_business" in chosen and not previous.get("status_post_alert_portrait"):
+        # The fast API pass freezes its landscape bytes. Complete Instagram's
+        # separate portrait afterwards; append media without changing those
+        # already-issued payloads or their original chart.
+        try:
+            portrait, _ = posts._post_image(row, folder, snapshot=snapshot,
+                snapshot_allowed=snapshot_allowed, ratio="4:5")
+            if not portrait:
+                raise tv.SnapshotPending("TRADINGVIEW_CAPTURE_FAILED_IMAGE_REQUIRED")
+            if host is None:
+                from .cloudinary_delivery_media_v1 import prepare_cloudinary_delivery_media as host
+            delivery = host(work_item_id=key, delivery_only_assets=[portrait], existing_manifest=None,
+                article_assets=[], article=article, source_documents=[])
+            if delivery.get("status") != "CLOUDINARY_DELIVERY_MEDIA_READY":
+                raise posts.PlanPostError("PLAN_STATUS_CHART_HOSTING_" + str(delivery.get("status") or "FAILED"))
+            manifest = json.loads(manifest_path.read_bytes())
+            manifest["assets"].extend(delivery["manifest"]["assets"])
+            manifest_path.write_bytes(canonical_bytes(manifest))
+            assets.append(portrait)
+            hosted = delivery["manifest"]["assets"][0]
+            carousel = [{"asset_id": portrait["asset_id"], "path": portrait["path"],
+                "sha256": portrait["sha256"], "url": hosted["verified_public_delivery_url"]}]
+            previous.update(media={"assets": assets}, status_post_instagram_carousel=carousel,
+                            status_post_alert_portrait=portrait["asset_id"])
+        except (OSError, ValueError, KeyError, TypeError) as exc:
+            skipped = [*skipped, {"destination": "instagram_business", "cause": str(exc)[:200]}]
+        previous["status_post_skipped_destinations"] = skipped
+        context_path.write_bytes(canonical_bytes(previous))
     if row.get("state_alert_contract") and not assets:
         raise tv.SnapshotPending("JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED")
     skipped_names = {s["destination"] for s in skipped}
@@ -1159,7 +1188,8 @@ def validate_parent_intent(store, row, intent):
             not payload.get("reuse_run_carousel") or str(ref["public_object_id"]) != payload.get("carousel_parent_id")):
         raise posts.PlanPostError("PLAN_CARD_CAROUSEL_PARENT_CHANGED")
     if destination == "discord":
-        root = _reference(store, row.get("run_key") or row["parent_key"], destination)
+        root_key = row["parent_key"] if row.get("state_alert_contract") else row.get("run_key") or row["parent_key"]
+        root = _reference(store, root_key, destination)
         if not root or str(root["public_object_id"]) != payload.get("discord_thread_parent_id"):
             raise posts.PlanPostError("PLAN_CARD_DISCORD_THREAD_CHANGED")
         if row["kind"] != "setup" and str(ref["public_object_id"]) != payload.get("reply_to_id"):

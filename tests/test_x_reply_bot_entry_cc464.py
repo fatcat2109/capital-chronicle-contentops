@@ -1,4 +1,4 @@
-"""The actual minute CLI consumes private drafts before Main's export/publication."""
+"""Private drafts follow CC-543's fast alerts and precede slow editorial work."""
 import importlib.util
 import io
 import json
@@ -9,7 +9,7 @@ import pytest
 
 
 @pytest.mark.parametrize("dry", [False, True])
-def test_real_minute_entry_orders_bot_before_export_and_dry_run_calls_no_bot(tmp_path, monkeypatch, dry):
+def test_real_minute_entry_orders_export_before_bot_and_dry_run_calls_no_bot(tmp_path, monkeypatch, dry):
     spec = importlib.util.spec_from_file_location("cc464_minute", Path(__file__).parents[1] / "scripts/plan_status_posts.py")
     cli = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(cli)
@@ -41,7 +41,7 @@ def test_real_minute_entry_orders_bot_before_export_and_dry_run_calls_no_bot(tmp
     monkeypatch.setattr(sys, "stdout", output)
     cli.main(["--store", str(tmp_path / "store.sqlite3"), "--publish", *(["--dry-run"] if dry else [])])
     value = json.loads(output.getvalue())
-    assert order == (["main-export"] if dry else ["private-draft", "main-export"])
+    assert order == (["main-export"] if dry else ["main-export", "private-draft"])
     assert ("reply_bot" not in value) if dry else value["reply_bot"]["status"] == "PENDING_JIM_BOT_START"
 
 

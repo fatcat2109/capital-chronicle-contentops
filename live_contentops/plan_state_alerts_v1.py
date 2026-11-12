@@ -72,6 +72,8 @@ def validate(row):
     """The public geometry and copy must still equal this frozen Main plan."""
     from .plan_call_cards_v1 import card_plan
     raw = row["source_plan"]
+    if posts._sha(raw) != row.get("state_alert_source_sha256"):
+        raise posts.PlanPostError("PLAN_ALERT_SOURCE_BYTES_CHANGED")
     if raw.get("registration_hash") != row.get("source_plan_registration"):
         raise posts.PlanPostError("PLAN_ALERT_SOURCE_REGISTRATION_CHANGED")
     expected = card_plan(raw)
@@ -86,4 +88,7 @@ def payloads(row, **options):
     from .plan_call_cards_v1 import destination_payloads
     # Reuse the established length, thread, notice, chart-credit and parent
     # handling. The public source fields need no editorial variants.
-    return destination_payloads({**row, "state_alert_contract": None, "reader_contract": None}, **options)
+    result = destination_payloads({**row, "state_alert_contract": None, "reader_contract": None}, **options)
+    if options.get("carousel") and "instagram_business" in result:
+        result["instagram_business"]["media_asset_ids"] = [options["carousel"][0]["asset_id"]]
+    return result

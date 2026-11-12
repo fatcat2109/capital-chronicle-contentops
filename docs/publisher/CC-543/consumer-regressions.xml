@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="54" time="99.647" timestamp="2026-11-13T04:46:07.463170+07:00" hostname="J-P"><testcase classname="tests.test_plan_state_alerts_cc543" name="test_gold_replay_queues_a_complete_alert_without_page_or_variants" time="2.474" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes" time="5.950"><failure message="AssertionError: assert {'destination... TradingView'} == {'destination... TradingView'}&#10;  &#10;  Omitting 3 identical items, use -vv to show&#10;  Differing items:&#10;  {'destination': 'telegram'} != {'destination': 'discord'}&#10;  Use -v to get more diff">replay = (&lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x0000025F24B32850&gt;, WindowsPath('C:/U...ons': [], 'cancel_kind': None, ...}, datetime.datetime(2026, 11, 12, 13, 20, 23, 123369, tzinfo=datetime.timezone.utc))
+main_root = WindowsPath('C:/Users/bullw/AppData/Local/Temp/cc543-consumers-20261113-0451/test_gold_replay_delivers_both0/main')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x0000025F22FFD940&gt;
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/cc543-consumers-20261113-0451/test_gold_replay_delivers_both0')
+source = (WindowsPath('C:/Users/bullw/AppData/Local/Temp/cc543-consumers-20261113-0451/test_gold_replay_delivers_both0/runs'), ...s a 55% chance; support is 1.12. The alternative is 35%.'}], 'summary': 'Base case 55%; alternative 35%.'}, ...}, ...})
+
+    def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, main_root, monkeypatch, tmp_path, source):
+        store, folder, raw, now = replay
+        def failed(*a, **k):
+            raise AssertionError("Every model and browser step is unavailable")
+        monkeypatch.setattr(editorial, "prepare_social_row", failed)
+        monkeypatch.setattr(editorial, "text_call", failed)
+        monkeypatch.setattr(pages, "continue_page", failed)
+        from live_contentops import image_quality_v1, light_model_caller_v1
+        monkeypatch.setattr(image_quality_v1, "review_vision", failed)
+        monkeypatch.setattr(light_model_caller_v1, "call_light", failed)
+        queued = posts.queue_posts(store, folder, now=now, main_root=main_root, python=sys.executable)
+        class Recorded(FixtureTransport):
+            def __init__(self):
+                super().__init__()
+                self.intents = []
+            def publish(self, *, destination, intent, authorization_context):
+                assert destination in {"telegram", "discord"}
+                if intent.get("plan_status_post"):
+                    assert intent["native_payload"]["media_asset_ids"]
+                else:
+                    assert intent["native_payload"]["reply_to_id"]
+                self.intents.append(deepcopy(intent))
+                self.publish_calls.append(destination)
+                return {"status": "SUCCESS", "id": str(len(self.intents)),
+                        "public_url": f"https://example.test/{destination}/{len(self.intents)}"}
+            def readback(self, *, destination, public_object_id, public_object_url, intent):
+                if not any(i["work_item_id"] == intent["work_item_id"] and i["destination_plan"]["destination"] == destination
+                           for i in self.intents):
+                    return {"status": "NOT_FOUND", "verified": False}
+                return super().readback(destination=destination, public_object_id=public_object_id,
+                                        public_object_url=public_object_url, intent=intent)
+        transport = Recorded()
+        coordinator = DurablePublicationCoordinator(store=store, transport_runtime=transport,
+            readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"}, clock=lambda: now,
+            published_content_path=tmp_path / "published.jsonl")
+        result = posts.publish_ready(store, now=now, latest_states=queued["latest_states"], root=tmp_path / "posts",
+            host=fake_host, coordinator_for=lambda *a: coordinator, immediate_only=True)
+        assert len(transport.intents) == 2, result
+        assert set(transport.publish_calls) == {"telegram", "discord"}
+        assert (now - posts._utc(raw["registered_at_utc"])).total_seconds() &lt; 600
+        for intent in transport.intents:
+            context = json.loads((Path(intent["output_dir"]) / "run_context_v1.json").read_bytes())
+            assert context["media"]["assets"][0]["modality"] == "tradingview_chart_snapshot"
+            posts.validate_status_post_intent(store, intent)
+        posts.publish_ready(store, now=now, root=tmp_path / "posts", host=fake_host,
+            coordinator_for=lambda *a: coordinator, immediate_only=True)
+        assert len(transport.intents) == 2
+        original = rows(store)[0]
+        frozen_payload = store.get_outbox_message(original["key"])["payload"]
+        # The external page completes later. Its controlled source fixture tests the
+        # existing exact page/link consumer, without performing a browser write.
+        run_root, _, plan, manuscript = source
+        plan.update(plan_id=raw["plan_id"], registration_hash=raw["registration_hash"])
+        manuscript.update(plan_id=plan["plan_id"], registration_hash=plan["registration_hash"])
+        packet = pages.register_page(store, pages.render(plan, manuscript, run_root=run_root, output_dir=tmp_path / "page"))
+        confirm(store, packet["page_id"], packet["plan"]["plan_hash"], "substack", "confirmed-page",
+                "https://capitalchronicle.substack.com/p/controlled-gold-analysis")
+        coordinator.allow_prior_confirmed_distribution = True
+        for destination in ("telegram", "discord"):
+            value = pages.register_link(store, packet, original_key=original["key"], destination=destination)
+            assert value["native_payload"]["reply_to_id"] == cards._reference(store, original["key"], destination)["public_object_id"]
+            assert "https://capitalchronicle.substack.com/p/controlled-gold-analysis" in value["native_payload"]["full_text"]
+            coordinator.recovery_scope = {"work_item_id": value["link_id"], "plan": value["plan"], "exact_work_item_only": True}
+            outcome = coordinator.publish_plan(value["link_id"], value["plan"])
+            assert outcome["per_destination"][destination]["status"] == "DISPATCH_CONFIRMED", outcome
+            coordinator.publish_plan(value["link_id"], value["plan"])
+        assert len(transport.intents) == 4  # two alerts, then two replies; no edits
+        assert store.get_outbox_message(original["key"])["payload"] == frozen_payload
+        landscape_hash = context["media"]["assets"][0]["sha256"]
+        later = cards.prepare_post(store, original["key"], root=tmp_path / "posts", host=fake_host,
+                                   destinations=("instagram_business",))
+        copies = posts._expected(store, original["key"], later["output_dir"])[1]
+        expanded = json.loads((Path(later["output_dir"]) / "run_context_v1.json").read_bytes())
+        assert expanded["media"]["assets"][0]["sha256"] == landscape_hash
+        portrait_id, = copies["instagram_business"]["media_asset_ids"]
+        portrait = next(a for a in expanded["media"]["assets"] if a["asset_id"] == portrait_id)
+        assert portrait["width"] / portrait["height"] == pytest.approx(4 / 5)
+&gt;       assert copies["telegram"] == transport.intents[0]["native_payload"]
+E       AssertionError: assert {'destination... TradingView'} == {'destination... TradingView'}
+E         
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'destination': 'telegram'} != {'destination': 'discord'}
+E         Use -v to get more diff
+
+tests\test_plan_state_alerts_cc543.py:142: AssertionError</failure></testcase><testcase classname="tests.test_plan_state_alerts_cc543" name="test_missing_chart_sends_nothing_and_source_changes_fail" time="2.066" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_later_states_use_the_same_api_consumer_without_editorial" time="7.103" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_actual_minute_entry_sends_alerts_before_models_and_browser[False]" time="1.295" /><testcase classname="tests.test_plan_state_alerts_cc543" name="test_actual_minute_entry_sends_alerts_before_models_and_browser[True]" time="0.010" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_five_plans_make_one_run_and_five_cards_once" time="3.305" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc466_new_consumer_queues_only_plans_and_dry_run_has_no_old_count_copy" time="3.730" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_upgrade_reuses_legacy_shared_work_item_genesis" time="2.666" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_card_uses_target_tick_real_time_exit_chance_and_three_short_reasons" time="1.904" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_fill_and_winning_time_exit_keep_their_own_card_parent" time="2.830" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_unfilled_ending_is_owed_only_for_a_posted_setup" time="3.262" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_main_scorer_supplies_untriggered_direction_without_publisher_inference" time="0.004" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_missing_fields_do_not_hide_available_inputs" time="2.407" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_mapped_instrument_does_not_borrow_book_target_or_tick" time="0.004" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_bad_reason_number_or_length_yields_no_reasons" time="0.060" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_reasons_use_three_source_lines_and_fixed_glossary_without_a_model" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_rendered_chart_is_bound_to_exact_call_levels_and_source" time="2.761" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_copied_store_five_cards_fill_and_ending_use_sole_coordinator" time="28.907" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_unconfirmed_parent_defers_only_its_destination" time="2.133" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_discord_threads_use_official_bot_route_and_exact_card_reference" time="0.043" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_missing_discord_bot_token_is_definite_no_write" time="0.004" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_first_bot_run_creates_one_thread_and_recovers_its_lost_return[False]" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_first_bot_run_creates_one_thread_and_recovers_its_lost_return[True]" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_own_card_comments_read_back_from_their_exact_parent[facebook_page-message]" time="0.016" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_own_card_comments_read_back_from_their_exact_parent[instagram_business-text]" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_note_request_opens_exact_parent_and_never_creates_an_unrelated_note" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_instagram_run_creates_one_carousel_and_cards_do_not_publish_again" time="0.004" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_carousel_card_readback_checks_own_identity_exact_slot_and_pixels" time="0.026" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_watch_ending_does_not_claim_an_open_trade_closed" time="0.005" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_hit_at_time_exit_uses_time_exit_words_not_a_target_claim" time="0.004" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_announced_results_only_pending_unpublished_setup_gets_no_ending" time="2.375" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc432_summary_and_confirmed_page_replace_short_reasons" time="2.097" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc432_envelope_cannot_mix_plans_preview_hosts_or_private_summary[identity-CC432_PLAN_BINDING_MISMATCH]" time="0.006" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc432_envelope_cannot_mix_plans_preview_hosts_or_private_summary[preview-CC432_CONFIRMED_ANALYSIS_URL_REQUIRED]" time="0.004" /><testcase classname="tests.test_plan_call_cards_cc399" name="test_cc432_envelope_cannot_mix_plans_preview_hosts_or_private_summary[private-CC432_PUBLIC_SUMMARY_FILTER_FAILED]" time="0.006" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_nine_section_manuscript_reads_original_run_and_keeps_private_hash_out" time="0.093" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_missing_optional_critic_note_uses_held_critical_output" time="0.026" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_page_pending_remains_unsettled_and_never_calls_variant_writer" time="0.937" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_whole_native_source_and_et_transforms_are_bound_to_own_plan" time="0.024" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_new_composer_uses_force_fields_and_old_composer_bytes_stay_available" time="0.012" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_acronym_only_rewrite_happens_once_then_logs_without_gate" time="0.051" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_daily_failure_is_released_only_for_bound_preclick_and_reconciled_absence[exact]" time="0.877" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_daily_failure_is_released_only_for_bound_preclick_and_reconciled_absence[wrong_dispatch]" time="1.358" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_daily_failure_is_released_only_for_bound_preclick_and_reconciled_absence[uncertain]" time="1.134" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_daily_failure_is_released_only_for_bound_preclick_and_reconciled_absence[public_object]" time="1.130" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_a_missing_identity_before_an_observed_no_click_is_not_unknown_write" time="0.004" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_source_validation_uses_the_confirmed_page_not_only_writer_fields" time="0.910" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_explicit_native_retry_preserves_the_failure_and_caches_its_return" time="0.153" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_explicit_page_resume_reuses_exact_source_and_retains_failed_writer" time="1.971" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_page_resume_cli_registers_return_for_live_consumer_without_reauthoring" time="1.443" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_new_variants_use_explicit_original_odds_without_inventing_a_complement[Dollar strength supports the view. Probability: 55% lower at the exit.-55]" time="3.127" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_new_variants_use_explicit_original_odds_without_inventing_a_complement[Dollar strength supports the view. Touch probability 55%; probability up 45%.-None]" time="0.062" /><testcase classname="tests.test_plan_reader_editorial_cc466" name="test_new_variants_use_explicit_original_odds_without_inventing_a_complement[Dollar strength supports the view. Probability: 55% higher at the exit.-None]" time="0.098" /></testsuite></testsuites>
