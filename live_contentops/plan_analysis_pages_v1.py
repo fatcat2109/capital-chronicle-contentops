@@ -646,6 +646,10 @@ def _analysis_parent(store, original_key, plan_id, destination):
 def _discord_analysis_thread(store, original, parent):
     """A bot card already lives in its run thread; Discord has no nested threads."""
     from .plan_call_cards_v1 import _reference
+    if original.get("kind") == "setup" and not original.get("parent_key"):
+        # CC-466's setup is its own root; run_key remains an internal grouping
+        # key and does not identify a public count/summary post.
+        return str(parent["public_object_id"])
     run_key = original.get("run_key") or original.get("parent_key")
     if not run_key:
         return str(parent["public_object_id"])

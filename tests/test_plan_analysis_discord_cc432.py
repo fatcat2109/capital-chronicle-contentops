@@ -62,6 +62,19 @@ def test_thread_substitution_is_refused_before_publication(ready):
         pages.validate_link_plan(store, link["link_id"], link["plan"])
 
 
+def test_standalone_setup_links_in_its_own_discord_thread_without_a_count_root(ready,monkeypatch):
+    store,packet,original=ready
+    row=json.loads(store.get_outbox_message(original)['payload'])
+    row.update(kind='setup',parent_key=None,run_key='internal-group-without-public-root',discord_delivery='bot_thread')
+    with store.get_connection() as connection:
+        connection.execute('UPDATE outbox_messages SET payload=? WHERE message_id=?',(json.dumps(row),original))
+    link=pages.register_link(store,packet,original_key=original,destination='discord')
+    assert link['native_payload']['discord_thread_parent_id']=='parent-discord'
+    assert link['native_payload']['reply_to_id']=='parent-discord'
+    assert pages.validate_link_plan(store,link['link_id'],link['plan'])==link
+    assert store.get_outbox_message('internal-group-without-public-root') is None
+
+
 @pytest.mark.parametrize("field", ["reply_to_id", "discord_thread_parent_id", "text"])
 def test_text_reply_image_contract_still_checks_exact_canonical_and_parent(ready,field):
     from live_contentops.publication_image_contract_v1 import validate_write
