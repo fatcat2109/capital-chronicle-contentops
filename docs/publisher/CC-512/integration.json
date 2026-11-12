@@ -1,0 +1,32 @@
+{
+  "item": "CC-512",
+  "recorded_at_utc": "2026-11-12T13:37:18.234741+00:00",
+  "stage": "INTEGRATION_TESTS_PASSED",
+  "operating_base": "71633590d8647ba1bee8fc3df5db582e04f37cac",
+  "incoming": "cecf4f4741752f8f35d0601b84f3d7e416698daa",
+  "branch": "backlog/cc-512-light-caller-integrate",
+  "launch": {
+    "pid": 19908,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "observed_arguments": "--model gpt-6.1-sol -c model_reasoning_effort=max"
+  },
+  "checks": [
+    {
+      "artifact": "integration-caller-tests.xml",
+      "passed": 21,
+      "seconds": 4.69
+    },
+    {
+      "artifact": "integration-consumer-tests.xml",
+      "passed": 91,
+      "seconds": 36.95
+    }
+  ],
+  "choice": "Integrate the existing second-stream delivery onto the current operating HEAD, preserving CC-511 and all unrelated WIP. No Ops review is required by the item.",
+  "preserved_wip": "integration-preserved-wip.json",
+  "public_write_performed": false,
+  "schedule_changed": false,
+  "desktop_automation_performed": false
+}

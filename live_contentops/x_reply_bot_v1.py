@@ -224,6 +224,21 @@ def _text_call(prompt, *, root, writer=False, runner=None):
         "started_at_utc": packs.utcnow().isoformat(), "public_submit_actions": 0}
     raw, err, started = b"", b"", perf_counter()
     try:
+        if not writer:
+            from .light_model_caller_v1 import call_light
+            answer, light = call_light(prompt, root=root / "light", runner=runner,
+                timeout_cause="AGY_RANK_TIMEOUT_" + str(RANK_TIMEOUT) + "S", empty_cause="AGY_RANK_EMPTY_RESPONSE")
+            record_.update(light_call=light, answered_by=light["answered_by"])
+            chosen = light["attempts"][-1] if light["status"] == "RETURNED" else light["attempts"][0]
+            raw = (root / "light" / (chosen["caller"] + "-stdout.txt")).read_bytes()
+            err = (root / "light" / (chosen["caller"] + "-stderr.txt")).read_bytes()
+            if light["status"] != "RETURNED":
+                record_["status"] = "TIMEOUT" if light["attempts"][0]["status"] == "TIMEOUT" else "FAILED"
+                raise ValueError(light["cause"])
+            value = _json_response(answer)
+            record_.update(status="RETURNED", configured_model=light["configured_model"], configured_effort=light["configured_effort"])
+            packs.save_json(root / "response.json", value)
+            return value, record_
         with tempfile.TemporaryDirectory(prefix="cc464-text-") as cwd:
             if writer:
                 # Resolve the installed executable; do not assume an interactive shell or a versioned path.
@@ -243,14 +258,6 @@ def _text_call(prompt, *, root, writer=False, runner=None):
                 if result.returncode:
                     raise ValueError("CODEX_EXIT_" + str(result.returncode))
                 answer = result_path.read_bytes() if result_path.is_file() else raw
-            else:
-                args = [AGY, "--model", model, "--effort", effort, "--disable-slash-commands",
-                    "--print-timeout", str(RANK_TIMEOUT) + "s", "--output-format", "json", "--print", prompt]
-                result = (runner or _run)(args, cwd=cwd, timeout=RANK_TIMEOUT)
-                raw, err = result.stdout, result.stderr
-                if result.returncode:
-                    raise ValueError("AGY_EXIT_" + str(result.returncode))
-                answer = raw
             record_["returncode"] = result.returncode
             value = _json_response(answer)
             packs.save_json(root / "response.json", value)
@@ -261,7 +268,8 @@ def _text_call(prompt, *, root, writer=False, runner=None):
         record_["status"] = "TIMEOUT"
         raise ValueError("CODEX_DRAFT_TIMEOUT_90S" if writer else "AGY_RANK_TIMEOUT_" + str(RANK_TIMEOUT) + "S") from None
     except Exception as exc:
-        record_.update(status="FAILED", cause=type(exc).__name__)
+        record_.setdefault("status", "FAILED")
+        record_["cause"] = str(exc) if "light_call" in record_ else type(exc).__name__
         raise
     finally:
         record_["ended_at_utc"] = packs.utcnow().isoformat()

@@ -1,0 +1,64 @@
+{
+  "role": "ranking",
+  "test_forced_primary_failure": false,
+  "source_prompt_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T094326-e07d2ecc\\editorial\\rank\\prompt.txt",
+  "status": "RETURNED",
+  "answered_by": "antigravity",
+  "role_schema_pass": true,
+  "record": {
+    "policy": "cc512-light-caller-v1",
+    "status": "RETURNED",
+    "started_at_utc": "2026-11-12T12:33:07.129312+00:00",
+    "prompt_sha256": "c2bf23838257a5c288785b9f51fb535b23605ca4f596a90588c43f3ef2d8167d",
+    "prompt_bytes": 3549,
+    "attempts": [
+      {
+        "caller": "antigravity",
+        "started_at_utc": "2026-11-12T12:33:07.129361+00:00",
+        "status": "RETURNED",
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "timeout_seconds": 65,
+        "image_tools_observed": [],
+        "observed_conversation_id": "50aa504f-f91c-4fac-8eef-2937dbfaeb30",
+        "observed_usage": {
+          "input_tokens": 14937,
+          "output_tokens": 932,
+          "thinking_tokens": 850,
+          "cache_read_tokens": 0,
+          "total_tokens": 15869
+        },
+        "observed_duration_seconds": 14.1815375,
+        "observed_num_turns": 1,
+        "returncode": 0,
+        "ended_at_utc": "2026-11-12T12:33:42.000760+00:00",
+        "elapsed_seconds": 34.87134330000845,
+        "stdout_bytes": 4215,
+        "stderr_bytes": 0,
+        "output_sha256": "6852f3d55d3a12665f45eadac36bb8c8fc9175839d0c12a213813889fc5e1d69",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "answered_by": "antigravity",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "answer_seconds": 34.87134330000845,
+    "configured_model": "gemini-3.8-flash-high",
+    "configured_effort": "high",
+    "image_tools_observed": [],
+    "observed_conversation_id": "50aa504f-f91c-4fac-8eef-2937dbfaeb30",
+    "observed_usage": {
+      "input_tokens": 14937,
+      "output_tokens": 932,
+      "thinking_tokens": 850,
+      "cache_read_tokens": 0,
+      "total_tokens": 15869
+    },
+    "observed_duration_seconds": 14.1815375,
+    "observed_num_turns": 1,
+    "ended_at_utc": "2026-11-12T12:33:42.002547+00:00",
+    "elapsed_seconds": 34.873133300003246,
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\cc512-primary-measurement-2vd98sp1\\light-call.json"
+  },
+  "public_write_performed": false
+}
