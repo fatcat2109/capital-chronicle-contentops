@@ -1,30 +1,54 @@
 {
-  "operating_head": "030bd1c0dcdaa311324a87ca4571d92eb52929eb",
+  "recorded_at_utc": "2026-11-12T13:56:12.234672+00:00",
+  "operating_head": "b86b26251da5b61e2e4d495235ae8f7f6a8dcf0b",
+  "source_commit": "b86b26251da5b61e2e4d495235ae8f7f6a8dcf0b",
   "files": [
     {
       "path": "live_contentops/image_quality_v1.py",
-      "matches_committed_blob": true
+      "matches_committed_blob": true,
+      "sha256": "9abddb36519cc7695ed57f2038f2f695e98179822ea03029f58ba4b80f26e6dc"
     },
     {
       "path": "live_contentops/light_model_caller_v1.py",
-      "matches_committed_blob": true
+      "matches_committed_blob": true,
+      "sha256": "a01036ac24452d00dd3cee923b9cd947510c305be7d6bb18a307b92d40f2c300"
     },
     {
       "path": "live_contentops/plan_reader_editorial_v1.py",
-      "matches_committed_blob": true
+      "matches_committed_blob": true,
+      "sha256": "5ca89236e2822eb5e63a698490e8ae0ab58728b6724dea9a72f68bb18908acea"
     },
     {
       "path": "live_contentops/x_reply_bot_v1.py",
-      "matches_committed_blob": true
+      "matches_committed_blob": true,
+      "sha256": "d36501d81d3f441dca46d3afe82ffef130433f8abd580daa1aa35aea89f781bc"
     },
     {
       "path": "tests/test_light_model_caller_cc512.py",
-      "matches_committed_blob": true
+      "matches_committed_blob": true,
+      "sha256": "188c367a196770a7189f5975edddc9ebc5f1aaf95a473b60784a497707ab380e"
     },
     {
       "path": "tests/test_plan_reader_editorial_cc466.py",
-      "matches_committed_blob": true
+      "matches_committed_blob": true,
+      "sha256": "56b9d3efe08b6a789079cf8145cec32b3d5a4e21ec692391a59e678391e0f1eb"
     }
   ],
-  "all_match": true
+  "all_match": true,
+  "preserved_wip": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "unchanged_tracked_files": 2
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "unchanged_tracked_files": 6
+    }
+  ],
+  "schedule_readback": {
+    "name": "CapitalChronicle-PlanStatusPosts-V1",
+    "observed_action": "pythonw.exe -B scripts/plan_status_posts.py --publish",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "changed": false
+  }
 }

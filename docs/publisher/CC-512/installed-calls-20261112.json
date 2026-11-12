@@ -1,0 +1,787 @@
+{
+  "date_utc": "2026-11-12",
+  "snapshot_at_utc": "2026-11-12T13:54:23.911929+00:00",
+  "scope": "All retained reply-ranking calls dated 12 November UTC plus this integration's installed image and variants calls. Forced-primary-failure measurements and unfinished interrupted calls are excluded. This is a partial-day snapshot, not a census of all ContentOps roles.",
+  "calls": [
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T00:14:40.442263+00:00",
+      "seconds": 53.887408399998094,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T001428-b38fc2bf\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T00:17:36.157735+00:00",
+      "seconds": 53.739363399996364,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T001728-59679877\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T01:06:22.531101+00:00",
+      "seconds": 68.24063129999558,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T010539-01a4c4b8\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T01:10:35.239120+00:00",
+      "seconds": 90.50888030000351,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T011028-a6b4b379\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T01:17:32.349644+00:00",
+      "seconds": 90.35091529999772,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T011727-aed2b063\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T01:21:32.437002+00:00",
+      "seconds": 90.43639960000291,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T012127-c064cf32\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T01:36:36.804540+00:00",
+      "seconds": 90.31886240000313,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T013627-0b0485fe\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T01:40:47.598723+00:00",
+      "seconds": 90.87452810000104,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T014029-667dc56d\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T01:45:37.800601+00:00",
+      "seconds": 90.46675079999841,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T014528-6cd157f1\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T01:53:34.351919+00:00",
+      "seconds": 72.35182609999902,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T015327-1e605dbd\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T02:05:32.862273+00:00",
+      "seconds": 45.51957959999709,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T020527-2d6108a0\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T02:14:38.580008+00:00",
+      "seconds": 90.4948854999966,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T021428-79d51e0c\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T02:30:32.948544+00:00",
+      "seconds": 90.58918009999616,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T023028-4daf3094\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T02:34:31.219560+00:00",
+      "seconds": 60.78530049999972,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T023426-58ea64c4\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T03:02:37.197548+00:00",
+      "seconds": 41.618267199999536,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T030227-2e4aa9f0\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T03:14:31.344991+00:00",
+      "seconds": 46.213485400003265,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T031426-97015e4a\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T03:31:30.104283+00:00",
+      "seconds": 40.21646280000277,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T033127-2e38f7f1\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T03:39:31.598717+00:00",
+      "seconds": 29.51711119999527,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T033927-55591278\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T04:03:33.847993+00:00",
+      "seconds": 32.52168929999607,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T040327-e81a1dc2\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T04:06:35.185054+00:00",
+      "seconds": 22.53812000000471,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T040627-befcea3e\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T04:11:32.156563+00:00",
+      "seconds": 57.58659759999864,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T041127-3a9c3124\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T04:59:39.742279+00:00",
+      "seconds": 27.485501999995904,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T045927-3d9d034e\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T05:04:31.628634+00:00",
+      "seconds": 32.752829900004144,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T050426-2ef0a389\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T05:36:34.204291+00:00",
+      "seconds": 30.15142680000281,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T053627-8bde40b0\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T05:46:33.081907+00:00",
+      "seconds": 64.57391840000491,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T054627-d8ee5bc9\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T05:48:32.332833+00:00",
+      "seconds": 53.13507750000281,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T054827-232b9972\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T05:53:32.212280+00:00",
+      "seconds": 35.41179440000269,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T055327-9b6d7e52\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T05:58:32.561647+00:00",
+      "seconds": 84.48482240000158,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T055827-acbaea46\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T06:01:32.466442+00:00",
+      "seconds": 49.401243400003295,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T060127-df8fa434\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T06:03:32.706154+00:00",
+      "seconds": 32.32536540000001,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T060327-497886fe\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T06:04:32.678649+00:00",
+      "seconds": 31.12689679999312,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T060427-a61fc789\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T06:08:33.318972+00:00",
+      "seconds": 44.906766200001584,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T060827-127e7154\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T06:09:33.233458+00:00",
+      "seconds": 31.95763209999859,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T060927-2a0fe33c\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T06:10:33.692592+00:00",
+      "seconds": 32.12644480000017,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T061027-cf9bf6ba\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T06:11:33.220976+00:00",
+      "seconds": 26.177452800002357,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T061127-42e85056\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T06:12:33.225233+00:00",
+      "seconds": 19.36260449999827,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T061227-f7b2778e\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T07:33:29.779367+00:00",
+      "seconds": 17.967803999999887,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T073326-425f24f1\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T09:43:29.764027+00:00",
+      "seconds": 41.22007830000075,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T094326-e07d2ecc\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T11:17:33.263845+00:00",
+      "seconds": 90.2911596000049,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T111726-ad5e61a5\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T11:51:37.919638+00:00",
+      "seconds": 100.15596509999887,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T115128-6f93c1a2\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T11:56:40.966063+00:00",
+      "seconds": 32.03902559999551,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T115629-76dd7240\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:01:38.174250+00:00",
+      "seconds": 54.53426090000721,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T120129-356aed15\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:06:43.344652+00:00",
+      "seconds": 134.04777670001204,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T120629-e39a6bc1\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:11:48.891638+00:00",
+      "seconds": 97.48055029999523,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T121129-b65e6257\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:28:30.992631+00:00",
+      "seconds": 20.4839229999925,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T122827-a18044e8\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:30:30.724770+00:00",
+      "seconds": 45.902570999998716,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T123027-852b7939\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:33:33.310773+00:00",
+      "seconds": 17.731999199997517,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T123327-8ef55efe\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:35:31.577043+00:00",
+      "seconds": 20.436113799994928,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T123527-e2268d25\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:37:30.450187+00:00",
+      "seconds": 25.134169099997962,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T123727-d2cecbed\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:39:31.307834+00:00",
+      "seconds": 25.473405199998524,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T123927-a01f2da4\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:41:31.645875+00:00",
+      "seconds": 49.29427230000147,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T124127-5dcd0f94\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:46:33.149852+00:00",
+      "seconds": 42.62620140000945,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T124627-37b7e200\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:50:33.173565+00:00",
+      "seconds": 33.688869400008116,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T125027-11d85837\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:54:31.870218+00:00",
+      "seconds": 29.62083490000805,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T125427-e2a45c26\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:56:31.701242+00:00",
+      "seconds": 33.77111380000133,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T125627-f042a633\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T12:58:31.974330+00:00",
+      "seconds": 28.439388099999633,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T125827-e708f5f8\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:01:31.260300+00:00",
+      "seconds": 35.005728599993745,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T130127-12893ed9\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:03:31.156557+00:00",
+      "seconds": 29.03165600000648,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T130327-797933ba\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:08:31.672939+00:00",
+      "seconds": 33.54311749999761,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T130827-b7e79888\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:10:31.011369+00:00",
+      "seconds": 27.675023899995722,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T131027-68ddfd70\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:12:31.744084+00:00",
+      "seconds": 31.481296099998872,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T131227-43059d5f\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:14:31.335092+00:00",
+      "seconds": 55.76082499999029,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T131426-52dba476\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:17:30.780830+00:00",
+      "seconds": 55.983349800008,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T131726-00643b9f\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:19:36.022880+00:00",
+      "seconds": 37.01206130000355,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T131926-c9a3a59a\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:22:34.973141+00:00",
+      "seconds": 90.31125179999799,
+      "status": "TIMEOUT",
+      "consumer_status": "TIMEOUT",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T132226-de821ae6\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:25:36.522063+00:00",
+      "seconds": 55.766440000006696,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T132526-e8b0240e\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:29:38.727385+00:00",
+      "seconds": 57.29906819999451,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T132926-1ee33d2c\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:34:34.979657+00:00",
+      "seconds": 42.27081370000087,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T133426-b7cfd38d\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:37:35.570290+00:00",
+      "seconds": 42.76818279999134,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T133726-6f8f37ce\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:41:34.296426+00:00",
+      "seconds": 37.194708800001536,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134126-d2aff1b3\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "image",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:44:32.619995+00:00",
+      "seconds": 65.32555340000545,
+      "status": "TIMEOUT",
+      "consumer_status": "REVIEWED",
+      "cause": "AGY_VISION_TIMEOUT_125S",
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc512-light-caller-integration\\media\\cc465-retained-cpi-layout-event-2-T.vision\\20261112T134432618391Z\\light-call.json"
+    },
+    {
+      "role": "variants",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:45:15.633223+00:00",
+      "seconds": 65.34807160000491,
+      "status": "TIMEOUT",
+      "consumer_status": "PREPARED",
+      "cause": "AGY_VARIANTS_TIMEOUT_120S",
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc512-light-caller-integration\\plan-status-post-0fee4b9450de5a81488e9d30f67d49cd\\agy-variants\\e22ec9d5657e0a87d040d574bebbb223dc74f623d902d224bc9f6b1321a6dfe5\\light\\light-call.json"
+    },
+    {
+      "role": "image",
+      "caller": "codex",
+      "started_at_utc": "2026-11-12T13:45:37.946828+00:00",
+      "seconds": 11.860292800003663,
+      "status": "RETURNED",
+      "consumer_status": "REVIEWED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc512-light-caller-integration\\media\\cc465-retained-cpi-layout-event-2-T.vision\\20261112T134432618391Z\\light-call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:45:42.457963+00:00",
+      "seconds": 44.49838790000649,
+      "status": "RETURNED",
+      "consumer_status": "FAILED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134526-e265758e\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "variants",
+      "caller": "codex",
+      "started_at_utc": "2026-11-12T13:46:20.982256+00:00",
+      "seconds": 17.57130560000951,
+      "status": "RETURNED",
+      "consumer_status": "PREPARED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc512-light-caller-integration\\plan-status-post-0fee4b9450de5a81488e9d30f67d49cd\\agy-variants\\e22ec9d5657e0a87d040d574bebbb223dc74f623d902d224bc9f6b1321a6dfe5\\light\\light-call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:48:44.121136+00:00",
+      "seconds": 52.3412313000008,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134826-b6353160\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "antigravity",
+      "started_at_utc": "2026-11-12T13:51:39.085383+00:00",
+      "seconds": 65.31839110000874,
+      "status": "TIMEOUT",
+      "consumer_status": "RETURNED",
+      "cause": "AGY_RANK_TIMEOUT_90S",
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T135126-e48377e9\\editorial\\rank\\call.json"
+    },
+    {
+      "role": "ranking",
+      "caller": "codex",
+      "started_at_utc": "2026-11-12T13:52:44.405267+00:00",
+      "seconds": 26.25491060000786,
+      "status": "RETURNED",
+      "consumer_status": "RETURNED",
+      "cause": null,
+      "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T135126-e48377e9\\editorial\\rank\\call.json"
+    }
+  ]
+}

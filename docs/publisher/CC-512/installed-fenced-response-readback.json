@@ -1,0 +1,9 @@
+{
+  "source_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T134526-e265758e\\editorial\\rank\\call.json",
+  "validation_kind": "SAVED_RESPONSE_REPLAY_NO_PROVIDER_CALL",
+  "status": "RETURNED",
+  "ranking_count": 10,
+  "response_sha256": "bde239db60f3293f7cd96a451256059c81cfbf32df172bc067d0a33a6aeaa0a3",
+  "consumer_module": "A:/Capital Chronicle/ContentOps/live_contentops/x_reply_bot_v1.py",
+  "public_write_performed": false
+}
