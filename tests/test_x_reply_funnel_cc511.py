@@ -89,6 +89,16 @@ def test_saved_rank_before_a_writer_timeout_counts_its_actual_score(tmp_path):
     assert result["first_undrafted_causes"] == {"CODEX_DRAFT_TIMEOUT_90S": 1}
 
 
+def test_legacy_omission_is_read_from_its_saved_editorial_response(tmp_path):
+    folder = run(tmp_path, number=0)
+    save_json(folder / "reply-pack-request-test.json", {"candidates": [{"post_id": "1"}]})
+    save_json(folder / "editorial/response.json", {"items": [], "omissions": [{
+        "post_id": "1", "cause": "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR"}]})
+    result = reporter.summarize(tmp_path, start=START, end=END, asof=ASOF)
+    assert result["first_undrafted_causes"] == {"NO_ADDED_FACT_ABOVE_QUALITY_FLOOR": 1}
+    assert len(next(p for p in result["posts"] if p["post_id"] == "1")["causes"]) == 1
+
+
 def test_partial_and_missing_window_records_are_never_complete(tmp_path):
     result = reporter.summarize(tmp_path, start=START, end=END, asof="2026-11-12T15:00:00Z")
     assert result["session_state"] == "PARTIAL_SESSION_OBSERVED"

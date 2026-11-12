@@ -92,7 +92,7 @@ def summarize(root, *, start, end, asof):
             cause, key = post["cause"], str(post["post_id"])
             row = target(key)
             entry = {"cause": cause, "at_utc": at.isoformat(), "artifact": str(path)}
-            if entry not in row["causes"]:
+            if not any(prior["cause"] == cause for prior in row["causes"]):
                 row["causes"].append(entry)
             if cause not in {"TARGET_OVER_15_MINUTES_AT_SEND", "POST_OUTSIDE_120_MINUTE_BUILD_WINDOW",
                              "POST_IDENTITY_MISMATCH", "POST_TIME_INVALID"}:
@@ -120,6 +120,11 @@ def summarize(root, *, start, end, asof):
                                   if str(row.get("post_id")) in candidates])
         if response_path.is_file():
             response = read(response_path)
+            for omission in response.get("omissions", []):
+                row = target(omission["post_id"])
+                if not any(prior["cause"] == omission["cause"] for prior in row["causes"]):
+                    row["causes"].append({"cause": omission["cause"], "at_utc": at.isoformat(),
+                                          "artifact": str(response_path)})
             reached("above_floor", response.get("ranked_above_floor_post_ids", []))
             reached("above_floor", response.get("remaining_quality_post_ids", []))
             reached("authored", [str(p["post_id"]) for p in response.get("items", [])])
