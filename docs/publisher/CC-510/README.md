@@ -132,3 +132,14 @@ consumer supplies that opportunity; no person action or Ops review is needed.
 The unchanged source remains live while that observation is pending. Reproduce
 the bounded saved-evidence read with
 `python docs/publisher/CC-510/resume-20261114/readback.py`.
+
+The [follow-up readback at 01:53 GMT+7](resume-20261114/followup-20261113T185340Z/readback.json)
+on 14 November found the same three confirmed session-fact deliveries and zero
+base-rate deliveries. Its latest stored consumer result ended at 01:50 GMT+7
+with `NO_NEW_ELIGIBLE_TARGETS`. The bounded saved-prompt scan still has eight
+statistics targets, 41 appearances and three quality-floor passes, with zero
+scan errors. All four installed source files still match the lane. CC-510 stays
+OPEN for the natural phone observation. No production code, editorial call,
+transport call or manual consumer tick was needed, so the accepted targeted
+tests were retained. This continuation's observed launch arguments were
+`gpt-6.1-sol / max`, labelled `CONFIGURED_NOT_OBSERVED` in the readback.
