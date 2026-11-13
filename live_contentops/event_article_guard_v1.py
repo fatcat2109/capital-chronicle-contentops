@@ -226,6 +226,12 @@ def compact_reader_conditional_call_text(call: Mapping[str, Any]) -> str:
             f"Wrong {call['invalidation']}. Ends {call['horizon']}.")
 
 
+def thread_reader_conditional_call_text(call: Mapping[str, Any]) -> str:
+    """CC-549 names the close condition, instrument stop and each clock."""
+    return (f"We are {call['direction']} on {call['market']} if {call['condition']}. "
+            f"{call['invalidation']}. {call['horizon']}.")
+
+
 def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
                            require_notice: bool = True, require_call_text: bool = True) -> dict[str, Any]:
     """Shared Substack/feed gate: decision 35 as amended by decision 40.
@@ -271,9 +277,10 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         wording = conditional_call_text(call)
         reader_wording = reader_conditional_call_text(call)
         compact_wording = compact_reader_conditional_call_text(call)
-        if require_call_text and not any(w in combined for w in (wording, reader_wording, compact_wording)):
+        thread_wording = thread_reader_conditional_call_text(call)
+        if require_call_text and not any(w in combined for w in (wording, reader_wording, compact_wording, thread_wording)):
             _fail("CONDITIONAL_CALL_NOT_IN_AUTHORED_COPY", "conditional_calls")
-        remainder = remainder.replace(wording, "").replace(reader_wording, "").replace(compact_wording, "")
+        remainder = remainder.replace(wording, "").replace(reader_wording, "").replace(compact_wording, "").replace(thread_wording, "")
     if calls and CONFLICTS_NOTICE not in combined:
         _fail("CONFLICTS_NOTICE_REQUIRED", "copy")
     # CC-379 / decision 106: a dated, resolved call is a record of the original

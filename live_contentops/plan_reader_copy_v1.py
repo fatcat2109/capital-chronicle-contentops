@@ -15,6 +15,7 @@ import re
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
 
 CONTRACT = "CC466_V1"
+THREAD_CONTRACT = "CC549_V1"
 EFFECTIVE = datetime(2026, 11, 11, 16, 30, tzinfo=timezone.utc)
 LAYERS = (("macro", "Macro"), ("priced_in", "Priced in"),
           ("positioning", "Positioning"), ("fundamental", "Fundamentals"),
@@ -41,6 +42,86 @@ def et(value):
     from .public_time_v1 import public_datetime
     local = public_datetime(value)
     return f"{local:%a} {local.day} {local:%b}, {local:%I:%M %p}".replace(", 0", ", ") + " ET"
+
+
+def thread_terms(raw):
+    """One explicit price basis and two distinct clocks from this Main export."""
+    from . import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
+    levels = cards.card_plan(raw)
+    mapped = levels.get("price_basis") == "instrument"
+    instrument = raw.get("public_instrument") or {}
+    market = posts._instrument_title(raw["asset_id"], levels) if mapped else posts.TITLES[raw["asset_id"]]
+    name = instrument["symbol"] if mapped else posts.TITLES[raw["asset_id"]]
+    price_name = "Spot" if raw["asset_id"] in {"XAUUSD", "EURUSD", "USDJPY"} else posts.TITLES[raw["asset_id"]]
+    operators = {"GT": "above ", "GTE": "at or above ", "LT": "below ", "LTE": "at or below "}
+    conditions, refs = [], []
+    if mapped and instrument.get("contract_month"):
+        refs.append({"file": "plan-export", "pointer": "/public_instrument/contract_month"})
+    for index, condition in enumerate(raw.get("invalidation_conditions") or []):
+        if condition.get("field") not in {"close", "low", "high", "bid", "ask", "mid"} or condition.get("operator") not in operators:
+            continue
+        conditions.append(f"{price_name} {condition['field']} {operators[condition['operator']]}{posts._level(condition['threshold'])}")
+        refs.append({"file": "plan-export", "pointer": f"/invalidation_conditions/{index}/threshold"})
+    if mapped:
+        side = "below " if Decimal(str(levels["invalidation_level"])) < Decimal(str(levels["zone_low"])) else "above "
+        conditions.append(f"{name} invalidation {side}{cards.level(levels['invalidation_level'], levels)}")
+        refs.append({"file": "plan-export", "pointer": "/public_instrument/invalidation_level", "transform": "PUBLIC_TICK"})
+    if not conditions:
+        raise ValueError("CC549_INVALIDATION_NOT_EXPORTED")
+    display = dict(levels)
+    for key in ("zone_low", "zone_high"):
+        display[key] = cards.level(levels[key], levels).replace(",", "")
+    display["entries"] = [{key: cards.level(value, levels).replace(",", "") if key != "kind" else value
+                           for key, value in entry.items()} for entry in levels.get("entries") or []]
+    prefix = "/public_instrument" if mapped else ""
+    for index, entry in enumerate(levels.get("entries") or []):
+        for key in entry:
+            if key != "kind":
+                refs.append({"file": "plan-export", "pointer": f"{prefix}/entries/{index}/{key}",
+                             **({"transform": "PUBLIC_TICK"} if mapped else {})})
+    if not levels.get("entries"):
+        for key in ("zone_low", "zone_high") if mapped else ("minimum", "maximum"):
+            refs.append({"file": "plan-export", "pointer": prefix + "/" + key if mapped else "/zone/" + key,
+                         **({"transform": "PUBLIC_TICK"} if mapped else {})})
+    deadlines = [(key, raw[key]) for key in ("entry_deadline_utc", "expires_at_utc") if raw.get(key)]
+    deadline_key, deadline = min(deadlines, key=lambda pair: posts._utc(pair[1])) if deadlines else (None, None)
+    forecast = raw.get("forecast_probabilities") or {}
+    scenario = raw.get("scenario_analysis") or {}
+    end_ref, end = next(((pointer, value) for pointer, value in (
+        ("/time_exit_utc", raw.get("time_exit_utc")), ("/horizon_end_utc", raw.get("horizon_end_utc")),
+        ("/forecast_probabilities/horizon_end_utc", forecast.get("horizon_end_utc")),
+        ("/scenario_analysis/horizon_end_utc", scenario.get("horizon_end_utc"))) if value), (None, None))
+    clocks = []
+    opens = raw.get("not_before_utc")
+    if opens and raw.get("registered_at_utc") and posts._utc(opens) > posts._utc(raw["registered_at_utc"]):
+        clocks.append("Entry opens " + et(opens) + ".")
+        refs.append({"file": "plan-export", "pointer": "/not_before_utc", "transform": "ET12"})
+    if deadline:
+        clocks.append("Entry can start until " + et(deadline) + ".")
+        refs.append({"file": "plan-export", "pointer": "/" + deadline_key, "transform": "ET12"})
+    if end:
+        clocks.append("Filled positions close by " + et(end) + ".")
+        refs.append({"file": "plan-export", "pointer": end_ref, "transform": "ET12"})
+    invalidation = "; ".join(conditions)
+    call = {"market": market, "direction": levels["direction"], "condition": posts._entry_condition(display),
+            "horizon": " ".join(clocks).rstrip("."), "invalidation": invalidation}
+    from .event_article_guard_v1 import thread_reader_conditional_call_text
+    return {"contract": THREAD_CONTRACT, "market": market, "price_basis": "instrument" if mapped else "plan",
+            "title": posts.TITLES[raw["asset_id"]] + ": " + invalidation, "invalidation": invalidation,
+            "entry_deadline_utc": deadline, "time_exit_utc": end, "clocks": clocks,
+            "call": call, "call_line": thread_reader_conditional_call_text(call), "refs": refs}
+
+
+def check_thread_text(text, *, force=False):
+    """CC-549's observed copy defects, only for newly authored thread packets."""
+    if re.search(r"\b(?:I|I'm|I've|I'd|I'll|me|my|mine)\b", text, re.I):
+        raise ValueError("CC549_DESK_VOICE_MUST_BE_WE")
+    if re.search(r"\b(?:supplied|provided|the pack|the review given)\b", text, re.I):
+        raise ValueError("CC549_WRITER_INPUT_LANGUAGE")
+    if force and re.search(r"\bwe\s+(?:watch|track|monitor|look for|focus on)\b", text, re.I) and not re.search(
+            r"\d|\b(?:rose|fell|risen|fallen|since|increased|decreased|widened|narrowed)\b", text, re.I):
+        raise ValueError("CC549_FORCE_HAS_NO_FINDING")
+    return {"status": "PASS"}
 
 
 def numbers(text):
@@ -93,7 +174,7 @@ def page_footer(plan, freeze, *, legacy=False):
             status]
 
 
-def source_packet(plan, run, *, original_probabilities=False):
+def source_packet(plan, run, *, original_probabilities=False, thread=False):
     """Whitelisted original analysis, not accounts, execution or raw input tables."""
     from . import plan_analysis_pages_v1 as pages
     lines = []
@@ -168,6 +249,11 @@ def source_packet(plan, run, *, original_probabilities=False):
         elif isinstance(value, (str, int, float)):
             add("plan", "plan-export", pointer, value)
     scalars(plan)
+    if thread:
+        terms = thread_terms(plan)
+        for ref in terms["refs"]:
+            lines.append({"id": "s" + str(len(lines)), "layer": "plan",
+                          "text": pages._source_text(run, ref), "ref": ref})
     for key in ("registered_at_utc", "entry_deadline_utc", "status_at_utc"):
         if plan.get(key):
             lines.append({"id":"s"+str(len(lines)), "layer":"plan", "text":et(plan[key]),
@@ -186,6 +272,7 @@ def source_packet(plan, run, *, original_probabilities=False):
             "result_r": str(result_r(plan)) if result_r(plan) is not None else None,
             "source_manifest": run["manifest"], "frozen_at_utc": run["freeze"]["frozen_at_utc"],
             "missing_export_fields": ["scenario_analysis." + k for k in mapping if not scenario.get(k)],
+            **({"thread_contract": THREAD_CONTRACT, "thread_terms": terms} if thread else {}),
             **({"source_contract": "CC432_ORIGINAL_PROBABILITY_V1", "original_probability_binding": original_probability}
                if original_probability else {})}
 
@@ -199,6 +286,8 @@ def validate_fields(fields, source):
         if not isinstance(value, dict) or not value.get("source_ids"):
             raise ValueError("CC466_FIELD_SOURCE_REQUIRED")
         refs = [sources[k] for k in value["source_ids"]]
+        if source.get("thread_contract") == THREAD_CONTRACT:
+            check_thread_text(value["text"])
         checks.append(check_text(value["text"], source="\n".join(s["text"] for s in refs), max_chars=limit))
         return value["text"]
 
@@ -216,7 +305,8 @@ def validate_fields(fields, source):
         for point in points:
             field(point,90)
         return checks
-    if not isinstance(points, list) or not 1 <= len(points) <= 5:
+    minimum = 0 if source.get("thread_contract") == THREAD_CONTRACT else 1
+    if not isinstance(points, list) or not minimum <= len(points) <= 5:
         raise ValueError("CC466_ONE_TO_FIVE_SOURCED_LAYERS_REQUIRED")
     order = [key for key, _ in LAYERS]
     layer_keys = [p["layer"] for p in points]
@@ -224,11 +314,13 @@ def validate_fields(fields, source):
         raise ValueError("CC466_FORCE_ORDER_REQUIRED")
     if sum(p["layer"] == "technical" for p in points) > 1:
         raise ValueError("CC466_ONE_TECHNICAL_LINE_MAXIMUM")
-    if any(p["layer"] != "technical" for p in source["sources"] if p["layer"] in order) and all(
+    if points and any(p["layer"] != "technical" for p in source["sources"] if p["layer"] in order) and all(
             p["layer"] == "technical" for p in points):
         raise ValueError("CC466_HELD_MARKET_FORCES_OMITTED")
     for point in points:
         field(point, 90)
+        if source.get("thread_contract") == THREAD_CONTRACT:
+            check_thread_text(point["text"], force=True)
     main = field(fields["scenario_main"], 90)
     alt = field(fields["scenario_alt"], 90) if fields.get("scenario_alt") else None
     if not re.match(r"Main \(\d+%\): .+[.]$", main):
@@ -255,6 +347,9 @@ def attach_call(row):
     """The concise call still states every field Jim decision 40 requires."""
     from . import plan_status_posts_v1 as posts
     from .event_article_guard_v1 import compact_reader_conditional_call_text
+    if row.get("thread_contract") == THREAD_CONTRACT:
+        terms = thread_terms(row["source_plan"])
+        return {"reader_call_line": terms["call_line"], "conditional_calls": [terms["call"]]}
     plan = row["levels"]
     low, high, invalid = (plan[k] for k in ("zone_low", "zone_high", "invalidation_level"))
     side = "below" if Decimal(str(invalid)) < Decimal(str(low)) else "above"

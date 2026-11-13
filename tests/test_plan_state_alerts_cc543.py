@@ -55,12 +55,13 @@ def test_gold_replay_queues_a_complete_alert_without_page_or_variants(replay, ma
     row, = rows(store)
     assert row["text"], "The first alert cannot wait for a page or a model."
     assert row["state_alert_contract"] == "CC543_V1"
-    for value in ("gold", "bearish", "3,954", "3,964", "3,972.6", "3,876", "ET"):
+    for value in ("Gold", "bearish", "3,954", "3,964", "3,972.6", "3,876", "ET"):
         assert value in row["text"]
     assert "https://" not in row["text"] and not row.get("parent_key")
     assert "demo" not in row["text"].lower() and "model position" not in row["text"].lower()
     assert posts.PUBLIC_NOTICE in row["text"] and posts.CONFLICTS_NOTICE in row["text"]
-    assert "Levels use the plan's prices." in row["text"]
+    assert "Spot close above 3,972.6" in row["text"]
+    assert "MGC" not in row["text"]  # No instrument prices were exported in this older snapshot.
 
 
 def test_gold_replay_delivers_both_apis_with_chart_before_ten_minutes(replay, main_root, monkeypatch, tmp_path, source):
