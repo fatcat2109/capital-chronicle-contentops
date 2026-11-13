@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-13T05:34:08.443164+00:00",
+  "readback": {
+    "status": "SUCCESS",
+    "verified": true,
+    "write_exists": true,
+    "message_id": "1570672638332772352",
+    "public_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352",
+    "body_text_visible": true,
+    "substack_url_visible": true,
+    "meaningful_media_visible": false,
+    "attached_article_visual": false,
+    "image_sha256_match": null,
+    "thread_verified": true,
+    "reply_parent_verified": true
+  }
+}

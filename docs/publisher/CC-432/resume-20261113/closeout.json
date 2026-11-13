@@ -1,0 +1,193 @@
+{
+  "item": "CC-432",
+  "recorded_at_utc": "2026-11-13T05:34:08.519075+00:00",
+  "status": "DONE",
+  "scope": "Ops Product 11 Nov amendment: next run card and full-analysis reply read back in their Discord thread.",
+  "code_commit": "73f8c755e782ed4db41450ebfe8915538756344b",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "card": {
+    "observed_at_utc": "2026-11-13T05:33:11.295039+00:00",
+    "result": {
+      "dispatch_id": "dispatch_dd4c798cfc789d2135d31be409cb8aca",
+      "destination": "discord",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "public_write_performed": false,
+      "publish_called": false
+    },
+    "dispatch": {
+      "dispatch_id": "dispatch_dd4c798cfc789d2135d31be409cb8aca",
+      "message_id": "outbox_dd4c798cfc789d2135d31be409cb8aca",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-12T17:58:50.748256+00:00",
+      "public_object_id": "1570498124391125187",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1570498124391125187",
+      "public_object_url_hash": "a43dfda97831bf1dcfebf7991492fe4fbea43313e834beaea57db4b2531e648c"
+    }
+  },
+  "reply": {
+    "confirmed": true,
+    "status": "DISPATCH_CONFIRMED",
+    "public_object_id": "1570672638332772352",
+    "public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352"
+  },
+  "strict_reply_readback": {
+    "status": "SUCCESS",
+    "verified": true,
+    "write_exists": true,
+    "message_id": "1570672638332772352",
+    "public_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352",
+    "body_text_visible": true,
+    "substack_url_visible": true,
+    "meaningful_media_visible": false,
+    "attached_article_visual": false,
+    "image_sha256_match": null,
+    "thread_verified": true,
+    "reply_parent_verified": true
+  },
+  "current_page": {
+    "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+    "plan_id": "plan_230a9464a193ca7a377d0c41",
+    "confirmed": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+    "dispatch": {
+      "dispatch_id": "dispatch_0f71e132c94187d4e9c1835990c41f44",
+      "message_id": "outbox_0f71e132c94187d4e9c1835990c41f44",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-12T16:32:05.276158+00:00",
+      "public_object_id": "224627730",
+      "public_object_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+      "public_object_url_hash": "dbc511106685951a6388db3773f9b902d53437ebc905e56ee7fc5c4aabe6b571"
+    },
+    "reconciliation": {
+      "reconciliation_id": "reconciliation_0f71e132c94187d4e9c1835990c41f44",
+      "work_item_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-12T17:02:54.128727+00:00"
+    }
+  },
+  "current_analysis_links": [
+    {
+      "destination": "telegram",
+      "work_item_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-telegram",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "182",
+      "public_object_url": "https://t.me/CapitalChronicle/182"
+    },
+    {
+      "destination": "discord",
+      "work_item_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1570672638332772352",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352"
+    },
+    {
+      "destination": "threads",
+      "work_item_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-threads",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18346683595249062",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4"
+    }
+  ],
+  "original_five_pages": [
+    {
+      "asset": "EURUSD",
+      "plan_id": "plan_a4e853272f83b1cca81ab1d1",
+      "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-before-cpi-the-dollar-thesis",
+      "confirmed": true,
+      "web_only": true,
+      "confirmation_basis": "Preserved canonical dispatch/reconciliation; no new publication or page rewrite in this run."
+    },
+    {
+      "asset": "XAUUSD",
+      "plan_id": "plan_f45a45412d7fb675b4db238d",
+      "canonical_url": "https://capitalchronicle.substack.com/p/gold-a-support-test-after-a-strong",
+      "confirmed": true,
+      "web_only": true,
+      "confirmation_basis": "Preserved canonical dispatch/reconciliation; no new publication or page rewrite in this run."
+    },
+    {
+      "asset": "USOIL",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "canonical_url": "https://capitalchronicle.substack.com/p/wti-an-accepted-breakdown-and-the",
+      "confirmed": true,
+      "web_only": true,
+      "confirmation_basis": "Preserved canonical dispatch/reconciliation; no new publication or page rewrite in this run."
+    },
+    {
+      "asset": "US500",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "canonical_url": "https://capitalchronicle.substack.com/p/s-and-p-500-a-recovery-that-held",
+      "confirmed": true,
+      "web_only": true,
+      "confirmation_basis": "Preserved canonical dispatch/reconciliation; no new publication or page rewrite in this run."
+    },
+    {
+      "asset": "BTCUSD",
+      "plan_id": "plan_8b7c1dd880206079033b6efe",
+      "canonical_url": "https://capitalchronicle.substack.com/p/bitcoin-relative-weakness-after-the",
+      "confirmed": true,
+      "web_only": true,
+      "confirmation_basis": "Preserved canonical dispatch/reconciliation; no new publication or page rewrite in this run."
+    }
+  ],
+  "issued_link_payload_sha256_before": "7e1b35df186d4b43912c0eb7728fa258bf19668966d010a2373c84486e507c98",
+  "issued_link_payload_sha256_after": "7e1b35df186d4b43912c0eb7728fa258bf19668966d010a2373c84486e507c98",
+  "issued_link_bytes_unchanged": true,
+  "source_checks": {
+    "passed": 60,
+    "runs": [
+      {
+        "tests": 26,
+        "seconds": 25.28,
+        "path": "discord-repair-tests-final.xml"
+      },
+      {
+        "tests": 34,
+        "seconds": 11.56,
+        "path": "discord-wire-recovery-tests-final.xml"
+      }
+    ]
+  },
+  "installed_checks": {
+    "passed": 8,
+    "seconds": 5.41,
+    "path": "installed-final-consumer-tests.xml"
+  },
+  "installed_file_checks": {
+    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": {
+      "sha256_lf": "2ac47671cd29f583b8d9de045b6837b14062045cece0407955f66f8a10be2b81",
+      "installed_matches_branch": true
+    },
+    "live_contentops/discord_live_adapter_v6.py": {
+      "sha256_lf": "69a2f34346ab7972e776c8b7a82ac4748ad28a801ee37abff5898b898d1bde20",
+      "installed_matches_branch": true
+    },
+    "live_contentops/plan_analysis_pages_v1.py": {
+      "sha256_lf": "168bf5dc96dca19661a568a1bf7986a24738b452fa72e35440b37248f4d01d24",
+      "installed_matches_branch": true
+    },
+    "scripts/plan_analysis_pages.py": {
+      "sha256_lf": "b6fb85147616011b74f5129531f26be7c76516417c5f8514069172c7a7310b4c",
+      "installed_matches_branch": true
+    }
+  },
+  "live_tag": "contentops-live-20261113-cc432-thread-reference",
+  "rollback_tag": "contentops-rollback-20261113-cc432-empty-embed",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "model_provenance": "CONFIGURED_NOT_OBSERVED",
+  "native_session_id": "01a1d351-6f53-7eb2-b748-d50f9fabdcf6",
+  "editorial_model_calls": 0,
+  "preserved_cc549_commit": "2e5e32fc",
+  "schedules_changed": false,
+  "chat_messages_sent": false,
+  "old_public_objects_edited": false,
+  "expired_historical_intents_retried": false,
+  "new_canonical_posts": 0,
+  "next_action": null
+}
