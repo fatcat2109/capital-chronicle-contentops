@@ -1,0 +1,197 @@
+{
+  "item": "CC-510",
+  "read_at_utc": "2026-11-13T19:02:29.777651+00:00",
+  "since_utc": "2026-11-12T12:31:37.228267+00:00",
+  "database_access": "SQLite mode=ro; delivery/event rows and latest stored run only",
+  "operating_head_at_read": "150f1ba6bf3b4824c38ea13ab3ccf36e83d4c974",
+  "deliveries_since_installation": [
+    {
+      "delivery_id": "xrb-2120872859266699313",
+      "status": "DELIVERED",
+      "created_at_utc": "2026-11-12T13:43:02.928229+00:00",
+      "pack_message_id": "x-reply-pack-e3679b4ffd4ebd554b8ca4679b49711c11b627f441d427eea9cba7cf2ba55af7"
+    },
+    {
+      "delivery_id": "xrb-2121235459187826884",
+      "status": "DELIVERED",
+      "created_at_utc": "2026-11-13T13:43:37.323919+00:00",
+      "pack_message_id": "x-reply-pack-c36f410095d7d15d55a346bb4096891223be4302d2c8c4cbead7547f529688d7"
+    },
+    {
+      "delivery_id": "xrb-2121238553342751113",
+      "status": "DELIVERED",
+      "created_at_utc": "2026-11-13T13:53:11.392586+00:00",
+      "pack_message_id": "x-reply-pack-1ab8a16115d2984901ae712360a2c06b223b7905194c09797486db3299aef992"
+    }
+  ],
+  "delivery_receipts": [
+    {
+      "event_id": "x-reply-bot-b9d2326edc2c996ffcc3c7d767cb3d644faa5cf08a065134b962809917e59a56",
+      "event_payload_sha256": "63e0139bfc0dd321bf157c6010db3a9831fff66f48741dc6d43d7494c67d93b4",
+      "delivery_id": "xrb-2120872859266699313",
+      "post_id": "2120872859266699313",
+      "message_id": 4,
+      "delivered_at_utc": "2026-11-12T13:43:03+00:00",
+      "fact_kind": "session",
+      "fact_markets": [
+        "BRENT"
+      ],
+      "count": null,
+      "sample_count": null,
+      "period_text": null,
+      "through_date": null
+    },
+    {
+      "event_id": "x-reply-bot-e22d348aca55b270c735244f6c44153fcc00dcc144189334b3f69f656c06d9c6",
+      "event_payload_sha256": "e03e7f055e0149fcea90b2c3c2d34b81abde6eab27508468a39582857b2c5ecf",
+      "delivery_id": "xrb-2121235459187826884",
+      "post_id": "2121235459187826884",
+      "message_id": 5,
+      "delivered_at_utc": "2026-11-13T13:43:38+00:00",
+      "fact_kind": "session",
+      "fact_markets": [
+        "DXY"
+      ],
+      "count": null,
+      "sample_count": null,
+      "period_text": null,
+      "through_date": null
+    },
+    {
+      "event_id": "x-reply-bot-a901fd4b00d199449e201436287e0d1754a66080876e0caa4f583fa7759ea7d2",
+      "event_payload_sha256": "163e319cca01d8a233731f8e3babfd65640f6ebeb4864d4ecc74cf558cfd9dca",
+      "delivery_id": "xrb-2121238553342751113",
+      "post_id": "2121238553342751113",
+      "message_id": 6,
+      "delivered_at_utc": "2026-11-13T13:53:12+00:00",
+      "fact_kind": "session",
+      "fact_markets": [
+        "WTI"
+      ],
+      "count": null,
+      "sample_count": null,
+      "period_text": null,
+      "through_date": null
+    }
+  ],
+  "base_rate_delivery_count": 0,
+  "latest_run": {
+    "message_id": "x-reply-bot-c76eb3c217f2bd387766718c8066bb4fda596d98ea403d2a1f38e98a205f974a",
+    "stored_at_utc": "2026-11-13T19:01:24.775643+00:00",
+    "payload_sha256": "94e8fedfeab273dafd495b745b080874981d76d23430c9e42727896e0835e597",
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261113T185832-f8680faf\\result.json",
+    "started_at_utc": "2026-11-13T18:58:32.048275+00:00",
+    "ended_at_utc": "2026-11-13T19:01:24.678485+00:00",
+    "status": "NO_NEW_ELIGIBLE_TARGETS",
+    "cause": null
+  },
+  "installed_sources": {
+    "x_reply_base_rates_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_base_rates_v1.py",
+        "bytes": 17800,
+        "sha256": "2e62dfdb1d134331db035ffb36b21d80ad960490df4c40a6e9dcc8982085d7b6"
+      },
+      "worktree_sha256": "2e62dfdb1d134331db035ffb36b21d80ad960490df4c40a6e9dcc8982085d7b6",
+      "matches_worktree": true
+    },
+    "x_reply_pack_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_pack_v1.py",
+        "bytes": 48518,
+        "sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb"
+      },
+      "worktree_sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb",
+      "matches_worktree": true
+    },
+    "x_reply_bot_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_bot_v1.py",
+        "bytes": 45976,
+        "sha256": "6be73fbc12f3e115df18419e6e499a8d11df32597131994fd6eafc5550e87593"
+      },
+      "worktree_sha256": "6be73fbc12f3e115df18419e6e499a8d11df32597131994fd6eafc5550e87593",
+      "matches_worktree": true
+    },
+    "x_reply_fact_policy_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_fact_policy_v1.py",
+        "bytes": 12396,
+        "sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c"
+      },
+      "worktree_sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c",
+      "matches_worktree": true
+    }
+  },
+  "statistics_targets_in_actual_rank_inputs": 8,
+  "statistics_target_appearances": 41,
+  "statistics_ranked_above_floor_attempts": 3,
+  "phone_acceptance": "BASE_RATE_PHONE_PROOF_PENDING",
+  "continuation": "Read back the next natural base-rate delivery from the existing minute consumer.",
+  "manual_ticks": 0,
+  "model_calls": 0,
+  "transport_calls": 0,
+  "schedule_changed": false,
+  "applications_restarted": false,
+  "resume_launch": {
+    "process_id": 4484,
+    "process_started_at_utc": "2026-11-13T18:58:54.3227520Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "runtime_model": null,
+    "runtime_effort": null,
+    "launch_arguments_verified": true
+  },
+  "validation": {
+    "production_code_changed": false,
+    "existing_installed_test_evidence": "docs/publisher/CC-510/installed-tests.xml",
+    "existing_installed_test_results": [
+      {
+        "tests": "140",
+        "failures": "0",
+        "errors": "0",
+        "time": "55.365",
+        "timestamp": "2026-11-12T19:31:27.852165+07:00"
+      }
+    ],
+    "pytest_rerun": false,
+    "reason": "Installed source hashes match; this continuation adds saved-evidence readback only."
+  },
+  "preserved_lane_files": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    }
+  },
+  "preserved_operating_files_before_merge": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "bytes": 1397482,
+      "sha256": "102f50a1cac82b259e96c8de430fede866291c0c5950dccfc21f596c02e40ba5"
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 69662,
+      "sha256": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34"
+    }
+  }
+}
