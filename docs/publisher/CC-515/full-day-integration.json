@@ -4,11 +4,85 @@
   "branch": "backlog/cc-515-full-day-acceptance-20261114",
   "channel_audit": "channel-health-complete-20261114.json",
   "chat_messages": 0,
+  "completed_at_utc": "2026-11-13T19:43:33.033255+00:00",
   "configured_effort": "max",
   "configured_model": "gpt-6.1-sol",
+  "evidence_commit": "3abed7195d556976fdc0d5632d820530cee9ea68",
   "full_day_proof": "full-day-acceptance-20261113.json",
+  "installed_observation": {
+    "artifact": "live-installed-20261114-readback.json",
+    "latest_minute_record_utc": "2026-11-13T19:40:40.956994Z",
+    "observed_at_utc": "2026-11-13T19:42:24.859774+00:00",
+    "pending_older_than_24_hours": 0,
+    "pending_posts": 0,
+    "root_status_counts": {
+      "PUBLISHED": 23,
+      "SETTLED": 93,
+      "STALE_NOT_POSTED": 1,
+      "SUPERSEDED_NOT_POSTED": 10
+    }
+  },
+  "live_tag": "contentops-live-20261114-cc515-observation",
   "model_telemetry": "CONFIGURED_NOT_OBSERVED",
   "operating_base": "11830c6c16bdc709c2be249ce5a5d8a885db305a",
+  "preserved_wip_after": [
+    {
+      "bytes": 3959,
+      "original_bytes_preserved": true,
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "unchanged": true
+    },
+    {
+      "bytes": 19341,
+      "original_bytes_preserved": true,
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "unchanged": true
+    },
+    {
+      "bytes": 39129,
+      "original_bytes_preserved": true,
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "unchanged": true
+    },
+    {
+      "bytes": 6166,
+      "original_bytes_preserved": true,
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "unchanged": true
+    },
+    {
+      "bytes": 1397482,
+      "original_bytes_preserved": true,
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "102f50a1cac82b259e96c8de430fede866291c0c5950dccfc21f596c02e40ba5",
+      "unchanged": true
+    },
+    {
+      "bytes": 69662,
+      "original_bytes_preserved": true,
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34",
+      "unchanged": true
+    },
+    {
+      "bytes": 992508,
+      "original_bytes_preserved": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "unchanged": true
+    },
+    {
+      "bytes": 10337,
+      "original_bytes_preserved": true,
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "unchanged": true
+    }
+  ],
   "preserved_wip_before": {
     "A:\\Capital Chronicle\\ContentOps": {
       "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
@@ -48,9 +122,10 @@
     }
   },
   "public_writes": 0,
+  "rollback_tag": "contentops-rollback-20261114-cc515-observation",
   "schedule_changes": 0,
   "scope": "completed live acceptance observation; no product code changes",
-  "state": "ACCEPTANCE_VERIFIED_BEFORE_EVIDENCE_INTEGRATION",
+  "state": "LIVE_ACCEPTANCE_VERIFIED",
   "tests": {
     "artifact": "full-day-consumer-tests.xml",
     "errors": 0,

@@ -1,5 +1,5 @@
 {
-  "state": "LIVE_ACCEPTANCE_OBSERVATION_PENDING",
+  "state": "LIVE_ACCEPTANCE_VERIFIED",
   "branch": "backlog/cc-515-minute-consumer-integrate",
   "operating_base": "b896aaa9f129cd338ffafdb1543b753cf5554dc8",
   "delivery_commit": "bc4d7d44918f36596587fe1f010e8a29fd9f76bd",
@@ -70,10 +70,7 @@
     "path": "installed-queue.xml",
     "passed": 4
   },
-  "remaining_acceptance": [
-    "Complete GMT+7 day request count below 200; first possible full-day check 14 November 00:00 GMT+7.",
-    "Next naturally eligible public article/plan readback or exact destination cause; current causes retained in README."
-  ],
+  "remaining_acceptance": [],
   "reader_link_correction": {
     "cause": "KeyError(fundamental) in the first installed minute result",
     "checks": "reader-link-consumers.xml",
@@ -142,9 +139,9 @@
       "sha256": "cd95528b60ad60587c0c7ee0fae0e3bf9b3d4966149fa2c960c199497d43502e"
     }
   ],
-  "required_next_check_gmt7": "2026-11-14 00:00 GMT+7",
-  "full_day_request_target": "NOT_OBSERVED; first complete post-install GMT+7 day is 13 November",
-  "public_channel_outcomes": "exact present causes in README; no new article intent or public write invented",
+  "required_next_check_gmt7": null,
+  "full_day_request_target": "PASS: 13 November GMT+7; 3 request packets, 11 internal records",
+  "public_channel_outcomes": "Exact post-integration X/LinkedIn causes and no-new-article causes verified; see full-day-acceptance-20261113.json and README",
   "final_source_installed_observed_at_utc": "2026-11-12T14:43:10.977315+00:00",
   "final_code_tag": "contentops-live-20261112-cc515-recovery-verified",
   "final_installed_targeted_check": {
@@ -153,5 +150,6 @@
     "seconds": 4.39
   },
   "final_live_readback": "live-completion-readback.json",
-  "latest_observed_minute_record_utc": "2026-11-12T14:43:11.894118Z"
+  "latest_observed_minute_record_utc": "2026-11-12T14:43:11.894118Z",
+  "completed_observation": "full-day-integration.json"
 }
