@@ -1,0 +1,262 @@
+{
+  "article_routes": {
+    "linkedin_company": {
+      "cause": "NO_NEW_ARTICLE_INTENT_SINCE_CC454_INSTALL",
+      "intents_since_cc454_install": []
+    },
+    "youtube": {
+      "cause": "NO_NEW_ARTICLE_INTENT_SINCE_CC454_INSTALL",
+      "intents_since_cc454_install": []
+    }
+  },
+  "below_200": true,
+  "current_pending": [],
+  "current_pending_older_than_24_hours": 0,
+  "current_root_statuses": {
+    "PUBLISHED": 23,
+    "SETTLED": 93,
+    "STALE_NOT_POSTED": 1,
+    "SUPERSEDED_NOT_POSTED": 10
+  },
+  "day_complete": true,
+  "day_gmt7": "2026-11-13",
+  "destination_dispatch_outcomes": [
+    {
+      "causes": [
+        {
+          "at_utc": "2026-11-13T05:00:41.785840+00:00",
+          "cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+          "readback_id": "no-write-cause-c56f9e44fc758e12696a8fb429af44c9"
+        }
+      ],
+      "dispatch_id": "dispatch_b050e614c3c56a4fd3661a348a58ed8c",
+      "dispatched_at": "2026-11-13T05:00:41.442419+00:00",
+      "platform": "linkedin",
+      "public_object_id": null,
+      "public_object_url": null,
+      "status": "DEFINITE_NO_WRITE"
+    }
+  ],
+  "end_utc": "2026-11-13T17:00:00+00:00",
+  "neo_internal_records": 11,
+  "neo_request_packets": 3,
+  "new_post_outcomes": {
+    "plan-status-post-b63716423fbebcbebcf14e3e5d40d20b": {
+      "first": {
+        "at_utc": "2026-11-12T17:46:11.204310Z",
+        "outcome": {
+          "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+          "key": "plan-status-post-b63716423fbebcbebcf14e3e5d40d20b",
+          "status": "CANONICAL_PENDING"
+        },
+        "record_sha256": "5b93a22c8f4b417470fd4844585f80809c244595492634b32e6faabf48596dcd",
+        "source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261112.jsonl:471"
+      },
+      "latest": {
+        "at_utc": "2026-11-13T17:42:21.281474Z",
+        "outcome": {
+          "cause": "LATE_STATE_LIMIT_24_HOURS",
+          "destination_causes": {
+            "discord": "LATE_STATE_LIMIT_24_HOURS",
+            "facebook_page": "LATE_STATE_LIMIT_24_HOURS",
+            "instagram_business": "LATE_STATE_LIMIT_24_HOURS",
+            "substack_notes": "LATE_STATE_LIMIT_24_HOURS",
+            "telegram": "LATE_STATE_LIMIT_24_HOURS",
+            "threads": "LATE_STATE_LIMIT_24_HOURS",
+            "x": "LATE_STATE_LIMIT_24_HOURS"
+          },
+          "key": "plan-status-post-b63716423fbebcbebcf14e3e5d40d20b",
+          "per_destination": {
+            "discord": "SETTLED",
+            "facebook_page": "SETTLED",
+            "instagram_business": "SETTLED",
+            "substack_notes": "SETTLED",
+            "telegram": "SETTLED",
+            "threads": "SETTLED",
+            "x": "SETTLED"
+          },
+          "status": "SETTLED"
+        },
+        "record_sha256": "3c10625c658a383f90b92914038f7aa750ed8128113406cb493f0d84df1ad2b3",
+        "source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261113.jsonl:922"
+      }
+    },
+    "plan-status-post-bfcf822a8217d37a65c818ee097f7370": {
+      "first": {
+        "at_utc": "2026-11-12T17:46:11.204310Z",
+        "outcome": {
+          "cause": "SUBSTACK_PLAN_PAGE_NOT_CONFIRMED",
+          "key": "plan-status-post-bfcf822a8217d37a65c818ee097f7370",
+          "status": "CANONICAL_PENDING"
+        },
+        "record_sha256": "5b93a22c8f4b417470fd4844585f80809c244595492634b32e6faabf48596dcd",
+        "source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261112.jsonl:471"
+      },
+      "latest": {
+        "at_utc": "2026-11-13T17:42:21.281474Z",
+        "outcome": {
+          "cause": "LATE_STATE_LIMIT_24_HOURS",
+          "destination_causes": {
+            "discord": "LATE_STATE_LIMIT_24_HOURS",
+            "facebook_page": "LATE_STATE_LIMIT_24_HOURS",
+            "instagram_business": "LATE_STATE_LIMIT_24_HOURS",
+            "substack_notes": "LATE_STATE_LIMIT_24_HOURS",
+            "telegram": "LATE_STATE_LIMIT_24_HOURS",
+            "threads": "LATE_STATE_LIMIT_24_HOURS",
+            "x": "LATE_STATE_LIMIT_24_HOURS"
+          },
+          "key": "plan-status-post-bfcf822a8217d37a65c818ee097f7370",
+          "per_destination": {
+            "discord": "SETTLED",
+            "facebook_page": "SETTLED",
+            "instagram_business": "SETTLED",
+            "substack_notes": "SETTLED",
+            "telegram": "SETTLED",
+            "threads": "SETTLED",
+            "x": "SETTLED"
+          },
+          "status": "SETTLED"
+        },
+        "record_sha256": "3c10625c658a383f90b92914038f7aa750ed8128113406cb493f0d84df1ad2b3",
+        "source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261113.jsonl:922"
+      }
+    }
+  },
+  "observed_at_gmt7": "2026-11-14T02:37:56.715006+07:00",
+  "observed_at_utc": "2026-11-13T19:37:56.715006+00:00",
+  "preservation": {
+    "baseline_dispatches_retained": 315,
+    "baseline_roots_retained": 125,
+    "changed_public_identities": [],
+    "dispatch_state_changes_with_readbacks": [
+      {
+        "after": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "before": "UNKNOWN_WRITE",
+        "dispatch_id": "dispatch_25d42756d00c4019ff070863aa6b10e1",
+        "readbacks": [
+          {
+            "read_at": "2026-11-11T03:26:12.712383+00:00",
+            "readback_id": "readback_a0bee3fdb3f62ce0c0c227be6783fa31"
+          },
+          {
+            "read_at": "2026-11-12T16:27:02.986964+00:00",
+            "readback_id": "readback_70d1c0236974109155367ed38f49ff99"
+          }
+        ]
+      },
+      {
+        "after": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "before": "UNKNOWN_WRITE",
+        "dispatch_id": "dispatch_f97bd60d404a2849c413cc8aafaacbf9",
+        "readbacks": [
+          {
+            "read_at": "2026-11-11T05:02:01.780827+00:00",
+            "readback_id": "readback_2356115b6c8b53ef8f2a9da2c6a86939"
+          },
+          {
+            "read_at": "2026-11-12T16:27:04.247657+00:00",
+            "readback_id": "readback_fed2fc396192e3407ebaaf4ef0b0274b"
+          }
+        ]
+      }
+    ],
+    "issued_root_payload_changes": [],
+    "missing_dispatches": [],
+    "missing_roots": [],
+    "pre_dispatch_draft_preparation": [
+      {
+        "baseline_had_dispatch": false,
+        "baseline_sha256": "de24e9a18ddf3f22f9a551db282960b0e348bcbf4819ec6645466f389560933c",
+        "current_sha256": "3b5b773d9532785fd367ca68632b34db5c9ad111ecfcd02da8665f6972070ee6",
+        "current_status": "SUPERSEDED_NOT_POSTED",
+        "evidence": "docs/publisher/CC-432/resume-20261112/integration.json",
+        "first_dispatch_utc": "2026-11-12T17:58:50.748256+00:00",
+        "key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+        "last_preparation_end_utc": "2026-11-12T17:12:40.658982+00:00",
+        "reader_contract": "CC466_V1"
+      }
+    ]
+  },
+  "production_store_writes": 0,
+  "public_writes": 0,
+  "request_packets": [
+    {
+      "action": "READBACK",
+      "created_at_utc": "2026-11-12T17:01:41.235766+00:00",
+      "destination": "substack",
+      "message_id": "native-neo-c9a920befa5ba5c052be75a4ce8c2fdf9ec9934223d668ee9520f0bd05aba1ba"
+    },
+    {
+      "action": "PUBLISH",
+      "created_at_utc": "2026-11-12T17:06:02.008474+00:00",
+      "destination": "substack_notes",
+      "message_id": "native-neo-b6edcb01d324cf37bdbe8b9b7deb224b11de5fccc5760bc91f8368b33686a28f"
+    },
+    {
+      "action": "READBACK",
+      "created_at_utc": "2026-11-12T17:06:22.870221+00:00",
+      "destination": "substack_notes",
+      "message_id": "native-neo-88a0ee2c98341932abb65b5208de317a4547f1a3f4dfb287c78d037818a72cf1"
+    }
+  ],
+  "run_coverage": {
+    "count": 1057,
+    "first_at_utc": "2026-11-12T17:00:36.173190+00:00",
+    "largest_gap_seconds": 2201.532337,
+    "last_at_utc": "2026-11-13T16:59:34.886878+00:00",
+    "last_day_queue_observation": {
+      "at_utc": "2026-11-13T16:59:34.886878Z",
+      "older_than_24_hours": 0,
+      "oldest_age_minutes": 1399.154,
+      "pending": 2,
+      "record_sha256": "63e65997c25a4cbf9bd506ba9f3e1ead6f549a2814afc61faaea96c88708ea96",
+      "source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261113.jsonl:904"
+    },
+    "phases": {
+      "DEFAULT": 718,
+      "IMMEDIATE_ALERTS": 339
+    },
+    "queue_samples_older_than_24_hours": 0,
+    "source_files": [
+      "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261112.jsonl",
+      "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261113.jsonl"
+    ],
+    "statuses": {
+      "EXPORT_STALE": 327,
+      "OK": 730
+    }
+  },
+  "scope": "CC-515 queue/request acceptance; stale exports and absence of fresh articles still limit throughput",
+  "start_utc": "2026-11-12T17:00:00+00:00",
+  "store_access": "sqlite mode=ro; one read transaction",
+  "x_analysis_outcomes": {
+    "DEFINITE_NO_WRITE": {
+      "at_utc": "2026-11-12T14:05:26.698594Z",
+      "outcome": {
+        "destination": "x",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-x",
+        "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+        "per_destination": {},
+        "status": "DEFINITE_NO_WRITE"
+      },
+      "record_sha256": "4588dd7fb6de042893073d6f571465dfc3e925c26045e47d4445420add75807e",
+      "source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261112.jsonl:372"
+    },
+    "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED": {
+      "at_utc": "2026-11-12T14:05:26.698594Z",
+      "outcome": {
+        "destination": "x",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      "record_sha256": "4588dd7fb6de042893073d6f571465dfc3e925c26045e47d4445420add75807e",
+      "source": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261112.jsonl:372"
+    }
+  }
+}

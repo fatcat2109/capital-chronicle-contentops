@@ -1,6 +1,6 @@
 # CC-515: minute consumer recovery
 
-CC-515 is integrated in the Publisher operating root. The first normal minute result closes 73 old obligations and reports zero waiting posts older than 24 hours. It retains every original payload and public dispatch identity. The first complete post-install day remains to be measured; no full-day request-count success is claimed.
+CC-515 is integrated in the Publisher operating root. Its completed 13 November GMT+7 observation records **3 Neo request packets and 11 total internal records**, below 200. All observed queue samples contain zero waiting posts older than 24 hours; the 14 November observation has zero waiting posts. All 125 baseline posts, 315 dispatches and prior public identities remain. Exact channel causes and the limits on throughput are recorded below.
 
 The second-stream delivery was based on operating HEAD `e16ddb8caf45cd859d6584c82425a1425967b86d`. The first Publisher stream integrated it onto `b896aaa9f129cd338ffafdb1543b753cf5554dc8`. Exact source, tests, live and rollback tags are in `integration.json`; schedules are unchanged.
 
@@ -160,3 +160,49 @@ The normal minute result at **21:40:55 GMT+7** observes the old Notes plan-page 
 Final code is `4662828b8b198624a01101d9ca21b6f394fb6b31`, installed and tagged `contentops-live-20261112-cc515-recovery-verified`. Six installed implementation files and all eight unrelated WIP hashes match `installed-source-readback.json`. The final installed link/recovery control passed two cases in 4.39 seconds. No browser, application control, Claude invocation, chat message or schedule change was used by this integration run.
 
 The latest observed scheduled result at **21:43:11 GMT+7** remains **14 pending, zero older than 24 hours, zero stored-browser requests**. `live-completion-readback.json` shows 681 cumulative request packets on 12 November and none created during its short interval after final source installation. It also retains the settled old Notes link. The minute process began before the final cause-record formatting change; that exact formatting has the installed two-case test, with its next natural result still separate. The short interval does not prove the next complete day is below 200. The item is **OPEN for live acceptance observation**, with the full-day check due **14 November 00:00 GMT+7** and the next naturally eligible article/plan outcomes retaining their destination causes. All implementation and integration work is pushed and live; no Ops review is pending.
+
+## Completed live observation, 14 November 2026
+
+The completed observation supersedes the earlier pending-observation statements. [full-day-acceptance-20261113.json](full-day-acceptance-20261113.json) bounds 13 November 00:00 through 14 November 00:00 GMT+7. The existing store contains **3 request packets and 11 total internal Neo records** for that complete day. Both counts are below 200. The three packet identities, actions and original creation clocks are retained; request bodies and public copy are not copied into this proof. The same query finds 684 packets on 12 November, which includes pre-install work and is not a controlled comparison.
+
+The existing run files contain 1,057 results during that day: 730 `OK` and 327 `EXPORT_STALE`. They span 00:00:36 through 23:59:34 GMT+7; the largest interval between retained results is 36 minutes 42 seconds. Every recorded queue sample has zero posts older than 24 hours. At 23:59:34, two setups remain pending at less than 24 hours. Their first cause is `SUBSTACK_PLAN_PAGE_NOT_CONFIRMED`; they settle with `LATE_STATE_LIMIT_24_HOURS` at 14 November 00:42:21 GMT+7. Their exact payloads and work identities remain. [live-20261114-observation.json](live-20261114-observation.json), captured at 02:30 GMT+7, observes zero waiting posts and 93 settled roots.
+
+The preservation check finds all 125 baseline roots and all 315 baseline dispatches. No already-issued root payload or prior public ID changed. One previously unissued gold draft completed CC-432/CC-466 preparation at 13 November 00:12:40 GMT+7 before its first dispatch at 00:48:36. Its before/after hashes and preparation clock are explicit in the proof. This is not counted as byte-identical draft preservation. The two old uncertain Discord dispatches were reconciled absent through their exact retained readbacks under CC-432, with no retry; their original identities remain. The queue reduction did not delete a fresh post or erase an uncertain dispatch.
+
+| Destination | Next retained outcome after integration | Exact cause/evidence |
+|---|---|---|
+| X | Gold analysis link remains unwritten | `PLAN_ANALYSIS_PARENT_NOT_CONFIRMED`; exact minute record and page identity are in the full-day proof. New pending setups first record `SUBSTACK_PLAN_PAGE_NOT_CONFIRMED`, then their 24-hour settlement cause. No fresh X dispatch is invented. |
+| LinkedIn member | Definite no-write at 13 November 12:00:41 GMT+7 | `TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE`; dispatch `dispatch_b050e614c3c56a4fd3661a348a58ed8c`, retained readback `no-write-cause-c56f9e44fc758e12696a8fb429af44c9`. The failure precedes HTTP and establishes no platform restriction. |
+| LinkedIn company | Zero new article intents since CC-454 installation | `NO_NEW_ARTICLE_INTENT_SINCE_CC454_INSTALL`. Decision 121 preserves the article cadence and excludes backfill or added call cards. |
+| YouTube | Zero new article intents since CC-454 installation | `NO_NEW_ARTICLE_INTENT_SINCE_CC454_INSTALL`; the same decision-121 route constraint applies. |
+
+The lower request count passes this item's bounded queue/request acceptance. It does not establish restored publication throughput: the day includes stale Main exports and no new article intent for company LinkedIn or YouTube. These first causes remain visible rather than being classified as successful posts. Existing public readbacks and channel histories are retained; this verification sends nothing.
+
+The current operating source passes all **24 targeted CC-515 cases** in 73.51 seconds, including unknown-row isolation with incident/remaining-plan admission, whole-file rejection, definite-no-write child settlement, a live-parent control, newest-first budgets, immutable dispatch certainty and the queue fields in the normal minute record. [full-day-consumer-tests.xml](full-day-consumer-tests.xml) holds the result. `verify_full_day.py` independently checks the completed store interval, retained run records and baseline identities through SQLite read-only mode. The launch is `gpt-6.1-sol/max`, `CONFIGURED_NOT_OBSERVED`; this continuation makes no editorial model call, browser action, application-control action, chat message or schedule change. The evidence integrates through the Publisher's existing operating root; no Ops review is pending.
+
+## Complete channel audit, 10–12 November GMT+7
+
+The original table above retains its 12 November observation clock. [channel-health-complete-20261114.json](channel-health-complete-20261114.json) now covers all three GMT+7 days, with dispatch clocks in that interval and their retained state/cause read back on 14 November. Other stored states include reconciled-absent attempts as well as pending or uncertain ones. Historical policy refusals keep their original cause; decisions 112 and 121 reopened their routes without reopening those closed dispatches.
+
+| Destination | Confirmed | Definite no-write | Other stored states | First causes of every definite no-write |
+|---|---:|---:|---:|---|
+| discord | 22 | 20 | 2 | `ATTEMPT_CAUSE_NOT_RETAINED` × 16; `DISCORD_CALL_THREAD_BOT_TOKEN_UNAVAILABLE` × 2; `EVERY_POST_IMAGE_REQUIRED:discord` × 1; `TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE` × 1 |
+| facebook_page | 36 | 1 | 0 | `EVERY_POST_IMAGE_REQUIRED:facebook_page` × 1 |
+| instagram_business | 36 | 0 | 0 | None |
+| linkedin | 0 | 4 | 1 | `ATTEMPT_CAUSE_NOT_RETAINED` × 1; `EVERY_POST_IMAGE_REQUIRED:linkedin` × 1; `TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE` × 1; `TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE` × 1 |
+| linkedin_company | 0 | 3 | 0 | `LINKEDIN_NON_API_AUTOMATION_PROHIBITED` × 3 |
+| substack | 10 | 1 | 3 | `ATTEMPT_CAUSE_NOT_RETAINED` × 1 |
+| substack_notes | 11 | 8 | 3 | `ATTEMPT_CAUSE_NOT_RETAINED` × 4; `CC401_STALE_STATUS_NOTE_UNCLAIMED` × 3; `TRADINGVIEW_FIRST_IMAGE_REQUIRED` × 1 |
+| telegram | 65 | 1 | 0 | `TRADINGVIEW_FIRST_IMAGE_REQUIRED` × 1 |
+| threads | 57 | 1 | 2 | `EVERY_POST_IMAGE_REQUIRED:threads` × 1 |
+| x | 6 | 17 | 1 | `NEO_COMPOSER_PREPARATION_FAILED` × 2; `NEO_REGISTERED_PROFILE_UNAVAILABLE` × 5; `TRADINGVIEW_FIRST_IMAGE_WRONG_TYPE` × 6; `X_NON_API_AUTOMATION_PROHIBITED` × 4 |
+| youtube | 0 | 6 | 0 | `YOUTUBE_NON_API_AUTOMATION_PROHIBITED` × 6 |
+
+The original exact-attempt table and the following two later attempts account for every definite no-write in this completed interval. The JSON retains the evidence path/readback for each cause.
+
+| Destination | Later dispatch | First cause |
+|---|---|---|
+| telegram | `dispatch_98dc91e50fedafc7f3c9034027166ba8` | `TRADINGVIEW_FIRST_IMAGE_REQUIRED` |
+| substack_notes | `dispatch_52b74856711d9922bcacceba907a1974` | `TRADINGVIEW_FIRST_IMAGE_REQUIRED` |
+
+Both later failures are old image-contract refusals. CC-432 subsequently confirmed the new gold card on Telegram, Discord and Threads using its exact confirmed-page TradingView image; its existing readbacks are retained under `docs/publisher/CC-432/resume-20261112/`. No frozen failed package is relabelled or resent by this observation. The local cause fixes and platform-policy history remain as described above.

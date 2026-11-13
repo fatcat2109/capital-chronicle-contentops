@@ -1,0 +1,69 @@
+{
+  "application_control": 0,
+  "at_utc": "2026-11-13T19:41:25.593530+00:00",
+  "branch": "backlog/cc-515-full-day-acceptance-20261114",
+  "channel_audit": "channel-health-complete-20261114.json",
+  "chat_messages": 0,
+  "configured_effort": "max",
+  "configured_model": "gpt-6.1-sol",
+  "full_day_proof": "full-day-acceptance-20261113.json",
+  "model_telemetry": "CONFIGURED_NOT_OBSERVED",
+  "operating_base": "11830c6c16bdc709c2be249ce5a5d8a885db305a",
+  "preserved_wip_before": {
+    "A:\\Capital Chronicle\\ContentOps": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+        "bytes": 3959,
+        "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+      },
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+        "bytes": 19341,
+        "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+        "bytes": 39129,
+        "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+      },
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+        "bytes": 6166,
+        "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+      },
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "bytes": 1397482,
+        "sha256": "102f50a1cac82b259e96c8de430fede866291c0c5950dccfc21f596c02e40ba5"
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "bytes": 69662,
+        "sha256": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34"
+      }
+    },
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+        "bytes": 992508,
+        "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+      },
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+        "bytes": 10337,
+        "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+      }
+    }
+  },
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "scope": "completed live acceptance observation; no product code changes",
+  "state": "ACCEPTANCE_VERIFIED_BEFORE_EVIDENCE_INTEGRATION",
+  "tests": {
+    "artifact": "full-day-consumer-tests.xml",
+    "errors": 0,
+    "failures": 0,
+    "passed": 24,
+    "seconds": 73.51
+  },
+  "verified_installed_source_sha256": {
+    "live_contentops/neo_endpoint_executor_v1.py": "8512b8b041687c472d6edc92108ae4466f82ec26a05bfc5b3ef3743d12020645",
+    "live_contentops/plan_call_cards_v1.py": "eaec1e58bbbc9b7059e65ed3c242c581c5fa0c0f2b9a4842c994cd29a653a70e",
+    "live_contentops/plan_status_export_contract_v1.py": "0e8a4c022f42ef9868b6209a94c9922c44f234e91514fca6b2a8c5543a08e136",
+    "live_contentops/plan_status_posts_v1.py": "c4720586aa8ef312f7e0acb085960c1848d6a7d5aad37efa8a82e639749fab95",
+    "live_contentops/publication_coordinator_v1.py": "5fc5d87c2fdc2768db6fd36faa644a87b82d24d8ed14c6d0083712078c3da2df",
+    "tests/test_minute_consumer_cc515.py": "b1b50c0dd78c3b934d4369148ee979aa8c690c094b2b52784f0158f2b318b57d"
+  }
+}
