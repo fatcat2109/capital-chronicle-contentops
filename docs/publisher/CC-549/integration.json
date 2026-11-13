@@ -1,0 +1,182 @@
+{
+  "item": "CC-549",
+  "observed_at_utc": "2026-11-13T17:27:14.180700+00:00",
+  "base": "1d0748e37082c91e299e8ab0b578950218bc1501",
+  "code_head": "021a8c87323e9bda682627b4a87cc847dcbb7ddd",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "delivery_branch": "backlog/cc-549-plan-thread-consistency-squashed",
+  "integrated_at_utc": "2026-11-13T17:17:57Z",
+  "live_tag": "contentops-live-20261114-cc549",
+  "rollback_tag": "contentops-rollback-20261114-cc549",
+  "source": [
+    {
+      "path": "live_contentops/event_article_guard_v1.py",
+      "git_blob": "c40a3b8cf30c63df03f168c6ab121d1f83cbc3e0",
+      "installed_bytes": 36148,
+      "installed_sha256": "eb4ea51c80d2732ff63c1912e69492c1be591e20ab9b232d58cd958e6a3e8270",
+      "matches_delivery_file": true
+    },
+    {
+      "path": "live_contentops/plan_analysis_pages_v1.py",
+      "git_blob": "42248f743cedc10b5691dd38c4a4ce166c016551",
+      "installed_bytes": 70916,
+      "installed_sha256": "c5757fe064317edd3612734b49464cb4f31159e00a5cb596e5ac1b4d2944c977",
+      "matches_delivery_file": true
+    },
+    {
+      "path": "live_contentops/plan_call_cards_v1.py",
+      "git_blob": "66f913224a75a5264626980914281b09e47b0a23",
+      "installed_bytes": 81124,
+      "installed_sha256": "eaec1e58bbbc9b7059e65ed3c242c581c5fa0c0f2b9a4842c994cd29a653a70e",
+      "matches_delivery_file": true
+    },
+    {
+      "path": "live_contentops/plan_reader_copy_v1.py",
+      "git_blob": "c90896eb779a474e5e098be04707ae8b2e337460",
+      "installed_bytes": 27027,
+      "installed_sha256": "6f88530b5ee70bbc8340f7fb2082d499198e7a343bd909d7e2a80ce9698a4b02",
+      "matches_delivery_file": true
+    },
+    {
+      "path": "live_contentops/plan_reader_editorial_v1.py",
+      "git_blob": "f53f80ed61eb5bdeab65160c2b3acb7778a27264",
+      "installed_bytes": 25120,
+      "installed_sha256": "083881b347da0edf654e3a54ecd419f9ab77d493f2b86517cb2f92a38d310b1f",
+      "matches_delivery_file": true
+    },
+    {
+      "path": "live_contentops/plan_state_alerts_v1.py",
+      "git_blob": "2aa04761deb2e894237c3dc8eee4d9755972e5af",
+      "installed_bytes": 7632,
+      "installed_sha256": "b14f29293e9986e10be9b3cc23838e8715c9cc2b6876f0562447746ef78be72f",
+      "matches_delivery_file": true
+    }
+  ],
+  "tests": [
+    {
+      "artifact": "editorial-guards-current.xml",
+      "tests": 171,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "artifact": "page-replies-current.xml",
+      "tests": 92,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "artifact": "result-and-thread-recovery-green.xml",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "artifact": "installed-thread-consumers.xml",
+      "tests": 57,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "installed_read_only_render": {
+    "started_at_utc": "2026-11-13T17:18:51.012021+00:00",
+    "completed_at_utc": "2026-11-13T17:18:59.093467+00:00",
+    "returncode": 0,
+    "status": "OK",
+    "validation": "PASS",
+    "cause": null,
+    "export_generated_at_utc": "2026-11-13T17:18:50.589363Z",
+    "rendered_count": 78,
+    "raw_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\evidence\\CC-549\\installed-read-only-render.json",
+    "raw_bytes": 795109,
+    "raw_sha256": "522514542e058b550f7f3a22f2dfedd3887aeb5f00c0e10a0c883c79a04a0162",
+    "stderr_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\evidence\\CC-549\\installed-read-only-render.stderr.txt",
+    "stderr_bytes": 0,
+    "public_write": false,
+    "model_call": false,
+    "production_store_mode": "read-only",
+    "contract_version": "2.0.0",
+    "would_queue_count": 0,
+    "rendered_destinations": [
+      "discord",
+      "facebook_page",
+      "instagram_business",
+      "linkedin",
+      "substack_notes",
+      "telegram",
+      "threads",
+      "x"
+    ]
+  },
+  "task_readback_artifact": "task-readback.json",
+  "first_observed_installed_alert_tick": {
+    "at_utc": "2026-11-13T17:19:32.834030Z",
+    "phase": "IMMEDIATE_ALERTS",
+    "status": "OK",
+    "cause": null,
+    "export_generated_at_utc": "2026-11-13T17:18:50.589363Z"
+  },
+  "observed_installed_tick_count": 3,
+  "main_public_export": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+    "sha256": "c080e82e0a7d566dcb0ca003b3ceb773fd4dbedb3479b9a07ed102d057f87def",
+    "generated_at_utc": "2026-11-13T17:25:49.231624Z",
+    "plan_count": 89,
+    "registrations_after_integration": 0,
+    "latest_registrations": [
+      {
+        "plan_id": "plan_5556d93fba0baaf67f944e2d",
+        "asset_id": "USOIL",
+        "registered_at_utc": "2026-11-12T17:40:00.360572Z",
+        "status": "EXPIRED"
+      },
+      {
+        "plan_id": "plan_208ff18176c47f7d5de7ca37",
+        "asset_id": "XAUUSD",
+        "registered_at_utc": "2026-11-12T17:40:00.360572Z",
+        "status": "EXPIRED"
+      },
+      {
+        "plan_id": "plan_230a9464a193ca7a377d0c41",
+        "asset_id": "XAUUSD",
+        "registered_at_utc": "2026-11-12T13:19:23.123369Z",
+        "status": "EXPIRED"
+      }
+    ]
+  },
+  "public_telegram": {
+    "observed_at_utc": "2026-11-13T17:21:52.094748+00:00",
+    "public_url": "https://t.me/s/CapitalChronicle",
+    "browser_artifact": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8317.26\\.browseros\\tool-output\\read-1794590512093-b8383000-ffc1-4ced-accf-d600d3c005fc.md",
+    "artifact_bytes": 23284,
+    "artifact_sha256": "fe601ed4c90c4457dbf7d840856992165266f65d055654ef194d90fea830b227",
+    "latest_public_object_id": 182,
+    "latest_public_object_url": "https://t.me/CapitalChronicle/182",
+    "original_root_url": "https://t.me/CapitalChronicle/181",
+    "original_reply_url": "https://t.me/CapitalChronicle/182",
+    "new_live_root_url": null,
+    "new_live_reply_url": null
+  },
+  "cc549_outbox_rows": 0,
+  "next_live_cause": "NEXT_MAIN_PLAN_NOT_REGISTERED",
+  "next_live_plan_id": null,
+  "next_live_root_url": null,
+  "next_live_reply_url": null,
+  "preserved_work_files_checked": 8,
+  "preserved_work_unchanged": true,
+  "top_level_model": "gpt-6.1-sol",
+  "top_level_effort": "max",
+  "top_level_pid": 31928,
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "editorial_model_calls_by_this_run": 0,
+  "public_writes_by_this_run": 0,
+  "application_restarted": false,
+  "schedule_changed": false,
+  "remote_refs_read_back_at_utc": "2026-11-13T17:28:56.059553+00:00",
+  "remote_refs": {
+    "refs/heads/codex/contentops-local-publisher-20261030": "021a8c87323e9bda682627b4a87cc847dcbb7ddd",
+    "refs/tags/contentops-live-20261114-cc549": "021a8c87323e9bda682627b4a87cc847dcbb7ddd",
+    "refs/tags/contentops-rollback-20261114-cc549": "1d0748e37082c91e299e8ab0b578950218bc1501"
+  }
+}

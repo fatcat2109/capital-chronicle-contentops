@@ -20,6 +20,7 @@ The fixture is plan `plan_230a9464a193ca7a377d0c41`, registration `2e9a7170c25e5
 | Spot close condition | `invalidation_conditions[0].field/operator/threshold` | Spot close above 3,972.6 |
 | Entry opens | `not_before_utc` | 12 Nov, 8:30 AM ET |
 | Entry deadline | earliest of `entry_deadline_utc`, `expires_at_utc` | 13 Nov, 1:00 AM ET |
+| Later signed result | `outcome.score.result_r`, `realized_r` or `r_multiple` when explicitly exported | Bound to its later public outcome snapshot; never inferred from STOPPED |
 | Filled-position horizon | explicit `time_exit_utc`, then `horizon_end_utc`, `forecast_probabilities.horizon_end_utc`, `scenario_analysis.horizon_end_utc` | 13 Nov, 8:15 AM ET |
 
 All MGC prices come from its complete instrument mapping. Without that mapping, new copy names Gold and explicitly labels its spot close condition; it never presents spot prices as MGC prices. Entry and invalidation numbers are bound to individual source pointers; price rounding uses the exported tick. Scenario odds retain their separate explicit source and never use a probability complement.
@@ -30,7 +31,11 @@ All MGC prices come from its complete instrument mapping. Without that mapping, 
 - [Editorial and public-copy checks](editorial-and-guard.xml): 169 passed. The gold replay recomposes the first post, reply and title, checks both clocks, rejects the observed wording, and proves the real queue passes the frozen source into the page consumer.
 - Tests use isolated stores and controlled model/transport returns. This run made no editorial model call. Launch arguments observed on process 31460: `gpt-6.1-sol`, effort `max`, **CONFIGURED_NOT_OBSERVED**; runtime model/effort are not observed.
 
-Integration and next-thread public readback are pending. The next natural Main registration must produce its own Telegram root and reply; their exact URLs belong here before DONE. No old post is edited or test plan published to satisfy that acceptance.
+The corrected source is integrated and pushed in the operating root at `021a8c87323e9bda682627b4a87cc847dcbb7ddd`, applied at **00:17:57 GMT+7 on 14 November**. The live tag is `contentops-live-20261114-cc549`; the rollback tag is `contentops-rollback-20261114-cc549`, pointing to `1d0748e37082c91e299e8ab0b578950218bc1501`. [Integration evidence](integration.json) binds all six installed source files and confirms the eight preserved work files are unchanged. Both tags were pushed and read back.
+
+The [installed consumer checks](installed-thread-consumers.xml) passed **57 tests**. The [installed read-only export render](installed-export-read.json) passed for **78 retained posts**, using the current `2.0.0` contract and zero new queue rows. The existing minute task recorded its first observed installed `IMMEDIATE_ALERTS / OK` phase at **00:19:32 GMT+7**. [Its task and process readback](task-readback.json) retains the active process and Task Scheduler result separately; no terminal completion is inferred for that in-flight run. No application was restarted and no schedule changed.
+
+**Remaining cause: `NEXT_MAIN_PLAN_NOT_REGISTERED`.** The fresh public export has no registration after this integration; its latest registration is **00:40:00 GMT+7 on 13 November**. [The public Telegram readback](telegram-public-readback.json) still ends at [reply 182](https://t.me/CapitalChronicle/182). That original reply and [root 181](https://t.me/CapitalChronicle/181) are unchanged and do not prove the repair live. Main must naturally register its next plan; Publisher then records that new root and reply URL here and checks their terms before DONE. Both new-URL fields remain null. No old post is edited or test plan published to supply the missing sample.
 
 ## 14 November continuation
 
