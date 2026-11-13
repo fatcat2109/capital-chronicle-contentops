@@ -1,16 +1,17 @@
-# CC-511 — live reply topics; full US session pending
+# CC-511 — live reply topics and the complete US-session funnel
 
 The named-driver map is integrated into the operating root at
 `97d8d9aa928914d8a121297a7b251ced2fea2115`. The existing minute consumer used its market links:
 two distinct Nvidia targets each carried 13 usable source facts into ranking.
 That first observed call ended with `AGY_RANK_TIMEOUT_90S`; no send is inferred.
-The timeout's approved fallback remains the separately assigned CC-512 work.
+The later light-caller recovery is the separate CC-512 delivery.
 
-**Status: BLOCKED until 13 November 2026 04:00 GMT+7 —
-FULL_12_NOV_US_SESSION_NOT_YET_ELAPSED.** The implementation is live. The
-remaining acceptance evidence is the complete 12 November US-session funnel.
-No Ops review or integration step is outstanding. Publisher will read the
-existing session records after that clock and replace the pending session report.
+The complete 12 November US-session readback is now in
+[us-session-funnel.json](us-session-funnel.json). Its 156 completed natural runs
+retain all 171 on-topic posts' first undrafted causes. The session produced no
+returned drafts or confirmed private sends. The market-driver map and its
+consumers remain installed; this readback completes the outstanding reporting
+acceptance without treating zero output as delivery success.
 
 The map ties index weights and sectors to their US indices; Middle East and
 Russian supply risk to oil and gold; central-bank speakers and sovereign rates
@@ -41,6 +42,9 @@ and the 15-minute send deadline continue to apply.
 - `installed-final-policy-tests.xml`: 76 passing final installed checks,
   19.31 seconds reported by pytest, one process; JUnit records its suite clock
   separately. Tests read isolated fixtures, never the production store.
+- [resume-20261114/acceptance-tests.xml](resume-20261114/acceptance-tests.xml):
+  50 passing topic and session-report checks on the current operating base,
+  including the three exact positives, five negatives and linked-fact consumers.
 
 [integration.json](integration.json) records the operating HEAD, exact Git blobs,
 normalized source hashes and preserved unrelated dirty-file hashes. Raw filesystem
@@ -55,6 +59,8 @@ first natural live run to its exact requests and call record. It records the
 ranker's configured model/effort and timeout duration; unavailable runtime model
 telemetry stays `CONFIGURED_NOT_OBSERVED`. The top-level launch was
 `gpt-6.1-sol / max`, also `CONFIGURED_NOT_OBSERVED` (`run-context.json`).
+The resumed launch has the same configured values, read from its actual process
+arguments in [resume-20261114/run-context.json](resume-20261114/run-context.json).
 No manual production tick, application restart, schedule change or public reply
 was made. Jim remains the sender of public replies.
 
@@ -117,11 +123,62 @@ is never applied retrospectively to inflate the original on-topic count.
 
 The report window is 09:30–16:00 ET on 12 November: 21:30 GMT+7 on 12 November
 through 04:00 GMT+7 on 13 November. Records retain 14:30–21:00 UTC.
-[us-session-funnel.json](us-session-funnel.json) currently records
-`SESSION_NOT_STARTED`, not a completed zero-output session.
+[us-session-funnel.json](us-session-funnel.json) records the completed window
+from the saved results, requests and editorial returns. The first natural run
+started at 21:30:27 GMT+7 on 12 November; the last completed at 03:59:56 GMT+7
+on 13 November. There are 156 completed runs, 540 hashed source artifacts and
+no missing results among the 156 retained session-run folders. The largest gap between completed runs is
+5.820 minutes. Counts are distinct post IDs across the session.
 
-After 04:00 GMT+7, Publisher runs the read-only report once and puts its complete
-counts, stage timings and every undrafted target's first cause into this README:
+[resume-20261114/session-readback.json](resume-20261114/session-readback.json)
+verifies every artifact hash and the retained run folders. The live requests
+carried 132 distinct candidates with explicit market links and usable facts
+into recorded ranking input, proving that the consumers used the widened map.
+
+| Stage | Distinct posts |
+|---|---:|
+| Posts seen, including stale rows | 1239 |
+| Fresh targets | 356 |
+| On topic | 171 |
+| With a usable fact | 163 |
+| Sent to ranking | 163 |
+| Ranked above the floor | 1 |
+| Writer returned a draft | 0 |
+| Draft passed pack checks | 0 |
+| Confirmed private sends | 0 |
+
+All 171 on-topic posts lacked an authored draft. The report preserves each
+post's first cause, its original artifact and clock, and any later causes.
+There are no unknown first causes. The original runs' topic decisions and
+ranking scores are retained without applying today's code retrospectively.
+
+| First cause before an authored draft | Posts |
+|---|---:|
+| `NO_ADDED_FACT_ABOVE_QUALITY_FLOOR` | 126 |
+| `AGY_RANK_TIMEOUT_90S` | 19 |
+| `AGY_RANK_TIMEOUT_65S` | 17 |
+| `NO_USABLE_FACT` | 8 |
+| `CODEX_DRAFT_TIMEOUT_90S` | 1 |
+
+The 36 ranking timeouts and the writer timeout are recorded failures in this
+session. Later caller fixes do not change those historical outcomes.
+
+| Stage | Runs with work | Median minutes | Maximum minutes |
+|---|---:|---:|---:|
+| Filter | 156 | 0.090 | 3.402 |
+| Ranking | 103 | 1.215 | 2.538 |
+| Drafting | 1 | 1.504 | 1.504 |
+| Checks | 62 | 0.005 | 0.321 |
+| Whole tick | 156 | 1.238 | 4.669 |
+
+These are measured work durations for each stage; medians include only runs
+with work. The sole drafting attempt timed out. With no returned draft or
+confirmed send, post-to-draft, post-to-send-attempt, post-to-delivery and
+Telegram-send minutes are unavailable. No latency is inferred from a tick's
+duration. Run outcomes were 62 `NO_FRESH_UNSENT_DRAFTS`, 41 `REPLY_BOT_FAILED`
+and 53 `NO_NEW_ELIGIBLE_TARGETS`.
+
+The report was generated once after the session with:
 
 ```powershell
 python docs/publisher/CC-511/session_funnel.py

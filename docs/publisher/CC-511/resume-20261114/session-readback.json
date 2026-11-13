@@ -1,0 +1,80 @@
+{
+  "item": "CC-511",
+  "read_at_utc": "2026-11-13T19:18:55.183758+00:00",
+  "report_sha256": "d3e3a86376075413b57abeed814cca3ea1c130e0cf1f9614af3cc9804a1ea4d7",
+  "session_run_folders": 156,
+  "completed_session_runs": 156,
+  "missing_result_folders": [],
+  "verified_artifact_hashes": 540,
+  "on_topic_without_draft": 171,
+  "all_first_causes_known": true,
+  "cc511_request_artifacts": 259,
+  "distinct_linked_request_candidates": 132,
+  "linked_with_usable_facts": 132,
+  "linked_in_recorded_ranking_input": 132,
+  "example_links": [
+    {
+      "post_id": "2120885961005384086",
+      "market_links": [
+        {
+          "driver": "US_INDEX_WEIGHTS_AND_SECTORS",
+          "markets": [
+            "NDX",
+            "SPX"
+          ],
+          "relationship": "Large US index weights and their sectors feed the named US equity indices.",
+          "subjects": [
+            "nvidia"
+          ]
+        }
+      ],
+      "first_request": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T143027-0fd5b79e\\reply-pack-request-a212c2f4dfa62d60.json",
+      "request_sha256": "ab587e80a0564e3565988268e944f2f4b4335d314c3276eb23cfd7f85b06340c",
+      "usable_fact_count": 16
+    },
+    {
+      "post_id": "2120885026162377149",
+      "market_links": [
+        {
+          "driver": "US_INDEX_WEIGHTS_AND_SECTORS",
+          "markets": [
+            "NDX",
+            "SPX"
+          ],
+          "relationship": "Large US index weights and their sectors feed the named US equity indices.",
+          "subjects": [
+            "nvidia"
+          ]
+        }
+      ],
+      "first_request": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T143027-0fd5b79e\\reply-pack-request-a212c2f4dfa62d60.json",
+      "request_sha256": "ab587e80a0564e3565988268e944f2f4b4335d314c3276eb23cfd7f85b06340c",
+      "usable_fact_count": 16
+    },
+    {
+      "post_id": "2120884562523791831",
+      "market_links": [
+        {
+          "driver": "US_INDEX_WEIGHTS_AND_SECTORS",
+          "markets": [
+            "NDX",
+            "SPX"
+          ],
+          "relationship": "Large US index weights and their sectors feed the named US equity indices.",
+          "subjects": [
+            "nvidia"
+          ]
+        }
+      ],
+      "first_request": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261112T143027-0fd5b79e\\reply-pack-request-a212c2f4dfa62d60.json",
+      "request_sha256": "ab587e80a0564e3565988268e944f2f4b4335d314c3276eb23cfd7f85b06340c",
+      "usable_fact_count": 16
+    }
+  ],
+  "source_boundary": "Existing saved results and requests only; no private Telegram or browser data read.",
+  "manual_ticks": 0,
+  "model_calls": 0,
+  "public_submit_actions": 0,
+  "schedule_changed": false,
+  "application_restarted": false
+}
