@@ -45,14 +45,25 @@ and the 15-minute send deadline continue to apply.
 - [resume-20261114/acceptance-tests.xml](resume-20261114/acceptance-tests.xml):
   50 passing topic and session-report checks on the current operating base,
   including the three exact positives, five negatives and linked-fact consumers.
+- [resume-20261114/installed-acceptance-tests.xml](resume-20261114/installed-acceptance-tests.xml):
+  the same 50 checks pass in the operating root, 31.85 seconds reported by
+  pytest, one process, with isolated fixtures.
 
 [integration.json](integration.json) records the operating HEAD, exact Git blobs,
 normalized source hashes and preserved unrelated dirty-file hashes. Raw filesystem
 hashes differ where Git converts LF to CRLF; the committed blobs and normalized
-source agree. The initial live tag is `contentops-live-20261112-cc511`, the current
-code tag is `contentops-live-20261112-cc511-driver-link`, and rollback is
+source agree. The initial live tag is `contentops-live-20261112-cc511`, the map's
+final code tag is `contentops-live-20261112-cc511-driver-link`, and rollback is
 `contentops-rollback-20261112-cc511`. All are pushed. Historical issued requests
 and public objects keep their bytes.
+
+[resume-20261114/integration.json](resume-20261114/integration.json) records the
+completed report's installation from operating base
+`9515c15cc278c6b11863d73e8a02ce756551775d`, the installed tests and source/report
+blob readback. The completion tag is `contentops-live-20261114-cc511-session`;
+rollback is `contentops-rollback-20261114-cc511-session`. The existing topic-map
+code required no further change. Unrelated dirty files retained their exact
+hashes across integration.
 
 [installed-consumer-readback.json](installed-consumer-readback.json) binds the
 first natural live run to its exact requests and call record. It records the
@@ -127,8 +138,9 @@ through 04:00 GMT+7 on 13 November. Records retain 14:30–21:00 UTC.
 from the saved results, requests and editorial returns. The first natural run
 started at 21:30:27 GMT+7 on 12 November; the last completed at 03:59:56 GMT+7
 on 13 November. There are 156 completed runs, 540 hashed source artifacts and
-no missing results among the 156 retained session-run folders. The largest gap between completed runs is
-5.820 minutes. Counts are distinct post IDs across the session.
+no missing results among the 156 retained session-run folders. The largest gap
+between completed runs is 5.820 minutes. Counts are distinct post IDs across
+the session.
 
 [resume-20261114/session-readback.json](resume-20261114/session-readback.json)
 verifies every artifact hash and the retained run folders. The live requests
