@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-13T10:32:45.213770+00:00",
+  "original_main_data_cutoff_utc": "2026-11-13T09:32:50.340914Z",
+  "reader_contract": {
+    "policy": "CC403_READER_ARTICLE_V1",
+    "format": "ARTICLE",
+    "source_pack_sha256": "1d4444671070fcc41980b65e70415ef5b618d51eeabfcd9e85bcb7b94107b55d",
+    "primary_document_id": "main-ppi-dossier-20261113",
+    "data_cutoff_utc": "2026-11-13T09:32:50.340914+00:00",
+    "max_sentence_words": 35,
+    "daily_prose_words": 350,
+    "publication_target_minutes": 60
+  },
+  "first_cause": null
+}

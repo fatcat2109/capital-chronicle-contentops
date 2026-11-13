@@ -1,0 +1,30 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-13T10:33:55.571969+00:00",
+  "supported_process_observation": {
+    "process_id": 968,
+    "parent_process_id": 27748,
+    "creation_time_gmt7": "2026-11-13T17:23:55+07:00",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "arguments_source": "Win32_Process CommandLine readback in this run: exec --model gpt-6.1-sol -c model_reasoning_effort=max in the named Publisher worktree"
+  },
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "actual_model": null,
+  "actual_reasoning_effort": null,
+  "runtime_telemetry_available": false,
+  "native_role_assignments": [
+    {
+      "stage": "select",
+      "task_name": "/root/native_select_f5f29c5b13f4",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low"
+    },
+    {
+      "stage": "media-plan",
+      "task_name": "/root/native_select_f5f29c5b13f4",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "low"
+    }
+  ]
+}
