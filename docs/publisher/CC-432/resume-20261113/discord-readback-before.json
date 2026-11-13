@@ -1,0 +1,8 @@
+{
+ "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+ "destination": "discord",
+ "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+ "public_write_performed": false,
+ "publish_called": false,
+ "pending_requests": []
+}

@@ -814,11 +814,66 @@ def continue_link(store, value, *, invocation_id="plan-analysis-links-cc435", co
         if command == "readback":
             ids = coordinator._ids(value["link_id"], value["plan"]["plan_hash"], value["destination"])
             result = coordinator.readback_existing_dispatch(ids["dispatch_id"])
+        elif command == "repair-embed":
+            result = repair_discord_empty_embed(coordinator, value, response or {})
         else:
             result = coordinator.publish_plan(value["link_id"], value["plan"])
         return {**result, "pending_requests": executor.pending()}
     except NativeNeoInputRequired as pending:
         return {"state": "NATIVE_NEO_TOOL_PENDING", "native_tool_request": pending.request}
+
+
+def repair_discord_empty_embed(coordinator, value, evidence):
+    """Complete the exact reply rejected by Discord's empty-embed validation.
+
+    Retain its original bytes and failure. A fresh thread read must prove absence;
+    an HTTP rejection is not a platform outage or an ambiguous public creation.
+    The existing correction audit allows one send for this measured repair.
+    """
+    store = coordinator.store
+    validate_link_plan(store, value["link_id"], value["plan"])
+    if value["destination"] != "discord":
+        raise ValueError("DISCORD_ANALYSIS_LINK_REQUIRED")
+    ids = coordinator._ids(value["link_id"], value["plan"]["plan_hash"], "discord")
+    correction = "cc432-discord-empty-embed-v1"
+    if coordinator._transport_correction_already_attempted(ids["dispatch_id"], correction):
+        return {"status": "CORRECTION_ALREADY_ATTEMPTED_READBACK_ONLY", "publish_called": False}
+    message = store.get_outbox_message(ids["message_id"])
+    dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+    if not message or dispatch.get("public_object_id") or dispatch.get("public_object_url"):
+        return {"status": "EXISTING_DISCORD_OBJECT_READBACK_ONLY", "publish_called": False}
+    intent = json.loads(message["payload"])
+    validate_link_intent(store, intent)
+    if coordinator._message_is_stale(message, intent):
+        return {"status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE", "publish_called": False}
+    incident_id, _, failure = coordinator._destination_failure_cursor("discord")
+    provider = evidence.get("error_response") or {}
+    errors = ((provider.get("errors") or {}).get("embeds") or {}).get("0", {})
+    errors = (errors.get("description") or {}).get("_errors", [])
+    started = posts._utc(failure["attempt_started_at_utc"]) if failure else None
+    observed = posts._utc(evidence["timestamp"]) if evidence.get("timestamp") else None
+    if (not failure or failure.get("dispatch_id") != ids["dispatch_id"]
+            or evidence.get("platform_id") != "discord" or evidence.get("action") != "post"
+            or evidence.get("http_status") != 400 or provider.get("code") != 50035
+            or not any(e.get("code") == "BASE_TYPE_REQUIRED" for e in errors)
+            or not started or not observed or not 0 <= (observed - started).total_seconds() <= 30
+            or intent.get("media_assets") or value["native_payload"].get("media_asset_ids")):
+        raise ValueError("EXACT_DISCORD_EMPTY_EMBED_REJECTION_REQUIRED")
+    readback = coordinator.readback_existing_dispatch(ids["dispatch_id"])
+    if readback.get("reconciliation_status") != "RECONCILED_ABSENT_SAFE_TO_RETRY":
+        return {**readback, "publish_called": False}
+    # Resolve only this measured malformed request, preserving CC-401 for actual
+    # provider restrictions, outages, credentials and later ambiguous attempts.
+    store.register_incident(incident_id=incident_id + "_local_prewrite_resolved",
+        work_item_id=value["link_id"], severity="RESOLVED_LOCAL_REQUEST_VALIDATION",
+        description=json.dumps({"cause": "DISCORD_EMPTY_EMBED_CORRECTED", "dispatch_id": ids["dispatch_id"],
+            "http_status": 400, "provider_code": 50035, "event_id": evidence.get("event_id"),
+            "provider_rejected_creation": True, "fresh_absence_confirmed": True}))
+    outcome = coordinator._dispatch_message(message, canonical_url=value["canonical_url"],
+        explicit_reconciled_absent_retry=True)
+    if outcome.get("publish_called") is True:
+        coordinator._record_transport_correction_attempt(ids["dispatch_id"], correction, value["link_id"])
+    return {**outcome, "correction_id": correction}
 
 
 def publish_link(store, value, *, automatic_neo=False):

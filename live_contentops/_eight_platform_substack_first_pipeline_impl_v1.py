@@ -1365,15 +1365,17 @@ def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str |
                               require_media: bool = True) -> dict[str, Any]:
     from live_contentops.discord_live_adapter_v6 import execute_discord_post, readback_discord_post
 
-    # A post with no link (a status post, decision 83) has an embed without a url.
-    embeds = [{"title": title, **({"url": canonical_url} if canonical_url else {})}]
+    # Text-only analysis replies already carry the canonical in their body.
+    # Discord rejects a url-only embed with an empty title (HTTP 400/50035).
+    embeds = ([{"title": title, **({"url": canonical_url} if canonical_url else {})}]
+              if title or image_url or image_path else [])
     if image_url:
         embeds[0]["image"] = {"url": image_url}
     raw = execute_discord_post(message=text, embeds=embeds, dry_run=False,
                                **({"image_path": image_path} if image_path else {}),
                                **({"thread_parent_id": thread_parent_id, "thread_name": thread_name,
                                    "reply_to_message_id": reply_to_message_id} if thread_parent_id else {}))
-    if raw.get("definite_no_write"):
+    if raw.get("status") != "SUCCESS":
         return raw
     response = raw.get("response") if isinstance(raw.get("response"), Mapping) else {}
     message_id = str(raw.get("id") or response.get("id") or "")

@@ -171,6 +171,7 @@ def test_real_coordinator_and_api_route_confirm_text_link_inside_the_card_thread
             body = json.loads(req.data)
             assert body["message_reference"]["message_id"] == "800"
             assert packet["summary"]["macro"] in body["content"]
+            assert not body.get("embeds"), "A text-only reply must not send an empty embed."
         else:
             assert url == "https://discord.com/api/v10/channels/700/messages/901"
         return Response(observed)
@@ -195,6 +196,99 @@ def test_real_coordinator_and_api_route_confirm_text_link_inside_the_card_thread
     assert pages.link_status(store, link)["confirmed"]
     assert calls[-1] == ("GET", "https://discord.com/api/v10/channels/700/messages/901")
     assert sum(method == "POST" for method, _ in calls) == 1
+
+
+@pytest.mark.parametrize("http_status,code", [(400, 50035), (403, 40333)])
+def test_discord_wrapper_retains_provider_failure_for_exact_diagnosis(monkeypatch, http_status, code):
+    from live_contentops import discord_live_adapter_v6 as adapter
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    failure = {"status": "FAILED", "error_code": http_status,
+               "error_response": {"code": code, "message": "Provider rejection"}}
+    monkeypatch.setattr(adapter, "execute_discord_post", lambda **_: failure)
+    result = pipeline._publish_discord_verified(text="Original reply", canonical_url="https://example.test/page",
+                                               title="", image_url=None, require_media=False)
+    assert result == failure
+
+
+def failed_empty_embed(ready, *, uncertain=False, lose_return=False):
+    from datetime import datetime, timezone
+    store, packet, original = ready
+    bot_card(store, original)
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+
+    class Transport(FixtureTransport):
+        def readback(self, **kwargs):
+            if not kwargs["public_object_id"]:
+                return ({"status": "AMBIGUOUS", "verified": False} if uncertain else
+                        {"status": "NOT_FOUND", "verified": False, "write_absent": True})
+            return super().readback(**kwargs)
+
+    runtime = Transport(raise_after_write=lose_return)
+    coordinator = Coordinator(store=store, transport_runtime=runtime,
+        readiness_provider=lambda _: {"readiness_state": "READY_NON_BROWSER_BINDING"})
+    link = pages.register_link(store, packet, original_key=original, destination="discord")
+    posts.scope_to_post(coordinator, link["link_id"], link["plan"])
+    ids = coordinator.register_plan(link["link_id"], link["plan"])["registered"][0]
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="discord", status="DERIVATIVE_RECOVERY_RETRY_EXHAUSTED_NO_WRITE")
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"], work_item_id=link["link_id"],
+                                  status="RECONCILED_ABSENT_SAFE_TO_RETRY")
+    coordinator._record_retry_attempt(ids["dispatch_id"], link["link_id"])
+    at = datetime.now(timezone.utc).isoformat()
+    coordinator._record_destination_day_failure({"work_item_id": link["link_id"]}, "discord",
+        {"dispatch_id": ids["dispatch_id"], "status": "UNKNOWN_WRITE", "attempt_started_at_utc": at})
+    evidence = {"event_id": "measured-http-rejection", "timestamp": at, "platform_id": "discord", "action": "post",
+        "http_status": 400, "error_response": {"code": 50035, "errors": {"embeds": {"0": {
+            "description": {"_errors": [{"code": "BASE_TYPE_REQUIRED"}]}}}}}}
+    return store, coordinator, runtime, link, ids, evidence
+
+
+def test_repaired_empty_embed_completes_the_same_live_consumer_reply_once(ready):
+    store, coordinator, runtime, link, ids, evidence = failed_empty_embed(ready)
+    before = store.get_outbox_message(ids["message_id"])["payload"]
+    result = pages.repair_discord_empty_embed(coordinator, link, evidence)
+    assert result["status"] == "DISPATCH_CONFIRMED", result
+    assert pages.link_status(store, link)["confirmed"]
+    assert runtime.publish_calls == ["discord"]
+    assert coordinator._destination_day_failure("discord") is None
+    assert store.get_outbox_message(ids["message_id"])["payload"] == before
+    assert pages.repair_discord_empty_embed(coordinator, link, evidence)["publish_called"] is False
+    assert runtime.publish_calls == ["discord"]
+
+
+@pytest.mark.parametrize("wrong", ["restriction", "other_field", "other_time", "other_dispatch"])
+def test_empty_embed_correction_does_not_release_a_platform_failure(ready, wrong):
+    store, coordinator, runtime, link, ids, evidence = failed_empty_embed(ready)
+    if wrong == "restriction":
+        evidence.update(http_status=403, error_response={"code": 40333})
+    elif wrong == "other_field":
+        evidence["error_response"]["errors"] = {"content": {"_errors": [{"code": "BASE_TYPE_REQUIRED"}]}}
+    elif wrong == "other_time":
+        evidence["timestamp"] = "2020-01-01T00:00:00Z"
+    else:
+        with store.get_connection() as connection:
+            connection.execute("UPDATE incidents SET description=? WHERE severity='DISPATCH_FAILURE'",
+                (json.dumps({"dispatch_id": "other", "attempt_started_at_utc": evidence["timestamp"]}),))
+    with pytest.raises(ValueError, match="EXACT_DISCORD_EMPTY_EMBED_REJECTION_REQUIRED"):
+        pages.repair_discord_empty_embed(coordinator, link, evidence)
+    assert coordinator._destination_day_failure("discord") is not None
+    assert runtime.publish_calls == []
+
+
+def test_empty_embed_correction_preserves_uncertain_absence(ready):
+    _, coordinator, runtime, link, _, evidence = failed_empty_embed(ready, uncertain=True)
+    result = pages.repair_discord_empty_embed(coordinator, link, evidence)
+    assert result["reconciliation_status"] == "RECONCILIATION_PENDING"
+    assert coordinator._destination_day_failure("discord") is not None
+    assert runtime.publish_calls == []
+
+
+def test_lost_correction_return_cannot_allocate_another_send(ready):
+    _, coordinator, runtime, link, _, evidence = failed_empty_embed(ready, lose_return=True)
+    pages.repair_discord_empty_embed(coordinator, link, evidence)
+    again = pages.repair_discord_empty_embed(coordinator, link, evidence)
+    assert again["status"] == "CORRECTION_ALREADY_ATTEMPTED_READBACK_ONLY"
+    assert runtime.publish_calls == ["discord"]
 
 
 @pytest.mark.parametrize("wrong", [None, "thread", "parent", "text", "canonical"])
