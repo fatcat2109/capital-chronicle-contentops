@@ -63,12 +63,31 @@ def test_a_missing_quote_refusal_fails_even_with_full_comparison_coverage(tmp_pa
     assert len(result["missing_quote_refusals"]) == 1
 
 
+def test_shared_capture_under_different_work_items_cannot_inflate_coverage(tmp_path):
+    rows = [record(1), record(1, destination="discord"), record(2, compared=False)]
+    rows[1]["piece_id"] = "different-work-item-for-the-same-capture"
+    result = report(tmp_path, rows)
+    assert result["plan_charts"] == 2 and result["compared_plan_charts"] == 1
+    assert result["compared_percent"] == 50 and result["status"] == "FAIL"
+    chart = next(c for c in result["charts"] if c["compared"])
+    assert len(chart["piece_ids"]) == 2 and chart["publication_records"] == 2
+    assert set(chart["destinations"]) == {"telegram", "discord"}
+
+
+def test_same_image_bytes_at_distinct_capture_clocks_remain_distinct_observations(tmp_path):
+    rows = [record(1), record(1, at=NOW + timedelta(minutes=1), destination="discord")]
+    result = report(tmp_path, rows)
+    assert result["plan_charts"] == 2 and result["compared_plan_charts"] == 2
+
+
 def test_three_day_limits_never_claim_observations_from_one_day_or_reservations(tmp_path):
     result = report(tmp_path, [record(1)], since=NOW - timedelta(days=3))
     market = result["calibration"]["markets"]["EURUSD"]
     assert result["calibration"]["whole_three_day_window_elapsed"]
     assert not market["three_day_observations_present"]
     assert market["limit_pct"] == .15 and market["limit_basis"] == "APPROVED_STARTING_LIMIT"
+    assert result["calibration"]["status"] == "THREE_DAY_SAMPLE_INCOMPLETE"
+    assert set(result["calibration"]["pending_markets"]) == set(SYMBOLS)
 
 
 def test_three_observed_days_include_refused_measurements_without_counting_copies(tmp_path):
