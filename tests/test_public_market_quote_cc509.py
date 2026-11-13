@@ -49,6 +49,25 @@ def test_each_market_keeps_source_symbol_clock_prior_close_and_change(market):
         assert q["instrument_type"] == "BOND" and "futures" not in q["instrument_name"]
 
 
+def test_canonical_usdjpy_response_reaches_chart_consumer_without_pair_conversion(monkeypatch):
+    calls = []
+    def read(url):
+        calls.append(url)
+        return answer("USDJPY", symbol="USDJPY=X", value=154.5, prior=154.25)
+    monkeypatch.setattr(quotes, "http_read", read)
+    monkeypatch.setattr(quotes, "utcnow", lambda: NOW)
+    quotes.get("USDJPY", now=NOW, clock=lambda: NOW)
+    q = prices.public_chart_quote("USDJPY", NOW)
+    check = image.compare_scale("USDJPY", {
+        "tv_symbol": tv.SYMBOLS["USDJPY"], "sha256": "a" * 64,
+        "captured_at_utc": NOW.isoformat(), "page_title": "USDJPY 154.5"}, q)
+    assert len(calls) == 1 and "USDJPY%3DX" in calls[0]
+    assert q["source_symbol"] == "USDJPY=X" and q["price"] == 154.5
+    assert check["difference_pct"] == 0 and check["comparison_basis"] == "AT_CAPTURE"
+    with pytest.raises(quotes.QuoteError, match="PUBLIC_QUOTE_SYMBOL_MISMATCH"):
+        quotes.parse("USDJPY", answer("USDJPY", symbol="JPYUSD=X"), received_at=NOW, seconds=0)
+
+
 @pytest.mark.parametrize("problem,cause", [
     ("failed", "PUBLIC_QUOTE_HTTP_503"), ("stale", "PUBLIC_QUOTE_STALE"),
     ("wrong", "PUBLIC_QUOTE_SYMBOL_MISMATCH"), ("future", "PUBLIC_QUOTE_FUTURE_CLOCK"),

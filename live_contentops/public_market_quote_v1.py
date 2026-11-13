@@ -28,7 +28,9 @@ SYMBOLS = {
     "US500": ("YAHOO", "^GSPC", "S&P 500 cash index", "points", "INDEX"),
     "XAUUSD": ("CNBC", "XAU=", "Gold spot", "USD per troy ounce", "INDEX"),
     "EURUSD": ("YAHOO", "EURUSD=X", "EUR/USD spot", "USD per EUR", "CURRENCY"),
-    "USDJPY": ("YAHOO", "JPY=X", "USD/JPY spot", "JPY per USD", "CURRENCY"),
+    # Yahoo redirects JPY=X to USDJPY=X in its response. Request the canonical
+    # pair so the exact-symbol check accepts it without permitting other pairs.
+    "USDJPY": ("YAHOO", "USDJPY=X", "USD/JPY spot", "JPY per USD", "CURRENCY"),
     "USOIL": ("YAHOO", "CL=F", "WTI crude oil futures", "USD per barrel", "FUTURE"),
     "BTCUSD": ("YAHOO", "BTC-USD", "Bitcoin spot", "USD", "CRYPTOCURRENCY"),
     "NDX": ("YAHOO", "^NDX", "Nasdaq 100 cash index", "points", "INDEX"),
