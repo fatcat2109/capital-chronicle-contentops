@@ -1,4 +1,12 @@
-# CC-172 current continuation — 5 November 2026
+# CC-172 current continuation — 14 November 2026
+
+The live implementation's next-article acceptance is still unmet. The refreshed
+read-only projection contains 25 native runs and no complete 15-minute result.
+All 41 held Main source files are unchanged; the installed source-clock consumer
+finds no eligible completed output for the next article. See the
+[current result](resume-20261114/README.md). The previous continuation follows.
+
+# CC-172 continuation — 5 November 2026
 
 The first site-readback defect and repeated publication model/effort label checks
 are fixed in the operating root. Real 15-minute acceptance awaits the Web consumer
