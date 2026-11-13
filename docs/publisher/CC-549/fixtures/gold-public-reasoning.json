@@ -1,0 +1,120 @@
+{
+  "documents": {
+    "analysis-native.json": {
+      "native_synthesis": {
+        "candidates": [
+          {
+            "candidate_id": "cand_macro_btcusd"
+          },
+          {
+            "candidate_id": "cand_macro_eurusd"
+          },
+          {
+            "candidate_id": "cand_macro_gold",
+            "invalidation": "Before entry: a completed M15 close above 3972.6 (the 07:00Z H1 high is 3972.54). After entry: stop 4004.0; time exit 2026-11-13T13:15:00Z.",
+            "rationale": "SHORT on a pullback, STARTER. Regime RANGE (EVENT-PENDING), position_in_range 0.20; the limit at 3954 sits at 0.26 of the 20-day range 3870.03-4190.65, in its lower quarter. The plan follows yesterday's move inside a range; today differs from the base rate because the fall is a three-session repricing since the 10 Nov CPI date (4139.17 to 3935.55, 2.4 normal days) with lower intraday highs and EURUSD confirming, and because the target is the range low area itself (3876, above the 30 Oct low 3870.03), not a break of it. The zone 3954-3964 is the underside of the 07:30-08:15Z shelf (lows 3954.95-3959.26, 08:00Z bar high 3964.87) where the rebound from 3924.60 stopped twice (3955.00, 3955.81). Stop 4004 is above today's high 4000.71: 50 from the limit, 0.59 normal day (ATR14 84.09) and about 1.5 times the usual 4-hour range (five recent 4-hour windows 24.9-46.7, median 32.0); noise would have to retrace the whole European leg and the Asian range to reach it. After-cost R:R 1.365 at the worst edge 3954 (reward 78, risk 50, reserve 4.114) and 1.90 at 3964. Desk odds row: XAUUSD WITH_YARDSTICK_5, short while the yardstick is DOWN, n 349, mean +0.053R, t 1.0, halves 0.00 and +0.11 (PAID); SHORT_WHILE_DOWN_20 lost (-0.197R). The fact of today that the table does not hold: a repricing under way, and a level, 3870-3895, whose test forces range longs to act. Probability: base rate 48.5% (1 session, n 227, 95% 42.0-54.9) and 51.6% (3 sessions, n 225) for an any-day continuation, plus about 6 points for the accepted repricing and the dollar confirmation, less for the extension and the binary talks: 55% lower at the exit. Conditional on a fill and by the exit: target first about 14%, stop first about 25%, time exit about 61%. Expected value about 0.14 x +1.48R + 0.25 x -1.08R + 0.61 x +0.17R = +0.04R; without the direction view it is -0.08R. The desk record shows stated edges of this size were not realised in the 4-10 Nov replay (22 fills, mean -0.42R; limit-only fills lost 6 of 6), so this is a starter probe. Releases inside the hold: EA GDP flash on 13 Nov (date only in the pack) HOLD, stop 50 against a release-hour proxy of 36.9 (the largest H1 range of the last two European mornings; the release's own range is not held); US PPI 13 Nov 13:30Z FLAT, the plan exits at 13:15Z. Entry window 14:00Z on 12 Nov to 06:00Z on 13 Nov; exit 2026-11-13T13:15:00Z. Plan book: XAUUSD:SHORT slot state UNKNOWN (plan_fd0edd2dcd32452b0a2ffe67, plan_f94e73decba4b7ddd8ad7005) and no plan WAITING, TRIGGERED or FILLED in any lane, so this is a new plan with replaces_plan_id null; the earlier plans' state is unknown or ended. Against the standing stop plan of request-e606528282bc8943 (short 3988, stop 4012, distance 24) this stop is wider (50), not tighter. The plan base-rate calculator was not run: this role has no shell."
+          },
+          {
+            "candidate_id": "cand_macro_spx"
+          },
+          {
+            "candidate_id": "cand_macro_usdjpy"
+          },
+          {
+            "candidate_id": "cand_macro_wti"
+          }
+        ]
+      }
+    },
+    "primary-native.json": {
+      "candidate_evaluations": []
+    }
+  },
+  "freeze": {
+    "analyzer_packet_hash": "c64ac15835c3325c894e3e09798886ef7f5d4bec9892d16b136e34c9a0711280",
+    "broker_authority": false,
+    "canonical_probabilities_unchanged": true,
+    "decision_cutoff_utc": "2026-11-12T12:40:05Z",
+    "decision_evidence_freeze_hash": "2ba34b8745114eb1eef0f5460d06a93d94a5e91e49ea4969444871f0ba66357f",
+    "decision_evidence_freeze_id": "decision_evidence_fd80d3ca5198e6ba371cf169",
+    "deterministic_baseline_action": "ABSTAIN",
+    "deterministic_veto_applied": true,
+    "deterministic_veto_reasons": [
+      "DETERMINISTIC_REQUIRED_LAYER_BLOCK",
+      "DETERMINISTIC_BASELINE_ABSTAIN"
+    ],
+    "execution_packet_hash": "02aed1ddc91692de9cae4849b46c24e6aa6a01673316c1e3258bcc6ea0ed58d2",
+    "f2_credit_increment": 0,
+    "f4_credit_increment": 0,
+    "final_analyzer_action": "WATCH",
+    "final_decision_id": "final_decision_ad506c4db5bc5ceb6e643608",
+    "final_hard_veto_authority": "DETERMINISTIC_CODE_ONLY",
+    "frozen_at_utc": "2026-11-12T13:17:54.290828Z",
+    "immutable_hash": "044ff734f70d31699f176f2bf1a7bd641b824f7b638af78f8852dd8b5c3b9e79",
+    "manual_hybrid_evaluation_hash": "dc5d63776078224eb96a6fd494820677467b2de0e1388dac8f7cb7a588084626",
+    "no_edge_distinct_from_tech_blocked": true,
+    "numeric_core_unchanged": true,
+    "outcome_blind": true,
+    "paper_authority": false,
+    "position_readiness": "WATCHING_TRIGGER",
+    "public_decision_class": "WATCH",
+    "qualitative_recommendation": "WATCH",
+    "qualitative_result_hash": "5b1cb828cad7ee0a1666b08c8abef896c86f50224404a98c1b3a771d970a6be9",
+    "qualitative_route": "DESKTOP_OWNER_MANUAL",
+    "qualitative_technical_blocked": false,
+    "reason_codes": [
+      "SOURCE_BOUND_UNCALIBRATED_HYBRID_WATCH",
+      "FRESH_COST_QUOTE_RISK_REVALIDATION_REQUIRED_BEFORE_OPEN"
+    ],
+    "risk_and_sizing_authority": "DETERMINISTIC_CODE_ONLY",
+    "schema": "FinalDecisionFreezeV1",
+    "version": "1.0.0"
+  },
+  "manifest": {
+    "analysis-native.json": {
+      "bytes": 84316,
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261112T123542Z\\analysis-native.json",
+      "sha256": "8488446c63fa5e43f0d6fb4467080b72dfcd47b2136c6744fc270f00f754c1eb"
+    },
+    "desktop-manual-result.json": {
+      "bytes": 172092,
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261112T123542Z\\desktop-manual-result.json",
+      "sha256": "cd6cdea0d3dfe07463ba24218739de1f31b17146b1574ae81263ce28a51254f6"
+    },
+    "final-decision-freeze.json": {
+      "bytes": 1886,
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261112T123542Z\\final-decision-freeze.json",
+      "sha256": "557bc476704e82a211bc469fe806a4778e0268dac3ee5c99562bb3cf2758e08d"
+    },
+    "integrated-owner-record.json": {
+      "bytes": 4518854,
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261112T123542Z\\integrated-owner-record.json",
+      "sha256": "4e71b1a5c6517f298a6fe38e2fec7df46d688c7e8d3e56be599cc64aca795004"
+    },
+    "options-context.json": {
+      "bytes": 34973,
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261112T123542Z\\options-context.json",
+      "sha256": "02fa898d4f1e3f1c5ffd29e3c2eac25f7e8075bab7eda25afd55b84e040a4558"
+    },
+    "plan-geometry.json": {
+      "bytes": 4593,
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261112T123542Z\\plan-geometry.json",
+      "sha256": "d46178e6ad8b29e5b68dff97408599116ac8d6555cde926e69eaa7b6df83c776"
+    },
+    "role-evidence.json": {
+      "bytes": 2399217,
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261112T123542Z\\role-evidence.json",
+      "sha256": "b18371bb074345790d4c6e00b2b3e46c1328503bf5e451f21eba6dc50392a617"
+    },
+    "role-pack.json": {
+      "bytes": 895472,
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261112T123542Z\\role-pack.json",
+      "sha256": "917a5a7e0a8400d27a78417c0b16d28fe148f3daf239d981070d24429124ce0e"
+    },
+    "shock-pack.json": {
+      "bytes": 719091,
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261112T123542Z\\shock-pack.json",
+      "sha256": "aaf6d9ffeab86ff74c3e5cf49980fcdd6c2df3eff1aeed32697f81d7260f3ccd"
+    }
+  }
+}

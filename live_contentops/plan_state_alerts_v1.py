@@ -20,7 +20,29 @@ def compose(row):
     title = row["instrument_title"]
     at = cards._clock(row["at_utc"])
     calls = []
-    if row["kind"] == "setup":
+    thread = row.get("thread_contract") == "CC549_V1"
+    if thread:
+        from .plan_reader_copy_v1 import thread_terms, check_thread_text
+        terms = thread_terms(row["source_plan"])
+        if row["kind"] == "setup":
+            lead = title + ": new plan."
+            calls = [terms["call"]]
+            lines = [lead, terms["call_line"]]
+            if row.get("state") in {"FILLED", "TRIGGERED"}:
+                lines.append("An entry filled; the position is open.")
+        else:
+            words = {"FILLED": "an entry filled; the position is open", "TRIGGERED": "an entry filled; the position is open",
+                     "CANCELLED": "the plan was withdrawn", "VIEW_CHANGED": "the view changed",
+                     "INVALIDATED": "the invalidation condition was reached", "CLOSED": "the position closed",
+                     "EXPIRED": "the entry window ended"}
+            lead = title + ": " + (cards.ending_words(row) if row["kind"] == "result" else words[row["state"]]) + "."
+            lines = [lead, "Updated " + at + ".", "Entry condition: " + terms["call"]["condition"] + ".",
+                     terms["invalidation"] + ".", *terms["clocks"]]
+            value = result_r(row.get("source_plan") or {}) if row["kind"] == "result" else None
+            if value is not None:
+                lines.append(f"Result: {value:+.1f}R.")
+        check_thread_text("\n".join(lines))
+    elif row["kind"] == "setup":
         lead = title + ": new plan."
         horizon = row.get("time_exit_utc") or plan["valid_until_utc"]
         side = "below" if Decimal(str(plan["invalidation_level"])) < Decimal(str(plan["zone_low"])) else "above"
@@ -52,14 +74,14 @@ def compose(row):
         value = result_r(row.get("source_plan") or {}) if row["kind"] == "result" else None
         if value is not None:
             lines.append(f"Result: {value:+.1f}R.")
-    if row.get("price_basis") == "plan":
+    if row.get("price_basis") == "plan" and not thread:
         lines.append("Levels use the plan's prices.")
     if plan.get("target"):
         lines.append("Target level: " + "–".join(dict.fromkeys(cards.level(v, plan) for v in plan["target"])) + ".")
     until = row.get("entry_deadline_utc") or plan.get("valid_until_utc")
-    if until:
+    if until and not thread:
         lines.append("Entry valid until " + cards._clock(until) + ".")
-    if row.get("time_exit_utc"):
+    if row.get("time_exit_utc") and not thread:
         lines.append("Time exit: " + cards._clock(row["time_exit_utc"]) + ".")
     if row["kind"] == "setup":
         lines.append("Registered " + cards._clock(row["registered_at_utc"]) + ".")
@@ -82,6 +104,13 @@ def validate(row):
     for field in ("direction", "zone_low", "zone_high", "invalidation_level", "target", "valid_until_utc"):
         if row["levels"].get(field) != expected.get(field):
             raise posts.PlanPostError("PLAN_ALERT_SOURCE_FIELD_CHANGED:" + field)
+    if row.get("thread_contract") == "CC549_V1":
+        from .plan_reader_copy_v1 import thread_terms
+        terms = thread_terms(raw)
+        for field, key in (("instrument_title", "market"), ("price_basis", "price_basis"),
+                           ("entry_deadline_utc", "entry_deadline_utc"), ("time_exit_utc", "time_exit_utc")):
+            if row.get(field) != terms[key]:
+                raise posts.PlanPostError("PLAN_ALERT_SOURCE_FIELD_CHANGED:" + field)
     if row["text"] != compose(row)["text"]:
         raise posts.PlanPostError("PLAN_ALERT_SOURCE_COPY_CHANGED")
 

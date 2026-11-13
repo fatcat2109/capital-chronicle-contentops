@@ -487,9 +487,14 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
         from .plan_reader_copy_v1 import EFFECTIVE as READER_EFFECTIVE
         if now >= READER_EFFECTIVE:
+            from .plan_reader_copy_v1 import THREAD_CONTRACT, thread_terms
             item.update(reader_contract="CC466_V1", source_plan=raw,
                         source_plan_registration=raw.get("registration_hash"),
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
+            if all(plan.get(key) is not None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
+                terms = thread_terms(raw)
+                item.update(thread_contract=THREAD_CONTRACT, instrument_title=terms["market"],
+                            entry_deadline_utc=terms["entry_deadline_utc"], time_exit_utc=terms["time_exit_utc"])
         return item
 
     groups = {}
@@ -579,6 +584,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         if card.get("format") == FORMAT:
             for field in ("levels", "instrument_title", "price_basis", "registered_at_utc"):
                 item[field] = card.get(field)
+        if card.get("thread_contract") == "CC549_V1":
+            for field in ("source_plan", "source_plan_registration", "state_alert_source_sha256",
+                          "entry_deadline_utc", "time_exit_utc", "thread_contract"):
+                item[field] = card[field]
         item.update(compose(item))
         payloads.append(item)
 

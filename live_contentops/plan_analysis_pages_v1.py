@@ -154,6 +154,9 @@ def _source_text(run, ref):
     if ref.get("transform") == "ET12":
         from .plan_reader_copy_v1 import et
         return et(value)
+    if ref.get("transform") == "PUBLIC_TICK" and name == "plan-export" and pointer.startswith("/public_instrument/"):
+        from .plan_call_cards_v1 import level
+        return level(value, document["public_instrument"])
     if ref.get("transform") == "TIMEFRAME_WORDS":
         return re.sub(r"\bM(\d+)\b", r"\1-minute", str(value))
     if ref.get("transform"):
@@ -180,7 +183,7 @@ def validate_manuscript(plan, manuscript, run):
     bound = []
     for key, _ in sections:
         section = manuscript["sections"][key]
-        if not section.get("paragraphs") or not section.get("summary"):
+        if not section.get("paragraphs") or (not section.get("summary") and manuscript.get("reader_revision", 1) < 3):
             raise ValueError("PLAN_ANALYSIS_SECTION_EMPTY:" + key)
         for index, paragraph in enumerate(section["paragraphs"]):
             text = paragraph["text"]
@@ -278,6 +281,9 @@ def _assemble(plan, manuscript, run):
         check_text(body, source="\n".join(_source_text(run, ref) for section in manuscript["sections"].values()
             for paragraph in section["paragraphs"] for ref in paragraph["refs"]),
             check_numbers=False, prose=False)
+        if manuscript.get("reader_revision", 1) >= 3:
+            from .plan_reader_copy_v1 import check_thread_text
+            check_thread_text(body)
     payload = {"title": manuscript["title"], "subtitle": manuscript["subtitle"], "body_markdown": body}
     return payload, paragraphs, geometry_bindings
 
@@ -542,6 +548,14 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
             ("positioning", "Positioning"), ("fear", "Fear"), ("story", "Story"),
             ("technical", "Structure"))
         maximum = 3 if destination in {"x", "threads"} else 5
+        if packet["manuscript"].get("reader_revision", 1) >= 3:
+            from .plan_reader_copy_v1 import thread_terms, check_thread_text
+            terms = thread_terms(packet["source_plan"])
+            lead += "\n" + "\n".join(terms["clocks"])
+            for key, _ in force_labels:
+                if summary.get(key):
+                    check_thread_text(summary[key], force=True)
+            check_thread_text(summary.get("scenarios", ""))
         lines = [label + ": " + summary[key] for key, label in force_labels if summary.get(key)][:maximum]
         scenarios = ["Scenarios: " + summary["scenarios"]] if summary.get("scenarios") else []
         while True:
