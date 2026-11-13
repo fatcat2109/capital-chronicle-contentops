@@ -1,0 +1,13 @@
+{
+  "process_id": 16756,
+  "parent_process_id": 27748,
+  "process_started_utc": "2026-11-13T11:19:32.3719500Z",
+  "observed_at_utc": "2026-11-13T11:23:53.5011736Z",
+  "launch_model_arguments": "\"C:\\Users\\bullw\\AppData\\Local\\OpenAI\\Codex\\bin\\5449c1f0f26f1f98\\codex.exe\" exec --model gpt-6.1-sol -c \"model_reasoning_effort=\\\"max\\\"\"",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "actual_model": null,
+  "actual_reasoning_effort": null,
+  "runtime_observation": "CONFIGURED_NOT_OBSERVED",
+  "editorial_role_calls_this_run": 0
+}

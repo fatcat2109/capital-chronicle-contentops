@@ -1,0 +1,39 @@
+{
+  "item": "CC-124",
+  "observed_at_utc": "2026-11-13T11:22:07.497985+00:00",
+  "new_articles": 0,
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED",
+  "standing_status": "OPEN",
+  "choice": "Use the held Main analyses and original capture clocks in the installed consumers. If none is new and within the CC-403 deadline, preserve the completed PPI HOLD and end without duplicate source, native or publication work (decisions 89 and 98).",
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "next_due_gmt7": "14 Nov 2026 00:19 GMT+7",
+  "next_due_reason": "Resume the existing 360-minute standing cadence from the observed 18:19 GMT+7 launch. No second wrap and no host schedule change.",
+  "next_action": "Consume any new completed Main analysis at the next standing opportunity. The PPI preview is 13 November's wrap (decision 98).",
+  "next_actor": "Codex Publisher; Main analysis remains Ops Live-owned.",
+  "acceptance": "Installed consumers executed successfully. No new publication/readback acceptance claimed.",
+  "new_or_changed_native_outputs": 0,
+  "retained_native_outputs": 40,
+  "completed_main_analyses": 39,
+  "eligible_completed_main_analyses": 0,
+  "native_operation_id": "cc124-ppi-preview-20261113",
+  "native_operation_action": "Preserved completed prior HOLD; no new advance or operation allocated.",
+  "data_cutoff_utc": "2026-11-13T09:32:50.340914Z",
+  "publication_deadline_utc": "2026-11-13T10:32:50.340914Z",
+  "channel_states": {
+    "substack": "NO_WRITE_THIS_RUN",
+    "telegram": "NO_WRITE_THIS_RUN",
+    "discord": "NO_WRITE_THIS_RUN",
+    "x": "NO_WRITE_THIS_RUN",
+    "linkedin": "NO_WRITE_THIS_RUN",
+    "linkedin_company": "NO_WRITE_THIS_RUN",
+    "facebook": "NO_WRITE_THIS_RUN",
+    "instagram": "NO_WRITE_THIS_RUN",
+    "threads": "NO_WRITE_THIS_RUN",
+    "youtube": "NO_WRITE_THIS_RUN"
+  }
+}
