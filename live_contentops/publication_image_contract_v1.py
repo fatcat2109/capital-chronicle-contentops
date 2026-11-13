@@ -307,12 +307,20 @@ def validate_write(coordinator, intent, destination):
     """Check actual transport-selected media, once, for every fresh post type."""
     if coordinator._clock() < EFFECTIVE_FROM:
         return None
-    from .article_publication_quality_v1 import article_inputs
-    article, _, _ = article_inputs(intent)
+    if intent.get("output_dir"):
+        from .article_publication_quality_v1 import article_inputs
+        article, _, _ = article_inputs(intent)
+    else:
+        article = intent.get("article") or {}
     markets, macro = scope(coordinator.store, intent, article)
-    from ._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
-    data = _durable_intent_inputs(intent)
-    assets = data["media_assets"]
+    if intent.get("output_dir"):
+        from ._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+        assets = _durable_intent_inputs(intent)["media_assets"]
+    else:
+        # CC-548: digests carry their frozen media in the intent and have no
+        # article run folder. Keep all scope/template checks below, including
+        # the chart requirement for folderless market/release posts.
+        assets = intent.get("media_assets") or []
     if intent.get("plan_analysis_link") and not assets:
         # CC-432's exact replies and canonical link previews already point to
         # the illustrated page/card. CC-466 also keeps link/notice replies

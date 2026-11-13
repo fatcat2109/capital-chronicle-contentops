@@ -204,7 +204,9 @@ def prepare_daily_digest(store, feed_path, *, now=None):
     """Freeze once per 19:00 GMT+7 cutoff; resume an unsent draft before a new day.
 
     Cutoffs cover the preceding 24 hours, so a post after 19:00 is included in the
-    following digest. Already allocated identities/URLs are never selected again.
+    following digest. Published identities/URLs are never selected again. A
+    definitely refused older digest contributes its unsent articles to the next
+    day; pending or observed writes keep their exact frozen recovery identity.
     There is no two-hour timeout/retry: decision 54 supersedes that older rule.
     """
     now = now or datetime.now(timezone.utc)
@@ -220,20 +222,31 @@ def prepare_daily_digest(store, feed_path, *, now=None):
     lease = store.acquire_lease(DESTINATION, owner, ttl_seconds=60)
     try:
         prior = sorted(packets(store), key=lambda p: p["cutoff_utc"])
+        published, refused_articles = [], []
         for packet in prior:
             status = digest_status(store, packet)
+            if (packet["digest_id"] != digest_id and utc(packet["cutoff_utc"]) < end
+                    and status["state"] == "DEFINITE_NO_WRITE"
+                    and not status["public_object_id"] and not status["public_object_url"]):
+                # CC-548 / CC-377: a refused digest did not send these articles.
+                # Keep its intent/dispatch immutable and use its held titles and
+                # links, even when a later feed omits them. Never skip a pending,
+                # ambiguous or observed write, or replace today's frozen packet.
+                refused_articles.extend(packet["articles"])
+                continue
             # A live digest page is done for sequencing. Its email readback stays
             # recorded, but it never holds the next day's digest (4 Nov: the 3 Nov
             # digest's unobservable email would have held every later one).
             if not (status["confirmed"] or status["web_confirmed"]) or packet["digest_id"] == digest_id:
                 return {**status, "packet": packet, "public_write_performed": False}
+            published.append(packet)
         if prior:
             # Delayed code entry or a late confirmed-feed append must not lose
-            # articles between digests. Already allocated IDs/URLs are excluded.
+            # articles between digests. Already published IDs/URLs are excluded.
             start = utc(prior[0]["plan"]["publication_window"]["start_utc"])
-        used_ids = {a["content_id"] for p in prior for a in p["articles"]}
-        used_urls = {a["url"] for p in prior for a in p["articles"]}
-        candidates = []
+        used_ids = {a["content_id"] for p in published for a in p["articles"]}
+        used_urls = {a["url"] for p in published for a in p["articles"]}
+        candidates = list(refused_articles)
         feed_rows = read_records(feed_path) if feed_path and Path(feed_path).is_file() else []
         for row in feed_rows:
             if utc(row["recorded_at_utc"]) <= now:
