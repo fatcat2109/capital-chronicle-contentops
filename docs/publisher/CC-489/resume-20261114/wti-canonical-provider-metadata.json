@@ -1,0 +1,18 @@
+{
+  "readback_at_utc": "2026-11-13T18:16:49.673099+00:00",
+  "url": "https://quote.cnbc.com/quote-html-webservice/quote.htm?symbols=%40CL.1&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json",
+  "response_sha256": "412141f1f7455bdc769628981591fb31159f4ea59c8ed69c3e9bbb444a7a1f3c",
+  "provider_metadata": [
+    {
+      "symbol": "@CL.1",
+      "code": "0",
+      "assetType": "DERIVATIVE",
+      "name": "WTI Crude (Dec'26)",
+      "shortName": "OIL",
+      "exchange": "New York Mercantile Exchange",
+      "currencyCode": "USD",
+      "last_time": "2026-11-13T13:06:43.000-0500",
+      "quoteDesc": ""
+    }
+  ]
+}

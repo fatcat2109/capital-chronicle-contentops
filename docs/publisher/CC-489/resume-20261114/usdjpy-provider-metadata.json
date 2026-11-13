@@ -1,0 +1,14 @@
+{
+  "response_sha256": "b798c42b15d5896221449103429693513a7135a2c07fa1922a1a44b3c8e3f718",
+  "provider_meta": [
+    {
+      "symbol": "USDJPY=X",
+      "instrumentType": "CURRENCY",
+      "shortName": "USD/JPY",
+      "longName": "USD/JPY",
+      "currency": "JPY",
+      "exchangeName": "CCY",
+      "regularMarketTime": 1794593645
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 CC-489 supplies the existing TradingView price-scale check with held minute
 prices. The reader prefers a timed price in Main's minute plan-status export,
-then an exact-instrument M1 close in CC-481's existing SQLite store, then Main's
-existing saved tick. `DurablePublicationCoordinator` remains the publication
+then an exact-instrument M1 close in CC-481's existing SQLite store, then CC-509's
+public quote, then Main's saved tick. `DurablePublicationCoordinator` remains the publication
 owner. No terminal, broker API, application or schedule is started or changed.
 
 Every new reference records its source, source hash, observation time, known-at
@@ -12,8 +12,9 @@ source-readback artifact here omits the price value and all account fields.
 
 The export reader accepts an explicitly timed `last_price` or an exact-instrument
 `quote`/`last_quote`. A plan level, entry, export generation time or check time
-cannot stand in for a quote's observation time. The current export has none of
-these price fields. The bar reader uses native M1 rows, excluding a forming bar,
+cannot stand in for a quote's observation time. At the initial installation the
+export had none of these price fields; the 14 November readback below supersedes
+that source state. The bar reader uses native M1 rows, excluding a forming bar,
 an invalid bar, a proxy contract and a source learned after the image was taken.
 
 CC-463's 120-second comparison window and closed-market rule remain: the S&P 500
@@ -93,10 +94,80 @@ zero missing-quote refusals, no three-day comparison sample, and all six current
 references `NOT_COMPARED` with their precise causes. Zero charts cannot prove
 95% coverage. The starting limits in the table remain explicitly uncalibrated.
 
-CC-489 remains **BLOCKED: PLAN_STATUS_LAST_PRICE_NOT_EXPORTED / CHART_REFERENCE_STALE**.
+The initial result was **BLOCKED: PLAN_STATUS_LAST_PRICE_NOT_EXPORTED / CHART_REFERENCE_STALE**.
 Main can supply the timed exact-instrument price in its existing minute export;
 alternatively Data can refresh the existing native M1 store. Once either source
 is current, the installed reader consumes it automatically. A completed live
 day and the actual three-day differences must then be read through the existing
 register and outcomes with the audit command. No watcher, schedule change,
 duplicate publication or request to Jim is needed.
+
+## 14 November 2026 continuation
+
+The two repairs are installed at code commit
+`c0dc8be499fd0f6f632c52770eea774fc46ac26d`, applied at **01:17:58 GMT+7**.
+Both `contentops-live-20261114-cc489` and
+`contentops-rollback-20261114-cc489` are pushed. The existing minute task's
+01:18:30 GMT+7 result is `OK`, with zero new rows queued. It still runs the same
+`pythonw.exe -B scripts\plan_status_posts.py --publish` action in the operating
+root. No task or application changed. See [integration](resume-20261114/integration.json)
+and the [consumer run](resume-20261114/installed-consumer-run.json).
+
+The coverage audit now deduplicates by original chart hash and capture clock.
+One gold capture had eight publication records under six different work IDs;
+the previous audit counted it six times. It now reports **one distinct chart,
+compared once (100%)**, for the completed 12 November production day, with zero
+missing-quote refusals. The records include Telegram, Discord, Threads and
+Substack Notes. This establishes that day's coverage; it does not establish
+six-market coverage. The 11 November day retains its failure and 13 November
+has no observed plan chart. The [installed audit](resume-20261114/installed-live-audit.json)
+retains the exact capture identity and input hashes.
+
+The live source check also exposed a USD/JPY failure: Yahoo's `JPY=X` request
+returns the canonical `USDJPY=X` symbol. The reader now requests `USDJPY=X`
+and keeps exact symbol, instrument type, unit and clock checks. There is no
+pair inversion or price conversion. A regression takes the canonical response
+through the actual chart consumer and still rejects `JPYUSD=X`.
+
+At **01:18:38 GMT+7**, the installed capture preparation and reader found usable
+public references for gold, S&P 500, EUR/USD, USD/JPY and Bitcoin. Their ages
+were 55.35, 2.50, 5.50, 2.50 and 3.50 seconds respectively. Main now exports
+timed prices, but those held observations and the native M1 rows were stale.
+WTI's Yahoo quote was 605.50 seconds old. A separate CNBC read of the correctly
+identified NYMEX WTI contract was also about ten minutes delayed. Neither can
+replace a two-minute reference. The named failures retain `NOT_COMPARED`;
+missing data still never refuses a chart. Public objects and issued bindings
+were not changed, and no new publication was made to manufacture evidence.
+
+The three-day requirement remains incomplete. The held register, outcomes and
+[42 retained metadata files](resume-20261114/retained-snapshot-search.json) contain
+measurements on only 12 November ET. The available differences are:
+
+| Market | Distinct measured captures | Maximum and p95 difference | Current limit |
+| --- | ---: | ---: | ---: |
+| Gold | 4 | 0.049055% | 0.15% |
+| S&P 500 | 0 | Not observed | 0.15% |
+| EUR/USD | 1 | 0.022541% | 0.15% |
+| USD/JPY | 0 | Not observed | 0.15% |
+| WTI | 0 | Not observed | 0.40% |
+| Bitcoin | 0 | Not observed | 0.40% |
+
+These remain starting limits, not limits calibrated over three days. The audit
+names every market still lacking that sample. The original observation window
+ends **15 November 05:07:32 GMT+7**; passing that clock alone cannot supply the
+absent observations. Continue using natural chart checks and the existing
+records; select a later actual observation window if this one lacks records.
+A current native WTI observation from CC-479/CC-471 would remove its
+remaining source gap without another Publisher change.
+
+Verification: [47 initial checks](resume-20261114/targeted-tests.xml),
+[81 source/audit checks](resume-20261114/source-audit-tests.xml), and the same
+[81 installed checks](resume-20261114/installed-tests.xml) passed, one pytest
+process at a time. They include the real chart/publication consumers, distinct
+capture counting, absent quotes, the wrong pair and the unchanged source limits.
+The configured launch is `gpt-6.1-sol/max`, `CONFIGURED_NOT_OBSERVED`.
+
+CC-489 remains **BLOCKED: THREE_DAY_COMPARISON_SAMPLE_ABSENT**. The implementation
+and repairs are live; the missing historical sample cannot be fabricated.
+Next: read the existing audit after natural comparisons span three days for
+each market, retaining the closed-market rule and WTI's exact source cause.
