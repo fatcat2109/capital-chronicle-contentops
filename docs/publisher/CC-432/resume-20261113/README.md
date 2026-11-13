@@ -13,4 +13,10 @@ The transport now omits an empty optional embed and preserves adapter failures f
 
 Base: operating HEAD `b1598b878019c7e995fbad0eb5b254c0242603e7`. Launch process 37064 explicitly configured `gpt-6.1-sol` / `max`; **CONFIGURED_NOT_OBSERVED**. Runtime model and effort telemetry are unavailable. This recovery makes no editorial model call. Finished CC-549 work was preserved and pushed as `2e5e32fc` on its own branch; it is outside this delivery. The two existing telemetry/duplicate-ledger modifications remain outside commits.
 
-Operating-root integration, live/rollback tags and the exact public reply readback follow in this folder before the backlog can say DONE.
+The first fix is installed as `1de59244`. Its corrected request reached Discord at `2026-11-13T05:26:41Z` and revealed a second local validation defect, HTTP 400/50035 `MESSAGE_REFERENCE_UNKNOWN_MESSAGE`. A Discord thread starter belongs to its parent announcements channel; sending a message into that exact thread already attaches it to the starter. A same-ID `message_reference` points to a message outside the thread and is invalid there.
+
+The adapter now uses that thread containment for a starter reply and keeps an explicit message reference for a reply to a different message inside the thread. Strict direct readback and lost-ID recovery apply the same rule, still checking the exact thread, body, canonical, bot author in the history search, and foreign references. The issued payload, source body and public parent stay unchanged. `link-repair-reference` permits one correction of this measured second rejection, again after a fresh absence read, through the same coordinator and correction audit.
+
+Final source checks: 60 passed in two sequential bounded runs: [26 consumer/repair checks](discord-repair-tests-final.xml), 25.28 seconds, and [34 adapter, history-recovery and copy checks](discord-wire-recovery-tests-final.xml), 11.56 seconds. The four checks against the first installed fix also passed in 7.08 seconds ([XML](installed-first-fix-tests.xml)).
+
+Final operating-root integration and exact public readback follow before the backlog can say DONE.

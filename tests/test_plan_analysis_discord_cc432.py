@@ -210,10 +210,11 @@ def test_discord_wrapper_retains_provider_failure_for_exact_diagnosis(monkeypatc
     assert result == failure
 
 
-def failed_empty_embed(ready, *, uncertain=False, lose_return=False):
+def failed_empty_embed(ready, *, uncertain=False, lose_return=False, starter=False):
     from datetime import datetime, timezone
     store, packet, original = ready
-    bot_card(store, original)
+    if not starter:
+        bot_card(store, original)
     _set_mode(store, "AUTONOMOUS_DEFAULT")
 
     class Transport(FixtureTransport):
@@ -246,13 +247,13 @@ def failed_empty_embed(ready, *, uncertain=False, lose_return=False):
 def test_repaired_empty_embed_completes_the_same_live_consumer_reply_once(ready):
     store, coordinator, runtime, link, ids, evidence = failed_empty_embed(ready)
     before = store.get_outbox_message(ids["message_id"])["payload"]
-    result = pages.repair_discord_empty_embed(coordinator, link, evidence)
+    result = pages.repair_discord_link_transport(coordinator, link, evidence)
     assert result["status"] == "DISPATCH_CONFIRMED", result
     assert pages.link_status(store, link)["confirmed"]
     assert runtime.publish_calls == ["discord"]
     assert coordinator._destination_day_failure("discord") is None
     assert store.get_outbox_message(ids["message_id"])["payload"] == before
-    assert pages.repair_discord_empty_embed(coordinator, link, evidence)["publish_called"] is False
+    assert pages.repair_discord_link_transport(coordinator, link, evidence)["publish_called"] is False
     assert runtime.publish_calls == ["discord"]
 
 
@@ -269,15 +270,15 @@ def test_empty_embed_correction_does_not_release_a_platform_failure(ready, wrong
         with store.get_connection() as connection:
             connection.execute("UPDATE incidents SET description=? WHERE severity='DISPATCH_FAILURE'",
                 (json.dumps({"dispatch_id": "other", "attempt_started_at_utc": evidence["timestamp"]}),))
-    with pytest.raises(ValueError, match="EXACT_DISCORD_EMPTY_EMBED_REJECTION_REQUIRED"):
-        pages.repair_discord_empty_embed(coordinator, link, evidence)
+    with pytest.raises(ValueError, match="EXACT_DISCORD_LOCAL_PAYLOAD_REJECTION_REQUIRED"):
+        pages.repair_discord_link_transport(coordinator, link, evidence)
     assert coordinator._destination_day_failure("discord") is not None
     assert runtime.publish_calls == []
 
 
 def test_empty_embed_correction_preserves_uncertain_absence(ready):
     _, coordinator, runtime, link, _, evidence = failed_empty_embed(ready, uncertain=True)
-    result = pages.repair_discord_empty_embed(coordinator, link, evidence)
+    result = pages.repair_discord_link_transport(coordinator, link, evidence)
     assert result["reconciliation_status"] == "RECONCILIATION_PENDING"
     assert coordinator._destination_day_failure("discord") is not None
     assert runtime.publish_calls == []
@@ -285,10 +286,29 @@ def test_empty_embed_correction_preserves_uncertain_absence(ready):
 
 def test_lost_correction_return_cannot_allocate_another_send(ready):
     _, coordinator, runtime, link, _, evidence = failed_empty_embed(ready, lose_return=True)
-    pages.repair_discord_empty_embed(coordinator, link, evidence)
-    again = pages.repair_discord_empty_embed(coordinator, link, evidence)
+    pages.repair_discord_link_transport(coordinator, link, evidence)
+    again = pages.repair_discord_link_transport(coordinator, link, evidence)
     assert again["status"] == "CORRECTION_ALREADY_ATTEMPTED_READBACK_ONLY"
     assert runtime.publish_calls == ["discord"]
+
+
+@pytest.mark.parametrize("starter", [True, False])
+def test_reference_correction_only_uses_thread_containment_for_its_starter(ready, starter):
+    store, coordinator, runtime, link, ids, evidence = failed_empty_embed(ready, starter=starter)
+    evidence["error_response"]["errors"] = {"message_reference": {
+        "_errors": [{"code": "MESSAGE_REFERENCE_UNKNOWN_MESSAGE"}]}}
+    before = store.get_outbox_message(ids["message_id"])["payload"]
+    if starter:
+        result = pages.repair_discord_link_transport(coordinator, link, evidence, correction="reference")
+        assert result["status"] == "DISPATCH_CONFIRMED", result
+        assert pages.link_status(store, link)["confirmed"]
+        assert runtime.publish_calls == ["discord"]
+        assert pages.repair_discord_link_transport(coordinator, link, evidence, correction="reference")["publish_called"] is False
+    else:
+        with pytest.raises(ValueError, match="EXACT_DISCORD_LOCAL_PAYLOAD_REJECTION_REQUIRED"):
+            pages.repair_discord_link_transport(coordinator, link, evidence, correction="reference")
+        assert runtime.publish_calls == []
+    assert store.get_outbox_message(ids["message_id"])["payload"] == before
 
 
 @pytest.mark.parametrize("wrong", [None, "thread", "parent", "text", "canonical"])

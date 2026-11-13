@@ -91,7 +91,9 @@ def execute_discord_post(
     payload: dict[str, Any] = {"content": message}
     if thread_parent_id:
         payload["allowed_mentions"] = {"parse": []}
-        if reply_to_message_id:
+        # A thread's starter is in its parent channel. Sending into the thread
+        # already replies under it; a message_reference to it is invalid there.
+        if reply_to_message_id and str(reply_to_message_id) != str(thread_parent_id):
             payload["message_reference"] = {"message_id": str(reply_to_message_id),
                                              "channel_id": str(thread_parent_id), "fail_if_not_exists": True}
     if embeds:
@@ -224,6 +226,13 @@ def _ensure_call_thread(webhook, parent_id, name, token):
                 "reason_code": "DISCORD_CALL_THREAD_UNAVAILABLE", "safe_error_classification": type(exc).__name__}
 
 
+def _reply_parent_matches(payload, thread_id, expected_parent_id):
+    parent = str((payload.get("message_reference") or {}).get("message_id") or "")
+    return (not expected_parent_id or parent == str(expected_parent_id)
+            or (str(thread_id) == str(expected_parent_id) and not parent
+                and str(payload.get("channel_id")) == str(thread_id)))
+
+
 def readback_discord_post(
     *,
     message_id: str,
@@ -317,7 +326,7 @@ def readback_discord_post(
                 continue
         media_verified = image_hash_match
     thread_verified = not thread_id or channel_id == str(thread_id)
-    parent_verified = not expected_parent_id or str((payload.get("message_reference") or {}).get("message_id")) == str(expected_parent_id)
+    parent_verified = _reply_parent_matches(payload, thread_id, expected_parent_id)
     verified = bool(exact_identity and text_verified and canonical_verified
                     and (media_verified or (not require_media and not expected_image_sha256))
                     and thread_verified and parent_verified)
@@ -384,9 +393,8 @@ def find_discord_thread_post(*, thread_id, expected_text, canonical_url,
         for message in messages:
             content = str(message.get("content") or "")
             own = str((message.get("author") or {}).get("id")) == str(author["id"])
-            parent = str((message.get("message_reference") or {}).get("message_id") or "")
             if content == expected_text:
-                if own and (not expected_parent_id or parent == str(expected_parent_id)):
+                if own and _reply_parent_matches(message, thread_id, expected_parent_id):
                     matches.append(message)
                 else:
                     uncertain = True

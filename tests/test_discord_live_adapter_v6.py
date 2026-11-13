@@ -201,3 +201,66 @@ def test_discord_uploads_binary_attachment_and_reads_back_its_exact_hash(tmp_pat
     wrong = adapter.readback_discord_post(message_id="123", expected_text="Reviewed", canonical_url=canonical,
         webhook_url=webhook, expected_image_sha256="0" * 64)
     assert not wrong["verified"] and wrong["write_exists"]
+
+
+@pytest.mark.parametrize("parent", ["700", "800"])
+def test_thread_starter_uses_containment_while_inner_replies_keep_their_reference(monkeypatch, parent):
+    from live_contentops import discord_live_adapter_v6 as adapter, live_telemetry_v6 as telemetry
+    bodies = []
+
+    class Response:
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self): return b'{"id":"901"}'
+
+    def send(request, **_):
+        assert request.full_url == "https://discord.com/api/v10/channels/700/messages"
+        bodies.append(json.loads(request.data))
+        return Response()
+
+    monkeypatch.setattr(adapter, "read_secret", lambda _: "fixture")
+    monkeypatch.setattr(adapter, "_ensure_call_thread", lambda *a: {"status": "READY"})
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", send)
+    monkeypatch.setattr(telemetry, "classify_and_record_dispatch", lambda **_: None)
+    result = adapter.execute_discord_post("Exact original copy", webhook_url="https://discord.test/webhook",
+        thread_parent_id="700", reply_to_message_id=parent)
+    assert result["status"] == "SUCCESS"
+    assert bodies[0]["content"] == "Exact original copy"
+    if parent == "700":
+        assert "message_reference" not in bodies[0]
+    else:
+        assert bodies[0]["message_reference"]["message_id"] == "800"
+        assert bodies[0]["message_reference"]["fail_if_not_exists"]
+
+
+@pytest.mark.parametrize("wrong", [None, "parent", "thread"])
+def test_starter_link_recovery_checks_its_exact_thread_and_preserves_foreign_references(monkeypatch, wrong):
+    from live_contentops import discord_live_adapter_v6 as adapter
+    text = "Original analysis https://capitalchronicle.substack.com/p/original"
+    message = {"id": "901", "channel_id": "700", "guild_id": "42", "content": text,
+               "author": {"id": "99", "bot": True}, "attachments": [], "embeds": []}
+    if wrong == "parent": message["message_reference"] = {"message_id": "800"}
+    if wrong == "thread": message["channel_id"] = "701"
+
+    class Response:
+        def __init__(self, value): self.value = value
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self): return json.dumps(self.value).encode()
+
+    def get(request, **_):
+        assert request.get_method() == "GET"
+        url = request.full_url
+        if url.endswith("/channels/700"):
+            return Response({"id": "700", "parent_id": "1519311669216673802", "type": 11})
+        if url.endswith("/users/@me"): return Response({"id": "99", "bot": True})
+        return Response([message] if url.endswith("?limit=100") else message)
+
+    monkeypatch.setattr(adapter, "read_secret", lambda _: "fixture")
+    monkeypatch.setattr(adapter.urllib.request, "urlopen", get)
+    result = adapter.find_discord_thread_post(thread_id="700", expected_text=text,
+        canonical_url="https://capitalchronicle.substack.com/p/original", expected_parent_id="700", require_media=False)
+    assert result["verified"] is (wrong is None)
+    assert not result.get("write_absent")
+    if wrong is None:
+        assert result["thread_verified"] and result["reply_parent_verified"]

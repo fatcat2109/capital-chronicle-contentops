@@ -1,0 +1,10 @@
+{
+  "event_id": "tel_8325eafc957c44d9943493a835bd52c5",
+  "timestamp": "2026-11-13T05:26:41.292184+00:00",
+  "platform_id": "discord",
+  "action": "post",
+  "http_status": 400,
+  "latency_ms": 1251.8446999893058,
+  "payload_size_bytes": 1149,
+  "provider_response": "{'message': 'Invalid Form Body', 'code': 50035, 'errors': {'message_reference': {'_errors': [{'code': 'MESSAGE_REFERENCE_UNKNOWN_MESSAGE', 'message': 'Unknown message'}]}}}"
+}

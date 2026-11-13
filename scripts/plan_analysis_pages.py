@@ -17,7 +17,7 @@ from live_contentops.plan_status_posts_v1 import read_export
 def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("command", choices=["render", "register", "status", "resume", "readback", "begin", "submit",
-                                          "links", "link-resume", "link-readback", "link-begin", "link-submit", "link-repair-embed", "prepare-variants", "prepare-page"])
+                                          "links", "link-resume", "link-readback", "link-begin", "link-submit", "link-repair-embed", "link-repair-reference", "prepare-variants", "prepare-page"])
     parser.add_argument("--plan-id")
     parser.add_argument("--link-id")
     parser.add_argument("--post-key")
