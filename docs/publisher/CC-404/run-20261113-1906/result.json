@@ -1,0 +1,385 @@
+{
+  "item": "CC-404",
+  "status": "BLOCKED",
+  "observed_at_utc": "2026-11-13T12:12:30.351476+00:00",
+  "observed_at_gmt7": "13 Nov 2026 19:12:30 GMT+7",
+  "branch": "backlog/cc-404-ppi-stamp-20261113",
+  "base_commit": "baaa7b674d7ccc959b3fc209aca916ff7148f0a7",
+  "first_cause": "PPI_FROZEN_PUBLIC_FILE_NOT_ISSUED",
+  "source_owner": "Ops Live",
+  "source_fact": {
+    "dossier": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261113-0930-dossier-ppi\\dossier.json",
+      "exists": true,
+      "bytes": 841,
+      "sha256": "9de0e6b02aacc88070b066b33318da72e2fed6103af6714f27fdf9e469d23a24"
+    },
+    "result": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261113-0930-dossier-ppi\\RESULT.md",
+      "exists": true,
+      "bytes": 2037,
+      "sha256": "2f3dbe639d65bafbec31ebac7410a0acd91c349238b171ece54cf63af28c64fd"
+    },
+    "native_run": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261113-ppi\\dossier-20261113T093240Z",
+    "event_pair_freeze": null,
+    "event_pair_freeze_skipped_reason": "no OPEN rows in native_synthesis (analytical no-entry on all 14 branch candidates)",
+    "open_rows": {
+      "HOT": 0,
+      "COOL": 0
+    },
+    "dossier_frozen_at_utc": "2026-11-13T09:58:13Z"
+  },
+  "expected_public_files": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\frozen-public-calls\\bls-ppi-20261113.json",
+      "exists": false
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\frozen-public-calls\\bls-ppi-20261113.sha256",
+      "exists": false
+    }
+  ],
+  "public_export_inventory": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\frozen-public-calls\\bls-emsit-20261106.json",
+      "exists": true,
+      "bytes": 3977,
+      "sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\frozen-public-calls\\bls-emsit-20261106.sha256",
+      "exists": true,
+      "bytes": 65,
+      "sha256": "2fc9b84bcbdf2dfeb139e66ad74b0efc942a410c95c0a9f84e1ded765cd9c9ea"
+    }
+  ],
+  "other_freeze_searches": {
+    "dossier_event_pair": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261113-0930-dossier-ppi\\event-pair-freeze.json",
+      "exists": false
+    },
+    "native_event_pair": {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\20261113-ppi\\dossier-20261113T093240Z\\event-pair-freeze.json",
+      "exists": false
+    },
+    "publisher_ppi_timestamp_folder_exists": false,
+    "main_and_data": [
+      {
+        "root": "A:\\Capital Chronicle\\main-jim-research-dashboard-20261025",
+        "scopes": [
+          "data/research",
+          "docs/research"
+        ],
+        "tracked_path_count": 12880,
+        "ppi_or_frozen_calls_paths": [
+          "data/research/cc-068/captures/investing/ppi_mom/20261030T111042-63e625a48864a392/capture.json",
+          "data/research/cc-068/captures/investing/ppi_mom/20261030T111042-63e625a48864a392/context.html",
+          "data/research/cc-068/captures/investing/ppi_mom/20261030T111042-63e625a48864a392/raw.html",
+          "data/research/cc-068/captures/myfxbook/ppi_mom/20261030T111233-d5b508166b7cedaa/capture.json",
+          "data/research/cc-068/captures/myfxbook/ppi_mom/20261030T111233-d5b508166b7cedaa/context.html",
+          "data/research/cc-068/captures/myfxbook/ppi_mom/20261030T111233-d5b508166b7cedaa/raw.html",
+          "data/research/cc-068/input/bls-ppi-schedule.json",
+          "data/research/cc-068/official-schedules/PPI/3ee369710525b796d767bb30082c7e9ecd0e69a30568386b0de731c744e88a61/events.json",
+          "data/research/cc-068/official-schedules/PPI/3ee369710525b796d767bb30082c7e9ecd0e69a30568386b0de731c744e88a61/raw.html",
+          "data/research/cc-526/blocks/PPI.json",
+          "docs/research/cc_342_frozen_public_calls/README.md",
+          "docs/research/database_foundation/bls_official_api_flatfile_core_labor_inflation/BLS_OFFICIAL_GAP_EXPANSION_CORE_CPI_PPI_LABOR_METADATA_FULL_CHAIN_V1.md"
+        ],
+        "ppi_public_freeze_found": false
+      },
+      {
+        "root": "A:\\Capital Chronicle\\Worktrees\\codex-data-backlog",
+        "scopes": [
+          "data/research",
+          "docs/research"
+        ],
+        "tracked_path_count": 10384,
+        "ppi_or_frozen_calls_paths": [
+          "docs/research/database_foundation/bls_official_api_flatfile_core_labor_inflation/BLS_OFFICIAL_GAP_EXPANSION_CORE_CPI_PPI_LABOR_METADATA_FULL_CHAIN_V1.md"
+        ],
+        "ppi_public_freeze_found": false
+      }
+    ],
+    "backlog_and_archive": [
+      {
+        "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG.md",
+        "ppi_freeze_reference_lines": [
+          185,
+          194,
+          219,
+          880,
+          908,
+          972,
+          1001,
+          1914,
+          1920,
+          2329,
+          2375,
+          2384,
+          2692,
+          2932,
+          2954,
+          2968,
+          3961,
+          4283,
+          4621,
+          4623,
+          4635,
+          5424,
+          5428,
+          5429,
+          5430,
+          5622,
+          5915,
+          5917,
+          5964,
+          5974,
+          6054,
+          6061,
+          6086,
+          6089,
+          6090,
+          6091,
+          6127,
+          6128,
+          6197,
+          6200,
+          6208,
+          6693,
+          6846,
+          6902,
+          6956,
+          6967,
+          7076,
+          7493,
+          7507,
+          7515,
+          7544,
+          7548,
+          7552,
+          7553
+        ],
+        "issued_ppi_public_file_found": false
+      },
+      {
+        "path": "A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\\BACKLOG_ARCHIVE.md",
+        "ppi_freeze_reference_lines": [
+          168,
+          188,
+          355,
+          356,
+          358,
+          359,
+          364,
+          369,
+          371,
+          518
+        ],
+        "issued_ppi_public_file_found": false
+      }
+    ],
+    "same_server_accounts": "Not an input to Main public-freeze issuance; no account accessed."
+  },
+  "installed_consumer": {
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "byte_identity": [
+      {
+        "relative_path": "live_contentops/event_pack_v1.py",
+        "worktree_sha256": "96af4b71654d2b46cb7c2f497f7aac96942d9873cf84146c21d4dd749db904e0",
+        "operating_sha256": "96af4b71654d2b46cb7c2f497f7aac96942d9873cf84146c21d4dd749db904e0",
+        "same_bytes": true
+      },
+      {
+        "relative_path": "live_contentops/event_public_record_v1.py",
+        "worktree_sha256": "3170b26a9c3548caa2e3eecb29ad4815ae49ec53877a2977fce3c1232d7121ca",
+        "operating_sha256": "3170b26a9c3548caa2e3eecb29ad4815ae49ec53877a2977fce3c1232d7121ca",
+        "same_bytes": true
+      },
+      {
+        "relative_path": "live_contentops/event_timestamp_v1.py",
+        "worktree_sha256": "a9dc8d1a8876500b5fd448eb460d285cd5d00e99c630ce5d38cf84289977f1e1",
+        "operating_sha256": "a9dc8d1a8876500b5fd448eb460d285cd5d00e99c630ce5d38cf84289977f1e1",
+        "same_bytes": true
+      },
+      {
+        "relative_path": "scripts/event_public_record.py",
+        "worktree_sha256": "3afa367791fb5440b533d1f28751b46cc13f6e05466c4838052469252d715791",
+        "operating_sha256": "3afa367791fb5440b533d1f28751b46cc13f6e05466c4838052469252d715791",
+        "same_bytes": true
+      },
+      {
+        "relative_path": "scripts/opentimestamps_client.py",
+        "worktree_sha256": "0ae4f46de46c5e2ce2f2ff4504b2eeb1af3d78abca303a2a83e2789e13569c5a",
+        "operating_sha256": "0ae4f46de46c5e2ce2f2ff4504b2eeb1af3d78abca303a2a83e2789e13569c5a",
+        "same_bytes": true
+      },
+      {
+        "relative_path": "scripts/plan_status_posts.py",
+        "worktree_sha256": "2f48c3bd1b60b24f8f37d3ad3714ec64ab3eaef4dc2b4a59f5570312392ec615",
+        "operating_sha256": "2f48c3bd1b60b24f8f37d3ad3714ec64ab3eaef4dc2b4a59f5570312392ec615",
+        "same_bytes": true
+      }
+    ],
+    "production_preparation_rows": [
+      {
+        "message_id": "native-story-preparation-42837545a09b161559d8b05c3a273e942b7c51cad2255ec251f982ab64fef4ae",
+        "event_id": "bls-ppi-20261113",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "known_at_utc": "2026-11-04T20:45:25.292075+00:00",
+        "frozen_public_record": null,
+        "event_arrival_record": null,
+        "event_pack_enabled": null
+      },
+      {
+        "message_id": "native-story-preparation-aed9ded4ae9497d6065cf55ac45ccae843009d3cb14a194dfa7c2039a5c155a2",
+        "event_id": "bls-ppi-20261113",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "known_at_utc": "2026-11-04T22:51:34.560028+00:00",
+        "frozen_public_record": null,
+        "event_arrival_record": null,
+        "event_pack_enabled": null
+      },
+      {
+        "message_id": "native-story-preparation-26a6c2d2f14f5e9232bf36d03d8ec8fb01047c3ed7f0f44549e9852142fad7e3",
+        "event_id": "bls-ppi-20261113",
+        "planned_release_utc": "2026-11-13T13:30:00Z",
+        "known_at_utc": "2026-11-13T10:27:55.180717Z",
+        "frozen_public_record": null,
+        "event_arrival_record": null,
+        "event_pack_enabled": null
+      }
+    ],
+    "ppi_event_pack_rows": [],
+    "consumer_observation": "Latest real preparation contains no frozen_public_record; run_due_packs requires that binding before registering an event stage. No output was fabricated or withheld."
+  },
+  "held_nfp_proof": {
+    "command": "official OTS dependency parser via existing inspect shim; no network or wallet access",
+    "returncode": 0,
+    "source": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\event-public-records\\bls-emsit-20261106\\957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4\\frozen-public.json",
+      "exists": true,
+      "bytes": 3977,
+      "sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4"
+    },
+    "proof": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\event-public-records\\bls-emsit-20261106\\957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4\\frozen-public.json.ots",
+      "exists": true,
+      "bytes": 2762,
+      "sha256": "38e778d62d4b58c8ba000b47d04300aed5d3e04f19c8876c0ff99f2dad85a0e3"
+    },
+    "ppi_acceptance": false,
+    "inspection": {
+      "bitcoin_attestations": [
+        {
+          "height": 975342,
+          "merkle_root": "e242f9567eaad31811ff4860ce77cdc8fc4a1857d84c8c67ed1fff7668bafb2b"
+        },
+        {
+          "height": 975337,
+          "merkle_root": "8fd028587d3caa7b1229ca7f0cc17147fd9991edce38b6909f14267d1004bcd9"
+        }
+      ],
+      "bitcoin_verified": false,
+      "calendars": [
+        "https://alice.btc.calendar.opentimestamps.org",
+        "https://bob.btc.calendar.opentimestamps.org",
+        "https://finney.calendar.eternitywall.com"
+      ],
+      "file_matches": true,
+      "file_sha256": "957985db67a9d44502a9d6ac0622ed052e5d75ec4f526790d980366370c018c4",
+      "status": "BITCOIN_ATTESTATION_PRESENT"
+    }
+  },
+  "acceptance": {
+    "ppi_public_freeze_available": false,
+    "ppi_freeze_stamped": false,
+    "ppi_ots_client_verification": false,
+    "ppi_opentimestamps_site_verification": false,
+    "ppi_preview_read_back": false,
+    "ppi_arrival_read_back": false,
+    "ppi_review_read_back": false,
+    "arrival_not_yet_released": true,
+    "preview_deadline_utc": "2026-11-13T11:30:00Z",
+    "preview_deadline_passed": true,
+    "phase_1_repetition_observed": false
+  },
+  "choice": "Use Main\u2019s completed no-entry outcome and its original clocks. Preserve the existing PPI preparation. The absent Main public freeze is an upstream input dependency, not a Publisher model, effort, worktree or review check.",
+  "next_action": {
+    "owner": "Ops Live",
+    "action": "Record the source-truthful PPI public-freeze disposition from the completed no-entry dossier. If an exact public file is issued, supply its path and SHA-256; Publisher can stamp and attach those bytes. Preserve the missed preview deadline and actual stamp clock.",
+    "publisher_resume_command": "python -B scripts/event_public_record.py --attach-freeze bls-ppi-20261113 --freeze-file <Ops Live issued public JSON> --freeze-sha256 <exact issued SHA-256>",
+    "arrival_and_review": "After the official release, Main supplies its explicit public arrival record; the existing event consumer and coordinator resume the exact event stages. No future stage readback is claimed."
+  },
+  "validation": {
+    "product_code_changed": false,
+    "pytest_processes_started": 0,
+    "reason": "Jim\u2019s 13 November 18:30\u201322:30 GMT+7 test restriction; this run inspects source/output state and installed bytes only. Historical tests are not reported as rerun.",
+    "official_ots_inspection_returncode": 0,
+    "read_only_sqlite": true
+  },
+  "launch": {
+    "pid": 25552,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "evidence": "CONFIGURED_NOT_OBSERVED",
+    "argument_source": "Live Win32_Process command line readback",
+    "editorial_model_calls": 0
+  },
+  "preserved_work": [
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "exists": true,
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "exists": true,
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md",
+      "exists": true,
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json",
+      "exists": true,
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md",
+      "exists": true,
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md",
+      "exists": true,
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl",
+      "exists": true,
+      "bytes": 1397482,
+      "sha256": "102f50a1cac82b259e96c8de430fede866291c0c5950dccfc21f596c02e40ba5"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+      "exists": true,
+      "bytes": 69662,
+      "sha256": "6cc8f00d3d4d3bf1388f87ed9687d14258de6bb9597ae01a37a0f0a5b5fafe34"
+    }
+  ],
+  "public_writes": 0,
+  "runtime_writes": 0,
+  "schedules_changed": 0,
+  "other_chats_messaged": 0,
+  "user_apps_controlled": 0,
+  "browser_actions": 0,
+  "prior_substack_suspension": "Historical cause in the prior FINAL.json; current BACKLOG says it is resolved. Not used as this run\u2019s blocker."
+}
