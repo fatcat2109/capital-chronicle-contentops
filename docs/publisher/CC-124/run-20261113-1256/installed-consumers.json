@@ -1,0 +1,16 @@
+{
+  "observed_at_utc": "2026-11-13T06:00:02.007057+00:00",
+  "production_day": "2026-11-13",
+  "daily_article_limit": 2,
+  "article_slots_in_use": [],
+  "active_leases": [],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-13T05:59:23.688908Z",
+    "content_hash": "ef97eb02c033670e552cf29a35da0b825dbdb17406c821a8be24266c1a56fd8a",
+    "plan_count": 89,
+    "latest_plan_registration_utc": "2026-11-12T17:40:00.360572Z"
+  },
+  "clock_use": "Export generation does not refresh original analysis capture.",
+  "operation_allocated": false,
+  "channel_readbacks": "None performed by this run."
+}

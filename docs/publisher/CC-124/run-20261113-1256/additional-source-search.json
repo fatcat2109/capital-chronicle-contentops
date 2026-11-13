@@ -1,0 +1,94 @@
+{
+  "observed_at_utc": "2026-11-13T06:00:53.467385+00:00",
+  "event_search": [
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029",
+      "matched_files": [
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261103-midterm-dossier\\PREVIEW.md",
+          "bytes": 5470,
+          "sha256": "407de79655fbeb90a141994014a3b4de8cf15be0f9a886f33f429cbdf7c8f349",
+          "file_modified_at_utc": "2026-11-02T23:32:11.532279+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\event-pair-freeze.json",
+          "bytes": 4886,
+          "sha256": "14bca1cde8e7aaaac2f303947249d76034ec9f3aa162986f1665b6315ca35bb5",
+          "file_modified_at_utc": "2026-11-06T10:03:37.343978+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261110-0930-dossier-cpi\\event-pair-freeze.json",
+          "bytes": 3769,
+          "sha256": "0c9d504d9b43923ee49ebd517da157e28a60693107842679ab4caf95ade0b704",
+          "file_modified_at_utc": "2026-11-10T10:26:37.654701+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261029-1000-dossier-bp.SKILL.pre-preview-20261102.md",
+          "bytes": 7077,
+          "sha256": "aa46e1129b0036d5d385ef312c31f4aa5d70b02552b8a19c14be353315fd42d0",
+          "file_modified_at_utc": "2026-11-02T10:20:35.593898+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261029-1220-gdp-pce-bp.SKILL.pre-ppi-20261102.md",
+          "bytes": 875,
+          "sha256": "6f6de7fa75f171447316fe6f1f9742b4b4f957f302d5fa7dd4ad4848f14537e2",
+          "file_modified_at_utc": "2026-11-02T09:35:34.041753+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-ev-20261030-1220-eci-bp.SKILL.pre-ppi-20261102.md",
+          "bytes": 1041,
+          "sha256": "c7771b671225b19a24d2bb40b9795bd4162c505959b83f977bd2ae7abcd1c9b5",
+          "file_modified_at_utc": "2026-11-02T09:35:34.085482+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-m7-cutover-fallback-bp.SKILL.pre-ppi-20261102.md",
+          "bytes": 2362,
+          "sha256": "5b6340a826fb80093457d3cb33c94d2594c2ce9b8f591b4b81e5154974c75055",
+          "file_modified_at_utc": "2026-11-02T09:35:34.179283+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\prompts\\cc-main-m7-cutover-trigger-bp.SKILL.pre-ppi-20261102.md",
+          "bytes": 2827,
+          "sha256": "55651cff80f01615a55a2afa81cd60d4c8e72057cb1bd1ff15ffeaa65b954f07",
+          "file_modified_at_utc": "2026-11-02T09:35:34.131798+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1305-arrival-ecb\\provider-readonly\\family-runtime\\c9784f347af75def\\source\\tools\\product\\prospective_paired_experiment_freeze_authority_v1.py",
+          "bytes": 31603,
+          "sha256": "214725fc0954407a2da7d2c9e25d309c58b0dba2e41bbae8f57bbc63dc198ab9",
+          "file_modified_at_utc": "2026-10-29T13:06:03.622400+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1000-dossier-gdp-pce-ecb-boj\\provider-readonly\\family-runtime\\c9784f347af75def\\source\\tools\\product\\prospective_paired_experiment_freeze_authority_v1.py",
+          "bytes": 31603,
+          "sha256": "214725fc0954407a2da7d2c9e25d309c58b0dba2e41bbae8f57bbc63dc198ab9",
+          "file_modified_at_utc": "2026-10-29T10:01:49.195686+00:00"
+        },
+        {
+          "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261029-1000-dossier-gdp-pce-ecb-boj\\provider-readonly\\family-runtime\\ac2f8247aa4ae20e\\source\\tools\\product\\prospective_paired_experiment_freeze_authority_v1.py",
+          "bytes": 31603,
+          "sha256": "214725fc0954407a2da7d2c9e25d309c58b0dba2e41bbae8f57bbc63dc198ab9",
+          "file_modified_at_utc": "2026-10-29T10:01:21.687301+00:00"
+        }
+      ]
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-catchup",
+      "matched_files": []
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ResearchRuns\\frozen-public-calls",
+      "matched_files": []
+    }
+  ],
+  "latest_main_brain": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\brain-runs\\run-20261113T051657Z-shock\\run.json",
+    "sha256": "ee79827e887490b215dfb3d4ba9ae48e618f76583c9abf2961ff7bccd55d02ee",
+    "outcome": "STOPPED",
+    "stop_reason": "PROTECTION_NOT_HEALTHY",
+    "first_blocking_cause": "protection or reconciliation block",
+    "stopped_at_utc": "2026-11-13T05:18:03Z",
+    "analysis_recorded": false
+  },
+  "assessment": "No issued PPI public freeze file or fresh completed PPI analysis found. Latest stopped Main run has no accepted analysis; a stopped run does not refresh retained data cutoffs."
+}
