@@ -101,3 +101,34 @@ The code is live. The remaining acceptance evidence is
 must show its count, period and `Fact: base rate through <date>`. The observed
 cause is `NO_MATCHING_MOVE_HEADLINE_IN_OBSERVED_TARGETS`. The existing minute
 consumer continues this path; no person action or Ops review is pending.
+
+The [14 November readback](resume-20261114/readback.json) supersedes that initial
+absence-of-headlines diagnosis. It found three confirmed phone
+deliveries since installation, all using session facts and none using a base
+rate. There are no uncertain delivery rows in that interval. The read occurred
+on 14 November at 01:38 GMT+7; the latest stored consumer run ended at 01:36.
+
+The [saved ranking scan](resume-20261114/ranking-scan.json) examined 505 actual
+ranking prompts. CC-481's counts reached eight distinct targets across 41
+appearances; three attempts passed the existing quality floor. The Bitcoin
+writer omitted a target because daily-loss counts did not answer its annual
+return claim. A gold target's run failed with `CODEX_EXIT_1`. The third target
+received a session-fact draft, confirmed as phone message 5. Other statistics
+targets remained below the quality floor. These are observed editorial results,
+not a source-collection failure or a reason to retry an expired target.
+
+The live adapter, collector, ranker and fact-policy files match this worktree.
+No production code changed in this continuation. The earlier six-market tests,
+12 producer answers and 3/109 replay remain the implementation evidence; no
+pytest or editorial call was repeated. The readback used SQLite `mode=ro` and
+saved runtime artifacts. It made no model, transport or manual consumer calls,
+changed no schedule and restarted no application. It exports no retained X
+text, chat identity, credentials or raw model response.
+
+`BASE_RATE_PHONE_PROOF_PENDING` remains the sole unfinished acceptance step:
+read the next natural delivery using a base rate, then verify its count,
+historical period and `Fact: base rate through <date>`. The existing minute
+consumer supplies that opportunity; no person action or Ops review is needed.
+The unchanged source remains live while that observation is pending. Reproduce
+the bounded saved-evidence read with
+`python docs/publisher/CC-510/resume-20261114/readback.py`.
