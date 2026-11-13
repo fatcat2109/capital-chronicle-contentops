@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="2.485" timestamp="2026-11-14T00:08:55.824302+07:00" hostname="J-P"><testcase classname="tests.test_plan_thread_consistency_cc549" name="test_later_exported_result_reaches_the_frozen_thread" time="1.687"><failure message="AssertionError: assert 'Result: +1.2R.' in 'Micro gold (MGC futures, Dec 2026): hit its target.\nUpdated 12 Nov 08:21 ET.\nEntry condition: price trades at 3,954...analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.'">gold = ({'analysis_result_hash': '5b1cb828cad7ee0a1666b08c8abef896c86f50224404a98c1b3a771d970a6be9', 'asset_id': 'XAUUSD', 'c...8c8abef896c86f50224404a98c1b3a771d970a6be9', 'asset_id': 'XAUUSD', 'cancel_conditions': [], 'cancel_kind': None, ...}})
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-3020/test_later_exported_result_rea0')
+main_root = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-JP/pytest-3020/test_later_exported_result_rea0/main')
+
+    def test_later_exported_result_reaches_the_frozen_thread(gold, tmp_path, main_root):
+        raw, _ = gold
+        raw.update(status="WAITING")
+        raw.pop("outcome", None)
+        now = posts._utc(raw["registered_at_utc"]) + timedelta(minutes=1)
+        events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
+        folder = write(tmp_path / "export", [raw], events, generated_at_utc=now.isoformat())
+        store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+        posts.queue_posts(store, folder, now=now, main_root=main_root)
+        first, = rows(store)
+        store.set_outbox_status(first["key"], "PUBLISHED")
+        frozen = store.get_outbox_message(first["key"])["payload"]
+        later = deepcopy(raw)
+        at = now + timedelta(minutes=1)
+        later.update(status="CLOSED", outcome={"state": "SCORED", "result": "HIT", "outcome_id": "gold-result",
+            "score": {"plan_id": raw["plan_id"], "asset_id": raw["asset_id"], "outcome_id": "gold-result",
+                      "result": "HIT", "resolved_at_utc": at.isoformat(), "result_r": 1.2}})
+        later["public_instrument"]["invalidation_level"] = 4999
+        events += [event(raw["plan_id"], "FILLED", now.isoformat()), event(raw["plan_id"], "CLOSED", at.isoformat())]
+        write(folder, [later], events, generated_at_utc=at.isoformat())
+        posts.queue_posts(store, folder, now=at, main_root=main_root)
+        ending = next(row for row in rows(store) if row["kind"] == "result")
+&gt;       assert "Result: +1.2R." in ending["text"]
+E       AssertionError: assert 'Result: +1.2R.' in 'Micro gold (MGC futures, Dec 2026): hit its target.\nUpdated 12 Nov 08:21 ET.\nEntry condition: price trades at 3,954...analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.'
+
+tests\test_plan_thread_consistency_cc549.py:198: AssertionError</failure></testcase></testsuite></testsuites>

@@ -38,7 +38,7 @@ def compose(row):
             lead = title + ": " + (cards.ending_words(row) if row["kind"] == "result" else words[row["state"]]) + "."
             lines = [lead, "Updated " + at + ".", "Entry condition: " + terms["call"]["condition"] + ".",
                      terms["invalidation"] + ".", *terms["clocks"]]
-            value = result_r(row.get("source_plan") or {}) if row["kind"] == "result" else None
+            value = result_r(row.get("outcome_source_plan") or row.get("source_plan") or {}) if row["kind"] == "result" else None
             if value is not None:
                 lines.append(f"Result: {value:+.1f}R.")
         check_thread_text("\n".join(lines))
@@ -100,6 +100,13 @@ def validate(row):
         raise posts.PlanPostError("PLAN_ALERT_SOURCE_BYTES_CHANGED")
     if raw.get("registration_hash") != row.get("source_plan_registration"):
         raise posts.PlanPostError("PLAN_ALERT_SOURCE_REGISTRATION_CHANGED")
+    outcome_source = row.get("outcome_source_plan")
+    if outcome_source is not None:
+        if posts._sha(outcome_source) != row.get("outcome_source_sha256"):
+            raise posts.PlanPostError("PLAN_ALERT_OUTCOME_SOURCE_BYTES_CHANGED")
+        if (outcome_source.get("plan_id") != row["plan_id"] or outcome_source.get("asset_id") != row["symbol"]
+                or outcome_source.get("registration_hash") != raw.get("registration_hash")):
+            raise posts.PlanPostError("PLAN_ALERT_OUTCOME_SOURCE_REGISTRATION_CHANGED")
     expected = card_plan(raw)
     for field in ("direction", "zone_low", "zone_high", "invalidation_level", "target", "valid_until_utc"):
         if row["levels"].get(field) != expected.get(field):

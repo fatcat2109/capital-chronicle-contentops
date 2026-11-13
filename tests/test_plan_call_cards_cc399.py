@@ -408,7 +408,9 @@ def test_first_bot_run_creates_one_thread_and_recovers_its_lost_return(monkeypat
             return Response(thread)
         assert method == "POST" and url == f"https://discord.com/api/v10/channels/{run}/messages"
         body = json.loads(req.data)
-        assert body["message_reference"]["message_id"] == run
+        # CC-432: the starter lives in the parent channel. Posting inside its
+        # thread already replies under it; referencing it here is invalid.
+        assert "message_reference" not in body
         messages.append(body)
         return Response({"id": str(67890 + len(messages)), "channel_id": run})
 

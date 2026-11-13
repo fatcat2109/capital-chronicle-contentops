@@ -588,6 +588,10 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             for field in ("source_plan", "source_plan_registration", "state_alert_source_sha256",
                           "entry_deadline_utc", "time_exit_utc", "thread_contract"):
                 item[field] = card[field]
+            if kind == "result":
+                # Keep the original thread's levels while admitting the later
+                # exact public outcome, including its explicitly exported R.
+                item.update(outcome_source_plan=sources[pid], outcome_source_sha256=_hash(sources[pid]))
         item.update(compose(item))
         payloads.append(item)
 

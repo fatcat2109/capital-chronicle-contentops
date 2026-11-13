@@ -171,3 +171,36 @@ def test_live_queue_freezes_thread_terms_for_later_page_and_state(gold, tmp_path
     monkeypatch.setattr(editorial, "prepare_page", prepare)
     editorial.run_due(store, {"status": {"plans": [later]}}, root=tmp_path / "pages", rollout={}, now=at, publish=False)
     assert seen[0] == first["source_plan"]
+
+
+def test_later_exported_result_reaches_the_frozen_thread(gold, tmp_path, main_root):
+    raw, _ = gold
+    raw.update(status="WAITING")
+    raw.pop("outcome", None)
+    now = posts._utc(raw["registered_at_utc"]) + timedelta(minutes=1)
+    events = [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])]
+    folder = write(tmp_path / "export", [raw], events, generated_at_utc=now.isoformat())
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    posts.queue_posts(store, folder, now=now, main_root=main_root)
+    first, = rows(store)
+    store.set_outbox_status(first["key"], "PUBLISHED")
+    frozen = store.get_outbox_message(first["key"])["payload"]
+    later = deepcopy(raw)
+    at = now + timedelta(minutes=1)
+    later.update(status="CLOSED", outcome={"state": "SCORED", "result": "HIT", "outcome_id": "gold-result",
+        "score": {"plan_id": raw["plan_id"], "asset_id": raw["asset_id"], "outcome_id": "gold-result",
+                  "result": "HIT", "resolved_at_utc": at.isoformat(), "result_r": 1.2}})
+    later["public_instrument"]["invalidation_level"] = 4999
+    events += [event(raw["plan_id"], "FILLED", now.isoformat()), event(raw["plan_id"], "CLOSED", at.isoformat())]
+    write(folder, [later], events, generated_at_utc=at.isoformat())
+    posts.queue_posts(store, folder, now=at, main_root=main_root)
+    ending = next(row for row in rows(store) if row["kind"] == "result")
+    assert "Result: +1.2R." in ending["text"]
+    assert "4,004.4" in ending["text"] and "4,999" not in ending["text"]
+    assert ending["source_plan"] == first["source_plan"]
+    assert store.get_outbox_message(first["key"])["payload"] == frozen
+    alerts.validate(ending)
+    altered = deepcopy(ending)
+    altered["outcome_source_plan"]["outcome"]["score"]["result_r"] = 9
+    with pytest.raises(ValueError, match="PLAN_ALERT_OUTCOME_SOURCE_BYTES_CHANGED"):
+        alerts.validate(altered)
