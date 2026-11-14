@@ -61,6 +61,9 @@ class ArticleBrowser:
 
     def run(self, page, phase, **kwargs):
         self.calls.append(phase)
+        if phase == "article_restriction":
+            return {"verification_required": self.fault == "external_links",
+                "platform_wording": "Complete one-time verification to make external links clickable"}
         if phase == "article_identity":
             correct = self.fault != "account"
             return {"authenticated": correct, "observed_identity": handoff.IDENTITIES[self.destination] if correct else None,
@@ -203,6 +206,17 @@ def test_cc536_youtube_existing_editor_does_not_depend_on_rotating_prompt(tmp_pa
     result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
     assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
     assert browser.calls.count("article_publish") == 1
+
+
+def test_cc536_youtube_external_link_verification_stops_only_its_route(tmp_path):
+    store, c, executor, browser, message, row = article(tmp_path, "youtube", "external_links")
+    result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert result["status"] in {"DEFINITE_NO_WRITE", "RECONCILED_ABSENT_SAFE_TO_RETRY"}
+    assert "article_publish" not in browser.calls
+    assert handoff.suspended_routes() == {"youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"}
+    response = next(json.loads(r["payload"])["result"] for r in store.list_outbox_messages(destination="internal:native-neo-tool")
+        if "result" in json.loads(r["payload"]))
+    assert response["platform_wording"] == "Complete one-time verification to make external links clickable"
 
 
 @pytest.mark.parametrize("visible", [False, True])

@@ -369,10 +369,17 @@ class NeoBrowserDriver:
             r"tài khoản của bạn (?:đã bị|bị) (?:hạn chế|tạm ngưng)|xác minh danh tính)[^\n]*",
         )
         wording = next((m.group(0).strip() for p in patterns if (m := re.search(p, text, re.I))), None)
+        external_verification = None
+        if request["destination"] == "youtube":
+            external_verification = self.client.run(page, "article_restriction")
+            if external_verification.get("verification_required"):
+                wording = external_verification["platform_wording"]
         checkpoint = bool(re.search(r"/(?:checkpoint|challenge|verify)(?:/|\?|$)", url, re.I))
         if not wording and not checkpoint:
             return None
         cause = ("LINKEDIN" if request["destination"] == "linkedin_company" else "YOUTUBE") + "_PLATFORM_RESTRICTION"
+        if external_verification and external_verification.get("verification_required"):
+            cause = "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
         from .neo_destination_handoff_v1 import suspend_route
         suspend_route(request["destination"], cause)
         return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,

@@ -113,6 +113,14 @@ if (input.phase === 'article_identity') {
     ...(company && correct ? {observed_stable_id:'143198922'} : {}), observed_at_utc:new Date().toISOString()};
 }
 
+if (input.phase === 'article_restriction') {
+  return unwrap(await page.evaluateInPage(()=>{
+    const banner=document.querySelector('#external-links-banner');
+    return {verification_required:!!banner && banner.getClientRects().length>0,
+      platform_wording:banner?.innerText?.trim()||null};
+  }));
+}
+
 if (input.phase === 'article_editor') {
   return unwrap(await page.evaluateInPage(() => {
     const fields=Array.from(document.querySelectorAll('#contenteditable-root[contenteditable="true"]'));
