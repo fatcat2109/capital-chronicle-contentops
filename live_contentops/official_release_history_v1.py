@@ -37,6 +37,7 @@ FAMILIES = {
     "empsit": ("NFP_PAYROLL_CHANGE", "UNEMPLOYMENT_RATE", "AHE_MOM"),
     "ppi": ("PPI_FINAL_DEMAND_MOM",),
 }
+HISTORY_CONFIG_PATH = Path(__file__).resolve().parents[1] / "config/official_release_history_v1.json"
 
 
 def _time(value):
@@ -352,6 +353,32 @@ def history_for_source_pack(source_pack, *, cutoff_utc, archive_root):
         raise ValueError("HISTORY_EXACT_RELEASE_FAMILY_REQUIRED")
     family = next(iter(families))
     cutoff_utc = min(_time(cutoff_utc), max(releases)).isoformat()
+    if not (Path(archive_root) / "archive_manifest.json").is_file():
+        # CC-216's accepted producer projection survives scratch-folder removal.
+        # Preserve its original vintage/window; today's release stays separate.
+        config = json.loads(HISTORY_CONFIG_PATH.read_bytes())
+        retained = config.get("retained_histories", {}).get(family)
+        if retained:
+            root = HISTORY_CONFIG_PATH.parent.parent.resolve()
+            path = (root / retained["path"]).resolve()
+            if not path.is_relative_to(root):
+                raise ValueError("HISTORY_RETAINED_PROJECTION_OUTSIDE_REPOSITORY")
+            raw = path.read_bytes()
+            history = json.loads(raw)
+            if _digest(canonical_bytes(history)) != retained["canonical_sha256"]:
+                raise ValueError("HISTORY_RETAINED_PROJECTION_CHANGED")
+            if (history.get("schema_version") != SCHEMA
+                    or history.get("producer") != "MAIN_CC010_FIRST_PRINT_ARCHIVE"
+                    or set(s["name"] for s in history["series"]) != set(FAMILIES[family])
+                    or _time(history["cutoff_utc"]) > _time(cutoff_utc)):
+                raise ValueError("HISTORY_RETAINED_PROJECTION_SCOPE_OR_CLOCK_INVALID")
+            if any(_time(o["source_record"]["release_datetime_utc"]) > _time(cutoff_utc)
+                   for s in history["series"] for o in s["observations"] if o.get("source_record")):
+                raise ValueError("HISTORY_RETAINED_PROJECTION_AFTER_EVENT")
+            history["retained_projection"] = {"path": str(path), "sha256": _digest(raw),
+                "canonical_sha256": retained["canonical_sha256"], "accepted_owner": retained["accepted_owner"],
+                "original_history_cutoff_preserved": True, "new_acquisition": False}
+            return history
     manifest = json.loads((Path(archive_root) / "archive_manifest.json").read_bytes())
     dataset = (Path(archive_root) / "first_release_actuals.jsonl").read_bytes()
     if _digest(dataset) != manifest.get("dataset_sha256"):
