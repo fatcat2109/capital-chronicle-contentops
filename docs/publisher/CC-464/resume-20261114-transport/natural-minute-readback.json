@@ -1,0 +1,59 @@
+{
+  "observed_at_utc": "2026-11-14T06:53:13.632444+00:00",
+  "runs": [
+    {
+      "source_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261114T065228-4115bae2\\result.json",
+      "started_at_utc": "2026-11-14T06:52:28.844193+00:00",
+      "ended_at_utc": "2026-11-14T06:52:37.055872+00:00",
+      "status": "NO_NEW_ELIGIBLE_TARGETS",
+      "cause": null,
+      "telegram_calls": [
+        {
+          "method": "getMe",
+          "status": "OK",
+          "elapsed_seconds": 0.698613699991256
+        },
+        {
+          "method": "getWebhookInfo",
+          "status": "OK",
+          "elapsed_seconds": 0.6447256999963429
+        },
+        {
+          "method": "getUpdates",
+          "status": "OK",
+          "elapsed_seconds": 0.7359441999869887
+        }
+      ],
+      "selection_causes": {
+        "TARGET_OVER_15_MINUTES_AT_SEND": 489
+      }
+    },
+    {
+      "source_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261114T065129-eb81c53a\\result.json",
+      "started_at_utc": "2026-11-14T06:51:29.224165+00:00",
+      "ended_at_utc": "2026-11-14T06:51:38.795210+00:00",
+      "status": "NO_NEW_ELIGIBLE_TARGETS",
+      "cause": null,
+      "telegram_calls": [
+        {
+          "method": "getMe",
+          "status": "OK",
+          "elapsed_seconds": 0.7301036000135355
+        },
+        {
+          "method": "getWebhookInfo",
+          "status": "OK",
+          "elapsed_seconds": 0.7394684000173584
+        },
+        {
+          "method": "getUpdates",
+          "status": "OK",
+          "elapsed_seconds": 0.6397885000042152
+        }
+      ],
+      "selection_causes": {
+        "TARGET_OVER_15_MINUTES_AT_SEND": 489
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-11-14T06:52:00.982873+00:00",
+  "source_artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261114T065129-eb81c53a\\result.json",
+  "consumer_result": {
+    "status": "NO_NEW_ELIGIBLE_TARGETS",
+    "started_at_utc": "2026-11-14T06:51:29.224165+00:00",
+    "ended_at_utc": "2026-11-14T06:51:38.795210+00:00",
+    "cause": null,
+    "telegram_calls": [
+      {
+        "method": "getMe",
+        "status": "OK",
+        "elapsed_seconds": 0.7301036000135355
+      },
+      {
+        "method": "getWebhookInfo",
+        "status": "OK",
+        "elapsed_seconds": 0.7394684000173584
+      },
+      {
+        "method": "getUpdates",
+        "status": "OK",
+        "elapsed_seconds": 0.6397885000042152
+      }
+    ],
+    "selection_causes": {
+      "TARGET_OVER_15_MINUTES_AT_SEND": 489
+    },
+    "candidate_count": 0
+  }
+}

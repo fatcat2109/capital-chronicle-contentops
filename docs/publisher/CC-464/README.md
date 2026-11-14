@@ -210,3 +210,50 @@ five-minute natural-delivery proof remains open; no replay or expired draft is
 sent to manufacture it. On the next unexpired private bot draft, Jim opens the
 filled reply, reviews it and sends once. The installed observer then records the
 exact reply and both delays. Nothing waits for Ops review or deployment.
+
+### Transport continuation — 14 November 2026
+
+Code `5b99199c` is pushed and integrated into the operating root at
+`59c3e826`. The existing minute consumer now saves the Telegram operation,
+elapsed seconds and underlying exception class in its existing run artifact
+and outbox row. A wrapped URL error also retains its reason's class. Exception
+messages, request URLs, tokens, payloads and private chat ids are excluded.
+Request-construction errors use the same redacted boundary. An uncertain send
+still becomes `UNKNOWN_WRITE` and is never automatically repeated.
+
+The 58 focused bot and minute-entry tests passed in 61.05 seconds. They cover
+operation-specific timeout, URL and wrapped transport failures, persistence in
+the real consumer, private-chat refusal and uncertain-send recovery. Installed
+source hashes match the tested files. Live and rollback tags are pushed;
+the two lane dirty files and all six operating dirty files are preserved.
+`resume-20261114-transport/` contains the test and integration evidence.
+
+The old failure did not reproduce. Both ordinary Python and Python 3.13
+pythonw passed getMe, getWebhookInfo and getUpdates using the stored offset;
+there were zero updates. Credential Manager supplied a valid token shape with
+no whitespace. No token or chat id was printed or saved. A later natural
+minute tick at 13:51 GMT+7 confirms the installed consumer using all three
+calls successfully. Normal ticks had already recovered before this patch.
+The historical last opaque failure started at 12:36 GMT+7 and took 8.78 seconds.
+That timing suggests a request timeout, but its discarded exception class and
+failed operation cannot be recovered. No root-cause repair is claimed from
+the diagnostic change or from subsequent successful calls.
+
+Live delivery remains unproved: the feed's newest post is from 14 November
+01:23 GMT+7, and all 489 target posts fail CC-495's 15-minute send limit.
+The upstream minute capture reports
+`MINUTE_CAPTURE_TIMEOUT:WebSocketTimeoutException`, with zero responses and
+zero new rows. CDP discovery on the existing ingestion endpoint still answers
+and lists the bound X list target, but a read-only `Page.getFrameTree` also
+times out. This is an unresponsive ingestion target, rather than evidence that
+the target accounts have posted nothing. `upstream-capture-readback.json`
+records the exact observations. Ops Product's next repair is to restore that
+existing ingestion target and verify a fresh capture; this run has no authority
+to close or restart its Chrome application. No alternate feed was substituted.
+The existing consumer resumes automatically when a fresh eligible post arrives.
+CC-458's draft-tab gate remains parked. Four private deliveries are retained;
+none proves delivery within five minutes. Phone opening and the first manual
+reply remain unobserved. Jim's prepared action is to open the next unexpired
+private bot draft, review the filled reply and press Reply once. The installed
+observer then imports its exact reply edge and both delays. No schedule,
+application or trading state was changed.
