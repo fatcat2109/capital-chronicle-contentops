@@ -3012,7 +3012,7 @@ class DurablePublicationCoordinator:
             from .publication_image_contract_v1 import ImageContractError, validate_write
             try:
                 validate_write(self, intent, destination)
-            except (ValueError, OSError, KeyError, TypeError) as image_error:
+            except Exception as image_error:
                 reconciliation_reason = str(image_error)
                 if not isinstance(image_error, ImageContractError):
                     details = {"exception_type": type(image_error).__name__,

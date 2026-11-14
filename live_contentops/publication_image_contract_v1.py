@@ -358,6 +358,8 @@ def validate_write(coordinator, intent, destination):
     if not markets and not macro:
         return None
     if not assets:
+        if not intent.get("output_dir"):
+            raise ImageContractError("MACRO_SOURCE_GRAPH_REQUIRED" if macro else "TRADINGVIEW_FIRST_IMAGE_REQUIRED")
         # Only the existing bounded capture owner can establish exhaustion.
         folder = Path(str(intent.get("output_dir") or ""))
         article_state = bounded_text_fallback(article, folder, now=coordinator._clock())
