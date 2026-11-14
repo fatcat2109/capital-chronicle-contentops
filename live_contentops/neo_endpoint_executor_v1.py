@@ -480,7 +480,7 @@ class NeoBrowserDriver:
             try:
                 self.client.act(page, "fill", ref=ref, value=posts[0])
             except NeoEndpointError as exc:
-                if destination != "youtube" or str(exc) != "NEO_FIELD_NORMALIZED_OR_REJECTED_ACT":
+                if str(exc) != "NEO_FIELD_NORMALIZED_OR_REJECTED_ACT":
                     raise
                 refused = self.article_guard(request, page)
                 if refused:
@@ -488,7 +488,7 @@ class NeoBrowserDriver:
                 actual = self.client.run(page, "article_composer", destination=destination).get("texts")
                 if not isinstance(actual, list) or len(actual) != 1 or " ".join(actual[0].split()) != " ".join(posts[0].split()):
                     raise
-                # YouTube adds blank lines. The visible words, punctuation and
+                # Rich text editors add blank lines. The words, punctuation and
                 # numbers match; article_publish still verifies them at click.
             media = (request.get("content_binding") or {}).get("media_manifest") or []
             if media:

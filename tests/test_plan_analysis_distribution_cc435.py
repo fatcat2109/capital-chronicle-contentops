@@ -108,6 +108,22 @@ def test_x_reply_thread_keeps_all_sections_links_and_weighted_limits(ready):
     assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
 
 
+def test_cc536_new_plan_post_durable_consumer_carries_confirmed_method_page(ready, tmp_path):
+    from test_measured_odds_series_cc536 import confirm_method
+    store, packet, original = ready
+    reference = confirm_method(store, tmp_path)
+    value = pages.register_link(store, packet, original_key=original, destination="x")
+    assert value["method_page_reference"] == reference
+    assert reference["canonical_url"] in value["native_payload"]["reply_texts"][-1]
+    assert pages.validate_link_plan(store, value["link_id"], value["plan"]) == value
+    co = Coordinator(store=store, transport_runtime=None)
+    co.register_plan(value["link_id"], value["plan"])
+    durable = store.get_outbox_message(Coordinator._ids(value["link_id"], value["plan"]["plan_hash"], "x")["message_id"])
+    intent = json.loads(durable["payload"])
+    assert reference["canonical_url"] in intent["native_payload"]["full_text"]
+    assert value["parent"]["public_object_id"] == "parent-x"
+
+
 @pytest.mark.parametrize("destination", ["telegram", "discord", "threads", "x", "substack_notes"])
 def test_new_reader_links_use_held_layers_without_legacy_section_requirements(source, tmp_path, destination):
     root, _, plan, old = source

@@ -235,8 +235,9 @@ def test_cc536_youtube_external_link_verification_stops_only_its_route(tmp_path)
 
 
 @pytest.mark.parametrize("fault,confirmed", [("normalized_fill", True), ("changed_fill", False)])
-def test_cc536_youtube_fill_accepts_only_observed_whitespace_changes(tmp_path, fault, confirmed):
-    store, c, executor, browser, message, row = article(tmp_path, "youtube", fault)
+@pytest.mark.parametrize("destination", ["youtube", "linkedin_company"])
+def test_cc536_youtube_fill_accepts_only_observed_whitespace_changes(tmp_path, fault, confirmed, destination):
+    store, c, executor, browser, message, row = article(tmp_path, destination, fault)
     result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
     assert (result.get("reconciliation_status") == "RECONCILED_CONFIRMED") is confirmed
     assert bool(browser.posts) is confirmed
