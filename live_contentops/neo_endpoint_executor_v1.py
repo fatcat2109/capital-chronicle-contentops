@@ -429,6 +429,14 @@ class NeoBrowserDriver:
             return {"result": refused, "identity": identity}
         if request["action"] == "READBACK":
             return {"result": self.article_readback(request, page), "identity": identity}
+        if destination == "youtube":
+            try:
+                # The channel can settle before its signed-in owner controls
+                # hydrate. Wait on the observed owner link, then still verify
+                # the exact channel and Posts tab in article_identity.
+                self.client.wait(page, 'a[href^="https://studio.youtube.com/channel/"][href$="/editing"]')
+            except NeoEndpointError:
+                pass  # The normal identity check below refuses a real mismatch.
         identity = self.client.run(page, "article_identity", destination=destination,
             expected_identity=request["expected_identity"])
         if request["action"] == "VERIFY_IDENTITY":

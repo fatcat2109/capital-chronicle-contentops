@@ -410,6 +410,13 @@ def _local_missing_threads_text(destination, detail):
         and detail.get("safe_error_classification") == "missing:text")
 
 
+def _local_identity_refusal(detail):
+    # Every send still verifies identity. A refusal before a click cannot
+    # consume the entire day after a fresh identity observation and absence.
+    return (detail.get("status") == DEFINITE_NO_WRITE
+        and detail.get("safe_error_classification") == "NEO_SIGNED_IN_ACCOUNT_MISMATCH")
+
+
 class DurablePublicationCoordinator:
     """Exactly-one write owner for all Final Daily App destinations."""
 
@@ -2637,7 +2644,7 @@ class DurablePublicationCoordinator:
                 row = conn.execute("SELECT description FROM incidents WHERE incident_id=?", (incident_id,)).fetchone()
                 failure = json.loads(row["description"]) if row else None
                 local = failure and ((failure.get("reason_code") or failure.get("safe_error_classification")) in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
-                    or _local_missing_threads_text(destination, failure))
+                    or _local_missing_threads_text(destination, failure) or _local_identity_refusal(failure))
                 if local and (failure.get("reason_code") or failure.get("safe_error_classification")) in {
                         "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}:
                     local = failure.get("status") == DEFINITE_NO_WRITE
@@ -2745,7 +2752,7 @@ class DurablePublicationCoordinator:
         # retained by its idempotent insert. No new queue, ledger or scheduler.
         # A refusal made here before any platform call is not the platform failing (Ops Product, 10 Nov 2026).
         local_cause = detail.get("reason_code") or detail.get("safe_error_classification")
-        if _local_missing_threads_text(destination, detail) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
+        if _local_missing_threads_text(destination, detail) or _local_identity_refusal(detail) or (local_cause in LOCAL_REFUSALS_NOT_PLATFORM_FAILURES
                 and (local_cause not in {"NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_COMPOSER_PREPARATION_FAILED"}
                      or detail.get("status") == DEFINITE_NO_WRITE)):
             return
