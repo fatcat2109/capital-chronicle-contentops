@@ -378,18 +378,26 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
         allow_publish=True,automatic=automatic,endpoint_client=client)
     coordinator.recovery_scope={"work_item_id":packet["identity"],"plan":packet["plan"],"exact_work_item_only":True}
     coordinator.allow_prior_confirmed_distribution=True
+    registered_destinations = {d["destination"] for d in packet["plan"]["destinations"]}
+    company_ids = coordinator._ids(packet["identity"],packet["plan"]["plan_hash"],"linkedin_company")
+    company = store.get_outbox_message(company_ids["message_id"])
+    if company and company["destination"] == "linkedin_company":
+        held = json.loads(company["payload"])
+        if (held.get("routine_company_copy") is True and held.get("work_item_id") == packet["identity"]
+                and held.get("plan_hash") == packet["plan"]["plan_hash"]):
+            registered_destinations.add("linkedin_company")
     try:
         if command in {"begin","submit"}:
             result = executor.begin(request_hash) if command=="begin" else executor.submit(request_hash,response)
         elif command=="readback":
             from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
             target=destination or "substack"
-            if target not in {d["destination"] for d in packet["plan"]["destinations"]}:
+            if target not in registered_destinations:
                 raise ValueError("ODDS_REGISTERED_DESTINATION_REQUIRED")
             dispatch_ids=Coordinator._ids(packet["identity"],packet["plan"]["plan_hash"],target)
             result=coordinator.readback_existing_dispatch(dispatch_ids["dispatch_id"])
         elif command=="dispatch":
-            if destination not in {d["destination"] for d in packet["plan"]["destinations"]} - {"substack"}:
+            if destination not in registered_destinations - {"substack"}:
                 raise ValueError("ODDS_REGISTERED_DERIVATIVE_REQUIRED")
             canonical=coordinator._confirmed_canonical_url_for_work_item(packet["identity"],plan_hash=packet["plan"]["plan_hash"])
             if not canonical:

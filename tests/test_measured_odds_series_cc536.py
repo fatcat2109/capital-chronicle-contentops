@@ -201,6 +201,12 @@ def test_one_destination_continuation_uses_its_canonical_and_existing_dispatch(t
     monkeypatch.setattr(coordinator,'readback_existing_dispatch',lambda dispatch_id:observed.append(dispatch_id) or {'status':'READ_BACK'})
     assert odds.continue_piece(store,packet,**{**args,'command':'readback'})['publication']['status']=='READ_BACK'
     assert observed==[coordinator._ids(packet['identity'],packet['plan']['plan_hash'],'x')['dispatch_id']]
+    company={**args,'destination':'linkedin_company'}
+    assert odds.continue_piece(store,packet,**company)['publication']['status']=='EXISTING_DISPATCH_USED'
+    assert calls[-1][0]['destination']=='linkedin_company'
+    assert calls[-1][0]['message_id']==coordinator._ids(packet['identity'],packet['plan']['plan_hash'],'linkedin_company')['message_id']
+    with pytest.raises(ValueError,match='ODDS_REGISTERED_DERIVATIVE_REQUIRED'):
+        odds.continue_piece(store,packet,**{**args,'destination':'substack_notes'})
     with pytest.raises(ValueError,match='ODDS_REGISTERED_DERIVATIVE_REQUIRED'):
         odds.continue_piece(store,packet,**{**args,'destination':'substack'})
 
