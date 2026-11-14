@@ -1398,7 +1398,15 @@ def _editorial_data_values(packet, documents):
                     and rights.get("article_types") == ["EVENT_PREVIEW"]
                     and preview.get("message_id") and preview.get("event_id")
                     and urlsplit(doc.get("url") or doc.get("source_url") or "").netloc == "www.bls.gov")
-                if not doc.get("desk_record_binding") and not (
+                lineage = doc.get("report_lineage") or {}
+                owned_report_grant = (
+                    doc.get("source_authority_class") == "governed_capital_chronicle_report_only"
+                    and rights.get("scope") == "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+                    and rights.get("authority_ref") == "JIM_DECISION_89"
+                    and rights.get("public_expression_reuse_allowed") is True
+                    and lineage.get("origin") == "RETAINED_MAIN_REPORT_EXACT_SPANS"
+                    and rights.get("source_capture_sha256") == lineage.get("report_projection_sha256"))
+                if not doc.get("desk_record_binding") and not owned_report_grant and not (
                     rights.get("attribution_required")
                     and (rights.get("policy_capture_sha256") or preview_bls_grant)
                     and rights.get("source_capture_sha256")

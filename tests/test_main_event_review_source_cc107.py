@@ -121,3 +121,24 @@ def test_exact_event_bytes_clocks_and_computed_fields_are_required(tmp_path, mon
         spec["passages"][0]["source_json_pointer"] = "/records/0/pre_event_level" if not score else "/scores/0/forecast"
     with pytest.raises(ValueError, match=cause):
         projection.verify_projection(spec)
+
+
+def test_main_computed_reaction_feeds_existing_source_bound_chart(tmp_path, monkeypatch):
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _editorial_data_values
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+    root, _, spec, _ = retained(tmp_path, monkeypatch)
+    research = RetainedSourceResearch(root)
+    docs = _source_pack(research.evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)["evidence_documents"])
+    doc = docs[0]
+    point = {"period": "+5m", "value": -0.23, "observation_kind": "ESTIMATE", "inputs": [{
+        "document_id": doc["document_id"], "support_excerpt": doc["canonical_content_text"],
+        "source_content_sha256": doc["canonical_content_sha256"], "value_text": "-0.23",
+        "source_period_text": "2026-10-18", "prepared_period": "+5m", "metric": "XAUUSD return",
+        "unit": "percent", "period_basis": {"basis": "MAIN_COMPUTED_EVENT_RETURN", "event_id": "controlled-nfp"}}]}
+    packet = {"chart_type": "grouped_bar", "title": "Capital Chronicle model estimate",
+        "question": "What moved in the first observed window?", "unit": "percent",
+        "series": [{"name": "Gold", "points": [point]}]}
+    assert _editorial_data_values(packet, docs) == [[-0.23]]
+    docs[0]["source_reuse_constraints"]["public_expression_reuse_allowed"] = False
+    with pytest.raises(ValueError, match="FACT_RIGHTS_UNBOUND"):
+        _editorial_data_values(packet, docs)
