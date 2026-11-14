@@ -1576,7 +1576,7 @@ def publication_dispatch_locks_media(store, run_id, work_item_id):
 
 def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None,
                          final_visual_repair=None, corrected_worker_output=None, drop_failed_visuals=False,
-                         completed_revision_request_sha256=None):
+                         completed_revision_request_sha256=None, event_media_revisions=None):
     """Seal relevant inspected media before review using the existing final outbox.
 
     Earlier bytes stay history. A reviewed correction needs its exact revision and
@@ -1627,6 +1627,14 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             raise ValueError("EXACT_COMPLETED_NATIVE_REVISION_REQUIRED")
         corrected_worker_output = response["output"]
     corrected_article = result["article"]
+    if event_media_revisions:
+        if result.get("event_media_revisions"):
+            raise ValueError("EVENT_MEDIA_REPAIR_ROUND_ALREADY_USED")
+        from live_contentops.native_publication_latency_v1 import uses_short_path
+        if not uses_short_path(store, run_id=run_id, result=result):
+            raise ValueError("EVENT_MEDIA_REPAIR_SHORT_PATH_REQUIRED")
+        corrected_article = rebind_event_visual_media(result["article"], result.get("media_assets", []),
+            assets, event_media_revisions)
     if corrected_worker_output is not None:
         if final_visual_repair is None and not completed_revision_request_sha256:
             raise ValueError("COPY_CORRECTION_REQUIRES_SAME_MAX_FINAL_REPAIR")
@@ -1700,6 +1708,14 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             if not asset.get("caption") or not asset.get("alt_text"):
                 raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
             continue
+        if asset.get("editorial_data_packet"):
+            # This validator binds generated public source links to exact held
+            # source packets, including our own report's private provenance URN.
+            from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_editorial_data_chart
+            validate_editorial_data_chart(asset, result.get("evidence", []))
+            if not asset.get("caption") or not asset.get("alt_text"):
+                raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
+            continue
         urls = {asset.get("source_page_url")} | {s.get("source_url") for s in asset.get("source_lineage", [])}
         urls.discard(None)
         if (not urls or not urls <= allowed or not asset.get("caption") or not asset.get("alt_text")
@@ -1734,6 +1750,7 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
             payload=canonical_bytes({**final_visual_repair, "corrected_worker_output": corrected_worker_output}).decode(), status="EDITORIAL_INTERNAL")
     updated = {**result, "article": article, "article_identity": article_identity, "media_assets": assets, "previews": previews,
+        **({"event_media_revisions": event_media_revisions} if event_media_revisions else {}),
         **({"visual_editorial_decision": article["visual_editorial_decision"]} if article.get("visual_editorial_decision") else {}),
         **({"visual_repair_disposition": disposition} if disposition else {}),
         **({"visual_editorial_decision": article["visual_editorial_decision"]} if drop_failed_visuals and article.get("visual_editorial_decision") else {}),
@@ -1778,6 +1795,54 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
             status="EDITORIAL_INTERNAL")
     store.finalize_outbox_payload_before_dispatch(message_id=key, payload=canonical_bytes(updated).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
+
+
+def rebind_event_visual_media(article, old_assets, assets, revisions):
+    """Retain an event writer's choices while replacing corrected image bytes."""
+    from copy import deepcopy
+    if article.get("article_type") != "EVENT_REVIEW":
+        raise ValueError("EVENT_REVIEW_MEDIA_REPAIR_REQUIRED")
+    old = {a["asset_id"]: a for a in old_assets}
+    new = {a["asset_id"]: a for a in assets}
+    mapping = {r["old_asset_id"]: r["new_asset_id"] for r in revisions}
+    if (len(mapping) != len(revisions) or len(set(mapping.values())) != len(mapping)
+            or set(mapping) != set(old) - set(new)
+            or set(mapping.values()) != set(new) - set(old)):
+        raise ValueError("EVENT_MEDIA_EXACT_REPLACEMENTS_REQUIRED")
+    for previous, replacement in mapping.items():
+        before, after = old[previous], new[replacement]
+        _final_visual_file(before)
+        _final_visual_file(after)
+        if (before.get("modality") != after.get("modality")
+                or before.get("placement_after") != after.get("placement_after")
+                or before.get("computed_values") != after.get("computed_values")
+                or before.get("data_card_packet", {}).get("facts") != after.get("data_card_packet", {}).get("facts")
+                or before.get("editorial_data_packet", {}).get("unit") != after.get("editorial_data_packet", {}).get("unit")):
+            raise ValueError("EVENT_MEDIA_REPAIR_DATA_CHANGED")
+    result = deepcopy(article)
+    decision = result["visual_editorial_decision"]
+    for selected in decision["charts"]:
+        if selected["asset_id"] in mapping:
+            selected["asset_id"] = mapping[selected["asset_id"]]
+            packet = new[selected["asset_id"]]["editorial_data_packet"]
+            if selected["question"] != packet["question"]:
+                raise ValueError("EVENT_MEDIA_REPAIR_ARGUMENT_CHANGED")
+            selected["data_spec"] = packet
+    for key in ("data_card_asset_ids", "canonical_media"):
+        if key in decision:
+            decision[key] = [mapping.get(i, i) for i in decision[key]]
+    for key in ("channel_media",):
+        decision[key] = {d: [mapping.get(i, i) for i in ids] for d, ids in decision[key].items()}
+    for key in ("lead_media",):
+        if key in decision:
+            decision[key] = mapping.get(decision[key], decision[key])
+    if result.get("lead_image_asset_id"):
+        result["lead_image_asset_id"] = mapping.get(result["lead_image_asset_id"], result["lead_image_asset_id"])
+    if result.get("post_visual_destination_media"):
+        result["post_visual_destination_media"] = {d: [mapping.get(i, i) for i in ids]
+            for d, ids in result["post_visual_destination_media"].items()}
+    validate_visual_decision(decision)
+    return result
 
 
 def bind_inline_event_visual_decision(article, assets, *, publication_speed):

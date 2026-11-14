@@ -270,3 +270,43 @@ def test_inline_short_path_review_reuses_exact_writer_chart_choices():
         changed["visual_editorial_decision"]["charts"][0][field] = value
         with pytest.raises(ValueError, match="INLINE_EVENT_CHART_CHOICE_UNBOUND"):
             bind_inline_event_visual_decision(changed, [asset], publication_speed={"policy": "JIM_DECISION_53"})
+
+
+@pytest.mark.parametrize("fault", [None, "value", "unit", "bytes", "missing"])
+def test_repaired_event_chart_reaches_all_selected_channels_with_same_data(tmp_path, fault):
+    from PIL import Image
+    from live_contentops.native_desktop_editorial_v1 import rebind_event_visual_media
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    before, after = [], []
+    for name, color, target in [("old", "red", before), ("new", "blue", after)]:
+        path = tmp_path / (name + ".png")
+        Image.new("RGB", (20, 20), color).save(path)
+        target.append({"asset_id": name, "path": str(path), "sha256": sha256(path.read_bytes()).hexdigest(),
+            "modality": "source_backed_chart", "placement_after": "Response", "computed_values": [[-0.23]],
+            "editorial_data_packet": {"unit": "percent", "question": "What moved?"}})
+    channels = {d: ["old"] for d in ["telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"]}
+    article = {"article_type": "EVENT_REVIEW", "title": "Our dated interpretation", "substack_body_markdown": "Unchanged facts",
+        "post_visual_destination_media": channels, "lead_image_asset_id": "old",
+        "visual_editorial_decision": {"reader_first_version": "DATA_JOURNALISM_V1", "story_kind": "ANALYSIS",
+            "editorial_thesis": "Compare the measured response.", "charts": [{"asset_id": "old", "question": "What moved?",
+                "why_useful": "Measured windows", "placement_after": "Response", "data_spec": {"unit": "percent"}}],
+            "channel_media": channels, "canonical_media": ["old"]}}
+    original_hash = sha256_of(article)
+    if fault == "value":
+        after[0]["computed_values"] = [[0.23]]
+    elif fault == "unit":
+        after[0]["editorial_data_packet"]["unit"] = "persons"
+    elif fault == "bytes":
+        after[0]["sha256"] = "0" * 64
+    changes = [] if fault == "missing" else [{"old_asset_id": "old", "new_asset_id": "new"}]
+    if fault:
+        with pytest.raises(ValueError):
+            rebind_event_visual_media(article, before, after, changes)
+        return
+    result = rebind_event_visual_media(article, before, after, changes)
+    assert sha256_of(article) == original_hash
+    assert result["substack_body_markdown"] == article["substack_body_markdown"]
+    assert result["lead_image_asset_id"] == "new"
+    assert all(ids == ["new"] for ids in result["post_visual_destination_media"].values())
+    assert all(ids == ["new"] for ids in result["visual_editorial_decision"]["channel_media"].values())
+    assert result["visual_editorial_decision"]["canonical_media"] == ["new"]
