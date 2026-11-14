@@ -1,0 +1,60 @@
+{
+  "observed_at_utc": "2026-11-14T06:18:59.951581+00:00",
+  "dispatches": [
+    {
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_1078a480ea63b6cd27b0aec10750e0c0",
+      "public_object_id": "224849463",
+      "public_object_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
+    },
+    {
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_73a5b92d65586e60c9bfea5feda9ffde",
+      "public_object_id": "1571046377796935813",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571046377796935813"
+    },
+    {
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_3b5fd5d99086b5d8527bc7840a52cb33",
+      "public_object_id": "106091951705748_1454906993494383",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1454906993494383"
+    }
+  ],
+  "exact_native_readbacks": [
+    {
+      "status": "SUCCESS",
+      "request_sha256": "78084846046714c1c02626457db4d66de382e452309ff754c08a71ae47346f32",
+      "public_object_id": "224849463",
+      "public_object_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+      "published_at_utc": "2026-11-14T06:01:31.721Z",
+      "content_verified": true,
+      "observed_media_sha256": [
+        "3fbe2b0b5c767661b00cf2fd4e6096485ff36f0fe32e890d4141347786c79150"
+      ],
+      "observed_at_utc": "2026-11-14T06:16:15.011Z"
+    }
+  ],
+  "reconciliations": [
+    {
+      "reconciliation_id": "reconciliation_1078a480ea63b6cd27b0aec10750e0c0",
+      "work_item_id": "cc536-measured-odds-1",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-14T06:00:14.086870+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_73a5b92d65586e60c9bfea5feda9ffde",
+      "work_item_id": "cc536-measured-odds-1",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-14T06:17:27.646187+00:00"
+    },
+    {
+      "reconciliation_id": "reconciliation_3b5fd5d99086b5d8527bc7840a52cb33",
+      "work_item_id": "cc536-measured-odds-1",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-14T06:17:35.969078+00:00"
+    }
+  ]
+}

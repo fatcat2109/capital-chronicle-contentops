@@ -1,6 +1,6 @@
 {
-  "checked_at_utc": "2026-11-14T05:31:59.252008+00:00",
-  "article_sha256": "be39e558ade9dfb04f18cc01db539990d9579d1f718f872367a1252427db8b15",
+  "checked_at_utc": "2026-11-14T05:40:25.607648+00:00",
+  "article_sha256": "e1d86d4f025795908fe7c51579ee9368e89be085e525c7f0ae63cc45b3528464",
   "writer": {
     "model": "gpt-6.1-sol",
     "effort": "max",
@@ -37,7 +37,16 @@
     "mobile X root and complete linked own replies"
   ],
   "repair": "Moved the chart from the end of the page to the trend-yardstick section. Original pixels unchanged.",
-  "remaining": "Inspect the other social views and canonical mobile chart before first send.",
+  "remaining": null,
   "transport_choice": "Reuse the existing WEB_ONLY Substack Neo editor/upload/readback for the exact cc536-measured-odds-1..7 identities; retain ordinary article accounting.",
-  "git_maintenance": "Git triggered automatic pack on the second commit; its exact task-owned pack helper was stopped to honor the no-gc rule. Commit ee19f8d6 was pushed; no worktree or shared Git config changed."
+  "git_maintenance": "Git triggered automatic pack on the second commit; its exact task-owned pack helper was stopped to honor the no-gc rule. Commit ee19f8d6 was pushed; no worktree or shared Git config changed.",
+  "decision": "ACCEPT",
+  "render_manifest": "renders/manifest.json",
+  "renders_inspected": 18,
+  "findings": [
+    "All eight social views inspected at desktop and mobile. Complete summaries and notice lines retained.",
+    "Canonical article wraps at mobile width; full chart pixels and TradingView credit preserved.",
+    "No raw series or desk trade results in public copy.",
+    "Only copy-markup cleanup followed the render capture; printed words and chart bytes are unchanged."
+  ]
 }

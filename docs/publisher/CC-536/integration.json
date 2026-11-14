@@ -1,0 +1,46 @@
+{
+  "installed_at_utc": "2026-11-14T05:40:25.608977+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "installed_commit": "1002fa9dfeff51a2013f7410d0d9f42ed63c7526",
+  "rollback_tag": "contentops/cc-536-rollback-20261114T0540Z",
+  "branch": "backlog/cc-536-measured-odds-series",
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "live_consumer": "CC-536 CLI on the installed schema -> DurablePublicationCoordinator -> existing web-only Substack and Neo/API transports",
+  "tests": [
+    "consumer-link-tests.xml: 13 passed",
+    "article-regression.xml: 11 passed",
+    "coordinator-regression.xml: 5 passed",
+    "substack-consumer-tests.xml: 26 passed",
+    "installed-consumer-tests.xml",
+    "retained-draft-tests.xml: 28 passed",
+    "repaired-preclick-tests.xml: 29 passed",
+    "repaired-preclick-final.xml: 3 passed",
+    "exact-readback-tests.xml: 1 passed",
+    "native-readback-scope-tests.xml: 7 passed",
+    "installed-final-tests.xml: 17 passed in 19.54s"
+  ],
+  "publication": "Substack canonical confirmed; Discord and Facebook public objects confirmed; remaining routes are in flight.",
+  "main_source": {
+    "tag": "live-20261114-cc573-105502",
+    "commit": "37c669c78dd11db72d4f56a8ad2c1af9070e7457",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+  },
+  "installation_tests": "26 passed in 8.31s in the operating root",
+  "registration": "cc536-measured-odds-1 registered in the existing production outbox",
+  "repairs": [
+    "Reused the installed schema instead of replaying migrations on each article.",
+    "Set canonical Substack-first on this exact method-series plan.",
+    "Continued saved draft 224849463 after the recorded NEO_CONTROL_COVERED_ACT pre-click failure.",
+    "The changed transport releases only the exact definite-no-write claim; unknown or clicked actions remain readback-only.",
+    "Exact public Substack readback uses only its known draft fallback ID.",
+    "Native readback reuse, request retirement and pending queries are scoped to this article before payloads are loaded."
+  ],
+  "readback_identity": {
+    "dispatch": "dispatch_1078a480ea63b6cd27b0aec10750e0c0",
+    "public_object_id": "224849463",
+    "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
+  },
+  "source_clocks_unchanged": true
+}
