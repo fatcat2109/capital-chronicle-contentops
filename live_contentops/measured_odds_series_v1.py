@@ -347,7 +347,8 @@ def register(store, piece_file, output_dir):
     return packet
 
 
-def continue_piece(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None, automatic=False):
+def continue_piece(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None, automatic=False,
+                   draft_url=None):
     from .native_desktop_publication_v1 import live_publication_policy
     from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
     live_publication_policy(rollout)
@@ -356,6 +357,15 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
     validate_plan(store, packet["identity"], packet["plan"])
     from .neo_endpoint_executor_v1 import NeoMcpClient
     client = NeoMcpClient(task_name="cc536 measured odds",group_title="codex/cc536-method-page") if automatic else None
+    if draft_url:
+        if not automatic:
+            raise ValueError("ODDS_RETAINED_DRAFT_REQUIRES_BOUND_TRANSPORT")
+        ids = __import__("live_contentops.publication_coordinator_v1",fromlist=["DurablePublicationCoordinator"]).DurablePublicationCoordinator._ids(
+            packet["identity"],packet["plan"]["plan_hash"],"substack")
+        dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+        if dispatch.get("status") not in {"DEFINITE_NO_WRITE","RECONCILED_ABSENT_SAFE_TO_RETRY"}:
+            raise ValueError("ODDS_RETAINED_DRAFT_NEEDS_EXACT_NO_WRITE")
+        client.resume_draft_url=draft_url
     coordinator, executor = bind_native_neo_coordinator(store,operation_id=packet["identity"],
         output_dir=Path(packet["output_dir"])/"native-neo",native_invocation_id=invocation_id,
         allow_publish=True,automatic=automatic,endpoint_client=client)
@@ -385,6 +395,7 @@ def main():
     parser.add_argument("--response",type=Path)
     parser.add_argument("--result",type=Path,required=True)
     parser.add_argument("--automatic",action="store_true")
+    parser.add_argument("--draft-url",help="Exact retained draft after a confirmed pre-click no-write")
     args=parser.parse_args()
     if args.command=="check":
         result={"status":"PASS","numbers":validate_piece(_read(args.piece),args.piece.parent/"source")}
@@ -397,7 +408,7 @@ def main():
         packet=register(store,args.piece,args.output_dir)
         result=packet if args.command=="register" else continue_piece(store,packet,invocation_id=args.invocation_id,
             rollout=rollout,command=args.command,request_hash=args.request_hash,
-            response=_read(args.response) if args.response else None,automatic=args.automatic)
+            response=_read(args.response) if args.response else None,automatic=args.automatic,draft_url=args.draft_url)
     args.result.parent.mkdir(parents=True,exist_ok=True)
     args.result.write_bytes(canonical_bytes(result))
     print(json.dumps({"result_path":str(args.result),"state":result.get("state",result.get("status","SAVED"))}))

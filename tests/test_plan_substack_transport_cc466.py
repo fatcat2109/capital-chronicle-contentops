@@ -49,7 +49,7 @@ class Client:
 
     def run(self, page, phase, **kw):
         self.calls.append((phase,kw))
-        if phase=="plan_substack_identity":
+        if phase in {"plan_substack_identity","plan_substack_editor_identity"}:
             return {"authenticated":self.fault!="account","observed_identity":"capitalchronicle.substack.com"}
         if phase=="plan_substack_uploaded":
             return {"src":"https://substack-post-media.s3.amazonaws.com/public/images/own.png"}
@@ -99,6 +99,26 @@ def test_plan_route_disables_email_and_publishes_bound_body_once(packet):
     assert phases.index("plan_substack_check")<phases.index("plan_substack_publish")
     pasted=next(c[1]["html"] for c in client.calls if c[0]=="plan_substack_paste")
     assert pasted=="<p>At a glance.</p><h2>Macro</h2><p>We see a stronger dollar.</p>"
+    assert next(i for i,c in enumerate(client.calls) if c==("wait_text","Saved")) < next(
+        i for i,c in enumerate(client.calls) if c[0]=="act" and c[2].get("ref")=="Continue")
+
+
+def test_retained_preclick_draft_is_checked_and_sent_without_creating_another(packet):
+    client=Client(packet)
+    client.resume_draft_url="https://capitalchronicle.substack.com/publish/post/123"
+    result=neo.NeoBrowserDriver(client).perform(packet)
+    assert result["result"]["status"]=="SUCCESS"
+    assert not any(c[0]=="act" and c[2].get("ref")=="Create" for c in client.calls)
+    assert any(c[0]=="plan_substack_check" for c in client.calls)
+    assert sum(c[0]=="plan_substack_publish" for c in client.calls)==1
+
+
+def test_wrong_retained_draft_cannot_reach_publish(packet):
+    client=Client(packet,"body")
+    client.resume_draft_url="https://capitalchronicle.substack.com/publish/post/123"
+    result=neo.NeoBrowserDriver(client).perform(packet)
+    assert result["result"]["status"]=="FAILED_BEFORE_WRITE"
+    assert not client.clicked
 
 
 @pytest.mark.parametrize("fault",["account","body","editor_error"])

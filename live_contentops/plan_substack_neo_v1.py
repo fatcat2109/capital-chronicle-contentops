@@ -67,11 +67,23 @@ def _perform(client, packet, state):
     request=packet["request"]
     if not supports_operation(packet["operation_id"]) or request["destination"]!="substack":
         raise ValueError("PLAN_SUBSTACK_EXACT_PAGE_REQUEST_REQUIRED")
-    page=client.open("plan-substack", request.get("public_object_url") or "https://capitalchronicle.substack.com/publish/posts")
+    resume_url=getattr(client,"resume_draft_url",None) if request["action"]=="PUBLISH" else None
+    if resume_url and not re.fullmatch(r"https://capitalchronicle\.substack\.com/publish/post/\d+",resume_url):
+        raise ValueError("SUBSTACK_EXACT_RETAINED_DRAFT_URL_REQUIRED")
+    page=client.open("plan-substack", resume_url or request.get("public_object_url") or "https://capitalchronicle.substack.com/publish/posts")
     if request["action"]=="READBACK":
         return {"result":readback(client,request,page),"identity":{}}
-    client.wait(page,'nav[aria-label="Publisher dashboard"]')
-    identity=client.run(page,"plan_substack_identity")
+    if resume_url:
+        # A proven pre-click failure can continue its existing saved draft.
+        # Never use this for a code tab or an uncertain public action.
+        observed=client.snapshot(page)
+        if 'dialog "Publish"' in observed["text"]:
+            client.act(page,"click",ref=_ref(client,page,"button","Cancel"))
+        client.wait(page,".ProseMirror")
+        identity=client.run(page,"plan_substack_editor_identity",payload=request["native_payload"])
+    else:
+        client.wait(page,'nav[aria-label="Publisher dashboard"]')
+        identity=client.run(page,"plan_substack_identity")
     state["identity"]=identity
     if request["action"]=="VERIFY_IDENTITY":
         return {"result":{**identity,"status":"SUCCESS"},"identity":identity}
@@ -84,6 +96,18 @@ def _perform(client, packet, state):
     payload=request["native_payload"]
     # Native page requests contain the exact manuscript; no article compiler or
     # model rewrites it at transport time.
+    if not resume_url:
+        return _create_and_send(client,packet,state,page,identity)
+    media=(request.get("content_binding") or {}).get("media_manifest") or []
+    check=client.run(page,"plan_substack_check",expected_text=body_text(payload["body_markdown"]),media=media)
+    if check.get("verified") is not True:
+        raise ValueError("PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH")
+    return _send_saved_draft(client,packet,state,page,identity)
+
+
+def _create_and_send(client,packet,state,page,identity):
+    request=packet["request"]
+    payload=request["native_payload"]
     client.act(page,"click",ref=_ref(client,page,"button","Create"))
     client.wait_text(page,"Article")
     client.act(page,"click",ref=_ref(client,page,"menuitem","Article"))
@@ -118,6 +142,14 @@ def _perform(client, packet, state):
     check=client.run(page,"plan_substack_check",expected_text=body_text(payload["body_markdown"]),media=media)
     if check.get("verified") is not True:
         raise ValueError("PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH")
+    return _send_saved_draft(client,packet,state,page,identity)
+
+
+def _send_saved_draft(client,packet,state,page,identity):
+    # Pasting a long article can replace the Continue control while saving.
+    # Wait for the visible saved state, then obtain its fresh actionable ref.
+    client.run(page,"plan_substack_front")
+    client.wait_text(page,"Saved")
     client.act(page,"click",ref=_ref(client,page,"button","Continue"))
     client.wait_text(page,"Send via email and the Substack app")
     if client.run(page,"plan_substack_email")["enabled"]:

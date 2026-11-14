@@ -11,10 +11,23 @@ const unwrap = r => {
 };
 
 // CC-466 uses this same endpoint for bound web-only plan pages.
+if (input.phase === 'plan_substack_front') {
+  await page.cdp('Page.bringToFront','{}');
+  return {front:true};
+}
 if (input.phase === 'plan_substack_identity') {
   const s=await snap();
   return {authenticated:s.text.includes('Publisher dashboard') && s.refs.some(r=>r.name==='Capital Chronicle'),
     observed_identity:'capitalchronicle.substack.com',observed_at_utc:new Date().toISOString()};
+}
+if (input.phase === 'plan_substack_editor_identity') {
+  return unwrap(await page.evaluateInPage(data=>({
+    authenticated:location.origin==='https://capitalchronicle.substack.com'
+      && document.querySelector('textarea[aria-label="title"]')?.value===data.title
+      && document.querySelector('textarea[placeholder="Add a subtitle…"]')?.value===data.subtitle
+      && Array.from(document.querySelectorAll('button')).some(b=>b.innerText==='Capital Chronicle'),
+    observed_identity:'capitalchronicle.substack.com',observed_at_utc:new Date().toISOString()
+  }),input.payload));
 }
 if (input.phase === 'plan_substack_intercept') {
   return unwrap(await page.evaluateInPage(()=>{
