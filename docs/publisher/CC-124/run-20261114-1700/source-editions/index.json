@@ -1,0 +1,72 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "CAPITAL_CHRONICLE_MAIN_REPORT_PROJECTION",
+      "authority_ref": "JIM_DECISION_89",
+      "source_url": "urn:cc-public-report:cc124-btc-weekend-20261114",
+      "headline_id": "cc124-btc-weekend-20261114",
+      "headline_text": "Bitcoin fell before the headline burst; our review keeps a weak bearish lean",
+      "known_at_utc": "2026-11-14T09:20:21.361963Z",
+      "revision_at_utc": "2026-11-14T10:07:09.738661+00:00",
+      "candidate_catalyst_tags": [
+        "MAIN_REPORT",
+        "BTCUSD"
+      ],
+      "passages": [
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261114T090542Z\\analysis-native.json",
+          "source_sha256": "89f0243243f57ec53eb42429ad2a4cdda6291d5e4fd48d082a31d3b4465b253c",
+          "source_json_pointer": "/native_synthesis/summary/0/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 226
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261114T090542Z\\analysis-native.json",
+          "source_sha256": "89f0243243f57ec53eb42429ad2a4cdda6291d5e4fd48d082a31d3b4465b253c",
+          "source_json_pointer": "/native_synthesis/summary/1/text",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 114
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261114T090542Z\\analysis-native.json",
+          "source_sha256": "89f0243243f57ec53eb42429ad2a4cdda6291d5e4fd48d082a31d3b4465b253c",
+          "source_json_pointer": "/native_synthesis/candidates/0/rationale",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 662
+            },
+            {
+              "start": 928,
+              "end": 1070
+            },
+            {
+              "start": 2353,
+              "end": 2487
+            }
+          ]
+        },
+        {
+          "source_path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261114T090542Z\\analysis-native.json",
+          "source_sha256": "89f0243243f57ec53eb42429ad2a4cdda6291d5e4fd48d082a31d3b4465b253c",
+          "source_json_pointer": "/native_synthesis/candidates/0/invalidation",
+          "fragments": [
+            {
+              "start": 0,
+              "end": 77
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

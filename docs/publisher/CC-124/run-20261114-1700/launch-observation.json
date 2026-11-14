@@ -1,0 +1,14 @@
+{
+  "observed_at_utc": "2026-11-14T10:03:41.1915784Z",
+  "process_id": 26320,
+  "parent_process_id": 25576,
+  "created_at_utc": "2026-11-14T10:00:34.3167980Z",
+  "launch_prefix": "\"C:\\Users\\bullw\\AppData\\Local\\OpenAI\\Codex\\bin\\9e1da79431da526b\\codex.exe\" exec --model gpt-6.1-sol -c \"model_reasoning_effort=\\\"max\\\"\" -C \"A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\" --add-dir \"A:\\Capital Chronicle\\control-tower-reporting-closeout-20261018\\docs\\project_control_tower\" --add-dir \"A:\\Capital Chronicle\\ContentOps\" --add-dir \"A:\\Capital Chronicle\\Runtime\\ContentOps\"",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "runtime_model": null,
+  "runtime_reasoning_effort": null,
+  "editorial_role_calls": 0,
+  "note": "Explicit model/effort arguments were read from this live exec process. Runtime-selected model and effort were not independently observed. No self-restart or dispatch gate."
+}

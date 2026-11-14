@@ -1,0 +1,49 @@
+{
+  "item": "CC-124",
+  "operation_id": "cc124-btc-weekend-20261114",
+  "observed_at_utc": "2026-11-14T10:19:00.487221+00:00",
+  "new_articles": 0,
+  "standing_status": "OPEN (next due 14 Nov 2026 23:01 GMT+7)",
+  "next_due_gmt7": "14 Nov 2026 23:01 GMT+7",
+  "next_due_reason": "Six hours after the observed 17:00:34 GMT+7 launch, rounded up to the next displayed minute. No schedule change.",
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:3723s",
+  "choice": "Use the newly completed Main Bitcoin analysis, fix the existing source adapter to consume its single-pass synthesis, and preserve its original capture. The 60-minute deadline expired during repair/preparation. Accept the native Light ABSTAIN and end with no fresh send, filler or repeated PPI work.",
+  "initial_source_inventory": {
+    "retained_outputs": 43,
+    "completed_analyses": 42,
+    "changed_outputs_since_prior": 2,
+    "eligible_at_170307_gmt7": 1
+  },
+  "closeout_inventory": {
+    "observed_at_utc": "2026-11-14T10:16:11.559125+00:00",
+    "completed_source_count": 42,
+    "eligible_completed_sources": 0,
+    "changed_native_outputs_since_prior": 2,
+    "latest_original_capture_utc": "2026-11-14T09:08:55.826015Z",
+    "classification": "NO_CURRENT_MAIN_SOURCE",
+    "next_action": "End the standing check without filler."
+  },
+  "original_capture_utc": "2026-11-14T09:08:55.826015Z",
+  "publication_deadline_utc": "2026-11-14T10:08:55.826015Z",
+  "terminal_classification": "DRAFT_BLOCKED",
+  "terminal_selection": "ABSTAIN",
+  "platform_dispatch_count_for_operation": 0,
+  "code_commit_pushed_and_integrated": "32fa07d17302df42d9c990a32e8711f618d93bec",
+  "targeted_tests": {
+    "files": [
+      "tests/test_main_report_projection_source_v1.py"
+    ],
+    "passed": 47,
+    "seconds": 15.33,
+    "processes": 1
+  },
+  "authority": [
+    "JIM_DECISION_89",
+    "JIM_DECISION_93",
+    "JIM_DECISION_98",
+    "ROOT_CC403_READER_ARTICLE_V1"
+  ],
+  "limits": "No article, canonical, derivative or readback acceptance. The original rejected excerpt, frozen request, native return and existing unrelated recovery dispatches remain preserved.",
+  "next_action": "At the next standing opportunity consume a timely new Main report, using its original capture clock and the now-installed source adapter.",
+  "next_actor": "Codex Publisher"
+}

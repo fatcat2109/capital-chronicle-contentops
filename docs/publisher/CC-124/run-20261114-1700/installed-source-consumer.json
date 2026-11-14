@@ -1,0 +1,43 @@
+{
+  "observed_at_utc": "2026-11-14T10:10:59.092907+00:00",
+  "consumer_modules": {
+    "live_contentops.main_report_projection_source_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\main_report_projection_source_v1.py",
+    "live_contentops.contentops_source_research_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\contentops_source_research_v1.py",
+    "live_contentops.reader_article_contract_v1": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\reader_article_contract_v1.py"
+  },
+  "admitted_source_id": "SOURCE_1",
+  "canonical_content_sha256": "398540093db9379615cd5598124457114f403d5a275076a9c45a2756bd360dcf",
+  "reader_contract": {
+    "policy": "CC403_READER_ARTICLE_V1",
+    "format": "ARTICLE",
+    "source_pack_sha256": "3d2a1e0f8f26505f220a9aad49dfd799fe0e201199f8a788711c81ffcace3ead",
+    "primary_document_id": "cc124-btc-weekend-20261114-facts",
+    "data_cutoff_utc": "2026-11-14T09:08:55.826015+00:00",
+    "max_sentence_words": 35,
+    "daily_prose_words": 350,
+    "publication_target_minutes": 60
+  },
+  "data_clock_binding": [
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261114T090542Z\\capture.json",
+      "field": "/known_at_utc",
+      "sha256": "08f9790b4706116a8b2975dccacc2203f563a0a158fbb98518e69ccbcb9f5857",
+      "value": "2026-11-14T09:08:55.826015Z"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261114T090542Z\\capture.json",
+      "field": "/known_at_utc",
+      "sha256": "08f9790b4706116a8b2975dccacc2203f563a0a158fbb98518e69ccbcb9f5857",
+      "value": "2026-11-14T09:08:55.826015Z"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261114T090542Z\\capture.json",
+      "field": "/known_at_utc",
+      "sha256": "08f9790b4706116a8b2975dccacc2203f563a0a158fbb98518e69ccbcb9f5857",
+      "value": "2026-11-14T09:08:55.826015Z"
+    }
+  ],
+  "publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:3723s",
+  "evidence_document_count": 1,
+  "source_selection_note": "Original rejected source and frozen operation remain unchanged. These exact spans retain the explicit 54/46 scenarios, confirmation and invalidation. Public calls still need their structured fields and notices at the unchanged publication guard."
+}
