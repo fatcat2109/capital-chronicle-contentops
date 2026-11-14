@@ -1,0 +1,49 @@
+{
+  "observed_at_utc": "2026-11-14T11:36:10.499366+00:00",
+  "installed_root": "A:\\Capital Chronicle\\ContentOps",
+  "status": "OPERATING_SOURCE_CONSUMER_PASS",
+  "source_count": 9,
+  "main_computed_reaction_and_scores_consumed": true,
+  "official_release_and_background_consumed": true,
+  "every_delivered_text_hash_matches": true,
+  "already_published_previews": [
+    {
+      "content_id": "substack:223763353",
+      "type": "EVENT_PREVIEW",
+      "published_at_utc": "2026-11-06T12:58:16.717000+00:00",
+      "canonicals": [
+        "https://capitalchronicle.substack.com/p/nfp-preview-why-a-payroll-beat-needs"
+      ]
+    },
+    {
+      "content_id": "substack:224293572",
+      "type": "EVENT_PREVIEW",
+      "published_at_utc": "2026-11-10T12:09:49.251000+00:00",
+      "canonicals": [
+        "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher"
+      ]
+    }
+  ],
+  "installed_code": [
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\main_report_projection_source_v1.py",
+      "sha256": "d3981fddb2c48623e32fdda366f7ff0264992114d86b7cdb289076058cc8a106"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\contentops_source_research_v1.py",
+      "sha256": "26f02e36311b319d6d39580a387de39694b76ae449ab2b2b446294385b87cee1"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\contentops_editorial_desk_v1.py",
+      "sha256": "796e3b809c1ca070b2df7f8a6d1479f126e1b353257a374932b932cf1ee550a5"
+    },
+    {
+      "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\v1_simple_gemini_newsroom_v1.py",
+      "sha256": "0dba145cf41db429496a2d989b54db820ddaa7b2a2bf68389c73d158b8c62a2c"
+    }
+  ],
+  "new_review_published": false,
+  "digest_send_performed": false,
+  "schedule_changed": false,
+  "store_mode": "READ_ONLY_CONNECTIONS_NO_MIGRATIONS"
+}
