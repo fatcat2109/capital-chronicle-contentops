@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-14T06:53:13.632444+00:00",
+  "feed_generated_at_utc": "2026-11-14T06:52:19.948Z",
+  "newest_posted_utc": "2026-11-13T18:23:00.340Z",
+  "newest_post_age_minutes": 750.2215407333333,
+  "send_age_limit_minutes": 15,
+  "rows": 678,
+  "eligible_target_count": 0,
+  "send_limit_reason": "CC-495 freshness rule, following the stale CFTC reply incident recorded on CC-464; historical targets are not backdated or resent.",
+  "neo_tab_gate": {
+    "enabled": false,
+    "parked_by": "CC-464",
+    "parked_file_present": true
+  }
+}
