@@ -36,7 +36,8 @@ def test_six_real_captures_match_visible_axes_and_all_overlay_pixels(market, var
 
 
 @pytest.mark.parametrize("scalar", [False, True])
-def test_target_is_drawn_at_the_observed_scale_when_supplied(tmp_path,scalar):
+def test_a_supplied_target_is_never_drawn(tmp_path,scalar):
+    # CC-583 / decision 82: "A target is never drawn"; the zone and invalidation stay exactly as drawn.
     _, asset = captured("EURUSD")
     source = deepcopy(asset["plan_overlay"]["source"])
     scale = asset["tradingview_snapshot"]["chart_geometry"]
@@ -47,13 +48,12 @@ def test_target_is_drawn_at_the_observed_scale_when_supplied(tmp_path,scalar):
     plain = tv.snapshot_asset("EURUSD", "Controlled geometry test", asset["tradingview_snapshot"], tmp_path)
     marked = overlay.apply(plain,source)
     overlay.validate(marked,source)
-    marker = next(m for m in marked["plan_overlay"]["markers"] if m["label"] == "Target")
-    assert marker['price']==target
-    assert marked['plan_overlay']['source']['levels']['target']==source['levels']['target']
-    assert marker["edge"] is None and marker["error_px"] <= .5
+    assert [m["label"] for m in marked["plan_overlay"]["markers"]] == [m["label"] for m in asset["plan_overlay"]["markers"]]
+    assert marked["plan_overlay"]["target_drawn"] is False and "target" not in marked["plan_overlay"]["source"]["levels"]
     with Image.open(marked["path"]) as im:
         ox,oy = marked["tradingview_snapshot"]["framing"]["original_box"][:2]
-        assert im.getpixel((scale["pane_box"][0]+60+ox,marker["y"])) == (31,83,160)
+        y = round(overlay._price_y(scale,target)+oy)
+        assert im.getpixel((scale["pane_box"][0]+60+ox,y)) != (31,83,160)
 
 
 def test_a_level_beyond_the_visible_range_has_a_priced_edge_marker():
@@ -65,13 +65,13 @@ def test_a_level_beyond_the_visible_range_has_a_priced_edge_marker():
 def test_the_line_and_its_label_use_the_same_exported_tick_rounding(tmp_path):
     _, asset = captured("EURUSD")
     source = deepcopy(asset["plan_overlay"]["source"])
-    source["levels"].update(target=[1.123456],tick_size=.0001)
+    source["levels"].update(zone_low=1.122456,tick_size=.0001)
     plain = tv.snapshot_asset("EURUSD","Controlled rounding test",asset["tradingview_snapshot"],tmp_path)
     marked = overlay.apply(plain,source)
-    target = next(m for m in marked["plan_overlay"]["markers"] if m["label"] == "Target")
+    low = next(m for m in marked["plan_overlay"]["markers"] if m["label"] == "Entry low")
     scale = asset["tradingview_snapshot"]["chart_geometry"]
     offset = marked["tradingview_snapshot"]["framing"]["original_box"][1]
-    assert target["expected_y"] == pytest.approx(overlay._price_y(scale,1.1235)+offset)
+    assert low["expected_y"] == pytest.approx(overlay._price_y(scale,1.1225)+offset)
     overlay.validate(marked,source)
 
 

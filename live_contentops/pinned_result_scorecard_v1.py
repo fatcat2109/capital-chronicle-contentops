@@ -8,9 +8,10 @@ from __future__ import annotations
 
 from collections import Counter
 from datetime import datetime, timezone
-from decimal import Decimal, InvalidOperation
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 import hashlib
 import json
+import re
 import urllib.error
 import urllib.request
 from uuid import uuid4
@@ -19,7 +20,7 @@ from zoneinfo import ZoneInfo
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE, check_publication_copy
 from .plan_status_export_contract_v1 import validate_export_contract
 from .plan_status_posts_v1 import (
-    EXPORT_DIR, MAIN_ROOT, EXPORT_MAX_AGE_MINUTES, _display_plan, _instrument_title,
+    EXPORT_DIR, MAIN_ROOT, EXPORT_MAX_AGE_MINUTES, TITLES, _built_plan, _instrument_title,
     _level, _utc, export_freshness, read_export, result_rows_from_export,
 )
 
@@ -32,6 +33,12 @@ CHAT = "@CapitalChronicle"
 LIMIT = 4096
 ET = ZoneInfo("America/New_York")
 RESULTS = ("HIT", "STOPPED", "EXPIRED", "NOT_TRIGGERED")
+# CC-583 (decision 40): the record prints the plan's own levels, rounded to the plan
+# instrument's tick. Main exports that tick as target_tick_size; where a plan lacks it,
+# the first-phase market's exported tick (plan-status export of 14 Nov 2026) applies.
+PLAN_TICKS = {"XAUUSD": "0.001", "US500": "0.01", "EURUSD": "0.00001", "USDJPY": "0.001",
+              "USOIL": "0.001", "BTCUSD": "0.01"}
+_OLD_PRICE = re.compile(r" \| entry zone -?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?(?: \(plan levels\))?(?= \| )")
 
 
 def _json(value):
@@ -47,6 +54,61 @@ def text_length(text):
     return len(text.encode("utf-16-le")) // 2
 
 
+def _tick(symbol, source):
+    for value in (source.get("target_tick_size"), PLAN_TICKS.get(symbol)):
+        if value is None:
+            continue
+        try:
+            tick = Decimal(str(value))
+        except InvalidOperation:
+            continue
+        if tick.is_finite() and tick > 0:
+            return tick
+    return None
+
+
+def plan_levels(symbol, plan, source):
+    """The plan's own entry zone on its instrument's tick, or None: then no price prints.
+
+    A mapped instrument's converted prices are never printed (decision 40): they are not
+    plan levels, and collapsed to one unrounded value they read as an order price. A zone
+    whose low and high are one price reads the same way, so it prints no price either."""
+    low, high = plan.get("zone_low"), plan.get("zone_high")
+    if low is None or high is None:
+        return None
+    try:
+        lower, upper = Decimal(str(low)), Decimal(str(high))
+    except InvalidOperation:
+        raise ValueError("SCORECARD_ZONE_INVALID") from None
+    if not lower.is_finite() or not upper.is_finite() or lower > upper:
+        raise ValueError("SCORECARD_ZONE_INVALID")
+    tick = _tick(symbol, source)
+    if tick:
+        lower, upper = ((v / tick).quantize(Decimal(1), rounding=ROUND_HALF_UP) * tick for v in (lower, upper))
+    if lower == upper:
+        return None
+    return f"entry zone {_level(lower)}–{_level(upper)} (plan levels)"
+
+
+def _line(row, *, title, direction, levels, end_direction):
+    return (f"{_utc(row['at_utc']).astimezone(ET):%Y-%m-%d} ET | {title} | original direction was {direction}"
+            + (f" | {levels}" if levels else "")
+            + f" | {row['result'].replace('_', ' ')}"
+            + (" (untriggered; not scored)" if not row["scored"] else "")
+            + (" (correction)" if row.get("corrects_outcome_id") else "")
+            + (" | end direction: " + end_direction.lower() if end_direction else ""))
+
+
+def _plan_fields(symbol, source):
+    plan = _built_plan(source)
+    direction = plan.get("direction")
+    if direction not in {"bullish", "bearish"}:
+        raise ValueError("SCORECARD_DIRECTION_INVALID")
+    # The title names the market as every post does; levels and direction are the plan's own.
+    return {"title": _instrument_title(symbol, plan), "direction": direction,
+            "levels": plan_levels(symbol, plan, source)}
+
+
 def project(export, *, now=None, retained_rows=()):
     """All explicit outcomes, irrespective of result-post selection or age."""
     validate_export_contract(export)
@@ -55,39 +117,22 @@ def project(export, *, now=None, retained_rows=()):
     if not 0 <= freshness["export_age_seconds"] <= EXPORT_MAX_AGE_MINUTES * 60:
         raise ValueError("SCORECARD_EXPORT_STALE_OR_FUTURE")
     plans = {p["plan_id"]: p for p in export["status"]["plans"]}
-    rows = {r["plan_id"]: r for r in retained_rows}
+    rows = {r["plan_id"]: dict(r) for r in retained_rows}
     for row in result_rows_from_export(export, include_not_triggered=True):
         plan = plans[row["plan_id"]]
         score = (plan.get("outcome") or {}).get("score") or {}
         if (_utc(row["at_utc"]) > now
                 or (score.get("scored_at_utc") and _utc(score["scored_at_utc"]) > now)):
             raise ValueError("SCORECARD_RESULT_FROM_FUTURE")
-        display = _display_plan(row["plan"])
-        direction = display.get("direction")
-        if direction not in {"bullish", "bearish"}:
-            raise ValueError("SCORECARD_DIRECTION_INVALID")
-        low, high = display.get("zone_low"), display.get("zone_high")
-        try:
-            lower, upper = Decimal(str(low)), Decimal(str(high))
-        except InvalidOperation:
-            raise ValueError("SCORECARD_ZONE_INVALID") from None
-        if not lower.is_finite() or not upper.is_finite() or lower > upper:
-            raise ValueError("SCORECARD_ZONE_INVALID")
+        fields = _plan_fields(row["symbol"], plan)
         # This field remains absent until Main exports it. Never infer it from prices.
         end_direction = score.get("direction_at_window_end")
         if end_direction not in {None, "BULLISH", "BEARISH", "FLAT"}:
             raise ValueError("SCORECARD_END_DIRECTION_INVALID")
-        line = (f"{_utc(row['at_utc']).astimezone(ET):%Y-%m-%d} ET | "
-                f"{_instrument_title(row['symbol'], row['plan'])} | original direction was {direction} | "
-                f"entry zone {_level(low)}–{_level(high)}"
-                + (" (plan levels)" if display.get("price_basis") == "plan" else "")
-                + f" | {row['result'].replace('_', ' ')}"
-                + (" (untriggered; not scored)" if not row["scored"] else "")
-                + (" (correction)" if row.get("corrects_outcome_id") else "")
-                + (" | end direction: " + end_direction.lower() if end_direction else ""))
         projected = {k: row.get(k) for k in (
             "plan_id", "outcome_id", "score_hash", "at_utc", "result", "scored", "corrects_outcome_id")}
-        projected.update(line=line, scored_at_utc=score.get("scored_at_utc"),
+        projected.update(line=_line(row, end_direction=end_direction, **fields), symbol=row["symbol"],
+                         levels=fields["levels"], scored_at_utc=score.get("scored_at_utc"),
                          direction_at_window_end=end_direction)
         previous = rows.get(row["plan_id"])
         # A temporary incomplete export cannot erase a held, explicit score.
@@ -97,6 +142,21 @@ def project(export, *, now=None, retained_rows=()):
             if _utc(previous["scored_at_utc"]) > _utc(projected["scored_at_utc"]):
                 continue
         rows[row["plan_id"]] = projected
+    for plan_id, held in rows.items():
+        if "levels" in held:
+            continue  # Rendered under CC-583's plan-level rule.
+        # A line held from before CC-583 may print a converted, unrounded price. Render it
+        # again from its plan; a plan no longer exported keeps its line without a price.
+        source = plans.get(plan_id)
+        try:
+            fields = _plan_fields(source["asset_id"], source) if source and source.get("asset_id") in TITLES else None
+        except ValueError:
+            fields = None
+        if fields:
+            held.update(line=_line(held, end_direction=held.get("direction_at_window_end"), **fields),
+                        symbol=source["asset_id"], levels=fields["levels"])
+        else:
+            held.update(line=_OLD_PRICE.sub("", held["line"]), levels=None)
     ordered = sorted(rows.values(), key=lambda r: (_utc(r["at_utc"]), r["plan_id"]), reverse=True)
     counts = {key: Counter(r["result"] for r in ordered)[key] for key in RESULTS}
     counts.update(total=len(ordered), scored=sum(r["scored"] for r in ordered))
@@ -111,7 +171,7 @@ def render(rows, counts):
               f"EXPIRED: {counts['EXPIRED']} | NOT TRIGGERED: {counts['NOT_TRIGGERED']}\n"
               f"Scored: {counts['scored']}; unscored expiries: {counts['total'] - counts['scored']}.\n\n")
     footer = ("\n\nNewest results first; the weekly wrap keeps the complete record. "
-              "Results describe resolved conditional model calls.\n\n"
+              "Results describe resolved conditional calls.\n\n"
               f"{PUBLIC_NOTICE} {CONFLICTS_NOTICE}")
     selected = []
     for row in rows:

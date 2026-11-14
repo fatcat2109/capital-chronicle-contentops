@@ -112,14 +112,26 @@ def geometry(result):
 
 
 def source_binding(row):
+    """The levels the overlay draws. Decision 82: a target is never drawn, so none is bound."""
     levels = row.get("levels") or {}
-    fields = ("zone_low", "zone_high", "invalidation_level", "target", "tick_size", "valid_until_utc", "direction")
+    fields = ("zone_low", "zone_high", "invalidation_level", "tick_size", "valid_until_utc", "direction")
     bound = {k: levels[k] for k in fields if k in levels}
-    if not bound.get("target") and levels.get("target_level") is not None:
-        value = levels["target_level"]
-        bound["target"] = list(value) if isinstance(value, (list, tuple)) else [value]
     return {"key": row["key"], "symbol": row["symbol"], "source_content_hash": row.get("source_content_hash"),
             "levels": bound}
+
+
+def _drawn_binding(source):
+    # Images made before CC-583 bound a target field too; it is not part of what is drawn.
+    return {**source, "levels": {k: v for k, v in (source.get("levels") or {}).items()
+                                 if k not in {"target", "target_level"}}}
+
+
+def target_drawn(asset):
+    """CC-583: whether the overlay drew a target, from what it drew (its markers), never
+    from the raw snapshot's own record, which describes the plain download."""
+    overlay = (asset or {}).get("plan_overlay") or {}
+    return (overlay.get("target_drawn") is True
+            or any(m.get("label") == "Target" for m in overlay.get("markers") or []))
 
 
 def _price_y(scale, price):
@@ -138,16 +150,14 @@ def _draw(image, overlay, offset):
     left, top, right, bottom = left+16+ox, top+62+oy, right-16+ox, bottom-12+oy
     draw = ImageDraw.Draw(image, "RGBA")
     levels = deepcopy(overlay["source"]["levels"])
-    if levels.get("target") is not None and not isinstance(levels["target"], (list, tuple)):
-        # Plan-page display geometry carries one exact target scalar; cards
-        # carry a sequence. Preserve the bound source and draw either shape.
-        levels["target"] = [levels["target"]]
+    # Decision 82: "A target is never drawn", whatever the bound source carries.
+    levels.pop("target", None)
+    levels.pop("target_level", None)
     offset = (overlay.get("price_scale_check") or {}).get("level_offset", 0)
     if offset:
         for field in ("zone_low", "zone_high", "invalidation_level"):
             if levels.get(field) is not None:
                 levels[field] = float(levels[field]) + offset
-        levels["target"] = [float(value) + offset for value in levels.get("target") or []]
     if overlay.get("basis_label"):
         font = _font("semibold", 16)
         label = overlay["basis_label"]
@@ -157,12 +167,10 @@ def _draw(image, overlay, offset):
         top += 30
     markers = []
     entry_colour = (31,95,191,255) if overlay.get("entry_colour") == "blue" else (25,110,95,255)
-    colors = {"Entry low": entry_colour, "Entry high": entry_colour,
-              "Invalidation": (175,40,57,255), "Target": (31,83,160,255)}
+    colors = {"Entry low": entry_colour, "Entry high": entry_colour, "Invalidation": (175,40,57,255)}
     from .plan_call_cards_v1 import level as display_level
     for label, price in [("Entry low",levels.get("zone_low")), ("Entry high",levels.get("zone_high")),
-                         ("Invalidation",levels.get("invalidation_level")),
-                         *(("Target",p) for p in levels.get("target") or [])]:
+                         ("Invalidation",levels.get("invalidation_level"))]:
         if price is None:
             continue
         display = display_level(price, levels)
@@ -189,7 +197,7 @@ def _draw(image, overlay, offset):
     for marker, ly in zip(markers,label_y):
         color = colors[marker["label"]]
         if not marker["edge"]:
-            draw.line((left,marker["y"],right,marker["y"]),fill=color,width=2 if marker["label"] in {"Target","Invalidation"} else 1)
+            draw.line((left,marker["y"],right,marker["y"]),fill=color,width=2 if marker["label"] == "Invalidation" else 1)
         else:
             tip = top if marker["edge"] == "above view" else bottom
             direction = 1 if marker["edge"] == "above view" else -1
@@ -228,6 +236,8 @@ def apply(asset, row, *, require_verified=True):
         overlay["markers"] = _draw(image,overlay,asset["tradingview_snapshot"]["framing"]["original_box"][:2])
         if not overlay["markers"] or any(m["error_px"] > 2 for m in overlay["markers"]):
             raise ValueError("TRADINGVIEW_OVERLAY_LEVEL_PIXEL_CHECK_FAILED")
+        # Recorded from what was drawn; validate() below redraws, compares and refuses a target.
+        overlay["target_drawn"] = any(m["label"] == "Target" for m in overlay["markers"])
         target = source.with_name(source.stem+"-levels-"+_hash(overlay)[:16]+".png")
         image.save(target,format="PNG")
     result.update(path=str(target),sha256=hashlib.sha256(target.read_bytes()).hexdigest(),
@@ -240,9 +250,12 @@ def apply(asset, row, *, require_verified=True):
 def validate(asset, row=None):
     overlay = asset["plan_overlay"]
     snap = asset["tradingview_snapshot"]
+    if target_drawn(asset):
+        # Decision 82: an image whose overlay drew a target is never published.
+        raise ValueError("TRADINGVIEW_OVERLAY_TARGET_DRAWN")
     if (overlay["policy"] != POLICY or overlay["scale"] != snap.get("chart_geometry")
             or overlay["scale"]["source_sha256"] != snap["sha256"]
-            or (row and _hash(overlay["source"]) != _hash(source_binding(row)))):
+            or (row and _hash(_drawn_binding(overlay["source"])) != _hash(source_binding(row)))):
         raise ValueError("TRADINGVIEW_OVERLAY_SOURCE_OR_SCALE_CHANGED")
     if overlay.get("price_scale_check") != snap.get("price_scale_check"):
         raise ValueError("TRADINGVIEW_OVERLAY_PRICE_BASIS_CHANGED")

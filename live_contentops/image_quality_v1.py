@@ -33,7 +33,8 @@ CHECKLIST = (
     "No internal terms, identifiers, money, volume, account or model; ET times, R results, probability pair",
     "No empty band over 8%; chart fills at least 60%",
 )
-BANNED = ("model estimate", "base-case chance", "the model", "our model", "model position", "demo account", "demo",
+BANNED = ("model estimate", "base-case chance", "the model", "our model", "model position", "model call", "model calls",
+          "demo account", "demo",
           "paper account", "paper trading", "AI-run", "AI-generated", "as an AI", "language model", "LLM", "GPT",
           "Claude", "Fable", "Opus", "Gemini", "Codex", "Antigravity", "Anthropic", "OpenAI", "system prompt",
           "the prompt", "AI agent", "subagent", "vol-normalised", "volatility-normalised", "z-score", "sd over",

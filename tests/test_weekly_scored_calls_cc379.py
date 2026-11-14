@@ -62,7 +62,7 @@ def test_empty_week_is_explicit_without_invented_results():
     data["status"].update(plans=[], scored_call_count=0)
     record = weekly.project(data, cutoff_utc=CUTOFF)
     assert record["counts"] == {"scored_calls": 0, "hits": 0, "stops": 0}
-    assert "No conditional model calls were scored" in record["text"]
+    assert "No conditional calls were scored" in record["text"]
 
 
 def test_cc394_weekly_overflow_keeps_main_scored_not_triggered():
@@ -152,7 +152,7 @@ def test_native_source_packet_and_writer_use_retained_record_on_restart(tmp_path
 
 
 def article_for(doc):
-    sentence = "Results refer to resolved conditional model calls."
+    sentence = "Results refer to resolved conditional calls."
     body = "\n\n".join(p + " [[SOURCE:SOURCE_1]]" for p in doc["canonical_content_text"].split("\n\n"))
     article = {k: sentence for k in ("title", "dek", "search_title", "meta_description", "social_hook")}
     article["substack_body_markdown"] = body

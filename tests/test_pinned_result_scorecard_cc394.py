@@ -132,10 +132,11 @@ def test_no_free_text_execution_data_or_inferred_end_direction():
 
 
 def test_mapped_instrument_zone_uses_one_complete_price_basis():
+    # CC-583 (decision 40): the record prints only the plan's own levels, never a mapped conversion.
     plan = call("mapped")
     plan["public_instrument"].update(zone_low=6010, zone_high=6015, invalidation_level=5995, direction="BULLISH")
     text = scorecard.project(export(plan), now=NOW)["text"]
-    assert "entry zone 6,010–6,015" in text and "(plan levels)" not in text
+    assert "entry zone 6,000.5–6,005.5 (plan levels)" in text and "6,010" not in text
 
 
 def test_legacy_expiry_is_unscored_until_main_supplies_not_triggered():

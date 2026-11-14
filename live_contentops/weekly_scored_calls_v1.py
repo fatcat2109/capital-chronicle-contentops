@@ -25,7 +25,7 @@ WRITER_GUIDANCE = (
     "Include its canonical_content_text exactly once as a section of substack_body_markdown, "
     "adding the usual SOURCE markers to bind each paragraph and call line. "
     "Retain every call, including stops and window-end closes, and the weekly counts. Bind claims to this "
-    "source as usual. These are resolved conditional model calls, not new trade instructions. "
+    "source as usual. These are resolved conditional calls, not new trade instructions. "
     "Do not claim a track record, alpha, returns, win rate, R, money, size, account details or performance. "
     "The usual Main-sourced scenarios and editorial roles still apply.\n"
 )
@@ -130,8 +130,8 @@ def project(export, *, cutoff_utc):
     text = (f"## The week's call results ({period})\n\n"
             f"Scored calls: {counts['scored_calls']}. Hits: {counts['hits']}. Stops: {counts['stops']}."
             + (f" Unscored expiries: {unscored}." if unscored else "") + "\n\n"
-            + ("\n".join(r["line"] for r in rows) if rows else "No conditional model calls were scored for this week.")
-            + f"\n\nResults refer to resolved conditional model calls.\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}")
+            + ("\n".join(r["line"] for r in rows) if rows else "No conditional calls were scored for this week.")
+            + f"\n\nResults refer to resolved conditional calls.\n\n{PUBLIC_NOTICE} {CONFLICTS_NOTICE}")
     check_publication_copy({"body": text})
     return {"schema_version": SCHEMA, "cutoff_utc": cutoff_utc,
             "week_start_et": start.isoformat(), "week_end_exclusive_et": end.isoformat(),

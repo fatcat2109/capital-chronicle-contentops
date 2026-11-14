@@ -112,7 +112,7 @@ _PRIVATE_KEY = re.compile(
 # while "a lot of" or "lots of" in ordinary prose is not a size.
 _PRIVATE_TEXT = re.compile(
     r"\b(?:demo|mt[45]|mt5\s*trial\d*|exness[\w-]*|metatrader\s*\d?|stop[ -]?loss|take[ -]?profit|entry price|"
-    r"entry level|model[\s-]+positions?|position siz(?:e|ing)|account (?:id|number|balance|equity)|"
+    r"entry level|model[\s-]+positions?|model[\s-]+calls?|position siz(?:e|ing)|account (?:id|number|balance|equity)|"
     r"portfolio (?:positions?|results?|returns?)|our (?:positions?|holdings?)|"
     r"p\s*&\s*l|lot\s+sizes?)\b|"
     r"(?<![\w.])(?:\d+(?:\.\d+)?|one|two|three|four|five|six|seven|eight|nine|ten|half\s+a|a\s+single)\s*"
@@ -294,11 +294,12 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
         "", remainder)
     # CC-394 / decision 109: the same resolved record in the pinned scorecard.
     # Only this complete dated result line is historical; free directional prose
-    # still requires decision 40's condition, horizon and invalidation.
+    # still requires decision 40's condition, horizon and invalidation. CC-583: a
+    # line without plan levels prints no price at all.
     remainder = re.sub(
         r"(?m)^\d{4}-\d{2}-\d{2} ET \| [^|\n]{1,140} \| "
-        r"original direction was (?:bullish|bearish) \| entry zone "
-        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?(?: \(plan levels\))? \| "
+        r"original direction was (?:bullish|bearish) \| (?:entry zone "
+        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?(?: \(plan levels\))? \| )?"
         r"(?:HIT|STOPPED|EXPIRED|NOT TRIGGERED)(?: \(untriggered; not scored\))?"
         r"(?: \(correction\))?(?: \| end direction: (?:bullish|bearish|flat))?$",
         "", remainder)
