@@ -162,3 +162,32 @@ def test_measured_piece_reuses_the_bound_web_only_substack_transport(monkeypatch
     packet={"operation_id":"cc536-measured-odds-1","request":{"destination":"substack"}}
     assert driver.perform(packet)=={"same_transport":True}
     assert observed==[packet]
+
+
+def test_repaired_substack_control_releases_only_its_proven_preclick_no_write(tmp_path):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.neo_endpoint_executor_v1 import repaired_prewrite_request
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    packet=odds.register(store,SOURCE/'piece-1.json',tmp_path/'article')
+    c=DurablePublicationCoordinator(store=store,transport_runtime=None)
+    c.register_plan(packet['identity'],packet['plan'])
+    ids=c._ids(packet['identity'],packet['plan']['plan_hash'],'substack')
+    request={'action':'PUBLISH','destination':'substack','dispatch_attempt_identity':ids['dispatch_id'],'request_sha256':'a'*64}
+    body={'operation_id':packet['identity'],'request':request}
+    store.register_outbox_message(message_id='test-request',work_item_id=packet['identity'],destination='internal:native-neo-tool',payload=json.dumps(body),status='NATIVE_NEO_INTERNAL')
+    result={'status':'FAILED_BEFORE_WRITE','definite_no_write':True,'public_write_performed':False,
+        'stage':'BEFORE_PUBLISH_CLICK','reason_code':'NEO_CONTROL_COVERED_ACT','native_tool_return_sha256':'b'*64,
+        'neo_executor_revision':'old-source','native_tool_observation':{}}
+    key='native-neo-'+sha256_of([packet['identity'],request['request_sha256'],'response'])
+    store.register_outbox_message(message_id=key,work_item_id=packet['identity'],destination='internal:native-neo-tool',payload=json.dumps({'result':result}),status='NATIVE_NEO_INTERNAL')
+    dispatch={'status':'DEFINITE_NO_WRITE','platform':'substack','message_id':ids['message_id'],'dispatch_id':ids['dispatch_id']}
+    assert repaired_prewrite_request(store,dispatch,executor_revision='new-source')['reason_code']=='NEO_CONTROL_COVERED_ACT'
+    assert repaired_prewrite_request(store,dispatch,executor_revision='old-source') is None
+    assert repaired_prewrite_request(store,{**dispatch,'status':'UNKNOWN_WRITE'},executor_revision='new-source') is None
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],platform='substack',status='DEFINITE_NO_WRITE')
+    store.register_reconciliation(reconciliation_id=ids['reconciliation_id'],work_item_id=packet['identity'],status='NEO_CONTROL_COVERED_ACT')
+    assert store.claim_platform_dispatch_attempt(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],platform='substack',
+        expected_status='DEFINITE_NO_WRITE',policy_no_write_cause='NEO_CONTROL_COVERED_ACT')
+    result['native_tool_observation']['dispatched_at_utc']='2026-11-14T06:00:00Z'
+    store.finalize_outbox_payload_before_dispatch(message_id=key,payload=json.dumps({'result':result}),status='NATIVE_NEO_INTERNAL')
+    assert repaired_prewrite_request(store,dispatch,executor_revision='new-source') is None

@@ -2898,7 +2898,7 @@ class DurablePublicationCoordinator:
                 and not self._message_is_stale(message, intent) else None)
             repaired_composer_no_write = bool(repair_proof
                 and reconciliation_status in {None, "NEO_COMPOSER_PREPARATION_FAILED",
-                    "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_REGISTERED_PROFILE_UNAVAILABLE"})
+                    "NEO_COMPOSER_PAYLOAD_MISMATCH", "NEO_REGISTERED_PROFILE_UNAVAILABLE", "NEO_CONTROL_COVERED_ACT"})
             if repaired_composer_no_write and reconciliation_status is None:
                 # Older definite no-writes omitted a reconciliation row. Retain
                 # their immutable native return and record its actual pre-click

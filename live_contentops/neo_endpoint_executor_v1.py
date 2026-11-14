@@ -713,7 +713,7 @@ def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
     code revision cannot release the existing exactly-once dispatch fence.
     """
     if (dispatch.get("status") != "DEFINITE_NO_WRITE" or dispatch.get("public_object_id")
-            or dispatch.get("public_object_url") or dispatch.get("platform") not in {"x","substack_notes"}):
+            or dispatch.get("public_object_url") or dispatch.get("platform") not in {"x","substack_notes","substack"}):
         return None
     message=store.get_outbox_message(dispatch["message_id"])
     if not message:
@@ -730,10 +730,16 @@ def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
         key="native-neo-"+sha256_of([packet["operation_id"],request["request_sha256"],"response"])
         response=store.get_outbox_message(key)
         result=json.loads(response["payload"]).get("result",{}) if response else {}
+        allowed_causes={"NEO_COMPOSER_PREPARATION_FAILED","NEO_COMPOSER_PAYLOAD_MISMATCH",
+                        "NEO_REGISTERED_PROFILE_UNAVAILABLE"}
+        if dispatch["platform"]=="substack":
+            from .plan_substack_neo_v1 import supports_operation
+            if not supports_operation(packet["operation_id"]):
+                return None
+            allowed_causes={"NEO_CONTROL_COVERED_ACT"}
         if (result.get("status") != "FAILED_BEFORE_WRITE" or result.get("definite_no_write") is not True
                 or result.get("public_write_performed") is not False or result.get("stage") != "BEFORE_PUBLISH_CLICK"
-                or result.get("reason_code") not in {"NEO_COMPOSER_PREPARATION_FAILED","NEO_COMPOSER_PAYLOAD_MISMATCH",
-                    "NEO_REGISTERED_PROFILE_UNAVAILABLE"}
+                or result.get("reason_code") not in allowed_causes
                 or not result.get("native_tool_return_sha256")
                 or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
                 or result.get("neo_executor_revision") == revision):

@@ -370,6 +370,7 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
         output_dir=Path(packet["output_dir"])/"native-neo",native_invocation_id=invocation_id,
         allow_publish=True,automatic=automatic,endpoint_client=client)
     coordinator.recovery_scope={"work_item_id":packet["identity"],"plan":packet["plan"],"exact_work_item_only":True}
+    coordinator.allow_prior_confirmed_distribution=True
     try:
         if command in {"begin","submit"}:
             result = executor.begin(request_hash) if command=="begin" else executor.submit(request_hash,response)
@@ -377,6 +378,15 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
             result = {"dispatches":[d for d in store.list_platform_dispatches()
                 if (store.get_outbox_message(d["message_id"]) or {}).get("work_item_id")==packet["identity"]]}
         else:
+            if draft_url:
+                # Continue this exact corrected dispatch through its owner.
+                # Its waiting social rows cannot require a canonical that the
+                # same pre-click repair has not yet had a chance to publish.
+                message=store.get_outbox_message(ids["message_id"])
+                outcome=coordinator._dispatch_message(message,canonical_url=None)
+                if (outcome.get("status")!="DISPATCH_CONFIRMED"
+                        or outcome.get("reconciliation_status")!="RECONCILED_CONFIRMED"):
+                    return {"publication":outcome,"pending_requests":executor.pending()}
             result=coordinator.publish_plan(packet["identity"],packet["plan"])
     except NativeNeoInputRequired as pending:
         return {"state":"NATIVE_NEO_TOOL_PENDING","native_tool_request":pending.request}
