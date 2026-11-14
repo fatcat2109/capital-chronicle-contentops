@@ -380,6 +380,34 @@ def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,m
         assert e.fresh_publish_request(base) is None
 
 
+@pytest.mark.parametrize("case,allowed", [("exact_absence",True),("wrong_intent",False),("before_claim",False),("empty_feed",False)])
+def test_cc536_lost_article_claim_needs_exact_later_absence_before_new_native_identity(tmp_path,case,allowed):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store=copied_store(tmp_path)
+    store.create_work_item(story_id="article",work_item_id="article",title="Article",target_surface="MULTI_PLATFORM")
+    exe=neo.EndpointNeoExecutor(store,operation_id="article",output_dir=tmp_path/'native',native_invocation_id="test",allow_publish=True)
+    base={"action":"PUBLISH","destination":"linkedin_company","work_item_id":"article","intent_sha256":"exact-intent",
+        "package_identity":"exact-package","payload_hash":"exact-text","expected_identity":"linkedin:company:143198922","canonical_url":"https://capitalchronicle.substack.com/p/article"}
+    claim={"native_invocation_id":"lost-run","begun_at_utc":"2026-11-14T08:18:00+00:00"}
+    exe._put(sha256_of(base),'started',claim,'article')
+    read={**base,"action":"READBACK","entry_url":"https://www.linkedin.com/company/143198922/admin/page-posts/published/",
+        "latest_dispatch_attempt_at_utc":"2026-11-14T08:00:00+00:00"}
+    if case=='wrong_intent': read['intent_sha256']='other-intent'
+    read['request_sha256']=sha256_of(read)
+    result={"target_post_absent":True,"authenticated":True,"activity_feed_loaded":case!='empty_feed',
+        "observed_profile_url":read['entry_url'],"native_tool_return_sha256":"actual-observation",
+        "native_tool_observation":{"observed_at_utc":"2026-11-14T08:12:00+00:00" if case=='before_claim' else "2026-11-14T08:58:00+00:00"}}
+    exe._put(read['request_sha256'],'request',{'request':read},'article')
+    exe._put(read['request_sha256'],'response',{'result':result},'article')
+    refreshed=exe.fresh_publish_request(base)
+    assert bool(refreshed) is allowed
+    assert exe._get(sha256_of(base),'started')==claim
+    if allowed:
+        assert refreshed['supersedes_reconciled_absent_claim_sha256']
+        exe._put(sha256_of(refreshed),'started',{'native_invocation_id':'next-run','begun_at_utc':'2026-11-14T09:00:00+00:00'},'article')
+        assert exe.fresh_publish_request(base)==refreshed
+
+
 @pytest.mark.parametrize('destination',['x','substack_notes'])
 @pytest.mark.parametrize('refusal',['NEO_COMPOSER_PAYLOAD_MISMATCH','NEO_REGISTERED_PROFILE_UNAVAILABLE'])
 def test_minute_consumer_resumes_an_exact_unsent_composer_only_after_repair(tmp_path,monkeypatch,destination,refusal):

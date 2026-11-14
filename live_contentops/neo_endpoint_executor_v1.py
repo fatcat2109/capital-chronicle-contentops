@@ -842,7 +842,31 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         from .capital_chronicle_latest_report_consumer_v1 import sha256_of
         refreshed = dict(request)
         while True:
-            previous = self._get(sha256_of(refreshed), "response") or {}
+            key = sha256_of(refreshed)
+            previous = self._get(key, "response") or {}
+            claim = self._get(key, "started")
+            if not previous and claim and request.get("destination") in ARTICLE_ROUTES and request.get("intent_sha256"):
+                from .native_neo_executor_v1 import _readback_absence_evidence
+                observed = []
+                bindings = ("destination", "work_item_id", "intent_sha256", "package_identity", "payload_hash", "expected_identity", "canonical_url")
+                for row in self.store.list_outbox_messages(destination="internal:native-neo-tool", work_item_id=request["work_item_id"]):
+                    packet = json.loads(row["payload"])
+                    read = packet.get("request") or {}
+                    if read.get("action") != "READBACK" or any(read.get(k) != request.get(k) for k in bindings):
+                        continue
+                    response = self._get(read.get("request_sha256"), "response") or {}
+                    result = response.get("result") or {}
+                    if not result.get("native_tool_return_sha256") or not _readback_absence_evidence(read, result):
+                        continue
+                    at = result["native_tool_observation"]["observed_at_utc"]
+                    if datetime.fromisoformat(at.replace("Z", "+00:00")) > datetime.fromisoformat(claim["begun_at_utc"]):
+                        observed.append((at, result["native_tool_return_sha256"]))
+                if observed:
+                    # The coordinator has separately claimed the reconciled
+                    # retry. Bind its new native claim to actual later absence;
+                    # a lost return alone still never creates a second click.
+                    refreshed["supersedes_reconciled_absent_claim_sha256"] = sha256_of([claim, max(observed)[1]])
+                    continue
             result = previous.get("result") or {}
             if (result.get("status") != "FAILED_BEFORE_WRITE" or result.get("definite_no_write") is not True
                     or result.get("public_write_performed") is not False
