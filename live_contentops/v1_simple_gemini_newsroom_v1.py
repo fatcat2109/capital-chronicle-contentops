@@ -1544,7 +1544,9 @@ def _selected_news_peg_blockers(
     lead = " ".join(
         str(article.get(field) or "") for field in ("title", "dek")
     )
-    headline_terms = _peg_terms(headline)
+    # Our publisher name is attribution, not a financing news peg. Keep any
+    # substantive "capital" elsewhere in the headline subject to the same check.
+    headline_terms = _peg_terms(re.sub(r"\bCapital Chronicle\b", "", headline, flags=re.I))
     lead_terms = _peg_terms(lead)
     # A primary document may have a short title such as "Q3 2026 Update".
     # Requiring two shared words is impossible for its one substantive token.
@@ -1765,6 +1767,8 @@ def _epistemic_copy_blockers(
                 clean,
                 re.IGNORECASE,
             )
+            own_interpretation = own_reader_voice and re.search(
+                r"\b(?:we think|we expect|our view|our interpretation)\b", clean, re.I)
             # CC-124: the opening already names the dated Main review. Natural
             # references to that same document retain attribution without forcing
             # the publisher's full name into every paragraph. Exact source/claim
@@ -1775,7 +1779,7 @@ def _epistemic_copy_blockers(
                               r"(?:says|records|describes|notes|finds|takes|weighs|names|treats)\b",
                               clean, re.IGNORECASE)
             )
-            if conditional is None and not report_reference and not any(
+            if conditional is None and not own_interpretation and not report_reference and not any(
                 token in _normal(clean) for token in attribution_tokens
             ):
                 blockers.append(f"epistemic_event_asserted_as_confirmed:{index}")

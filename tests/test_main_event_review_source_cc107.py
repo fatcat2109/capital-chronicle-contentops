@@ -218,3 +218,30 @@ def test_required_writing_clock_notice_needs_no_fabricated_source_fact_binding()
     notice = "Retrospective analysis, written on 14 November 2026 (ET)"
     assert _paragraph_marker_blockers(notice + "\n\nWe think the condition held. [[SOURCE:SOURCE_1]]", {"SOURCE_1"}) == []
     assert _paragraph_marker_blockers(notice + ". Gold rose.", {"SOURCE_1"}) == ["unbound_body_paragraph:1"]
+
+
+def test_own_brand_does_not_turn_nfp_review_into_financing_news():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
+    candidate = {"headline_text": "Capital Chronicle NFP review: the Strong branch and measured market response"}
+    article = {"title": "October payrolls met our Strong condition", "dek": "Our NFP review separates the market response from the score."}
+    assert _selected_news_peg_blockers(article, candidate) == []
+    assert _selected_news_peg_blockers({"title": "A financing platform raises money"}, candidate)
+    assert _selected_news_peg_blockers(article, {"headline_text": "Capital Chronicle reviews a capital financing platform"})
+
+
+@pytest.mark.parametrize("voice,accepted", [("We think", True), ("Our interpretation is that", True), ("It is confirmed that", False)])
+def test_own_reader_interpretation_keeps_its_epistemic_qualifier(voice, accepted):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _epistemic_copy_blockers
+    notice = "Our dated analysis does not independently confirm events or establish a performance record."
+    state = {"schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT", "event_confirmation_state": "UNCONFIRMED",
+        "origin_character": "ON_RECORD", "source_multiplicity": "SINGLE_SOURCE",
+        "report_proposition": "The dated NFP review", "event_proposition": "The report records market observations",
+        "primary_reporting_publisher": "Capital Chronicle", "primary_reporting_source_identity": "our-nfp-review",
+        "reader_visible_epistemic_label": "DATED REVIEW", "report_truth_supported": True,
+        "event_truth_supported": False, "authority_granted_by_adapter": False, "report_scope_notice": notice}
+    article = {"reader_article_contract": {"policy": "CC403_READER_ARTICLE_V1"},
+        "title": "Our NFP review", "dek": "We think the release met our condition.",
+        "substack_body_markdown": voice + " the report and market response answer different questions. [[SOURCE:SOURCE_1]]\n\n" + notice}
+    blockers = _epistemic_copy_blockers(article, [{"attribution_required": True}], state)
+    assert ("epistemic_event_asserted_as_confirmed:1" not in blockers) == accepted
