@@ -125,6 +125,17 @@ def test_registered_copy_and_source_manifest_are_immutable(tmp_path):
         odds.validate_plan(store,packet["identity"],packet["plan"])
 
 
+def test_status_needs_no_native_invocation_or_browser_executor(tmp_path,monkeypatch):
+    from live_contentops import native_desktop_publication_v1 as publication
+    from live_contentops import native_neo_executor_v1 as native
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    packet=odds.register(store,SOURCE/'piece-1.json',tmp_path/'article')
+    monkeypatch.setattr(publication,'live_publication_policy',lambda _:None)
+    monkeypatch.setattr(native,'bind_native_neo_coordinator',lambda *a,**kw:pytest.fail('Status created a browser executor'))
+    assert odds.continue_piece(store,packet,invocation_id=None,rollout={'store_path':str(store.db_path)},command='status')=={
+        'publication':{'dispatches':[]},'pending_requests':[]}
+
+
 def confirm_method(store, tmp_path):
     packet = odds.register(store,SOURCE / "piece-1.json",tmp_path / "method")
     coordinator = DurablePublicationCoordinator(store=store,transport_runtime=None)

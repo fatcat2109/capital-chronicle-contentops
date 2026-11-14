@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="21.607" timestamp="2026-11-14T13:08:33.989468+07:00" hostname="J-P"><testcase classname="tests.test_measured_odds_series_cc536" name="test_status_needs_no_native_invocation_or_browser_executor" time="5.494" /></testsuite></testsuites>

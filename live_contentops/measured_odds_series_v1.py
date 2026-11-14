@@ -355,6 +355,12 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
     if Path(store.db_path).resolve() != Path(rollout["store_path"]).resolve():
         raise ValueError("ODDS_PRODUCTION_STORE_MISMATCH")
     validate_plan(store, packet["identity"], packet["plan"])
+    if command=="status":
+        # A read of existing dispatches needs no new native invocation or
+        # browser executor. Model/effort labels never gate a status read.
+        return {"publication":{"dispatches":[d for d in store.list_platform_dispatches()
+            if (store.get_outbox_message(d["message_id"]) or {}).get("work_item_id")==packet["identity"]]},
+            "pending_requests":[]}
     from .neo_endpoint_executor_v1 import NeoMcpClient
     client = NeoMcpClient(task_name="cc536 measured odds",group_title="codex/cc536-method-page") if automatic else None
     if draft_url:
@@ -374,9 +380,10 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
     try:
         if command in {"begin","submit"}:
             result = executor.begin(request_hash) if command=="begin" else executor.submit(request_hash,response)
-        elif command=="status":
-            result = {"dispatches":[d for d in store.list_platform_dispatches()
-                if (store.get_outbox_message(d["message_id"]) or {}).get("work_item_id")==packet["identity"]]}
+        elif command=="readback":
+            from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+            dispatch_ids=Coordinator._ids(packet["identity"],packet["plan"]["plan_hash"],"substack")
+            result=coordinator.readback_existing_dispatch(dispatch_ids["dispatch_id"])
         else:
             if draft_url:
                 # Continue this exact corrected dispatch through its owner.
@@ -396,7 +403,7 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
 def main():
     import argparse
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command",choices=("check","register","resume","status","begin","submit"))
+    parser.add_argument("command",choices=("check","register","resume","readback","status","begin","submit"))
     parser.add_argument("--piece",type=Path,required=True)
     parser.add_argument("--output-dir",type=Path)
     parser.add_argument("--rollout",type=Path,default=Path("config/native_desktop_rollout_v1.json"))
