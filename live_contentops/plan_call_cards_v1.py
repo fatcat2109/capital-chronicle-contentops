@@ -1310,14 +1310,33 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
         return (0 if row["kind"] == "run" else 1, -posts._utc(row["at_utc"]).timestamp(),
                 {"run": 0, "setup": 1, "update": 2, "result": 3}[row["kind"]])
     pending.sort(key=priority)
-    results, calls, browser_only = [], 0, 0
+    results, calls, browser_only, readback_count = [], 0, 0, 0
     for outbox, row in pending:
         key = row["key"]
         refusal = posts.publication_refusal(store, row, now=now, latest_states=latest_states)
         if refusal:
+            readbacks = []
             if _can_retire_unstarted(store, row):
                 store.set_outbox_status(key, refusal[0])
-            results.append({"key": key, "status": refusal[0], "cause": refusal[1]})
+            else:
+                # Age forbids another send, never exact reconciliation of a
+                # possibly sent copy. This method cannot publish or retry.
+                coordinator = None
+                for destination in destinations_for(row):
+                    dispatch = _dispatch(store, key, destination) or {}
+                    if dispatch.get("status") not in {"UNKNOWN_WRITE", "ATTEMPT_STARTED", "NATIVE_NEO_PENDING"}:
+                        continue
+                    if readback_count >= limit:
+                        break
+                    readback_count += 1
+                    try:
+                        coordinator = coordinator or coordinator_for(key, Path(root) / key)
+                        readbacks.append(coordinator.readback_existing_dispatch(dispatch["dispatch_id"]))
+                    except (OSError, ValueError, KeyError, TypeError) as exc:
+                        readbacks.append({"destination": destination, "dispatch_id": dispatch["dispatch_id"],
+                            "status": "READBACK_PENDING", "cause": str(exc)[:200], "publish_called": False})
+                settle_pending(store, outbox, row, now=now, root=root)
+            results.append({"key": key, "status": refusal[0], "cause": refusal[1], "readbacks": readbacks})
             continue
         settled = settle_pending(store, outbox, row, now=now, root=root)
         if settled:

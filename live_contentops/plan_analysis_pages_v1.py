@@ -58,44 +58,49 @@ _SECRET = re.compile(r"(?:sk-[A-Za-z0-9]{16,}|access[_ -]?token\s*[:=]|api[_ -]?
 _NUM = re.compile(r"(?<![\w.])[+−-]?\d+(?:,\d{3})*(?:\.\d+)?%?(?!\w|\.\d)")
 
 
+_PIPELINE = re.compile(r"\b(?:supplied|provided)\s+(?:historical\s+)?(?:review|analysis|pack)|"
+                       r"\bthe analyst['’]s comparison|\b(?:source[- ]bound|pipeline|writer input)\b", re.I)
+_PREDICTION = re.compile(r"\b(?:Polymarket|Kalshi|PredictIt|Manifold|prediction[- ]markets?)\b", re.I)
+_PRICED = re.compile(r"\b(?:pric(?:e[sd]?|ing)|market[- ]implied|implied\s+(?:odds|probability))\b", re.I)
+_PERCENT = re.compile(r"%|\bper\s*cent\b", re.I)
+
+
+def check_reader_claim(text, *, source_name="", source_locator="", source="", pricing_source=None):
+    """A public source attribution must itself occur in the bound evidence."""
+    if _PIPELINE.search(text):
+        raise ValueError("PLAN_ANALYSIS_PIPELINE_WORDING")
+    provenance = " ".join((text, source_name, source_locator, source, json.dumps(pricing_source or {})))
+    if _numbers(text) and _PREDICTION.search(provenance):
+        raise ValueError("PLAN_ANALYSIS_PREDICTION_MARKET_NUMBERS_FORBIDDEN:JIM_DECISION_40")
+    if not _PERCENT.search(text) or not _PRICED.search(text):
+        return
+    named = (pricing_source or {}).get("name") or source_name
+    if (not named or named.casefold() == "capital chronicle" or named.casefold() not in text.casefold()
+            or named.casefold() not in source.casefold()):
+        raise ValueError("PLAN_ANALYSIS_PRICED_PERCENTAGE_SOURCE_REQUIRED")
+
+
 def check_new_page_copy(manuscript, run):
     """Apply reader/source checks to new output, preserving historical readback."""
-    pipeline = re.compile(r"\b(?:supplied|provided)\s+(?:historical\s+)?(?:review|analysis|pack)|"
-                          r"\bthe analyst['’]s comparison|\b(?:source[- ]bound|pipeline|writer input)\b", re.I)
-    prediction = re.compile(r"\b(?:Polymarket|Kalshi|PredictIt|Manifold|prediction[- ]markets?)\b", re.I)
-    priced = re.compile(r"\b(?:pric(?:e[sd]?|ing)|market[- ]implied|implied\s+(?:odds|probability))\b", re.I)
-
-    def check(text, *, source_name="", source_locator="", source="", pricing_source=None):
-        if pipeline.search(text):
-            raise ValueError("PLAN_ANALYSIS_PIPELINE_WORDING")
-        provenance = " ".join((text, source_name, source_locator, source, json.dumps(pricing_source or {})))
-        if _numbers(text) and prediction.search(provenance):
-            raise ValueError("PLAN_ANALYSIS_PREDICTION_MARKET_NUMBERS_FORBIDDEN:JIM_DECISION_40")
-        if "%" not in text or not priced.search(text):
-            return
-        named = (pricing_source or {}).get("name") or source_name
-        if (not named or named.casefold() == "capital chronicle" or named.casefold() not in text.casefold()
-                or named.casefold() not in (source + " " + source_locator).casefold()):
-            raise ValueError("PLAN_ANALYSIS_PRICED_PERCENTAGE_SOURCE_REQUIRED")
 
     for section in manuscript.get("sections", {}).values():
         paragraphs = section.get("paragraphs") or []
         for paragraph in paragraphs:
             source = "\n".join(_source_text(run, ref) for ref in paragraph.get("refs") or [])
-            check(paragraph["text"], source_name=paragraph.get("source_name", ""),
+            check_reader_claim(paragraph["text"], source_name=paragraph.get("source_name", ""),
                   source_locator=paragraph.get("source_locator", ""), source=source,
                   pricing_source=paragraph.get("pricing_source"))
         summary = section.get("summary", "")
         # A summary cannot silently drop the attribution from the full paragraph.
-        if "%" in summary and priced.search(summary):
+        if _PERCENT.search(summary) and _PRICED.search(summary):
             names = [p.get("pricing_source") or {"name": p.get("source_name", "")} for p in paragraphs]
             matched = next((n for n in names if n.get("name") and n["name"].casefold() in summary.casefold()), {})
-            check(summary, source=" ".join(p["text"] for p in paragraphs), pricing_source=matched)
+            check_reader_claim(summary, source=" ".join(p["text"] for p in paragraphs), pricing_source=matched)
         else:
-            check(summary)
+            check_reader_claim(summary)
     for field in ("title", "subtitle", "introduction"):
         text = manuscript.get(field, "")
-        check(text, source=" ".join(p["text"] for s in manuscript.get("sections", {}).values()
+        check_reader_claim(text, source=" ".join(p["text"] for s in manuscript.get("sections", {}).values()
               for p in s.get("paragraphs", [])), pricing_source=manuscript.get("pricing_source"))
 
 

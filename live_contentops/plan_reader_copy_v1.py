@@ -296,6 +296,10 @@ def validate_fields(fields, source):
         refs = [sources[k] for k in value["source_ids"]]
         if source.get("thread_contract") == THREAD_CONTRACT:
             check_thread_text(value["text"])
+        if source.get("level_contract") == LEVEL_CONTRACT:
+            from .plan_analysis_pages_v1 import check_reader_claim
+            check_reader_claim(value["text"], source="\n".join(s["text"] for s in refs),
+                source_name=value.get("source_name", ""), pricing_source=value.get("pricing_source"))
         checks.append(check_text(value["text"], source="\n".join(s["text"] for s in refs), max_chars=limit))
         return value["text"]
 

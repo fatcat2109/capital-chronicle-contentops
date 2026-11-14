@@ -80,6 +80,30 @@ def test_stored_91_percent_paragraph_needs_a_named_pricing_source():
         pages.check_new_page_copy(manuscript, run)
 
 
+@pytest.mark.parametrize("percentage", ["55%", "55 percent", "55 per cent"])
+def test_pricing_source_cannot_be_invented_in_writer_metadata(source, percentage):
+    root, _, plan, manuscript = source
+    section = manuscript["sections"]["priced_in"]
+    paragraph = section["paragraphs"][0]
+    paragraph.update(text=f"CME FedWatch prices a {percentage} chance of a rate increase.",
+                     source_name="CME FedWatch", source_locator="CME FedWatch")
+    section["summary"] = paragraph["text"]
+    with pytest.raises(ValueError, match="PRICED_PERCENTAGE_SOURCE"):
+        pages.check_new_page_copy(manuscript, pages.load_run(plan, run_root=root))
+
+
+@pytest.mark.parametrize("text,cause", [
+    ("The analyst's comparison supports gold.", "PIPELINE_WORDING"),
+    ("Markets price a 55 percent chance.", "PRICED_PERCENTAGE_SOURCE"),
+    ("Polymarket prices a 55% chance.", "PREDICTION_MARKET"),
+])
+def test_new_social_variants_share_page_claim_checks(text, cause):
+    source = {"level_contract": reader.LEVEL_CONTRACT,
+              "sources": [{"id": "s0", "text": "Our view has a 55% chance.", "layer": "priced_in"}]}
+    with pytest.raises(ValueError, match=cause):
+        reader.validate_fields({"hook": {"text": text, "source_ids": ["s0"]}}, source)
+
+
 def test_named_futures_pricing_is_usable_when_its_attribution_is_bound(source, tmp_path):
     root, folder, plan, manuscript = source
     document = json.loads((folder / "options-context.json").read_bytes())

@@ -70,3 +70,32 @@ def test_cards_never_use_an_exhausted_capture_as_text_fallback(tmp_path, monkeyp
     with pytest.raises(ValueError, match="EVERY_POST_IMAGE_REQUIRED"):
         visuals.require_publication_image(destination, {"article": {"plan_publication_kind": "setup"},
             "output_dir": str(tmp_path), "media_assets": [], "payloads": {destination: {}}})
+
+
+@pytest.mark.parametrize("status", ["UNKNOWN_WRITE", "ATTEMPT_STARTED", "NATIVE_NEO_PENDING"])
+def test_stale_card_keeps_exact_readback_without_preparing_or_publishing(replay, tmp_path, monkeypatch, status):
+    from hashlib import sha256
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+    row = ROWS["rows"][0]["payload"]
+    key = row["key"]
+    replay.create_work_item(story_id=key, work_item_id=key, title="Possibly sent card", target_surface="MULTI_PLATFORM")
+    ids = Coordinator._ids(key, sha256(("plan-status-post:" + key).encode()).hexdigest(), "telegram")
+    replay.register_outbox_message(message_id=ids["message_id"], work_item_id=key,
+        destination="telegram", payload=json.dumps({"work_item_id": key}), status=status)
+    replay.register_platform_dispatch(dispatch_id=ids["dispatch_id"], message_id=ids["message_id"],
+        platform="telegram", status=status)
+    replay.set_outbox_status(key, "PUBLISHING")
+    calls = []
+    class ExistingReadback:
+        def readback_existing_dispatch(self, dispatch_id):
+            calls.append(dispatch_id)
+            return {"dispatch_id": dispatch_id, "reconciliation_status": "UNKNOWN_WRITE",
+                    "publish_called": False}
+    monkeypatch.setattr(cards, "prepare_post", lambda *a, **k: pytest.fail("stale card must not prepare"))
+    result = cards.publish_ready(replay, now=posts._utc("2026-11-12T17:48:36.204344Z"), root=tmp_path,
+                                 coordinator_for=lambda *a: ExistingReadback())
+    assert calls == [ids["dispatch_id"]]
+    assert replay.get_platform_dispatch(ids["dispatch_id"])["status"] == status
+    assert replay.get_outbox_message(ids["message_id"])["status"] == status
+    observed = next(r for r in result["posts"] if r["key"] == key)
+    assert observed["readbacks"][0]["publish_called"] is False

@@ -247,6 +247,8 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
         "Main must start Main (odds%):. Alternative must start Alternative (odds%):. "
         "If alternative odds are absent use null. Do not restate the generated call line or notices. "
         "Do not use bullish or bearish in fields; the exact bound call line carries the direction and its conditions. "
+        "Never refer to the supplied review or the analyst's comparison. A priced percentage names its source in the same sentence "
+        "and in that field's pricing_source.name; that source name must occur in its cited source lines. Never use prediction-market numbers. "
         "Alt text describes the supplied TradingView price chart and its plan levels, no invented shape or image observation. "
         'Schema: {"hook":{"text":"...","source_ids":["s0"]},"points":[{"layer":"macro","text":"...","source_ids":["s0"]}],'
         '"scenario_main":{"text":"Main (50%): ... .","source_ids":["s1"]},"scenario_alt":null,'
