@@ -1401,6 +1401,38 @@ def _public_copy(article: Mapping[str, Any]) -> str:
     return _SOURCE_MARKER_RE.sub("", text + ("\n" + "\n".join(lines) if lines else ""))
 
 
+def _preserve_compact_source_hash_correction(root, evidence, turn):
+    """Repair pre-writer hash metadata while retaining every issued request."""
+    path = root / "simple_gemini_evidence_v1.json"
+    if not path.is_file() or not turn or turn.frozen_request("write"):
+        return
+    previous = json.loads(path.read_bytes())
+    old, new = previous.get("selected_source_pack", []), evidence.get("selected_source_pack", [])
+    metadata = {"canonical_content_sha256", "source_document_content_sha256", "source_document_text_truncated"}
+    strip = lambda d: {k: v for k, v in d.items() if k not in metadata}
+    if (not old or len(old) != len(new) or [strip(d) for d in old] != [strip(d) for d in new]
+            or old == new):
+        return
+    for a, b in zip(old, new):
+        if a == b:
+            continue
+        if (b.get("canonical_content_sha256") != _text_hash(b["canonical_content_text"])
+                or b.get("source_document_content_sha256") != a.get("canonical_content_sha256")
+                or b.get("source_document_text_truncated") is not True):
+            return
+    archive = root / "source-recovery-history" / ("compact-source-hash-" + _text_hash(path.read_text(encoding="utf-8"))[:20])
+    archive.mkdir(parents=True, exist_ok=True)
+    for name in ("simple_gemini_evidence_v1.json", "editorial_media_plan_required.json"):
+        source, target = root / name, archive / name
+        if source.exists():
+            if target.exists():
+                if target.read_bytes() != source.read_bytes():
+                    raise SimpleGeminiNewsroomError("source_hash_correction_history_conflict", [name])
+                source.unlink()
+            else:
+                source.rename(target)
+
+
 def _normalize_relay_attribution(
     worker_output: Mapping[str, Any],
     epistemic_state: Mapping[str, Any] | None,
@@ -3137,6 +3169,7 @@ def run_v1_simple_gemini_newsroom(
         "public_write_performed": False,
         "updated_source_route_health": _updated_source_route_health(loader),
     }
+    _preserve_compact_source_hash_correction(root, evidence_artifact, llm_invoke if native else None)
     persist(root / "simple_gemini_evidence_v1.json", evidence_artifact)
     if selected is None or selected_plan_entry is None or not source_pack:
         if native and getattr(llm_invoke, "scheduled_window", False):

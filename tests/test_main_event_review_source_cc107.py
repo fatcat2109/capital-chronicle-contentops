@@ -156,3 +156,27 @@ def test_compact_writer_source_hash_covers_delivered_text_and_retains_original_h
     assert compact["source_document_content_sha256"] == original_hash
     assert compact["source_document_text_truncated"] is True
     assert doc["canonical_content_text"] == text
+
+
+def test_pre_writer_hash_correction_retains_exact_old_artifacts_and_native_request(tmp_path):
+    from types import SimpleNamespace
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _preserve_compact_source_hash_correction
+    text = "Exact held public source excerpt."
+    old = {"selected_source_pack": [{"document_id": "official", "canonical_content_text": text,
+        "canonical_content_sha256": "a" * 64}]}
+    new = deepcopy(old)
+    new["selected_source_pack"][0].update(canonical_content_sha256=sha256(text.encode()).hexdigest(),
+        source_document_content_sha256="a" * 64, source_document_text_truncated=True)
+    raw = json.dumps(old).encode()
+    (tmp_path / "simple_gemini_evidence_v1.json").write_bytes(raw)
+    (tmp_path / "editorial_media_plan_required.json").write_bytes(b'{"original":"media"}')
+    request = tmp_path / "desktop_request_media-plan.json"
+    request.write_bytes(b'{"original":"native request"}')
+    _preserve_compact_source_hash_correction(tmp_path, new, SimpleNamespace(frozen_request=lambda _: None))
+    archived = list((tmp_path / "source-recovery-history").glob('*/simple_gemini_evidence_v1.json'))
+    assert len(archived) == 1 and archived[0].read_bytes() == raw
+    assert request.read_bytes() == b'{"original":"native request"}'
+    (tmp_path / "simple_gemini_evidence_v1.json").write_bytes(raw)
+    new["selected_source_pack"][0]["canonical_content_text"] = "Changed fact."
+    _preserve_compact_source_hash_correction(tmp_path, new, SimpleNamespace(frozen_request=lambda _: None))
+    assert (tmp_path / "simple_gemini_evidence_v1.json").read_bytes() == raw
