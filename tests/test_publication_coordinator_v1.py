@@ -147,7 +147,8 @@ def test_cc536_missing_threads_text_preserves_unknown_and_releases_only_local_fa
     ("UNKNOWN_WRITE", "RECONCILIATION_PENDING", False),
     ("RECONCILED_ABSENT_SAFE_TO_RETRY", "RECONCILIATION_PENDING", False),
     ("RECONCILED_ABSENT_SAFE_TO_RETRY", "RECONCILED_ABSENT_SAFE_TO_RETRY", True)])
-def test_cc536_native_return_failure_releases_only_exact_reconciled_absence(cc401_copied_store, dispatch_status, reconciliation_status, released):
+@pytest.mark.parametrize("cause", ["NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH", "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN"])
+def test_cc536_native_return_failure_releases_only_exact_reconciled_absence(cc401_copied_store, dispatch_status, reconciliation_status, released, cause):
     store=cc401_copied_store
     coordinator=DurablePublicationCoordinator(store=store,transport_runtime=FixtureTransport())
     row=coordinator.register_plan("work-1",_plan("x"))["registered"][0]
@@ -155,7 +156,7 @@ def test_cc536_native_return_failure_releases_only_exact_reconciled_absence(cc40
     store.register_reconciliation(reconciliation_id=row["reconciliation_id"],work_item_id="work-1",status=reconciliation_status)
     incident,_=coordinator._destination_failure_key("x")
     store.register_incident(incident_id=incident,work_item_id="work-1",severity="DISPATCH_FAILURE",
-        description=json.dumps({"status":"UNKNOWN_WRITE","safe_error_classification":"NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH","dispatch_id":row["dispatch_id"]}))
+        description=json.dumps({"status":"UNKNOWN_WRITE","safe_error_classification":cause,"dispatch_id":row["dispatch_id"]}))
     assert (coordinator._destination_day_failure("x") is None) is released
 
 
