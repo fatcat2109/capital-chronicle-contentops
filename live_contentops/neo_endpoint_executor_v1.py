@@ -246,7 +246,7 @@ class NeoMcpClient:
                         if host == "substack.com": self.pages.setdefault("substack_notes", int(match[1]))
                         if host == "www.linkedin.com": self.pages.setdefault("linkedin_company", int(match[1]))
                         if host == "www.youtube.com": self.pages.setdefault("youtube", int(match[1]))
-                        if host in {"t.co","capitalchronicle.substack.com"}:
+                        if host in {"t.co","lnkd.in","capitalchronicle.substack.com"}:
                             self.pages.setdefault("plan-substack" if self.group_title=="codex/cc466-plan-pages" else "link-verification",int(match[1]))
         if destination in self.pages:
             page = self.pages[destination]
@@ -279,7 +279,15 @@ class NeoMcpClient:
         cache=getattr(self,"verified_links",{})
         if short_url not in cache:
             page=self.open("link-verification",short_url)
-            observed=self.snapshot(page)["url"]
+            snapshot=self.snapshot(page)
+            observed=snapshot["url"]
+            if (short_url.startswith("https://lnkd.in/") and observed == short_url
+                    and "This link will take you to a page" in snapshot.get("text", "")):
+                link=next((r for r in snapshot["refs"] if r["role"]=="link" and r["name"]==canonical
+                    and f'[ref={r["ref"]}] [url="{canonical}"]' in snapshot["text"]),None)
+                if link:
+                    self.act(page,"click",ref=link["ref"])
+                    observed=self.snapshot(page)["url"]
             cache[short_url]=observed.split("?",1)[0].split("#",1)[0]
             self.verified_links=cache
         return cache[short_url] == canonical
@@ -394,7 +402,12 @@ class NeoBrowserDriver:
             return {**refused, "status": "READBACK_UNAVAILABLE", "verified": False}
         data = self.client.run(page, "article_readback", destination=request["destination"])
         candidates = data["posts"]
+        texts = posts or expected_posts(request)
+        from .neo_destination_handoff_v1 import _text
+        prefix = _text(texts[0].splitlines()[0])[:60] if texts else ""
         for post in candidates:
+            if prefix and prefix not in _text(post.get("observed_text")):
+                continue  # An unrelated article's short links cannot prove this one.
             resolutions = []
             for link in post.get("links") or []:
                 if (request.get("canonical_url") and request["destination"] == "linkedin_company"
@@ -404,8 +417,6 @@ class NeoBrowserDriver:
                     resolutions.append({"displayed_url": link["url"], "target_url": request["canonical_url"],
                         "target_verified": True, "public_object_url": post["public_object_url"]})
             post["observed_link_resolutions"] = resolutions
-        texts = posts or expected_posts(request)
-        from .neo_destination_handoff_v1 import _text
         def matches(post):
             if post.get("observed_identity") != request["expected_identity"]:
                 return False
@@ -421,7 +432,6 @@ class NeoBrowserDriver:
             # handoff still requires ten minutes since the exact last attempt.
             # Keep a partial target, empty feed, wrong account or known object
             # unresolved rather than converting any of them into absence.
-            prefix = _text(texts[0].splitlines()[0])[:60] if texts else ""
             if (not matches_found and not request.get("public_object_id") and not request.get("public_object_url")
                     and candidates and prefix and all(p.get("observed_text") for p in candidates)
                     and not any(prefix in _text(p["observed_text"]) for p in candidates)):

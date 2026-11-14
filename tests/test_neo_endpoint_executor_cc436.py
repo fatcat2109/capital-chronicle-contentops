@@ -380,6 +380,20 @@ def test_repaired_transport_supersedes_only_a_proven_preclick_refusal(tmp_path,m
         assert e.fresh_publish_request(base) is None
 
 
+@pytest.mark.parametrize("target_matches",[False,True])
+def test_cc536_linkedin_exit_page_follows_only_the_exact_visible_canonical(monkeypatch,target_matches):
+    c=neo.NeoMcpClient();short='https://lnkd.in/exact';canonical='https://capitalchronicle.substack.com/p/method'
+    target=canonical if target_matches else 'https://example.test/other'
+    first={'url':short,'text':f'This link will take you to a page\n- link "{target}" [ref=e1] [url="{target}"]',
+        'refs':[{'role':'link','name':target,'ref':'e1'}]}
+    clicks=[]
+    monkeypatch.setattr(c,'open',lambda *args:1)
+    monkeypatch.setattr(c,'snapshot',lambda page:{'url':canonical} if clicks else first)
+    monkeypatch.setattr(c,'act',lambda *args,**kwargs:clicks.append(kwargs))
+    assert c.verify_link(short,canonical) is target_matches
+    assert len(clicks)==int(target_matches)
+
+
 @pytest.mark.parametrize("case,allowed", [("exact_absence",True),("wrong_intent",False),("before_claim",False),("empty_feed",False)])
 def test_cc536_lost_article_claim_needs_exact_later_absence_before_new_native_identity(tmp_path,case,allowed):
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
