@@ -1555,6 +1555,10 @@ def publication_refusal(store, payload, *, now=None, latest_states=None):
     if current and (str(current).startswith(("STALE", "SUPERSEDED"))
                     or (payload.get("kind") == "setup" and current != payload.get("state"))):
         return SUPERSEDED, "PLAN_ALREADY_" + str(current)
+    if payload.get("kind") == "update" and payload.get("state") in ACTIVE:
+        from .plan_call_cards_v1 import TERMINAL
+        if current in TERMINAL | {"RESULT"}:
+            return SUPERSEDED, "PLAN_UPDATE_SUPERSEDED_BY_" + str(current)
     if _age_minutes(payload, now) > freshness_limit_minutes(payload):
         return STALE, "TRANSITION_OLDER_THAN_60_MINUTES_WHEN_POSTER_REACHED_IT"
     if payload.get("kind") == "setup" and payload.get("time_exit_utc") and now >= _utc(payload["time_exit_utc"]):

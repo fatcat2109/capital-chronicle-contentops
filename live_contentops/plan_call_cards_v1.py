@@ -1321,10 +1321,11 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             else:
                 # Age forbids another send, never exact reconciliation of a
                 # possibly sent copy. This method cannot publish or retry.
+                from .publication_coordinator_v1 import UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING
                 coordinator = None
                 for destination in destinations_for(row):
                     dispatch = _dispatch(store, key, destination) or {}
-                    if dispatch.get("status") not in {"UNKNOWN_WRITE", "ATTEMPT_STARTED", "NATIVE_NEO_PENDING"}:
+                    if dispatch.get("status") not in {UNKNOWN_WRITE, ATTEMPT_STARTED, NATIVE_NEO_PENDING}:
                         continue
                     if readback_count >= limit:
                         break

@@ -330,7 +330,9 @@ def test_cli_publish_passes_automatic_transport_to_the_real_consumer(tmp_path,mo
     monkeypatch.setattr(posts,'publish_ready',lambda s,**kw:seen.append((s.db_path,kw)) or {'posts':[]})
     assert cli.main(['--store',str(store.db_path),'--publish'])==0
     assert seen[0][0]==store.db_path
-    assert seen[0][1]['automatic_neo'] is True
+    assert seen[0][1]['immediate_only'] is True
+    routine = [options for _, options in seen if not options.get('immediate_only')]
+    assert len(routine) == 1 and routine[0]['automatic_neo'] is True
 
 
 def test_larger_neo_dom_result_reads_only_documented_local_output(tmp_path,monkeypatch):
