@@ -2668,9 +2668,11 @@ class DurablePublicationCoordinator:
                         and reconciliation and reconciliation["status"] == RECONCILED_CONFIRMED)
                     if (dispatch and dispatch["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
                             and reconciliation and reconciliation["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
-                            and failure.get("safe_error_classification") == "ValueError"):
+                            and failure.get("safe_error_classification") in {
+                                "ValueError", "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH"}):
                         # CC-453: fresh authenticated absence resolves the old
-                        # local validation exception; keep its exact retry budget.
+                        # local validation/return exception; keep its exact retry
+                        # budget. A still-unknown dispatch remains fenced above.
                         local = True
                 if not resolved and not local and not confirmed:
                     return incident_id, day, failure
