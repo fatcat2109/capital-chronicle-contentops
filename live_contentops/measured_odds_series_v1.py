@@ -348,7 +348,7 @@ def register(store, piece_file, output_dir):
 
 
 def continue_piece(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None, automatic=False,
-                   draft_url=None):
+                   draft_url=None, destination=None):
     from .native_desktop_publication_v1 import live_publication_policy
     from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
     live_publication_policy(rollout)
@@ -384,6 +384,17 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
             from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
             dispatch_ids=Coordinator._ids(packet["identity"],packet["plan"]["plan_hash"],"substack")
             result=coordinator.readback_existing_dispatch(dispatch_ids["dispatch_id"])
+        elif command=="dispatch":
+            if destination not in {d["destination"] for d in packet["plan"]["destinations"]} - {"substack"}:
+                raise ValueError("ODDS_REGISTERED_DERIVATIVE_REQUIRED")
+            canonical=coordinator._confirmed_canonical_url_for_work_item(packet["identity"],plan_hash=packet["plan"]["plan_hash"])
+            if not canonical:
+                return {"publication":{"status":"WAITING_CANONICAL_URL","destination":destination},"pending_requests":[]}
+            ids=coordinator._ids(packet["identity"],packet["plan"]["plan_hash"],destination)
+            message=store.get_outbox_message(ids["message_id"])
+            if not message:
+                raise ValueError("ODDS_REGISTERED_DERIVATIVE_REQUIRED")
+            result=coordinator._dispatch_message(message,canonical_url=canonical)
         else:
             if draft_url:
                 # Continue this exact corrected dispatch through its owner.
@@ -403,7 +414,7 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
 def main():
     import argparse
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command",choices=("check","register","resume","readback","status","begin","submit"))
+    parser.add_argument("command",choices=("check","register","resume","dispatch","readback","status","begin","submit"))
     parser.add_argument("--piece",type=Path,required=True)
     parser.add_argument("--output-dir",type=Path)
     parser.add_argument("--rollout",type=Path,default=Path("config/native_desktop_rollout_v1.json"))
@@ -413,6 +424,7 @@ def main():
     parser.add_argument("--result",type=Path,required=True)
     parser.add_argument("--automatic",action="store_true")
     parser.add_argument("--draft-url",help="Exact retained draft after a confirmed pre-click no-write")
+    parser.add_argument("--destination",help="One derivative in this already registered publication plan")
     args=parser.parse_args()
     if args.command=="check":
         result={"status":"PASS","numbers":validate_piece(_read(args.piece),args.piece.parent/"source")}
@@ -425,7 +437,8 @@ def main():
         packet=register(store,args.piece,args.output_dir)
         result=packet if args.command=="register" else continue_piece(store,packet,invocation_id=args.invocation_id,
             rollout=rollout,command=args.command,request_hash=args.request_hash,
-            response=_read(args.response) if args.response else None,automatic=args.automatic,draft_url=args.draft_url)
+            response=_read(args.response) if args.response else None,automatic=args.automatic,draft_url=args.draft_url,
+            destination=args.destination)
     args.result.parent.mkdir(parents=True,exist_ok=True)
     args.result.write_bytes(canonical_bytes(result))
     print(json.dumps({"result_path":str(args.result),"state":result.get("state",result.get("status","SAVED"))}))

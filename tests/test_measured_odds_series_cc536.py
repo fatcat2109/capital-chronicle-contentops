@@ -170,6 +170,29 @@ def test_native_readback_and_pending_queries_stay_inside_the_exact_item(tmp_path
     assert len(calls)==3
 
 
+def test_one_destination_continuation_uses_its_canonical_and_existing_dispatch(tmp_path,monkeypatch):
+    from live_contentops import native_desktop_publication_v1 as publication
+    from live_contentops import native_neo_executor_v1 as native
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    packet=odds.register(store,SOURCE/'piece-1.json',tmp_path/'article')
+    coordinator=DurablePublicationCoordinator(store=store,transport_runtime=None)
+    coordinator.register_plan(packet['identity'],packet['plan'])
+    calls=[]
+    monkeypatch.setattr(publication,'live_publication_policy',lambda _:None)
+    monkeypatch.setattr(native,'bind_native_neo_coordinator',lambda *a,**kw:(coordinator,SimpleNamespace(pending=lambda **kw:[])))
+    monkeypatch.setattr(coordinator,'_dispatch_message',lambda message,**kw:calls.append((message,kw)) or {'status':'EXISTING_DISPATCH_USED'})
+    args={'invocation_id':'test-native-turn','rollout':{'store_path':str(store.db_path)},'command':'dispatch','destination':'x'}
+    assert odds.continue_piece(store,packet,**args)['publication']['status']=='WAITING_CANONICAL_URL'
+    assert calls==[]
+    monkeypatch.setattr(coordinator,'_confirmed_canonical_url_for_work_item',lambda *a,**kw:'https://capitalchronicle.substack.com/p/method')
+    assert odds.continue_piece(store,packet,**args)['publication']['status']=='EXISTING_DISPATCH_USED'
+    assert calls[0][0]['destination']=='x'
+    assert calls[0][0]['work_item_id']==packet['identity']
+    assert calls[0][1]['canonical_url']=='https://capitalchronicle.substack.com/p/method'
+    with pytest.raises(ValueError,match='ODDS_REGISTERED_DERIVATIVE_REQUIRED'):
+        odds.continue_piece(store,packet,**{**args,'destination':'substack'})
+
+
 def confirm_method(store, tmp_path):
     packet = odds.register(store,SOURCE / "piece-1.json",tmp_path / "method")
     coordinator = DurablePublicationCoordinator(store=store,transport_runtime=None)
