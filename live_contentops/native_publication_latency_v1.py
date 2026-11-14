@@ -389,9 +389,15 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
             "readback_seconds_after_text_approval": readback_elapsed,
             "image_verified_readback_at_utc": image_readback.isoformat() if image_readback else None,
             "finished_piece_within_30_minutes": finished,
+            "finished_piece_required": not policy_no_write,
             "skipped": entry["status"].startswith("SKIPPED_") or policy_no_write,
             **({"excluded_from_timing_due_to": barred[entry["destination"]]} if policy_no_write else {})})
     required = [c for c in channels if not c["skipped"]]
+    # A typed media/channel skip is a truthful dispatch outcome, not evidence
+    # that an authorized destination received an image (CC-199). Only an
+    # explicit platform prohibition removes its definite no-write from this
+    # acceptance reading; this view adds no publication gate.
+    finished_required = [c for c in channels if c["finished_piece_required"]]
     complete = bool(required) and all(c["within_target"] is True for c in required)
     overdue = bool(deadline and (now or datetime.now(timezone.utc)) > deadline and not complete)
     data_timing = {}
@@ -425,7 +431,7 @@ def publication_timing(rows, reviews, *, run_id, destinations, now=None, readbac
         "dispatch_deadline_utc": deadline.isoformat() if deadline else None,
         "channels": channels, "all_channels_dispatched_within_target": complete,
         "finished_piece_acceptance": {"item": "CC-199", "target_minutes": FINISHED_PIECE_MINUTES,
-            "all_destinations_with_image_readbacks_within_target": bool(required)
-                and all(c["finished_piece_within_30_minutes"] for c in required)},
+            "all_destinations_with_image_readbacks_within_target": bool(finished_required)
+                and all(c["finished_piece_within_30_minutes"] for c in finished_required)},
         "state": "WITHIN_15_MINUTES" if complete else "OVERDUE_CONTINUE_PUBLICATION" if overdue
             else "DISPATCH_NOW" if approved else "TEXT_APPROVAL_NOT_OBSERVED"}

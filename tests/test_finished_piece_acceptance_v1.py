@@ -82,6 +82,28 @@ def test_later_media_review_does_not_restart_the_original_approval_clock():
     assert value["channels"][0]["finished_piece_within_30_minutes"] is False
 
 
+@pytest.mark.parametrize("status", ["SKIPPED_IMAGE_REQUIRED", "SKIPPED_PHOTOLESS_NEWS_POLICY", "SKIPPED_CHANNEL"])
+def test_authorized_destination_skip_cannot_hide_missing_image_readback(status):
+    packet = timing_packet()
+    packet[2].append({"destination": "instagram_business", "status": status})
+    value = report(packet)
+    # The dispatch policy can retain its typed skip, but CC-199 still needs
+    # the authorized destination's actual image and readback.
+    assert value["all_channels_dispatched_within_target"] is True
+    assert value["finished_piece_acceptance"]["all_destinations_with_image_readbacks_within_target"] is False
+
+
+def test_explicit_platform_prohibition_excludes_only_its_definite_no_write(monkeypatch):
+    monkeypatch.setattr("live_contentops.destination_transport_registry_v1.barred_browser_destinations",
+        lambda: {"youtube": "CONTROLLED_JIM_DECISION_PROHIBITION"})
+    packet = timing_packet()
+    packet[2].append({"destination": "youtube", "status": "DEFINITE_NO_WRITE"})
+    value = report(packet)
+    channel = value["channels"][1]
+    assert channel["excluded_from_timing_due_to"] == "CONTROLLED_JIM_DECISION_PROHIBITION"
+    assert value["finished_piece_acceptance"]["all_destinations_with_image_readbacks_within_target"] is True
+
+
 def test_threads_missing_image_retains_bounded_cause_without_raw_provider_data(monkeypatch):
     from live_contentops import threads_adapter_v6 as adapter
     monkeypatch.setattr(adapter, "_get_json", lambda *a, **k: {"id": "42", "text": "Approved text",

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="4" time="5.082" timestamp="2026-11-14T22:55:35.670747+07:00" hostname="J-P"><testcase classname="tests.test_finished_piece_acceptance_v1" name="test_authorized_destination_skip_cannot_hide_missing_image_readback[SKIPPED_IMAGE_REQUIRED]" time="0.132"><failure message="assert True is False">status = 'SKIPPED_IMAGE_REQUIRED'
+
+    @pytest.mark.parametrize("status", ["SKIPPED_IMAGE_REQUIRED", "SKIPPED_PHOTOLESS_NEWS_POLICY", "SKIPPED_CHANNEL"])
+    def test_authorized_destination_skip_cannot_hide_missing_image_readback(status):
+        packet = timing_packet()
+        packet[2].append({"destination": "instagram_business", "status": status})
+        value = report(packet)
+        # The dispatch policy can retain its typed skip, but CC-199 still needs
+        # the authorized destination's actual image and readback.
+        assert value["all_channels_dispatched_within_target"] is True
+&gt;       assert value["finished_piece_acceptance"]["all_destinations_with_image_readbacks_within_target"] is False
+E       assert True is False
+
+tests\test_finished_piece_acceptance_v1.py:93: AssertionError</failure></testcase><testcase classname="tests.test_finished_piece_acceptance_v1" name="test_authorized_destination_skip_cannot_hide_missing_image_readback[SKIPPED_PHOTOLESS_NEWS_POLICY]" time="0.007"><failure message="assert True is False">status = 'SKIPPED_PHOTOLESS_NEWS_POLICY'
+
+    @pytest.mark.parametrize("status", ["SKIPPED_IMAGE_REQUIRED", "SKIPPED_PHOTOLESS_NEWS_POLICY", "SKIPPED_CHANNEL"])
+    def test_authorized_destination_skip_cannot_hide_missing_image_readback(status):
+        packet = timing_packet()
+        packet[2].append({"destination": "instagram_business", "status": status})
+        value = report(packet)
+        # The dispatch policy can retain its typed skip, but CC-199 still needs
+        # the authorized destination's actual image and readback.
+        assert value["all_channels_dispatched_within_target"] is True
+&gt;       assert value["finished_piece_acceptance"]["all_destinations_with_image_readbacks_within_target"] is False
+E       assert True is False
+
+tests\test_finished_piece_acceptance_v1.py:93: AssertionError</failure></testcase><testcase classname="tests.test_finished_piece_acceptance_v1" name="test_authorized_destination_skip_cannot_hide_missing_image_readback[SKIPPED_CHANNEL]" time="0.012"><failure message="assert True is False">status = 'SKIPPED_CHANNEL'
+
+    @pytest.mark.parametrize("status", ["SKIPPED_IMAGE_REQUIRED", "SKIPPED_PHOTOLESS_NEWS_POLICY", "SKIPPED_CHANNEL"])
+    def test_authorized_destination_skip_cannot_hide_missing_image_readback(status):
+        packet = timing_packet()
+        packet[2].append({"destination": "instagram_business", "status": status})
+        value = report(packet)
+        # The dispatch policy can retain its typed skip, but CC-199 still needs
+        # the authorized destination's actual image and readback.
+        assert value["all_channels_dispatched_within_target"] is True
+&gt;       assert value["finished_piece_acceptance"]["all_destinations_with_image_readbacks_within_target"] is False
+E       assert True is False
+
+tests\test_finished_piece_acceptance_v1.py:93: AssertionError</failure></testcase><testcase classname="tests.test_finished_piece_acceptance_v1" name="test_explicit_platform_prohibition_excludes_only_its_definite_no_write" time="0.005" /></testsuite></testsuites>
