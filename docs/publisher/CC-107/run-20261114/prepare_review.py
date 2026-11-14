@@ -52,6 +52,7 @@ save("source-verification.json", {"headline_id": record["headline_id"],
     "known_at_utc": record["known_at_utc"], "original_preview_unchanged": True,
     "computed_reuse_authority": "JIM_DECISION_72_B", "raw_price_and_consensus_inputs_projected": False})
 pointer = json.loads((LIVE / "config/native_desktop_main_feed_binding_v1.json").read_bytes())
+pointer.pop("public_export_root", None)
 pointer.update(research_root=str(LIVE / "docs/publisher/CC-124/run-20261106-2050/source"),
     research_editions_root=[str(LIVE_HERE / "source")], review_event_id="bls-emsit-20261106")
 save("feed-pointer.json", pointer)

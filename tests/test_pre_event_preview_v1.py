@@ -67,6 +67,26 @@ def test_retained_consensus_fact_survives_mutable_index_but_not_changed_capture(
         preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
 
 
+def test_review_keeps_official_background_when_legacy_consensus_index_has_changed(tmp_path):
+    from pathlib import Path
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.capital_chronicle_report_feed_v1 import _persist
+    from live_contentops.contentops_editorial_desk_v1 import STORY_PREPARATION
+    f = feed(tmp_path)
+    spec = consensus_input(tmp_path)
+    _, packet, _ = prepare(f.tracker.store, tmp_path)
+    # A real pre-sealing preparation referred only to its mutable projection.
+    packet["single_consensus_fact"] = spec
+    _persist(f.tracker.store, "native-story-preparation-" + sha256_of(packet), packet, STORY_PREPARATION)
+    Path(spec["projection_path"]).write_text('{"new_unrelated_daily_index":true}', encoding="utf-8")
+    result = preview_preparation_research(f.tracker.store, event_id=EVENT,
+        cutoff_utc="2026-11-07T12:00:00Z", article_type="EVENT_REVIEW")
+    text = "\n".join(r["permitted_source_text"] for r in result.records.values())
+    assert "Employment changed little" in text and "10K" not in text
+    with pytest.raises(ValueError, match="CONSENSUS_PROJECTION_CHANGED"):
+        preview_preparation_research(f.tracker.store, event_id=EVENT, cutoff_utc=NOW)
+
+
 def test_current_consensus_revision_keeps_earlier_cutoff_and_original_record(tmp_path):
     from pathlib import Path
     f = feed(tmp_path)
