@@ -510,6 +510,15 @@ class NeoBrowserDriver:
                 # numbers match; article_publish still verifies them at click.
             media = (request.get("content_binding") or {}).get("media_manifest") or []
             if media:
+                if destination == "linkedin_company":
+                    snapshot = self.client.snapshot(page)
+                    preview = any(r["role"] == "link" and r["name"].startswith("Open article:") for r in snapshot["refs"])
+                    remove = next((r for r in snapshot["refs"] if r["role"] == "button" and r["name"] == "Remove media"), None)
+                    if preview and remove:
+                        # This composer auto-attaches the canonical link card.
+                        # Replace that draft preview with the bound chart through
+                        # the normal intercepted upload, before any public click.
+                        self.client.act(page, "click", ref=remove["ref"])
                 ready = self.client.run(page, "article_intercept_upload", destination=destination)
                 if not ready.get("installed"):
                     raise NeoEndpointError("ARTICLE_FILE_CHOOSER_INTERCEPTION_UNAVAILABLE")

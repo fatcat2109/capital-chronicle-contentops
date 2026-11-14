@@ -29,7 +29,7 @@ class ArticleBrowser:
         if self.fault == "checkpoint":
             self.url = "https://www.linkedin.com/checkpoint/challenge/"
             wording = "Confirm your identity"
-        return {"url": self.url, "text": wording, "refs": [
+        result = {"url": self.url, "text": wording, "refs": [
             {"role": "button", "name": "Start a post", "ref": "start"},
             {"role": "textbox", "name": "Text editor for creating content", "ref": "editor"},
             {"role": "button", "name": "Bật mí về video tiếp theo của bạn", "ref": "youtube-editor"},
@@ -38,11 +38,18 @@ class ArticleBrowser:
             {"role": "button", "name": "Thêm hình ảnh", "ref": "add-image"},
             {"role": "button", "name": "Next", "ref": "next"},
             {"role": "button", "name": "CC454 article image", "ref": "image"}]}
+        if self.fault == "link_preview" and self.composer and not getattr(self, "preview_removed", False):
+            result["refs"] = [r for r in result["refs"] if r["ref"] != "add-media"] + [
+                {"role":"link", "name":"Open article: the canonical piece", "ref":"canonical-preview"},
+                {"role":"button", "name":"Remove media", "ref":"remove-preview"}]
+        return result
 
     def act(self, page, kind, **kwargs):
         self.calls.append((kind, kwargs))
         if kind == "click" and kwargs.get("ref") in {"add-media", "add-image"}:
             assert getattr(self, "intercepting", False), "A native file chooser must never be opened"
+        if kind == "click" and kwargs.get("ref") == "remove-preview":
+            self.preview_removed = True
         if kind == "fill":
             self.composer = [kwargs["value"]]
             if self.fault in {"normalized_fill", "changed_fill"}:
@@ -220,6 +227,23 @@ def test_cc536_company_identity_waits_for_its_hydrated_owner_controls(tmp_path):
     store, c, executor, browser, message, row = article(tmp_path, "linkedin_company", "delayed_owner")
     result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
     assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
+    assert browser.calls.count("article_publish") == 1
+
+
+def test_cc536_company_bound_chart_replaces_only_its_draft_link_preview(tmp_path, monkeypatch):
+    store, c, executor, browser, message, row = article(tmp_path, "linkedin_company", "link_preview")
+    intent = json.loads(message["payload"])
+    intent["media_assets"] = [{"path":str(tmp_path / "media/chart.png"), "asset_id":"bound-chart", "sha256":"fixture"}]
+    message = {**message, "payload":json.dumps(intent)}
+    # Exercise the driver with the request's already-bound media rather than
+    # changing any durable/public production package.
+    request = {"destination":"linkedin_company", "expected_identity":"linkedin:company:143198922", "action":"PUBLISH",
+        "native_payload":{"text":"The approved text."}, "content_binding":{"media_manifest":intent["media_assets"]}}
+    driver = endpoint.NeoBrowserDriver(browser)
+    monkeypatch.setattr(driver, "article_readback", lambda *args, **kwargs: {"public_object_id":"observed-post"})
+    driver.perform({"request":request})
+    assert browser.preview_removed
+    assert any(isinstance(call,tuple) and call[0] == "upload" for call in browser.calls)
     assert browser.calls.count("article_publish") == 1
 
 

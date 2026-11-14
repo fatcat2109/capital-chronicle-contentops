@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-14T08:58:16.467234+00:00",
+  "observed_status": "READBACK_COMPLETE",
+  "absent": true,
+  "submit": {
+    "request_sha256": "1a2cd9b0dad7621ca988c1e80415222f2d1926f3756f37db91a8230c0305c1f4",
+    "tool_return_sha256": "5683f025edfc76eb4f311ed2f38439feeead9e21f1b67c4b00e6145d5bec4fdb"
+  }
+}

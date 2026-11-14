@@ -6,145 +6,27 @@
     "observed_identity": "linkedin:company:143198922",
     "observed_stable_id": "143198922"
   },
-  "posts": [
+  "count": 4,
+  "feed_posts": [
     {
-      "links": [
-        {
-          "expanded_url": null,
-          "text": "",
-          "url": "https://www.linkedin.com/company/capitalchronicle/posts"
-        },
-        {
-          "expanded_url": null,
-          "text": "Capital Chronicle\nCapital Chronicle\n1 follower\n1 follower",
-          "url": "https://www.linkedin.com/company/capitalchronicle/posts"
-        },
-        {
-          "expanded_url": null,
-          "text": "https://lnkd.in/gngFASye",
-          "url": "https://lnkd.in/gngFASye"
-        },
-        {
-          "expanded_url": null,
-          "text": "",
-          "url": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar"
-        },
-        {
-          "expanded_url": null,
-          "text": "Capital Chronicle pre-US wrap: dollar slips, oil premium fades\ncapitalchronicle.substack.com",
-          "url": "https://capitalchronicle.substack.com/p/capital-chronicle-pre-us-wrap-dollar"
-        }
-      ],
-      "observed_identity": "linkedin:company:143198922",
-      "observed_stable_id": "143198922",
-      "observed_text": "Capital Chronicle pre-US wrap: dollar slips, oil premium fades\n\nWhy it matters: Capital Chronicle's review sees a broad dollar move across FX, while the earlier gold spike largely retraced.\n\nContext: The countercase is a hot CPI that restores the NFP dollar rally.\n\nRead the full brief: https://lnkd.in/gngFASye\n\nChart: TradingView.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nBase case: 55% weekly model estimate set Sunday; talks continue and oil fades. CPI can override the path.\nAlternative: 25% weekly model estimate set Sunday; if escalation is confirmed, oil would rise and stocks weaken.\n\nCapital Chronicle may hold positions in the markets it covers.",
-      "public_image_urls": [
-        "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1796256000&v=beta&t=1blAqBOGBURsXB58gcn2EySvHGz2NBB8g6dW5VVFEME",
-        "https://media.licdn.com/dms/image/sync/v2/D5627AQFh_m54p-Pslg/articleshare-shrink_160/B56aHAR8WXLAAQ-/0/1794227291931?e=1795251600&v=beta&t=kmzOtwnyDmm3oROlEUbmaEgzA9DesfRgSlq3vq2ZZV8",
-        "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1796256000&v=beta&t=1blAqBOGBURsXB58gcn2EySvHGz2NBB8g6dW5VVFEME"
-      ],
-      "public_object_id": "urn:li:activity:7525535662729699328",
-      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525535662729699328/"
+      "id": "urn:li:activity:7525535662729699328",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7525535662729699328/",
+      "text_sha256": "745b43b1f916f533835d9fc4d362a4b40fd0c39267584dff6a9679a6894d2541"
     },
     {
-      "links": [
-        {
-          "expanded_url": null,
-          "text": "",
-          "url": "https://www.linkedin.com/company/capitalchronicle/posts"
-        },
-        {
-          "expanded_url": null,
-          "text": "Capital Chronicle\nCapital Chronicle\n1 follower\n1 follower",
-          "url": "https://www.linkedin.com/company/capitalchronicle/posts"
-        },
-        {
-          "expanded_url": null,
-          "text": "https://lnkd.in/ghFD__WW",
-          "url": "https://lnkd.in/ghFD__WW"
-        },
-        {
-          "expanded_url": null,
-          "text": "",
-          "url": "https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran"
-        },
-        {
-          "expanded_url": null,
-          "text": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week\ncapitalchronicle.substack.com",
-          "url": "https://capitalchronicle.substack.com/p/tanker-strikes-us-strikes-on-iran"
-        }
-      ],
-      "observed_identity": "linkedin:company:143198922",
-      "observed_stable_id": "143198922",
-      "observed_text": "Tanker strikes, US strikes on Iran and a softer word from Trump: what markets carry into Monday and a CPI week\n\nWhy it matters: In this war, higher oil has tended to mean higher inflation, more Fed hikes and a weaker gold price, so the headlines do not translate into a simple safe-haven rally.\n\nContext: The counterweight came later on Sunday. Trump told CNN that renewed attacks on Iran were \"highly unlikely\" if talks make progress.\n\nRead the full brief: https://lnkd.in/ghFD__WW\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nBase case: 55% Capital Chronicle model estimate. Talks continue; oil firms at the open, then fades.\nAlternative: 25% Capital Chronicle model estimate. Hormuz escalation lifts oil and weighs on stocks.\n\nAnalysis, not financial advice.\n\nCapital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView.",
-      "public_image_urls": [
-        "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1796256000&v=beta&t=1blAqBOGBURsXB58gcn2EySvHGz2NBB8g6dW5VVFEME",
-        "https://media.licdn.com/dms/image/sync/v2/D5627AQFsU79cMSojdg/articleshare-shrink_160/B56aG_ZBnHGUAQ-/0/1794212371501?e=1795251600&v=beta&t=nFky_gXMPX6TezeBYirYBPrmWsEtefUhzTGDRHERRDE",
-        "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1796256000&v=beta&t=1blAqBOGBURsXB58gcn2EySvHGz2NBB8g6dW5VVFEME"
-      ],
-      "public_object_id": "urn:li:activity:7525472297776889856",
-      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7525472297776889856/"
+      "id": "urn:li:activity:7525472297776889856",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7525472297776889856/",
+      "text_sha256": "36ebf1876cc062585e80855007753beb97ed9c233d9e5f5499e07e40c74eccaa"
     },
     {
-      "links": [
-        {
-          "expanded_url": null,
-          "text": "",
-          "url": "https://www.linkedin.com/company/capitalchronicle/posts"
-        },
-        {
-          "expanded_url": null,
-          "text": "Capital Chronicle\nCapital Chronicle\n1 follower\n1 follower",
-          "url": "https://www.linkedin.com/company/capitalchronicle/posts"
-        },
-        {
-          "expanded_url": null,
-          "text": "https://lnkd.in/gF9suBdT",
-          "url": "https://lnkd.in/gF9suBdT"
-        }
-      ],
-      "observed_identity": "linkedin:company:143198922",
-      "observed_stable_id": "143198922",
-      "observed_text": "NFP preview: why a payroll beat needs help from unemployment\nWhy it matters: Rates: A strong combination could lift the expected Fed path and Treasury yields; weak hiring could lower that path. Firmer wages would complicate an easing interpretation, so pay remains a policy cross-check.\nContext: The strong branch gains credibility if payrolls and unemployment reinforce each other and rates and the dollar follow the firmer-policy interpretation. The weak branch needs employment weakness and a softer expected policy path. A reversal after revisions or wages are examined would challenge either reading; disagreement across markets would weaken a simple headline explanation.\nRead the full brief: https://lnkd.in/gF9suBdT\nAnalysis, not financial advice. Readers decide whether to trade.\nCapital Chronicle may hold positions in the markets it covers.\nSource: BLS.",
-      "public_image_urls": [
-        "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1796256000&v=beta&t=1blAqBOGBURsXB58gcn2EySvHGz2NBB8g6dW5VVFEME",
-        "https://media.licdn.com/dms/image/v2/D5622AQHcVXdngecXPA/feedshare-shrink_800/B56aGxCX6bKAAk-/0/1793971552133?e=1796256000&v=beta&t=smu4F6XKPDQJlYy9-AA9DuxHz6_-ItX06bk_he7vS-w",
-        "https://media.licdn.com/dms/image/v2/D5622AQE5lpqT-yhD9Q/feedshare-shrink_800/B56aGxCX78IwAg-/0/1793971552243?e=1796256000&v=beta&t=I2t7iMU4akj7o2jHAtJv_mWj-TZTcNzx-JwPxCN1YLQ",
-        "https://media.licdn.com/dms/image/v2/D5622AQHfjeTOyc2NoQ/feedshare-shrink_800/B56aGxCX7CIAAg-/0/1793971552201?e=1796256000&v=beta&t=5EK5B-NtLgXb-OtUua8tFFp5nEqZa24HG5lxdT3nZcw",
-        "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1796256000&v=beta&t=1blAqBOGBURsXB58gcn2EySvHGz2NBB8g6dW5VVFEME"
-      ],
-      "public_object_id": "urn:li:activity:7524462065680285696",
-      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/"
+      "id": "urn:li:activity:7524462065680285696",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7524462065680285696/",
+      "text_sha256": "13f1b2ff42b944116b7521e15c824e17ab25a95f145252990d498a8e2f0b565c"
     },
     {
-      "links": [
-        {
-          "expanded_url": null,
-          "text": "",
-          "url": "https://www.linkedin.com/company/capitalchronicle/posts"
-        },
-        {
-          "expanded_url": null,
-          "text": "Capital Chronicle\nCapital Chronicle\n1 follower\n1 follower",
-          "url": "https://www.linkedin.com/company/capitalchronicle/posts"
-        },
-        {
-          "expanded_url": null,
-          "text": "https://lnkd.in/gT6yH3cv",
-          "url": "https://lnkd.in/gT6yH3cv"
-        }
-      ],
-      "observed_identity": "linkedin:company:143198922",
-      "observed_stable_id": "143198922",
-      "observed_text": "Capital Chronicle's pre-payrolls review gives oil a supply-risk test\n\nWhy it matters: The review attributes WTI's move against equities to Hormuz supply risk, without independently confirming that geopolitical premise.\n\nContext: If a ceasefire or agreement is confirmed, the review's supply thesis would no longer hold; de-escalation could reprice the risk premium.\n\nRead the full brief: https://lnkd.in/gT6yH3cv\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Analysis, not financial advice. Readers decide whether to trade.\n\nCapital Chronicle may hold positions in the markets it covers.",
-      "public_image_urls": [
-        "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1796256000&v=beta&t=1blAqBOGBURsXB58gcn2EySvHGz2NBB8g6dW5VVFEME",
-        "https://media.licdn.com/dms/image/v2/D5622AQHaJ7LB-Jg5TA/feedshare-shrink_800/B56aGwhfQ_IkAg-/0/1793962931488?e=1796256000&v=beta&t=29LJjiK35KYxZNdQi_6g3NbwWjySElBf1Cs96gsi9Ck",
-        "https://media.licdn.com/dms/image/v2/D560BAQEIfQyhdVoI5A/company-logo_100_100/B56Z_6vhnSJcAI-/0/1786618190749?e=1796256000&v=beta&t=1blAqBOGBURsXB58gcn2EySvHGz2NBB8g6dW5VVFEME"
-      ],
-      "public_object_id": "urn:li:activity:7524425901736964096",
-      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425901736964096/"
+      "id": "urn:li:activity:7524425901736964096",
+      "url": "https://www.linkedin.com/feed/update/urn:li:activity:7524425901736964096/",
+      "text_sha256": "ae47101da505e55389e65d1b7c8a09f74bb82ff88f4bea78850e5fb9d26a193e"
     }
-  ],
-  "count": 4
+  ]
 }
