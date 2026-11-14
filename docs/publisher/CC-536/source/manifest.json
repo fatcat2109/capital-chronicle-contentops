@@ -1,0 +1,46 @@
+{
+  "live_tag": "live-20261114-cc573-105502",
+  "main_commit": "37c669c78dd11db72d4f56a8ad2c1af9070e7457",
+  "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+  "files": {
+    "README.md": {
+      "sha256": "e2073f18035ea622409a8e6cfd5fff37bde34c673a54eec89dcc2fc45875d95f",
+      "git_blob": "a549538b56ab92abee9f905dadb9852af9b80eed",
+      "main_path": "data/research/desk-odds/README.md"
+    },
+    "AUDIT.md": {
+      "sha256": "2ddf4a54c65732678afc0a21ce3a1661f9cb60c3e7c51d0e52316288fa2db67b",
+      "git_blob": "d48935b38deb61aeae79e34c5d310c95078004c9",
+      "main_path": "data/research/desk-odds/AUDIT.md"
+    },
+    "desk_odds_v1.json": {
+      "sha256": "593d3c8473299237fd7b022d91cf602f1b28c951ff4ef21ec43355b9c14ea43d",
+      "git_blob": "34396339c700f85d263ea3a9218156504b85b60d",
+      "main_path": "data/research/desk-odds/desk_odds_v1.json"
+    },
+    "desk_odds_sides_v1.json": {
+      "sha256": "d197b4d4a1091a287a684c7873a2dc8c98a1124202cb954511128cfd7e36146b",
+      "git_blob": "e9079b9a02b0504e0302c0e6b55e66c975cdb8e5",
+      "main_path": "data/research/desk-odds/desk_odds_sides_v1.json"
+    },
+    "audit/summary.json": {
+      "sha256": "9c9d15deaf267e6f2f53a008aa697f911f5e6f454cafd3c676981340630254b4",
+      "git_blob": "55d72aff122052a2cd474c45c84b2d011e243395",
+      "main_path": "data/research/desk-odds/audit/summary.json"
+    },
+    "desk_odds_census_v1.py": {
+      "sha256": "afda996b0db715c9049f69fa1a0c50c1d51efdff3af548dab655b26951eff7c6",
+      "git_blob": "d90578c27b4549240b41ea988fdb45dba34a6b18",
+      "main_path": "tools/product/desk_odds_census_v1.py"
+    },
+    "desk_odds_v1.py": {
+      "sha256": "4aa27ddceeb89b4bec74fdc81bc80287ccaf18d7a19eb33d321a589db5d1ff60",
+      "git_blob": "d0dee3e39b6fb61c8d607e01ff10dd90861b7c7a",
+      "main_path": "tools/product/desk_odds_v1.py"
+    }
+  },
+  "fx_repair_live": false,
+  "retrieved_at_utc": "2026-11-14T05:05:24.175612+00:00",
+  "source_generated_at_utc": "2026-11-12T13:37:24Z",
+  "audit": "CC-521 live on this tag; daily-pack consumer readback remains its own item"
+}

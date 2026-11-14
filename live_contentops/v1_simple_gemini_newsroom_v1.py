@@ -2097,7 +2097,8 @@ def _reader_safe_native_article(
     # are internal metadata, just like source markers, never reader-facing copy.
     body = re.sub(r"\[\[VISUAL:[A-Za-z0-9_.:-]+\]\]", "", body)
     body = re.sub(r"\n[ \t]*\n(?:[ \t]*\n)+", "\n\n", body).strip()
-    if not reader_first and not article.get("scenario_analysis") and not article.get("cpi_reaction_page"):
+    if (not reader_first and not article.get("scenario_analysis") and not article.get("cpi_reaction_page")
+            and not article.get("measured_odds_series")):
         body = re.sub(r"(?m)^#{1,6}\s+", "", body)
     title = str(article.get("title") or "")
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
@@ -2137,7 +2138,8 @@ def _reader_safe_native_article(
             result["editorial_scope_notice"], *article.get("desk_record_source_notices", []))))
     for key in ("scenario_analysis", "social_scenarios", "market_asset", "article_type", "release_analysis",
                 "lead_image_asset_id", "publication_quality_policy", "valid_until_utc", "weekly_scored_calls",
-                "public_instrument_policy", "reader_article_contract", "cpi_reaction_page"):
+                "public_instrument_policy", "reader_article_contract", "cpi_reaction_page",
+                "measured_odds_series", "social_summary"):
         if key in article:
             result[key] = article[key]
     from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices

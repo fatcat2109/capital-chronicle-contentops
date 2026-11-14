@@ -2140,6 +2140,9 @@ class DurablePublicationCoordinator:
     def register_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         if plan.get("fixture_source_context"):
             raise ValueError("DESK_FIXTURE_PRIVATE_PREVIEW_ONLY")
+        if plan.get("measured_odds_piece"):
+            from .measured_odds_series_v1 import validate_plan
+            validate_plan(self.store, work_item_id, plan)
         if plan.get("daily_digest"):
             from live_contentops.substack_daily_digest_v1 import validate_digest_plan
             validate_digest_plan(self.store, work_item_id, plan)
@@ -2256,6 +2259,8 @@ class DurablePublicationCoordinator:
                 previous = self.store.get_outbox_message(ids["message_id"])
                 if not previous or json.loads(previous["payload"]).get("published_content_export"):
                     intent["published_content_export"] = "contentops.published_content.v1"
+            if plan.get("measured_odds_piece"):
+                intent["measured_odds_piece"] = plan["measured_odds_piece"]
             if plan.get("daily_digest"):
                 from live_contentops.substack_daily_digest_v1 import validate_digest_plan
                 packet = validate_digest_plan(self.store, work_item_id, plan)

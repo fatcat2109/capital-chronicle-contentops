@@ -540,12 +540,16 @@ def build_native_derivative_payloads(
     media_asset_ids: Sequence[str] = ("primary", "policy_corridor", "sofr_context"),
 ) -> dict[str, Any]:
     """Compile native packages and preserve the MAX editor's destination subsets."""
-    payloads = _build_native_derivative_payloads(
-        article=article,
-        selection=selection,
-        canonical_url=canonical_url,
-        media_asset_ids=media_asset_ids,
-    )
+    if article.get("measured_odds_series"):
+        from .measured_odds_series_v1 import compile_payloads
+        payloads = compile_payloads(article, canonical_url, media_asset_ids)
+    else:
+        payloads = _build_native_derivative_payloads(
+            article=article,
+            selection=selection,
+            canonical_url=canonical_url,
+            media_asset_ids=media_asset_ids,
+        )
     from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
     payloads = {d: payloads[d] for d in V1_REQUIRED_DERIVATIVE_DESTINATIONS if d in payloads}
     from live_contentops.agy_editorial_assist_v1 import apply_variants

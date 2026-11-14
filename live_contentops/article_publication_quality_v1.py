@@ -148,6 +148,12 @@ def prepare_market_snapshot(article, assets, *, output_dir, now=None, capture=No
 def before_article_write(coordinator, intent, destination):
     if not applies(coordinator, intent):
         return None
+    if intent.get("measured_odds_piece"):
+        # CC-536 commissions dated method/count pieces. Their exact table/side
+        # checks replace current-market scenarios, never manufacture forecasts
+        # or relabel an old sample as a fresh market observation.
+        from .measured_odds_series_v1 import before_write
+        return before_write(coordinator, intent, destination)
     if intent.get("plan_analysis_page"):
         # Decision 113 defines a per-plan record, with its own exact-run
         # scenarios and levels. It is web-only and does not spend the ordinary
