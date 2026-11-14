@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-11-14T11:46:15.054016+00:00",
+  "item": "CC-107",
+  "branch": "backlog/cc-107-dated-event-review-20261114",
+  "launch": {
+    "pid": 46368,
+    "started_at_utc": "2026-11-14T10:36:24.7066570Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Bounded readback of model/effort launch flags in ancestor codex.exe command line; no runtime model telemetry"
+  },
+  "live_attempt": {
+    "run_id": "cc107-nfp-review-20261114-v1",
+    "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc107-nfp-review-20261114-v1\\binding.json",
+    "observed_binding_feed": "A:/Capital Chronicle/ContentOps/config/native_desktop_main_feed_binding_v1.json",
+    "result": "PROCESS_ENDED_WITHOUT_SUPPORTED_RETURN",
+    "cli_result_saved": false,
+    "native_request_issued": false,
+    "public_write_performed": false,
+    "preservation": "Binding, frozen general-feed pool and prior history retained unchanged; never resume it as a public duplicate"
+  },
+  "current_review": {
+    "run_id": "cc107-nfp-dated-review-20261114-v1",
+    "binding_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\binding.json",
+    "reason": "Dated retrospective preparation uses explicit held sources and prior BLS history through existing manual owner; finished publication remains sole coordinator/promotion"
+  },
+  "latest_continuation": "Same MAX writer resumed after user reported cleared usage interruption; earlier accepted roles retained",
+  "chat_messages_sent": 0,
+  "schedules_changed": 0
+}

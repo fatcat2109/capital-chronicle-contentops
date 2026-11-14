@@ -1,0 +1,72 @@
+{
+  "operation_id": "cc107-nfp-dated-review-20261114-v1",
+  "artifact_manifest": [
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\desktop_request_select.json",
+      "bytes": 302896,
+      "sha256": "289cb334efd976bc43189c05efdb054e14aac3b047bb0d17b5accca9cf997b48"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\desktop_request_media-plan.json",
+      "bytes": 460165,
+      "sha256": "c8cdd52126f56569f0c06f1581e4fdd53781458f8e5f09a83336e184551334e1"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\desktop_request_write.json",
+      "bytes": 1394415,
+      "sha256": "92b938f6cac64db873cd0bc4f2716905ac61313239c9971626582a2fd4492f42"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\desktop_request_revise.json",
+      "bytes": 1458989,
+      "sha256": "2dd9d3dfb2385a7d230a21861619d73af5adb2187f14653de1716919a39321c5"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\desktop_response_select.json",
+      "bytes": 3986,
+      "sha256": "d7cf5d034a694f6a786e0b883402ddd31b4b7a277a20de3dc4752e4ad8710b53"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\desktop_response_media-plan.json",
+      "bytes": 7981,
+      "sha256": "96efbba5952973062f408b5b4d38a98f099956d82d3f3a84fa151ba138ced3ae"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\desktop_response_write.json",
+      "bytes": 74328,
+      "sha256": "4066c66eb12e777207de64c5fd11532f316964685ce9a1e863a2671803e7e753"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\desktop_response_revise.json",
+      "bytes": 75391,
+      "sha256": "5fa64c2bd961ff4d1a5ae7e55153d5f7bc227ab7b7dda33b72053d23efdd206d"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\final-review-package.json",
+      "bytes": 1521406,
+      "sha256": "fca59e9e992aebf8b939358856c426025845c76532fe7bf49e60308c671b124a"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\binding.json",
+      "bytes": 4265,
+      "sha256": "89a65d591d1f17fb9885b3179c2746dcbfac1faadcd2e17583861d8ec5551ce7"
+    },
+    {
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\final-editor-check.json",
+      "bytes": 24842,
+      "sha256": "de3c7e7f642a1018c2093143b688547e7a6a653b111fbe1d23909b4d4decd3b7"
+    }
+  ],
+  "installed_head": "b48dab2642972ba8581ff8c37fbd27269bd957d4",
+  "code_commit": "56c1794bbf1ab014284a3687821ab84e0d10b17c",
+  "rollback_tag": "contentops-rollback-20261114-cc107-source",
+  "rollback_commit": "5fe6814affa9d75ccd3c71b629981c885798e126",
+  "public_write_performed": false,
+  "observed_at_utc": "2026-11-14T15:05:39.131508+00:00",
+  "status": "BUILT_UNMERGED (Ops review pending)",
+  "editor_check": "ACCEPT",
+  "ops_review_pending": true,
+  "publication_clock_check": "ARTICLE_DATA_CUTOFF_NOT_SUPPLIED_BY_SOURCE",
+  "new_review_published": false,
+  "live_tag": "contentops-live-20261114-cc107-dated-review"
+}
