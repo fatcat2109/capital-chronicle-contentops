@@ -151,6 +151,25 @@ def test_exact_public_readback_skips_the_global_draft_inventory(tmp_path,monkeyp
     assert request['draft_readback_scope']['scan_unreferenced_drafts'] is False
 
 
+def test_native_readback_and_pending_queries_stay_inside_the_exact_item(tmp_path,monkeypatch):
+    from live_contentops.native_neo_executor_v1 import NativeNeoExecutor
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    executor=NativeNeoExecutor(store,operation_id='cc536-measured-odds-1',output_dir=tmp_path,
+        native_invocation_id='test-native-turn')
+    calls=[]
+    original=store.list_outbox_messages
+    def scoped(**kw):
+        assert kw['work_item_id']=='cc536-measured-odds-1'
+        calls.append(kw)
+        return original(**kw)
+    monkeypatch.setattr(store,'list_outbox_messages',scoped)
+    request={'work_item_id':'cc536-measured-odds-1','action':'READBACK','destination':'substack'}
+    assert executor.fresh_readback_request(request) is None
+    executor.complete_readback_request(request)
+    assert executor.pending(work_item_id=request['work_item_id'])==[]
+    assert len(calls)==3
+
+
 def confirm_method(store, tmp_path):
     packet = odds.register(store,SOURCE / "piece-1.json",tmp_path / "method")
     coordinator = DurablePublicationCoordinator(store=store,transport_runtime=None)

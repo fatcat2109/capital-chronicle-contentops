@@ -393,11 +393,11 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
                 outcome=coordinator._dispatch_message(message,canonical_url=None)
                 if (outcome.get("status")!="DISPATCH_CONFIRMED"
                         or outcome.get("reconciliation_status")!="RECONCILED_CONFIRMED"):
-                    return {"publication":outcome,"pending_requests":executor.pending()}
+                    return {"publication":outcome,"pending_requests":executor.pending(work_item_id=packet["identity"])}
             result=coordinator.publish_plan(packet["identity"],packet["plan"])
     except NativeNeoInputRequired as pending:
         return {"state":"NATIVE_NEO_TOOL_PENDING","native_tool_request":pending.request}
-    return {"publication":result,"pending_requests":executor.pending()}
+    return {"publication":result,"pending_requests":executor.pending(work_item_id=packet["identity"])}
 
 
 def main():

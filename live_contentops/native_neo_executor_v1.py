@@ -630,7 +630,8 @@ class NativeNeoExecutor:
                     artifact.pop("sha256", None)
             return clean
         expected = public_binding(request)
-        for row in reversed(self.store.list_outbox_messages(destination=DESTINATION)):
+        for row in reversed(self.store.list_outbox_messages(destination=DESTINATION,
+                work_item_id=request.get("work_item_id"))):
             packet = json.loads(row["payload"])
             prior = packet.get("request") or {}
             if (packet.get("schema_version") != SCHEMA or packet.get("operation_id") != self.operation_id
@@ -673,7 +674,8 @@ class NativeNeoExecutor:
         delivered = bool(request.get("public_object_id") and request.get("public_object_url"))
         binding_keys = ("destination", "intent_sha256", "work_item_id", "package_identity",
                         "payload_hash", "expected_identity", "canonical_url")
-        for row in self.store.list_outbox_messages(destination=DESTINATION):
+        for row in self.store.list_outbox_messages(destination=DESTINATION,
+                work_item_id=request.get("work_item_id")):
             packet = json.loads(row["payload"])
             prior = packet.get("request") or {}
             request_hash = prior.get("request_sha256")
@@ -741,10 +743,10 @@ class NativeNeoExecutor:
                 "native_invocation_id": observed.get("native_invocation_id"),
                 "observation_sha256": result.get("native_tool_return_sha256"), "proof_fresh": current}
 
-    def pending(self):
+    def pending(self, *, work_item_id=None):
         from live_contentops.destination_transport_registry_v1 import barred_browser_destinations
         rows = []
-        for row in self.store.list_outbox_messages(destination=DESTINATION):
+        for row in self.store.list_outbox_messages(destination=DESTINATION,work_item_id=work_item_id):
             if row["destination"] != DESTINATION:
                 continue
             if row["status"] == "NATIVE_NEO_SUPERSEDED":
