@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-14T08:02:59.390430+00:00",
+  "page_id": 261,
+  "observation": {
+    "status": "FAILED_BEFORE_WRITE",
+    "definite_no_write": true,
+    "public_write_performed": false,
+    "stage": "BEFORE_PUBLISH_CLICK",
+    "reason_code": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+    "platform_wording": "Để giúp người dùng có thể nhấp vào đường liên kết ngoài, hãy hoàn tất quy trình xác minh một lần\nXác minh",
+    "page_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts"
+  },
+  "source": "existing Neo article guard; live visible external-links banner",
+  "person_action": "Complete YouTube one-time external-link verification on the retained channel draft; then Ops Product clears only the youtube suspension."
+}

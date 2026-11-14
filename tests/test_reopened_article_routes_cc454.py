@@ -45,6 +45,9 @@ class ArticleBrowser:
             assert getattr(self, "intercepting", False), "A native file chooser must never be opened"
         if kind == "fill":
             self.composer = [kwargs["value"]]
+            if self.fault in {"normalized_fill", "changed_fill"}:
+                self.composer = [kwargs["value"].replace(" ", "\n\n") + (" changed" if self.fault == "changed_fill" else "")]
+                raise endpoint.NeoEndpointError("NEO_FIELD_NORMALIZED_OR_REJECTED_ACT")
 
     def wait(self, page, selector):
         pass
@@ -70,6 +73,8 @@ class ArticleBrowser:
                 "observed_stable_id": "143198922", "observed_at_utc": datetime.now(timezone.utc).isoformat()}
         if phase == "article_editor":
             return {"ready": True}
+        if phase == "article_composer":
+            return {"texts": self.composer}
         if phase == "article_intercept_upload":
             self.intercepting = self.fault != "interception"
             return {"installed": self.fault != "interception"}
@@ -80,7 +85,7 @@ class ArticleBrowser:
             if self.fault == "composer":
                 return {"status": "FAILED_BEFORE_WRITE", "definite_no_write": True,
                     "stage": "BEFORE_PUBLISH_CLICK", "reason_code": "NEO_COMPOSER_PAYLOAD_MISMATCH"}
-            assert kwargs["posts"] == self.composer
+            assert [" ".join(t.split()) for t in kwargs["posts"]] == [" ".join(t.split()) for t in self.composer]
             company = self.destination == "linkedin_company"
             self.posts = [{"public_object_id": "urn:li:activity:123" if company else "UgArticle",
                 "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:123/" if company else "https://www.youtube.com/post/UgArticle",
@@ -217,6 +222,15 @@ def test_cc536_youtube_external_link_verification_stops_only_its_route(tmp_path)
     response = next(json.loads(r["payload"])["result"] for r in store.list_outbox_messages(destination="internal:native-neo-tool")
         if "result" in json.loads(r["payload"]))
     assert response["platform_wording"] == "Complete one-time verification to make external links clickable"
+
+
+@pytest.mark.parametrize("fault,confirmed", [("normalized_fill", True), ("changed_fill", False)])
+def test_cc536_youtube_fill_accepts_only_observed_whitespace_changes(tmp_path, fault, confirmed):
+    store, c, executor, browser, message, row = article(tmp_path, "youtube", fault)
+    result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert (result.get("reconciliation_status") == "RECONCILED_CONFIRMED") is confirmed
+    assert bool(browser.posts) is confirmed
+    assert browser.calls.count("article_publish") == int(confirmed)
 
 
 @pytest.mark.parametrize("visible", [False, True])

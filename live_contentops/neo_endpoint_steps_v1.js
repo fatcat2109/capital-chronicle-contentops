@@ -9,6 +9,12 @@ const unwrap = r => {
   if (!Object.prototype.hasOwnProperty.call(r,'value')) throw new Error('NEO_DOM_OBSERVATION_UNAVAILABLE');
   return r.value;
 };
+const articleEditors = async destination => unwrap(await page.evaluateInPage(destination => {
+  const scope = destination === 'linkedin_company' ? document.querySelector('[role="dialog"]') : document;
+  return Array.from(scope?.querySelectorAll(destination === 'linkedin_company'
+    ? '[contenteditable="true"][role="textbox"]' : '#contenteditable-root[contenteditable="true"]') || [])
+    .filter(e => e.getClientRects().length).map(e => e.innerText);
+}, destination));
 
 // CC-466 uses this same endpoint for bound web-only plan pages.
 if (input.phase === 'plan_substack_front') {
@@ -168,15 +174,13 @@ if (input.phase === 'article_upload_restore') {
   }));
 }
 
+if (input.phase === 'article_composer') {
+  return {texts:await articleEditors(input.destination)};
+}
+
 if (input.phase === 'article_publish') {
   const s = await snap();
-  const editors = unwrap(await page.evaluateInPage(destination => {
-    const scope = destination === 'linkedin_company'
-      ? document.querySelector('[role="dialog"]') : document;
-    return Array.from(scope?.querySelectorAll(destination === 'linkedin_company'
-      ? '[contenteditable="true"][role="textbox"]' : '#contenteditable-root[contenteditable="true"]') || [])
-      .filter(e => e.getClientRects().length).map(e => e.innerText);
-  }, input.destination));
+  const editors = await articleEditors(input.destination);
   const buttons=s.refs.filter(r=>r.role==='button' && ['Post','Đăng'].includes(r.name));
   const button=buttons[buttons.length-1];
   if (!button || editors.length !== 1 || input.posts.length !== 1
