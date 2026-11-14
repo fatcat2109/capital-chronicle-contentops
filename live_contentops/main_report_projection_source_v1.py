@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from hashlib import sha256
 import json
+import math
 from pathlib import Path
 import re
 
@@ -23,6 +24,90 @@ NATIVE_MAIN_REPORT_ROOT = Path(
     r"A:\Capital Chronicle\ResearchRuns\claude-main-research\daily-research-portfolio-279805139\requests"
 )
 NATIVE_MAIN_ANALYSIS_ROOT = NATIVE_MAIN_REPORT_ROOT.parent
+EVENT_REACTION_ROOT = Path(r"A:\Capital Chronicle\ResearchRuns\main-event-reaction-tables\tables")
+EVENT_SCORE_ROOT = Path(r"A:\Capital Chronicle\ResearchRuns\main-event-forecast-scores")
+
+
+def _event_output_path(path):
+    return (path.suffix.lower() == ".json" and path.is_relative_to(EVENT_REACTION_ROOT.resolve())
+            or path.parent == EVENT_SCORE_ROOT.resolve() and path.name.startswith("event-scores-")
+            and path.suffix.lower() == ".json")
+
+
+def _event_output_text(path, passage, raw):
+    """Project Main's computed results, never its raw price or consensus inputs.
+
+    Decision 72 b permits our computed outputs even when their inputs are private.
+    Main still owns the calculation, sample, units and observation windows.
+    """
+    value = json.loads(raw)
+    pointer = passage.get("source_json_pointer", "")
+    if value.get("schema") == "PrivateEventMarketReactionTableV1":
+        match = re.fullmatch(r"/intraday_reaction/markets/([A-Z0-9]+)/returns_pct", pointer)
+        if not match or not path.is_relative_to(EVENT_REACTION_ROOT.resolve()):
+            raise ValueError("MAIN_EVENT_COMPUTED_POINTER_REQUIRED")
+        market = match[1]
+        reaction = value["intraday_reaction"]
+        if reaction["release_utc"] != value["event_at_utc"]:
+            raise ValueError("MAIN_EVENT_RELEASE_CLOCK_MISMATCH")
+        returns = reaction["markets"][market]["returns_pct"]
+        parts = []
+        for horizon in ("+5m", "+15m", "+30m", "+60m"):
+            number = returns.get(horizon)
+            if number is None:
+                continue
+            if type(number) not in (int, float) or not math.isfinite(number):
+                raise ValueError("MAIN_EVENT_COMPUTED_NUMBER_INVALID")
+            parts.append(f"{horizon}: {number}%")
+        if not parts:
+            raise ValueError("MAIN_EVENT_COMPUTED_OBSERVATIONS_ABSENT")
+        return (f"Capital Chronicle model estimate: {market} observed changes for {value['event_id']}, "
+                f"relative to the {value['event_at_utc']} baseline: " + "; ".join(parts) + ". "
+                "These are computed co-movements, not causal attribution or execution results.")
+    if value.get("schema") == "EventForecastScoreReportV1":
+        match = re.fullmatch(r"/scores/(\d+)", pointer)
+        if not match or path.parent != EVENT_SCORE_ROOT.resolve():
+            raise ValueError("MAIN_EVENT_COMPUTED_POINTER_REQUIRED")
+        row = value["scores"][int(match[1])]
+        if row.get("state") != "SCORED":
+            raise ValueError("MAIN_EVENT_SCORE_NOT_SCORED")
+        parts = []
+        for name in ("matrix", "consensus_only", "prediction_market_only"):
+            score = row.get("scores", {}).get(name, {})
+            number = score.get("brier")
+            label = name.replace("_", " ")
+            if score.get("state") == "SCORED" and type(number) in (int, float):
+                if not math.isfinite(number):
+                    raise ValueError("MAIN_EVENT_COMPUTED_NUMBER_INVALID")
+                parts.append(f"{label} Brier score {number}")
+            else:
+                parts.append(f"{label} comparison unavailable")
+        return (f"Capital Chronicle model estimate: CC-106 scores for {row['target']['event_id']}; "
+                f"consensus source {row['consensus_source']}; classified outcome {row['happened']}; "
+                + ". ".join(parts) + ". "
+                f"Score scope {row['score_scope']}; evidence class {row['evidence_class']}; "
+                f"information tag {row['information_tag']}; matrix cutoff {row['matrix_cutoff_utc']}; "
+                f"point forecast method {row['point_forecast_method']}. "
+                "Lower Brier is better. This is one outcome and a separate historical-frequency "
+                "comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.")
+    raise ValueError("MAIN_EVENT_OUTPUT_SCHEMA_INVALID")
+
+
+def _event_output_clock(path, passage, raw, spec):
+    value = json.loads(raw)
+    if value.get("schema") == "PrivateEventMarketReactionTableV1":
+        event_id, known = value["event_id"], value["built_at_utc"]
+    elif value.get("schema") == "EventForecastScoreReportV1":
+        row = value["scores"][int(passage["source_json_pointer"].split("/")[-1])]
+        event_id, known = row["target"]["event_id"], value["generated_at_utc"]
+    else:
+        raise ValueError("MAIN_EVENT_OUTPUT_SCHEMA_INVALID")
+    if passage.get("event_id") != event_id:
+        raise ValueError("MAIN_EVENT_OUTPUT_EVENT_MISMATCH")
+    if _time(known) > _time(spec["known_at_utc"]):
+        raise ValueError("MAIN_EVENT_OUTPUT_AFTER_SOURCE_CUTOFF")
+    return {"path": str(path), "sha256": sha256(raw).hexdigest(), "value": known,
+            "event_id": event_id, "basis": "MAIN_COMPUTED_OUTPUT_GENERATION_NOT_EVENT_OBSERVATION"}
 
 
 def _single_pass_path(path):
@@ -35,11 +120,13 @@ def _single_pass_path(path):
 def _allowed_report_path(path):
     return ((path.suffix.lower() == ".md" and any(path.is_relative_to(root.resolve()) for root in REPORT_ROOTS))
             or (path.name == "owner-native.json" and path.is_relative_to(NATIVE_MAIN_REPORT_ROOT.resolve()))
-            or _single_pass_path(path))
+            or _single_pass_path(path) or _event_output_path(path))
 
 
 def _passage_text(path, passage, raw):
     """Read prose fields from Main's synthesis without admitting its execution rows."""
+    if _event_output_path(path):
+        return _event_output_text(path, passage, raw)
     if path.suffix.lower() == ".md" and any(path.is_relative_to(root.resolve()) for root in REPORT_ROOTS):
         return raw.decode("utf-8-sig")
     single_pass = _single_pass_path(path)
@@ -100,6 +187,8 @@ def verify_projection(spec):
         if digest != passage["source_sha256"]:
             raise ValueError("MAIN_REPORT_SOURCE_BYTES_CHANGED")
         original = _passage_text(path, passage, raw)
+        if _event_output_path(path):
+            clock_bindings.append(_event_output_clock(path, passage, raw, spec))
         fragments = passage.get("fragments")
         if not isinstance(fragments, list) or not 1 <= len(fragments) <= 12:
             raise ValueError("MAIN_REPORT_EXACT_FRAGMENTS_REQUIRED")
