@@ -125,6 +125,23 @@ def test_cc401_failure_skips_destination_until_next_et_day(cc401_copied_store, m
         ("discord", "2026-11-09"), ("threads", "2026-11-09"), ("discord", "2026-11-10")]
 
 
+@pytest.mark.parametrize("status,local", [("DEFINITE_NO_WRITE", True), ("UNKNOWN_WRITE", False)])
+def test_cc536_missing_threads_text_preserves_unknown_and_releases_only_local_failure(cc401_copied_store, status, local):
+    store = cc401_copied_store
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=FixtureTransport())
+    detail = {"status": status, "safe_error_classification": "missing:text"}
+    coordinator._record_destination_day_failure({"work_item_id": "work-1"}, "threads", detail)
+    assert (coordinator._destination_day_failure("threads") is None) is local
+    if local:
+        # Old persisted local failures also stop consuming the day circuit.
+        incident, _ = coordinator._destination_failure_key("threads")
+        store.register_incident(incident_id=incident, work_item_id="work-1", severity="DISPATCH_FAILURE",
+            description=json.dumps(detail))
+        assert coordinator._destination_day_failure("threads") is None
+        with store.get_read_only_connection() as conn:
+            assert conn.execute("SELECT 1 FROM incidents WHERE incident_id=?", (incident,)).fetchone()
+
+
 @pytest.mark.parametrize("claimed", [False, True])
 def test_cc401_cancel_note_only_before_native_claim(cc401_copied_store, tmp_path, claimed):
     from live_contentops.native_neo_executor_v1 import NativeNeoExecutor
