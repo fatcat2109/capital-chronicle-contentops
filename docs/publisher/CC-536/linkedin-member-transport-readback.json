@@ -1,0 +1,10 @@
+{
+  "observed_at_utc": "2026-11-14T09:57:56.779930+00:00",
+  "operation": "unauthenticated HEAD https://api.linkedin.com/; transport check only",
+  "https_transport": "FAILED",
+  "error_class": "ConnectionError",
+  "cause_classes": [
+    "ProtocolError",
+    "ConnectionResetError"
+  ]
+}

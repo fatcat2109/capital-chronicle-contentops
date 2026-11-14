@@ -42,5 +42,141 @@
     "public_object_id": "224849463",
     "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
   },
-  "source_clocks_unchanged": true
+  "source_clocks_unchanged": true,
+  "continuation_20261114": {
+    "observed_at_utc": "2026-11-14T09:57:58.002644+00:00",
+    "item": "CC-536",
+    "piece": 1,
+    "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "installed_code_commit": "8e423c5a15fd64e70245f09812942afdedab4f87",
+    "main_source": {
+      "live_tag": "live-20261114-cc573-105502",
+      "commit": "37c669c78dd11db72d4f56a8ad2c1af9070e7457",
+      "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+      "blobs_verified": 7
+    },
+    "numbers": "final-number-report.json PASS; every printed numeral remains source-bound",
+    "destinations": [
+      {
+        "platform": "substack",
+        "dispatch_id": "dispatch_1078a480ea63b6cd27b0aec10750e0c0",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "224849463",
+        "public_object_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+        "reconciliation": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "telegram",
+        "dispatch_id": "dispatch_94959c640d07e2c5892c4f0bc694a5da",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "183",
+        "public_object_url": "https://t.me/CapitalChronicle/183",
+        "reconciliation": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "x",
+        "dispatch_id": "dispatch_80c5ebd06f43dcdc28886dc6aee13003",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "2121503636216049751",
+        "public_object_url": "https://x.com/Capitalnicle/status/2121503636216049751",
+        "reconciliation": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "discord",
+        "dispatch_id": "dispatch_73a5b92d65586e60c9bfea5feda9ffde",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "1571046377796935813",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571046377796935813",
+        "reconciliation": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "linkedin",
+        "dispatch_id": "dispatch_b846e6273105470e2e79f65441162a9d",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "reconciliation": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "platform": "facebook_page",
+        "dispatch_id": "dispatch_3b5fd5d99086b5d8527bc7840a52cb33",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "106091951705748_1454906993494383",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1454906993494383",
+        "reconciliation": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "instagram_business",
+        "dispatch_id": "dispatch_99469fec9f2a2910617b69205d106491",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "17979008508135876",
+        "public_object_url": "https://www.instagram.com/p/DftqP-ikncx/",
+        "reconciliation": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "threads",
+        "dispatch_id": "dispatch_6d5d947b3f5b992f2c7159d9342a9b03",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "18123673514317879",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfttV9YEhzv",
+        "reconciliation": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "youtube",
+        "dispatch_id": "dispatch_7484a400807f4d9d7bba1e051f073e65",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "reconciliation": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "platform": "linkedin_company",
+        "dispatch_id": "dispatch_ef86598a6c1df8911d19a219b6f87a9d",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "urn:li:activity:7527295698816585728",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7527295698816585728/",
+        "reconciliation": "RECONCILED_CONFIRMED"
+      }
+    ],
+    "confirmed_method_page_consumer": {
+      "identity": "cc536-measured-odds-1",
+      "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+      "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+      "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+    },
+    "plan_link_consumer": "Installed plan_analysis_pages_v1.register_link consumes confirmed_method_page; plan-consumer-link-tests.xml and installed-source-link-recovery-tests.xml pass. First new public plan carrying the method link is still pending.",
+    "daily_board": "CC-537 not built in this run; its first public board carrying the method link remains pending.",
+    "next_piece": {
+      "piece": 2,
+      "due_at_utc": "2026-11-15T11:00:00+00:00",
+      "due_gmt7": "15 Nov 2026 18:00 GMT+7",
+      "cause": "CC-536 one-piece-per-day direction; pieces 2-7 remain open"
+    },
+    "outside_causes": {
+      "youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED; exact wording and retained person action in youtube-verification-required.json",
+      "linkedin": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE; original cause retained; current HTTPS observation in linkedin-member-transport-readback.json"
+    },
+    "person_action": "Complete YouTube one-time external-link verification on https://www.youtube.com/@CapitalChronicleYouTube/posts; Ops Product then clears only the youtube suspension. The recorded draft page is historical, not asserted still open.",
+    "tests": [
+      "installed-full-image-binding-final.xml: 38 passed",
+      "installed-exact-retry-final.xml: 16 passed",
+      "installed-source-link-recovery-tests.xml: 11 passed",
+      "installed-article-transport-final.xml: 44 passed; later changed paths covered by final focused tests",
+      "company-declared-full-image-tests.xml: 2 passed"
+    ],
+    "publication_owner": "DurablePublicationCoordinator; original requests and source clocks retained",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "actual_launch_ref": "codex-exec-pid44920-20261114T095405Z",
+    "schedule_changes": false,
+    "other_chat_messages": false,
+    "preserved_uncommitted_paths": [
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl"
+    ],
+    "substack_notes": "No Notes dispatch is registered in this immutable article plan; no Notes publication claimed.",
+    "historical_native_claims": "Original publish/readback claims remain immutable in the outbox; exact prior absence and later confirmed object are reconciled. They are not new send work."
+  }
 }

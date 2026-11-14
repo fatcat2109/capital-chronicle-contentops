@@ -2,6 +2,11 @@
 
 Piece 1 is published at
 https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before.
+It is reconciled on Substack, Telegram, X, Discord, Facebook, Instagram, Threads
+and the LinkedIn company page. `piece-1-closeout.json` records the final exact
+public identities and limits. Piece 2 is due on 15 November at 18:00 GMT+7 under
+the item's one-piece-per-day instruction. The seven-piece item is still open.
+
 `canonical-readback-03.json` records exact confirmed reconciliation; the native
 return verifies the text and original chart. Social results remain in the exact
 publication records. The series remains open until the later daily pieces and live
@@ -69,3 +74,27 @@ approved own-reply thread. Its initial coordinator readback retained a text
 mismatch while the native thread and image checks passed; the linked reply's
 verified redirect must be compared under that reply's exact public identity.
 The resume result files preserve each destination's original outcome.
+
+The final company post is
+https://www.linkedin.com/feed/update/urn:li:activity:7527295698816585728/.
+Its exact text and outbound canonical link pass. LinkedIn compressed the chart;
+the automatic pixel comparison remains recorded as a mismatch. The native visual
+review inspected both original binary images and confirmed the same candles,
+two means, values, window and full TradingView attribution. That review is bound
+to both image hashes and this public object in
+`company-chart-visual-readback.json`; `linkedin-company-final-confirmed.json`
+records the coordinator's confirmed reconciliation. No comparison threshold
+was changed. The original uncertain attempt was read back and reconciled absent
+before the new native attempt; no unresolved write was retried.
+
+The LinkedIn member API still fails its HTTPS connection check. YouTube alone is
+suspended for its observed one-time external-link verification requirement; exact
+wording is in `youtube-verification-required.json`. The prepared person action is
+to complete that verification on the company channel's Posts page. Ops Product
+then clears only that route's suspension. No Notes publication is claimed.
+
+The confirmed method-page URL is used by the installed new-plan-link consumer,
+proved through its real durable intent. Its first public plan-link readback and
+CC-537's first public daily-board link remain pending. `integration.json` retains
+the original install and adds this continuation, focused installed checks and
+source verification. The two earlier telemetry files remain uncommitted.
