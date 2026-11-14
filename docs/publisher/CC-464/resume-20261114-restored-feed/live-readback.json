@@ -1,0 +1,249 @@
+{
+  "item": "CC-464",
+  "observed_at_utc": "2026-11-14T10:29:30.296754+00:00",
+  "operating_head": "fb54b3159010193cc46b947cc23566aa2e87bbe8",
+  "source_hashes": {
+    "scripts/plan_status_posts.py": {
+      "sha256": "2f48c3bd1b60b24f8f37d3ad3714ec64ab3eaef4dc2b4a59f5570312392ec615",
+      "installed_sha256": "2f48c3bd1b60b24f8f37d3ad3714ec64ab3eaef4dc2b4a59f5570312392ec615"
+    },
+    "live_contentops/x_reply_bot_v1.py": {
+      "sha256": "02ed3ef55fdc7abdc30f4f6212fd7ccb417c5446eee3981e03c401e295abbc0a",
+      "installed_sha256": "02ed3ef55fdc7abdc30f4f6212fd7ccb417c5446eee3981e03c401e295abbc0a"
+    },
+    "live_contentops/x_reply_pack_v1.py": {
+      "sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb",
+      "installed_sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb"
+    },
+    "live_contentops/x_reply_fact_policy_v1.py": {
+      "sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c",
+      "installed_sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c"
+    },
+    "live_contentops/x_reply_fact_sources_v1.py": {
+      "sha256": "54a3a3486248c3afb14a901563a96b3f65abd5d1203d29cfc3537f805d5cd8e4",
+      "installed_sha256": "54a3a3486248c3afb14a901563a96b3f65abd5d1203d29cfc3537f805d5cd8e4"
+    }
+  },
+  "source_hashes_match": true,
+  "task_readback": "task-readback.json",
+  "existing_private_binding": {
+    "configured": true,
+    "bound": true,
+    "enabled": true
+  },
+  "feed": {
+    "generated_at_utc": "2026-11-14T10:29:14.264Z",
+    "row_count": 820,
+    "newest_posted_utc": "2026-11-14T10:18:43.724Z",
+    "newest_age_seconds": 630.5,
+    "ingest_lag_seconds_median_last_hour": 44.611
+  },
+  "after_ops_feed_restore": {
+    "since_utc": "2026-11-14T07:24:00Z",
+    "reply_tick_count": 161,
+    "statuses": {
+      "NO_NEW_ELIGIBLE_TARGETS": 147,
+      "NO_FRESH_UNSENT_DRAFTS": 14
+    },
+    "bot_failures": 0,
+    "transport_failure_count": 0,
+    "ranked_tick_count": 14,
+    "ranked_candidates": 30,
+    "above_quality_floor": 0,
+    "quality_floor": 80
+  },
+  "latest_tick": {
+    "started_at_utc": "2026-11-14T10:28:28.006662+00:00",
+    "ended_at_utc": "2026-11-14T10:28:39.625336+00:00",
+    "status": "NO_NEW_ELIGIBLE_TARGETS",
+    "cause": null,
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261114T102828-cc88b544\\result.json",
+    "telegram_calls": [
+      {
+        "elapsed_seconds": 0.7227193000144325,
+        "method": "getMe",
+        "status": "OK"
+      },
+      {
+        "elapsed_seconds": 0.6542513000022154,
+        "method": "getWebhookInfo",
+        "status": "OK"
+      },
+      {
+        "elapsed_seconds": 0.6629056000092532,
+        "method": "getUpdates",
+        "status": "OK"
+      }
+    ],
+    "stage_seconds": {
+      "checks": 0.0,
+      "drafting": 0.0,
+      "filter": 6.407103600009577,
+      "ranking": 0.0,
+      "whole_tick": 11.611966700002085
+    },
+    "funnel_counts": {
+      "on_topic": 4,
+      "ranking_input_post_ids": 0,
+      "seen_post_ids": 599,
+      "with_fact_post_ids": 4
+    },
+    "dropped_causes": {
+      "NO_SIX_MARKET_OR_MACRO_TOPIC": 6,
+      "TARGET_OVER_15_MINUTES_AT_SEND": 589,
+      "PREVIOUSLY_ATTEMPTED": 4
+    }
+  },
+  "latest_ranked_decisions": [
+    {
+      "tick_started_at_utc": "2026-11-14T09:25:28.443376+00:00",
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261114T092528-a38a7347\\editorial\\rank\\response.json",
+      "ranking": [
+        {
+          "post_id": "2121531482598785519",
+          "quality_score": 25,
+          "reason": "The post is recent, but competition is uncertain due to an unpopulated reply count. Available facts offer poor fit: the historical base rates pertain to CPI releases rather than geopolitical/energy infrastructure strikes, and the gold spot quote shows negligible change with no accompanying oil data to address the energy supply impact."
+        }
+      ]
+    },
+    {
+      "tick_started_at_utc": "2026-11-14T10:16:28.324299+00:00",
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261114T101628-2fd43fc1\\editorial\\rank\\response.json",
+      "ranking": [
+        {
+          "post_id": "2121547475311829079",
+          "quality_score": 15,
+          "reason": "The post is very early (~1 minute old), but the available facts cover gold price reactions to in-line CPI releases, providing no relevant or useful sourced data for a Strait of Hormuz naval mine/tanker incident; reply count is uncertain."
+        }
+      ]
+    },
+    {
+      "tick_started_at_utc": "2026-11-14T10:18:27.778242+00:00",
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261114T101827-d681900f\\editorial\\rank\\response.json",
+      "ranking": [
+        {
+          "post_id": "2121547752526278778",
+          "quality_score": 15,
+          "reason": "Earlier alert of the duplicate pair, but available facts relate strictly to CPI base rates rather than the Strait of Hormuz tanker incident, providing no relevant useful sourced fact. Reply count is uncertain."
+        },
+        {
+          "post_id": "2121547766434521288",
+          "quality_score": 10,
+          "reason": "Duplicate alert posted three seconds after the original. Available facts regarding CPI reactions do not address the geopolitical oil supply event, providing no relevant sourced value. Reply count is uncertain."
+        }
+      ]
+    },
+    {
+      "tick_started_at_utc": "2026-11-14T10:20:27.784129+00:00",
+      "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261114T102027-719514e2\\editorial\\rank\\response.json",
+      "ranking": [
+        {
+          "post_id": "2121548375019733250",
+          "quality_score": 18,
+          "reason": "The post is very early (~2 minutes old), but reply visibility is uncertain given a null reply count. Most importantly, the available facts cover gold price reactions to scheduled CPI releases, which are irrelevant to an unscheduled geopolitical oil tanker mine strike in the Strait of Hormuz, leaving no useful sourced fact to address an evidence gap."
+        }
+      ]
+    }
+  ],
+  "delivery_count": 4,
+  "confirmed_deliveries": [
+    {
+      "kind": "private_draft_delivered",
+      "post_id": "2120543011537097030",
+      "delivery_id": "xrb-2120543011537097030",
+      "delivered_at_utc": "2026-11-11T16:28:17+00:00",
+      "post_to_draft_minutes": 39.499201183333334,
+      "post_to_delivery_minutes": 44.510149999999996
+    },
+    {
+      "kind": "private_draft_delivered",
+      "post_id": "2120872859266699313",
+      "delivery_id": "xrb-2120872859266699313",
+      "delivered_at_utc": "2026-11-12T13:43:03+00:00",
+      "post_to_draft_minutes": 8.557976700000001,
+      "post_to_delivery_minutes": 8.5797,
+      "stage_seconds": {
+        "checks": 0.22036600000865292,
+        "drafting": 50.17092460001004,
+        "filter": 4.777249899998424,
+        "ranking": 37.22941890000948,
+        "telegram_send": 0.8785262000019429
+      }
+    },
+    {
+      "kind": "private_draft_delivered",
+      "post_id": "2121235459187826884",
+      "delivery_id": "xrb-2121235459187826884",
+      "delivered_at_utc": "2026-11-13T13:43:38+00:00",
+      "post_to_draft_minutes": 8.286751116666666,
+      "post_to_delivery_minutes": 8.3204,
+      "latency_seconds": {
+        "filter_to_delivery": 190.205019,
+        "ingestion_to_filter": 274.854981,
+        "post_to_ingestion": 34.164,
+        "total": 499.224
+      },
+      "five_minute_target_met": false,
+      "stage_seconds": {
+        "checks": 0.2627945000131149,
+        "drafting": 117.78408650000347,
+        "filter": 9.18630969998776,
+        "ranking": 58.63056400002097,
+        "telegram_send": 0.9224020000256132
+      }
+    },
+    {
+      "kind": "private_draft_delivered",
+      "post_id": "2121238553342751113",
+      "delivery_id": "xrb-2121238553342751113",
+      "delivered_at_utc": "2026-11-13T13:53:12+00:00",
+      "post_to_draft_minutes": 5.55677365,
+      "post_to_delivery_minutes": 5.592,
+      "latency_seconds": {
+        "filter_to_delivery": 163.894915,
+        "ingestion_to_filter": 155.920085,
+        "post_to_ingestion": 15.705,
+        "total": 335.52
+      },
+      "five_minute_target_met": false,
+      "stage_seconds": {
+        "checks": 0.36070670004119165,
+        "drafting": 94.36154670000542,
+        "filter": 10.324984999984736,
+        "ranking": 51.99728410001262,
+        "telegram_send": 0.9592751000018325
+      }
+    }
+  ],
+  "five_minute_deliveries": 0,
+  "manual_reply_readback_rows": 0,
+  "last_bounded_own_reply_observation": {
+    "observed_at_utc": "2026-11-14T09:51:41.647830+00:00",
+    "completed_at_utc": "2026-11-14T09:51:51.354190+00:00",
+    "observed_reply_count": 0,
+    "scope": "Existing bounded own-replies reader; this is not a claim of global reply absence."
+  },
+  "old_neo_draft_tabs": {
+    "enabled": false,
+    "parked_by": "CC-464",
+    "parked_at_utc": "2026-11-13T13:53:12+00:00"
+  },
+  "acceptance": {
+    "private_chat_refusal": "24 focused fixture-backed consumer checks PASS; see consumer-tests.xml",
+    "post_to_private_delivery_within_five_minutes": "NOT_YET_OBSERVED",
+    "phone_intent_opens_correct_target_and_text": "JIM_PHONE_OBSERVATION_REQUIRED",
+    "first_manual_reply_and_both_delays": "NO_MATCHING_READBACK_ROW_YET"
+  },
+  "choice": "Reuse the installed consumer; keep the ranking decisions because gold CPI base rates do not establish an added fact about tanker mines or other oil-supply incidents. No current software defect was observed, so no new model calls, replay sends or source-policy change.",
+  "person_only_prepared_action": "On the next unexpired private Publisher bot draft, Jim taps Open reply on X, reviews the target and filled text, then presses Reply once; the installed observer imports the exact edge and both delays.",
+  "actions": {
+    "schedule_changed": false,
+    "application_control": false,
+    "native_desktop_control": false,
+    "browser_actions": 0,
+    "new_telegram_calls": 0,
+    "new_telegram_sends": 0,
+    "x_submit_actions": 0,
+    "claude_calls": 0
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "item": "CC-464",
+  "observed_at_utc": "2026-11-14T10:27:30.308742+00:00",
+  "worktree": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+  "branch": "backlog/cc-464-restored-feed-followup",
+  "base": "fb54b3159010193cc46b947cc23566aa2e87bbe8",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "operating_head_before": "fb54b3159010193cc46b947cc23566aa2e87bbe8",
+  "fresh_remote_master": "5be8fc63317be06d8319f3dd51ac4137a107cbb5",
+  "base_choice": "Continue from the current operating HEAD; CC-464 explicitly owns its Publisher integration. Reuse installed implementation and verify the restored feed.",
+  "launch": {
+    "pid": 46504,
+    "started_at_utc": "2026-11-14T10:21:51.526853Z",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "evidence": "Win32_Process exact codex exec launch arguments",
+    "runtime_telemetry": "CONFIGURED_NOT_OBSERVED"
+  },
+  "lane_wip": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    }
+  },
+  "operating_wip": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "bytes": 1411994,
+      "sha256": "7217dd5faf5e5e0ac28b886b798be9af01ed6f624849fdf0fcfb396bb77a68b1"
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 70254,
+      "sha256": "8e0387518c6ff131268f7909233c6b673b4cc5761b9f31393c79cbc28b962315"
+    }
+  },
+  "external_actions_in_this_continuation": {
+    "schedules_changed": false,
+    "apps_opened_closed_restarted": false,
+    "x_submit_actions": 0,
+    "telegram_sends": 0,
+    "telegram_getupdates_calls": 0,
+    "claude_calls": 0
+  }
+}
