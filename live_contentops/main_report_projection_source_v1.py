@@ -22,23 +22,47 @@ REPORT_ROOTS = (
 NATIVE_MAIN_REPORT_ROOT = Path(
     r"A:\Capital Chronicle\ResearchRuns\claude-main-research\daily-research-portfolio-279805139\requests"
 )
+NATIVE_MAIN_ANALYSIS_ROOT = NATIVE_MAIN_REPORT_ROOT.parent
+
+
+def _single_pass_path(path):
+    if path.name != "analysis-native.json" or not path.is_relative_to(NATIVE_MAIN_ANALYSIS_ROOT.resolve()):
+        return False
+    parts = path.relative_to(NATIVE_MAIN_ANALYSIS_ROOT.resolve()).parts
+    return len(parts) == 3 and parts[0] in {"requests", "shocks"}
 
 
 def _allowed_report_path(path):
     return ((path.suffix.lower() == ".md" and any(path.is_relative_to(root.resolve()) for root in REPORT_ROOTS))
-            or (path.name == "owner-native.json" and path.is_relative_to(NATIVE_MAIN_REPORT_ROOT.resolve())))
+            or (path.name == "owner-native.json" and path.is_relative_to(NATIVE_MAIN_REPORT_ROOT.resolve()))
+            or _single_pass_path(path))
 
 
 def _passage_text(path, passage, raw):
     """Read prose fields from Main's synthesis without admitting its execution rows."""
     if path.suffix.lower() == ".md" and any(path.is_relative_to(root.resolve()) for root in REPORT_ROOTS):
         return raw.decode("utf-8-sig")
-    if path.name != "owner-native.json" or not path.is_relative_to(NATIVE_MAIN_REPORT_ROOT.resolve()):
+    single_pass = _single_pass_path(path)
+    if not single_pass and (path.name != "owner-native.json"
+                            or not path.is_relative_to(NATIVE_MAIN_REPORT_ROOT.resolve())):
         raise ValueError("MAIN_REPORT_SOURCE_PATH_INVALID")
     pointer = passage.get("source_json_pointer", "")
+    if single_pass:
+        proof_path = path.parent / "analysis-end.json"
+        if not proof_path.is_file() or proof_path.stat().st_size > 100_000:
+            raise ValueError("MAIN_REPORT_ANALYSIS_COMPLETION_REQUIRED")
+        proof = json.loads(proof_path.read_bytes())
+        digest = sha256(json.dumps(json.loads(raw), sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+        if proof.get("output_sha256") != digest or proof.get("schema_errors"):
+            raise ValueError("MAIN_REPORT_ANALYSIS_COMPLETION_MISMATCH")
+        if not pointer.startswith("/native_synthesis/"):
+            raise ValueError("MAIN_REPORT_PUBLIC_TEXT_POINTER_INVALID")
+        public_pointer = pointer[len("/native_synthesis"):]
+    else:
+        public_pointer = pointer
     if not re.fullmatch(
         r"/(?:summary|causal_alternatives|contradictions|priced_in)/\d+/text"
-        r"|/coverage_limit|/candidates/\d+/(?:rationale|invalidation|next_required_evidence/\d+)", pointer
+        r"|/coverage_limit|/candidates/\d+/(?:rationale|invalidation|next_required_evidence/\d+)", public_pointer
     ):
         raise ValueError("MAIN_REPORT_PUBLIC_TEXT_POINTER_INVALID")
     value = json.loads(raw)
@@ -91,7 +115,7 @@ def verify_projection(spec):
             extracted.append(text.strip())
         texts.append(" ".join(extracted))
         sources[str(path)] = digest
-        if path.name == "owner-native.json":
+        if path.name == "owner-native.json" or _single_pass_path(path):
             capture = path.parent / "capture.json"
             if capture.is_file():
                 binding = {"path": str(capture), "field": "/known_at_utc"}
