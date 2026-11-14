@@ -223,6 +223,20 @@ def test_cc536_company_identity_waits_for_its_hydrated_owner_controls(tmp_path):
     assert browser.calls.count("article_publish") == 1
 
 
+@pytest.mark.parametrize("case,absent", [("loaded", True), ("empty", False), ("partial", False), ("wrong_account", False)])
+def test_cc536_company_absence_requires_loaded_own_feed_without_a_partial_target(case, absent):
+    browser = ArticleBrowser("linkedin_company", "account" if case == "wrong_account" else None)
+    url = "https://www.linkedin.com/company/143198922/admin/page-posts/published/"
+    browser.open("linkedin_company", url)
+    text = "The complete approved article starts with its bound research call and all its limits.\n\nMore exact copy."
+    browser.posts = [] if case == "empty" else [{"public_object_id":"urn:li:activity:old", "public_object_url":"https://www.linkedin.com/feed/update/urn:li:activity:old/",
+        "observed_identity":"linkedin:company:143198922", "observed_text":text[:70] if case == "partial" else "An older unrelated article.", "links":[]}]
+    result = endpoint.NeoBrowserDriver(browser).article_readback({"destination":"linkedin_company",
+        "expected_identity":"linkedin:company:143198922", "entry_url":url, "native_payload":{"text":text}}, 1)
+    assert bool(result.get("target_post_absent")) is absent
+    assert "article_publish" not in browser.calls
+
+
 def test_cc536_youtube_external_link_verification_stops_only_its_route(tmp_path):
     store, c, executor, browser, message, row = article(tmp_path, "youtube", "external_links")
     result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")

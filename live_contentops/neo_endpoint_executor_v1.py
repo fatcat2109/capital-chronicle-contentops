@@ -417,6 +417,24 @@ class NeoBrowserDriver:
         matches_found = [p for p in candidates if matches(p) and (
             not request.get("public_object_url") or p["public_object_url"] == request["public_object_url"])]
         if len(matches_found) != 1:
+            # Feed absence is a readback observation, never a retry. The native
+            # handoff still requires ten minutes since the exact last attempt.
+            # Keep a partial target, empty feed, wrong account or known object
+            # unresolved rather than converting any of them into absence.
+            prefix = _text(texts[0].splitlines()[0])[:60] if texts else ""
+            if (not matches_found and not request.get("public_object_id") and not request.get("public_object_url")
+                    and candidates and prefix and all(p.get("observed_text") for p in candidates)
+                    and not any(prefix in _text(p["observed_text"]) for p in candidates)):
+                identity = self.client.run(page, "article_identity", destination=request["destination"],
+                    expected_identity=request["expected_identity"])
+                current_url = self.client.snapshot(page).get("url")
+                if (identity.get("authenticated") is True and identity.get("observed_identity") == request["expected_identity"]
+                        and current_url == request.get("entry_url")):
+                    return {"status":"READBACK_COMPLETE", "verified":False, "target_post_absent":True,
+                        "authenticated":True, "activity_feed_loaded":True, "observed_profile_url":current_url,
+                        "observed_identity":identity["observed_identity"],
+                        "observed_text":"\n\n".join(p["observed_text"] for p in candidates),
+                        "observed_feed_post_ids":[p["public_object_id"] for p in candidates]}
             return {"status": "READBACK_UNAVAILABLE", "verified": False,
                 "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND", "observed_identity": request["expected_identity"]}
         post = matches_found[0]
