@@ -212,7 +212,7 @@ def test_cc536_youtube_dom_editor_excludes_hidden_composer(visible):
     source = (Path(endpoint.__file__).with_name("neo_endpoint_steps_v1.js")).read_text(encoding="utf-8")
     script = """
 const visible=JSON.parse(process.argv[1]);
-const field={getClientRects:()=>visible?[{}]:[],setAttribute:()=>{}};
+const field={getClientRects:()=>visible?[{}]:[],setAttribute:()=>{},getAttribute:()=> 'A rotating prompt'};
 global.document={querySelector:()=>field,querySelectorAll:()=>[field]};
 global.getComputedStyle=()=>({visibility:'visible'});
 const page={evaluateInPage:async fn=>({value:fn()})};
@@ -221,7 +221,10 @@ const source=JSON.parse(process.argv[2]);
 console.log(JSON.stringify(await fn(page,{phase:'article_editor'})));})();
 """
     raw = subprocess.check_output(["node", "-e", script, json.dumps(visible), json.dumps(source)], text=True, timeout=5)
-    assert json.loads(raw)["ready"] is visible
+    result = json.loads(raw)
+    assert result["ready"] is visible
+    if not visible:
+        assert result["prompt"] == "A rotating prompt"
 
 
 @pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])

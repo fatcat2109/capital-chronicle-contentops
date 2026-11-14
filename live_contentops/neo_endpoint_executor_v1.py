@@ -455,8 +455,11 @@ class NeoBrowserDriver:
             else:
                 ready = self.client.run(page, "article_editor")
                 if not ready.get("ready"):
-                    ref = self._ref(page, "button", {"Bật mí về video tiếp theo của bạn", "Share an upcoming video", "What's on your mind?",
-                        "Gửi lời cảm ơn! Nhập @ để đề cập đến một kênh"})
+                    # YouTube rotates this prompt. Bind the observed editor's
+                    # own label to its visible button instead of guessing it.
+                    if not ready.get("prompt"):
+                        raise NeoEndpointError("ARTICLE_EDITOR_PROMPT_UNAVAILABLE")
+                    ref = self._ref(page, "button", {ready["prompt"]})
                     self.client.act(page, "click", ref=ref)
                     ready = self.client.run(page, "article_editor")
                 if not ready.get("ready"):

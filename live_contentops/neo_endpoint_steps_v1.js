@@ -115,9 +115,9 @@ if (input.phase === 'article_identity') {
 
 if (input.phase === 'article_editor') {
   return unwrap(await page.evaluateInPage(() => {
-    const field=Array.from(document.querySelectorAll('#contenteditable-root[contenteditable="true"]'))
-      .find(e=>e.getClientRects().length && getComputedStyle(e).visibility!=='hidden');
-    if (!field) return {ready:false};
+    const fields=Array.from(document.querySelectorAll('#contenteditable-root[contenteditable="true"]'));
+    const field=fields.find(e=>e.getClientRects().length && getComputedStyle(e).visibility!=='hidden');
+    if (!field) return {ready:false,prompt:fields.map(e=>e.getAttribute('aria-label')).find(Boolean)||null};
     field.setAttribute('role','textbox');field.setAttribute('aria-label','CC454 article text');
     return {ready:true};
   }));
