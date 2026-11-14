@@ -180,7 +180,12 @@ def check_article(article, documents, *, contract=None):
     body = visible(article.get("substack_body_markdown"))
     text = "\n\n".join(visible(article.get(k)) for k in FIELDS)
     errors.extend(label_errors(text))
-    first = next(iter(sentences(body)), "")
+    lead = body
+    if article.get("article_type") == "EVENT_REVIEW":
+        # CC-107's required retrospective writing-date notice precedes prose.
+        # It is a clock label; the first actual sentence still carries our call.
+        lead = re.sub(r"\ARetrospective analysis, written on \d{1,2} [A-Za-z]+ \d{4} \(ET\)\s*\n+", "", lead)
+    first = next(iter(sentences(lead)), "")
     if not re.match(r"^(?:We\b|Our\b)", first, re.I) or not re.search(
             r"\b(?:think|expect|see|favour|favor|prefer|lean|watch|remain|view|judge|look|would|are|stay|keep)\b", first, re.I):
         errors.append("FIRST_SENTENCE_OUR_CALL_REQUIRED")

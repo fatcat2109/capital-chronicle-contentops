@@ -89,6 +89,15 @@ def test_first_sentence_contains_our_call(opening):
     assert "FIRST_SENTENCE_OUR_CALL_REQUIRED" in check_article(article, docs)
 
 
+def test_event_review_writing_date_notice_precedes_the_actual_first_person_call():
+    article, docs = daily()
+    article["article_type"] = "EVENT_REVIEW"
+    article["substack_body_markdown"] = "Retrospective analysis, written on 14 November 2026 (ET)\n\n" + article["substack_body_markdown"]
+    assert "FIRST_SENTENCE_OUR_CALL_REQUIRED" not in check_article(article, docs)
+    article["substack_body_markdown"] = article["substack_body_markdown"].replace("We think lower", "The report shows lower", 1)
+    assert "FIRST_SENTENCE_OUR_CALL_REQUIRED" in check_article(article, docs)
+
+
 def test_second_scenario_heading_or_repeated_probability_set_is_refused():
     article, docs = daily()
     article["substack_body_markdown"] += "\n\n## Earlier scenarios\n\nA second set."
