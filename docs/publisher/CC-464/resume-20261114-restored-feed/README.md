@@ -23,6 +23,12 @@ the latest bounded own-reply observation. `task-readback.json` confirms the
 existing Python 3.13 pythonw task and operating directory. This continuation
 made no schedule, application, browser, Telegram or X action.
 
+Evidence commit `9c2ef210` is pushed and fast-forwarded into the existing
+operating branch. Live and rollback tags are pushed. `integration.json` records
+the installed artifacts, preserved dirty-file prefixes and a natural consumer
+readback after integration. Git's checkout converts line endings on some text
+artifacts; their normalized content matches. Installed code hashes match exactly.
+
 Acceptance remains incomplete: no retained delivery is within five minutes,
 the phone intent opening is unobserved, and no matching manual reply row exists.
 These observations do not reinstate the cleared upstream-feed blocker or imply

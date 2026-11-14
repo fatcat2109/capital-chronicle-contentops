@@ -1,0 +1,136 @@
+{
+  "observed_at_utc": "2026-11-14T10:35:32.896547+00:00",
+  "base": "fb54b3159010193cc46b947cc23566aa2e87bbe8",
+  "evidence_commit": "9c2ef2100bea884267755be2f59e2d866befdc2c",
+  "operating_head": "9c2ef2100bea884267755be2f59e2d866befdc2c",
+  "branch": "backlog/cc-464-restored-feed-followup",
+  "integration": "Fast-forwarded CC-464 evidence into Publisher operating root. Existing source remains installed and consumed by the minute task.",
+  "tags": {
+    "contentops-rollback-20261114-cc464-restored-feed": "fb54b3159010193cc46b947cc23566aa2e87bbe8",
+    "contentops-live-20261114-cc464-restored-feed": "9c2ef2100bea884267755be2f59e2d866befdc2c"
+  },
+  "installed_artifacts": [
+    {
+      "path": "docs/publisher/CC-464/resume-20261114-restored-feed/README.md",
+      "lane_sha256": "b36209ea17cf78ff2b6b2cdf7d366cea1d27ad537aec63382d0d40eae8b7a5b3",
+      "operating_sha256": "585f54cdbf4833d2260cfd60ae24fd5d9b7511b60ddc8ffb56d8b96623e50e34",
+      "content_matches": true,
+      "exact_bytes_match": false,
+      "difference": "Git checkout CRLF/LF conversion only"
+    },
+    {
+      "path": "docs/publisher/CC-464/resume-20261114-restored-feed/consumer-tests.xml",
+      "lane_sha256": "8c4bcff4aa0449860b37b07db4d0c6c1e745327bcd05756df04654a2ee1e6689",
+      "operating_sha256": "8c4bcff4aa0449860b37b07db4d0c6c1e745327bcd05756df04654a2ee1e6689",
+      "content_matches": true,
+      "exact_bytes_match": true,
+      "difference": null
+    },
+    {
+      "path": "docs/publisher/CC-464/resume-20261114-restored-feed/live-readback.json",
+      "lane_sha256": "fa6d7bc14472798e6e3d27652baaf1691198c0e0b11ba4eb0821b30e83697579",
+      "operating_sha256": "fbcdcad01ddd503b28293d3b3cf96cfff99144404ced77a51326d41de2d008b5",
+      "content_matches": true,
+      "exact_bytes_match": false,
+      "difference": "Git checkout CRLF/LF conversion only"
+    },
+    {
+      "path": "docs/publisher/CC-464/resume-20261114-restored-feed/run-context.json",
+      "lane_sha256": "a6df2d6e624e9912cb8b0037c2d9fc97b5d4533937e7c06c7241d41fe60a7141",
+      "operating_sha256": "a970cf9c014e7145e27d9d91eb8ab4eadc87ff2072fe4203015d0fa87e85aff4",
+      "content_matches": true,
+      "exact_bytes_match": false,
+      "difference": "Git checkout CRLF/LF conversion only"
+    },
+    {
+      "path": "docs/publisher/CC-464/resume-20261114-restored-feed/task-readback.json",
+      "lane_sha256": "d75a593a53eb8cbbb9a2eaac42736c2cd89b997f1e09d829be501b7031d03de5",
+      "operating_sha256": "39787ed77becc577789f014c7db388cdd3aa69360fbbd75b0d4f657f7c07db04",
+      "content_matches": true,
+      "exact_bytes_match": false,
+      "difference": "Git checkout CRLF/LF conversion only"
+    }
+  ],
+  "preserved_wip": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "original_prefix_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "original_prefix_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "original_prefix_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "original_prefix_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "original_prefix_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "original_prefix_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "original_prefix_preserved": true,
+      "same_size": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "original_prefix_preserved": true,
+      "same_size": true
+    }
+  ],
+  "tests": "24 focused consumer checks passed; live source hashes match the tested source; this integration changes only CC-464 evidence.",
+  "post_integration_consumer": {
+    "status": "NO_NEW_ELIGIBLE_TARGETS",
+    "cause": null,
+    "started_at_utc": "2026-11-14T10:34:29.401908+00:00",
+    "ended_at_utc": "2026-11-14T10:34:38.645421+00:00",
+    "telegram_calls": [
+      {
+        "elapsed_seconds": 0.7583387000195216,
+        "method": "getMe",
+        "status": "OK"
+      },
+      {
+        "elapsed_seconds": 0.6799394999979995,
+        "method": "getWebhookInfo",
+        "status": "OK"
+      },
+      {
+        "elapsed_seconds": 0.7976912999874912,
+        "method": "getUpdates",
+        "status": "OK"
+      }
+    ],
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261114T103429-cdf7f16a\\result.json"
+  },
+  "manual_reply_readback_rows": 0,
+  "remaining_acceptance": "Fresh private delivery within five minutes; Jim phone intent opening; first exact manual reply and both delays.",
+  "schedules_changed": false,
+  "applications_restarted": false,
+  "native_desktop_automation": false,
+  "x_submit_actions": 0,
+  "telegram_sends": 0
+}
