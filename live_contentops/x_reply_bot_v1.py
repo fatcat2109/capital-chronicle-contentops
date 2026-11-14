@@ -44,6 +44,7 @@ class BotError(RuntimeError):
 class TelegramBot:
     def __init__(self, *, opener=None):
         self.opener = opener or urllib.request.urlopen
+        self.observations = []
 
     def call(self, method, payload=None):
         return self._request(method, json.dumps(payload or {}).encode("utf-8"), "application/json")
@@ -52,19 +53,43 @@ class TelegramBot:
         token = read_secret("TELEGRAM_BOT_TOKEN")
         if not token:
             raise BotError("TELEGRAM_BOT_TOKEN_UNAVAILABLE")
-        request = urllib.request.Request(
-            "https://api.telegram.org/bot" + token + "/" + method,
-            data=body, headers={"Content-Type": content_type}, method="POST")
+        # Only fixed operation names and exception classes leave this boundary.
+        # Exception messages/URLs, response objects and payloads can hold secrets
+        # or Jim's private chat id, even on a read-only Telegram call.
+        operation = method if method in {
+            "getMe", "getWebhookInfo", "getUpdates", "getChat",
+            "answerCallbackQuery", "sendMessage", "sendPhoto"} else "OTHER"
+        observation = {"method": operation, "status": "STARTED"}
+        started = perf_counter()
         try:
+            request = urllib.request.Request(
+                "https://api.telegram.org/bot" + token + "/" + method,
+                data=body, headers={"Content-Type": content_type}, method="POST")
             with self.opener(request, timeout=8) as response:
                 value = json.load(response)
+            if not value.get("ok"):
+                raise BotError("TELEGRAM_API_" + str(value.get("error_code", "ERROR")))
+            observation["status"] = "OK"
+            return value.get("result")
         except urllib.error.HTTPError as exc:
+            observation.update(status="FAILED", exception_class=type(exc).__name__, http_status=exc.code)
             raise BotError("TELEGRAM_HTTP_" + str(exc.code)) from None
-        except Exception:
-            raise BotError("TELEGRAM_TRANSPORT_UNCERTAIN") from None
-        if not value.get("ok"):
-            raise BotError("TELEGRAM_API_" + str(value.get("error_code", "ERROR")))
-        return value.get("result")
+        except BotError:
+            observation["status"] = "FAILED"
+            raise
+        except Exception as exc:
+            exception_class = type(exc).__name__
+            observation.update(status="FAILED", exception_class=exception_class)
+            cause = "TELEGRAM_TRANSPORT_UNCERTAIN_" + operation + "_" + exception_class
+            if isinstance(exc, urllib.error.URLError):
+                # URLError.reason can be a socket/SSL exception or secret-bearing
+                # text. Retain its class only, never its string representation.
+                observation["reason_class"] = type(exc.reason).__name__
+                cause += "_" + observation["reason_class"]
+            raise BotError(cause) from None
+        finally:
+            observation["elapsed_seconds"] = perf_counter() - started
+            self.observations.append(observation)
 
     def send_photo(self, chat_id, path):
         import mimetypes
@@ -699,6 +724,7 @@ def refresh_due(store, *, binding_path=BINDING, feed_path=None, output_root=None
                                                           for p in current_candidates)
     finally:
         result["ended_at_utc"] = packs.utcnow().isoformat()
+        result["telegram_calls"] = getattr(bot, "observations", [])
         # Failed/timeout calls still explain where this candidate's time went.
         for stage, folder in (("ranking", "rank"), ("drafting", "writer")):
             call_path = root / "editorial" / folder / "call.json"

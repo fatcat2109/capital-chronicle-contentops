@@ -92,6 +92,59 @@ def test_transport_errors_do_not_serialize_token_url_or_chat(monkeypatch):
     assert "NEVER_PRINT" not in str(caught.value) and "123456789" not in str(caught.value)
 
 
+@pytest.mark.parametrize("method", ["getMe", "getWebhookInfo", "getUpdates", "sendMessage"])
+@pytest.mark.parametrize("exception_name", ["TimeoutError", "InvalidURL", "URLError"])
+def test_transport_failure_keeps_operation_and_exception_class_without_private_details(
+        monkeypatch, method, exception_name):
+    from http.client import InvalidURL
+    from urllib.error import URLError
+    token = "999:NEVER_PRINT_THIS_TOKEN"
+    monkeypatch.setattr(botlane, "read_secret", lambda _: token)
+    private = "https://api.telegram.org/bot" + token + "/" + method + " chat 123456789"
+    failure = {"TimeoutError": TimeoutError(private), "InvalidURL": InvalidURL(private),
+               "URLError": URLError(OSError(private))}[exception_name]
+    def fail(*a, **k):
+        raise failure
+    bot = botlane.TelegramBot(opener=fail)
+    suffix = "_OSError" if exception_name == "URLError" else ""
+    with pytest.raises(botlane.BotError) as caught:
+        bot.call(method, {"chat_id": 123456789})
+    assert str(caught.value) == "TELEGRAM_TRANSPORT_UNCERTAIN_" + method + "_" + exception_name + suffix
+    assert bot.observations[0]["method"] == method
+    assert bot.observations[0]["exception_class"] == exception_name
+    assert bot.observations[0]["elapsed_seconds"] >= 0
+    diagnostic = str(caught.value) + json.dumps(bot.observations)
+    assert all(text not in diagnostic for text in [token, "123456789", "api.telegram.org"])
+
+
+def test_minute_consumer_saves_redacted_first_telegram_failure_in_its_existing_run(setup, monkeypatch):
+    from urllib.error import URLError
+    store, binding, root = setup
+    monkeypatch.setattr(botlane, "read_secret", lambda _: "999:NEVER_PRINT_THIS_TOKEN")
+    def fail(*a, **k):
+        raise URLError(TimeoutError("999:NEVER_PRINT_THIS_TOKEN chat 123456789"))
+    bot = botlane.TelegramBot(opener=fail)
+    result = botlane.refresh_due(store, binding_path=binding, output_root=root / "out", bot=bot, now=NOW)
+    assert result["status"] == "REPLY_BOT_FAILED"
+    assert result["cause"] == "TELEGRAM_TRANSPORT_UNCERTAIN_getMe_URLError_TimeoutError"
+    assert result["telegram_calls"] == bot.observations
+    saved = json.loads(store.list_outbox_messages(destination=botlane.RUNS)[0]["payload"])
+    assert saved["telegram_calls"][0]["method"] == "getMe"
+    assert "NEVER_PRINT" not in json.dumps(saved) and "123456789" not in json.dumps(saved)
+    assert not store.list_outbox_messages(destination=botlane.DELIVERY)
+
+
+def test_request_construction_failure_is_redacted_too(monkeypatch):
+    monkeypatch.setattr(botlane, "read_secret", lambda _: "999:NEVER_PRINT_THIS_TOKEN")
+    def fail(*a, **k):
+        raise ValueError("999:NEVER_PRINT_THIS_TOKEN")
+    monkeypatch.setattr(botlane.urllib.request, "Request", fail)
+    bot = botlane.TelegramBot()
+    with pytest.raises(botlane.BotError, match="TELEGRAM_TRANSPORT_UNCERTAIN_getMe_ValueError"):
+        bot.call("getMe")
+    assert bot.observations[0]["exception_class"] == "ValueError"
+
+
 def test_skip_only_accepts_bound_private_sender(setup):
     store, binding, _ = setup
     packs.save_json(binding, {"bound_chat_id": 123456789, "start_nonce": None})
