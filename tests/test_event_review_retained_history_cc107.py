@@ -37,6 +37,19 @@ def test_existing_history_and_its_original_clock_feed_the_writer_after_relocatio
     assert docs[1]["raw_sha256"] == value["dataset_sha256"]
 
 
+def test_review_history_is_not_dropped_when_its_held_context_exceeds_ten_documents(tmp_path, monkeypatch, archive):
+    setup(tmp_path, monkeypatch, archive)
+    turn = SimpleNamespace(root=tmp_path / "operation", frozen_request=lambda _: None)
+    turn.root.mkdir()
+    sources = [{"source_id": f"SOURCE_{i+1}", "document_id": f"context-{i}",
+        "url": "https://www.bls.gov/news.release/cpi.nr0.htm", "published_at_utc": "2026-10-14T12:30:00Z"}
+        for i in range(8)]
+    docs = history.enrich_source_pack(turn, source_pack=sources, article_mode="DATA_OR_DOCUMENT_LENS",
+        cutoff_utc="2026-11-14T12:00:00Z", archive_root=tmp_path / "removed-scratch")
+    assert len(docs) == 12 and docs[:8] == sources
+    assert all(d.get("official_release_history") for d in docs[8:])
+
+
 @pytest.mark.parametrize("fault,cause", [("changed", "PROJECTION_CHANGED"), ("future", "SCOPE_OR_CLOCK_INVALID")])
 def test_changed_values_and_later_history_cannot_replace_event_evidence(tmp_path, monkeypatch, archive, fault, cause):
     path, _ = setup(tmp_path, monkeypatch, archive)

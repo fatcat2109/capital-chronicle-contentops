@@ -505,8 +505,8 @@ def enrich_source_pack(turn, *, source_pack, article_mode, cutoff_utc, archive_r
                             point.update(producer_value_preserved=point["value"], value=correction["reported_value"],
                                 source_projection_correction=correction)
                 doc["newsroom_desk_projection"] = {**projection, "data": {**projection["data"], "series": selected}}
-    if len(source_pack) + len(docs) > 10:
-        raise ValueError("HISTORY_BOUNDED_SOURCE_PACK_REQUIRED")
+    existing = {d.get("document_id") for d in source_pack}
+    docs = [d for d in docs if d["document_id"] not in existing]
     return [*source_pack, *[{**d, "source_id": f"SOURCE_{len(source_pack)+i+1}"} for i,d in enumerate(docs)]]
 
 
