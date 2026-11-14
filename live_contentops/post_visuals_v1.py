@@ -171,7 +171,7 @@ def _render_card(packet, path, mini_chart=None):
     key_label, key_value = ("", "") if mini_chart else key_from_facts(facts)
     if display:
         key_label, key_value = display["key_label"], display["key_value"]
-    if not display and all(fact.get("rights_class") == "capital_chronicle_own_report" for fact in packet["facts"]):
+    if all(fact.get("rights_class") == "capital_chronicle_own_report" for fact in packet["facts"]):
         from live_contentops.fact_card_design_v1 import full_number_text, main_review_figure
         # Display formatting only: the packet retains the admitted source words.
         # A Main review leads with its count, rather than a period or compact suffix.
@@ -274,6 +274,9 @@ def build_post_data_card(article, claims, documents, *, output_dir, series_packe
                  if d.get("document_id") in source_ids and d.get("published_at_utc")}
         if len(dates) == 1:
             packet["source_line"] = "Source: Capital Chronicle review, " + dates.pop() + " (ET)."
+        event = article.get("event_article_packet") or {}
+        if article.get("article_type") == "EVENT_REVIEW" and event.get("event_time_utc"):
+            packet["source_line"] = "Source: Capital Chronicle; event dated " + public_date(event["event_time_utc"]) + " (ET)."
     display = (article.get("visual_editorial_decision") or {}).get("post_data_card_plan") or {}
     if display and [f.get("text") for f in display.get("facts", [])] == [f["text"] for f in facts]:
         packet["editorial_display"] = {k: str(display.get(k) or "") for k in (

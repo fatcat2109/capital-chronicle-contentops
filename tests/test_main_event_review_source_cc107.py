@@ -183,3 +183,31 @@ def test_pre_writer_hash_correction_retains_exact_old_artifacts_and_native_reque
     new["selected_source_pack"][0]["canonical_content_text"] = "Changed fact."
     _preserve_compact_source_hash_correction(tmp_path, new, SimpleNamespace(frozen_request=lambda _: None))
     assert (tmp_path / "simple_gemini_evidence_v1.json").read_bytes() == raw
+
+
+def test_history_endpoint_keeps_its_actual_unit():
+    from live_contentops import rolling_x_grounded_article_media_builder_v1 as media
+    from matplotlib import pyplot as plt
+    import numpy as np
+    packet = {"chart_type": "line", "title": "Payrolls", "question": "What was the first print?",
+        "unit": "persons", "source_caption": "BLS", "history_lineage": {"window": ["2026-08", "2026-09"]},
+        "series": [{"name": "Payroll change", "points": [{"period": "2026-08"}, {"period": "2026-09"}]}]}
+    fig = media._draw_editorial_chart(packet, [[10000, 29000]], plt, np)
+    labels = [t.get_text() for ax in fig.axes for t in ax.texts]
+    plt.close(fig)
+    assert "29000" in labels and "29000%" not in labels
+
+
+def test_retrospective_card_separates_event_date_from_calculation_date(tmp_path, monkeypatch):
+    from live_contentops.post_visuals_v1 import build_post_data_card
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+    root, _, spec, _ = retained(tmp_path, monkeypatch)
+    docs = _source_pack(RetainedSourceResearch(root).evidence({"headline_ids": [spec["headline_id"]]}, cutoff_utc=NOW)["evidence_documents"])
+    text = "+5m: -0.23%"
+    article = {"title": "The dated review", "substack_body_markdown": text, "article_type": "EVENT_REVIEW",
+        "event_article_packet": {"event_time_utc": "2026-10-17T13:30:00Z"}, "display_date": "October 19, 2026"}
+    card = build_post_data_card(article, [{"claim_id": "reaction", "claim_text": text,
+        "source_id": "SOURCE_1", "support_excerpt": text}], docs, output_dir=tmp_path / "media")
+    packet = card["data_card_packet"]
+    assert packet["source_line"] == "Source: Capital Chronicle; event dated October 17, 2026 (ET)."
+    assert packet["dated_line"] == "Capital Chronicle · October 19, 2026"

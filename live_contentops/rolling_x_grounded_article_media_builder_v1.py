@@ -2139,7 +2139,8 @@ def _draw_editorial_chart(packet, values, plt, np):
                 ax.plot(x, plotted, marker="o", color=color, label=label, linewidth=2.5,
                     linestyle="--" if packet.get("history_lineage") and i else "-")
                 if packet.get("history_lineage"):
-                    ax.annotate(f"{nums[-1]:g}%", (x[-1], nums[-1]), xytext=(8,0),
+                    suffix = "%" if str(packet["unit"]).lower() in {"percent", "%"} else ""
+                    ax.annotate(f"{nums[-1]:g}{suffix}", (x[-1], nums[-1]), xytext=(8,0),
                         textcoords="offset points", color=color, fontsize=11)
                 if kind == "direct_labelled_two_line":
                     endpoint_decimals = packet.get("endpoint_label_decimals")
