@@ -91,6 +91,8 @@ def test_private_reference_book_cannot_become_a_numeric_source(piece):
 def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path, monkeypatch):
     store = ContentOpsDurableStore(tmp_path / "test.sqlite3")
     packet = odds.register(store, SOURCE / "piece-1.json", tmp_path / "article")
+    assert packet["plan"]["distribution_policy"] == "SUBSTACK_FIRST_V1"
+    assert packet["plan"]["substack_first_dependency"] is True
     coordinator = DurablePublicationCoordinator(store=store,transport_runtime=SimpleNamespace(),
         published_content_path=tmp_path / "published.jsonl")
     coordinator.register_plan(packet["identity"],packet["plan"])

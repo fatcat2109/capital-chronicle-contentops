@@ -322,10 +322,14 @@ def register(store, piece_file, output_dir):
     plan = _build_simple_publication_lifecycle_plan(run_id=identity, output_dir=output,
         selected_candidate={"story_identity":identity}, selected_plan_entry={"article_mode":"EVERGREEN_EXPLAINER"},
         article=article, article_identity=sha256_of(article), native_previews={"packages":payloads},
-        qualified_record={"accepted_evidence_ids":[piece["table_hash"]],"accepted_evidence_sha256":evidence},
+        qualified_record={"accepted_evidence_ids":[piece["table_hash"]],"accepted_evidence_sha256":evidence,
+                          "editorial_worker":{"provider":"NATIVE_CODEX_DESKTOP",**piece["editorial_call"]}},
         epistemic_state={"evidence_basis":"CAPITAL_CHRONICLE_OWN_RESEARCH", "event_confirmation_state":"NOT_EVENT_REPORTING"},
         media_assets=assets)
-    plan.update(measured_odds_piece=identity)
+    # CC-536 names Substack as the canonical page. The shared legacy compiler
+    # still defaults to the preview site's retired first-publication route.
+    plan.update(measured_odds_piece=identity, distribution_policy="SUBSTACK_FIRST_V1",
+                substack_first_dependency=True)
     plan.pop("plan_hash",None)
     plan["plan_hash"] = sha256_of(plan)
     (output / "article_manifest_v1.json").write_bytes(canonical_bytes(article))
@@ -386,7 +390,10 @@ def main():
         result={"status":"PASS","numbers":validate_piece(_read(args.piece),args.piece.parent/"source")}
     else:
         from .durable_operational_store_v1 import ContentOpsDurableStore
-        rollout=_read(args.rollout);store=ContentOpsDurableStore(rollout["store_path"])
+        # This CLI resumes the installed production store; schema installation
+        # belongs to its existing runtime. Replaying migrations on each article
+        # held the 884 MB store for minutes before any piece was registered.
+        rollout=_read(args.rollout);store=ContentOpsDurableStore(rollout["store_path"], auto_migrate=False)
         packet=register(store,args.piece,args.output_dir)
         result=packet if args.command=="register" else continue_piece(store,packet,invocation_id=args.invocation_id,
             rollout=rollout,command=args.command,request_hash=args.request_hash,
