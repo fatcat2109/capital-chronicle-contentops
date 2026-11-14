@@ -1581,6 +1581,16 @@ def editorial_chart_source_links(packet, documents):
                     links.append(link)
             continue
         url = doc.get("url") or doc.get("source_url") or ""
+        rights, lineage = doc.get("source_reuse_constraints") or {}, doc.get("report_lineage") or {}
+        if (url.startswith("urn:cc-public-report:main-retained:")
+                and doc.get("source_authority_class") == "governed_capital_chronicle_report_only"
+                and rights.get("scope") == "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+                and rights.get("public_expression_reuse_allowed") is True
+                and rights.get("source_capture_sha256") == lineage.get("report_projection_sha256")
+                and lineage.get("origin") == "RETAINED_MAIN_REPORT_EXACT_SPANS"):
+            links.append({"document_id": identity, "url": "https://capitalchronicle.substack.com/",
+                "label": "Capital Chronicle model estimate", "provenance_ref": url})
+            continue
         if not url.startswith("https://"):
             raise ValueError("EDITORIAL_CHART_BOUND_SOURCE_LINK_REQUIRED")
         publisher = str(doc.get("publisher") or doc.get("source_identity") or "Source")

@@ -124,7 +124,7 @@ def test_exact_event_bytes_clocks_and_computed_fields_are_required(tmp_path, mon
 
 
 def test_main_computed_reaction_feeds_existing_source_bound_chart(tmp_path, monkeypatch):
-    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _editorial_data_values
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _editorial_data_values, editorial_chart_source_links
     from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
     root, _, spec, _ = retained(tmp_path, monkeypatch)
     research = RetainedSourceResearch(root)
@@ -139,6 +139,9 @@ def test_main_computed_reaction_feeds_existing_source_bound_chart(tmp_path, monk
         "question": "What moved in the first observed window?", "unit": "percent",
         "series": [{"name": "Gold", "points": [point]}]}
     assert _editorial_data_values(packet, docs) == [[-0.23]]
+    links = editorial_chart_source_links(packet, docs)
+    assert links[0]["label"] == "Capital Chronicle model estimate"
+    assert links[0]["provenance_ref"] == doc["url"] and links[0]["url"].startswith("https://")
     docs[0]["source_reuse_constraints"]["public_expression_reuse_allowed"] = False
     with pytest.raises(ValueError, match="FACT_RIGHTS_UNBOUND"):
         _editorial_data_values(packet, docs)
