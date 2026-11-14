@@ -527,7 +527,7 @@ def require_publication_image(destination, data):
         assets = [a for a in assets if a.get("asset_id") in selected]
     if not assets:
         from .publication_image_contract_v1 import bounded_text_fallback
-        if (data.get("article") or {}).get("plan_publication_kind") in {"run", "setup"}:
+        if (data.get("article") or {}).get("plan_publication_kind") in {"run", "setup", "update", "result"}:
             raise ValueError("EVERY_POST_IMAGE_REQUIRED:" + destination)
         if destination != "instagram_business" and bounded_text_fallback(
                 data.get("article") or {}, data.get("output_dir") or ""):

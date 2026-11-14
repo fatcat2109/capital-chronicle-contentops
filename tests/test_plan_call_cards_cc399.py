@@ -32,8 +32,9 @@ def controlled_tradingview(monkeypatch, tmp_path):
                     "legend": tv.INTERVAL_LABELS[interval], "captured_at_utc": datetime.now(timezone.utc).isoformat()}
         taken=capture(market, interval, folder, worker=worker, ratio=kwargs.get("ratio", "16:9"))
         at=taken['captured_at_utc']
+        quoted_at, _ = contract.comparison_clock(market, at)
         return contract.bind_scale(market,taken,quote={"market":market,"instrument":market,"price":100,
-            "quoted_at_utc":at,"known_at_utc":at,"source_path":"controlled-fixture.json",
+            "quoted_at_utc":quoted_at.isoformat(),"known_at_utc":at,"source_path":"controlled-fixture.json",
             "source_sha256":"a"*64,"price_basis":"plan_feed"})
     monkeypatch.setattr(tv, "capture", snapshot)
     monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
@@ -91,6 +92,10 @@ def five(tmp_path, main_root, monkeypatch):
     plans = [call(f"id{i:07}") for i in range(5)]
     events = [event(p["plan_id"], "WAITING", p["registered_at_utc"]) for p in plans]
     folder = write(tmp_path / "export", plans, events)
+    def current_public_plan(pid, **options):
+        view = json.loads((folder / "plan-status.public.json").read_bytes())
+        return next(p for p in view["plans"] if p["plan_id"] == pid)
+    monkeypatch.setattr(posts, "current_public_plan", current_public_plan)
     return store, folder, plans, events
 
 
@@ -271,16 +276,18 @@ def test_copied_store_five_cards_fill_and_ending_use_sole_coordinator(five, main
     _set_mode(store, "AUTONOMOUS_DEFAULT")
     runtime = Recorded()
     coordinator = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
-        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED" if d == "substack_notes" else "READY_NON_BROWSER_BINDING"})
+        readiness_provider=lambda d: {"readiness_state": "READY_AUTHENTICATED" if d == "substack_notes" else "READY_NON_BROWSER_BINDING"},
+        clock=lambda: NOW)
     queued = queue(store, folder, main_root)
     result = posts.publish_ready(store, now=NOW, latest_states=queued["latest_states"],
         root=tmp_path / "posts", host=fake_host, coordinator_for=lambda key, folder: coordinator)
     assert len(result["posts"]) == 6, result
     assert all(r["status"] == "PUBLISHED" for r in result["posts"]), json.dumps(result,indent=2)
-    first_count = len(cards.DESTINATIONS) + 5 * (len(cards.DESTINATIONS) - 1)
+    first_count = 6 * (len(cards.DESTINATIONS) - 1)
     assert len(runtime.intents) == first_count
-    assert [i["work_item_id"] for i in runtime.intents if i["destination_plan"]["destination"] == "linkedin"] == [
-        next(r["key"] for r in rows(store) if r["kind"] == "run")]
+    # A count-only run root cannot go to a destination where none of its
+    # child calls has a posting route (CC-584).
+    assert not [i for i in runtime.intents if i["destination_plan"]["destination"] == "linkedin"]
     instagram_card_ids = {cards._reference(store, c["key"], "instagram_business")["public_object_id"]
                           for c in rows(store) if c["kind"] == "setup"}
     assert len(instagram_card_ids) == 1  # all five verified slots belong to one published run object

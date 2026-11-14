@@ -23,7 +23,7 @@ def compose(row):
     thread = row.get("thread_contract") == "CC549_V1"
     if thread:
         from .plan_reader_copy_v1 import thread_terms, check_thread_text
-        terms = thread_terms(row["source_plan"])
+        terms = thread_terms(row["source_plan"], level_contract=row.get("level_contract"))
         if row["kind"] == "setup":
             lead = title + ": new plan."
             calls = [terms["call"]]
@@ -113,7 +113,7 @@ def validate(row):
             raise posts.PlanPostError("PLAN_ALERT_SOURCE_FIELD_CHANGED:" + field)
     if row.get("thread_contract") == "CC549_V1":
         from .plan_reader_copy_v1 import thread_terms
-        terms = thread_terms(raw)
+        terms = thread_terms(raw, level_contract=row.get("level_contract"))
         for field, key in (("instrument_title", "market"), ("price_basis", "price_basis"),
                            ("entry_deadline_utc", "entry_deadline_utc"), ("time_exit_utc", "time_exit_utc")):
             if row.get(field) != terms[key]:

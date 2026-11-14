@@ -16,6 +16,8 @@ from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
 
 CONTRACT = "CC466_V1"
 THREAD_CONTRACT = "CC549_V1"
+LEVEL_CONTRACT = "CC584_V1"
+LEVEL_EFFECTIVE = datetime(2026, 11, 14, tzinfo=timezone.utc)
 EFFECTIVE = datetime(2026, 11, 11, 16, 30, tzinfo=timezone.utc)
 LAYERS = (("macro", "Macro"), ("priced_in", "Priced in"),
           ("positioning", "Positioning"), ("fundamental", "Fundamentals"),
@@ -44,7 +46,7 @@ def et(value):
     return f"{local:%a} {local.day} {local:%b}, {local:%I:%M %p}".replace(", 0", ", ") + " ET"
 
 
-def thread_terms(raw):
+def thread_terms(raw, *, level_contract=None):
     """One explicit price basis and two distinct clocks from this Main export."""
     from . import plan_call_cards_v1 as cards, plan_status_posts_v1 as posts
     levels = cards.card_plan(raw)
@@ -60,11 +62,16 @@ def thread_terms(raw):
     for index, condition in enumerate(raw.get("invalidation_conditions") or []):
         if condition.get("field") not in {"close", "low", "high", "bid", "ask", "mid"} or condition.get("operator") not in operators:
             continue
-        conditions.append(f"{price_name} {condition['field']} {operators[condition['operator']]}{posts._level(condition['threshold'])}")
+        before = level_contract == LEVEL_CONTRACT
+        conditions.append(f"{price_name} " + ("plan cancelled on " if before else "")
+            + f"{condition['field']} {operators[condition['operator']]}{posts._level(condition['threshold'])}"
+            + (" before entry" if before else ""))
         refs.append({"file": "plan-export", "pointer": f"/invalidation_conditions/{index}/threshold"})
     if mapped:
         side = "below " if Decimal(str(levels["invalidation_level"])) < Decimal(str(levels["zone_low"])) else "above "
-        conditions.append(f"{name} invalidation {side}{cards.level(levels['invalidation_level'], levels)}")
+        conditions.append(f"{name} " + ("plan wrong " if level_contract == LEVEL_CONTRACT else "invalidation ")
+            + f"{side}{cards.level(levels['invalidation_level'], levels)}"
+            + (" after entry" if level_contract == LEVEL_CONTRACT else ""))
         refs.append({"file": "plan-export", "pointer": "/public_instrument/invalidation_level", "transform": "PUBLIC_TICK"})
     if not conditions:
         raise ValueError("CC549_INVALIDATION_NOT_EXPORTED")
@@ -174,7 +181,7 @@ def page_footer(plan, freeze, *, legacy=False):
             status]
 
 
-def source_packet(plan, run, *, original_probabilities=False, thread=False):
+def source_packet(plan, run, *, original_probabilities=False, thread=False, level_contract=None):
     """Whitelisted original analysis, not accounts, execution or raw input tables."""
     from . import plan_analysis_pages_v1 as pages
     lines = []
@@ -250,7 +257,7 @@ def source_packet(plan, run, *, original_probabilities=False, thread=False):
             add("plan", "plan-export", pointer, value)
     scalars(plan)
     if thread:
-        terms = thread_terms(plan)
+        terms = thread_terms(plan, level_contract=level_contract)
         for ref in terms["refs"]:
             lines.append({"id": "s" + str(len(lines)), "layer": "plan",
                           "text": pages._source_text(run, ref), "ref": ref})
@@ -273,6 +280,7 @@ def source_packet(plan, run, *, original_probabilities=False, thread=False):
             "source_manifest": run["manifest"], "frozen_at_utc": run["freeze"]["frozen_at_utc"],
             "missing_export_fields": ["scenario_analysis." + k for k in mapping if not scenario.get(k)],
             **({"thread_contract": THREAD_CONTRACT, "thread_terms": terms} if thread else {}),
+            **({"level_contract": level_contract} if level_contract else {}),
             **({"source_contract": "CC432_ORIGINAL_PROBABILITY_V1", "original_probability_binding": original_probability}
                if original_probability else {})}
 
@@ -348,7 +356,7 @@ def attach_call(row):
     from . import plan_status_posts_v1 as posts
     from .event_article_guard_v1 import compact_reader_conditional_call_text
     if row.get("thread_contract") == THREAD_CONTRACT:
-        terms = thread_terms(row["source_plan"])
+        terms = thread_terms(row["source_plan"], level_contract=row.get("level_contract"))
         return {"reader_call_line": terms["call_line"], "conditional_calls": [terms["call"]]}
     plan = row["levels"]
     low, high, invalid = (plan[k] for k in ("zone_low", "zone_high", "invalidation_level"))

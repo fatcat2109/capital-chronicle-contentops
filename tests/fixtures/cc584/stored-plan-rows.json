@@ -213,5 +213,54 @@
         }
       }
     }
-  ]
+  ],
+  "eurusd_priced_in": {
+    "paragraphs": [
+      {
+        "refs": [
+          {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/priced"
+          },
+          {
+            "file": "plan-export",
+            "pointer": "/registered_at_utc",
+            "transform": "ET12"
+          }
+        ],
+        "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+        "source_name": "Capital Chronicle",
+        "text": "We see EUR/USD down 0.74% on 11 Nov after a 0.48% decline on 10 Nov. We read about 91% pricing for a December rate increase as evidence that a hike was already widely expected."
+      },
+      {
+        "refs": [
+          {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/priced"
+          }
+        ],
+        "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+        "source_name": "Capital Chronicle",
+        "text": "We see the 10 Nov close of 1.11688 below the 20-day average at 1.11905. We also see it below the 50-day average at 1.12711 and the 200-day average at 1.15007."
+      },
+      {
+        "refs": [
+          {
+            "file": "plan-export",
+            "pointer": "/scenario_analysis/priced"
+          },
+          {
+            "file": "plan-export",
+            "pointer": "/registered_at_utc",
+            "transform": "ET12"
+          }
+        ],
+        "rights": "CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS",
+        "source_name": "Capital Chronicle",
+        "text": "We cannot quantify the expected price swing or compare option prices because those observations were absent. That limits our view of how much further the repricing can run."
+      }
+    ],
+    "summary": "We see rate expectations and recent weakness already reflected in price."
+  },
+  "eurusd_priced_source": "-0.74% (-1.28 ATR) today after -0.48%; the 10 Nov close 1.11688 was -0.34 ATR under SMA20 1.11905, -1.59 under SMA50 1.12711 and -5.16 under SMA200 1.15007 (06:30Z reading); 18 pips under the 20-day low; a December hike about 91% priced (context); implied move and risk reversals not observed."
 }

@@ -1502,7 +1502,7 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
         # The intent/parent equality and current public-copy checks below stay.
         from .plan_call_cards_v1 import validate_parent_intent
         validate_parent_intent(store, row, intent)
-        if row.get("kind") in {"run", "setup"} and not assets:
+        if not assets:
             raise PlanPostError("EVERY_POST_IMAGE_REQUIRED:" + str(row.get("kind")))
     elif row.get("kind") == "result":
         expected = compose_result({**row, "plan": row["levels"]})["text"]
@@ -1566,7 +1566,7 @@ def current_public_plan(plan_id, *, registration_hash=None, now=None):
     """Read Main's existing public observation; never start Main or a price job."""
     now = now or datetime.now(timezone.utc)
     try:
-        view = json.loads((EXPORT_DIR / "plan-status.public.json").read_bytes())
+        view = read_export(EXPORT_DIR)["status"]
         age = (now - _utc(view["generated_at_utc"])).total_seconds()
         if not 0 <= age <= EXPORT_MAX_AGE_MINUTES * 60:
             raise PlanPostError("PLAN_PUBLIC_STATE_EXPORT_STALE")

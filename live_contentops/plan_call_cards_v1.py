@@ -487,12 +487,14 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         item.update(analysis_publication=analysis, analysis_first_cause=cause)
         from .plan_reader_copy_v1 import EFFECTIVE as READER_EFFECTIVE
         if now >= READER_EFFECTIVE:
-            from .plan_reader_copy_v1 import THREAD_CONTRACT, thread_terms
+            from .plan_reader_copy_v1 import THREAD_CONTRACT, LEVEL_CONTRACT, LEVEL_EFFECTIVE, thread_terms
             item.update(reader_contract="CC466_V1", source_plan=raw,
                         source_plan_registration=raw.get("registration_hash"),
                         state_alert_contract="CC543_V1", state_alert_source_sha256=_hash(raw))
             if all(plan.get(key) is not None for key in ("zone_low", "zone_high", "invalidation_level", "direction")):
-                terms = thread_terms(raw)
+                if now >= LEVEL_EFFECTIVE:
+                    item["level_contract"] = LEVEL_CONTRACT
+                terms = thread_terms(raw, level_contract=item.get("level_contract"))
                 item.update(thread_contract=THREAD_CONTRACT, instrument_title=terms["market"],
                             entry_deadline_utc=terms["entry_deadline_utc"], time_exit_utc=terms["time_exit_utc"])
         return item
@@ -588,6 +590,8 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
             for field in ("source_plan", "source_plan_registration", "state_alert_source_sha256",
                           "entry_deadline_utc", "time_exit_utc", "thread_contract"):
                 item[field] = card[field]
+            if card.get("level_contract"):
+                item["level_contract"] = card["level_contract"]
             if kind == "result":
                 # Keep the original thread's levels while admitting the later
                 # exact public outcome, including its explicitly exported R.
@@ -798,16 +802,22 @@ def _can_retire_unstarted(store, row):
     return True
 
 
-def postable_run_members(store, row, destination, *, now=None, latest_states=None, root=None):
+def postable_run_members(store, row, destination, *, now=None, latest_states=None, root=None, current=False):
     """Do not announce an empty run, including a destination's definite refusals."""
+    now = now or datetime.now(timezone.utc)
     members = []
     for key in row.get("card_keys") or []:
         held = store.get_outbox_message(key)
         if not held or held["status"] not in {posts.READY, "PUBLISHING", "PUBLISHED"}:
             continue
         child = posts._row_payload(store, key)
+        states = latest_states
+        if current:
+            observed = posts.current_public_plan(child["plan_id"], now=now,
+                registration_hash=child.get("source_plan_registration") or child.get("source_plan_hash"))
+            states = {child["plan_id"]: observed.get("status")}
         if (destination not in destinations_for(child)
-                or posts.publication_refusal(store, child, now=now, latest_states=latest_states)
+                or posts.publication_refusal(store, child, now=now, latest_states=states)
                 or destination in settled_destinations(store, child)
                 or destination in {s["destination"] for s in _skipped_images(root, child)}):
             continue
@@ -1046,7 +1056,10 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         validate_reader_row(store, row)
     parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
     chosen = [d for d in destinations if not row.get("parent_key") or d in parents]
+    unpostable = []
     if row["kind"] == "run":
+        unpostable = [{"destination": d, "cause": "RUN_HAS_NO_POSTABLE_CALL"} for d in chosen
+                     if not postable_run_members(store, row, d, root=root)]
         chosen = [d for d in chosen if postable_run_members(store, row, d, root=root)]
     if not chosen:
         return {"destinations": [], "deferred_destinations": deferred, "output_dir": str(folder.resolve())}
@@ -1070,6 +1083,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     else:
         members = list({m["key"]: m for d in chosen for m in
             postable_run_members(store, row, d, root=root)}.values()) if row["kind"] == "run" else [row]
+        image_ready_keys = set()
         all_carousel_images = True
         manifest = {"status": "PASS", "assets": []}
         for member in members:
@@ -1080,6 +1094,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             if card is None:
                 all_carousel_images = False
                 continue
+            image_ready_keys.add(member["key"])
             if row.get("reader_fields") and row["reader_fields"].get("alt_text"):
                 card = {**card, "alt_text": row["reader_fields"]["alt_text"]["text"]}
             if host is None:
@@ -1129,7 +1144,13 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             tv.record_outcome({"key": key, "market": row["symbol"], "destination": "instagram_business",
                                "status": "SKIPPED_IMAGE_REQUIRED", "cause": skipped[0]["cause"]})
         chart_credit = bool(assets)
-    if row["kind"] in {"run", "setup"} and not assets:
+        if row["kind"] == "run":
+            image_unpostable = [d for d in chosen if not image_ready_keys.intersection(
+                m["key"] for m in postable_run_members(store, row, d, root=root))]
+            unpostable.extend({"destination": d, "cause": "RUN_HAS_NO_POSTABLE_CALL_IMAGE"} for d in image_unpostable)
+            chosen = [d for d in chosen if d not in image_unpostable]
+    skipped = list({s["destination"]: s for s in [*skipped, *unpostable]}.values())
+    if not assets:
         raise posts.PlanPostError("EVERY_POST_IMAGE_REQUIRED:PLAN_" + row["kind"].upper())
     if frozen and row.get("state_alert_contract") and "instagram_business" in chosen and not previous.get("status_post_alert_portrait"):
         # The fast API pass freezes its landscape bytes. Complete Instagram's
@@ -1206,11 +1227,12 @@ def validate_parent_intent(store, row, intent):
     if refusal:
         raise posts.PlanPostError(refusal[1])
     if row["kind"] == "run" and not postable_run_members(store, row, destination,
-            now=datetime.now(timezone.utc), root=Path(intent.get("output_dir") or ".").parent):
+            now=datetime.now(timezone.utc), root=Path(intent.get("output_dir") or ".").parent, current=True):
         raise posts.PlanPostError("RUN_HAS_NO_POSTABLE_CALL:" + destination)
     if row.get("source_plan_registration"):
-        current = posts.current_public_plan(row["plan_id"], registration_hash=row["source_plan_registration"])
-        refusal = posts.publication_refusal(store, row, latest_states={row["plan_id"]: current.get("status")})
+        now = datetime.now(timezone.utc)
+        current = posts.current_public_plan(row["plan_id"], registration_hash=row["source_plan_registration"], now=now)
+        refusal = posts.publication_refusal(store, row, now=now, latest_states={row["plan_id"]: current.get("status")})
         if refusal:
             raise posts.PlanPostError(refusal[1])
     if row.get("state_alert_contract") == "CC543_V1":
@@ -1350,6 +1372,9 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
             if not ready:
                 continue
         if not ready:
+            if row["kind"] == "run":
+                results.append({"key": key, "status": "WAITING", "cause": "RUN_HAS_NO_POSTABLE_CALL"})
+                continue
             _, deferred = _parents(store, row, DESTINATIONS, {})
             results.append({"key": key, "status": "WAITING" if deferred else "SETTLED",
                 "cause": deferred[0]["cause"] if deferred else "ALL_DESTINATIONS_SETTLED",

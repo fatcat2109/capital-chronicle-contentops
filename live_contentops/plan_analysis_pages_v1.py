@@ -58,6 +58,78 @@ _SECRET = re.compile(r"(?:sk-[A-Za-z0-9]{16,}|access[_ -]?token\s*[:=]|api[_ -]?
 _NUM = re.compile(r"(?<![\w.])[+−-]?\d+(?:,\d{3})*(?:\.\d+)?%?(?!\w|\.\d)")
 
 
+def check_new_page_copy(manuscript, run):
+    """Apply reader/source checks to new output, preserving historical readback."""
+    pipeline = re.compile(r"\b(?:supplied|provided)\s+(?:historical\s+)?(?:review|analysis|pack)|"
+                          r"\bthe analyst['’]s comparison|\b(?:source[- ]bound|pipeline|writer input)\b", re.I)
+    prediction = re.compile(r"\b(?:Polymarket|Kalshi|PredictIt|Manifold|prediction[- ]markets?)\b", re.I)
+    priced = re.compile(r"\b(?:pric(?:e[sd]?|ing)|market[- ]implied|implied\s+(?:odds|probability))\b", re.I)
+
+    def check(text, *, source_name="", source_locator="", source="", pricing_source=None):
+        if pipeline.search(text):
+            raise ValueError("PLAN_ANALYSIS_PIPELINE_WORDING")
+        provenance = " ".join((text, source_name, source_locator, source, json.dumps(pricing_source or {})))
+        if _numbers(text) and prediction.search(provenance):
+            raise ValueError("PLAN_ANALYSIS_PREDICTION_MARKET_NUMBERS_FORBIDDEN:JIM_DECISION_40")
+        if "%" not in text or not priced.search(text):
+            return
+        named = (pricing_source or {}).get("name") or source_name
+        if (not named or named.casefold() == "capital chronicle" or named.casefold() not in text.casefold()
+                or named.casefold() not in (source + " " + source_locator).casefold()):
+            raise ValueError("PLAN_ANALYSIS_PRICED_PERCENTAGE_SOURCE_REQUIRED")
+
+    for section in manuscript.get("sections", {}).values():
+        paragraphs = section.get("paragraphs") or []
+        for paragraph in paragraphs:
+            source = "\n".join(_source_text(run, ref) for ref in paragraph.get("refs") or [])
+            check(paragraph["text"], source_name=paragraph.get("source_name", ""),
+                  source_locator=paragraph.get("source_locator", ""), source=source,
+                  pricing_source=paragraph.get("pricing_source"))
+        summary = section.get("summary", "")
+        # A summary cannot silently drop the attribution from the full paragraph.
+        if "%" in summary and priced.search(summary):
+            names = [p.get("pricing_source") or {"name": p.get("source_name", "")} for p in paragraphs]
+            matched = next((n for n in names if n.get("name") and n["name"].casefold() in summary.casefold()), {})
+            check(summary, source=" ".join(p["text"] for p in paragraphs), pricing_source=matched)
+        else:
+            check(summary)
+    for field in ("title", "subtitle", "introduction"):
+        text = manuscript.get(field, "")
+        check(text, source=" ".join(p["text"] for s in manuscript.get("sections", {}).values()
+              for p in s.get("paragraphs", [])), pricing_source=manuscript.get("pricing_source"))
+
+
+def require_current_page(packet, *, now=None):
+    """A moved plan waits for an updated dated page; no prose or price is invented."""
+    raw = packet["source_plan"]
+    if not raw.get("zone"):
+        return  # Non-plan historical analytical packets have no entry geometry.
+    now = now or datetime.now(timezone.utc)
+    current = posts.current_public_plan(raw["plan_id"], registration_hash=raw["registration_hash"], now=now)
+    state = current.get("status")
+    if (not state or str(state).startswith(("STALE", "SUPERSEDED"))
+            or state != raw.get("status")):
+        raise ValueError("PLAN_ANALYSIS_STATE_CHANGED_REVIEW_REQUIRED")
+    quote = current.get("last_quote") or {"price": current.get("last_price"),
+        "quoted_at_utc": current.get("last_price_at_utc"), "instrument": raw["asset_id"]}
+    if (quote.get("instrument") != raw["asset_id"] or quote.get("price") is None
+            or not quote.get("quoted_at_utc")):
+        raise ValueError("PLAN_ANALYSIS_EXACT_CURRENT_QUOTE_REQUIRED")
+    age = (now - posts._utc(quote["quoted_at_utc"])).total_seconds()
+    if not 0 <= age <= posts.FRESHNESS_MINUTES * 60:
+        raise ValueError("PLAN_ANALYSIS_QUOTE_STALE_REVIEW_REQUIRED")
+    price = Decimal(str(quote["price"]))
+    if not price.is_finite() or price <= 0:
+        raise ValueError("PLAN_ANALYSIS_EXACT_CURRENT_QUOTE_REQUIRED")
+    zone = raw["zone"]
+    moved = not Decimal(str(zone["minimum"])) <= price <= Decimal(str(zone["maximum"]))
+    if moved:
+        raise ValueError("PLAN_ANALYSIS_MOVED_PAST_ZONE_OR_TARGET_REVIEW_REQUIRED")
+    if (state == "WAITING" and raw.get("entry_deadline_utc") and now >= posts._utc(raw["entry_deadline_utc"])):
+        raise ValueError("PLAN_ANALYSIS_ENTRY_WINDOW_ENDED_REVIEW_REQUIRED")
+    return current
+
+
 def _numbers(text):
     # A sign and a percentage are material. A scalar probability of 55 can
     # support '55%' but never a made-up complement or a changed magnitude.
@@ -251,6 +323,8 @@ def _card(plan, run, folder, manuscript):
                "at_utc": run["freeze"]["frozen_at_utc"],
                "instrument_title": manuscript["title"],
                "levels": posts._display_plan(posts._built_plan(plan))}
+        if manuscript.get("level_contract"):
+            row.update(level_contract=manuscript["level_contract"], source_plan=plan)
         return posts._post_image(row, folder)[0]
     from .plan_analysis_media_v1 import render as render_card
     candidate, _, _ = _owner_candidate(plan, run)
@@ -291,6 +365,7 @@ def _assemble(plan, manuscript, run):
 def render(plan, manuscript, *, output_dir, run_root=RUN_ROOT):
     run = load_run(plan, run_root=run_root)
     bindings = validate_manuscript(plan, manuscript, run)
+    check_new_page_copy(manuscript, run)
     freeze = run["freeze"]
     payload, paragraphs, geometry_bindings = _assemble(plan, manuscript, run)
     bindings += geometry_bindings
@@ -444,9 +519,13 @@ def validate_plan(store, work_item_id, plan):
             validate_snapshot_asset(asset, {"market_asset": packet["source_plan"]["asset_id"]})
             if asset.get("plan_overlay"):
                 from .tradingview_plan_overlay_v1 import validate as validate_overlay
-                validate_overlay(asset, {"key": "plan-analysis-" + packet["plan_id"],
+                overlay_row = {"key": "plan-analysis-" + packet["plan_id"],
                     "symbol": packet["source_plan"]["asset_id"],
-                    "levels": posts._display_plan(posts._built_plan(packet["source_plan"]))})
+                    "levels": posts._display_plan(posts._built_plan(packet["source_plan"]))}
+                if packet["manuscript"].get("level_contract"):
+                    overlay_row.update(level_contract=packet["manuscript"]["level_contract"],
+                                       source_plan=packet["source_plan"])
+                validate_overlay(asset, overlay_row)
             continue
         if packet["source_plan"].get("zone"):
             candidate, _, _ = _owner_candidate(packet["source_plan"], run)
@@ -466,6 +545,9 @@ def validate_intent(store, intent):
             or intent.get("media_assets", []) != packet.get("media_assets", [])
             or intent["destination_plan"].get("substack_delivery_mode") != "WEB_ONLY"):
         raise ValueError("PLAN_ANALYSIS_EXACT_WEB_ONLY_INTENT_REQUIRED")
+    require_current_page(packet)
+    if packet.get("manuscript", {}).get("sections"):
+        check_new_page_copy(packet["manuscript"], load_run(packet["source_plan"], run_root=Path(packet["run_root"])))
     return packet
 
 
@@ -550,7 +632,7 @@ def structured_summary(packet, destination, canonical_url, authored_summary=None
         maximum = 3 if destination in {"x", "threads"} else 5
         if packet["manuscript"].get("reader_revision", 1) >= 3:
             from .plan_reader_copy_v1 import thread_terms, check_thread_text
-            terms = thread_terms(packet["source_plan"])
+            terms = thread_terms(packet["source_plan"], level_contract=packet["manuscript"].get("level_contract"))
             lead += "\n" + "\n".join(terms["clocks"])
             for key, _ in force_labels:
                 if summary.get(key):
@@ -817,7 +899,7 @@ def continue_link(store, value, *, invocation_id="plan-analysis-links-cc435", co
     coordinator, executor = bind_native_neo_coordinator(store, operation_id=value["link_id"],
         output_dir=Path(value["plan"]["output_dir"]) / value["link_id"] / "native-neo",
         native_invocation_id=invocation_id, allow_publish=True,
-        automatic=automatic_neo and command in {"resume", "readback"})
+        automatic=automatic_neo and command in {"resume", "readback", "repair-image-refusal"})
     coordinator.allow_prior_confirmed_distribution=True
     coordinator.recovery_scope={"work_item_id":value["link_id"],"plan":value["plan"],"exact_work_item_only":True}
     try:
@@ -840,6 +922,8 @@ def continue_link(store, value, *, invocation_id="plan-analysis-links-cc435", co
         elif command in {"repair-embed", "repair-reference"}:
             result = repair_discord_link_transport(coordinator, value, response or {},
                 correction="embed" if command == "repair-embed" else "reference")
+        elif command == "repair-image-refusal":
+            result = repair_image_refused_link(coordinator, value)
         else:
             result = coordinator.publish_plan(value["link_id"], value["plan"])
         return {**result, "pending_requests": executor.pending()}
@@ -913,6 +997,63 @@ def publish_link(store, value, *, automatic_neo=False):
     return continue_link(store, value, automatic_neo=automatic_neo)
 
 
+def repair_image_refused_link(coordinator, value):
+    """Finish the exact illustrated-page link refused by the old image floor.
+
+    The stored pre-transport refusal proves no send. A known object, uncertain
+    attempt or different cause cannot use this repair. The coordinator keeps
+    the same message/dispatch identity and its atomic exactly-once claim.
+    """
+    store = coordinator.store
+    validate_link_plan(store, value["link_id"], value["plan"])
+    ids = coordinator._ids(value["link_id"], value["plan"]["plan_hash"], value["destination"])
+    dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+    if dispatch.get("status") != "DEFINITE_NO_WRITE" or dispatch.get("public_object_id") or dispatch.get("public_object_url"):
+        return {"status": dispatch.get("status", "NOT_ATTEMPTED"), "publish_called": False,
+                "cause": "EXACT_IMAGE_REFUSAL_REQUIRED_READBACK_REMAINS_AVAILABLE"}
+    reconciliation = next((r for r in store.get_reconciliations_for_work_item(value["link_id"])
+                           if r["reconciliation_id"] == ids["reconciliation_id"]), {})
+    if reconciliation.get("status") != "TRADINGVIEW_FIRST_IMAGE_REQUIRED" or value.get("original_analysis_root"):
+        raise ValueError("PLAN_LINK_EXACT_PRETRANSPORT_IMAGE_REFUSAL_REQUIRED")
+    for row in store.list_outbox_messages(work_item_id=value["link_id"], destination="internal:native-neo-tool"):
+        if json.loads(row["payload"]).get("request", {}).get("action") in {"PUBLISH", "EDIT_EXISTING"}:
+            raise ValueError("PLAN_LINK_NATIVE_WRITE_EXISTS_READBACK_REQUIRED")
+    message = store.get_outbox_message(ids["message_id"])
+    intent = json.loads(message["payload"])
+    validate_link_intent(store, intent)
+    # Exercise the repaired, existing common image check before releasing its
+    # definite no-write fence. No new payload, clock, root or identity is made.
+    from .publication_image_contract_v1 import validate_write
+    validate_write(coordinator, intent, value["destination"])
+    proof = {"cause": "CC584_EXACT_PRETRANSPORT_IMAGE_REFUSAL_REPAIRED", "dispatch_id": ids["dispatch_id"],
+             "original_reconciliation": reconciliation, "original_payload_sha256": sha256(message["payload"].encode()).hexdigest(),
+             "public_write_performed": False}
+    conn = store.get_connection()
+    try:
+        conn.execute("BEGIN IMMEDIATE")
+        held = conn.execute("SELECT * FROM platform_dispatches WHERE dispatch_id=?", (ids["dispatch_id"],)).fetchone()
+        reconciled = conn.execute("SELECT status FROM reconciliations WHERE reconciliation_id=?", (ids["reconciliation_id"],)).fetchone()
+        if (not held or held["status"] != "DEFINITE_NO_WRITE" or held["public_object_id"] or held["public_object_url"]
+                or not reconciled or reconciled["status"] != "TRADINGVIEW_FIRST_IMAGE_REQUIRED"):
+            return {"status": held["status"] if held else "NOT_ATTEMPTED", "publish_called": False}
+        for row in conn.execute("SELECT payload FROM outbox_messages WHERE work_item_id=? AND destination=?",
+                                (value["link_id"], "internal:native-neo-tool")):
+            if json.loads(row["payload"]).get("request", {}).get("action") in {"PUBLISH", "EDIT_EXISTING"}:
+                raise ValueError("PLAN_LINK_NATIVE_WRITE_EXISTS_READBACK_REQUIRED")
+        conn.execute("UPDATE platform_dispatches SET status=? WHERE dispatch_id=?",
+                     ("RECONCILED_ABSENT_SAFE_TO_RETRY", ids["dispatch_id"]))
+        conn.execute("UPDATE outbox_messages SET status=? WHERE message_id=?",
+                     ("RECONCILED_ABSENT_SAFE_TO_RETRY", ids["message_id"]))
+        conn.execute("UPDATE reconciliations SET status=? WHERE reconciliation_id=?",
+                     ("RECONCILED_ABSENT_SAFE_TO_RETRY", ids["reconciliation_id"]))
+        conn.commit()
+    finally:
+        conn.close()
+    store.register_readback(readback_id="cc584-image-refusal-" + ids["dispatch_id"],
+        dispatch_id=ids["dispatch_id"], readback_data=json.dumps(proof, sort_keys=True))
+    return coordinator._dispatch_message(message, canonical_url=value["canonical_url"], explicit_reconciled_absent_retry=True)
+
+
 def link_status(store, value):
     from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
     ids = Coordinator._ids(value["link_id"], value["plan"]["plan_hash"], value["destination"])
@@ -923,7 +1064,7 @@ def link_status(store, value):
     return {"confirmed": dispatch.get("status") == "DISPATCH_CONFIRMED"
                         and reconciliation.get("status") == "RECONCILED_CONFIRMED",
             "status": dispatch.get("status") or message.get("status"), "public_object_id": dispatch.get("public_object_id"),
-            "public_object_url": dispatch.get("public_object_url")}
+            "public_object_url": dispatch.get("public_object_url"), "reconciliation_status": reconciliation.get("status")}
 
 
 def settle_late_link(store, value, *, now=None):
@@ -963,8 +1104,21 @@ def _resume_link(store, value, publish, *, automatic_neo=False):
         return value
     status = link_status(store, value)
     from .plan_call_cards_v1 import SETTLED_DISPATCHES
+    if (publish and status["status"] == "DEFINITE_NO_WRITE"
+            and value.get("plan_id") == "plan_1ff14f488bdc84b20a3f51d2"
+            and value.get("destination") in {"telegram", "substack_notes"}
+            and status.get("reconciliation_status") == "TRADINGVIEW_FIRST_IMAGE_REQUIRED"):
+        return continue_link(store, value, command="repair-image-refusal", automatic_neo=automatic_neo)
     if status["confirmed"] or status["status"] in SETTLED_DISPATCHES or not publish:
         return status
+    from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+    ids = Coordinator._ids(value["link_id"], value["plan"]["plan_hash"], value["destination"])
+    repaired = any(r["readback_id"] == "cc584-image-refusal-" + ids["dispatch_id"]
+                   for r in store.list_readbacks_for_dispatch(ids["dispatch_id"]))
+    if repaired:
+        # Its original pre-transport refusal is a link-repair obligation, not
+        # a new market call. Pending tools retain their exact request/bytes.
+        return publish_link(store, value, **({"automatic_neo": True} if automatic_neo else {}))
     settled = settle_late_link(store, value)
     if settled:
         return settled
