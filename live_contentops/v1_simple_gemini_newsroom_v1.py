@@ -1504,6 +1504,8 @@ def _paragraph_marker_blockers(body: str, valid_source_ids: set[str]) -> list[st
     for index, paragraph in enumerate(paragraphs, start=1):
         if all(line.lstrip().startswith("#") for line in paragraph.splitlines() if line.strip()):
             continue
+        if index == 1 and re.fullmatch(r"Retrospective analysis, written on \d{1,2} [A-Za-z]+ \d{4} \(ET\)", paragraph):
+            continue  # The required writing-clock notice is not a source-fact claim.
         markers = set(_SOURCE_MARKER_RE.findall(paragraph))
         if not markers:
             blockers.append(f"unbound_body_paragraph:{index}")

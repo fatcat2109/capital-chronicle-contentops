@@ -211,3 +211,10 @@ def test_retrospective_card_separates_event_date_from_calculation_date(tmp_path,
     packet = card["data_card_packet"]
     assert packet["source_line"] == "Source: Capital Chronicle; event dated October 17, 2026 (ET)."
     assert packet["dated_line"] == "Capital Chronicle · October 19, 2026"
+
+
+def test_required_writing_clock_notice_needs_no_fabricated_source_fact_binding():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _paragraph_marker_blockers
+    notice = "Retrospective analysis, written on 14 November 2026 (ET)"
+    assert _paragraph_marker_blockers(notice + "\n\nWe think the condition held. [[SOURCE:SOURCE_1]]", {"SOURCE_1"}) == []
+    assert _paragraph_marker_blockers(notice + ". Gold rose.", {"SOURCE_1"}) == ["unbound_body_paragraph:1"]
