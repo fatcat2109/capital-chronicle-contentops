@@ -661,7 +661,8 @@ class NeoBrowserDriver:
     def perform(self, packet):
         request = packet["request"]
         destination = request["destination"]
-        if destination == "substack" and packet.get("operation_id", "").startswith("plan-analysis-"):
+        from .plan_substack_neo_v1 import supports_operation
+        if destination == "substack" and supports_operation(packet.get("operation_id", "")):
             from .plan_substack_neo_v1 import perform
             return perform(self.client, packet)
         if destination in ARTICLE_ROUTES:
@@ -786,7 +787,8 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         try:
             return super().__call__(request)
         except NativeNeoInputRequired as waiting:
-            plan_page = request.get("destination") == "substack" and self.operation_id.startswith("plan-analysis-")
+            from .plan_substack_neo_v1 import supports_operation
+            plan_page = request.get("destination") == "substack" and supports_operation(self.operation_id)
             if (request.get("destination") not in self.automatic_destinations and not plan_page) or request.get("action") == "EDIT_EXISTING":
                 raise
             pending=waiting

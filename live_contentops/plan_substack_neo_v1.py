@@ -1,6 +1,6 @@
 """CC-466 plan pages inside the CC-436 Neo transport and sole coordinator.
 
-Only the bound WEB_ONLY plan-page packet is accepted. This is no alternate
+Only bound WEB_ONLY plan pages and CC-536 research pieces are accepted. This is no alternate
 publisher: claims, exactly-once, pending codes and reconciliation stay native.
 """
 from __future__ import annotations
@@ -54,13 +54,18 @@ def request_action(packet):
     return (packet.get("request") or {}).get("action")
 
 
+def supports_operation(operation_id):
+    return (operation_id.startswith("plan-analysis-")
+            or re.fullmatch(r"cc536-measured-odds-[1-7]", operation_id) is not None)
+
+
 def body_text(text):
     return _substack_rendered_text(re.sub(r"^## ","",text,flags=re.M))
 
 
 def _perform(client, packet, state):
     request=packet["request"]
-    if not packet["operation_id"].startswith("plan-analysis-") or request["destination"]!="substack":
+    if not supports_operation(packet["operation_id"]) or request["destination"]!="substack":
         raise ValueError("PLAN_SUBSTACK_EXACT_PAGE_REQUEST_REQUIRED")
     page=client.open("plan-substack", request.get("public_object_url") or "https://capitalchronicle.substack.com/publish/posts")
     if request["action"]=="READBACK":

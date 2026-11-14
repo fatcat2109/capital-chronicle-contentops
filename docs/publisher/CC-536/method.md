@@ -38,29 +38,29 @@ A later opening gap is handled before that day's high and low. A trailing stop t
 
 ## A long record does not describe a short trade
 
-Some behaviours contain both long and short trades. Their pooled figure is labelled **both sides together**.
+Some behaviours contain both long and short trades. Their pooled figure is labelled both sides together.
 
 A statement about one side uses that side's own count and result. A profitable pooled row cannot establish that its short side paid.
 
-We also compare each trend row with **always long**, using the same stop and holding rule. In gold and the S&P 500, always long paid as much as being long with the trend.
+We also compare each trend row with always long, using the same stop and holding rule. In gold and the S&P 500, always long paid as much as being long with the trend.
 
 Gold, shares and Bitcoin rose over much of this decade. A rule can inherit that rise without contributing much beyond it.
 
 ## The limits that stay beside the numbers
 
-**The search itself matters.** Looking across 54 rows creates opportunities for attractive results by chance.
+The search itself matters. Looking across 54 rows creates opportunities for attractive results by chance.
 
 The independent audit tested that problem and compared choices made on the earlier half with results in the later half. Individual winners looked less convincing after allowing for the full search.
 
-**The calendars differ.** Bitcoin trades through weekends; other markets do not. The same session count can cover a different amount of calendar time.
+The calendars differ. Bitcoin trades through weekends; other markets do not. The same session count can cover a different amount of calendar time.
 
-**The source is a proxy.** Continuous futures histories can contain contract changes. Daily bars also conceal the path within a session.
+The source is a proxy. Continuous futures histories can contain contract changes. Daily bars also conceal the path within a session.
 
-**The euro and yen figures wait.** Their daily closes often described the start of the day.
+The euro and yen figures wait. Their daily closes often described the start of the day.
 
 We publish no euro or yen result until the repair reaches the live table and its matching side split.
 
-**Construction comparisons mix directions.** The stop-distance, entry and exit comparisons describe both sides together. They are not evidence for a particular long or short call.
+Construction comparisons mix directions. The stop-distance, entry and exit comparisons describe both sides together. They are not evidence for a particular long or short call.
 
 ## What would change our view
 
@@ -68,7 +68,7 @@ A different cost assumption, repaired source history or a later independent samp
 
 So what: a historical count is a starting comparison. Its direction, denominator, cost and benchmark determine how much weight it deserves.
 
-Table fingerprint: `ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add`.
+Table fingerprint: ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add.
 
 Capital Chronicle offers analysis only, not financial advice or recommendations.
 

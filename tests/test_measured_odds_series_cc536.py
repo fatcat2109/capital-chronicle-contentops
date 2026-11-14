@@ -145,3 +145,18 @@ def test_method_reference_waits_for_canonical_readback_then_feeds_new_copy(tmp_p
     assert amended["posts"][0]==payload["posts"][0]
     assert amended["posts"][1]["text"].endswith(ref["canonical_url"])
     assert payload["full_text"]=="The plan."
+
+
+def test_measured_piece_reuses_the_bound_web_only_substack_transport(monkeypatch):
+    from live_contentops import plan_substack_neo_v1 as substack
+    from live_contentops.neo_endpoint_executor_v1 import NeoBrowserDriver
+    assert substack.supports_operation("cc536-measured-odds-1")
+    assert substack.supports_operation("cc536-measured-odds-7")
+    assert not substack.supports_operation("cc536-measured-odds-8")
+    assert not substack.supports_operation("unbound-article")
+    observed=[]
+    monkeypatch.setattr(substack,"perform",lambda client,packet:observed.append(packet) or {"same_transport":True})
+    driver=NeoBrowserDriver(SimpleNamespace())
+    packet={"operation_id":"cc536-measured-odds-1","request":{"destination":"substack"}}
+    assert driver.perform(packet)=={"same_transport":True}
+    assert observed==[packet]

@@ -350,9 +350,11 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
     if Path(store.db_path).resolve() != Path(rollout["store_path"]).resolve():
         raise ValueError("ODDS_PRODUCTION_STORE_MISMATCH")
     validate_plan(store, packet["identity"], packet["plan"])
+    from .neo_endpoint_executor_v1 import NeoMcpClient
+    client = NeoMcpClient(task_name="cc536 measured odds",group_title="codex/cc536-method-page") if automatic else None
     coordinator, executor = bind_native_neo_coordinator(store,operation_id=packet["identity"],
         output_dir=Path(packet["output_dir"])/"native-neo",native_invocation_id=invocation_id,
-        allow_publish=True,automatic=automatic)
+        allow_publish=True,automatic=automatic,endpoint_client=client)
     coordinator.recovery_scope={"work_item_id":packet["identity"],"plan":packet["plan"],"exact_work_item_only":True}
     try:
         if command in {"begin","submit"}:
