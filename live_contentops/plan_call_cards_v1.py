@@ -798,6 +798,26 @@ def _can_retire_unstarted(store, row):
     return True
 
 
+def postable_run_members(store, row, destination, *, now=None, latest_states=None, root=None):
+    """Do not announce an empty run, including a destination's definite refusals."""
+    members = []
+    for key in row.get("card_keys") or []:
+        held = store.get_outbox_message(key)
+        if not held or held["status"] not in {posts.READY, "PUBLISHING", "PUBLISHED"}:
+            continue
+        child = posts._row_payload(store, key)
+        if (destination not in destinations_for(child)
+                or posts.publication_refusal(store, child, now=now, latest_states=latest_states)
+                or destination in settled_destinations(store, child)
+                or destination in {s["destination"] for s in _skipped_images(root, child)}):
+            continue
+        dispatch = _dispatch(store, key, destination) or {}
+        if dispatch.get("status") in SETTLED_DISPATCHES - {"DISPATCH_CONFIRMED"}:
+            continue
+        members.append(child)
+    return members
+
+
 def _parents(store, row, destinations, previous):
     parents = dict(previous or {})
     deferred = []
@@ -1009,6 +1029,9 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
     from .destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
     from . import tradingview_snapshot_v1 as tv
     row = posts._row_payload(store, key)
+    refusal = posts.publication_refusal(store, row, now=datetime.now(timezone.utc))
+    if refusal:
+        raise posts.PlanPostError(refusal[1])
     settled = settled_destinations(store, row)
     destinations = tuple(d for d in destinations if d in destinations_for(row) and d not in settled)
     folder = Path(root) / key
@@ -1023,6 +1046,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         validate_reader_row(store, row)
     parents, deferred = _parents(store, row, destinations, previous.get("status_post_parents"))
     chosen = [d for d in destinations if not row.get("parent_key") or d in parents]
+    if row["kind"] == "run":
+        chosen = [d for d in chosen if postable_run_members(store, row, d, root=root)]
     if not chosen:
         return {"destinations": [], "deferred_destinations": deferred, "output_dir": str(folder.resolve())}
     title = (row["lead"] if row["kind"] == "run" else
@@ -1030,7 +1055,7 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
              + (ending_words(row) if row["kind"] == "result" else "call card" if row["kind"] == "setup" else "update"))
     if row.get("reader_contract") and not row.get("state_alert_contract"):
         title = row["reader_fields"]["hook"]["text"]
-    article = {"title": title, "dek": row["lead"], "body": row["text"],
+    article = {"title": title, "dek": row["lead"], "body": row["text"], "plan_publication_kind": row["kind"],
                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     # Registered packages keep exact bytes for readback/reconciliation. This
     # cannot create a new drawn image; fresh packages always use CC-314.
@@ -1043,7 +1068,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
         skipped = previous.get("status_post_skipped_destinations") or []
         chart_credit = bool(previous.get("chart_credit"))
     else:
-        members = [posts._row_payload(store, child) for child in row["card_keys"]] if row["kind"] == "run" else [row]
+        members = list({m["key"]: m for d in chosen for m in
+            postable_run_members(store, row, d, root=root)}.values()) if row["kind"] == "run" else [row]
         all_carousel_images = True
         manifest = {"status": "PASS", "assets": []}
         for member in members:
@@ -1103,6 +1129,8 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
             tv.record_outcome({"key": key, "market": row["symbol"], "destination": "instagram_business",
                                "status": "SKIPPED_IMAGE_REQUIRED", "cause": skipped[0]["cause"]})
         chart_credit = bool(assets)
+    if row["kind"] in {"run", "setup"} and not assets:
+        raise posts.PlanPostError("EVERY_POST_IMAGE_REQUIRED:PLAN_" + row["kind"].upper())
     if frozen and row.get("state_alert_contract") and "instagram_business" in chosen and not previous.get("status_post_alert_portrait"):
         # The fast API pass freezes its landscape bytes. Complete Instagram's
         # separate portrait afterwards; append media without changing those
@@ -1174,6 +1202,17 @@ def prepare_post(store, key, *, root, host=None, destinations=DESTINATIONS,
 
 def validate_parent_intent(store, row, intent):
     destination = intent["destination_plan"]["destination"]
+    refusal = posts.publication_refusal(store, row, now=datetime.now(timezone.utc))
+    if refusal:
+        raise posts.PlanPostError(refusal[1])
+    if row["kind"] == "run" and not postable_run_members(store, row, destination,
+            now=datetime.now(timezone.utc), root=Path(intent.get("output_dir") or ".").parent):
+        raise posts.PlanPostError("RUN_HAS_NO_POSTABLE_CALL:" + destination)
+    if row.get("source_plan_registration"):
+        current = posts.current_public_plan(row["plan_id"], registration_hash=row["source_plan_registration"])
+        refusal = posts.publication_refusal(store, row, latest_states={row["plan_id"]: current.get("status")})
+        if refusal:
+            raise posts.PlanPostError(refusal[1])
     if row.get("state_alert_contract") == "CC543_V1":
         from .plan_state_alerts_v1 import validate as validate_alert
         validate_alert(row)
@@ -1252,6 +1291,12 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
     results, calls, browser_only = [], 0, 0
     for outbox, row in pending:
         key = row["key"]
+        refusal = posts.publication_refusal(store, row, now=now, latest_states=latest_states)
+        if refusal:
+            if _can_retire_unstarted(store, row):
+                store.set_outbox_status(key, refusal[0])
+            results.append({"key": key, "status": refusal[0], "cause": refusal[1]})
+            continue
         settled = settle_pending(store, outbox, row, now=now, root=root)
         if settled:
             results.append(settled)
@@ -1297,6 +1342,9 @@ def publish_ready(store, *, now, latest_states=None, root, host=None, coordinato
                 "cause": "PLAN_UPDATE_SUPERSEDED_BY_" + latest_states[row["plan_id"]]})
             continue
         ready = _ready_destinations(store, row, root=root)
+        if row["kind"] == "run":
+            ready = [d for d in ready if postable_run_members(store, row, d, now=now,
+                latest_states=latest_states, root=root)]
         if destinations is not None:
             ready = [d for d in ready if d in destinations]
             if not ready:

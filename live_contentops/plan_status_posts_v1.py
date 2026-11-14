@@ -1502,6 +1502,8 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
         # The intent/parent equality and current public-copy checks below stay.
         from .plan_call_cards_v1 import validate_parent_intent
         validate_parent_intent(store, row, intent)
+        if row.get("kind") in {"run", "setup"} and not assets:
+            raise PlanPostError("EVERY_POST_IMAGE_REQUIRED:" + str(row.get("kind")))
     elif row.get("kind") == "result":
         expected = compose_result({**row, "plan": row["levels"]})["text"]
         if row["text"] != expected:
@@ -1521,8 +1523,8 @@ STALE = "STALE_NOT_POSTED"
 def freshness_limit_minutes(payload) -> int:
     """60 minutes for a new post; a later state of an announced plan keeps LATE_STATE_HOURS. A why follow-up
     stays postable while its plan is valid, up to LATE_STATE_HOURS; a change of the plan's state supersedes it."""
-    if payload.get("format") == 4 and payload.get("kind") in {"result", "update"}:
-        return float("inf")  # An announced call's dated updates and ending remain owed.
+    if payload.get("format") == 4:
+        return FRESHNESS_MINUTES  # CC-584: cards and run roots share the state clock.
     if payload.get("kind") == "result":
         return float("inf")  # Dated results remain owed; age never turns them into a fresh call.
     if payload.get("why_follow_up"):
@@ -1536,6 +1538,47 @@ SUPERSEDED = "SUPERSEDED_NOT_POSTED"
 
 def _age_minutes(payload, now):
     return (now - _utc(payload["at_utc"])).total_seconds() / 60
+
+
+def publication_refusal(store, payload, *, now=None, latest_states=None):
+    """One freshness rule for queued cards and their final fresh-write check.
+
+    This never rewrites an issued payload or settles an uncertain dispatch.
+    Exact-object readback remains the coordinator's responsibility.
+    """
+    now = now or datetime.now(timezone.utc)
+    held = store.get_outbox_message(payload["key"]) or {}
+    for state in (held.get("status", ""), payload.get("state", "")):
+        if str(state).startswith(("STALE", "SUPERSEDED")):
+            return (STALE if str(state).startswith("STALE") else SUPERSEDED, "PLAN_POST_" + str(state))
+    current = (latest_states or {}).get(payload.get("plan_id"))
+    if current and (str(current).startswith(("STALE", "SUPERSEDED"))
+                    or (payload.get("kind") == "setup" and current != payload.get("state"))):
+        return SUPERSEDED, "PLAN_ALREADY_" + str(current)
+    if _age_minutes(payload, now) > freshness_limit_minutes(payload):
+        return STALE, "TRANSITION_OLDER_THAN_60_MINUTES_WHEN_POSTER_REACHED_IT"
+    if payload.get("kind") == "setup" and payload.get("time_exit_utc") and now >= _utc(payload["time_exit_utc"]):
+        return SUPERSEDED, "PLAN_ALREADY_ENDED"
+    return None
+
+
+def current_public_plan(plan_id, *, registration_hash=None, now=None):
+    """Read Main's existing public observation; never start Main or a price job."""
+    now = now or datetime.now(timezone.utc)
+    try:
+        view = json.loads((EXPORT_DIR / "plan-status.public.json").read_bytes())
+        age = (now - _utc(view["generated_at_utc"])).total_seconds()
+        if not 0 <= age <= EXPORT_MAX_AGE_MINUTES * 60:
+            raise PlanPostError("PLAN_PUBLIC_STATE_EXPORT_STALE")
+        matches = [p for p in view["plans"] if p.get("plan_id") == plan_id]
+        if len(matches) != 1:
+            raise PlanPostError("PLAN_PUBLIC_STATE_EXACT_PLAN_REQUIRED")
+        plan = matches[0]
+        if registration_hash and plan.get("registration_hash") != registration_hash:
+            raise PlanPostError("PLAN_PUBLIC_STATE_REGISTRATION_CHANGED")
+        return plan
+    except (OSError, KeyError, TypeError, json.JSONDecodeError) as exc:
+        raise PlanPostError("PLAN_PUBLIC_STATE_UNREADABLE:" + type(exc).__name__) from exc
 
 
 def scope_to_post(coordinator, key: str, plan: Mapping[str, Any]) -> None:

@@ -1,0 +1,217 @@
+{
+  "source": "ContentOps existing outbox, read-only on 14 Nov 2026; public fields only",
+  "gold_work_item_created_at": "2026-11-12T17:48:36.204344+00:00",
+  "rows": [
+    {
+      "message_id": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "status": "SUPERSEDED_NOT_POSTED",
+      "created_at": "2026-11-12T13:21:26.062364+00:00",
+      "original_payload_sha256": "3b5b773d9532785fd367ca68632b34db5c9ad111ecfcd02da8665f6972070ee6",
+      "payload": {
+        "schema_version": "contentops.plan_status_post.v1",
+        "format": 4,
+        "key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+        "plan_id": "plan_230a9464a193ca7a377d0c41",
+        "symbol": "XAUUSD",
+        "state": "WAITING",
+        "kind": "setup",
+        "at_utc": "2026-11-12T13:19:23.123369Z",
+        "time_exit_utc": "2026-11-13T13:15:00Z",
+        "registered_at_utc": "2026-11-12T13:19:23.123369Z",
+        "entry_deadline_utc": "2026-11-13T06:00:00Z",
+        "short_id": "2bda765d",
+        "instrument_title": "Micro gold (MGC futures, Dec 2026)",
+        "price_basis": "plan",
+        "source_plan_registration": "2e9a7170c25e5a90935cc4b02a88ace95af9ec63344785ce7074b5af42e2dece",
+        "levels": {
+          "zone_low": 3954.0,
+          "zone_high": 3964.0,
+          "invalidation_level": 3972.6,
+          "target": [
+            3876.0
+          ],
+          "direction": "bearish",
+          "valid_until_utc": "2026-11-13T06:00:00Z"
+        }
+      }
+    },
+    {
+      "message_id": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+      "status": "SETTLED",
+      "created_at": "2026-11-11T16:23:19.305242+00:00",
+      "original_payload_sha256": "23da6143c5b223d3085b7724d034ebb2f391f00e71104198e111ef83755eebe6",
+      "payload": {
+        "schema_version": "contentops.plan_status_post.v1",
+        "format": 4,
+        "key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+        "plan_id": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+        "symbol": "MULTI",
+        "state": "RUN",
+        "kind": "run",
+        "at_utc": "2026-11-11T16:20:07.062029Z",
+        "card_keys": [
+          "plan-status-post-0fee4b9450de5a81488e9d30f67d49cd",
+          "plan-status-post-a59b5a488656152d2df1ec1729ee3eb5",
+          "plan-status-post-a2a172c77f7a172d33cb2ac50c0b6947",
+          "plan-status-post-6b1d1b45c769342760ceb96f57b0c775",
+          "plan-status-post-3c8732ac99de4e1e2b742da1bf615116"
+        ]
+      }
+    },
+    {
+      "message_id": "plan-status-post-0fee4b9450de5a81488e9d30f67d49cd",
+      "status": "SETTLED",
+      "created_at": "2026-11-11T16:23:19.315922+00:00",
+      "original_payload_sha256": "27a5fa3f6c409513bfbfbf80395d65cb4b61bbace4aa543d1f66ff824041d418",
+      "payload": {
+        "schema_version": "contentops.plan_status_post.v1",
+        "format": 4,
+        "key": "plan-status-post-0fee4b9450de5a81488e9d30f67d49cd",
+        "plan_id": "plan_1ff14f488bdc84b20a3f51d2",
+        "symbol": "EURUSD",
+        "state": "WAITING",
+        "kind": "setup",
+        "at_utc": "2026-11-11T16:20:07.062029Z",
+        "parent_key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+        "time_exit_utc": "2026-11-13T13:15:00Z",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "entry_deadline_utc": "2026-11-12T21:00:00Z",
+        "short_id": "a4e979fa",
+        "instrument_title": "Euro (EUR.USD spot)",
+        "price_basis": "plan",
+        "levels": {
+          "zone_low": 1.1101,
+          "zone_high": 1.1108,
+          "invalidation_level": 1.1139,
+          "target": null,
+          "direction": "bearish",
+          "valid_until_utc": "2026-11-12T21:00:00Z"
+        }
+      }
+    },
+    {
+      "message_id": "plan-status-post-a59b5a488656152d2df1ec1729ee3eb5",
+      "status": "SETTLED",
+      "created_at": "2026-11-11T16:23:19.326550+00:00",
+      "original_payload_sha256": "e43d3fc1bdcd1321a1b34d2b6e3dea2dbcc50ab5d5bfe0f5cf32c61bc8045eed",
+      "payload": {
+        "schema_version": "contentops.plan_status_post.v1",
+        "format": 4,
+        "key": "plan-status-post-a59b5a488656152d2df1ec1729ee3eb5",
+        "plan_id": "plan_25f72703bd52500d440e9080",
+        "symbol": "USOIL",
+        "state": "WAITING",
+        "kind": "setup",
+        "at_utc": "2026-11-11T16:20:07.062029Z",
+        "parent_key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+        "time_exit_utc": "2026-11-13T13:15:00Z",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "entry_deadline_utc": "2026-11-12T21:00:00Z",
+        "short_id": "4b37d208",
+        "instrument_title": "Micro WTI crude oil (MCL futures, Dec 2026)",
+        "price_basis": "plan",
+        "levels": {
+          "zone_low": 87.5,
+          "zone_high": 87.8,
+          "invalidation_level": 89.75,
+          "target": null,
+          "direction": "bearish",
+          "valid_until_utc": "2026-11-12T21:00:00Z"
+        }
+      }
+    },
+    {
+      "message_id": "plan-status-post-a2a172c77f7a172d33cb2ac50c0b6947",
+      "status": "SETTLED",
+      "created_at": "2026-11-11T16:23:19.336601+00:00",
+      "original_payload_sha256": "750d7a3eaca4022174d487c25361fabbc69aa582977c9f7c53975d67c5db84af",
+      "payload": {
+        "schema_version": "contentops.plan_status_post.v1",
+        "format": 4,
+        "key": "plan-status-post-a2a172c77f7a172d33cb2ac50c0b6947",
+        "plan_id": "plan_2e66e8e8a4e3605f81f5470f",
+        "symbol": "US500",
+        "state": "WAITING",
+        "kind": "setup",
+        "at_utc": "2026-11-11T16:20:07.062029Z",
+        "parent_key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+        "time_exit_utc": "2026-11-13T13:15:00Z",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "entry_deadline_utc": "2026-11-12T21:00:00Z",
+        "short_id": "b07b283b",
+        "instrument_title": "Micro E-mini S&P 500 (MES futures, Dec 2026)",
+        "price_basis": "plan",
+        "levels": {
+          "zone_low": 7548.0,
+          "zone_high": 7552.0,
+          "invalidation_level": 7462.0,
+          "target": null,
+          "direction": "bullish",
+          "valid_until_utc": "2026-11-12T21:00:00Z"
+        }
+      }
+    },
+    {
+      "message_id": "plan-status-post-6b1d1b45c769342760ceb96f57b0c775",
+      "status": "SETTLED",
+      "created_at": "2026-11-11T16:23:19.347965+00:00",
+      "original_payload_sha256": "2e43ab93fd8f2894d9e959f511567171231a5899f85993db9fcfc6bd6f509a0f",
+      "payload": {
+        "schema_version": "contentops.plan_status_post.v1",
+        "format": 4,
+        "key": "plan-status-post-6b1d1b45c769342760ceb96f57b0c775",
+        "plan_id": "plan_71c24e00afe1c6a495d36468",
+        "symbol": "XAUUSD",
+        "state": "WAITING",
+        "kind": "setup",
+        "at_utc": "2026-11-11T16:20:07.062029Z",
+        "parent_key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+        "time_exit_utc": "2026-11-13T13:15:00Z",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "entry_deadline_utc": "2026-11-12T21:00:00Z",
+        "short_id": "5a6538c6",
+        "instrument_title": "Micro gold (MGC futures, Dec 2026)",
+        "price_basis": "plan",
+        "levels": {
+          "zone_low": 4048.0,
+          "zone_high": 4052.0,
+          "invalidation_level": 4090.0,
+          "target": null,
+          "direction": "bearish",
+          "valid_until_utc": "2026-11-12T21:00:00Z"
+        }
+      }
+    },
+    {
+      "message_id": "plan-status-post-3c8732ac99de4e1e2b742da1bf615116",
+      "status": "SETTLED",
+      "created_at": "2026-11-11T16:23:19.358431+00:00",
+      "original_payload_sha256": "5c8e597f7a3ce95021ea497d3b68cfb56fc11ae58c84a2236fbe3fbf9a8c07d2",
+      "payload": {
+        "schema_version": "contentops.plan_status_post.v1",
+        "format": 4,
+        "key": "plan-status-post-3c8732ac99de4e1e2b742da1bf615116",
+        "plan_id": "plan_7be77d05f616bb239254de75",
+        "symbol": "BTCUSD",
+        "state": "WAITING",
+        "kind": "setup",
+        "at_utc": "2026-11-11T16:20:07.062029Z",
+        "parent_key": "plan-run-post-6abb3bc55001d7b9ea3861ede3a19ae3",
+        "time_exit_utc": "2026-11-13T13:15:00Z",
+        "registered_at_utc": "2026-11-11T16:20:07.062029Z",
+        "entry_deadline_utc": "2026-11-12T21:00:00Z",
+        "short_id": "c0646cea",
+        "instrument_title": "Micro Bitcoin (MBT futures, Nov 2026)",
+        "price_basis": "plan",
+        "levels": {
+          "zone_low": 74650.0,
+          "zone_high": 74900.0,
+          "invalidation_level": 75700.0,
+          "target": null,
+          "direction": "bearish",
+          "valid_until_utc": "2026-11-12T21:00:00Z"
+        }
+      }
+    }
+  ]
+}
