@@ -3531,12 +3531,14 @@ def run_v1_simple_gemini_newsroom(
     admitted_media = []
     if native and article.get("reader_first_version") == "DATA_JOURNALISM_V1":
         admitted_media = llm_invoke.admitted_editorial_media()
+        from live_contentops.native_desktop_editorial_v1 import bind_inline_event_visual_decision
+        publication_speed = (llm_invoke.frozen_request("write") or {}).get("governed_input", {}).get("publication_speed_policy")
+        article = bind_inline_event_visual_decision(article, admitted_media, publication_speed=publication_speed)
         from live_contentops.post_visuals_v1 import complete_post_visuals
         article, admitted_media = complete_post_visuals(article, worker_output["material_claim_bindings"],
             source_pack, admitted_media, output_dir=root)
         article_manifest.update({k: article[k] for k in ("post_visual_policy", "post_visual_destination_media")})
         from live_contentops.native_desktop_editorial_v1 import validate_release_media
-        publication_speed = (llm_invoke.frozen_request("write") or {}).get("governed_input", {}).get("publication_speed_policy")
         validate_release_media({"article": article, "media_assets": admitted_media, "evidence": source_pack},
             require_pixel_review=not bool(publication_speed))
     if native:

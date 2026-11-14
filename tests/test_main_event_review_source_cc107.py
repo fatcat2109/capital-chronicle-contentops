@@ -245,3 +245,28 @@ def test_own_reader_interpretation_keeps_its_epistemic_qualifier(voice, accepted
         "substack_body_markdown": voice + " the report and market response answer different questions. [[SOURCE:SOURCE_1]]\n\n" + notice}
     blockers = _epistemic_copy_blockers(article, [{"attribution_required": True}], state)
     assert ("epistemic_event_asserted_as_confirmed:1" not in blockers) == accepted
+
+
+def test_inline_short_path_review_reuses_exact_writer_chart_choices():
+    from live_contentops.native_desktop_editorial_v1 import bind_inline_event_visual_decision
+    packet = {"question": "What moved?", "series": [{"points": [{"value": -0.23}]}]}
+    asset = {"asset_id": "reaction", "modality": "source_backed_chart",
+        "placement_after": "What moved", "editorial_data_packet": packet}
+    choice = {"article_type": "EVENT_REVIEW", "charts": [{"asset_id": "reaction",
+        "placement_after": "What moved", "reason": "Compare the measured windows."}],
+        "channel_media": {d: ["reaction"] for d in ["telegram", "discord", "x", "linkedin",
+            "facebook_page", "instagram_business", "threads", "youtube"]}}
+    article = {"article_type": "EVENT_REVIEW", "primary_reader_question": "What resolved?",
+        "visual_editorial_decision": choice}
+    before = deepcopy(article)
+    result = bind_inline_event_visual_decision(article, [asset], publication_speed={"policy": "JIM_DECISION_53"})
+    assert article == before and result["inline_visual_decision"] == choice
+    decision = result["visual_editorial_decision"]
+    assert decision["charts"][0]["data_spec"] == packet
+    assert decision["channel_media"] == choice["channel_media"]
+    assert bind_inline_event_visual_decision(article, [asset], publication_speed=None) == article
+    for field, value in [("asset_id", "invented-chart"), ("placement_after", "Other section")]:
+        changed = deepcopy(article)
+        changed["visual_editorial_decision"]["charts"][0][field] = value
+        with pytest.raises(ValueError, match="INLINE_EVENT_CHART_CHOICE_UNBOUND"):
+            bind_inline_event_visual_decision(changed, [asset], publication_speed={"policy": "JIM_DECISION_53"})

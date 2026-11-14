@@ -1780,6 +1780,38 @@ def bind_editorial_media(store, *, run_id, article_identity, assets, expected_pa
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 
 
+def bind_inline_event_visual_decision(article, assets, *, publication_speed):
+    """Expand the short-path writer's choices with the already-bound chart specs.
+
+    Decision 53 has no separate pre-writer MAX visual role. A writer may name
+    its exact charts, placements and reasons inline instead of copying their
+    complete source packets. This changes representation, never its choices.
+    """
+    choice = article.get("visual_editorial_decision") or {}
+    if (not publication_speed or article.get("article_type") != "EVENT_REVIEW"
+            or choice.get("article_type") != "EVENT_REVIEW"
+            or choice.get("reader_first_version")):
+        return article
+    by_id = {a["asset_id"]: a for a in assets}
+    charts = []
+    for selected in choice.get("charts", []):
+        asset = by_id.get(selected.get("asset_id"), {})
+        packet = asset.get("editorial_data_packet") or {}
+        if (not packet or not selected.get("reason")
+                or selected.get("placement_after") != asset.get("placement_after")):
+            raise ValueError("INLINE_EVENT_CHART_CHOICE_UNBOUND")
+        charts.append({**selected, "question": packet["question"],
+            "why_useful": selected["reason"], "data_spec": packet})
+    decision = {**choice, "reader_first_version": "DATA_JOURNALISM_V1",
+        "story_kind": "ANALYSIS", "analysis_scope": "RELEASE_OR_POLICY",
+        "editorial_thesis": article.get("primary_reader_question") or article.get("dek"),
+        "charts": charts,
+        "data_card_asset_ids": [a["asset_id"] for a in assets if a.get("modality") == "source_bound_data_card"],
+        "contextual_photo_ids": [a["asset_id"] for a in assets if a.get("modality") == "documentary_photo"]}
+    validate_visual_decision(decision)
+    return {**article, "inline_visual_decision": choice, "visual_editorial_decision": decision}
+
+
 def validate_release_media(result, *, require_pixel_review=True, prewriter=False):
     """Current release standard; historical evidence stays readable without promotion."""
     from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
