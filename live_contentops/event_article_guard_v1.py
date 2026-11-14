@@ -288,8 +288,8 @@ def check_publication_copy(copy: Mapping[str, Any], *, conditional_calls=None,
     # grammar is exempt; source/number binding and private-copy checks still apply.
     remainder = re.sub(
         r"(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun) \d{1,2} [A-Z][a-z]{2} ET: [^;\n]{1,80}; "
-        r"original direction was (?:bullish|bearish); entry zone "
-        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?; "
+        r"original direction was (?:bullish|bearish); (?:entry zone "
+        r"-?[\d,]+(?:\.\d+)?–-?[\d,]+(?:\.\d+)?; )?"
         r"(?:hit|stopped|closed at the end of its window|not triggered|expired without entry; not scored)\.",
         "", remainder)
     # CC-394 / decision 109: the same resolved record in the pinned scorecard.

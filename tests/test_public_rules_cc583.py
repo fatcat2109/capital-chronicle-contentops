@@ -19,7 +19,7 @@ from live_contentops.event_article_guard_v1 import (
 )
 from test_pinned_result_scorecard_cc394 import NOW, call, export
 from test_tradingview_plan_overlay_cc459 import captured
-from test_weekly_scored_calls_cc379 import CUTOFF, export as weekly_export
+from test_weekly_scored_calls_cc379 import CUTOFF, export as weekly_export, scored as weekly_scored
 
 
 # F4 (decision 117) -------------------------------------------------------------------------------
@@ -123,6 +123,48 @@ def test_f5_held_lines_from_before_the_change_are_rendered_again_or_lose_their_p
     assert lines["mcl"].endswith("| original direction was bullish | entry zone 85.75–86.05 (plan levels) | STOPPED")
     assert "3,954.39" not in record["text"] and "85.947" not in record["text"]
     assert record["counts"]["STOPPED"] == 1 and record["counts"]["total"] == 2
+
+
+def _weekly_line(zone, *, tick=None):
+    data = weekly_export()
+    plan = weekly_scored("gold", "STOPPED", "2026-11-10T14:00:00Z")
+    if zone is None:
+        plan.pop("zone")
+    else:
+        plan["zone"] = {"minimum": zone[0], "maximum": zone[1]}
+    if tick is not None:
+        plan["target_tick_size"] = tick
+    data["status"].update(plans=[plan], scored_call_count=1)
+    record = weekly.project(data, cutoff_utc=CUTOFF)
+    return record["rows"][0]["line"], record["text"]
+
+
+def test_f5_weekly_record_prints_plan_levels_on_the_plan_tick():
+    line, text = _weekly_line(("4085.1955", "4090.2049"), tick=0.01)
+    assert line == "- Tue 10 Nov ET: Gold; original direction was bearish; entry zone 4,085.2–4,090.2; stopped."
+    assert "4,085.1955" not in text and "4,090.2049" not in text
+    line, _ = _weekly_line(("4033.406", "4085.1955"))  # No exported tick: the market's tick.
+    assert "entry zone 4,033.406–4,085.196;" in line
+
+
+@pytest.mark.parametrize("zone", [None, ("4070", "4070"), ("4070.0001", "4070.0004")])
+def test_f5_weekly_record_prints_no_price_without_plan_levels_or_for_one_price(zone):
+    line, text = _weekly_line(zone)
+    assert line == "- Tue 10 Nov ET: Gold; original direction was bearish; stopped."
+    assert line in text and "4,070" not in text
+
+
+def test_f5_weekly_unscored_expiry_uses_the_same_rule():
+    data = weekly_export()
+    data["status"]["plans"].append({"plan_id": "legacy-expiry", "asset_id": "EURUSD", "direction": "BULLISH",
+        "status": "EXPIRED", "zone": {"minimum": 1.123456, "maximum": 1.12389}, "invalidation_conditions": [],
+        "expires_at_utc": "2026-11-12T14:00:00Z", "outcome": {"state": "NOT_SCORED_UNTRIGGERED"}})
+    data["transitions"]["transitions"].append({"plan_id": "legacy-expiry", "status": "EXPIRED",
+                                                "at_utc": "2026-11-12T14:00:00Z"})
+    record = weekly.project(data, cutoff_utc=CUTOFF)
+    line = next(r["line"] for r in record["rows"] if r["plan_id"] == "legacy-expiry")
+    assert line == ("- Thu 12 Nov ET: EUR/USD; original direction was bullish; entry zone 1.12346–1.12389; "
+                    "expired without entry; not scored.")
 
 
 # F1 (decision 82) --------------------------------------------------------------------------------

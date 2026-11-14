@@ -50,7 +50,7 @@ def test_whole_record_ignores_selective_feed_and_uses_et_resolution_week():
     assert record["counts"] == {"scored_calls": 4, "hits": 1, "stops": 2}
     assert record["export_scored_call_count"] == 7  # Cumulative is never presented as this week's count.
     assert "closed at the end of its window" in record["text"]
-    assert "entry zone 4,070.00–4,085.00" in record["text"]
+    assert "entry zone 4,070–4,085;" in record["text"]  # CC-583: on the plan's tick
     assert "9 Nov–13 Nov 2026 ET" in record["text"]
     for forbidden in ("win rate", "lots", "money", "alpha", "123456", "r_multiple", "99"):
         assert forbidden not in record["text"]

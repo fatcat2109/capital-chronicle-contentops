@@ -68,11 +68,18 @@ def _tick(symbol, source):
 
 
 def plan_levels(symbol, plan, source):
-    """The plan's own entry zone on its instrument's tick, or None: then no price prints.
+    """The scorecard's price segment, or None: then no price prints."""
+    zone = plan_zone(symbol, plan, source)
+    return f"entry zone {zone[0]}–{zone[1]} (plan levels)" if zone else None
+
+
+def plan_zone(symbol, plan, source):
+    """The plan's own entry zone on its instrument's tick, as (low, high) text, or None.
 
     A mapped instrument's converted prices are never printed (decision 40): they are not
     plan levels, and collapsed to one unrounded value they read as an order price. A zone
-    whose low and high are one price reads the same way, so it prints no price either."""
+    whose low and high are one price reads the same way, so it prints no price either.
+    Shared by the pinned scorecard and CC-379's weekly record."""
     low, high = plan.get("zone_low"), plan.get("zone_high")
     if low is None or high is None:
         return None
@@ -87,7 +94,7 @@ def plan_levels(symbol, plan, source):
         lower, upper = ((v / tick).quantize(Decimal(1), rounding=ROUND_HALF_UP) * tick for v in (lower, upper))
     if lower == upper:
         return None
-    return f"entry zone {_level(lower)}–{_level(upper)} (plan levels)"
+    return _level(lower), _level(upper)
 
 
 def _line(row, *, title, direction, levels, end_direction):
