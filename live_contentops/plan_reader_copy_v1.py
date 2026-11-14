@@ -416,6 +416,26 @@ def payloads(row, card_id, *, chart_credit=False, parents=None, portrait_id=None
     # Attribution stays with the chart. It does not push the root's link back in.
     if credit:
         x_parts[2] += credit
+    if source.get("level_contract") == LEVEL_CONTRACT and call_line:
+        # The two exact phase conditions and clocks may exceed a single post.
+        # Keep the link first and the points second; continue with complete
+        # sentences rather than asking a writer to shorten frozen plan facts.
+        facts = [*points[:3], *re.split(r"(?<=\.)\s+(?=[A-Z])", call_line)]
+        if chart_credit:
+            facts.append(posts.CHART_CREDIT)
+        continuations, current = [], ""
+        for fact in facts:
+            if posts._x_length(fact) > 280:
+                raise ValueError("CC466_X_BOUND_SENTENCE_TOO_LONG")
+            joined = (current + "\n" + fact).strip()
+            if current and posts._x_length(joined) > 280:
+                continuations.append(current)
+                current = fact
+            else:
+                current = joined
+        if current:
+            continuations.append(current)
+        x_parts = [root, link_reply, *continuations]
     x_parts=[part for part in x_parts if part.strip()]
     if any(posts._x_length(part) > 280 for part in x_parts):
         raise ValueError("CC466_X_FIELD_SET_TOO_LONG_REWRITE_REQUIRED")

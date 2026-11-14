@@ -242,7 +242,10 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
         "Write platform fields and alt text for this source-bound plan. Hook names today's market force, not its technical levels. "
         "Choose up to five complete force lines, ordered macro/policy, priced_in, positioning/flows, fundamental, geopolitical; "
         "technical last and at most once. Omit absent layers. Each point is <=90 characters, preferably 25-35 for X. "
-        "The first three labelled points PLUS the exact supplied call_line and chart credit must total <=280 X-weighted characters. "
+        + ("The first three labelled points plus chart credit must total <=280 X-weighted characters. "
+           "Code carries the exact call conditions and clocks in complete-sentence continuation replies. "
+           if source.get("level_contract") == reader.LEVEL_CONTRACT else
+           "The first three labelled points PLUS the exact supplied call_line and chart credit must total <=280 X-weighted characters. ") +
         "The hook is <=96 characters. Each scenario is <=90; hook plus scenarios <=280. "
         "Main must start Main (odds%):. Alternative must start Alternative (odds%):. "
         "If alternative odds are absent use null. Do not restate the generated call line or notices. "

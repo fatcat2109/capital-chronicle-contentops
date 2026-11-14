@@ -146,3 +146,33 @@ def test_new_page_alert_and_chart_use_the_same_bound_phase_labels(tmp_path, monk
     changed["source_plan"]["invalidation_conditions"][0]["threshold"] = 3999
     with pytest.raises(ValueError, match="SOURCE_OR_SCALE_CHANGED"):
         overlay.validate(marked, changed)
+
+
+def test_new_phase_labels_reach_x_without_an_impossible_writer_length_gate():
+    raw = json.loads(GOLD.read_bytes())
+    run = json.loads((GOLD.parent / "gold-public-reasoning.json").read_bytes())
+    run["source_plan"] = raw
+    source = reader.source_packet(raw, run, thread=True, original_probabilities=True, level_contract=reader.LEVEL_CONTRACT)
+    rationale = next(s for s in source["sources"] if s["ref"]["pointer"].endswith("/rationale"))
+    text = "Inflation repricing weighs on gold."
+    source["sources"].append({"id": "controlled-force", "layer": "macro", "text": text})
+    fields = {"hook": {"text": text, "source_ids": ["controlled-force"]},
+              "points": [{"layer": "macro", "text": text, "source_ids": ["controlled-force"]}],
+              "scenario_main": {"text": "Main (55%): repricing weighs on gold.", "source_ids": [rationale["id"]]}}
+    if source["scenario_analysis"].get("main_alternative", {}).get("probability_pct") is not None:
+        alternative = source["scenario_analysis"]["main_alternative"]["probability_pct"]
+        source["sources"].append({"id": "controlled-alt", "text": f"Alternative ({alternative}%): gold rebounds.", "layer": "scenarios"})
+        fields["scenario_alt"] = {"text": f"Alternative ({alternative}%): gold rebounds.", "source_ids": ["controlled-alt"]}
+    row = {"kind": "setup", "thread_contract": reader.THREAD_CONTRACT, "level_contract": reader.LEVEL_CONTRACT,
+           "source_plan": raw, "reader_fields": fields, "reader_source": source,
+           "analysis_publication": {"canonical_url": "https://capitalchronicle.substack.com/p/gold-plan"}}
+    row.update(reader.attach_call(row))
+    payload = reader.payloads(row, "chart", chart_credit=True)["x"]
+    assert all(posts._x_length(part["text"]) <= 280 for part in payload["posts"])
+    assert payload["posts"][0]["media_asset_ids"] == ["chart"]
+    assert "https://capitalchronicle.substack.com/p/gold-plan" in payload["posts"][1]["text"]
+    assert payload["posts"][2]["text"].startswith("Macro: " + text)
+    text = payload["full_text"]
+    assert reader.thread_terms(raw, level_contract=reader.LEVEL_CONTRACT)["invalidation"] + "." in text
+    for clock in reader.thread_terms(raw, level_contract=reader.LEVEL_CONTRACT)["clocks"]:
+        assert clock in text
