@@ -4738,6 +4738,14 @@ def _publish_one_destination_from_durable_intent(
         from live_contentops.threads_adapter_v6 import (
             execute_threads_post, readback_threads_chain, readback_threads_post,
         )
+        package = payloads.get("threads") or {}
+        text = str(package.get("root_text") or text)
+        # A reviewed thread can carry the link in an own reply. The complete
+        # reply readback below verifies that exact text and canonical URL.
+        root_canonical = canonical_url
+        if canonical_url and canonical_url not in text and any(
+                canonical_url in str(reply) for reply in package.get("reply_texts") or []):
+            root_canonical = None
         root = execute_threads_post(
             text=text, image_url=(public_image_url or None) if image_path else None,
             dry_run=False,
@@ -4762,7 +4770,7 @@ def _publish_one_destination_from_durable_intent(
         try:
             root_readback = readback_threads_post(
                 post_id=root_id, expected_text=str((payloads.get("threads") or {}).get("root_text") or text),
-                canonical_url=canonical_url, expected_media_local_path=image_path or None,
+                canonical_url=root_canonical, expected_media_local_path=image_path or None,
                 **({"expected_parent_id":payloads[destination]["reply_to_id"]} if payloads[destination].get("reply_to_id") else {}),
             )
             expected_replies = (payloads.get("threads") or {}).get("reply_texts") or []
@@ -4894,8 +4902,13 @@ def _readback_one_destination_from_durable_intent(
     elif destination == "threads" and public_object_id:
         from live_contentops.threads_adapter_v6 import readback_threads_chain, readback_threads_post
         package = payloads.get("threads") or {}
+        root_text = str(package.get("root_text") or text)
+        root_canonical = canonical_url
+        if canonical_url and canonical_url not in root_text and any(
+                canonical_url in str(reply) for reply in package.get("reply_texts") or []):
+            root_canonical = None
         result = readback_threads_post(
-            post_id=public_object_id, expected_text=str(package.get("root_text") or text), canonical_url=canonical_url,
+            post_id=public_object_id, expected_text=root_text, canonical_url=root_canonical,
             expected_media_local_path=image_path or None,
             **({"expected_parent_id":payloads[destination]["reply_to_id"]} if payloads[destination].get("reply_to_id") else {}),
         )

@@ -125,6 +125,12 @@ def test_registered_copy_and_source_manifest_are_immutable(tmp_path):
         odds.validate_plan(store,packet["identity"],packet["plan"])
 
 
+def test_resuming_registered_piece_uses_its_saved_output_directory(tmp_path):
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    packet=odds.register(store,SOURCE/'piece-1.json',tmp_path/'article')
+    assert odds.register(store,SOURCE/'piece-1.json',None)==packet
+
+
 def test_status_needs_no_native_invocation_or_browser_executor(tmp_path,monkeypatch):
     from live_contentops import native_desktop_publication_v1 as publication
     from live_contentops import native_neo_executor_v1 as native
@@ -189,8 +195,60 @@ def test_one_destination_continuation_uses_its_canonical_and_existing_dispatch(t
     assert calls[0][0]['destination']=='x'
     assert calls[0][0]['work_item_id']==packet['identity']
     assert calls[0][1]['canonical_url']=='https://capitalchronicle.substack.com/p/method'
+    odds.continue_piece(store,packet,**args,retry_reconciled_absent=True)
+    assert calls[-1][1]['explicit_reconciled_absent_retry'] is True
+    observed=[]
+    monkeypatch.setattr(coordinator,'readback_existing_dispatch',lambda dispatch_id:observed.append(dispatch_id) or {'status':'READ_BACK'})
+    assert odds.continue_piece(store,packet,**{**args,'command':'readback'})['publication']['status']=='READ_BACK'
+    assert observed==[coordinator._ids(packet['identity'],packet['plan']['plan_hash'],'x')['dispatch_id']]
     with pytest.raises(ValueError,match='ODDS_REGISTERED_DERIVATIVE_REQUIRED'):
         odds.continue_piece(store,packet,**{**args,'destination':'substack'})
+
+
+@pytest.mark.parametrize('missing_reply',[False,True])
+def test_threads_official_consumer_uses_bound_root_and_full_link_reply(tmp_path,monkeypatch,piece,missing_reply):
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    from live_contentops import threads_adapter_v6 as adapter
+    from live_contentops import post_visuals_v1
+    canonical='https://capitalchronicle.substack.com/p/method'
+    payload=odds.compile_payloads(piece['article'],canonical,['chart'])['threads']
+    original=deepcopy(payload)
+    data={'output_dir':tmp_path,'article':piece['article'],'payloads':{'threads':payload},
+          'canonical_url':canonical,'local_media':'chart.png','public_image_url':'https://example.com/chart.png',
+          'media_assets':[],'primary_media':{'sha256':'a'*64}}
+    monkeypatch.setattr(pipeline,'_durable_intent_inputs',lambda _:data)
+    monkeypatch.setattr(post_visuals_v1,'require_publication_image',lambda *args:None)
+    published=[]
+    def publish(**kwargs):
+        published.append(kwargs)
+        return {'status':'SUCCESS','id':str(len(published))}
+    monkeypatch.setattr(adapter,'execute_threads_post',publish)
+    roots=[]
+    def read_root(**kwargs):
+        roots.append(kwargs)
+        return {'status':'SUCCESS','post_id':'1','public_url':'https://www.threads.net/@official.capitalchronicle/post/test',
+                'account_identity_verified':True,'visible_body_text':kwargs['expected_text']}
+    monkeypatch.setattr(adapter,'readback_threads_post',read_root)
+    chains=[]
+    def read_chain(**kwargs):
+        chains.append(kwargs)
+        assert [r['text'] for r in kwargs['reply_expectations']]==payload['reply_texts']
+        assert canonical in kwargs['reply_expectations'][0]['text']
+        return {'status':'FAILED_THREADS_REPLY_CHAIN_READBACK' if missing_reply else 'SUCCESS'}
+    monkeypatch.setattr(adapter,'readback_threads_chain',read_chain)
+    result=pipeline._publish_one_destination_from_durable_intent(destination='threads',
+        intent={'attempt_identity':'attempt'},authorization_context={
+            'operating_mode':'AUTONOMOUS_DEFAULT','dispatch_attempt_identity':'attempt'})
+    assert published[0]['text']==payload['root_text']
+    assert [r['text'] for r in published[1:]]==payload['reply_texts']
+    assert result['provider_readback_verified'] is (not missing_reply)
+    assert roots[0]['canonical_url'] is None
+    assert roots[0]['expected_media_local_path']=='chart.png'
+    assert payload==original
+    pipeline._readback_one_destination_from_durable_intent(destination='threads',public_object_id='1',
+        public_object_url='https://www.threads.net/@official.capitalchronicle/post/test',intent={})
+    assert roots[-1]['canonical_url'] is None
+    assert len(chains)==2
 
 
 def confirm_method(store, tmp_path):

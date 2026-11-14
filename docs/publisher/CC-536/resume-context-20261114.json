@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-14T07:30:16.736698+00:00",
+  "branch": "backlog/cc-536-measured-odds-series",
+  "resume_base": "1f330a53f71f649ef38a3c42fe1f8c69b467889a",
+  "previously_pushed": "c1a24486d9b238bbc6d8b8ca2949a1822f9096a5",
+  "host_invocation_ref": "codex-exec-pid22272-20261114T071719Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "preserved_work": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+  },
+  "existing_work_item_id": "cc536-measured-odds-1",
+  "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+  "schedule_changes": false,
+  "other_chat_messages": false
+}

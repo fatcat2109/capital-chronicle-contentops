@@ -720,6 +720,14 @@ class NeoDestinationHandoff:
         if destination == "x":
             comparison_text = _x_reader_text(observed_text, result.get("observed_link_resolutions") or [],
                 public_object_url, str(intent.get("canonical_url") or ""))
+            thread = result.get("observed_thread") or result.get("thread_posts") or []
+            if binding["thread_post_count"] > 1 and _x_thread_matches(binding, thread,
+                    result.get("observed_link_resolutions") or [], str(intent.get("canonical_url") or "")):
+                # The canonical link lives in our own reply. Its verified redirect
+                # belongs to that reply's exact URL, not to the root's URL.
+                comparison_text = _text(" ".join(_x_reader_text(post.get("observed_text"),
+                    result.get("observed_link_resolutions") or [], post.get("public_object_url"),
+                    str(intent.get("canonical_url") or "")) for post in thread))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
         if destination == "substack":

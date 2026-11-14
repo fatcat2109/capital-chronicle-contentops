@@ -285,7 +285,7 @@ def add_method_link(payload, reference):
 
 
 def register(store, piece_file, output_dir):
-    piece_file, output = Path(piece_file), Path(output_dir).resolve()
+    piece_file = Path(piece_file)
     piece = _read(piece_file)
     root = piece_file.parent / "source"
     report = validate_piece(piece, root)
@@ -296,6 +296,7 @@ def register(store, piece_file, output_dir):
         if packet["piece"] != piece:
             raise ValueError("ODDS_ISSUED_PIECE_IMMUTABLE")
         return validate_plan(store, identity, packet["plan"])
+    output = Path(output_dir).resolve()
     verification = verify_main_snapshot(root)
     output.mkdir(parents=True, exist_ok=True)
     shutil.copytree(root, output / "source", dirs_exist_ok=True)
@@ -348,7 +349,7 @@ def register(store, piece_file, output_dir):
 
 
 def continue_piece(store, packet, *, invocation_id, rollout, command="resume", request_hash=None, response=None, automatic=False,
-                   draft_url=None, destination=None):
+                   draft_url=None, destination=None, retry_reconciled_absent=False):
     from .native_desktop_publication_v1 import live_publication_policy
     from .native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
     live_publication_policy(rollout)
@@ -382,7 +383,10 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
             result = executor.begin(request_hash) if command=="begin" else executor.submit(request_hash,response)
         elif command=="readback":
             from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
-            dispatch_ids=Coordinator._ids(packet["identity"],packet["plan"]["plan_hash"],"substack")
+            target=destination or "substack"
+            if target not in {d["destination"] for d in packet["plan"]["destinations"]}:
+                raise ValueError("ODDS_REGISTERED_DESTINATION_REQUIRED")
+            dispatch_ids=Coordinator._ids(packet["identity"],packet["plan"]["plan_hash"],target)
             result=coordinator.readback_existing_dispatch(dispatch_ids["dispatch_id"])
         elif command=="dispatch":
             if destination not in {d["destination"] for d in packet["plan"]["destinations"]} - {"substack"}:
@@ -394,7 +398,8 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
             message=store.get_outbox_message(ids["message_id"])
             if not message:
                 raise ValueError("ODDS_REGISTERED_DERIVATIVE_REQUIRED")
-            result=coordinator._dispatch_message(message,canonical_url=canonical)
+            result=coordinator._dispatch_message(message,canonical_url=canonical,
+                **({"explicit_reconciled_absent_retry":True} if retry_reconciled_absent else {}))
         else:
             if draft_url:
                 # Continue this exact corrected dispatch through its owner.
@@ -425,6 +430,8 @@ def main():
     parser.add_argument("--automatic",action="store_true")
     parser.add_argument("--draft-url",help="Exact retained draft after a confirmed pre-click no-write")
     parser.add_argument("--destination",help="One derivative in this already registered publication plan")
+    parser.add_argument("--retry-reconciled-absent",action="store_true",
+                        help="Retry only an exact dispatch the coordinator has reconciled absent")
     args=parser.parse_args()
     if args.command=="check":
         result={"status":"PASS","numbers":validate_piece(_read(args.piece),args.piece.parent/"source")}
@@ -438,7 +445,7 @@ def main():
         result=packet if args.command=="register" else continue_piece(store,packet,invocation_id=args.invocation_id,
             rollout=rollout,command=args.command,request_hash=args.request_hash,
             response=_read(args.response) if args.response else None,automatic=args.automatic,draft_url=args.draft_url,
-            destination=args.destination)
+            destination=args.destination,retry_reconciled_absent=args.retry_reconciled_absent)
     args.result.parent.mkdir(parents=True,exist_ok=True)
     args.result.write_bytes(canonical_bytes(result))
     print(json.dumps({"result_path":str(args.result),"state":result.get("state",result.get("status","SAVED"))}))

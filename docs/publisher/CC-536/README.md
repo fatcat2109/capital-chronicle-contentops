@@ -62,3 +62,10 @@ The final installed CC-536 test file passes all 17 tests (`installed-final-tests
 Readback performance repairs scope the native request lookup and fallback draft
 identity to the exact item. Existing unknown-write and source/media bindings stay
 in force. Original failure causes and attempted operations remain in the outbox.
+
+The 14 November continuation confirmed Telegram post 183 and Instagram post
+17979008508135876. X root 2121503636216049751 carries the exact chart and the
+approved own-reply thread. Its initial coordinator readback retained a text
+mismatch while the native thread and image checks passed; the linked reply's
+verified redirect must be compared under that reply's exact public identity.
+The resume result files preserve each destination's original outcome.

@@ -389,18 +389,23 @@ def test_retry_invalidates_prior_absence_return_in_same_readback_epoch(tmp_path,
     assert fresh.value.request["request"]["observation_epoch"] == packet["request"]["observation_epoch"]
 
 
-@pytest.mark.parametrize("fault", [None, "unverified_link", "wrong_link", "extra_claim", "duplicate_root", "missing_notice", "wrong_order"])
-def test_repaired_x_thread_uses_existing_posts_and_verified_shortlink(tmp_path, fault):
+@pytest.mark.parametrize("fault", [None, "unverified_link", "wrong_link", "wrong_link_object", "extra_claim", "duplicate_root", "missing_notice", "wrong_order"])
+@pytest.mark.parametrize("link_in_reply", [False, True])
+def test_repaired_x_thread_uses_existing_posts_and_verified_shortlink(tmp_path, fault, link_in_reply):
     _, executor = setup(tmp_path)
     canonical = "https://capitalchronicle.substack.com/p/test"
     expected = ["Source-backed headline.\n\n" + canonical,
         "Watch the next official release.",
         "Retrospective analysis.\n\nAnalysis, not financial advice. Readers decide whether to trade."]
+    if link_in_reply:
+        expected[0] = "Source-backed headline."
+        expected[1] += "\n\n" + canonical
     value = intent("x", native_payload={"posts": [{"text": text} for text in expected]})
     adapter = NeoDestinationHandoff(native_executor=executor)
     packet, object_id, url = pending_readback(adapter, destination="x", value=value)
     shown = "https://\ncapitalchronicle.substack.com/p/te\nst\n..."
-    texts = [expected[0].replace(canonical, shown), expected[1], "Readers decide whether to trade.", expected[2]]
+    texts = [expected[0].replace(canonical, shown), expected[1].replace(canonical, shown),
+             "Readers decide whether to trade.", expected[2]]
     if fault == "extra_claim":
         texts[2] = "Buy stocks now: guaranteed gains."
     if fault == "duplicate_root":
@@ -412,9 +417,11 @@ def test_repaired_x_thread_uses_existing_posts_and_verified_shortlink(tmp_path, 
     thread = [{"public_object_id": str(123+i), "public_object_url": "https://x.com/Capitalnicle/status/" + str(123+i),
         "observed_text": text} for i, text in enumerate(texts)]
     links = [{"displayed_text": shown, "short_url": "https://t.co/realObservedLink", "target_url": canonical,
-        "target_verified": fault != "unverified_link", "public_object_url": url}]
+        "target_verified": fault != "unverified_link", "public_object_url": thread[1 if link_in_reply else 0]["public_object_url"]}]
     if fault == "wrong_link":
         links[0]["target_url"] = "https://example.com/unrelated"
+    if fault == "wrong_link_object":
+        links[0]["public_object_url"] = "https://x.com/Capitalnicle/status/999"
     observed = response(executor, packet, {"observed_identity": "@Capitalnicle", "public_object_id": object_id,
         "public_object_url": url, "content_verified": True, "observed_text": "\n\n".join(texts),
         "observed_thread": thread, "observed_link_resolutions": links})
