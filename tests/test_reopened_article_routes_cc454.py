@@ -52,6 +52,9 @@ class ArticleBrowser:
     def wait(self, page, selector):
         pass
 
+    def wait_text(self, page, text):
+        self.owner_controls_ready = text == "Start a post"
+
     def call(self, name, args):
         self.calls.append((name, args))
         if name == "upload":
@@ -68,7 +71,7 @@ class ArticleBrowser:
             return {"verification_required": self.fault == "external_links",
                 "platform_wording": "Complete one-time verification to make external links clickable"}
         if phase == "article_identity":
-            correct = self.fault != "account"
+            correct = self.fault != "account" and (self.fault != "delayed_owner" or getattr(self, "owner_controls_ready", False))
             return {"authenticated": correct, "observed_identity": handoff.IDENTITIES[self.destination] if correct else None,
                 "observed_stable_id": "143198922", "observed_at_utc": datetime.now(timezone.utc).isoformat()}
         if phase == "article_editor":
@@ -208,6 +211,13 @@ def test_cc536_youtube_existing_editor_does_not_depend_on_rotating_prompt(tmp_pa
         value["refs"] = [r for r in value["refs"] if r["ref"] != "youtube-editor"]
         return value
     monkeypatch.setattr(browser, "snapshot", rotated)
+    result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
+    assert browser.calls.count("article_publish") == 1
+
+
+def test_cc536_company_identity_waits_for_its_hydrated_owner_controls(tmp_path):
+    store, c, executor, browser, message, row = article(tmp_path, "linkedin_company", "delayed_owner")
     result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
     assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
     assert browser.calls.count("article_publish") == 1

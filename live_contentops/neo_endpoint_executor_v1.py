@@ -444,6 +444,11 @@ class NeoBrowserDriver:
                 self.client.wait(page, 'a[href^="https://studio.youtube.com/channel/"][href$="/editing"]')
             except NeoEndpointError:
                 pass  # The normal identity check below refuses a real mismatch.
+        elif destination == "linkedin_company":
+            try:
+                self.client.wait_text(page, "Start a post")
+            except NeoEndpointError:
+                pass  # Still require the exact company admin identity below.
         identity = self.client.run(page, "article_identity", destination=destination,
             expected_identity=request["expected_identity"])
         if request["action"] == "VERIFY_IDENTITY":
