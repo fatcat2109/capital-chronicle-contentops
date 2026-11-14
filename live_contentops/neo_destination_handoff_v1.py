@@ -501,6 +501,8 @@ class NeoDestinationHandoff:
             # contract receives a new read-only identity, never a new write.
             value["reader_text_normalization"] = ("DIGEST_EDITOR_SUBTITLE_CAPTION_V2" if intent.get("daily_digest")
                                                    else "MARKDOWN_WHITESPACE_SMART_QUOTES_V1")
+            if destination == "linkedin_company" and content_binding.get("media_manifest"):
+                value["reader_media_normalization"] = "LINKEDIN_DECLARED_SRCSET_FULL_RES_V1"
             # A failed observation is immutable, but the same native turn may
             # obtain the later readback required after the ten-minute interval.
             clock = getattr(self.native_executor, "clock", None)

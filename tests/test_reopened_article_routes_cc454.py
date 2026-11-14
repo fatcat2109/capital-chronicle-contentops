@@ -314,7 +314,8 @@ const correct=JSON.parse(process.argv[1]);
 global.location={href:'https://www.linkedin.com/feed/update/urn:li:activity:123/'};
 const body={innerText:'Our exact call. https://lnkd.in/bound',closest:()=>root};
 const author={href:correct?'https://www.linkedin.com/company/capitalchronicle/':'https://www.linkedin.com/company/other/',innerText:'Author'};
-const root={getClientRects:()=>[{}],getAttribute:()=>null,querySelector:()=>body,querySelectorAll:s=>s==='a[href]'?[author]:[]};
+const img={getClientRects:()=>[{}],currentSrc:'https://media.licdn.com/chart-small',getAttribute:()=> 'https://media.licdn.com/chart-small 800w, https://media.licdn.com/chart-full 1400w'};
+const root={getClientRects:()=>[{}],getAttribute:()=>null,querySelector:()=>body,querySelectorAll:s=>s==='a[href]'?[author]:s==='img'?[img]:[]};
 global.document={querySelectorAll:s=>s.startsWith('main ')?[body]:[]};
 const page={evaluateInPage:async(fn,input)=>({value:fn(input)})};
 const source=JSON.parse(process.argv[2]);
@@ -329,6 +330,7 @@ console.log(JSON.stringify(await fn(page,{phase:'article_readback',destination:'
         assert post['public_object_id']=='urn:li:activity:123'
         assert post['observed_text']=='Our exact call. https://lnkd.in/bound'
         assert any(link['url']=='https://lnkd.in/bound' for link in post['links'])
+        assert post['public_image_urls']==['https://media.licdn.com/chart-small','https://media.licdn.com/chart-full']
 
 
 @pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])

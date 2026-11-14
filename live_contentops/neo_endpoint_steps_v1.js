@@ -232,7 +232,16 @@ if (input.phase === 'article_readback') {
       return {public_object_id:id,public_object_url:url,observed_text:body?.innerText || '',
         observed_identity:author?(destination==='linkedin_company'?'linkedin:company:143198922':'@CapitalChronicleYouTube'):null,
         ...(destination==='linkedin_company'&&author?{observed_stable_id:'143198922'}:{}),links:ls,
-        public_image_urls:Array.from(e.querySelectorAll('img')).filter(visible).map(i=>i.currentSrc||i.src)
+        public_image_urls:Array.from(e.querySelectorAll('img')).filter(visible).flatMap(i=>{
+          const urls=[i.currentSrc||i.src];
+          if (destination==='linkedin_company' && i.getAttribute('srcset')) {
+            const variants=i.getAttribute('srcset').split(',').map(s=>{
+              const [url,width]=s.trim().split(/\s+/);return {url,width:parseInt(width,10)||0};
+            }).sort((a,b)=>b.width-a.width);
+            if (variants[0]) urls.push(variants[0].url);
+          }
+          return [...new Set(urls)];
+        })
           .filter(u=>destination==='linkedin_company'?/^https:\/\/media\.licdn\.com\//.test(u):/^https:\/\/yt3\.ggpht\.com\//.test(u))};
     }).filter(p=>p.public_object_id && p.observed_identity);
     return {posts};
