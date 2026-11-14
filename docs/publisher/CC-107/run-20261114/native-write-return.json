@@ -1,0 +1,789 @@
+{
+  "request_sha256": "a97e7232eeeb5c393df30b18bbfcd55ff0cb079c3bbbbc5e8a90acd1fdfcca18",
+  "output": {
+    "schema_version": "contentops.v1_simple_gemini_article.v1",
+    "article": {
+      "title": "October jobs met our Strong condition",
+      "dek": "We think October's jobs report met our frozen Strong condition, while the market response and a separate categorical score answer different questions.",
+      "search_title": "October jobs review: the Strong condition and the separate score",
+      "meta_description": "Our October jobs review separates the frozen Strong condition, observed intraday co-movements and a categorical comparison that favoured the consensus baseline.",
+      "social_hook": "October jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.",
+      "market_asset": "EURUSD",
+      "article_type": "EVENT_REVIEW",
+      "substack_body_markdown": "Retrospective analysis, written on 14 November 2026 (ET)\n\nWe think October's jobs report met our frozen Strong condition, while the market response and a separate categorical score answer different questions. [[SOURCE:SOURCE_1]]\n\n## What the jobs report resolved\n\nBLS reported October's arrival facts: Payrolls: **+165K** and Unemployment rate: **4.1%**. Capital Chronicle model estimate: that combination met our frozen Strong condition. [[SOURCE:SOURCE_1]][[SOURCE:SOURCE_2]][[SOURCE:SOURCE_3]][[SOURCE:SOURCE_6]][[SOURCE:SOURCE_7]]\n\nThe Bureau of Labor Statistics published its October employment release at 8:30 a.m. ET on November 6, 2026. BLS described gains in professional and business services, health care, and transportation and warehousing. [[SOURCE:SOURCE_1]][[SOURCE:SOURCE_2]][[SOURCE:SOURCE_3]][[SOURCE:SOURCE_6]][[SOURCE:SOURCE_7]]\n\nBLS also reported average hourly earnings increased 0.4 percent in October. September's payroll gain was revised from +29,000 to +60,000 in this release. [[SOURCE:SOURCE_1]][[SOURCE:SOURCE_2]][[SOURCE:SOURCE_3]][[SOURCE:SOURCE_6]][[SOURCE:SOURCE_7]]\n\nOur history panels retain the dated first releases before October; September's original print remains distinct from its later revision. Gaps remain unfilled in the historical panels. [[SOURCE:SOURCE_1]][[SOURCE:SOURCE_2]][[SOURCE:SOURCE_3]][[SOURCE:SOURCE_6]][[SOURCE:SOURCE_7]]\n\nThe industry bars separate mining and logging, construction, manufacturing and private services. They show selected, disjoint employment groups, not a complete jobs total or sector investment returns. [[SOURCE:SOURCE_1]][[SOURCE:SOURCE_2]][[SOURCE:SOURCE_3]][[SOURCE:SOURCE_6]][[SOURCE:SOURCE_7]]\n\n## Scenarios\n\nCapital Chronicle model estimate: our frozen Strong condition required payrolls about +154K or more and unemployment 4.2% or lower. Both conditions held, so this release matched Strong. [[SOURCE:SOURCE_1]]\n\nThe frozen Weak alternative required payrolls about -24K or lower and unemployment 4.2% or higher. That combination did not hold. [[SOURCE:SOURCE_1]]\n\nOur frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar. [[SOURCE:SOURCE_1]]\n\n## What moved, and when\n\nCapital Chronicle model estimate: our earliest measured window is five minutes after the 8:30 a.m. ET release. The later observation is sixty minutes after the same baseline. [[SOURCE:SOURCE_1]][[SOURCE:SOURCE_2]]\n\nThese windows do not identify which market moved first within the opening minutes. Our frozen EUR/USD context placed price low in a five-week 1.1104-1.1286 range; the observed changes alone do not establish a range break. [[SOURCE:SOURCE_1]][[SOURCE:SOURCE_2]]\n\nThe measured changes are reference-series co-movements, not causal attribution or measured futures or ETF returns. We have no completed first-day observation. [[SOURCE:SOURCE_1]][[SOURCE:SOURCE_2]]\n\n### Rates\n\nWe lack a matched bond-yield observation, so we cannot test the expected real-yield leg. That part of the frozen mechanism remains untested here. [[SOURCE:SOURCE_1]]\n\n### Dollar\n\nCapital Chronicle model estimate: the EUR/USD reference changed -0.0555% after five minutes and -0.2723% after sixty minutes. The USD/JPY reference changed 0.0152% and 0.0429% over those respective windows. These are not FXE or FXY ETF returns; FXY expresses yen versus dollars, the inverse quotation direction to USD/JPY. [[SOURCE:SOURCE_1]]\n\n### Gold\n\nCapital Chronicle model estimate: the gold reference changed -0.2335% after five minutes and -0.6723% after sixty minutes. These are reference changes, not GC gold futures returns or proof that the release caused them. [[SOURCE:SOURCE_1]]\n\n### Oil\n\nCapital Chronicle model estimate: the WTI reference initially rose 0.228%, then stood -0.1813% from the baseline after sixty minutes. Its reversal challenges a uniform-response story; these are not CL WTI futures returns. [[SOURCE:SOURCE_1]]\n\n### Equities\n\nCapital Chronicle model estimate: the S&P 500 reference changed -0.0423% after five minutes and -0.0949% after sixty minutes. These are reference observations, not ES futures or SPY ETF returns. [[SOURCE:SOURCE_1]]\n\n### Sectors\n\nThe industry bars measure employment changes. Without matched sector-return observations, we make no sector-performance claim. [[SOURCE:SOURCE_3]]\n\n## What the separate score tells us\n\nIn the separate historical-frequency comparison, the Capital Chronicle model estimate classified the outcome as in line and assigned the matrix a Brier score of 0.02. Lower is better. [[SOURCE:SOURCE_1]]\n\nThis is one event and a different comparison from the preview's Strong and Weak conditions. The in-line category does not reverse which frozen release condition was met or establish predictive skill. [[SOURCE:SOURCE_1]]\n\nFor that same event, the Capital Chronicle model estimate gave Investing's consensus-only baseline a Brier score of 0. The consensus baseline therefore performed better on this categorical metric. [[SOURCE:SOURCE_1]]\n\nWe cannot count the Strong resolution and the in-line category as independent successes. Neither result supplies a second independent event or a performance record. [[SOURCE:SOURCE_1]]\n\nNo prediction-market-only score is available for this event, so we cannot assess that baseline. [[SOURCE:SOURCE_1]]\n\n## The lesson\n\nOur interpretation is that the dollar and gold co-movements are consistent with the frozen hawkish mechanism. The countercase is that consistency does not establish causation, especially without a matched rates observation. [[SOURCE:SOURCE_1]]\n\nWhat we cannot claim is predictive skill: the consensus-only categorical baseline scored better, and the missing rates and first-day observations leave parts of the mechanism untested. [[SOURCE:SOURCE_1]]\n\nSo what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill. [[SOURCE:SOURCE_1]]\n\nFor the next review, we would preserve the frozen conditions and compare fully dated market observations against a baseline before claiming that a mechanism worked. This retrospective provides no current market guidance. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle may hold positions in the markets it covers. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. [[SOURCE:SOURCE_1]]",
+      "event_article_packet": {
+        "schema_version": "contentops.event_article.v1",
+        "article_type": "EVENT_REVIEW",
+        "event_id": "bls-emsit-20261106",
+        "event_time_utc": "2026-11-06T13:30:00Z",
+        "cutoff_utc": "2026-11-14T11:04:18.352247Z",
+        "written_at_utc": "2026-11-14T11:49:04.037209Z",
+        "copy": {
+          "headline": "October jobs met our Strong condition",
+          "dek": "We think October's jobs report met our frozen Strong condition, while the market response and a separate categorical score answer different questions.",
+          "what_happened": "BLS reported October's arrival facts: Payrolls: **+165K** and Unemployment rate: **4.1%**. Capital Chronicle model estimate: that combination met our frozen Strong condition.\n\nThe Bureau of Labor Statistics published its October employment release at 8:30 a.m. ET on November 6, 2026. BLS described gains in professional and business services, health care, and transportation and warehousing.\n\nBLS also reported average hourly earnings increased 0.4 percent in October. September's payroll gain was revised from +29,000 to +60,000 in this release.\n\nOur history panels retain the dated first releases before October; September's original print remains distinct from its later revision. Gaps remain unfilled in the historical panels.\n\nThe industry bars separate mining and logging, construction, manufacturing and private services. They show selected, disjoint employment groups, not a complete jobs total or sector investment returns.",
+          "scenario_match": "Capital Chronicle model estimate: our frozen Strong condition required payrolls about +154K or more and unemployment 4.2% or lower. Both conditions held, so this release matched Strong.\n\nThe frozen Weak alternative required payrolls about -24K or lower and unemployment 4.2% or higher. That combination did not hold.\n\nOur frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.",
+          "what_moved_when": "Capital Chronicle model estimate: our earliest measured window is five minutes after the 8:30 a.m. ET release. The later observation is sixty minutes after the same baseline.\n\nThese windows do not identify which market moved first within the opening minutes. Our frozen EUR/USD context placed price low in a five-week 1.1104-1.1286 range; the observed changes alone do not establish a range break.\n\nThe measured changes are reference-series co-movements, not causal attribution or measured futures or ETF returns. We have no completed first-day observation.",
+          "forecast_score": "In the separate historical-frequency comparison, the Capital Chronicle model estimate classified the outcome as in line and assigned the matrix a Brier score of 0.02. Lower is better.\n\nThis is one event and a different comparison from the preview's Strong and Weak conditions. The in-line category does not reverse which frozen release condition was met or establish predictive skill.",
+          "consensus_comparison": "For that same event, the Capital Chronicle model estimate gave Investing's consensus-only baseline a Brier score of 0. The consensus baseline therefore performed better on this categorical metric.\n\nWe cannot count the Strong resolution and the in-line category as independent successes. Neither result supplies a second independent event or a performance record.",
+          "prediction_market_comparison": "No prediction-market-only score is available for this event, so we cannot assess that baseline.",
+          "market_reactions": {
+            "rates": "We lack a matched bond-yield observation, so we cannot test the expected real-yield leg. That part of the frozen mechanism remains untested here.",
+            "dollar": "Capital Chronicle model estimate: the EUR/USD reference changed -0.0555% after five minutes and -0.2723% after sixty minutes. The USD/JPY reference changed 0.0152% and 0.0429% over those respective windows. These are not FXE or FXY ETF returns; FXY expresses yen versus dollars, the inverse quotation direction to USD/JPY.",
+            "gold": "Capital Chronicle model estimate: the gold reference changed -0.2335% after five minutes and -0.6723% after sixty minutes. These are reference changes, not GC gold futures returns or proof that the release caused them.",
+            "oil": "Capital Chronicle model estimate: the WTI reference initially rose 0.228%, then stood -0.1813% from the baseline after sixty minutes. Its reversal challenges a uniform-response story; these are not CL WTI futures returns.",
+            "indices": "Capital Chronicle model estimate: the S&P 500 reference changed -0.0423% after five minutes and -0.0949% after sixty minutes. These are reference observations, not ES futures or SPY ETF returns.",
+            "sectors": "The industry bars measure employment changes. Without matched sector-return observations, we make no sector-performance claim."
+          },
+          "lesson": "Our interpretation is that the dollar and gold co-movements are consistent with the frozen hawkish mechanism. The countercase is that consistency does not establish causation, especially without a matched rates observation.\n\nWhat we cannot claim is predictive skill: the consensus-only categorical baseline scored better, and the missing rates and first-day observations leave parts of the mechanism untested.\n\nSo what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.\n\nFor the next review, we would preserve the frozen conditions and compare fully dated market observations against a baseline before claiming that a mechanism worked. This retrospective provides no current market guidance.\n\nCapital Chronicle may hold positions in the markets it covers.",
+          "disclaimer": "Capital Chronicle offers analysis only, not financial advice or recommendations."
+        },
+        "numeric_bindings": [
+          {
+            "copy_path": "copy.what_happened",
+            "start": 50,
+            "end": 55,
+            "evidence_ref": "SOURCE_1:14:19"
+          },
+          {
+            "copy_path": "copy.what_happened",
+            "start": 83,
+            "end": 87,
+            "evidence_ref": "SOURCE_1:114:118"
+          },
+          {
+            "copy_path": "copy.what_happened",
+            "start": 251,
+            "end": 255,
+            "evidence_ref": "SOURCE_2:1194:1198"
+          },
+          {
+            "copy_path": "copy.what_happened",
+            "start": 267,
+            "end": 283,
+            "evidence_ref": "SOURCE_2:1217:1233"
+          },
+          {
+            "copy_path": "copy.what_happened",
+            "start": 446,
+            "end": 457,
+            "evidence_ref": "SOURCE_2:6337:6348"
+          },
+          {
+            "copy_path": "copy.what_happened",
+            "start": 512,
+            "end": 519,
+            "evidence_ref": "SOURCE_2:7150:7157"
+          },
+          {
+            "copy_path": "copy.what_happened",
+            "start": 523,
+            "end": 530,
+            "evidence_ref": "SOURCE_2:7161:7168"
+          },
+          {
+            "copy_path": "copy.scenario_match",
+            "start": 86,
+            "end": 91,
+            "evidence_ref": "SOURCE_1:186:191"
+          },
+          {
+            "copy_path": "copy.scenario_match",
+            "start": 117,
+            "end": 121,
+            "evidence_ref": "SOURCE_1:132:136"
+          },
+          {
+            "copy_path": "copy.scenario_match",
+            "start": 270,
+            "end": 274,
+            "evidence_ref": "SOURCE_1:132:136"
+          },
+          {
+            "copy_path": "copy.scenario_match",
+            "start": 239,
+            "end": 243,
+            "evidence_ref": "SOURCE_1:438:442"
+          },
+          {
+            "copy_path": "copy.what_moved_when",
+            "start": 89,
+            "end": 93,
+            "evidence_ref": "SOURCE_2:1194:1198"
+          },
+          {
+            "copy_path": "copy.what_moved_when",
+            "start": 318,
+            "end": 331,
+            "evidence_ref": "SOURCE_1:813:826"
+          },
+          {
+            "copy_path": "copy.forecast_score",
+            "start": 161,
+            "end": 165,
+            "evidence_ref": "SOURCE_1:2308:2312"
+          },
+          {
+            "copy_path": "copy.consensus_comparison",
+            "start": 116,
+            "end": 117,
+            "evidence_ref": "SOURCE_1:2341:2342"
+          },
+          {
+            "copy_path": "copy.market_reactions.dollar",
+            "start": 64,
+            "end": 72,
+            "evidence_ref": "SOURCE_1:966:974"
+          },
+          {
+            "copy_path": "copy.market_reactions.dollar",
+            "start": 96,
+            "end": 104,
+            "evidence_ref": "SOURCE_1:1013:1021"
+          },
+          {
+            "copy_path": "copy.market_reactions.dollar",
+            "start": 156,
+            "end": 163,
+            "evidence_ref": "SOURCE_1:1233:1240"
+          },
+          {
+            "copy_path": "copy.market_reactions.dollar",
+            "start": 168,
+            "end": 175,
+            "evidence_ref": "SOURCE_1:1278:1285"
+          },
+          {
+            "copy_path": "copy.market_reactions.gold",
+            "start": 61,
+            "end": 69,
+            "evidence_ref": "SOURCE_1:1497:1505"
+          },
+          {
+            "copy_path": "copy.market_reactions.gold",
+            "start": 93,
+            "end": 101,
+            "evidence_ref": "SOURCE_1:1545:1553"
+          },
+          {
+            "copy_path": "copy.market_reactions.oil",
+            "start": 67,
+            "end": 73,
+            "evidence_ref": "SOURCE_1:2031:2037"
+          },
+          {
+            "copy_path": "copy.market_reactions.oil",
+            "start": 86,
+            "end": 94,
+            "evidence_ref": "SOURCE_1:2075:2083"
+          },
+          {
+            "copy_path": "copy.market_reactions.indices",
+            "start": 64,
+            "end": 72,
+            "evidence_ref": "SOURCE_1:1764:1772"
+          },
+          {
+            "copy_path": "copy.market_reactions.indices",
+            "start": 96,
+            "end": 104,
+            "evidence_ref": "SOURCE_1:1812:1820"
+          }
+        ]
+      },
+      "social_mechanism_summary": "Our interpretation is that the dollar and gold co-movements are consistent with the frozen hawkish mechanism. The countercase is that consistency does not establish causation, especially without a matched rates observation.",
+      "social_policy_summary": "Our frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.",
+      "social_cross_asset_summary": "So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.",
+      "social_scenarios": {
+        "base_case": "Base case: the frozen Strong condition held.",
+        "alternative": "Alternative: the frozen Weak condition did not hold."
+      },
+      "scenario_analysis": [
+        {
+          "name": "Strong",
+          "role": "base_case",
+          "probability": null,
+          "confirmation": "payrolls about +154K or more and unemployment 4.2% or lower",
+          "market_moves": {},
+          "invalidation": null,
+          "mechanism": "a hawkish labour surprise raises the expected Fed path, the USD and real yields;",
+          "source_bindings": {
+            "confirmation": {
+              "document_id": "cc107-nfp-dated-review-20261114",
+              "support_excerpt": "The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower."
+            },
+            "mechanism": {
+              "document_id": "cc107-nfp-dated-review-20261114",
+              "support_excerpt": "a hawkish labour surprise raises the expected Fed path, the USD and real yields;"
+            }
+          }
+        },
+        {
+          "name": "Weak",
+          "role": "alternative",
+          "probability": null,
+          "confirmation": "payrolls z <= -1.0, so <= about -24K, and unemployment z >= -0.5, so >= 4.126% (in practice 4.2% or higher).",
+          "market_moves": {},
+          "invalidation": null,
+          "mechanism": "a second weak print after September's +29K lowers the expected hike path and weakens the USD;",
+          "source_bindings": {
+            "confirmation": {
+              "document_id": "cc107-nfp-dated-review-20261114",
+              "support_excerpt": "WEAK: payrolls z <= -1.0, so <= about -24K, and unemployment z >= -0.5, so >= 4.126% (in practice 4.2% or higher)."
+            },
+            "mechanism": {
+              "document_id": "cc107-nfp-dated-review-20261114",
+              "support_excerpt": "a second weak print after September's +29K lowers the expected hike path and weakens the USD;"
+            }
+          }
+        }
+      ],
+      "canonical_slug_candidate": "october-jobs-strong-condition-separate-score",
+      "primary_reader_question": "What did the November 6 jobs release actually resolve in our frozen conditions, what accompanied it in the measured intraday windows, and what can one separate categorical score tell us?",
+      "secondary_reader_questions": [
+        "Which frozen condition was met?",
+        "What did the supplied intraday windows measure?",
+        "What can the separate categorical comparison establish?"
+      ],
+      "entities": [
+        "Bureau of Labor Statistics",
+        "Federal Reserve",
+        "Investing",
+        "Capital Chronicle"
+      ],
+      "topics": [
+        "US employment",
+        "Nonfarm payrolls",
+        "Unemployment",
+        "Forecast evaluation",
+        "Cross-asset analysis"
+      ],
+      "search_freshness_class": "DATED_EVENT_RETROSPECTIVE",
+      "internal_link_candidates": [],
+      "source_notes": {
+        "report_scope_notice": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.",
+        "reader_visible_epistemic_label": "DATED CAPITAL CHRONICLE REVIEW",
+        "original_data_cutoff_utc": null,
+        "writer_request_cutoff_utc": "2026-11-14T11:04:18.352247Z",
+        "written_at_utc": "2026-11-14T11:49:04.037209Z",
+        "scope": "Dated event retrospective; original November 6 NFP and November 10 CPI previews are unchanged.",
+        "scenario_limits": [
+          "No numerical odds supplied for the frozen Strong or Weak conditions; no complement inferred.",
+          "No supplied complete six-market scenario mapping or explicit separate invalidation rule; fields remain null or absent."
+        ],
+        "observation_limits": [
+          "Supplied five-minute and sixty-minute co-movements are relative to the November 6 release baseline.",
+          "No observed first-day, bond-yield, sector-return, Bitcoin-return or pre-event-range-break result supplied.",
+          "First-print official histories and latest-release revised prior months are distinct vintages.",
+          "The history projection does not establish possession at the original release time."
+        ],
+        "score_provenance": {
+          "comparison": "CC-106 historical-frequency categorical comparison",
+          "information_tag": "PIT_CLEAN",
+          "evidence_class": "RESEARCH_PREPARATION",
+          "sample": "one event",
+          "not_preview_scenario_score": true,
+          "prediction_market_only": "unavailable"
+        },
+        "offline_event_guard": {
+          "status": "PASS",
+          "public_copy_sha256": "199e9d461931a496bda4d98bdd77670e8da95f732721f627e59cc84068aa02e1",
+          "checked_surfaces": 16,
+          "numeric_bindings": 25,
+          "publication_authority": false,
+          "jim_approval_required": false,
+          "standing_approval": "JIM_DECISION_36",
+          "final_native_render_review_required": true
+        }
+      },
+      "visual_editorial_decision": {
+        "article_type": "EVENT_REVIEW",
+        "canonical_media": [
+          "post-facts-7de7d631bd33720ee21a",
+          "nfp_review_payroll_history",
+          "nfp_review_unemployment_history",
+          "nfp_review_october_industries",
+          "nfp_review_first_hour_reactions"
+        ],
+        "lead_media": "post-facts-7de7d631bd33720ee21a",
+        "charts": [
+          {
+            "asset_id": "nfp_review_payroll_history",
+            "placement_after": "What the jobs report resolved",
+            "reason": "Shows the retained payroll baseline without replacing first-print vintages."
+          },
+          {
+            "asset_id": "nfp_review_unemployment_history",
+            "placement_after": "What the jobs report resolved",
+            "reason": "Separates the unemployment condition from the payroll condition and retains missing months."
+          },
+          {
+            "asset_id": "nfp_review_october_industries",
+            "placement_after": "What the jobs report resolved",
+            "reason": "Explains disjoint October employment groups without implying a complete sum or sector returns."
+          },
+          {
+            "asset_id": "nfp_review_first_hour_reactions",
+            "placement_after": "What moved, and when",
+            "reason": "Contrasts the supplied five-minute and sixty-minute co-movements, including the oil reversal."
+          }
+        ],
+        "channel_media": {
+          "telegram": [
+            "post-facts-7de7d631bd33720ee21a",
+            "nfp_review_first_hour_reactions"
+          ],
+          "discord": [
+            "post-facts-7de7d631bd33720ee21a",
+            "nfp_review_first_hour_reactions"
+          ],
+          "linkedin": [
+            "post-facts-7de7d631bd33720ee21a",
+            "nfp_review_first_hour_reactions"
+          ],
+          "facebook_page": [
+            "post-facts-7de7d631bd33720ee21a",
+            "nfp_review_first_hour_reactions"
+          ],
+          "instagram_business": [
+            "post-facts-7de7d631bd33720ee21a",
+            "nfp_review_first_hour_reactions"
+          ],
+          "threads": [
+            "post-facts-7de7d631bd33720ee21a",
+            "nfp_review_first_hour_reactions"
+          ],
+          "x": [
+            "post-facts-7de7d631bd33720ee21a",
+            "nfp_review_first_hour_reactions"
+          ],
+          "youtube": [
+            "post-facts-7de7d631bd33720ee21a",
+            "nfp_review_first_hour_reactions"
+          ]
+        },
+        "channel_media_notes": "Use release card first, then the complete reference-response chart where supported. Preserve axes, baseline, units, model label and co-movement qualification; do not crop them away.",
+        "photo_decision": "No lawful unused relevant photograph is included in the admitted media plan. Use the source-bound release card and four useful charts; no optional photo or invented licence.",
+        "required_repairs_before_editor_check": [
+          "Payroll endpoint displays a percent suffix despite a persons axis; replace with the correct persons display.",
+          "Replace NFP_PAYROLL_CHANGE and UNEMPLOYMENT_RATE legend labels with reader-facing metric names.",
+          "Replace the release-card November 9 generation-clock caption with an accurate November 6 event-source caption, keeping November 14 as the writing date.",
+          "Replace US 500 reference in the reaction chart/alt with S&P 500 reference, preserving reference-series scope."
+        ],
+        "inspection": "All five original local PNGs inspected. Four repair requests remain for the existing media owner; this is not final article/render approval."
+      },
+      "reader_first_version": "DATA_JOURNALISM_V1"
+    },
+    "cited_sources": [
+      {
+        "source_id": "SOURCE_1",
+        "publisher": "Capital Chronicle",
+        "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+        "published_at_utc": "2026-11-09T09:15:37.302916Z"
+      },
+      {
+        "source_id": "SOURCE_2",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "published_at_utc": "2026-11-06T13:30:00Z"
+      },
+      {
+        "source_id": "SOURCE_3",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/news.release/empsit.t17.htm",
+        "published_at_utc": "2026-11-06T13:30:00Z"
+      },
+      {
+        "source_id": "SOURCE_6",
+        "publisher": "U.S. Bureau of Labor Statistics (CC-010 first-print projection)",
+        "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+        "published_at_utc": "2026-10-02T12:30:00Z"
+      },
+      {
+        "source_id": "SOURCE_7",
+        "publisher": "U.S. Bureau of Labor Statistics (CC-010 first-print projection)",
+        "url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+        "published_at_utc": "2026-10-02T12:30:00Z"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "claim_id": "surface-title",
+        "claim_text": "October jobs met our Strong condition",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "surface-dek",
+        "claim_text": "We think October's jobs report met our frozen Strong condition, while the market response and a separate categorical score answer different questions.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "surface-dek-condition",
+        "claim_text": "We think October's jobs report met our frozen Strong condition, while the market response and a separate categorical score answer different questions.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "surface-search_title",
+        "claim_text": "October jobs review: the Strong condition and the separate score",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "surface-search_title-condition",
+        "claim_text": "October jobs review: the Strong condition and the separate score",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "surface-meta_description",
+        "claim_text": "Our October jobs review separates the frozen Strong condition, observed intraday co-movements and a categorical comparison that favoured the consensus baseline.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "surface-meta_description-condition",
+        "claim_text": "Our October jobs review separates the frozen Strong condition, observed intraday co-movements and a categorical comparison that favoured the consensus baseline.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "surface-social_hook",
+        "claim_text": "October jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "surface-social_hook-condition",
+        "claim_text": "October jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "arrival",
+        "claim_text": "BLS reported October's arrival facts: Payrolls: **+165K** and Unemployment rate: **4.1%**. Capital Chronicle model estimate: that combination met our frozen Strong condition.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "release-clock-and-gains",
+        "claim_text": "The Bureau of Labor Statistics published its October employment release at 8:30 a.m. ET on November 6, 2026. BLS described gains in professional and business services, health care, and transportation and warehousing.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "8:30 a.m. (ET) Friday, November 6, 2026 Technical information: Household data: (202) 691-6378 * cpsinfo@bls.gov * www.bls.gov/cps Establishment data: (202) 691-6555 * cesinfo@bls.gov * www.bls.gov/ces Media contact: (202) 691-5902 * PressOffice@bls.gov THE EMPLOYMENT SITUATION - OCTOBER 2026 Total nonfarm payroll employment rose by 165,000 in October, and the unemployment rate changed little at 4.1 percent, the U.S. Bureau of Labor Statistics reported today. Employment increased in professional and business services, in health care, and in transportation and warehousing. ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "wage-change",
+        "claim_text": "BLS also reported average hourly earnings increased 0.4 percent in October. September's payroll gain was revised from +29,000 to +60,000 in this release.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "In October, average hourly earnings for all employees on private nonfarm payrolls increased by 14 cents, or 0.4 percent, to $38.00.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "september-revision",
+        "claim_text": "BLS also reported average hourly earnings increased 0.4 percent in October. September's payroll gain was revised from +29,000 to +60,000 in this release.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "the change for September was revised up by 31,000, from +29,000 to +60,000.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "first-print-context",
+        "claim_text": "Our history panels retain the dated first releases before October; September's original print remains distinct from its later revision. Gaps remain unfilled in the historical panels.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_6",
+        "support_excerpt": "BLS CES0000000001 NFP_PAYROLL_CHANGE; 2024-10; 12000 persons; SA; OBSERVED; release 2024-11-01T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2024-11; 227000 persons; SA; OBSERVED; release 2024-12-06T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2024-12; 256000 persons; SA; OBSERVED; release 2025-01-10T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-01; 143000 persons; SA; OBSERVED; release 2025-02-07T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-02; 151000 persons; SA; OBSERVED; release 2025-03-07T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-03; 228000 persons; SA; OBSERVED; release 2025-04-04T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-04; 177000 persons; SA; OBSERVED; release 2025-05-02T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-05; 139000 persons; SA; OBSERVED; release 2025-06-06T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-06; 147000 persons; SA; OBSERVED; release 2025-07-03T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-07; 73000 persons; SA; OBSERVED; release 2025-08-01T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-08; 22000 persons; SA; OBSERVED; release 2025-09-05T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-09; 119000 persons; SA; OBSERVED; release 2025-11-20T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-10; -105000 persons; SA; OBSERVED; release 2025-12-16T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-11; 64000 persons; SA; OBSERVED; release 2025-12-16T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2025-12; 50000 persons; SA; OBSERVED; release 2026-01-09T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-01; 130000 persons; SA; OBSERVED; release 2026-02-11T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-02; -92000 persons; SA; OBSERVED; release 2026-03-06T13:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-03; 178000 persons; SA; OBSERVED; release 2026-04-03T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-04; 115000 persons; SA; OBSERVED; release 2026-05-08T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-05; 172000 persons; SA; OBSERVED; release 2026-06-05T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-06; 57000 persons; SA; OBSERVED; release 2026-07-02T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-07; -23000 persons; SA; OBSERVED; release 2026-08-07T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-08; 162000 persons; SA; OBSERVED; release 2026-09-04T12:30:00Z\nBLS CES0000000001 NFP_PAYROLL_CHANGE; 2026-09; 29000 persons; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "unemployment-first-print-context",
+        "claim_text": "Our history panels retain the dated first releases before October; September's original print remains distinct from its later revision. Gaps remain unfilled in the historical panels.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_7",
+        "support_excerpt": "BLS LNS14000000 UNEMPLOYMENT_RATE; 2024-10; 4.1 percent; SA; OBSERVED; release 2024-11-01T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2024-11; 4.2 percent; SA; OBSERVED; release 2024-12-06T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2024-12; 4.1 percent; SA; OBSERVED; release 2025-01-10T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-01; 4 percent; SA; OBSERVED; release 2025-02-07T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-02; 4.1 percent; SA; OBSERVED; release 2025-03-07T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-03; 4.2 percent; SA; OBSERVED; release 2025-04-04T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-04; 4.2 percent; SA; OBSERVED; release 2025-05-02T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-05; 4.2 percent; SA; OBSERVED; release 2025-06-06T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-06; 4.1 percent; SA; OBSERVED; release 2025-07-03T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-07; 4.2 percent; SA; OBSERVED; release 2025-08-01T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-08; 4.3 percent; SA; OBSERVED; release 2025-09-05T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-09; 4.4 percent; SA; OBSERVED; release 2025-11-20T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-11; 4.6 percent; SA; OBSERVED; release 2025-12-16T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2025-12; 4.4 percent; SA; OBSERVED; release 2026-01-09T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-01; 4.3 percent; SA; OBSERVED; release 2026-02-11T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-02; 4.4 percent; SA; OBSERVED; release 2026-03-06T13:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-03; 4.3 percent; SA; OBSERVED; release 2026-04-03T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-04; 4.3 percent; SA; OBSERVED; release 2026-05-08T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-05; 4.3 percent; SA; OBSERVED; release 2026-06-05T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-06; 4.2 percent; SA; OBSERVED; release 2026-07-02T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-07; 4.1 percent; SA; OBSERVED; release 2026-08-07T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-08; 4.1 percent; SA; OBSERVED; release 2026-09-04T12:30:00Z\nBLS LNS14000000 UNEMPLOYMENT_RATE; 2026-09; 4.2 percent; SA; OBSERVED; release 2026-10-02T12:30:00Z",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "disjoint-employment-groups",
+        "claim_text": "The industry bars separate mining and logging, construction, manufacturing and private services. They show selected, disjoint employment groups, not a complete jobs total or sector investment returns.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "| Total nonfarm | 159,355 | 158,910 | 159,254 | 160,277 | 158,408 | 159,068 | 159,128 | 159,293 | 165 | | Total private | 135,666 | 136,408 | 135,899 | 136,624 | 135,018 | 135,724 | 135,802 | 135,961 | 159 | | Goods-producing | 21,629 | 21,885 | 21,798 | 21,827 | 21,452 | 21,611 | 21,638 | 21,653 | 15 | | | | | | | | | | | | | Mining and logging | 610 | 615 | 610 | 609 | 606 | 608 | 606 | 605 | -1 | | Logging | 39.2 | 40.7 | 40.5 | 39.9 | 38.6 | 39.3 | 39.5 | 39.1 | -0.4 | | Mining, quarrying, and oil and gas extraction | 570.6 | 574.6 | 569.5 | 569.0 | 567.3 | 569.0 | 566.4 | 565.9 | -0.5 | | Oil and gas extraction | 116.1 | 115.5 | 114.1 | 113.7 | 115.7 | 114.8 | 114.5 | 113.9 | -0.6 | | Mining (except oil and gas) | 189.5 | 193.1 | 191.6 | 191.2 | 188.1 | 189.8 | 189.3 | 189.6 | 0.3 | | Coal mining | 39.4 | 38.0 | 37.9 | 38.0 | 39.3 | 38.0 | 37.9 | 38.0 | 0.1 | | Metal ore mining | 44.9 | 47.0 | 46.9 | 46.7 | 44.9 | 46.8 | 46.9 | 46.8 | -0.1 | | Nonmetallic mineral mining and quarrying | 105.2 | 108.1 | 106.8 | 106.5 | 103.9 | 105.0 | 104.4 | 104.8 | 0.4 | | Support activities for mining | 265.0 | 266.0 | 263.8 | 264.1 | 263.5 | 264.4 | 262.6 | 262.4 | -0.2 | | | | | | | | | | | | | Construction | 8,413 | 8,555 | 8,512 | 8,525 | 8,243 | 8,354 | 8,370 | 8,367 | -3 | | Construction of buildings | 1,867.4 | 1,897.2 | 1,882.2 | 1,892.6 | 1,843.6 | 1,868.4 | 1,871.8 | 1,873.5 | 1.7 | | Residential building construction | 939.1 | 931.9 | 928.1 | 934.3 | 925.3 | 919.4 | 922.1 | 920.9 | -1.2 | | Nonresidential building construction | 928.3 | 965.3 | 954.1 | 958.3 | 918.3 | 949.0 | 949.7 | 952.6 | 2.9 | | Heavy and civil engineering construction | 1,237.0 | 1,257.2 | 1,259.0 | 1,263.1 | 1,183.5 | 1,208.1 | 1,210.2 | 1,212.7 | 2.5 | | Specialty trade contractors | 5,308.6 | 5,400.1 | 5,370.3 | 5,368.9 | 5,215.7 | 5,277.8 | 5,288.3 | 5,281.0 | -7.3 | | Residential specialty trade contractors | 2,406.8 | 2,404.3 | 2,381.4 | 2,363.2 | 2,368.2 | 2,349.6 | 2,347.6 | 2,332.4 | -15.2 | | Nonresidential specialty trade contractors | 2,901.8 | 2,995.8 | 2,988.9 | 3,005.7 | 2,847.5 | 2,928.2 | 2,940.7 | 2,948.6 | 7.9 | | | | | | | | | | | | | Manufacturing | 12,606 | 12,715 | 12,676 | 12,693 | 12,603 | 12,649 | 12,662 | 12,681 | 19 | | | | | | | | | | | | ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "scenario-0",
+        "claim_text": "Capital Chronicle model estimate: our frozen Strong condition required payrolls about +154K or more and unemployment 4.2% or lower. Both conditions held, so this release matched Strong.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "scenario-1",
+        "claim_text": "The frozen Weak alternative required payrolls about -24K or lower and unemployment 4.2% or higher. That combination did not hold.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "WEAK: payrolls z <= -1.0, so <= about -24K, and unemployment z >= -0.5, so >= 4.126% (in practice 4.2% or higher).",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "scenario-2",
+        "claim_text": "Our frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "a hawkish labour surprise raises the expected Fed path, the USD and real yields;\n\na second weak print after September's +29K lowers the expected hike path and weakens the USD;",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "window-0",
+        "claim_text": "Capital Chronicle model estimate: our earliest measured window is five minutes after the 8:30 a.m. ET release. The later observation is sixty minutes after the same baseline.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "price sits low in the five-week 1.1104-1.1286 range.\n\nCapital Chronicle model estimate: EURUSD observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.0555%; +15m: -0.155%; +30m: -0.1657%; +60m: -0.2723%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: USDJPY observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: 0.0152%; +15m: 0.0688%; +30m: 0.0486%; +60m: 0.0429%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: XAUUSD observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.2335%; +15m: -0.2761%; +30m: -0.3577%; +60m: -0.6723%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: US500 observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.0423%; +15m: -0.1762%; +30m: -0.0983%; +60m: -0.0949%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: USOIL observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: 0.228%; +15m: 0.208%; +30m: -0.1135%; +60m: -0.1813%. These are computed co-movements, not causal attribution or execution results.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "window-baseline",
+        "claim_text": "Capital Chronicle model estimate: our earliest measured window is five minutes after the 8:30 a.m. ET release. The later observation is sixty minutes after the same baseline.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "8:30 a.m. (ET) Friday, November 6, 2026",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "window-1",
+        "claim_text": "These windows do not identify which market moved first within the opening minutes. Our frozen EUR/USD context placed price low in a five-week 1.1104-1.1286 range; the observed changes alone do not establish a range break.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "price sits low in the five-week 1.1104-1.1286 range.\n\nCapital Chronicle model estimate: EURUSD observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.0555%; +15m: -0.155%; +30m: -0.1657%; +60m: -0.2723%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: USDJPY observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: 0.0152%; +15m: 0.0688%; +30m: 0.0486%; +60m: 0.0429%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: XAUUSD observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.2335%; +15m: -0.2761%; +30m: -0.3577%; +60m: -0.6723%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: US500 observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.0423%; +15m: -0.1762%; +30m: -0.0983%; +60m: -0.0949%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: USOIL observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: 0.228%; +15m: 0.208%; +30m: -0.1135%; +60m: -0.1813%. These are computed co-movements, not causal attribution or execution results.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "window-2",
+        "claim_text": "The measured changes are reference-series co-movements, not causal attribution or measured futures or ETF returns. We have no completed first-day observation.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "price sits low in the five-week 1.1104-1.1286 range.\n\nCapital Chronicle model estimate: EURUSD observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.0555%; +15m: -0.155%; +30m: -0.1657%; +60m: -0.2723%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: USDJPY observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: 0.0152%; +15m: 0.0688%; +30m: 0.0486%; +60m: 0.0429%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: XAUUSD observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.2335%; +15m: -0.2761%; +30m: -0.3577%; +60m: -0.6723%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: US500 observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.0423%; +15m: -0.1762%; +30m: -0.0983%; +60m: -0.0949%. These are computed co-movements, not causal attribution or execution results.\n\nCapital Chronicle model estimate: USOIL observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: 0.228%; +15m: 0.208%; +30m: -0.1135%; +60m: -0.1813%. These are computed co-movements, not causal attribution or execution results.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "forecast_score-0",
+        "claim_text": "In the separate historical-frequency comparison, the Capital Chronicle model estimate classified the outcome as in line and assigned the matrix a Brier score of 0.02. Lower is better.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "forecast_score-1",
+        "claim_text": "This is one event and a different comparison from the preview's Strong and Weak conditions. The in-line category does not reverse which frozen release condition was met or establish predictive skill.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "consensus_comparison-0",
+        "claim_text": "For that same event, the Capital Chronicle model estimate gave Investing's consensus-only baseline a Brier score of 0. The consensus baseline therefore performed better on this categorical metric.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "consensus_comparison-1",
+        "claim_text": "We cannot count the Strong resolution and the in-line category as independent successes. Neither result supplies a second independent event or a performance record.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "prediction_market_comparison-0",
+        "claim_text": "No prediction-market-only score is available for this event, so we cannot assess that baseline.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "reaction-rates-limit",
+        "claim_text": "We lack a matched bond-yield observation, so we cannot test the expected real-yield leg. That part of the frozen mechanism remains untested here.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "a hawkish labour surprise raises the expected Fed path, the USD and real yields;",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "reaction-dollar-EURUSD",
+        "claim_text": "Capital Chronicle model estimate: the EUR/USD reference changed -0.0555% after five minutes and -0.2723% after sixty minutes. The USD/JPY reference changed 0.0152% and 0.0429% over those respective windows. These are not FXE or FXY ETF returns; FXY expresses yen versus dollars, the inverse quotation direction to USD/JPY.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: EURUSD observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.0555%; +15m: -0.155%; +30m: -0.1657%; +60m: -0.2723%. These are computed co-movements, not causal attribution or execution results.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "reaction-dollar-USDJPY",
+        "claim_text": "Capital Chronicle model estimate: the EUR/USD reference changed -0.0555% after five minutes and -0.2723% after sixty minutes. The USD/JPY reference changed 0.0152% and 0.0429% over those respective windows. These are not FXE or FXY ETF returns; FXY expresses yen versus dollars, the inverse quotation direction to USD/JPY.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: USDJPY observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: 0.0152%; +15m: 0.0688%; +30m: 0.0486%; +60m: 0.0429%. These are computed co-movements, not causal attribution or execution results.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "reaction-gold-XAUUSD",
+        "claim_text": "Capital Chronicle model estimate: the gold reference changed -0.2335% after five minutes and -0.6723% after sixty minutes. These are reference changes, not GC gold futures returns or proof that the release caused them.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: XAUUSD observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.2335%; +15m: -0.2761%; +30m: -0.3577%; +60m: -0.6723%. These are computed co-movements, not causal attribution or execution results.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "reaction-oil-USOIL",
+        "claim_text": "Capital Chronicle model estimate: the WTI reference initially rose 0.228%, then stood -0.1813% from the baseline after sixty minutes. Its reversal challenges a uniform-response story; these are not CL WTI futures returns.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: USOIL observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: 0.228%; +15m: 0.208%; +30m: -0.1135%; +60m: -0.1813%. These are computed co-movements, not causal attribution or execution results.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "reaction-indices-US500",
+        "claim_text": "Capital Chronicle model estimate: the S&P 500 reference changed -0.0423% after five minutes and -0.0949% after sixty minutes. These are reference observations, not ES futures or SPY ETF returns.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: US500 observed changes for US_NFP_20261106, relative to the 2026-11-06T13:30:00Z baseline: +5m: -0.0423%; +15m: -0.1762%; +30m: -0.0983%; +60m: -0.0949%. These are computed co-movements, not causal attribution or execution results.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "reaction-sector-scope",
+        "claim_text": "The industry bars measure employment changes. Without matched sector-return observations, we make no sector-performance claim.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_3",
+        "support_excerpt": "Table B-1. Employees on nonfarm payrolls by industry sector and selected industry detail | Industry | Not seasonally adjusted | Seasonally adjusted | | | | | | | | | Oct. 2025 | Aug. 2026 | Sept. 2026([p](https://www.bls.gov/news.release/empsit.t17.htm#ces_table1.f.p)) | Oct. 2026([p](https://www.bls.gov/news.release/empsit.t17.htm#ces_table1.f.p)) | Oct. 2025 | Aug. 2026 | Sept. 2026([p](https://www.bls.gov/news.release/empsit.t17.htm#ces_table1.f.p)) | Oct. 2026([p](https://www.bls.gov/news.release/empsit.t17.htm#ces_table1.f.p)) | Change from: Sept.2026 - Oct.2026([p](https://www.bls.gov/news.release/empsit.t17.htm#ces_table1.f.p)) | | | Total nonfarm | 159,355 | 158,910 | 159,254 | 160,277 | 158,408 | 159,068 | 159,128 | 159,293 | 165 | ",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "lesson-0",
+        "claim_text": "Our interpretation is that the dollar and gold co-movements are consistent with the frozen hawkish mechanism. The countercase is that consistency does not establish causation, especially without a matched rates observation.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "lesson-mechanism",
+        "claim_text": "Our interpretation is that the dollar and gold co-movements are consistent with the frozen hawkish mechanism. The countercase is that consistency does not establish causation, especially without a matched rates observation.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "a hawkish labour surprise raises the expected Fed path, the USD and real yields;",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "lesson-1",
+        "claim_text": "What we cannot claim is predictive skill: the consensus-only categorical baseline scored better, and the missing rates and first-day observations leave parts of the mechanism untested.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "lesson-2",
+        "claim_text": "So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "lesson-3",
+        "claim_text": "For the next review, we would preserve the frozen conditions and compare fully dated market observations against a baseline before claiming that a mechanism worked. This retrospective provides no current market guidance.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "social_mechanism_summary",
+        "claim_text": "Our interpretation is that the dollar and gold co-movements are consistent with the frozen hawkish mechanism. The countercase is that consistency does not establish causation, especially without a matched rates observation.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "social_policy_summary",
+        "claim_text": "Our frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "a hawkish labour surprise raises the expected Fed path, the USD and real yields;\n\na second weak print after September's +29K lowers the expected hike path and weakens the USD;",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "social_cross_asset_summary",
+        "claim_text": "So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Capital Chronicle model estimate: CC-106 scores for US_NFP_20261106; consensus source investing; classified outcome IN_LINE; matrix Brier score 0.02. consensus only Brier score 0. prediction market only comparison unavailable. Score scope CATEGORICAL_AND_POINT_ERROR; evidence class RESEARCH_PREPARATION; information tag PIT_CLEAN; matrix cutoff 2026-11-06T04:23:33.880853Z; point forecast method EXTERNAL_MARKET_CONSENSUS. Lower Brier is better. This is one outcome and a separate historical-frequency comparison, not a score of the published preview's Strong/Weak conditions or proof of skill.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "social-scenario-base_case",
+        "claim_text": "Base case: the frozen Strong condition held.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "social-scenario-alternative",
+        "claim_text": "Alternative: the frozen Weak condition did not hold.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "- Payrolls: **+165K** (total nonfarm 159,293K vs 159,128K for September as now published). - Unemployment rate: **4.1%** (September 4.2%). The frozen Strong branch needed payrolls about +154K or more and unemployment 4.2% or lower. Both held (+165K, 4.1%). The Weak branch failed.",
+        "attribution_required": true
+      }
+    ],
+    "public_write_attempted": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/native_write_a97e7232eeeb",
+    "model": null,
+    "reasoning_effort": null,
+    "speed": "standard",
+    "observation_source": "Supported native task identity. Actual model and effort telemetry are not exposed; no environment, process arguments, sessions or secrets were probed.",
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "actual_configuration_unavailable": true,
+    "assignment_id": "cc107-nfp-dated-review-20261114-v1:write",
+    "expected_return_id": "write:a97e7232eeeb5c393df30b18bbfcd55ff0cb079c3bbbbc5e8a90acd1fdfcca18",
+    "observed_at_utc": "2026-11-14T11:49:04.037209Z"
+  }
+}
