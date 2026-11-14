@@ -304,6 +304,33 @@ console.log(JSON.stringify(await fn(page,{phase:'article_editor'})));})();
         assert result["prompt"] == "A rotating prompt"
 
 
+@pytest.mark.parametrize("correct_author", [False,True])
+def test_cc536_company_permalink_reads_its_exact_id_body_and_visible_short_link(correct_author):
+    import subprocess
+    from pathlib import Path
+    source=Path(endpoint.__file__).with_name('neo_endpoint_steps_v1.js').read_text(encoding='utf-8')
+    script="""
+const correct=JSON.parse(process.argv[1]);
+global.location={href:'https://www.linkedin.com/feed/update/urn:li:activity:123/'};
+const body={innerText:'Our exact call. https://lnkd.in/bound',closest:()=>root};
+const author={href:correct?'https://www.linkedin.com/company/capitalchronicle/':'https://www.linkedin.com/company/other/',innerText:'Author'};
+const root={getClientRects:()=>[{}],getAttribute:()=>null,querySelector:()=>body,querySelectorAll:s=>s==='a[href]'?[author]:[]};
+global.document={querySelectorAll:s=>s.startsWith('main ')?[body]:[]};
+const page={evaluateInPage:async(fn,input)=>({value:fn(input)})};
+const source=JSON.parse(process.argv[2]);
+(async()=>{const fn=new (Object.getPrototypeOf(async function(){}).constructor)('page','input',source);
+console.log(JSON.stringify(await fn(page,{phase:'article_readback',destination:'linkedin_company'})));})();
+"""
+    result=json.loads(subprocess.check_output(['node','-e',script,json.dumps(correct_author),json.dumps(source)],text=True,timeout=5))
+    if not correct_author:
+        assert result['posts']==[]
+    else:
+        post=result['posts'][0]
+        assert post['public_object_id']=='urn:li:activity:123'
+        assert post['observed_text']=='Our exact call. https://lnkd.in/bound'
+        assert any(link['url']=='https://lnkd.in/bound' for link in post['links'])
+
+
 @pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])
 def test_lost_article_click_return_is_readback_only(tmp_path, destination):
     store, c, _, browser, message, row = article(tmp_path, destination, "lost_return")

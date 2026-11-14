@@ -201,19 +201,34 @@ if (input.phase === 'article_readback') {
         ? u.searchParams.get('q') : null;
       return {text:a.innerText,url:a.href,expanded_url:expanded};
     });
-    const nodes=destination==='linkedin_company'
+    let nodes=destination==='linkedin_company'
       ? document.querySelectorAll('[data-urn^="urn:li:activity:"]')
       : document.querySelectorAll('ytd-backstage-post-renderer');
+    const permalink=destination==='linkedin_company'
+      ? /^https:\/\/www\.linkedin\.com\/feed\/update\/(urn:li:activity:\d+)\/?(?:[?#].*)?$/.exec(location.href) : null;
+    if (!nodes.length && permalink) {
+      // LinkedIn's permalink uses its current semantic text/listitem layout;
+      // the company admin feed still uses data-urn. Bind the ID to this exact
+      // public URL and continue to require the post's actual company author.
+      nodes=[...new Set(Array.from(document.querySelectorAll('main [data-testid="expandable-text-box"]'))
+        .map(e=>e.closest('[role="listitem"]')).filter(Boolean))];
+    }
     const posts=Array.from(nodes).filter(visible).map(e=>{
       const ls=links(e);
       const author=ls.find(l=>destination==='linkedin_company'
         ? /^https:\/\/www\.linkedin\.com\/company\/(?:143198922|capitalchronicle)(?:\/|$)/i.test(l.url)
         : /^https:\/\/www\.youtube\.com\/@CapitalChronicleYouTube(?:\/|$)/i.test(l.url));
-      const id=destination==='linkedin_company' ? e.getAttribute('data-urn')
+      const id=destination==='linkedin_company' ? e.getAttribute('data-urn') || permalink?.[1]
         : ls.find(l=>/^https:\/\/www\.youtube\.com\/post\//.test(l.url))?.url.split('/post/')[1];
       const url=destination==='linkedin_company'
         ? 'https://www.linkedin.com/feed/update/'+id+'/' : (id?'https://www.youtube.com/post/'+id:null);
-      const body=e.querySelector(destination==='linkedin_company'?'.update-components-text':'#content-text');
+      const body=e.querySelector(destination==='linkedin_company'?'.update-components-text':'#content-text')
+        || (destination==='linkedin_company'?e.querySelector('[data-testid="expandable-text-box"]'):null);
+      if (destination==='linkedin_company') {
+        for (const short of body?.innerText?.match(/https:\/\/lnkd\.in\/[A-Za-z0-9_-]+/g)||[]) {
+          if (!ls.some(link=>link.url===short)) ls.push({text:short,url:short,expanded_url:null});
+        }
+      }
       return {public_object_id:id,public_object_url:url,observed_text:body?.innerText || '',
         observed_identity:author?(destination==='linkedin_company'?'linkedin:company:143198922':'@CapitalChronicleYouTube'):null,
         ...(destination==='linkedin_company'&&author?{observed_stable_id:'143198922'}:{}),links:ls,

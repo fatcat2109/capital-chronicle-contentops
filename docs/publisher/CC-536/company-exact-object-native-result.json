@@ -1,0 +1,15 @@
+{
+  "observed_at_utc": "2026-11-14T09:10:35.385014+00:00",
+  "request_sha256": "a12c772cd5c27480dab4cdeeed2b1bce87a7f144f90f1745e43c5eae7fdd89b0",
+  "result": {
+    "status": "READBACK_UNAVAILABLE",
+    "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+    "public_object_id": null,
+    "public_object_url": null,
+    "media_check_state": null,
+    "observed_media_sha256": null,
+    "content_verified": null
+  },
+  "error_class": "ValueError",
+  "error_code": "NATIVE_NEO_IMMUTABLE_RETURN_CONFLICT"
+}
