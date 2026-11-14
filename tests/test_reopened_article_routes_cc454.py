@@ -205,6 +205,25 @@ def test_cc536_youtube_existing_editor_does_not_depend_on_rotating_prompt(tmp_pa
     assert browser.calls.count("article_publish") == 1
 
 
+@pytest.mark.parametrize("visible", [False, True])
+def test_cc536_youtube_dom_editor_excludes_hidden_composer(visible):
+    import subprocess
+    from pathlib import Path
+    source = (Path(endpoint.__file__).with_name("neo_endpoint_steps_v1.js")).read_text(encoding="utf-8")
+    script = """
+const visible=JSON.parse(process.argv[1]);
+const field={getClientRects:()=>visible?[{}]:[],setAttribute:()=>{}};
+global.document={querySelector:()=>field,querySelectorAll:()=>[field]};
+global.getComputedStyle=()=>({visibility:'visible'});
+const page={evaluateInPage:async fn=>({value:fn()})};
+const source=JSON.parse(process.argv[2]);
+(async()=>{const fn=new (Object.getPrototypeOf(async function(){}).constructor)('page','input',source);
+console.log(JSON.stringify(await fn(page,{phase:'article_editor'})));})();
+"""
+    raw = subprocess.check_output(["node", "-e", script, json.dumps(visible), json.dumps(source)], text=True, timeout=5)
+    assert json.loads(raw)["ready"] is visible
+
+
 @pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])
 def test_lost_article_click_return_is_readback_only(tmp_path, destination):
     store, c, _, browser, message, row = article(tmp_path, destination, "lost_return")

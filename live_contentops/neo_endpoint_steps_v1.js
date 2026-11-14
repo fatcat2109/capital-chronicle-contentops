@@ -115,7 +115,8 @@ if (input.phase === 'article_identity') {
 
 if (input.phase === 'article_editor') {
   return unwrap(await page.evaluateInPage(() => {
-    const field=document.querySelector('#contenteditable-root[contenteditable="true"]');
+    const field=Array.from(document.querySelectorAll('#contenteditable-root[contenteditable="true"]'))
+      .find(e=>e.getClientRects().length && getComputedStyle(e).visibility!=='hidden');
     if (!field) return {ready:false};
     field.setAttribute('role','textbox');field.setAttribute('aria-label','CC454 article text');
     return {ready:true};

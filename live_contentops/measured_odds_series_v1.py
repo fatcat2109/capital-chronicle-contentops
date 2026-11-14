@@ -363,7 +363,7 @@ def continue_piece(store, packet, *, invocation_id, rollout, command="resume", r
             if (store.get_outbox_message(d["message_id"]) or {}).get("work_item_id")==packet["identity"]]},
             "pending_requests":[]}
     from .neo_endpoint_executor_v1 import NeoMcpClient
-    client = NeoMcpClient(task_name="cc536 measured odds",group_title="codex/cc536-method-page") if automatic else None
+    client = NeoMcpClient(task_name="cc536 measured odds",group_title="codex/cc536-measured-odds") if automatic else None
     if draft_url:
         if not automatic:
             raise ValueError("ODDS_RETAINED_DRAFT_REQUIRES_BOUND_TRANSPORT")
