@@ -49,7 +49,12 @@ def validate_snapshot_asset(asset, *, market=None, now=None):
     """Validate the original download and its uncropped padding, never chart data."""
     from PIL import Image, ImageChops
     from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops.tradingview_plan_overlay_v1 import target_drawn
     snapshot = asset.get("tradingview_snapshot") or {}
+    # CC-583 / decision 82: the raw snapshot's target_drawn describes the plain download;
+    # what the plan overlay drew is read from the overlay itself.
+    if target_drawn(asset):
+        raise ImagePolicyError("TRADINGVIEW_OVERLAY_TARGET_DRAWN")
     if snapshot.get("price_scale_check") or str(snapshot.get("tv_symbol") or "").startswith(("ECONOMICS:", "FRED:")):
         tv.validate_snapshot_asset(asset)
         if market and snapshot.get("price_scale_check"):

@@ -243,9 +243,11 @@ def test_wti_overlay_translates_the_supplied_levels_and_prints_the_difference(tm
     marked = overlay.apply(plain, original)
     assert "0.109 USD/bbl at capture" in marked["plan_overlay"]["basis_label"]
     low = next(m for m in marked["plan_overlay"]["markers"] if m["label"] == "Entry low")
-    target = next(m for m in marked["plan_overlay"]["markers"] if m["label"] == "Target")
+    invalid = next(m for m in marked["plan_overlay"]["markers"] if m["label"] == "Invalidation")
     assert low["price"] == pytest.approx(85.109)
-    assert target["price"] == pytest.approx(87.109)
+    assert invalid["price"] == pytest.approx(84.609)
+    # CC-583 / decision 82: the plan's target is never drawn.
+    assert not overlay.target_drawn(marked) and "Target" not in {m["label"] for m in marked["plan_overlay"]["markers"]}
     assert original["levels"]["zone_low"] == 85
     overlay.validate(marked, original)
 

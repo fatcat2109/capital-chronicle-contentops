@@ -44,7 +44,7 @@ def sections_for(manuscript):
 RIGHTS = {"CAPITAL_CHRONICLE_ORIGINAL_ANALYSIS", "PUBLIC_DOMAIN_OFFICIAL_FACT", "SINGLE_ATTRIBUTED_FACT"}
 _PRIVATE = re.compile(
     r"\b(?:demo|mt[45]|exness[\w-]*|metatrader|account\s+(?:id|number|balance|equity)|"
-    r"model[\s-]+positions?|position\s+siz(?:e|ing)|risk\s+(?:allocation|per trade)|(?:our|my)\s+(?:balance|equity|capital)|"
+    r"model[\s-]+positions?|model[\s-]+calls?|position\s+siz(?:e|ing)|risk\s+(?:allocation|per trade)|(?:our|my)\s+(?:balance|equity|capital)|"
     r"ticket(?:\s+id)?|p\s*&\s*l|realised profit|realized profit|lot\s+size|HALF_PLAN_RISK)\b|"
     r"\b\d+(?:\.\d+)?\s*(?:standard\s+|mini\s+|micro\s+)?lots?\b|"
     r"\b(?:279805139|279779602)\b", re.I)

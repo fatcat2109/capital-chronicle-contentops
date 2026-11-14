@@ -407,6 +407,10 @@ def validate_snapshot_asset(asset: Mapping[str, Any], article: Mapping[str, Any]
         return
     snap = asset["tradingview_snapshot"]
     market = (article or {}).get("market_asset")
+    from live_contentops.tradingview_plan_overlay_v1 import target_drawn
+    if target_drawn(asset):
+        # CC-583 / decision 82: snap["target_drawn"] describes the plain download only.
+        raise ValueError("TRADINGVIEW_OVERLAY_TARGET_DRAWN")
     if ((article or {}).get("paid") or (article or {}).get("paywall")
             or (article or {}).get("audience") in {"paid", "paid_subscribers"}):
         raise ValueError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
