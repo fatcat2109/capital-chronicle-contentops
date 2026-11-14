@@ -136,6 +136,21 @@ def test_status_needs_no_native_invocation_or_browser_executor(tmp_path,monkeypa
         'publication':{'dispatches':[]},'pending_requests':[]}
 
 
+def test_exact_public_readback_skips_the_global_draft_inventory(tmp_path,monkeypatch):
+    from live_contentops import substack_draft_inventory_v1 as inventory
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    store=ContentOpsDurableStore(tmp_path/'store.sqlite3')
+    packet=odds.register(store,SOURCE/'piece-1.json',tmp_path/'article')
+    c=DurablePublicationCoordinator(store=store,transport_runtime=None)
+    c.register_plan(packet['identity'],packet['plan'])
+    intent=json.loads(store.list_outbox_messages(work_item_id=packet['identity'],destination='substack')[0]['payload'])
+    monkeypatch.setattr(inventory,'store_draft_ids',lambda _:pytest.fail('Exact object scanned global draft history'))
+    request=NeoDestinationHandoff(store=store).request(destination='substack',action='READBACK',intent=intent,
+        public_object_id='224849463',public_object_url='https://capitalchronicle.substack.com/p/method')
+    assert request['draft_readback_scope']['referenced_draft_ids']==['224849463']
+    assert request['draft_readback_scope']['scan_unreferenced_drafts'] is False
+
+
 def confirm_method(store, tmp_path):
     packet = odds.register(store,SOURCE / "piece-1.json",tmp_path / "method")
     coordinator = DurablePublicationCoordinator(store=store,transport_runtime=None)

@@ -536,7 +536,13 @@ class NeoDestinationHandoff:
             value["steps"] = ["Inspect only the same retained code tab. Never reload, navigate, type, read a mailbox or enter a code. If still on the code screen, report unverified and continue other destinations in other task tabs without waiting. Continue exact Substack readback only after this tab reaches /publish/posts/detail/.../share-center."]
         if destination == "substack" and action == "READBACK":
             from live_contentops.substack_draft_inventory_v1 import readback_scope, store_draft_ids
-            value["draft_readback_scope"] = readback_scope(store_draft_ids(self.store) if self.store else set())
+            exact_ids = ({str(public_object_id)} if str(public_object_id or "").isdigit()
+                         and _public_url(destination, public_object_url, public_object_id) else None)
+            # An exact confirmed object needs only its own fallback identity.
+            # Scanning every retained native request held CC-536's readback for
+            # minutes before a browser request could be issued.
+            value["draft_readback_scope"] = readback_scope(exact_ids if exact_ids is not None
+                else store_draft_ids(self.store) if self.store else set())
             value["steps"].append(value["draft_readback_scope"]["instructions"])
         if destination == "linkedin" and action == "READBACK" and not public_object_id:
             value["owner_absence_context"] = intent.get("owner_absence_context")
