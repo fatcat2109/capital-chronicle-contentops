@@ -62,13 +62,29 @@ def test_new_page_render_refuses_the_observed_copy_defects(source, tmp_path, tex
 
 
 def test_new_gold_thread_explicitly_distinguishes_cancel_and_after_entry_stop():
+    from live_contentops import plan_state_alerts_v1 as alerts
+    from test_plan_thread_consistency_cc549 import alert_row
     raw = json.loads(GOLD.read_bytes())
-    terms = reader.thread_terms(raw, level_contract="CC584_V1")
-    assert "cancelled" in terms["invalidation"] and "before entry" in terms["invalidation"]
-    assert "3,972.6" in terms["invalidation"]
-    assert "wrong" in terms["invalidation"] and "after entry" in terms["invalidation"]
-    assert "4,004.4" in terms["invalidation"]
-    assert "Spot" in terms["invalidation"] and "MGC" in terms["invalidation"]
+    text = alerts.compose({**alert_row(raw), "level_contract": "CC584_V1"})["text"]
+    assert "cancelled" in text and "before entry" in text
+    assert "3,972.6" in text
+    assert "wrong" in text and "after entry" in text
+    assert "4,004.4" in text
+    assert "Spot" in text and "MGC" in text
+
+
+def test_current_matching_plan_and_quote_are_used_for_a_fresh_page(monkeypatch):
+    raw = json.loads(GOLD.read_bytes())
+    raw.update(status="WAITING")
+    current = {**raw, "last_price": 3959, "last_quote": None, "last_price_at_utc": "2026-11-12T16:31:30Z"}
+    calls = []
+    def observe(plan_id, **options):
+        calls.append((plan_id, options))
+        return current
+    monkeypatch.setattr(posts, "current_public_plan", observe)
+    now = posts._utc("2026-11-12T16:32:05Z")
+    assert pages.require_current_page({"source_plan": raw}, now=now) is current
+    assert calls == [(raw["plan_id"], {"registration_hash": raw["registration_hash"], "now": now})]
 
 
 def test_stored_91_percent_paragraph_needs_a_named_pricing_source():
@@ -121,6 +137,7 @@ def test_new_page_alert_and_chart_use_the_same_bound_phase_labels(tmp_path, monk
     from live_contentops import plan_call_cards_v1 as cards, plan_state_alerts_v1 as alerts
     from live_contentops import plan_reader_editorial_v1 as editorial, tradingview_plan_overlay_v1 as overlay
     from live_contentops import tradingview_snapshot_v1 as tv
+    from live_contentops import publication_image_contract_v1 as image
     from test_plan_thread_consistency_cc549 import alert_row, authored
     from test_tradingview_plan_overlay_cc459 import captured
 
@@ -131,10 +148,15 @@ def test_new_page_alert_and_chart_use_the_same_bound_phase_labels(tmp_path, monk
     manuscript = editorial.bind_manuscript(authored(source), source, raw)
     pages.validate_manuscript(raw, manuscript, run)
     payload, _, _ = pages._assemble(raw, manuscript, run)
-    row = {**alert_row(raw), "key": "gold-phase-labels", "level_contract": reader.LEVEL_CONTRACT}
+    row = {**alert_row(raw), "key": "gold-phase-labels", "level_contract": reader.LEVEL_CONTRACT,
+           "schema_version": posts.SCHEMA, "format": 4}
     alert = alerts.compose(row)["text"]
     _, asset = captured("XAUUSD")
-    plain = tv.snapshot_asset("XAUUSD", "Bound gold conditions", asset["tradingview_snapshot"], tmp_path)
+    snap = asset["tradingview_snapshot"]
+    snap = image.bind_scale("XAUUSD", snap, quote={"market": "XAUUSD", "instrument": "XAUUSD", "price": 4047.473,
+        "quoted_at_utc": snap["captured_at_utc"], "known_at_utc": snap["captured_at_utc"],
+        "source_path": "controlled-gold-price.json", "source_sha256": "a" * 64, "price_basis": "plan_feed"})
+    plain = tv.snapshot_asset("XAUUSD", "Bound gold conditions", snap, tmp_path)
     marked = overlay.apply(plain, row)
     overlay.validate(marked, row)
     terms = reader.thread_terms(raw, level_contract=reader.LEVEL_CONTRACT)["invalidation"]
@@ -142,6 +164,19 @@ def test_new_page_alert_and_chart_use_the_same_bound_phase_labels(tmp_path, monk
     assert marked["plan_overlay"]["source"]["phase_terms"] == terms
     assert marked["plan_overlay"]["source"]["phase_source_sha256"] == posts._sha(raw)
     assert not marked["plan_overlay"]["markers"]  # MGC's stop is never plotted on a spot-price axis.
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    store.create_work_item(story_id=posts.WORK_ITEM_ID, work_item_id=posts.WORK_ITEM_ID,
+                          title="Source-bound gold chart", target_surface="MULTI_PLATFORM")
+    store.register_outbox_message(message_id=row["key"], work_item_id=posts.WORK_ITEM_ID,
+        destination=posts.DESTINATION, payload=json.dumps(row), status=posts.READY)
+    coordinator = DurablePublicationCoordinator(store=store, transport_runtime=None,
+        clock=lambda: posts._utc("2026-11-14T06:00:00Z"))
+    intent = {"plan_status_post": row["key"], "media_assets": [marked]}
+    assert image.validate_write(coordinator, intent, "telegram")["first_image_type"] == "TRADINGVIEW_MARKET_CHART"
+    with pytest.raises(ValueError, match="PRICE_BASIS_MISMATCH"):
+        image.validate_write(coordinator, {**intent, "media_assets": [plain]}, "telegram")
     changed = deepcopy(row)
     changed["source_plan"]["invalidation_conditions"][0]["threshold"] = 3999
     with pytest.raises(ValueError, match="SOURCE_OR_SCALE_CHANGED"):
