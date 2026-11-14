@@ -1214,6 +1214,9 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "source_capture_sha256": document["source_capture_sha256"],
                 "scope": "VERIFIED_GOVERNMENT_PUBLIC_DOMAIN_SOURCE_ADMISSION"}
         source_id = f"SOURCE_{len(pack) + 1}"
+        visible_text = (text if (public_record_metadata or cpi_reaction) else text[:48_000]
+            if constraints.get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+            else text[:MAX_SOURCE_TEXT_CHARS])
         pack.append(
             {
                 "source_id": source_id,
@@ -1244,10 +1247,10 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                     document.get("secondary_listing_only")
                 ),
                 "report_truth_only": bool(document.get("report_truth_only")),
-                "canonical_content_sha256": str(
-                    document.get("canonical_content_sha256") or _text_hash(text)
-                ),
-                "canonical_content_text": text if (public_record_metadata or cpi_reaction) else text[:48_000] if (document.get("source_reuse_constraints") or {}).get("scope") == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE" else text[:MAX_SOURCE_TEXT_CHARS],
+                "canonical_content_sha256": _text_hash(visible_text),
+                "canonical_content_text": visible_text,
+                **({"source_document_content_sha256": document.get("canonical_content_sha256") or _text_hash(text),
+                    "source_document_text_truncated": True} if visible_text != text else {}),
                 **({"cpi_reaction_page": cpi_reaction} if cpi_reaction else {}),
                 **({"source_reuse_constraints": dict(constraints)} if constraints else {}),
                 **({k: document[k] for k in ("context_only", "known_at_utc", "retrieval_time_utc", "revision_at_utc")
@@ -1395,7 +1398,7 @@ def _public_copy(article: Mapping[str, Any]) -> str:
     )
     social = article.get("social_scenarios") or {}
     lines = [str(social[k]) for k in ("base_case", "alternative") if social.get(k)]
-    return text + ("\n" + "\n".join(lines) if lines else "")
+    return _SOURCE_MARKER_RE.sub("", text + ("\n" + "\n".join(lines) if lines else ""))
 
 
 def _normalize_relay_attribution(

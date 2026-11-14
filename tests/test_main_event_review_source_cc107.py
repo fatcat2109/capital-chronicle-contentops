@@ -142,3 +142,17 @@ def test_main_computed_reaction_feeds_existing_source_bound_chart(tmp_path, monk
     docs[0]["source_reuse_constraints"]["public_expression_reuse_allowed"] = False
     with pytest.raises(ValueError, match="FACT_RIGHTS_UNBOUND"):
         _editorial_data_values(packet, docs)
+
+
+def test_compact_writer_source_hash_covers_delivered_text_and_retains_original_hash():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack, MAX_SOURCE_TEXT_CHARS
+    text = "Official October employment background. " * MAX_SOURCE_TEXT_CHARS
+    original_hash = sha256(text.encode()).hexdigest()
+    doc = {"document_id": "long-official", "source_url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "publisher": "BLS", "canonical_content_text": text, "canonical_content_sha256": original_hash,
+        "source_authority_class": "official_public_primary_source"}
+    compact = _source_pack([doc])[0]
+    assert compact["canonical_content_sha256"] == sha256(compact["canonical_content_text"].encode()).hexdigest()
+    assert compact["source_document_content_sha256"] == original_hash
+    assert compact["source_document_text_truncated"] is True
+    assert doc["canonical_content_text"] == text
