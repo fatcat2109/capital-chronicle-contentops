@@ -453,9 +453,12 @@ class NeoBrowserDriver:
                 self.client.wait(page, '[role="dialog"] [contenteditable="true"]')
                 ref = self._ref(page, "textbox", {"Text editor for creating content"}, last=True)
             else:
-                ref = self._ref(page, "button", {"Bật mí về video tiếp theo của bạn", "Share an upcoming video", "What's on your mind?"})
-                self.client.act(page, "click", ref=ref)
                 ready = self.client.run(page, "article_editor")
+                if not ready.get("ready"):
+                    ref = self._ref(page, "button", {"Bật mí về video tiếp theo của bạn", "Share an upcoming video", "What's on your mind?",
+                        "Gửi lời cảm ơn! Nhập @ để đề cập đến một kênh"})
+                    self.client.act(page, "click", ref=ref)
+                    ready = self.client.run(page, "article_editor")
                 if not ready.get("ready"):
                     raise NeoEndpointError("ARTICLE_EDITOR_UNAVAILABLE")
                 ref = self._ref(page, "textbox", {"CC454 article text"})

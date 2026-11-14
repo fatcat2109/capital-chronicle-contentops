@@ -192,6 +192,19 @@ def test_refusal_never_clicks_and_platform_objection_suspends_only_that_route(tm
     assert handoff._prohibited_write("substack") is None
 
 
+def test_cc536_youtube_existing_editor_does_not_depend_on_rotating_prompt(tmp_path, monkeypatch):
+    store, c, executor, browser, message, row = article(tmp_path, "youtube")
+    snapshot = browser.snapshot
+    def rotated(page):
+        value = snapshot(page)
+        value["refs"] = [r for r in value["refs"] if r["ref"] != "youtube-editor"]
+        return value
+    monkeypatch.setattr(browser, "snapshot", rotated)
+    result = c._dispatch_message(message, canonical_url="https://capitalchronicle.substack.com/p/test")
+    assert result["reconciliation_status"] == "RECONCILED_CONFIRMED"
+    assert browser.calls.count("article_publish") == 1
+
+
 @pytest.mark.parametrize("destination", ["linkedin_company", "youtube"])
 def test_lost_article_click_return_is_readback_only(tmp_path, destination):
     store, c, _, browser, message, row = article(tmp_path, destination, "lost_return")
