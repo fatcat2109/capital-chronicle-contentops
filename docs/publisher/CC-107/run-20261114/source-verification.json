@@ -1,0 +1,14 @@
+{
+  "headline_id": "cc107-nfp-dated-review-20261114",
+  "source_hashes": {
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-1320-arrival-nfp\\RESULT.md": "7360673b4f92871290575c87a569d167c1bb1e3046efcab1ff462453219430b1",
+    "A:\\Capital Chronicle\\ResearchRuns\\claude-main-events-20261029\\20261106-0930-dossier-nfp\\DOSSIER.md": "886bd6bb6d40e32ff1bab14e21580407c4371e87d737d7b9472f8d48c4f0c336",
+    "A:\\Capital Chronicle\\ResearchRuns\\main-event-reaction-tables\\tables\\20261109T091537Z\\US_NFP_20261106\\20261106T133000Z.json": "0ede493f009391423686afed79fad8e59ccea7d75b811301966315b19669073f",
+    "A:\\Capital Chronicle\\ResearchRuns\\main-event-forecast-scores\\event-scores-US_NFP_20261106-20261109T091537Z.json": "97f878d3f3437a90730eb94919846f125643b17b230acc74f43b75aea80767c5"
+  },
+  "document_sha256": "bbe228d4fe3b0c74542ff44e73992ce6e585c3230275f147a7dd373d5abcda97",
+  "known_at_utc": "2026-11-09T09:15:37.302916Z",
+  "original_preview_unchanged": true,
+  "computed_reuse_authority": "JIM_DECISION_72_B",
+  "raw_price_and_consensus_inputs_projected": false
+}

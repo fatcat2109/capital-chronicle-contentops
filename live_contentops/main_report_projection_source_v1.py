@@ -79,7 +79,8 @@ def _event_output_text(path, passage, raw):
             if score.get("state") == "SCORED" and type(number) in (int, float):
                 if not math.isfinite(number):
                     raise ValueError("MAIN_EVENT_COMPUTED_NUMBER_INVALID")
-                parts.append(f"{label} Brier score {number}")
+                label = "market-only baseline" if name == "prediction_market_only" else label
+                parts.append(f"{label} Brier score {number:.12g}")
             else:
                 parts.append(f"{label} comparison unavailable")
         return (f"Capital Chronicle model estimate: CC-106 scores for {row['target']['event_id']}; "
@@ -268,7 +269,7 @@ def verify_projection(spec):
         "candidate_catalyst_tags": spec.get("candidate_catalyst_tags", ["midterms", "election", "market-reaction"]),
         "originality": "MAIN_ORIGIN_RECIRCULATION", "correction_of": None,
         "document": document, "source_chart": None, "permitted_source_text": text,
-        "supporting_headline_ids": [], "research_metadata": {"source_hashes": sources,
+        "supporting_headline_ids": list(spec.get("supporting_headline_ids", [])), "research_metadata": {"source_hashes": sources,
             "authority_ref": "JIM_DECISION_89", "independent_event_confirmation": False}}
 
 

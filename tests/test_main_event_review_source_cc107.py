@@ -62,7 +62,9 @@ def test_held_computed_outputs_feed_the_real_writer_without_raw_inputs(tmp_path,
     research = RetainedSourceResearch(root)
     assert not research.gaps
     f = feed(tmp_path / "feed")
-    f.retained_research = research
+    from tests.test_pre_event_preview_v1 import prepare, EVENT
+    prepare(f.tracker.store, tmp_path / "feed", planned_release_utc="2026-10-18T16:00:00Z")
+    f.pointer.update(review_event_id=EVENT, research_root=str(root))
     seen = []
 
     class WriterReached(Exception):
@@ -84,13 +86,14 @@ def test_held_computed_outputs_feed_the_real_writer_without_raw_inputs(tmp_path,
     with pytest.raises(WriterReached):
         f.opportunity(output_dir=tmp_path / "draft", cutoff_utc=NOW, run_id="event-review-consumer",
             rolling_input={"headlines": []}, llm_invoke=invoke)
-    assert len(seen) == 1
-    doc = seen[0]
+    assert len(seen) >= 2
+    assert any("Employment changed little" in d["canonical_content_text"] for d in seen)
+    doc = next(d for d in seen if d.get("report_lineage", {}).get("report_id") == spec["headline_id"])
     text = doc["canonical_content_text"]
     assert "Capital Chronicle model estimate" in text
     assert doc["data_clock_binding"][0]["sha256"] == sha256(path.read_bytes()).hexdigest()
     if score:
-        assert "matrix Brier score 0.02" in text and "consensus only Brier score 0.0" in text
+        assert "matrix Brier score 0.02" in text and "consensus only Brier score 0" in text
         assert "prediction market only comparison unavailable" in text
         assert "not a score of the published preview" in text
     else:

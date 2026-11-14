@@ -973,7 +973,7 @@ class RetainedSourceResearch:
         # zero additional network reads. Syndication is still one origin.
         from live_contentops.main_report_projection_source_v1 import PLATFORM, projection_evidence
         if all(r["source_platform"] == PLATFORM for r in found):
-            return projection_evidence(found, request)
+            return projection_evidence([*found, *supporting], request)
         docs = [
             {
                 **r["document"],

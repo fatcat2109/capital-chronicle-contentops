@@ -560,6 +560,19 @@ class MainReportFeed:
                 event_id=self.pointer.get("preview_event_id") or self.pointer["review_event_id"], cutoff_utc=cutoff_utc,
                 article_type="EVENT_REVIEW" if self.pointer.get("review_event_id") else "EVENT_PREVIEW",
                 published_feed_path=self.pointer.get("published_feed_path"))
+            if self.pointer.get("review_event_id") and self.pointer.get("research_root"):
+                # A review keeps its frozen preview and adds the held outcome,
+                # reaction and score edition. Never replace the earlier facts.
+                from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+                edition = RetainedSourceResearch(self.pointer["research_root"], editions_root=self.pointer.get("research_editions_root"))
+                if set(edition.records) & set(self.retained_research.records):
+                    raise ValueError("SOURCE_EDITION_MUST_HAVE_NEW_IDENTITY")
+                for record in edition.records.values():
+                    record["supporting_headline_ids"] = list(dict.fromkeys([
+                        *record.get("supporting_headline_ids", []), *self.retained_research.records]))
+                self.retained_research.records.update(edition.records)
+                self.retained_research.gaps.extend(edition.gaps)
+                self.retained_research.revision = sha256_of([self.retained_research.revision, edition.revision])
         elif self.pointer.get("research_root") and not self.can_resume(run_id):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             try:
