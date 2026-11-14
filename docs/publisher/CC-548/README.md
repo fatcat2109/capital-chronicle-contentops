@@ -1,3 +1,8 @@
+CC-548 is live and its digest consumer is verified. On 14 November 2026, the
+existing 19:15 GMT+7 task published the waiting 13 November digest and the
+14 November catch-up digest. Both public pages and both email deliveries were
+read back. The missed CPI article appears once across the two digests.
+
 CC-548 repairs the daily digest's image check in the existing sole
 `DurablePublicationCoordinator`. The branch starts at operating HEAD
 `dfda65f03cf6f042827d37e8cd4bdd235eaca059`.
@@ -71,10 +76,63 @@ The existing native loop reaches `VERIFY_IDENTITY`, `PUBLISH` and `READBACK`
 with controlled tool returns. These are executable consumer checks, not public
 publication observations.
 
-Validation, delivery and the scheduled public readback are separate. The latest
-direct run instruction says this second stream must not perform a live or
-deploy step. The delivery therefore remains `BUILT_UNMERGED` for the first
-Publisher runner to integrate. The existing 13 November task
-`cc-contentops-digest-1900-bp`, due at 19:15 GMT+7, supplies the public readback.
-Its accepted output must contain `substack:224293572` exactly once and record
-the public digest URL here. No public digest URL has been observed by this run.
+At the initial delivery on 13 November, this stream's run prohibited live and
+deploy steps, so the pushed repair remained `BUILT_UNMERGED`. Ops Product then
+integrated it at `11830c6c16bdc709c2be249ce5a5d8a885db305a`, tag
+`contentops-live-20261114-cc548`; the rollback tag is
+`contentops-rollback-20261114-cc548` at `10fdbc53`. That live commit includes the
+pushed repair `0bf688b269e6fa7d683542b79d39d63b2cc5e013`.
+
+The completion run changes only this README, on
+`backlog/cc-548-digest-live-readback`, cut from the operating HEAD
+`d82c62829a73010ee97b613f4d0b56df9f3fb304`. Fresh Git ancestry checks confirm
+the repair is in that base and in the current operating root. No live or
+deploy command was run by this stream.
+
+BrowserOS Neo readback on 14 November, 21:59-22:01 GMT+7
+(`2026-11-14T14:59:00Z` through `2026-11-14T15:01:00Z`):
+
+| Digest | Confirmed public page | Public post ID | Email stats |
+|---|---|---|---|
+| `cc143-digest-2026-11-13` | [13 November digest](https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-87f) | `224876543` | 5 recipients; 1 open; 20% open rate |
+| `cc143-digest-2026-11-14` | [14 November digest](https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-7ee) | `224877983` | 5 recipients; 1 open; 20% open rate |
+
+The email observations come from Substack's own post stats at
+`/publish/posts/detail/224876543` and `/publish/posts/detail/224877983`.
+They confirm platform-reported delivery and an open for each digest. No mailbox
+or individual recipient list was read. The earlier "Data still processing"
+observation remains valid for its earlier clock; it no longer describes the
+current stats.
+
+The 13 November digest contains exactly one body link to
+`https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher`,
+the retained article `substack:224293572`. The 14 November digest contains zero
+links to that article and one to "How we measure a trading rule before trusting
+it". Both pages contain their own digest card. This checks the live consumer's
+missed-article recovery and the catch-up pass without sending another post.
+
+The 19:40 GMT+7 backlog note names `224849463` for today's digest; that is the
+linked article's ID. The digest's ID is `224877983`, confirmed by its route
+result, native readback request, public page and matching stats title. The
+earlier 19:16:21 and 19:32:33 GMT+7 dispatch clocks also precede the actual
+publication actions: the saved publish observations show the single send
+clicks at `2026-11-14T12:21:25.839Z` and
+`2026-11-14T12:34:30.337Z` (19:21 and 19:34 GMT+7). The stats pages show
+"Published at 7:21 PM" and "Published at 7:34 PM", respectively. These clocks
+are kept distinct from packet freezing and dispatch preparation.
+
+The original route artifacts remain at
+`A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs/owner-manual/route-1900/`:
+
+- `20261114T121519Z/10-publish-observation.json` records the first send;
+  `result.json` preserves its then-pending email readback.
+- `20261114T123154Z/10-publish-observation.json` records the catch-up send;
+  `16-readback-observation.json` records 5 recipients and 1 open at
+  `2026-11-14T12:55:12.512Z`; `result.json`, saved at
+  `2026-11-14T12:55:43Z`, records `CONFIRMED`. It was absent at the earlier Ops
+  inspection and is now present.
+
+This documentation-only completion uses the existing passing targeted tests
+and fresh live readbacks. No pytest process was needed or started. The launch
+was configured as `gpt-6.1-sol` / `max`, `CONFIGURED_NOT_OBSERVED`; no editorial
+model calls were made. The existing Monday follow-up remains as configured.
