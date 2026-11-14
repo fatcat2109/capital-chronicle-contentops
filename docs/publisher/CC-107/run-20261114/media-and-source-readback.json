@@ -1,0 +1,129 @@
+{
+  "operation_id": "cc107-nfp-dated-review-20261114-v1",
+  "binding_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\binding.json",
+  "assets": [
+    {
+      "asset_id": "post-facts-7de7d631bd33720ee21a",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\media_assets\\post-facts-7de7d631bd33720ee21a.png",
+      "sha256": "0856d734fe1ef7d968e6eb1b8ca7dd983e7615f92dff9616607f1a401840a63e",
+      "width": 1080,
+      "height": 1350,
+      "modality": "source_bound_data_card",
+      "caption": "Key facts from the article.",
+      "source_page_url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+      "prior_image_near_matches": 0
+    },
+    {
+      "asset_id": "nfp_review_payroll_history",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\media_assets\\nfp_review_payroll_history.png",
+      "sha256": "51e67944640f2d0ba96e767a68d98248838a9c2eb17adccfde581d52905215c4",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart",
+      "caption": "BLS dated first releases, October 2024\u2013September 2026. October's new result is separate; gaps remain gaps.",
+      "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "prior_image_near_matches": 0
+    },
+    {
+      "asset_id": "nfp_review_unemployment_history",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\media_assets\\nfp_review_unemployment_history.png",
+      "sha256": "34322495de65d6409b629ceed71e5e8981dee895ebd74aeed3643e80abc6621b",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart",
+      "caption": "BLS dated first releases, October 2024\u2013September 2026. October's new result is separate; gaps remain gaps.",
+      "source_page_url": "https://www.bls.gov/news.release/archives/empsit_10022026.htm",
+      "prior_image_near_matches": 0
+    },
+    {
+      "asset_id": "nfp_review_october_industries",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\media_assets\\nfp_review_october_industries.png",
+      "sha256": "84b100bb831608ad84d1ff92f9e0560a52e4436d6b402d2f2876dfd6cfe980a8",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart",
+      "caption": "October 2026 seasonally adjusted change, in thousands of jobs. Government and other categories are not shown; bars do not form a complete total.",
+      "source_page_url": "https://www.bls.gov/news.release/empsit.t17.htm",
+      "prior_image_near_matches": 0
+    },
+    {
+      "asset_id": "nfp_review_first_hour_reactions",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\media\\media_assets\\nfp_review_first_hour_reactions.png",
+      "sha256": "dfd9dd59c8e30c6ca8bd1c5e8667df57c4c01ff17d752fc5b32e54e9f9c8ece4",
+      "width": 1440,
+      "height": 1040,
+      "modality": "source_backed_chart",
+      "caption": "Capital Chronicle model estimate: computed reference-series changes from the November 6, 2026 release baseline. Co-movement does not establish causation. No first-day observation is implied.",
+      "source_page_url": "https://capitalchronicle.substack.com/",
+      "prior_image_near_matches": 0
+    }
+  ],
+  "bound_plan_sha256": "8cf96dfd3bae71e89b5f17ce7a208eb5f2d5347e91089fe266f0f90f1e31b933",
+  "source_pack": [
+    {
+      "source_id": "SOURCE_1",
+      "document_id": "cc107-nfp-dated-review-20261114",
+      "canonical_content_sha256": "bbe228d4fe3b0c74542ff44e73992ce6e585c3230275f147a7dd373d5abcda97",
+      "source_document_content_sha256": null,
+      "published_at_utc": "2026-11-09T09:15:37.302916Z"
+    },
+    {
+      "source_id": "SOURCE_2",
+      "document_id": "bls-october-release",
+      "canonical_content_sha256": "8e1305a4b44d53a5654eef08a664845dd1a7d7fae2cec7436cf3675ad528c155",
+      "source_document_content_sha256": "763b464511420ae42ac45b511ed90969231bee8af17c6e3de1706f9c3ae0089c",
+      "published_at_utc": "2026-11-06T13:30:00Z"
+    },
+    {
+      "source_id": "SOURCE_3",
+      "document_id": "bls-october-sectors",
+      "canonical_content_sha256": "71ebf52557a862d4cc2da7b5761fc67b693d1b2abdf4a657a35a00658b9347b7",
+      "source_document_content_sha256": "4587d810d529b2db436d7ec44bbdf03f553e62d0552ec6b33099e5af42db8f18",
+      "published_at_utc": "2026-11-06T13:30:00Z"
+    },
+    {
+      "source_id": "SOURCE_4",
+      "document_id": "preview-background-c6526a37c91d82c822730ab62766b2359b42b2f26503214e90a277dce7510b05",
+      "canonical_content_sha256": "45de4b911cc644fa06f7ab6dc3518a56ef42e6bff69aaf50901e6dd19815155b",
+      "source_document_content_sha256": null,
+      "published_at_utc": "2026-10-02T12:30:00+00:00"
+    },
+    {
+      "source_id": "SOURCE_5",
+      "document_id": "preview-consensus-3c335bbf9b882ba00fd94e22629277e3abaca0297a2a0eca8d2b98f35a945d72",
+      "canonical_content_sha256": "dfd884d6a99cda7f10f1dbfed8715d9adbc19be35ff1ba9371eea769d85c7ceb",
+      "source_document_content_sha256": null,
+      "published_at_utc": ""
+    },
+    {
+      "source_id": "SOURCE_6",
+      "document_id": "official-history-1660fee0f509bbb4afddb7d7",
+      "canonical_content_sha256": "62063fbea4c514ff8935a13988a50bf6916e9ce2bd44519e84228a1b1b0811e5",
+      "source_document_content_sha256": null,
+      "published_at_utc": "2026-10-02T12:30:00Z"
+    },
+    {
+      "source_id": "SOURCE_7",
+      "document_id": "official-history-c3527e60cf6b66f4f7b44bd4",
+      "canonical_content_sha256": "46e8ad21ffad9344cf4f801a1d0c6d6e1d741119b4364b52f6a3b66a7bd14ef3",
+      "source_document_content_sha256": null,
+      "published_at_utc": "2026-10-02T12:30:00Z"
+    },
+    {
+      "source_id": "SOURCE_8",
+      "document_id": "official-history-843f76a60b18948f30fd1775",
+      "canonical_content_sha256": "0c3440d34c489d32c2469a45061242bdb73af266e5bdfc4c3a758fa29be95608",
+      "source_document_content_sha256": null,
+      "published_at_utc": "2026-10-02T12:30:00Z"
+    },
+    {
+      "source_id": "SOURCE_9",
+      "document_id": "cc124-bls-september-employment-original",
+      "canonical_content_sha256": "786e4868ee3bdb3ded8a6f5a3484c027781f77c07e9a21a033a8e33359cc1ee3",
+      "source_document_content_sha256": null,
+      "published_at_utc": "2026-10-02T12:30:00Z"
+    }
+  ],
+  "fresh_image_count": 5,
+  "public_write_performed": false
+}

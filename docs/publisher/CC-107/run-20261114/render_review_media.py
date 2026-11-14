@@ -71,11 +71,11 @@ packet = {"asset_id": "nfp_review_first_hour_reactions", "chart_type": "grouped_
     "alt_text": "Capital Chronicle model estimate compares five-minute and sixty-minute changes: the euro, gold and the US 500 reference were lower; dollar-yen was higher; oil reversed its initial rise."}
 assets.append(build_editorial_data_chart(packet, sources, output_dir=ROOT / "media"))
 
-doc = next(d for d in sources if d["source_id"] == "SOURCE_2")
-fact = "Total nonfarm payroll employment rose by 165,000 in October, and the unemployment rate changed little at 4.1 percent, the U.S. Bureau of Labor Statistics reported today."
-assert fact in doc["canonical_content_text"]
-card = build_post_data_card({"title": "October jobs: the release result", "substack_body_markdown": fact},
-    [{"claim_id": "official-october-release", "claim_text": fact, "support_excerpt": fact, "source_id": doc["source_id"]}],
+doc = sources[0]
+facts = ["Payrolls: **+165K**", "Unemployment rate: **4.1%**"]
+assert all(fact in doc["canonical_content_text"] for fact in facts)
+card = build_post_data_card({"title": "October jobs: our Strong release condition held", "substack_body_markdown": "\n\n".join(facts)},
+    [{"claim_id": "main-arrival-" + str(i), "claim_text": fact, "support_excerpt": fact, "source_id": doc["source_id"]} for i,fact in enumerate(facts)],
     sources, output_dir=ROOT / "media")
 card.update(placement_after="standfirst", article_inclusion=True, canonical_article_media=True)
 assets.insert(0, card)

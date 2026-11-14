@@ -1,0 +1,112 @@
+{
+  "classification": "NATIVE_DESKTOP_INPUT_REQUIRED",
+  "stage": "media-plan",
+  "request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\editorial_media_plan_required.json",
+  "request_sha256": "68a0b356223a63a1b7dd2ecb54aa4f6821ad57f7c8c53f99ac9f9ae77c2e7d94",
+  "pending_publication_recovery_dispatch_ids": [],
+  "editorial_execution": {
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "visual-edit": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "final-visual": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "observed_models": [],
+    "observed_efforts": [],
+    "configured_not_observed_count": 2,
+    "configured_not_observed_roles": [
+      {
+        "stage": "select",
+        "role": "select",
+        "invocation_id": "/root/native_select_3053edcf176a",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low"
+      },
+      {
+        "stage": "media-plan",
+        "role": "select",
+        "invocation_id": "/root/native_select_3053edcf176a",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low"
+      }
+    ],
+    "native_invocation_count_observed": 1,
+    "native_invocation_identity_unknown_count": 0,
+    "semantic_response_count": 2,
+    "maximum_repair_count": 1,
+    "external_provider_attempt_count": 0,
+    "usage_tokens": null,
+    "cost_usd": null,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "observations": [
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact desktop_request_select.json requested_model and requested_reasoning_effort, and parent native assignment.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_3053edcf176a",
+        "model": null,
+        "observation_source": "Supported native task context supplies canonical task identity; actual model and reasoning effort are not exposed.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "select",
+        "role": "select"
+      },
+      {
+        "actual_configuration_unavailable": true,
+        "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+        "configuration_source": "Exact desktop_request_media-plan.json and supported parent assignment configure the Sol Light role.",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "configured_model": "gpt-6.1-sol",
+        "configured_reasoning_effort": "low",
+        "invocation_id": "/root/native_select_3053edcf176a",
+        "model": null,
+        "observation_source": "Supported native continuation task identity; actual model/effort telemetry is not exposed.",
+        "reasoning_effort": null,
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "media-plan",
+        "role": "select"
+      }
+    ]
+  },
+  "public_write_performed": false,
+  "next_command": {
+    "command": "media-plan",
+    "binding_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\binding.json"
+  },
+  "coordinator_action": {
+    "action": "EXECUTE_EDITORIAL_COMMAND",
+    "command": {
+      "command": "media-plan",
+      "binding_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\cc107-nfp-dated-review-20261114-v1\\binding.json"
+    },
+    "terminal": false
+  }
+}
