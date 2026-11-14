@@ -89,7 +89,7 @@
       "role": "context_chart",
       "article_inclusion": true,
       "canonical_article_media": true,
-      "placement_after": "standfirst",
+      "placement_after": "How the trend yardstick works",
       "attribution": "Chart created with TradingView",
       "caption": "Bitcoin daily chart with the native simple averages used by the trend yardstick. Bitstamp via TradingView. The timestamp dates this illustration, not the historical test.",
       "alt_text": "Bitcoin daily candles with the two native simple average lines. This illustrates the trend yardstick, rather than historical test results.",

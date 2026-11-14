@@ -55,6 +55,9 @@ def test_pooled_row_cannot_be_quoted_for_a_side(piece):
     _extra(piece, "Bitcoin short 0.531R.", "desk_odds_v1.json", "/by_market/BTCUSD/6", side="SHORT")
     with pytest.raises(ValueError, match="ODDS_ONE_SIDE_REQUIRES_SIDE_FILE"):
         odds.number_report(piece, SOURCE / "source")
+    piece["number_bindings"][-1].pop("side")
+    with pytest.raises(ValueError, match="ODDS_ONE_SIDE_REQUIRES_SIDE_FILE"):
+        odds.number_report(piece, SOURCE / "source")
 
 
 def test_side_must_match_source_and_table_hash(piece):
@@ -118,3 +121,27 @@ def test_registered_copy_and_source_manifest_are_immutable(tmp_path):
     path.write_text(json.dumps(value),encoding="utf-8")
     with pytest.raises(ValueError,match="ODDS_REGISTERED_ARTIFACT_CHANGED:source/manifest.json"):
         odds.validate_plan(store,packet["identity"],packet["plan"])
+
+
+def confirm_method(store, tmp_path):
+    packet = odds.register(store,SOURCE / "piece-1.json",tmp_path / "method")
+    coordinator = DurablePublicationCoordinator(store=store,transport_runtime=None)
+    coordinator.register_plan(packet["identity"],packet["plan"])
+    ids = coordinator._ids(packet["identity"],packet["plan"]["plan_hash"],"substack")
+    assert odds.confirmed_method_page(store) is None
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"],message_id=ids["message_id"],platform="substack",
+        status="DISPATCH_CONFIRMED",public_object_id="456",public_object_url="https://capitalchronicle.substack.com/p/method")
+    assert odds.confirmed_method_page(store) is None
+    store.register_reconciliation(reconciliation_id=ids["reconciliation_id"],work_item_id=packet["identity"],status="RECONCILED_CONFIRMED")
+    return odds.confirmed_method_page(store)
+
+
+def test_method_reference_waits_for_canonical_readback_then_feeds_new_copy(tmp_path):
+    store=ContentOpsDurableStore(tmp_path / "test.sqlite3")
+    ref=confirm_method(store,tmp_path)
+    assert ref["table_hash"]==json.loads((SOURCE/"piece-1.json").read_bytes())["table_hash"]
+    payload={"text":"The plan.","full_text":"The plan.","posts":[{"text":"The plan.","order":0,"role":"root","media_asset_ids":[]}]}
+    amended=odds.add_method_link(payload,ref)
+    assert amended["posts"][0]==payload["posts"][0]
+    assert amended["posts"][1]["text"].endswith(ref["canonical_url"])
+    assert payload["full_text"]=="The plan."

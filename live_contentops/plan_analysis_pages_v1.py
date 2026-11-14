@@ -712,6 +712,9 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     text = structured_summary(packet, destination, status["canonical_url"],authored_summary, version=2)
     payload = _link_payload(packet, destination, text, status["canonical_url"], parent,
                             discord_delivery=discord_delivery, discord_thread_parent_id=thread_parent)
+    from .measured_odds_series_v1 import confirmed_method_page, add_method_link
+    method_reference = confirmed_method_page(store) if not prior else json.loads(prior["payload"]).get("method_page_reference")
+    payload = add_method_link(payload, method_reference)
     if original_analysis_root:
         payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]], image_url=canonical_image_url)
     registration = registration_for_destination(destination)
@@ -725,6 +728,7 @@ def register_link(store, packet, *, original_key, destination, authored_summary=
     value={"link_id":identity, "page_id":packet["page_id"], "plan_id":packet["plan_id"], "original_key":original_key,
            "parent":parent, "destination":destination, "native_payload":payload, "plan":plan, "canonical_url":status["canonical_url"],
            "original_analysis_root":original_analysis_root, "summary_version": 2,
+           **({"method_page_reference":method_reference} if method_reference else {}),
            **({"discord_delivery": discord_delivery} if discord_delivery else {}),
            **({"discord_thread_parent_id": thread_parent} if thread_parent else {}),
            **({'authored_summary':authored_summary} if authored_summary else {})}
@@ -786,6 +790,11 @@ def validate_link_plan(store, work_item_id, plan):
             raise ValueError("PLAN_ANALYSIS_DISCORD_THREAD_CHANGED")
     expected_payload = _link_payload(packet, value["destination"], expected, value["canonical_url"], value.get("parent"),
                                      discord_delivery=value.get("discord_delivery"), discord_thread_parent_id=thread_parent)
+    if value.get("method_page_reference"):
+        from .measured_odds_series_v1 import confirmed_method_page, add_method_link
+        if confirmed_method_page(store) != value["method_page_reference"]:
+            raise ValueError("PLAN_ANALYSIS_METHOD_REFERENCE_CHANGED")
+        expected_payload = add_method_link(expected_payload, value["method_page_reference"])
     if value.get("original_analysis_root"):
         expected_payload.update(media_asset_ids=[packet["media_assets"][0]["asset_id"]],
                                 image_url=value["native_payload"]["image_url"])

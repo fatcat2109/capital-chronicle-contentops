@@ -1,0 +1,41 @@
+{
+  "checked_at_utc": "2026-11-14T05:31:59.252008+00:00",
+  "article_sha256": "be39e558ade9dfb04f18cc01db539990d9579d1f718f872367a1252427db8b15",
+  "writer": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "launch_pid": 29952,
+    "operation": "publisher-cc-536-20261114T0448",
+    "role": "commissioned method writing, editing and final review",
+    "light_assist": {
+      "model": "gemini-3.8-flash-high",
+      "effort": "high",
+      "status": "AGY_UNAVAILABLE",
+      "cause": "AGY_TIMEOUT_120S",
+      "artifact": "assist/agy_light_assist_v1.json",
+      "choice": "Retained the authored full summary and inspected alt text; the bounded assist is not retried."
+    }
+  },
+  "browser_group": "82AADD07D1501BB470B403297C1B5C07",
+  "browser_page": 239,
+  "renderer": "ReportEditorialWorkspace --owner-review; local file image permission only",
+  "viewports": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "observed": [
+    "desktop article typography and source method",
+    "desktop native chart with both mean lines and full TradingView attribution",
+    "mobile article wrapping",
+    "mobile X root and complete linked own replies"
+  ],
+  "repair": "Moved the chart from the end of the page to the trend-yardstick section. Original pixels unchanged.",
+  "remaining": "Inspect the other social views and canonical mobile chart before first send."
+}

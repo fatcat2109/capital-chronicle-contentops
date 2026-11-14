@@ -106,10 +106,13 @@ def number_report(piece, root):
             market = path.split("/")[2] if path.startswith(("/by_market/", "/markets/")) else None
             if market in FX and path.startswith("/by_market/") and not manifest.get("fx_repair_live"):
                 raise ValueError("ODDS_FX_CLOSE_REPAIR_NOT_LIVE:" + market)
-            if path.startswith("/by_market/") and claim.get("side"):
+            if path.startswith("/by_market/"):
                 behaviour = pointer(held[file], "/".join(path.split("/")[:4]))[0]
                 if behaviour in held["desk_odds_sides_v1.json"]["two_sided_behaviours"]:
-                    raise ValueError("ODDS_ONE_SIDE_REQUIRES_SIDE_FILE")
+                    if claim.get("side") or re.search(r"\b(?:long|short)\b", span, re.I):
+                        raise ValueError("ODDS_ONE_SIDE_REQUIRES_SIDE_FILE")
+                    if "both sides together" not in span.casefold():
+                        raise ValueError("ODDS_POOLED_LABEL_REQUIRED")
             if path.startswith("/construction/") and "both sides together" not in span.casefold():
                 raise ValueError("ODDS_CONSTRUCTION_POOLED_LABEL_REQUIRED")
         elif file == "desk_odds_sides_v1.json":
@@ -239,6 +242,46 @@ def compile_payloads(article, canonical_url, media_asset_ids):
             "reply_texts":[p["text"] for p in posts[1:]],"full_text":"\n\n".join(paragraphs),
             "platform_limit":limit,"hard_truncation_used":False,"media_asset_ids":media}
     return payloads
+
+
+def confirmed_method_page(store):
+    """Shared read-only reference for new plan posts and CC-537's daily board."""
+    identity = "cc536-measured-odds-1"
+    row = store.get_outbox_message(identity)
+    if not row or row["destination"] != DESTINATION:
+        return None
+    packet = json.loads(row["payload"])
+    from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+    ids = Coordinator._ids(identity, packet["plan"]["plan_hash"], "substack")
+    dispatch = store.get_platform_dispatch(ids["dispatch_id"]) or {}
+    reconciled = any(r["reconciliation_id"] == ids["reconciliation_id"] and r["status"] == "RECONCILED_CONFIRMED"
+                     for r in store.get_reconciliations_for_work_item(identity))
+    url = dispatch.get("public_object_url", "")
+    if (dispatch.get("status") != "DISPATCH_CONFIRMED" or not reconciled
+            or not re.fullmatch(r"https://capitalchronicle\.substack\.com/p/[a-z0-9-]+", url)):
+        return None
+    return {"identity":identity,"plan_hash":packet["plan"]["plan_hash"],"canonical_url":url,
+            "table_hash":packet["piece"]["table_hash"]}
+
+
+def add_method_link(payload, reference):
+    if not reference:
+        return payload
+    url = reference["canonical_url"]
+    if not re.fullmatch(r"https://capitalchronicle\.substack\.com/p/[a-z0-9-]+", url):
+        raise ValueError("ODDS_CONFIRMED_METHOD_URL_REQUIRED")
+    result = deepcopy(payload)
+    line = "How we measure historical odds: " + url
+    if result.get("posts"):
+        posts = result["posts"]
+        posts.append({"text":line,"media_asset_ids":[],"order":len(posts),"role":"reply"})
+        result["reply_texts"] = [p["text"] for p in posts[1:]]
+        result["full_text"] = "\n\n".join(p["text"] for p in posts)
+    else:
+        for key in ("text", "full_text"):
+            if result.get(key):
+                result[key] += "\n\n" + line
+    return result
 
 
 def register(store, piece_file, output_dir):
