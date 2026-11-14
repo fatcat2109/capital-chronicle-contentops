@@ -1,5 +1,5 @@
 {
-  "observed_at_utc": "2026-11-14T11:36:10.499366+00:00",
+  "observed_at_utc": "2026-11-14T15:00:55.281136+00:00",
   "installed_root": "A:\\Capital Chronicle\\ContentOps",
   "status": "OPERATING_SOURCE_CONSUMER_PASS",
   "source_count": 9,
@@ -39,7 +39,7 @@
     },
     {
       "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\v1_simple_gemini_newsroom_v1.py",
-      "sha256": "0dba145cf41db429496a2d989b54db820ddaa7b2a2bf68389c73d158b8c62a2c"
+      "sha256": "ffb872f161e35b978952efefeef13d8baf2b63925025b301c4917e559801c45a"
     }
   ],
   "new_review_published": false,

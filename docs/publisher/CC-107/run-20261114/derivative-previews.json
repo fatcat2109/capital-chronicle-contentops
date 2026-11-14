@@ -1,0 +1,419 @@
+[
+  {
+    "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+    "claim_lineage": [],
+    "destination": "telegram",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "media_source_links": {
+        "nfp_review_first_hour_reactions_r2": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle model estimate",
+            "provenance_ref": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+            "url": "https://capitalchronicle.substack.com/"
+          }
+        ],
+        "post-facts-e6558e383ca6d733554e": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          },
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          }
+        ]
+      },
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nOctober payrolls met our Strong condition\n\nOctober jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.\n\nWhat to watch: So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Retrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "preview_id": "cc-preview-b9ef61e53d711ab4c031706f96833165d154304cf9053d043bc153a028900331"
+  },
+  {
+    "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+    "claim_lineage": [],
+    "destination": "x",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "October payrolls met our Strong condition\n\nOctober jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f\n\nWatch: So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nRetrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "media_source_links": {
+        "nfp_review_first_hour_reactions_r2": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle model estimate",
+            "provenance_ref": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+            "url": "https://capitalchronicle.substack.com/"
+          }
+        ],
+        "post-facts-e6558e383ca6d733554e": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          },
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          }
+        ]
+      },
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "post-facts-e6558e383ca6d733554e",
+            "nfp_review_first_hour_reactions_r2"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "October payrolls met our Strong condition\n\nOctober jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 2,
+          "role": "reply",
+          "text": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nRetrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 3,
+          "role": "reply",
+          "text": "Base case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 2,
+        "content_reply_count": 3,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "notice_reply_count": 0,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.975,
+          0.55,
+          0.911,
+          0.575
+        ],
+        "post_character_counts": [
+          273,
+          154,
+          255,
+          161
+        ],
+        "reply_count": 3,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.564,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.",
+        "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nRetrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "Base case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+      ],
+      "root_text": "October payrolls met our Strong condition\n\nOctober jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f",
+      "text": "October payrolls met our Strong condition\n\nOctober jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f"
+    },
+    "preview_id": "cc-preview-255fb03f4c6a71de9d3d1c1981f302484abab88d39774fbf9ea6f2a7218776d3"
+  },
+  {
+    "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+    "claim_lineage": [],
+    "destination": "discord",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "media_source_links": {
+        "nfp_review_first_hour_reactions_r2": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle model estimate",
+            "provenance_ref": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+            "url": "https://capitalchronicle.substack.com/"
+          }
+        ],
+        "post-facts-e6558e383ca6d733554e": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          },
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          }
+        ]
+      },
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: October payrolls met our Strong condition**\n\nOctober jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.\n\n**Context:** Our frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Retrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "preview_id": "cc-preview-4a1158c5aa99238d30b934c36d25a4793be7656e8865a6a07d225d6940171511"
+  },
+  {
+    "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+    "claim_lineage": [],
+    "destination": "linkedin",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "media_source_links": {
+        "nfp_review_first_hour_reactions_r2": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle model estimate",
+            "provenance_ref": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+            "url": "https://capitalchronicle.substack.com/"
+          }
+        ],
+        "post-facts-e6558e383ca6d733554e": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          },
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          }
+        ]
+      },
+      "platform_limit": 3000,
+      "text": "October payrolls met our Strong condition\n\nWhy it matters: Our interpretation is that the dollar and gold co-movements are consistent with the frozen hawkish mechanism. The countercase is that consistency does not establish causation, especially without a matched rates observation.\n\nContext: Our frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Retrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "preview_id": "cc-preview-93a4ba4398f60208585dc1298338fcb2ca22f48f5ce71bfb4f5b64a1d70abc51"
+  },
+  {
+    "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+    "claim_lineage": [],
+    "destination": "facebook_page",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "media_source_links": {
+        "nfp_review_first_hour_reactions_r2": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle model estimate",
+            "provenance_ref": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+            "url": "https://capitalchronicle.substack.com/"
+          }
+        ],
+        "post-facts-e6558e383ca6d733554e": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          },
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          }
+        ]
+      },
+      "platform_limit": 63206,
+      "text": "October payrolls met our Strong condition\n\nOctober jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.\n\nWhy it matters: Our interpretation is that the dollar and gold co-movements are consistent with the frozen hawkish mechanism. The countercase is that consistency does not establish causation, especially without a matched rates observation.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Retrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "preview_id": "cc-preview-9c6c7208f9acd16280aba88353db20a7ae6b6060ca4acfc7f9e6272cfe743b24"
+  },
+  {
+    "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+    "claim_lineage": [],
+    "destination": "instagram_business",
+    "payload": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "media_source_links": {
+        "nfp_review_first_hour_reactions_r2": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle model estimate",
+            "provenance_ref": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+            "url": "https://capitalchronicle.substack.com/"
+          }
+        ],
+        "post-facts-e6558e383ca6d733554e": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          },
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          }
+        ]
+      },
+      "platform_limit": 2200,
+      "text": "October payrolls met our Strong condition\n\nOctober jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.\n\nIn focus: Our frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f\n\n#CapitalChronicle\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Retrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "preview_id": "cc-preview-3a208964380751327448bae022c27b4e819b3d2a4a4ec9b92f313cd85cb1acb8"
+  },
+  {
+    "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+    "claim_lineage": [],
+    "destination": "threads",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "October payrolls met our Strong condition\n\nOur frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f\n\nWhat to watch: So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nRetrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "media_source_links": {
+        "nfp_review_first_hour_reactions_r2": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle model estimate",
+            "provenance_ref": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+            "url": "https://capitalchronicle.substack.com/"
+          }
+        ],
+        "post-facts-e6558e383ca6d733554e": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          },
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          }
+        ]
+      },
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "post-facts-e6558e383ca6d733554e",
+            "nfp_review_first_hour_reactions_r2"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "October payrolls met our Strong condition\n\nOur frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nRetrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 2,
+          "role": "reply",
+          "text": "Base case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 2,
+        "content_reply_count": 2,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "notice_reply_count": 0,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.706,
+          0.838,
+          0.322
+        ],
+        "post_character_counts": [
+          353,
+          419,
+          161
+        ],
+        "reply_count": 2,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.384,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.\n\nRetrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "Base case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+      ],
+      "root_text": "October payrolls met our Strong condition\n\nOur frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f",
+      "text": "October payrolls met our Strong condition\n\nOur frozen Strong mechanism was that a hawkish labour surprise would raise the expected Fed path, the dollar and real yields. The Weak countercase was that another weak print would lower the expected hike path and weaken the dollar.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f"
+    },
+    "preview_id": "cc-preview-854f246d8ccaf055c703408c767baa0fc79309804a53500b4bfe343e42cc7754"
+  },
+  {
+    "article_identity": "6619dd0bccafcf8f54edc06abe2e83f5076c1e8404872d29c2594e924f3f3fbf",
+    "claim_lineage": [],
+    "destination": "youtube",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "post-facts-e6558e383ca6d733554e",
+        "nfp_review_first_hour_reactions_r2"
+      ],
+      "media_source_links": {
+        "nfp_review_first_hour_reactions_r2": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle model estimate",
+            "provenance_ref": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb",
+            "url": "https://capitalchronicle.substack.com/"
+          }
+        ],
+        "post-facts-e6558e383ca6d733554e": [
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          },
+          {
+            "document_id": "cc107-nfp-dated-review-20261114",
+            "label": "Capital Chronicle",
+            "url": "urn:cc-public-report:main-retained:44e891777e7a99b034c358c5bac8acd030e07a4ab89d76fb629e16b4538fe7bb"
+          }
+        ]
+      },
+      "platform_limit": 1000,
+      "text": "Update: October payrolls met our Strong condition\n\nOctober jobs met our Strong condition. The separate categorical comparison favoured the consensus baseline; neither result establishes predictive skill.\n\nWhat to watch: So what: judge the release condition, observed response and forecast baseline separately; agreement between them cannot establish predictive skill.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-6619dd0bccafcf8f\n\nCapital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record. Retrospective analysis, written on 14 November 2026 (ET) Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nBase case: the frozen Strong condition held.\nAlternative: the frozen Weak condition did not hold.\n\nCapital Chronicle may hold positions in the markets it covers."
+    },
+    "preview_id": "cc-preview-009799f27f06f3f959911c8e0d1bdedd48f440fb1938eec176c415dde1f589eb"
+  }
+]
