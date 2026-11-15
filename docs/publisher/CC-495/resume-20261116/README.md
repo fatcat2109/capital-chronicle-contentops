@@ -80,5 +80,15 @@ The reader opens SQLite with `mode=ro` and `query_only=ON`; it never invokes the
 consumer, a source fetch, a model, a bot API or a browser. It writes only these
 item evidence files. [run-context.json](run-context.json) records the actual
 launch configuration, operating base and the original uncommitted-file hashes.
-The Publisher operating-root merge, installed check, live/rollback tags and
-preservation readback are recorded in `integration.json` when applied.
+The Publisher fast-forwarded source commit
+`6ca28496037f0546a4d34191a5aee5d7878ae3da` into the operating root. Its installed
+entry tests passed 3/3. A second read confirmed the three original delivery,
+receipt and pack hashes, the current minute-consumer result and all eight
+original dirty-file hashes. [integration.json](integration.json) records that
+readback; [scheduled-consumer.json](scheduled-consumer.json) binds the existing
+task to its actual process, start time and command line.
+
+The rollback tag is `contentops-rollback-20261116-cc495-acceptance`, at the
+original operating HEAD `9170cf53a8c32f45c56836e4b17f91743afc8894`. The completed
+delivery and this evidence use `contentops-live-20261116-cc495-acceptance`.
+There is no integration, Ops review or person action left for CC-495.
