@@ -1,5 +1,30 @@
 # CC-406 Vietnamese morning gold note
 
+## 16 November continuation
+
+The producer now also reads Main's completed `analysis-native.json` synthesis.
+It selects by the original capture clock and uses the existing public-span
+adapter to verify the completion hash and exact six-market excerpts. This fixes
+the obsolete `owner-native.json` search that selected an 11 November view while
+the completed 13 November daily report was already held.
+
+`gold-note-refresh` revises the source of an unfinished dated note inside the
+same operation and outbox. The old request and any old return retain their
+exact bytes; a hash-bound source revision supplies the new request. Replaying
+the refresh reuses that request, and an already delivered note stays immutable.
+The targeted note and configured-provenance tests pass (29 checks; see
+[test results](resume-20261116-targeted.xml)).
+
+The 13 November operation retained only an unanswered request. It has no
+delivered note and cannot count as an on-time morning. The remaining acceptance
+must use real future desk observations, with no backdated replacement.
+
+```text
+python -B scripts/run_native_desktop_editorial.py gold-note-refresh --rollout config/native_desktop_rollout_v1.json --note-date YYYY-MM-DD
+```
+
+## Original 11 November delivery
+
 The installed Publisher CLI produced a 100-word Vietnamese note with one BLS
 chart for 11 November. The note was ready at 02:48 GMT+7. The installed CC-418
 reader consumed its exact bytes, the desk's normal refresh included it, and

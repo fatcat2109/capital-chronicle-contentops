@@ -671,7 +671,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "standing", "release-finished", "follow-up", "editorial-revision", "refresh", "desk", "news-export", "news-read", "advance", "next-candidate", "submit", "agy-review", "status", "scheduled", "review", "handoff", "media", "media-plan", "final-visual-review", "recover-sources", "relocate-workspace", "edition",
         "digest", "digest-resume", "digest-tool-begin", "digest-tool-submit",
-        "gold-note", "gold-note-submit", "gold-note-accept", "gold-note-status",
+        "gold-note", "gold-note-refresh", "gold-note-submit", "gold-note-accept", "gold-note-status",
         "publication-prepare", "publication-status", "publication-resume", "publication-reader-derivative", "publication-tool-begin", "publication-tool-submit",
         "publication-linkedin-absence", "publication-linkedin-personal", "publication-linkedin-company",
         "publication-repost-after-removal", "quota-stop",

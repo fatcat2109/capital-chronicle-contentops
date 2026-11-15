@@ -68,19 +68,26 @@ def _atomic(path, raw):
 def _latest_report(root, now):
     """Order by the original capture, never by a refreshed file's mtime."""
     reports = []
-    for path in Path(root).glob("*/owner-native.json"):
+    paths = [*Path(root).glob("*/owner-native.json"), *Path(root).glob("*/analysis-native.json")]
+    for path in paths:
         capture = path.with_name("capture.json")
         if path.stat().st_size > 1_000_000 or not capture.is_file():
             continue
         try:
+            report = _json(path)
+            if path.name == "analysis-native.json":
+                completion = path.with_name("analysis-end.json")
+                if not completion.is_file() or _json(completion).get("schema_errors"):
+                    continue
+                report = report.get("native_synthesis") or {}
             clock = utc(_json(capture)["known_at_utc"])
-            if clock <= now and _json(path).get("candidates"):
+            if clock <= now and report.get("candidates"):
                 reports.append((clock, path))
         except (KeyError, TypeError, ValueError):
             continue
     if not reports:
         raise ValueError("GOLD_NOTE_MAIN_DAILY_REPORT_ABSENT")
-    return max(reports, key=lambda row: (row[0], str(row[1])))[1]
+    return max(reports, key=lambda row: (row[0], row[1].name == "analysis-native.json", str(row[1])))[1]
 
 
 def _official_cpi(report_path, cutoff):
@@ -114,6 +121,9 @@ def source_context(*, now, report_root=NATIVE_MAIN_REPORT_ROOT):
     path = _latest_report(report_root, now)
     raw = path.read_bytes()
     report = json.loads(raw)
+    prefix = ""
+    if path.name == "analysis-native.json":
+        report, prefix = report["native_synthesis"], "/native_synthesis"
     digest = sha256(raw).hexdigest()
     capture = path.with_name("capture.json")
     capture_raw = capture.read_bytes()
@@ -136,10 +146,11 @@ def source_context(*, now, report_root=NATIVE_MAIN_REPORT_ROOT):
         first = re.split(r"\b(?:Mechanism:|Plan:|Cost line:|Desk outcome:)", first)[0].strip()
         if not first or len(first) > 1800:
             raise ValueError("GOLD_NOTE_MAIN_VIEW_SPAN_INVALID:" + asset)
+        pointer = prefix + f"/candidates/{i}/rationale"
         passages.append({"source_path": str(path), "source_sha256": digest,
-            "source_json_pointer": f"/candidates/{i}/rationale",
+            "source_json_pointer": pointer,
             "fragments": [{"start": 0, "end": len(first)}]})
-        table.append({"asset": asset, "view": first, "source_json_pointer": f"/candidates/{i}/rationale"})
+        table.append({"asset": asset, "view": first, "source_json_pointer": pointer})
     gold = next(row for row in table if row["asset"] == "XAUUSD")
     if not gold["view"]:
         raise ValueError("GOLD_NOTE_MAIN_GOLD_VIEW_ABSENT")
@@ -224,7 +235,22 @@ def _turn(store, output_root, day):
     return NativeDesktopTurn(store, run_id=run_id, output_dir=Path(output_root) / "owner-manual" / run_id)
 
 
-def prepare(store, *, output_root, now=None, day=None, report_root=NATIVE_MAIN_REPORT_ROOT, notes_root=ROOT):
+def _active_stage(turn):
+    """Read the latest source revision from the existing immutable request outbox."""
+    with turn.store.get_read_only_connection() as conn:
+        rows = conn.execute(
+            "SELECT payload FROM outbox_messages WHERE work_item_id=? AND destination=? ORDER BY rowid DESC",
+            (turn.work, "internal:native-desktop-editorial"))
+        for row in rows:
+            value = json.loads(row["payload"])
+            if (re.fullmatch(r"gold-note(?:-[a-f0-9]{64})?", value.get("stage", ""))
+                    and "governed_input" in value):
+                return value["stage"]
+    return "gold-note"
+
+
+def prepare(store, *, output_root, now=None, day=None, report_root=NATIVE_MAIN_REPORT_ROOT, notes_root=ROOT,
+            refresh=False):
     now = now or datetime.now(timezone.utc)
     day = day or now.astimezone(LOCAL).date()
     if day > now.astimezone(LOCAL).date():
@@ -235,15 +261,27 @@ def prepare(store, *, output_root, now=None, day=None, report_root=NATIVE_MAIN_R
     if metadata.is_file():
         return status(notes_root=notes_root, day=day)
     turn = _turn(store, output_root, day)
-    frozen = turn.frozen_request("gold-note")
+    stage = _active_stage(turn)
+    frozen = turn.frozen_request(stage)
     context = frozen["governed_input"] if frozen else source_context(now=now, report_root=report_root)
+    if refresh and frozen:
+        newer = source_context(now=now, report_root=report_root)
+        if (utc(newer["data_cutoff_utc"]) >= utc(context["data_cutoff_utc"])
+                and (newer["main_source"]["sha256"] != context["main_source"]["sha256"]
+                     or newer["official_evidence"]["sha256"] != context["official_evidence"]["sha256"])):
+            newer["supersedes_request_sha256"] = frozen["request_sha256"]
+            newer["source_pack_sha256"] = sha256_of({k: v for k, v in newer.items() if k != "source_pack_sha256"})
+            stage = "gold-note-" + sha256_of({"main": newer["main_source"]["sha256"],
+                "official": newer["official_evidence"]["sha256"]})
+            frozen = turn.frozen_request(stage)
+            context = frozen["governed_input"] if frozen else newer
     prompt = frozen["prompt"] if frozen else PROMPT + "\nGOVERNED_INPUT:\n" + canonical_bytes(context).decode()
     try:
-        output, telemetry = turn(logical_invocation_id=turn.run_id + ":gold-note", governed_input=context,
+        output, telemetry = turn(logical_invocation_id=turn.run_id + ":" + stage, governed_input=context,
             prompt=prompt, validator=lambda raw: (True, None, validate_note(json.loads(raw), context), None))
     except DesktopInputRequired as pending:
         return {"state": "GOLD_NOTE_NATIVE_INPUT_REQUIRED", "day": day.isoformat(),
-            "stage": "gold-note", "request_path": pending.request["request_path"],
+            "stage": stage, "request_path": pending.request["request_path"],
             "request_sha256": pending.request["request_sha256"], "requested_model": "gpt-6.1-sol",
             "requested_reasoning_effort": "max", "public_write_performed": False,
             "next_command": {"command": "gold-note-submit", "note_date": day.isoformat(),
@@ -293,7 +331,8 @@ def accept(store, *, output_root, review, now=None, day=None, notes_root=ROOT):
     if day > now.astimezone(LOCAL).date():
         raise ValueError("GOLD_NOTE_FUTURE_DAY_FORBIDDEN")
     turn = _turn(store, output_root, day)
-    request, response = turn.frozen_request("gold-note"), turn._get("gold-note", "response")
+    stage = _active_stage(turn)
+    request, response = turn.frozen_request(stage), turn._get(stage, "response")
     if not request or not response:
         raise ValueError("GOLD_NOTE_NATIVE_RETURN_REQUIRED")
     context = request["governed_input"]
@@ -362,7 +401,9 @@ def command(rollout, action, *, response=None, day=None, now=None, notes_root=RO
         if action == "gold-note-accept":
             return accept(store, output_root=output_root, review=response or {}, now=now, day=day, notes_root=notes_root)
         if action == "gold-note-submit":
-            _turn(store, output_root, day).submit("gold-note", response or {})
-        return prepare(store, output_root=output_root, now=now, day=day, notes_root=notes_root)
+            turn = _turn(store, output_root, day)
+            turn.submit(_active_stage(turn), response or {})
+        return prepare(store, output_root=output_root, now=now, day=day, notes_root=notes_root,
+                       refresh=action == "gold-note-refresh")
     finally:
         store.release_lease(lease["lease_id"], owner, lease["fencing_token"])

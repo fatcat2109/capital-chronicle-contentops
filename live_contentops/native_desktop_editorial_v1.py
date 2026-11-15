@@ -88,7 +88,7 @@ def request_role_assignment(request):
 
 
 def native_role(stage):
-    if stage == "gold-note":
+    if re.fullmatch(r"gold-note(?:-[a-f0-9]{64})?", stage):
         return "write"
     if re.fullmatch(r"final-visual-[a-f0-9]{64}", stage):
         return "final-visual"
@@ -1418,7 +1418,7 @@ class NativeDesktopTurn:
                 and response["output"].get("story_kind") not in {"NEWS", "POLICY"}):
             raise ValueError("BRIEF_WINDOW_CANNOT_ADMIT_ANALYSIS")
         role = native_role(stage)
-        if stage == "gold-note":
+        if re.fullmatch(r"gold-note(?:-[a-f0-9]{64})?", stage):
             from live_contentops.vietnamese_gold_note_v1 import validate_note
             validate_note(response["output"], request["governed_input"])
             ok, reason = True, None
