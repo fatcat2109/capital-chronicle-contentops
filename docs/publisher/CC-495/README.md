@@ -1,5 +1,12 @@
 # CC-495 — fresh, relevant reply facts
 
+The [16 November completion readback](resume-20261116/README.md) supersedes the
+12 November pending-delivery result below. The next three natural private drafts
+were confirmed in 8.58, 8.32 and 5.59 minutes. All three used exact same-session
+sources, passed the seven-rule send policy and carried the fact-age field.
+The installed checks pass; five minutes remains a missed target for these three.
+The earlier implementation and incident records below retain their original dates.
+
 The existing private reply bot now checks section 7 of the voice guide before
 drafting and immediately before sending. The 11 November rejected draft is the
 incident behind these checks. Jim still sends any public reply himself.

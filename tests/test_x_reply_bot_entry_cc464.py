@@ -9,7 +9,7 @@ import pytest
 
 
 @pytest.mark.parametrize("dry", [False, True])
-def test_real_minute_entry_orders_export_before_bot_and_dry_run_calls_no_bot(tmp_path, monkeypatch, dry):
+def test_real_minute_entry_delivers_drafts_before_slow_work_and_dry_run_calls_no_bot(tmp_path, monkeypatch, dry):
     spec = importlib.util.spec_from_file_location("cc464_minute", Path(__file__).parents[1] / "scripts/plan_status_posts.py")
     cli = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(cli)
@@ -17,6 +17,7 @@ def test_real_minute_entry_orders_export_before_bot_and_dry_run_calls_no_bot(tmp
     from live_contentops import x_reply_tabs_v1 as tabs
     from live_contentops import event_timestamp_v1, event_pack_v1, plan_status_posts_v1
     from live_contentops import audience_collection_v1, model_invocation_usage_v1
+    from live_contentops import call_followups_v1, plan_reader_editorial_v1
     order = []
     def refresh(store, **options):
         order.append("private-draft")
@@ -25,6 +26,12 @@ def test_real_minute_entry_orders_export_before_bot_and_dry_run_calls_no_bot(tmp
     def queue(*a, **k):
         order.append("main-export")
         return {"status": "EXPORT_STALE"}
+    def followups(*a, **k):
+        order.append("followups")
+        return {"status": "UNCHANGED"}
+    def plan_pages(*a, **k):
+        order.append("plan-pages")
+        return {"status": "CANONICAL_PENDING"}
     monkeypatch.setattr(bot, "refresh_due", refresh)
     monkeypatch.setattr(bot, "observe_due", lambda *a, **k: {"status": "OBSERVATION_NOT_DUE"})
     monkeypatch.setattr(cli, "queue_posts", queue)
@@ -32,6 +39,11 @@ def test_real_minute_entry_orders_export_before_bot_and_dry_run_calls_no_bot(tmp
     monkeypatch.setattr(event_timestamp_v1, "maintain_timestamps", lambda: {"status": "UNCHANGED"})
     monkeypatch.setattr(event_pack_v1, "run_due_packs", lambda *a, **k: [])
     monkeypatch.setattr(plan_status_posts_v1, "record_run", lambda *a: tmp_path / "record.json")
+    # These consumers were added after this fixture. Keep its minute-entry
+    # assertion isolated from Main exports, their stores and editorial work.
+    monkeypatch.setattr(plan_status_posts_v1, "read_export", lambda *a, **k: {"status": {"plans": []}})
+    monkeypatch.setattr(call_followups_v1, "minute_due", followups)
+    monkeypatch.setattr(plan_reader_editorial_v1, "run_due", plan_pages)
     monkeypatch.setattr(audience_collection_v1, "run_collection", lambda *a, **k: {"collected": 0})
     monkeypatch.setattr(model_invocation_usage_v1, "import_native_invocations", lambda *a, **k: {})
     class Output(io.StringIO):
@@ -41,7 +53,7 @@ def test_real_minute_entry_orders_export_before_bot_and_dry_run_calls_no_bot(tmp
     monkeypatch.setattr(sys, "stdout", output)
     cli.main(["--store", str(tmp_path / "store.sqlite3"), "--publish", *(["--dry-run"] if dry else [])])
     value = json.loads(output.getvalue())
-    assert order == (["main-export"] if dry else ["main-export", "private-draft"])
+    assert order == (["main-export"] if dry else ["main-export", "private-draft", "followups", "plan-pages"])
     assert ("reply_bot" not in value) if dry else value["reply_bot"]["status"] == "PENDING_JIM_BOT_START"
 
 

@@ -1,0 +1,406 @@
+{
+  "item": "CC-495",
+  "read_at_utc": "2026-11-15T21:10:43.599237+00:00",
+  "policy_live_since_readback_utc": "2026-11-11T20:55:03.587558+00:00",
+  "database_access": "SQLite mode=ro with query_only=ON; bounded original outbox rows, streamed run payloads.",
+  "operating_head_at_read": "9170cf53a8c32f45c56836e4b17f91743afc8894",
+  "acceptance": "PASS_THREE_NATURAL_PRIVATE_DELIVERIES",
+  "next_three": [
+    {
+      "delivery_id": "xrb-2120872859266699313",
+      "delivery_status": "DELIVERED",
+      "delivery_payload_sha256": "9fbe5015cca7c8a8311b1aec63a8e66e45c6dffef1a0a61b82d008ddf24ff5d6",
+      "receipt_id": "x-reply-bot-b9d2326edc2c996ffcc3c7d767cb3d644faa5cf08a065134b962809917e59a56",
+      "receipt_payload_sha256": "63e0139bfc0dd321bf157c6010db3a9831fff66f48741dc6d43d7494c67d93b4",
+      "pack_message_id": "x-reply-pack-e3679b4ffd4ebd554b8ca4679b49711c11b627f441d427eea9cba7cf2ba55af7",
+      "pack_payload_sha256": "982a3fc8c132a9b4a7410871d6fae52224cc66b009ee9c17dae77e795ca03bd6",
+      "telegram_message_id": 4,
+      "post_id": "2120872859266699313",
+      "target_text_sha256": "17c57a765d751d58b17a665b9cc0186dfbdbb38efc5b04d029747646b8d9b76c",
+      "draft_text_sha256": "75c09b9972faad4dd93fd001d7dd7777c867774152aff7e5229bf50e7d39dc25",
+      "post_time_utc": "2026-11-12T13:34:28.218000+00:00",
+      "draft_ready_at_utc": "2026-11-12T13:43:01.696602+00:00",
+      "delivered_at_utc": "2026-11-12T13:43:03+00:00",
+      "post_to_draft_minutes": 8.557976700000001,
+      "post_to_send_attempt_minutes": 8.578755283333333,
+      "post_to_delivery_minutes": 8.5797,
+      "five_minute_target_met": false,
+      "stage_seconds": {
+        "checks": 0.22036600000865292,
+        "drafting": 50.17092460001004,
+        "filter": 4.777249899998424,
+        "ranking": 37.22941890000948,
+        "telegram_send": 0.8785262000019429
+      },
+      "latency_seconds": null,
+      "feed_seen_at_utc": null,
+      "selected_at_utc": null,
+      "fact_binding": {
+        "age_text": "today, 8:31 AM ET",
+        "as_of_date": "2026-11-12",
+        "checked_at_utc": "2026-11-12T13:43:02.932922+00:00",
+        "kind": "session",
+        "markets": [
+          "BRENT"
+        ],
+        "observed_at_utc": "2026-11-12T13:31:26+00:00",
+        "policy": "CC495_REPLY_FACT_V1",
+        "sentence": "Brent crude oil futures: 93.82 USD per barrel, change from prior close 1.06 USD per barrel (Yahoo Finance, 12 Nov 2026, 08:31 AM ET)."
+      },
+      "fact_source": "Yahoo Finance, 12 Nov 2026",
+      "fact_text": "Brent crude oil futures: 93.82 USD per barrel",
+      "source_id": "held-reply-fact-45ecfc96adac4b0e2b54316f90361a9a66d28300bf7c4b45f6d5a9add96fb694",
+      "source_payload_sha256": "45ecfc96adac4b0e2b54316f90361a9a66d28300bf7c4b45f6d5a9add96fb694",
+      "source_known_at_utc": "2026-11-12T13:41:31.636795+00:00",
+      "source_artifact": {
+        "kind": "quote_observation",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\8d1a195712ac854bc1157615fec9a5531c3ef69e3ba31a2e199e3b77c141194e.json",
+        "sha256": "8d1a195712ac854bc1157615fec9a5531c3ef69e3ba31a2e199e3b77c141194e"
+      },
+      "source_binding_recheck": "PASS",
+      "fact_and_send_policy_recheck": "PASS",
+      "market_relation": "expressly stated driver",
+      "age_line_formatter_replay": "Fact age: today, 8:31 AM ET (11 min old)",
+      "age_rendering_evidence": "Saved send-time fact binding and production formatter; no Telegram body readback.",
+      "editorial_calls": {
+        "ranker": {
+          "status": "RETURNED",
+          "configured_model": "gemini-3.8-flash-high",
+          "configured_effort": "high",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 37.226202600009856,
+          "started_at_utc": "2026-11-12T13:41:34.285721+00:00",
+          "ended_at_utc": "2026-11-12T13:42:11.511995+00:00",
+          "observed_session_id": null
+        },
+        "writer": {
+          "status": "RETURNED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_effort": "max",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 50.16750749999483,
+          "started_at_utc": "2026-11-12T13:42:11.528994+00:00",
+          "ended_at_utc": "2026-11-12T13:43:01.696602+00:00",
+          "observed_session_id": null
+        }
+      }
+    },
+    {
+      "delivery_id": "xrb-2121235459187826884",
+      "delivery_status": "DELIVERED",
+      "delivery_payload_sha256": "e72df6bf376f73d995de6fc1e9d9fb1fec148333ee6aea2b3c881f5ce18cf0da",
+      "receipt_id": "x-reply-bot-e22d348aca55b270c735244f6c44153fcc00dcc144189334b3f69f656c06d9c6",
+      "receipt_payload_sha256": "e03e7f055e0149fcea90b2c3c2d34b81abde6eab27508468a39582857b2c5ecf",
+      "pack_message_id": "x-reply-pack-c36f410095d7d15d55a346bb4096891223be4302d2c8c4cbead7547f529688d7",
+      "pack_payload_sha256": "ec9e7d4644ac1f0a641be631a0ecbf5809604a431f1b92d1f8fc8ab5fb64e678",
+      "telegram_message_id": 5,
+      "post_id": "2121235459187826884",
+      "target_text_sha256": "9d9c12313422aa7424df15a8e09c3ed59addb95302c93f0453a8eb5e3f93a8f7",
+      "draft_text_sha256": "1ec4872da477b7193023ff06f0f83eac0d512c86f2a2875d83afb4439205f7e2",
+      "post_time_utc": "2026-11-13T13:35:18.776000+00:00",
+      "draft_ready_at_utc": "2026-11-13T13:43:35.981067+00:00",
+      "delivered_at_utc": "2026-11-13T13:43:38+00:00",
+      "post_to_draft_minutes": 8.286751116666666,
+      "post_to_send_attempt_minutes": 8.309355183333333,
+      "post_to_delivery_minutes": 8.3204,
+      "five_minute_target_met": false,
+      "stage_seconds": {
+        "checks": 0.2627945000131149,
+        "drafting": 117.78408650000347,
+        "filter": 9.18630969998776,
+        "ranking": 58.63056400002097,
+        "telegram_send": 0.9224020000256132
+      },
+      "latency_seconds": {
+        "filter_to_delivery": 190.205019,
+        "ingestion_to_filter": 274.854981,
+        "post_to_ingestion": 34.164,
+        "total": 499.224
+      },
+      "feed_seen_at_utc": "2026-11-13T13:35:52.940Z",
+      "selected_at_utc": "2026-11-13T13:40:27.794981+00:00",
+      "fact_binding": {
+        "age_text": "today, 8:40 AM ET",
+        "as_of_date": "2026-11-13",
+        "checked_at_utc": "2026-11-13T13:43:37.327331+00:00",
+        "kind": "session",
+        "markets": [
+          "DXY"
+        ],
+        "observed_at_utc": "2026-11-13T13:40:31+00:00",
+        "policy": "CC495_REPLY_FACT_V1",
+        "sentence": "US dollar index: 103.139 points, change from prior close -0.034 points (CNBC, 13 Nov 2026, 08:40 AM ET)."
+      },
+      "fact_source": "CNBC, 13 Nov 2026",
+      "fact_text": "-0.034 points",
+      "source_id": "held-reply-fact-87459e02d63b561f2342589ce835fe4b91053f1670b297c78a1d2be24a12c9d2",
+      "source_payload_sha256": "87459e02d63b561f2342589ce835fe4b91053f1670b297c78a1d2be24a12c9d2",
+      "source_known_at_utc": "2026-11-13T13:40:31.981649+00:00",
+      "source_artifact": {
+        "kind": "quote_observation",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\faacb7cc27bf18cf4d59c92d3de1bb886bb75de7096c23a142893f53acf143ea.json",
+        "sha256": "faacb7cc27bf18cf4d59c92d3de1bb886bb75de7096c23a142893f53acf143ea"
+      },
+      "source_binding_recheck": "PASS",
+      "fact_and_send_policy_recheck": "PASS",
+      "market_relation": "expressly stated driver",
+      "age_line_formatter_replay": "Fact age: today, 8:40 AM ET (3 min old)",
+      "age_rendering_evidence": "Saved send-time fact binding and production formatter; no Telegram body readback.",
+      "editorial_calls": {
+        "ranker": {
+          "status": "RETURNED",
+          "configured_model": "gemini-3.8-flash-high",
+          "configured_effort": "high",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 58.62854229999357,
+          "started_at_utc": "2026-11-13T13:40:39.567419+00:00",
+          "ended_at_utc": "2026-11-13T13:41:38.196098+00:00",
+          "observed_session_id": null
+        },
+        "writer": {
+          "status": "RETURNED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_effort": "max",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 117.78236289997585,
+          "started_at_utc": "2026-11-13T13:41:38.198414+00:00",
+          "ended_at_utc": "2026-11-13T13:43:35.981067+00:00",
+          "observed_session_id": "01a1d524-7491-7f53-bd05-22164c947d28"
+        }
+      }
+    },
+    {
+      "delivery_id": "xrb-2121238553342751113",
+      "delivery_status": "DELIVERED",
+      "delivery_payload_sha256": "9afe7d01bdb1f6b32d3f026f19f0dc844742ef35fae17a46bd36af09dfadc704",
+      "receipt_id": "x-reply-bot-a901fd4b00d199449e201436287e0d1754a66080876e0caa4f583fa7759ea7d2",
+      "receipt_payload_sha256": "163e319cca01d8a233731f8e3babfd65640f6ebeb4864d4ecc74cf558cfd9dca",
+      "pack_message_id": "x-reply-pack-1ab8a16115d2984901ae712360a2c06b223b7905194c09797486db3299aef992",
+      "pack_payload_sha256": "d58d813ad24eed4a0fe0e5784def265dbf069feeecb99d0644e6a286e64edfda",
+      "telegram_message_id": 6,
+      "post_id": "2121238553342751113",
+      "target_text_sha256": "0ffd944f76d66123d95731b66ceb543fbf1adb3523a7ee0574125d159ca1eda0",
+      "draft_text_sha256": "c75c5c1fc9ea9fd7135c2f26810222da099f6afe92b3bac4b44bb1b746c6bd4c",
+      "post_time_utc": "2026-11-13T13:47:36.480000+00:00",
+      "draft_ready_at_utc": "2026-11-13T13:53:09.886419+00:00",
+      "delivered_at_utc": "2026-11-13T13:53:12+00:00",
+      "post_to_draft_minutes": 5.55677365,
+      "post_to_send_attempt_minutes": 5.582518216666667,
+      "post_to_delivery_minutes": 5.592,
+      "five_minute_target_met": false,
+      "stage_seconds": {
+        "checks": 0.36070670004119165,
+        "drafting": 94.36154670000542,
+        "filter": 10.324984999984736,
+        "ranking": 51.99728410001262,
+        "telegram_send": 0.9592751000018325
+      },
+      "latency_seconds": {
+        "filter_to_delivery": 163.894915,
+        "ingestion_to_filter": 155.920085,
+        "post_to_ingestion": 15.705,
+        "total": 335.52
+      },
+      "feed_seen_at_utc": "2026-11-13T13:47:52.185Z",
+      "selected_at_utc": "2026-11-13T13:50:28.105085+00:00",
+      "fact_binding": {
+        "age_text": "today, 8:40 AM ET",
+        "as_of_date": "2026-11-13",
+        "checked_at_utc": "2026-11-13T13:53:11.398769+00:00",
+        "kind": "session",
+        "markets": [
+          "WTI"
+        ],
+        "observed_at_utc": "2026-11-13T13:40:36+00:00",
+        "policy": "CC495_REPLY_FACT_V1",
+        "sentence": "WTI crude oil futures: 88.66 USD per barrel, change from prior close -0.08 USD per barrel (Yahoo Finance, 13 Nov 2026, 08:40 AM ET)."
+      },
+      "fact_source": "Yahoo Finance, 13 Nov 2026",
+      "fact_text": "-0.08 USD per barrel",
+      "source_id": "held-reply-fact-3063418c0b1a06ec3c083fdfbe2714d1290334c41b89d9a4216935df2ca29739",
+      "source_payload_sha256": "3063418c0b1a06ec3c083fdfbe2714d1290334c41b89d9a4216935df2ca29739",
+      "source_known_at_utc": "2026-11-13T13:50:37.633365+00:00",
+      "source_artifact": {
+        "kind": "quote_observation",
+        "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\06853bf526858af58f66d2621d08857062385e77dff73298a20e1b5bc3365b61.json",
+        "sha256": "06853bf526858af58f66d2621d08857062385e77dff73298a20e1b5bc3365b61"
+      },
+      "source_binding_recheck": "PASS",
+      "fact_and_send_policy_recheck": "PASS",
+      "market_relation": "expressly stated driver",
+      "age_line_formatter_replay": "Fact age: today, 8:40 AM ET (12 min old)",
+      "age_rendering_evidence": "Saved send-time fact binding and production formatter; no Telegram body readback.",
+      "editorial_calls": {
+        "ranker": {
+          "status": "RETURNED",
+          "configured_model": "gemini-3.8-flash-high",
+          "configured_effort": "high",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 51.98778900000616,
+          "started_at_utc": "2026-11-13T13:50:43.536851+00:00",
+          "ended_at_utc": "2026-11-13T13:51:35.524777+00:00",
+          "observed_session_id": null
+        },
+        "writer": {
+          "status": "RETURNED",
+          "configured_model": "gpt-6.1-sol",
+          "configured_effort": "max",
+          "runtime_model": null,
+          "runtime_effort": null,
+          "configuration_status": "CONFIGURED_NOT_OBSERVED",
+          "elapsed_seconds": 94.35901649997686,
+          "started_at_utc": "2026-11-13T13:51:35.527163+00:00",
+          "ended_at_utc": "2026-11-13T13:53:09.886419+00:00",
+          "observed_session_id": "01a1d52d-9353-7380-8b3a-d0898e3a30b4"
+        }
+      }
+    }
+  ],
+  "all_post_to_delivery_minutes_at_most_15": true,
+  "five_minute_target_met_in_next_three": 0,
+  "new_policy_delivery_status_counts": {
+    "DELIVERED": 6
+  },
+  "confirmed_receipts_since_policy": 6,
+  "dropped_candidates": {
+    "artifact": "dropped-candidates.json",
+    "since_utc": "2026-11-11T20:55:03.587558+00:00",
+    "through_utc": "2026-11-15T21:10:43.599237+00:00",
+    "runs_read": 2846,
+    "run_status_counts": {
+      "NO_NEW_ELIGIBLE_TARGETS": 2049,
+      "OBSERVED": 35,
+      "NO_FRESH_UNSENT_DRAFTS": 626,
+      "REPLY_BOT_FAILED": 124,
+      "DELIVERED": 6,
+      "MANUAL_READBACK_UNAVAILABLE": 6
+    },
+    "drop_appearances": 2033420,
+    "distinct_candidates": 3379,
+    "distinct_candidate_causes": 6143,
+    "missing_identity_or_cause": 0,
+    "cause_counts": {
+      "RETWEET_NOT_ORIGINAL_TARGET": 272,
+      "NO_SIX_MARKET_OR_MACRO_TOPIC": 9348,
+      "TARGET_OVER_15_MINUTES_AT_SEND": 2018856,
+      "PREVIOUSLY_ATTEMPTED": 1307,
+      "NO_ADDED_FACT_ABOVE_QUALITY_FLOOR": 2037,
+      "NO_USABLE_FACT": 1002,
+      "AGY_RANK_TIMEOUT_90S": 149,
+      "CODEX_DRAFT_TIMEOUT_90S": 9,
+      "FACT_DRIVER_LINK_NOT_STATED": 6,
+      "REPLY_UNBOUND_OR_CHANGED_NUMBER": 1,
+      "WRITER_FACT_NOT_RELEVANT_TO_TARGET": 1,
+      "QUALITY_TARGET_QUEUED_FOR_NEXT_TICK": 1,
+      "ALREADY_DELIVERED_OR_UNCERTAIN": 18,
+      "JSON_DECODE_ERROR": 14,
+      "RANK_BATCH_LIMIT_12": 179,
+      "CODEX_EXIT_1": 35,
+      "AGY_RESULT_UNAVAILABLE": 17,
+      "AGY_RANK_TIMEOUT_65S": 166,
+      "TELEGRAM_TRANSPORT_UNCERTAIN": 2
+    },
+    "grouping": "Repeated occurrences of the same post and cause retain first/last clocks and their count; original artifacts remain unchanged."
+  },
+  "latest_run": {
+    "message_id": "x-reply-bot-a696c99d6b5fe1ba69d7d3bb14fe682c4c5d4cf0ea0009e6612cf06b879944dd",
+    "stored_at_utc": "2026-11-15T21:09:45.175051+00:00",
+    "payload_sha256": "66486d6c70100f3ab3025c1e35350be197aafbe85b95e01ea06ac5dfed71956e",
+    "status": "NO_NEW_ELIGIBLE_TARGETS",
+    "cause": null,
+    "started_at_utc": "2026-11-15T21:09:29.308225+00:00",
+    "ended_at_utc": "2026-11-15T21:09:45.168551+00:00",
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261115T210929-c9e2bc37\\result.json"
+  },
+  "installed_sources": {
+    "live_contentops/x_reply_bot_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_bot_v1.py",
+        "bytes": 47558,
+        "sha256": "02ed3ef55fdc7abdc30f4f6212fd7ccb417c5446eee3981e03c401e295abbc0a"
+      },
+      "worktree_sha256": "02ed3ef55fdc7abdc30f4f6212fd7ccb417c5446eee3981e03c401e295abbc0a",
+      "matches_worktree": true
+    },
+    "live_contentops/x_reply_pack_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_pack_v1.py",
+        "bytes": 48518,
+        "sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb"
+      },
+      "worktree_sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb",
+      "matches_worktree": true
+    },
+    "live_contentops/x_reply_fact_policy_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_fact_policy_v1.py",
+        "bytes": 12396,
+        "sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c"
+      },
+      "worktree_sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c",
+      "matches_worktree": true
+    },
+    "live_contentops/x_reply_fact_sources_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_fact_sources_v1.py",
+        "bytes": 24112,
+        "sha256": "54a3a3486248c3afb14a901563a96b3f65abd5d1203d29cfc3537f805d5cd8e4"
+      },
+      "worktree_sha256": "54a3a3486248c3afb14a901563a96b3f65abd5d1203d29cfc3537f805d5cd8e4",
+      "matches_worktree": true
+    },
+    "live_contentops/x_reply_topics_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_topics_v1.py",
+        "bytes": 7748,
+        "sha256": "fdad5f07a62bdd4734c2afa40c047785b9d00775b769b7bd2fff61816ea4b054"
+      },
+      "worktree_sha256": "fdad5f07a62bdd4734c2afa40c047785b9d00775b769b7bd2fff61816ea4b054",
+      "matches_worktree": true
+    },
+    "live_contentops/x_reply_trading_dates_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_trading_dates_v1.py",
+        "bytes": 1525,
+        "sha256": "c20822b483fb4db77e1151263a32386590363c28404ec5c6e154530d281dec82"
+      },
+      "worktree_sha256": "c20822b483fb4db77e1151263a32386590363c28404ec5c6e154530d281dec82",
+      "matches_worktree": true
+    },
+    "live_contentops/public_market_quote_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\public_market_quote_v1.py",
+        "bytes": 12154,
+        "sha256": "a479ad125dc460edbac6d42b42830ffd4c697f8be5935b2526ce7cd2e9660f47"
+      },
+      "worktree_sha256": "a479ad125dc460edbac6d42b42830ffd4c697f8be5935b2526ce7cd2e9660f47",
+      "matches_worktree": true
+    },
+    "scripts/plan_status_posts.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\scripts\\plan_status_posts.py",
+        "bytes": 14503,
+        "sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690"
+      },
+      "worktree_sha256": "ef522418e67f1545ea372807285a6ad4b1348ac78f68e41ff5eb566966ade690",
+      "matches_worktree": true
+    }
+  },
+  "phone_open_observed": false,
+  "delivery_evidence_limit": "Bot API-confirmed private delivery and saved input bindings; no phone-screen, message-body or public-reply readback.",
+  "manual_consumer_ticks": 0,
+  "model_calls": 0,
+  "transport_calls": 0,
+  "schedule_changed": false,
+  "applications_restarted": false
+}
