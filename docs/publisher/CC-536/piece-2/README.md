@@ -1,5 +1,13 @@
 # CC-536 piece 2: following the trend
 
+The 15 November 22:09 GMT+7 resume confirmed the same Neo endpoint outage.
+Both the working and operating roots verified all 58 numerical bindings and
+seven Main blobs, and compiled eight derivatives. The existing article and
+consumer are unchanged. Piece 2 still has no publication intent. The next
+check is 16 November at 09:00 GMT+7. [Current resume result](resume-20261115-2205.json)
+and [installed readback](installed-resume-20261115-2205-readback.json) retain
+the exact cause and continuation. No new test run or public write was made.
+
 The 15 November 19:25 GMT+7 resume verified the same endpoint failure, all 58
 numerical bindings and all seven Main source blobs in the installed consumer.
 Piece 2 still has no registered publication intent. The next check is 21:00

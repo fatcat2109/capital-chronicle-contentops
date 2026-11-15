@@ -1,0 +1,162 @@
+{
+  "item": "CC-536",
+  "piece": 2,
+  "observed_at_utc": "2026-11-15T15:10:46.528515+00:00",
+  "branch": "backlog/cc-536-piece-2-resume-20261115-2205",
+  "base_commit": "ea8811813ec75b0dd1ba747c3a2764ca1400928b",
+  "base_choice": "Continue from the current ContentOps operating HEAD, preserving the already installed CC-536 source and consumer. The remote default branch predates those deliveries.",
+  "outcome": "BLOCKED",
+  "stage": "fresh authentic TradingView chart capture before final assembly/review and coordinator registration",
+  "first_cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "neo_check": {
+    "observed_at_utc": "2026-11-15T15:07:29.814740+00:00",
+    "endpoint": "http://127.0.0.1:9010/mcp",
+    "operation": "NeoMcpClient.initialize",
+    "status": "UNAVAILABLE",
+    "cause": "NEO_ENDPOINT_CONNECTIONERROR",
+    "browser_action_started": false,
+    "elapsed_seconds": 2.058
+  },
+  "neo_host_observation": {
+    "observed_at_utc": "2026-11-15T15:09:29.8911004Z",
+    "browser_processes": [],
+    "port_9010_listeners": []
+  },
+  "verification": {
+    "working_readback": "resume-20261115-2205-readback.json",
+    "installed_readback": "installed-resume-20261115-2205-readback.json",
+    "main_snapshot": {
+      "live_tag": "live-20261114-cc598-154637",
+      "commit": "3c0900bdf8ce3cd5aee5ec8a5dd8c3c59f04c433",
+      "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+      "blobs_verified": 7
+    },
+    "working_numeric_occurrences": 58,
+    "installed_numeric_occurrences": 58,
+    "working_compiler_destinations": 8,
+    "installed_compiler_destinations": 8,
+    "source_copy_consumer_changed": false,
+    "prior_installed_tests": {
+      "artifact": "installed-consumer-tests.xml",
+      "tests": 24,
+      "failures": 0,
+      "errors": 0,
+      "time_seconds": 23.113
+    },
+    "new_pytest_run": false,
+    "test_choice": "No source, article or consumer changed. Reused the passing targeted tests and executed the source verifier, numeral validator and compiler directly in both roots."
+  },
+  "publication": {
+    "confirmed_method_page": {
+      "identity": "cc536-measured-odds-1",
+      "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+      "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+      "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+    },
+    "piece_1_destination_states": [
+      {
+        "platform": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571046377796935813"
+      },
+      {
+        "platform": "facebook_page",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1454906993494383"
+      },
+      {
+        "platform": "instagram_business",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://www.instagram.com/p/DftqP-ikncx/"
+      },
+      {
+        "platform": "linkedin",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_url": null
+      },
+      {
+        "platform": "linkedin_company",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7527295698816585728/"
+      },
+      {
+        "platform": "substack",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
+      },
+      {
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://t.me/CapitalChronicle/183"
+      },
+      {
+        "platform": "threads",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfttV9YEhzv"
+      },
+      {
+        "platform": "x",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_url": "https://x.com/Capitalnicle/status/2121503636216049751"
+      },
+      {
+        "platform": "youtube",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_url": null
+      }
+    ],
+    "piece_2_identity": "cc536-measured-odds-2",
+    "piece_2_registered": false,
+    "piece_2_intents": 0,
+    "piece_2_publication_attempts_this_run": 0,
+    "fresh_chart_bound": false,
+    "store_access": "SQLite mode=ro; PRAGMA query_only=ON",
+    "fresh_public_readback_claimed": false
+  },
+  "top_level_launch": {
+    "pid": 14884,
+    "started_at_utc": "2026-11-15T15:05:07.114813Z",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch arguments inspected; only model and effort flags plus process identity retained."
+  },
+  "choice": "Retain the authored piece and exact publication identity. The actual Neo endpoint outage prevents capturing the chart; the held matching image belongs to published piece 1, and the item bars a drawn replacement. Do not launch or restart an application without task-specific authority.",
+  "restrictions": [
+    {
+      "reason": "JIM_DECISION_82",
+      "requirement": "A real TradingView chart with its native means."
+    },
+    {
+      "reason": "JIM_DECISION_93",
+      "requirement": "The article image has not been published in another piece."
+    }
+  ],
+  "next_action": "BrowserOS operator restores the existing Neo profile and http://127.0.0.1:9010/mcp endpoint. Publisher then captures a fresh native chart into piece-2/media, completes final assembly/review, registers cc536-measured-odds-2 through the existing coordinator, and reads back Substack and X.",
+  "next_actor": "BrowserOS operator, then Codex Publisher",
+  "next_check_utc": "2026-11-16T02:00:00Z",
+  "next_check_gmt7": "16 Nov 2026 09:00 GMT+7",
+  "next_check_choice": "Next morning check for this overdue piece while the external endpoint remains unavailable; no retry loop or schedule change.",
+  "live_acceptance_remaining": [
+    "Piece 2 Substack and X exact readbacks with its fresh native TradingView chart",
+    "First public daily-board and next-plan method links; current production plan packets contain no method link; CC-537 still awaits CC-528",
+    "Later daily pieces; euro and yen figures require the repaired table and matching side split on Main live tag"
+  ],
+  "scope": "Verification and continuation evidence only; existing installed consumer and article retained.",
+  "application_launches": false,
+  "desktop_automation": false,
+  "schedule_changes": false,
+  "other_chat_messages": false,
+  "preserved_uncommitted_paths": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "bytes": 992508
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "bytes": 10337
+    }
+  ]
+}
