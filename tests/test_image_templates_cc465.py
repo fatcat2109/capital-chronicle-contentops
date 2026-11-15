@@ -246,6 +246,46 @@ def test_actual_vision_request_reads_local_png_and_records_configuration_without
     assert review["configuration_status"]=="CONFIGURED_NOT_OBSERVED" and "base64" not in json.dumps(review)
 
 
+@pytest.mark.parametrize("template,image_number,chart",[("call",1,True),("event",1,True),
+    ("event",2,False),("map",2,False),("weekly",1,False)])
+def test_vision_scores_the_actual_chart_or_table_role_and_uses_code_facts(tmp_path,template,image_number,chart):
+    image=asset(tmp_path,template=template,image_number=image_number)
+    prompts=[]
+    def run(args,*,cwd,timeout,input):
+        prompts.append(json.loads(input)["message"]["content"][0]["text"])
+        return vision_response(args,cwd=cwd,timeout=timeout,input=input)
+    review=quality.review_vision(image,runner=run)
+    assert review["status"]=="REVIEWED"
+    context=review["review_context"]
+    assert context["chart"] is chart and context["image_number"]==image_number
+    assert context["code_observations"]==quality.code_check(image)
+    assert context["plan_levels_required"] is chart
+    assert "image 2 of event/map" in prompts[0]
+    assert "need not add to 100%" in prompts[0]
+    assert "Do not demand visual proof" in prompts[0]
+    assert "private position size or account volume" in prompts[0]
+
+
+def test_false_table_refusal_is_reviewed_once_under_the_corrected_image_roles(tmp_path):
+    data=input_record("event");snapshot=capture(tmp_path)
+    image=templates.render(data,"W",tmp_path,snapshot,image_number=2)
+    old=yes_review(image);old["vision"]["policy"]="before-image-role-fix"
+    old["vision"]["points"]["2"]=False
+    image["image_quality"]=quality.combine(quality.code_check(image),old["vision"],new_template=True)
+    record=Path(image["path"]).with_suffix(".json")
+    previous=json.dumps(image).encode();record.write_bytes(previous)
+    calls=[]
+    def run(args,*,cwd,timeout,input):
+        calls.append(args)
+        return vision_response(args,cwd=cwd,timeout=timeout,input=input)
+    for _ in range(2):
+        prepared=quality.prepare_asset(data,"W",tmp_path,image_number=2,vision_runner=run)
+        assert prepared["image_quality"]["passed"]
+    assert len(calls)==1
+    assert prepared["image_quality"]["vision"]["policy"]==quality.VISION_POLICY
+    assert Path(prepared["image_quality"]["vision"]["retained_prior_failure_path"]).read_bytes()==previous
+
+
 def test_new_plan_image_path_consumes_the_bound_ledger_and_returns_the_native_template(tmp_path,monkeypatch):
     from live_contentops import plan_status_posts_v1 as posts
     monkeypatch.setattr(tv,"OUTCOMES",tmp_path/"outcomes.jsonl")
@@ -302,6 +342,19 @@ def test_missing_source_r_never_becomes_a_no_entry_result_or_weekly_zero(tmp_pat
     image=asset(tmp_path,template="weekly",data=data)
     check=quality.code_check(image)
     assert not check["passed"] and "WEEK_R_RESULT_NOT_EXPORTED" in check["causes"]
+
+
+def test_weekly_uses_exported_results_when_an_optional_original_probability_is_absent(tmp_path):
+    data=input_record("weekly");data.pop("source_binding")
+    data["week"]["rows"][0]["main_probability_pct"]=None
+    image=asset(tmp_path,template="weekly",data=bind(data,deepcopy(data)))
+    assert "WEEK_PROBABILITY_NOT_EXPORTED" in image["image_template"]["notes"]
+    assert quality.code_check(image)["passed"]
+    image["image_quality"]=yes_review(image)
+    _,runtime,coordinator,message=publication_message(tmp_path/"run",image)
+    result=coordinator._dispatch_message(message,canonical_url=None)
+    assert result["status"]=="DISPATCH_CONFIRMED",result
+    assert runtime.publish_calls==["substack"]
 
 
 def test_numeric_change_and_retrospective_lookahead_are_refused(tmp_path):
@@ -465,6 +518,37 @@ def test_five_closed_calls_do_not_create_a_dead_space_refusal(tmp_path):
     data=bind(data,data)
     image=templates.render(data,'W',tmp_path)
     assert quality.code_check(image)['passed']
+
+
+@pytest.mark.parametrize("count",[1,4,6,7,13])
+@pytest.mark.parametrize("master",["W","T"])
+def test_weekly_phone_pagination_keeps_every_call_without_empty_tail_pages(tmp_path,count,master):
+    data=input_record("weekly");data.pop("source_binding")
+    rows=data["week"]["rows"]
+    data["week"]["rows"]=[deepcopy(rows[i%len(rows)]) for i in range(count)]
+    data["week"]["calls_closed"]=count;data=bind(data,deepcopy(data))
+    capacity=templates.WEEKLY_CAPACITY[master]
+    pages=(count+capacity-1)//capacity;seen=0
+    for page in range(pages):
+        image=templates.render(data,master,tmp_path,page=page)
+        check=quality.code_check(image)
+        assert check["passed"],(count,master,page,check["causes"])
+        seen+=sum(t["field"]=="week.market" for t in image["image_template"]["texts"])
+    assert seen==count
+
+
+def test_article_consumer_delivers_all_weekly_phone_pages_to_each_destination(tmp_path):
+    article,images=quality.prepare_article_media({"image_input_v1":input_record("weekly")},[],
+        output_dir=tmp_path,vision_runner=vision_response)
+    assert len(images)==4
+    for master in ("W","T"):
+        selected=[i for i in images if i["image_template"]["master"]==master]
+        assert len(selected)==2
+        assert sum(sum(t["field"]=="week.market" for t in i["image_template"]["texts"]) for i in selected)==6
+    by_id={i["asset_id"]:i for i in images}
+    for destination,ids in article["native_destination_media"].items():
+        assert len(ids)==2
+        assert all(by_id[i]["image_template"]["master"]==("T" if destination in {"instagram_business","threads"} else "W") for i in ids)
 
 
 def test_weekly_consumer_excludes_reservations_old_rows_and_future_publications():

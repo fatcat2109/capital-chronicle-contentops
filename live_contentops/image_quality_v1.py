@@ -21,6 +21,7 @@ from .image_template_inputs_v1 import digest
 
 MANDATORY = {1, 2, 3, 5, 7, 9}
 ACCEPTANCE_CONTROL = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\image_template_acceptance_v1.json")
+VISION_POLICY = "cc465-image-roles-v2"
 CHECKLIST = (
     "Exact platform canvas, RGB PNG, sRGB, under 5 MB",
     "Image 1 is the correct market's TradingView snapshot; weekly is the table exception",
@@ -99,7 +100,7 @@ def code_check(asset, *, destination=None):
             fail(9,"IMAGE_PRIVATE_IDENTIFIER_OR_MONEY")
         if "…" in text or "..." in text:fail(7,"IMAGE_CUT_TEXT")
         for note in meta.get("notes",[]):
-            if note in {"WEEK_R_RESULT_NOT_EXPORTED","WEEK_PROBABILITY_NOT_EXPORTED","MORNING_MAP_CHANGE_NOT_EXPORTED","MORNING_MAP_STATE_NOT_EXPORTED"}:fail(9,note)
+            if note in {"WEEK_R_RESULT_NOT_EXPORTED","MORNING_MAP_CHANGE_NOT_EXPORTED","MORNING_MAP_STATE_NOT_EXPORTED"}:fail(9,note)
         from .image_templates_v1 import COLOURS
         for block in meta.get("texts",[]):
             if not _inside(block["box"],block["zone"]):fail(7,"IMAGE_TEXT_CLIPPED")
@@ -152,6 +153,11 @@ def review_vision(asset,*,runner=None):
     from .light_model_caller_v1 import call_light, json_answer
     meta=asset["image_template"]
     image_path=Path(asset["path"]).resolve()
+    code=code_check(asset)
+    context={"image_number":meta["image_number"],"chart":meta["chart"],
+             "plan_levels_required":bool((meta.get("levels") or {}).get("required")),
+             "quote_comparison":((meta.get("snapshot") or {}).get("price_scale_check") or {}).get("comparison_basis"),
+             "code_observations":code}
     prompt=("Do not call any tool except Antigravity's required local PNG reader. "
             "Codex: the PNG is attached; do not call any tool. Antigravity: use read_file only for this PNG. "
             "Visually inspect exactly this local PNG: "+str(image_path)+". "
@@ -162,15 +168,27 @@ def review_vision(asset,*,runner=None):
             '{"image_seen":true,"points":{"1":true,"2":true,"3":true,"4":true,"5":true,"6":true,"7":true,"8":true,"9":true,"10":true},'
             '"reasons":{"1":"one line","2":"one line","3":"one line","4":"one line","5":"one line",'
             '"6":"one line","7":"one line","8":"one line","9":"one line","10":"one line"}}. '
-            "Every point is yes only if you can see it passes; mark uncertain as false. "
-            "Weekly tables have no chart: chart-only questions are not applicable and pass. "
+            "Judge the visible requirements for this image's role, using the supplied code observations "
+            "for binary format, dimensions, font sizes and source equality. Do not demand visual proof "
+            "of file size, RGB mode or an embedded profile. Mark uncertain visible requirements false. "
+            "For EVERY table (weekly or image 2 of event/map), chart-only points 2 through 6 and the "
+            "60% chart-area rule are not applicable: answer true and explain that it is a table. "
+            "For a chart without plan levels, point 5 is not applicable. Point 6 uses the bound "
+            "comparison: NOT_COMPARED means no contemporaneous quote, not a measured mismatch. "
+            "For point 9 judge what is actually printed; the spec does not print every source field "
+            "on every image. Preserve the supplied scenario probabilities: they can be a subset and "
+            "need not add to 100%. Never infer a complement or demand a probability absent from Main. "
+            "The ban on volume means private position size or account volume, not TradingView's "
+            "public market-volume legend. TradingView's unchanged capture timestamp, logo and market "
+            "legend must remain intact; its own timestamp is not our ET caption. "
             +json.dumps({"checklist":{str(i+1):v for i,v in enumerate(CHECKLIST)},
+                        "review_context":context,
                         "input":{k:v for k,v in meta["input"].items() if k!="source_binding"},
                         "snapshot":{k:v for k,v in (meta.get("snapshot") or {}).items() if k not in {"path","chart_geometry"}},
                         "master":meta["master"],"template":meta["template"]},ensure_ascii=False))
-    record={"image_sha256":asset["sha256"],"template_revision":meta["template_revision"],"model":MODEL,"effort":EFFORT,
+    record={"policy":VISION_POLICY,"image_sha256":asset["sha256"],"template_revision":meta["template_revision"],"model":MODEL,"effort":EFFORT,
             "configuration_status":"CONFIGURED_NOT_OBSERVED","started_at_utc":datetime.now(timezone.utc).isoformat(),
-            "points":{},"reasons":{},"prompt_sha256":sha256(prompt.encode()).hexdigest()}
+            "points":{},"reasons":{},"review_context":context,"prompt_sha256":sha256(prompt.encode()).hexdigest()}
     try:
         if not image_path.is_file():
             raise ValueError("IMAGE_REVIEW_FILE_UNAVAILABLE")
@@ -250,8 +268,9 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
         from .light_model_caller_v1 import POLICY
         # A pre-CC-512 failed review never ran the second caller. Continue it
         # once under the new policy, retaining the exact prior metadata bytes.
-        if (code["passed"] and review.get("status")=="REVIEW_UNAVAILABLE"
-                and review.get("light_call",{}).get("policy")!=POLICY):
+        if (code["passed"] and (
+                review.get("status")=="REVIEW_UNAVAILABLE" and review.get("light_call",{}).get("policy")!=POLICY
+                or not old.get("passed") and review.get("policy")!=VISION_POLICY)):
             previous_bytes=record_path.read_bytes()
             retained=record_path.parent/(record_path.stem+".prior-vision-"+sha256(previous_bytes).hexdigest()+".json")
             if not retained.exists():retained.write_bytes(previous_bytes)
@@ -327,7 +346,7 @@ def prepare_article_media(article,assets,*,output_dir,snapshot=None,vision_runne
     """Compile structured event, weekly and map inputs on the article owner seam."""
     from copy import deepcopy
     from .tradingview_snapshot_v1 import capture
-    from .image_templates_v1 import CHART
+    from .image_templates_v1 import CHART, WEEKLY_CAPACITY
     article=deepcopy(article)
     data=article["image_input_v1"]
     if article.get("retrospective") and not data.get("event_cutoff_utc"):
@@ -344,7 +363,7 @@ def prepare_article_media(article,assets,*,output_dir,snapshot=None,vision_runne
         if data["template"] in {"event","map"}:
             prepared.append(prepare_asset(data,master,Path(output_dir)/"media"/"cc465",image_number=2,vision_runner=vision_runner))
         if data["template"]=="weekly":
-            capacity=6 if master=="W" else 8
+            capacity=WEEKLY_CAPACITY[master]
             for page in range(1,(len(data["week"]["rows"])+capacity-1)//capacity):
                 prepared.append(prepare_asset(data,master,Path(output_dir)/"media"/"cc465",page=page,vision_runner=vision_runner))
         if master=="T":

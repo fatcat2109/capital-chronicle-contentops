@@ -15,5 +15,16 @@
     "result": "121 passed in 55.08s; one pytest process, no workers",
     "consumer": "The actual coordinator delivers a source with a target while the generated PNG has the same pixels as that source with the target absent; altered attribution and clipped text remain refused."
   },
-  "existing_wip": "Two modified telemetry JSONL files remain outside all staged paths."
+  "existing_wip": "Two modified telemetry JSONL files remain outside all staged paths.",
+  "second_substep": {
+    "tests": "final-consumer-tests.xml",
+    "result": "139 passed in 68.43s",
+    "changes": [
+      "Role-specific vision questions and observed code facts",
+      "Retain and reconsider an old false refusal once",
+      "Use exported weekly R with optional original probabilities omitted",
+      "Larger chart labels and wide footer; balanced, complete weekly phone pagination"
+    ],
+    "choice": "Fix the measured phone readability failure by enlarging text and paging rows; preserve frame geometry, exact sources and TradingView attribution."
+  }
 }

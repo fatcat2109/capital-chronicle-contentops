@@ -21,6 +21,7 @@ from .image_template_inputs_v1 import MARKETS, ORDER, digest, validate_binding
 POLICY = "CC465_IMAGE_TEMPLATES_V1"
 TEMPLATES = ("call", "event", "result", "weekly", "map")
 SIZE = {"W": (1600, 900), "T": (1080, 1350)}
+WEEKLY_CAPACITY = {"W": 3, "T": 3}
 CHART = {"W": (0, 104, 1600, 804), "T": (0, 170, 1080, 1020)}
 COLOURS = {"paper": "#F5F5F0", "ink": "#111111", "muted": "#4A4A45", "rule": "#D4D4CC",
            "zebra": "#ECECE6", "yellow": "#FDCF09", "green": "#08755A", "red": "#B3261E", "blue": "#1F5FBF"}
@@ -184,7 +185,7 @@ class Canvas:
         m, w = self.margin, self.image.width
         if self.master == "W":
             for i, line in enumerate(lines):
-                self.text(line, (m, 808+i*44, w-m, 851+i*44), key="footer")
+                self.text(line, (m, 806+i*46, w-m, 852+i*46), size=48, key="footer")
             y = 852
         else:
             visible=[c for c in cells if c[1]]
@@ -266,13 +267,17 @@ def _levels(canvas, data, snapshot, framing):
             continue
         if not label.startswith("Entry"):
             draw.line((left,y,right,y), fill=COLOURS[colour], width=3)
-        face = font(28,600); tw = draw.textlength(label, font=face)
-        ly = max(top+8, min(y-18,bottom-42), last_label_end)
-        if ly+40 > bottom:
+        label_size=56 if canvas.master=="W" else 40
+        face = font(label_size,600); tw = draw.textlength(label, font=face)
+        if left+tw+28 > right:
+            raise LayoutError("IMAGE_LEVEL_LABEL_DOES_NOT_FIT")
+        bounds=draw.textbbox((0,0),label,font=face);text_height=bounds[3]-bounds[1]
+        ly = max(top+8, min(y-text_height/2,bottom-text_height-8), last_label_end)
+        if ly+text_height+8 > bottom:
             raise LayoutError("IMAGE_LEVEL_LABEL_COLLISION")
-        draw.rectangle((left+4,ly-8,left+tw+28,ly+34),fill=(255,255,255,224))
-        canvas.text(label,(left+12,ly,left+tw+24,ly+34),size=28,weight=600,colour=colour,key="chart_level")
-        last_label_end = ly+46
+        draw.rectangle((left+4,ly-8,left+tw+28,ly+text_height+8),fill=(255,255,255,224))
+        canvas.text(label,(left+12,ly,left+tw+24,ly+text_height+1),size=label_size,weight=600,colour=colour,key="chart_level")
+        last_label_end = ly+text_height+24
     return {"required": True, "levels_visible": visible, "pane_box": [left,top,right,bottom],
             "entry_colour": COLOURS["blue"]}
 
@@ -423,15 +428,26 @@ def _table(canvas,data,page):
             canvas.text("Today: "+driver,(m+820 if wide else m+12,y+56 if wide else y+106,w-m-12,y+100 if wide else y+152),key="map.driver")
             canvas.draw.line((m,y+row_height,w-m,y+row_height),fill=COLOURS["rule"],width=2)
     else:
-        week=data["week"];limit=6 if wide else 8;rows=week["rows"][page*limit:(page+1)*limit]
+        week=data["week"];limit=WEEKLY_CAPACITY[canvas.master]
+        pages=max(1,math.ceil(len(week["rows"])/limit));base,extra=divmod(len(week["rows"]),pages)
+        start=page*base+min(page,extra);count=base+(page<extra)
+        rows=week["rows"][start:start+count]
         canvas.heading("Weekly scorecard",str(week["start"])+"–"+str(week["end"]))
         stats=f"{week['calls_closed']} calls closed"
         if week.get('hit_rate_pct') is not None:stats+=f" · {week['hit_rate_pct']}% right"
         if week.get('total_r') is not None and week.get('avg_r') is not None:
             stats+=f" · {r_text(week['total_r'])} total · {r_text(week['avg_r'])} average"
         else:canvas.notes.append("WEEK_R_RESULT_NOT_EXPORTED")
-        canvas.text(stats,(m+12,top+8,w-m-12,top+100),wrap=1 if wide else 2,key="week.stats")
-        top+=100 if not wide else 92
+        # The actual 375px review of the six-column W table failed readability.
+        # Use larger two-line rows and paginate; never shrink or drop a call.
+        if wide:
+            stat_lines=stats.split(" · ")
+            first=" · ".join(stat_lines[:2]);second=" · ".join(stat_lines[2:])
+            canvas.text(first,(m+12,top+8,w-m-12,top+72),size=56,key="week.stats")
+            canvas.text(second,(m+12,top+76,w-m-12,top+140),size=56,key="week.stats")
+        else:
+            canvas.text(stats,(m+12,top+8,w-m-12,top+100),size=40,wrap=2,key="week.stats")
+        top+=100 if not wide else 152
         canvas.draw.line((m,top,w-m,top),fill=COLOURS["rule"],width=2)
         for i,row in enumerate(rows):
             height=(bottom-top)//max(1,len(rows))
@@ -440,17 +456,35 @@ def _table(canvas,data,page):
             chance = row.get('main_probability_pct')
             chance_text = f"Said {chance:g}%" if chance is not None else ""
             if chance is None:canvas.notes.append("WEEK_PROBABILITY_NOT_EXPORTED")
-            if wide:
-                # Outcome shares a two-line cell; the font stays at 36 px.
-                columns=[(12,300,MARKETS[row['market']],False),(320,470,row['direction'],False),
-                         (480,695,row['horizon_label'],False),(710,880,chance_text,False),
-                         (900,1270,row['outcome_label'],False),(1290,1500,r_text(row['r']) if row.get('r') is not None else "—",True)]
-                for a,b,value,mono in columns:canvas.text(value,(m+a,y+8,m+b,y+height-4),mono=mono,wrap=2,key="week.row",center_y=True)
-            else:
-                canvas.text(MARKETS[row['market']]+" · "+row['direction'],(m+12,y+8,w-m-210,y+54),key="week.market")
-                canvas.text(r_text(row['r']) if row.get('r') is not None else "—",(w-m-200,y+8,w-m-12,y+54),mono=True,key="week.r")
+            result=r_text(row['r']) if row.get('r') is not None else "—"
+            if len(rows)==1:
+                cells=[("Market",MARKETS[row['market']],"week.market"),("Direction",row['direction'],"week.row"),
+                       ("Horizon",row['horizon_label'],"week.row")]
+                if chance_text:cells.append(("Original odds",chance_text,"week.row"))
+                cells.extend([("Outcome",row['outcome_label'],"week.row"),("Result",result,"week.r")])
+                count_rows=math.ceil(len(cells)/2) if wide else len(cells)
+                cell_height=height/count_rows
+                for j,(label,value,key) in enumerate(cells):
+                    cx=m+12+(j%2)*(w-2*m)/2 if wide else m+12
+                    cy=y+(j//2 if wide else j)*cell_height
+                    right=cx+(w-2*m)/2-24 if wide else w-m-12
+                    canvas.text(label,(cx,cy+16,right,cy+60),size=36 if wide else 32,colour="muted",key="cell_label")
+                    canvas.text(value,(cx,cy+76,right,cy+cell_height-8),size=56 if wide else 48,mono=key=="week.r",key=key)
+            elif wide:
+                first=y+height*.16;second=y+height*.60
+                canvas.text(MARKETS[row['market']]+" · "+row['direction'],(m+12,first,w-m-260,second-4),size=56,key="week.market")
+                canvas.text(result,(w-m-240,first,w-m-12,second-4),size=64,mono=True,key="week.r")
                 value=" · ".join(s for s in (row['horizon_label'],chance_text,row['outcome_label']) if s)
-                canvas.text(value,(m+12,y+58,w-m-12,y+height-4),key="week.row")
+                canvas.text(value,(m+12,second,w-m-12,y+height-4),size=56,wrap=2,key="week.row")
+            else:
+                values=[MARKETS[row['market']]+" · "+row['direction'],row['horizon_label']]
+                if chance_text:values.append(chance_text)
+                values.append(row['outcome_label'])
+                step=height/len(values)
+                canvas.text(values[0],(m+12,y,w-m-230,y+step),size=52,key="week.market",center_y=True)
+                canvas.text(result,(w-m-220,y,w-m-12,y+step),size=64,mono=True,key="week.r",center_y=True)
+                for j,value in enumerate(values[1:],1):
+                    canvas.text(value,(m+12,y+j*step,w-m-12,y+(j+1)*step),size=64,key="week.row",center_y=True)
             canvas.draw.line((m,y+height,w-m,y+height),fill=COLOURS["rule"],width=2)
         if week.get("wrong_note"):
             note=field(week,"wrong_note",60,required=False)
