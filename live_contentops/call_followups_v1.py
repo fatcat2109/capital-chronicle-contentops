@@ -634,16 +634,19 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
                 "per_destination":{p["destination"]:{"status":"DISPATCH_CONFIRMED"} for p in publications(store,key)}}
         # Threads/Telegram continuations retain their own durable dispatches.
         # No subsequent part goes out until its predecessor has read back.
+        continuation_outcomes = []
+        preceding = outcome.get("per_destination",{})
         for continuation in plan.get("continuations") or []:
-            preceding = outcome.get("per_destination",{})
             if any((preceding.get(d["destination"]) or {}).get("status") != "DISPATCH_CONFIRMED"
                    for d in continuation["destinations"]):
                 break
             child = continuation["work_item_id"]
             store.create_work_item(story_id=child,work_item_id=child,title=row["title"],target_surface="MULTI_PLATFORM")
             posts.scope_to_post(coordinator,child,continuation)
-            outcome = coordinator.publish_plan(child,continuation)
-        results.append({"key":key,"publication":outcome})
+            child_outcome = coordinator.publish_plan(child,continuation)
+            continuation_outcomes.append({"key":child,"publication":child_outcome})
+            preceding = child_outcome.get("per_destination",{})
+        results.append({"key":key,"publication":outcome,"continuations":continuation_outcomes})
         if post_complete(store,row):
             store.set_outbox_status(key,"PUBLISHED")
         break  # One actual publication slice per existing minute, not one blocked candidate.

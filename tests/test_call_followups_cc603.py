@@ -310,3 +310,26 @@ def test_stale_main_export_does_not_block_owed_corrections(monkeypatch):
     def stale():raise ValueError("PLAN_EXPORT_STALE")
     assert f.minute_due(object(),stale)["status"]=="CORRECTION_PROCESSED"
     assert seen==[{"status":{"plans":[]}}]
+
+
+def test_correction_continuation_keeps_chart_and_preserves_issued_root(ready,tmp_path):
+    from hashlib import sha256
+    store,_,coordinator,record=ready
+    c={**candidate(),"destinations":["threads"]}
+    result=f.queue_followup(store,c,f.check_path(c,bars()),record,now=NOW)
+    key=result["key"]
+    image=asset(tmp_path)
+    plan=posts.prepare_post(store,key,root=tmp_path/"posts",host=fake_host,
+        destinations=("threads",),cc603_asset=image)
+    root_payload=posts._expected(store,key,plan["output_dir"])[1]["threads"]
+    assert root_payload["parts"] if "parts" in root_payload else root_payload["media_asset_ids"]
+    assert plan["continuations"]
+    for child in plan["continuations"]:
+        child_id=child["work_item_id"]
+        assert child["plan_hash"]!=sha256(("plan-status-post:"+child_id).encode()).hexdigest()
+        store.create_work_item(story_id=child_id,work_item_id=child_id,title="Continuation",target_surface="MULTI_PLATFORM")
+        posts.scope_to_post(coordinator,child_id,child)
+        coordinator.register_plan(child_id,child)
+        intent=json.loads(store.list_outbox_messages(work_item_id=child_id,destination="threads")[0]["payload"])
+        assert intent["native_payload"]["media_asset_ids"]==[image["asset_id"]]
+    assert root_payload==posts._expected(store,key,plan["output_dir"])[1]["threads"]

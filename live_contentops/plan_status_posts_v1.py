@@ -1266,7 +1266,7 @@ def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: 
     return payloads
 
 
-def _part_payloads(payloads: dict, part: int = 0) -> dict:
+def _part_payloads(payloads: dict, part: int = 0, *, repeat_media: bool = False) -> dict:
     result = {}
     for destination, payload in payloads.items():
         if not payload.get("parts"):
@@ -1278,7 +1278,7 @@ def _part_payloads(payloads: dict, part: int = 0) -> dict:
             continue
         result[destination] = {k: v for k, v in payload.items() if k != "parts"}
         result[destination].update(text=parts[part], full_text=parts[part],
-                                   media_asset_ids=payload["media_asset_ids"] if part == 0 else [])
+                                   media_asset_ids=payload["media_asset_ids"] if part == 0 or repeat_media else [])
     return result
 
 
@@ -1452,7 +1452,7 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
             "policy_mode_version": "AUTONOMOUS_DEFAULT:cc306.v1", "destinations": rows}
     continuations = []
     for part in range(1, max(len(p.get("parts") or [p]) for p in full_payloads.values())):
-        chosen = _part_payloads(full_payloads, part)
+        chosen = _part_payloads(full_payloads, part, repeat_media=bool(row.get("cc603_contract")))
         child = f"{key}-part-{part}"
         child_rows = [{**r, "payload": chosen[r["destination"]]["full_text"],
                        "payload_hash": hashlib.sha256(chosen[r["destination"]]["full_text"].encode()).hexdigest()}
@@ -1460,7 +1460,10 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         if child_rows:
             continuations.append({**plan, "plan_status_part": part, "work_item_id": child,
                 "story_identity": child, "article_identity": child, "package_identity": child,
-                "plan_hash": hashlib.sha256(("plan-status-post:" + child).encode()).hexdigest(),
+                # A formerly text-only CC-603 part was a definite no-write.
+                # Preserve that intent and give its image repair a new dispatch.
+                "plan_hash": hashlib.sha256(("plan-status-post:" + child +
+                    (":cc603-image:" + card["asset_id"] if row.get("cc603_contract") and card else "")).encode()).hexdigest(),
                 "destinations": child_rows})
     if set(destinations) == set(API_DESTINATIONS) and not frozen_context:
         context["status_post_continuations"] = continuations
@@ -1482,7 +1485,8 @@ def _expected(store, key: str, output_dir: str, part: int = 0) -> tuple[dict, di
                                  chart_credit=bool(context.get("chart_credit")),
                                  complete_levels=context.get("status_post_chart_policy") == "CC459_TRADINGVIEW")
     return row, _part_payloads(destination_payloads(row, card_id=card_id,
-                              chart_credit=bool(context.get("chart_credit"))), part)
+                              chart_credit=bool(context.get("chart_credit"))), part,
+                              repeat_media=bool(row.get("cc603_contract")))
 
 
 def validate_status_post_plan(store, work_item_id: str, plan: Mapping[str, Any]) -> dict:
