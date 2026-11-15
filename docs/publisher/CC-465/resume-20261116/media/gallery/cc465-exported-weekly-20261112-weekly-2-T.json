@@ -1,0 +1,1757 @@
+{
+  "asset_id": "cc465-2f495d868b6c60fed3eff7b5",
+  "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-465\\resume-20261116\\media\\gallery\\cc465-exported-weekly-20261112-weekly-2-T.png",
+  "sha256": "2f495d868b6c60fed3eff7b536df1ab5dec38b20ae12c0b7b51bc7864d207796",
+  "width": 1080,
+  "height": 1350,
+  "mime_type": "image/png",
+  "alt_text": "Weekly calls and their results in R.",
+  "modality": "source_bound_data_card",
+  "credit": "Capital Chronicle",
+  "rights_basis": "Capital Chronicle's own source-bound analysis.",
+  "image_template": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "template": "weekly",
+    "master": "T",
+    "image_number": 1,
+    "page": 1,
+    "input": {
+      "schema": "image_input_v1",
+      "post_id": "cc465-exported-weekly-20261112",
+      "template": "weekly",
+      "week": {
+        "start": "6 Nov",
+        "end": "12 Nov",
+        "calls_closed": 6,
+        "hit_rate_pct": 16.7,
+        "total_r": -3.495787166422587,
+        "avg_r": -0.5826311944037644,
+        "rows": [
+          {
+            "market": "USOIL",
+            "direction": "SHORT",
+            "horizon_label": "Short-term",
+            "main_probability_pct": 50.0,
+            "outcome_label": "Stopped at invalidation",
+            "r": -0.9358919260618547
+          },
+          {
+            "market": "USOIL",
+            "direction": "SHORT",
+            "horizon_label": "Short-term",
+            "main_probability_pct": 55.0,
+            "outcome_label": "Stopped at invalidation",
+            "r": -0.8591438749018897
+          },
+          {
+            "market": "EURUSD",
+            "direction": "LONG",
+            "horizon_label": "Short-term",
+            "main_probability_pct": null,
+            "outcome_label": "Stopped at invalidation",
+            "r": -0.8455882352941176
+          },
+          {
+            "market": "XAUUSD",
+            "direction": "LONG",
+            "horizon_label": "Mid-term",
+            "main_probability_pct": 55.0,
+            "outcome_label": "Stopped at invalidation",
+            "r": -0.8532701019252548
+          },
+          {
+            "market": "XAUUSD",
+            "direction": "SHORT",
+            "horizon_label": "Short-term",
+            "main_probability_pct": null,
+            "outcome_label": "Stopped at invalidation",
+            "r": -0.9419851941380873
+          },
+          {
+            "market": "EURUSD",
+            "direction": "SHORT",
+            "horizon_label": "Short-term",
+            "main_probability_pct": 60.0,
+            "outcome_label": "Time exit",
+            "r": 0.9400921658986175
+          }
+        ],
+        "wrong_note": ""
+      },
+      "source_binding": {
+        "input_sha256": "e635dc58a5d69c6a42e5d17636600c69affdf162ea46b3b216f664a7bf04e648",
+        "source_sha256": "9cd35457db10012727e4a4848f03b02a9dd61c2f33633e00532d4b929aaae8f5",
+        "record": {
+          "plans": [
+            {
+              "analysis_result_hash": "cd34663983b7d7cb247d5d1f642ee06024eeda7c5fca47b8fdb93e2055bbcab5",
+              "asset_id": "USOIL",
+              "cancel_conditions": [],
+              "cancel_kind": null,
+              "cancel_level": null,
+              "check_age_seconds": 25.200184,
+              "checked_at_utc": "2026-11-15T22:55:20.052068Z",
+              "closure": {
+                "closed_at_utc": "2026-11-12T08:29:02.578000Z",
+                "known_at_utc": "2026-11-12T08:29:18.929128Z",
+                "reason": "BROKER_SIDE_SL_TP_OR_ALREADY_CLOSED_RECONCILED",
+                "source_hash": "7bb3a4ca753317bbb7b489df2c24bcad7846f0868875296b2aa46d098d8da15b"
+              },
+              "conditions": [],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:request-e606528282bc8943:USOIL",
+              "direction": "BEARISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 85.45,
+                  "zone_low": 85.15
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-13T12:00:00Z",
+              "entry_geometry": [],
+              "entry_mode": "TOUCH",
+              "expires_at_utc": "2026-11-13T12:00:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-13T13:15:00Z",
+                "missing_reasons": [],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": 42,
+                "probability_touch_pct": 50,
+                "probability_up_pct": 42,
+                "reference_at_utc": "2026-11-12T05:19:37Z",
+                "reference_price": 84.638
+              },
+              "horizon_lane": "SHORT",
+              "horizon_lane_first_cause": null,
+              "invalidation_conditions": [
+                {
+                  "field": "close",
+                  "operator": "GT",
+                  "threshold": 86.45
+                }
+              ],
+              "kind": "WATCH",
+              "last_price": 87.237,
+              "last_price_at_utc": "2026-11-12T18:08:37.783850Z",
+              "last_price_first_cause": null,
+              "last_quote": {
+                "instrument": "USOIL",
+                "known_at_utc": "2026-11-12T18:08:37.783850Z",
+                "price": 87.237,
+                "price_basis": "MID",
+                "quoted_at_utc": "2026-11-12T18:08:37.783850Z",
+                "source_hash": "78d4dc3d6df099fe4f3743dae9ea49e0ca0655eae4286ffe57081f7fcb1b73cd"
+              },
+              "not_before_utc": "2026-11-12T06:30:00Z",
+              "outcome": {
+                "first_cause": null,
+                "outcome_id": "outcome_88dfe6385cc54f4b5bc373eff55ff098",
+                "public_call_id": "call_016296cc66001abd5742dddb",
+                "result": "STOPPED",
+                "result_r": -0.9358919260618547,
+                "result_r_basis": "NET_DEAL_CASH_OVER_FROZEN_INITIAL_RISK",
+                "result_r_first_cause": null,
+                "result_r_source_hash": "279d5c9b36f5b057315e9a99fd5e3c904874be75d905374a4a595ab7fcc54a9b",
+                "score": {
+                  "asset_id": "USOIL",
+                  "content_hash": "57461fd6e80beb9603f72b1f765d242fbd9d9238298de46d0cdbf49b31f85dca",
+                  "corrects_outcome_id": null,
+                  "decision_record_id": "decision:request-e606528282bc8943:USOIL",
+                  "direction": "BEARISH",
+                  "frozen_at_utc": "2026-11-12T06:16:08.280883Z",
+                  "horizon_end_utc": "2026-11-13T13:15:00Z",
+                  "outcome_id": "outcome_88dfe6385cc54f4b5bc373eff55ff098",
+                  "plan_id": "plan_36f7532de32e34c1ce6455b3",
+                  "public_call_id": "call_016296cc66001abd5742dddb",
+                  "resolved_at_utc": "2026-11-12T08:29:02.578000Z",
+                  "result": "STOPPED",
+                  "score_basis": "BROKER_STOP_LOSS",
+                  "scored_at_utc": "2026-11-12T08:30:12.062741Z",
+                  "source_hash": "5677d87d910fd9077cc22428b7c5884b4dbefd0ea017deede3f5f3db2d7360e4",
+                  "source_plan_hash": "b2867dbf8401f9d0418a95f28a6ae9b89022af5fc139405d7ec66729ccfe3393",
+                  "triggered_at_utc": "2026-11-12T06:34:01.188000Z"
+                },
+                "state": "SCORED"
+              },
+              "plan_id": "plan_36f7532de32e34c1ce6455b3",
+              "plan_key": "USOIL:SHORT",
+              "position_horizon_lane": "SHORT",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": "2026-12",
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "NYMEX",
+                "invalidation_level": null,
+                "kind": "FUT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Micro WTI crude oil",
+                "symbol": "MCL",
+                "target_first_cause": "TARGET_NOT_RECORDED",
+                "target_level": null,
+                "tick_size": null,
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-12T06:17:26.006816Z",
+              "registration_hash": "734df8bd2f40cfc2da12d3c0f43e3ba8656516ed46c56bf47f39953b7dfa688d",
+              "review_at_utc": "2026-11-13T12:00:00Z",
+              "run_id": "request-e606528282bc8943",
+              "scenario_analysis": {
+                "acceptance": "yes, to the downside - the 11 Nov spike to 87.613 was fully reversed, the Mecca missile interception (context) drew no bid, and Asia made a lower low 84.222.",
+                "base_case": {
+                  "market_move": "WTI trades at or below lower levels before it trades at or above 86.45 by 13 Nov 13:15Z.",
+                  "probability_pct": 50.0
+                },
+                "confirmations": "(1) lower highs since 87.613; (2) no bid on the Mecca headline; (3) light speculative length.",
+                "driver": "MIXED to the dollar (2/5); the supply and risk-premium channel is oil's own.",
+                "field_first_causes": {
+                  "acceptance": null,
+                  "confirmations": null,
+                  "driver": null,
+                  "invalidation_reason": null,
+                  "invalidation_text": null,
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": null,
+                  "priced": null,
+                  "why_no_open": null,
+                  "zone_reason": null
+                },
+                "horizon_end_utc": "2026-11-13T13:15:00Z",
+                "invalidation_reason": "86.45 clears the 11 Nov 18:45Z high 86.371.",
+                "invalidation_text": "an M15 close above 86.45, or a confirmed physical supply disruption.",
+                "main_alternative": {
+                  "market_move": "a risk-premium rebuild or oversold reversion lifts WTI through 86.45 before it trades at lower levels.",
+                  "probability_pct": 35.0
+                },
+                "mechanism": "oil's own supply balance (context: OPEC+ October output +2.04 mb/d, an API build of about 9 mb, de-escalation hopes) in a TREND DOWN regime (EVENT-PENDING) at 0.08 of 83.051-104.037, with lower highs 87.613, 86.371, 85.518 and 85.138.",
+                "missing_fields": [],
+                "opposite_mechanism": "a Hormuz or Houthi risk-premium rebuild, or oversold reversion at the 20-day low after -16.5%; crowd trade is short oil, wrong on a confirmed disruption.",
+                "positioning": "COT 3 Nov speculators net long 80,289 (z -1.38), light; short stops above 85.52 and 86.37.",
+                "priced": "10-day -16.5%, close -2.56 ATR under SMA20 95.46, +0.55 ATR over the 20-day low 83.051; implied move not observed.",
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "b2867dbf8401f9d0418a95f28a6ae9b89022af5fc139405d7ec66729ccfe3393",
+                "source_result_hash": "cd34663983b7d7cb247d5d1f642ee06024eeda7c5fca47b8fdb93e2055bbcab5",
+                "why_no_open": "the capture 84.638 sits 0.5-0.8 under the zone and 1.6 over the twice-held floor.",
+                "zone_reason": "the sell zone 85.15-85.45 sits at the Asia cap 85.119-85.138 and under the 11 Nov late cap 85.449-85.518."
+              },
+              "scenario_first_cause": null,
+              "status": "CLOSED",
+              "status_at_utc": "2026-11-12T08:29:02.578000Z",
+              "status_label": "Closed",
+              "target_first_cause": null,
+              "target_level": 83.2,
+              "target_source_hash": "734df8bd2f40cfc2da12d3c0f43e3ba8656516ed46c56bf47f39953b7dfa688d",
+              "target_tick_size": 0.001,
+              "trigger_hash": "c0f078aebdfb0c8f2abb7452e7967cfddf4f020e3bee5b69b58ba768a3d239c1",
+              "zone": {
+                "maximum": 85.45,
+                "minimum": 85.15
+              }
+            },
+            {
+              "analysis_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+              "asset_id": "USOIL",
+              "cancel_conditions": [],
+              "cancel_kind": "RUNAWAY_BEFORE_PULLBACK",
+              "cancel_level": null,
+              "check_age_seconds": 24.283123,
+              "checked_at_utc": "2026-11-15T22:55:20.052068Z",
+              "closure": {
+                "closed_at_utc": "2026-11-11T10:09:16.180000Z",
+                "known_at_utc": "2026-11-11T10:10:14.197434Z",
+                "reason": "BROKER_SIDE_SL_TP_OR_ALREADY_CLOSED_RECONCILED",
+                "source_hash": "f3f43a77507c26a39b1c3ef25a7e3e36317b5e8056ffa2ef3adc6dd7ba076878"
+              },
+              "conditions": [],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:request-9f7c39e808aef09c:USOIL",
+              "direction": "BEARISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 85.5,
+                  "zone_low": 85.25
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-11T20:00:00Z",
+              "entry_geometry": [],
+              "entry_mode": "TOUCH",
+              "expires_at_utc": "2026-11-11T20:00:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "missing_reasons": [],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": 45,
+                "probability_touch_pct": 55,
+                "probability_up_pct": 40,
+                "reference_at_utc": "2026-11-10T15:05:02Z",
+                "reference_price": 84.358
+              },
+              "horizon_lane": "SHORT",
+              "horizon_lane_first_cause": null,
+              "invalidation_conditions": [
+                {
+                  "field": "high",
+                  "operator": "GTE",
+                  "threshold": 86.15
+                }
+              ],
+              "kind": "WATCH",
+              "last_price": 87.237,
+              "last_price_at_utc": "2026-11-12T18:08:37.783850Z",
+              "last_price_first_cause": null,
+              "last_quote": {
+                "instrument": "USOIL",
+                "known_at_utc": "2026-11-12T18:08:37.783850Z",
+                "price": 87.237,
+                "price_basis": "MID",
+                "quoted_at_utc": "2026-11-12T18:08:37.783850Z",
+                "source_hash": "78d4dc3d6df099fe4f3743dae9ea49e0ca0655eae4286ffe57081f7fcb1b73cd"
+              },
+              "not_before_utc": "2026-11-10T16:30:00Z",
+              "outcome": {
+                "first_cause": null,
+                "outcome_id": "outcome_b4e90d3d5d45934652391c7d8773d1b2",
+                "public_call_id": "call_cb3fd1c57eba290b852911f2",
+                "result": "STOPPED",
+                "result_r": -0.8591438749018897,
+                "result_r_basis": "NET_DEAL_CASH_OVER_FROZEN_INITIAL_RISK",
+                "result_r_first_cause": null,
+                "result_r_source_hash": "e5ee85d6a1c587594c7727692b0890d5c22828a804e0eba9d0280e58e8706bb3",
+                "score": {
+                  "asset_id": "USOIL",
+                  "content_hash": "19c444c68c82b9e69345b7eadb49a89766cd4c1e8f72bfd120cc83176e6473d5",
+                  "corrects_outcome_id": null,
+                  "decision_record_id": "decision:request-9f7c39e808aef09c:USOIL",
+                  "direction": "BEARISH",
+                  "frozen_at_utc": "2026-11-10T16:18:07.013984Z",
+                  "horizon_end_utc": "2026-11-13T08:00:00Z",
+                  "outcome_id": "outcome_b4e90d3d5d45934652391c7d8773d1b2",
+                  "plan_id": "plan_5a5b965487f7fe4318d12140",
+                  "public_call_id": "call_cb3fd1c57eba290b852911f2",
+                  "resolved_at_utc": "2026-11-11T10:09:16.180000Z",
+                  "result": "STOPPED",
+                  "score_basis": "BROKER_STOP_LOSS",
+                  "scored_at_utc": "2026-11-11T10:11:10.476241Z",
+                  "source_hash": "7277fd7852fe9231d3956487762f6f46ec0c0c70b3728965dcd8c2dd4c117e4e",
+                  "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+                  "triggered_at_utc": "2026-11-10T16:38:02.902000Z"
+                },
+                "state": "SCORED"
+              },
+              "plan_id": "plan_5a5b965487f7fe4318d12140",
+              "plan_key": "USOIL:SHORT",
+              "position_horizon_lane": "SHORT",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": "2026-12",
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "NYMEX",
+                "invalidation_level": null,
+                "kind": "FUT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Micro WTI crude oil",
+                "symbol": "MCL",
+                "target_first_cause": "TARGET_NOT_RECORDED",
+                "target_level": null,
+                "tick_size": null,
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-10T16:18:25.849991Z",
+              "registration_hash": "10f93e134fa0b9dcdccae9242e6cdffcd8d4aa669c0c3ae87f7bd06c4ba0c267",
+              "review_at_utc": "2026-11-11T12:00:00Z",
+              "run_id": "request-9f7c39e808aef09c",
+              "scenario_analysis": {
+                "acceptance": "not a CPI reaction trade; the oil-specific decline held through the release (about 84.59 near 12:00Z, CNBC context; 84.358 at 15:05Z), with the dossier capture (run started 09:30:56Z) at 83.872, already under the 9 Nov low 84.237.",
+                "base_case": {
+                  "market_move": "WTI's own supply-and-peace liquidation continues, a bounce fails under the broken 4-5 Nov lows 86.02-86.59, and WTI falls back to about lower levels, just above the 31 Aug low 83.364, before 13 Nov 08:00Z.",
+                  "probability_pct": 55.0
+                },
+                "confirmations": "(1) the captured -1.39% against the USD's sign; (2) the break of the 9 Nov D1 low 84.237 (83.872 at the dossier capture); (3) -15.40% over ten sessions with no D1 close back above 86.02 since 9 Nov.",
+                "driver": "CLEAR for oil's own channel; no measured CPI channel; 20-day correlation -0.55 to US500 and -0.05 to US10Y changes.",
+                "field_first_causes": {
+                  "acceptance": null,
+                  "confirmations": null,
+                  "driver": null,
+                  "invalidation_reason": null,
+                  "invalidation_text": null,
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": null,
+                  "priced": null,
+                  "why_no_open": null,
+                  "zone_reason": null
+                },
+                "horizon_end_utc": "2026-11-13T08:00:00Z",
+                "invalidation_reason": "86.15 sits above the broken 5 Nov D1 low 86.02 (the 4 Nov low 86.59 is next); a trade there means the bounce has reclaimed broken support.",
+                "invalidation_text": "any trade above 86.15; the thesis is also broken by an M15 close above 86.02, a confirmed Saudi export outage from the pipeline attack, or a collapse of the Iran talks.",
+                "main_alternative": {
+                  "market_move": "a supply-shock squeeze from the stretched low, such as damage from the Houthi strike on the Saudi East-West pipeline, lifts WTI above 86.15 before 13 Nov 08:00Z.",
+                  "probability_pct": 35.0
+                },
+                "mechanism": "oil's own driver, not CPI: WTI fell 1.39% today while the USD rose, against its +0.30 20-day DXY correlation (DXY beta +3.05), and fell 4.42% on the USD-down 9 Nov; the stated cause, the war and supply premium unwinding (Brent under 90, remarks that the Iran war could end 'fairly soon', Hormuz flows largely recovered; CNBC and ING, context), has no admitted row; the October CPI energy component (+0.7% m/m, gasoline +1.0%) reflects past oil at 98-104.",
+                "missing_fields": [],
+                "opposite_mechanism": "a squeeze from the stretched low on a supply headline (the Houthi strike on Saudi East-West pipeline pumping stations, 14:12Z, context) or a reversal of the peace narrative inside the horizon.",
+                "positioning": "WTI speculators net long 80,289 (324,523 long vs 244,234 short) with 594,556 spreading of 1,908,732 open interest (COT 3 Nov at a 95.77 close; today's length not observed after a further -12%); flow levels are the broken 9 Nov low 84.237 and the 31 Aug low 83.364. Crowd trade: selling oil after -15% in ten days, wrong on a supply-shock squeeze through 86.02-86.59.",
+                "priced": "prior_pricing AMBIGUOUS; 10-day -15.40%, 5-day -2.62 ATR (3 Nov close 95.77 to 9 Nov 85.547; ATR 3.896); the capture sits -3.17 ATR under the 20-day mean 96.72, -2.57 under the 50-day 94.36 and -1.12 under the 200-day 88.74; 20-day z -2.09; 20-day range 84.237-104.037; ATR percentile 55.8; the dossier's CPI event matrix had no WTI cell; implied move not observed.",
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "d005727688e88dab99ffea92b0f3b52511e2075087d0dcba982989237c36aa2b",
+                "source_result_hash": "577e68ebadf298ef096f69cc5640af7d817124b34454cacf6463ab17874045ec",
+                "why_no_open": "the capture 84.358 sits 0.89-1.14 under the reviewed selling zone at a -2.09 z-score; selling there sells an exhausted low (the Gemini 06:53Z concern).",
+                "zone_reason": "85.25-85.50 retests the 1 Sep D1 low 85.271, the 05:00Z H1 high 85.353 (06:52Z ledger) and the 9 Nov close 85.547, under the broken 4-5 Nov lows."
+              },
+              "scenario_first_cause": null,
+              "status": "CLOSED",
+              "status_at_utc": "2026-11-11T10:09:16.180000Z",
+              "status_label": "Closed",
+              "target_first_cause": null,
+              "target_level": 83.45,
+              "target_source_hash": "10f93e134fa0b9dcdccae9242e6cdffcd8d4aa669c0c3ae87f7bd06c4ba0c267",
+              "target_tick_size": 0.001,
+              "trigger_hash": "5357d20c4d847fd374e64ec77e0379b9ef1457562d60542d6576c823577e746d",
+              "zone": {
+                "maximum": 85.5,
+                "minimum": 85.25
+              }
+            },
+            {
+              "analysis_result_hash": "4629c60ed1848b17eeb37212d86e13f215b8844cc9675e8ecf526cfef54d8c33",
+              "asset_id": "EURUSD",
+              "cancel_conditions": [],
+              "cancel_kind": null,
+              "cancel_level": null,
+              "check_age_seconds": 22.518843,
+              "checked_at_utc": "2026-11-15T22:55:20.052068Z",
+              "closure": {
+                "closed_at_utc": "2026-11-10T13:30:01.589000Z",
+                "known_at_utc": "2026-11-10T13:30:22.061357Z",
+                "reason": "BROKER_SIDE_SL_TP_OR_ALREADY_CLOSED_RECONCILED",
+                "source_hash": "7272008606a1b6dca8d758d133769f925eacddc1b433d1f36eee01f9a1cae5f9"
+              },
+              "conditions": [],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:shock-20261110T063042Z:EURUSD",
+              "direction": "BULLISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 1.12215,
+                  "zone_low": 1.12175
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-10T10:30:00Z",
+              "entry_geometry": [],
+              "entry_mode": "TOUCH",
+              "expires_at_utc": "2026-11-10T10:30:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-12T20:00:00Z",
+                "missing_reasons": [
+                  "TYPED_PROBABILITIES_NOT_RECORDED"
+                ],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": null,
+                "probability_touch_pct": null,
+                "probability_up_pct": null,
+                "reference_at_utc": "2026-11-10T06:31:51Z",
+                "reference_price": 1.12276
+              },
+              "horizon_lane": "SHORT",
+              "horizon_lane_first_cause": null,
+              "invalidation_conditions": [
+                {
+                  "field": "low",
+                  "operator": "LTE",
+                  "threshold": 1.1199
+                }
+              ],
+              "kind": "WATCH",
+              "last_price": 1.10795,
+              "last_price_at_utc": "2026-11-12T06:32:36.924487Z",
+              "last_price_first_cause": null,
+              "last_quote": {
+                "instrument": "EURUSD",
+                "known_at_utc": "2026-11-12T06:32:36.924487Z",
+                "price": 1.10795,
+                "price_basis": "MID",
+                "quoted_at_utc": "2026-11-12T06:32:36.924487Z",
+                "source_hash": "6238b66051fb63ecb1347993913f55b2dc6f65e3c05f598c3cfaa2e2b16ab5b2"
+              },
+              "not_before_utc": "2026-11-10T07:00:00Z",
+              "outcome": {
+                "first_cause": null,
+                "outcome_id": "outcome_5d144bd437d79aff7ee8c0a6c863ae95",
+                "public_call_id": "call_1e13cbf65554f7b0a4786fda",
+                "result": "STOPPED",
+                "result_r": -0.8455882352941176,
+                "result_r_basis": "NET_DEAL_CASH_OVER_FROZEN_INITIAL_RISK",
+                "result_r_first_cause": null,
+                "result_r_source_hash": "4b8165c0c646f5d0a1ffe17703a35dc6ddd39edf2346ec3f83e7b2d8970149ef",
+                "score": {
+                  "asset_id": "EURUSD",
+                  "content_hash": "df7982daad79741cf648c2fb315455c0dffdad480caeed62d7f743590f05f93d",
+                  "corrects_outcome_id": null,
+                  "decision_record_id": "decision:shock-20261110T063042Z:EURUSD",
+                  "direction": "BULLISH",
+                  "frozen_at_utc": "2026-11-10T06:52:02.810088Z",
+                  "horizon_end_utc": "2026-11-12T20:00:00Z",
+                  "outcome_id": "outcome_5d144bd437d79aff7ee8c0a6c863ae95",
+                  "plan_id": "plan_fd2cd4630839022f15ebca85",
+                  "public_call_id": "call_1e13cbf65554f7b0a4786fda",
+                  "resolved_at_utc": "2026-11-10T13:30:01.589000Z",
+                  "result": "STOPPED",
+                  "score_basis": "BROKER_STOP_LOSS",
+                  "scored_at_utc": "2026-11-10T13:31:06.891137Z",
+                  "source_hash": "03ebe5690950ff3b55801d4eb626eb12670028fceb1958de7528c6524b55384c",
+                  "source_plan_hash": "17972524ada0b24d00df760d1d92364a117970a4f2b76582cd54dfc3afb85934",
+                  "triggered_at_utc": "2026-11-10T10:11:03.766000Z"
+                },
+                "state": "SCORED"
+              },
+              "plan_id": "plan_fd2cd4630839022f15ebca85",
+              "plan_key": "EURUSD:SHORT",
+              "position_horizon_lane": "SHORT",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": null,
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "IDEALPRO",
+                "invalidation_level": null,
+                "kind": "SPOT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Euro",
+                "symbol": "EUR.USD",
+                "target_first_cause": "TARGET_NOT_RECORDED",
+                "target_level": null,
+                "tick_size": null,
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-10T06:52:30.899358Z",
+              "registration_hash": "76ee7719f1dc8c0bb304ea5615f71234d819486a7b83241781e4662d8f3222c6",
+              "review_at_utc": "2026-11-10T10:30:00Z",
+              "run_id": "shock-20261110T063042Z",
+              "scenario_analysis": {
+                "acceptance": null,
+                "base_case": {
+                  "market_move": null,
+                  "probability_pct": null
+                },
+                "confirmations": null,
+                "driver": null,
+                "field_first_causes": {
+                  "acceptance": "NOT_WRITTEN",
+                  "confirmations": "NOT_WRITTEN",
+                  "driver": "NOT_WRITTEN",
+                  "invalidation_reason": "NOT_WRITTEN",
+                  "invalidation_text": "NOT_WRITTEN",
+                  "mechanism": "NOT_WRITTEN",
+                  "opposite_mechanism": null,
+                  "positioning": "NOT_WRITTEN",
+                  "priced": "NOT_WRITTEN",
+                  "why_no_open": "NOT_WRITTEN",
+                  "zone_reason": "NOT_WRITTEN"
+                },
+                "horizon_end_utc": "2026-11-12T20:00:00Z",
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "main_alternative": {
+                  "market_move": "A hot US CPI at 13:30Z lifts USD and fails the breakout.",
+                  "probability_pct": null
+                },
+                "mechanism": null,
+                "missing_fields": [
+                  "base_case.probability_pct",
+                  "base_case.market_move",
+                  "main_alternative.probability_pct"
+                ],
+                "opposite_mechanism": "A hot US CPI at 13:30Z lifts USD and fails the breakout.",
+                "positioning": null,
+                "priced": null,
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "17972524ada0b24d00df760d1d92364a117970a4f2b76582cd54dfc3afb85934",
+                "source_result_hash": "4629c60ed1848b17eeb37212d86e13f215b8844cc9675e8ecf526cfef54d8c33",
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "scenario_first_cause": null,
+              "status": "CLOSED",
+              "status_at_utc": "2026-11-10T13:30:01.589000Z",
+              "status_label": "Closed",
+              "target_first_cause": null,
+              "target_level": 1.1265,
+              "target_source_hash": "76ee7719f1dc8c0bb304ea5615f71234d819486a7b83241781e4662d8f3222c6",
+              "target_tick_size": 1e-05,
+              "trigger_hash": "534250b3a00b6aa01a2b8ef08b2a4df1ddf542594d6372436a139cb2da8ae651",
+              "zone": {
+                "maximum": 1.12215,
+                "minimum": 1.12175
+              }
+            },
+            {
+              "analysis_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+              "asset_id": "XAUUSD",
+              "cancel_conditions": [],
+              "cancel_kind": null,
+              "cancel_level": null,
+              "check_age_seconds": 25.844065,
+              "checked_at_utc": "2026-11-15T22:55:20.052068Z",
+              "closure": {
+                "closed_at_utc": "2026-11-10T10:20:05.506000Z",
+                "known_at_utc": "2026-11-10T10:50:18.560699Z",
+                "reason": "BROKER_SIDE_SL_TP_OR_ALREADY_CLOSED_RECONCILED",
+                "source_hash": "0142beb7f169a65ecfe2a9190c6bb690c178eebce3bec2c1c523b4c4931fe676"
+              },
+              "conditions": [],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:request-caddf8cbb6c3311b:XAUUSD",
+              "direction": "BULLISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 4104.0,
+                  "zone_low": 4100.0
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-10T13:15:00Z",
+              "entry_geometry": [],
+              "entry_mode": "TOUCH",
+              "expires_at_utc": "2026-11-10T13:15:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-16T21:00:00Z",
+                "missing_reasons": [
+                  "TYPED_PROBABILITIES_NOT_RECORDED"
+                ],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": null,
+                "probability_touch_pct": null,
+                "probability_up_pct": null,
+                "reference_at_utc": "2026-11-10T05:11:08Z",
+                "reference_price": 4114.005
+              },
+              "horizon_lane": "MID",
+              "horizon_lane_first_cause": null,
+              "invalidation_conditions": [
+                {
+                  "field": "low",
+                  "operator": "LTE",
+                  "threshold": 4080.0
+                }
+              ],
+              "kind": "WATCH",
+              "last_price": 3879.657,
+              "last_price_at_utc": "2026-11-12T18:07:38.426154Z",
+              "last_price_first_cause": null,
+              "last_quote": {
+                "instrument": "XAUUSD",
+                "known_at_utc": "2026-11-12T18:07:38.426154Z",
+                "price": 3879.657,
+                "price_basis": "MID",
+                "quoted_at_utc": "2026-11-12T18:07:38.426154Z",
+                "source_hash": "9ce43d68bfb4f3d93eefd7406e78f01dfa6b098f91a1cc7a97865d3b55c9374b"
+              },
+              "not_before_utc": "2026-11-10T06:30:00Z",
+              "outcome": {
+                "first_cause": null,
+                "outcome_id": "outcome_bd6a2fbc1c270ece6bbea043961b496f",
+                "public_call_id": "call_bd31561cf21b2c11af279f06",
+                "result": "STOPPED",
+                "result_r": -0.8532701019252548,
+                "result_r_basis": "NET_DEAL_CASH_OVER_FROZEN_INITIAL_RISK",
+                "result_r_first_cause": null,
+                "result_r_source_hash": "f39be305a71f96cd862b90922f13df8d8c6071ce6872b419f243c569b7f1cf0b",
+                "score": {
+                  "asset_id": "XAUUSD",
+                  "content_hash": "feaa374afccac1cf7bf68065e1084cb4ab0b757b3de1566fcde7685faca5a590",
+                  "corrects_outcome_id": null,
+                  "decision_record_id": "decision:request-caddf8cbb6c3311b:XAUUSD",
+                  "direction": "BULLISH",
+                  "frozen_at_utc": "2026-11-10T06:23:34.112918Z",
+                  "horizon_end_utc": "2026-11-16T21:00:00Z",
+                  "outcome_id": "outcome_bd6a2fbc1c270ece6bbea043961b496f",
+                  "plan_id": "plan_795515a9284ce4344425e7f5",
+                  "public_call_id": "call_bd31561cf21b2c11af279f06",
+                  "resolved_at_utc": "2026-11-10T10:20:05.506000Z",
+                  "result": "STOPPED",
+                  "score_basis": "BROKER_STOP_LOSS",
+                  "scored_at_utc": "2026-11-10T10:51:08.701630Z",
+                  "source_hash": "26d445c63062de0c1b850e6d4130b6343d2f4dab4c049a918697fc2992514cf3",
+                  "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+                  "triggered_at_utc": "2026-11-10T09:00:11.992000Z"
+                },
+                "state": "SCORED"
+              },
+              "plan_id": "plan_795515a9284ce4344425e7f5",
+              "plan_key": "XAUUSD:MID",
+              "position_horizon_lane": "MID",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": "2026-12",
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "COMEX",
+                "invalidation_level": null,
+                "kind": "FUT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Micro gold",
+                "symbol": "MGC",
+                "target_first_cause": "TARGET_NOT_RECORDED",
+                "target_level": null,
+                "tick_size": null,
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-10T06:23:56.897696Z",
+              "registration_hash": "459d855932f166b9eb2231f4df88d91a99dae445c663a9ea634aeb2213971191",
+              "review_at_utc": "2026-11-10T13:00:00Z",
+              "run_id": "request-caddf8cbb6c3311b",
+              "scenario_analysis": {
+                "acceptance": "the 4108.13 Asia low held above the 4100.46 afternoon floor; accepted, not confirmed; CPI reaction not observed.",
+                "base_case": {
+                  "market_move": "gold holds the 4084-4100 floor and trades back to the higher levels-4149 triple top, or breaks it toward the mid-October highs, within five sessions.",
+                  "probability_pct": 55.0
+                },
+                "confirmations": "(1) 9 Nov co-movement of gold, DXY and oil in one bar; (2) dips bought: the 6 Nov NFP session closed above its pre-release level and the 9 Nov 00:30Z metals spike; (3) the 4100.5 floor held twice.",
+                "driver": "MIXED today (gold -0.55 percent vs DXY -0.05 percent, 23:00Z-04:45Z), CLEAR on 9 Nov.",
+                "field_first_causes": {
+                  "acceptance": null,
+                  "confirmations": null,
+                  "driver": null,
+                  "invalidation_reason": null,
+                  "invalidation_text": null,
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": null,
+                  "priced": null,
+                  "why_no_open": null,
+                  "zone_reason": null
+                },
+                "horizon_end_utc": "2026-11-16T21:00:00Z",
+                "invalidation_reason": "4084.40 (9 Nov 07:00Z H1 low) is the last higher low of the rally; 4133.33 is the breakout bar's low.",
+                "invalidation_text": "or a hot CPI that holds DXY above 101.9 while gold trades under 4084.4.",
+                "main_alternative": {
+                  "market_move": "a hot CPI firms the December hike, DXY reclaims 101.9-102.0 and gold falls back to 4054-4084.",
+                  "probability_pct": 35.0
+                },
+                "mechanism": "the US-leg USD-down impulse plus a lower oil-inflation leg; in the 9 Nov 19:30Z M15 bar oil fell 86.03 to 84.24, DXY 101.778 to 101.641 and gold rose 4110.40 to 4139.53.",
+                "missing_fields": [],
+                "opposite_mechanism": "a hot CPI firms the December hike and lifts real yields, crowded length liquidates under 4084.4, and de-escalation removes the haven bid.; buy the breakout into CPI; it is wrong on a hot print.",
+                "positioning": "CFTC non-commercial net long 179,548 (report 3 Nov, before the rally); ETF tonnes flat 2-6 Nov (GLD 1040.51 to 1041.37, IAU 461.62 to 460.81).",
+                "priced": "5-day +5.1 percent (about 2.4 D1 ATR), about 52 over the 20-day close mean 4061.75 and about 77 under the 50-day; implied move not observed.",
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "32e3e676c467f77e50addc269df56d193c14c69a3f4b935287af88204bbd73f4",
+                "source_result_hash": "578d2bc3260e3cb47d51e5a593506dffb3277cf85e021235282739bfbb535d0a",
+                "why_no_open": "4114 sits mid-range; no in-bounds entry clears 1.25 against structural stops.",
+                "zone_reason": "Buy Limit just above the 9 Nov 17:00-19:00Z H1 lows 4100.46-4101.15; Buy Stop beyond the four-touch 4146.73-4148.76 resistance (also the 5 Nov D1 high 4146.89)."
+              },
+              "scenario_first_cause": null,
+              "status": "CLOSED",
+              "status_at_utc": "2026-11-10T10:20:05.506000Z",
+              "status_label": "Closed",
+              "target_first_cause": null,
+              "target_level": 4146.0,
+              "target_source_hash": "459d855932f166b9eb2231f4df88d91a99dae445c663a9ea634aeb2213971191",
+              "target_tick_size": 0.001,
+              "trigger_hash": "00145127d070b40bc25dab52aa8cbdaa86cf50c830dfcf1cf8c0bafc5d55a263",
+              "zone": {
+                "maximum": 4104.0,
+                "minimum": 4100.0
+              }
+            },
+            {
+              "analysis_result_hash": "daf00053c7104ba104119e10b420e35d10fe7d0f9c2fed97b778fbe9f1c97bdd",
+              "asset_id": "XAUUSD",
+              "cancel_conditions": [],
+              "cancel_kind": null,
+              "cancel_level": null,
+              "check_age_seconds": 26.122769,
+              "checked_at_utc": "2026-11-15T22:55:20.052068Z",
+              "closure": {
+                "closed_at_utc": "2026-11-09T01:00:05.820000Z",
+                "known_at_utc": "2026-11-09T02:24:17.539315Z",
+                "reason": "BROKER_SIDE_SL_TP_OR_ALREADY_CLOSED_RECONCILED",
+                "source_hash": "78b8b0f214ebae18e4a820b65fe5100aada65a92d6add0574f924ca48bf4ce41"
+              },
+              "conditions": [],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:dossier-20261106T093133Z:XAUUSD",
+              "direction": "BEARISH",
+              "entries": [],
+              "entries_first_cause": "ENTRY_ORDER_KIND_NOT_RECORDED",
+              "entry_deadline_utc": "2026-11-06T15:00:00Z",
+              "entry_geometry": [],
+              "expires_at_utc": "2026-11-06T15:00:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-09T09:00:00Z",
+                "missing_reasons": [
+                  "TYPED_PROBABILITIES_NOT_RECORDED"
+                ],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": null,
+                "probability_touch_pct": null,
+                "probability_up_pct": null,
+                "reference_at_utc": "2026-11-06T09:31:43Z",
+                "reference_price": 4077.777
+              },
+              "horizon_lane": "SHORT",
+              "horizon_lane_first_cause": null,
+              "invalidation_conditions": [
+                {
+                  "field": "high",
+                  "operator": "GTE",
+                  "threshold": 4110
+                }
+              ],
+              "kind": "OPEN_ARM",
+              "last_price": 3879.657,
+              "last_price_at_utc": "2026-11-12T18:07:38.426154Z",
+              "last_price_first_cause": null,
+              "last_quote": {
+                "instrument": "XAUUSD",
+                "known_at_utc": "2026-11-12T18:07:38.426154Z",
+                "price": 3879.657,
+                "price_basis": "MID",
+                "quoted_at_utc": "2026-11-12T18:07:38.426154Z",
+                "source_hash": "9ce43d68bfb4f3d93eefd7406e78f01dfa6b098f91a1cc7a97865d3b55c9374b"
+              },
+              "not_before_utc": "2026-11-06T13:33:06.251626Z",
+              "outcome": {
+                "first_cause": null,
+                "outcome_id": "outcome_81b601c488019eb62aecbbcd96152433",
+                "public_call_id": "call_79298173614b3f79197dc943",
+                "result": "STOPPED",
+                "result_r": -0.9419851941380873,
+                "result_r_basis": "NET_DEAL_CASH_OVER_FROZEN_INITIAL_RISK",
+                "result_r_first_cause": null,
+                "result_r_source_hash": "36c33442767afd44ca4f15f6e3d125b81622c3be156b7d14e0c6bfa4759a8f23",
+                "score": {
+                  "asset_id": "XAUUSD",
+                  "content_hash": "21db193f246d7e7c43cb486c26b9fede18336611b89d705715bbb2f49519eade",
+                  "corrects_outcome_id": null,
+                  "decision_record_id": "decision:dossier-20261106T093133Z:XAUUSD",
+                  "direction": "BEARISH",
+                  "frozen_at_utc": "2026-11-06T10:03:17.220079Z",
+                  "horizon_end_utc": "2026-11-09T09:00:00Z",
+                  "outcome_id": "outcome_81b601c488019eb62aecbbcd96152433",
+                  "plan_id": "plan_f8af4bad6713a6184e7ef146",
+                  "public_call_id": "call_79298173614b3f79197dc943",
+                  "resolved_at_utc": "2026-11-09T01:00:05.820000Z",
+                  "result": "STOPPED",
+                  "score_basis": "BROKER_STOP_LOSS",
+                  "scored_at_utc": "2026-11-09T10:52:03.594981Z",
+                  "source_hash": "223824f154856aa8e5cce9121fdbde629194e29ff7f88c374e51c2ce53d76bef",
+                  "source_plan_hash": "db7a64e21bf6043c61b9ea75d300db0b72f11002d11ae735637548eb7982304a",
+                  "triggered_at_utc": "2026-11-06T13:33:46.032000Z"
+                },
+                "state": "SCORED"
+              },
+              "plan_id": "plan_f8af4bad6713a6184e7ef146",
+              "plan_key": "XAUUSD:SHORT",
+              "position_horizon_lane": "SHORT",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": "2026-12",
+                "direction": null,
+                "entries": [],
+                "exchange": "COMEX",
+                "invalidation_level": null,
+                "kind": "FUT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Micro gold",
+                "symbol": "MGC",
+                "target_first_cause": "TARGET_NOT_RECORDED",
+                "target_level": null,
+                "tick_size": null,
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-06T13:33:06.251626Z",
+              "registration_hash": "432d7582f8905a67b25dd970dbf925dbad62b1420f9fb67113cda6626fbd87ca",
+              "review_at_utc": null,
+              "run_id": "dossier-20261106T093133Z",
+              "scenario_analysis": {
+                "acceptance": null,
+                "base_case": {
+                  "market_move": null,
+                  "probability_pct": null
+                },
+                "confirmations": null,
+                "driver": null,
+                "field_first_causes": {
+                  "acceptance": "NOT_WRITTEN",
+                  "confirmations": "NOT_WRITTEN",
+                  "driver": "NOT_WRITTEN",
+                  "invalidation_reason": "NOT_WRITTEN",
+                  "invalidation_text": "NOT_WRITTEN",
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": "NOT_WRITTEN",
+                  "priced": "NOT_WRITTEN",
+                  "why_no_open": "NOT_WRITTEN",
+                  "zone_reason": "NOT_WRITTEN"
+                },
+                "horizon_end_utc": "2026-11-09T09:00:00Z",
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "main_alternative": {
+                  "market_move": "Post-midterm fiscal-risk or safe-haven demand, visible in the +127 move on 4 Nov, keeps gold bid regardless of the labor print; or a strong print read as growth-positive lifts risk assets, with gold's positive correlation to US500 cushioning it.",
+                  "probability_pct": null
+                },
+                "mechanism": "a hawkish labor surprise against a Fed that hiked to 3.75-4.00 percent on 16 Sep, with inflation called elevated, raises the expected hike path, the USD and real yields, which raises the opportunity cost of holding gold. The captured bars show gold moving with that USD leg on 22 Oct, 30 Oct and 4 Nov. The 27 Oct speculative long (+186,451 contracts) can add liquidation. The 5 Nov push to 4146.9 closed 61 lower at 4086.0, leaving room back to the 2-4 Nov base (4 Nov low 3919.9). Base case, conditional on STRONG: gold lower over the window, about 65 percent for direction. That is Primary's uncalibrated judgment, at the decision-70 floor; neither Critical nor this synthesis raised it, hence STARTER.",
+                "missing_fields": [
+                  "base_case.probability_pct",
+                  "base_case.market_move",
+                  "main_alternative.probability_pct"
+                ],
+                "opposite_mechanism": "Post-midterm fiscal-risk or safe-haven demand, visible in the +127 move on 4 Nov, keeps gold bid regardless of the labor print; or a strong print read as growth-positive lifts risk assets, with gold's positive correlation to US500 cushioning it.",
+                "positioning": null,
+                "priced": null,
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "db7a64e21bf6043c61b9ea75d300db0b72f11002d11ae735637548eb7982304a",
+                "source_result_hash": "daf00053c7104ba104119e10b420e35d10fe7d0f9c2fed97b778fbe9f1c97bdd",
+                "why_no_open": null,
+                "zone_reason": null
+              },
+              "scenario_first_cause": null,
+              "status": "CLOSED",
+              "status_at_utc": "2026-11-09T01:00:05.820000Z",
+              "status_label": "Closed",
+              "target_first_cause": "TARGET_TICK_NOT_RECORDED",
+              "target_level": 3925,
+              "target_source_hash": "432d7582f8905a67b25dd970dbf925dbad62b1420f9fb67113cda6626fbd87ca",
+              "target_tick_size": null,
+              "trigger_hash": null,
+              "zone": {
+                "maximum": 4085.1955,
+                "minimum": 4033.406
+              }
+            },
+            {
+              "analysis_result_hash": "d6c24e50fdc3c94991433538ed9d2eacace8f8474f2f221ec6845bbaeea6fcc5",
+              "asset_id": "EURUSD",
+              "cancel_conditions": [],
+              "cancel_kind": null,
+              "cancel_level": null,
+              "check_age_seconds": 22.770747,
+              "checked_at_utc": "2026-11-15T22:55:20.052068Z",
+              "closure": {
+                "closed_at_utc": "2026-11-06T13:17:15.917000Z",
+                "known_at_utc": "2026-11-06T13:17:17.888167Z",
+                "reason": "PRECOMMITTED_EXPIRY_OR_TIME_EXIT",
+                "source_hash": "4a4eb1bf449538369209d3ac86f8a625e411b7910d4f6c09a0dc871868335c8e"
+              },
+              "conditions": [],
+              "data_state": "AVAILABLE",
+              "decision_record_id": "decision:request-563c1412ec555cbb:EURUSD",
+              "direction": "BEARISH",
+              "entries": [
+                {
+                  "kind": "LIMIT",
+                  "zone_high": 1.1191,
+                  "zone_low": 1.1187
+                }
+              ],
+              "entries_first_cause": null,
+              "entry_deadline_utc": "2026-11-06T11:30:00Z",
+              "entry_geometry": [],
+              "entry_mode": "TOUCH",
+              "expires_at_utc": "2026-11-06T11:30:00Z",
+              "first_cause": null,
+              "forecast_probabilities": {
+                "horizon_end_utc": "2026-11-06T13:15:00Z",
+                "missing_reasons": [
+                  "TYPED_PROBABILITIES_NOT_RECORDED"
+                ],
+                "probability_basis": "UNCALIBRATED_HYBRID_JUDGMENT",
+                "probability_target_before_stop_pct": null,
+                "probability_touch_pct": null,
+                "probability_up_pct": null,
+                "reference_at_utc": "2026-11-06T07:34:33Z",
+                "reference_price": 1.11689
+              },
+              "horizon_lane": "SHORT",
+              "horizon_lane_first_cause": null,
+              "invalidation_conditions": [
+                {
+                  "field": "high",
+                  "operator": "GTE",
+                  "threshold": 1.1204
+                }
+              ],
+              "kind": "WATCH",
+              "last_price": 1.10795,
+              "last_price_at_utc": "2026-11-12T06:32:36.924487Z",
+              "last_price_first_cause": null,
+              "last_quote": {
+                "instrument": "EURUSD",
+                "known_at_utc": "2026-11-12T06:32:36.924487Z",
+                "price": 1.10795,
+                "price_basis": "MID",
+                "quoted_at_utc": "2026-11-12T06:32:36.924487Z",
+                "source_hash": "6238b66051fb63ecb1347993913f55b2dc6f65e3c05f598c3cfaa2e2b16ab5b2"
+              },
+              "not_before_utc": "2026-11-06T08:30:00Z",
+              "outcome": {
+                "first_cause": null,
+                "outcome_id": "outcome_559ce8f4f2f9ef1132bae8990a694d4a",
+                "public_call_id": "call_7fa4eb6b58280159c7a86db7",
+                "result": "EXPIRED",
+                "result_r": 0.9400921658986175,
+                "result_r_basis": "NET_DEAL_CASH_OVER_FROZEN_INITIAL_RISK",
+                "result_r_first_cause": null,
+                "result_r_source_hash": "4291c9a18bd0ab029d02507f051afe2c1f11806ac6b96b4f21a89b4d706a8cc0",
+                "score": {
+                  "asset_id": "EURUSD",
+                  "content_hash": "8565f30fd655545aa746fabd0ddb5d799d78a185ee04e62d8ce62072d1d2662b",
+                  "corrects_outcome_id": null,
+                  "decision_record_id": "decision:request-563c1412ec555cbb:EURUSD",
+                  "direction": "BEARISH",
+                  "frozen_at_utc": "2026-11-06T08:19:10.958219Z",
+                  "horizon_end_utc": "2026-11-06T13:15:00Z",
+                  "outcome_id": "outcome_559ce8f4f2f9ef1132bae8990a694d4a",
+                  "plan_id": "plan_5eb033547e64c256929ab849",
+                  "public_call_id": "call_7fa4eb6b58280159c7a86db7",
+                  "resolved_at_utc": "2026-11-06T13:17:15.917000Z",
+                  "result": "EXPIRED",
+                  "score_basis": "PRECOMMITTED_EXPIRY_OR_TIME_EXIT",
+                  "scored_at_utc": "2026-11-09T10:52:03.594981Z",
+                  "source_hash": "cc3e2adad16d0c247c12fdee952528003775172c4e9c081cf71ea1b57b3dc120",
+                  "source_plan_hash": "88436fda8844dc72fece7462ed602dcaea75a2e78ee9f30669cbef40e4c4295b",
+                  "triggered_at_utc": "2026-11-06T08:32:25.128000Z"
+                },
+                "state": "SCORED"
+              },
+              "plan_id": "plan_5eb033547e64c256929ab849",
+              "plan_key": "EURUSD:SHORT",
+              "position_horizon_lane": "SHORT",
+              "public_instrument": {
+                "contract_first_cause": null,
+                "contract_month": null,
+                "direction": null,
+                "entries": [
+                  {
+                    "kind": "LIMIT",
+                    "zone_high": null,
+                    "zone_low": null
+                  }
+                ],
+                "exchange": "IDEALPRO",
+                "invalidation_level": null,
+                "kind": "SPOT",
+                "levels_first_cause": "IBKR_VIEW_NOT_SUBMITTED",
+                "name": "Euro",
+                "symbol": "EUR.USD",
+                "target_first_cause": "TARGET_NOT_RECORDED",
+                "target_level": null,
+                "tick_size": null,
+                "zone_high": null,
+                "zone_low": null
+              },
+              "public_instrument_first_cause": null,
+              "registered_at_utc": "2026-11-06T08:19:32.351706Z",
+              "registration_hash": "394ab2eb59f016ea465cfab1c815de6e39945a1f830057ed7010459ba245d65d",
+              "review_at_utc": "2026-11-06T11:30:00Z",
+              "run_id": "request-563c1412ec555cbb",
+              "scenario_analysis": {
+                "acceptance": null,
+                "base_case": {
+                  "market_move": "the Asia/Europe USD bid holds through the London morning, a retest of the broken Asia floor is sold, and EURUSD trades to the lower levels (2 Nov low 1.11561) before 13:15Z.",
+                  "probability_pct": 60.0
+                },
+                "confirmations": "DXY above every session M15 high; GBPUSD and NZDUSD at session lows in the same window. The Critical agrees with the direction (about 60%) and accepted the plan with the near edge raised; below the 65-70% bar of decision 70, so STARTER (decision 55), no promotion.",
+                "driver": null,
+                "field_first_causes": {
+                  "acceptance": "NOT_WRITTEN",
+                  "confirmations": null,
+                  "driver": "NOT_WRITTEN",
+                  "invalidation_reason": "NOT_WRITTEN",
+                  "invalidation_text": "NOT_WRITTEN",
+                  "mechanism": null,
+                  "opposite_mechanism": null,
+                  "positioning": "NOT_WRITTEN",
+                  "priced": "NOT_WRITTEN",
+                  "why_no_open": null,
+                  "zone_reason": "NOT_WRITTEN"
+                },
+                "horizon_end_utc": "2026-11-06T13:15:00Z",
+                "invalidation_reason": null,
+                "invalidation_text": null,
+                "main_alternative": {
+                  "market_move": "Pre-NFP squaring of crowded EUR shorts (spec net -143,894) plus the USD-negative 5 Nov rate move produce a snap-back above 1.1204.",
+                  "probability_pct": null
+                },
+                "mechanism": "the global risk impulse after the 5 Nov US equity shock drives a USD bid in Asia/Europe, and the bars move with it: DXY M15 101.462 (00:00Z) to 101.941 (07:00Z), 101.972 at capture; EURUSD held 1.11912-1.12007 from 03:30Z to 06:15Z, broke it at 06:30Z on M15 tick counts of 595-719 against 295-409 before, made 1.11764 at 07:15Z (close 1.11774) and printed 1.11689 at 07:34:33Z. Independent",
+                "missing_fields": [
+                  "main_alternative.probability_pct"
+                ],
+                "opposite_mechanism": "Pre-NFP squaring of crowded EUR shorts (spec net -143,894) plus the USD-negative 5 Nov rate move produce a snap-back above 1.1204.",
+                "positioning": null,
+                "priced": null,
+                "probability_basis": "UNCALIBRATED_MODEL_ESTIMATE",
+                "source_plan_hash": "88436fda8844dc72fece7462ed602dcaea75a2e78ee9f30669cbef40e4c4295b",
+                "source_result_hash": "d6c24e50fdc3c94991433538ed9d2eacace8f8474f2f221ec6845bbaeea6fcc5",
+                "why_no_open": "NFP: the plan does not rest through the 13:30Z release; Dissent kept: pre-NFP squaring of crowded EUR shorts and the rates channel that sank the USD in the 5 Nov US session.",
+                "zone_reason": null
+              },
+              "scenario_first_cause": null,
+              "status": "CLOSED",
+              "status_at_utc": "2026-11-06T13:17:15.917000Z",
+              "status_label": "Closed",
+              "target_first_cause": null,
+              "target_level": 1.1153,
+              "target_source_hash": "394ab2eb59f016ea465cfab1c815de6e39945a1f830057ed7010459ba245d65d",
+              "target_tick_size": 1e-05,
+              "trigger_hash": "bdbfaf36a4801689bb565abf1683c9bcdaeee27547ee74df758808d7a649d68e",
+              "zone": {
+                "maximum": 1.1191,
+                "minimum": 1.1187
+              }
+            }
+          ],
+          "computed": {
+            "calls_closed": 6,
+            "hit_rate_pct": 16.7,
+            "total_r": -3.495787166422587,
+            "avg_r": -0.5826311944037644
+          },
+          "generated_at_utc": "2026-11-15T22:55:52.836457Z",
+          "export_path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+          "export_sha256": "c8e41b54800932e197fbb0458d25b04cf85ab3ba4306e21d55a82f59d2b5720a",
+          "formula": "R is Main outcome.result_r; total is sum(R); average is total/count; right is 100*count(R>0)/count, rounded to one decimal; no entry is not a zero result."
+        }
+      }
+    },
+    "snapshot": null,
+    "framing": null,
+    "levels": null,
+    "texts": [
+      {
+        "text": "Weekly scorecard",
+        "box": [
+          68,
+          28,
+          617,
+          87
+        ],
+        "zone": [
+          68,
+          28,
+          1040,
+          104
+        ],
+        "size": 64,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Weekly scorecard",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "title"
+      },
+      {
+        "text": "6 Nov–12 Nov",
+        "box": [
+          795.0,
+          113,
+          1040.0,
+          142
+        ],
+        "zone": [
+          795.0,
+          113,
+          1040,
+          168
+        ],
+        "size": 38,
+        "weight": 600,
+        "mono": false,
+        "runs": [
+          {
+            "text": "6 Nov–12 Nov",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "status"
+      },
+      {
+        "text": "6 calls closed · 16.7% right · −3.5R total · −0.6R",
+        "box": [
+          52,
+          194,
+          954,
+          231
+        ],
+        "zone": [
+          52,
+          194,
+          1028,
+          286
+        ],
+        "size": 40,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "6",
+            "mono": true
+          },
+          {
+            "text": " calls closed · ",
+            "mono": false
+          },
+          {
+            "text": "16.7%",
+            "mono": true
+          },
+          {
+            "text": " right · ",
+            "mono": false
+          },
+          {
+            "text": "−3.5R",
+            "mono": true
+          },
+          {
+            "text": " total · ",
+            "mono": false
+          },
+          {
+            "text": "−0.6R",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "week.stats"
+      },
+      {
+        "text": "average",
+        "box": [
+          52,
+          242,
+          203,
+          271
+        ],
+        "zone": [
+          52,
+          194,
+          1028,
+          286
+        ],
+        "size": 40,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "average",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.stats"
+      },
+      {
+        "text": "Gold · LONG",
+        "box": [
+          52,
+          304.0,
+          349,
+          344.0
+        ],
+        "zone": [
+          52,
+          286,
+          810,
+          363.75
+        ],
+        "size": 52,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Gold · LONG",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.market"
+      },
+      {
+        "text": "−0.9R",
+        "box": [
+          820,
+          301.0,
+          1010,
+          347.0
+        ],
+        "zone": [
+          820,
+          286,
+          1028,
+          363.75
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "−0.9R",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "week.r"
+      },
+      {
+        "text": "Mid-term",
+        "box": [
+          52,
+          377.75,
+          328,
+          426.75
+        ],
+        "zone": [
+          52,
+          363.75,
+          1028,
+          441.5
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Mid-term",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.row"
+      },
+      {
+        "text": "Said 55%",
+        "box": [
+          52,
+          455.5,
+          314,
+          504.5
+        ],
+        "zone": [
+          52,
+          441.5,
+          1028,
+          519.25
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Said ",
+            "mono": false
+          },
+          {
+            "text": "55%",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "week.row"
+      },
+      {
+        "text": "Stopped at invalidation",
+        "box": [
+          52,
+          528.25,
+          740,
+          587.25
+        ],
+        "zone": [
+          52,
+          519.25,
+          1028,
+          597.0
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Stopped at invalidation",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.row"
+      },
+      {
+        "text": "Gold · SHORT",
+        "box": [
+          52,
+          628.0,
+          383,
+          668.0
+        ],
+        "zone": [
+          52,
+          597,
+          810,
+          700.6666666666666
+        ],
+        "size": 52,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Gold · SHORT",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.market"
+      },
+      {
+        "text": "−0.9R",
+        "box": [
+          820,
+          625.0,
+          1010,
+          671.0
+        ],
+        "zone": [
+          820,
+          597,
+          1028,
+          700.6666666666666
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "−0.9R",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "week.r"
+      },
+      {
+        "text": "Short-term",
+        "box": [
+          52,
+          727.6666666666666,
+          383,
+          776.6666666666666
+        ],
+        "zone": [
+          52,
+          700.6666666666666,
+          1028,
+          804.3333333333334
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Short-term",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.row"
+      },
+      {
+        "text": "Stopped at invalidation",
+        "box": [
+          52,
+          826.3333333333334,
+          740,
+          885.3333333333334
+        ],
+        "zone": [
+          52,
+          804.3333333333334,
+          1028,
+          908.0
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Stopped at invalidation",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.row"
+      },
+      {
+        "text": "EUR/USD · SHORT",
+        "box": [
+          52,
+          925.0,
+          497,
+          967.0
+        ],
+        "zone": [
+          52,
+          908,
+          810,
+          985.75
+        ],
+        "size": 52,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "EUR/USD · SHORT",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.market"
+      },
+      {
+        "text": "+0.9R",
+        "box": [
+          820,
+          923.0,
+          1010,
+          969.0
+        ],
+        "zone": [
+          820,
+          908,
+          1028,
+          985.75
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": true,
+        "runs": [
+          {
+            "text": "+0.9R",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "week.r"
+      },
+      {
+        "text": "Short-term",
+        "box": [
+          52,
+          999.75,
+          383,
+          1048.75
+        ],
+        "zone": [
+          52,
+          985.75,
+          1028,
+          1063.5
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Short-term",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.row"
+      },
+      {
+        "text": "Said 60%",
+        "box": [
+          52,
+          1077.5,
+          314,
+          1126.5
+        ],
+        "zone": [
+          52,
+          1063.5,
+          1028,
+          1141.25
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Said ",
+            "mono": false
+          },
+          {
+            "text": "60%",
+            "mono": true
+          }
+        ],
+        "colour": "ink",
+        "field": "week.row"
+      },
+      {
+        "text": "Time exit",
+        "box": [
+          52,
+          1155.25,
+          326,
+          1203.25
+        ],
+        "zone": [
+          52,
+          1141.25,
+          1028,
+          1219.0
+        ],
+        "size": 64,
+        "weight": 400,
+        "mono": false,
+        "runs": [
+          {
+            "text": "Time exit",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "week.row"
+      },
+      {
+        "text": "CAPITAL CHRONICLE",
+        "box": [
+          640.0,
+          1302,
+          1040.0,
+          1331
+        ],
+        "zone": [
+          640.0,
+          1302,
+          1040,
+          1343
+        ],
+        "size": 38,
+        "weight": 700,
+        "mono": false,
+        "runs": [
+          {
+            "text": "CAPITAL CHRONICLE",
+            "mono": false
+          }
+        ],
+        "colour": "ink",
+        "field": "wordmark"
+      }
+    ],
+    "notes": [
+      "WEEK_PROBABILITY_NOT_EXPORTED"
+    ],
+    "alt_text": "Weekly calls and their results in R.",
+    "chart": false,
+    "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a"
+  },
+  "delivery_only": true,
+  "article_inclusion": true,
+  "canonical_article_media": true,
+  "image_quality": {
+    "policy": "CC465_IMAGE_TEMPLATES_V1",
+    "image_sha256": "2f495d868b6c60fed3eff7b536df1ab5dec38b20ae12c0b7b51bc7864d207796",
+    "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+    "template": "weekly",
+    "master": "T",
+    "score": 0,
+    "points": {
+      "1": false,
+      "2": false,
+      "3": false,
+      "4": false,
+      "5": false,
+      "6": false,
+      "7": false,
+      "8": false,
+      "9": false,
+      "10": false
+    },
+    "passed": false,
+    "code": {
+      "policy": "CC465_IMAGE_TEMPLATES_V1",
+      "image_sha256": "2f495d868b6c60fed3eff7b536df1ab5dec38b20ae12c0b7b51bc7864d207796",
+      "template_revision": "430dbf8fc2d6ae5cbc38da4b3510453e802440a3901100583b6cc326e154e49a",
+      "template": "weekly",
+      "master": "T",
+      "points": {
+        "1": true,
+        "2": true,
+        "3": true,
+        "4": true,
+        "5": true,
+        "6": true,
+        "7": true,
+        "8": true,
+        "9": true,
+        "10": true
+      },
+      "score": 10,
+      "passed": true,
+      "causes": []
+    },
+    "vision": {
+      "points": {},
+      "status": "NOT_RUN"
+    },
+    "reviewed_at_utc": null,
+    "combined_at_utc": "2026-11-15T22:56:51.447882+00:00"
+  }
+}

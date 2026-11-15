@@ -1,0 +1,19 @@
+{
+  "register": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_images_v1.jsonl",
+  "sha256": "ff75102119310888501b2189cf4e06e0bf70fd60fbbd92caadb8c388061857e6",
+  "records": 1104,
+  "observed_at_utc": "2026-11-15T22:48:36.513838+00:00",
+  "sample": {
+    "day": "2026-11-16",
+    "images": [],
+    "weekly": {
+      "required": 20,
+      "observed": 0,
+      "passed": false,
+      "images": [],
+      "start_day": "2026-11-10",
+      "end_day": "2026-11-16"
+    }
+  },
+  "rule": "Only PUBLISHED records in the seven-day window, one random image per template each day. Reserved, old, future and gallery-only images never prove the published week."
+}
