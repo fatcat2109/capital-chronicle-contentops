@@ -1,0 +1,94 @@
+{
+  "observed_at_utc": "2026-11-15T20:52:33.469835+00:00",
+  "provenance": "Existing coordinator dispatches read with SQLite mode=ro; local original files, not a new public page readback.",
+  "observations": [
+    {
+      "dispatch": {
+        "dispatch_id": "dispatch_99469fec9f2a2910617b69205d106491",
+        "message_id": "outbox_99469fec9f2a2910617b69205d106491",
+        "platform": "instagram_business",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-14T07:22:50.560411+00:00",
+        "public_object_id": "17979008508135876",
+        "public_object_url": "https://www.instagram.com/p/DftqP-ikncx/",
+        "public_object_url_hash": "7553396e44cd080fd773fcc9161fe8310d4415b8d7a4d85488c3065c6cab76f0"
+      },
+      "work_item_id": "cc536-measured-odds-1",
+      "run_context_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc536-measured-odds-1\\run_context_v1.json",
+      "run_context_sha256": "ae361e0b7e874c62b68f16da19c316f9158b935949526bba600aebbd49eaa605",
+      "structured_market_asset": null,
+      "structured_asset_ids": null,
+      "assets": [
+        {
+          "asset_id": "cc536-method-btc-native-20-50",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc536-measured-odds-1\\media\\BTCUSD_2026-11-14_11-57-57.png",
+          "sha256": "3fbe2b0b5c767661b00cf2fd4e6096485ff36f0fe32e890d4141347786c79150",
+          "modality": "tradingview_chart_snapshot",
+          "width": 1400,
+          "height": 1343,
+          "local_original_pixels_inspected": true,
+          "visual_finding": "Unpadded native Bitcoin daily chart; two moving-average lines, price/time axes and TradingView attribution are visible. Its 1400 by 1343 original is not 4:5."
+        }
+      ],
+      "current_public_readback": "NEO_ENDPOINT_CONNECTIONERROR"
+    },
+    {
+      "dispatch": {
+        "dispatch_id": "dispatch_192b7ee231b687c54c42b3c213ed2aeb",
+        "message_id": "outbox_192b7ee231b687c54c42b3c213ed2aeb",
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-12T18:00:13.650039+00:00",
+        "public_object_id": "182",
+        "public_object_url": "https://t.me/CapitalChronicle/182",
+        "public_object_url_hash": "e9f5ae4722319ce6b2c06451963e1d55dfcec619fdb88184f0d519f09b5cc154"
+      },
+      "work_item_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-telegram",
+      "run_context_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_230a9464a193ca7a377d0c41\\run_context_v1.json",
+      "run_context_sha256": "88becc582a13733611355a333c40104fc0ce10fc3b70368ac2aa19c0f7769949",
+      "structured_market_asset": "XAUUSD",
+      "structured_asset_ids": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-plan-25cb0578f4b549a0a570",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_230a9464a193ca7a377d0c41\\media_assets\\tradingview-c23849a1b25205e5-16x9-levels-25cb0578f4b549a0.png",
+          "sha256": "1b1be27c3f751401ab5c0fb1d618d2f5075969cea78692533e466e89f2226af2",
+          "modality": "tradingview_chart_snapshot",
+          "width": 1524,
+          "height": 858
+        }
+      ],
+      "current_public_readback": "NEO_ENDPOINT_CONNECTIONERROR"
+    },
+    {
+      "dispatch": {
+        "dispatch_id": "dispatch_2efa41366563bf34af3fa815f9697772",
+        "message_id": "outbox_2efa41366563bf34af3fa815f9697772",
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "dispatched_at": "2026-11-15T19:18:00.008964+00:00",
+        "public_object_id": "184",
+        "public_object_url": "https://t.me/CapitalChronicle/184",
+        "public_object_url_hash": "244babc07b49c91e87ded7c00e103ec903f6caf860c9b5f36dd514208f421c54"
+      },
+      "work_item_id": "cc603-gold-timing-correction-20261112",
+      "run_context_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-gold-timing-correction-20261112\\run_context_v1.json",
+      "run_context_sha256": "f98519e7bf337d78c048c70d8cbad886b7bcbf55c1c4164a084769893b93d695",
+      "structured_market_asset": null,
+      "structured_asset_ids": null,
+      "assets": [
+        {
+          "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+          "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-gold-timing-correction-20261112\\media_assets\\tradingview-c23849a1b25205e5-16x9.png",
+          "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+          "modality": "tradingview_chart_snapshot",
+          "width": 1524,
+          "height": 858
+        }
+      ],
+      "current_public_readback": "NEO_ENDPOINT_CONNECTIONERROR"
+    }
+  ],
+  "live_4x5_instagram_proof": false,
+  "new_public_objects_created": 0
+}

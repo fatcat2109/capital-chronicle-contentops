@@ -40,7 +40,7 @@ def test_allowed_text_fallback_does_not_certify_a_chart_on_every_market_post(tmp
     with path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(row) + "\n")
     result = audit(path, "2026-11-12", now=NOW + timedelta(days=1))
-    assert result["status"] == "PASS"  # The bounded fallback remains permitted.
+    assert result["status"] == "TEXT_FALLBACK_OBSERVED"
     assert result["text_fallback_posts"] == 1
     assert not result["all_market_posts_have_chart"]
     assert not result["chart_first_day_complete"]

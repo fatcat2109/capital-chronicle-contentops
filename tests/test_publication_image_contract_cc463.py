@@ -319,7 +319,7 @@ def test_daily_audit_does_not_pass_empty_days_or_only_text_fallbacks(tmp_path):
     assert report["status"] == "NO_MARKET_CHART_OBSERVED" and report["text_fallback_posts"] == 1
     register.seed(piece_id="chart", canonical_url=None, images=[chart(tmp_path)], published_at=NOW.isoformat(),
         observation_ref="coordinator:chart", market="US500", image_contract=contract.POLICY)
-    assert audit(path, day, now=later)["status"] == "PASS"
+    assert audit(path, day, now=later)["status"] == "TEXT_FALLBACK_OBSERVED"
 
 
 def test_daily_audit_flags_a_market_post_with_a_drawn_first_image(tmp_path):

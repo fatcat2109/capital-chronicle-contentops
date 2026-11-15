@@ -27,7 +27,8 @@ def audit(path, day, *, now=None):
     all_charts = bool(market_posts) and len(charts) == len(market_posts) and not violations
     return {**report, "status": "FAIL" if violations else "OBSERVATION_PENDING" if not complete else
         "NO_MARKET_POST_OBSERVED" if not market_posts else
-        "NO_MARKET_CHART_OBSERVED" if not charts else "INCOMPLETE_IMAGE_TYPES" if unknown else "PASS",
+        "NO_MARKET_CHART_OBSERVED" if not charts else "INCOMPLETE_IMAGE_TYPES" if unknown else
+        "TEXT_FALLBACK_OBSERVED" if any(p.get("text_fallback") for p in market_posts) else "PASS",
         "whole_day_elapsed": complete, "market_posts": len(market_posts), "market_chart_posts": len(charts),
         # Bounded text fallback is allowed. It still cannot prove the item's
         # stronger full-day claim that every market post carried a chart.

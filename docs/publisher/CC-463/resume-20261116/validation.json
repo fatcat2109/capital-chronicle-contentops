@@ -3,7 +3,7 @@
   "tests": 39,
   "failures": 0,
   "errors": 0,
-  "seconds": 11.577,
+  "seconds": 34.922,
   "files": [
     "tests/test_publication_image_audit_cc463.py",
     "tests/test_publication_image_contract_cc463.py"
@@ -17,5 +17,7 @@
     "evidence": "active Ops-dispatched codex.exe arguments",
     "status": "CONFIGURED_NOT_OBSERVED"
   },
-  "initial_test_failure": "Nine new audit fixtures omitted schema_version; fixture corrected before passing run. No live register changed."
+  "initial_test_failure": "Nine new audit fixtures omitted schema_version; fixture corrected before passing run. No live register changed.",
+  "console_elapsed_seconds": 39.59,
+  "first_passing_console_elapsed_seconds": 12.13
 }
