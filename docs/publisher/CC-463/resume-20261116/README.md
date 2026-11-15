@@ -74,3 +74,36 @@ Repeat the installed read-only audit with:
 ```powershell
 python scripts/audit_publication_images_cc463.py --register "A:\Capital Chronicle\Runtime\ContentOps\published_images_v1.jsonl" --day 2026-11-16 --following-days 7
 ```
+
+## Integration and terminal result
+
+Code commit `cc353b60304dcf9136565c4981401c4845fe9293` is pushed and
+fast-forwarded into `A:\Capital Chronicle\ContentOps`. Remote readback binds
+`contentops-live-20261116-cc463-audit` to that code and the rollback tag to
+`5d9bb06c068f7df84ee3c9b62779f1684744d729`. The branch was cut from that
+operating HEAD as this item's Integration line directs. No Ops review is
+required for Publisher's own integration.
+
+All 12 [installed checks](installed-consumer-tests.xml) pass in 8.38 seconds.
+They exercise the real coordinator through an isolated fixture transport,
+register the accepted chart and read its hash and clocks through the same
+image-register consumer. [The installed CLI](installed-image-window.json)
+then reads the real existing register and returns OBSERVATION_PENDING with
+four TradingView market images and zero 4:5 Instagram candidates.
+[Integration evidence](integration.json) verifies source equality and the
+unchanged hashes of all six unrelated dirty operating-root files.
+
+[The minute task observation](minute-consumer.json) preserves the existing
+pythonw process, its start before this install, task IgnoreNew and exact last
+result 2147946720. This is process presence; it does not claim a successful
+new post or that this already-running process loaded a changed module.
+No user application was launched, stopped or restarted. No schedule changed.
+The two earlier lane telemetry edits and all unrelated files stay out of the
+commits. No other chat was messaged.
+
+The code repair is live; **CC-463 remains BLOCKED on
+NEO_ENDPOINT_CONNECTIONERROR**, with the live native 4:5 portrait and full
+chart-first day plus following week still owed. Ops Product restores Neo's
+existing local endpoint; Publisher then verifies exact public objects and
+uses the actual elapsed register window. No duplicate post is created to
+manufacture acceptance.

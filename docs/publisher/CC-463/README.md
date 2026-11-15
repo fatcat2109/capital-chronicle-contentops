@@ -1,3 +1,10 @@
+16 November continuation: the audit repair is pushed and live, with 39 build
+and 12 installed checks passing. Published TradingView images are now observed;
+the live native 4:5 Instagram and full day/week proof remain incomplete.
+Neo returns NEO_ENDPOINT_CONNECTIONERROR. See the [current continuation](resume-20261116/README.md)
+for exact objects, observed clocks and the next action. The original 11 November
+build evidence below retains its historical result.
+
 CC-463 implements Jim's decision 124 in the existing `DurablePublicationCoordinator` and `tradingview_snapshot_v1` service. Its base is the CC-459 operating HEAD, `3358a4252d6cc3b8dc21e2bfdc9c34c3534b499a`. Fresh market writes require a TradingView first image of the correct market and a quote-bound price-scale check. A refusal is recorded as a definite no-write before any destination probe. Existing ambiguous attempts and native returns retain their readback path.
 
 The initial maximum absolute differences, as percentages of Main's quote, are 0.15% for gold, S&P 500, EUR/USD and USD/JPY; 0.40% for WTI and Bitcoin. These are the starting values in the approved image spec, section 4. [Retained comparisons](held-price-pairs.json) show 0.1211%, 0.7034%, 0.0179%, 0.0283%, 1.0609% and 0.0245%, respectively. Those observations are 34–38 minutes apart, so they cannot calibrate a simultaneous feed basis or justify widening the starting limits. Publication uses a saved Main tick within 120 seconds of the comparison instant, with the quote known by capture time. The raw difference is checked before any WTI conversion; an excessive difference never becomes a conversion. WTI levels use the accepted additive difference, stated on the image. Other markets never borrow that conversion.

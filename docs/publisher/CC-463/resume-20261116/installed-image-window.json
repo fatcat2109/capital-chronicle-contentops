@@ -1,0 +1,252 @@
+{
+  "start_day": "2026-11-16",
+  "following_days_required": 7,
+  "window_end_utc": "2026-11-23T19:00:00+00:00",
+  "observed_at_utc": "2026-11-15T20:55:10.797506+00:00",
+  "whole_window_elapsed": false,
+  "baseline_chart_first_day_complete": false,
+  "completed_following_days": 0,
+  "days_without_market_posts": [],
+  "violations_by_day": {},
+  "unknown_type_records_by_day": {},
+  "status": "OBSERVATION_PENDING",
+  "days": [
+    {
+      "day": "2026-11-16",
+      "counts_by_type": {
+        "TRADINGVIEW_MARKET_CHART": 4
+      },
+      "observed_posts": [
+        {
+          "record_id": "aea9bee0cf5ab3c29eef7444e261ccd527b55542cd10c9db704c8967fba85fce",
+          "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+          "destination": "discord",
+          "market": [
+            "XAUUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-15T19:17:25.019559+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_86c13b549ac46b74eb072a2f30510842"
+        },
+        {
+          "record_id": "aab97805aeb971920816ea2af77acea8e9837b9603e95ade0157dc6aa92aba1d",
+          "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+          "destination": "telegram",
+          "market": [
+            "XAUUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-15T19:18:00.008964+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_2efa41366563bf34af3fa815f9697772"
+        },
+        {
+          "record_id": "b49d50060c9a7d8fe244882e24ca93cf64c15058dcd62ebc20bdc5b051cf8574",
+          "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+          "destination": "threads",
+          "market": [
+            "XAUUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-15T19:18:03.413661+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_afa7808049ee0567aa5debd16ff868f6"
+        },
+        {
+          "record_id": "9c6cc73faf2adf8e077e2253ed5de29551d3dc3e3dd187c58684efdc97089584",
+          "piece_id": "909dfe6e2b39a803e79b150f47c9dab2621780cd40fb9ece56eefeae302c77ee",
+          "destination": "threads",
+          "market": [
+            "XAUUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-15T19:30:36.050603+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_5c8a279ef51a506efca43c25b2a3b5a3"
+        }
+      ],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 4,
+      "market_chart_posts": 4,
+      "all_market_posts_have_chart": true,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-17",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-18",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-19",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-20",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-21",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-22",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-23",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    }
+  ],
+  "public_write_performed": false,
+  "schedule_changed": false
+}
