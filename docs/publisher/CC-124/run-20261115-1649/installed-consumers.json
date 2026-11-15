@@ -1,0 +1,21 @@
+{
+  "observed_at_utc": "2026-11-15T09:52:01.241325+00:00",
+  "production_day": "2026-11-15",
+  "daily_article_limit": 2,
+  "publication_feed_before": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 28081,
+    "sha256": "3af7609c10b1d3e36302c998fdf4c30e73d8bf8f6aabca2a2e925c583432f485"
+  },
+  "article_slots_in_use": [],
+  "active_leases": [],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-15T09:51:26.575661Z",
+    "content_hash": "33ad385fa6f618ffd3e5d4366d25f2cfd97355e06a14b339700a1be7b1c0acdb",
+    "plan_count": 89,
+    "latest_plan_registration_utc": "2026-11-12T17:40:00.360572Z"
+  },
+  "clock_use": "Export generation does not refresh original analysis capture.",
+  "operation_allocated": false,
+  "channel_readbacks": "None performed by this run."
+}
