@@ -81,7 +81,7 @@ def test_stored_hit_and_expiry_reach_consumer_exactly_once(ready,tmp_path):
     assert f.queue_followup(store,hit,checked,record,now=NOW)["status"]=="EXISTING"
     row=posts._row_payload(store,first["key"])
     assert hit["quote"] in row["text"] and hit["original_url"] in row["text"]
-    assert "13 Nov 2026 19:00:00 ET" in row["text"] and record["line"] in row["text"]
+    assert "13 Nov 2026 19:00 ET" in row["text"] and record["line"] in row["text"]
     assert not row["counts_as_article"] and not f._PRIVATE.search(posts._split(row["text"])[0])
     plan=posts.prepare_post(store,first["key"],root=tmp_path/"posts",host=fake_host,
         destinations=tuple(hit["destinations"]),cc603_asset=asset(tmp_path))
@@ -168,6 +168,7 @@ def test_existing_zone_correction_is_reused_and_gold_is_new_post(tmp_path):
     first=f.prepare_gold_correction(store,now=NOW)
     assert f.prepare_gold_correction(store,now=NOW+timedelta(days=1))==first
     assert first["new_post_only"] and not first.get("correction_of")
+    assert posts.freshness_limit_minutes(first)==float("inf")
     assert store.get_outbox_message(f.GOLD_ORIGINAL)["payload"]==before
 
 
@@ -328,8 +329,18 @@ def test_correction_continuation_keeps_chart_and_preserves_issued_root(ready,tmp
         child_id=child["work_item_id"]
         assert child["plan_hash"]!=sha256(("plan-status-post:"+child_id).encode()).hexdigest()
         store.create_work_item(story_id=child_id,work_item_id=child_id,title="Continuation",target_surface="MULTI_PLATFORM")
+        legacy={**child,"plan_hash":sha256(("plan-status-post:"+child_id).encode()).hexdigest()}
+        posts.scope_to_post(coordinator,child_id,legacy)
+        coordinator.register_plan(child_id,legacy)
+        legacy_ids=coordinator._ids(child_id,legacy["plan_hash"],"threads")
+        store.register_platform_dispatch(dispatch_id=legacy_ids["dispatch_id"],message_id=legacy_ids["message_id"],
+            platform="threads",status="DEFINITE_NO_WRITE")
         posts.scope_to_post(coordinator,child_id,child)
         coordinator.register_plan(child_id,child)
-        intent=json.loads(store.list_outbox_messages(work_item_id=child_id,destination="threads")[0]["payload"])
+        ids=coordinator._ids(child_id,child["plan_hash"],"threads")
+        intent=json.loads(store.get_outbox_message(ids["message_id"])["payload"])
         assert intent["native_payload"]["media_asset_ids"]==[image["asset_id"]]
+        result=coordinator.publish_plan(child_id,child)
+        assert result["per_destination"]["threads"]["status"]=="DISPATCH_CONFIRMED"
+        assert store.get_platform_dispatch(legacy_ids["dispatch_id"])["status"]=="DEFINITE_NO_WRITE"
     assert root_payload==posts._expected(store,key,plan["output_dir"])[1]["threads"]

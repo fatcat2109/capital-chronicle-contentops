@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="5.538" timestamp="2026-11-16T02:28:56.162387+07:00" hostname="J-P"><testcase classname="tests.test_call_followups_cc603" name="test_correction_continuation_keeps_chart_and_preserves_issued_root" time="3.650" /></testsuite></testsuites>

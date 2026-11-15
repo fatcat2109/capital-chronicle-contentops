@@ -42,7 +42,8 @@ def _hash(value):
 def publications(store, key):
     """Confirmed objects only. A queued/absent X copy is never an original."""
     return [{"destination": d["platform"], "id": d["public_object_id"],
-             "url": d.get("public_object_url"), "at_utc": d["dispatched_at"]}
+             "url": d.get("public_object_url"), "at_utc": d["dispatched_at"],
+             "clock_basis":"CONFIRMED_DISPATCH_CLOCK"}
             for d in store.get_dispatches_for_work_item(key)
             if d["status"] == "DISPATCH_CONFIRMED" and d.get("public_object_id")]
 
@@ -241,7 +242,7 @@ def queue_followup(store, candidate, path, record, *, now=None):
              else "The entry zone traded before the move." if path["entry_traded"]
              else "Our entry zone never traded; this was a directional view, with no trade.")
     title = f"{posts.TITLES[candidate['symbol']]}: our earlier view and what followed"
-    body = (f"Original, {original_at:%d %b %Y %H:%M:%S} ET: “{quote}”\n"
+    body = (f"Original, {original_at:%d %b %Y %H:%M} ET: “{quote}”\n"
             f"By the {event_at:%d %b %H:%M} ET price bar, price reached {posts._level(path['observed_price'])}. "
             f"{entry}\nOriginal: {candidate['original_url']}\n{record['line']}\nRecord: {record['url']}")
     held_followups = [r for r in store.list_outbox_messages(destination=posts.DESTINATION)
@@ -378,6 +379,7 @@ def discover(store, export):
             "original_key": message["message_id"], "original_text": row["text"],
             "original_sha256": _hash(row),
             "original_url": original["url"], "published_at_utc": original["at_utc"],
+            "publication_clock_basis":original["clock_basis"],
             "destinations": sorted({p["destination"] for p in objects}),
             "zone_low": zone.get("minimum"), "zone_high": zone.get("maximum"),
             "resolution_level": source["target_level"],
@@ -401,6 +403,10 @@ def discover(store, export):
             continue
         if original_levels.get("invalidation_level") != candidate["invalidation"]["level"]:
             continue
+        original_end = [v for v in (original_levels.get("time_exit_utc"),original_levels.get("entry_deadline_utc"),
+                                    original_levels.get("valid_until_utc")) if v]
+        if original_end:
+            candidate["valid_until_utc"] = min([candidate["valid_until_utc"],*original_end],key=posts._utc)
         found.setdefault(candidate["call_id"],candidate)
     return list(found.values())
 

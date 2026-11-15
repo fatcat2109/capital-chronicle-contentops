@@ -1,0 +1,101 @@
+{
+  "observed_at_utc": "2026-11-15T19:28:21.696868+00:00",
+  "corrections_complete": false,
+  "posts": [
+    {
+      "key": "cc359-zone-correction-20261109",
+      "dispatches": [
+        {
+          "dispatch_id": "dispatch_4b9d0955b60922b91ff03abfab48c5f9",
+          "message_id": "outbox_4b9d0955b60922b91ff03abfab48c5f9",
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "107",
+          "public_object_url": "https://t.me/CapitalChronicle/107"
+        },
+        {
+          "dispatch_id": "dispatch_71fdae51a6d8073e2f2d583371d32fc4",
+          "message_id": "outbox_71fdae51a6d8073e2f2d583371d32fc4",
+          "platform": "substack_notes",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "c-382817690",
+          "public_object_url": "https://substack.com/@deancapitalchronicle/note/c-382817690"
+        },
+        {
+          "dispatch_id": "dispatch_8e26c1dc01fa645152504b47e08a93c3",
+          "message_id": "outbox_8e26c1dc01fa645152504b47e08a93c3",
+          "platform": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1569350151401639966",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569350151401639966"
+        },
+        {
+          "dispatch_id": "dispatch_e29d55b139e249d83ed06c054990d919",
+          "message_id": "outbox_e29d55b139e249d83ed06c054990d919",
+          "platform": "x",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "2119792055350337767",
+          "public_object_url": "https://x.com/Capitalnicle/status/2119792055350337767"
+        },
+        {
+          "dispatch_id": "dispatch_eb901dc382209e08af303ad2a06594ed",
+          "message_id": "outbox_eb901dc382209e08af303ad2a06594ed",
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "17915910789554425",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhfaevlDDY"
+        }
+      ]
+    },
+    {
+      "key": "cc603-gold-timing-correction-20261112",
+      "dispatches": [
+        {
+          "dispatch_id": "dispatch_2efa41366563bf34af3fa815f9697772",
+          "message_id": "outbox_2efa41366563bf34af3fa815f9697772",
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "184",
+          "public_object_url": "https://t.me/CapitalChronicle/184"
+        },
+        {
+          "dispatch_id": "dispatch_796db3424675b9656112164e7a908724",
+          "message_id": "outbox_796db3424675b9656112164e7a908724",
+          "platform": "substack_notes",
+          "status": "NATIVE_NEO_TOOL_PENDING",
+          "public_object_id": null,
+          "public_object_url": null
+        },
+        {
+          "dispatch_id": "dispatch_86c13b549ac46b74eb072a2f30510842",
+          "message_id": "outbox_86c13b549ac46b74eb072a2f30510842",
+          "platform": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "1571605061375623189",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571605061375623189"
+        },
+        {
+          "dispatch_id": "dispatch_afa7808049ee0567aa5debd16ff868f6",
+          "message_id": "outbox_afa7808049ee0567aa5debd16ff868f6",
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "public_object_id": "18037576661852124",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfxg403AWfN"
+        }
+      ]
+    },
+    {
+      "key": "cc603-gold-timing-correction-20261112-part-1",
+      "dispatches": [
+        {
+          "dispatch_id": "dispatch_dc8561859eea5648308aba405189e029",
+          "message_id": "outbox_dc8561859eea5648308aba405189e029",
+          "platform": "threads",
+          "status": "DEFINITE_NO_WRITE",
+          "public_object_id": null,
+          "public_object_url": null
+        }
+      ]
+    }
+  ]
+}

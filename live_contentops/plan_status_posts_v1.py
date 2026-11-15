@@ -1550,6 +1550,8 @@ STALE = "STALE_NOT_POSTED"
 def freshness_limit_minutes(payload) -> int:
     """60 minutes for a new post; a later state of an announced plan keeps LATE_STATE_HOURS. A why follow-up
     stays postable while its plan is valid, up to LATE_STATE_HOURS; a change of the plan's state supersedes it."""
+    if payload.get("cc603_contract") and payload.get("kind") == "correction":
+        return float("inf")  # Dated corrections remain owed, including their retained Neo request.
     if payload.get("format") == 4 and payload.get("kind") in {"result", "update"}:
         return float("inf")  # An announced call's dated updates and ending remain owed.
     if payload.get("kind") == "result":
