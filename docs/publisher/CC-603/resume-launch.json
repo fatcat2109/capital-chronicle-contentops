@@ -1,0 +1,9 @@
+{
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "classification": "CONFIGURED_NOT_OBSERVED",
+  "process_id": 36524,
+  "process_started_utc": "2026-11-15T19:27:27.7684970Z",
+  "resume": true,
+  "branch": "backlog/cc-603-call-followups"
+}

@@ -1,0 +1,93 @@
+{
+  "observed_at_utc": "2026-11-15T19:39:35.048402+00:00",
+  "corrections_complete": false,
+  "dispatches": [
+    {
+      "key": "cc603-gold-timing-correction-20261112",
+      "dispatch_id": "dispatch_2efa41366563bf34af3fa815f9697772",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "184",
+      "public_object_url": "https://t.me/CapitalChronicle/184"
+    },
+    {
+      "key": "cc603-gold-timing-correction-20261112",
+      "dispatch_id": "dispatch_796db3424675b9656112164e7a908724",
+      "platform": "substack_notes",
+      "status": "NATIVE_NEO_TOOL_PENDING",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "key": "cc603-gold-timing-correction-20261112",
+      "dispatch_id": "dispatch_86c13b549ac46b74eb072a2f30510842",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1571605061375623189",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571605061375623189"
+    },
+    {
+      "key": "cc603-gold-timing-correction-20261112",
+      "dispatch_id": "dispatch_afa7808049ee0567aa5debd16ff868f6",
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18037576661852124",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfxg403AWfN"
+    },
+    {
+      "key": "cc603-gold-timing-correction-20261112-part-1",
+      "dispatch_id": "dispatch_5c8a279ef51a506efca43c25b2a3b5a3",
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17897130072468558",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfxiUuLgfWN"
+    },
+    {
+      "key": "cc603-gold-timing-correction-20261112-part-1",
+      "dispatch_id": "dispatch_dc8561859eea5648308aba405189e029",
+      "platform": "threads",
+      "status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null
+    }
+  ],
+  "confirmed_zone_correction": [
+    {
+      "destination": "telegram",
+      "id": "107",
+      "url": "https://t.me/CapitalChronicle/107",
+      "at_utc": "2026-11-09T13:57:17.584359+00:00",
+      "clock_basis": "CONFIRMED_DISPATCH_CLOCK"
+    },
+    {
+      "destination": "substack_notes",
+      "id": "c-382817690",
+      "url": "https://substack.com/@deancapitalchronicle/note/c-382817690",
+      "at_utc": "2026-11-09T13:57:15.140746+00:00",
+      "clock_basis": "CONFIRMED_DISPATCH_CLOCK"
+    },
+    {
+      "destination": "discord",
+      "id": "1569350151401639966",
+      "url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569350151401639966",
+      "at_utc": "2026-11-09T13:57:12.653485+00:00",
+      "clock_basis": "CONFIRMED_DISPATCH_CLOCK"
+    },
+    {
+      "destination": "x",
+      "id": "2119792055350337767",
+      "url": "https://x.com/Capitalnicle/status/2119792055350337767",
+      "at_utc": "2026-11-09T13:57:33.360151+00:00",
+      "clock_basis": "CONFIRMED_DISPATCH_CLOCK"
+    },
+    {
+      "destination": "threads",
+      "id": "17915910789554425",
+      "url": "https://www.threads.com/@official.capitalchronicle/post/DfhfaevlDDY",
+      "at_utc": "2026-11-09T13:57:20.533493+00:00",
+      "clock_basis": "CONFIRMED_DISPATCH_CLOCK"
+    }
+  ],
+  "followup_rows": 0,
+  "first_cause": "NEO_ENDPOINT_CONNECTIONERROR"
+}
