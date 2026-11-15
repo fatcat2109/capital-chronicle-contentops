@@ -386,8 +386,9 @@ if (input.phase === 'readback') {
             || /^\/profile\/\d+-[a-z0-9-]+\/note\/c-\d+$/i.test(u.pathname));
       };
       const owner = ancestors.find(a=>links(a).some(l=>noteUrl(l.url))) || root;
-      const url = links(owner).find(a=>noteUrl(a.url))?.url
-        || (noteUrl(location.href) ? location.href : null);
+      // A permalink opens over a home feed. Its URL cannot identify unrelated
+      // background notes: require the object's own rendered timestamp link.
+      const url = links(owner).find(a=>noteUrl(a.url))?.url;
       return {public_object_url:url,public_object_id:url?.match(/note\/(c-\d+)/)?.[1],
         observed_text:e.innerText, links:links(owner), public_image_urls:imageUrls(owner)};
     }).filter(e=>e.public_object_url);

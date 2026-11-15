@@ -46,6 +46,8 @@ def register(store,key,row,status="PUBLISHED",destinations=("telegram","discord"
         store.register_outbox_message(message_id=identity,work_item_id=key,destination=d,payload="{}")
         store.register_platform_dispatch(dispatch_id=identity,message_id=identity,platform=d,
             status="DISPATCH_CONFIRMED",public_object_id="134",public_object_url="https://t.me/CapitalChronicle/134")
+        store.register_reconciliation(reconciliation_id='reconciliation_'+identity,work_item_id=key,
+                                      status='RECONCILED_CONFIRMED')
 
 
 @pytest.fixture
@@ -183,10 +185,15 @@ def test_missing_price_bar_cannot_hide_invalidation():
     assert f.check_path(candidate(),path)["cause"]=="CC603_HELD_PRICE_GAP"
 
 
-def test_corrections_read_back_before_followup(ready):
+@pytest.mark.parametrize('incomplete', ['UNKNOWN_WRITE', 'RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE'])
+def test_corrections_read_back_before_followup(ready, incomplete):
     store,_,_,record=ready
-    with store.get_connection() as conn:
-        conn.execute("update platform_dispatches set status='UNKNOWN_WRITE' where dispatch_id=?",(f.GOLD_CORRECTION+"-threads",))
+    identity=f.GOLD_CORRECTION+'-threads'
+    if incomplete == 'UNKNOWN_WRITE':
+        store.set_dispatch_status(identity, incomplete)
+    else:
+        store.set_reconciliation_status('reconciliation_'+identity, incomplete)
+        assert any(p['destination']=='threads' for p in f.publications(store,f.GOLD_CORRECTION))
     assert f.queue_followup(store,candidate(),f.check_path(candidate(),bars()),record,now=NOW)["status"]=="CORRECTIONS_PENDING"
 
 

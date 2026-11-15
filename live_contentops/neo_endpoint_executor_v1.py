@@ -641,6 +641,7 @@ class NeoBrowserDriver:
             if len(found) != 1:
                 return {"status":"READBACK_UNAVAILABLE","verified":False,"reason_code":"NEO_THREAD_READBACK_INCOMPLETE"}
             thread.append(found[0])
+        root = thread[0]
         result = {**root,"status":"SUCCESS","request_sha256":request["request_sha256"],
             "observed_identity":request["expected_identity"],"observed_text":"\n\n".join(r["observed_text"] for r in thread),
             "content_verified":True,"observed_thread":thread}

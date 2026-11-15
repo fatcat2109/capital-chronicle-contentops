@@ -171,13 +171,19 @@ def corrections_complete(store):
 
 def post_complete(store,row,*,key=None):
     key = key or row["key"]
+    def complete_destinations(work):
+        reconciled = {r['reconciliation_id'] for r in store.get_reconciliations_for_work_item(work)
+                      if r['status'] == 'RECONCILED_CONFIRMED'}
+        return {d['platform'] for d in store.get_dispatches_for_work_item(work)
+                if d['status'] == 'DISPATCH_CONFIRMED' and d.get('public_object_id') and d.get('public_object_url')
+                and 'reconciliation_'+d['dispatch_id'].removeprefix('dispatch_') in reconciled}
     required = row.get("cc603_destinations") or posts.API_DESTINATIONS
-    if not set(required) <= {p["destination"] for p in publications(store,key)}:
+    if not set(required) <= complete_destinations(key):
         return False
     if row.get("cc603_contract"):
         for destination,payload in destination_payloads(row,card_id="bound-image",chart_credit=True).items():
             for part in range(1,len(payload.get("parts") or [])):
-                if destination not in {p["destination"] for p in publications(store,f"{key}-part-{part}")}:
+                if destination not in complete_destinations(f"{key}-part-{part}"):
                     return False
     return True
 
