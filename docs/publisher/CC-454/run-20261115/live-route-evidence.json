@@ -1,0 +1,233 @@
+{
+  "recorded_at_utc": "2026-11-15T13:07:12.396556+00:00",
+  "store": "A:\\Capital Chronicle\\Runtime\\ContentOps\\contentops_daily_app_v1.sqlite3",
+  "store_access": "SQLite mode=ro; PRAGMA query_only=ON",
+  "article_id": "cc536-measured-odds-1",
+  "coordinator_routes": [
+    {
+      "message_id": "outbox_73a5b92d65586e60c9bfea5feda9ffde",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-14T05:48:09.152604+00:00",
+      "dispatch_id": "dispatch_73a5b92d65586e60c9bfea5feda9ffde",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-14T06:17:24.377012+00:00",
+      "public_object_id": "1571046377796935813",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571046377796935813"
+    },
+    {
+      "message_id": "outbox_3b5fd5d99086b5d8527bc7840a52cb33",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-14T05:48:09.183320+00:00",
+      "dispatch_id": "dispatch_3b5fd5d99086b5d8527bc7840a52cb33",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-14T06:17:29.136481+00:00",
+      "public_object_id": "106091951705748_1454906993494383",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1454906993494383"
+    },
+    {
+      "message_id": "outbox_99469fec9f2a2910617b69205d106491",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-14T05:48:09.223559+00:00",
+      "dispatch_id": "dispatch_99469fec9f2a2910617b69205d106491",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-14T07:22:50.560411+00:00",
+      "public_object_id": "17979008508135876",
+      "public_object_url": "https://www.instagram.com/p/DftqP-ikncx/"
+    },
+    {
+      "message_id": "outbox_b846e6273105470e2e79f65441162a9d",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "created_at": "2026-11-14T05:48:09.247173+00:00",
+      "dispatch_id": "dispatch_b846e6273105470e2e79f65441162a9d",
+      "dispatch_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "dispatched_at": "2026-11-14T06:25:06.740766+00:00",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "message_id": "outbox_ef86598a6c1df8911d19a219b6f87a9d",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-14T05:48:09.268392+00:00",
+      "dispatch_id": "dispatch_ef86598a6c1df8911d19a219b6f87a9d",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-14T06:25:36.851518+00:00",
+      "public_object_id": "urn:li:activity:7527295698816585728",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7527295698816585728/"
+    },
+    {
+      "message_id": "outbox_1078a480ea63b6cd27b0aec10750e0c0",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-14T05:48:09.053133+00:00",
+      "dispatch_id": "dispatch_1078a480ea63b6cd27b0aec10750e0c0",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-14T05:48:10.281934+00:00",
+      "public_object_id": "224849463",
+      "public_object_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
+    },
+    {
+      "message_id": "outbox_94959c640d07e2c5892c4f0bc694a5da",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-14T05:48:09.292773+00:00",
+      "dispatch_id": "dispatch_94959c640d07e2c5892c4f0bc694a5da",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-14T07:22:07.385831+00:00",
+      "public_object_id": "183",
+      "public_object_url": "https://t.me/CapitalChronicle/183"
+    },
+    {
+      "message_id": "outbox_6d5d947b3f5b992f2c7159d9342a9b03",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-14T05:48:09.310524+00:00",
+      "dispatch_id": "dispatch_6d5d947b3f5b992f2c7159d9342a9b03",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-14T07:22:29.437549+00:00",
+      "public_object_id": "18123673514317879",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfttV9YEhzv"
+    },
+    {
+      "message_id": "outbox_80c5ebd06f43dcdc28886dc6aee13003",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "created_at": "2026-11-14T05:48:09.341763+00:00",
+      "dispatch_id": "dispatch_80c5ebd06f43dcdc28886dc6aee13003",
+      "dispatch_status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-14T07:20:13.246198+00:00",
+      "public_object_id": "2121503636216049751",
+      "public_object_url": "https://x.com/Capitalnicle/status/2121503636216049751"
+    },
+    {
+      "message_id": "outbox_7484a400807f4d9d7bba1e051f073e65",
+      "work_item_id": "cc536-measured-odds-1",
+      "destination": "youtube",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "created_at": "2026-11-14T05:48:09.367273+00:00",
+      "dispatch_id": "dispatch_7484a400807f4d9d7bba1e051f073e65",
+      "dispatch_status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "dispatched_at": "2026-11-14T07:29:13.413127+00:00",
+      "public_object_id": null,
+      "public_object_url": null
+    }
+  ],
+  "company_coordinator_native_return_records": [
+    {
+      "message_id": "native-neo-d3189ea6a2a5d410ea29a07cdca303f0265648f5906b9f03c8d38d8ee514aa3d",
+      "destination": "internal:native-neo-tool",
+      "created_at": "2026-11-14T09:14:02.382923+00:00",
+      "payload_sha256": "f6d6f64be9377b380f139a7a1b86a5cdac5ce320481a3e5d1f15d009ebb6ce93"
+    },
+    {
+      "message_id": "native-neo-742ecb5c72caa5d1461b8b6a6ee20febedaeecffb765a5e044a4784d982b6425",
+      "destination": "internal:native-neo-tool",
+      "created_at": "2026-11-14T09:16:40.373551+00:00",
+      "payload_sha256": "495ea5ae55e08c2cc11d3aa2b961505f739b058162df9c0e9cd826151f7db115"
+    },
+    {
+      "message_id": "native-neo-a9538fb8670e34542708d8ded9b935ba9fca7eda84085f3e6591a37882669878",
+      "destination": "internal:native-neo-tool",
+      "created_at": "2026-11-14T09:16:59.800666+00:00",
+      "payload_sha256": "f7d180105f29a5205bcdbba3abef0776e1f43ad5967820b7165bda55947b1398"
+    },
+    {
+      "message_id": "native-neo-ebaf6e5cb229288a5ec6f3c802444247f8f88bc580a1f545cc46d75cfc72c063",
+      "destination": "internal:native-neo-tool",
+      "created_at": "2026-11-14T09:56:28.181276+00:00",
+      "payload_sha256": "ccc057fe0e009b3cc9060f078b51628018ac7d2fdf5cfbef768c37af0925e5d3"
+    },
+    {
+      "message_id": "native-neo-65b5dcd6e8332bf48b876e71340c92187f100a6d2b0a70e5d486b6cc2fe4d4d5",
+      "destination": "internal:native-neo-tool",
+      "created_at": "2026-11-14T09:56:46.904537+00:00",
+      "payload_sha256": "d3357517f8b42260b8c2cd8d3d5b9a5b39c4d673cca2d6fab320330319e415bc"
+    }
+  ],
+  "youtube_platform_observation": {
+    "source": "existing Neo article guard; live visible external-links banner",
+    "sha256": "aff96d4bf4a467d9f9e7cd7ac03fef0b2bc8be467b71999f44630a7411538769",
+    "observed_at_utc": "2026-11-14T08:02:59.390430+00:00",
+    "page_id": 261,
+    "observation": {
+      "status": "FAILED_BEFORE_WRITE",
+      "definite_no_write": true,
+      "public_write_performed": false,
+      "stage": "BEFORE_PUBLISH_CLICK",
+      "reason_code": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+      "platform_wording": "Để giúp người dùng có thể nhấp vào đường liên kết ngoài, hãy hoàn tất quy trình xác minh một lần\nXác minh",
+      "page_url": "https://www.youtube.com/@CapitalChronicleYouTube/posts"
+    },
+    "person_action": "Complete YouTube one-time external-link verification on the retained channel draft; then Ops Product clears only the youtube suspension."
+  },
+  "current_suspended_routes": {
+    "youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
+  },
+  "suspension_file_sha256": "65cb54b3d6253378761e1a2f8783fbab40c3a1c43a2615d84231ac91bf31d5a3",
+  "closed_policy_no_writes_preserved": [
+    {
+      "message_id": "outbox_f543957b3d6021d669f6e2e3ffc0207d",
+      "destination": "linkedin_company",
+      "status": "DEFINITE_NO_WRITE",
+      "created_at": "2026-11-10T11:36:06.765458+00:00"
+    },
+    {
+      "message_id": "outbox_bf84a6573a0359a677181b545d4d0670",
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "created_at": "2026-11-10T11:36:06.815307+00:00"
+    },
+    {
+      "message_id": "outbox_6c0b9765fe70321e9f7c40511bde130c",
+      "destination": "linkedin_company",
+      "status": "DEFINITE_NO_WRITE",
+      "created_at": "2026-11-10T11:47:41.639785+00:00"
+    },
+    {
+      "message_id": "outbox_f533d0a86be939edca0d6533b8ef760b",
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "created_at": "2026-11-10T11:47:41.686163+00:00"
+    },
+    {
+      "message_id": "outbox_cf89f2238980631f627ed341ca075b53",
+      "destination": "linkedin_company",
+      "status": "DEFINITE_NO_WRITE",
+      "created_at": "2026-11-10T12:00:11.937553+00:00"
+    },
+    {
+      "message_id": "outbox_b2d14293ada5a2990013f175c313543e",
+      "destination": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "created_at": "2026-11-10T12:00:11.982303+00:00"
+    }
+  ],
+  "neo_endpoint_this_run": {
+    "endpoint": "http://127.0.0.1:9010/mcp",
+    "operation": "initialize, before any browser or tab action",
+    "outcome": "NEO_ENDPOINT_CONNECTIONERROR",
+    "fresh_page_readback_performed": false
+  },
+  "this_run": {
+    "public_write_performed": false,
+    "browser_actions_performed": false,
+    "application_lifetime_changed": false,
+    "schedule_changed": false,
+    "production_store_mutation_performed": false
+  },
+  "first_cause": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+  "next_action": "Ops Product prepares Jim's one-time YouTube channel verification. After verification and restored Neo access, clear only the YouTube suspension through its owner and resume this article's existing coordinator dispatch/readback; preserve the confirmed company post and closed policy no-writes."
+}
