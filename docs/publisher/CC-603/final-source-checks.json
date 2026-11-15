@@ -1,0 +1,2191 @@
+[
+  {
+    "candidate": {
+      "call_id": "call_5820e1f7ad98879984ffc3bd",
+      "plan_id": "plan_26cb1eb8c72cbb8b45ce1396",
+      "source_kind": "CR_VIEW",
+      "short_id": "5820e1f7",
+      "symbol": "USOIL",
+      "direction": "bearish",
+      "quote": "If price trades into 90.2\u201390.45, the desk is bearish on US crude oil (WTI) over the period to Wed 11 Nov, 07:00 ET. Invalidated if price moves above 91.6.",
+      "terms": {
+        "condition": "price trades into 90.2\u201390.45",
+        "direction": "bearish",
+        "horizon": "the period to Wed 11 Nov, 07:00 ET",
+        "invalidation": "price moves above 91.6",
+        "market": "US crude oil (WTI)"
+      },
+      "original_key": "plan-status-post-c178c039541aaf11b7c83b0fbc51a393",
+      "original_text": "US crude oil: new plan. If price trades into 90.2\u201390.45, the desk is bearish on US crude oil (WTI) over the period to Wed 11 Nov, 07:00 ET. Invalidated if price moves above 91.6.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "c62582b4dd051e7d662acb17005a9794998f202ab08b1130102a874b8af32b01",
+      "original_url": "https://t.me/CapitalChronicle/100",
+      "published_at_utc": "2026-11-09T09:13:56.142951+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "discord",
+        "telegram",
+        "threads"
+      ],
+      "zone_low": 90.2,
+      "zone_high": 90.45,
+      "resolution_level": 87.0,
+      "reference_price": 88.846,
+      "invalidation": {
+        "field": "high",
+        "level": 91.6,
+        "side": "above"
+      },
+      "valid_until_utc": "2026-11-09T23:50:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-09T11:30:00+00:00",
+      "bar_open_at_utc": "2026-11-09T11:15:00+00:00",
+      "first_price": 88.83,
+      "observed_price": 87.0,
+      "bars_sha256": "bf3a5dd49cf37173cca6606f99a3dfb7d069d86b8bcf078a14c644c36920ed1d",
+      "bar_count": 9,
+      "evidence": [
+        {
+          "open_epoch": 1794215700,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794216600,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794217500,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794218400,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794219300,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794220200,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794221100,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794222000,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794222900,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        }
+      ]
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_ddf94be794d1a8ba92f01995",
+      "plan_id": "plan_6ce7b6d137920d09843f61db",
+      "source_kind": "CR_VIEW",
+      "short_id": "ddf94be7",
+      "symbol": "EURUSD",
+      "direction": "bullish",
+      "quote": "If price trades into 1.1166\u20131.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.",
+      "terms": {
+        "condition": "price trades into 1.1166\u20131.117",
+        "direction": "bullish",
+        "horizon": "the period to Tue 10 Nov, 08:00 ET",
+        "invalidation": "price moves below 1.1144",
+        "market": "EUR/USD"
+      },
+      "original_key": "plan-status-post-28c2459d80110d5878532f9dce9c064a",
+      "original_text": "EUR/USD: new plan. If price trades into 1.1166\u20131.117, the desk is bullish on EUR/USD over the period to Tue 10 Nov, 08:00 ET. Invalidated if price moves below 1.1144.\n\nAnalysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "e77d5168fef75dc354542263affe9250c93bd42e2ef1cde31296e25a9273f914",
+      "original_url": "https://t.me/CapitalChronicle/103",
+      "published_at_utc": "2026-11-09T09:18:15.384073+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "discord",
+        "telegram",
+        "threads"
+      ],
+      "zone_low": 1.1166,
+      "zone_high": 1.117,
+      "resolution_level": 1.1225,
+      "reference_price": 1.11781,
+      "invalidation": {
+        "field": "low",
+        "level": 1.1144,
+        "side": "below"
+      },
+      "valid_until_utc": "2026-11-09T23:50:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-09T20:30:00+00:00",
+      "bar_open_at_utc": "2026-11-09T20:15:00+00:00",
+      "first_price": 1.11886,
+      "observed_price": 1.1225,
+      "bars_sha256": "3f732a063863adeaed5ca3fd8b4a8a7f5204941214694dbacbb5af1e52320a9f",
+      "bar_count": 44,
+      "evidence": [
+        {
+          "open_epoch": 1794216600,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794217500,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794218400,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794219300,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794220200,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794221100,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794222000,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794222900,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794223800,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794224700,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794225600,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794226500,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794227400,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794228300,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794229200,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794230100,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794231000,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794231900,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794232800,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794233700,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794234600,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794235500,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794236400,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794237300,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794238200,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794239100,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794240000,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794240900,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794241800,
+          "source_sha256": "2c55c310dadc7a3d066e42a42615316fbe40a7be8cd6cbf2e914f02362c483dd"
+        },
+        {
+          "open_epoch": 1794242700,
+          "source_sha256": "f6c017bc20bf7e040c81273c7746ba91cd67306cfb14f6a768111912e2b6c2d6"
+        },
+        {
+          "open_epoch": 1794243600,
+          "source_sha256": "f6c017bc20bf7e040c81273c7746ba91cd67306cfb14f6a768111912e2b6c2d6"
+        },
+        {
+          "open_epoch": 1794244500,
+          "source_sha256": "f6c017bc20bf7e040c81273c7746ba91cd67306cfb14f6a768111912e2b6c2d6"
+        },
+        {
+          "open_epoch": 1794245400,
+          "source_sha256": "f6c017bc20bf7e040c81273c7746ba91cd67306cfb14f6a768111912e2b6c2d6"
+        },
+        {
+          "open_epoch": 1794246300,
+          "source_sha256": "f6c017bc20bf7e040c81273c7746ba91cd67306cfb14f6a768111912e2b6c2d6"
+        },
+        {
+          "open_epoch": 1794247200,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794248100,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794249000,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794249900,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794250800,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794251700,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794252600,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794253500,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794254400,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794255300,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        }
+      ]
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_106875eba90c85c7ed9f531b",
+      "plan_id": "plan_79ec7bb46eb37b474f0f2c04",
+      "source_kind": "CR_VIEW",
+      "short_id": "106875eb",
+      "symbol": "US500",
+      "direction": "bullish",
+      "quote": "If price trades into 7,500\u20137,506, the desk is bullish on the S&P 500 over the period to Wed 11 Nov, 22:00 ET. Invalidated if price moves below 7,478.",
+      "terms": {
+        "condition": "price trades into 7,500\u20137,506",
+        "direction": "bullish",
+        "horizon": "the period to Wed 11 Nov, 22:00 ET",
+        "invalidation": "price moves below 7,478",
+        "market": "the S&P 500"
+      },
+      "original_key": "plan-status-post-458c6a845e6f9b130ca8f9f2f50a8826",
+      "original_text": "Micro E-mini S&P 500 (MES futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 7,500\u20137,506, the desk is bullish on the S&P 500 over the period to Wed 11 Nov, 22:00 ET. Invalidated if price moves below 7,478.\nWhy:\n\u2022 Main alternative (Capital Chronicle model estimate): AI-credit stress (chip CDS lead) and post-midterm investigation leads fade the rally.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "b83e15daab0e1a3705c077a919a84283c70732560dfd1853d62203ef556123d6",
+      "original_url": "https://t.me/CapitalChronicle/118",
+      "published_at_utc": "2026-11-10T03:17:06.207616+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "discord",
+        "telegram",
+        "threads"
+      ],
+      "zone_low": 7500.0,
+      "zone_high": 7506.0,
+      "resolution_level": 7578.0,
+      "reference_price": 7561.15,
+      "invalidation": {
+        "field": "close",
+        "level": 7478.0,
+        "side": "below"
+      },
+      "valid_until_utc": "2026-11-10T13:30:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-10T06:30:00+00:00",
+      "bar_open_at_utc": "2026-11-10T06:15:00+00:00",
+      "first_price": 7560.65,
+      "observed_price": 7578.0,
+      "bars_sha256": "22aa2d71d33b2d056064d99f3b720928638d00ef6042df63d697f59c71b4157e",
+      "bar_count": 12,
+      "evidence": [
+        {
+          "open_epoch": 1794281400,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794282300,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794283200,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794284100,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794285000,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794285900,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794286800,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794287700,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794288600,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794289500,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794290400,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794291300,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        }
+      ]
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_0bf2a58cde531ce022648fe2",
+      "plan_id": "plan_829c6d5505eb74877d962853",
+      "source_kind": "CR_VIEW",
+      "short_id": "0bf2a58c",
+      "symbol": "USOIL",
+      "direction": "bearish",
+      "quote": "If price trades into 85.95\u201386.05, the desk is bearish on US crude oil (WTI) over the period to Wed 11 Nov, 22:00 ET. Invalidated if price moves above 86.8.",
+      "terms": {
+        "condition": "price trades into 85.95\u201386.05",
+        "direction": "bearish",
+        "horizon": "the period to Wed 11 Nov, 22:00 ET",
+        "invalidation": "price moves above 86.8",
+        "market": "US crude oil (WTI)"
+      },
+      "original_key": "plan-status-post-9ecc13609c9afbdc6d46aff77498d4ea",
+      "original_text": "Micro WTI crude oil (MCL futures, Dec 2026): new plan.\nLevels use the plan's prices.\nIf price trades into 85.95\u201386.05, the desk is bearish on US crude oil (WTI) over the period to Wed 11 Nov, 22:00 ET. Invalidated if price moves above 86.8.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "307feed5b93c9a9ffe229f4dad289dc1ee23d124aa225b47ffd8ae89bfd3db0c",
+      "original_url": "https://t.me/CapitalChronicle/119",
+      "published_at_utc": "2026-11-10T03:17:37.024348+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "discord",
+        "telegram",
+        "threads"
+      ],
+      "zone_low": 85.95,
+      "zone_high": 86.05,
+      "resolution_level": 84.3,
+      "reference_price": 85.203,
+      "invalidation": {
+        "field": "close",
+        "level": 86.8,
+        "side": "above"
+      },
+      "valid_until_utc": "2026-11-10T13:30:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-10T06:45:00+00:00",
+      "bar_open_at_utc": "2026-11-10T06:30:00+00:00",
+      "first_price": 84.949,
+      "observed_price": 84.3,
+      "bars_sha256": "d4b0b7c5ce6b3c2b133f2a1d80848a736d00cf4f6982c1a2f32729f6c44730ee",
+      "bar_count": 13,
+      "evidence": [
+        {
+          "open_epoch": 1794281400,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794282300,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794283200,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794284100,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794285000,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794285900,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794286800,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794287700,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794288600,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794289500,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794290400,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794291300,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        },
+        {
+          "open_epoch": 1794292200,
+          "source_sha256": "becbd7dfb28235431829b1fe700441195037b459af32cc8889e20b187cb41748"
+        }
+      ]
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_576f57e99d3e547910d92c77",
+      "plan_id": "plan_5e5cf20917286ebd8cb8d945",
+      "source_kind": "CR_VIEW",
+      "short_id": "576f57e9",
+      "symbol": "EURUSD",
+      "direction": "bearish",
+      "quote": "If price trades into 1.1225\u20131.1245, the desk is bearish on EUR/USD over the period to 1 Dec 21:07 ET. Invalidated if price moves above 1.1282.",
+      "terms": {
+        "condition": "price trades into 1.1225\u20131.1245",
+        "direction": "bearish",
+        "horizon": "the period to 1 Dec 21:07 ET",
+        "invalidation": "price moves above 1.1282",
+        "market": "EUR/USD"
+      },
+      "original_key": "plan-status-post-28a77eacaa8d9b61383f0ff21d95e713",
+      "original_text": "#576f57e9 \u00b7 short idea\nIf price trades into 1.1225\u20131.1245, the desk is bearish on EUR/USD over the period to 1 Dec 21:07 ET. Invalidated if price moves above 1.1282.\nEntry window to 17 Nov 21:00 ET.\nTime exit: 1 Dec 21:07 ET.\nBase-case chance: 50% (Capital Chronicle model estimate).\n\u2022 US2Y 4.51% (6 Nov) against EA2Y 2.958% (5 Nov) is a gap of about 155 bp, wider after the hot CPI and payrolls, and EUR/USD is the purest USD expression (channel 5/5, definitional since it is the\u2026\n\u2022 1-day -0.48% (1.48 vol-normalised), 5-day -0.59%, 21-day -0.63%; close 1.11688 is -0.34 ATR under SMA20 1.11905, -1.59 under SMA50 1.12711 and -5.16 under SMA200 1.15007; 20-day high/low\u2026\n\u2022 CFTC 3 Nov: EUR speculators net short 157,791 of 876,122 (18% of open interest), z -2.73 against 3 years and still adding (-13,897 on the week); covering is forced above 1.12515 and 1.12731.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "ad96ddd36405e7bee0d171a22ef7e6f1ffc02d155716fddbe7ed66fdf99896f3",
+      "original_url": "https://t.me/CapitalChronicle/165",
+      "published_at_utc": "2026-11-11T03:27:10.699521+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "facebook_page",
+        "instagram_business",
+        "substack_notes",
+        "telegram"
+      ],
+      "zone_low": 1.1225,
+      "zone_high": 1.1245,
+      "resolution_level": 1.112,
+      "reference_price": 1.11694,
+      "invalidation": {
+        "field": "high",
+        "level": 1.1282,
+        "side": "above"
+      },
+      "valid_until_utc": "2026-11-18T02:00:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-11T13:30:00+00:00",
+      "bar_open_at_utc": "2026-11-11T13:15:00+00:00",
+      "first_price": 1.11655,
+      "observed_price": 1.112,
+      "bars_sha256": "1b8ad764c16ae7f6a76e9a673fa4beb15623f8ac405c88c2925ef7d0ed8a3ed2",
+      "bar_count": 40,
+      "evidence": [
+        {
+          "open_epoch": 1794367800,
+          "source_sha256": "840f0958ce83b1bd4e6cf5b129c3f73d9eb675eda3d22f6ee7aa65bb4379443c"
+        },
+        {
+          "open_epoch": 1794368700,
+          "source_sha256": "840f0958ce83b1bd4e6cf5b129c3f73d9eb675eda3d22f6ee7aa65bb4379443c"
+        },
+        {
+          "open_epoch": 1794369600,
+          "source_sha256": "840f0958ce83b1bd4e6cf5b129c3f73d9eb675eda3d22f6ee7aa65bb4379443c"
+        },
+        {
+          "open_epoch": 1794370500,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794371400,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794372300,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794373200,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794374100,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794375000,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794375900,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794376800,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794377700,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794378600,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794379500,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794380400,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794381300,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794382200,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794383100,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794384000,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794384900,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794385800,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794386700,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794387600,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794388500,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794389400,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794390300,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794391200,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794392100,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794393000,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794393900,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794394800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794395700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794396600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794397500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794398400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794399300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794400200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794401100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794402000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794402900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        }
+      ]
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_d7eddc84c9782d9414b9e7ea",
+      "plan_id": "plan_5fb1fd296a3ef7bf4b22636b",
+      "source_kind": "CR_VIEW",
+      "short_id": "d7eddc84",
+      "symbol": "BTCUSD",
+      "direction": "bearish",
+      "quote": "If price trades into 76,000\u201376,700, the desk is bearish on Bitcoin over the period to 1 Dec 21:07 ET. Invalidated if price moves above 78,900.",
+      "terms": {
+        "condition": "price trades into 76,000\u201376,700",
+        "direction": "bearish",
+        "horizon": "the period to 1 Dec 21:07 ET",
+        "invalidation": "price moves above 78,900",
+        "market": "Bitcoin"
+      },
+      "original_key": "plan-status-post-202280ae52af55689c0bf4501655b9af",
+      "original_text": "#d7eddc84 \u00b7 short idea\nIf price trades into 76,000\u201376,700, the desk is bearish on Bitcoin over the period to 1 Dec 21:07 ET. Invalidated if price moves above 78,900.\nEntry window to 17 Nov 21:00 ET.\nTime exit: 1 Dec 21:07 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "2864c8ed26f767accb56a57ac321185ef90bba7380a883333ca94095cf67c525",
+      "original_url": "https://t.me/CapitalChronicle/166",
+      "published_at_utc": "2026-11-11T03:27:45.076562+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "facebook_page",
+        "instagram_business",
+        "substack_notes",
+        "telegram",
+        "threads"
+      ],
+      "zone_low": 76000.0,
+      "zone_high": 76700.0,
+      "resolution_level": 70700.0,
+      "reference_price": 73539.18,
+      "invalidation": {
+        "field": "high",
+        "level": 78900.0,
+        "side": "above"
+      },
+      "valid_until_utc": "2026-11-18T02:00:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-13T00:45:00+00:00",
+      "bar_open_at_utc": "2026-11-13T00:30:00+00:00",
+      "first_price": 73676.13,
+      "observed_price": 70700.0,
+      "bars_sha256": "99c04421e9b182bbb756eb2122f6a583806f08869d7b935eebf0d7e73f83e6ed",
+      "bar_count": 181,
+      "evidence": [
+        {
+          "open_epoch": 1794367800,
+          "source_sha256": "840f0958ce83b1bd4e6cf5b129c3f73d9eb675eda3d22f6ee7aa65bb4379443c"
+        },
+        {
+          "open_epoch": 1794368700,
+          "source_sha256": "840f0958ce83b1bd4e6cf5b129c3f73d9eb675eda3d22f6ee7aa65bb4379443c"
+        },
+        {
+          "open_epoch": 1794369600,
+          "source_sha256": "840f0958ce83b1bd4e6cf5b129c3f73d9eb675eda3d22f6ee7aa65bb4379443c"
+        },
+        {
+          "open_epoch": 1794370500,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794371400,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794372300,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794373200,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794374100,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794375000,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794375900,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794376800,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794377700,
+          "source_sha256": "cee32f9c9f17bf5dcbee2a63a489d6f4ee62cd5774f3ffc8e03f11e893bb79d1"
+        },
+        {
+          "open_epoch": 1794378600,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794379500,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794380400,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794381300,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794382200,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794383100,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794384000,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794384900,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794385800,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794386700,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794387600,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794388500,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794389400,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794390300,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794391200,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794392100,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794393000,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794393900,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794394800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794395700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794396600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794397500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794398400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794399300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794400200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794401100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794402000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794402900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794403800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794404700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794405600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794406500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794407400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794408300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794409200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794410100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794411000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794411900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794412800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794413700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794414600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794415500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794416400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794417300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794418200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794419100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794420000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794420900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794421800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794422700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794423600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794424500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794425400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794426300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794427200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794428100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794429000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794429900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794430800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794431700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794432600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794433500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794434400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794435300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794436200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794437100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794438000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794438900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794439800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794440700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794441600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794442500,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794443400,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794444300,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794445200,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794446100,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794447000,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794447900,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794448800,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794449700,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794450600,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794451500,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794452400,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794453300,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794454200,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794455100,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794456000,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794456900,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794457800,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794458700,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794459600,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794460500,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794461400,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794462300,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794463200,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794464100,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794465000,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794465900,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794466800,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794467700,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794468600,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794469500,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794470400,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794471300,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794472200,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794473100,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794474000,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794474900,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794475800,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794476700,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794477600,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794478500,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794479400,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794480300,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794481200,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794482100,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794483000,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794483900,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794484800,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794485700,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794486600,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794487500,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794488400,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794489300,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794490200,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794491100,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794492000,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794492900,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794493800,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794494700,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794495600,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794496500,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794497400,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794498300,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794499200,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794500100,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794501000,
+          "source_sha256": "212c1535270fac9c7c737af1d32b0abbc2856b3036c31a1c6df05c5e0bde242a"
+        },
+        {
+          "open_epoch": 1794501900,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794502800,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794503700,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794504600,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794505500,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794506400,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794507300,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794508200,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794509100,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794510000,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794510900,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794511800,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794512700,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794513600,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794514500,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794515400,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794516300,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794517200,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794518100,
+          "source_sha256": "1f6987054398442d9dde5646798d812b3d3e0e9f46ce43fd9298ea8f2d25b1ec"
+        },
+        {
+          "open_epoch": 1794519000,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794519900,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794520800,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794521700,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794522600,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794523500,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794524400,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794525300,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794526200,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794527100,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794528000,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794528900,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        },
+        {
+          "open_epoch": 1794529800,
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19"
+        }
+      ]
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_a03802808373f8f8fdf9502b",
+      "plan_id": "plan_e53c7c0aa6230ec191762925",
+      "source_kind": "CR_VIEW",
+      "short_id": "a0380280",
+      "symbol": "XAUUSD",
+      "direction": "bearish",
+      "quote": "If price trades into 4,128\u20134,144, the desk is bearish on Gold over the period to 1 Dec 21:07 ET. Invalidated if price moves above 4,232.",
+      "terms": {
+        "condition": "price trades into 4,128\u20134,144",
+        "direction": "bearish",
+        "horizon": "the period to 1 Dec 21:07 ET",
+        "invalidation": "price moves above 4,232",
+        "market": "Gold"
+      },
+      "original_key": "plan-status-post-4f393682398d7e4531df3cf59b0782da",
+      "original_text": "#a0380280 \u00b7 short idea\nIf price trades into 4,128\u20134,144, the desk is bearish on Gold over the period to 1 Dec 21:07 ET. Invalidated if price moves above 4,232.\nEntry window to 17 Nov 21:00 ET.\nTime exit: 1 Dec 21:07 ET.\nBase-case chance: 48% (Capital Chronicle model estimate).\n\u2022 hot October core CPI (+0.30% m/m against 0.2% consensus) and +165k payrolls (against 65k) lift the expected US policy path (US2Y 4.51% on 6 Nov against EFFR 3.88% on 5 Nov; context about 4.73% after\u2026\n\u2022 1-day -2.42% (1.60 vol-normalised), 5-day -0.66%, 21-day -3.03%; D1 close 4038.90 is +0.09 ATR over SMA20 4031.85, -1.30 under SMA50 4144.55 and -3.69 under SMA200 4339.51; 20-day high/low\u2026\n\u2022 CFTC 3 Nov (known 6 Nov 18:00 ET): speculators net long 179,548 of 399,169 open interest, below their 3-year mean and -6,903 on the week, so forced selling is limited; covering sits above 4148.76\u2026\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "8f32df4886e0578c97a9e3e054b797ff950b7a3ada9821dbc0db1fe7cb3e7710",
+      "original_url": "https://t.me/CapitalChronicle/169",
+      "published_at_utc": "2026-11-11T03:29:12.127647+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "facebook_page",
+        "instagram_business",
+        "telegram",
+        "threads"
+      ],
+      "zone_low": 4128.0,
+      "zone_high": 4144.0,
+      "resolution_level": 3885.0,
+      "reference_price": 4045.081,
+      "invalidation": {
+        "field": "high",
+        "level": 4232.0,
+        "side": "above"
+      },
+      "valid_until_utc": "2026-11-18T02:00:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": false,
+      "cause": "CC603_HELD_PRICE_GAP"
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_52a48ae1fac94c2e77467210",
+      "plan_id": "plan_6465a91a64f564ec3198d4a8",
+      "source_kind": "CR_VIEW",
+      "short_id": "52a48ae1",
+      "symbol": "XAUUSD",
+      "direction": "bearish",
+      "quote": "If price trades into 4,068\u20134,078, the desk is bearish on Micro gold (MGC futures, Dec 2026) over the period to 13 Nov 08:15 ET. Invalidated if price moves above 4,110.",
+      "terms": {
+        "condition": "price trades into 4,068\u20134,078",
+        "direction": "bearish",
+        "horizon": "the period to 13 Nov 08:15 ET",
+        "invalidation": "price moves above 4,110",
+        "market": "Micro gold (MGC futures, Dec 2026)"
+      },
+      "original_key": "plan-status-post-57675bae0e3c7cd8830c56cddc9ab6c8",
+      "original_text": "#52a48ae1 \u00b7 short idea\nIf price trades into 4,068\u20134,078, the desk is bearish on Micro gold (MGC futures, Dec 2026) over the period to 13 Nov 08:15 ET. Invalidated if price moves above 4,110.\nEntry window to 12 Nov 16:00 ET.\nTime exit: 13 Nov 08:15 ET.\nBase-case chance: 45% (Capital Chronicle model estimate).\nLevels use the plan's prices.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "34b6862de5f78464667012ba2252552d3192996ce0164746917996874777ae02",
+      "original_url": "https://t.me/CapitalChronicle/171",
+      "published_at_utc": "2026-11-11T06:34:13.611454+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "facebook_page",
+        "instagram_business",
+        "telegram",
+        "threads"
+      ],
+      "zone_low": 4068.0,
+      "zone_high": 4078.0,
+      "resolution_level": 4000.0,
+      "reference_price": 4052.138,
+      "invalidation": {
+        "field": "high",
+        "level": 4110.0,
+        "side": "above"
+      },
+      "valid_until_utc": "2026-11-11T23:50:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-11T16:45:00+00:00",
+      "bar_open_at_utc": "2026-11-11T16:30:00+00:00",
+      "first_price": 4054.984,
+      "observed_price": 4000.0,
+      "bars_sha256": "3dd5bf1a10dba59f031c2ea31078b293c423bd77ec07b2d53cd6e43353671a04",
+      "bar_count": 40,
+      "evidence": [
+        {
+          "open_epoch": 1794379500,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794380400,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794381300,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794382200,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794383100,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794384000,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794384900,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794385800,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794386700,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794387600,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794388500,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794389400,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794390300,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794391200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794392100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794393000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794393900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794394800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794395700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794396600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794397500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794398400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794399300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794400200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794401100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794402000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794402900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794403800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794404700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794405600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794406500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794407400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794408300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794409200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794410100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794411000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794411900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794412800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794413700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794414600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        }
+      ]
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_8479dce18d1ba178156deb5a",
+      "plan_id": "plan_7ce981a4fdf322a422c90c4d",
+      "source_kind": "CR_VIEW",
+      "short_id": "8479dce1",
+      "symbol": "USDJPY",
+      "direction": "bullish",
+      "quote": "If price trades into 158.35\u2013158.45, the desk is bullish on US dollar / Japanese yen (USD.JPY spot) over the period to 13 Nov 08:15 ET. Invalidated if price moves below 157.8.",
+      "terms": {
+        "condition": "price trades into 158.35\u2013158.45",
+        "direction": "bullish",
+        "horizon": "the period to 13 Nov 08:15 ET",
+        "invalidation": "price moves below 157.8",
+        "market": "US dollar / Japanese yen (USD.JPY spot)"
+      },
+      "original_key": "plan-status-post-0173b6470476f294d3f422efec9cfbd3",
+      "original_text": "#8479dce1 \u00b7 long idea\nIf price trades into 158.35\u2013158.45, the desk is bullish on US dollar / Japanese yen (USD.JPY spot) over the period to 13 Nov 08:15 ET. Invalidated if price moves below 157.8.\nEntry window to 12 Nov 16:00 ET.\nTime exit: 13 Nov 08:15 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\u2022 1-day +0.46% (1.23 vol-normalised), 5-day +0.23%, 21-day +0.46%; close +1.41 sd over the 20-day mean 157.868, +1.23 over the 50-day mean 157.668, -0.18 under the 200-day mean 159.084; 20-day high\u2026\n\u2022 the futures positioning report as of 3 Nov: yen speculators net long 102,321 of 380,641 (27%), forced to cover on a break of 158.95-159.04 (14 Oct and 24 Sep D1 highs 158.952/159.037); official\u2026\n\u2022 clear by D1 sign (the USD leg and the US-JP front-end gap).\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "b1a7128ffa9dc2118793df6f10da3acf53af1d6018007c62febad6dc96f9c94e",
+      "original_url": "https://t.me/CapitalChronicle/172",
+      "published_at_utc": "2026-11-11T06:34:37.544714+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "facebook_page",
+        "instagram_business",
+        "telegram",
+        "threads"
+      ],
+      "zone_low": 158.35,
+      "zone_high": 158.45,
+      "resolution_level": 159.45,
+      "reference_price": 158.768,
+      "invalidation": {
+        "field": "low",
+        "level": 157.8,
+        "side": "below"
+      },
+      "valid_until_utc": "2026-11-11T23:50:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-11T13:45:00+00:00",
+      "bar_open_at_utc": "2026-11-11T13:30:00+00:00",
+      "first_price": 158.875,
+      "observed_price": 159.45,
+      "bars_sha256": "ebdc5dbfecb56173aa232672f68cfaf9733dbdd4e39394fc2f663e3fe35bf3bc",
+      "bar_count": 28,
+      "evidence": [
+        {
+          "open_epoch": 1794379500,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794380400,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794381300,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794382200,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794383100,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794384000,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794384900,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794385800,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794386700,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794387600,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794388500,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794389400,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794390300,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794391200,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794392100,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794393000,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794393900,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794394800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794395700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794396600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794397500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794398400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794399300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794400200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794401100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794402000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794402900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794403800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        }
+      ]
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_acc5894c0ca4b88b575cb02f",
+      "plan_id": "plan_f13d70a61474060ff249abbd",
+      "source_kind": "CR_VIEW",
+      "short_id": "acc5894c",
+      "symbol": "EURUSD",
+      "direction": "bearish",
+      "quote": "If price trades into 1.1192\u20131.1202, the desk is bearish on Euro (EUR.USD spot) over the period to 13 Nov 08:15 ET. Invalidated if price moves above 1.1232.",
+      "terms": {
+        "condition": "price trades into 1.1192\u20131.1202",
+        "direction": "bearish",
+        "horizon": "the period to 13 Nov 08:15 ET",
+        "invalidation": "price moves above 1.1232",
+        "market": "Euro (EUR.USD spot)"
+      },
+      "original_key": "plan-status-post-650d42c1bddb456acf57fb4939d5926d",
+      "original_text": "#acc5894c \u00b7 short idea\nIf price trades into 1.1192\u20131.1202, the desk is bearish on Euro (EUR.USD spot) over the period to 13 Nov 08:15 ET. Invalidated if price moves above 1.1232.\nEntry window to 12 Nov 16:00 ET.\nTime exit: 13 Nov 08:15 ET.\nBase-case chance: 45% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\u2022 1-day -0.48% (1.48 vol-normalised), 5-day -0.59%, 21-day -0.63%; close -0.34 ATR under SMA20 1.11905, -1.59 under SMA50 1.12711, -5.16 under SMA200 1.15007; 20-day high/low 1.12731/1.11044; ATR\u2026\n\u2022 the futures positioning report as of 3 Nov: EUR speculators net short 157,791 of 876,122 (18%), the crowded side, covering above 1.1225 and 1.12515; 9 Nov rally longs are trapped above 1.1200.\n\u2022 clear: the USD leg is the instrument itself; secondary and opposite: already reflected in prices ECB tightening and euro-area prints.\nSince 6 Nov: 4 calls judged: 3 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "0e720949d0f2a380686f294245f52ce81a066ecde82311730d03988e77448728",
+      "original_url": "https://t.me/CapitalChronicle/173",
+      "published_at_utc": "2026-11-11T06:35:01.183861+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "facebook_page",
+        "instagram_business",
+        "telegram",
+        "threads"
+      ],
+      "zone_low": 1.1192,
+      "zone_high": 1.1202,
+      "resolution_level": 1.1128,
+      "reference_price": 1.11656,
+      "invalidation": {
+        "field": "high",
+        "level": 1.1232,
+        "side": "above"
+      },
+      "valid_until_utc": "2026-11-11T23:50:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-11T13:15:00+00:00",
+      "bar_open_at_utc": "2026-11-11T13:00:00+00:00",
+      "first_price": 1.11521,
+      "observed_price": 1.1128,
+      "bars_sha256": "c01e43561b62867a19ad8677c66ae5ab3b812348f52da7efce34ac48befc3fcc",
+      "bar_count": 26,
+      "evidence": [
+        {
+          "open_epoch": 1794379500,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794380400,
+          "source_sha256": "f35098e8ea95ac1a24229feed45c3ff987f03891ab08553fef8627f6c79ca623"
+        },
+        {
+          "open_epoch": 1794381300,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794382200,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794383100,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794384000,
+          "source_sha256": "c2f882036bfbdeb363e324101368599b8195161c700e1f58777aa772e4567a74"
+        },
+        {
+          "open_epoch": 1794384900,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794385800,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794386700,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794387600,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794388500,
+          "source_sha256": "3e2343624c6ac484d4671904fedbd05f1cd04d792a4b4bde670880b8970971fb"
+        },
+        {
+          "open_epoch": 1794389400,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794390300,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794391200,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794392100,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794393000,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794393900,
+          "source_sha256": "5a46417dfc553fd158c8c2b72330b5aa033d78d0dd248a499e04f13edec14894"
+        },
+        {
+          "open_epoch": 1794394800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794395700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794396600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794397500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794398400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794399300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794400200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794401100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794402000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        }
+      ]
+    }
+  },
+  {
+    "candidate": {
+      "call_id": "call_5a6538c6d2a69ff3c83b93a2",
+      "plan_id": "plan_71c24e00afe1c6a495d36468",
+      "source_kind": "CR_VIEW",
+      "short_id": "5a6538c6",
+      "symbol": "XAUUSD",
+      "direction": "bearish",
+      "quote": "If price trades into 4,048\u20134,052, the desk is bearish on Micro gold (MGC futures, Dec 2026) over the period to 13 Nov 08:15 ET. Invalidated if price moves above 4,090.",
+      "terms": {
+        "condition": "price trades into 4,048\u20134,052",
+        "direction": "bearish",
+        "horizon": "the period to 13 Nov 08:15 ET",
+        "invalidation": "price moves above 4,090",
+        "market": "Micro gold (MGC futures, Dec 2026)"
+      },
+      "original_key": "plan-status-post-6b1d1b45c769342760ceb96f57b0c775",
+      "original_text": "#5a6538c6 \u00b7 short idea\nIf price trades into 4,048\u20134,052, the desk is bearish on Micro gold (MGC futures, Dec 2026) over the period to 13 Nov 08:15 ET. Invalidated if price moves above 4,090.\nEntry window to 12 Nov 16:00 ET.\nTime exit: 13 Nov 08:15 ET.\nBase-case chance: 55% (Capital Chronicle model estimate).\nLevels use the plan's prices.\n\u2022 the hot October CPI (BLS: all items +0.4% m/m, core +0.3% for a third month) and the hike repricing that extended on 11 Nov raise the expected Fed path and real yields (pre-CPI US2Y 4.51% against\u2026\n\u2022 10 Nov -2.42% (open 4139.11, low 4013.72, close 4038.90), 11 Nov -0.60% to 4014.79 (-0.30 ATR); 20-day high and low 4190.65/3870.03; a December hike about 91% already reflected in prices; implied\u2026\n\u2022 CFTC the futures positioning report as of 3 Nov (known 2026-11-06T23:00Z) speculators net long 179,548 of 399,169 open interest (45%), entry levels not observed, so no forced-sale level is shown\u2026\nSince 6 Nov: 5 calls judged: 4 STOPPED, 1 time exits.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+      "original_sha256": "2e43ab93fd8f2894d9e959f511567171231a5899f85993db9fcfc6bd6f509a0f",
+      "original_url": "https://t.me/CapitalChronicle/179",
+      "published_at_utc": "2026-11-11T16:26:16.601628+00:00",
+      "publication_clock_basis": "CONFIRMED_DISPATCH_CLOCK",
+      "destinations": [
+        "telegram"
+      ],
+      "zone_low": 4048.0,
+      "zone_high": 4052.0,
+      "resolution_level": 3984.0,
+      "reference_price": 4014.772,
+      "invalidation": {
+        "field": "high",
+        "level": 4090.0,
+        "side": "above"
+      },
+      "valid_until_utc": "2026-11-11T23:50:00Z",
+      "source_content_hash": "98a43f7a533f30f571b1e85047d50ee7e119b45d1f03071823bb161b20abe3c5"
+    },
+    "price_check": {
+      "eligible": true,
+      "entry_traded": false,
+      "resolved_at_utc": "2026-11-11T19:30:00+00:00",
+      "bar_open_at_utc": "2026-11-11T19:15:00+00:00",
+      "first_price": 4002.935,
+      "observed_price": 3984.0,
+      "bars_sha256": "74bd57b46f5fde0cfb92dde77da3c42b69e0d238ae7112367bcfd6ac133806b5",
+      "bar_count": 12,
+      "evidence": [
+        {
+          "open_epoch": 1794414600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794415500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794416400,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794417300,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794418200,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794419100,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794420000,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794420900,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794421800,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794422700,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794423600,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        },
+        {
+          "open_epoch": 1794424500,
+          "source_sha256": "1085a85ed8d0dd465bbf50935784415c52f1146fcf5498f154c96b1534ea3108"
+        }
+      ]
+    }
+  }
+]

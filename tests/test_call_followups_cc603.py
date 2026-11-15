@@ -344,3 +344,18 @@ def test_correction_continuation_keeps_chart_and_preserves_issued_root(ready,tmp
         assert result["per_destination"]["threads"]["status"]=="DISPATCH_CONFIRMED"
         assert store.get_platform_dispatch(legacy_ids["dispatch_id"])["status"]=="DEFINITE_NO_WRITE"
     assert root_payload==posts._expected(store,key,plan["output_dir"])[1]["threads"]
+
+
+def test_pythonw_minute_record_keeps_actual_followup_progress_without_media(tmp_path):
+    result={"status":"OK","call_followups":{"status":"OK","corrections_complete":False,"posts":[
+        {"key":f.GOLD_CORRECTION,"publication":{"status":"NATIVE_NEO_TOOL_PENDING","request_sha256":"exact-request",
+            "raw_image":"omitted-media-bytes","copy":"omitted-copy","per_destination":{
+                "telegram":{"status":"DISPATCH_CONFIRMED","public_object_url":"https://t.me/CapitalChronicle/184"},
+                "substack_notes":{"status":"NATIVE_NEO_TOOL_PENDING","request_copy":"omitted-copy"}}}}]}}
+    path=posts.record_run(result,tmp_path,now=NOW)
+    stored=json.loads(path.read_text(encoding="utf-8"))
+    observed=stored["call_followups"]["posts"][0]
+    assert observed["key"]==f.GOLD_CORRECTION
+    assert observed["publication"]["request_sha256"]=="exact-request"
+    assert observed["publication"]["per_destination"]["telegram"]["status"]=="DISPATCH_CONFIRMED"
+    assert "omitted" not in json.dumps(stored)

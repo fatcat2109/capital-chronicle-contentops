@@ -584,6 +584,20 @@ def minute_due(store, load_export, **options):
     return run_due(store,export,**options)
 
 
+def run_record(result):
+    """Keep progress in the minute task's existing record, without copy or media bytes."""
+    def publication(value):
+        return {**{k:value[k] for k in ("status","state","pending_destination","request_sha256","cause") if k in value},
+            "per_destination":{d:{k:v[k] for k in ("status","reason_code","public_object_id","public_object_url") if k in v}
+                for d,v in value.get("per_destination",{}).items() if isinstance(v,dict)}}
+    return {**{k:result[k] for k in ("status","cause","corrections_complete") if k in result},"posts":[
+        {**{k:row[k] for k in ("key","call_id","status","cause","media_request") if k in row},
+            **({"publication":publication(row["publication"])} if row.get("publication") else {}),
+            **({"continuations":[{"key":child["key"],"publication":publication(child["publication"])}
+                for child in row["continuations"]]} if row.get("continuations") else {})}
+        for row in result.get("posts",[])]}
+
+
 def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=None, asset_for=None, bars_reader=read_bars):
     """One bounded slice in the existing minute task. No schedule, loop or second publisher."""
     now = now or datetime.now(timezone.utc)

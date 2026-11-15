@@ -960,6 +960,9 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
         line["plan_pages"] = result["plan_pages"]
     if "scorecard" in result:
         line["scorecard"] = result["scorecard"]
+    if "call_followups" in result:
+        from .call_followups_v1 import run_record as followup_record
+        line["call_followups"] = followup_record(result["call_followups"])
     if "event_timestamp" in result:
         line["event_timestamp"] = result["event_timestamp"]
     if "audience_collection" in result:
