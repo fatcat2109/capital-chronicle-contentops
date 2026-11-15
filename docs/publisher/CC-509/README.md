@@ -1,3 +1,9 @@
+Current result, 16 November 2026: both remaining live-consumer checks pass.
+The original natural Brent private delivery arrived within 8.58 minutes;
+the next published gold plan chart retained its CNBC `AT_CAPTURE` comparison.
+See [the verified original records](resume-20261116/README.md). This supersedes
+the pending acceptance below, which remains the original 12 November history.
+
 CC-509 adds a shared on-demand public quote to the existing private reply bot
 and TradingView price check. Main's timed minute export is read first, then an
 exact native M1 row, then a usable held same-session fact, then HTTPS. Source
