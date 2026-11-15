@@ -282,3 +282,22 @@ def test_old_cpi_article_uses_held_bls_core_and_exact_hour_endpoint(tmp_path):
     checked=f.check_path(c,prices)
     assert checked["eligible"] and checked["observed_price"]==99.2
     assert not f.check_path({**c,"condition_met":False},prices)["eligible"]
+
+
+def test_browser_pending_keeps_the_existing_minute_consumer_running(ready,tmp_path,monkeypatch):
+    from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired
+    store,transport,coordinator,record=ready
+    c=candidate()
+    q=f.queue_followup(store,c,f.check_path(c,bars()),record,now=NOW)
+    original_publish=coordinator.publish_plan
+    def pending(key,plan):
+        api_plan={**plan,"destinations":[d for d in plan["destinations"] if d["destination"] not in {"x","substack_notes"}]}
+        original_publish(key,api_plan)
+        raise NativeNeoInputRequired({"destination":"substack_notes","request_sha256":"exact-pending"})
+    monkeypatch.setattr(coordinator,"publish_plan",pending)
+    monkeypatch.setattr(f,"discover",lambda *a:[])
+    result=f.run_due(store,{"status":{"plans":[]}},now=NOW,root=tmp_path/"posts",
+        coordinator_for=lambda *a:coordinator,host=fake_host,asset_for=lambda r:asset(tmp_path))
+    assert result["posts"][-1]["publication"]["request_sha256"]=="exact-pending"
+    assert sorted(transport.publish_calls)==["discord","telegram"]
+    assert store.get_outbox_message(q["key"])["status"]=="CC603_PREPARED"

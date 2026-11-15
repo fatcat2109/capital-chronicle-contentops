@@ -575,6 +575,7 @@ def held_chart(store, row, *, root=ROOT):
 def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=None, asset_for=None, bars_reader=read_bars):
     """One bounded slice in the existing minute task. No schedule, loop or second publisher."""
     now = now or datetime.now(timezone.utc)
+    from .native_neo_executor_v1 import NativeNeoInputRequired
     correction = prepare_gold_correction(store, now=now)
     results = []
     if not corrections_complete(store):
@@ -607,16 +608,24 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
                     "visible_from_utc":(row.get("candidate") or {}).get("published_at_utc"),
                     "visible_to_utc":(row.get("price_check") or {}).get("resolved_at_utc")}})
             continue
-        plan = posts.prepare_post(store,key,root=Path(root),host=host,destinations=tuple(row["cc603_destinations"]),
+        destinations = sorted(row["cc603_destinations"],key=lambda d:(d in {"x","substack_notes"},d))
+        plan = posts.prepare_post(store,key,root=Path(root),host=host,destinations=tuple(destinations),
                                   cc603_asset=asset)
         if coordinator_for:
             coordinator = coordinator_for(key,Path(plan["output_dir"]))
         else:
             from .native_neo_executor_v1 import bind_native_neo_coordinator
+            from .neo_endpoint_executor_v1 import NeoMcpClient
             coordinator,_ = bind_native_neo_coordinator(store,operation_id=key,output_dir=Path(plan["output_dir"])/"native-neo",
-                native_invocation_id="cc603-minute-consumer",allow_publish=True,automatic=True)
+                native_invocation_id="cc603-minute-consumer",allow_publish=True,automatic=True,
+                endpoint_client=NeoMcpClient(task_name="cc603 corrections followups",group_title="codex/cc603-corrections-followups"))
         posts.scope_to_post(coordinator,key,plan)
-        outcome = coordinator.publish_plan(key,plan)
+        try:
+            outcome = coordinator.publish_plan(key,plan)
+        except NativeNeoInputRequired as pending:
+            outcome = {"status":"NATIVE_NEO_TOOL_PENDING","request_sha256":pending.request.get("request_sha256"),
+                "pending_destination":pending.request.get("destination"),
+                "per_destination":{p["destination"]:{"status":"DISPATCH_CONFIRMED"} for p in publications(store,key)}}
         # Threads/Telegram continuations retain their own durable dispatches.
         # No subsequent part goes out until its predecessor has read back.
         for continuation in plan.get("continuations") or []:
