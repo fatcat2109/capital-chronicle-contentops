@@ -6,6 +6,7 @@ import threading
 import urllib.error
 import urllib.parse
 import urllib.request
+from types import SimpleNamespace
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -476,6 +477,50 @@ def test_create_ack_with_non_json_body_still_requires_exact_identity(tmp_path):
     with pytest.raises(LinkedInAmbiguousWriteError, match="UNKNOWN_WRITE_CREATE_ID_MISSING"):
         transport.publish(intent={"payload": "Reviewed copy"},
             authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
+
+
+def test_publisher_runtime_consumes_official_uploaded_chart_and_exact_readback(tmp_path):
+    from PIL import Image
+    image = tmp_path / "chart.png"
+    Image.new("RGB", (100, 100), "navy").save(image)
+    store = _test_store(tmp_path / "auth")
+    store.write({"access_token": "private"}, _metadata(
+        expires_at=datetime.now(timezone.utc) + timedelta(days=30),
+        scopes=["openid", "profile", "w_member_social", "r_member_social"]))
+    seen = []
+
+    def provider(request, **_):
+        seen.append((request.method, request.full_url))
+        if "registerUpload" in request.full_url:
+            return _Response(200, {"value": {"asset": "urn:li:digitalmediaAsset:chart",
+                "uploadMechanism": {"com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest": {
+                    "uploadUrl": "https://www.linkedin.com/dms-uploads/chart?sync=1"}}}})
+        if "/dms-uploads/" in request.full_url:
+            assert request.data == image.read_bytes()
+            return _Response(201, raw=b"")
+        if request.method == "POST":
+            share = json.loads(request.data)["specificContent"]["com.linkedin.ugc.ShareContent"]
+            assert share["shareMediaCategory"] == "IMAGE"
+            assert share["media"][0]["media"] == "urn:li:digitalmediaAsset:chart"
+            return _Response(201, headers={"X-RestLi-Id": "urn:li:share:123"}, raw=b"")
+        assert request.full_url.endswith("/posts/urn%3Ali%3Ashare%3A123")
+        return _Response(200, {"id": "urn:li:share:123", "author": "urn:li:person:member-123",
+                              "lifecycleState": "PUBLISHED"})
+
+    def no_browser(**_):
+        pytest.fail("The official API result must reach the Publisher without a browser action")
+
+    runtime = CanonicalDestinationTransportRuntimeV1(
+        linkedin_transport=LinkedInOfficialMemberApiTransportV1(token_store=store, opener=provider),
+        neo_transport=SimpleNamespace(publish=no_browser, readback=no_browser))
+    intent = {"payload": "Reviewed copy", "media_assets": [{"path": str(image)}]}
+    result = runtime.publish(destination="linkedin", intent=intent,
+        authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
+    assert result["image_delivery"] == "IMAGE_ATTACHED"
+    observed = runtime.readback(destination="linkedin", intent=intent,
+        public_object_id=result["public_object_id"], public_object_url=result["public_object_url"])
+    assert observed["verified"] is True
+    assert [method for method, _ in seen] == ["POST", "PUT", "POST", "GET"]
 
 
 def test_timeout_after_crossing_write_boundary_is_unknown_write(tmp_path):
