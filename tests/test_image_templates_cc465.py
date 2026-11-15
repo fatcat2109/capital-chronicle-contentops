@@ -174,6 +174,38 @@ def test_price_formats_pair_and_blue_band_are_source_faithful(tmp_path):
     assert templates.r_text(-1)=="−1.0R"
 
 
+@pytest.mark.parametrize("master",["W","T"])
+@pytest.mark.parametrize("template,image_number",[("call",1),("event",1),("event",2),
+    ("result",1),("weekly",1),("map",1),("map",2)])
+@pytest.mark.parametrize("target",[157.8,100.0])
+def test_profit_target_never_changes_public_pixels_or_text(tmp_path,master,template,image_number,target):
+    # Both an in-view target and one beyond the chart used to reach a call
+    # card. The same source also reaches event, result and map chart frames.
+    before=input_record(template)
+    snapshot=capture(tmp_path,master)
+    snapshot["last_30_days_fill_fraction"]=1
+    plain=templates.render(before,master,tmp_path/"without",snapshot,image_number=image_number)
+    after=deepcopy(before);after.pop("source_binding")
+    after["plan"]["target"]=target
+    after=bind(after,deepcopy(after))
+    image=templates.render(after,master,tmp_path/"with",snapshot,image_number=image_number)
+    assert image["sha256"]==plain["sha256"]
+    assert not any("Target" in t["text"] for t in image["image_template"]["texts"])
+    assert image["image_template"]["input"]["source_binding"]["record"]["plan"]["target"]==target
+    assert quality.code_check(image)["passed"]
+
+
+def test_target_bearing_source_is_delivered_without_a_public_target(tmp_path):
+    data=input_record();data.pop("source_binding");data["plan"]["target"]=157.8
+    image=asset(tmp_path,data=bind(data,deepcopy(data)))
+    image["image_quality"]=yes_review(image)
+    _,runtime,coordinator,message=publication_message(tmp_path/"run",image)
+    result=coordinator._dispatch_message(message,canonical_url=None)
+    assert result["status"]=="DISPATCH_CONFIRMED",result
+    assert runtime.publish_calls==["substack"]
+    assert not any("Target" in t["text"] for t in image["image_template"]["texts"])
+
+
 def test_missing_alternative_is_never_filled_with_a_complement(tmp_path):
     data=input_record();data["plan"]["alt_probability_pct"]=None;data=bind(data,data)
     image=asset(tmp_path,data=data)

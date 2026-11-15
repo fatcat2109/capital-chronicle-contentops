@@ -258,11 +258,8 @@ def _levels(canvas, data, snapshot, framing):
         for y in (ya, yb): draw.line((left,y,right,y), fill=COLOURS["blue"], width=2)
     entries = [("Entry " + price(low, market)+"–"+price(high, market), (ya+yb)/2, "blue")]
     entries.append(("Invalidation "+price(invalid, market), py(invalid), "red"))
-    target_visible = False
-    if plan.get("target") is not None:
-        ty = py(plan["target"])
-        target_visible = top <= ty <= bottom and snapshot.get("last_30_days_fill_fraction", 0) >= .35
-        if target_visible: entries.append(("Target "+price(plan["target"], market),ty,"green"))
+    # Decisions 40 and 82 override the design spec's target drawing. Retain
+    # targets in the bound source, without using them in public pixels.
     last_label_end = top
     for label, y, colour in sorted(entries, key=lambda e:e[1]):
         if not top <= y <= bottom:
@@ -277,7 +274,7 @@ def _levels(canvas, data, snapshot, framing):
         canvas.text(label,(left+12,ly,left+tw+24,ly+34),size=28,weight=600,colour=colour,key="chart_level")
         last_label_end = ly+46
     return {"required": True, "levels_visible": visible, "pane_box": [left,top,right,bottom],
-            "entry_colour": COLOURS["blue"], "target_visible": target_visible}
+            "entry_colour": COLOURS["blue"]}
 
 
 def _chart(canvas, data, snapshot):
@@ -286,8 +283,6 @@ def _chart(canvas, data, snapshot):
     levels = _levels(canvas, data, snapshot, framing)
     p = lambda v: price(v, market)
     entry = p(plan.get("entry_low"))+"–"+p(plan.get("entry_high"))
-    target = p(plan.get("target"))
-    target_line = ("Target "+target+(" (beyond this chart)" if not levels.get("target_visible") else "")) if target else ""
     odds = ""
     main, alt = plan.get("main_probability_pct"), plan.get("alt_probability_pct")
     if main is not None and alt is not None:
@@ -303,10 +298,10 @@ def _chart(canvas, data, snapshot):
         if kind == "call":
             status = field(plan,"status_label",18)
             canvas.heading(MARKETS[market],direction=plan.get("direction"),horizon=horizon,status=status)
-            line1 = " · ".join(s for s in ("Entry "+entry,"Invalidation "+p(plan.get("invalidation")),target_line) if s)
+            line1 = " · ".join(("Entry "+entry,"Invalidation "+p(plan.get("invalidation"))))
             line2 = " · ".join(s for s in (odds,"Time exit "+plan["time_exit_et"] if plan.get("time_exit_et") else "") if s)
             cells = [("Entry",entry,True),("Invalidation",p(plan.get("invalidation")),True),
-                     (("Target" if levels.get("target_visible") else "Target (beyond this chart)") if target else "Entry window ends",target or plan.get("entry_window_ends_et",""),bool(target)),
+                     ("Entry window ends",plan.get("entry_window_ends_et",""),False),
                      ("Time exit",plan.get("time_exit_et",""),False)]
             canvas.footer([line1,line2] if canvas.master == "W" else [odds],cells)
         else:
