@@ -69,6 +69,19 @@ The six-market chart calibration belongs to CC-489; this item's live proof
 does not establish a three-day sample or widen any limits. WTI's delayed free
 quote can support an eligible reply while failing the chart's two-minute rule.
 
-Integration and installed-source verification are recorded in
-`integration.json` when completed. The existing scheduled minute consumer,
-unrelated dirty files and schedules are preserved.
+Publisher fast-forwarded proof commit
+`57acca4cc01fee3804480e07325f269bb819c58f` into the operating root on
+**16 Nov 2026 at 04:28 GMT+7**. The same **81 installed tests passed in
+18.45 seconds**. The installed reader then ran from the operating root and
+confirmed the original delivery, receipt, pack and chart bindings again.
+[installed-readback.json](installed-readback.json),
+[installed-tests.xml](installed-tests.xml) and
+[integration.json](integration.json) retain these results.
+
+The [existing scheduled consumer](scheduled-consumer.json) still runs
+`pythonw.exe -B scripts\plan_status_posts.py --publish` in that root. Its
+04:28 GMT+7 task result is 0. All eight original dirty-file hashes still match.
+The delivery uses live tag `contentops-live-20261116-cc509-acceptance`; rollback
+tag `contentops-rollback-20261116-cc509-acceptance` retains the original operating
+HEAD `fa7533c6bacbc7c4816de8e9a0da9d8a1193857f`.
+No integration, Ops review or person action remains for CC-509.
