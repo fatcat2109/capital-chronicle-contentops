@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="44" time="7.944" timestamp="2026-11-16T04:36:04.300000+07:00" hostname="J-P"><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_recorded_output_is_used_by_live_compiler" time="0.304" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_failure_never_holds_or_changes_the_original_copy[failure0]" time="0.030" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_failure_never_holds_or_changes_the_original_copy[failure1]" time="0.032" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_failed_or_empty_output_and_resume_do_not_retry" time="0.031" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_version_failure_still_sends_once_and_feeds_reviewed_copy[version_result0-AGY_VERSION_TIMEOUT_5S]" time="0.062" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_version_failure_still_sends_once_and_feeds_reviewed_copy[version_result1-AGY_VERSION_EXIT_1]" time="0.062" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_version_failure_still_sends_once_and_feeds_reviewed_copy[version_result2-AGY_VERSION_EMPTY]" time="0.056" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_version_failure_keeps_actual_model_failure_and_existing_copy" time="0.027" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_flags_are_bound_to_source_lines_and_publisher_decides" time="0.045" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_bad_suggestion_falls_back_without_holding_the_piece[See fatcat2109.github.io.]" time="0.045" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_bad_suggestion_falls_back_without_holding_the_piece[At 20:00 GMT+7.]" time="0.043" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_bad_suggestion_falls_back_without_holding_the_piece[https://unapproved.example/]" time="0.046" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_bad_suggestion_falls_back_without_holding_the_piece[DEMO account login 279805139.]" time="0.043" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_bad_suggestion_falls_back_without_holding_the_piece[The sample now reports 999 observations.]" time="0.041" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_bad_suggestion_falls_back_without_holding_the_piece[AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]" time="0.045" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_changed_draft_does_not_use_stale_suggestions" time="0.039" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_reader_adapter_preserves_selected_variants" time="0.008" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_long_source_pack_stream_and_parser_have_no_command_line_limit" time="0.018" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_native_submit_and_review_route_the_light_step" time="0.648" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_compiler_rejecting_suggestions_retains_the_original_article" time="0.030" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_claim_cannot_launder_a_different_value_sign_or_unit[20-2]" time="0.033" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_claim_cannot_launder_a_different_value_sign_or_unit[-2-2]" time="0.037" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_claim_cannot_launder_a_different_value_sign_or_unit[2%-2]" time="0.034" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_number_and_attribution_coverage_is_exact" time="0.012" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_draft_and_source_metadata_cannot_authorize_social_numbers[source_id]" time="0.036" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_draft_and_source_metadata_cannot_authorize_social_numbers[url]" time="0.035" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_draft_and_source_metadata_cannot_authorize_social_numbers[retrieved_at_utc]" time="0.035" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_matching_a_metadata_quote_does_not_support_a_claim" time="0.014" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_named_dates_and_attributions_are_checked_against_the_quote" time="0.012" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_light_copy_checks_dates_and_attributions_without_blocking_other_outputs[The release is Tuesday.-AGY_UNSUPPORTED_DATE]" time="0.040" /><testcase classname="tests.test_agy_editorial_assist_cc378" name="test_light_copy_checks_dates_and_attributions_without_blocking_other_outputs[According to Invented Agency, there are 2 observations.-AGY_UNSUPPORTED_ATTRIBUTION]" time="0.043" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_controlled_text_call_is_bounded_and_checks_the_draft_before_editing[None]" time="0.139" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_controlled_text_call_is_bounded_and_checks_the_draft_before_editing[empty]" time="0.023" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_controlled_text_call_is_bounded_and_checks_the_draft_before_editing[timeout]" time="0.021" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_controlled_text_call_is_bounded_and_checks_the_draft_before_editing[exit]" time="0.021" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_controlled_text_call_is_bounded_and_checks_the_draft_before_editing[bad_number]" time="0.027" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_daily_request_consumes_agy_once_and_dispatches_one_light_editor[True]" time="0.610" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_daily_request_consumes_agy_once_and_dispatches_one_light_editor[False]" time="0.591" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_weekly_role_remains_strong_and_no_agy_daily_call_is_allocated" time="0.105" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_older_bound_operation_keeps_its_original_editorial_epoch" time="0.004" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_model_labels_are_recorded_without_a_second_process_veto[observation0]" time="0.546" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_model_labels_are_recorded_without_a_second_process_veto[observation1]" time="0.580" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_model_labels_are_recorded_without_a_second_process_veto[observation2]" time="0.638" /><testcase classname="tests.test_daily_note_first_draft_cc403" name="test_source_validator_accepts_the_edited_note_and_keeps_every_binding" time="0.025"><failure message="live_contentops.v1_simple_gemini_newsroom_v1.SimpleGeminiNewsroomError: deterministic_article_validation_failed:material_claim_not_in_public_copy:p0;material_claim_not_in_public_copy:p1;material_claim_not_in_public_copy:p10;material_claim_not_in_public_copy:p3;material_claim_not_in_public_copy:p5;material_claim_not_in_public_copy:p7;material_claim_not_in_public_copy:p8">def test_source_validator_accepts_the_edited_note_and_keeps_every_binding():
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_article_against_source_pack
+        value = output()
+        _, docs = daily()
+        value["article"]["reader_article_contract"] = governed()["reader_article_contract"]
+&gt;       article, validation = _validate_article_against_source_pack(value, docs, article_mode="STANDARD_NEWS_ANALYSIS")
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_daily_note_first_draft_cc403.py:182: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+worker_output = {'article': {'dek': 'We favour gold if the dollar stays soft.', 'meta_description': 'We favour gold if the dollar stay...yields favour gold while the dollar stays soft. [[SOURCE:SOURCE_1]]', ...}, ...], 'public_write_attempted': False, ...}
+source_pack = [{'canonical_content_sha256': 'e50b592380716dac5e3e4ee585f796380efcf3351aac6945fb3fb9deee5c1f8a', 'canonical_content_t...hanging our view. [[SOURCE:SOURCE_1]]', 'data_cutoff_utc': '2026-11-10T14:00:00Z', 'document_id': 'main-current', ...}]
+
+    def _validate_article_against_source_pack(
+        worker_output: Mapping[str, Any],
+        source_pack: Sequence[Mapping[str, Any]],
+        *,
+        selected_candidate: Mapping[str, Any] | None = None,
+        article_mode: str | None = None,
+        epistemic_state: Mapping[str, Any] | None = None,
+    ) -&gt; tuple[dict[str, Any], dict[str, Any]]:
+        article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
+        article.pop("text_first", None)  # Only the source-validation owner may attach release policy.
+        # Only source-bound validation may attach this compiler metadata. A writer's
+        # extra article fields cannot self-certify a permitted probability descriptor.
+        article.pop("public_research_descriptors", None)
+        article.pop("frozen_public_record", None)  # Main's exact source, never writer-authored attachment metadata.
+        article.pop("weekly_scored_calls", None)
+        from live_contentops.cpi_reaction_page_v1 import bind_tables
+        try:
+            article = bind_tables(article, source_pack)
+        except ValueError as exc:
+            raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", [str(exc)]) from exc
+        from live_contentops.reader_article_contract_v1 import validate_article as validate_reader_article
+        try:
+            validate_reader_article(article, source_pack)
+        except ValueError as exc:
+            raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", [str(exc)]) from exc
+        from live_contentops.public_instruments_v1 import validate_article as validate_public_instruments
+        try:
+            validate_public_instruments(article)
+        except ValueError as exc:
+            raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", [str(exc)]) from exc
+        from live_contentops.weekly_scored_calls_v1 import validate_article as validate_weekly_calls
+        try:
+            weekly_record = validate_weekly_calls(article, source_pack)
+        except ValueError as exc:
+            raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", [str(exc)]) from exc
+        if weekly_record:
+            article["weekly_scored_calls"] = weekly_record
+        sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
+        claims = [dict(row) for row in worker_output.get("material_claim_bindings") or [] if isinstance(row, Mapping)]
+        available_by_id = {str(row.get("source_id") or ""): dict(row) for row in source_pack}
+        cited_by_id: dict[str, dict[str, Any]] = {}
+        blockers: list[str] = []
+        from live_contentops.public_time_v1 import REASON as TIME_REASON, find_forbidden_public_time, public_article_text
+        if find_forbidden_public_time(public_article_text(article)):
+            blockers.append(TIME_REASON)
+        source_order = {str(row.get("source_id") or ""): i for i, row in enumerate(source_pack)}
+        prior_source_position = -1
+        for source in sources:
+            source_id = str(source.get("source_id") or "")
+            url = str(source.get("url") or "")
+            position = source_order.get(source_id, -1)
+            if position &lt;= prior_source_position:
+                blockers.append(f"source_marker_order_invalid:{source_id}")
+                continue
+            prior_source_position = position
+            available = available_by_id.get(source_id)
+            if available is None or str(available.get("url") or "") != url:
+                blockers.append(f"source_not_in_retrieved_pack:{source_id}")
+                continue
+            cited_by_id[source_id] = available
+        public_copy_normal = _normal(_public_copy(article))
+        for document in source_pack:
+            constraints = document.get("source_reuse_constraints") or {}
+            if constraints.get("public_expression_reuse_allowed") is False:
+                # Facts-only admission cannot silently become verbatim public reuse.
+                words = re.findall(r"\w+", str(document.get("canonical_content_text") or "").casefold())
+                public_words = " ".join(re.findall(r"\w+", public_copy_normal))
+                if any(" ".join(words[i:i + 16]) in public_words for i in range(max(0, len(words) - 15))):
+                    blockers.append(f"facts_only_source_expression_reuse:{document.get('source_id')}")
+        supported: list[dict[str, Any]] = []
+        for claim in claims:
+            claim_id = str(claim.get("claim_id") or "UNKNOWN")
+            claim_text = str(claim.get("claim_text") or "").strip()
+            source_id = str(claim.get("source_id") or "")
+            excerpt = str(claim.get("support_excerpt") or "").strip()
+            document = cited_by_id.get(source_id)
+            if len(claim_text) &lt; 8 or _normal(claim_text) not in public_copy_normal:
+                blockers.append(f"material_claim_not_in_public_copy:{claim_id}")
+                continue
+            if str(claim.get("claim_kind") or "") not in _VALID_CLAIM_KINDS:
+                blockers.append(f"material_claim_kind_invalid:{claim_id}")
+                continue
+            if document is None or len(excerpt) &lt; 8 or _normal(excerpt) not in _normal(
+                document.get("canonical_content_text")
+            ):
+                blockers.append(f"material_claim_excerpt_not_verified:{claim_id}")
+                continue
+            report_lineage = document.get("report_lineage") or {}
+            # The retained Main adapter verifies exact file bytes and public spans.
+            # Those untyped excerpts are not the typed claims of a Main envelope.
+            # Keep the normal exact-excerpt check above; preserve typed-claim checks
+            # for every original report envelope.
+            span_digest = report_lineage.get("report_projection_sha256")
+            span_projection = _verified_own_public_excerpts(document) or (report_lineage.get("origin") == "RETAINED_MAIN_REPORT_EXACT_SPANS"
+                and re.fullmatch(r"[a-f0-9]{64}", str(span_digest or ""))
+                and document.get("url") == "urn:cc-public-report:main-retained:" + span_digest
+                and (document.get("source_reuse_constraints") or {}).get("scope") == "CAPITAL_CHRONICLE_OWN_REPORT_PUBLIC_EXCERPTS"
+                and (document.get("source_reuse_constraints") or {}).get("source_capture_sha256") == span_digest)
+            if span_projection:
+                report_lineage = {}
+            report_claims = [c for c in report_lineage.get("claims", []) if _normal(excerpt) in _normal(c["text"])]
+            report_metadata = [m for m in report_lineage.get("source_clock_metadata", [])
+                               if _normal(excerpt) == _normal(m["text"])]
+            report_metadata += [m for m in report_lineage.get("source_research_metadata", [])
+                                if _normal(excerpt) == _normal(m["text"])]
+            if report_lineage and not report_claims and not report_metadata:
+                blockers.append(f"report_claim_excerpt_unbound:{claim_id}")
+                continue
+            from live_contentops.capital_chronicle_public_research_semantics_v1 import reference_blockers, dependence_copy_blockers
+            semantics = [c["research_semantics"] for c in report_claims if c.get("research_semantics")]
+            blockers.extend(dependence_copy_blockers(claim_text, semantics))
+            typed = [s for s in semantics if s.get("probability_descriptor")]
+            if typed and not claim.get("research_reference"):
+                blockers.append("public_probability_reference_missing:" + claim_id)
+            if claim.get("research_reference"):
+                if len(typed) != 1:
+                    blockers.append("public_probability_reference_ambiguous:" + claim_id)
+                else:
+                    blockers.extend(reference_blockers(claim["research_reference"], typed[0], claim_text=claim_text))
+            supported.append(
+                {
+                    "claim_id": claim_id,
+                    "claim_text": claim_text,
+                    "claim_kind": str(claim.get("claim_kind") or "FACT"),
+                    "source_id": source_id,
+                    "document_id": document.get("document_id"),
+                    "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS" if span_projection else
+                        "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION" if report_lineage else "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+                    "attribution_required": bool(claim.get("attribution_required")),
+                    "support_excerpt_sha256": _text_hash(excerpt),
+                    **({"research_semantics": semantics} if semantics else {}),
+                    **({"report_id": report_lineage["report_id"], "report_version": report_lineage["report_version"],
+                        "report_sha256": report_lineage["report_sha256"],
+                        "report_claims": [{k: c[k] for k in ("claim_id", "claim_hash", "producer_layer", "basis_risk", "evidence")} for c in report_claims],
+                        "source_clock_metadata_bindings": report_metadata,
+                        "article_section_ids": ["paragraph:" + str(i) for i, p in enumerate(str(article.get("substack_body_markdown") or "").split("\n\n")) if _normal(claim_text) in _normal(p)]}
+                        if report_lineage else {}),
+                }
+            )
+        bound_claim_texts = {_normal(row.get("claim_text")) for row in claims}
+        for field in _PUBLIC_METADATA_FIELDS:
+            if _normal(article.get(field)) not in bound_claim_texts:
+                blockers.append(f"{field}_material_binding_missing")
+        blockers.extend(_selected_news_peg_blockers(article, selected_candidate))
+        if (selected_candidate or {}).get("editorial_freshness", {}).get("disposition") == "RETAINED_BACKGROUND":
+            for field in ("title", "social_hook"):
+                if not re.match(r"^Background\s*:", str(article.get(field) or ""), re.I):
+                    blockers.append("retained_background_label_required:" + field)
+        blockers.extend(_public_copy_integrity_blockers(article, cited_by_id))
+        blockers.extend(
+            _editorial_growth_edge_blockers(article, article_mode=article_mode, model_estimates_cited=any(
+                _carries_model_estimates(document) for document in cited_by_id.values()))
+        )
+        blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state, source_pack=source_pack))
+        body = _normal(_SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or "")))
+        for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
+            if key in article and (_normal(article[key]) not in body or len(str(article[key])) &lt; 24):
+                blockers.append("native_summary_not_in_bound_article:" + key)
+        blockers.extend(
+            _paragraph_marker_blockers(
+                str(article.get("substack_body_markdown") or ""), set(cited_by_id)
+            )
+        )
+        if blockers:
+&gt;           raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", blockers)
+E           live_contentops.v1_simple_gemini_newsroom_v1.SimpleGeminiNewsroomError: deterministic_article_validation_failed:material_claim_not_in_public_copy:p0;material_claim_not_in_public_copy:p1;material_claim_not_in_public_copy:p10;material_claim_not_in_public_copy:p3;material_claim_not_in_public_copy:p5;material_claim_not_in_public_copy:p7;material_claim_not_in_public_copy:p8
+
+live_contentops\v1_simple_gemini_newsroom_v1.py:1977: SimpleGeminiNewsroomError</failure></testcase></testsuite></testsuites>

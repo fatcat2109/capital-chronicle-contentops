@@ -1,0 +1,41 @@
+{
+  "item": "CC-378",
+  "observed_at_utc": "2026-11-15T21:43:02.434081+00:00",
+  "status": "BLOCKED",
+  "first_cause": "NO_CURRENT_MAIN_SOURCE",
+  "additional_cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "implementation_commit": "0cea3d7fe0583178beaf4dca6d2801f1396c6332",
+  "operating_head": "0cea3d7fe0583178beaf4dca6d2801f1396c6332",
+  "integration": "FAST_FORWARD_APPLIED",
+  "live_tag": "contentops-live-20261116-cc378-version-probe",
+  "rollback_tag": "contentops-rollback-20261116-cc378-version-probe",
+  "change": "A failed version probe records version_cause and still sends exactly one bounded article-assistance prompt. Cached results and article fallback are preserved.",
+  "checks": {
+    "working": "31 passed in 2.55s; assist-tests.xml",
+    "installed": "31 passed in 6.06s; installed-tests.xml",
+    "actual_saved_return": "installed-consumer-readback.json; real agy 1.5.9 alt text and all four variants consumed by installed compiler",
+    "adjacent_baseline_failure": "Daily-note test_source_validator_accepts_the_edited_note_and_keeps_every_binding fails identically before this change in operating root; material_claim_not_in_public_copy:p0,p1,p10,p3,p5,p7,p8; baseline-daily-note.xml. Combined run: 43 passed, 1 failed; working-tests.xml."
+  },
+  "source_availability": {
+    "observed_at_utc": "2026-11-15T21:37:17.373337+00:00",
+    "completed_source_count": 44,
+    "eligible_completed_sources": 0,
+    "changed_native_outputs_since_prior": 2,
+    "latest_original_capture_utc": "2026-11-15T11:48:39.990890Z",
+    "classification": "NO_CURRENT_MAIN_SOURCE",
+    "next_action": "End the standing check without filler."
+  },
+  "source_clock_causes": {
+    "ARTICLE_DATA_CUTOFF_EXPIRED": 42,
+    "ARTICLE_DATA_CUTOFF_NOT_SUPPLIED_BY_SOURCE": 2
+  },
+  "source_deadline_rule": "CC403_READER_ARTICLE_V1: 60 minutes from original capture. Jim decision 89: Main reports only; no filler.",
+  "qualifying_published_pair": false,
+  "remaining_acceptance": "Two CC-124 pieces with actual AGY claim/alt/variants, Publisher flag decisions, and exact published alt/copy readbacks.",
+  "next_action": "Existing CC-124 runs consume the next timely Main report; after the configured Neo endpoint is available, use the existing coordinator and exact readback path. No replacement article or old-object edit.",
+  "authority": "CC-378 Integration line, decision 120: Publisher self-integration; no Ops review step.",
+  "public_writes": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "unrelated_work_preserved": true
+}

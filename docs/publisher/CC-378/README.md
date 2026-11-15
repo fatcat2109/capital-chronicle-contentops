@@ -1,5 +1,14 @@
 # CC-378 — Antigravity light text and claim check
 
+## Resume — 16 November 2026
+
+The version-probe failure no longer prevents the article prompt. The fix is
+live as `0cea3d7f`; all 31 assist tests pass in both roots. A real agy 1.5.9 return
+feeds the installed alt-text and four-variant compiler consumers. The two-piece
+publication acceptance remains BLOCKED: no current Main source and
+`NEO_ENDPOINT_CONNECTIONERROR`. [Current result](run-20261116/README.md) gives
+the installed readback, source assessment, baseline test failure and next action.
+
 ## Live integration — 12 November 2026
 
 Decision 120 removes the earlier Ops-review wait. Publisher squashed the two
