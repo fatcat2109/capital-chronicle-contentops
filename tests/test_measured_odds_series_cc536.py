@@ -70,6 +70,35 @@ def test_side_must_match_source_and_table_hash(piece):
         odds.number_report(piece, SOURCE / "source")
 
 
+def test_side_row_binds_count_and_mean_without_requiring_a_child_pointer(piece):
+    path = "/tables/" + piece["table_hash"] + "/markets/BTCUSD/sides/LONG_WHILE_UP_20/LONG"
+    _extra(piece, "Bitcoin long: 96 trades, 0.801R per trade.", "desk_odds_sides_v1.json", path, side="LONG")
+    rows = odds.number_report(piece, SOURCE / "source")
+    assert [(r["number"], r["side"]) for r in rows if r["field"] == "social_summary"] == [
+        ("96", "LONG"), ("0.801", "LONG")]
+
+
+def test_public_side_label_cannot_contradict_its_bound_side(piece):
+    path = "/tables/" + piece["table_hash"] + "/markets/BTCUSD/sides/LONG_WHILE_UP_20/LONG/2"
+    _extra(piece, "Bitcoin short: 0.801R.", "desk_odds_sides_v1.json", path, side="LONG")
+    with pytest.raises(ValueError, match="ODDS_PUBLIC_SIDE_DIFFERS_FROM_SOURCE"):
+        odds.number_report(piece, SOURCE / "source")
+
+
+def test_piece_two_exact_sides_reach_the_existing_native_compiler():
+    piece = json.loads((SOURCE / "piece-2/piece-2.json").read_bytes())
+    report = odds.validate_piece(piece, SOURCE / "piece-2/source")
+    assert {r["side"] for r in report if r["side"]} == {"LONG", "SHORT"}
+    assert not any("/markets/" + market + "/" in r["pointer"] for r in report for market in odds.FX)
+    from live_contentops.eight_platform_substack_first_pipeline_v1 import build_native_derivative_payloads
+    payloads = build_native_derivative_payloads(article=piece["article"], selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/with-the-trend-test-only", media_asset_ids=[])
+    assert len(payloads) == 8
+    assert "Gold trend-long: 76 trades, 0.391R per trade." in payloads["telegram"]["text"]
+    assert payloads["x"]["posts"][0]["text"] == piece["article"]["social_hook"]
+    assert "Bitcoin trend-short: 73 trades, 0.297R; the later half lost." in payloads["x"]["full_text"]
+
+
 def test_fx_result_waits_for_repaired_main_table(piece):
     _extra(piece, "Euro -0.075R.", "desk_odds_v1.json", "/by_market/EURUSD/0/2")
     with pytest.raises(ValueError, match="ODDS_FX_CLOSE_REPAIR_NOT_LIVE:EURUSD"):

@@ -122,8 +122,12 @@ def number_report(piece, root):
             rest = path[len(prefix):].split("/")
             if rest[0] in FX and not manifest.get("fx_repair_live"):
                 raise ValueError("ODDS_FX_CLOSE_REPAIR_NOT_LIVE:" + rest[0])
-            if "/sides/" in path and (not claim.get("side") or "/" + claim["side"] + "/" not in path):
-                raise ValueError("ODDS_EXACT_SIDE_REQUIRED")
+            if rest[1:2] == ["sides"]:
+                if len(rest) < 4 or claim.get("side") not in {"LONG", "SHORT"} or rest[3] != claim["side"]:
+                    raise ValueError("ODDS_EXACT_SIDE_REQUIRED")
+                named_sides = set(re.findall(r"\b(long|short)\b", span.casefold()))
+                if named_sides and named_sides != {claim["side"].lower()}:
+                    raise ValueError("ODDS_PUBLIC_SIDE_DIFFERS_FROM_SOURCE")
         elif file not in {"README.md", "AUDIT.md", "desk_odds_v1.py"} or path != "/":
             raise ValueError("ODDS_NUMERIC_SOURCE_NOT_ADMITTED")
         value = held[file] if path == "/" else pointer(held[file], path)

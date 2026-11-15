@@ -1,0 +1,238 @@
+{
+  "policy": "CC536_MEASURED_ODDS_SERIES_V1",
+  "piece": 2,
+  "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+  "article": {
+    "title": "Following the trend worked unevenly",
+    "subtitle": "The long and short records tell different stories once the always-long comparison enters the picture.",
+    "dek": "The long and short records tell different stories once the always-long comparison enters the picture.",
+    "social_hook": "Following the trend worked unevenly. Our historical tests favour separating long and short rules, with the always-long comparison beside them.",
+    "social_summary": "Gold trend-long: 76 trades, 0.391R per trade. Always long: 119 trades, 0.276R.\n\nS&P 500 trend-long: 87 trades, 0.113R. Always long: 119 trades, 0.196R.\n\nBitcoin trend-short: 73 trades, 0.297R; the later half lost.\n\nSample: November 2016 to November 2026. Hypothetical historical tests, rather than our trade results. Euro and yen figures await repaired closes.\n\nA rising decade and many rows limit the claim. The method page and full side records are in the article.",
+    "social_bullets": [],
+    "substack_body_markdown": "We see a stronger historical record for following rising markets than for shorting falling ones.\nThe useful question is whether the trend condition improved on simply taking the long side whenever the rule was free.\n\nOur original table covered six markets, but euro and yen results still await a repair to their daily closes.\nWe leave those figures out here.\nThe usable comparison covers gold, oil, the S&P 500 and Bitcoin.\n\nThese are hypothetical historical tests, rather than our trade results.\nThe table comes from Capital Chronicle's audited research; the [method page](https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before) explains its limits.\n\n## What the trend rule actually did\n\nThe rule held a position for at most 20 sessions, with a trailing stop and no fixed target.\nA long entry required price above its levels 20 and 60 sessions earlier.\nPrice also had to stand above its 20-session and 50-session simple averages.\nThe short rule reversed all those conditions.\nThis was more demanding than an average crossing another average.\n\nThe decision came after the close, with entry at the next open.\nThe initial stop was 1.5 normal days away.\nA normal day was the average true daily range over 14 sessions.\nThe assumed round-trip cost was 0.05 normal day.\nR means the initial stop distance; the reported means include that assumed cost.\n\nThe always-long comparison used the same stop, trailing rule and maximum holding period, entering whenever free.\nIt had different entry dates and more trades than the conditional rule.\nIt was not passive buy-and-hold.\n\n## The long side, with its benchmark beside it\n\n| Market and rule | Trades | Mean net R per trade |\n|---|---:|---:|\n| Gold futures: long with the trend | 76 | 0.391 |\n| Gold futures: always long | 119 | 0.276 |\n| Oil futures: long with the trend | 57 | 0.167 |\n| Oil futures: always long | 119 | 0.022 |\n| S&P 500 futures: long with the trend | 87 | 0.113 |\n| S&P 500 futures: always long | 119 | 0.196 |\n| Bitcoin: long with the trend | 96 | 0.801 |\n| Bitcoin: always long | 176 | 0.56 |\n\nThe gold, oil and S&P futures samples run from 2016-11-14 through 2026-11-10.\nThe Bitcoin sample runs from 2016-11-12 through 2026-11-10, including weekends.\nEach mean belongs to its own trade count and that market's stated period.\n\nGold and Bitcoin had positive long-side means in both halves.\nOil also had positive halves, but its statistical evidence was weaker.\nThe S&P long-side mean turned negative in the later half.\n\nThat last result matters more than a reassuring full-period average.\nThe S&P trend condition earned less per trade than the always-long comparison over the whole sample.\nGold's conditional mean was higher, but its always-long comparison also paid in both halves.\nWe cannot attribute all the gold result to the trend test.\n\n## Falling markets were a different proposition\n\n| Market and rule | Trades | Mean net R per trade |\n|---|---:|---:|\n| Gold futures: short with the trend | 41 | -0.197 |\n| Oil futures: short with the trend | 55 | -0.096 |\n| S&P 500 futures: short with the trend | 30 | -0.3 |\n| Bitcoin: short with the trend | 73 | 0.297 |\n\nBitcoin's short-side mean was -0.07R in the later half.\nIts positive full-period mean therefore did not survive both halves.\nGold and oil shorts also changed from positive early halves to negative later halves.\nS&P shorts lost in both halves.\n\nThese short results use the same market periods stated above.\nThey are each side's own record, never a pooled long-and-short figure.\n\n## What this record cannot promise\n\nThe original table examined 54 market-and-behaviour rows.\nLooking across many rows makes some attractive results likely by chance.\nThe decade also favoured rising gold, shares and Bitcoin.\nThe always-long comparison makes that drift visible, without establishing that any difference will persist.\n\nDaily bars leave the order of intraday moves uncertain.\nContinuous futures carry contract-roll gaps, and the uniform cost assumption is not a history of actual fills.\nRepeated market conditions also make the trades dependent.\nNeither the counts nor the average R is a probability for the next trade.\n\nSo what: treat the long and short rules separately, and keep the always-long comparison beside every claim about trend skill.\nThe record supports further testing, with the later-half failures kept in view.\nIt supplies no current entry signal.\n\nTable fingerprint: `ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add`.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "article_type": "ARTICLE",
+    "resolved_article_mode": "EVERGREEN_EXPLAINER",
+    "reader_attribution_policy": "CONTENTOPS_V1_READER_ATTRIBUTION_AND_TIMEZONE_POLICY_V1",
+    "reader_article_contract": {
+      "policy": "CC403_READER_ARTICLE_V1",
+      "format": "MEASURED_ODDS_SERIES",
+      "data_cutoff_utc": "2026-11-12T13:37:24Z",
+      "source_sample": "November 2016 to November 2026",
+      "authority_ref": "BACKLOG_CC536_DATED_METHOD_SERIES"
+    },
+    "author_identity": "Capital Chronicle",
+    "publisher_identity": "Capital Chronicle",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "paid": false,
+    "measured_odds_series": "CC536_MEASURED_ODDS_SERIES_V1"
+  },
+  "number_bindings": [
+    {
+      "field": "substack_body_markdown",
+      "span": "The rule held a position for at most 20 sessions, with a trailing stop and no fixed target.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/behaviours/LONG_WHILE_UP_20"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "A long entry required price above its levels 20 and 60 sessions earlier.",
+      "file": "README.md",
+      "pointer": "/",
+      "source_excerpt": "`close[i]-close[i-20]`, `close[i]-close[i-60]`"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Price also had to stand above its 20-session and 50-session simple averages.",
+      "file": "desk_odds_v1.py",
+      "pointer": "/",
+      "source_excerpt": "            \"price_vs_mean_20_pct\": round(100 * (c / _mean(closes[i - 19:]) - 1), 2),\n            \"price_vs_mean_50_pct\": round(100 * (c / _mean(closes[i - 49:]) - 1), 2),"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The initial stop was 1.5 normal days away.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/behaviours/LONG_WHILE_UP_20"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "A normal day was the average true daily range over 14 sessions.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The assumed round-trip cost was 0.05 normal day.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/how_measured"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| Gold futures: long with the trend | 76 | 0.391 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/XAUUSD/sides/LONG_WHILE_UP_20/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| Gold futures: always long | 119 | 0.276 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/XAUUSD/always/LONG_WHILE_UP_20/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| Gold futures: short with the trend | 41 | -0.197 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/XAUUSD/sides/SHORT_WHILE_DOWN_20/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| Oil futures: long with the trend | 57 | 0.167 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/USOIL/sides/LONG_WHILE_UP_20/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| Oil futures: always long | 119 | 0.022 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/USOIL/always/LONG_WHILE_UP_20/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| Oil futures: short with the trend | 55 | -0.096 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/USOIL/sides/SHORT_WHILE_DOWN_20/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| S&P 500 futures: long with the trend | 87 | 0.113 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/US500/sides/LONG_WHILE_UP_20/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| S&P 500 futures: always long | 119 | 0.196 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/US500/always/LONG_WHILE_UP_20/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| S&P 500 futures: short with the trend | 30 | -0.3 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/US500/sides/SHORT_WHILE_DOWN_20/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| Bitcoin: long with the trend | 96 | 0.801 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/BTCUSD/sides/LONG_WHILE_UP_20/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| Bitcoin: always long | 176 | 0.56 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/BTCUSD/always/LONG_WHILE_UP_20/ALWAYS_LONG"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "| Bitcoin: short with the trend | 73 | 0.297 |",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/BTCUSD/sides/SHORT_WHILE_DOWN_20/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The gold, oil and S&P futures samples run from 2016-11-14 through 2026-11-10.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/markets/XAUUSD"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The Bitcoin sample runs from 2016-11-12 through 2026-11-10, including weekends.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/markets/BTCUSD"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "Bitcoin's short-side mean was -0.07R in the later half.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/BTCUSD/sides/SHORT_WHILE_DOWN_20/SHORT/5",
+      "side": "SHORT"
+    },
+    {
+      "field": "substack_body_markdown",
+      "span": "The original table examined 54 market-and-behaviour rows.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/audit/what_this_is"
+    },
+    {
+      "field": "social_summary",
+      "span": "Gold trend-long: 76 trades, 0.391R per trade.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/XAUUSD/sides/LONG_WHILE_UP_20/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "social_summary",
+      "span": "Always long: 119 trades, 0.276R.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/XAUUSD/always/LONG_WHILE_UP_20/ALWAYS_LONG"
+    },
+    {
+      "field": "social_summary",
+      "span": "S&P 500 trend-long: 87 trades, 0.113R.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/US500/sides/LONG_WHILE_UP_20/LONG",
+      "side": "LONG"
+    },
+    {
+      "field": "social_summary",
+      "span": "Always long: 119 trades, 0.196R.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/US500/always/LONG_WHILE_UP_20/ALWAYS_LONG"
+    },
+    {
+      "field": "social_summary",
+      "span": "Bitcoin trend-short: 73 trades, 0.297R; the later half lost.",
+      "file": "desk_odds_sides_v1.json",
+      "pointer": "/tables/ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add/markets/BTCUSD/sides/SHORT_WHILE_DOWN_20/SHORT",
+      "side": "SHORT"
+    },
+    {
+      "field": "social_summary",
+      "span": "Sample: November 2016 to November 2026.",
+      "file": "desk_odds_v1.json",
+      "pointer": "/audit/what_this_is"
+    }
+  ],
+  "media_assets": [],
+  "editorial_call": {
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "launch_pid": 37988,
+    "operation": "publisher-cc-536-piece2-20261115",
+    "role": "commissioned series writing and editing; final rendered media review remains pending",
+    "preparation_role": {
+      "task": "/root/cc536_source_preparation",
+      "model": "gpt-6.1-sol",
+      "effort": "low",
+      "status": "CONFIGURED_NOT_OBSERVED"
+    },
+    "light_assist": {
+      "model": "gemini-3.8-flash-high",
+      "effort": "high",
+      "status": "AGY_UNAVAILABLE",
+      "cause": "AGY_VERSION_TIMEOUT_5S",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "prompt_sha256": "d4312c364cb1c466fdd19bd6ce29ccbc11cf09803ff1788ef0085a537be5e805",
+      "artifact": "assist/agy_light_assist_v1.json",
+      "choice": "Retained Publisher-authored complete social summary; bounded assist returned AGY_VERSION_TIMEOUT_5S, no second invocation."
+    }
+  }
+}
