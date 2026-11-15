@@ -1,0 +1,43 @@
+{
+  "observed_at_utc": "2026-11-15T11:37:34.077629+00:00",
+  "unauthenticated_head_probes": [
+    {
+      "url": "https://api.linkedin.com/",
+      "error_class": "ConnectionResetError",
+      "winerror": 10054,
+      "errno": 10054,
+      "safe_frames": [
+        "do_open",
+        "request",
+        "_send_request",
+        "endheaders",
+        "_send_output",
+        "send",
+        "connect",
+        "wrap_socket",
+        "wrap_socket",
+        "_create",
+        "do_handshake"
+      ]
+    },
+    {
+      "url": "https://www.linkedin.com/",
+      "error_class": "ConnectionResetError",
+      "winerror": 10054,
+      "errno": 10054,
+      "safe_frames": [
+        "do_open",
+        "request",
+        "_send_request",
+        "endheaders",
+        "_send_output",
+        "send",
+        "connect",
+        "wrap_socket",
+        "wrap_socket",
+        "_create",
+        "do_handshake"
+      ]
+    }
+  ]
+}

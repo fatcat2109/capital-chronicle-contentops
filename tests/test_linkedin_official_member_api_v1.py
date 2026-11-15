@@ -37,10 +37,12 @@ from live_contentops.publication_coordinator_v1 import (
 
 
 class _Response:
-    def __init__(self, status: int, payload: dict | None = None, headers: dict | None = None):
+    def __init__(self, status: int, payload: dict | None = None, headers: dict | None = None,
+                 raw: bytes | None = None):
         self.status = status
         self.payload = payload or {}
         self.headers = headers or {}
+        self.raw = raw
 
     def __enter__(self):
         return self
@@ -52,7 +54,7 @@ class _Response:
         return self.status
 
     def read(self):
-        return json.dumps(self.payload).encode()
+        return self.raw if self.raw is not None else json.dumps(self.payload).encode()
 
 
 def _test_store(root: Path) -> WindowsDpapiTokenStore:
@@ -114,6 +116,102 @@ def test_official_member_image_upload_or_exact_pre_post_text_fallback(tmp_path, 
     assert result["image_delivery_cause"] == (None if image_permitted else "PERMISSION_MISSING_HTTP_403")
     assert sum(r.full_url.endswith("/ugcPosts") for r in requests) == 1
     assert "private" not in json.dumps(result)
+
+
+@pytest.mark.parametrize("upload_url,method", [
+    ("https://api.linkedin.com/mediaUpload/card", "POST"),
+    ("https://www.linkedin.com/dms-uploads/card/feedshare-uploadedImage/0?sync=1", "PUT"),
+])
+def test_official_synchronous_upload_uses_binary_ack_and_attaches_asset(tmp_path, upload_url, method):
+    from PIL import Image
+    image = tmp_path / "chart.png"
+    Image.new("RGB", (100, 100), "navy").save(image)
+    store = _test_store(tmp_path / "auth")
+    store.write({"access_token": "private"},
+                _metadata(expires_at=datetime.now(timezone.utc) + timedelta(days=30)))
+    seen = []
+
+    def provider(request, **_):
+        seen.append(request)
+        if "registerUpload" in request.full_url:
+            registration = json.loads(request.data)["registerUploadRequest"]
+            assert registration["supportedUploadMechanism"] == ["SYNCHRONOUS_UPLOAD"]
+            return _Response(200, {"value": {"asset": "urn:li:digitalmediaAsset:chart",
+                "uploadMechanism": {"com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest": {
+                    "uploadUrl": upload_url}}}})
+        if request.full_url == upload_url:
+            assert request.method == method and request.data == image.read_bytes()
+            return _Response(201, raw=b"upload accepted")
+        assert request.full_url.endswith("/ugcPosts")
+        share = json.loads(request.data)["specificContent"]["com.linkedin.ugc.ShareContent"]
+        assert share["media"][0]["media"] == "urn:li:digitalmediaAsset:chart"
+        return _Response(201, headers={"X-RestLi-Id": "urn:li:share:123"}, raw=b"created")
+
+    result = LinkedInOfficialMemberApiTransportV1(token_store=store, opener=provider).publish(
+        intent={"payload": "Reviewed copy", "media_assets": [{"path": str(image)}]},
+        authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
+    assert result["status"] == "SUCCESS" and result["image_delivery"] == "IMAGE_ATTACHED"
+    assert result["public_object_id"] == "urn:li:share:123"
+    assert len(seen) == 3
+
+
+@pytest.mark.parametrize("upload_url", [
+    "https://www.linkedin.com.attacker.invalid/dms-uploads/card",
+    "https://attacker.invalid/mediaUpload/card",
+    "http://api.linkedin.com/mediaUpload/card",
+    "https://www.linkedin.com/other/card",
+    "https://api.linkedin.com:8443/mediaUpload/card",
+    "https://user@api.linkedin.com/mediaUpload/card",
+])
+def test_registration_cannot_send_image_or_token_to_unapproved_upload_target(tmp_path, upload_url):
+    from PIL import Image
+    image = tmp_path / "chart.png"
+    Image.new("RGB", (100, 100), "navy").save(image)
+    store = _test_store(tmp_path / "auth")
+    store.write({"access_token": "private"},
+                _metadata(expires_at=datetime.now(timezone.utc) + timedelta(days=30)))
+    seen = []
+
+    def provider(request, **_):
+        seen.append(request)
+        if "registerUpload" in request.full_url:
+            return _Response(200, {"value": {"asset": "urn:li:digitalmediaAsset:chart",
+                "uploadMechanism": {"com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest": {
+                    "uploadUrl": upload_url}}}})
+        assert request.full_url.endswith("/ugcPosts")
+        assert json.loads(request.data)["specificContent"]["com.linkedin.ugc.ShareContent"]["shareMediaCategory"] == "NONE"
+        return _Response(201, headers={"X-RestLi-Id": "urn:li:share:123"})
+
+    result = LinkedInOfficialMemberApiTransportV1(token_store=store, opener=provider).publish(
+        intent={"payload": "Reviewed copy", "media_assets": [{"path": str(image)}]},
+        authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
+    assert result["image_delivery_cause"] == "LINKEDIN_IMAGE_UPLOAD_REGISTRATION_INVALID"
+    assert len(seen) == 2
+
+
+def test_unfinished_upload_does_not_attach_unprocessed_asset(tmp_path):
+    from PIL import Image
+    image = tmp_path / "chart.png"
+    Image.new("RGB", (100, 100), "navy").save(image)
+    store = _test_store(tmp_path / "auth")
+    store.write({"access_token": "private"},
+                _metadata(expires_at=datetime.now(timezone.utc) + timedelta(days=30)))
+
+    def provider(request, **_):
+        if "registerUpload" in request.full_url:
+            return _Response(200, {"value": {"asset": "urn:li:digitalmediaAsset:chart",
+                "uploadMechanism": {"com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest": {
+                    "uploadUrl": "https://api.linkedin.com/mediaUpload/card"}}}})
+        if "/mediaUpload/" in request.full_url:
+            return _Response(202)
+        assert json.loads(request.data)["specificContent"]["com.linkedin.ugc.ShareContent"]["shareMediaCategory"] == "NONE"
+        return _Response(201, headers={"X-RestLi-Id": "urn:li:share:123"})
+
+    result = LinkedInOfficialMemberApiTransportV1(token_store=store, opener=provider).publish(
+        intent={"payload": "Reviewed copy", "media_assets": [{"path": str(image)}]},
+        authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
+    assert result["image_delivery"] == "TEXT_FALLBACK"
+    assert result["image_delivery_cause"] == "LINKEDIN_IMAGE_UPLOAD_FAILED_HTTP_202"
 
 
 def test_authorization_url_is_official_and_never_contains_client_secret():
@@ -345,6 +443,39 @@ def test_strict_readback_outcomes_are_exact_when_restricted_scope_is_granted(tmp
         token_store=store, opener=absent,
     ).readback(public_object_id="urn:li:share:missing", public_object_url=None, intent={})
     assert missing == {"status": "ABSENT_SAFE_TO_RETRY", "verified": False, "write_absent": True}
+
+
+def test_readback_preserves_tls_failure_without_claiming_absence(tmp_path, monkeypatch):
+    store = _test_store(tmp_path)
+    store.write({"access_token": "private"}, _metadata(
+        expires_at=datetime.now(timezone.utc) + timedelta(days=30),
+        scopes=["openid", "profile", "w_member_social", "r_member_social"]))
+
+    def handshake(_self):
+        raise ConnectionResetError(10054, "controlled reset")
+
+    monkeypatch.setattr(ssl.SSLSocket, "do_handshake", handshake)
+
+    def provider(*_, **__):
+        try:
+            ssl.SSLSocket.do_handshake(None)
+        except OSError as exc:
+            raise urllib.error.URLError(exc) from exc
+
+    result = LinkedInOfficialMemberApiTransportV1(token_store=store, opener=provider).readback(
+        public_object_id="urn:li:share:123", public_object_url=None, intent={})
+    assert result == {"status": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE", "verified": False}
+
+
+def test_create_ack_with_non_json_body_still_requires_exact_identity(tmp_path):
+    store = _test_store(tmp_path)
+    store.write({"access_token": "private"},
+                _metadata(expires_at=datetime.now(timezone.utc) + timedelta(days=30)))
+    transport = LinkedInOfficialMemberApiTransportV1(token_store=store,
+        opener=lambda *_, **__: _Response(201, raw=b"not json"))
+    with pytest.raises(LinkedInAmbiguousWriteError, match="UNKNOWN_WRITE_CREATE_ID_MISSING"):
+        transport.publish(intent={"payload": "Reviewed copy"},
+            authorization_context={"operating_mode": "AUTONOMOUS_DEFAULT"})
 
 
 def test_timeout_after_crossing_write_boundary_is_unknown_write(tmp_path):
