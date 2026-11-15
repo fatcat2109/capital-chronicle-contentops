@@ -3330,7 +3330,7 @@ class DurablePublicationCoordinator:
             # first attempt. Recovery validates those bytes without rewriting.
             return "READY"
         intent = json.loads(str(message["payload"]))
-        if intent.get("canonical_url") == canonical_url and (
+        if (intent.get("canonical_url") or "") == (canonical_url or "") and (
                 intent.get("post_image_policy") or not intent.get("native_payload")
                 or _payload_media_ids(intent.get("native_payload"))):
             return "READY"

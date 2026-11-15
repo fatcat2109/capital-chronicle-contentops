@@ -98,6 +98,34 @@ def test_stored_hit_and_expiry_reach_consumer_exactly_once(ready,tmp_path):
                 if r["message_id"].startswith("cc603-followup-")])==1
 
 
+def test_reconciled_absent_note_recovers_exact_bytes_without_a_canonical_rewrite(ready, tmp_path, monkeypatch):
+    store, transport, coordinator, record = ready
+    hit = candidate()
+    queued = f.queue_followup(store, hit, f.check_path(hit, bars()), record, now=NOW)
+    key = queued['key']
+    row = posts._row_payload(store, key)
+    plan = posts.prepare_post(store, key, root=tmp_path/'posts', host=fake_host,
+                              destinations=tuple(row['cc603_destinations']), cc603_asset=asset(tmp_path))
+    posts.scope_to_post(coordinator, key, plan)
+    coordinator.register_plan(key, plan)
+    ids = coordinator._ids(key, plan['plan_hash'], 'substack_notes')
+    before = store.get_outbox_message(ids['message_id'])['payload']
+    assert json.loads(before)['canonical_url'] is None
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'], message_id=ids['message_id'],
+                                      platform='substack_notes', status='RECONCILED_ABSENT_SAFE_TO_RETRY')
+    store.set_outbox_status(ids['message_id'], 'RECONCILED_ABSENT_SAFE_TO_RETRY')
+    store.register_reconciliation(reconciliation_id=ids['reconciliation_id'], work_item_id=key,
+                                   status='RECONCILED_ABSENT_SAFE_TO_RETRY')
+    monkeypatch.setattr(f, 'discover', lambda *a, **k: [])
+    result = f.run_due(store, {'status':{'plans':[]}}, now=NOW, root=tmp_path/'posts', host=fake_host,
+                       coordinator_for=lambda *a:coordinator, asset_for=lambda row:asset(tmp_path))
+    assert result['posts'][-1]['publication']['per_destination']['substack_notes']['status'] == 'DISPATCH_CONFIRMED'
+    assert transport.publish_calls.count('substack_notes') == 1
+    assert store.get_outbox_message(ids['message_id'])['payload'] == before
+    coordinator.recover_pending()
+    assert transport.publish_calls.count('substack_notes') == 1
+
+
 @pytest.mark.parametrize("change,cause",[
     ({"zone_low":130,"zone_high":135},"CONDITION_NOT_PROVEN"),
     ({"invalidation":{"field":"high","level":114,"side":"above"}},"INVALIDATION_FIRST"),

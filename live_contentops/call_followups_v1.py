@@ -647,6 +647,9 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
                 endpoint_client=NeoMcpClient(task_name="cc603 corrections followups",group_title="codex/cc603-corrections-followups"))
         posts.scope_to_post(coordinator,key,plan)
         try:
+            if any(d['status'] in {'UNKNOWN_WRITE', 'DISPATCH_ATTEMPT_STARTED', 'RECONCILED_ABSENT_SAFE_TO_RETRY'}
+                   for d in store.get_dispatches_for_work_item(key)):
+                coordinator.recover_pending()
             outcome = coordinator.publish_plan(key,plan)
         except NativeNeoInputRequired as pending:
             outcome = {"status":"NATIVE_NEO_TOOL_PENDING","request_sha256":pending.request.get("request_sha256"),

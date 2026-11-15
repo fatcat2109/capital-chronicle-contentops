@@ -1,0 +1,224 @@
+{
+  "key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+  "binding": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\reviewed_chart.json",
+  "asset": {
+    "asset_id": "tradingview-snapshot-9e02ab092a67a02cefbf",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\media_assets\\tradingview-7c7b289895507d8d-16x9.png",
+    "sha256": "9e02ab092a67a02cefbfdc17dac07b3895e06deb4230395068d19a2d41fee800",
+    "width": 1524,
+    "height": 858,
+    "mime_type": "image/png",
+    "modality": "tradingview_chart_snapshot",
+    "card_kind": "TRADINGVIEW_SNAPSHOT",
+    "media_role": "delivery_only",
+    "role": "market_chart",
+    "delivery_only": true,
+    "article_inclusion": false,
+    "canonical_article_media": false,
+    "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+    "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+    "attribution": "TradingView",
+    "credit": "Chart: TradingView",
+    "caption": "Bitcoin: 4h chart of Bitcoin / US dollar (Coinbase spot). Chart: TradingView.",
+    "alt_text": "TradingView 4h chart of Bitcoin / US dollar (Coinbase spot), captured 18:19 ET on 15 November 2026.",
+    "source_page_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+    "tradingview_snapshot": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\media_assets\\BTCUSD_2026-11-15_23-19-11.png",
+      "sha256": "7c7b289895507d8d7e3cfc17007ec7a46498c9b5131f86ce591b0c5f2434b4e8",
+      "width": 1524,
+      "height": 856,
+      "chart_geometry": {
+        "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+        "pane_box": [
+          10,
+          27,
+          1442,
+          768
+        ],
+        "axis_origin": [
+          1442,
+          27
+        ],
+        "axis_pixel_match": 1.0,
+        "mode": "linear",
+        "slope": -0.026480004854219818,
+        "intercept": 2348.0833707572283,
+        "max_label_error_px": 0.1673945347006338,
+        "grid_checks": [
+          {
+            "price": 60000.0,
+            "page_y_in_download": 759.2516804263659,
+            "grid_y": 759,
+            "error_px": 0.2516804263658514
+          },
+          {
+            "price": 62000.0,
+            "page_y_in_download": 706.2946618448792,
+            "grid_y": 706,
+            "error_px": 0.2946618448792151
+          },
+          {
+            "price": 64000.0,
+            "page_y_in_download": 653.3376432633927,
+            "grid_y": 653,
+            "error_px": 0.33764326339269246
+          },
+          {
+            "price": 66000.0,
+            "page_y_in_download": 600.380624681906,
+            "grid_y": 600,
+            "error_px": 0.38062468190605614
+          },
+          {
+            "price": 68000.0,
+            "page_y_in_download": 547.4236061004194,
+            "grid_y": 547,
+            "error_px": 0.4236061004194198
+          },
+          {
+            "price": 70000.0,
+            "page_y_in_download": 494.4665875189329,
+            "grid_y": 494,
+            "error_px": 0.4665875189328972
+          },
+          {
+            "price": 72000.0,
+            "page_y_in_download": 441.50956893744626,
+            "grid_y": 442,
+            "error_px": 0.49043106255373914
+          },
+          {
+            "price": 74000.0,
+            "page_y_in_download": 388.55255035595974,
+            "grid_y": 389,
+            "error_px": 0.4474496440402618
+          },
+          {
+            "price": 76000.0,
+            "page_y_in_download": 335.5955317744731,
+            "grid_y": 336,
+            "error_px": 0.4044682255268981
+          },
+          {
+            "price": 78000.0,
+            "page_y_in_download": 282.6385131929866,
+            "grid_y": 283,
+            "error_px": 0.36148680701342073
+          },
+          {
+            "price": 80000.0,
+            "page_y_in_download": 229.68149461149994,
+            "grid_y": 230,
+            "error_px": 0.31850538850005705
+          },
+          {
+            "price": 82000.0,
+            "page_y_in_download": 176.72447603001342,
+            "grid_y": 177,
+            "error_px": 0.2755239699865797
+          },
+          {
+            "price": 84000.0,
+            "page_y_in_download": 123.76745744852678,
+            "grid_y": 124,
+            "error_px": 0.232542551473216
+          },
+          {
+            "price": 86000.0,
+            "page_y_in_download": 70.81043886704026,
+            "grid_y": 71,
+            "error_px": 0.18956113295973864
+          }
+        ],
+        "source_sha256": "7c7b289895507d8d7e3cfc17007ec7a46498c9b5131f86ce591b0c5f2434b4e8"
+      },
+      "capture_ratio": "16:9",
+      "capture_viewport": {
+        "width": 1910,
+        "height": 850
+      },
+      "tv_symbol": "COINBASE:BTCUSD",
+      "interval": "240",
+      "interval_label": "4h",
+      "legend": "4h",
+      "page_title": "BTCUSD 64,868.07 \u25b2 +1.17%",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=240",
+      "suggested_filename": "BTCUSD_2026-11-15_23-19-11.png",
+      "captured_at_utc": "2026-11-15T23:19:13.251390+00:00",
+      "seconds": 53.3,
+      "price_scale_check": {
+        "policy": "CC463_TRADINGVIEW_FIRST_V1",
+        "market": "BTCUSD",
+        "tv_symbol": "COINBASE:BTCUSD",
+        "chart_sha256": "7c7b289895507d8d7e3cfc17007ec7a46498c9b5131f86ce591b0c5f2434b4e8",
+        "chart_price": 64868.07,
+        "quote": {
+          "market": "BTCUSD",
+          "instrument": "BTCUSD",
+          "price": 64859.4,
+          "quoted_at_utc": "2026-11-15T23:18:11+00:00",
+          "known_at_utc": "2026-11-15T23:18:17.272621+00:00",
+          "comparison_basis": "AT_CAPTURE",
+          "comparison_at_utc": "2026-11-15T23:19:13.251390+00:00",
+          "age_seconds": 62.25139,
+          "capture_age_seconds": 62.25139,
+          "reference_policy": "CC489_HELD_CHART_REFERENCE_V1",
+          "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+          "source": "Yahoo Finance",
+          "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\0aa4cbae10a33c40802edef75f5fc2a2a5263a6fe20395f0160366f8490872ad.json",
+          "source_sha256": "0aa4cbae10a33c40802edef75f5fc2a2a5263a6fe20395f0160366f8490872ad",
+          "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=1d&interval=1m",
+          "source_symbol": "BTC-USD",
+          "instrument_name": "Bitcoin spot",
+          "instrument_type": "CRYPTOCURRENCY",
+          "price_basis": "public_cryptocurrency",
+          "source_attempts": [
+            {
+              "source_kind": "PLAN_STATUS_EXPORT",
+              "cause": "CHART_REFERENCE_NOT_KNOWN_AT_CAPTURE"
+            },
+            {
+              "source_kind": "BAR_STORE_M1_CLOSE",
+              "cause": "CHART_REFERENCE_STALE",
+              "price_at_utc": "2026-11-13T06:20:00+00:00",
+              "age_seconds": 233953.25139
+            }
+          ]
+        },
+        "captured_at_utc": "2026-11-15T23:19:13.251390+00:00",
+        "clock_skew_seconds": 62.25139,
+        "comparison_basis": "AT_CAPTURE",
+        "comparison_at_utc": "2026-11-15T23:19:13.251390+00:00",
+        "difference": 8.669999999998254,
+        "difference_pct": 0.013367376201442278,
+        "maximum_difference_pct": 0.4,
+        "level_offset": 0.0
+      },
+      "framing": {
+        "ratio": "16:9",
+        "width": 1524,
+        "height": 858,
+        "original_box": [
+          0,
+          1,
+          1524,
+          857
+        ]
+      },
+      "policy": "contentops.tradingview_snapshot.v1",
+      "levels_drawn": [],
+      "target_drawn": false
+    },
+    "publication_authority": false
+  },
+  "visible_from_utc": "2026-10-09T00:00:00Z",
+  "visible_to_utc": "2026-11-16T00:00:00Z",
+  "review": {
+    "source": "TradingView own guest Download image via existing capture owner",
+    "inspected_at_utc": "2026-11-15T23:20:43.009642+00:00",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "finding": "PASS: Coinbase BTCUSD 4h, visible 9 Oct through 15 Nov; includes 11 Nov original and 13 Nov resolution. Full TradingView header and logo retained. No drawn levels, target, account data or fabricated candle. Later context is visibly dated 15 Nov; the resolution remains from held bars."
+  }
+}
