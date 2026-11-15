@@ -168,12 +168,18 @@ def test_exact_fresh_readback_is_used_by_the_next_executor(tmp_path):
         "content_binding":{"expected_text_segments":["Exact approved copy."]}}
     request['request_sha256']=sha256_of(request)
     with pytest.raises(NativeNeoInputRequired) as waiting:executor(request)
-    executor.submit(request['request_sha256'],response(executor,waiting.value.request,
+    returned = response(executor,waiting.value.request,
         {"status":"SUCCESS","observed_identity":"@capitalchronicle","public_object_id":"c-123",
-         "public_object_url":"https://substack.com/@capitalchronicle/note/c-123","content_verified":True}))
+         "public_object_url":"https://substack.com/@capitalchronicle/note/c-123","content_verified":True})
+    executor.submit(request['request_sha256'],returned)
     next_executor=NativeNeoExecutor(store,operation_id='same-op',output_dir=tmp_path/'next',native_invocation_id='next-minute')
     assert next_executor.fresh_readback_request(request)==request
+    observed_at = datetime.fromisoformat(returned['tool_observation']['observed_at_utc'])
     changed=deepcopy(request);changed['latest_dispatch_attempt_at_utc']='2026-11-10T00:01:00Z'
+    assert next_executor.fresh_readback_request(changed) == request
+    changed['latest_dispatch_attempt_at_utc'] = (observed_at + timedelta(seconds=1)).isoformat()
+    assert next_executor.fresh_readback_request(changed) is None
+    changed['latest_dispatch_attempt_at_utc'] = None
     assert next_executor.fresh_readback_request(changed) is None
     changed=deepcopy(request);changed['expected_identity']='@deancapitalchronicle'
     assert next_executor.fresh_readback_request(changed) is None

@@ -641,9 +641,22 @@ class NativeNeoExecutor:
             result = (self._get(prior["request_sha256"], "response") or {}).get("result") or {}
             observation = result.get("native_tool_observation") or {}
             absent = _readback_absence_evidence(request, result)
+            try:
+                observed_at = datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+            except (KeyError, ValueError, TypeError, AttributeError):
+                continue
             if (prior.get("latest_dispatch_attempt_at_utc") != request.get("latest_dispatch_attempt_at_utc")
                     and not absent):
-                continue
+                # A resumed UNKNOWN_WRITE can update its outcome clock after
+                # the readback request was issued. The actual returned
+                # observation still proves this exact object if it follows
+                # that latest clock. Evidence from before a retry cannot.
+                try:
+                    attempted_at = datetime.fromisoformat(request["latest_dispatch_attempt_at_utc"].replace("Z", "+00:00"))
+                    if observed_at < attempted_at:
+                        continue
+                except (KeyError, ValueError, TypeError, AttributeError):
+                    continue
             if (result.get("status") != "SUCCESS" or (result.get("content_verified") is not True and not absent)
                     or _incomplete_readback_evidence(prior, result)
                     or result.get("observed_identity") != request.get("expected_identity")
@@ -651,7 +664,7 @@ class NativeNeoExecutor:
                     or (request.get("public_object_id") and result["public_object_id"] != request["public_object_id"])
                     or (request.get("public_object_url") and result["public_object_url"] != request["public_object_url"])):
                 continue
-            age = self.clock() - datetime.fromisoformat(observation["observed_at_utc"].replace("Z", "+00:00"))
+            age = self.clock() - observed_at
             if timedelta(0) <= age <= timedelta(minutes=10):
                 return dict(prior)
         # A deliberately partial post-click return is immutable. Once media

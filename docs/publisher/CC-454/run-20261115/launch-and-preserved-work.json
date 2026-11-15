@@ -62,5 +62,19 @@
         }
       ]
     }
-  ]
+  ],
+  "resumed_at_utc": "2026-11-15T14:56:28.907885+00:00",
+  "resume_launches": [
+    {
+      "pid": 36412,
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max"
+    },
+    {
+      "pid": 21236,
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max"
+    }
+  ],
+  "resume_runtime_telemetry": "CONFIGURED_NOT_OBSERVED; launch arguments read without repeating the user prompt"
 }
