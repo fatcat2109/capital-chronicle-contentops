@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-15T11:52:03.338843+00:00",
+  "operation": "UNAUTHENTICATED_HEAD_OFFICIAL_API",
+  "proxy_configuration_changed": false,
+  "results": [
+    {
+      "transport": "default",
+      "error_class": "ConnectionResetError",
+      "winerror": 10054
+    },
+    {
+      "transport": "direct_no_proxy",
+      "error_class": "ConnectionResetError",
+      "winerror": 10054
+    }
+  ]
+}
