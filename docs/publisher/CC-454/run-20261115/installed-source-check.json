@@ -1,0 +1,58 @@
+{
+  "observed_at_utc": "2026-11-15T15:01:14.313761+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_head": "e8c1b636a5d7fcd1d7269565ef00a014c3f6fc93",
+  "current_native_consumer_calls_article_executor": true,
+  "fresh_python_imports": [
+    "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_desktop_publication_v1.py",
+    "A:\\Capital Chronicle\\ContentOps\\live_contentops\\native_neo_executor_v1.py"
+  ],
+  "required_article_derivatives": [
+    "telegram",
+    "x",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "youtube"
+  ],
+  "remaining_neo_bars": {
+    "linkedin": "LINKEDIN_NON_API_AUTOMATION_PROHIBITED",
+    "instagram_business": "INSTAGRAM_NON_API_AUTOMATION_PROHIBITED"
+  },
+  "fresh_readback_function_sha256": "b56ad3ffe0e033ce06e8d2d234f1f76fa4713a6d506e6ef021c2d9b1c24b90d9",
+  "evidence_kind": "Current installed source and fresh Python imports; actual coordinator consumption is separately retained in live-route-evidence.json.",
+  "sources": [
+    {
+      "path": "live_contentops/native_desktop_publication_v1.py",
+      "normalized_utf8_lf_sha256": "3965e8c26d97de65138d96da60b6d5b2227543f1906b54c3002c7dfb4788ed5b",
+      "matches_operating_root": true
+    },
+    {
+      "path": "live_contentops/native_neo_executor_v1.py",
+      "normalized_utf8_lf_sha256": "12b6b1b7312f3890693aa1a98189f277853c78fda1700b4cd2a32c0fd56c1bbf",
+      "matches_operating_root": true
+    },
+    {
+      "path": "live_contentops/neo_endpoint_executor_v1.py",
+      "normalized_utf8_lf_sha256": "e351c703e34b17ef24e9697d7417215410e0f827eacf61bcdc0e30d370d35573",
+      "matches_operating_root": true
+    },
+    {
+      "path": "live_contentops/neo_endpoint_steps_v1.js",
+      "normalized_utf8_lf_sha256": "484f045c5b3a920dc120b7c4ae4354a2dcb4e4a880846372b4633b5cc5f72b40",
+      "matches_operating_root": true
+    },
+    {
+      "path": "live_contentops/neo_destination_handoff_v1.py",
+      "normalized_utf8_lf_sha256": "61fc37e36a48179607fb0842ba01239ec2625662bcce4b1d060f618a9a67ffc8",
+      "matches_operating_root": true
+    },
+    {
+      "path": "live_contentops/publication_coordinator_v1.py",
+      "normalized_utf8_lf_sha256": "57a8d074281abb8b6ae15d53f27c7c531edab9ce2fb61255463f54794f0e854e",
+      "matches_operating_root": true
+    }
+  ]
+}

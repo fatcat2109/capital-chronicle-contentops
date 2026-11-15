@@ -1,0 +1,178 @@
+{
+  "observed_at_utc": "2026-11-15T15:03:01.346991+00:00",
+  "code_commit": "201623c917142123a839645a199a7fe15058b973",
+  "installed_source_evidence_commit": "e8c1b636a5d7fcd1d7269565ef00a014c3f6fc93",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "tags": {
+    "contentops-live-20261115-cc454-readback": "e8c1b636a5d7fcd1d7269565ef00a014c3f6fc93",
+    "contentops-rollback-20261115-cc454-readback": "1c3a03ed8674f4755899c8d6b080fb0cb3f20584"
+  },
+  "targeted_test_results": [
+    {
+      "artifact": "docs\\publisher\\CC-454\\run-20261115\\installed-publication-tests.xml",
+      "tests": 211,
+      "failures": 1,
+      "errors": 0,
+      "seconds": 640.374,
+      "sha256": "3d27208b3d86dd7350a572bc132cd7e3d745713c9d0de45844c8e59163729bad"
+    },
+    {
+      "artifact": "docs\\publisher\\CC-454\\run-20261115\\readback-before-fix.xml",
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "seconds": 33.709,
+      "sha256": "6914f608940d7533ce524fe965af8b00166b8488445ccd30e06ef8dd69fe8748"
+    },
+    {
+      "artifact": "docs\\publisher\\CC-454\\run-20261115\\fresh-readback-tests.xml",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 6.358,
+      "sha256": "60c4c15ac8aa9212dac4546fe2c6d68033e21d0c56930421b9ffcc2e7e882a31"
+    },
+    {
+      "artifact": "docs\\publisher\\CC-454\\run-20261115\\exact-recovery-tests.xml",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 17.653,
+      "sha256": "277cc3826ea8cf55e980d1b23541db9946457df50588768b894224148e064895"
+    },
+    {
+      "artifact": "docs\\publisher\\CC-454\\run-20261115\\readback-regression-tests.xml",
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 22.05,
+      "sha256": "42ffc5c029d269de92450136cf5317a4b5d3b0383e32a4ae72840ba1851c8086"
+    },
+    {
+      "artifact": "docs\\publisher\\CC-454\\run-20261115\\installed-recovery-tests.xml",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "seconds": 37.323,
+      "sha256": "8dd0fe1a243bdac06746b6a185a971c5a5f10b0bfc84c660aed5500d126d4ba1"
+    }
+  ],
+  "preserved_tracked_work": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "7217dd5faf5e5e0ac28b886b798be9af01ed6f624849fdf0fcfb396bb77a68b1"
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "8e0387518c6ff131268f7909233c6b673b4cc5761b9f31393c79cbc28b962315"
+    }
+  ],
+  "production_store_access": "read-only; no mutation",
+  "article_id": "cc536-measured-odds-1",
+  "current_coordinator_routes": [
+    {
+      "destination": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1571046377796935813",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571046377796935813"
+    },
+    {
+      "destination": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1454906993494383",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1454906993494383"
+    },
+    {
+      "destination": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17979008508135876",
+      "public_object_url": "https://www.instagram.com/p/DftqP-ikncx/"
+    },
+    {
+      "destination": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    },
+    {
+      "destination": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7527295698816585728",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7527295698816585728/"
+    },
+    {
+      "destination": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "224849463",
+      "public_object_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
+    },
+    {
+      "destination": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "183",
+      "public_object_url": "https://t.me/CapitalChronicle/183"
+    },
+    {
+      "destination": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "18123673514317879",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfttV9YEhzv"
+    },
+    {
+      "destination": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2121503636216049751",
+      "public_object_url": "https://x.com/Capitalnicle/status/2121503636216049751"
+    },
+    {
+      "destination": "youtube",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null
+    }
+  ],
+  "current_suspended_routes": {
+    "youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
+  },
+  "closed_policy_no_writes_preserved": 6,
+  "final_item_status": "BLOCKED",
+  "first_cause": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+  "additional_current_cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "platform_wording_source": "../CC-536/youtube-verification-required.json",
+  "next_action": "Ops Product prepares Jim's one-time YouTube verification and restores existing Neo access; then clear only the verified YouTube suspension through its owner and resume the existing coordinator recovery/public-URL readback.",
+  "public_write_in_this_run": false,
+  "application_lifetime_changed": false,
+  "schedule_changed": false
+}
