@@ -1,0 +1,67 @@
+{
+  "item": "CC-435",
+  "recorded_at_utc": "2026-11-15T12:56:10.184190+00:00",
+  "status": "BLOCKED",
+  "first_cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "additional_outside_cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+  "code_commit": "f0b2351b0e2fde65fdb917676ccb31e0996e1b4a",
+  "operating_root": "A:/Capital Chronicle/ContentOps",
+  "delivery_branch": "backlog/cc-435-route-readback-20261115",
+  "repair_integrated": true,
+  "live_consumer_observed": true,
+  "minute_run_at_utc": "2026-11-15T12:54:54.024289Z",
+  "confirmed_current_plan_routes": [
+    "telegram",
+    "discord",
+    "threads"
+  ],
+  "telegram_observation": "retained reconciliation; no fresh public-page read in this run",
+  "acceptance_all_eight_routes": false,
+  "choice": "Keep exact issued objects and repair their minute-record reconciliation visibility; do not substitute old plans for the next eligible run.",
+  "next_action": {
+    "owner": "Ops Product",
+    "action": "Restore the existing Neo MCP listener and LinkedIn official API connectivity; Publisher then reads back the exact Note and resumes the next eligible plan through the existing coordinator."
+  },
+  "separate_profile_action": {
+    "owner": "Ops Product",
+    "action": "Set the Instagram profile website to https://capitalchronicle.substack.com/ through its owned bio route."
+  },
+  "tests": {
+    "reconciliation-tests-fixed.xml": [
+      {
+        "tests": "38",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "84.151"
+      }
+    ],
+    "installed-consumer-tests.xml": [
+      {
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "14.165"
+      }
+    ]
+  },
+  "preserved_work": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "before_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "after_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "unchanged": true
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "before_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "after_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "unchanged": true
+    }
+  ],
+  "schedule_changed": false,
+  "application_restarted": false,
+  "public_write_performed": false,
+  "editorial_model_calls": 0
+}

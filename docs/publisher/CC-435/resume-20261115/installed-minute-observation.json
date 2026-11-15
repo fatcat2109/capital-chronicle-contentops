@@ -1,0 +1,27 @@
+{
+  "observed_at_utc": "2026-11-15T12:55:19.522292+00:00",
+  "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261115.jsonl",
+  "run_at_utc": "2026-11-15T12:54:54.024289Z",
+  "phase": null,
+  "status": "OK",
+  "export_generated_at_utc": "2026-11-15T12:51:36.431052Z",
+  "analysis_link_count": 53,
+  "gold_note": [
+    {
+      "confirmed": false,
+      "destination": "substack_notes",
+      "destination_causes": {},
+      "dispatch_id": "dispatch_d0b43460a84728b94c33851b64c88bce",
+      "first_failures": {},
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-substack_notes",
+      "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+      "per_destination": {},
+      "public_object_id": "c-385656965",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-385656965",
+      "reconciled_at_utc": "2026-11-12T17:06:23.198397+00:00",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "status": "DISPATCH_CONFIRMED"
+    }
+  ],
+  "rows_carrying_readback": 31
+}

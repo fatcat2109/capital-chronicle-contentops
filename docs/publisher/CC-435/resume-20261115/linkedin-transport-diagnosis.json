@@ -1,0 +1,25 @@
+{
+  "probes": [
+    {
+      "transport": "urllib",
+      "method": "UNAUTHENTICATED_OFFICIAL_USERINFO_GET",
+      "started_at_utc": "2026-11-15T12:53:39.104199+00:00",
+      "state": "TRANSPORT_FAILED",
+      "error_class": "URLError",
+      "reason_class": "ConnectionResetError",
+      "tls_errno": 10054,
+      "ended_at_utc": "2026-11-15T12:53:39.192188+00:00"
+    },
+    {
+      "transport": "requests",
+      "method": "UNAUTHENTICATED_OFFICIAL_USERINFO_GET",
+      "started_at_utc": "2026-11-15T12:53:39.192279+00:00",
+      "state": "TRANSPORT_FAILED",
+      "error_class": "ConnectionError",
+      "reason_class": "ConnectionError",
+      "ended_at_utc": "2026-11-15T12:53:39.227807+00:00"
+    }
+  ],
+  "public_write_performed": false,
+  "credentials_used": false
+}

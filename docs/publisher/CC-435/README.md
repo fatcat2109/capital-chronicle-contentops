@@ -1,5 +1,10 @@
 # CC-435 - analysis links on every plan distribution route
 
+Current continuation: [15 November repair and route readbacks](resume-20261115/README.md).
+The reporting fix is live at `f0b2351b`; eight-route acceptance remains incomplete
+under the current Neo endpoint and LinkedIn connection failures. CC-453 resolved
+the Substack suspension recorded in the historical result below.
+
 Current result, 11 November 2026, 01:24 GMT+7: **BLOCKED —
 SUBSTACK_ACCOUNT_SUSPENDED_IMPERSONATION**. The implementation is pushed and
 integrated into `A:\Capital Chronicle\ContentOps` at
