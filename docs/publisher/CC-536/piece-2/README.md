@@ -1,5 +1,12 @@
 # CC-536 piece 2: following the trend
 
+The 15 November 19:25 GMT+7 resume verified the same endpoint failure, all 58
+numerical bindings and all seven Main source blobs in the installed consumer.
+Piece 2 still has no registered publication intent. The next check is 21:00
+GMT+7; no schedule was changed. [Resume result](resume-20261115-1900.json)
+and [readback](resume-20261115-1900-readback.json) retain the exact cause and
+prepared continuation. The original source and article are unchanged.
+
 The authored article and complete social summary are ready for the existing
 measured-odds publisher. Publication is waiting for BrowserOS Neo's configured
 local MCP endpoint, `http://127.0.0.1:9010/mcp`, which returned

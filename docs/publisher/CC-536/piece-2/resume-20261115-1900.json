@@ -1,0 +1,102 @@
+{
+  "item": "CC-536",
+  "piece": 2,
+  "observed_at_utc": "2026-11-15T12:27:16.307694+00:00",
+  "branch": "backlog/cc-536-piece-2-resume-20261115",
+  "base_commit": "694ef9648d812a8506a52c00fe5a501693c8a8cb",
+  "outcome": "BLOCKED",
+  "stage": "fresh authentic TradingView chart capture before final assembly/review and coordinator registration",
+  "first_cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "neo_check": {
+    "observed_at_utc": "2026-11-15T12:25:06.752425+00:00",
+    "endpoint": "http://127.0.0.1:9010/mcp",
+    "operation": "NeoMcpClient.initialize",
+    "status": "UNAVAILABLE",
+    "cause": "NEO_ENDPOINT_CONNECTIONERROR",
+    "elapsed_seconds": 2.056,
+    "browser_action_started": false,
+    "process_observation": "No process named browseros/neo and no port 9010 listener were observed."
+  },
+  "verification": {
+    "artifact": "resume-20261115-1900-readback.json",
+    "main_snapshot": {
+      "live_tag": "live-20261114-cc598-154637",
+      "commit": "3c0900bdf8ce3cd5aee5ec8a5dd8c3c59f04c433",
+      "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+      "blobs_verified": 7
+    },
+    "numbers_status": "PASS",
+    "numeric_occurrences": 58,
+    "installed_validator_status": "PASS",
+    "installed_numeric_occurrences": 58,
+    "installed_source_blobs_verified": 7,
+    "source_and_article_changed": false,
+    "prior_test_artifact": "installed-consumer-tests.xml",
+    "prior_tests": 24,
+    "new_pytest_run": false,
+    "reason": "No source, copy or test changes. Executed the source verifier and numerical validator in both working and installed roots."
+  },
+  "publication": {
+    "piece_2_registered": false,
+    "piece_2_publication_attempts_this_run": 0,
+    "fresh_chart_bound": false,
+    "confirmed_method_page": {
+      "identity": "cc536-measured-odds-1",
+      "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+      "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+      "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+    },
+    "store_access": "SQLite mode=ro; PRAGMA query_only=ON",
+    "fresh_public_readback_claimed": false
+  },
+  "top_level_launch": {
+    "pid": 20964,
+    "started_at_utc": "2026-11-15T12:21:33.7376880Z",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Parent codex.exe launch arguments inspected; only model/effort flags and process identity retained."
+  },
+  "choice": "Preserve the installed source-bound piece and its publication identity; verify the actual external outage without duplicating drafting, registering an incomplete piece, reusing the published chart or drawing a substitute.",
+  "restrictions": [
+    {
+      "reason": "JIM_DECISION_82",
+      "requirement": "Use a real native TradingView chart."
+    },
+    {
+      "reason": "JIM_DECISION_93",
+      "requirement": "The lead image has not been published in another piece."
+    }
+  ],
+  "next_action": "BrowserOS operator restores the existing Neo profile and MCP endpoint at http://127.0.0.1:9010/mcp; Publisher then captures the unused native chart into this piece media folder, completes final assembly/review and resumes the existing coordinator path.",
+  "next_actor": "BrowserOS operator, then Codex Publisher",
+  "next_check_utc": "2026-11-15T14:00:00Z",
+  "next_check_gmt7": "15 Nov 2026 21:00 GMT+7",
+  "integration": {
+    "operating_root": "A:\\Capital Chronicle\\ContentOps",
+    "rollback_tag": "contentops/cc-536-piece2-neo-check-rollback-20261115T122716Z",
+    "live_tag": "contentops/cc-536-piece2-neo-check-live-20261115T122716Z",
+    "scope": "Resume evidence only; existing installed consumer and article retained."
+  },
+  "live_acceptance_remaining": [
+    "Piece 2 Substack and X readbacks with its unused native TradingView chart",
+    "First daily-board and next plan public links to the method page",
+    "Later daily series pieces; euro/yen require the repaired table and side split on Main live tag"
+  ],
+  "schedule_changes": false,
+  "other_chat_messages": false,
+  "application_launches": false,
+  "desktop_automation": false,
+  "preserved_uncommitted_paths": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "bytes": 992508
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "bytes": 10337
+    }
+  ]
+}
