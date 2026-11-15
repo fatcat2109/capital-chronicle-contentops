@@ -403,6 +403,31 @@ def test_minute_record_keeps_exact_analysis_link_and_first_transport_failure(tmp
     assert saved["first_failures"]["linkedin"]["safe_error_classification"] == "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
 
 
+@pytest.mark.parametrize("reconciliation,confirmed", [
+    ("RECONCILED_CONFIRMED", True),
+    ("RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE", False),
+])
+def test_minute_consumer_records_exact_analysis_readback(ready, tmp_path, reconciliation, confirmed):
+    store, packet, original = ready
+    link = pages.register_link(store, packet, original_key=original, destination="substack_notes")
+    url = "https://substack.com/@capitalchronicle/note/c-12345"
+    confirm(store, link["link_id"], link["plan"]["plan_hash"], "substack_notes", "c-12345", url)
+    ids = Coordinator._ids(link["link_id"], link["plan"]["plan_hash"], "substack_notes")
+    store.set_reconciliation_status(ids["reconciliation_id"], reconciliation)
+    distribution = pages.distribute_links(store, publish=False)
+    path = posts.record_run({"status": "OK", "publication": {"status": "OK",
+        "analysis_distribution": distribution}}, tmp_path / "minute-runs")
+    saved = next(row for row in json.loads(path.read_text(encoding="utf-8"))["analysis_links"]
+                 if row["destination"] == "substack_notes")
+    assert saved["status"] == "DISPATCH_CONFIRMED"
+    assert saved["confirmed"] is confirmed
+    assert saved["reconciliation_status"] == reconciliation
+    assert saved["reconciled_at_utc"]
+    assert saved["dispatch_id"] == ids["dispatch_id"]
+    assert saved["public_object_id"] == "c-12345"
+    assert saved["public_object_url"] == url
+
+
 def test_link_resume_returns_the_already_queued_native_request(ready, monkeypatch):
     from live_contentops import native_neo_executor_v1 as native
     from types import SimpleNamespace

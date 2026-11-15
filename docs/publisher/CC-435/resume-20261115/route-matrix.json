@@ -1,0 +1,161 @@
+{
+  "item": "CC-435",
+  "observed_at_utc": "2026-11-15T12:48:21.919953+00:00",
+  "page": {
+    "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+    "plan_id": "plan_230a9464a193ca7a377d0c41",
+    "confirmed": true,
+    "canonical_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+    "dispatch": {
+      "dispatch_id": "dispatch_0f71e132c94187d4e9c1835990c41f44",
+      "message_id": "outbox_0f71e132c94187d4e9c1835990c41f44",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "dispatched_at": "2026-11-12T16:32:05.276158+00:00",
+      "public_object_id": "224627730",
+      "public_object_url": "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry",
+      "public_object_url_hash": "dbc511106685951a6388db3773f9b902d53437ebc905e56ee7fc5c4aabe6b571"
+    },
+    "reconciliation": {
+      "reconciliation_id": "reconciliation_0f71e132c94187d4e9c1835990c41f44",
+      "work_item_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+      "status": "RECONCILED_CONFIRMED",
+      "reconciled_at": "2026-11-12T17:02:54.128727+00:00"
+    }
+  },
+  "routes": [
+    {
+      "destination": "telegram",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-telegram",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_192b7ee231b687c54c42b3c213ed2aeb",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "reconciled_at_utc": "2026-11-12T18:00:15.313710+00:00",
+      "public_object_id": "182",
+      "public_object_url": "https://t.me/CapitalChronicle/182",
+      "automatic_work_status": "EDITORIAL_INTERNAL",
+      "readback_recorded_at_utc": "2026-11-12T18:00:15.289863+00:00",
+      "readback_checks": {
+        "verified": true,
+        "write_exists": false,
+        "identity_match": true
+      },
+      "reason_code": null
+    },
+    {
+      "destination": "discord",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "reconciled_at_utc": "2026-11-12T18:00:21.378519+00:00",
+      "public_object_id": "1570672638332772352",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352",
+      "automatic_work_status": "EDITORIAL_INTERNAL",
+      "readback_recorded_at_utc": "2026-11-13T05:33:09.284132+00:00",
+      "readback_checks": {
+        "verified": true,
+        "write_exists": true,
+        "identity_match": true
+      },
+      "reason_code": null
+    },
+    {
+      "destination": "threads",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-threads",
+      "confirmed": true,
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_a3e0be1438cb894fca7577e91641718a",
+      "reconciliation_status": "RECONCILED_CONFIRMED",
+      "reconciled_at_utc": "2026-11-12T18:02:07.217716+00:00",
+      "public_object_id": "18346683595249062",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfppyDVEyr4",
+      "automatic_work_status": "EDITORIAL_INTERNAL",
+      "readback_recorded_at_utc": "2026-11-12T18:02:07.184477+00:00",
+      "readback_checks": {
+        "verified": true,
+        "write_exists": true,
+        "identity_match": true,
+        "content_binding_checks": {
+          "account_match": true,
+          "canonical_link_match": true,
+          "media_match": true,
+          "object_id_match": true,
+          "public_url_match": true,
+          "text_match": true
+        }
+      },
+      "reason_code": null
+    },
+    {
+      "destination": "facebook_page",
+      "link_id": null,
+      "confirmed": false,
+      "cause": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+    },
+    {
+      "destination": "instagram_business",
+      "link_id": null,
+      "confirmed": false,
+      "cause": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+    },
+    {
+      "destination": "x",
+      "link_id": null,
+      "confirmed": false,
+      "cause": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+    },
+    {
+      "destination": "substack_notes",
+      "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-substack_notes",
+      "confirmed": false,
+      "status": "DISPATCH_CONFIRMED",
+      "dispatch_id": "dispatch_d0b43460a84728b94c33851b64c88bce",
+      "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+      "reconciled_at_utc": "2026-11-12T17:06:23.198397+00:00",
+      "public_object_id": "c-385656965",
+      "public_object_url": "https://substack.com/@capitalchronicle/note/c-385656965",
+      "automatic_work_status": "EDITORIAL_INTERNAL",
+      "readback_recorded_at_utc": "2026-11-12T17:06:23.159560+00:00",
+      "readback_checks": {
+        "verified": false,
+        "write_exists": true,
+        "identity_match": true,
+        "content_binding_checks": {
+          "media_match": true,
+          "text_match": false,
+          "thread_match": true
+        }
+      },
+      "reason_code": null
+    },
+    {
+      "destination": "linkedin",
+      "link_id": "plan-analysis-run-c40fb590ba9a4076ec36e533beaf0cfe-linkedin",
+      "confirmed": false,
+      "status": "DEFINITE_NO_WRITE",
+      "dispatch_id": "dispatch_b050e614c3c56a4fd3661a348a58ed8c",
+      "reconciliation_status": null,
+      "reconciled_at_utc": null,
+      "public_object_id": null,
+      "public_object_url": null,
+      "automatic_work_status": "EDITORIAL_INTERNAL",
+      "readback_recorded_at_utc": "2026-11-13T05:00:41.785840+00:00",
+      "readback_checks": {},
+      "reason_code": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE"
+    }
+  ],
+  "minute_consumer": {
+    "artifact": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs\\runs-20261115.jsonl",
+    "record_at_utc": "2026-11-15T12:48:19.115713Z",
+    "status": "OK",
+    "export_generated_at_utc": "2026-11-15T12:45:03.087560Z",
+    "analysis_link_count": 53
+  },
+  "suspended_routes": {
+    "youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
+  },
+  "public_write_performed": false
+}

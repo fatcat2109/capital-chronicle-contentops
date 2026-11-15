@@ -922,7 +922,10 @@ def link_status(store, value):
                            if r["reconciliation_id"] == ids["reconciliation_id"]), {})
     return {"confirmed": dispatch.get("status") == "DISPATCH_CONFIRMED"
                         and reconciliation.get("status") == "RECONCILED_CONFIRMED",
-            "status": dispatch.get("status") or message.get("status"), "public_object_id": dispatch.get("public_object_id"),
+            "status": dispatch.get("status") or message.get("status"), "dispatch_id": dispatch.get("dispatch_id"),
+            "reconciliation_status": reconciliation.get("status"),
+            "reconciled_at_utc": reconciliation.get("reconciled_at"),
+            "public_object_id": dispatch.get("public_object_id"),
             "public_object_url": dispatch.get("public_object_url")}
 
 
@@ -1060,7 +1063,8 @@ def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
                 value = register_link(store, packet, original_key=original, destination=destination)
                 outcome = _resume_link(store, value, publish, automatic_neo=automatic_neo)
                 results.append({"page_id": packet["page_id"], "destination": destination,
-                                "link_id": value.get("link_id"), "outcome": outcome})
+                                "link_id": value.get("link_id"), "outcome": outcome,
+                                **({"readback": link_status(store, value)} if value.get("link_id") else {})})
             except (OSError, ValueError, KeyError, TypeError) as exc:
                 results.append({"page_id": packet["page_id"], "destination": destination,
                                 "state": "NOT_STARTED", "cause": str(exc)[:200]})
@@ -1073,7 +1077,8 @@ def distribute_links(store, *, limit=None, publish=True, automatic_neo=False):
                 continue
             value = register_run_link(store, packets)
             outcome = _resume_link(store, value, publish, automatic_neo=automatic_neo)
-            results.append({"destination": "linkedin", "link_id": value.get("link_id"), "outcome": outcome})
+            results.append({"destination": "linkedin", "link_id": value.get("link_id"), "outcome": outcome,
+                            **({"readback": link_status(store, value)} if value.get("link_id") else {})})
         except (OSError, ValueError, KeyError, TypeError) as exc:
             results.append({"destination": "linkedin", "state": "NOT_STARTED", "cause": str(exc)[:200]})
     return {"status": "OK", "links": results}

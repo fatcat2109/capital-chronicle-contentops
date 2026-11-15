@@ -995,6 +995,11 @@ def record_run(result: Mapping[str, Any], folder: Path, *, now: datetime | None 
                 **({"cause": outcome["cause"]} if outcome.get("cause") and not row.get("cause") else {}),
                 "status": (outcome.get("state") or outcome.get("status")
                            or outcome.get("distribution_status") or row.get("state")),
+                # A transport-confirmed object can still have incomplete copy.
+                # Keep the exact reconciliation and identity in pythonw's record.
+                **{k: v for k, v in (row.get("readback") or outcome).items() if k in
+                    ("confirmed", "dispatch_id", "reconciliation_status", "reconciled_at_utc",
+                     "public_object_id", "public_object_url")},
                 "per_destination": {d: v.get("status") for d, v in per.items()},
                 "destination_causes": destination_causes({"per_destination": per}),
                 "first_failures": {d: v["first_failure"] for d, v in per.items() if v.get("first_failure")}})
