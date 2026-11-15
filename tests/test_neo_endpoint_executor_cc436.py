@@ -310,12 +310,13 @@ def test_cli_publish_passes_automatic_transport_to_the_real_consumer(tmp_path,mo
     from live_contentops import plan_status_posts_v1 as posts,plan_analysis_pages_v1 as pages
     from live_contentops import pinned_result_scorecard_v1,event_timestamp_v1,event_pack_v1
     from live_contentops import plan_reader_editorial_v1, x_reply_bot_v1, x_reply_tabs_v1
-    from live_contentops import audience_collection_v1, model_invocation_usage_v1
+    from live_contentops import audience_collection_v1, model_invocation_usage_v1, call_followups_v1
     store=copied_store(tmp_path);seen=[]
     # New minute consumers are outside this transport test. In particular, no
     # real Main export or editorial CLI may be used by a controlled fixture.
     monkeypatch.setattr(posts,'read_export',lambda *a,**kw:{'status':{'plans':[]}})
     monkeypatch.setattr(plan_reader_editorial_v1,'run_due',lambda *a,**kw:{'status':'OK','pages':[]})
+    monkeypatch.setattr(call_followups_v1,'minute_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
     monkeypatch.setattr(x_reply_bot_v1,'refresh_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
     monkeypatch.setattr(x_reply_bot_v1,'observe_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
     monkeypatch.setattr(x_reply_tabs_v1,'refresh_due',lambda *a,**kw:{'status':'NO_DUE_WORK'})
@@ -329,8 +330,12 @@ def test_cli_publish_passes_automatic_transport_to_the_real_consumer(tmp_path,mo
     monkeypatch.setattr(event_pack_v1,'run_due_packs',lambda *a,**kw:{'status':'OK'})
     monkeypatch.setattr(posts,'publish_ready',lambda s,**kw:seen.append((s.db_path,kw)) or {'posts':[]})
     assert cli.main(['--store',str(store.db_path),'--publish'])==0
-    assert seen[0][0]==store.db_path
-    assert seen[0][1]['automatic_neo'] is True
+    assert len(seen)==2
+    assert all(path==store.db_path for path,_ in seen)
+    # CC-543's API alerts precede editorial work; the later browser phase
+    # still selects CC-436's endpoint executor without a Codex tool step.
+    assert seen[0][1]['immediate_only'] is True
+    assert seen[1][1]['automatic_neo'] is True
 
 
 def test_larger_neo_dom_result_reads_only_documented_local_output(tmp_path,monkeypatch):
