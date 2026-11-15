@@ -1,0 +1,21 @@
+{
+  "recorded_at_utc": "2026-11-15T20:50:49.748247+00:00",
+  "tests": 39,
+  "failures": 0,
+  "errors": 0,
+  "seconds": 11.577,
+  "files": [
+    "tests/test_publication_image_audit_cc463.py",
+    "tests/test_publication_image_contract_cc463.py"
+  ],
+  "pytest_processes": 1,
+  "parallel_workers": false,
+  "production_store_used_by_tests": false,
+  "configured_launch": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "evidence": "active Ops-dispatched codex.exe arguments",
+    "status": "CONFIGURED_NOT_OBSERVED"
+  },
+  "initial_test_failure": "Nine new audit fixtures omitted schema_version; fixture corrected before passing run. No live register changed."
+}

@@ -130,10 +130,16 @@ class PublishedImages:
             for item in row["images"]:
                 kind = item.get("image_type", "UNKNOWN")
                 counts[kind] = counts.get(kind, 0) + 1
+            lead = next((i for i in row["images"] if i["asset_id"] == row["lead_asset_id"]), None)
             posts.append({"record_id": row["record_id"], "piece_id": row["piece_id"],
                 "destination": row.get("destination"), "market": row.get("market") or next((
                     i.get("price_scale_check", {}).get("market") for i in row["images"]
                     if i.get("price_scale_check")), None),
+                "canonical_url": row.get("canonical_url"),
+                "published_at_utc": row.get("published_at_utc"),
+                "publication_clock_basis": row.get("publication_clock_basis"),
+                "lead_image": {key: lead.get(key) for key in (
+                    "asset_id", "image_type", "sha256", "width", "height")} if lead else None,
                 "lead_image_type": next((i.get("image_type", "UNKNOWN") for i in row["images"]
                     if i["asset_id"] == row["lead_asset_id"]), None),
                 "image_contract": row.get("image_contract") or next((

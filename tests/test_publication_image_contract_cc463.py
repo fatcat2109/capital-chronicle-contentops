@@ -89,6 +89,11 @@ def test_a_valid_chart_reaches_the_real_consumer_and_records_its_type(tmp_path):
     assert record["state"] == "PUBLISHED"
     assert record["images"][0]["image_type"] == "TRADINGVIEW_MARKET_CHART"
     assert record["images"][0]["price_scale_check"]["difference_pct"] == 0
+    observed = image_register(coordinator).daily_image_counts(day_of(NOW))["observed_posts"][0]
+    assert observed["lead_image"]["sha256"] == record["images"][0]["sha256"]
+    assert observed["lead_image"]["width"] == record["images"][0]["width"]
+    assert observed["published_at_utc"] == record["published_at_utc"]
+    assert observed["publication_clock_basis"] == record["publication_clock_basis"]
 
 
 @pytest.mark.parametrize("market", sorted(tv.SYMBOLS))
