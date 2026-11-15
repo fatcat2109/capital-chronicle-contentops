@@ -127,3 +127,53 @@ thread, plus the next ending under its card. The missing observation is not
 reported as DONE. This verification made zero public writes or production-store
 writes. The configured launch was `gpt-6.1-sol` / `max`,
 `CONFIGURED_NOT_OBSERVED`; no editorial model call was made.
+
+## Resume — 15 November 2026
+
+The existing official Discord adapter verifies three exact public objects:
+
+- [Retained run announcement](https://discord.com/channels/1519310996030750782/1519311669216673802/1569915426341920872).
+- [Gold card](https://discord.com/channels/1519310996030750782/1519311669216673802/1570498124391125187), with its image and original body.
+- [Full-analysis reply](https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352), with the exact body, canonical Substack link and verified card-thread parent.
+
+Webhook roots are read through their existing official webhook route; the bot
+reads thread metadata and replies. The legacy run thread contains only its
+system starter, with no call cards. The gold card is the standalone root
+required by the later CC-466 contract. The old count-post acceptance is
+superseded; this continuation does not restore it or change issued objects.
+
+The live trace exposed a local ending-selection defect. Queue labels had
+removed a publicly confirmed setup from the parent lookup. The selector now
+uses the existing confirmed dispatch identity, so settling or superseding
+unsent copies cannot erase a posted card. It keeps the original payload,
+public id and per-destination parent check; an unposted setup gains no ending.
+
+[Seventeen focused checks](resume-20261115/targeted-consumer-tests.xml) pass,
+including five cards through the real coordinator, exact fill/ending parents,
+lost thread-create recovery and both settled/superseded parent cases.
+[Forty settlement and thread checks](resume-20261115/settlement-thread-tests.xml)
+also pass. The controlled chart fixture now supplies its quote at the market's
+comparison clock, so weekend execution exercises the image path instead of
+silently dropping every fixture image. Production quote checks are unchanged.
+
+The fix is integrated into `A:\Capital Chronicle\ContentOps` at
+`c18d4e967ab78803dac71a5ecbe19595bbbab5c3`. Its installed source passes
+[eight focused checks](resume-20261115/installed-consumer-tests.xml).
+[Integration evidence](resume-20261115/integration.json) binds the source
+hashes and preserves all six operating-root and both exec-worktree WIP files.
+The live tag is `contentops-live-20261115-cc399-ending-parent`; the rollback
+tag is `contentops-rollback-20261115-cc399-ending-parent`.
+
+At **19:17:29 GMT+7**, the unchanged scheduled minute owner consumed the fix
+and recovered both omitted ending rows. Their true events were 10 and
+12 November. The normal owner settled their unsent destinations under the
+existing 24-hour late-state rule; it did not send an old state as current.
+No new setup, duplicate card or public write was created by this continuation.
+See [the installed consumer observation](resume-20261115/installed-minute-consumer.json).
+
+The item remains **BLOCKED: NEXT_MAIN_PLAN_NOT_REGISTERED** for its remaining
+live card/ending acceptance. The current public export contains 89 plans; its
+last registration is **13 November 00:40 GMT+7**. Main's next actual plan is
+outside Publisher's lane. The installed consumer will use it; Publisher then
+reads back its Discord card thread, analysis link and later ending. No Ops
+review, new schedule, synthetic plan or historical repost is needed.

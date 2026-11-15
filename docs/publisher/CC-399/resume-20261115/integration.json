@@ -1,0 +1,65 @@
+{
+  "before_utc": "2026-11-15T12:16:29.753800+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "before_head": "de4b70964251bdce3ccc915d19be6c2c751ed83c",
+  "delivery_head": "c18d4e967ab78803dac71a5ecbe19595bbbab5c3",
+  "operating_wip_before": {
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": {
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": {
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": {
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "bytes": 1411994,
+      "sha256": "7217dd5faf5e5e0ac28b886b798be9af01ed6f624849fdf0fcfb396bb77a68b1"
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 70254,
+      "sha256": "8e0387518c6ff131268f7909233c6b673b4cc5761b9f31393c79cbc28b962315"
+    }
+  },
+  "exec_wip_before": {
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": {
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    }
+  },
+  "rollback_tag": "contentops-rollback-20261115-cc399-ending-parent",
+  "live_tag": "contentops-live-20261115-cc399-ending-parent",
+  "integrated_head": "c18d4e967ab78803dac71a5ecbe19595bbbab5c3",
+  "integrated_at_utc": "2026-11-15T12:17:02.507969+00:00",
+  "installed_files": {
+    "live_contentops/plan_call_cards_v1.py": {
+      "exec_sha256": "6bb2b4212ace5f14052b521d5cfd8374439a7efa91687062bd73215e8d8608d4",
+      "operating_sha256": "6bb2b4212ace5f14052b521d5cfd8374439a7efa91687062bd73215e8d8608d4"
+    },
+    "tests/test_plan_call_cards_cc399.py": {
+      "exec_sha256": "937b4f567324ceaaad7c6975933c1e11d13defdbf46f828e588470cebfaf109b",
+      "operating_sha256": "937b4f567324ceaaad7c6975933c1e11d13defdbf46f828e588470cebfaf109b"
+    }
+  },
+  "operating_wip_preserved": true,
+  "exec_wip_preserved": true,
+  "installed_tests": {
+    "artifact": "installed-consumer-tests.xml",
+    "passed": 8,
+    "seconds": 34.4
+  },
+  "operating_wip_preserved_after_consumer": true,
+  "exec_wip_preserved_after_consumer": true
+}

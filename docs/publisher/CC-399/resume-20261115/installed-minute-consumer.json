@@ -1,0 +1,962 @@
+{
+  "observed_at_utc": "2026-11-15T12:18:25.480433+00:00",
+  "installed_head": "c18d4e967ab78803dac71a5ecbe19595bbbab5c3",
+  "scheduled_consumer": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "interpreter": "pythonw.exe",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "schedule_changed": false
+  },
+  "first_recovered_consumer_result": {
+    "at_utc": "2026-11-15T12:17:29.204641Z",
+    "cause": null,
+    "contract_version": "2.0.0",
+    "export_age_seconds": 2.0,
+    "export_generated_at_utc": "2026-11-15T12:17:25.227033Z",
+    "failed_field": null,
+    "incident_id": null,
+    "max_export_age_minutes": 10,
+    "not_posted": 30,
+    "not_posted_details": [
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-7083fcc0f935afff2a828e8b30743ce1"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-769e790e2d16946dfd90340368555707"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-78236d46a1d5f3efd06447ace20d3af3"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-07a4366e582a0f75b638b890322e420c"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-0fff22c7f31885f5ccbca12b565bf4c8"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-c275820ce45b6323dd0b3695dfdbbdac"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-e14669297a595775f4cb15f81b720a1c"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-692a326bca965e241a1a1a872edb268f"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-2f91e42dfa3735ced86cce7afa56d6fe"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-c256ce756da8d3be6e6fce70cbb706de"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-25991b199496ded7d118f412966582e6"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-df032fdfa7d8edde5be6e7654074b0c3"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-288fe523cf30f01d540b4d4f3071adc2"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-2d4a2fd56601b68098b1e55b9df7ccfc"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-d03d2a9ac73144d627b781f62733bf16"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-4a6f5701a5f17f1556001a6d477e0e74"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-b7f2dd536171c021607437ef4d1f3274"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-cb15c2cb43d0db21231c84a5fed533a0"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-8e388e040f978aeb84b8f7111ee83305"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-1ad59b210ffd6b57df25c4be5e8a0e70"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-7b4f0f89f06611da94f05ec618c75101"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-7538d12492aa074c31c7c78a443ce482"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-26bd52f86de6ef9d3801b9ce1ee49761"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-89c6ee260e78ea87ad23e183aa96d432"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-e8535b651dff6c9ac06e87993da94698"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-1d8e540f4f55948c98989ca89d2f8795"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-6c208e7105442bef6270fceee6517178"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-20f9c696d927c72f9b61da057c64810b"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-35e19118d9626be60dfcfe3657c2a878"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-79f7c54182fd8c52626f89bc39f1a8c1"
+      }
+    ],
+    "pending_post_queue": null,
+    "phase": "IMMEDIATE_ALERTS",
+    "posts": [
+      {
+        "cause": "LATE_STATE_LIMIT_24_HOURS",
+        "destination_causes": {
+          "discord": "LATE_STATE_LIMIT_24_HOURS",
+          "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+          "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+          "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+          "telegram": "LATE_STATE_LIMIT_24_HOURS",
+          "threads": "LATE_STATE_LIMIT_24_HOURS",
+          "x": "CARD_PARENT_NOT_CONFIRMED"
+        },
+        "key": "plan-result-post-2cc8d586ad74f5b187da9d59f82946f9",
+        "per_destination": {
+          "discord": "SETTLED",
+          "facebook_page": "SETTLED",
+          "instagram_business": "SETTLED",
+          "substack_notes": "SETTLED",
+          "telegram": "SETTLED",
+          "threads": "SETTLED",
+          "x": "SETTLED"
+        },
+        "status": "SETTLED"
+      },
+      {
+        "cause": "LATE_STATE_LIMIT_24_HOURS",
+        "destination_causes": {
+          "discord": "LATE_STATE_LIMIT_24_HOURS",
+          "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+          "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+          "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+          "telegram": "LATE_STATE_LIMIT_24_HOURS",
+          "threads": "CARD_PARENT_NOT_CONFIRMED",
+          "x": "CARD_PARENT_NOT_CONFIRMED"
+        },
+        "key": "plan-result-post-3146555dc07bb4e02af912e48e610ea8",
+        "per_destination": {
+          "discord": "SETTLED",
+          "facebook_page": "SETTLED",
+          "instagram_business": "SETTLED",
+          "substack_notes": "SETTLED",
+          "telegram": "SETTLED",
+          "threads": "SETTLED",
+          "x": "SETTLED"
+        },
+        "status": "SETTLED"
+      }
+    ],
+    "posts_by_status": {
+      "SETTLED": 2
+    },
+    "publication": "OK",
+    "quarantined_rows": [],
+    "queued": 2,
+    "status": "OK"
+  },
+  "latest_completed_consumer_result": {
+    "analysis_links": [
+      {
+        "destination": "telegram",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-telegram",
+        "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "discord",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-discord",
+        "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+        "per_destination": {},
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+      },
+      {
+        "destination": "threads",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-threads",
+        "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "facebook_page",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "instagram_business",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "x",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-x",
+        "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+        "per_destination": {},
+        "status": "DEFINITE_NO_WRITE"
+      },
+      {
+        "destination": "substack_notes",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_a4e853272f83b1cca81ab1d1-substack_notes",
+        "page_id": "plan-analysis-plan_a4e853272f83b1cca81ab1d1",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "telegram",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-telegram",
+        "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "discord",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-discord",
+        "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+        "per_destination": {},
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+      },
+      {
+        "destination": "threads",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-threads",
+        "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "facebook_page",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "instagram_business",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "x",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "substack_notes",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_f45a45412d7fb675b4db238d-substack_notes",
+        "page_id": "plan-analysis-plan_f45a45412d7fb675b4db238d",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "telegram",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-telegram",
+        "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "discord",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-discord",
+        "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+        "per_destination": {},
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+      },
+      {
+        "destination": "threads",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-threads",
+        "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "facebook_page",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "instagram_business",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "x",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "substack_notes",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_829c6d5505eb74877d962853-substack_notes",
+        "page_id": "plan-analysis-plan_829c6d5505eb74877d962853",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "telegram",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-telegram",
+        "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "discord",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-discord",
+        "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+        "per_destination": {},
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+      },
+      {
+        "destination": "threads",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-threads",
+        "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "facebook_page",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "instagram_business",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "x",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "cause": "PLAN_ANALYSIS_LINK_OLDER_THAN_24_HOURS",
+        "destination": "substack_notes",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_79ec7bb46eb37b474f0f2c04-substack_notes",
+        "page_id": "plan-analysis-plan_79ec7bb46eb37b474f0f2c04",
+        "per_destination": {},
+        "status": "SETTLED"
+      },
+      {
+        "destination": "telegram",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-telegram",
+        "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "discord",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-discord",
+        "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+        "per_destination": {},
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+      },
+      {
+        "destination": "threads",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-threads",
+        "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "facebook_page",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "instagram_business",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "x",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "substack_notes",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_8b7c1dd880206079033b6efe-substack_notes",
+        "page_id": "plan-analysis-plan_8b7c1dd880206079033b6efe",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "telegram",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-telegram",
+        "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+        "per_destination": {},
+        "status": "DEFINITE_NO_WRITE"
+      },
+      {
+        "destination": "discord",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "threads",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "facebook_page",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "instagram_business",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "x",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "substack_notes",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+        "page_id": "plan-analysis-plan_1ff14f488bdc84b20a3f51d2",
+        "per_destination": {},
+        "status": "DEFINITE_NO_WRITE"
+      },
+      {
+        "destination": "telegram",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-telegram",
+        "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "discord",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-discord",
+        "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "threads",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-threads",
+        "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "facebook_page",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "instagram_business",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "x",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": null,
+        "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "per_destination": {},
+        "status": "PLAN_ANALYSIS_PARENT_NOT_CONFIRMED"
+      },
+      {
+        "destination": "substack_notes",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-link-plan_230a9464a193ca7a377d0c41-substack_notes",
+        "page_id": "plan-analysis-plan_230a9464a193ca7a377d0c41",
+        "per_destination": {},
+        "status": "DISPATCH_CONFIRMED"
+      },
+      {
+        "destination": "linkedin",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-run-b1fb50b21f47dcac1ebd0e047a0ecdc6-linkedin",
+        "per_destination": {},
+        "status": "DEFINITE_NO_WRITE"
+      },
+      {
+        "destination": "linkedin",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-run-bba3482d406c30ad8f1f6a52b90c8219-linkedin",
+        "per_destination": {},
+        "status": "DERIVATIVE_EXPIRED_STALE_NO_WRITE"
+      },
+      {
+        "cause": "PLAN_ANALYSIS_LINK_OLDER_THAN_24_HOURS",
+        "destination": "linkedin",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-run-869a66f11a0b985282e0674efea9eeef-linkedin",
+        "per_destination": {},
+        "status": "SETTLED"
+      },
+      {
+        "destination": "linkedin",
+        "destination_causes": {},
+        "first_failures": {},
+        "link_id": "plan-analysis-run-c40fb590ba9a4076ec36e533beaf0cfe-linkedin",
+        "per_destination": {},
+        "status": "DEFINITE_NO_WRITE"
+      }
+    ],
+    "at_utc": "2026-11-15T12:17:09.982815Z",
+    "audience_collection": {
+      "collected": 0,
+      "model_calls": 0,
+      "outcomes": [],
+      "pending": 0,
+      "public_write_performed": false,
+      "scheduled": 0,
+      "state": "COLLECTED"
+    },
+    "cause": null,
+    "contract_version": "2.0.0",
+    "event_packs": {
+      "events": [],
+      "status": "NO_EVENT_PACK_DUE"
+    },
+    "event_timestamp": {
+      "status": "NO_TIMESTAMP_DUE"
+    },
+    "export_age_seconds": 63.3,
+    "export_generated_at_utc": "2026-11-15T12:15:23.959738Z",
+    "failed_field": null,
+    "incident_id": null,
+    "max_export_age_minutes": 10,
+    "model_usage": {
+      "imported": 0,
+      "lane_runs_updated": 0,
+      "model_calls": 0,
+      "native_returns_imported": 0,
+      "source": "retained_native_returns_and_lane_run_records"
+    },
+    "neo_stored_requests": {
+      "requests": [],
+      "status": "OK"
+    },
+    "not_posted": 32,
+    "not_posted_details": [
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-7083fcc0f935afff2a828e8b30743ce1"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-769e790e2d16946dfd90340368555707"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-78236d46a1d5f3efd06447ace20d3af3"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-07a4366e582a0f75b638b890322e420c"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-0fff22c7f31885f5ccbca12b565bf4c8"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-c275820ce45b6323dd0b3695dfdbbdac"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-e14669297a595775f4cb15f81b720a1c"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-692a326bca965e241a1a1a872edb268f"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-2f91e42dfa3735ced86cce7afa56d6fe"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-c256ce756da8d3be6e6fce70cbb706de"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-25991b199496ded7d118f412966582e6"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-df032fdfa7d8edde5be6e7654074b0c3"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-288fe523cf30f01d540b4d4f3071adc2"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-2d4a2fd56601b68098b1e55b9df7ccfc"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-d03d2a9ac73144d627b781f62733bf16"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-4a6f5701a5f17f1556001a6d477e0e74"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-status-post-b7f2dd536171c021607437ef4d1f3274"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-cb15c2cb43d0db21231c84a5fed533a0"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-8e388e040f978aeb84b8f7111ee83305"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-1ad59b210ffd6b57df25c4be5e8a0e70"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-7b4f0f89f06611da94f05ec618c75101"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-7538d12492aa074c31c7c78a443ce482"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-3146555dc07bb4e02af912e48e610ea8"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-26bd52f86de6ef9d3801b9ce1ee49761"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-89c6ee260e78ea87ad23e183aa96d432"
+      },
+      {
+        "cause": "POSITION_CLOSED_BEFORE_FILL_ANNOUNCEMENT",
+        "key": "plan-status-post-e8535b651dff6c9ac06e87993da94698"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-1d8e540f4f55948c98989ca89d2f8795"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-6c208e7105442bef6270fceee6517178"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-20f9c696d927c72f9b61da057c64810b"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-2cc8d586ad74f5b187da9d59f82946f9"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-35e19118d9626be60dfcfe3657c2a878"
+      },
+      {
+        "cause": "PLAN_NEVER_ANNOUNCED",
+        "key": "plan-result-post-79f7c54182fd8c52626f89bc39f1a8c1"
+      }
+    ],
+    "pending_post_queue": {
+      "older_than_24_hours": 0,
+      "oldest_age_minutes": null,
+      "pending": 0
+    },
+    "plan_pages": {
+      "pages": [
+        {
+          "calls": [
+            {
+              "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_7be77d05f616bb239254de75\\page-writer\\b3b673d90a549558562a4c4cc0ea24b8dd1b3554eb6c5ecb52b946d86c3badfb\\result.json",
+              "cause": "ValueError:TEXT_CLI_EXIT_1",
+              "configuration_status": "CONFIGURED_NOT_OBSERVED",
+              "configured_effort": "max",
+              "configured_model": "gpt-6.1-sol",
+              "ended_at_utc": "2026-11-13T20:07:39.017072+00:00",
+              "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "prompt_sha256": "b3b673d90a549558562a4c4cc0ea24b8dd1b3554eb6c5ecb52b946d86c3badfb",
+              "returncode": 1,
+              "runtime_effort": null,
+              "runtime_model": null,
+              "started_at_utc": "2026-11-13T20:07:34.247247+00:00",
+              "status": "FAILED",
+              "stderr_sha256": "84bcd34c3c12250e9da71928a053245cb77917005ded21aea485ce51f8f9d0e2"
+            }
+          ],
+          "cause": "ValueError:TEXT_CLI_EXIT_1",
+          "plan_id": "plan_7be77d05f616bb239254de75",
+          "status": "PAGE_TEXT_UNAVAILABLE"
+        }
+      ],
+      "status": "OK",
+      "week_plan_count": 44
+    },
+    "posts": [],
+    "posts_by_status": {},
+    "publication": "OK",
+    "quarantined_rows": [],
+    "queued": 0,
+    "scorecard": {
+      "characters": 3947,
+      "counts": {
+        "EXPIRED": 37,
+        "HIT": 0,
+        "NOT_TRIGGERED": 0,
+        "STOPPED": 5,
+        "scored": 6,
+        "total": 42
+      },
+      "created_messages": 0,
+      "edited_messages": 0,
+      "extra_result_feed_posts": 0,
+      "message_id": "134",
+      "public_url": "https://t.me/CapitalChronicle/134",
+      "revision": "pinned-result-scorecard-v1-1a92f675a1a0b89bac131169ab14e89246064ee57a575db417da248ce566541b",
+      "shown": 23,
+      "status": "CONFIRMED"
+    },
+    "status": "OK"
+  },
+  "recovered_endings": [
+    {
+      "key": "plan-result-post-3146555dc07bb4e02af912e48e610ea8",
+      "status": "SETTLED",
+      "created_at_utc": "2026-11-15T12:17:28.835118+00:00",
+      "source_event_utc": "2026-11-10T13:30:00Z",
+      "parent_key": "plan-status-post-ee2f674c376652d6ad4258e959eb8a82",
+      "source_plan_registration": "aa9226e644a051df385a1c91f9b6840d0bba02b7e081f5109b21e8291e6e50fd",
+      "payload_sha256": "8efa1edc41b490ba03462dd2b25e75953d1c1149ef0a05d9154887926ae8d032",
+      "settled_destination_causes": {
+        "threads": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED",
+        "discord": "LATE_STATE_LIMIT_24_HOURS",
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "telegram": "LATE_STATE_LIMIT_24_HOURS"
+      },
+      "confirmed_destinations": []
+    },
+    {
+      "key": "plan-result-post-2cc8d586ad74f5b187da9d59f82946f9",
+      "status": "SETTLED",
+      "created_at_utc": "2026-11-15T12:17:28.860271+00:00",
+      "source_event_utc": "2026-11-12T23:00:00Z",
+      "parent_key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+      "source_plan_registration": "2e9a7170c25e5a90935cc4b02a88ace95af9ec63344785ce7074b5af42e2dece",
+      "payload_sha256": "2d5597cdab071a62cb57cc842bfdc1459f7870ca7b4f98a1e6c6f55d83dcd8b9",
+      "settled_destination_causes": {
+        "substack_notes": "CARD_PARENT_NOT_CONFIRMED",
+        "facebook_page": "CARD_PARENT_NOT_CONFIRMED",
+        "discord": "LATE_STATE_LIMIT_24_HOURS",
+        "threads": "LATE_STATE_LIMIT_24_HOURS",
+        "telegram": "LATE_STATE_LIMIT_24_HOURS",
+        "instagram_business": "CARD_PARENT_NOT_CONFIRMED",
+        "x": "CARD_PARENT_NOT_CONFIRMED"
+      },
+      "confirmed_destinations": []
+    }
+  ],
+  "main_export": {
+    "generated_at_utc": "2026-11-15T12:17:25.227033Z",
+    "plan_count": 89,
+    "latest_registration_utc": "2026-11-12T17:40:00.360572Z"
+  },
+  "remaining": {
+    "cause": "NEXT_MAIN_PLAN_NOT_REGISTERED",
+    "checked_at_utc": "2026-11-15T12:18:25.480544+00:00",
+    "owner": "Existing Main producer, then existing Publisher minute consumer",
+    "next_action": "Consume the next actual Main plan through the installed card route and read back its Discord thread, analysis link and later ending.",
+    "why_existing_endings_cannot_prove_next_live_ending": "The recovered 10/12 November events are beyond the unchanged 24-hour late-state limit (CC-306/CC-515); the normal minute owner records their settlement without posting an old state as current.",
+    "new_count_post_required": false,
+    "new_count_post_superseded_by": "CC-466"
+  },
+  "public_submits_by_this_run": 0,
+  "synthetic_plans_created": 0,
+  "historical_payloads_edited": 0
+}
