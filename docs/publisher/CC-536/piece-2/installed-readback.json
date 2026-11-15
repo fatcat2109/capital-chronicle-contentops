@@ -1,0 +1,19 @@
+{
+  "observed_at_utc": "2026-11-15T11:30:31.041118+00:00",
+  "main_snapshot": {
+    "live_tag": "live-20261114-cc598-154637",
+    "commit": "3c0900bdf8ce3cd5aee5ec8a5dd8c3c59f04c433",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+    "blobs_verified": 7
+  },
+  "assist_prompt_bytes_match": true,
+  "confirmed_method_page": {
+    "identity": "cc536-measured-odds-1",
+    "plan_hash": "e122aae268b4ae8bb92da09e8999a893c77df69770f860266cd0d81f6dc6ac92",
+    "canonical_url": "https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add"
+  },
+  "piece_2_registered": false,
+  "publication": "No piece-2 intent registered; no canonical URL or successful publication claimed.",
+  "live_consumer": "Existing measured_odds_series checker and eight-platform compiler, exercised from the installed operating root."
+}

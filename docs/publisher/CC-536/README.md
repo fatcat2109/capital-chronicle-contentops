@@ -1,5 +1,12 @@
 # CC-536: measured-odds method series
 
+Piece 2 is authored and installed, with all 58 printed numerical occurrences
+bound to Main's live-tag table and side records. All 24 focused tests pass in
+both the working and operating roots. It has not been published: Neo's local
+MCP endpoint returns `NEO_ENDPOINT_CONNECTIONERROR`, so its required unused
+native TradingView chart cannot yet be captured. The exact prepared copy and
+resume action are in [piece-2/README.md](piece-2/README.md); piece 1 is preserved.
+
 Piece 1 is published at
 https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before.
 It is reconciled on Substack, Telegram, X, Discord, Facebook, Instagram, Threads

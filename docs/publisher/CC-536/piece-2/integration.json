@@ -1,0 +1,38 @@
+{
+  "installed_at_utc": "2026-11-15T11:29:03.355094+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "branch": "backlog/cc-536-piece-2-trend-twenty",
+  "installed_commit": "93d3465865ada6178d4638163be6c00173676a92",
+  "previous_head": "66ed6a4b20fc27e3e956d9c91c5b819c80fb4f05",
+  "rollback_tag": "contentops/cc-536-piece2-rollback-20261115T112852Z",
+  "live_tag": "contentops/cc-536-piece2-live-20261115T112852Z",
+  "publication": "Piece 2 has no registered public dispatch; fresh chart and final rendered review await Neo.",
+  "preserved_dirty_paths": [
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+    "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl"
+  ],
+  "tests": [
+    {
+      "artifact": "consumer-tests.xml",
+      "tests": 24,
+      "failures": 0,
+      "errors": 0,
+      "time_seconds": 36.553
+    },
+    {
+      "artifact": "installed-consumer-tests.xml",
+      "tests": 24,
+      "failures": 0,
+      "errors": 0,
+      "time_seconds": 23.113
+    }
+  ],
+  "installed_readback": "installed-readback.json",
+  "closeout": "closeout.json",
+  "number_check": "installed-number-report.json PASS: 58 numerical occurrences",
+  "status": "BLOCKED: NEO_ENDPOINT_CONNECTIONERROR"
+}
