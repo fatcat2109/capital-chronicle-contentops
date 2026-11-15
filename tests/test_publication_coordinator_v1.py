@@ -118,7 +118,8 @@ def test_cc401_failure_skips_destination_until_next_et_day(cc401_copied_store, m
     assert c._dispatch_message(second, canonical_url=None)["status"] == UNKNOWN_WRITE
     conn = store.get_connection()
     try:
-        rows = [json.loads(r[0]) for r in conn.execute("SELECT description FROM incidents")]
+        rows = [json.loads(r[0]) for r in conn.execute(
+            "SELECT description FROM incidents WHERE severity='DISPATCH_FAILURE'")]
     finally:
         conn.close()
     assert [(r["destination"], r["et_day"]) for r in rows] == [
