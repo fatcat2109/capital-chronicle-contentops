@@ -19,6 +19,15 @@ The 13 November operation retained only an unanswered request. It has no
 delivered note and cannot count as an on-time morning. The remaining acceptance
 must use real future desk observations, with no backdated replacement.
 
+The 16 November note was ready at 03:11 GMT+7: 120 words, the exact final
+notice and one inspected BLS chart. The normal installed desk refresh consumed
+the exact Markdown and chart; the saved readback was observed before 07:30.
+Its prose explicitly dates Main's last completed daily view and says that the
+forecast window has ended. See [delivery and live consumer evidence](resume-20261116.json).
+The implementation is integrated in the operating root with pushed live and
+rollback tags. Acceptance is 1/3 real mornings; the next two are 17 and 18
+November, each by 07:30 GMT+7. No schedule changed.
+
 ```text
 python -B scripts/run_native_desktop_editorial.py gold-note-refresh --rollout config/native_desktop_rollout_v1.json --note-date YYYY-MM-DD
 ```
