@@ -124,7 +124,7 @@ def test_cr_view_reports_untraded_entry_without_minting_hit(ready):
 
 
 def test_partial_endpoint_match_is_not_a_hit():
-    c={**candidate(),"source_kind":"ARTICLE","resolution_test":"AT_DEADLINE",
+    c={**candidate(),"source_kind":"ARTICLE","condition_met":True,"resolution_test":"AT_DEADLINE",
        "valid_until_utc":(START+timedelta(minutes=105)).isoformat()}
     path=bars();path[-1]["close"]=100  # Intrabar 89, but deadline close is only 100.
     assert not f.check_path(c,path)["eligible"]
@@ -244,3 +244,41 @@ def test_published_article_condition_and_full_endpoint_are_both_required(tmp_pat
     assert not f.check_path(found[0],prices)["eligible"]
     prices[-1]["close"]=89
     assert f.check_path(found[0],prices)["eligible"]
+
+
+def test_first_post_meets_named_substack_x_acceptance_without_fake_originals(ready):
+    store,_,_,record=ready
+    c={**candidate(),"destinations":["telegram"]}
+    result=f.queue_followup(store,c,f.check_path(c,bars()),record,now=NOW)
+    row=posts._row_payload(store,result["key"])
+    assert row["candidate"]["destinations"]==["telegram"]
+    assert row["cc603_destinations"]==["substack_notes","telegram","x"]
+    assert row["acceptance_destinations"]==["substack_notes","x"]
+
+
+def test_old_cpi_article_uses_held_bls_core_and_exact_hour_endpoint(tmp_path):
+    from hashlib import sha256
+    event="US_CPI_20261114"
+    response={"status":"REQUEST_SUCCEEDED","Results":{"series":[{"seriesID":"CUSR0000SA0L1E","data":[
+        {"year":"2026","period":"M10","value":"100.3"},
+        {"year":"2026","period":"M09","value":"100"},
+        {"year":"2026","period":"M08","value":"-"}]}]}}
+    raw=json.dumps(response).encode();response_path=tmp_path/"bls.json";response_path.write_bytes(raw)
+    capture_path=tmp_path/"capture.json"
+    capture_path.write_text(json.dumps({"response_path":str(response_path),"response_sha256":sha256(raw).hexdigest(),
+                                       "http_status":200}),encoding="utf-8")
+    (tmp_path/(event+"-held.json")).write_text(json.dumps({"api_capture":str(capture_path),"reference_period":"2026-10",
+        "released_at_utc":START.isoformat(),"known_at_utc":(START+timedelta(seconds=90)).isoformat()}),encoding="utf-8")
+    record={"content_id":"substack:held-cpi","event_id":"bls-cpi-20261114","published_at_utc":(START-timedelta(hours=1)).isoformat(),
+        "title":"If October core CPI is 0.3% or higher, gold falls at least 0.7% in 60 minutes: Capital Chronicle model estimate",
+        "outlets":[{"name":"substack","url":"https://capitalchronicle.substack.com/p/cpi"}]}
+    prices=[{"open_epoch":int((START+timedelta(minutes=15*i)).timestamp()),"open":100,"high":100.1,
+        "low":98.9,"close":99.5,"source_sha256":"held-prices"} for i in range(4)]
+    c=f.cpi_article_candidate(record,outcomes=tmp_path,bars_reader=lambda *a:prices[:1])
+    assert c["actual_core_mom_pct"]=="0.3" and c["condition_met"]
+    assert c["original_text"].startswith(c["quote"]) and "model" not in c["quote"]
+    assert not f.check_path(c,prices)["eligible"]  # Intrahour >0.7% alone is insufficient.
+    prices[-1]["close"]=99.2
+    checked=f.check_path(c,prices)
+    assert checked["eligible"] and checked["observed_price"]==99.2
+    assert not f.check_path({**c,"condition_met":False},prices)["eligible"]

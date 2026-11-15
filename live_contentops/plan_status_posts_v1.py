@@ -1531,7 +1531,9 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
             or intent.get("native_payload") != payloads.get(destination)):
         raise PlanPostError("PLAN_STATUS_POST_INTENT_COPY_CHANGED")
     check_publication_copy({"post": payloads[destination]["full_text"]},
-                           conditional_calls=(row.get("conditional_calls") or []) if not part else [])
+                           conditional_calls=(row.get("conditional_calls") or []) if not part else [],
+                           require_call_text=not (row.get("cc603_contract") and
+                               (row.get("candidate") or {}).get("source_kind") == "ARTICLE"))
     if row.get("cc603_contract"):
         from .call_followups_v1 import validate_intent
         validate_intent(store, row, intent)

@@ -7,6 +7,7 @@ The existing minute entry, store and DurablePublicationCoordinator own delivery.
 from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
+from decimal import Decimal, InvalidOperation, ROUND_HALF_UP
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -26,6 +27,7 @@ GOLD_PLAN = "plan_230a9464a193ca7a377d0c41"
 GOLD_URL = "https://capitalchronicle.substack.com/p/gold-our-bearish-plan-39543964-entry"
 BAR_STORE = Path(r"A:\Capital Chronicle\Runtime\OfficialRates\cc-078-20261101\state\intake\completed-bars\bars.sqlite3")
 ROOT = posts.POST_ROOT.parent / "call-followups"
+EVENT_OUTCOMES = Path(r"A:\Capital Chronicle\ResearchRuns\main-event-forecast-scores\outcomes")
 _PRIVATE = re.compile(r"\b(?:targets?|demo|model|AI|profit|money|lots?|account|P&L)\b", re.I)
 
 
@@ -70,13 +72,15 @@ def check_path(candidate, bars):
     as-written hit; a direction-only move is explicitly a separate CR view report.
     """
     start = posts._utc(candidate["published_at_utc"])
+    if candidate.get("source_kind") == "ARTICLE" and candidate.get("condition_met") is not True:
+        return {"eligible":False,"cause":"CC603_ARTICLE_CONDITION_NOT_MET"}
     if candidate.get("condition_at_utc"):
         start = max(start,posts._utc(candidate["condition_at_utc"]))
     end = posts._utc(candidate["valid_until_utc"])
     direction = candidate["direction"]
     if direction not in {"bullish", "bearish"} or start >= end:
         return {"eligible": False, "cause": "CC603_ORIGINAL_AFTER_PLAN_LIFE"}
-    entered = None
+    entered = int(start.timestamp()) if candidate.get("entry_condition_kind") == "EVENT" else None
     previous = None
     first = None
     evidence = []
@@ -98,7 +102,7 @@ def check_path(candidate, bars):
             raise ValueError("CC603_INVALIDATION_FIELD_UNSUPPORTED")
         wrong = (bar[field] >= invalidation["level"] if invalidation["side"] == "above"
                  else bar[field] <= invalidation["level"])
-        if wrong:
+        if wrong and candidate.get("invalidation_test") != "AT_DEADLINE":
             return {"eligible": False, "cause": "CC603_INVALIDATION_FIRST"}
         if entered is None and bar["low"] <= candidate["zone_high"] and bar["high"] >= candidate["zone_low"]:
             entered = bar["open_epoch"]
@@ -123,7 +127,7 @@ def check_path(candidate, bars):
                 return {"eligible": False, "cause": "CC603_MOVE_PRECEDED_ORIGINAL"}
         return {"eligible": True, "entry_traded": entered is not None,
                 "resolved_at_utc": resolved.isoformat(), "bar_open_at_utc": at.isoformat(),
-                "first_price": first["open"], "observed_price": candidate["resolution_level"],
+                "first_price": first["open"], "observed_price": value if deadline_test else candidate["resolution_level"],
                 "bars_sha256": _hash(evidence), "bar_count": len(evidence),
                 "evidence": evidence}
     return {"eligible": False, "cause": "CC603_NO_COMPLETE_MATCH_IN_HELD_PRICES"}
@@ -233,20 +237,55 @@ def queue_followup(store, candidate, path, record, *, now=None):
         raise ValueError("CC603_QUOTE_NOT_EXACT_PUBLIC_TERMS")
     original_at = scorecard._utc(candidate["published_at_utc"]).astimezone(scorecard.ET)
     event_at = posts._utc(path["bar_open_at_utc"]).astimezone(scorecard.ET)
-    entry = ("The entry zone traded before the move." if path["entry_traded"]
+    entry = ("The stated condition and the full price-and-time test were met." if candidate["source_kind"] == "ARTICLE"
+             else "The entry zone traded before the move." if path["entry_traded"]
              else "Our entry zone never traded; this was a directional view, with no trade.")
     title = f"{posts.TITLES[candidate['symbol']]}: our earlier view and what followed"
     body = (f"Original, {original_at:%d %b %Y %H:%M:%S} ET: “{quote}”\n"
             f"By the {event_at:%d %b %H:%M} ET price bar, price reached {posts._level(path['observed_price'])}. "
             f"{entry}\nOriginal: {candidate['original_url']}\n{record['line']}\nRecord: {record['url']}")
+    held_followups = [r for r in store.list_outbox_messages(destination=posts.DESTINATION)
+                      if r["message_id"].startswith("cc603-followup-")]
+    # The live acceptance explicitly names Substack and X for the first post.
+    # Keep the actual original destinations separate; never invent an old X object.
+    acceptance_destinations = [] if held_followups else ["substack_notes","x"]
     row = {"schema_version": posts.SCHEMA, "cc603_contract": CONTRACT, "key": key,
         "kind": "call_followup", "state": "FOLLOW_UP", "symbol": candidate["symbol"],
         "at_utc": now.isoformat(), "title": title, "text": body + "\n\n" + posts.PUBLIC_NOTICE + " " + posts.CONFLICTS_NOTICE,
         "conditional_calls": [candidate["terms"]], "candidate": candidate, "price_check": path, "record": record,
-        "cc603_destinations": candidate["destinations"], "counts_as_article": False,
+        "cc603_destinations": sorted(set(candidate["destinations"])|set(acceptance_destinations)),
+        "acceptance_destinations": acceptance_destinations, "counts_as_article": False,
         "new_post_only": True, "authority": "CC-603; Jim decision 136; CR amendment 14 Nov"}
     _save_post(store, row)
     return {"status": "QUEUED", "key": key}
+
+
+def _whole_parts(body, notices, limit, credit=""):
+    """Split between complete sentences or lines; never truncate a sentence."""
+    parts, current = [], ""
+    for line in body.splitlines():
+        suffix = "\n\n".join(p for p in (credit if not parts else "",notices) if p)
+        room = limit-len(suffix)-(2 if suffix else 0)
+        units = [line] if len(line)<=room else re.findall(r".+?(?:[.!?](?=\s|$)|$)",line)
+        for unit in units:
+            unit=unit.strip()
+            if not unit:
+                continue
+            suffix = "\n\n".join(p for p in (credit if not parts else "",notices) if p)
+            room = limit-len(suffix)-(2 if suffix else 0)
+            combined = current+"\n"+unit if current else unit
+            if len(combined)>room and current:
+                parts.append(current+("\n\n"+suffix if suffix else ""))
+                current=""
+                suffix=notices
+                room=limit-len(suffix)-(2 if suffix else 0)
+            if len(unit)>room:
+                raise ValueError("CC603_COMPLETE_SENTENCE_EXCEEDS_DESTINATION_LIMIT")
+            current=(current+"\n"+unit).strip()
+    if current:
+        suffix="\n\n".join(p for p in (credit if not parts else "",notices) if p)
+        parts.append(current+("\n\n"+suffix if suffix else ""))
+    return parts
 
 
 def destination_payloads(row, *, card_id, chart_credit=False):
@@ -262,7 +301,7 @@ def destination_payloads(row, *, card_id, chart_credit=False):
         payload = {"destination": destination, "text": text, "full_text": text,
                    "media_asset_ids": [card_id] if card_id else []}
         if destination == "x" and posts._x_length(text) > 280:
-            chunks = posts._x_pack(body, 280-(len(credit)+2 if credit else 0), preserve_lines=True)
+            chunks = _whole_parts(body,"",280-(len(credit)+2 if credit else 0))
             if credit:
                 chunks[0] += "\n\n" + credit
             chunks.append(notices)
@@ -270,7 +309,7 @@ def destination_payloads(row, *, card_id, chart_credit=False):
                 reply_texts=chunks[1:], posts=[{"text": t, "order": i, "role": "root" if i == 0 else "reply",
                     "media_asset_ids": [card_id] if card_id and i == 0 else []} for i,t in enumerate(chunks)])
         elif len(text) > limits[destination]:
-            payload["parts"] = posts._text_parts(body, notices, limits[destination], credit, lines=True)
+            payload["parts"] = _whole_parts(body,notices,limits[destination],credit)
         output[destination] = payload
     return output
 
@@ -366,6 +405,79 @@ def discover(store, export):
     return list(found.values())
 
 
+def cpi_article_candidate(record, *, outcomes=EVENT_OUTCOMES, bars_reader=read_bars):
+    """Recover the published CPI sentence even when its old call array was empty.
+
+    The retained BLS API response proves the core condition. Exact held
+    prices decide the endpoint, so an intrahour dip alone never wins this call.
+    """
+    match = re.match(r"(If (\w+) core CPI is ([\d.]+)% or higher, gold falls at least ([\d.]+)% in (\d+) minutes)",
+                     record.get("title", ""))
+    event = re.fullmatch(r"(?:US_CPI_|bls-cpi-)(\d{8})",str(record.get("event_id", "")),re.I)
+    if not match or not event:
+        return None
+    event_id = "US_CPI_"+event[1]
+    outcome_files = sorted(Path(outcomes).glob(event_id+"-*.json"))
+    if not outcome_files:
+        return None
+    outcome = json.loads(outcome_files[0].read_bytes())
+    capture_path = Path(outcome["api_capture"])
+    capture = json.loads(capture_path.read_bytes())
+    response_path = Path(capture["response_path"])
+    response_path = response_path if response_path.is_absolute() else capture_path.parent/response_path
+    raw = response_path.read_bytes()
+    if sha256(raw).hexdigest() != capture["response_sha256"] or capture["http_status"] != 200:
+        raise ValueError("CC603_CPI_OFFICIAL_CAPTURE_CHANGED")
+    response = json.loads(raw)
+    if response.get("status") != "REQUEST_SUCCEEDED":
+        raise ValueError("CC603_CPI_OFFICIAL_CAPTURE_NOT_SUCCESSFUL")
+    core = next((s for s in response["Results"]["series"] if s["seriesID"] == "CUSR0000SA0L1E"),None)
+    if not core:
+        return None
+    period = datetime.strptime(outcome["reference_period"],"%Y-%m")
+    if period.strftime("%B").casefold() != match[2].casefold():
+        raise ValueError("CC603_CPI_PUBLIC_PERIOD_MISMATCH")
+    previous = period.replace(day=1)-timedelta(days=1)
+    values = {}
+    for row in core["data"]:
+        try:
+            value = Decimal(row["value"])
+        except InvalidOperation:
+            continue  # BLS's dash is absence, never a fabricated index.
+        if value.is_finite():
+            values[(int(row["year"]),row["period"])] = value
+    current_index = values.get((period.year,f"M{period.month:02}"))
+    previous_index = values.get((previous.year,f"M{previous.month:02}"))
+    if current_index is None or previous_index is None:
+        return None
+    actual = ((current_index/previous_index-1)*100).quantize(Decimal("0.1"),rounding=ROUND_HALF_UP)
+    event_at = posts._utc(outcome["released_at_utc"])
+    end = event_at+timedelta(minutes=int(match[5]))
+    if posts._utc(record["published_at_utc"]) >= event_at:
+        return None
+    reference_bars = bars_reader("XAUUSD",event_at.isoformat(),(event_at+timedelta(minutes=15)).isoformat())
+    reference = next((b["open"] for b in reference_bars if b["open_epoch"] == int(event_at.timestamp())),None)
+    if reference is None:
+        return None
+    level = float(Decimal(str(reference))*(1-Decimal(match[4])/100))
+    terms = {"condition":f"{match[2]} core CPI is {match[3]}% or higher","market":"Gold","direction":"bearish",
+             "horizon":f"{match[5]} minutes after the release","invalidation":f"gold falls less than {match[4]}% after {match[5]} minutes"}
+    linked = [o for o in record["outlets"] if o.get("url")]
+    if not linked:
+        return None
+    return {"call_id":record["content_id"]+":core-cpi-gold","source_kind":"ARTICLE","symbol":"XAUUSD",
+        "terms":terms,"quote":match[1],"original_text":record["title"],"direction":"bearish",
+        "original_url":next((o["url"] for o in linked if o["name"]=="substack"),linked[0]["url"]),
+        "published_at_utc":record["published_at_utc"],"valid_until_utc":end.isoformat(),
+        "destinations":sorted({"substack_notes" if o["name"]=="substack" else o["name"] for o in linked}),
+        "condition_met":actual>=Decimal(match[3]),"condition_at_utc":event_at.isoformat(),
+        "condition_source_hash":capture["response_sha256"],"actual_known_at_utc":outcome["known_at_utc"],
+        "actual_core_mom_pct":str(actual),"entry_condition_kind":"EVENT","reference_price":reference,
+        "zone_low":reference,"zone_high":reference,"resolution_level":level,
+        "resolution_test":"AT_DEADLINE","invalidation_test":"AT_DEADLINE",
+        "invalidation":{"field":"close","side":"above","level":level}}
+
+
 def article_candidates(store, *, feed_path=None):
     """Read the same published feed and verified public-span annotations as the scorecard.
 
@@ -376,13 +488,22 @@ def article_candidates(store, *, feed_path=None):
     """
     from .published_content_v1 import DEFAULT_FEED, read_records
     from .public_call_scorecard_v1 import ANNOTATIONS
-    articles = []
+    articles, recovered = [], []
     for record in read_records(feed_path or DEFAULT_FEED):
         articles.append((record["content_id"], record["published_at_utc"], record["outlets"], record["conditional_calls"]))
+        if not record["conditional_calls"]:
+            candidate = cpi_article_candidate(record)
+            if candidate:
+                recovered.append(candidate)
     for message in store.list_outbox_messages(destination=ANNOTATIONS):
         packet = json.loads(message["payload"])
         articles.append((packet["content_id"],packet["published_at_utc"],packet["outlets"],packet["annotation"]["calls"]))
     candidates, checks = [], []
+    for candidate in recovered:
+        if candidate["condition_met"]:
+            candidates.append(candidate)
+        else:
+            checks.append({"call_id":candidate["call_id"],"cause":"CC603_ARTICLE_CONDITION_NOT_MET"})
     for identity, at, outlets, calls in articles:
         for index, call in enumerate(calls):
             test = call.get("trigger") or {}
@@ -461,21 +582,30 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
     else:
         article_calls, article_checks = article_candidates(store)
         candidates = discover(store, export) + article_calls
+        priority = {"a0380280":0,"d7eddc84":1,"576f57e9":2,"52a48ae1":3,"8479dce1":4}
+        candidates.sort(key=lambda c:(c["source_kind"]=="CR_VIEW",priority.get(c.get("short_id"),10),
+                                      posts._utc(c["published_at_utc"])))
         results.extend(article_checks)
         record = observed_record(store, now=now) if candidates else None
         for candidate in candidates:
-            checked = check_path(candidate, bars_reader(candidate["symbol"],candidate["published_at_utc"],
-                min(posts._utc(candidate["valid_until_utc"]),now).isoformat()))
-            results.append(queue_followup(store,candidate,checked,record,now=now))
+            try:
+                checked = check_path(candidate, bars_reader(candidate["symbol"],candidate["published_at_utc"],
+                    min(posts._utc(candidate["valid_until_utc"]),now).isoformat()))
+                results.append(queue_followup(store,candidate,checked,record,now=now))
+            except (ValueError,OSError,KeyError,sqlite3.Error) as exc:
+                results.append({"call_id":candidate["call_id"],"status":"NOT_COMPLETED","cause":str(exc)[:160]})
         keys = [r["message_id"] for r in store.list_outbox_messages(destination=posts.DESTINATION)
                 if r["status"] == "CC603_PREPARED" and json.loads(r["payload"]).get("kind") == "call_followup"]
-    for key in keys[:1]:
+    for key in keys:
         row = posts._row_payload(store,key)
         if post_complete(store,row):
             continue
         asset = asset_for(row) if asset_for else held_chart(store,row,root=root)
         if not asset:
-            results.append({"key":key,"status":"MEDIA_PENDING","cause":"CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED"})
+            results.append({"key":key,"status":"MEDIA_PENDING","cause":"CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+                "media_request":{"symbol":row["symbol"],"binding_path":str(Path(root)/key/"reviewed_chart.json"),
+                    "visible_from_utc":(row.get("candidate") or {}).get("published_at_utc"),
+                    "visible_to_utc":(row.get("price_check") or {}).get("resolved_at_utc")}})
             continue
         plan = posts.prepare_post(store,key,root=Path(root),host=host,destinations=tuple(row["cc603_destinations"]),
                                   cc603_asset=asset)
@@ -501,4 +631,5 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
         results.append({"key":key,"publication":outcome})
         if post_complete(store,row):
             store.set_outbox_status(key,"PUBLISHED")
+        break  # One actual publication slice per existing minute, not one blocked candidate.
     return {"status":"OK","corrections_complete":corrections_complete(store),"posts":results}
