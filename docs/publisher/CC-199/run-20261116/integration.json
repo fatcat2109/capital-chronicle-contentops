@@ -1,0 +1,21 @@
+{
+  "integrated_at_utc": "2026-11-15T19:50:56.248138+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "base": "fb4c5bedfd2d0689828f8280e309b03ca2992413",
+  "code_commit": "13de0477f5c65016e8199f912e9142e02376fda0",
+  "live_tag": "contentops-live-20261116-cc199-route-acceptance",
+  "rollback_tag": "contentops-rollback-20261116-cc199-route-acceptance",
+  "integration": "fast-forward",
+  "changed_paths": [
+    "docs/publisher/CC-199/run-20261116/launch-observation.json",
+    "docs/publisher/CC-199/run-20261116/preserved-work-before.json",
+    "docs/publisher/CC-199/run-20261116/route-acceptance-tests.xml",
+    "live_contentops/native_publication_latency_v1.py",
+    "tests/test_finished_piece_acceptance_v1.py"
+  ],
+  "wip_preserved": true,
+  "schedules_changed": false,
+  "applications_restarted": false,
+  "public_write_performed": false,
+  "store_migration_performed": false
+}

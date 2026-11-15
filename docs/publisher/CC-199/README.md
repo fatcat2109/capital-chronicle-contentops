@@ -1,8 +1,9 @@
 # CC-199: finished pieces reach every destination
 
-Latest continuation: [15 November repair and acceptance](run-20261115/README.md).
-The Instagram recovery fix is live; the three-piece acceptance remains 0/3,
-with YouTube's external-link verification suspension still active.
+Latest continuation: [16 November route scope and acceptance](run-20261116/README.md).
+The live reader applies Ops Product's dated YouTube exception. The reopened
+sample remains 0/3; no timely new Main piece is available. Earlier repairs and
+readings below retain their original scope and clocks.
 
 The remaining dispatch fixes extend the existing coordinator, compiler, native
 executor and published feed. The current ContentOps operating HEAD was the base;
