@@ -131,3 +131,73 @@ def test_native_projection_consumes_exact_persisted_readbacks(tmp_path, monkeypa
     assert channel["first_verified_readback_at_utc"]
     assert channel["image_verified_readback_at_utc"]
     assert value["timing"]["finished_piece_acceptance"]["target_minutes"] == 30
+
+
+def reopened_packet():
+    # The next sample uses the original text approval, not a later repair clock.
+    rows, reviews, destinations, readbacks = timing_packet()
+    rows = json.loads(json.dumps(rows).replace("2026-11-06T08:", "2026-11-15T19:"))
+    reviews = json.loads(json.dumps(reviews).replace("2026-11-06T08:", "2026-11-15T19:"))
+    readbacks = json.loads(json.dumps(readbacks).replace("2026-11-06T08:", "2026-11-15T19:"))
+    destinations.append({"destination": "youtube", "status": "DEFINITE_NO_WRITE"})
+    return rows, reviews, destinations, readbacks
+
+
+def test_reopened_sample_excludes_only_named_youtube_suspension(tmp_path, monkeypatch):
+    from live_contentops import neo_destination_handoff_v1 as handoff
+    control = tmp_path / "suspended_routes.json"
+    monkeypatch.setattr(handoff, "SUSPENDED_ROUTES_FILE", control)
+    control.write_text(json.dumps({"youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"}))
+    packet = reopened_packet()
+    value = report(packet)
+    acceptance = value["finished_piece_acceptance"]
+    assert acceptance["all_destinations_with_image_readbacks_within_target"] is True
+    assert acceptance["required_destinations"] == ["substack"]
+    assert acceptance["excluded_destinations"] == [{"destination": "youtube",
+        "cause": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+        "authority": "CC-199_OPS_PRODUCT_20261116_0125_GMT7"}]
+    assert packet[2][-1]["status"] == "DEFINITE_NO_WRITE"
+    # Clearing only this route restores its actual image/readback requirement.
+    control.write_text("{}")
+    acceptance = report(packet)["finished_piece_acceptance"]
+    assert acceptance["all_destinations_with_image_readbacks_within_target"] is False
+    assert acceptance["required_destinations"] == ["substack", "youtube"]
+
+
+@pytest.mark.parametrize("case", ["old_approval", "different_youtube_cause", "other_route", "missing_image", "late_image"])
+def test_youtube_exception_cannot_hide_other_missing_proof(monkeypatch, case):
+    routes = {"youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"}
+    if case == "different_youtube_cause":
+        routes["youtube"] = "YOUTUBE_PLATFORM_RESTRICTION"
+    if case == "other_route":
+        routes["linkedin_company"] = "LINKEDIN_IDENTITY_VERIFICATION_REQUIRED"
+    monkeypatch.setattr("live_contentops.neo_destination_handoff_v1.suspended_routes", lambda: routes)
+    packet = timing_packet() if case == "old_approval" else reopened_packet()
+    if case == "old_approval":
+        packet[2].append({"destination": "youtube", "status": "DEFINITE_NO_WRITE"})
+    elif case == "other_route":
+        packet[2].append({"destination": "linkedin_company", "status": "DEFINITE_NO_WRITE"})
+    elif case in {"missing_image", "late_image"}:
+        proof = json.loads(packet[3][0]["readback_data"])
+        proof["readback"].update({"meaningful_media_visible": False} if case == "missing_image"
+            else {"observed_at_utc": "2026-11-15T19:40:00Z"})
+        packet[3][0]["readback_data"] = json.dumps(proof)
+    assert report(packet)["finished_piece_acceptance"]["all_destinations_with_image_readbacks_within_target"] is False
+
+
+def test_native_projection_uses_reopened_exception_without_changing_dispatch(tmp_path, monkeypatch):
+    from test_native_desktop_publication_v1 import seeded, composed, finish
+    from live_contentops import native_publication_latency_v1 as latency
+    from live_contentops import neo_destination_handoff_v1 as handoff
+    store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+    operation, executor, _ = composed(store, binding, rollout, monkeypatch)
+    finish(operation, executor)
+    monkeypatch.setattr(latency, "FINISHED_PIECE_YOUTUBE_EXCEPTION_AT", "2000-01-01T00:00:00Z")
+    monkeypatch.setattr(handoff, "suspended_routes", lambda: {"youtube": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"})
+    before = store.list_platform_dispatches()
+    projection = operation.projection()
+    acceptance = projection["timing"]["finished_piece_acceptance"]
+    assert "youtube" not in acceptance["required_destinations"]
+    assert {c["destination"] for c in acceptance["excluded_destinations"]} == {"youtube"}
+    assert {"substack", "linkedin", "linkedin_company", "threads", "instagram_business"} <= set(acceptance["required_destinations"])
+    assert store.list_platform_dispatches() == before

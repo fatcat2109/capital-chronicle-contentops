@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-15T19:49:37.5727061Z",
+  "pid": 33180,
+  "parent_pid": 3320,
+  "process_started_utc": "2026-11-15T19:41:49.9293280Z",
+  "command_prefix": "\"C:\\Users\\bullw\\AppData\\Local\\OpenAI\\Codex\\bin\\9e1da79431da526b\\codex.exe\" exec --model gpt-6.1-sol",
+  "configured_model": "gpt-6.1-sol",
+  "configured_reasoning_effort": "max",
+  "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+  "actual_model": null,
+  "actual_reasoning_effort": null
+}
