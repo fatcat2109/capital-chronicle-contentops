@@ -116,6 +116,9 @@ def test_reconciled_absent_note_recovers_exact_bytes_without_a_canonical_rewrite
     store.set_outbox_status(ids['message_id'], 'RECONCILED_ABSENT_SAFE_TO_RETRY')
     store.register_reconciliation(reconciliation_id=ids['reconciliation_id'], work_item_id=key,
                                    status='RECONCILED_ABSENT_SAFE_TO_RETRY')
+    coordinator._record_destination_day_failure(json.loads(before), 'substack_notes', {
+        'dispatch_id':ids['dispatch_id'], 'status':'UNKNOWN_WRITE',
+        'safe_error_classification':'NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND'})
     monkeypatch.setattr(f, 'discover', lambda *a, **k: [])
     result = f.run_due(store, {'status':{'plans':[]}}, now=NOW, root=tmp_path/'posts', host=fake_host,
                        coordinator_for=lambda *a:coordinator, asset_for=lambda row:asset(tmp_path))
@@ -124,6 +127,21 @@ def test_reconciled_absent_note_recovers_exact_bytes_without_a_canonical_rewrite
     assert store.get_outbox_message(ids['message_id'])['payload'] == before
     coordinator.recover_pending()
     assert transport.publish_calls.count('substack_notes') == 1
+
+
+def test_uncertain_note_readback_failure_still_trips_destination_day_circuit(ready):
+    store, transport, coordinator, _ = ready
+    key = 'unreconciled-note'
+    store.create_work_item(story_id=key, work_item_id=key, title='Uncertain note', target_surface='MULTI_PLATFORM')
+    store.register_outbox_message(message_id=key, work_item_id=key, destination='substack_notes', payload='{}')
+    ids = coordinator._ids(key, 'bound-plan', 'substack_notes')
+    store.register_platform_dispatch(dispatch_id=ids['dispatch_id'], message_id=key,
+                                      platform='substack_notes', status='UNKNOWN_WRITE')
+    coordinator._record_destination_day_failure({'work_item_id':key}, 'substack_notes', {
+        'dispatch_id':ids['dispatch_id'], 'status':'UNKNOWN_WRITE',
+        'safe_error_classification':'NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND'})
+    assert coordinator._destination_day_failure('substack_notes')['dispatch_id'] == ids['dispatch_id']
+    assert not transport.publish_calls
 
 
 @pytest.mark.parametrize("change,cause",[

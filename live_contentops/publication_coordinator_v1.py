@@ -2680,7 +2680,8 @@ class DurablePublicationCoordinator:
                     if (dispatch and dispatch["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
                             and reconciliation and reconciliation["status"] == RECONCILED_ABSENT_SAFE_TO_RETRY
                             and failure.get("safe_error_classification") in {
-                                "ValueError", "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH", "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN"}):
+                                "ValueError", "NEO_RETURN_BINDING_OR_IDENTITY_MISMATCH", "NATIVE_NEO_CLAIMED_ACTION_WITHOUT_RETURN",
+                                "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND"}):
                         # CC-453: fresh authenticated absence resolves the old
                         # local validation/return exception; keep its exact retry
                         # budget. A still-unknown dispatch remains fenced above.
