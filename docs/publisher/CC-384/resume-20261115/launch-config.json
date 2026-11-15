@@ -1,0 +1,8 @@
+{
+  "observed_utc": "2026-11-15T15:18:49.8427394Z",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "high",
+  "runtime_model": null,
+  "runtime_effort": null,
+  "telemetry": "CONFIGURED_NOT_OBSERVED"
+}

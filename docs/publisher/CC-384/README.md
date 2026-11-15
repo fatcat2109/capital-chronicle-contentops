@@ -1,5 +1,12 @@
 # CC-384 — public instrument and both entry conditions
 
+**15 November resumed verification:** CC-383 fields are now live. Twenty targeted
+tests pass, and fresh Discord/Threads official readbacks match the first
+applicable post. The remaining public Telegram check is blocked by
+`NEO_ENDPOINT_CONNECTIONERROR`; no live two-entry plan exists in the searched
+export or retained post queue. See the [current evidence and exact next
+action](resume-20261115/README.md). The older upstream blocker below is history.
+
 The existing plan-status composer reads CC-383's `entries` and
 `public_instrument`, including the latter's aligned `entries`. One combined
 conditional call carries the limit and breakout alternatives, the direction,
