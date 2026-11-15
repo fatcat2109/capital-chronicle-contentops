@@ -1,0 +1,113 @@
+{
+  "installed_at_utc": "2026-11-15T22:24:33.303579+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "before": "4d9f44ee031db42a89407115a855e7efbabedc0c",
+  "source_commit": "c599f5150534cd75e59cea508bb1d6e8c232f368",
+  "rollback_tag": "contentops-rollback-20261116-cc465-templates",
+  "live_tag": "contentops-live-20261116-cc465-templates",
+  "preserved_operating_wip_files": 6,
+  "application_restart": false,
+  "schedule_change": false,
+  "source_files": [
+    {
+      "path": "live_contentops/image_templates_v1.py",
+      "git_blob": "bd8afb523d0850d9f8cb2bc0932d01ce5a04c930",
+      "sha256": "6c7300d0b50bd4934d49146828391ddc8b736e23a34a3597e8d59aa6e9037a99"
+    },
+    {
+      "path": "live_contentops/image_quality_v1.py",
+      "git_blob": "287f4254bf97865ee4515af0d07fd02999cf3a96",
+      "sha256": "3f66c30bfdf8178a77981a2602e8279d9987e660c9a8918fa42447da58606644"
+    },
+    {
+      "path": "tests/test_image_templates_cc465.py",
+      "git_blob": "930fe7bf394cc4d2cbd55391ce907f266edab49d",
+      "sha256": "096c8fd4897ee0590d06dcee20b31d82dbd11bf5a596429f5323bda4951b7efa"
+    }
+  ],
+  "installed_tests": {
+    "path": "installed-consumer-tests.xml",
+    "result": "140 passed in 182.46s; one pytest process"
+  },
+  "installed_dry_run": {
+    "status": "OK",
+    "validation": "PASS",
+    "sha256": "d4b252faa802e6320ef814d847c4574e252bff32b241370f09cc7ae8c2809120"
+  },
+  "updates": [
+    {
+      "installed_at_utc": "2026-11-15T22:45:54.475771+00:00",
+      "before": "c599f5150534cd75e59cea508bb1d6e8c232f368",
+      "source_commit": "7535b419877f3557ac00935fe9e15ea48fed3202",
+      "live_tag": "contentops-live-20261116-cc465-reader-fit",
+      "preserved_wip_files": 6,
+      "restart": false,
+      "schedule_change": false
+    },
+    {
+      "installed_at_utc": "2026-11-15T22:52:29.861641+00:00",
+      "before": "7535b419877f3557ac00935fe9e15ea48fed3202",
+      "source_commit": "6ac025144b5bf71488e742c8e4f1fb6c1a98f486",
+      "live_tag": "contentops-live-20261116-cc465-image-roles",
+      "preserved_wip_files": 6,
+      "restart": false,
+      "schedule_change": false
+    }
+  ],
+  "final_source_commit": "6ac025144b5bf71488e742c8e4f1fb6c1a98f486",
+  "final_installed_tests": {
+    "path": "installed-final-tests.xml",
+    "result": "144 passed in 89.94s before the final review-only correction; one pytest process"
+  },
+  "final_installed_vision_tests": {
+    "path": "installed-final-vision-tests.xml",
+    "result": "36 passed in 26.52s on final live source; one pytest process"
+  },
+  "final_consumer_readback": {
+    "status": "OK",
+    "validation": "PASS",
+    "rendered_count": 80,
+    "transitions_read": 137,
+    "export_generated_at_utc": "2026-11-15T22:51:53.159115Z",
+    "export_age_seconds": 83.3,
+    "would_queue": 0,
+    "process_exit": 0,
+    "recorded_at_utc": "2026-11-15T22:53:23.455876+00:00"
+  },
+  "existing_entry": {
+    "task": "CapitalChronicle-PlanStatusPosts-V1",
+    "execute": "pythonw.exe",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "arguments": "-B scripts\\plan_status_posts.py --publish",
+    "changed": false
+  },
+  "final_files": [
+    {
+      "path": "live_contentops/image_templates_v1.py",
+      "git_blob": "76be303ebc46a70dbad062f33c8d024340099209",
+      "sha256": "31cd95e3f19cd414e64f0ca176506849fb9de2bc206bec25648445e902a7b482"
+    },
+    {
+      "path": "live_contentops/image_template_inputs_v1.py",
+      "git_blob": "d625e82846d64af0226ea5ddab49b9403504c12a",
+      "sha256": "812eadb6ae24f118a26458e5d22bc4366f2ea1c8209110a292d80e7f33d954f3"
+    },
+    {
+      "path": "live_contentops/image_quality_v1.py",
+      "git_blob": "90d8413689fecdd243654145c848524140f7fcd5",
+      "sha256": "c6cfdad01f1c7fe36ca0ae331f992f883014c1beb47e00acc2484a3e143abcca"
+    },
+    {
+      "path": "scripts/image_templates_cc465.py",
+      "git_blob": "39642ee1be88fc25ab112f4c52bed0d25ae88d79",
+      "sha256": "d163fd49a4153b3ffcae77b087d5b6d8a5ebdb0f5c37c03c9300f003fdf6f0ff"
+    },
+    {
+      "path": "tests/test_image_templates_cc465.py",
+      "git_blob": "b4574a5b5322140b00d98c759376dce39998f5fa",
+      "sha256": "9405ba7e29505f80b8c72da708409cddddcddaf4cb63982067904273ed31653d"
+    }
+  ],
+  "operating_wip_unchanged": true,
+  "recorded_at_utc": "2026-11-15T22:54:42.891612+00:00"
+}
