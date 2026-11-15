@@ -486,6 +486,25 @@ run(input,page).then(result=>process.stdout.write(JSON.stringify({result,calls})
     assert observed['result']['status'] == ('CLICKED' if ready else 'FAILED_BEFORE_WRITE')
 
 
+def test_cc603_exact_note_dialog_is_read_even_when_main_contains_only_the_background_feed():
+    code = '''
+const fs=require('node:fs');
+global.location={href:'https://substack.com/@capitalchronicle/note/c-603'};
+const link={innerText:'now',href:location.href,getAttribute:()=>null,querySelector:()=>null,getClientRects:()=>[{}]};
+const owner={parentElement:null,querySelectorAll:selector=>selector==='a[href]'?[link]:[]};
+const note={innerText:'Exact published correction and original link',getClientRects:()=>[{}],closest:()=>owner};
+global.document={querySelectorAll:selector=>selector==='.FeedProseMirror'?[note]:[]};
+const input={phase:'readback',expected_identity:'@capitalchronicle'};
+const page={evaluateInPage:async(fn,arg)=>({value:fn(arg)})};
+const run=new Function('input','page','return (async()=>{'+fs.readFileSync(process.argv[1],'utf8')+'})()');
+run(input,page).then(result=>process.stdout.write(JSON.stringify(result))).catch(e=>{console.error(e);process.exit(1)});
+'''
+    result = subprocess.run(['node', '-e', code, str(neo.STEPS)], capture_output=True, text=True, timeout=10, check=True)
+    observed = json.loads(result.stdout)
+    assert observed['notes'][0]['public_object_id'] == 'c-603'
+    assert observed['notes'][0]['observed_text'] == 'Exact published correction and original link'
+
+
 @pytest.mark.parametrize('destination',['x','substack_notes'])
 @pytest.mark.parametrize('refusal',['NEO_COMPOSER_PAYLOAD_MISMATCH','NEO_REGISTERED_PROFILE_UNAVAILABLE'])
 def test_minute_consumer_resumes_an_exact_unsent_composer_only_after_repair(tmp_path,monkeypatch,destination,refusal):

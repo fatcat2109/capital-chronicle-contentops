@@ -195,6 +195,15 @@ def test_a_daily_chart_is_confirmed_by_tradingviews_d_label(tmp_path):
     assert snap["tv_symbol"] == "FX_IDC:USDJPY" and snap["interval"] == "D"  # decision 107: ICE spot
 
 
+def test_quarter_hour_download_keeps_the_resolutions_actual_bar_interval(tmp_path):
+    def worker(args):
+        target = Path(args['out_dir']) / 'BTCUSD_2026-11-15_23-45-00.png'
+        shutil.copyfile(FIXTURE, target)
+        return {'path':str(target), 'suggested_filename':target.name, 'legend':'15m'}
+    snap = tv.capture('BTCUSD', '15', tmp_path/'quarter-hour', worker=worker)
+    assert snap['tv_symbol'] == 'COINBASE:BTCUSD' and snap['interval_label'] == '15m'
+
+
 def test_capture_has_no_ram_gate(queued, outcomes, monkeypatch):
     store, _, key, root = queued
     # Even unavailable/low telemetry cannot refuse the capture (Jim decision 87).

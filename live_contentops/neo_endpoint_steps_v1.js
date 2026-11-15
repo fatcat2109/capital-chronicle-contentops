@@ -376,7 +376,7 @@ if (input.phase === 'readback') {
         links:postLinks, public_image_urls:Array.from(e.querySelectorAll('img'))
           .map(i=>i.currentSrc||i.src).filter(u=>/^https:\/\/pbs.twimg.com\/media\//.test(u))};
     }).filter(e=>e.public_object_url && /^https:\/\/x.com\/Capitalnicle\/status\//i.test(e.public_object_url));
-    const notes = Array.from(document.querySelectorAll('main .FeedProseMirror')).filter(visible).map(e => {
+    const notes = Array.from(document.querySelectorAll('.FeedProseMirror')).filter(visible).map(e => {
       const root = e.closest('article,[class*="feedPermalinkUnit"]') || e.parentElement?.parentElement?.parentElement;
       const ancestors = [root,root.parentElement,root.parentElement?.parentElement].filter(Boolean);
       const noteUrl = value => {

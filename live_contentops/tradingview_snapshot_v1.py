@@ -45,7 +45,7 @@ NAMES = {"XAUUSD": "Gold spot / US dollar (ICE)", "US500": "S&P 500 index",
          "USOIL": "WTI light crude oil futures, front month (NYMEX)", "BTCUSD": "Bitcoin / US dollar (Coinbase spot)"}
 REVIEWED_MAP = Path(r"A:\Capital Chronicle\Worktrees\codex-web-cc254-clean\ui\src\product\public-desk"
                     r"\reviewed-tradingview-symbols.json")
-INTERVAL_LABELS = {"60": "1h", "240": "4h", "D": "1D"}
+INTERVAL_LABELS = {"15": "15m", "60": "1h", "240": "4h", "D": "1D"}
 # Ops Product, 5 Nov: 16:9 for X, Threads, Telegram, Discord, LinkedIn and Facebook; 4:5 for Instagram.
 RATIOS = {"16:9": (16, 9), "4:5": (4, 5)}
 # A 1910x850 page gives a snapshot of about 1524x856, already close to 16:9.

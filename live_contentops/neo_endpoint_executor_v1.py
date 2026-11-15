@@ -586,7 +586,7 @@ class NeoBrowserDriver:
         else:
             root = ROOTS["x"] + "/with_replies" if destination == "x" else request["entry_url"]
             self.client.call("navigate", {"page": page, "url": root})
-        selector = 'article[data-testid="tweet"]' if destination == "x" else 'main .FeedProseMirror'
+        selector = 'article[data-testid="tweet"]' if destination == "x" else '.FeedProseMirror'
         self.client.wait(page, selector)
         data = self.client.run(page, "readback", expected_identity=request["expected_identity"])
         candidates = data["tweets" if destination == "x" else "notes"]
