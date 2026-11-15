@@ -157,22 +157,22 @@ class Canvas:
             if direction not in {"LONG", "SHORT"}:
                 raise LayoutError("IMAGE_DIRECTION_INVALID")
             x = math.ceil(title_end + 24)
-            sw = math.ceil(self.draw.textlength(direction, font=font(36 if wide else 38, 700)))+24
+            sw = math.ceil(self.draw.textlength(direction, font=font(52 if wide else 38, 700)))+24
             if x+sw > w-m:
                 raise LayoutError("IMAGE_HEADER_COLLISION")
             self.draw.rounded_rectangle((x, 25 if wide else 34, x+sw, 78 if wide else 91), radius=6,
                                         fill=COLOURS["green" if direction == "LONG" else "red"])
             self.text(direction, (x+12, 34 if wide else 44, x+sw-8, 78 if wide else 91),
-                      size=36 if wide else 38, weight=700, colour="#FFFFFF", key="direction")
+                      size=52 if wide else 38, weight=700, colour="#FFFFFF", key="direction")
             hx = x+sw+22 if wide else m
             hy = 36 if wide else 113
-            self.text(horizon, (hx, hy, w-m, 90 if wide else 162), key="horizon", weight=600)
+            self.text(horizon, (hx, hy, w-m, 90 if wide else 162), size=52 if wide else 34, key="horizon", weight=600)
             if wide:
-                title_end = hx + self.draw.textlength(horizon, font=font(36, 600))
+                title_end = hx + self.draw.textlength(horizon, font=font(52, 600))
         value = right or status
         if value:
             result_figure = result_value is not None
-            right_size = (64 if wide else 72) if result_figure else (36 if wide else 38)
+            right_size = (64 if wide else 72) if result_figure else (52 if wide else 38)
             f = font(right_size, 500 if result_figure else 600, result_figure)
             x = w-m-self.draw.textlength(value, font=f)
             if wide and x < title_end+24:
@@ -185,7 +185,7 @@ class Canvas:
         m, w = self.margin, self.image.width
         if self.master == "W":
             for i, line in enumerate(lines):
-                self.text(line, (m, 806+i*46, w-m, 852+i*46), size=48, key="footer")
+                self.text(line, (m, 804+i*48, w-m, 852+i*48), size=52, key="footer")
             y = 852
         else:
             visible=[c for c in cells if c[1]]
@@ -324,9 +324,11 @@ def _chart(canvas, data, snapshot):
             outcome = field(result,"outcome_label",24)
             if outcome not in {"Target reached","Stopped at invalidation","Time exit","Closed early","Expired, no entry"}:
                 raise LayoutError("IMAGE_OUTCOME_INVALID")
-            line1 = " · ".join(s for s in (outcome,"Held "+str(result.get("held_text") or "") if result.get("held_text") else "",
-                     "Best "+r_text(result["best_r"]) if result.get("best_r") is not None else "",
-                     "Worst "+r_text(result["worst_r"]) if result.get("worst_r") is not None else "") if s)
+            line1 = " · ".join(s for s in (outcome,"Held "+str(result.get("held_text") or "") if result.get("held_text") else "") if s)
+            if canvas.master=="W" and any(result.get(k) is not None for k in ("best_r","worst_r")):
+                # Optional excursions stay in the bound source and T cells.
+                # The measured W phone layout cannot fit them at 52 px.
+                canvas.notes.append("RESULT_EXCURSIONS_IN_SOURCE_AND_PORTRAIT")
             times = " to ".join(s for s in (result.get("entry_time_et"),result.get("exit_time_et")) if s)
             excursion=(r_text(result["best_r"])+" / "+r_text(result["worst_r"])) if result.get("best_r") is not None and result.get("worst_r") is not None else ""
             cells=[("Outcome",outcome,False),("Held",result.get("held_text",""),False),
@@ -389,7 +391,7 @@ def _table(canvas,data,page):
     if kind=="event":
         event=data["event"];scenarios=event["scenarios"]
         if not 2 <= len(scenarios) <= 3:raise LayoutError("IMAGE_SCENARIO_COUNT")
-        canvas.heading(field(event,"name",28))
+        canvas.heading(field(event,"name",28),field(event,"time_et",30,required=False))
         for i,row in enumerate(scenarios):
             height=(bottom-top)//len(scenarios)
             y=top+i*height

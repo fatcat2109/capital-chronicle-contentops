@@ -65,7 +65,7 @@ def build(manifest_path,out_dir,*,vision=False):
             prior=json.loads(prior_path.read_bytes()) if prior_path.is_file() else {}
             saved=prior.get("image_quality") or {}
             response=review_vision(asset) if vision else (saved.get("vision") if saved.get("image_sha256")==asset["sha256"]
-                and saved.get("template_revision")==asset["image_template"]["template_revision"] else None) or {"points":{},"status":"NOT_RUN"}
+                else None) or {"points":{},"status":"NOT_RUN"}
             asset["image_quality"]=combine(code,response,new_template=True)
             write(Path(asset["path"]).with_suffix(".json"),asset)
             assets.append(asset)

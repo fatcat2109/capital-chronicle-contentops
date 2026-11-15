@@ -76,6 +76,8 @@ def from_result(row):
         raise ValueError("IMAGE_R_RESULT_NOT_EXPORTED")
     label="Expired, no entry" if no_entry else {"STOPPED":"Stopped at invalidation","TIME_EXIT":"Time exit",
         "TARGET":"Target reached","CLOSED_EARLY":"Closed early"}.get(result)
+    if not no_entry and result=="EXPIRED" and score.get("triggered_at_utc"):
+        label="Time exit"
     if not label:raise ValueError("IMAGE_RESULT_OUTCOME_NOT_MAPPED")
     value.update(template="result",result={"r":None if no_entry else r_value,"outcome_label":label,
         "entry_time_et":et(score.get("triggered_at_utc")),"exit_time_et":et(score.get("resolved_at_utc") or row["at_utc"]),

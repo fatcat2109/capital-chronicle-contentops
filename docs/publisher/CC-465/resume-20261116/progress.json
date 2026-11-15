@@ -26,5 +26,11 @@
       "Larger chart labels and wide footer; balanced, complete weekly phone pagination"
     ],
     "choice": "Fix the measured phone readability failure by enlarging text and paging rows; preserve frame geometry, exact sources and TradingView attribution."
+  },
+  "resume": {
+    "pushed_and_installed_before": "c599f5150534cd75e59cea508bb1d6e8c232f368",
+    "backlog_status": "IN_PROGRESS",
+    "tests": "97 passed in 63.24s",
+    "choice": "Keep verified identical-pixel reviews with their original clocks; use larger text and complete pagination for measured phone failures."
   }
 }

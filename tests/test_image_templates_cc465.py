@@ -233,6 +233,42 @@ def test_low_vision_mandatory_point_and_stale_image_are_held(tmp_path):
     assert not quality.combine(c,v)["passed"]
 
 
+def test_identical_pixels_reuse_seen_review_and_keep_its_original_compiler_provenance(tmp_path):
+    data=input_record();snapshot=capture(tmp_path,"T")
+    image=templates.render(data,"T",tmp_path,snapshot)
+    image["image_quality"]=yes_review(image)
+    image["image_quality"]["template_revision"]="earlier-compiler"
+    image["image_quality"]["vision"]["template_revision"]="earlier-compiler"
+    image["image_quality"]["vision"]["ended_at_utc"]="2026-11-12T16:00:00Z"
+    Path(image["path"]).with_suffix(".json").write_text(json.dumps(image),encoding="utf-8")
+    def refuse(*args,**kwargs):pytest.fail("identical already-seen PNG caused another model call")
+    prepared=quality.prepare_asset(data,"T",tmp_path,snapshot,vision_runner=refuse)
+    assert prepared["image_quality"]["passed"]
+    assert prepared["image_quality"]["vision"]["template_revision"]=="earlier-compiler"
+    assert prepared["image_quality"]["reviewed_at_utc"]=="2026-11-12T16:00:00Z"
+    assert prepared["image_quality"]["combined_at_utc"]!="2026-11-12T16:00:00Z"
+    wrong=deepcopy(prepared["image_quality"]["vision"]);wrong["image_sha256"]="different-pixels"
+    assert not quality.combine(quality.code_check(prepared),wrong)["passed"]
+
+
+@pytest.mark.parametrize("master",["W","T"])
+def test_event_table_shows_its_bound_release_clock_and_fills_the_title_strip(tmp_path,master):
+    image=asset(tmp_path,master,template="event",image_number=2)
+    assert any(t["text"]=="13 Nov, 8:30 AM ET" for t in image["image_template"]["texts"])
+    assert quality.code_check(image)["passed"]
+
+
+def test_entered_expiry_uses_main_exported_r_and_time_exit_without_becoming_no_entry():
+    from live_contentops.image_template_inputs_v1 import from_result
+    raw={"horizon":"SHORT","outcome":{"state":"SCORED","result_r":.9,
+        "score":{"result":"EXPIRED","triggered_at_utc":"2026-11-06T08:20:00Z","resolved_at_utc":"2026-11-06T13:20:00Z"}}}
+    row={"key":"entered-expiry","kind":"result","symbol":"EURUSD","state":"RESULT","at_utc":NOW.isoformat(),
+         "source_plan":raw,"levels":{"zone_low":1.1,"zone_high":1.101,"invalidation_level":1.09,"direction":"bullish"}}
+    value=from_result(row)
+    assert value["result"]["r"]==.9 and value["result"]["outcome_label"]=="Time exit"
+    assert value["result"]["entry_time_et"]=="6 Nov, 3:20 AM ET"
+
+
 def test_daily_random_sampling_uses_existing_published_records_and_weekly_needs_twenty():
     rows=[{"state":"PUBLISHED","day":"2026-11-12","images":[{"sha256":str(i),"image_quality":{"template":"call"}}]} for i in range(5)]
     rows.append({"state":"RESERVED","day":"2026-11-12","images":[{"sha256":"reserved","image_quality":{"template":"result"}}]})
@@ -399,6 +435,8 @@ def test_result_path_uses_capture_bound_times_and_entry_to_exit_pixels(tmp_path)
     rendered=templates.render(data,"W",tmp_path,taken)
     assert quality.code_check(rendered)["passed"]
     assert any(t["text"]=="−1.0R" and t['mono'] for t in rendered['image_template']['texts'])
+    assert "RESULT_EXCURSIONS_IN_SOURCE_AND_PORTRAIT" in rendered["image_template"]["notes"]
+    assert rendered["image_template"]["input"]["result"]["best_r"]==.6
     data['result']['path']['exit']['x']=500;data=bind(data,data)
     with pytest.raises(ValueError,match="IMAGE_RESULT_PATH_TIMEFRAME_REQUIRED"):
         templates.render(data,"W",tmp_path,taken)

@@ -21,7 +21,7 @@ from .image_template_inputs_v1 import digest
 
 MANDATORY = {1, 2, 3, 5, 7, 9}
 ACCEPTANCE_CONTROL = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\image_template_acceptance_v1.json")
-VISION_POLICY = "cc465-image-roles-v2"
+VISION_POLICY = "cc465-image-roles-v3"
 CHECKLIST = (
     "Exact platform canvas, RGB PNG, sRGB, under 5 MB",
     "Image 1 is the correct market's TradingView snapshot; weekly is the table exception",
@@ -137,14 +137,16 @@ def code_check(asset, *, destination=None):
 
 def combine(code,vision,*,new_template=False):
     points={str(i):code["points"].get(str(i)) is True and vision.get("points",{}).get(str(i)) is True for i in range(1,11)}
-    bound=(vision.get("image_sha256")==code["image_sha256"]
-           and vision.get("template_revision")==code["template_revision"])
+    # Seeing identical PNG bytes remains seeing those pixels after a compiler
+    # change elsewhere. Keep the review's original revision in its provenance.
+    bound=vision.get("image_sha256")==code["image_sha256"]
     score=sum(points.values())
     return {"policy":POLICY,"image_sha256":code["image_sha256"],"template_revision":code["template_revision"],
             "template":code["template"],"master":code["master"],"score":score,"points":points,
             "passed":bool(code["passed"] and bound and score >= (10 if new_template else 8)
                           and all(points[str(i)] for i in MANDATORY)),
-            "code":code,"vision":vision,"reviewed_at_utc":datetime.now(timezone.utc).isoformat()}
+            "code":code,"vision":vision,"reviewed_at_utc":vision.get("ended_at_utc"),
+            "combined_at_utc":datetime.now(timezone.utc).isoformat()}
 
 
 def review_vision(asset,*,runner=None):
@@ -174,7 +176,9 @@ def review_vision(asset,*,runner=None):
             "For EVERY table (weekly or image 2 of event/map), chart-only points 2 through 6 and the "
             "60% chart-area rule are not applicable: answer true and explain that it is a table. "
             "For a chart without plan levels, point 5 is not applicable. Point 6 uses the bound "
-            "comparison: NOT_COMPARED means no contemporaneous quote, not a measured mismatch. "
+            "comparison: NOT_COMPARED means no contemporaneous quote. In that permitted case point 6 "
+            "is not applicable: answer true and say NOT_COMPARED, without claiming quote agreement. "
+            "A measured mismatch still fails the code gate and cannot be passed by your score. "
             "For point 9 judge what is actually printed; the spec does not print every source field "
             "on every image. Preserve the supplied scenario probabilities: they can be a subset and "
             "need not add to 100%. Never infer a complement or demand a probability absent from Main. "
@@ -262,8 +266,7 @@ def prepare_asset(data,master,folder,snapshot=None,*,image_number=1,page=0,visio
     record_path=Path(asset["path"]).with_suffix(".json")
     previous=json.loads(record_path.read_bytes()) if record_path.is_file() else {}
     old=previous.get("image_quality") or {}
-    if (old.get("image_sha256")==asset["sha256"]
-            and old.get("template_revision")==asset["image_template"]["template_revision"]):
+    if old.get("image_sha256")==asset["sha256"]:
         review=old.get("vision") or {}
         from .light_model_caller_v1 import POLICY
         # A pre-CC-512 failed review never ran the second caller. Continue it
