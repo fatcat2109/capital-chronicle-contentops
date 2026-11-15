@@ -21,7 +21,7 @@ from .image_template_inputs_v1 import digest
 
 MANDATORY = {1, 2, 3, 5, 7, 9}
 ACCEPTANCE_CONTROL = Path(r"A:\Capital Chronicle\Runtime\ContentOps\control\image_template_acceptance_v1.json")
-VISION_POLICY = "cc465-image-roles-v3"
+VISION_POLICY = "cc465-image-roles-v5"
 CHECKLIST = (
     "Exact platform canvas, RGB PNG, sRGB, under 5 MB",
     "Image 1 is the correct market's TradingView snapshot; weekly is the table exception",
@@ -84,7 +84,7 @@ def code_check(asset, *, destination=None):
                                                image_number=meta["image_number"],page=meta["page"])
             if expected.size != actual.size or ImageChops.difference(expected,actual.convert("RGB")).getbbox():
                 fail(3,"IMAGE_ATTRIBUTION_OR_RENDER_PIXELS_CHANGED")
-            for key in ("texts","levels","framing","notes","template_revision"):
+            for key in ("texts","levels","framing","notes"):
                 if meta.get(key) != recompiled.get(key):fail(7,"IMAGE_LAYOUT_RECORD_CHANGED")
             paper=Image.new("RGB",actual.size,"#F5F5F0")
             ink=ImageChops.difference(actual.convert("RGB"),paper)
@@ -93,7 +93,8 @@ def code_check(asset, *, destination=None):
                 run=run+1 if not ink.crop((0,y,actual.width,y+1)).getbbox() else 0
                 longest=max(longest,run)
             if longest/actual.height>.08:fail(10,"IMAGE_EMPTY_BAND_TOO_TALL")
-        if meta.get("template_revision") != template_revision():fail(7,"IMAGE_TEMPLATE_REVISION_CHANGED")
+        # Exact recompiled pixels and layout govern. A source revision alone
+        # cannot invalidate an unchanged image or its already-observed review.
         text="\n".join(t["text"] for t in meta.get("texts",[]))
         if any(re.search(r"(?<!\w)"+re.escape(term)+r"(?!\w)",text,re.I) for term in BANNED):fail(9,"IMAGE_INTERNAL_LANGUAGE")
         if re.search(r"#[0-9a-f]{6,}|\b(?:[A-Z][A-Z_]{3,}_[A-Z_]+)\b|(?:[$€£]|\bUSD[ \t]+\d)|\b\d+\s+lots?\b",text):
@@ -156,7 +157,7 @@ def review_vision(asset,*,runner=None):
     meta=asset["image_template"]
     image_path=Path(asset["path"]).resolve()
     code=code_check(asset)
-    context={"image_number":meta["image_number"],"chart":meta["chart"],
+    context={"image_number":meta["image_number"],"page":meta["page"],"chart":meta["chart"],
              "plan_levels_required":bool((meta.get("levels") or {}).get("required")),
              "quote_comparison":((meta.get("snapshot") or {}).get("price_scale_check") or {}).get("comparison_basis"),
              "code_observations":code}
@@ -185,6 +186,14 @@ def review_vision(asset,*,runner=None):
             "The ban on volume means private position size or account volume, not TradingView's "
             "public market-volume legend. TradingView's unchanged capture timestamp, logo and market "
             "legend must remain intact; its own timestamp is not our ET caption. "
+            "The spec explicitly places level labels on white plates at the LEFT of the plot. "
+            "Those permitted plates cover older candles locally; this alone is not a point 7 "
+            "text-overlap failure. Point 7 checks clipped text and text overlapping other text. "
+            "Point 4 checks that our drawing stays in the permitted plot and the newest right-hand "
+            "candles, legend, attribution, logo and scales remain unobscured. "
+            "A weekly image is one PAGE. The full source may contain more rows than this page; "
+            "the article compiler delivers the other rows on following pages, as the spec permits. "
+            "This is pagination, not clipped text. Point 7 checks the printed text on this page. "
             +json.dumps({"checklist":{str(i+1):v for i,v in enumerate(CHECKLIST)},
                         "review_context":context,
                         "input":{k:v for k,v in meta["input"].items() if k!="source_binding"},

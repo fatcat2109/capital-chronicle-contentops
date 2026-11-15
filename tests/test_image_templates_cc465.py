@@ -240,6 +240,8 @@ def test_identical_pixels_reuse_seen_review_and_keep_its_original_compiler_prove
     image["image_quality"]["template_revision"]="earlier-compiler"
     image["image_quality"]["vision"]["template_revision"]="earlier-compiler"
     image["image_quality"]["vision"]["ended_at_utc"]="2026-11-12T16:00:00Z"
+    image["image_template"]["template_revision"]="earlier-compiler"
+    assert quality.code_check(image)["passed"]
     Path(image["path"]).with_suffix(".json").write_text(json.dumps(image),encoding="utf-8")
     def refuse(*args,**kwargs):pytest.fail("identical already-seen PNG caused another model call")
     prepared=quality.prepare_asset(data,"T",tmp_path,snapshot,vision_runner=refuse)
@@ -312,6 +314,8 @@ def test_vision_scores_the_actual_chart_or_table_role_and_uses_code_facts(tmp_pa
     assert "need not add to 100%" in prompts[0]
     assert "Do not demand visual proof" in prompts[0]
     assert "private position size or account volume" in prompts[0]
+    assert "Point 7 checks clipped text and text overlapping other text" in prompts[0]
+    assert "A weekly image is one PAGE" in prompts[0]
 
 
 def test_false_table_refusal_is_reviewed_once_under_the_corrected_image_roles(tmp_path):
