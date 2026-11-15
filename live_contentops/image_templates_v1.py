@@ -261,7 +261,8 @@ def _levels(canvas, data, snapshot, framing):
     entries.append(("Invalidation "+price(invalid, market), py(invalid), "red"))
     # Decisions 40 and 82 override the design spec's target drawing. Retain
     # targets in the bound source, without using them in public pixels.
-    last_label_end = top
+    last_label_end = top+8
+    placements=[]
     for label, y, colour in sorted(entries, key=lambda e:e[1]):
         if not top <= y <= bottom:
             continue
@@ -273,11 +274,19 @@ def _levels(canvas, data, snapshot, framing):
             raise LayoutError("IMAGE_LEVEL_LABEL_DOES_NOT_FIT")
         bounds=draw.textbbox((0,0),label,font=face);text_height=bounds[3]-bounds[1]
         ly = max(top+8, min(y-text_height/2,bottom-text_height-8), last_label_end)
-        if ly+text_height+8 > bottom:
+        placements.append([label,ly,tw,text_height,colour,label_size])
+        last_label_end = ly+text_height+24
+    # Pack back from the bottom as well. Nearby valid levels at the lower
+    # edge must not push the larger phone labels onto TradingView's scale.
+    next_label_top=bottom-8
+    for placed in reversed(placements):
+        placed[1]=min(placed[1],next_label_top-placed[3])
+        next_label_top=placed[1]-24
+        if placed[1]<top+8:
             raise LayoutError("IMAGE_LEVEL_LABEL_COLLISION")
+    for label,ly,tw,text_height,colour,label_size in placements:
         draw.rectangle((left+4,ly-8,left+tw+28,ly+text_height+8),fill=(255,255,255,224))
         canvas.text(label,(left+12,ly,left+tw+24,ly+text_height+1),size=label_size,weight=600,colour=colour,key="chart_level")
-        last_label_end = ly+text_height+24
     return {"required": True, "levels_visible": visible, "pane_box": [left,top,right,bottom],
             "entry_colour": COLOURS["blue"]}
 

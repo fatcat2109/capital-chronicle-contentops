@@ -206,6 +206,18 @@ def test_target_bearing_source_is_delivered_without_a_public_target(tmp_path):
     assert not any("Target" in t["text"] for t in image["image_template"]["texts"])
 
 
+def test_phone_labels_for_nearby_levels_fit_above_the_lower_plot_edge(tmp_path):
+    data=input_record();data.pop("source_binding")
+    data["plan"].update(entry_low=156.5,entry_high=156.6,invalidation=156.3)
+    image=asset(tmp_path,data=bind(data,deepcopy(data)))
+    check=quality.code_check(image)
+    assert check["passed"],check["causes"]
+    pane=image["image_template"]["levels"]["pane_box"]
+    for block in image["image_template"]["texts"]:
+        if block["field"]=="chart_level":
+            assert block["size"]==56 and quality._inside(block["box"],pane)
+
+
 def test_missing_alternative_is_never_filled_with_a_complement(tmp_path):
     data=input_record();data["plan"]["alt_probability_pct"]=None;data=bind(data,data)
     image=asset(tmp_path,data=data)
