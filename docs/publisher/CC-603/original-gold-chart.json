@@ -1,0 +1,213 @@
+{
+  "capture_ratio": "16:9",
+  "capture_viewport": {
+    "height": 850,
+    "width": 1910
+  },
+  "captured_at_utc": "2026-11-12T16:28:30.085830+00:00",
+  "chart_geometry": {
+    "axis_origin": [
+      1442,
+      27
+    ],
+    "axis_pixel_match": 1.0,
+    "grid_checks": [
+      {
+        "error_px": 0.00863122362852664,
+        "grid_y": 733,
+        "page_y_in_download": 733.0086312236285,
+        "price": 3840.0
+      },
+      {
+        "error_px": 0.055382278480806235,
+        "grid_y": 692,
+        "page_y_in_download": 692.0553822784808,
+        "price": 3860.0
+      },
+      {
+        "error_px": 0.10213333333319952,
+        "grid_y": 651,
+        "page_y_in_download": 651.1021333333332,
+        "price": 3880.0
+      },
+      {
+        "error_px": 0.1488843881855928,
+        "grid_y": 610,
+        "page_y_in_download": 610.1488843881856,
+        "price": 3900.0
+      },
+      {
+        "error_px": 0.19563544303798608,
+        "grid_y": 569,
+        "page_y_in_download": 569.195635443038,
+        "price": 3920.0
+      },
+      {
+        "error_px": 0.24238649789037936,
+        "grid_y": 528,
+        "page_y_in_download": 528.2423864978904,
+        "price": 3940.0
+      },
+      {
+        "error_px": 0.28913755274277264,
+        "grid_y": 487,
+        "page_y_in_download": 487.2891375527428,
+        "price": 3960.0
+      },
+      {
+        "error_px": 0.3358886075951659,
+        "grid_y": 446,
+        "page_y_in_download": 446.33588860759517,
+        "price": 3980.0
+      },
+      {
+        "error_px": 0.3826396624475592,
+        "grid_y": 405,
+        "page_y_in_download": 405.38263966244756,
+        "price": 4000.0
+      },
+      {
+        "error_px": 0.4293907172999525,
+        "grid_y": 364,
+        "page_y_in_download": 364.42939071729995,
+        "price": 4020.0
+      },
+      {
+        "error_px": 0.4761417721522321,
+        "grid_y": 323,
+        "page_y_in_download": 323.47614177215223,
+        "price": 4040.0
+      },
+      {
+        "error_px": 0.47710717299526095,
+        "grid_y": 283,
+        "page_y_in_download": 282.52289282700474,
+        "price": 4060.0
+      },
+      {
+        "error_px": 0.43035611814298136,
+        "grid_y": 242,
+        "page_y_in_download": 241.56964388185702,
+        "price": 4080.0
+      },
+      {
+        "error_px": 0.3836050632905881,
+        "grid_y": 201,
+        "page_y_in_download": 200.6163949367094,
+        "price": 4100.0
+      },
+      {
+        "error_px": 0.3368540084380811,
+        "grid_y": 160,
+        "page_y_in_download": 159.66314599156192,
+        "price": 4120.0
+      },
+      {
+        "error_px": 0.29010295358568783,
+        "grid_y": 119,
+        "page_y_in_download": 118.70989704641431,
+        "price": 4140.0
+      },
+      {
+        "error_px": 0.24335189873340823,
+        "grid_y": 78,
+        "page_y_in_download": 77.75664810126659,
+        "price": 4160.0
+      },
+      {
+        "error_px": 0.19660084388101495,
+        "grid_y": 37,
+        "page_y_in_download": 36.803399156118985,
+        "price": 4180.0
+      }
+    ],
+    "intercept": 8596.529261608523,
+    "max_label_error_px": 0.17442003389351157,
+    "mode": "linear",
+    "pane_box": [
+      10,
+      27,
+      1442,
+      768
+    ],
+    "policy": "CC459_VISIBLE_PRICE_SCALE_V1",
+    "slope": -2.0477839292809885,
+    "source_sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081"
+  },
+  "chart_url": "https://www.tradingview.com/chart/?symbol=FX_IDC:XAUUSD&interval=60",
+  "framing": {
+    "height": 858,
+    "original_box": [
+      0,
+      1,
+      1524,
+      857
+    ],
+    "ratio": "16:9",
+    "width": 1524
+  },
+  "height": 856,
+  "interval": "60",
+  "interval_label": "1h",
+  "legend": "1h",
+  "levels_drawn": [],
+  "page_title": "XAUUSD 3,875.130 \u25bc \u22122.82%",
+  "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_analysis\\plan-analysis-plan_230a9464a193ca7a377d0c41\\media_assets\\XAUUSD_2026-11-12_16-28-28.png",
+  "policy": "contentops.tradingview_snapshot.v1",
+  "price_scale_check": {
+    "captured_at_utc": "2026-11-12T16:28:30.085830+00:00",
+    "chart_price": 3875.13,
+    "chart_sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+    "clock_skew_seconds": 47.40083,
+    "comparison_at_utc": "2026-11-12T16:28:30.085830+00:00",
+    "comparison_basis": "AT_CAPTURE",
+    "difference": 1.900000000000091,
+    "difference_pct": 0.04905466496954973,
+    "level_offset": 0.0,
+    "market": "XAUUSD",
+    "maximum_difference_pct": 0.15,
+    "policy": "CC463_TRADINGVIEW_FIRST_V1",
+    "quote": {
+      "age_seconds": 47.40083,
+      "capture_age_seconds": 47.40083,
+      "comparison_at_utc": "2026-11-12T16:28:30.085830+00:00",
+      "comparison_basis": "AT_CAPTURE",
+      "instrument": "XAUUSD",
+      "instrument_name": "Gold spot",
+      "instrument_type": "INDEX",
+      "known_at_utc": "2026-11-12T16:28:09.293865+00:00",
+      "market": "XAUUSD",
+      "price": 3873.23,
+      "price_basis": "public_index",
+      "quoted_at_utc": "2026-11-12T16:27:42.685000+00:00",
+      "reference_policy": "CC489_HELD_CHART_REFERENCE_V1",
+      "source": "CNBC",
+      "source_attempts": [
+        {
+          "age_seconds": 10618.338183,
+          "cause": "CHART_REFERENCE_STALE",
+          "price_at_utc": "2026-11-12T13:31:31.747647+00:00",
+          "source_kind": "PLAN_STATUS_EXPORT"
+        },
+        {
+          "age_seconds": 22050.08583,
+          "cause": "CHART_REFERENCE_STALE",
+          "price_at_utc": "2026-11-12T10:21:00+00:00",
+          "source_kind": "BAR_STORE_M1_CLOSE"
+        }
+      ],
+      "source_kind": "PUBLIC_ON_DEMAND_QUOTE",
+      "source_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\references\\public-quotes-v1\\observations\\fa849cc3c048d57fbd6b457c711abbd598a44b2cb5c4d6725c48b99b84ad632f.json",
+      "source_sha256": "fa849cc3c048d57fbd6b457c711abbd598a44b2cb5c4d6725c48b99b84ad632f",
+      "source_symbol": "XAU=",
+      "source_url": "https://quote.cnbc.com/quote-html-webservice/quote.htm?symbols=XAU%3D&requestMethod=quick&noform=1&partnerId=2&fund=1&exthrs=1&output=json"
+    },
+    "tv_symbol": "FX_IDC:XAUUSD"
+  },
+  "seconds": 20.3,
+  "sha256": "c23849a1b25205e5dd20ea47280f3d33fe37d02e6ba481caf220dfd4d0fba081",
+  "suggested_filename": "XAUUSD_2026-11-12_16-28-28.png",
+  "target_drawn": false,
+  "tv_symbol": "FX_IDC:XAUUSD",
+  "width": 1524
+}

@@ -141,6 +141,14 @@ def main(argv=None) -> int:
                                                        active_recoveries=result.get("active_recoveries"), automatic_neo=True)
             result["scorecard"] = refresh_scorecard(store, args.export_dir, main_root=args.main_root,
                                                   python=child_python())
+            # CC-603 shares this task and the existing coordinator. Corrections
+            # read back first; no independent timer or publication owner.
+            from live_contentops.call_followups_v1 import run_due as followups_due
+            try:
+                result["call_followups"] = followups_due(store, posts.read_export(
+                    args.export_dir, main_root=args.main_root, python=child_python()))
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                result["call_followups"] = {"status": "NOT_COMPLETED", "cause": str(exc)[:200]}
             from live_contentops.plan_analysis_pages_v1 import resume_discord_links
             result["publication"].setdefault("posts", []).extend(resume_discord_links(store,
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))

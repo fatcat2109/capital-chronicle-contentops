@@ -1196,6 +1196,9 @@ def _x_pack(text: str, limit: int, *, preserve_lines: bool = False) -> list[str]
 def destination_payloads(row: Mapping[str, Any], *, card_id: str, chart_credit: bool = False) -> dict:
     """The exact copy per destination: the post and the notices, no link (decision 83). With a
     TradingView snapshot, "Chart: TradingView" follows the post (Terms section 4, decision 82)."""
+    if row.get("cc603_contract"):
+        from .call_followups_v1 import destination_payloads as followup_payloads
+        return followup_payloads(row, card_id=card_id, chart_credit=chart_credit)
     if row.get("format") == 4:
         from .plan_call_cards_v1 import destination_payloads as card_payloads
         return card_payloads(row, card_id=card_id, chart_credit=chart_credit)
@@ -1281,6 +1284,10 @@ def _part_payloads(payloads: dict, part: int = 0) -> dict:
 
 def card_article(row: Mapping[str, Any]) -> dict:
     at = _utc(row["at_utc"])
+    if row.get("cc603_contract"):
+        return {"title": row["title"], "dek": _split(row["text"])[0],
+                "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
+                "author_identity": "Capital Chronicle", "publisher_identity": "Capital Chronicle"}
     if row.get("kind") == "result":
         return {"title": f"{TITLES[row['symbol']]}: plan result — {row['result'].lower()}",
                 "dek": _split(row["text"])[0], "display_date": f"{at.astimezone(PUBLIC_TZ):%B %d, %Y}",
@@ -1370,7 +1377,8 @@ def _hosted(manifest_path: Path, card: Mapping[str, Any]) -> bool:
 
 
 def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
-                 destinations: tuple = POST_DESTINATIONS, snapshot=None, snapshot_allowed=None) -> dict:
+                 destinations: tuple = POST_DESTINATIONS, snapshot=None, snapshot_allowed=None,
+                 cc603_asset=None) -> dict:
     """The post's package (its image, hosted copy, run context) and its coordinator plan."""
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes
     from live_contentops.destination_transport_registry_v1 import REGISTRY_VERSION, registration_for_destination
@@ -1395,6 +1403,13 @@ def prepare_post(store, key: str, *, root: Path = POST_ROOT, host=None,
         prior_assets = (prior_context.get("media") or {}).get("assets") or []
         card = prior_assets[0] if prior_assets else None
         chart_credit = bool(prior_context.get("chart_credit"))
+    elif row.get("cc603_contract"):
+        from .tradingview_snapshot_v1 import validate_snapshot_asset
+        card = cc603_asset
+        if card is not None:
+            validate_snapshot_asset(card, {"market_asset": row["symbol"]})
+        chart_credit = card is not None
+        folder.mkdir(parents=True, exist_ok=True)
     else:
         card, chart_credit = _post_image(row, folder, snapshot=snapshot, snapshot_allowed=snapshot_allowed)
     if host is None:
@@ -1517,6 +1532,9 @@ def validate_status_post_intent(store, intent: Mapping[str, Any]) -> None:
         raise PlanPostError("PLAN_STATUS_POST_INTENT_COPY_CHANGED")
     check_publication_copy({"post": payloads[destination]["full_text"]},
                            conditional_calls=(row.get("conditional_calls") or []) if not part else [])
+    if row.get("cc603_contract"):
+        from .call_followups_v1 import validate_intent
+        validate_intent(store, row, intent)
 
 
 FRESHNESS_MINUTES = 60
