@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="29" time="57.468" timestamp="2026-11-15T17:57:18.801850+07:00" hostname="J-P"><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_plan_or_validation_failure_is_not_an_ambiguous_write[VALIDATION_FAILED]" time="0.369" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_plan_or_validation_failure_is_not_an_ambiguous_write[SKIPPED_IMAGE_REQUIRED]" time="0.005" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_error_codes_survive_without_provider_message_or_request_material" time="0.006" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_instagram_tracks_the_public_publish_boundary[container]" time="0.006" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_instagram_tracks_the_public_publish_boundary[publish]" time="0.005" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_repaired_validation_failure_keeps_recovering_until_the_live_consumer_posts" time="5.312" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_persisted_instagram_validation_repair_never_releases_an_ambiguous_write[DEFINITE_NO_WRITE-validation_failures:image_url_unreachable-True]" time="4.057" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_persisted_instagram_validation_repair_never_releases_an_ambiguous_write[UNKNOWN_WRITE-validation_failures:image_url_unreachable-False]" time="3.264" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_persisted_instagram_validation_repair_never_releases_an_ambiguous_write[DEFINITE_NO_WRITE-provider_code:190-False]" time="3.147" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_text_first_piece_reaches_all_destinations_despite_frozen_channel_skips" time="2.686" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_linkedin_connection_failure_before_http_is_definite_no_write[reason0]" time="0.057" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_linkedin_connection_failure_before_http_is_definite_no_write[reason1]" time="0.026" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_linkedin_preparation_failure_never_becomes_unknown" time="0.003" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[None]" time="1.320" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[identity]" time="1.561" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[id]" time="1.382" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[url]" time="1.671" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[title]" time="1.731" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_edited_canonical_keeps_unchanged_derivatives_approved[notice]" time="2.012" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_queued_derivative_ages_from_canonical_and_later_readbacks_do_not_refresh_it" time="1.813" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_publication_after_credit_edit_feeds_the_published_corpus_and_record" time="5.028" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[BREAKING_BRIEF-6]" time="1.098" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[FOLLOW_UP_UPDATE-24]" time="2.609" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[STANDARD_NEWS_ANALYSIS-168]" time="1.966" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[DATA_OR_DOCUMENT_LENS-168]" time="1.270" /><testcase classname="tests.test_finished_piece_dispatch_v1" name="test_piece_type_horizon_and_absolute_event_expiry[EVERGREEN_EXPLAINER-168]" time="1.584" /><testcase classname="tests.test_publication_coordinator_v1" name="test_cc401_failure_skips_destination_until_next_et_day" time="2.612"><failure message="KeyError: 'et_day'">cc401_copied_store = &lt;live_contentops.durable_operational_store_v1.ContentOpsDurableStore object at 0x00000217FFAA8CD0&gt;
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x00000217FF59BAF0&gt;
+
+    def test_cc401_failure_skips_destination_until_next_et_day(cc401_copied_store, monkeypatch):
+        from datetime import timedelta
+        import live_contentops.publication_coordinator_v1 as module
+        store = cc401_copied_store
+        class Clock(datetime):
+            current = datetime(2026, 11, 10, 4, 59, tzinfo=timezone.utc)
+            @classmethod
+            def now(cls, tz=None):
+                return cls.current
+        monkeypatch.setattr(module, "datetime", Clock)
+        class Failed(FixtureTransport):
+            def publish(self, **kwargs):
+                self.publish_calls.append(kwargs["destination"])
+                raise TimeoutError("response lost")
+        runtime = Failed(ambiguous=True)
+        c = DurablePublicationCoordinator(store=store, transport_runtime=runtime,
+            readiness_provider=lambda d: {"readiness_state": "READY_NON_BROWSER_BINDING"})
+        def message(work, dest):
+            if work != "work-1":
+                store.create_work_item(story_id=work, title=work, target_surface="MULTI_PLATFORM", work_item_id=work,
+                    actor_ref="controlled_test", correlation_id=work)
+            row = c.register_plan(work, _plan(dest))["registered"][0]
+            return store.get_outbox_message(row["message_id"])
+        first = message("work-1", "discord")
+        assert c._dispatch_message(first, canonical_url=None)["status"] == UNKNOWN_WRITE
+        second = message("second", "discord")
+        skipped = c._dispatch_message(second, canonical_url=None)
+        assert skipped["status"] == "DESTINATION_FAILED_ET_DAY_SKIP"
+        assert skipped["first_failure"]["et_day"] == "2026-11-09"
+        assert runtime.publish_calls == ["discord"]
+        # Another destination continues, and the old ambiguous write is never retried.
+        c._dispatch_message(message("other", "threads"), canonical_url=None)
+        assert runtime.publish_calls == ["discord", "threads"]
+        c._dispatch_message(first, canonical_url=None)
+        assert runtime.publish_calls == ["discord", "threads"]
+        Clock.current += timedelta(minutes=2)
+        assert c._dispatch_message(second, canonical_url=None)["status"] == UNKNOWN_WRITE
+        conn = store.get_connection()
+        try:
+            rows = [json.loads(r[0]) for r in conn.execute("SELECT description FROM incidents")]
+        finally:
+            conn.close()
+&gt;       assert [(r["destination"], r["et_day"]) for r in rows] == [
+                                   ^^^^^^^^^^^
+            ("discord", "2026-11-09"), ("threads", "2026-11-09"), ("discord", "2026-11-10")]
+E       KeyError: 'et_day'
+
+tests\test_publication_coordinator_v1.py:124: KeyError</failure></testcase><testcase classname="tests.test_publication_coordinator_v1" name="test_case_f_ambiguous_write_remains_pending_without_retry" time="1.390" /><testcase classname="tests.test_publication_coordinator_v1" name="test_exactly_one_write_mixed_transport_duplicate_restart_recovery" time="2.803" /></testsuite></testsuites>

@@ -1,0 +1,26 @@
+{
+  "integrated_at_utc": "2026-11-15T11:00:59.724391+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "base": "dc5f2fe9174f5ccf80596d296155ae97023c9f43",
+  "code_commit": "a8e08a4b7ae90f71470d7a611b7df17f64a74bfa",
+  "live_tag": "contentops-live-20261115-cc199-instagram-validation",
+  "rollback_tag": "contentops-rollback-20261115-cc199-instagram-validation",
+  "integration": "fast-forward",
+  "changed_paths": [
+    "docs/publisher/CC-199/run-20261115/affected-coordinator-tests-final.xml",
+    "docs/publisher/CC-199/run-20261115/assess_acceptance.py",
+    "docs/publisher/CC-199/run-20261115/baseline.json",
+    "docs/publisher/CC-199/run-20261115/installed-three-piece-acceptance.json",
+    "docs/publisher/CC-199/run-20261115/launch-observation.json",
+    "docs/publisher/CC-199/run-20261115/source-and-route-state.json",
+    "live_contentops/publication_coordinator_v1.py",
+    "tests/test_finished_piece_dispatch_v1.py",
+    "tests/test_publication_coordinator_v1.py"
+  ],
+  "wip_preserved": true,
+  "verified_inherited_wip_paths": 8,
+  "schedules_changed": false,
+  "applications_restarted": false,
+  "public_write_performed": false,
+  "store_migration_performed": false
+}

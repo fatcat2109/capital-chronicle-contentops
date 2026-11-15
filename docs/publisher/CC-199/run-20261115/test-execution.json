@@ -1,0 +1,51 @@
+{
+  "first_regression": {
+    "artifact": "targeted-tests.xml",
+    "passed": 63,
+    "skipped": 3,
+    "failed": 1,
+    "failure": "test_repaired_validation_failure_keeps_recovering_until_the_live_consumer_posts"
+  },
+  "first_partial_repair": {
+    "artifact": "instagram-recovery.xml",
+    "failed": 1,
+    "cause": "The local day-circuit fix exposed the missing per-attempt outcome writer; the absence-safe retry was incorrectly exhausted."
+  },
+  "focused_repair": {
+    "artifact": "instagram-recovery-fixed.xml",
+    "passed": 3,
+    "failed": 0
+  },
+  "broad_coordinator_selection": {
+    "completed": false,
+    "stopped_by_this_run": true,
+    "reason": "Narrowed to the affected day-circuit, validation, exactly-once and ambiguous-write cases to reduce machine load. No result claimed."
+  },
+  "current_regression_artifact": "affected-coordinator-tests-final.xml",
+  "recorded_at_utc": "2026-11-15T10:48:23.890822+00:00",
+  "interrupted_selection": {
+    "completed": false,
+    "reason": "Session stopped during account switching; no XML completion and no running process on resume. No pass claimed."
+  },
+  "affected_selection_before_alarm_filter": {
+    "artifact": "affected-coordinator-tests.xml",
+    "passed": 28,
+    "failed": 1,
+    "failure": "The one-alarm-per-day test selected all incident severities; dispatch outcome records have no et_day."
+  },
+  "final_affected_selection": {
+    "artifact": "affected-coordinator-tests-final.xml",
+    "tests": 30,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "installed_selection": {
+    "artifact": "installed-consumer-tests.xml",
+    "tests": 6,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "updated_at_utc": "2026-11-15T11:02:40.642574+00:00"
+}
