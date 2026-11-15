@@ -244,7 +244,8 @@ def queue_followup(store, candidate, path, record, *, now=None):
     title = f"{posts.TITLES[candidate['symbol']]}: our earlier view and what followed"
     body = (f"Original, {original_at:%d %b %Y %H:%M} ET: “{quote}”\n"
             f"By the {event_at:%d %b %H:%M} ET price bar, price reached {posts._level(path['observed_price'])}. "
-            f"{entry}\nOriginal: {candidate['original_url']}\n{record['line']}\nRecord: {record['url']}")
+            f"{entry}\nThe price check uses the original plan's prices; the TradingView chart shows the move in its own market feed.\n"
+            f"Original: {candidate['original_url']}\n{record['line']}\nRecord: {record['url']}")
     held_followups = [r for r in store.list_outbox_messages(destination=posts.DESTINATION)
                       if r["message_id"].startswith("cc603-followup-")]
     # The live acceptance explicitly names Substack and X for the first post.

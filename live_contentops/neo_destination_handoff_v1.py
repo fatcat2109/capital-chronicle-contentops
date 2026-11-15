@@ -172,7 +172,23 @@ def _note_rendered_text(value, canonical, links, public_url):
     return _text(value)
 
 
-def _x_reader_text(value, links, public_object_url, canonical):
+def _bound_link_targets(binding):
+    """Exact public record/original links already present in the frozen copy."""
+    urls = re.findall(r'https://[^\s<>"\u201c\u201d]+', '\n'.join(binding.get('expected_text_segments') or []))
+    return {url for url in urls if _canonical(url) or _public_url('telegram', url)
+            or _public_url('substack_notes', url)}
+
+
+def _note_bound_text(value, binding, links, public_url):
+    value = str(value)
+    for link in links:
+        if (link.get('url') in _bound_link_targets(binding) and link.get('card_visible') is True
+                and link.get('public_object_url') == public_url):
+            value = value.replace(link['url'], '')
+    return _text(value)
+
+
+def _x_reader_text(value, links, public_object_url, canonical, *, bound_urls=()):
     text = _text(value)
     for link in links:
         displayed = _text(link.get("displayed_text"))
@@ -180,8 +196,9 @@ def _x_reader_text(value, links, public_object_url, canonical):
                 and re.fullmatch(r"https://t\.co/[A-Za-z0-9]+", str(link.get("short_url") or ""))
                 and link.get("target_verified") is True
                 and link.get("public_object_url") == public_object_url
-                and link.get("target_url") == canonical and _social_canonical(canonical)):
-            text = text.replace(displayed, _text(canonical))
+                and ((link.get("target_url") == canonical and _social_canonical(canonical))
+                     or link.get("target_url") in bound_urls)):
+            text = text.replace(displayed, _text(link['target_url']))
     return text
 
 
@@ -195,7 +212,8 @@ def _x_thread_matches(binding, thread, links, canonical):
     # word-boundary reflow retains the entire exact copy; no claim, number or
     # paragraph may disappear or change. Reader metadata around the unchanged
     # root is handled as in the existing post-by-post comparison below.
-    observed = [_x_reader_text(p.get("observed_text"), links, p.get("public_object_url"), canonical) for p in thread]
+    observed = [_x_reader_text(p.get("observed_text"), links, p.get("public_object_url"), canonical,
+                              bound_urls=_bound_link_targets(binding)) for p in thread]
     if expected and _text(expected[0]) in observed[0]:
         observed[0] = _text(expected[0])
         if _text(" ".join(expected)) == _text(" ".join(observed)):
@@ -721,7 +739,7 @@ class NeoDestinationHandoff:
                     comparison_text = comparison_text.replace(_text(short), _text(canonical))
         if destination == "x":
             comparison_text = _x_reader_text(observed_text, result.get("observed_link_resolutions") or [],
-                public_object_url, str(intent.get("canonical_url") or ""))
+                public_object_url, str(intent.get("canonical_url") or ""), bound_urls=_bound_link_targets(binding))
             thread = result.get("observed_thread") or result.get("thread_posts") or []
             if binding["thread_post_count"] > 1 and _x_thread_matches(binding, thread,
                     result.get("observed_link_resolutions") or [], str(intent.get("canonical_url") or "")):
@@ -729,7 +747,7 @@ class NeoDestinationHandoff:
                 # belongs to that reply's exact URL, not to the root's URL.
                 comparison_text = _text(" ".join(_x_reader_text(post.get("observed_text"),
                     result.get("observed_link_resolutions") or [], post.get("public_object_url"),
-                    str(intent.get("canonical_url") or "")) for post in thread))
+                    str(intent.get("canonical_url") or ""), bound_urls=_bound_link_targets(binding)) for post in thread))
         text_match = (bool(segments) and all(_text(s) in comparison_text for s in segments)
             and all(_text(s) not in comparison_text for s in binding.get("excluded_text_segments", [])))
         if destination == "substack":
@@ -806,6 +824,13 @@ class NeoDestinationHandoff:
                 _note_rendered_text(s, canonical, links, result.get("public_object_url")) in comparison for s in segments) \
                 and all(_note_rendered_text(s, canonical, links, result.get("public_object_url")) not in comparison
                         for s in binding.get("excluded_text_segments", []))
+        elif destination == 'substack_notes':
+            links = result.get('observed_links') or []
+            comparison = _note_bound_text(observed_text, binding, links, public_object_url)
+            text_match = bool(segments) and all(
+                _note_bound_text(s, binding, links, public_object_url) in comparison for s in segments) and all(
+                _note_bound_text(s, binding, links, public_object_url) not in comparison
+                for s in binding.get('excluded_text_segments', []))
         verified = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == request["expected_identity"]
             and (not public_object_id or result.get("public_object_id") == public_object_id)

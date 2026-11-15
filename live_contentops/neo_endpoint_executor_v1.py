@@ -559,24 +559,32 @@ class NeoBrowserDriver:
 
     @staticmethod
     def _links(request, post):
+        from .neo_destination_handoff_v1 import _bound_link_targets
         canonical = request.get("canonical_url")
-        return [{"displayed_text":link["text"],"short_url":link["url"],"target_url":canonical,
+        targets = _bound_link_targets(request.get('content_binding') or {}) | ({canonical} if canonical else set())
+        return [{"displayed_text":link["text"],"short_url":link["url"],"target_url":target,
             "target_verified":True,"public_object_url":post["public_object_url"]}
-            for link in post.get("links") or []
-            if canonical and canonical in {link.get("url"),link.get("expanded_url")}]
+            for link in post.get("links") or [] for target in targets
+            if target in {link.get("url"),link.get("expanded_url")}]
 
     @classmethod
     def _matches(cls, request, text, post):
-        from live_contentops.neo_destination_handoff_v1 import _text, _x_reader_text, _note_rendered_text
+        from live_contentops.neo_destination_handoff_v1 import (
+            _text, _x_reader_text, _note_rendered_text, _note_bound_text, _bound_link_targets,
+        )
         observed = post["observed_text"]
         if request["destination"] == "x":
-            observed = _x_reader_text(observed,cls._links(request,post),post["public_object_url"],request.get("canonical_url") or "")
+            observed = _x_reader_text(observed,cls._links(request,post),post["public_object_url"],request.get("canonical_url") or "",
+                                      bound_urls=_bound_link_targets(request.get('content_binding') or {}))
             return _text(text) in observed
         card = (request.get("content_binding") or {}).get("expected_link_card_url")
         if card and any(link.get("url")==card and link.get("card_visible") is True for link in post.get("links") or []):
             return _note_rendered_text(text,card,post.get("links") or [],post["public_object_url"]) in _note_rendered_text(
                 observed,card,post.get("links") or [],post["public_object_url"])
-        return _text(text) in _text(observed)
+        links = [{**link, 'public_object_url':post['public_object_url']} for link in post.get('links') or []]
+        binding = request.get('content_binding') or {}
+        return _note_bound_text(text,binding,links,post['public_object_url']) in _note_bound_text(
+            observed,binding,links,post['public_object_url'])
 
     def readback(self, request, page, *, posts=None):
         destination = request["destination"]
@@ -642,7 +650,8 @@ class NeoBrowserDriver:
             result.update(observed_reply_parent_id=parent["public_object_id"],
                           observed_reply_parent_url=parent["public_object_url"])
         card = (request.get("content_binding") or {}).get("expected_link_card_url")
-        result["observed_links"] = root.get("links") or []
+        result["observed_links"] = [{**link, 'public_object_url':root['public_object_url']}
+                                    for link in root.get('links') or []]
         result["observed_link_resolutions"] = [link for post in thread for link in self._links(request,post)]
         if card:
             result["observed_link_cards"] = [{"url":link["url"],"card_visible":True,
