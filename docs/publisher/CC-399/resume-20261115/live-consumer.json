@@ -1,0 +1,164 @@
+{
+  "observed_at_utc": "2026-11-15T12:11:18.368270+00:00",
+  "item": "CC-399",
+  "configured_launch": {
+    "pid": 30300,
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED"
+  },
+  "public_submit_actions": 0,
+  "store_mutations_by_verification": 0,
+  "discord": {
+    "registered_channel_id": "1519311669216673802",
+    "objects": [
+      {
+        "role": "legacy_run",
+        "dispatch_id": "dispatch_a50fddbfa3d4a23e58cbbe49d066bae7",
+        "store_status": "DISPATCH_CONFIRMED",
+        "source_key": "plan-run-post-cccd9a56d9a298bb95988ecec40ca9f2",
+        "expected_text_sha256": "3774b7b506467e56e2e2466ea0728245cfb9802ef3ee2c5bc8ccba6aec7aa5a9",
+        "method": "Existing official Discord adapter: bot GET for thread replies, webhook GET for webhook roots",
+        "readback": {
+          "status": "SUCCESS",
+          "verified": true,
+          "write_exists": true,
+          "message_id": "1569915426341920872",
+          "public_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569915426341920872",
+          "body_text_visible": true,
+          "meaningful_media_visible": true,
+          "attached_article_visual": false,
+          "image_sha256_match": null,
+          "thread_verified": true,
+          "reply_parent_verified": true
+        }
+      },
+      {
+        "role": "card",
+        "dispatch_id": "dispatch_dd4c798cfc789d2135d31be409cb8aca",
+        "store_status": "DISPATCH_CONFIRMED",
+        "source_key": "plan-status-post-37f4a7ca63df69d5864655fbe2494bae",
+        "expected_text_sha256": "63c3df619b430b936b754d7a212748b4467e5ccfea934bfe3b1e4aff0d32dd01",
+        "method": "Existing official Discord adapter: bot GET for thread replies, webhook GET for webhook roots",
+        "readback": {
+          "status": "SUCCESS",
+          "verified": true,
+          "write_exists": true,
+          "message_id": "1570498124391125187",
+          "public_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1570498124391125187",
+          "body_text_visible": true,
+          "meaningful_media_visible": true,
+          "attached_article_visual": false,
+          "image_sha256_match": null,
+          "thread_verified": true,
+          "reply_parent_verified": true
+        }
+      },
+      {
+        "role": "analysis_link",
+        "dispatch_id": "dispatch_7f8f257708434b2a48c2ffa84ed1ea1e",
+        "store_status": "DISPATCH_CONFIRMED",
+        "source_key": null,
+        "expected_text_sha256": "884f0bd4858c160e18541c28c7234b8f9e332e2d2e91e4b38949417a94f31d66",
+        "method": "Existing official Discord adapter: bot GET for thread replies, webhook GET for webhook roots",
+        "readback": {
+          "status": "SUCCESS",
+          "verified": true,
+          "write_exists": true,
+          "message_id": "1570672638332772352",
+          "public_url": "https://discord.com/channels/1519310996030750782/1570498124391125187/1570672638332772352",
+          "body_text_visible": true,
+          "substack_url_visible": true,
+          "meaningful_media_visible": false,
+          "attached_article_visual": false,
+          "image_sha256_match": null,
+          "thread_verified": true,
+          "reply_parent_verified": true
+        }
+      }
+    ],
+    "threads": [
+      {
+        "id": "1569915426341920872",
+        "type": 11,
+        "parent_id": "1519311669216673802",
+        "guild_id": "1519310996030750782",
+        "name": "Calls · 10 Nov 22:19 ET",
+        "approved_parent_verified": true,
+        "messages": [
+          {
+            "id": "1569916125930852433",
+            "type": 21,
+            "reply_to_id": "1569915426341920872"
+          }
+        ]
+      },
+      {
+        "id": "1570498124391125187",
+        "type": 11,
+        "parent_id": "1519311669216673802",
+        "guild_id": "1519310996030750782",
+        "name": "Full plan analysis",
+        "approved_parent_verified": true,
+        "messages": [
+          {
+            "id": "1570672638332772352",
+            "type": 0,
+            "reply_to_id": null
+          },
+          {
+            "id": "1570498491049058480",
+            "type": 21,
+            "reply_to_id": "1570498124391125187"
+          }
+        ]
+      }
+    ],
+    "ending_reply_verified": false
+  },
+  "main_export": {
+    "path": "A:\\Capital Chronicle\\ResearchRuns\\plan-status-v1\\plan-status.public.json",
+    "sha256": "d4147f9b80b9a9110850ba097a70997aef29efc6fa52103cc6648ee73fd6345e",
+    "bytes": 614596,
+    "generated_at_utc": "2026-11-15T12:10:26.122813Z",
+    "content_hash": "f8346ed42455a0fc0606a3dd1b2b5d0d85cccc8d46ad44a686a45051a8b092f9",
+    "plan_count": 89,
+    "latest_registration_utc": "2026-11-12T17:40:00.360572Z",
+    "gold_plan": {
+      "plan_id": "plan_230a9464a193ca7a377d0c41",
+      "registration_hash": "2e9a7170c25e5a90935cc4b02a88ace95af9ec63344785ce7074b5af42e2dece",
+      "status": "EXPIRED",
+      "outcome": {
+        "first_cause": "UNTRIGGERED_PLAN_ENDED",
+        "outcome_id": null,
+        "public_call_id": "call_2bda765d56769720ec4dc146",
+        "result": null,
+        "result_r": null,
+        "result_r_basis": "NET_DEAL_CASH_OVER_FROZEN_INITIAL_RISK",
+        "result_r_first_cause": "OUTCOME_NOT_CLOSED",
+        "result_r_source_hash": null,
+        "score": null,
+        "state": "NOT_SCORED_UNTRIGGERED"
+      }
+    }
+  },
+  "omitted_ending_repair": {
+    "gold_ending_key": "plan-result-post-2cc8d586ad74f5b187da9d59f82946f9",
+    "before_cause": "PLAN_NEVER_ANNOUNCED",
+    "after_queued": true,
+    "recovered_ending_keys": [
+      "plan-result-post-3146555dc07bb4e02af912e48e610ea8",
+      "plan-result-post-2cc8d586ad74f5b187da9d59f82946f9"
+    ],
+    "new_setup_count": 0,
+    "unchanged_terminal_copy_rule_hours": 24
+  },
+  "current_contract": {
+    "new_count_posts": "Removed by CC-466, root AGENTS.md 11 November amendment; retained objects unchanged",
+    "new_endings": "Use CC-543/CC-549 source-bound state alert and exact confirmed card parent"
+  },
+  "tests": {
+    "targeted_consumer": "targeted-consumer-tests.xml",
+    "passed": 17
+  }
+}

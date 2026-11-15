@@ -1,11 +1,16 @@
 # CC-399 — Call cards and their threads
 
-The Telegram run, card, fill and untriggered-ending readbacks are verified.
-The Discord bot credential is now available, and its approved channel is
-readable through the official API. The remaining acceptance is the next
-natural Main run's Discord cards and analysis links inside their run thread.
-The current export contains no run issued after the bot became available.
-See [the 11 November observation](live-consumer-20261111.json).
+The retained Telegram run, card, fill and untriggered-ending readbacks remain
+verified. The 15 November readback also verifies the Discord run starter,
+gold card, its thread and the full-analysis reply. The old run thread has no
+card messages. CC-466 now removes count posts: new plans use their own card
+and thread, while issued objects keep their original route and bytes.
+
+This continuation fixes an omitted ending: a confirmed card remains a parent
+after its internal queue row becomes SETTLED or SUPERSEDED_NOT_POSTED. The
+current Main export has no new plan since 13 November at 00:40 GMT+7. A fresh
+card and its later Discord ending remain unobserved. See the
+[15 November observation](resume-20261115/live-consumer.json).
 
 First integrated into `A:\Capital Chronicle\ContentOps` at
 `675d75b50a8148088a2038d530a9ba2f120de66c`, on 10 November 2026 at
