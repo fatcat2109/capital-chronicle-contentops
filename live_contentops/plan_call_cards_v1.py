@@ -437,13 +437,21 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
     existing_rows = store.list_outbox_messages(destination=posts.DESTINATION)
     prior = {r["message_id"]: r for r in existing_rows}
     cards = {}
+    announced_cards = set()
     for r in existing_rows:
         p = json.loads(r["payload"])
         p.setdefault("key", r["message_id"])
         is_card = p.get("kind") == "setup" or (p.get("state") == "WAITING" and not p.get("why_follow_up")) \
             or (p.get("state") in {"TRIGGERED", "FILLED"} and p.get("conditional_calls"))
         if is_card:
-            if r["status"] in {posts.READY, "PUBLISHING", "PUBLISHED"}:
+            # Settling another destination or retiring unsent copies cannot
+            # erase a confirmed setup. Its later state still owes that exact
+            # public card an ending, even when the queue label is terminal.
+            announced = r["status"] in {"PUBLISHING", "PUBLISHED"} or any(
+                _reference(store, r["message_id"], d) for d in _post_destinations(p))
+            if announced:
+                announced_cards.add(r["message_id"])
+            if r["status"] == posts.READY or announced:
                 cards.setdefault(p.get("plan_id"), p)
     latest = {}
     for row in sorted(source_rows, key=lambda r: posts._utc(r["at_utc"])):
@@ -570,8 +578,7 @@ def queue_posts(store, export_dir, *, now, window_minutes=60, dry_run=False, ren
         if row["key"] == card["key"] or row.get("superseded_by_fill"):
             continue
         kind = "result" if row["to"] == "RESULT" else "update"
-        if kind == "result" and not any(r["message_id"] == card["key"] and r["status"] in {"PUBLISHED", "PUBLISHING"}
-                                        for r in existing_rows):
+        if kind == "result" and card["key"] not in announced_cards:
             skipped.append({"key": row["key"], "cause": "PLAN_NEVER_ANNOUNCED"})
             continue
         item = payload(row, kind)

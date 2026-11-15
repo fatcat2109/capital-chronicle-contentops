@@ -32,8 +32,9 @@ def controlled_tradingview(monkeypatch, tmp_path):
                     "legend": tv.INTERVAL_LABELS[interval], "captured_at_utc": datetime.now(timezone.utc).isoformat()}
         taken=capture(market, interval, folder, worker=worker, ratio=kwargs.get("ratio", "16:9"))
         at=taken['captured_at_utc']
+        comparison_at, _ = contract.comparison_clock(market, at)
         return contract.bind_scale(market,taken,quote={"market":market,"instrument":market,"price":100,
-            "quoted_at_utc":at,"known_at_utc":at,"source_path":"controlled-fixture.json",
+            "quoted_at_utc":comparison_at.isoformat(),"known_at_utc":at,"source_path":"controlled-fixture.json",
             "source_sha256":"a"*64,"price_basis":"plan_feed"})
     monkeypatch.setattr(tv, "capture", snapshot)
     monkeypatch.setattr(tv, "OUTCOMES", tmp_path / "outcomes.jsonl")
@@ -192,6 +193,49 @@ def test_unfilled_ending_is_owed_only_for_a_posted_setup(five, main_root):
     endings = [r for r in rows(store) if r["kind"] == "result"]
     assert len(endings) == 1 and "not triggered" in endings[0]["text"]
     assert "our way" not in endings[0]["text"]  # not supplied by Main
+
+
+@pytest.mark.parametrize("status", ["SETTLED", "SUPERSEDED_NOT_POSTED"])
+@pytest.mark.parametrize("confirmed", [True, False])
+def test_ending_uses_confirmed_card_after_queue_closure(five, main_root, tmp_path, status, confirmed):
+    from hashlib import sha256
+    from test_plan_analysis_distribution_cc435 import confirm
+    from test_plan_status_publication_cc306 import fake_host
+
+    store, folder, plans, events = five
+    queue(store, folder, main_root)
+    original = next(r for r in rows(store) if r["kind"] == "setup")
+    original_bytes = store.get_outbox_message(original["key"])["payload"]
+    if confirmed:
+        for key, public_id in [(original["run_key"], "600"), (original["key"], "700")]:
+            store.create_work_item(story_id=key, work_item_id=key, title="Existing card", target_surface="MULTI_PLATFORM")
+            confirm(store, key, sha256(("plan-status-post:" + key).encode()).hexdigest(),
+                    "discord", public_id, "https://discord.com/channels/42/1519311669216673802/" + public_id)
+    store.set_outbox_status(original["key"], status)
+    raw = next(p for p in plans if p["plan_id"] == original["plan_id"])
+    raw.update(status="EXPIRED", outcome={"state": "NOT_SCORED_UNTRIGGERED"})
+    events.append(event(raw["plan_id"], "EXPIRED", "2026-11-10T07:59:00Z"))
+    write(folder, plans, events)
+
+    queued = queue(store, folder, main_root)
+    endings = [r for r in rows(store) if r["kind"] == "result"]
+    assert store.get_outbox_message(original["key"])["payload"] == original_bytes
+    assert store.get_outbox_message(original["key"])["status"] == status
+    assert len([r for r in rows(store) if r["kind"] == "setup"]) == 5
+    if not confirmed:
+        assert not endings
+        assert any(r["cause"] == "PLAN_NEVER_ANNOUNCED" for r in queued["not_posted"])
+        return
+    assert len(endings) == 1 and "not triggered" in endings[0]["text"]
+    assert endings[0]["parent_key"] == original["key"]
+    prepared = posts.prepare_post(store, endings[0]["key"], root=tmp_path / "posts", host=fake_host,
+                                  destinations=("discord", "telegram"))
+    assert [d["destination"] for d in prepared["destinations"]] == ["discord"]
+    payload = cards.destination_payloads(endings[0], card_id=None,
+        parents={"discord": {"public_object_id": "700", "thread_parent_id": "600"}})["discord"]
+    assert payload["reply_to_id"] == "700" and payload["discord_thread_parent_id"] == "600"
+    queue(store, folder, main_root)
+    assert len([r for r in rows(store) if r["kind"] == "result"]) == 1
 
 
 def test_main_scorer_supplies_untriggered_direction_without_publisher_inference():
