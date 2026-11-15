@@ -427,6 +427,65 @@ def test_cc536_lost_article_claim_needs_exact_later_absence_before_new_native_id
         assert exe.fresh_publish_request(base)==refreshed
 
 
+@pytest.mark.parametrize('destination', ['substack_notes', 'x'])
+@pytest.mark.parametrize('case', ['exact_absence', 'missing_read', 'wrong_intent', 'before_claim', 'empty_feed', 'known_object'])
+def test_cc603_uncertain_post_renews_only_after_exact_later_absence(tmp_path, destination, case):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store = copied_store(tmp_path)
+    store.create_work_item(story_id='followup', work_item_id='followup', title='Follow-up', target_surface='MULTI_PLATFORM')
+    exe = neo.EndpointNeoExecutor(store, operation_id='followup', output_dir=tmp_path/'native',
+                                 native_invocation_id='test', allow_publish=True)
+    profile = 'https://substack.com/@capitalchronicle' if destination == 'substack_notes' else 'https://x.com/Capitalnicle'
+    base = {'action':'PUBLISH', 'destination':destination, 'work_item_id':'followup', 'intent_sha256':'bound-intent',
+            'package_identity':'bound-package', 'payload_hash':'bound-copy', 'expected_identity':profile.rsplit('/', 1)[-1],
+            'canonical_url':None}
+    key = sha256_of(base)
+    claim = {'native_invocation_id':'original-run', 'begun_at_utc':'2026-11-15T21:51:00+00:00'}
+    original = {'status':'UNKNOWN_WRITE', **({'public_object_id':'known-object'} if case == 'known_object' else {})}
+    exe._put(key, 'started', claim, 'followup')
+    exe._put(key, 'response', {'result':original}, 'followup')
+    read = {**base, 'action':'READBACK', 'entry_url':profile, 'latest_dispatch_attempt_at_utc':claim['begun_at_utc']}
+    if case == 'wrong_intent':
+        read['intent_sha256'] = 'another-intent'
+    read['request_sha256'] = sha256_of(read)
+    if case != 'missing_read':
+        exe._put(read['request_sha256'], 'request', {'request':read}, 'followup')
+        exe._put(read['request_sha256'], 'response', {'result':{
+            'target_post_absent':True, 'authenticated':True, 'activity_feed_loaded':case != 'empty_feed',
+            'observed_profile_url':profile, 'native_tool_return_sha256':'retained-browser-return',
+            'native_tool_observation':{'observed_at_utc':
+                '2026-11-15T21:40:00+00:00' if case == 'before_claim' else '2026-11-15T23:12:00+00:00'}}}, 'followup')
+    renewed = exe.fresh_publish_request(base)
+    assert bool(renewed) is (case == 'exact_absence')
+    assert exe._get(key, 'started') == claim
+    assert exe._get(key, 'response')['result'] == original
+    if renewed:
+        exe._put(sha256_of(renewed), 'started', {'native_invocation_id':'resumed-run',
+                     'begun_at_utc':'2026-11-15T23:14:00+00:00'}, 'followup')
+        assert exe.fresh_publish_request(base) == renewed
+
+
+@pytest.mark.parametrize('ready', [False, True])
+def test_cc603_publish_waits_for_enabled_submit_and_never_clicks_disabled(ready):
+    code = '''
+const fs=require('node:fs');
+const input={phase:'publish',destination:'substack_notes',posts:['Bound copy']};
+const calls=[];let evaluation=0, snapshots=0;
+const page={snapshot:async()=>({refs:[{role:'button',name:'Post',ref:++snapshots===1?'disabled-ref':'ready-ref'}]}),
+ evaluateInPage:async()=>({value:[{count:1,matches:true},['Bound copy'],{marked:true}][evaluation++]}),
+ waitForSelector:async(selector)=>{calls.push({wait:selector});return {matched:process.argv[1]==='true'};},
+ click:async(ref)=>{calls.push({click:ref});}};
+const run=new Function('input','page','return (async()=>{'+fs.readFileSync(process.argv[2],'utf8')+'})()');
+run(input,page).then(result=>process.stdout.write(JSON.stringify({result,calls}))).catch(e=>{console.error(e);process.exit(1)});
+'''
+    result = subprocess.run(['node', '-e', code, str(ready).lower(), str(neo.STEPS)],
+                            capture_output=True, text=True, timeout=10, check=True)
+    observed = json.loads(result.stdout)
+    assert ':not(:disabled)' in observed['calls'][0]['wait']
+    assert [c['click'] for c in observed['calls'] if 'click' in c] == (['ready-ref'] if ready else [])
+    assert observed['result']['status'] == ('CLICKED' if ready else 'FAILED_BEFORE_WRITE')
+
+
 @pytest.mark.parametrize('destination',['x','substack_notes'])
 @pytest.mark.parametrize('refusal',['NEO_COMPOSER_PAYLOAD_MISMATCH','NEO_REGISTERED_PROFILE_UNAVAILABLE'])
 def test_minute_consumer_resumes_an_exact_unsent_composer_only_after_repair(tmp_path,monkeypatch,destination,refusal):

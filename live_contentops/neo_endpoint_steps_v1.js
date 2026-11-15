@@ -303,7 +303,7 @@ if (input.phase === 'dismiss_focused') {
 }
 
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
-  const s = await snap();
+  let s = await snap();
   const posts = input.posts;
   const check = input.phase === 'composer' ? null : unwrap(await page.evaluateInPage(expected => {
     const norm = text => String(text).replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/\s+/g,' ').trim();
@@ -320,12 +320,33 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
   const name = input.destination === 'x' && posts.length > 1 ? 'Post all'
     : input.destination === 'x' && input.reply_parent ? 'Reply' : 'Post';
   const buttons = s.refs.filter(r => r.role === 'button' && r.name === name);
-  const button = buttons[buttons.length - 1];
+  let button = buttons[buttons.length - 1];
   if (!check.matches || check.count !== posts.length || !button) {
     return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
       reason_code:'NEO_COMPOSER_PAYLOAD_MISMATCH', pre_click_posts:editors};
   }
   if (input.phase === 'validate') return {status:'PREPARED',post_count:check.count};
+  // Upload completion can leave Post disabled after text has matched. A click
+  // on that control does nothing; it must not become an uncertain public write.
+  const submit = unwrap(await page.evaluateInPage(name => {
+    const matches = Array.from(document.querySelectorAll('button')).filter(e =>
+      e.getClientRects().length && e.innerText.trim() === name);
+    const target = matches[matches.length - 1];
+    if (!target) return {marked:false};
+    target.setAttribute('data-cc436-submit', 'true');
+    return {marked:true};
+  }, name));
+  const ready = submit.marked && await page.waitForSelector(
+    'button[data-cc436-submit="true"]:not(:disabled):not([aria-disabled="true"])', {timeout:20000});
+  if (!ready || !ready.matched) {
+    return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
+      reason_code:'NEO_SUBMIT_NOT_READY', pre_click_posts:editors};
+  }
+  s = await snap();
+  const settledButtons = s.refs.filter(r => r.role === 'button' && r.name === name);
+  button = settledButtons[settledButtons.length - 1];
+  if (!button) return {status:'FAILED_BEFORE_WRITE', definite_no_write:true, stage:'BEFORE_PUBLISH_CLICK',
+    reason_code:'NEO_SUBMIT_NOT_READY', pre_click_posts:editors};
   // This clock precedes the one publish click. Any lost return is readback-only.
   const dispatched_at_utc = new Date().toISOString();
   await page.click(button.ref);

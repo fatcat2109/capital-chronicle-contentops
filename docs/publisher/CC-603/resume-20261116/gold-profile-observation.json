@@ -1,0 +1,38 @@
+{
+  "authenticated": true,
+  "feed": {
+    "article_count": 11,
+    "notes": [
+      {
+        "dates": [
+          "Capital Chronicle",
+          "Nov 13, 2026, 12:06 AM"
+        ],
+        "text": "Gold: Our bearish plan, 3954–3964 entry, 4004 invalidation.\n\nMacro: We account for euro area growth during the window and finish before United States producer inflation.\n\nPriced in: We see repricing already underway, tempered by the extent of the decline and unresolved talks.\n\nPositioning: We retain buying by investors closing bearish bets as …"
+      },
+      {
+        "dates": [
+          "Capital Chronicle",
+          "Nov 12, 2026, 12:03 PM"
+        ],
+        "text": "Calls from our 11 Nov 11:20 ET run: 5.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      },
+      {
+        "dates": [
+          "Capital Chronicle",
+          "Nov 11, 2026, 10:25 AM"
+        ],
+        "text": "Calls from our 10 Nov 22:19 ET run: 6.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+      },
+      {
+        "dates": [
+          "Capital Chronicle",
+          "Nov 11, 2026, 5:57 AM"
+        ],
+        "text": "Bitcoin: relative weakness after the equity recovery\n\nMacro: Bitcoin lagged the equity recovery. The key comparison was with equities. The index had recovered toward its prior high while Bitcoin failed to follow through. The desk interpreted that divergence as crypto-specific weakness rather than evidence that all risk assets were moving t…"
+      }
+    ]
+  },
+  "observed_at_utc": "2026-11-15T23:12:42.808Z",
+  "observed_profile_url": "https://substack.com/@capitalchronicle"
+}

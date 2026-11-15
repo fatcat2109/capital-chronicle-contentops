@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-15T23:04:19.228520+00:00",
+  "pid": 26504,
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "evidence": "launch arguments read from live process; actual runtime model/effort unavailable",
+  "classification": "CONFIGURED_NOT_OBSERVED",
+  "base": "50c9f627c1adbb0895e91ff32e887dc34ec19130"
+}

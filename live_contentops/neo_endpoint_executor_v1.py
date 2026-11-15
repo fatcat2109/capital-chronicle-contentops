@@ -855,7 +855,10 @@ class EndpointNeoExecutor(NativeNeoExecutor):
             key = sha256_of(refreshed)
             previous = self._get(key, "response") or {}
             claim = self._get(key, "started")
-            if not previous and claim and request.get("destination") in ARTICLE_ROUTES and request.get("intent_sha256"):
+            uncertain = not previous or previous.get("result", {}).get("status") == "UNKNOWN_WRITE"
+            if (uncertain and claim and request.get("destination") in self.automatic_destinations
+                    and request.get("intent_sha256")
+                    and not any(previous.get("result", {}).get(k) for k in ("public_object_id", "public_object_url"))):
                 from .native_neo_executor_v1 import _readback_absence_evidence
                 observed = []
                 bindings = ("destination", "work_item_id", "intent_sha256", "package_identity", "payload_hash", "expected_identity", "canonical_url")
