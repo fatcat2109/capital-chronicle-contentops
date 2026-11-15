@@ -572,6 +572,12 @@ def held_chart(store, row, *, root=ROOT):
     return asset
 
 
+def minute_due(store, load_export, **options):
+    """An owed historical correction does not depend on a fresh Main export."""
+    export = load_export() if corrections_complete(store) else {"status":{"plans":[]}}
+    return run_due(store,export,**options)
+
+
 def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=None, asset_for=None, bars_reader=read_bars):
     """One bounded slice in the existing minute task. No schedule, loop or second publisher."""
     now = now or datetime.now(timezone.utc)

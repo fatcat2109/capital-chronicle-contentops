@@ -301,3 +301,12 @@ def test_browser_pending_keeps_the_existing_minute_consumer_running(ready,tmp_pa
     assert result["posts"][-1]["publication"]["request_sha256"]=="exact-pending"
     assert sorted(transport.publish_calls)==["discord","telegram"]
     assert store.get_outbox_message(q["key"])["status"]=="CC603_PREPARED"
+
+
+def test_stale_main_export_does_not_block_owed_corrections(monkeypatch):
+    seen=[]
+    monkeypatch.setattr(f,"corrections_complete",lambda s:False)
+    monkeypatch.setattr(f,"run_due",lambda s,export,**k:seen.append(export) or {"status":"CORRECTION_PROCESSED"})
+    def stale():raise ValueError("PLAN_EXPORT_STALE")
+    assert f.minute_due(object(),stale)["status"]=="CORRECTION_PROCESSED"
+    assert seen==[{"status":{"plans":[]}}]
