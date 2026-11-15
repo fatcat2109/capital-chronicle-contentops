@@ -13,7 +13,7 @@ from io import BytesIO
 from pathlib import Path
 import re
 from uuid import uuid4
-from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
+from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode, unquote
 import requests
 
 from live_contentops.native_neo_executor_v1 import NativeNeoExecutor, NativeNeoInputRequired, expected_posts
@@ -318,6 +318,18 @@ def compare_public_images(request, observed, *, http=None):
                 # resolution; PNG often remains byte-identical to our upload.
                 query=dict(parse_qsl(parsed.query));query["name"]="orig"
                 retrieved_url=urlunsplit((parsed.scheme,parsed.netloc,parsed.path,urlencode(query),""))
+            elif request['destination'] in {'substack_notes','substack'} and host.endswith('substackcdn.com'):
+                # The rendered CDN URL embeds its public upload's exact path.
+                # Compare that PNG at full resolution; the small WebP variant
+                # can lose thin chart labels without changing the source image.
+                decoded = unquote(parsed.path)
+                if '/https://' in decoded:
+                    original = decoded.rsplit('/https://', 1)[1]
+                    candidate = urlsplit('https://'+original)
+                    if (candidate.hostname == 'substack-post-media.s3.amazonaws.com'
+                            and candidate.path.startswith('/public/images/') and not candidate.query
+                            and not candidate.fragment and not candidate.username and candidate.port is None):
+                        retrieved_url = candidate.geturl()
             response = session.get(retrieved_url, timeout=(3, 12), stream=True, allow_redirects=False)
             response.raise_for_status()
             if 300 <= response.status_code < 400: continue
@@ -852,6 +864,12 @@ class EndpointNeoExecutor(NativeNeoExecutor):
 
     def repaired_prewrite_request(self, dispatch):
         return repaired_prewrite_request(self.store,dispatch,executor_revision=self.executor_revision)
+
+    def fresh_readback_request(self, request):
+        # A repaired reader must observe the exact object again, even inside
+        # the old cache interval. Issued observations keep their original bytes.
+        revised = {**request, 'readback_transport_revision':self.executor_revision}
+        return super().fresh_readback_request(revised) or revised
 
     def fresh_publish_request(self, request):
         """A repaired transport can supersede its proven pre-click refusal once.
