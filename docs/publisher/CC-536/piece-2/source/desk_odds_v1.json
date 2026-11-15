@@ -1,0 +1,1187 @@
+{
+ "schema": "DeskOddsTableV1",
+ "what_this_is": "These six-market daily-bar base rates include asset drift: in the audited November 2016 to November 2026 sample a zero-net-mean 2,000-draw 60-calendar-day block test produced 0.98 PAID_BOTH_HALVES rows out of 54 by chance on average (95% range 0 to 3), versus 5 observed. Choosing rows on the first five years and starting flat on the last five selected 3 rows: 2 stayed positive over 362 test trades at +0.100R per trade, a retrospective dependent sample at a uniform cost of 0.05 normal day with futures roll risk and D1 path uncertainty, not a prospective probability.",
+ "how_measured": "Daily bars; R is the stop distance; cost 0.05 of a normal day (D1 ATR14) per round trip; a decision at a close is entered at the next open; inside one bar the stop is taken before the target; one trade at a time per market and behaviour. t is the mean over its standard error using sample standard deviation (nominal IID, not a dependence-adjusted significance claim). Halves split at the fixed midpoint of the calendar window, not the median trade. BTC sessions include weekends; futures are unadjusted continuous proxies with roll risk. Signed oil prices are retained; pending entries use decision-close ATR and include the fill bar.",
+ "generated_at_utc": "2026-11-12T13:37:24Z",
+ "generator": "tools.product.desk_odds_census_v1",
+ "markets": {
+  "EURUSD": {
+   "series_id": "YAHOO_FINANCE:EURUSD=X",
+   "source_id": "5a4b571939266fc1f934a34ed7085d9add478db7b25b7e1cb29d24e50d6b6c66",
+   "bars": 2532,
+   "from": "2016-11-14",
+   "through": "2026-11-11",
+   "source_sha256": "331ab4aa82b57592e0bd394686069938f6735b126ac95f94ed142b07374c01f9",
+   "known_epoch": 1794456061.79785,
+   "exchange_timezone": "Europe/London",
+   "sunday_stubs_removed": 0,
+   "signed_price_bars": 0
+  },
+  "USDJPY": {
+   "series_id": "YAHOO_FINANCE:JPY=X",
+   "source_id": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b",
+   "bars": 2438,
+   "from": "2016-11-11",
+   "through": "2026-11-10",
+   "source_sha256": "c57c3a5413e18e051194285fa80793544ec17a0d84bc6fe9579a08d1a2718f8e",
+   "known_epoch": 1794415959.568039,
+   "exchange_timezone": "Europe/London",
+   "sunday_stubs_removed": 0,
+   "signed_price_bars": 0
+  },
+  "XAUUSD": {
+   "series_id": "YAHOO_FINANCE:GC=F",
+   "source_id": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+   "bars": 2513,
+   "from": "2016-11-14",
+   "through": "2026-11-10",
+   "source_sha256": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9",
+   "known_epoch": 1794456063.406985,
+   "exchange_timezone": "America/New_York",
+   "sunday_stubs_removed": 0,
+   "signed_price_bars": 0
+  },
+  "USOIL": {
+   "series_id": "YAHOO_FINANCE:CL=F",
+   "source_id": "bb14a61fc7890c725ca3989ad5498d6196d0aab7e2c27f50492bca2993981662",
+   "bars": 2513,
+   "from": "2016-11-14",
+   "through": "2026-11-10",
+   "source_sha256": "e58c03628bf8afa40f50a8412157249478f242c3e32278fb49d0b35eaea2ec2e",
+   "known_epoch": 1794456064.245489,
+   "exchange_timezone": "America/New_York",
+   "sunday_stubs_removed": 0,
+   "signed_price_bars": 2
+  },
+  "US500": {
+   "series_id": "YAHOO_FINANCE:ES=F",
+   "source_id": "a831a4c8e6502e35ec7851864b8efa09aea07866e4609162b8b3eb6f6d6deea7",
+   "bars": 2514,
+   "from": "2016-11-14",
+   "through": "2026-11-10",
+   "source_sha256": "8d131819526b351479a0f3e06d6ce4bad849aef46a0f1f3c471df8eb880d1e1a",
+   "known_epoch": 1794456065.046727,
+   "exchange_timezone": "America/New_York",
+   "sunday_stubs_removed": 0,
+   "signed_price_bars": 0
+  },
+  "BTCUSD": {
+   "series_id": "YAHOO_FINANCE:BTC-USD",
+   "source_id": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0",
+   "bars": 3651,
+   "from": "2016-11-12",
+   "through": "2026-11-10",
+   "source_sha256": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc",
+   "known_epoch": 1794456065.954216,
+   "exchange_timezone": "UTC",
+   "sunday_stubs_removed": 0,
+   "signed_price_bars": 0
+  }
+ },
+ "behaviours": {
+  "LONG_WHILE_UP_20": "Long while the yardstick is UP; stop 1.5 normal days, trailed on closes; up to 20 sessions.",
+  "SHORT_WHILE_DOWN_20": "Short while the yardstick is DOWN; stop 1.5 normal days, trailed; up to 20 sessions.",
+  "WITH_YARDSTICK_5": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions.",
+  "AGAINST_YARDSTICK_5": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions.",
+  "BUY_PULLBACK_IN_UPTREND_10": "Price above its level of 120 sessions ago and down 1.5 normal days or more in 3 sessions: long; stop 1.5 trailed; up to 10 sessions.",
+  "SELL_RALLY_IN_DOWNTREND_10": "Price below its level of 120 sessions ago and up 1.5 normal days or more in 3 sessions: short; stop 1.5 trailed; up to 10 sessions.",
+  "BREAKOUT_WITH_TREND_20": "A close beyond the 20-session closing range in the direction of the 60-session change; stop 2 normal days trailed; up to 20 sessions.",
+  "FOLLOW_LARGE_DAY_3": "After a session of 1 normal day or more, trade the same way; stop 1 normal day; 3 sessions.",
+  "FADE_LARGE_DAY_3": "After a session of 1 normal day or more, trade against it; stop 1 normal day; 3 sessions."
+ },
+ "columns": [
+  "behaviour",
+  "n",
+  "mean_r",
+  "t",
+  "first_half_r",
+  "second_half_r",
+  "read"
+ ],
+ "read_values": {
+  "PAID_BOTH_HALVES": "mean above +0.03R, above 0 in each fixed calendar half, nominal t 2 or more",
+  "PAID": "mean above +0.03R, but one half was not positive or t is under 2",
+  "FLAT": "mean within 0.03R of zero",
+  "LOST": "mean below -0.03R, one half not negative",
+  "LOST_BOTH_HALVES": "mean below -0.03R and below 0 in each half",
+  "THIN": "fewer than 30 trades"
+ },
+ "half_split_date": "2021-11-11",
+ "by_market": {
+  "EURUSD": [
+   [
+    "LONG_WHILE_UP_20",
+    57,
+    -0.075,
+    -0.6,
+    -0.16,
+    0.02,
+    "LOST"
+   ],
+   [
+    "SHORT_WHILE_DOWN_20",
+    61,
+    -0.237,
+    -1.7,
+    -0.13,
+    -0.33,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "WITH_YARDSTICK_5",
+    348,
+    -0.094,
+    -2.3,
+    -0.08,
+    -0.11,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "AGAINST_YARDSTICK_5",
+    348,
+    -0.03,
+    -0.5,
+    -0.01,
+    -0.05,
+    "FLAT"
+   ],
+   [
+    "BUY_PULLBACK_IN_UPTREND_10",
+    28,
+    -0.028,
+    -0.2,
+    0.25,
+    -0.23,
+    "THIN"
+   ],
+   [
+    "SELL_RALLY_IN_DOWNTREND_10",
+    28,
+    0.024,
+    0.1,
+    -0.25,
+    0.26,
+    "THIN"
+   ],
+   [
+    "BREAKOUT_WITH_TREND_20",
+    82,
+    -0.082,
+    -0.7,
+    -0.19,
+    0.01,
+    "LOST"
+   ],
+   [
+    "FOLLOW_LARGE_DAY_3",
+    168,
+    -0.099,
+    -1.6,
+    -0.13,
+    -0.07,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "FADE_LARGE_DAY_3",
+    168,
+    -0.079,
+    -1.2,
+    -0.11,
+    -0.05,
+    "LOST_BOTH_HALVES"
+   ]
+  ],
+  "USDJPY": [
+   [
+    "LONG_WHILE_UP_20",
+    66,
+    0.271,
+    1.5,
+    -0.15,
+    0.56,
+    "PAID"
+   ],
+   [
+    "SHORT_WHILE_DOWN_20",
+    45,
+    -0.162,
+    -1.1,
+    -0.16,
+    -0.16,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "WITH_YARDSTICK_5",
+    334,
+    -0.068,
+    -1.5,
+    -0.12,
+    -0.03,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "AGAINST_YARDSTICK_5",
+    334,
+    -0.067,
+    -1.1,
+    -0.1,
+    -0.04,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "BUY_PULLBACK_IN_UPTREND_10",
+    33,
+    -0.282,
+    -1.4,
+    -0.45,
+    -0.17,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "SELL_RALLY_IN_DOWNTREND_10",
+    27,
+    -0.136,
+    -0.7,
+    -0.02,
+    -0.33,
+    "THIN"
+   ],
+   [
+    "BREAKOUT_WITH_TREND_20",
+    80,
+    -0.077,
+    -0.7,
+    -0.26,
+    0.08,
+    "LOST"
+   ],
+   [
+    "FOLLOW_LARGE_DAY_3",
+    196,
+    -0.101,
+    -1.6,
+    -0.02,
+    -0.17,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "FADE_LARGE_DAY_3",
+    196,
+    -0.083,
+    -1.2,
+    -0.1,
+    -0.07,
+    "LOST_BOTH_HALVES"
+   ]
+  ],
+  "XAUUSD": [
+   [
+    "LONG_WHILE_UP_20",
+    76,
+    0.391,
+    2.1,
+    0.35,
+    0.43,
+    "PAID_BOTH_HALVES"
+   ],
+   [
+    "SHORT_WHILE_DOWN_20",
+    41,
+    -0.197,
+    -1.1,
+    0.1,
+    -0.51,
+    "LOST"
+   ],
+   [
+    "WITH_YARDSTICK_5",
+    349,
+    0.053,
+    1.0,
+    0.01,
+    0.09,
+    "PAID"
+   ],
+   [
+    "AGAINST_YARDSTICK_5",
+    349,
+    -0.106,
+    -1.6,
+    -0.1,
+    -0.11,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "BUY_PULLBACK_IN_UPTREND_10",
+    62,
+    -0.083,
+    -0.6,
+    -0.29,
+    0.15,
+    "LOST"
+   ],
+   [
+    "SELL_RALLY_IN_DOWNTREND_10",
+    19,
+    -0.022,
+    -0.1,
+    -0.06,
+    0.03,
+    "THIN"
+   ],
+   [
+    "BREAKOUT_WITH_TREND_20",
+    82,
+    0.182,
+    1.2,
+    0.12,
+    0.24,
+    "PAID"
+   ],
+   [
+    "FOLLOW_LARGE_DAY_3",
+    279,
+    0.04,
+    0.6,
+    0.02,
+    0.06,
+    "PAID"
+   ],
+   [
+    "FADE_LARGE_DAY_3",
+    279,
+    -0.015,
+    -0.2,
+    0.03,
+    -0.06,
+    "FLAT"
+   ]
+  ],
+  "USOIL": [
+   [
+    "LONG_WHILE_UP_20",
+    57,
+    0.167,
+    0.9,
+    0.13,
+    0.21,
+    "PAID"
+   ],
+   [
+    "SHORT_WHILE_DOWN_20",
+    55,
+    -0.096,
+    -0.7,
+    0.07,
+    -0.19,
+    "LOST"
+   ],
+   [
+    "WITH_YARDSTICK_5",
+    333,
+    0.02,
+    0.4,
+    0.08,
+    -0.04,
+    "FLAT"
+   ],
+   [
+    "AGAINST_YARDSTICK_5",
+    333,
+    -0.137,
+    -2.2,
+    -0.21,
+    -0.07,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "BUY_PULLBACK_IN_UPTREND_10",
+    45,
+    -0.227,
+    -1.5,
+    -0.07,
+    -0.39,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "SELL_RALLY_IN_DOWNTREND_10",
+    35,
+    0.356,
+    1.0,
+    0.64,
+    0.17,
+    "PAID"
+   ],
+   [
+    "BREAKOUT_WITH_TREND_20",
+    82,
+    0.065,
+    0.5,
+    0.13,
+    -0.0,
+    "PAID"
+   ],
+   [
+    "FOLLOW_LARGE_DAY_3",
+    226,
+    -0.155,
+    -2.2,
+    -0.12,
+    -0.19,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "FADE_LARGE_DAY_3",
+    226,
+    0.07,
+    1.0,
+    -0.02,
+    0.16,
+    "PAID"
+   ]
+  ],
+  "US500": [
+   [
+    "LONG_WHILE_UP_20",
+    87,
+    0.113,
+    0.7,
+    0.31,
+    -0.09,
+    "PAID"
+   ],
+   [
+    "SHORT_WHILE_DOWN_20",
+    30,
+    -0.3,
+    -1.8,
+    -0.22,
+    -0.35,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "WITH_YARDSTICK_5",
+    378,
+    -0.006,
+    -0.1,
+    0.05,
+    -0.06,
+    "FLAT"
+   ],
+   [
+    "AGAINST_YARDSTICK_5",
+    378,
+    -0.111,
+    -1.9,
+    -0.21,
+    -0.02,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "BUY_PULLBACK_IN_UPTREND_10",
+    60,
+    0.355,
+    2.0,
+    0.57,
+    0.21,
+    "PAID_BOTH_HALVES"
+   ],
+   [
+    "SELL_RALLY_IN_DOWNTREND_10",
+    24,
+    -0.007,
+    -0.0,
+    -0.67,
+    0.47,
+    "THIN"
+   ],
+   [
+    "BREAKOUT_WITH_TREND_20",
+    91,
+    0.027,
+    0.2,
+    0.03,
+    0.02,
+    "FLAT"
+   ],
+   [
+    "FOLLOW_LARGE_DAY_3",
+    233,
+    -0.099,
+    -1.4,
+    -0.17,
+    -0.04,
+    "LOST_BOTH_HALVES"
+   ],
+   [
+    "FADE_LARGE_DAY_3",
+    233,
+    0.079,
+    1.0,
+    0.09,
+    0.07,
+    "PAID"
+   ]
+  ],
+  "BTCUSD": [
+   [
+    "LONG_WHILE_UP_20",
+    96,
+    0.801,
+    2.8,
+    1.01,
+    0.56,
+    "PAID_BOTH_HALVES"
+   ],
+   [
+    "SHORT_WHILE_DOWN_20",
+    73,
+    0.297,
+    1.2,
+    0.8,
+    -0.07,
+    "PAID"
+   ],
+   [
+    "WITH_YARDSTICK_5",
+    499,
+    0.09,
+    1.9,
+    0.21,
+    -0.02,
+    "PAID"
+   ],
+   [
+    "AGAINST_YARDSTICK_5",
+    499,
+    -0.078,
+    -1.5,
+    -0.17,
+    0.01,
+    "LOST"
+   ],
+   [
+    "BUY_PULLBACK_IN_UPTREND_10",
+    63,
+    0.071,
+    0.4,
+    0.1,
+    0.04,
+    "PAID"
+   ],
+   [
+    "SELL_RALLY_IN_DOWNTREND_10",
+    59,
+    -0.092,
+    -0.6,
+    -0.29,
+    0.04,
+    "LOST"
+   ],
+   [
+    "BREAKOUT_WITH_TREND_20",
+    114,
+    0.531,
+    2.9,
+    0.78,
+    0.29,
+    "PAID_BOTH_HALVES"
+   ],
+   [
+    "FOLLOW_LARGE_DAY_3",
+    384,
+    0.207,
+    2.5,
+    0.19,
+    0.22,
+    "PAID_BOTH_HALVES"
+   ],
+   [
+    "FADE_LARGE_DAY_3",
+    384,
+    -0.017,
+    -0.3,
+    -0.01,
+    -0.03,
+    "FLAT"
+   ]
+  ]
+ },
+ "all_six_markets": [
+  [
+   "LONG_WHILE_UP_20",
+   439,
+   0.318,
+   3.6,
+   0.33,
+   0.31,
+   "PAID_BOTH_HALVES"
+  ],
+  [
+   "SHORT_WHILE_DOWN_20",
+   305,
+   -0.074,
+   -0.9,
+   0.12,
+   -0.24,
+   "LOST"
+  ],
+  [
+   "WITH_YARDSTICK_5",
+   2241,
+   0.006,
+   0.3,
+   0.04,
+   -0.03,
+   "FLAT"
+  ],
+  [
+   "AGAINST_YARDSTICK_5",
+   2241,
+   -0.087,
+   -3.7,
+   -0.14,
+   -0.04,
+   "LOST_BOTH_HALVES"
+  ],
+  [
+   "BUY_PULLBACK_IN_UPTREND_10",
+   291,
+   0.001,
+   0.0,
+   0.02,
+   -0.02,
+   "FLAT"
+  ],
+  [
+   "SELL_RALLY_IN_DOWNTREND_10",
+   192,
+   0.018,
+   0.2,
+   -0.1,
+   0.12,
+   "FLAT"
+  ],
+  [
+   "BREAKOUT_WITH_TREND_20",
+   531,
+   0.132,
+   2.3,
+   0.15,
+   0.12,
+   "PAID_BOTH_HALVES"
+  ],
+  [
+   "FOLLOW_LARGE_DAY_3",
+   1486,
+   -0.003,
+   -0.1,
+   -0.0,
+   -0.0,
+   "FLAT"
+  ],
+  [
+   "FADE_LARGE_DAY_3",
+   1486,
+   -0.004,
+   -0.2,
+   -0.01,
+   0.0,
+   "FLAT"
+  ]
+ ],
+ "construction": {
+  "basis": "All six markets pooled; one trade with the yardstick on every fifth session (trades overlap).",
+  "stop_width": {
+   "note": "Target 2R, up to 5 sessions. The cost is a fixed part of a normal day, so it weighs more on a tight stop. both_in_one_bar: stop and target lay inside one daily bar and the stop was taken, so a tight stop's result is a floor.",
+   "columns": [
+    "stop_normal_days",
+    "n",
+    "mean_r",
+    "win_share",
+    "stopped_share",
+    "both_in_one_bar_share",
+    "cost_r"
+   ],
+   "rows": [
+    [
+     0.3,
+     1892,
+     -0.217,
+     0.32,
+     0.68,
+     0.08,
+     0.17
+    ],
+    [
+     0.5,
+     1892,
+     -0.04,
+     0.37,
+     0.62,
+     0.01,
+     0.1
+    ],
+    [
+     0.75,
+     1892,
+     -0.005,
+     0.4,
+     0.54,
+     0.01,
+     0.07
+    ],
+    [
+     1.0,
+     1892,
+     0.028,
+     0.44,
+     0.44,
+     0.0,
+     0.05
+    ],
+    [
+     1.5,
+     1892,
+     0.033,
+     0.49,
+     0.27,
+     0.0,
+     0.03
+    ],
+    [
+     2.0,
+     1892,
+     0.027,
+     0.5,
+     0.16,
+     0.0,
+     0.03
+    ],
+    [
+     3.0,
+     1892,
+     0.021,
+     0.5,
+     0.06,
+     0.0,
+     0.02
+    ]
+   ]
+  },
+  "entry": {
+   "note": "Decision-close ATR is frozen; fill bar counts as session 1 and can stop the trade (D1 adverse-path floor). Stop 1.5 normal days trailed, up to 10 sessions. per_signal counts an order that never filled as 0.",
+   "columns": [
+    "entry",
+    "filled_share",
+    "mean_r_per_signal",
+    "mean_r_per_fill",
+    "fills"
+   ],
+   "rows": [
+    [
+     "at the next open",
+     1.0,
+     0.117,
+     0.117,
+     1887
+    ],
+    [
+     "limit 0.5 normal day better, good for 3 sessions",
+     0.61,
+     0.071,
+     0.116,
+     1144
+    ],
+    [
+     "limit 1 normal day better, 3 sessions",
+     0.35,
+     0.016,
+     0.045,
+     665
+    ],
+    [
+     "stop entry 0.5 normal day further, 3 sessions",
+     0.6,
+     0.111,
+     0.186,
+     1127
+    ],
+    [
+     "stop entry 1 normal day further, 3 sessions",
+     0.35,
+     0.054,
+     0.154,
+     663
+    ]
+   ]
+  },
+  "exit": {
+   "note": "Stop 1.5 normal days, up to 10 sessions.",
+   "columns": [
+    "exit",
+    "n",
+    "mean_r",
+    "win_share"
+   ],
+   "rows": [
+    [
+     "target 1.0R",
+     1887,
+     0.017,
+     0.53
+    ],
+    [
+     "target 1.5R",
+     1887,
+     0.037,
+     0.48
+    ],
+    [
+     "target 2.0R",
+     1887,
+     0.058,
+     0.47
+    ],
+    [
+     "target 3.0R",
+     1887,
+     0.077,
+     0.46
+    ],
+    [
+     "no target, stop trailed on closes",
+     1887,
+     0.117,
+     0.42
+    ]
+   ]
+  },
+  "hold": {
+   "note": "Stop 1.5 normal days trailed, no target.",
+   "columns": [
+    "sessions",
+    "n",
+    "mean_r",
+    "win_share"
+   ],
+   "rows": [
+    [
+     3,
+     1892,
+     0.019,
+     0.48
+    ],
+    [
+     5,
+     1892,
+     0.06,
+     0.47
+    ],
+    [
+     10,
+     1887,
+     0.117,
+     0.42
+    ],
+    [
+     20,
+     1883,
+     0.164,
+     0.38
+    ],
+    [
+     40,
+     1872,
+     0.176,
+     0.38
+    ]
+   ]
+  }
+ },
+ "audit": {
+  "item": "CC-521",
+  "what_this_is": "These six-market daily-bar base rates include asset drift: in the audited November 2016 to November 2026 sample a zero-net-mean 2,000-draw 60-calendar-day block test produced 0.98 PAID_BOTH_HALVES rows out of 54 by chance on average (95% range 0 to 3), versus 5 observed. Choosing rows on the first five years and starting flat on the last five selected 3 rows: 2 stayed positive over 362 test trades at +0.100R per trade, a retrospective dependent sample at a uniform cost of 0.05 normal day with futures roll risk and D1 path uncertainty, not a prospective probability.",
+  "audited_source_ids": {
+   "EURUSD": "5a4b571939266fc1f934a34ed7085d9add478db7b25b7e1cb29d24e50d6b6c66",
+   "USDJPY": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b",
+   "XAUUSD": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c",
+   "USOIL": "bb14a61fc7890c725ca3989ad5498d6196d0aab7e2c27f50492bca2993981662",
+   "US500": "a831a4c8e6502e35ec7851864b8efa09aea07866e4609162b8b3eb6f6d6deea7",
+   "BTCUSD": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0"
+  },
+  "half_split_date": "2021-11-11",
+  "chance_draws": 2000,
+  "chance_expected_paid_rows": 0.978,
+  "chance_count_interval_95": [
+   0.0,
+   3.0
+  ],
+  "walk_forward_selected_rows": 3,
+  "walk_forward_positive_rows": 2,
+  "walk_forward_test_mean_r": 0.099917,
+  "audit_path": "data/research/desk-odds/AUDIT.md",
+  "attacks_sha256": "cf107c3dd919bd1ef6c72a637d5e87b492b7cffa95d4098bb3f145ce1bf09bd5",
+  "same_source_ids_as_audit": true
+ },
+ "content_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+ "plain_book": {
+  "schema": "PlainBookBlockV1",
+  "what_this_is": "A table-selected reference ledger (Jim decision 125). Full-sample rows were selected on these same ten years; the walk-forward column selects on the first five only. Returns are marked at completed source D1 closes after dated cost reserves; continuous futures levels are source proxies, not broker levels.",
+  "generated_at_utc": "2026-11-12T20:37:09.234237Z",
+  "known_at_utc": "2026-11-12T20:37:09.234237Z",
+  "source_table_hash": "477a68014136b49d799424d1e01ca87f6deb64cafb09b2da082a0a2923cf08c7",
+  "source_table_generated_at_utc": "2026-11-12T17:49:31.686249Z",
+  "report_ref": "data/research/desk-odds/plain-book/plain_book_report_v1.json",
+  "report_hash": "a29cc5354f1a4ea7615e5fe102c02e177aa6bfc4cbbb0f6897f51f3bb621c50c",
+  "instruction": "the plain book is a reference; say where you differ and why",
+  "risk": {
+   "basis": "JIM_DECISION_125; entry-to-stop plus costs, percentage of realized balance at entry",
+   "per_lane": {
+    "SHORT": 0.01,
+    "MID": 0.03,
+    "LONG": 0.06
+   },
+   "total": 0.4
+  },
+  "tie_break": "Census behaviour order, then market name for simultaneous opens; full planned-hold cooldown after any exit.",
+  "in_sample": {
+   "summary": {
+    "result_r": 195.997762,
+    "result_pct": 7959.784381,
+    "max_drawdown_r": 10.705134,
+    "max_drawdown_pct": 24.079361,
+    "longest_underwater_days": 494,
+    "trades": 450,
+    "closed_trades": 450,
+    "trades_per_month": 3.719
+   },
+   "selected_rows": {
+    "AUDUSD": [],
+    "BTCUSD": [
+     "LONG_WHILE_UP_20",
+     "BREAKOUT_WITH_TREND_20",
+     "FOLLOW_LARGE_DAY_3"
+    ],
+    "EURUSD": [],
+    "SPCX": [],
+    "US500": [
+     "BUY_PULLBACK_IN_UPTREND_10"
+    ],
+    "USDCAD": [],
+    "USDJPY": [],
+    "USOIL": [],
+    "USTEC": [
+     "LONG_WHILE_UP_20"
+    ],
+    "XAUUSD": [
+     "LONG_WHILE_UP_20"
+    ],
+    "XNGUSD": []
+   }
+  },
+  "walk_forward": {
+   "selection_through_exclusive": "2021-11-11",
+   "summary": {
+    "result_r": 17.232794,
+    "result_pct": 94.237849,
+    "max_drawdown_r": 13.792107,
+    "max_drawdown_pct": 23.127612,
+    "longest_underwater_days": 854,
+    "trades": 197,
+    "closed_trades": 196,
+    "trades_per_month": 3.23
+   },
+   "selected_rows": {
+    "AUDUSD": [],
+    "BTCUSD": [
+     "LONG_WHILE_UP_20",
+     "WITH_YARDSTICK_5",
+     "BREAKOUT_WITH_TREND_20"
+    ],
+    "EURUSD": [],
+    "SPCX": [],
+    "US500": [],
+    "USDCAD": [],
+    "USDJPY": [],
+    "USOIL": [],
+    "USTEC": [
+     "LONG_WHILE_UP_20"
+    ],
+    "XAUUSD": [],
+    "XNGUSD": []
+   }
+  },
+  "markets": [
+   "AUDUSD",
+   "BTCUSD",
+   "EURUSD",
+   "SPCX",
+   "US500",
+   "USDCAD",
+   "USDJPY",
+   "USOIL",
+   "USTEC",
+   "XAUUSD",
+   "XNGUSD"
+  ],
+  "AUDUSD": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-11",
+   "series_id": "YAHOO_FINANCE:AUDUSD=X",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:AUDUSD=X",
+   "cause": null
+  },
+  "BTCUSD": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-10",
+   "series_id": "YAHOO_FINANCE:BTC-USD",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:BTC-USD",
+   "cause": null
+  },
+  "EURUSD": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-11",
+   "series_id": "YAHOO_FINANCE:EURUSD=X",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:EURUSD=X",
+   "cause": null
+  },
+  "SPCX": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-11",
+   "series_id": "NATIVE_DAILY_ROUTE",
+   "price_basis": "NATIVE_BROKER_OHLC_UNADJUSTED",
+   "cause": null
+  },
+  "US500": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-10",
+   "series_id": "YAHOO_FINANCE:ES=F",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:ES=F",
+   "cause": null
+  },
+  "USDCAD": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-11",
+   "series_id": "YAHOO_FINANCE:CAD=X",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:CAD=X",
+   "cause": null
+  },
+  "USDJPY": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-10",
+   "series_id": "YAHOO_FINANCE:JPY=X",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:JPY=X",
+   "cause": null
+  },
+  "USOIL": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-10",
+   "series_id": "YAHOO_FINANCE:CL=F",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:CL=F",
+   "cause": null
+  },
+  "USTEC": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-11",
+   "series_id": "YAHOO_FINANCE:NQ=F",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:NQ=F",
+   "cause": null
+  },
+  "XAUUSD": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-10",
+   "series_id": "YAHOO_FINANCE:GC=F",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:GC=F",
+   "cause": null
+  },
+  "XNGUSD": {
+   "state": "FLAT",
+   "side": "FLAT",
+   "entry_day": null,
+   "entry": null,
+   "stop": null,
+   "r_so_far": null,
+   "behaviour": null,
+   "lane": null,
+   "as_of_session": "2026-11-11",
+   "series_id": "YAHOO_FINANCE:NG=F",
+   "price_basis": "UNADJUSTED_SOURCE_OHLC:NG=F",
+   "cause": null
+  },
+  "not_measured": {},
+  "census_rows_reproduced": true,
+  "refresh": "Rebuild after new completed bars and the odds census; each market retains its own last source session.",
+  "content_hash": "81e9fd103332cbbfe493ef75237298901419eab0ff542216305684c35c96dc1f"
+ }
+}
