@@ -1,0 +1,10 @@
+{
+  "started_at_utc": "2026-11-15T15:27:15.644673+00:00",
+  "endpoint": "http://127.0.0.1:9010/mcp",
+  "operation": "initialize",
+  "public_url": "https://t.me/s/CapitalChronicle/134",
+  "public_writes": 0,
+  "status": "NOT_OBSERVED",
+  "cause": "NEO_ENDPOINT_CONNECTIONERROR",
+  "observed_at_utc": "2026-11-15T15:27:17.698988+00:00"
+}

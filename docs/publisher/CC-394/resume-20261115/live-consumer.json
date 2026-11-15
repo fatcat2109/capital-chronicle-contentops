@@ -1,0 +1,156 @@
+{
+  "observed_at_utc": "2026-11-15T15:33:10.457893+00:00",
+  "run_artifact_directory": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\plan_status_post_runs",
+  "scorecard_run_records": 3378,
+  "scorecard_created_message_count": 1,
+  "nonzero_extra_feed_post_records": 0,
+  "public_message_ids": [
+    "134"
+  ],
+  "scorecard_feed_outbox_count": 0,
+  "platform_dispatches_for_scorecard_work_item": 0,
+  "object_binding": {
+    "message_id": "134",
+    "public_url": "https://t.me/CapitalChronicle/134"
+  },
+  "bootstrap_anchor": {
+    "status": "BOUND",
+    "payload": {
+      "revision": "pinned-result-scorecard-v1-64d40d1b1635612136c28d992f2f46708f094a99828531d22a6c664045899cc8"
+    }
+  },
+  "latest_runs": [
+    {
+      "at_utc": "2026-11-15T15:22:41.306555Z",
+      "status": "OK",
+      "cause": null,
+      "export_generated_at_utc": "2026-11-15T15:19:36.987294Z",
+      "scorecard": {
+        "characters": 3947,
+        "counts": {
+          "EXPIRED": 37,
+          "HIT": 0,
+          "NOT_TRIGGERED": 0,
+          "STOPPED": 5,
+          "scored": 6,
+          "total": 42
+        },
+        "created_messages": 0,
+        "edited_messages": 0,
+        "extra_result_feed_posts": 0,
+        "message_id": "134",
+        "public_url": "https://t.me/CapitalChronicle/134",
+        "revision": "pinned-result-scorecard-v1-1a92f675a1a0b89bac131169ab14e89246064ee57a575db417da248ce566541b",
+        "shown": 23,
+        "status": "CONFIRMED"
+      }
+    },
+    {
+      "at_utc": "2026-11-15T15:27:28.460191Z",
+      "status": "OK",
+      "cause": null,
+      "export_generated_at_utc": "2026-11-15T15:22:37.508112Z",
+      "scorecard": {
+        "characters": 3947,
+        "counts": {
+          "EXPIRED": 37,
+          "HIT": 0,
+          "NOT_TRIGGERED": 0,
+          "STOPPED": 5,
+          "scored": 6,
+          "total": 42
+        },
+        "created_messages": 0,
+        "edited_messages": 0,
+        "extra_result_feed_posts": 0,
+        "message_id": "134",
+        "public_url": "https://t.me/CapitalChronicle/134",
+        "revision": "pinned-result-scorecard-v1-1a92f675a1a0b89bac131169ab14e89246064ee57a575db417da248ce566541b",
+        "shown": 23,
+        "status": "CONFIRMED"
+      }
+    },
+    {
+      "at_utc": "2026-11-15T15:30:51.302543Z",
+      "status": "OK",
+      "cause": null,
+      "export_generated_at_utc": "2026-11-15T15:27:38.555879Z",
+      "scorecard": {
+        "characters": 3947,
+        "counts": {
+          "EXPIRED": 37,
+          "HIT": 0,
+          "NOT_TRIGGERED": 0,
+          "STOPPED": 5,
+          "scored": 6,
+          "total": 42
+        },
+        "created_messages": 0,
+        "edited_messages": 0,
+        "extra_result_feed_posts": 0,
+        "message_id": "134",
+        "public_url": "https://t.me/CapitalChronicle/134",
+        "revision": "pinned-result-scorecard-v1-1a92f675a1a0b89bac131169ab14e89246064ee57a575db417da248ce566541b",
+        "shown": 23,
+        "status": "CONFIRMED"
+      }
+    }
+  ],
+  "newest_score_first_run": {
+    "at_utc": "2026-11-12T11:14:34.023500Z",
+    "status": "OK",
+    "cause": null,
+    "export_generated_at_utc": "2026-11-12T11:13:13.295094Z",
+    "scorecard": {
+      "characters": 3986,
+      "counts": {
+        "EXPIRED": 33,
+        "HIT": 0,
+        "NOT_TRIGGERED": 0,
+        "STOPPED": 5,
+        "scored": 6,
+        "total": 38
+      },
+      "created_messages": 0,
+      "edited_messages": 1,
+      "extra_result_feed_posts": 0,
+      "message_id": "134",
+      "public_url": "https://t.me/CapitalChronicle/134",
+      "revision": "pinned-result-scorecard-v1-e0026affb8c527e2e76df1b8377f1e20d7d1e41840a84ba23ec706f8b1f32f1c",
+      "shown": 23,
+      "status": "CONFIRMED"
+    }
+  },
+  "newest_score_delay": {
+    "first_cause": "PLAN_EXPORT_STALE",
+    "stale_export_generated_at_utc": "2026-11-12T05:12:12.005725Z",
+    "runs_in_selected_interval": 117,
+    "last_stale_runs": [
+      {
+        "at_utc": "2026-11-12T11:05:30.954930Z",
+        "status": "EXPORT_STALE",
+        "cause": "PLAN_EXPORT_STALE",
+        "export_generated_at_utc": "2026-11-12T05:12:12.005725Z"
+      },
+      {
+        "at_utc": "2026-11-12T11:11:33.462182Z",
+        "status": "EXPORT_STALE",
+        "cause": "PLAN_EXPORT_STALE",
+        "export_generated_at_utc": "2026-11-12T05:12:12.005725Z"
+      },
+      {
+        "at_utc": "2026-11-12T11:12:35.270527Z",
+        "status": "EXPORT_STALE",
+        "cause": "PLAN_EXPORT_STALE",
+        "export_generated_at_utc": "2026-11-12T05:12:12.005725Z"
+      }
+    ],
+    "first_fresh_export_at_utc": "2026-11-12T11:13:13.295094Z",
+    "first_bot_observed_at_utc": "2026-11-12T11:13:37.363124+00:00",
+    "fresh_export_to_bot_seconds": 24.06803,
+    "choice": "Use the exact Main outcome on first fresh export; do not infer an unexported result from prices."
+  },
+  "read_only": true,
+  "public_writes": 0,
+  "schedules_changed": 0
+}
