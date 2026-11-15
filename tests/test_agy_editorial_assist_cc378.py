@@ -112,6 +112,47 @@ def test_failed_or_empty_output_and_resume_do_not_retry(tmp_path):
     assert len(calls) == 2  # version plus one call; resume reuses the result
 
 
+@pytest.mark.parametrize("version_result,cause", [
+    (subprocess.TimeoutExpired("agy --version", 5), "AGY_VERSION_TIMEOUT_5S"),
+    (subprocess.CompletedProcess([], 1, b"not a version", b""), "AGY_VERSION_EXIT_1"),
+    (subprocess.CompletedProcess([], 0, b"", b""), "AGY_VERSION_EMPTY"),
+])
+def test_version_failure_still_sends_once_and_feeds_reviewed_copy(tmp_path, version_result, cause):
+    calls = []
+    def run(args, **kwargs):
+        calls.append(args)
+        if "--version" in args:
+            if isinstance(version_result, Exception):
+                raise version_result
+            return version_result
+        return fake_runner(recorded_output())(args, **kwargs)
+    draft, sources, assets = packet()
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)
+    assert record["status"] == "AGY_AVAILABLE"
+    assert record["agy_version"] is None
+    assert record["version_cause"] == cause
+    assert record["version_started_utc"] <= record["version_ended_utc"]
+    approve(tmp_path, record)
+    article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert media[0]["alt_text"] == recorded_output()["alt_text"][0]["text"]
+    assert article["agy_light_assist"]["variant_destinations"] == sorted(agy.LIMITS)
+    agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)
+    assert len(calls) == 2  # Failed metadata probe plus one prompt, no retry on resume.
+
+
+def test_version_failure_keeps_actual_model_failure_and_existing_copy(tmp_path):
+    def run(args, **kwargs):
+        raise subprocess.TimeoutExpired(args, 5 if "--version" in args else 120)
+    draft, sources, assets = packet()
+    record = agy.prepare_assist(draft, sources, assets, output_dir=tmp_path, runner=run)
+    assert record["version_cause"] == "AGY_VERSION_TIMEOUT_5S"
+    assert record["cause"] == "AGY_TIMEOUT_120S"
+    article, media = agy.consume_assist(draft, assets, output_dir=tmp_path)
+    assert article["substack_body_markdown"] == draft["substack_body_markdown"]
+    assert "publisher_light_variants" not in article
+    assert media == assets
+
+
 def test_flags_are_bound_to_source_lines_and_publisher_decides(tmp_path):
     output = recorded_output()
     output["claims"] = [{"claim_id": "flag-1", "draft_span": "2", "kind": "number",

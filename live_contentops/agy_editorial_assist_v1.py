@@ -251,8 +251,24 @@ def prepare_assist(draft, source_pack, assets, *, output_dir, runner=None):
     raw, err = b"", b""
     try:
         with tempfile.TemporaryDirectory(prefix="cc378-agy-") as cwd:
-            version = run([AGY, "--version"], cwd=cwd, timeout=5)
-            record["agy_version"] = version.stdout.decode(errors="replace").strip()[:200]
+            # Version telemetry must not prevent the requested editorial call.
+            # CC-536 piece 2 observed a five-second --version timeout before
+            # any prompt was sent. Keep that observation and try the call once.
+            record["version_started_utc"] = _now()
+            try:
+                version = run([AGY, "--version"], cwd=cwd, timeout=5)
+                record["version_returncode"] = version.returncode
+                if version.returncode != 0:
+                    record["version_cause"] = "AGY_VERSION_EXIT_" + str(version.returncode)
+                elif not version.stdout.strip():
+                    record["version_cause"] = "AGY_VERSION_EMPTY"
+                else:
+                    record["agy_version"] = version.stdout.decode(errors="replace").strip()[:200]
+            except Exception as exc:
+                record["version_cause"] = ("AGY_VERSION_TIMEOUT_5S"
+                    if isinstance(exc, subprocess.TimeoutExpired)
+                    else type(exc).__name__ + ": " + str(exc)[:500])
+            record["version_ended_utc"] = _now()
             args = [AGY, "--model", MODEL, "--effort", EFFORT, "--disable-slash-commands",
                     "--print-timeout", "120s", "--input-format", "stream-json",
                     "--output-format", "stream-json", "--print", ""]
