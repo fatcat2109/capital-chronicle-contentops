@@ -880,7 +880,7 @@ def repaired_prewrite_request(store, dispatch, *, executor_revision=None):
             from .plan_substack_neo_v1 import supports_operation
             if not supports_operation(packet["operation_id"]):
                 return None
-            allowed_causes={"NEO_CONTROL_COVERED_ACT"}
+            allowed_causes={"NEO_CONTROL_COVERED_ACT", "PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH"}
         if (result.get("status") != "FAILED_BEFORE_WRITE" or result.get("definite_no_write") is not True
                 or result.get("public_write_performed") is not False or result.get("stage") != "BEFORE_PUBLISH_CLICK"
                 or result.get("reason_code") not in allowed_causes
