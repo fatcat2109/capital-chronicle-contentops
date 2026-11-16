@@ -288,6 +288,15 @@ class NativeNeoExecutor:
                 if message:
                     effective = DurablePublicationCoordinator(store=self.store, transport_runtime=None)._effective_message(message)
                     intent = json.loads(effective["payload"])
+                    # CC-584: a saved request may outlive its plan. Reuse the
+                    # canonical fresh-write checks before claiming any browser
+                    # action; readback and already claimed writes keep recovery.
+                    if intent.get("plan_status_post"):
+                        from .plan_status_posts_v1 import validate_status_post_intent
+                        validate_status_post_intent(self.store, intent)
+                    elif intent.get("plan_analysis_page"):
+                        from .plan_analysis_pages_v1 import validate_intent
+                        validate_intent(self.store, intent)
                     if intent.get("reader_presentation_review"):
                         expected_payload, expected_content = _payload_binding(intent, request["destination"])
                         if request.get("native_payload") != expected_payload or request.get("content_binding") != expected_content:

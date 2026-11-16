@@ -121,6 +121,9 @@ def manuscript_prompt(source):
         "Keep each named instrument's levels on its own price basis. Distinguish the spot close condition from the instrument invalidation. "
         "Entry can start only until the entry deadline; the later horizon closes a filled position. Never call both clocks Ends. "
         "When a layer has no concrete finding, use an empty summary so it is omitted from social copy. "
+        "Write for readers: never say supplied historical review, provided analysis, or the analyst's comparison. "
+        "Every priced percentage names its source in that sentence and in pricing_source.name; use only a source held in the bound text. "
+        "Never use prediction-market numbers. Distinguish cancellation before entry from the stop after entry, with each instrument named. "
         'Schema: {"title":"...","subtitle":"...","introduction":"...",'
         '"sections":{"priced_in":{"paragraphs":[{"text":"...","source_ids":["s0"]}],"summary":"..."}}}.\n'
     ) + json.dumps(source,ensure_ascii=False)
@@ -150,6 +153,8 @@ def bind_manuscript(value, source, plan):
         terms = source["thread_terms"]
         value.update(reader_revision=3, thread_contract=reader.THREAD_CONTRACT,
                      title=terms["title"], introduction=terms["call_line"])
+        if source.get("level_contract"):
+            value.update(level_contract=source["level_contract"], reader_revision=4)
         # These are structured Main facts, not a second narrative writer.
         for key, text in (("plan", terms["call_line"]), ("invalidation", terms["invalidation"] + ".")):
             value["sections"][key] = {"paragraphs": [{"text": text, "refs": terms["refs"],
@@ -193,7 +198,8 @@ def check_manuscript(value, source, plan, run):
 def prepare_page(plan, *, output_dir, run_root=pages.RUN_ROOT, call=text_call, retry_failed=False):
     folder=Path(output_dir)
     run=pages.load_run(plan,run_root=run_root)
-    source=reader.source_packet(plan,run,thread=bool(plan.get("zone") and plan.get("invalidation_conditions")))
+    source=reader.source_packet(plan,run,thread=bool(plan.get("zone") and plan.get("invalidation_conditions")),
+                                level_contract=reader.LEVEL_CONTRACT)
     prompt=manuscript_prompt(source)
     records=[]
     for attempt in range(2):
@@ -224,21 +230,28 @@ def prepare_variants(packet, row, *, output_dir, call=text_call, retry_failed=Fa
     source=packet.get("reader_source")
     if not source:
         run=pages.load_run(packet["source_plan"],run_root=Path(packet["run_root"]))
-        source=reader.source_packet(packet["source_plan"],run,thread=packet["manuscript"].get("reader_revision", 1) >= 3)
+        source=reader.source_packet(packet["source_plan"],run,thread=packet["manuscript"].get("reader_revision", 1) >= 3,
+            level_contract=packet["manuscript"].get("level_contract"))
     if (source.get("scenario_analysis", {}).get("base_case") or {}).get("probability_pct") is None:
         run=pages.load_run(packet["source_plan"],run_root=Path(packet["run_root"]))
         source=reader.source_packet(packet["source_plan"],run,original_probabilities=True,
-            thread=source.get("thread_contract") == reader.THREAD_CONTRACT)
+            thread=source.get("thread_contract") == reader.THREAD_CONTRACT,
+            level_contract=source.get("level_contract"))
     call_fields=reader.attach_call(row) if row.get("kind")!="result" else {"reader_call_line":"","conditional_calls":[]}
     prompt=GUIDANCE+(
         "Write platform fields and alt text for this source-bound plan. Hook names today's market force, not its technical levels. "
         "Choose up to five complete force lines, ordered macro/policy, priced_in, positioning/flows, fundamental, geopolitical; "
         "technical last and at most once. Omit absent layers. Each point is <=90 characters, preferably 25-35 for X. "
-        "The first three labelled points PLUS the exact supplied call_line and chart credit must total <=280 X-weighted characters. "
+        + ("The first three labelled points plus chart credit must total <=280 X-weighted characters. "
+           "Code carries the exact call conditions and clocks in complete-sentence continuation replies. "
+           if source.get("level_contract") == reader.LEVEL_CONTRACT else
+           "The first three labelled points PLUS the exact supplied call_line and chart credit must total <=280 X-weighted characters. ") +
         "The hook is <=96 characters. Each scenario is <=90; hook plus scenarios <=280. "
         "Main must start Main (odds%):. Alternative must start Alternative (odds%):. "
         "If alternative odds are absent use null. Do not restate the generated call line or notices. "
         "Do not use bullish or bearish in fields; the exact bound call line carries the direction and its conditions. "
+        "Never refer to the supplied review or the analyst's comparison. A priced percentage names its source in the same sentence "
+        "and in that field's pricing_source.name; that source name must occur in its cited source lines. Never use prediction-market numbers. "
         "Alt text describes the supplied TradingView price chart and its plan levels, no invented shape or image observation. "
         'Schema: {"hook":{"text":"...","source_ids":["s0"]},"points":[{"layer":"macro","text":"...","source_ids":["s0"]}],'
         '"scenario_main":{"text":"Main (50%): ... .","source_ids":["s1"]},"scenario_alt":null,'
@@ -376,7 +389,8 @@ def validate_reader_row(store, row):
     run=pages.load_run(plan,run_root=Path(packet["run_root"]))
     source=reader.source_packet(plan,run,
         original_probabilities=row["reader_source"].get("source_contract") == "CC432_ORIGINAL_PROBABILITY_V1",
-        thread=row["reader_source"].get("thread_contract") == reader.THREAD_CONTRACT)
+        thread=row["reader_source"].get("thread_contract") == reader.THREAD_CONTRACT,
+        level_contract=row["reader_source"].get("level_contract"))
     if source != row["reader_source"] or plan["registration_hash"] != row["source_plan_registration"]:
         raise ValueError("CC466_ANALYSIS_SOURCE_CHANGED")
     reader.validate_fields(row["reader_fields"],source)

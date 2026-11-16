@@ -25,7 +25,7 @@ GOLD = Path(__file__).parents[1] / "docs/publisher/CC-543/fixtures/gold-plan-202
 
 
 @pytest.fixture
-def replay(tmp_path, monkeypatch):
+def replay(tmp_path, monkeypatch, main_root):
     raw = json.loads(GOLD.read_bytes())
     now = posts._utc(raw["registered_at_utc"]) + timedelta(minutes=1)
     store = ContentOpsDurableStore(tmp_path / "replay.sqlite3")
@@ -36,10 +36,16 @@ def replay(tmp_path, monkeypatch):
     class Clock(datetime):
         @classmethod
         def now(cls, tz=None):
-            return now.astimezone(tz) if tz else now.replace(tzinfo=None)
+            observed = posts._utc(json.loads((folder / "plan-status.public.json").read_bytes())["generated_at_utc"])
+            return observed.astimezone(tz) if tz else observed.replace(tzinfo=None)
     monkeypatch.setattr(cards, "datetime", Clock)
     folder = write(tmp_path / "export", [raw], [event(raw["plan_id"], "WAITING", raw["registered_at_utc"])],
                    generated_at_utc=now.isoformat())
+    monkeypatch.setattr(posts, "EXPORT_DIR", folder)
+    reader = posts.read_export
+    def read_export(path=folder, **options):
+        return reader(path, main_root=options.get("main_root", main_root), python=options.get("python", sys.executable))
+    monkeypatch.setattr(posts, "read_export", read_export)
     return store, folder, raw, now
 
 
@@ -153,7 +159,7 @@ def test_missing_chart_sends_nothing_and_source_changes_fail(replay, main_root, 
         raise AssertionError("A chartless alert must never reach a transport")
     result = posts.publish_ready(store, now=now, latest_states=queued["latest_states"], root=tmp_path / "posts",
         coordinator_for=forbidden, immediate_only=True)
-    assert result["posts"][0]["cause"] == "JIM_DECISION_82_TRADINGVIEW_CHART_REQUIRED"
+    assert result["posts"][0]["cause"] == "EVERY_POST_IMAGE_REQUIRED:PLAN_SETUP"
     from live_contentops.plan_state_alerts_v1 import validate
     altered = deepcopy(rows(store)[0])
     altered["levels"]["zone_low"] += 1
@@ -200,7 +206,8 @@ def test_actual_minute_entry_sends_alerts_before_models_and_browser(tmp_path, mo
     spec.loader.exec_module(cli)
     from live_contentops import x_reply_bot_v1 as bot, x_reply_tabs_v1 as tabs
     from live_contentops import event_timestamp_v1, event_pack_v1, audience_collection_v1, model_invocation_usage_v1
-    from live_contentops import pinned_result_scorecard_v1, neo_endpoint_executor_v1
+    from live_contentops import pinned_result_scorecard_v1, neo_endpoint_executor_v1, call_followups_v1
+    monkeypatch.setattr(call_followups_v1, "minute_due", lambda *a, **k: {"status": "NO_DUE_WORK"})
     order = []
     monkeypatch.setattr(cli, "queue_posts", lambda *a, **k: order.append("export") or {"status": "OK"})
     def publish(*a, **kw):

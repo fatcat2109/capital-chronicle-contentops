@@ -116,8 +116,16 @@ def source_binding(row):
     levels = row.get("levels") or {}
     fields = ("zone_low", "zone_high", "invalidation_level", "tick_size", "valid_until_utc", "direction")
     bound = {k: levels[k] for k in fields if k in levels}
-    return {"key": row["key"], "symbol": row["symbol"], "source_content_hash": row.get("source_content_hash"),
-            "levels": bound}
+    source = {"key": row["key"], "symbol": row["symbol"], "source_content_hash": row.get("source_content_hash"),
+              "levels": bound}
+    if row.get("level_contract") == "CC584_V1":
+        from .plan_reader_copy_v1 import thread_terms
+        from .plan_status_posts_v1 import _sha
+        raw = row["source_plan"]
+        terms = thread_terms(raw, level_contract=row["level_contract"])
+        source.update(level_contract=row["level_contract"], phase_terms=terms["invalidation"],
+            phase_source_sha256=_sha(raw), annotations_only=True)
+    return source
 
 
 def _drawn_binding(source):
@@ -153,6 +161,24 @@ def _draw(image, overlay, offset):
     # Decision 82: "A target is never drawn", whatever the bound source carries.
     levels.pop("target", None)
     levels.pop("target_level", None)
+    if overlay["source"].get("annotations_only"):
+        # The chart and a mapped contract may have different price bases. Name
+        # both exact conditions without plotting a foreign level on this axis.
+        font = _font("semibold", 16)
+        words = overlay["source"]["phase_terms"].split()
+        lines, line = [], ""
+        for word in words:
+            candidate = (line + " " + word).strip()
+            if line and draw.textbbox((0, 0), candidate, font=font)[2] > right-left-30:
+                lines.append(line)
+                line = word
+            else:
+                line = candidate
+        lines.append(line)
+        draw.rectangle((left, top, right, top+len(lines)*25+12), fill=(255,255,255,245))
+        for index, line in enumerate(lines):
+            draw.text((left+8, top+6+index*25), line, font=font, fill=(175,40,57,255))
+        return []
     offset = (overlay.get("price_scale_check") or {}).get("level_offset", 0)
     if offset:
         for field in ("zone_low", "zone_high", "invalidation_level"):
@@ -234,7 +260,8 @@ def apply(asset, row, *, require_verified=True):
     with Image.open(source) as image:
         image = image.convert("RGB")
         overlay["markers"] = _draw(image,overlay,asset["tradingview_snapshot"]["framing"]["original_box"][:2])
-        if not overlay["markers"] or any(m["error_px"] > 2 for m in overlay["markers"]):
+        if ((not overlay["markers"] and not overlay["source"].get("annotations_only"))
+                or any(m["error_px"] > 2 for m in overlay["markers"])):
             raise ValueError("TRADINGVIEW_OVERLAY_LEVEL_PIXEL_CHECK_FAILED")
         # Recorded from what was drawn; validate() below redraws, compares and refuses a target.
         overlay["target_drawn"] = any(m["label"] == "Target" for m in overlay["markers"])
