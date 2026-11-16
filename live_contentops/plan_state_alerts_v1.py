@@ -26,6 +26,9 @@ def compose(row):
         terms = thread_terms(row["source_plan"], level_contract=row.get("level_contract"))
         if row["kind"] == "setup":
             lead = title + ": new plan."
+            if row.get("level_contract") == "CC584_V1" and row.get("state") == "WAITING":
+                condition = terms["call"]["condition"].replace("price trades", "price to trade")
+                lead = title + ": armed, waiting for " + condition + "."
             calls = [terms["call"]]
             lines = [lead, terms["call_line"]]
             if row.get("state") in {"FILLED", "TRIGGERED"}:

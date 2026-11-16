@@ -73,6 +73,22 @@ def test_new_gold_thread_explicitly_distinguishes_cancel_and_after_entry_stop():
     assert "Spot" in text and "MGC" in text
 
 
+@pytest.mark.parametrize("state", ["WAITING", "TRIGGERED", "FILLED"])
+def test_new_alert_waits_for_the_owners_entry_state_before_claiming_a_fill(state):
+    from live_contentops import plan_state_alerts_v1 as alerts
+    from test_plan_thread_consistency_cc549 import alert_row
+
+    raw = json.loads(GOLD.read_bytes())
+    row = {**alert_row(raw), "state": state, "level_contract": reader.LEVEL_CONTRACT}
+    text = alerts.compose(row)["text"]
+    if state == "WAITING":
+        assert "armed, waiting for price to trade at 3,954.4" in text
+        assert "entry filled" not in text and "position is open" not in text
+    else:
+        assert "armed, waiting" not in text
+        assert "An entry filled; the position is open." in text
+
+
 def test_current_matching_plan_and_quote_are_used_for_a_fresh_page(monkeypatch):
     raw = json.loads(GOLD.read_bytes())
     raw.update(status="WAITING")
