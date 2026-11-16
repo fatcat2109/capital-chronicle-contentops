@@ -776,7 +776,7 @@ class NeoBrowserDriver:
     def perform(self, packet):
         request = packet["request"]
         destination = request["destination"]
-        if request['action']=='EDIT_EXISTING' and destination=='substack_notes' and request.get('approved_presentation_restore'):
+        if destination=='substack_notes' and request.get('action')=='EDIT_EXISTING' and request.get('approved_presentation_restore'):
             page=self.client.open('substack_notes',request['public_object_url'])
             self.client.wait(page,'.FeedProseMirror')
             observed=self.client.run(page,'readback',expected_identity=request['expected_identity'])
