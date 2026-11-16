@@ -283,6 +283,44 @@ def publication_check_copy(copy, plan):
     return scan(copy)
 
 
+def delivery_snapshot_projection(plan, assets):
+    """Adapt the bound Neo download to the existing snapshot delivery schema.
+
+    This is a delivery view of unchanged pixels. Issued article and media
+    artifacts retain their exact bytes and source URLs.
+    """
+    from .tradingview_snapshot_v1 import POLICY as SNAPSHOT_POLICY, CREDIT, chart_url
+    root = Path(plan["output_dir"])
+    piece = _read(root / "piece.json")
+    if (plan.get("measured_odds_piece") != "cc536-measured-odds-" + str(piece["piece"])
+            or _read(root / "article_manifest_v1.json") != piece["article"]):
+        raise ValueError("ODDS_DELIVERY_ARTICLE_BINDING_CHANGED")
+    validate_piece(piece, root / "source")
+    bound = {asset["asset_id"]: asset for asset in piece["media_assets"]}
+    result = []
+    for asset in assets:
+        spec = bound.get(asset.get("asset_id"))
+        if (not spec or spec.get("modality") != "tradingview_chart_snapshot"
+                or spec.get("inspected_pixels") is not True
+                or spec.get("native_study", {}).get("enabled_lengths") != [20, 50]
+                or spec.get("source_url") != "https://www.tradingview.com/widgetembed/?symbol=BITSTAMP%3ABTCUSD&interval=D"
+                or Path(asset["path"]).resolve() != (root / spec["path"]).resolve()
+                or sha256(Path(asset["path"]).read_bytes()).hexdigest() != spec["sha256"]
+                or asset.get("sha256") != spec["sha256"]):
+            raise ValueError("ODDS_DELIVERY_CHART_BINDING_CHANGED")
+        width, height = spec["width"], spec["height"]
+        result.append({**asset, "credit": CREDIT, "media_role": "delivery_only",
+            "delivery_only": True, "article_inclusion": False, "canonical_article_media": False,
+            "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+            "tradingview_snapshot": {"policy": SNAPSHOT_POLICY, "tv_symbol": "BITSTAMP:BTCUSD",
+                "interval": "D", "chart_url": chart_url("BITSTAMP:BTCUSD", "D"),
+                "source_url": spec["source_url"], "captured_at_utc": spec["captured_at_utc"],
+                "path": asset["path"], "sha256": spec["sha256"], "levels_drawn": [], "target_drawn": False,
+                "framing": {"mode": "ORIGINAL_DOWNLOAD", "width": width, "height": height,
+                            "original_box": [0, 0, width, height]}}})
+    return result
+
+
 def confirmed_method_page(store):
     """Shared read-only reference for new plan posts and CC-537's daily board."""
     identity = "cc536-measured-odds-1"

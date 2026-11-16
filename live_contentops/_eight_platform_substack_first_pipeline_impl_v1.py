@@ -4076,7 +4076,11 @@ def _prepare_cloudinary_delivery_media_for_plan(
         for row in (media.get("assets") or [])
         if isinstance(row, Mapping)
     ]
-    if context.get("accepted_evidence_sha256") and context.get("article", {}).get("substack_body_markdown"):
+    if plan.get("measured_odds_piece"):
+        from .measured_odds_series_v1 import delivery_snapshot_projection
+        article_assets = delivery_snapshot_projection(plan, article_assets)
+        delivery_only_assets = delivery_snapshot_projection(plan, delivery_only_assets)
+    elif context.get("accepted_evidence_sha256") and context.get("article", {}).get("substack_body_markdown"):
         from live_contentops.rolling_x_grounded_article_media_builder_v1 import post_image_view
         selected = post_image_view({"article": context["article"], "media_assets": article_assets,
             "evidence": context.get("source_documents", []),

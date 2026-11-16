@@ -415,11 +415,15 @@ def validate_snapshot_asset(asset: Mapping[str, Any], article: Mapping[str, Any]
             or (article or {}).get("audience") in {"paid", "paid_subscribers"}):
         raise ValueError("PUBLIC_REDISTRIBUTION_NOT_LICENSED")
     economic = bool(re.fullmatch(r"(?:ECONOMICS|FRED):[A-Z0-9_]+", str(snap.get("tv_symbol") or "")))
+    # CC-536's bound method illustration uses its retained Bitstamp download.
+    # A plan still requires the reviewed instrument's exact price scale below.
+    measured_method = (not market and (article or {}).get("measured_odds_series") == "CC536_MEASURED_ODDS_SERIES_V1"
+                       and snap.get("tv_symbol") == "BITSTAMP:BTCUSD")
     if (snap.get("policy") != POLICY or asset.get("credit") != CREDIT
             or asset.get("provenance_status") != "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE"
             or not asset.get("rights_basis") or snap.get("levels_drawn") != []
             or snap.get("target_drawn") is not False
-            or (snap.get("tv_symbol") not in SYMBOLS.values() and not economic)
+            or (snap.get("tv_symbol") not in SYMBOLS.values() and not economic and not measured_method)
             or (market and not economic and SYMBOLS.get(market) != snap.get("tv_symbol"))
             or snap.get("chart_url") != chart_url(snap["tv_symbol"], snap["interval"])
             or snap.get("interval") not in INTERVAL_LABELS):

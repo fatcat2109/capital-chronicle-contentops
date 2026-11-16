@@ -160,6 +160,34 @@ def test_historical_metrics_do_not_release_account_copy_or_unbound_results(tmp_p
         check_publication_copy(odds.publication_check_copy({**copy, "extra": extra}, packet["plan"]))
 
 
+def test_bound_native_snapshot_reaches_the_existing_url_media_consumer(tmp_path, monkeypatch):
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    from live_contentops.cloudinary_delivery_media_v1 import _validated_local_asset, READY
+    store = ContentOpsDurableStore(tmp_path / "test.sqlite3")
+    packet = odds.register(store, SOURCE / "piece-2/piece-2.json", tmp_path / "article")
+    context = (tmp_path / "article/run_context_v1.json").read_bytes()
+    delivered=[]
+    def prepare(**kwargs):
+        assert not kwargs["article_assets"]
+        for asset in kwargs["delivery_only_assets"]:
+            verified, blockers = _validated_local_asset(asset, article=kwargs["article"])
+            assert not blockers, blockers
+            delivered.append(verified)
+        return {"status": READY, "manifest": {"assets": []}, "provider_calls": 0}
+    monkeypatch.setattr(pipeline, "prepare_cloudinary_delivery_media", prepare)
+    result = pipeline._prepare_cloudinary_delivery_media_for_plan(work_item_id=packet["identity"],
+        plan=packet["plan"], preconditions={"canonical_publication_status":"RECONCILED_CONFIRMED",
+                                          "unknown_write_count":0})
+    assert result["status"] == READY
+    assert len(delivered) == 1 and delivered[0]["sha256"] == packet["media_assets"][0]["sha256"]
+    assert delivered[0]["delivery_only"] is True
+    assert (tmp_path / "article/run_context_v1.json").read_bytes() == context
+    altered=deepcopy(packet["media_assets"])
+    altered[0]["sha256"]="a"*64
+    with pytest.raises(ValueError,match="ODDS_DELIVERY_CHART_BINDING_CHANGED"):
+        odds.delivery_snapshot_projection(packet["plan"], altered)
+
+
 def test_registered_copy_and_source_manifest_are_immutable(tmp_path):
     store=ContentOpsDurableStore(tmp_path / "test.sqlite3")
     packet=odds.register(store,SOURCE / "piece-1.json",tmp_path / "article")
