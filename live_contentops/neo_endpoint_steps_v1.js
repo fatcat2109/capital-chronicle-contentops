@@ -66,8 +66,11 @@ if (input.phase === 'plan_substack_check') {
     const e=document.querySelector('.ProseMirror');const text=n(e.innerText);
     const images=Array.from(e.querySelectorAll('img'));
     let body=text;for(const a of data.media)body=n(body.replace(n(a.caption),' '));
-    return {verified:body===n(data.expected_text) && images.length===data.media.length
-      && data.media.every((a,i)=>images[i].alt===a.alt_text && text.includes(n(a.caption))),pre_click_body:e.innerText};
+    const mediaMatch=images.length===data.media.length
+      && data.media.every((a,i)=>images[i].alt===a.alt_text && text.includes(n(a.caption)));
+    return {verified:body===n(data.expected_text) && mediaMatch,
+      spacing_only_mismatch:body!==n(data.expected_text) && mediaMatch
+        && body.replace(/\s/g,'')===n(data.expected_text).replace(/\s/g,''),pre_click_body:e.innerText};
   },{expected_text:input.expected_text,media:input.media}));
 }
 if (input.phase === 'plan_substack_email') {

@@ -205,6 +205,37 @@ def test_table_and_minus_sign_survive_render_and_comparison():
     assert plan_neo.body_text(body)=="Scenarios Case Odds Main 50% Alternative 35% Result: -1.0R."
 
 
+def test_measured_tables_reach_the_editor_as_native_rows(packet):
+    packet["operation_id"]="cc536-measured-odds-2"
+    packet["request"]["native_payload"]["body_markdown"]=(
+        "Our historical record.\n\n## Short side\n\n| Rule | Trades | Mean R |\n|---|---|---|\n| Gold | 41 | -0.197 |")
+    client=Client(packet)
+    assert neo.NeoBrowserDriver(client).perform(packet)["result"]["status"]=="SUCCESS"
+    pasted=next(c[1]["html"] for c in client.calls if c[0]=="plan_substack_paste")
+    assert '<table>' not in pasted
+    assert '<p><strong>Gold</strong> &emsp; 41 &emsp; -0.197</p>' in pasted
+
+
+@pytest.mark.parametrize("spacing_only",[True,False])
+def test_retained_measured_draft_repairs_only_proven_cell_spacing(packet,spacing_only):
+    packet["operation_id"]="cc536-measured-odds-2"
+    packet["request"]["native_payload"]["body_markdown"]="## Record\n\n| Rule | R |\n|---|---|\n| Gold | -0.197 |"
+    client=Client(packet)
+    client.resume_draft_url="https://capitalchronicle.substack.com/publish/post/123"
+    original=client.run
+    checks=[]
+    def run(page,phase,**kw):
+        if phase=="plan_substack_check":
+            checks.append(1)
+            return {"verified":len(checks)>1,"spacing_only_mismatch":spacing_only}
+        return original(page,phase,**kw)
+    client.run=run
+    result=neo.NeoBrowserDriver(client).perform(packet)
+    assert result["result"]["status"]==("SUCCESS" if spacing_only else "FAILED_BEFORE_WRITE")
+    assert client.clicked is spacing_only
+    assert not any(c[0]=="act" and c[2].get("ref")=="Create" for c in client.calls)
+
+
 def test_plan_client_reuses_its_named_group_and_leaves_other_tasks_alone():
     client=neo.NeoMcpClient(task_name="cc466 plan pages",group_title="codex/cc466-plan-pages")
     calls=[]

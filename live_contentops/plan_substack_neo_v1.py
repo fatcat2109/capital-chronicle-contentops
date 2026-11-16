@@ -26,15 +26,23 @@ def _inline_html(text):
     return ''.join(parts)
 
 
-def body_html(text):
+def body_html(text, *, table_rows=False):
     blocks=[]
     for block in text.split("\n\n"):
         if block.startswith("## "):
             blocks.append("<h2>"+_inline_html(block[3:])+"</h2>")
         elif block.startswith("|"):
             rows=[line for line in block.splitlines() if not re.fullmatch(r"[| :\-]+",line)]
-            blocks.append("<table>"+"".join("<tr>"+"".join("<td>"+_inline_html(cell.strip())+"</td>"
-                for cell in line.strip("|").split("|"))+"</tr>" for line in rows)+"</table>")
+            if table_rows:
+                # Substack's editor drops table-cell boundaries. Native
+                # paragraphs retain every authored cell, in the same order.
+                for index,line in enumerate(rows):
+                    cells=[_inline_html(cell.strip()) for cell in line.strip("|").split("|")]
+                    cells[0]='<strong>'+cells[0]+'</strong>'
+                    blocks.append('<p>'+' &emsp; '.join(cells)+'</p>')
+            else:
+                blocks.append("<table>"+"".join("<tr>"+"".join("<td>"+_inline_html(cell.strip())+"</td>"
+                    for cell in line.strip("|").split("|"))+"</tr>" for line in rows)+"</table>")
         else:
             blocks.extend("<p>"+_inline_html(line)+"</p>" for line in block.splitlines())
     return "".join(blocks)
@@ -115,6 +123,11 @@ def _perform(client, packet, state):
         return _create_and_send(client,packet,state,page,identity)
     media=(request.get("content_binding") or {}).get("media_manifest") or []
     check=client.run(page,"plan_substack_check",expected_text=body_text(payload["body_markdown"]),media=media)
+    if (check.get("verified") is not True and packet["operation_id"].startswith("cc536-measured-odds-")
+            and check.get("spacing_only_mismatch") is True and re.search(r"(?m)^\|",payload["body_markdown"])):
+        original_src=client.run(page,"plan_substack_uploaded").get("src") if media else None
+        _paste_body(client,page,payload,media,original_src,table_rows=True)
+        check=client.run(page,"plan_substack_check",expected_text=body_text(payload["body_markdown"]),media=media)
     if check.get("verified") is not True:
         raise ValueError("PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH")
     return _send_saved_draft(client,packet,state,page,identity)
@@ -143,7 +156,16 @@ def _create_and_send(client,packet,state,page,identity):
                               "files":[media[0]["path"]]})
         client.wait(page,".ProseMirror img")
         original_src=client.run(page,"plan_substack_uploaded")["src"]
-    html=body_html(payload["body_markdown"])
+    _paste_body(client,page,payload,media,original_src,
+                table_rows=packet["operation_id"].startswith("cc536-measured-odds-"))
+    check=client.run(page,"plan_substack_check",expected_text=body_text(payload["body_markdown"]),media=media)
+    if check.get("verified") is not True:
+        raise ValueError("PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH")
+    return _send_saved_draft(client,packet,state,page,identity)
+
+
+def _paste_body(client,page,payload,media,original_src,*,table_rows=False):
+    html=body_html(payload["body_markdown"],table_rows=table_rows)
     if media:
         asset=media[0]
         figure='<figure><img src="'+escape(original_src,quote=True)+'" alt="'+escape(asset.get("alt_text",""),quote=True)+'"><figcaption>'+escape(asset.get("caption",""))+'</figcaption></figure>'
@@ -154,10 +176,6 @@ def _create_and_send(client,packet,state,page,identity):
     client.wait(page,".ProseMirror:not(:has(h2)):not(:has(img))")
     client.run(page,"plan_substack_paste",html=html)
     client.wait(page,".ProseMirror h2")
-    check=client.run(page,"plan_substack_check",expected_text=body_text(payload["body_markdown"]),media=media)
-    if check.get("verified") is not True:
-        raise ValueError("PLAN_SUBSTACK_EXACT_DRAFT_MISMATCH")
-    return _send_saved_draft(client,packet,state,page,identity)
 
 
 def _send_saved_draft(client,packet,state,page,identity):
