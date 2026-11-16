@@ -621,7 +621,7 @@ class NeoBrowserDriver:
         texts = posts or expected_posts(request)
         from live_contentops.neo_destination_handoff_v1 import _text
         matches = [p for p in candidates if (not url or p["public_object_url"] == url)
-            and texts and (self._matches(request,texts[0],p) or (
+            and texts and ((bool(url) and p['public_object_url']==url) or self._matches(request,texts[0],p) or (
                 not url and _text(texts[0])[:100] in _text(p["observed_text"]))) ]
         if len(matches) != 1:
             return {"status":"READBACK_UNAVAILABLE", "verified":False,
@@ -787,6 +787,7 @@ class NeoBrowserDriver:
             scoped=self.client.run(page,'note_exact_options',public_url=request['public_object_url'])
             if not scoped.get('marked'):raise NeoEndpointError('NEO_EXACT_NOTE_OPTIONS_MISSING')
             self.client.act(page,'click',ref=self._ref(page,'button',{'CC603 exact note options'}))
+            self.client.wait(page,'[role="menu"] [role="menuitem"]')
             self.client.act(page,'click',ref=self._ref(page,'menuitem',{'Edit'}))
             self.client.wait(page,'[contenteditable="true"][role="textbox"]')
             posts=expected_posts(request)

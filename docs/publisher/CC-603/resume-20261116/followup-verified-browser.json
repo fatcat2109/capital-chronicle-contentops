@@ -1,0 +1,78 @@
+{
+  "record_before": {
+    "line": "Pinned call record: 0 hits, 5 stopped, 37 expiries; 42 results, 6 scored.",
+    "counts": {
+      "EXPIRED": 37,
+      "HIT": 0,
+      "NOT_TRIGGERED": 0,
+      "STOPPED": 5,
+      "scored": 6,
+      "total": 42
+    },
+    "url": "https://t.me/CapitalChronicle/134",
+    "text_sha256": "ebcba4e776eeb2b23723c62eaca8d0bf6f8fcc232dd813baa333194d268a6b14",
+    "observed_at_utc": "2026-11-16T00:45:56.159039+00:00"
+  },
+  "restore": {
+    "edit": {
+      "status": "UNKNOWN_EDIT",
+      "retry_permitted": false
+    },
+    "readback": {
+      "native_tool_observation": {
+        "native_invocation_id": "neo-endpoint:4f1d4bd904764ec89ed9a6137e281f55",
+        "observation_source": "BROWSEROS_NEO_LOCAL_MCP_ENDPOINT",
+        "observed_at_utc": "2026-11-16T00:47:21.803645+00:00",
+        "surface": "NEO_ENDPOINT_EXECUTOR",
+        "tool_name": "browseros-neo/run"
+      },
+      "native_tool_return_sha256": "3a1a777be9452e3c8fb1a24d1bfbcfa83e7107a1e999c3b5b17748e6b6426b7a",
+      "neo_executor_revision": "f618e343c423f0d4407d3d26f5fc9e46dc788eced635ecf8499bd35858868b16",
+      "observed_identity": "@capitalchronicle",
+      "reason_code": "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND",
+      "request_sha256": "b86f882f685d4ed943ddcca4b0720a080d62c791f4d6402ca4cd52d23edecef0",
+      "status": "BLOCKED",
+      "verified": false,
+      "write_exists": false,
+      "write_absent": false,
+      "meaningful_media_visible": false,
+      "canonical_publication_verified": false,
+      "content_binding_checks": {
+        "text_match": false,
+        "media_match": false,
+        "thread_match": true
+      }
+    },
+    "new_post_calls": 0
+  },
+  "notes": {
+    "dispatch_id": "dispatch_61d5f6d1611ae436151598831e74cf61",
+    "destination": "substack_notes",
+    "reconciliation_status": "RECONCILIATION_PENDING",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "x": {
+    "dispatch_id": "dispatch_ec9b964e49665348ce13ca0b4a2b74bd",
+    "destination": "x",
+    "reconciliation_status": "RECONCILED_CONFIRMED",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "record_after": {
+    "line": "Pinned call record: 0 hits, 5 stopped, 37 expiries; 42 results, 6 scored.",
+    "counts": {
+      "EXPIRED": 37,
+      "HIT": 0,
+      "NOT_TRIGGERED": 0,
+      "STOPPED": 5,
+      "scored": 6,
+      "total": 42
+    },
+    "url": "https://t.me/CapitalChronicle/134",
+    "text_sha256": "ebcba4e776eeb2b23723c62eaca8d0bf6f8fcc232dd813baa333194d268a6b14",
+    "observed_at_utc": "2026-11-16T00:48:21.995803+00:00"
+  },
+  "observed_at_utc": "2026-11-16T00:48:23.046568+00:00",
+  "complete": false
+}
