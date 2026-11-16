@@ -24,7 +24,8 @@
     "publisher_identity": "Capital Chronicle",
     "rights_class": "CC_OWN_ANALYSIS",
     "paid": false,
-    "measured_odds_series": "CC536_MEASURED_ODDS_SERIES_V1"
+    "measured_odds_series": "CC536_MEASURED_ODDS_SERIES_V1",
+    "text_approved_at_utc": "2026-11-16T07:05:41.371073+00:00"
   },
   "number_bindings": [
     {
@@ -210,7 +211,43 @@
       "pointer": "/audit/what_this_is"
     }
   ],
-  "media_assets": [],
+  "media_assets": [
+    {
+      "asset_id": "cc536-piece2-btc-native-20-50",
+      "path": "media/BTCUSD_2026-11-16_13-47-12.png",
+      "sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+      "width": 978,
+      "height": 873,
+      "mime_type": "image/png",
+      "modality": "tradingview_chart_snapshot",
+      "role": "context_chart",
+      "article_inclusion": true,
+      "canonical_article_media": true,
+      "placement_after": "What the trend rule actually did",
+      "attribution": "Chart created with TradingView",
+      "caption": "Bitcoin daily chart with native simple averages over 20 and 50 sessions. Bitstamp via TradingView. Captured November 16, 2026 ET as a separate method illustration; not the historical test or a current entry signal.",
+      "alt_text": "Bitcoin daily candles with the native 20-session and 50-session simple average lines. A method illustration, not a chart of the historical test results.",
+      "rights_basis": "TradingView snapshot with full original attribution on a free public page; Jim decision 82.",
+      "source_url": "https://www.tradingview.com/widgetembed/?symbol=BITSTAMP%3ABTCUSD&interval=D",
+      "source_links": [
+        "https://www.tradingview.com/"
+      ],
+      "native_study": {
+        "name": "MA ribbon",
+        "type": "SMA",
+        "enabled_lengths": [
+          20,
+          50
+        ],
+        "disabled_lengths": [
+          100,
+          200
+        ]
+      },
+      "captured_at_utc": "2026-11-16T06:47:12Z",
+      "inspected_pixels": true
+    }
+  ],
   "editorial_call": {
     "model": "gpt-6.1-sol",
     "effort": "max",
@@ -233,6 +270,15 @@
       "prompt_sha256": "d4312c364cb1c466fdd19bd6ce29ccbc11cf09803ff1788ef0085a537be5e805",
       "artifact": "assist/agy_light_assist_v1.json",
       "choice": "Retained Publisher-authored complete social summary; bounded assist returned AGY_VERSION_TIMEOUT_5S, no second invocation."
+    },
+    "final_assembly_and_review": {
+      "model": "gpt-6.1-sol",
+      "effort": "max",
+      "status": "CONFIGURED_NOT_OBSERVED",
+      "launch_pid": 11044,
+      "invocation_id": "01a1e315-b060-7c11-8ac3-f69983d593b3",
+      "operation": "publisher-cc-536-piece2-resume-20261116",
+      "role": "final assembly, source and rendered-media review completed"
     }
   }
 }

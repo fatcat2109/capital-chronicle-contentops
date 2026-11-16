@@ -1,0 +1,186 @@
+{
+  "renderer": "Public Substack transport body_html for canonical; retained ReportEditorialWorkspace for eight native payloads",
+  "captures": [
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "view": "canonical",
+      "path": "desktop-canonical.jpg",
+      "sha256": "93c275091f7e590aef6c600bcc20c44028c5e8aca290d33647dfe6f28c556dff",
+      "bytes": 525409
+    },
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "view": "telegram",
+      "path": "desktop-telegram.jpg",
+      "sha256": "4ba1de4c7a3218def5537166803f128d65c4cf63eeb3753fb157eba2fd7a52d5",
+      "bytes": 263758
+    },
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "view": "discord",
+      "path": "desktop-discord.jpg",
+      "sha256": "1a6dda19bf41e707ff31a37d740ef17e5c147c20ee60c5141ba855c2190f8903",
+      "bytes": 263442
+    },
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "view": "x",
+      "path": "desktop-x.jpg",
+      "sha256": "8ac1965175813b36d1c92f4a870b1b1e7bb51119585da95dd31a7749d54f9d0e",
+      "bytes": 284554
+    },
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "view": "linkedin",
+      "path": "desktop-linkedin.jpg",
+      "sha256": "cd06dfaa25e07d22f0c4a964e2826975b0bcf3765f43ebec0c6bf4ffa3003aa1",
+      "bytes": 263620
+    },
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "view": "facebook_page",
+      "path": "desktop-facebook_page.jpg",
+      "sha256": "f8f20c528802cbe923e0eec2c050668bdd5bfd8bb90fe11171df8d8b39209012",
+      "bytes": 265400
+    },
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "view": "instagram_business",
+      "path": "desktop-instagram_business.jpg",
+      "sha256": "c562399875b9795e84e457ac82b5cc15c94f68e20543f67feead2a876cf453ea",
+      "bytes": 266263
+    },
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "view": "threads",
+      "path": "desktop-threads.jpg",
+      "sha256": "a65641582051c41955eb6db2e0a5bfe072e196abefe74b7f767d989b65393c1e",
+      "bytes": 286125
+    },
+    {
+      "viewport": [
+        1440,
+        1000
+      ],
+      "view": "youtube",
+      "path": "desktop-youtube.jpg",
+      "sha256": "d19706acdbe2c48e079cba630173cf9dba54152e5a2d4b2da2023ba5e5b1bc03",
+      "bytes": 266714
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "view": "canonical",
+      "path": "mobile-canonical.jpg",
+      "sha256": "550a8ae103f5b322a1bfef35ab73cd7c0da3bc4dd338346c759ed96ff754a9e9",
+      "bytes": 393500
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "view": "telegram",
+      "path": "mobile-telegram.jpg",
+      "sha256": "dc2502b011e290952ad28abb351d903ab56280eb2dab92a7e3f19a96eaa480c6",
+      "bytes": 153452
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "view": "discord",
+      "path": "mobile-discord.jpg",
+      "sha256": "6a08ca04974ade0421a89859753b39f849ab28823fe9d4152667fb50cfd7bd05",
+      "bytes": 153046
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "view": "x",
+      "path": "mobile-x.jpg",
+      "sha256": "bccbdec360db038b6491392d9bd2a8afc699cf65f52cece573d5c804f2d1d44b",
+      "bytes": 168055
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "view": "linkedin",
+      "path": "mobile-linkedin.jpg",
+      "sha256": "2dcad2a86ed6e58006fdb6a544fdabdccb77baa034c916aa494e4ed1ba9bba13",
+      "bytes": 153145
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "view": "facebook_page",
+      "path": "mobile-facebook_page.jpg",
+      "sha256": "63ba6fc4b2a71911892b61249a712221a4609b09ca601d820d4663d8311e5b7c",
+      "bytes": 154407
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "view": "instagram_business",
+      "path": "mobile-instagram_business.jpg",
+      "sha256": "b6f295e7055345a9ed90570896c90d71ed9110ec9c0f79b304fcf79752e2896b",
+      "bytes": 155087
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "view": "threads",
+      "path": "mobile-threads.jpg",
+      "sha256": "7ec295cac37fdc339cb6cf53fe44da57d62dd344a8225c8673127d70eeae1618",
+      "bytes": 169157
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "view": "youtube",
+      "path": "mobile-youtube.jpg",
+      "sha256": "932080032447e298dfc1c5a8ef0cd8cbc9b90cd857e3f4f055950ba03b881499",
+      "bytes": 155521
+    }
+  ],
+  "browser_group": "1C9688168B53001E87017517DB61CF39"
+}

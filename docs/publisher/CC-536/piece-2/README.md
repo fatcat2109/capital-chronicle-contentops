@@ -1,3 +1,5 @@
+The 16 November resume captured an unused native TradingView chart, verified all 58 numbers and seven Main blobs, and completed desktop/mobile review of the canonical and eight social payloads. The existing transport now preserves the method link and fingerprint. Publication continues through the same coordinator identity. [Final review](visual-review-resume-20261116.json) records the exact bytes and configured model.
+
 # CC-536 piece 2: following the trend
 
 The 15 November 22:09 GMT+7 resume confirmed the same Neo endpoint outage.
