@@ -62,7 +62,10 @@ class NeoMcpClient:
                     # SSE may remain open after the reply, and keepalive frames
                     # prevent a socket read timeout. Stop at our exact JSON-RPC
                     # reply; never wait for the connection itself to close.
-                    for line in response.iter_lines(chunk_size=1,decode_unicode=True):
+                    # Images can make one SSE line hundreds of kilobytes long.
+                    # Buffering it a byte at a time repeatedly copies the whole
+                    # partial line and stalls the browser review for minutes.
+                    for line in response.iter_lines(chunk_size=8192,decode_unicode=True):
                         if time.monotonic()>deadline:
                             raise NeoEndpointError("NEO_RPC_DEADLINE_EXCEEDED")
                         if line.startswith("data:") and line[5:].strip():
