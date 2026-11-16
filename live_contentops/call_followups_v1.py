@@ -605,6 +605,36 @@ def run_record(result):
         for row in result.get("posts",[])]}
 
 
+def delivery_plan(store, row, asset, *, root, host, destinations):
+    """Repair a local image refusal with a new package, retaining every old byte."""
+    from .publication_coordinator_v1 import DurablePublicationCoordinator as Coordinator
+    key = row['key']
+    original_hash = sha256(('plan-status-post:'+key).encode()).hexdigest()
+    original_ids = {Coordinator._ids(key,original_hash,d)['dispatch_id'] for d in destinations}
+    dispatches = store.get_dispatches_for_work_item(key)
+    originals = [d for d in dispatches if d['dispatch_id'] in original_ids]
+    causes = {r['reconciliation_id']:r['status'] for r in store.get_reconciliations_for_work_item(key)}
+    safe = originals and all(d['status']=='DEFINITE_NO_WRITE' and not d.get('public_object_id')
+        and not d.get('public_object_url') and causes.get('reconciliation_'+d['dispatch_id'].removeprefix('dispatch_'))
+            == 'TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED' for d in originals)
+    repair = None
+    if safe:
+        from .publication_image_contract_v1 import validate_scale
+        validate_scale(row['symbol'],asset['tradingview_snapshot'])
+        repair_hash = _hash(['cc603-reviewed-media-repair',key,asset])
+        repair_ids = {Coordinator._ids(key,repair_hash,d)['dispatch_id'] for d in destinations}
+        if any(d['dispatch_id'] not in original_ids|repair_ids and d['status']!='DEFINITE_NO_WRITE'
+               for d in dispatches):
+            raise ValueError('CC603_EXISTING_PUBLIC_MEDIA_REQUIRES_EXACT_RECOVERY')
+        root = Path(root)/'reviewed-media'/repair_hash
+        repair = {'original_plan_hash':original_hash,'asset_sha256':asset['sha256'],
+                  'refused_dispatches':[d['dispatch_id'] for d in originals]}
+    plan = posts.prepare_post(store,key,root=Path(root),host=host,destinations=tuple(destinations),cc603_asset=asset)
+    if repair:
+        plan.update(plan_hash=repair_hash,cc603_media_repair=repair)
+    return plan
+
+
 def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=None, asset_for=None, bars_reader=read_bars):
     """One bounded slice in the existing minute task. No schedule, loop or second publisher."""
     now = now or datetime.now(timezone.utc)
@@ -642,8 +672,7 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
                     "visible_to_utc":(row.get("price_check") or {}).get("resolved_at_utc")}})
             continue
         destinations = sorted(row["cc603_destinations"],key=lambda d:(d in {"x","substack_notes"},d))
-        plan = posts.prepare_post(store,key,root=Path(root),host=host,destinations=tuple(destinations),
-                                  cc603_asset=asset)
+        plan = delivery_plan(store,row,asset,root=root,host=host,destinations=destinations)
         if coordinator_for:
             coordinator = coordinator_for(key,Path(plan["output_dir"]))
         else:

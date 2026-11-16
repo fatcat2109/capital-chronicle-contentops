@@ -146,6 +146,40 @@ def test_uncertain_note_readback_failure_still_trips_destination_day_circuit(rea
     assert not transport.publish_calls
 
 
+@pytest.mark.parametrize('status', ['DEFINITE_NO_WRITE','UNKNOWN_WRITE','DISPATCH_CONFIRMED'])
+def test_missing_scale_repair_keeps_old_packages_and_never_reposts_an_uncertain_object(ready,tmp_path,monkeypatch,status):
+    store,transport,coordinator,record=ready
+    hit=candidate();key=f.queue_followup(store,hit,f.check_path(hit,bars()),record,now=NOW)['key']
+    row=posts._row_payload(store,key);picture=asset(tmp_path)
+    plan=posts.prepare_post(store,key,root=tmp_path/'posts',host=fake_host,
+                            destinations=tuple(row['cc603_destinations']),cc603_asset=picture)
+    coordinator.register_plan(key,plan)
+    before={r['message_id']:r['payload'] for r in store.list_outbox_messages(work_item_id=key)
+            if r['destination'] in row['cc603_destinations']}
+    for destination in row['cc603_destinations']:
+        ids=coordinator._ids(key,plan['plan_hash'],destination)
+        store.register_platform_dispatch(dispatch_id=ids['dispatch_id'],message_id=ids['message_id'],platform=destination,
+            status=status,public_object_id='existing' if status=='DISPATCH_CONFIRMED' else None,
+            public_object_url='https://t.me/CapitalChronicle/166' if status=='DISPATCH_CONFIRMED' else None)
+        store.register_reconciliation(reconciliation_id=ids['reconciliation_id'],work_item_id=key,
+                                      status='TRADINGVIEW_PRICE_SCALE_CHECK_REQUIRED')
+    repaired=f.delivery_plan(store,row,picture,root=tmp_path/'posts',host=fake_host,destinations=row['cc603_destinations'])
+    if status!='DEFINITE_NO_WRITE':
+        assert repaired['plan_hash']==plan['plan_hash']
+        assert not transport.publish_calls
+        return
+    assert repaired['plan_hash']!=plan['plan_hash'] and repaired['output_dir']!=plan['output_dir']
+    monkeypatch.setattr(f,'discover',lambda *a,**k:[])
+    result=f.run_due(store,{'status':{'plans':[]}},now=NOW,root=tmp_path/'posts',host=fake_host,
+                     coordinator_for=lambda *a:coordinator,asset_for=lambda row:picture)
+    assert all(v['status']=='DISPATCH_CONFIRMED' for v in result['posts'][-1]['publication']['per_destination'].values())
+    assert sorted(transport.publish_calls)==sorted(row['cc603_destinations'])
+    assert all(store.get_outbox_message(k)['payload']==v for k,v in before.items())
+    f.run_due(store,{'status':{'plans':[]}},now=NOW,root=tmp_path/'posts',host=fake_host,
+               coordinator_for=lambda *a:coordinator,asset_for=lambda row:picture)
+    assert sorted(transport.publish_calls)==sorted(row['cc603_destinations'])
+
+
 @pytest.mark.parametrize("change,cause",[
     ({"zone_low":130,"zone_high":135},"CONDITION_NOT_PROVEN"),
     ({"invalidation":{"field":"high","level":114,"side":"above"}},"INVALIDATION_FIRST"),

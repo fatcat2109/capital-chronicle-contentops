@@ -149,9 +149,17 @@ def compare_scale(market, snapshot, quote):
         raise ImageContractError("TRADINGVIEW_MARKET_SYMBOL_MISMATCH")
     if quote.get("market") != market or quote.get("instrument") != market:
         raise ImageContractError("TRADINGVIEW_PLAN_QUOTE_INSTRUMENT_MISMATCH")
-    price = chart_last_price(snapshot.get("page_title"))
+    historical = snapshot.get('visible_to_utc') is not None
+    if historical:
+        comparison_at = utc(snapshot['visible_to_utc'])
+        if not utc(snapshot['visible_from_utc']) < comparison_at <= utc(snapshot['captured_at_utc']):
+            raise ImageContractError('TRADINGVIEW_HISTORICAL_WINDOW_INVALID')
+        price = number(snapshot.get('visible_last_price'))
+        closed = False
+    else:
+        price = chart_last_price(snapshot.get("page_title"))
+        comparison_at, closed = comparison_clock(market, snapshot["captured_at_utc"])
     own = number(quote.get("price"))
-    comparison_at, closed = comparison_clock(market, snapshot["captured_at_utc"])
     skew = (comparison_at - utc(quote["quoted_at_utc"])).total_seconds()
     if not -2 <= skew <= QUOTE_SKEW_SECONDS or utc(quote["known_at_utc"]) > utc(snapshot["captured_at_utc"]):
         raise ImageContractError("TRADINGVIEW_PLAN_QUOTE_STALE", clock_skew_seconds=skew)
@@ -162,7 +170,10 @@ def compare_scale(market, snapshot, quote):
     result = {"policy": POLICY, "market": market, "tv_symbol": SYMBOLS[market],
         "chart_sha256": snapshot["sha256"], "chart_price": price, "quote": dict(quote),
         "captured_at_utc": snapshot["captured_at_utc"], "clock_skew_seconds": skew,
-        "comparison_basis": "LAST_CLOSE" if closed else "AT_CAPTURE", "comparison_at_utc": comparison_at.isoformat(),
+        "comparison_basis": "VISIBLE_WINDOW_CLOSE" if historical else "LAST_CLOSE" if closed else "AT_CAPTURE",
+        "comparison_at_utc": comparison_at.isoformat(),
+        **({'visible_from_utc':utc(snapshot['visible_from_utc']).isoformat(),
+            'visible_to_utc':comparison_at.isoformat()} if historical else {}),
         "difference": difference, "difference_pct": difference_pct,
         "maximum_difference_pct": MAX_DIFFERENCE_PCT[market],
         "level_offset": difference if market == "USOIL" and quote.get("price_basis") != "chart_futures" else 0.}
