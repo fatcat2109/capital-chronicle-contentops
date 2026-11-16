@@ -1,0 +1,45 @@
+[
+  {
+    "artifact": "local-evidence\\cc584-integration-20261117\\acceptance-final.xml",
+    "tests": 46,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 45.494
+  },
+  {
+    "artifact": "local-evidence\\cc584-integration-20261117\\alert-and-endpoint.xml",
+    "tests": 81,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 125.238
+  },
+  {
+    "artifact": "local-evidence\\cc584-integration-20261117\\visual-contracts.xml",
+    "tests": 69,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 14.804
+  },
+  {
+    "artifact": "local-evidence\\cc584-integration-20261117\\entry-state-and-phase.xml",
+    "tests": 45,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 34.825
+  },
+  {
+    "artifact": "local-evidence\\cc584-integration-20261117\\installed-consumers.xml",
+    "tests": 46,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 28.514
+  },
+  {
+    "artifact": "local-evidence\\cc584-integration-20261117\\installed-final.xml",
+    "operating_commit": "f7c1b2435210ad95c92c7b0514b2b3f7c1f75353",
+    "tests": 49,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 51.78
+  }
+]

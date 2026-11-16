@@ -1,0 +1,30 @@
+{
+  "operating_commit": "cb4d86f2e98cb9645880a998c25a93817868dd1d",
+  "exit_code": 0,
+  "result": {
+    "status": "OK",
+    "dry_run": true,
+    "contract_version": "2.0.0",
+    "format": 4,
+    "source_content_hash": "71c9d3bc6a01f015ac6da8c194c4ea47ee674e5a0509ebd770ebe56c55ee7391",
+    "export_generated_at_utc": "2026-11-16T23:29:02.535160Z",
+    "export_age_seconds": 24.6,
+    "validation": "PASS",
+    "transitions_read": 137,
+    "rendered_count": 80,
+    "would_queue": [],
+    "latest_state_counts": {
+      "VIEW_CHANGED": 13,
+      "EXPIRED": 37,
+      "INVALIDATED": 5,
+      "CANCELLED": 3,
+      "WAITING": 9,
+      "TRIGGERED": 2,
+      "CLOSED": 6
+    },
+    "not_posted_count": 30,
+    "already_queued_count": 117
+  },
+  "full_result_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\local-evidence\\cc584-integration-20261117\\installed-dry-run-full.json",
+  "full_result_sha256": "b209a86dc2642a6f8517b61f19c7ad5cc2a84636b9c75e26b1c526316d41d859"
+}

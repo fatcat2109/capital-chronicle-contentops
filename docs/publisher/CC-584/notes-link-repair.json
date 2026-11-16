@@ -1,0 +1,143 @@
+{
+ "destination": "substack_notes",
+ "status": "NATIVE_NEO_TOOL_PENDING",
+ "publish_called": false,
+ "native_tool_request": {
+  "schema_version": "contentops.native_neo_tool_request.v1",
+  "operation_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+  "required_tool": "mcp__browseros_neo__run",
+  "request": {
+   "schema_version": "contentops.neo_destination_handoff.v1",
+   "destination": "substack_notes",
+   "action": "PUBLISH",
+   "expected_identity": "@capitalchronicle",
+   "entry_url": "https://substack.com/@capitalchronicle",
+   "intent_sha256": "0790b1681199fe19fab24cff5599ae6d061b3185e1bf477564508dd63e0059ea",
+   "work_item_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+   "package_identity": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+   "payload_hash": "46e96219bf2f6430b6141a9c9c3587382ffad09f9a9e3a8d1149a57d9f679267",
+   "dispatch_attempt_identity": "dispatch_52b74856711d9922bcacceba907a1974",
+   "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+   "public_object_id": null,
+   "public_object_url": null,
+   "native_payload": {
+    "destination": "substack_notes",
+    "full_text": "EUR/USD: bearish at 1.1101–1.1108, wrong above 1.1139\nMacro: We need the rate explanation to remain intact.\nPriced in: We see rate expectations and recent weakness already reflected in price.\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\nFear: We retain caution because the documented squeeze risk remains material.\nStory: We regard this as a revised plan built around the newly broken floor.\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+    "link_card_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+    "media_asset_ids": [],
+    "text": "EUR/USD: bearish at 1.1101–1.1108, wrong above 1.1139\nMacro: We need the rate explanation to remain intact.\nPriced in: We see rate expectations and recent weakness already reflected in price.\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\nFear: We retain caution because the documented squeeze risk remains material.\nStory: We regard this as a revised plan built around the newly broken floor.\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+   },
+   "payload": "EUR/USD: bearish at 1.1101–1.1108, wrong above 1.1139\nMacro: We need the rate explanation to remain intact.\nPriced in: We see rate expectations and recent weakness already reflected in price.\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\nFear: We retain caution because the documented squeeze risk remains material.\nStory: We regard this as a revised plan built around the newly broken floor.\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+   "content_binding": {
+    "expected_text_segments": [
+     "EUR/USD: bearish at 1.1101–1.1108, wrong above 1.1139\nMacro: We need the rate explanation to remain intact.\nPriced in: We see rate expectations and recent weakness already reflected in price.\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\nFear: We retain caution because the documented squeeze risk remains material.\nStory: We regard this as a revised plan built around the newly broken floor.\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    ],
+    "expected_thread_texts": [],
+    "thread_post_count": 0,
+    "media_manifest": [],
+    "artifact_manifest": [
+     {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-466\\editorial\\eurusd\\page\\run_context_v1.json",
+      "sha256": "08d791d1ac8f14163b3b24fa5a6269da86afe7b274bff14c4b8e3c6db9cfc6d8"
+     }
+    ],
+    "expected_link_card_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong"
+   },
+   "surface": "SUBSTACK_NOTE",
+   "steps": [
+    "name_session; list tabs, open a task-owned tab",
+    "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+    "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+    "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+    "read back stable public object ID, exact public URL, identity and content; preserve ambiguity",
+    "Keep the canonical URL as a visible link card on this exact Note. Return observed_link_cards with url, card_visible=true and this Note's public_object_url from actual readback. Plain text containing the URL does not prove the card is present."
+   ],
+   "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+   "forbidden": [
+    "login",
+    "reauthorize",
+    "account_switch",
+    "cookies",
+    "storage",
+    "blind_retry",
+    "bulk_x_ingestion"
+   ],
+   "request_sha256": "672f72585feee681031ec0f5557f02db40a2c7ec9ff22c11d9671aba257c6219"
+  },
+  "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+  "public_write_authorized": true,
+  "tool_request_sha256": "ac29096220eb2c9bdca6ce445e1ae0c1ff2e1e98eb4baf9e23ab38e8e7f97587",
+  "request_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-466\\editorial\\eurusd\\page\\plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes\\native-neo\\672f72585feee681031ec0f5557f02db40a2c7ec9ff22c11d9671aba257c6219.request.json"
+ },
+ "reconciliation_status": null,
+ "public_write_performed": false,
+ "pending_requests": [
+  {
+   "action_boundary": "BEGIN_BEFORE_TOOL_ACTION; SUBMIT_OBSERVED_RETURN; RESUME_COORDINATOR",
+   "operation_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+   "public_write_authorized": true,
+   "request": {
+    "action": "PUBLISH",
+    "canonical_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+    "content_binding": {
+     "artifact_manifest": [
+      {
+       "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-466\\editorial\\eurusd\\page\\run_context_v1.json",
+       "sha256": "08d791d1ac8f14163b3b24fa5a6269da86afe7b274bff14c4b8e3c6db9cfc6d8"
+      }
+     ],
+     "expected_link_card_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+     "expected_text_segments": [
+      "EUR/USD: bearish at 1.1101–1.1108, wrong above 1.1139\nMacro: We need the rate explanation to remain intact.\nPriced in: We see rate expectations and recent weakness already reflected in price.\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\nFear: We retain caution because the documented squeeze risk remains material.\nStory: We regard this as a revised plan built around the newly broken floor.\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+     ],
+     "expected_thread_texts": [],
+     "media_manifest": [],
+     "thread_post_count": 0
+    },
+    "destination": "substack_notes",
+    "dispatch_attempt_identity": "dispatch_52b74856711d9922bcacceba907a1974",
+    "entry_url": "https://substack.com/@capitalchronicle",
+    "expected_identity": "@capitalchronicle",
+    "forbidden": [
+     "login",
+     "reauthorize",
+     "account_switch",
+     "cookies",
+     "storage",
+     "blind_retry",
+     "bulk_x_ingestion"
+    ],
+    "intent_sha256": "0790b1681199fe19fab24cff5599ae6d061b3185e1bf477564508dd63e0059ea",
+    "native_payload": {
+     "destination": "substack_notes",
+     "full_text": "EUR/USD: bearish at 1.1101–1.1108, wrong above 1.1139\nMacro: We need the rate explanation to remain intact.\nPriced in: We see rate expectations and recent weakness already reflected in price.\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\nFear: We retain caution because the documented squeeze risk remains material.\nStory: We regard this as a revised plan built around the newly broken floor.\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+     "link_card_url": "https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong",
+     "media_asset_ids": [],
+     "text": "EUR/USD: bearish at 1.1101–1.1108, wrong above 1.1139\nMacro: We need the rate explanation to remain intact.\nPriced in: We see rate expectations and recent weakness already reflected in price.\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\nFear: We retain caution because the documented squeeze risk remains material.\nStory: We regard this as a revised plan built around the newly broken floor.\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers."
+    },
+    "package_identity": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes",
+    "payload": "EUR/USD: bearish at 1.1101–1.1108, wrong above 1.1139\nMacro: We need the rate explanation to remain intact.\nPriced in: We see rate expectations and recent weakness already reflected in price.\nPositioning: We treat crowded bearish positioning as a source of rebound risk.\nFear: We retain caution because the documented squeeze risk remains material.\nStory: We regard this as a revised plan built around the newly broken floor.\nScenarios: We retain these judgmental odds and leave other outcomes without assigned probabilities.\nFull analysis: https://capitalchronicle.substack.com/p/eurusd-bearish-at-1110111108-wrong\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.",
+    "payload_hash": "46e96219bf2f6430b6141a9c9c3587382ffad09f9a9e3a8d1149a57d9f679267",
+    "public_object_id": null,
+    "public_object_url": null,
+    "request_sha256": "672f72585feee681031ec0f5557f02db40a2c7ec9ff22c11d9671aba257c6219",
+    "schema_version": "contentops.neo_destination_handoff.v1",
+    "steps": [
+     "name_session; list tabs, open a task-owned tab",
+     "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
+     "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
+     "PUBLISH or EDIT_EXISTING only under this sole-coordinator authorization; READBACK never submits or retries",
+     "read back stable public object ID, exact public URL, identity and content; preserve ambiguity",
+     "Keep the canonical URL as a visible link card on this exact Note. Return observed_link_cards with url, card_visible=true and this Note's public_object_url from actual readback. Plain text containing the URL does not prove the card is present."
+    ],
+    "substack_media_readback": "Return public_image_urls observed on the exact canonical page; the existing media owner verifies original bytes before derivative delivery.",
+    "surface": "SUBSTACK_NOTE",
+    "work_item_id": "plan-analysis-link-plan_1ff14f488bdc84b20a3f51d2-substack_notes"
+   },
+   "required_tool": "mcp__browseros_neo__run",
+   "schema_version": "contentops.native_neo_tool_request.v1",
+   "tool_request_sha256": "ac29096220eb2c9bdca6ce445e1ae0c1ff2e1e98eb4baf9e23ab38e8e7f97587",
+   "action_claimed": false
+  }
+ ]
+}
