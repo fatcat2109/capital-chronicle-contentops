@@ -588,7 +588,7 @@ class NeoDestinationHandoff:
                 previous = fresh_readback(value)
                 if previous:
                     return previous
-        if action == "PUBLISH":
+        if action in {"PUBLISH", "EDIT_EXISTING"}:
             fresh_publish = getattr(self.native_executor, "fresh_publish_request", None)
             if callable(fresh_publish):
                 value = fresh_publish(value) or value

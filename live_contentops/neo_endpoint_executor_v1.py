@@ -784,7 +784,9 @@ class NeoBrowserDriver:
             if exact is None:raise NeoEndpointError('NEO_EXACT_NOTE_TO_RESTORE_NOT_FOUND')
             identity={'authenticated':True,'observed_identity':request['expected_identity'],
                       'observed_at_utc':datetime.now(timezone.utc).isoformat()}
-            self.client.act(page,'click',ref=self._ref(page,'button',{'More options'}))
+            scoped=self.client.run(page,'note_exact_options',public_url=request['public_object_url'])
+            if not scoped.get('marked'):raise NeoEndpointError('NEO_EXACT_NOTE_OPTIONS_MISSING')
+            self.client.act(page,'click',ref=self._ref(page,'button',{'CC603 exact note options'}))
             self.client.act(page,'click',ref=self._ref(page,'menuitem',{'Edit'}))
             self.client.wait(page,'[contenteditable="true"][role="textbox"]')
             posts=expected_posts(request)
@@ -957,7 +959,8 @@ class EndpointNeoExecutor(NativeNeoExecutor):
                     or result.get("stage") != "BEFORE_PUBLISH_CLICK"
                     or (result.get("native_tool_observation") or {}).get("dispatched_at_utc")
                     or not result.get("native_tool_return_sha256")
-                    or result.get("neo_executor_revision") == self.executor_revision):
+                    or (result.get("neo_executor_revision") == self.executor_revision
+                        and request.get('action') != 'EDIT_EXISTING')):
                 break
             refreshed["supersedes_prewrite_no_write_sha256"] = sha256_of(previous)
         return refreshed if refreshed != request else None

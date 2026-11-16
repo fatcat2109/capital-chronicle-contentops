@@ -103,11 +103,13 @@ def test_same_note_restore_uses_edit_and_save_and_cannot_create_another_post():
         def __init__(self):self.actions=[];self.copy=text
         def open(self,destination,url):assert url==public;return 1
         def wait(self,*args):pass
-        def snapshot(self,page):return {'refs':[{'role':'button','name':'More options','ref':'more'},
+        def snapshot(self,page):return {'refs':[{'role':'button','name':'More options','ref':'background'},
+            {'role':'button','name':'CC603 exact note options','ref':'more'},
             {'role':'menuitem','name':'Edit','ref':'edit'},{'role':'textbox','name':"What's on your mind?",'ref':'editor'}]}
         def act(self,page,kind,**kwargs):self.actions.append((kind,kwargs))
         def call(self,name,args):assert name=='navigate' and args['url']==public
         def run(self,page,phase,**kw):
+            if phase=='note_exact_options':assert kw['public_url']==public;return {'marked':True}
             if phase=='readback':return {'notes':[{'public_object_id':'c-603','public_object_url':public,
                 'observed_text':self.copy,'links':[]}]}
             if phase=='note_inline_copy':assert kw['text']==text;return {'pasted':True}
@@ -139,3 +141,21 @@ def test_x_two_identically_shortened_labels_keep_separate_original_and_record_ta
     driver._resolve_links(request,[post])
     assert [l['expanded_url'] for l in post['links']]==[original,record]
     assert driver._matches(request,text,post)
+
+
+def test_definitely_unsaved_exact_edit_can_resume_without_a_revision_label_gate(tmp_path):
+    from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+    from live_contentops.neo_endpoint_executor_v1 import EndpointNeoExecutor
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    store=ContentOpsDurableStore(tmp_path/'state.sqlite3')
+    store.create_work_item(story_id='note',work_item_id='note',title='Exact note',target_surface='MULTI_PLATFORM')
+    executor=EndpointNeoExecutor(store,operation_id='note',output_dir=tmp_path/'native',native_invocation_id='test',allow_publish=True)
+    request={'action':'EDIT_EXISTING','destination':'substack_notes','work_item_id':'note','public_object_id':'c-603',
+             'public_object_url':'https://substack.com/@capitalchronicle/note/c-603','approved_presentation_restore':{'frozen':'copy'}}
+    result={'status':'FAILED_BEFORE_WRITE','definite_no_write':True,'public_write_performed':False,
+            'stage':'BEFORE_PUBLISH_CLICK','native_tool_return_sha256':'actual-return',
+            'neo_executor_revision':executor.executor_revision}
+    executor._put(sha256_of(request),'response',{'result':result},'note')
+    renewed=executor.fresh_publish_request(request)
+    assert renewed['supersedes_prewrite_no_write_sha256']
+    assert renewed['public_object_url']==request['public_object_url']

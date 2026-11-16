@@ -302,6 +302,18 @@ if (input.phase === 'dismiss_focused') {
   }));
 }
 
+if (input.phase === 'note_exact_options') {
+  return unwrap(await page.evaluateInPage(url=>{
+    const roots=Array.from(document.querySelectorAll('[class*="feedPermalinkUnit"],article,[role="article"]'));
+    const root=roots.find(e=>Array.from(e.querySelectorAll('a[href]')).some(a=>a.href===url));
+    const button=root && Array.from(root.querySelectorAll('button')).find(b=>
+      b.getAttribute('aria-label')==='More options' || b.title==='More options');
+    if(!button) return {marked:false};
+    button.setAttribute('aria-label','CC603 exact note options');
+    return {marked:true};
+  },input.public_url));
+}
+
 if (input.phase === 'note_inline_copy') {
   return unwrap(await page.evaluateInPage(text=>{
     const editor=Array.from(document.querySelectorAll('[contenteditable="true"][role="textbox"]'))
