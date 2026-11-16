@@ -1,0 +1,13 @@
+{
+  "observed_at_utc": "2026-11-16T07:16:54.392111+00:00",
+  "operation": "first automatic publication resume",
+  "identity": "cc536-measured-odds-2",
+  "plan_hash": "3e4a0ccf6a70c5343b45de1054974a7a062928565a600dca69e1f24cc9ef7a4d",
+  "outcome": "FAILED_BEFORE_DISPATCH_REGISTRATION",
+  "first_cause": "PRIVATE_OR_EXECUTION_COPY_FORBIDDEN",
+  "operation_chain": "publish_plan -> register_plan -> article_metadata -> check_publication_copy",
+  "measured_failure": "The general execution scan matched exact Main-bound long/short table labels and historical mean R in the commissioned series. No platform dispatch rows existed afterwards.",
+  "public_write_performed": false,
+  "repair": "Recognize only exact, validated Main number-binding spans for the privacy scan. Preserve public bytes and retain checks on unbound R, instructions, account identifiers, lots, rights and duplicates.",
+  "text_approval_clock_preserved": "2026-11-16T07:05:41.371073+00:00"
+}

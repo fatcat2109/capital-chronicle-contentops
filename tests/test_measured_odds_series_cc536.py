@@ -117,9 +117,11 @@ def test_private_reference_book_cannot_become_a_numeric_source(piece):
         odds.number_report(piece, SOURCE / "source")
 
 
-def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path, monkeypatch):
+@pytest.mark.parametrize("piece_number", [1, 2])
+def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path, monkeypatch, piece_number):
     store = ContentOpsDurableStore(tmp_path / "test.sqlite3")
-    packet = odds.register(store, SOURCE / "piece-1.json", tmp_path / "article")
+    file = SOURCE / "piece-1.json" if piece_number == 1 else SOURCE / "piece-2/piece-2.json"
+    packet = odds.register(store, file, tmp_path / "article")
     assert packet["plan"]["distribution_policy"] == "SUBSTACK_FIRST_V1"
     assert packet["plan"]["substack_first_dependency"] is True
     coordinator = DurablePublicationCoordinator(store=store,transport_runtime=SimpleNamespace(),
@@ -137,11 +139,25 @@ def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path
     assert quality.before_article_write(coordinator,intent,"substack")["status"]=="RESERVED"
     assert calls[0]["enforce_cap"] is True
     assert calls[0]["assets"][0]["sha256"]==packet["piece"]["media_assets"][0]["sha256"]
-    assert odds.register(store,SOURCE / "piece-1.json",tmp_path / "article")==packet
+    assert odds.register(store,file,tmp_path / "article")==packet
     assert len(store.list_outbox_messages(work_item_id=packet["identity"],destination="substack"))==1
     altered=deepcopy(packet["plan"]);altered["plan_hash"]="a"*64
     with pytest.raises(ValueError,match="ODDS_REGISTERED_PLAN_CHANGED"):
         coordinator.register_plan(packet["identity"],altered)
+
+
+@pytest.mark.parametrize("extra", ["Use 0.05 lots.", "Our positions earned 0.391R.",
+                                  "An unbound mean was 0.777R.", "Go long gold."])
+def test_historical_metrics_do_not_release_account_copy_or_unbound_results(tmp_path, extra):
+    from live_contentops.event_article_guard_v1 import check_publication_copy, PublicOutputError
+    store = ContentOpsDurableStore(tmp_path / "test.sqlite3")
+    packet = odds.register(store, SOURCE / "piece-2/piece-2.json", tmp_path / "article")
+    article = packet["piece"]["article"]
+    copy = {"body": article["substack_body_markdown"], "social": article["social_summary"]}
+    checked = odds.publication_check_copy(copy, packet["plan"])
+    assert check_publication_copy(checked)["status"] == "PASS"
+    with pytest.raises(PublicOutputError, match="PRIVATE_OR_EXECUTION_COPY_FORBIDDEN"):
+        check_publication_copy(odds.publication_check_copy({**copy, "extra": extra}, packet["plan"]))
 
 
 def test_registered_copy_and_source_manifest_are_immutable(tmp_path):

@@ -248,6 +248,41 @@ def compile_payloads(article, canonical_url, media_asset_ids):
     return payloads
 
 
+def publication_check_copy(copy, plan):
+    """Recognize only Main-bound historical metrics in the privacy scan.
+
+    CC-536 commissions hypothetical side records, not the desk's executions.
+    Public bytes stay unchanged. Other numbers, instructions and identifiers
+    still pass through the ordinary public-copy checks.
+    """
+    if not plan.get("measured_odds_piece"):
+        return copy
+    root = Path(plan["output_dir"])
+    piece = _read(root / "piece.json")
+    if (plan["measured_odds_piece"] != "cc536-measured-odds-" + str(piece["piece"])
+            or _read(root / "article_manifest_v1.json") != piece["article"]):
+        raise ValueError("ODDS_CHECK_ARTICLE_BINDING_CHANGED")
+    validate_piece(piece, root / "source")
+    spans = {}
+    for binding in piece["number_bindings"]:
+        span = binding["span"]
+        historical = re.sub(r"\b(long|short)\b", r"\1-side", span, flags=re.I)
+        historical = re.sub(r"(?<!\w)[+−-]?\d+(?:\.\d+)?\s*r\b",
+                            "Main-bound historical mean", historical, flags=re.I)
+        spans[span] = historical
+    def scan(value):
+        if isinstance(value, str):
+            for span, historical in sorted(spans.items(), key=lambda item: -len(item[0])):
+                value = value.replace(span, historical)
+            return value
+        if isinstance(value, dict):
+            return {key: scan(child) for key, child in value.items()}
+        if isinstance(value, list):
+            return [scan(child) for child in value]
+        return value
+    return scan(copy)
+
+
 def confirmed_method_page(store):
     """Shared read-only reference for new plan posts and CC-537's daily board."""
     identity = "cc536-measured-odds-1"

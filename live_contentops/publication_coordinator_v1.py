@@ -3099,7 +3099,11 @@ class DurablePublicationCoordinator:
             from live_contentops.published_content_v1 import article_metadata, read_records
             from live_contentops.event_article_guard_v1 import check_publication_copy
             metadata = article_metadata(intent)
-            check_publication_copy({"payload": intent.get("payload") or item.get("payload")},
+            public_copy = {"payload": intent.get("payload") or item.get("payload")}
+            if intent.get("measured_odds_piece"):
+                from .measured_odds_series_v1 import publication_check_copy
+                public_copy = publication_check_copy(public_copy, intent)
+            check_publication_copy(public_copy,
                 conditional_calls=metadata["conditional_calls"], require_notice=False, require_call_text=False)
             if self.published_content_path.exists():
                 read_records(self.published_content_path)
