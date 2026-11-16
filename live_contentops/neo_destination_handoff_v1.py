@@ -432,7 +432,7 @@ class NeoDestinationHandoff:
             if find_forbidden_link(*posted_values(intent)):
                 raise ValueError(REASON)
         if action == "EDIT_EXISTING" and (not (intent.get("reader_presentation_review")
-                or (destination == "substack" and intent.get("approved_presentation_restore")))
+                or (destination in {"substack", "substack_notes"} and intent.get("approved_presentation_restore")))
                 or not public_object_id or not _public_url(destination, public_object_url, public_object_id)
                 or auth.get("action") != "EDIT_EXISTING"):
             raise ValueError("NEO_EXACT_REVIEWED_EXISTING_OBJECT_REQUIRED")

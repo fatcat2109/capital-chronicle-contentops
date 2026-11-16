@@ -194,6 +194,23 @@ def test_approved_note_restore_keeps_the_exact_existing_followup_copy_and_media(
     assert restored['output_dir']==plan['output_dir']
     assert store.get_outbox_message(ids['message_id'])['payload']==original
     assert transport.publish_calls==['substack_notes']
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    dispatch=store.get_platform_dispatch(ids['dispatch_id'])
+    actions=[]
+    def observed(request):
+        actions.append(request['action'])
+        return {'request_sha256':request['request_sha256'],'status':'SUCCESS','observed_identity':'@capitalchronicle',
+                'public_object_id':dispatch['public_object_id'],'public_object_url':dispatch['public_object_url']}
+    coordinator.transport_runtime._neo_transport=NeoDestinationHandoff(native_executor=observed,store=store)
+    # Fake platform identities in this controlled transport use Telegram URLs;
+    # use a real-format Note identity for the actual edit request boundary.
+    with store.get_connection() as conn:
+        conn.execute('UPDATE platform_dispatches SET public_object_id=?,public_object_url=? WHERE dispatch_id=?',
+            ('c-603','https://substack.com/@capitalchronicle/note/c-603',ids['dispatch_id']))
+    dispatch=store.get_platform_dispatch(ids['dispatch_id'])
+    result=coordinator.restore_approved_presentation(ids['dispatch_id'])
+    assert result['new_post_calls']==0 and actions==['EDIT_EXISTING','READBACK']
+    assert store.get_outbox_message(ids['message_id'])['payload']==original
     store.set_dispatch_status(ids['dispatch_id'],'UNKNOWN_WRITE')
     with pytest.raises(ValueError,match='EXACT_CONFIRMED'):
         restore_intent(store,ids['dispatch_id'])
