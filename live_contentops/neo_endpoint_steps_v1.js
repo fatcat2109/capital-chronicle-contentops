@@ -302,6 +302,20 @@ if (input.phase === 'dismiss_focused') {
   }));
 }
 
+if (input.phase === 'note_inline_copy') {
+  return unwrap(await page.evaluateInPage(text=>{
+    const editor=Array.from(document.querySelectorAll('[contenteditable="true"][role="textbox"]'))
+      .find(e=>e.getClientRects().length);
+    if(!editor) throw Error('NOTE_EDITOR_REQUIRED');
+    const escape=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    const html=text.split('\n').map(line=>'<p>'+escape(line).replace(/https:\/\/[^\s<>]+/g,
+      url=>'<a href="'+url+'">'+url+'</a>')+'</p>').join('');
+    const data=new DataTransfer();data.setData('text/html',html);data.setData('text/plain',text);
+    editor.focus();editor.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));
+    return {pasted:true};
+  },input.text));
+}
+
 if (input.phase === 'composer' || input.phase === 'publish' || input.phase === 'validate') {
   let s = await snap();
   const posts = input.posts;
@@ -317,7 +331,7 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
     Array.from((document.querySelector('[role="dialog"]') || document).querySelectorAll('[contenteditable="true"][role="textbox"]'))
       .filter(e => e.getClientRects().length).map(e => e.innerText)));
   if (input.phase === 'composer') return editors;
-  const name = input.destination === 'x' && posts.length > 1 ? 'Post all'
+  const name = input.edit_existing ? 'Save' : input.destination === 'x' && posts.length > 1 ? 'Post all'
     : input.destination === 'x' && input.reply_parent ? 'Reply' : 'Post';
   const buttons = s.refs.filter(r => r.role === 'button' && r.name === name);
   let button = buttons[buttons.length - 1];

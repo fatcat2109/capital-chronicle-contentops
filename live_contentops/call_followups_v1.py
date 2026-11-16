@@ -706,6 +706,20 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
             continuation_outcomes.append({"key":child,"publication":child_outcome})
             preceding = child_outcome.get("per_destination",{})
         results.append({"key":key,"publication":outcome,"continuations":continuation_outcomes})
+        portrait_path=Path(root)/key/'reviewed_portrait.json'
+        if 'instagram_business' in destinations and portrait_path.is_file() and not any(
+                p['destination']=='instagram_business' for p in publications(store,key)):
+            portrait=json.loads(portrait_path.read_bytes())['asset']
+            from .tradingview_snapshot_v1 import validate_snapshot_asset
+            from .publication_image_contract_v1 import validate_scale
+            validate_snapshot_asset(portrait,{'market_asset':row['symbol']})
+            validate_scale(row['symbol'],portrait['tradingview_snapshot'])
+            portrait_hash=_hash(['cc603-native-portrait',key,portrait])
+            portrait_plan=posts.prepare_post(store,key,root=Path(root)/'portrait'/portrait_hash,host=host,
+                destinations=('instagram_business',),cc603_asset=portrait)
+            portrait_plan.update(plan_hash=portrait_hash,cc603_portrait=True)
+            posts.scope_to_post(coordinator,key,portrait_plan)
+            results[-1]['portrait_publication']=coordinator.publish_plan(key,portrait_plan)
         if post_complete(store,row):
             store.set_outbox_status(key,"PUBLISHED")
         break  # One actual publication slice per existing minute, not one blocked candidate.

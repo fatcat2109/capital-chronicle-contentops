@@ -1,0 +1,99 @@
+{
+  "asset": {
+    "asset_id": "tradingview-snapshot-92a6d6925c83d66c41a5",
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\media_assets\\portrait\\tradingview-626df1bb87f99a33-4x5.png",
+    "sha256": "92a6d6925c83d66c41a51e1dd7edff59712c2ad6f8a548116bd8c43fa517ad58",
+    "width": 1088,
+    "height": 1360,
+    "mime_type": "image/png",
+    "modality": "tradingview_chart_snapshot",
+    "card_kind": "TRADINGVIEW_SNAPSHOT",
+    "media_role": "delivery_only",
+    "role": "market_chart",
+    "delivery_only": true,
+    "article_inclusion": false,
+    "canonical_article_media": false,
+    "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
+    "rights_basis": "TradingView Terms of Use section 4 (checked 5 Nov 2026): chart snapshots may be used in publications with TradingView's attribution clearly visible; the attribution is kept uncropped and the post says 'Chart: TradingView' (Jim's decision 82). Free pages only (reason 2a).",
+    "attribution": "TradingView",
+    "credit": "Chart: TradingView",
+    "caption": "Bitcoin / US dollar (Coinbase), 15-minute bars through 12 Nov 2026, 19:45 ET. Chart: TradingView.",
+    "alt_text": "Native portrait Coinbase spot Bitcoin / US dollar, 15-minute candles from 10 Nov 13:00 ET through 12 Nov 19:45 ET, showing the decline after the original conditional view. Captured 15 Nov 2026, 19:12 ET.",
+    "source_page_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=15",
+    "tradingview_snapshot": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-5da8be4c6a0f24959930f9bd8870753f\\media_assets\\portrait\\BTCUSD_2026-11-16_00-24-47.png",
+      "sha256": "626df1bb87f99a335838fe614181a20d6f4d1d8bd2d01acac2d8f37c48a76128",
+      "suggested_filename": "BTCUSD_2026-11-16_00-24-47.png",
+      "interval": "15",
+      "interval_label": "15m",
+      "tv_symbol": "COINBASE:BTCUSD",
+      "legend": "Bitcoin / U.S. Dollar 15m Coinbase",
+      "width": 1088,
+      "height": 1360,
+      "captured_at_utc": "2026-11-16T00:24:47.477288+00:00",
+      "capture_viewport": {
+        "width": 1474,
+        "height": 1354
+      },
+      "capture_ratio": "4:5",
+      "visible_from_utc": "2026-11-10T18:00:00Z",
+      "visible_to_utc": "2026-11-13T00:45:00Z",
+      "last_bar_open_utc": "2026-11-13T00:30:00Z",
+      "chart_url": "https://www.tradingview.com/chart/?symbol=COINBASE:BTCUSD&interval=15",
+      "method": "guest Download image at native 4:5 chart viewport; same historical custom range; no image crop or added candle",
+      "visible_last_price": 70873.29,
+      "price_scale_check": {
+        "policy": "CC463_TRADINGVIEW_FIRST_V1",
+        "market": "BTCUSD",
+        "tv_symbol": "COINBASE:BTCUSD",
+        "chart_sha256": "626df1bb87f99a335838fe614181a20d6f4d1d8bd2d01acac2d8f37c48a76128",
+        "chart_price": 70873.29,
+        "quote": {
+          "market": "BTCUSD",
+          "instrument": "BTCUSD",
+          "price": 70881.3,
+          "quoted_at_utc": "2026-11-13T00:45:00Z",
+          "known_at_utc": "2026-11-14T03:37:03.417067+00:00",
+          "source_path": "A:\\Capital Chronicle\\Runtime\\OfficialRates\\cc-078-20261101\\state\\intake\\completed-bars\\bars.sqlite3",
+          "source_sha256": "23ec4e64cf49f4972e4824e3fe1a1209663ff03f1f85ba5ca8572988c0092c19",
+          "source_record_sha256": "632153ae59c25f6b0c7fe01d6ab354804c51990c3d04c4b6733492c2b318900d",
+          "price_basis": "plan_bar_close",
+          "source_kind": "HELD_M15_RESOLUTION_CLOSE"
+        },
+        "captured_at_utc": "2026-11-16T00:24:47.477288+00:00",
+        "clock_skew_seconds": 0.0,
+        "comparison_basis": "VISIBLE_WINDOW_CLOSE",
+        "comparison_at_utc": "2026-11-13T00:45:00+00:00",
+        "visible_from_utc": "2026-11-10T18:00:00+00:00",
+        "visible_to_utc": "2026-11-13T00:45:00+00:00",
+        "difference": -8.010000000009313,
+        "difference_pct": 0.011300582805351077,
+        "maximum_difference_pct": 0.4,
+        "level_offset": 0.0
+      },
+      "framing": {
+        "ratio": "4:5",
+        "mode": "NATIVE_VIEWPORT",
+        "width": 1088,
+        "height": 1360,
+        "original_box": [
+          0,
+          0,
+          1088,
+          1360
+        ]
+      },
+      "policy": "contentops.tradingview_snapshot.v1",
+      "levels_drawn": [],
+      "target_drawn": false
+    },
+    "publication_authority": false
+  },
+  "review": {
+    "observed_at_utc": "2026-11-16T00:29:27.329709+00:00",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "telemetry": "CONFIGURED_NOT_OBSERVED",
+    "finding": "PASS: native 1088x1360 TradingView chart, 4:5; same exact 15-minute historical window and final close as the wide master; full attribution; no crop, later bars or target line."
+  }
+}

@@ -94,3 +94,31 @@ def test_repaired_reader_refreshes_exact_object_without_changing_a_publish_claim
     assert revised['readback_transport_revision']==executor.executor_revision
     assert revised['action']=='READBACK' and revised['public_object_id']=='c-603'
     assert store.list_platform_dispatches()==[]
+
+
+def test_same_note_restore_uses_edit_and_save_and_cannot_create_another_post():
+    public='https://substack.com/@capitalchronicle/note/c-603'
+    text='Original: https://t.me/CapitalChronicle/166\nRecord: https://t.me/CapitalChronicle/134'
+    class Client:
+        def __init__(self):self.actions=[];self.copy=text
+        def open(self,destination,url):assert url==public;return 1
+        def wait(self,*args):pass
+        def snapshot(self,page):return {'refs':[{'role':'button','name':'More options','ref':'more'},
+            {'role':'menuitem','name':'Edit','ref':'edit'},{'role':'textbox','name':"What's on your mind?",'ref':'editor'}]}
+        def act(self,page,kind,**kwargs):self.actions.append((kind,kwargs))
+        def call(self,name,args):assert name=='navigate' and args['url']==public
+        def run(self,page,phase,**kw):
+            if phase=='readback':return {'notes':[{'public_object_id':'c-603','public_object_url':public,
+                'observed_text':self.copy,'links':[]}]}
+            if phase=='note_inline_copy':assert kw['text']==text;return {'pasted':True}
+            assert phase=='publish' and kw['edit_existing'] is True
+            return {'status':'CLICKED','pre_click_posts':[text]}
+    client=Client()
+    request={'action':'EDIT_EXISTING','destination':'substack_notes','public_object_url':public,
+        'public_object_id':'c-603','expected_identity':'@capitalchronicle','request_sha256':'bound',
+        'approved_presentation_restore':{'original_intent_sha256':'frozen'},'native_payload':{'text':text},
+        'content_binding':{'expected_text_segments':[text]}}
+    result=NeoBrowserDriver(client).perform({'request':request})
+    assert result['readback']['public_object_url']==public
+    assert [a[1].get('ref') for a in client.actions if a[0]=='click']==['more','edit']
+    assert result['pre_click_posts']==[text]

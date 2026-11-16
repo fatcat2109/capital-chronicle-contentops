@@ -1,0 +1,309 @@
+{
+  "started_at_utc": "2026-11-16T00:21:34.670282+00:00",
+  "finished_at_utc": "2026-11-16T00:27:21.125445+00:00",
+  "result": {
+    "status": "OK",
+    "corrections_complete": true,
+    "posts": [
+      {
+        "status": "NOT_ELIGIBLE",
+        "cause": "CC603_NO_COMPLETE_MATCH_IN_HELD_PRICES"
+      },
+      {
+        "status": "NOT_ELIGIBLE",
+        "cause": "CC603_HELD_PRICE_GAP"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-2659ec1cce1bb40e17daaa29b411cfd6"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-f49e1e0410897667ef56618fcf0f8d00"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-6cb9230ae34621ee299bdf3f4bdf64fd"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-35a552222e8a572fca26451a4c15858b"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-af988bdf8344f88829c6ecffa685fd7b"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-9b071613650e3f3bf1b6c59c1ba1cb72"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-bb2dc2d3cb28deb79b8e10171dd15d0d"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-f260f6f4cfc6259accfef172c3e4ab93"
+      },
+      {
+        "status": "EXISTING",
+        "key": "cc603-followup-813c70c1a6848bcf9f9556f648b6c781"
+      },
+      {
+        "key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+        "publication": {
+          "plan_hash": "bc7fdc84eb93f52a72eb3b1443c0502a49811c0b468452556060733fd9431416",
+          "registered": [
+            {
+              "destination": "facebook_page",
+              "message_id": "outbox_804fb24058bb52ede2e727b3c529adc3",
+              "dispatch_id": "dispatch_804fb24058bb52ede2e727b3c529adc3",
+              "reconciliation_id": "reconciliation_804fb24058bb52ede2e727b3c529adc3"
+            },
+            {
+              "destination": "instagram_business",
+              "message_id": "outbox_1b7e050724d173bab8875771d7e25bb5",
+              "dispatch_id": "dispatch_1b7e050724d173bab8875771d7e25bb5",
+              "reconciliation_id": "reconciliation_1b7e050724d173bab8875771d7e25bb5"
+            },
+            {
+              "destination": "substack_notes",
+              "message_id": "outbox_61d5f6d1611ae436151598831e74cf61",
+              "dispatch_id": "dispatch_61d5f6d1611ae436151598831e74cf61",
+              "reconciliation_id": "reconciliation_61d5f6d1611ae436151598831e74cf61"
+            },
+            {
+              "destination": "telegram",
+              "message_id": "outbox_7a36c6323cfa9933b450f512f26d9d25",
+              "dispatch_id": "dispatch_7a36c6323cfa9933b450f512f26d9d25",
+              "reconciliation_id": "reconciliation_7a36c6323cfa9933b450f512f26d9d25"
+            },
+            {
+              "destination": "threads",
+              "message_id": "outbox_cd309c728f31642a106ad535159b63db",
+              "dispatch_id": "dispatch_cd309c728f31642a106ad535159b63db",
+              "reconciliation_id": "reconciliation_cd309c728f31642a106ad535159b63db"
+            },
+            {
+              "destination": "x",
+              "message_id": "outbox_ec9b964e49665348ce13ca0b4a2b74bd",
+              "dispatch_id": "dispatch_ec9b964e49665348ce13ca0b4a2b74bd",
+              "reconciliation_id": "reconciliation_ec9b964e49665348ce13ca0b4a2b74bd"
+            }
+          ],
+          "outbox_count": 6,
+          "per_destination": {
+            "facebook_page": {
+              "destination": "facebook_page",
+              "status": "DISPATCH_CONFIRMED",
+              "publish_called": true,
+              "public_object_id": "106091951705748_1456620159989733",
+              "public_object_url": "https://www.facebook.com/1342369584748125/posts/1456620159989733",
+              "reconciliation_status": "RECONCILED_CONFIRMED",
+              "safe_error_classification": null,
+              "dispatch_id": "dispatch_804fb24058bb52ede2e727b3c529adc3",
+              "dispatch_recorded": true
+            },
+            "instagram_business": {
+              "destination": "instagram_business",
+              "status": "DEFINITE_NO_WRITE",
+              "publish_called": false,
+              "reason_code": "INSTAGRAM_NATIVE_4X5_CHART_REQUIRED",
+              "image_contract_details": {},
+              "dispatch_id": "dispatch_1b7e050724d173bab8875771d7e25bb5",
+              "dispatch_recorded": true,
+              "reconciliation_status": "INSTAGRAM_NATIVE_4X5_CHART_REQUIRED",
+              "public_object_id": null,
+              "public_object_url": null
+            },
+            "substack_notes": {
+              "destination": "substack_notes",
+              "status": "UNKNOWN_WRITE",
+              "publish_called": true,
+              "public_object_id": null,
+              "public_object_url": null,
+              "reconciliation_status": "RECONCILIATION_PENDING",
+              "safe_error_classification": "NEO_THREAD_READBACK_INCOMPLETE"
+            },
+            "telegram": {
+              "destination": "telegram",
+              "status": "DISPATCH_CONFIRMED",
+              "publish_called": true,
+              "public_object_id": "185",
+              "public_object_url": "https://t.me/CapitalChronicle/185",
+              "reconciliation_status": "RECONCILED_CONFIRMED",
+              "safe_error_classification": null,
+              "dispatch_id": "dispatch_7a36c6323cfa9933b450f512f26d9d25",
+              "dispatch_recorded": true
+            },
+            "threads": {
+              "destination": "threads",
+              "status": "DISPATCH_CONFIRMED",
+              "publish_called": true,
+              "public_object_id": "17985378177003257",
+              "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfyDx_aEvhJ",
+              "reconciliation_status": "RECONCILED_CONFIRMED",
+              "safe_error_classification": null,
+              "dispatch_id": "dispatch_cd309c728f31642a106ad535159b63db",
+              "dispatch_recorded": true
+            },
+            "x": {
+              "destination": "x",
+              "status": "UNKNOWN_WRITE",
+              "publish_called": true,
+              "public_object_id": null,
+              "public_object_url": null,
+              "reconciliation_status": "RECONCILIATION_PENDING",
+              "safe_error_classification": "NEO_THREAD_READBACK_INCOMPLETE",
+              "dispatch_id": "dispatch_ec9b964e49665348ce13ca0b4a2b74bd",
+              "dispatch_recorded": true
+            }
+          },
+          "canonical_article_status": "NOT_CONFIRMED",
+          "canonical_article_real_published": false,
+          "canonical_url": null,
+          "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+          "distribution_status": "CANONICAL_NOT_CONFIRMED",
+          "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+          "quality_preflight": null,
+          "delivery_media_preparation": {
+            "status": "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+            "provider_calls": 0,
+            "public_write_performed": false
+          },
+          "recovery_required_destinations": [],
+          "readback_limitation_destinations": [],
+          "metrics_availability_independent_from_publication_confirmation": true,
+          "derivative_attempted_count": 5,
+          "derivative_confirmed_count": 3,
+          "derivative_skipped_count": 1,
+          "derivative_failed_count": 1,
+          "derivative_unknown_count": 2,
+          "public_write_performed": true,
+          "retired_browser_unknown_count": 0,
+          "retired_x_unknown_count": 0,
+          "unknown_write_detected": true,
+          "derivative_absent_safe_to_retry_count": 0,
+          "derivative_never_attempted_count": 1,
+          "unknown_write_count": 2,
+          "closed_no_write_destinations": []
+        },
+        "continuations": [
+          {
+            "key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f-part-1",
+            "publication": {
+              "plan_hash": "ecf582b189c40ed4f101cb0d6a1e6404bd8e6b99238931c1c9691777857902fe",
+              "registered": [
+                {
+                  "destination": "threads",
+                  "message_id": "outbox_43030d0522c85739ae8b4af738937b1a",
+                  "dispatch_id": "dispatch_43030d0522c85739ae8b4af738937b1a",
+                  "reconciliation_id": "reconciliation_43030d0522c85739ae8b4af738937b1a"
+                }
+              ],
+              "outbox_count": 1,
+              "per_destination": {
+                "threads": {
+                  "destination": "threads",
+                  "status": "DISPATCH_CONFIRMED",
+                  "publish_called": true,
+                  "public_object_id": "17895956466616816",
+                  "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfyEP97Eo8f",
+                  "reconciliation_status": "RECONCILED_CONFIRMED",
+                  "safe_error_classification": null,
+                  "dispatch_id": "dispatch_43030d0522c85739ae8b4af738937b1a",
+                  "dispatch_recorded": true
+                }
+              },
+              "canonical_article_status": "NOT_CONFIRMED",
+              "canonical_article_real_published": false,
+              "canonical_url": null,
+              "canonical_publication_status": "CANONICAL_NOT_CONFIRMED",
+              "distribution_status": "CANONICAL_NOT_CONFIRMED",
+              "transaction_classification": "CANONICAL_NOT_CONFIRMED",
+              "quality_preflight": null,
+              "delivery_media_preparation": {
+                "status": "DELIVERY_MEDIA_PREPARATION_NOT_REQUIRED_BY_TRANSPORT",
+                "provider_calls": 0,
+                "public_write_performed": false
+              },
+              "recovery_required_destinations": [],
+              "readback_limitation_destinations": [],
+              "metrics_availability_independent_from_publication_confirmation": true,
+              "derivative_attempted_count": 1,
+              "derivative_confirmed_count": 1,
+              "derivative_skipped_count": 0,
+              "derivative_failed_count": 0,
+              "derivative_unknown_count": 0,
+              "public_write_performed": true,
+              "retired_browser_unknown_count": 0,
+              "retired_x_unknown_count": 0,
+              "unknown_write_detected": false,
+              "derivative_absent_safe_to_retry_count": 0,
+              "derivative_never_attempted_count": 0,
+              "unknown_write_count": 0,
+              "closed_no_write_destinations": []
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "record_before": {
+    "line": "Pinned call record: 0 hits, 5 stopped, 37 expiries; 42 results, 6 scored.",
+    "counts": {
+      "EXPIRED": 37,
+      "HIT": 0,
+      "NOT_TRIGGERED": 0,
+      "STOPPED": 5,
+      "scored": 6,
+      "total": 42
+    },
+    "url": "https://t.me/CapitalChronicle/134",
+    "text_sha256": "ebcba4e776eeb2b23723c62eaca8d0bf6f8fcc232dd813baa333194d268a6b14",
+    "observed_at_utc": "2026-11-16T00:21:33.909850+00:00"
+  },
+  "record_after": {
+    "line": "Pinned call record: 0 hits, 5 stopped, 37 expiries; 42 results, 6 scored.",
+    "counts": {
+      "EXPIRED": 37,
+      "HIT": 0,
+      "NOT_TRIGGERED": 0,
+      "STOPPED": 5,
+      "scored": 6,
+      "total": 42
+    },
+    "url": "https://t.me/CapitalChronicle/134",
+    "text_sha256": "ebcba4e776eeb2b23723c62eaca8d0bf6f8fcc232dd813baa333194d268a6b14",
+    "observed_at_utc": "2026-11-16T00:27:20.199436+00:00"
+  },
+  "first_key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+  "confirmed": [
+    {
+      "destination": "telegram",
+      "id": "185",
+      "url": "https://t.me/CapitalChronicle/185",
+      "at_utc": "2026-11-16T00:22:53.329383+00:00",
+      "clock_basis": "CONFIRMED_DISPATCH_CLOCK"
+    },
+    {
+      "destination": "facebook_page",
+      "id": "106091951705748_1456620159989733",
+      "url": "https://www.facebook.com/1342369584748125/posts/1456620159989733",
+      "at_utc": "2026-11-16T00:21:44.821093+00:00",
+      "clock_basis": "CONFIRMED_DISPATCH_CLOCK"
+    },
+    {
+      "destination": "threads",
+      "id": "17985378177003257",
+      "url": "https://www.threads.com/@official.capitalchronicle/post/DfyDx_aEvhJ",
+      "at_utc": "2026-11-16T00:22:57.723940+00:00",
+      "clock_basis": "CONFIRMED_DISPATCH_CLOCK"
+    }
+  ],
+  "complete": false
+}

@@ -259,8 +259,8 @@ class NativeNeoExecutor:
                 from live_contentops.approved_presentation_restore_v1 import restore_intent
                 from live_contentops.neo_destination_handoff_v1 import _payload_binding
                 expected = restore_intent(self.store, request["dispatch_attempt_identity"])
-                payload, content = _payload_binding(expected, "substack")
-                if (request["destination"] != "substack"
+                payload, content = _payload_binding(expected, request['destination'])
+                if (request["destination"] not in {"substack", "substack_notes"}
                         or request["approved_presentation_restore"] != expected["approved_presentation_restore"]
                         or any(request.get(k) != dispatch.get(k) for k in ("public_object_id", "public_object_url"))
                         or request.get("native_payload") != payload or request.get("content_binding") != content

@@ -1051,14 +1051,15 @@ class DurablePublicationCoordinator:
         from live_contentops.event_pack_v1 import require_mutable
         require_mutable(intent)
         dispatch = self.store.get_platform_dispatch(dispatch_id)
+        destination = dispatch['platform']
         authorization = {"schema_version": "contentops.canonical_machine_authorization.v1",
             "operating_mode": self._mode(), "work_item_id": intent["work_item_id"],
-            "destination": "substack", "payload_hash": intent["destination_plan"]["payload_hash"],
+            "destination": destination, "payload_hash": intent["destination_plan"]["payload_hash"],
             "dispatch_attempt_identity": dispatch_id, "action": "EDIT_EXISTING"}
-        raw = self.transport_runtime._neo_transport.amend_existing(destination="substack", intent=intent,
+        raw = self.transport_runtime._neo_transport.amend_existing(destination=destination, intent=intent,
             public_object_id=dispatch["public_object_id"], public_object_url=dispatch["public_object_url"],
             authorization_context=authorization)
-        observed = self.transport_runtime._neo_transport.readback(destination="substack", intent=intent,
+        observed = self.transport_runtime._neo_transport.readback(destination=destination, intent=intent,
             public_object_id=dispatch["public_object_id"], public_object_url=dispatch["public_object_url"])
         return {"edit": raw, "readback": observed, "new_post_calls": 0}
 

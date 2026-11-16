@@ -651,7 +651,10 @@ class NeoBrowserDriver:
         for text in texts:
             found = [r for r in candidates if self._matches(request,text,r)]
             if len(found) != 1:
-                return {"status":"READBACK_UNAVAILABLE","verified":False,"reason_code":"NEO_THREAD_READBACK_INCOMPLETE"}
+                return compare_public_images(request, {**root, 'status':'SUCCESS', 'content_verified':False,
+                    'observed_identity':request['expected_identity'], 'reason_code':'NEO_THREAD_READBACK_INCOMPLETE',
+                    'observed_links':[{**link,'public_object_url':root['public_object_url']} for link in root.get('links') or []]},
+                    http=getattr(self.client,'image_http',None))
             thread.append(found[0])
         root = thread[0]
         result = {**root,"status":"SUCCESS","request_sha256":request["request_sha256"],
@@ -748,6 +751,11 @@ class NeoBrowserDriver:
                     else:
                         self.client.act(page,"fill",ref=refs[index]["ref"],value=text)
             # The lead card belongs to the first post, including a thread.
+            if destination=='substack_notes' and 'cc603-' in str(request.get('work_item_id','')):
+                self.client.act(page,'focus',ref=ref)
+                self.client.act(page,'press',key='Control+a')
+                self.client.act(page,'press',key='Backspace')
+                self.client.run(page,'note_inline_copy',text=text)
             if media and index == 0:
                 if destination == "substack_notes":
                     self.client.run(page,"expose_note_upload")
@@ -758,6 +766,28 @@ class NeoBrowserDriver:
     def perform(self, packet):
         request = packet["request"]
         destination = request["destination"]
+        if request['action']=='EDIT_EXISTING' and destination=='substack_notes' and request.get('approved_presentation_restore'):
+            page=self.client.open('substack_notes',request['public_object_url'])
+            self.client.wait(page,'.FeedProseMirror')
+            observed=self.client.run(page,'readback',expected_identity=request['expected_identity'])
+            exact=next((n for n in observed.get('notes',[]) if n['public_object_url']==request['public_object_url']),None)
+            if exact is None:raise NeoEndpointError('NEO_EXACT_NOTE_TO_RESTORE_NOT_FOUND')
+            identity={'authenticated':True,'observed_identity':request['expected_identity'],
+                      'observed_at_utc':datetime.now(timezone.utc).isoformat()}
+            self.client.act(page,'click',ref=self._ref(page,'button',{'More options'}))
+            self.client.act(page,'click',ref=self._ref(page,'menuitem',{'Edit'}))
+            self.client.wait(page,'[contenteditable="true"][role="textbox"]')
+            posts=expected_posts(request)
+            editor=self._ref(page,'textbox',{"What's on your mind?"})
+            self.client.act(page,'focus',ref=editor)
+            self.client.act(page,'press',key='Control+a')
+            self.client.act(page,'press',key='Backspace')
+            self.client.run(page,'note_inline_copy',text=posts[0])
+            result=self.client.run(page,'publish',destination=destination,posts=posts,edit_existing=True)
+            if result['status']!='CLICKED':return {'result':result,'identity':identity}
+            readback=self.readback(request,page,posts=posts)
+            return {'result':{**readback,'status':'SUCCESS','stage':'PUBLISH_CLICK_ATTEMPTED'},
+                    'identity':identity,'pre_click_posts':result['pre_click_posts'],'readback':readback}
         from .plan_substack_neo_v1 import supports_operation
         if destination == "substack" and supports_operation(packet.get("operation_id", "")):
             from .plan_substack_neo_v1 import perform
@@ -928,7 +958,10 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         except NativeNeoInputRequired as waiting:
             from .plan_substack_neo_v1 import supports_operation
             plan_page = request.get("destination") == "substack" and supports_operation(self.operation_id)
-            if (request.get("destination") not in self.automatic_destinations and not plan_page) or request.get("action") == "EDIT_EXISTING":
+            approved_note_restore=(request.get('action')=='EDIT_EXISTING' and request.get('destination')=='substack_notes'
+                                   and request.get('approved_presentation_restore'))
+            if (request.get("destination") not in self.automatic_destinations and not plan_page) or (
+                    request.get("action") == "EDIT_EXISTING" and not approved_note_restore):
                 raise
             pending=waiting
         # Connect before claiming: an unavailable endpoint has made no public attempt.

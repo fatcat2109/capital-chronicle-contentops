@@ -180,6 +180,25 @@ def test_missing_scale_repair_keeps_old_packages_and_never_reposts_an_uncertain_
     assert sorted(transport.publish_calls)==sorted(row['cc603_destinations'])
 
 
+def test_approved_note_restore_keeps_the_exact_existing_followup_copy_and_media(ready,tmp_path):
+    from live_contentops.approved_presentation_restore_v1 import restore_intent
+    store,transport,coordinator,record=ready
+    hit=candidate();key=f.queue_followup(store,hit,f.check_path(hit,bars()),record,now=NOW)['key']
+    plan=posts.prepare_post(store,key,root=tmp_path/'posts',host=fake_host,
+                            destinations=('substack_notes',),cc603_asset=asset(tmp_path))
+    posts.scope_to_post(coordinator,key,plan);coordinator.publish_plan(key,plan)
+    ids=coordinator._ids(key,plan['plan_hash'],'substack_notes')
+    original=store.get_outbox_message(ids['message_id'])['payload']
+    restored=restore_intent(store,ids['dispatch_id'])
+    assert restored['native_payload']==json.loads(original)['native_payload']
+    assert restored['output_dir']==plan['output_dir']
+    assert store.get_outbox_message(ids['message_id'])['payload']==original
+    assert transport.publish_calls==['substack_notes']
+    store.set_dispatch_status(ids['dispatch_id'],'UNKNOWN_WRITE')
+    with pytest.raises(ValueError,match='EXACT_CONFIRMED'):
+        restore_intent(store,ids['dispatch_id'])
+
+
 @pytest.mark.parametrize("change,cause",[
     ({"zone_low":130,"zone_high":135},"CONDITION_NOT_PROVEN"),
     ({"invalidation":{"field":"high","level":114,"side":"above"}},"INVALIDATION_FIRST"),
