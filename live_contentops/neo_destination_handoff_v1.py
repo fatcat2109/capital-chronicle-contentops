@@ -190,6 +190,7 @@ def _note_bound_text(value, binding, links, public_url):
 
 def _x_reader_text(value, links, public_object_url, canonical, *, bound_urls=()):
     text = _text(value)
+    substitutions = []
     for link in links:
         displayed = _text(link.get("displayed_text"))
         if (displayed and displayed in text
@@ -198,7 +199,11 @@ def _x_reader_text(value, links, public_object_url, canonical, *, bound_urls=())
                 and link.get("public_object_url") == public_object_url
                 and ((link.get("target_url") == canonical and _social_canonical(canonical))
                      or link.get("target_url") in bound_urls)):
-            text = text.replace(displayed, _text(link['target_url']))
+            marker = '\x00cc-link-'+str(len(substitutions))+'\x00'
+            text = text.replace(displayed, marker, 1)
+            substitutions.append((marker,_text(link['target_url'])))
+    for marker,target in substitutions:
+        text = text.replace(marker,target)
     return text
 
 

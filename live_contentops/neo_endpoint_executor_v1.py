@@ -278,6 +278,13 @@ class NeoMcpClient:
             return False
         cache=getattr(self,"verified_links",{})
         if short_url not in cache:
+            if urlsplit(canonical).hostname=='t.me':
+                # Resolve only the public redirect header. Telegram content is
+                # read on /s/CapitalChronicle; never open a signed-in client.
+                response=requests.head(short_url,allow_redirects=False,timeout=(3,8))
+                cache[short_url]=response.headers.get('Location','') if response.status_code in {301,302,303,307,308} else ''
+                self.verified_links=cache
+                return cache[short_url]==canonical
             page=self.open("link-verification",short_url)
             snapshot=self.snapshot(page)
             observed=snapshot["url"]
@@ -676,15 +683,18 @@ class NeoBrowserDriver:
         return compare_public_images(request, result, http=getattr(self.client,"image_http",None))
 
     def _resolve_links(self, request, candidates):
+        from .neo_destination_handoff_v1 import _bound_link_targets
         canonical=request.get("canonical_url")
-        if request["destination"] != "x" or not canonical:
+        targets=_bound_link_targets(request.get('content_binding') or {})|({canonical} if canonical else set())
+        if request["destination"] != "x" or not targets:
             return
         for post in candidates:
             for link in post.get("links") or []:
-                if (canonical not in {link.get("url"),link.get("expanded_url")}
-                        and re.fullmatch(r"https://t\.co/[A-Za-z0-9]+",str(link.get("url") or ""))
-                        and self.client.verify_link(link["url"],canonical)):
-                    link["expanded_url"]=canonical
+                if re.fullmatch(r"https://t\.co/[A-Za-z0-9]+",str(link.get('url') or '')):
+                    for target in targets:
+                        if target in {link.get('url'),link.get('expanded_url')} or self.client.verify_link(link['url'],target):
+                            link['expanded_url']=target
+                            break
 
     def prepare(self, request, page):
         """Prepare exact approved copy/media; this method never publishes."""

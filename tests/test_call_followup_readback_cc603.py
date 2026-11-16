@@ -122,3 +122,20 @@ def test_same_note_restore_uses_edit_and_save_and_cannot_create_another_post():
     assert result['readback']['public_object_url']==public
     assert [a[1].get('ref') for a in client.actions if a[0]=='click']==['more','edit']
     assert result['pre_click_posts']==[text]
+
+
+def test_x_two_identically_shortened_labels_keep_separate_original_and_record_targets(monkeypatch):
+    from live_contentops import neo_endpoint_executor_v1 as neo
+    original='https://t.me/CapitalChronicle/166';record='https://t.me/CapitalChronicle/134'
+    targets={'https://t.co/abc':original,'https://t.co/def':record}
+    monkeypatch.setattr(neo.requests,'head',lambda url,**kw:type('Response',(),{
+        'status_code':301,'headers':{'Location':targets[url]}})())
+    driver=neo.NeoBrowserDriver(neo.NeoMcpClient())
+    text='Original: '+original+' Record: '+record
+    request={'destination':'x','content_binding':{'expected_text_segments':[text]}}
+    post={'public_object_url':'https://x.com/Capitalnicle/status/123',
+          'observed_text':'Original: t.me/CapitalChronic Record: t.me/CapitalChronic',
+          'links':[{'url':url,'text':'t.me/CapitalChronic'} for url in targets]}
+    driver._resolve_links(request,[post])
+    assert [l['expanded_url'] for l in post['links']]==[original,record]
+    assert driver._matches(request,text,post)
