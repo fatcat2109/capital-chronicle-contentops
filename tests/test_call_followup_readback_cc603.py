@@ -103,6 +103,7 @@ def test_same_note_restore_uses_edit_and_save_and_cannot_create_another_post():
         def __init__(self):self.actions=[];self.copy=text
         def open(self,destination,url):assert url==public;return 1
         def wait(self,*args):pass
+        def wait_text(self,page,text):assert text=='Edit'
         def snapshot(self,page):return {'refs':[{'role':'button','name':'More options','ref':'background'},
             {'role':'button','name':'CC603 exact note options','ref':'more'},
             {'role':'menuitem','name':'Edit','ref':'edit'},{'role':'textbox','name':"What's on your mind?",'ref':'editor'}]}

@@ -788,6 +788,7 @@ class NeoBrowserDriver:
             if not scoped.get('marked'):raise NeoEndpointError('NEO_EXACT_NOTE_OPTIONS_MISSING')
             self.client.act(page,'click',ref=self._ref(page,'button',{'CC603 exact note options'}))
             self.client.wait(page,'[role="menu"] [role="menuitem"]')
+            self.client.wait_text(page,'Edit')
             self.client.act(page,'click',ref=self._ref(page,'menuitem',{'Edit'}))
             self.client.wait(page,'[contenteditable="true"][role="textbox"]')
             posts=expected_posts(request)
