@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+from urllib.parse import parse_qs, urlsplit
 
 from .capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from .event_article_guard_v1 import PUBLIC_NOTICE, CONFLICTS_NOTICE
@@ -289,7 +290,7 @@ def delivery_snapshot_projection(plan, assets):
     This is a delivery view of unchanged pixels. Issued article and media
     artifacts retain their exact bytes and source URLs.
     """
-    from .tradingview_snapshot_v1 import POLICY as SNAPSHOT_POLICY, CREDIT, chart_url
+    from .tradingview_snapshot_v1 import POLICY as SNAPSHOT_POLICY, CREDIT, SYMBOLS, chart_url
     root = Path(plan["output_dir"])
     piece = _read(root / "piece.json")
     if (plan.get("measured_odds_piece") != "cc536-measured-odds-" + str(piece["piece"])
@@ -300,10 +301,16 @@ def delivery_snapshot_projection(plan, assets):
     result = []
     for asset in assets:
         spec = bound.get(asset.get("asset_id"))
+        source_url = urlsplit((spec or {}).get("source_url") or "")
+        query = parse_qs(source_url.query)
+        symbol = query.get("symbol", [None])[0]
+        interval = query.get("interval", [None])[0]
         if (not spec or spec.get("modality") != "tradingview_chart_snapshot"
                 or spec.get("inspected_pixels") is not True
                 or spec.get("native_study", {}).get("enabled_lengths") != [20, 50]
-                or spec.get("source_url") != "https://www.tradingview.com/widgetembed/?symbol=BITSTAMP%3ABTCUSD&interval=D"
+                or source_url.scheme != "https" or source_url.hostname != "www.tradingview.com"
+                or not source_url.path.startswith(("/widgetembed/", "/chart/"))
+                or symbol not in {*SYMBOLS.values(), "BITSTAMP:BTCUSD"} or interval != "D"
                 or Path(asset["path"]).resolve() != (root / spec["path"]).resolve()
                 or sha256(Path(asset["path"]).read_bytes()).hexdigest() != spec["sha256"]
                 or asset.get("sha256") != spec["sha256"]):
@@ -312,8 +319,8 @@ def delivery_snapshot_projection(plan, assets):
         result.append({**asset, "credit": CREDIT, "media_role": "delivery_only",
             "delivery_only": True, "article_inclusion": False, "canonical_article_media": False,
             "provenance_status": "VERIFIED_TRADINGVIEW_DOWNLOAD_IMAGE",
-            "tradingview_snapshot": {"policy": SNAPSHOT_POLICY, "tv_symbol": "BITSTAMP:BTCUSD",
-                "interval": "D", "chart_url": chart_url("BITSTAMP:BTCUSD", "D"),
+            "tradingview_snapshot": {"policy": SNAPSHOT_POLICY, "tv_symbol": symbol,
+                "interval": interval, "chart_url": chart_url(symbol, interval),
                 "source_url": spec["source_url"], "captured_at_utc": spec["captured_at_utc"],
                 "path": asset["path"], "sha256": spec["sha256"], "levels_drawn": [], "target_drawn": False,
                 "framing": {"mode": "ORIGINAL_DOWNLOAD", "width": width, "height": height,
