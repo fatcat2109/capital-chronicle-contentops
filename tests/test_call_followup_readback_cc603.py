@@ -5,6 +5,29 @@ from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
 from live_contentops.neo_endpoint_executor_v1 import NeoBrowserDriver
 
 
+def test_actual_note_composer_requires_the_exact_inline_target_before_save():
+    import subprocess
+    script = r"""
+const fs=require('fs'),assert=require('assert');
+const execute=new (Object.getPrototypeOf(async function(){}).constructor)('input','page',
+  fs.readFileSync('live_contentops/neo_endpoint_steps_v1.js','utf8'));
+const expected='Original: https://t.me/CapitalChronicle/166';
+async function check(href) {
+  const editor={innerText:'Original: Open original call',getClientRects:()=>[1],
+    querySelectorAll:()=>[{innerText:'Open original call',href}]};
+  global.document={querySelector:()=>null,querySelectorAll:()=>[editor]};
+  const page={snapshot:async()=>({refs:[{role:'button',name:'Save',ref:'save'}]}),
+    evaluateInPage:async(fn,arg)=>({value:fn(arg)}),click:()=>{throw Error('UNAUTHORIZED_CLICK')}};
+  return execute({phase:'validate',posts:[expected],edit_existing:true},page);
+}
+(async()=>{
+  assert.equal((await check('https://t.me/CapitalChronicle/166')).status,'PREPARED');
+  assert.equal((await check('https://t.me/CapitalChronicle/16')).status,'FAILED_BEFORE_WRITE');
+})().catch(e=>{console.error(e);process.exit(1)});
+"""
+    subprocess.run(['node','-e',script],check=True,capture_output=True,text=True,timeout=10)
+
+
 @pytest.mark.parametrize('case', ['correct', 'wrong_target', 'hidden_card', 'other_object'])
 def test_note_original_link_card_reaches_the_coordinator_readback(case):
     target = 'https://capitalchronicle.substack.com/p/original-gold'
@@ -45,6 +68,30 @@ def test_x_original_and_record_short_links_keep_the_exact_bound_targets(case):
             link['public_object_url'] = public+'0'
     normalized = _x_reader_text(post['observed_text'], links, public, '', bound_urls=_bound_link_targets(request['content_binding']))
     assert (_text(text) in normalized) is (case == 'correct')
+
+
+@pytest.mark.parametrize('case', ['correct', 'wrong_target', 'hidden', 'other_object'])
+def test_note_descriptive_links_preserve_both_frozen_targets_through_coordinator(case):
+    public = 'https://substack.com/@capitalchronicle/note/c-603'
+    original = 'https://t.me/CapitalChronicle/166'
+    record = 'https://t.me/CapitalChronicle/134'
+    text = 'Original: '+original+'\nPinned call record: 0 hits, 5 stopped, 37 expiries.\nRecord: '+record
+    rendered = text.replace(original, 'Open original call').replace(record, 'Open pinned scorecard')
+    links = [{'url':url, 'text':label, 'inline_visible':case != 'hidden',
+              'public_object_url':public if case != 'other_object' else public+'0'}
+             for url,label in [(original,'Open original call'),(record,'Open pinned scorecard')]]
+    if case == 'wrong_target':
+        links[0]['url'] += '0'
+    intent = {'work_item_id':'cc603-followup', 'plan_hash':'bound-plan', 'package_identity':'cc603-followup',
+              'payload':text, 'native_payload':{'text':text,'full_text':text},
+              'destination_plan':{'surface':'SUBSTACK_NOTE','payload_hash':'bound-text'}}
+    def execute(request):
+        return {'request_sha256':request['request_sha256'], 'status':'SUCCESS', 'content_verified':True,
+                'public_object_id':'c-603', 'public_object_url':public, 'observed_identity':'@capitalchronicle',
+                'observed_text':rendered, 'observed_links':links}
+    result = NeoDestinationHandoff(native_executor=execute).readback(destination='substack_notes', intent=intent,
+                      public_object_id='c-603', public_object_url=public)
+    assert result['verified'] is (case == 'correct')
 
 
 @pytest.mark.parametrize('changed', [False, True])

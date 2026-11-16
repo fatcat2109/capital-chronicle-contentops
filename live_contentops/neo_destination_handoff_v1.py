@@ -181,7 +181,16 @@ def _bound_link_targets(binding):
 
 def _note_bound_text(value, binding, links, public_url):
     value = str(value)
+    labels = {}
+    for text in binding.get('expected_text_segments') or []:
+        for prefix, label in (('Original', 'Open original call'), ('Record', 'Open pinned scorecard')):
+            for url in re.findall(r'^' + prefix + r': (https://\S+)\s*$', text, re.M):
+                if url in _bound_link_targets(binding):
+                    labels[url] = label
     for link in links:
+        if (link.get('url') in labels and link.get('text') == labels[link['url']]
+                and link.get('inline_visible') is True and link.get('public_object_url') == public_url):
+            value = value.replace(labels[link['url']], link['url'])
         if (link.get('url') in _bound_link_targets(binding) and link.get('card_visible') is True
                 and link.get('public_object_url') == public_url):
             value = value.replace(link['url'], '')

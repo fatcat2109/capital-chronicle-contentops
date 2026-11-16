@@ -71,8 +71,15 @@ def asset(tmp_path):
     return tv.snapshot_asset("XAUUSD","Gold",snap,tmp_path/"media")
 
 
-def test_stored_hit_and_expiry_reach_consumer_exactly_once(ready,tmp_path):
+def test_stored_hit_and_expiry_reach_consumer_exactly_once(ready,tmp_path,monkeypatch):
     store,transport,coordinator,record=ready
+    fixture_publish = transport.publish
+    def publish_with_public_url(**kwargs):
+        receipt = fixture_publish(**kwargs)
+        if kwargs["destination"] == "discord":
+            receipt["public_url"] = "https://discord.com/channels/1/2/3"
+        return receipt
+    monkeypatch.setattr(transport,"publish",publish_with_public_url)
     hit=candidate()
     checked=f.check_path(hit,bars())
     assert checked["eligible"] and checked["entry_traded"]
@@ -98,6 +105,11 @@ def test_stored_hit_and_expiry_reach_consumer_exactly_once(ready,tmp_path):
     assert all(not r["native_payload"].get("reply_to_id") for r in intents)
     assert len([r for r in store.list_outbox_messages(destination=posts.DESTINATION)
                 if r["message_id"].startswith("cc603-followup-")])==1
+    monkeypatch.setattr(f,"discover",lambda *a:[])
+    f.run_due(store,{"status":{"plans":[]}},now=NOW,root=tmp_path/"posts",
+              coordinator_for=lambda *a:coordinator,host=fake_host,asset_for=lambda r:asset(tmp_path))
+    assert store.get_outbox_message(first["key"])["status"]=="PUBLISHED"
+    assert sorted(transport.publish_calls)==sorted(hit["destinations"])
 
 
 def test_reconciled_absent_note_recovers_exact_bytes_without_a_canonical_rewrite(ready, tmp_path, monkeypatch):

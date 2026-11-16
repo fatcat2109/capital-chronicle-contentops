@@ -23,5 +23,6 @@ def restore_intent(store, dispatch_id):
         from live_contentops.native_desktop_editorial_v1 import require_current_final_visual_review
         require_current_final_visual_review(store, run_id=original["work_item_id"])
     return {**original, "approved_presentation_restore": {
+        **({"link_presentation": "CC603_DESCRIPTIVE_INLINE_V1"} if destination == 'substack_notes' else {}),
         "reason": "RESTORE_APPROVED_MEDIA_PRESENTATION",
         "dispatch_id": dispatch_id, "original_intent_sha256": sha256_of(original)}}

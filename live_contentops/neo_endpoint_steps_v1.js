@@ -321,7 +321,8 @@ if (input.phase === 'note_inline_copy') {
     if(!editor) throw Error('NOTE_EDITOR_REQUIRED');
     const escape=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     const html=text.split('\n').map(line=>'<p>'+escape(line).replace(/https:\/\/[^\s<>]+/g,
-      url=>'<a href="'+url+'">'+url+'</a>')+'</p>').join('');
+      url=>'<a href="'+url+'">'+(line.startsWith('Original: ') ? 'Open original call'
+        : line.startsWith('Record: ') ? 'Open pinned scorecard' : url)+'</a>')+'</p>').join('');
     const data=new DataTransfer();data.setData('text/html',html);data.setData('text/plain',text);
     editor.focus();editor.dispatchEvent(new ClipboardEvent('paste',{clipboardData:data,bubbles:true,cancelable:true}));
     return {pasted:true};
@@ -333,15 +334,32 @@ if (input.phase === 'composer' || input.phase === 'publish' || input.phase === '
   const posts = input.posts;
   const check = input.phase === 'composer' ? null : unwrap(await page.evaluateInPage(expected => {
     const norm = text => String(text).replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/\s+/g,' ').trim();
+    const urls=new Set((expected || []).flatMap(t=>t.match(/https:\/\/[^\s<>"“”]+/g)||[]));
     const actual = Array.from((document.querySelector('[role="dialog"]') || document)
       .querySelectorAll('[contenteditable="true"][role="textbox"]'))
-      .filter(e => e.getClientRects().length).map(e => e.innerText);
+      .filter(e => e.getClientRects().length).map(e => {
+        let text=e.innerText;
+        for(const a of e.querySelectorAll('a[href]')) {
+          if(['Open original call','Open pinned scorecard'].includes(a.innerText)
+              && urls.has(a.href)) text=text.replace(a.innerText,a.href);
+        }
+        return text;
+      });
     return {count:actual.length, matches:actual.length === expected.length
       && actual.every((text,i) => norm(text) === norm(expected[i]))};
   }, posts));
-  const editors = unwrap(await page.evaluateInPage(() =>
-    Array.from((document.querySelector('[role="dialog"]') || document).querySelectorAll('[contenteditable="true"][role="textbox"]'))
-      .filter(e => e.getClientRects().length).map(e => e.innerText)));
+  const editors = unwrap(await page.evaluateInPage(expected => {
+    const urls=new Set((expected || []).flatMap(t=>t.match(/https:\/\/[^\s<>"“”]+/g)||[]));
+    return Array.from((document.querySelector('[role="dialog"]') || document).querySelectorAll('[contenteditable="true"][role="textbox"]'))
+      .filter(e => e.getClientRects().length).map(e => {
+        let text=e.innerText;
+        for(const a of e.querySelectorAll('a[href]')) {
+          if(['Open original call','Open pinned scorecard'].includes(a.innerText)
+              && urls.has(a.href)) text=text.replace(a.innerText,a.href);
+        }
+        return text;
+      });
+  }, posts));
   if (input.phase === 'composer') return editors;
   const name = input.edit_existing ? 'Save' : input.destination === 'x' && posts.length > 1 ? 'Post all'
     : input.destination === 'x' && input.reply_parent ? 'Reply' : 'Post';
@@ -385,7 +403,7 @@ if (input.phase === 'readback') {
   // Read only the rendered object; never fetch a private endpoint in the page.
   return unwrap(await page.evaluateInPage((identity) => {
     const visible = e => !!e && e.getClientRects().length > 0;
-    const links = e => Array.from(e.querySelectorAll('a[href]')).map(a => ({text:a.innerText,url:a.href,
+    const links = e => Array.from(e.querySelectorAll('a[href]')).map(a => ({text:a.innerText,url:a.href, inline_visible:visible(a),
       expanded_url:a.getAttribute('title'), card_visible:visible(a) && !!a.querySelector('[class*="previewCardContent"]')}));
     const imageUrls = e => Array.from(e.querySelectorAll('img')).filter(visible)
       .map(i => i.currentSrc || i.src).filter(u => /^https:\/\//.test(u));

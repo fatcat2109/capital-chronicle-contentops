@@ -663,6 +663,7 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
     for key in keys:
         row = posts._row_payload(store,key)
         if post_complete(store,row):
+            store.set_outbox_status(key,"PUBLISHED")
             continue
         asset = asset_for(row) if asset_for else held_chart(store,row,root=root)
         if not asset:
