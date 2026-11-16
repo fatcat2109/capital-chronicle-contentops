@@ -28,5 +28,13 @@
   "schedule_changes": false,
   "other_chat_messages": false,
   "desktop_automation": false,
-  "browser_group": "1C9688168B53001E87017517DB61CF39"
+  "browser_group": "1C9688168B53001E87017517DB61CF39",
+  "resumed_launch": {
+    "pid": 42704,
+    "started_at_gmt7": "16 Nov 2026 14:39:25 GMT+7",
+    "model": "gpt-6.1-sol",
+    "effort": "max",
+    "status": "CONFIGURED_NOT_OBSERVED",
+    "evidence": "Win32_Process launch flags inspected after the account-switch resume; no inference-time telemetry claimed."
+  }
 }

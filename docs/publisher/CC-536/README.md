@@ -1,11 +1,8 @@
 # CC-536: measured-odds method series
 
-Piece 2 is authored and installed, with all 58 printed numerical occurrences
-bound to Main's live-tag table and side records. All 24 focused tests pass in
-both the working and operating roots. It has not been published: Neo's local
-MCP endpoint returns `NEO_ENDPOINT_CONNECTIONERROR`, so its required unused
-native TradingView chart cannot yet be captured. The exact prepared copy and
-resume action are in [piece-2/README.md](piece-2/README.md); piece 1 is preserved.
+Piece 2 is [published on Substack](https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly) with its [X thread](https://x.com/Capitalnicle/status/2122235588179079329). Eight surfaces are strictly reconciled; member LinkedIn has an API TLS failure and YouTube requires external-link verification. All 58 numerical occurrences match the seven pinned Main blobs. The unused native TradingView chart and method link are present.
+
+The fixes are pushed and integrated. Piece 3 is next on 17 November 2026 at 18:00 GMT+7 under the one-piece-per-day instruction. [The current result](piece-2/resume-20261116.json) preserves exact clocks, objects, tests and remaining series acceptance.
 
 Piece 1 is published at
 https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before.

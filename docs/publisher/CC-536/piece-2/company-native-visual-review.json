@@ -1,0 +1,25 @@
+{
+  "observed_at_utc": "2026-11-16T08:20:44.134307+00:00",
+  "public_object_id": "urn:li:activity:7528000442874691584",
+  "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528000442874691584/",
+  "source_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-536\\piece-2\\media\\BTCUSD_2026-11-16_13-47-12.png",
+  "source_sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+  "delivered_path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-536\\piece-2\\media\\linkedin-published-full-resolution.jpg",
+  "platform_sha256": "e4f9800a4d2a447a7b250e5fb68b37cc4521f84e3d577fa8b232beb513359c57",
+  "inspection_tool": "functions.view_image detail=original on both files, after this readback claim",
+  "reviewer_invocation": "01a1e315-b060-7c11-8ac3-f69983d593b3",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "findings": [
+    "The same 978 by 873 Bitcoin daily Bitstamp chart and July-to-November window.",
+    "The same candles, two native mean lines and volume bars.",
+    "The same 74250, 79359 and 64534 labels, OHLC values and TradingView timestamp.",
+    "TradingView header, footer, price axis and date axis are complete.",
+    "LinkedIn JPEG compression changes colors and fine edges; no changed chart value, missing element or crop was observed."
+  ],
+  "source_pixels_match": true,
+  "exact_bytes_match": false,
+  "comparison_method": "NATIVE_VIEW_IMAGE_SOURCE_PAIR_V1",
+  "automatic_comparisons_preserved": true
+}

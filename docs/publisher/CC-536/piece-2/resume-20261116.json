@@ -1,0 +1,180 @@
+{
+  "item": "CC-536",
+  "piece": 2,
+  "observed_at_utc": "2026-11-16T08:28:03.730618+00:00",
+  "outcome": "PIECE_2_PUBLISHED_SERIES_WAITING_NEXT_DAY",
+  "status": "BLOCKED (until 17 Nov 2026 18:00 GMT+7: piece 3; one piece per day)",
+  "branch": "backlog/cc-536-piece-2-resume-20261116",
+  "implementation_commit": "f5b0e428d240c2db464fde10bfeaa2938cb22f3e",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "live_tag": "contentops/cc-536-piece2-final-live-20261116T082757Z",
+  "rollback_tag": "contentops/cc-536-piece2-resume-rollback-20261116T070717Z",
+  "source": {
+    "live_tag": "live-20261114-cc598-154637",
+    "commit": "3c0900bdf8ce3cd5aee5ec8a5dd8c3c59f04c433",
+    "table_hash": "ce3c11ff42af7ee1c584cb58d362003c21949525dc9c486f9b39888783eb8add",
+    "blobs_verified": 7
+  },
+  "numeric_occurrences_verified": 58,
+  "publisher_computed_results": false,
+  "publication": {
+    "identity": "cc536-measured-odds-2",
+    "plan_hash": "3e4a0ccf6a70c5343b45de1054974a7a062928565a600dca69e1f24cc9ef7a4d",
+    "canonical_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+    "x_url": "https://x.com/Capitalnicle/status/2122235588179079329",
+    "strictly_confirmed_surface_count": 8,
+    "unknown_write_count": 0,
+    "destinations": [
+      {
+        "platform": "discord",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "1571793081802559540",
+        "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571793081802559540",
+        "dispatched_at": "2026-11-16T07:44:32.598124+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "facebook_page",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "106091951705748_1456899786628437",
+        "public_object_url": "https://www.facebook.com/1342369584748125/posts/1456899786628437",
+        "dispatched_at": "2026-11-16T07:44:35.926491+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "instagram_business",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "18117761285605069",
+        "public_object_url": "https://www.instagram.com/p/Dfy5T3FEpSb/",
+        "dispatched_at": "2026-11-16T08:10:42.013091+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "linkedin",
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatched_at": "2026-11-16T07:45:42.326098+00:00",
+        "reconciliation_status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+      },
+      {
+        "platform": "linkedin_company",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "urn:li:activity:7528000442874691584",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528000442874691584/",
+        "dispatched_at": "2026-11-16T07:45:47.624233+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "substack",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "225143229",
+        "public_object_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+        "dispatched_at": "2026-11-16T07:19:38.172309+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "telegram",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "186",
+        "public_object_url": "https://t.me/CapitalChronicle/186",
+        "dispatched_at": "2026-11-16T07:46:25.968126+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "threads",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "18097596503669718",
+        "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfy2i0AE-Lb",
+        "dispatched_at": "2026-11-16T07:46:30.705459+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "x",
+        "status": "DISPATCH_CONFIRMED",
+        "public_object_id": "2122235588179079329",
+        "public_object_url": "https://x.com/Capitalnicle/status/2122235588179079329",
+        "dispatched_at": "2026-11-16T07:48:37.836792+00:00",
+        "reconciliation_status": "RECONCILED_CONFIRMED"
+      },
+      {
+        "platform": "youtube",
+        "status": "DEFINITE_NO_WRITE",
+        "public_object_id": null,
+        "public_object_url": null,
+        "dispatched_at": "2026-11-16T07:50:08.056295+00:00",
+        "reconciliation_status": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED"
+      }
+    ],
+    "canonical_method_link_observed": true,
+    "canonical_native_chart_observed": true,
+    "company_image_review": "company-native-visual-review.json",
+    "company_reconciliation": "company-native-confirmed-final.json",
+    "registered_article_and_plan_changed_during_recovery": false
+  },
+  "clocks": {
+    "text_approved_at_utc": "2026-11-16T07:05:41.371073+00:00",
+    "first_unsent_attempt_at_utc": "2026-11-16T07:19:38.172309+00:00",
+    "native_publish_click_at_utc": "2026-11-16T07:43:58.091Z",
+    "observed_substack_publication_at_utc": "2026-11-16T07:44:03.233Z",
+    "observed_substack_publication_gmt7": "16 Nov 2026 14:44:03 GMT+7",
+    "approval_clock_restarted": false,
+    "fifteen_minute_target": "MISSED",
+    "cause": "Source-bound historical copy was falsely classified as account execution; the native editor then flattened table cells. Both were repaired before publication."
+  },
+  "tests": {
+    "method_consumer": "resume-20261116-consumer-fixed-tests.xml: 24 PASS",
+    "substack_method_link": "method-link-transport-tests.xml: 16 PASS",
+    "endpoint_stream": "endpoint-stream-tests.xml: 5 PASS",
+    "bound_history_consumer": "bound-history-consumer-tests.xml: 29 PASS",
+    "coordinator": "coordinator-history-regression-tests.xml: 3 PASS",
+    "native_rows": "native-table-row-tests.xml: 19 PASS",
+    "exact_draft_release": "exact-draft-repair-release-fixed-tests.xml: 2 PASS",
+    "hosted_image_consumer": "native-media-delivery-consumer-accepted-tests.xml: 1 PASS",
+    "snapshot_regression": "snapshot-hosting-regression-tests.xml: 2 PASS",
+    "company_reader": "company-reader-hydration-tests.xml: 3 PASS",
+    "source_projection": "native-source-projection-final-tests.xml: 1 PASS",
+    "store_claim": "store-claim-regression-tests.xml: 1 PASS",
+    "scope": "Targeted selections, one pytest process at a time; no whole suite. Each passing sub-step was committed and pushed."
+  },
+  "retained_route_limits": [
+    {
+      "destination": "linkedin",
+      "first_cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+      "first_failure_at_utc": "2026-11-16T07:45:42.376170+00:00",
+      "state": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "explicit_continuation": "The existing destination-day failure policy returned DESTINATION_FAILED_ET_DAY_SKIP without another API write; exact result retained.",
+      "next_actor": "Publisher through the existing official API at the next eligible check"
+    },
+    {
+      "destination": "youtube",
+      "first_cause": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+      "state": "DEFINITE_NO_WRITE",
+      "prepared_person_action": "Complete the channel external-link verification in YouTube Studio; this run did not click through or change account settings."
+    }
+  ],
+  "series_acceptance_remaining": [
+    "Piece 3 and subsequent daily pieces",
+    "First public daily-board link to the method page: CC-537 is waiting for CC-528",
+    "Readback of the method link in the next new plan post; its consumer is already wired",
+    "Euro/yen figures continue to require the repaired Main table and matching side split"
+  ],
+  "next_action": "Publisher prepares piece 3 at 17 Nov 2026 18:00 GMT+7 using the held Main side records; retain these issued objects and recover only exact unconfirmed destinations.",
+  "choice": "Publish the overdue retained piece 2 today, then take piece 3 tomorrow to honor the item's one-piece-per-day instruction. No catch-up article or schedule was added.",
+  "model_context": "run-context-resume-20261116.json",
+  "schedule_changes": false,
+  "other_chat_messages": false,
+  "desktop_automation": false,
+  "preserved_worktree_paths": [
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "bytes": 992508
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "bytes": 10337
+    }
+  ]
+}

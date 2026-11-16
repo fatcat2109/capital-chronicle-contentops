@@ -5,9 +5,9 @@
   "operating_root": "A:\\Capital Chronicle\\ContentOps",
   "branch": "backlog/cc-536-piece-2-resume-20261116",
   "previous_head": "a68a252cd4f338137c0056bec54e1ffa13d0db8a",
-  "installed_commit": "8d04973ddf07aa3536c6ca695929110e7764d49f",
+  "installed_commit": "f5b0e428d240c2db464fde10bfeaa2938cb22f3e",
   "rollback_tag": "contentops/cc-536-piece2-resume-rollback-20261116T070717Z",
-  "live_tag": "contentops/cc-536-piece2-published-live-20261116T074747Z",
+  "live_tag": "contentops/cc-536-piece2-final-live-20261116T082757Z",
   "merge": "fast-forward",
   "preserved_dirty_paths": [
     {
@@ -44,7 +44,7 @@
   "application_restart": false,
   "initial_installed_commit": "1321aed871ef6bc332df3a3f4dde05f02b2ae700",
   "initial_live_tag": "contentops/cc-536-piece2-resume-live-20261116T070717Z",
-  "final_applied_at_utc": "2026-11-16T07:47:47.308758+00:00",
+  "final_applied_at_utc": "2026-11-16T08:28:03.712393+00:00",
   "passing_substeps": [
     "24 measured-odds tests after destination routing repair",
     "16 method-link transport tests",
@@ -106,5 +106,12 @@
       "initial_bytes_unchanged": true
     }
   ],
-  "preservation": "All pre-merge dirty bytes were verified unchanged at integration. Runtime telemetry/dispatch files may receive their ordinary publication updates; they remain outside these commits."
+  "preservation": "All pre-merge dirty bytes were verified unchanged at integration. Runtime telemetry/dispatch files may receive their ordinary publication updates; they remain outside these commits.",
+  "additional_passing_substeps": [
+    "1 actual snapshot-to-hosted-media consumer test",
+    "2 snapshot attribution/hosting regression tests",
+    "3 LinkedIn reader tests",
+    "1 source-preserving market projection test",
+    "1 canonical store claim regression test"
+  ]
 }

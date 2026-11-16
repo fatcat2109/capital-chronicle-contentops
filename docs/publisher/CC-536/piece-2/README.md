@@ -1,4 +1,10 @@
-The 16 November resume captured an unused native TradingView chart, verified all 58 numbers and seven Main blobs, and completed desktop/mobile review of the canonical and eight social payloads. The existing transport now preserves the method link and fingerprint. Publication continues through the same coordinator identity. [Final review](visual-review-resume-20261116.json) records the exact bytes and configured model.
+Piece 2 is published at [Following the trend worked unevenly](https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly), observed at 14:44:03 GMT+7 on 16 November. Its [X thread](https://x.com/Capitalnicle/status/2122235588179079329), Telegram, Discord, Facebook, Instagram, Threads and LinkedIn company post are strictly reconciled. The chart, method link and all 58 numerical bindings are verified.
+
+LinkedIn member is unsent after an API TLS handshake failure. YouTube requires external-link verification. There are no unknown writes. [Current result](resume-20261116.json) records the exact identities, clocks, route limits, tests and next action.
+
+The code is pushed and integrated into the operating root. Piece 3 is next on 17 November at 18:00 GMT+7, honoring one piece per day. The series remains open for its later pieces and the daily-board/next-plan method-link readbacks.
+
+## Earlier preparation records
 
 # CC-536 piece 2: following the trend
 
