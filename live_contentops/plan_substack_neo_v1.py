@@ -11,17 +11,32 @@ import re
 from .neo_destination_handoff_v1 import _text, _substack_rendered_text
 
 
+def _inline_html(text):
+    """Keep the manuscript's HTTPS links and code spans in the editor paste."""
+    parts=[]
+    end=0
+    for match in re.finditer(r"\[([^\]]+)\]\((https://[^\s<>()]+)\)|`([^`]+)`", text):
+        parts.append(escape(text[end:match.start()]))
+        if match[2] is not None:
+            parts.append('<a href="'+escape(match[2],quote=True)+'">'+escape(match[1])+'</a>')
+        else:
+            parts.append('<code>'+escape(match[3])+'</code>')
+        end=match.end()
+    parts.append(escape(text[end:]))
+    return ''.join(parts)
+
+
 def body_html(text):
     blocks=[]
     for block in text.split("\n\n"):
         if block.startswith("## "):
-            blocks.append("<h2>"+escape(block[3:])+"</h2>")
+            blocks.append("<h2>"+_inline_html(block[3:])+"</h2>")
         elif block.startswith("|"):
             rows=[line for line in block.splitlines() if not re.fullmatch(r"[| :\-]+",line)]
-            blocks.append("<table>"+"".join("<tr>"+"".join("<td>"+escape(cell.strip())+"</td>"
+            blocks.append("<table>"+"".join("<tr>"+"".join("<td>"+_inline_html(cell.strip())+"</td>"
                 for cell in line.strip("|").split("|"))+"</tr>" for line in rows)+"</table>")
         else:
-            blocks.extend("<p>"+escape(line)+"</p>" for line in block.splitlines())
+            blocks.extend("<p>"+_inline_html(line)+"</p>" for line in block.splitlines())
     return "".join(blocks)
 
 

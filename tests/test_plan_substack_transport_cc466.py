@@ -113,6 +113,21 @@ def test_retained_preclick_draft_is_checked_and_sent_without_creating_another(pa
     assert sum(c[0]=="plan_substack_publish" for c in client.calls)==1
 
 
+def test_measured_piece_method_link_reaches_the_editor_paste(packet):
+    url="https://capitalchronicle.substack.com/p/how-we-measure-a-trading-rule-before"
+    packet["operation_id"]="cc536-measured-odds-2"
+    packet["request"]["native_payload"]["body_markdown"]=(
+        "Read the [method page]("+url+").\n\n## Source\n\nTable fingerprint: `ce3c11ff`.")
+    client=Client(packet)
+    result=neo.NeoBrowserDriver(client).perform(packet)
+    assert result["result"]["status"]=="SUCCESS"
+    pasted=next(c[1]["html"] for c in client.calls if c[0]=="plan_substack_paste")
+    assert '<a href="'+url+'">method page</a>' in pasted
+    assert '<code>ce3c11ff</code>' in pasted
+    assert '[method page]' not in pasted
+    assert 'href="javascript:' not in plan_neo.body_html('[bad](javascript:alert(1))')
+
+
 def test_wrong_retained_draft_cannot_reach_publish(packet):
     client=Client(packet,"body")
     client.resume_draft_url="https://capitalchronicle.substack.com/publish/post/123"
