@@ -869,7 +869,10 @@ class EndpointNeoExecutor(NativeNeoExecutor):
         # A repaired reader must observe the exact object again, even inside
         # the old cache interval. Issued observations keep their original bytes.
         revised = {**request, 'readback_transport_revision':self.executor_revision}
-        return super().fresh_readback_request(revised) or revised
+        revised = super().fresh_readback_request(revised) or revised
+        from .capital_chronicle_latest_report_consumer_v1 import sha256_of
+        revised['request_sha256'] = sha256_of({k:v for k,v in revised.items() if k != 'request_sha256'})
+        return revised
 
     def fresh_publish_request(self, request):
         """A repaired transport can supersede its proven pre-click refusal once.

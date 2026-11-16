@@ -89,6 +89,8 @@ def test_repaired_reader_refreshes_exact_object_without_changing_a_publish_claim
     request={'action':'READBACK','work_item_id':'cc603-readback','destination':'substack_notes',
              'content_binding':{},'public_object_id':'c-603','public_object_url':'https://substack.com/@capitalchronicle/note/c-603'}
     revised=executor.fresh_readback_request(request)
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    assert revised['request_sha256']==sha256_of({k:v for k,v in revised.items() if k!='request_sha256'})
     assert revised['readback_transport_revision']==executor.executor_revision
     assert revised['action']=='READBACK' and revised['public_object_id']=='c-603'
     assert store.list_platform_dispatches()==[]
