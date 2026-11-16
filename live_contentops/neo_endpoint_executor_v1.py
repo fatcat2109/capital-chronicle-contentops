@@ -422,9 +422,15 @@ class NeoBrowserDriver:
         refused = self.article_guard(request, page)
         if refused:
             return {**refused, "status": "READBACK_UNAVAILABLE", "verified": False}
+        texts = posts or expected_posts(request)
+        if request["destination"] == "linkedin_company":
+            # The admin shell can settle before its post bodies hydrate.
+            # Observe the target text before interpreting the loaded feed.
+            self.client.wait(page, '.update-components-text, [data-testid="expandable-text-box"]')
+            if texts:
+                self.client.wait_text(page, texts[0].splitlines()[0][:60])
         data = self.client.run(page, "article_readback", destination=request["destination"])
         candidates = data["posts"]
-        texts = posts or expected_posts(request)
         from .neo_destination_handoff_v1 import _text
         prefix = _text(texts[0].splitlines()[0])[:60] if texts else ""
         for post in candidates:

@@ -219,6 +219,29 @@ print('X_AND_NOTE_CONFIRMED_WITHOUT_MODEL_OR_CODEX_CHILD')
         assert state['uploads']==[str(card),str(card)]
 
 
+def test_company_readback_waits_for_the_exact_post_body(monkeypatch):
+    url='https://www.linkedin.com/feed/update/urn:li:activity:123/'
+    text='Gold trend-long: 76 trades, 0.391R per trade.'
+    events=[]
+    class Client:
+        def call(self,name,args):events.append(name)
+        def snapshot(self,page):return {'url':url,'text':'Capital Chronicle'}
+        def wait(self,page,selector):events.append('post-selector')
+        def wait_text(self,page,value):
+            assert value==text
+            events.append('target-text')
+        def run(self,page,phase,**kwargs):
+            assert events[-1]=='target-text'
+            return {'posts':[{'public_object_id':'urn:li:activity:123','public_object_url':url,
+                'observed_identity':'linkedin:company:143198922','observed_text':text,'links':[],
+                'public_image_urls':[]}]}
+    monkeypatch.setattr(neo,'compare_public_images',lambda request,observed,**kwargs:observed)
+    result=neo.NeoBrowserDriver(Client()).article_readback({'destination':'linkedin_company',
+        'public_object_url':url,'expected_identity':'linkedin:company:143198922','request_sha256':'x'},1,posts=[text])
+    assert result['status']=='SUCCESS' and result['content_verified']
+    assert events==['navigate','post-selector','target-text']
+
+
 def test_local_endpoint_only():
     with pytest.raises(ValueError,match='NEO_LOCAL_ENDPOINT_REQUIRED'): neo.NeoMcpClient('https://example.com/mcp')
 
