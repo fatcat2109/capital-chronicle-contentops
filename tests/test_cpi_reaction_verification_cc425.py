@@ -184,6 +184,13 @@ def test_promotion_checks_exact_store_binding_without_repeated_full_storage_scan
     with reader.get_read_only_connection() as conn:
         assert _target_guards(conn, operation, {"run_id": "CONTROLLED-next"}, {"message_id": "CONTROLLED-new"}) is False
     assert not any("integrity_check" in q.lower() or "foreign_key_check" in q.lower() for q in statements)
+    other = source.create_work_item(story_id="CONTROLLED-other", work_item_id="CONTROLLED-other",
+                                    title="Controlled existing article", target_surface="TEST")
+    source.register_outbox_message(message_id="CONTROLLED-existing-article", work_item_id="CONTROLLED-other",
+        destination="internal:cc-report-simple-result", payload='{"article_identity":"CONTROLLED-next"}', status="EDITORIAL_INTERNAL")
+    with reader.get_read_only_connection() as conn:
+        with pytest.raises(ValueError, match="ARTICLE_IDENTITY_ALREADY_REGISTERED"):
+            _target_guards(conn, operation, {"run_id": "CONTROLLED-next"}, {"message_id": "CONTROLLED-new"})
     # Schema and authorization-trigger tampering still fails the import reader.
     with source.get_connection() as conn:
         conn.execute("DROP TRIGGER trg_transition_events_append_authorized")

@@ -135,7 +135,14 @@ def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
     if existing and any(existing[k] != v for k, v in promotion.items()):
         raise ValueError("CC074_PROMOTION_CONFLICT")
     allowed = {r["message_id"] for r in operation["rows"]}
-    for row in conn.execute("SELECT * FROM outbox_messages"):
+    from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    identity_destinations = {"substack", "site", "linkedin_company", *V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+        "internal:cc-report-simple-result", "internal:native-publication-binding", "internal:native-prepared-handoff"}
+    destinations = sorted(identity_destinations)
+    # Tool transcripts and reply draft history have no article-ownership role.
+    # Use the existing destination/work indexes for exact publication owners.
+    for row in conn.execute("SELECT * FROM outbox_messages WHERE work_item_id IN (?,?) OR destination IN ("
+            + ",".join("?" for _ in destinations) + ")", (work, binding["run_id"], *destinations)):
         value = json.loads(row["payload"])
         if (
             isinstance(value, dict)
