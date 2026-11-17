@@ -141,17 +141,15 @@ def _target_guards(conn, operation, binding, promotion, *, own_lease=None):
     destinations = sorted(identity_destinations)
     # Tool transcripts and reply draft history have no article-ownership role.
     # Use the existing destination/work indexes for exact publication owners.
-    for row in conn.execute("SELECT * FROM outbox_messages WHERE work_item_id IN (?,?) OR destination IN ("
-            + ",".join("?" for _ in destinations) + ")", (work, binding["run_id"], *destinations)):
-        value = json.loads(row["payload"])
-        if (
-            isinstance(value, dict)
-            and value.get("article_identity") == operation["pin"]["article_identity"]
-            and row["work_item_id"] not in {work, binding["run_id"]}
-        ):
-            raise ValueError("CC074_ARTICLE_IDENTITY_ALREADY_REGISTERED")
-        if row["work_item_id"] not in {work, binding["run_id"]}:
-            continue
+    duplicate = conn.execute("SELECT 1 FROM outbox_messages WHERE work_item_id NOT IN (?,?) "
+        "AND destination IN (" + ",".join("?" for _ in destinations) + ") "
+        "AND json_extract(payload,'$.article_identity')=? LIMIT 1",
+        (work, binding["run_id"], *destinations, operation["pin"]["article_identity"])).fetchone()
+    if duplicate:
+        raise ValueError("CC074_ARTICLE_IDENTITY_ALREADY_REGISTERED")
+    # Transfer only this operation's rows to Python; SQLite reads the other
+    # article identities without copying their multi-megabyte media/evidence.
+    for row in conn.execute("SELECT * FROM outbox_messages WHERE work_item_id IN (?,?)", (work, binding["run_id"])):
         if not existing:
             raise ValueError("CC074_TARGET_RUN_ALREADY_EXISTS")
         if row["message_id"] in allowed:
