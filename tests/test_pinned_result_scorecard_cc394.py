@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 import importlib.util
 import json
 from pathlib import Path
+import subprocess
 import urllib.error
 
 import pytest
@@ -276,6 +277,30 @@ def test_existing_publish_tick_consumes_main_rows_through_coordinator(live, monk
     cli = cli_module()
     value = export(call("win"), call("loss", "STOPPED"))
     value["status"]["generated_at_utc"] = datetime.now(timezone.utc).isoformat()
+    # This entry also runs editorial, browser and observation services. Keep
+    # this test on its temporary store and fake Main rows, with no real model
+    # child or external service (a later companion once launched Codex here).
+    from live_contentops import (
+        audience_collection_v1, call_followups_v1, event_pack_v1,
+        event_timestamp_v1, model_invocation_usage_v1, neo_endpoint_executor_v1,
+        plan_analysis_pages_v1, plan_reader_editorial_v1, x_reply_bot_v1, x_reply_tabs_v1,
+    )
+    for module, name, result in (
+        (x_reply_bot_v1, "refresh_due", {}),
+        (x_reply_bot_v1, "observe_due", {}),
+        (call_followups_v1, "minute_due", {}),
+        (plan_reader_editorial_v1, "run_due", {}),
+        (plan_analysis_pages_v1, "resume_discord_links", []),
+        (neo_endpoint_executor_v1, "resume_stored_requests", {}),
+        (x_reply_tabs_v1, "refresh_due", {}),
+        (event_timestamp_v1, "maintain_timestamps", {}),
+        (event_pack_v1, "run_due_packs", {}),
+        (audience_collection_v1, "run_collection", {"collected": 0}),
+        (model_invocation_usage_v1, "import_native_invocations", {}),
+    ):
+        monkeypatch.setattr(module, name, lambda *a, _result=result, **kw: deepcopy(_result))
+    monkeypatch.setattr(subprocess, "Popen", lambda *a, **kw: pytest.fail("scorecard test started a subprocess"))
+    monkeypatch.setattr(posts, "read_export", lambda *a, **kw: value)
     monkeypatch.setattr(scorecard, "read_export", lambda *a, **kw: value)
     monkeypatch.setattr(scorecard, "TelegramScorecardAPI", lambda: live[2])
     monkeypatch.setattr(cli, "queue_posts", lambda *a, **kw: {"status": "OK", "queued": []})
