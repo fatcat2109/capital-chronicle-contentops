@@ -1,0 +1,30 @@
+{
+  "observed_at_utc": "2026-11-17T04:51:42.300671+00:00",
+  "operating_head": "35098224cf027d47a5e58725ff5c5fb01b35ca18",
+  "consumer": "scripts/audit_publication_images_cc463.py --day 2026-11-16 --following-days 7",
+  "status": "OBSERVATION_PENDING",
+  "baseline_status": "PASS",
+  "baseline_chart_first_day_complete": true,
+  "baseline_market_posts": 12,
+  "baseline_tradingview_first_images": 12,
+  "baseline_image_type_counts": {
+    "TRADINGVIEW_MARKET_CHART": 20,
+    "DRAWN_CARD": 1
+  },
+  "whole_window_elapsed": false,
+  "completed_following_days": 0,
+  "window_end_utc": "2026-11-23T19:00:00+00:00",
+  "violations_by_day": {},
+  "unknown_type_records_by_day": {},
+  "register_sha256_before": "ca72c79d63e640256dc4593947db5a2956bad17352c11c64c9f4b2a650dedea7",
+  "register_sha256_after": "ca72c79d63e640256dc4593947db5a2956bad17352c11c64c9f4b2a650dedea7",
+  "installed_sources_unchanged": {
+    "live_contentops/publication_image_contract_v1.py": true,
+    "live_contentops/published_images_v1.py": true,
+    "live_contentops/tradingview_snapshot_v1.py": true,
+    "live_contentops/publication_coordinator_v1.py": true,
+    "scripts/audit_publication_images_cc463.py": true
+  },
+  "public_write_performed": false,
+  "schedule_changed": false
+}

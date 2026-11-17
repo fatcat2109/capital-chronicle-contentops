@@ -67,3 +67,13 @@ live-publication proofs keep their own limits; this readback does not relabel
 their retained sample renders as new public posts. CC-463's remaining cause is
 `SEVEN_DAY_LIVE_OBSERVATION_INCOMPLETE`, required by this item's acceptance,
 with Publisher's next audit due no earlier than 24 November at 02:00 GMT+7.
+
+Proof commit `35098224cf027d47a5e58725ff5c5fb01b35ca18` is pushed and
+fast-forwarded into `A:\Capital Chronicle\ContentOps` from operating HEAD
+`6f6572897f5a8077d7303505ba07cbf1d9b86f51`. Remote readback confirms
+`contentops-live-20261117-cc463-image-proof` at the proof commit and
+`contentops-rollback-20261117-cc463-image-proof` at the prior operating HEAD.
+[Integration evidence](integration.json) verifies all unrelated WIP hashes.
+No production source changed. [The post-integration installed consumer](final-live-consumer.json)
+again returns PASS for the baseline and OBSERVATION_PENDING for the week,
+with the original register bytes and all five source hashes unchanged.

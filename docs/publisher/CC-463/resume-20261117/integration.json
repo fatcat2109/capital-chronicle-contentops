@@ -1,0 +1,47 @@
+{
+  "observed_at_utc": "2026-11-17T04:51:04.230004+00:00",
+  "previous_operating_head": "6f6572897f5a8077d7303505ba07cbf1d9b86f51",
+  "proof_commit": "35098224cf027d47a5e58725ff5c5fb01b35ca18",
+  "observed_operating_head": "35098224cf027d47a5e58725ff5c5fb01b35ca18",
+  "integration": "FAST_FORWARD",
+  "changed_paths": [
+    "docs/publisher/CC-463/README.md",
+    "docs/publisher/CC-463/resume-20261117/README.md",
+    "docs/publisher/CC-463/resume-20261117/exact-live-dispatches.json",
+    "docs/publisher/CC-463/resume-20261117/installed-acceptance-tests.xml",
+    "docs/publisher/CC-463/resume-20261117/live-audit-summary.json",
+    "docs/publisher/CC-463/resume-20261117/live-image-provenance-1142.json",
+    "docs/publisher/CC-463/resume-20261117/live-image-window-1142.json",
+    "docs/publisher/CC-463/resume-20261117/live-instagram-source.json",
+    "docs/publisher/CC-463/resume-20261117/live-public-readback.json",
+    "docs/publisher/CC-463/resume-20261117/media/bitcoin-live-instagram-4x5.png",
+    "docs/publisher/CC-463/resume-20261117/minute-consumer.json",
+    "docs/publisher/CC-463/resume-20261117/portrait-file-verification.json",
+    "docs/publisher/CC-463/resume-20261117/verification.json"
+  ],
+  "live_tag": "contentops-live-20261117-cc463-image-proof",
+  "rollback_tag": "contentops-rollback-20261117-cc463-image-proof",
+  "remote_readback": [
+    "35098224cf027d47a5e58725ff5c5fb01b35ca18\trefs/heads/backlog/cc-463-live-image-proof-20261117",
+    "35098224cf027d47a5e58725ff5c5fb01b35ca18\trefs/tags/contentops-live-20261117-cc463-image-proof",
+    "6f6572897f5a8077d7303505ba07cbf1d9b86f51\trefs/tags/contentops-rollback-20261117-cc463-image-proof"
+  ],
+  "unrelated_wip_unchanged": {
+    "worktree": {
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    },
+    "operating_root": {
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md": true,
+      "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md": true,
+      "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": true,
+      "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl": true,
+      "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl": true
+    }
+  },
+  "production_source_changed": false,
+  "public_writes": 0,
+  "schedule_changed": false,
+  "application_restarted": false
+}
