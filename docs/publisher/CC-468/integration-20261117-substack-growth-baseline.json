@@ -25,7 +25,7 @@
       "display": "1(50%)"
     }
   ],
-  "use": "Pre-integration growth baseline. The visible metric is new subscribers, not separately observed new free subscribers; no fourteen-day attribution or keep/drop result is asserted.",
+  "use": "Baseline observed after installation and before any CC-468 daily Note was confirmed. The visible metric is new subscribers, not separately observed new free subscribers; no fourteen-day attribution or keep/drop result is asserted.",
   "retained_visible_text_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc468-integration-20261117\\substack-growth-baseline-visible.txt",
   "retained_visible_text_sha256": "083e8f243037603be075f7050c2bc0f6f18a68afeaebb2d425a2d7adc079395a",
   "free_subscriber_source_counts": null,

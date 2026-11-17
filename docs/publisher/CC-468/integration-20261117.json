@@ -89,5 +89,7 @@
     "ARTICLE_DATA_CUTOFF_EXPIRED for all three reaction sources; cutoff 2026-11-17T04:13:47.164560Z"
   ],
   "next_action": "Main supplies an eligible source-bound analysis and Data supplies a source edition within the root CC-403 60-minute publication rule; Publisher resumes existing Note/page preparation and coordinator. Then observe seven Note dates and fourteen subscriber-source days. Only Jim sends the ten prepared recommendation messages.",
-  "installed_entry_test_artifact": "integration-20261117-installed-consumer-tests.xml"
+  "installed_entry_test_artifact": "integration-20261117-installed-consumer-tests.xml",
+  "live_readback_tag": "contentops-live-20261117-cc468-readback",
+  "live_readback_tag_code_state": "same installed code as 8e2e8469; tag includes the final source readbacks"
 }
