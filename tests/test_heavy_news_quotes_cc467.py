@@ -159,7 +159,12 @@ def test_overlapping_minute_ticks_cannot_renew_another_ticks_fence(prepared, tmp
 
 def test_public_names_can_replace_private_source_shorthand_without_changing_numbers(prepared):
     store, _, _, raw, now = prepared
-    raw.update(created_at_utc=now.isoformat(), fact_text="0.8%", text="Rates drive stocks. Price dispersion is 0.8%. Chart: TradingView. " + PUBLIC_NOTICE)
+    store.register_outbox_message(message_id="desk-rates",work_item_id="work-1",destination="internal:cc-report-feed",
+        payload=json.dumps({"desk_record_sources":[{"title":"Dated rates context","known_at_utc":now.isoformat(),
+            "binding":{"fields":[{"value":4.51,"display":"US2Y 4.51% on 6 Nov.","rights_class":"CC_OWN_ANALYSIS",
+                                    "citation":"rates","field_path":"/yield"}],"sources":[]}}]}))
+    raw.update(source=packs.held_sources(store)[0],created_at_utc=now.isoformat(), fact_text="4.51%",
+        text="Rates matter for the yen. The U.S. two-year yield was 4.51% on 6 Nov. Chart: TradingView. " + PUBLIC_NOTICE)
     assert quotes.validate_copy(raw,store=store) is raw
     with pytest.raises(ValueError,match="FIGURE_BINDING"):
-        quotes.validate_copy({**raw,"text":raw["text"].replace("0.8%","0.9%")},store=store)
+        quotes.validate_copy({**raw,"text":raw["text"].replace("4.51%","4.52%")},store=store)

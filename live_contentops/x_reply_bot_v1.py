@@ -305,7 +305,8 @@ def _text_call(prompt, *, root, writer=False, runner=None, model_config=None, ti
         raise ValueError(("CODEX_DRAFT_TIMEOUT_" + str(call_timeout) + "S") if writer else "AGY_RANK_TIMEOUT_" + str(AGY_TIMEOUT) + "S") from None
     except Exception as exc:
         record_.setdefault("status", "FAILED")
-        record_["cause"] = str(exc) if "light_call" in record_ else type(exc).__name__
+        record_["cause"] = str(exc) if "light_call" in record_ or (
+            isinstance(exc, ValueError) and re.fullmatch(r"[A-Z][A-Z0-9_]{2,150}", str(exc))) else type(exc).__name__
         raise
     finally:
         record_["ended_at_utc"] = packs.utcnow().isoformat()
