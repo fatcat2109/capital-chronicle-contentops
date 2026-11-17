@@ -428,7 +428,13 @@ class NeoBrowserDriver:
             # Observe the target text before interpreting the loaded feed.
             self.client.wait(page, '.update-components-text, [data-testid="expandable-text-box"]')
             if texts:
-                self.client.wait_text(page, texts[0].splitlines()[0][:60])
+                try:
+                    self.client.wait_text(page, texts[0].splitlines()[0][:60])
+                except NeoEndpointError:
+                    # A loaded feed may genuinely lack this attempted post.
+                    # Continue into the existing identity/feed/age checks;
+                    # a missing target alone still never permits a resend.
+                    pass
         data = self.client.run(page, "article_readback", destination=request["destination"])
         candidates = data["posts"]
         from .neo_destination_handoff_v1 import _text

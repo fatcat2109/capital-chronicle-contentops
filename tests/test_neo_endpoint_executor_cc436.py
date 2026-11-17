@@ -242,6 +242,35 @@ def test_company_readback_waits_for_the_exact_post_body(monkeypatch):
     assert events==['navigate','post-selector','target-text']
 
 
+@pytest.mark.parametrize('case', ['loaded_feed', 'empty_feed', 'partial_target', 'wrong_identity'])
+def test_company_target_wait_timeout_still_observes_the_feed_before_absence(case):
+    url = 'https://www.linkedin.com/company/143198922/admin/page-posts/published/'
+    text = 'Bitcoin trend-long: 281 trades, 0.197R per trade; always long: 704 trades, 0.086R.'
+    identity = 'linkedin:company:143198922'
+    events = []
+    class Client:
+        def wait(self, page, selector): events.append('loaded-post-selector')
+        def wait_text(self, page, value):
+            events.append('target-wait-timeout')
+            raise neo.NeoEndpointError('NEO_TOOL_ERROR_WAIT')
+        def snapshot(self, page): return {'url': url}
+        def run(self, page, phase, **kwargs):
+            events.append(phase)
+            if phase == 'article_identity':
+                return {'authenticated': True, 'observed_identity':
+                    'linkedin:company:other' if case == 'wrong_identity' else identity}
+            assert phase == 'article_readback'
+            observed = text[:60] + ' incomplete' if case == 'partial_target' else 'Earlier confirmed research article.'
+            return {'posts': [] if case == 'empty_feed' else [{
+                'public_object_id': 'urn:li:activity:old', 'public_object_url': 'https://www.linkedin.com/feed/update/urn:li:activity:old/',
+                'observed_identity': identity, 'observed_text': observed, 'links': []}]}
+    result = neo.NeoBrowserDriver(Client()).article_readback({'destination': 'linkedin_company',
+        'entry_url': url, 'expected_identity': identity, 'request_sha256': 'exact-readback'}, 1, posts=[text])
+    assert events[:3] == ['loaded-post-selector', 'target-wait-timeout', 'article_readback']
+    assert result.get('target_post_absent') is (True if case == 'loaded_feed' else None)
+    assert result.get('verified') is False
+
+
 def test_local_endpoint_only():
     with pytest.raises(ValueError,match='NEO_LOCAL_ENDPOINT_REQUIRED'): neo.NeoMcpClient('https://example.com/mcp')
 
