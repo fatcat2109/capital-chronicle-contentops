@@ -17,6 +17,27 @@ def test_fixed_seed_keeps_newest_three_and_five_distinct_older_releases():
     assert sample[:5] == [events[i]["release_utc"] for i in (0, 1, 2, 3, 5)]
 
 
+def test_hosted_media_uses_instagram_selected_chart_without_uploading_unused_photo(tmp_path, monkeypatch):
+    import json
+    from live_contentops import _eight_platform_substack_first_pipeline_impl_v1 as pipeline
+    chart = {"asset_id": "CONTROLLED-chart", "modality": "source_backed_chart"}
+    photo = {"asset_id": "CONTROLLED-unused-photo", "modality": "documentary_photo"}
+    (tmp_path / "run_context_v1.json").write_text(json.dumps({"media": {"assets": [chart, photo]}}))
+    (tmp_path / "native.json").write_text(json.dumps({"packages": {"instagram_business": {"media_asset_ids": [chart["asset_id"]]}}}))
+    calls = []
+    def host(**kwargs):
+        calls.append(kwargs)
+        return {"status": "CLOUDINARY_DELIVERY_MEDIA_READY", "manifest": {"assets": []}}
+    monkeypatch.setattr(pipeline, "prepare_cloudinary_delivery_media", host)
+    result = pipeline._prepare_cloudinary_delivery_media_for_plan(work_item_id="CONTROLLED", plan={
+        "output_dir": str(tmp_path), "artifact_refs": {"native_derivative_previews": "native.json"},
+        "destinations": [{"destination": "instagram_business", "delivery_media_required": True}]},
+        preconditions={"canonical_publication_status": "RECONCILED_CONFIRMED", "unknown_write_count": 0})
+    assert result["status"] == "CLOUDINARY_DELIVERY_MEDIA_READY"
+    assert calls[0]["article_assets"] == [chart]
+    assert json.loads((tmp_path / "run_context_v1.json").read_bytes())["media"]["assets"] == [chart, photo]
+
+
 def test_missing_release_or_duplicate_never_reduces_verification_sample():
     with pytest.raises(ValueError, match="EIGHT_DISTINCT"):
         sample_releases([{"release_utc": "2026-01-10T12:30:00Z"}] * 8)

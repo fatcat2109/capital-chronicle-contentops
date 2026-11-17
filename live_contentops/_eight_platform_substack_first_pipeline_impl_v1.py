@@ -4096,6 +4096,26 @@ def _prepare_cloudinary_delivery_media_for_plan(
     delivery_only_assets = [{**a, "article_inclusion": False, "canonical_article_media": False}
         if a.get("modality") == "tradingview_chart_snapshot" else a for a in delivery_only_assets]
     article_assets = [a for a in article_assets if a.get("modality") != "tradingview_chart_snapshot"]
+    # Hosted-media destinations consume their reviewed asset selection, not
+    # every canonical photo. CC-425's unused 13 MB photo failed upload and
+    # stopped Instagram even though its selected gold chart was already ready.
+    preview_name = (plan.get("artifact_refs") or {}).get("native_derivative_previews")
+    hosted = [d["destination"] for d in plan.get("destinations", []) if d.get("delivery_media_required")]
+    if preview_name and hosted:
+        previews = _read_json(output_dir / preview_name).get("packages", {})
+        selected_ids = set()
+        explicit = True
+        for destination in hosted:
+            payload = previews.get(destination) or {}
+            ids = payload.get("media_asset_ids")
+            if not isinstance(ids, list) or not ids:
+                explicit = False
+                break
+            selected_ids.update(ids)
+        known = {a.get("asset_id") for a in [*article_assets, *delivery_only_assets]}
+        if explicit and selected_ids <= known:
+            article_assets = [a for a in article_assets if a.get("asset_id") in selected_ids]
+            delivery_only_assets = [a for a in delivery_only_assets if a.get("asset_id") in selected_ids]
     if not article_assets and not delivery_only_assets:
         # Simple's text-first qualified article intentionally has no in-body media. Reuse the
         # accepted deterministic delivery-only card seam so Instagram can receive media without
