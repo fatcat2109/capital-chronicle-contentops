@@ -1,0 +1,96 @@
+{
+  "item": "CC-510",
+  "observed_at_utc": "2026-11-17T06:12:07.155810+00:00",
+  "source_branch": "backlog/cc-510-base-rate-delivery-proof-20261117",
+  "operating_branch": "codex/contentops-local-publisher-20261030",
+  "previous_operating_head": "ea03bdd040f6a8ba50020798c11a01ee3b77c007",
+  "integrated_evidence_head": "ef7d151c9af722c8305f1c4369711f133b1b3362",
+  "integration_method": "Fast-forward onto the current ContentOps operating HEAD; evidence only.",
+  "rollback_tag": "contentops-rollback-20261117-cc510-delivery-proof",
+  "live_tag": "contentops-live-20261117-cc510-delivery-proof",
+  "installed_readback": {
+    "loaded_from": "A:\\Capital Chronicle\\ContentOps\\docs\\publisher\\CC-510\\resume-20261117\\readback.py",
+    "bot_module_loaded_from": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_bot_v1.py",
+    "read_at_utc": "2026-11-17T06:12:05.757999+00:00",
+    "operating_head": "ef7d151c9af722c8305f1c4369711f133b1b3362",
+    "acceptance": "PASS_NATURAL_BASE_RATE_PRIVATE_DELIVERY",
+    "base_rate_delivery_count": 1,
+    "telegram_message_id": 9,
+    "delivered_at_utc": "2026-11-15T19:40:46+00:00",
+    "count": 949,
+    "sample_count": 1750,
+    "period_text": "2016-11-10 to 2026-11-14",
+    "through_date": "2026-11-14",
+    "same_exact_receipt_pack_source_producer_answer_and_formatter": true,
+    "installed_source_hashes_match_initial_readback": true,
+    "detail_artifact": "readback.json"
+  },
+  "validation": {
+    "command": "python -m pytest tests/test_x_reply_base_rates_cc510.py -q --junitxml=<CC-510 evidence>/targeted-tests.xml",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "passed": 40,
+    "wall_seconds": 15.84,
+    "one_pytest_process": true,
+    "timeout_seconds": 50
+  },
+  "preserved_work": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": {
+      "initial_bytes": 992508,
+      "initial_sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c",
+      "current_bytes": 992508,
+      "unchanged_or_appended": true
+    },
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": {
+      "initial_bytes": 10337,
+      "initial_sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28",
+      "current_bytes": 10337,
+      "unchanged_or_appended": true
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md": {
+      "initial_bytes": 3959,
+      "initial_sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "current_bytes": 3959,
+      "unchanged_or_appended": true
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json": {
+      "initial_bytes": 19341,
+      "initial_sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "current_bytes": 19341,
+      "unchanged_or_appended": true
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md": {
+      "initial_bytes": 39129,
+      "initial_sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "current_bytes": 39129,
+      "unchanged_or_appended": true
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md": {
+      "initial_bytes": 6166,
+      "initial_sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "current_bytes": 6166,
+      "unchanged_or_appended": true
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": {
+      "initial_bytes": 1442302,
+      "initial_sha256": "af16fe145972cde2ccd39c112ee11189f3e68c8496ae53d77ba1bc59296446c9",
+      "current_bytes": 1442302,
+      "unchanged_or_appended": true
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": {
+      "initial_bytes": 72613,
+      "initial_sha256": "8740a012c932060ec8e69699f545a2be787a441c3df168482ff71e71cba42f1b",
+      "current_bytes": 72613,
+      "unchanged_or_appended": true
+    }
+  },
+  "production_source_changed": false,
+  "runtime_store_writes": 0,
+  "new_model_calls": 0,
+  "producer_queries": 0,
+  "transport_calls": 0,
+  "manual_consumer_ticks": 0,
+  "public_submit_actions": 0,
+  "schedule_changed": false,
+  "applications_restarted": false,
+  "evidence_limit": "Bot API-confirmed delivery and saved exact bindings; fact lines replay the unchanged send formatter. No phone-screen or Telegram body readback."
+}
