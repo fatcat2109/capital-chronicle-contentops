@@ -285,5 +285,13 @@
   "freeze_to_first_alert_seconds": 174.189443,
   "freeze_to_analysis_publication_seconds": null,
   "analysis_speed_acceptance": "NOT_MET: no confirmed analysis page more than ten minutes after the freeze at this snapshot",
-  "seconds_since_freeze_at_readback": 8044.226454
+  "seconds_since_freeze_at_readback": 8044.226454,
+  "final_readback": {
+    "checked_at_utc": "2026-11-17T08:46:03.440340+00:00",
+    "operating_head": "29e88b6206032b08ad3bb57681f3fd61c05ea001",
+    "existing_CC549_fix_is_ancestor": false,
+    "page_row_present": false,
+    "runtime_state": "SOURCE_PAGE_PENDING",
+    "cause": "ValueError:PLAN_ANALYSIS_RUN_NOT_FOUND"
+  }
 }

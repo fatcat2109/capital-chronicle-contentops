@@ -4,7 +4,8 @@ The implementation is integrated; acceptance remains incomplete. The
 [17 November readback](#17-november-readback) below supersedes the old AGY timeout
 and signed-R source gaps. This second-stream evidence delivery is
 **BUILT_UNMERGED (Ops review pending)**; it performs no integration or public write.
-The delivery branch is `backlog/cc-466-forces-first-plan-posts`. The live and
+The original delivery branch was `backlog/cc-466-forces-first-plan-posts`;
+this continuation uses `backlog/cc-466-plan-readback-20261117-live`. The live and
 rollback tags are `contentops-live-20261112-cc466` and
 `contentops-rollback-20261112-cc466`; `integration.json` records the tested source
 HEAD, exact installed file hashes and preserved unrelated work.

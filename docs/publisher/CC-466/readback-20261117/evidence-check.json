@@ -10,8 +10,8 @@
   "json_files": [
     {
       "path": "consumer-readback.json",
-      "bytes": 12808,
-      "sha256": "10429e2b17c829c4d5c1309dd465ada59f9fde229312868ce2f2d1a34bf59d57"
+      "bytes": 12844,
+      "sha256": "28d18d1d4aaf8822326b1dfed7510545946e7493671627f512f5755913d305df"
     },
     {
       "path": "public-observation.json",
@@ -20,24 +20,25 @@
     },
     {
       "path": "signed-r.json",
-      "bytes": 2474,
-      "sha256": "917978f69ae149f8b99a509bd296ab77e6ddd2e9535363e280ab8491560009eb"
+      "bytes": 2411,
+      "sha256": "ca575b1da0cc902b634b68cc5932df7ecd9fe10b877d9c2b2dfc945fb6bf655b"
     },
     {
       "path": "source-layers.json",
-      "bytes": 12776,
-      "sha256": "19b16c1225907d1d71f86bec527f73c927335ac0315df02fb3815a63960c4e94"
+      "bytes": 12467,
+      "sha256": "576b3b20274e90df12700a78d47eda8215d1a5b3ff7b5cd45b8b845b86af9f41"
     },
     {
       "path": "week-coverage.json",
-      "bytes": 20138,
-      "sha256": "eb6001b03ce2e0cf6f66a7a9a70608d4845074bd326354843f4baf0a300b3501"
+      "bytes": 19405,
+      "sha256": "4841b55552b15b261c27c8e1cd5890ad3f6a8671da47cd4f73b6410bdbfdb662"
     },
     {
       "path": "x-before-after.json",
-      "bytes": 1062,
-      "sha256": "7eec0648cad76c9116fac68c75538c27363cb1c2c2977037734e72ca0f562f6f"
+      "bytes": 1037,
+      "sha256": "72edf962deecaa055025799deaceb7b9f03ef6ae5e1e878eb97b625c4ad3a518"
     }
   ],
-  "public_writes": 0
+  "public_writes": 0,
+  "hash_scope": "UTF-8 LF repository artifact bytes; source and payload hashes inside artifacts keep their own original-byte scope"
 }
