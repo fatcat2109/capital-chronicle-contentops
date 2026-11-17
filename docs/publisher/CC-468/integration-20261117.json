@@ -1,0 +1,33 @@
+{
+  "item": "CC-468",
+  "source_delivery": "59aae3580532d7fd61506241612886b65bee65f8",
+  "operating_base": "cf69859a696ca3a89a072edbc9771bd864b395bd",
+  "runs": [
+    {
+      "artifact": "docs/publisher/CC-468/integration-20261117-integration-tests.xml",
+      "passed": 48,
+      "seconds": "41.408"
+    },
+    {
+      "artifact": "docs/publisher/CC-468/integration-20261117-minute-consumer-tests.xml",
+      "passed": 3,
+      "seconds": "11.985"
+    },
+    {
+      "artifact": "docs/publisher/CC-468/integration-20261117-coordinator-recovery-tests.xml",
+      "passed": 5,
+      "seconds": "3.764"
+    }
+  ],
+  "distinct_passed_cases": 56,
+  "choice": "Retain the existing minute entry and coordinator; run Notes independently of unrelated status-export freshness. Each Note still checks its own original source cutoff.",
+  "configured_model": "gpt-6.1-sol",
+  "configured_effort": "max",
+  "configuration_status": "CONFIGURED_NOT_OBSERVED",
+  "runtime_model": null,
+  "runtime_effort": null,
+  "schedule_changes": 0,
+  "chat_messages": 0,
+  "live_integration": "PENDING",
+  "operational_acceptance": "Seven daily reconciled Notes, three public reaction pages and fourteen-day subscriber-source decision remain unobserved."
+}

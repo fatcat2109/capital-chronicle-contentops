@@ -1,0 +1,20 @@
+[
+  {
+    "family": "NFP",
+    "preview": "docs\\publisher\\CC-468\\nfp-table-preview.html",
+    "tables": 7,
+    "expected": 7
+  },
+  {
+    "family": "FOMC",
+    "preview": "docs\\publisher\\CC-468\\fomc-table-preview.html",
+    "tables": 13,
+    "expected": 13
+  },
+  {
+    "family": "PPI",
+    "preview": "docs\\publisher\\CC-468\\ppi-table-preview.html",
+    "tables": 7,
+    "expected": 7
+  }
+]

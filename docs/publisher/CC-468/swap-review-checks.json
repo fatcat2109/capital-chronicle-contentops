@@ -1,0 +1,14 @@
+{
+  "item": "CC-468",
+  "reviewed_at_utc": "2026-11-11T18:32:10.608386+00:00",
+  "local_review_page": "swap-review.html",
+  "candidate_count": 10,
+  "distinct_author_profiles": 10,
+  "prepared_messages": 10,
+  "browser": "BrowserOS Neo existing window, group 14DF74481D46010CDFE3B4935FCE224D",
+  "observed": "Ten author cards, source links, message disclosures and copy/open controls were read back. The page was visually inspected.",
+  "clipboard_action_executed": false,
+  "message_composer_opened": false,
+  "messages_sent": 0,
+  "scope": "Prepared review page only; Jim opens Message, pastes and sends."
+}
