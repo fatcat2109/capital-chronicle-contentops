@@ -181,7 +181,7 @@
     "word_count": 123
   },
   "desk_readback": {
-    "observed_at_utc": "2026-11-17T03:12:20.578879+00:00",
+    "observed_at_utc": "2026-11-17T03:14:18.206259+00:00",
     "cache_path": "A:\\Capital Chronicle\\PrivateApp\\data\\jim-page.private.json",
     "cache_sha256": "39144f2193bce8d5c6eec06a20b0ba634ffcc12cdd6e5829feebe03581c95c8d",
     "cache_mtime_utc": "2026-11-17T03:11:47.099007+00:00",
@@ -240,9 +240,20 @@
     }
   ],
   "integration": {
-    "state": "PENDING_REPOSITORY_EVIDENCE_MERGE",
-    "implementation_already_live_at": "a8991a107f9844131a5a38dab792e21a71f31871",
-    "runtime_note_consumed": true,
-    "no_runtime_restart_required": true
-  }
+    "state": "INTEGRATED",
+    "observed_at_utc": "2026-11-17T03:13:46.932246+00:00",
+    "implementation_and_delivery_evidence_sha": "120033e5092d8860638585ccb20ef8801b376f8e",
+    "operating_root_head_after": "120033e5092d8860638585ccb20ef8801b376f8e",
+    "rollback_tag": "contentops/cc-406-note-rollback-20261117T031343Z",
+    "live_tag": "contentops/cc-406-note-live-20261117T031343Z",
+    "merge": "FAST_FORWARD",
+    "runtime_restart_performed": false,
+    "source_code_changed": false
+  },
+  "idempotent_installed_cli": {
+    "state": "GOLD_NOTE_READY_ON_DESK_INPUT",
+    "first_delivery_clock_preserved": true,
+    "first_prepared_at_utc": "2026-11-17T03:10:44.976056+00:00"
+  },
+  "final_wip_verification_utc": "2026-11-17T03:14:18.210494+00:00"
 }
