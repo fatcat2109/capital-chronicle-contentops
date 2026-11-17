@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="11.518" timestamp="2026-11-17T19:41:25.252719+07:00" hostname="J-P"><testcase classname="tests.test_plan_status_correction_cc359" name="test_correction_reaches_live_consumer_once_and_preserves_originals" time="10.777"><failure message="AssertionError: assert 'Correction: ...ts it covers.' == 'Correction: ...ts it covers.'&#10;  &#10;  Skipping 237 identical leading characters in diff, use -v to show&#10;    –90.45.&#10;    &#10;  + Chart: TradingView&#10;  + &#10;    Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.">tests\test_plan_status_correction_cc359.py:39: in test_correction_reaches_live_consumer_once_and_preserves_originals
     assert data["payloads"][d]["full_text"] == correction.TEXT
 E   AssertionError: assert 'Correction: ...ts it covers.' == 'Correction: ...ts it covers.'
-E     
+E
 E     Skipping 237 identical leading characters in diff, use -v to show
 E       –90.45.
-E       
+E
 E     + Chart: TradingView
-E     + 
+E     +
 E       Capital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.</failure></testcase></testsuite></testsuites>

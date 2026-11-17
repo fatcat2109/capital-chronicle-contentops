@@ -106,6 +106,17 @@ def test_correction_cannot_overtake_the_unclaimed_wrong_copies(tmp_path):
         correction.prepare(store, root=tmp_path)
 
 
+def test_existing_minute_consumer_can_settle_the_cancelled_outbox_projection(tmp_path):
+    store, _, coordinator = original(tmp_path)
+    cancelled = cancel(store, coordinator)
+    for result in cancelled:
+        store.set_outbox_status(result["message_id"], "PLAN_POST_SETTLED")
+        assert coordinator.cancel_unclaimed_status_post(result["message_id"], reason=correction.CANCEL_REASON) == result
+        assert not store.claim_platform_dispatch_attempt(dispatch_id=result["dispatch_id"],
+            message_id=result["message_id"], platform=result["destination"])
+    assert prepare(store, tmp_path)["plan_status_post"] == correction.KEY
+
+
 def test_exact_supplied_correction_reaches_both_live_consumers_once(tmp_path):
     store, transport, coordinator = original(tmp_path)
     cancel(store, coordinator)

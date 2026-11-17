@@ -27,7 +27,9 @@ def _originals(store):
         pending = conn.execute("SELECT o.destination,o.status,d.status AS dispatch_status FROM outbox_messages o "
             "LEFT JOIN platform_dispatches d USING(message_id) WHERE o.work_item_id=? "
             "AND o.destination IN ('facebook_page','instagram_business','threads','x')", (ORIGINAL,)).fetchall()
-    if len(pending) != 4 or any(r["status"] != "DEFINITE_NO_WRITE" or r["dispatch_status"] != "DEFINITE_NO_WRITE" for r in pending):
+    # The existing minute consumer advances the outbox projection to PLAN_POST_SETTLED.
+    # The exact terminal dispatch, rather than that projection's label, fences a send.
+    if len(pending) != 4 or any(r["dispatch_status"] != "DEFINITE_NO_WRITE" for r in pending):
         raise ValueError("CC646_ORIGINAL_PENDING_WRITES_MUST_BE_SETTLED")
     parents = {}
     for dispatch in store.get_dispatches_for_work_item(ORIGINAL):

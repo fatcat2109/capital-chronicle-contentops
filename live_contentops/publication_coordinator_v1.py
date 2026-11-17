@@ -2626,7 +2626,7 @@ class DurablePublicationCoordinator:
                 raise ValueError("EXACT_STATUS_POST_INTENT_REQUIRED")
             readback_id = "cancel_unclaimed_" + ids["dispatch_id"]
             prior = conn.execute("SELECT readback_data FROM readbacks WHERE readback_id=?", (readback_id,)).fetchone()
-            if prior and row["status"] == DEFINITE_NO_WRITE:
+            if prior and row["status"] in {DEFINITE_NO_WRITE, "PLAN_POST_SETTLED"}:
                 result = json.loads(prior["readback_data"])
                 if result.get("reason_code") != reason:
                     raise ValueError("STATUS_POST_CANCELLATION_REASON_CHANGED")

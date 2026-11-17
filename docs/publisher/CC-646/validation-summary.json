@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "unique_targeted_cases": 156,
+  "unique_targeted_cases": 157,
   "all_latest_case_results_pass": true,
   "regression_run": {
     "passed": 155,
@@ -15,7 +15,13 @@
     "failed": 0,
     "artifact": "final-affected-tests.xml"
   },
-  "production_code_after_full_regression": "unchanged; corrected one stale test expectation only",
+  "production_code_after_full_regression": "Only the cancelled-to-settled projection fix followed; verified by the full CC-646 file and canonical claim/concurrency selection.",
   "store_copy_replay": "copied-store-cancellation.json",
-  "copy_preparation": "copied-store-prepared.json"
+  "copy_preparation": "copied-store-prepared.json",
+  "settled_consumer_run": {
+    "passed": 17,
+    "failed": 0,
+    "deselected": 121,
+    "artifact": "settled-consumer-tests.xml"
+  }
 }

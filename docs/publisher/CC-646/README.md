@@ -43,3 +43,9 @@ run passed 155 and exposed one pre-existing CC-359 assertion missing the mandato
 chart credit; the same failure reproduced with the operating-base composer.
 After correcting that assertion, all 13 affected tests passed. Production code
 was unchanged after the four-file run. See [validation-summary.json](validation-summary.json).
+
+Live cancellation was consumed by the existing minute reader, which advanced
+the four outbox projections to PLAN_POST_SETTLED. The first correction attempt
+stopped before registration or any provider call because its local check expected
+the earlier outbox label. The corrected check uses the terminal dispatch state;
+a focused regression covers that existing consumer transition and repeated cancellation.
