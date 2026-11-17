@@ -154,3 +154,51 @@ tests remain applicable. This continuation made no production-code, model,
 transport, manual-tick or schedule change. Its verified launch arguments were
 `gpt-6.1-sol / max`, recorded as `CONFIGURED_NOT_OBSERVED`. CC-510 remains OPEN
 for the next natural base-rate phone delivery with its count, period and cutoff.
+
+## Completion readback — 17 November 2026
+
+The [saved delivery readback](resume-20261117/readback.json) closes the remaining
+acceptance step. Of the three deliveries Ops named on 16 November, the third
+used a base rate: private message **9**, delivered at `2026-11-15T19:40:46Z`
+(16 November, **02:40:46 GMT+7**). Eight deliveries are confirmed since the
+original installation; one uses a base rate and none is uncertain.
+
+The exact saved Bitcoin draft says **949 of 1,750** higher next-session closes
+after daily losses, over **2016-11-10 to 2026-11-14**. Its saved `stats_after`
+answer supplies both counts. Rebuilding the source from that answer reproduces
+the bound source identity and hash. The send-time market, condition, horizon,
+completed-day and draft checks all pass, with delivery 6.19 minutes after the
+target post. No history was recounted and no producer query was repeated.
+
+The unchanged production formatter supplies these fact lines:
+
+```text
+Fact: base rate through 2026-11-14
+949 of 1750 higher next-session closes after daily losses (desk count, 2016-11-10 to 2026-11-14)
+```
+
+This is a Bot API-confirmed delivery joined to its exact saved pack and
+send-time fact binding. The fact lines replay the formatter, whose function
+matches the original installation. It does not observe Jim opening his phone
+or independently read the Telegram message body. The private draft has not
+been claimed as a public reply.
+
+[targeted-tests.xml](resume-20261117/targeted-tests.xml) records **40 passing
+tests**, run from the operating root in one pytest process, in 15.84 seconds.
+They include six-market collection, wrong-market and wrong-condition refusals,
+and the collector-to-ranker-to-pack-to-message path. The accepted 12 November
+replay remains **3 of 109** previously refused targets supplied to ranking with
+a base rate; this evidence closeout changes no production source or replay
+assumption. All four installed source files match the lane.
+
+The run used the current operating HEAD as its base and preserved all eight
+pre-existing tracked work-in-progress files across the lane and operating root.
+It made no model, producer, transport or manual consumer calls, changed no
+schedule and restarted no application. The launch explicitly configured
+`gpt-6.1-sol / max`, recorded as `CONFIGURED_NOT_OBSERVED` in
+[run-context.json](resume-20261117/run-context.json). The operating-root merge
+and live/rollback tags are recorded in
+[integration.json](resume-20261117/integration.json).
+
+Reproduce only the saved-evidence checks with
+`python -X utf8 docs/publisher/CC-510/resume-20261117/readback.py`.

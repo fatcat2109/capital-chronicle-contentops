@@ -1,0 +1,234 @@
+{
+  "item": "CC-510",
+  "read_at_utc": "2026-11-17T06:06:54.529361+00:00",
+  "since_utc": "2026-11-12T12:31:37.228267+00:00",
+  "database_access": "SQLite mode=ro with query_only=ON; bounded delivery/event rows and exact saved pack",
+  "operating_head_at_read": "ea03bdd040f6a8ba50020798c11a01ee3b77c007",
+  "acceptance": "PASS_NATURAL_BASE_RATE_PRIVATE_DELIVERY",
+  "delivery_status_counts": {
+    "DELIVERED": 8
+  },
+  "base_rate_delivery_count": 1,
+  "delivery_receipts": [
+    {
+      "receipt_id": "x-reply-bot-b9d2326edc2c996ffcc3c7d767cb3d644faa5cf08a065134b962809917e59a56",
+      "delivery_id": "xrb-2120872859266699313",
+      "telegram_message_id": 4,
+      "delivered_at_utc": "2026-11-12T13:43:03+00:00",
+      "fact_kind": "session"
+    },
+    {
+      "receipt_id": "x-reply-bot-e22d348aca55b270c735244f6c44153fcc00dcc144189334b3f69f656c06d9c6",
+      "delivery_id": "xrb-2121235459187826884",
+      "telegram_message_id": 5,
+      "delivered_at_utc": "2026-11-13T13:43:38+00:00",
+      "fact_kind": "session"
+    },
+    {
+      "receipt_id": "x-reply-bot-a901fd4b00d199449e201436287e0d1754a66080876e0caa4f583fa7759ea7d2",
+      "delivery_id": "xrb-2121238553342751113",
+      "telegram_message_id": 6,
+      "delivered_at_utc": "2026-11-13T13:53:12+00:00",
+      "fact_kind": "session"
+    },
+    {
+      "receipt_id": "x-reply-bot-84ac047abc5359ed080afea8af2de66ab244b55c561135ab1880cebd6a59b65d",
+      "delivery_id": "xrb-2121942041185726906",
+      "telegram_message_id": 7,
+      "delivered_at_utc": "2026-11-15T12:26:26+00:00",
+      "fact_kind": "daily"
+    },
+    {
+      "receipt_id": "x-reply-bot-6b55f853e01dd8b0cd19925e8c18def3cd030b1752bef2440cefe139e9f5059d",
+      "delivery_id": "xrb-2121945814335438893",
+      "telegram_message_id": 8,
+      "delivered_at_utc": "2026-11-15T12:51:18+00:00",
+      "fact_kind": "daily"
+    },
+    {
+      "receipt_id": "x-reply-bot-00659936a7dd33df9b7aded17e4241b204845f0be8f9ad2b25bdb8a7e4677205",
+      "delivery_id": "xrb-2122050647617053106",
+      "telegram_message_id": 9,
+      "delivered_at_utc": "2026-11-15T19:40:46+00:00",
+      "fact_kind": "base_rate"
+    },
+    {
+      "receipt_id": "x-reply-bot-ad4374afecdee2f53eef18ce90d5826a0a1f3086ed6dcbcc86236254ea710c0b",
+      "delivery_id": "xrb-2122220229019484476",
+      "telegram_message_id": 10,
+      "delivered_at_utc": "2026-11-16T06:54:01+00:00",
+      "fact_kind": "session"
+    },
+    {
+      "receipt_id": "x-reply-bot-4deb9bea3a1c91283094528ce1336ca2b48b1972537225ced5bed3e9bb396303",
+      "delivery_id": "xrb-2122499870087172549",
+      "telegram_message_id": 11,
+      "delivered_at_utc": "2026-11-17T01:27:39+00:00",
+      "fact_kind": "session"
+    }
+  ],
+  "base_rate_delivery": {
+    "delivery_id": "xrb-2122050647617053106",
+    "delivery_status": "DELIVERED",
+    "delivery_payload_sha256": "64b4b723216c6e3be7f189566fd96452cd8668ab96f4f1bb0ac3a9d82609651e",
+    "receipt_id": "x-reply-bot-00659936a7dd33df9b7aded17e4241b204845f0be8f9ad2b25bdb8a7e4677205",
+    "receipt_created_at_utc": "2026-11-15T19:40:47.068298+00:00",
+    "receipt_payload_sha256": "aff6e45a944d251e80387c3228db39f4a5c98d8d6a65be3ca357284bfac55b5c",
+    "pack_message_id": "x-reply-pack-faabbf5a1d402d5cc9c1c8d5c55c6d0a4c819af7193d6d1f57d1ec49d30b8fff",
+    "pack_payload_sha256": "39ca21ff3d7e90beff75f135011e8dadfc05805639983ea69de3b0afb9359f74",
+    "telegram_message_id": 9,
+    "post_id": "2122050647617053106",
+    "target_text_sha256": "230f8a7fab4472c5bcc55a9d880b9ce6357a7949644294917489281a6600ab63",
+    "draft_text": "Bitcoin: 949 of 1750 higher next-session closes after daily losses, 2016-11-10 to 2026-11-14 (desk count). Daily losses showed only a modest historical tilt toward a higher next-session close.",
+    "draft_text_sha256": "326d2bf1341b4d079ecc25b53ce9a0e483424aa46ae8477cfcf145b798850082",
+    "fact_text": "949 of 1750 higher next-session closes after daily losses",
+    "fact_source": "desk count, 2016-11-10 to 2026-11-14",
+    "post_time_utc": "2026-11-15T19:34:34.843000+00:00",
+    "draft_ready_at_utc": "2026-11-15T19:39:45.290628+00:00",
+    "delivered_at_utc": "2026-11-15T19:40:46+00:00",
+    "post_to_delivery_minutes": 6.18595,
+    "fact_binding": {
+      "kind": "base_rate",
+      "markets": [
+        "BTCUSD"
+      ],
+      "count": 949,
+      "sample_count": 1750,
+      "period_text": "2016-11-10 to 2026-11-14",
+      "through_date": "2026-11-14",
+      "sample_end_date": "2026-11-14",
+      "condition_text": "daily losses",
+      "headline_condition": {
+        "direction": "down",
+        "kind": "move",
+        "market": "BTCUSD",
+        "minimum_pct": null
+      },
+      "horizon_sessions": 1,
+      "horizon_text": "next-session",
+      "outcome_text": "higher next-session closes",
+      "series_id": "YAHOO_FINANCE:BTC-USD",
+      "producer_tool": "stats_after",
+      "rate_interval_95_pct": [
+        51.887593324527806,
+        56.55102507749893
+      ],
+      "selection": "CHRONOLOGICAL_MATCHES_WITH_NONOVERLAPPING_OUTCOME_WINDOWS",
+      "zero_returns_in_denominator": true,
+      "sentence": "Bitcoin: 949 of 1750 higher next-session closes after daily losses, 2016-11-10 to 2026-11-14 (desk count).",
+      "age_text": "historical count; last observation 14 Nov 2026",
+      "checked_at_utc": "2026-11-15T19:40:40.711373+00:00",
+      "policy": "CC495_REPLY_FACT_V1"
+    },
+    "source_id": "reply-base-rate-bc85dbc00640d5bc84117fcca038fac7a0f10e50e2e42e5912456b58be0a533b",
+    "source_payload_sha256": "bc85dbc00640d5bc84117fcca038fac7a0f10e50e2e42e5912456b58be0a533b",
+    "source_known_at_utc": "2026-11-15T19:22:03.810730+00:00",
+    "rights_class": "CC_OWN_ANALYSIS",
+    "producer_answer_sha256": "16fbaedbc105a736481353374b7acece6290322f3f621c37ef1b84af3e2134e3",
+    "producer_query": {
+      "condition": {
+        "direction": "down",
+        "through_utc": "2026-11-15T05:00:00+00:00",
+        "type": "return"
+      },
+      "horizon": 1,
+      "market": "BTCUSD"
+    },
+    "producer_as_of_utc": "2026-11-15T19:37:31.229484+00:00",
+    "completed_before_utc": "2026-11-15T05:00:00+00:00",
+    "source_binding_recheck": "PASS_SAVED_PRODUCER_ANSWER",
+    "fact_and_send_policy_recheck": "PASS",
+    "fact_lines_formatter_replay": [
+      "Fact: base rate through 2026-11-14",
+      "949 of 1750 higher next-session closes after daily losses (desk count, 2016-11-10 to 2026-11-14)"
+    ],
+    "formatter_function_sha256": "5960931f82f148e16ec90ae620a82a1b1ec00ad46fb784c46d125b594508dd3f",
+    "formatter_matches_original_installation": true,
+    "editorial_calls": {
+      "ranker": {
+        "status": "RETURNED",
+        "answered_by": "antigravity",
+        "configured_model": "gemini-3.8-flash-high",
+        "configured_effort": "high",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "runtime_model": null,
+        "runtime_effort": null,
+        "elapsed_seconds": 20.195887100002437,
+        "started_at_utc": "2026-11-15T19:38:27.938253+00:00",
+        "ended_at_utc": "2026-11-15T19:38:48.134368+00:00",
+        "observed_session_id": null
+      },
+      "writer": {
+        "status": "RETURNED",
+        "answered_by": null,
+        "configured_model": "gpt-6.1-sol",
+        "configured_effort": "max",
+        "configuration_status": "CONFIGURED_NOT_OBSERVED",
+        "runtime_model": null,
+        "runtime_effort": null,
+        "elapsed_seconds": 57.14876679999725,
+        "started_at_utc": "2026-11-15T19:38:48.141207+00:00",
+        "ended_at_utc": "2026-11-15T19:39:45.290628+00:00",
+        "observed_session_id": "01a1e0b8-2e8a-7c30-92b0-ae30a5ae7470"
+      }
+    }
+  },
+  "latest_run": {
+    "message_id": "x-reply-bot-b45da1f1ee7d86b4ce43f1415bde0496e830eda1a62ad022b85d4e92e7ba33d4",
+    "stored_at_utc": "2026-11-17T06:02:49.482220+00:00",
+    "payload_sha256": "cbbee6cb27ad8e967782f2e8045b448ebb8b010dda7ffa063d7aa91cff1d7d65",
+    "artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\x_reply_pack\\bot\\20261117T060231-8bdb841a\\result.json",
+    "status": "NO_NEW_ELIGIBLE_TARGETS",
+    "cause": null,
+    "started_at_utc": "2026-11-17T06:02:31.742790+00:00",
+    "ended_at_utc": "2026-11-17T06:02:49.470183+00:00"
+  },
+  "installed_sources": {
+    "x_reply_base_rates_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_base_rates_v1.py",
+        "bytes": 17800,
+        "sha256": "2e62dfdb1d134331db035ffb36b21d80ad960490df4c40a6e9dcc8982085d7b6"
+      },
+      "worktree_sha256": "2e62dfdb1d134331db035ffb36b21d80ad960490df4c40a6e9dcc8982085d7b6",
+      "matches_worktree": true
+    },
+    "x_reply_pack_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_pack_v1.py",
+        "bytes": 48518,
+        "sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb"
+      },
+      "worktree_sha256": "423e2903a29fee56a24f5a8162b2f38d48db76ff828a0511a8cab54df3fc19eb",
+      "matches_worktree": true
+    },
+    "x_reply_bot_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_bot_v1.py",
+        "bytes": 47558,
+        "sha256": "02ed3ef55fdc7abdc30f4f6212fd7ccb417c5446eee3981e03c401e295abbc0a"
+      },
+      "worktree_sha256": "02ed3ef55fdc7abdc30f4f6212fd7ccb417c5446eee3981e03c401e295abbc0a",
+      "matches_worktree": true
+    },
+    "x_reply_fact_policy_v1.py": {
+      "installed": {
+        "path": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\x_reply_fact_policy_v1.py",
+        "bytes": 12396,
+        "sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c"
+      },
+      "worktree_sha256": "b2f759e0f20a55678c4c31b84df81f021d11a313de74caacbdbea362341c164c",
+      "matches_worktree": true
+    }
+  },
+  "phone_open_observed": false,
+  "telegram_body_readback": false,
+  "delivery_evidence_limit": "Bot API-confirmed delivery and saved exact bindings; fact lines replay the unchanged send formatter. No phone-screen or Telegram body readback.",
+  "manual_consumer_ticks": 0,
+  "model_calls": 0,
+  "transport_calls": 0,
+  "public_submit_actions": 0,
+  "producer_queries": 0,
+  "schedule_changed": false,
+  "applications_restarted": false
+}

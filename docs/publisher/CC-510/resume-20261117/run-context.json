@@ -1,0 +1,71 @@
+{
+  "item": "CC-510",
+  "recorded_at_utc": "2026-11-17T06:07:41.486512+00:00",
+  "branch": "backlog/cc-510-base-rate-delivery-proof-20261117",
+  "base": "ea03bdd040f6a8ba50020798c11a01ee3b77c007",
+  "base_reason": "Continuation of integrated implementation from the current ContentOps operating HEAD, as the item requires.",
+  "launch": {
+    "process_id": 8892,
+    "started_at_utc": "2026-11-17T05:57:33.4341090Z",
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "launch_arguments_read_back": true,
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "runtime_model": null,
+    "runtime_effort": null
+  },
+  "changes": "Saved-evidence readback only; preserve existing production source and issued bytes.",
+  "preserved_before_integration": {
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": {
+      "bytes": 992508,
+      "sha256": "26c5bf8a1070df2c12ed0a5364a2befb9dc1d561c9db98f7367959db09176a7c"
+    },
+    "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 10337,
+      "sha256": "586903319bd0ccafd6027c25a62bf0da988f823d38036a7f20373fe1e5d01d28"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\README.md": {
+      "bytes": 3959,
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1\\production_day_evidence_v1.json": {
+      "bytes": 19341,
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\ACTIVATION.md": {
+      "bytes": 39129,
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\CHECKPOINT.md": {
+      "bytes": 6166,
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_LIVE_TELEMETRY\\live_telemetry_registry_v6.jsonl": {
+      "bytes": 1442302,
+      "sha256": "af16fe145972cde2ccd39c112ee11189f3e68c8496ae53d77ba1bc59296446c9"
+    },
+    "A:\\Capital Chronicle\\ContentOps\\docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl": {
+      "bytes": 72613,
+      "sha256": "8740a012c932060ec8e69699f545a2be787a441c3df168482ff71e71cba42f1b"
+    }
+  },
+  "rollback_tag": "contentops-rollback-20261117-cc510-delivery-proof",
+  "live_tag": "contentops-live-20261117-cc510-delivery-proof",
+  "new_model_calls": 0,
+  "producer_queries": 0,
+  "manual_consumer_ticks": 0,
+  "transport_calls": 0,
+  "public_submit_actions": 0,
+  "schedule_changed": false,
+  "applications_restarted": false,
+  "pytest_runs": 1,
+  "validation": {
+    "command": "python -m pytest tests/test_x_reply_base_rates_cc510.py -q --junitxml=<CC-510 evidence>/targeted-tests.xml",
+    "working_directory": "A:\\Capital Chronicle\\ContentOps",
+    "passed": 40,
+    "wall_seconds": 15.84,
+    "one_pytest_process": true,
+    "timeout_seconds": 50
+  },
+  "outcome": "PASS_NATURAL_BASE_RATE_PRIVATE_DELIVERY; evidence integration follows"
+}
