@@ -1,0 +1,17 @@
+{
+  "request_sha256": "610c96d819886277c4532d8e07426a136bd867f4ebea5d6050dc88b2a9c36099",
+  "output": {
+    "decision": "ACCEPT",
+    "rationale": "The only addition is a Historical CPI comparisons heading and one link to confirmed Substack post 225323477. The target is the observed CC-417 CPI history page through October. The original CPI body, source evidence, public identity, four bound media files and seven issued social variants are preserved. The link adds no probability, number, event claim or call. All four existing media files passed the load/dimension check; this is a text review and claims no new pixel inspection.",
+    "pixels_inspected": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_DESKTOP_CONVERSATION",
+    "invocation_id": "01a1e85b-c03c-7d70-9308-be7e54f8b18d",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "observation_source": "Current Codex exec MAX editorial pass; configured launch readback, runtime model telemetry unavailable",
+    "configuration_state": "CONFIGURED_NOT_OBSERVED",
+    "speed": "standard"
+  }
+}
