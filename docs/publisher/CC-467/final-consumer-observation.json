@@ -1,0 +1,45 @@
+{
+  "observed_at_utc": "2026-11-17T14:03:45.959146+00:00",
+  "audience": {
+    "status": "FIRST_LIVE_QUOTE_PENDING",
+    "quotes": [
+      {
+        "key": "heavy-quote-2122686560797667435",
+        "platform": "x",
+        "target_url": "https://x.com/financialjuice/status/2122686560797667435",
+        "target_author": "financialjuice",
+        "text": "Iran supply risk matters for WTI crude oil. COT data as of 3 Nov 2026 put speculators’ net longs at 4.2% of open interest, before the selloff. Chart: TradingView. Capital Chronicle offers analysis only, not financial advice or recommendations.",
+        "posted_at_utc": "2026-11-17T13:45:37.369798+00:00",
+        "readback_url": null,
+        "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+        "audience_24h": [],
+        "debate_parent_key": null,
+        "source_posted_at_utc": "2026-11-17T13:41:28.360000+00:00",
+        "feed_seen_at_utc": "2026-11-17T13:41:52.808Z",
+        "observed_published_at_utc": null,
+        "source_to_post_seconds": null,
+        "within_five_minutes": null
+      }
+    ]
+  },
+  "x_day_failure": null,
+  "quotes": [
+    {
+      "key": "heavy-quote-2122686560797667435",
+      "status": "SOURCE_EXPIRED_AFTER_RECONCILED_ABSENCE",
+      "source_posted_at_utc": "2026-11-17T13:41:28.360000+00:00",
+      "dispatches": [
+        {
+          "dispatch_id": "dispatch_4a98e9f4e6b9669a6b6d872bda2b3b80",
+          "message_id": "outbox_4a98e9f4e6b9669a6b6d872bda2b3b80",
+          "platform": "x",
+          "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+          "dispatched_at": "2026-11-17T13:45:37.369798+00:00",
+          "public_object_id": null,
+          "public_object_url": null,
+          "public_object_url_hash": null
+        }
+      ]
+    }
+  ]
+}
