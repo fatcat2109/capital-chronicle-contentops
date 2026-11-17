@@ -1,0 +1,18 @@
+{
+  "observed_at_utc": "2026-11-17T01:37:20.791292+00:00",
+  "operation_id": "cc124-btc-range-20261117-r2",
+  "exact_editorial_worker_processes": 0,
+  "interrupted_session": "57342 no longer available",
+  "released_exact_own_lease": {
+    "lease_id": "lease_f6bede866a5df796",
+    "lease_key": "internal:native-editorial:cc124-btc-range-20261117-r2",
+    "work_item_id": null,
+    "owner_ref": "native-desktop-92bd7cfd9c1e4daebf76a7af29ea080f",
+    "fencing_token": 11,
+    "acquired_at": "2026-11-17T01:31:13.029774+00:00",
+    "renewed_at": "2026-11-17T01:31:13.029774+00:00",
+    "expires_at": "2026-11-17T01:46:13.029774+00:00",
+    "status": "ACTIVE"
+  },
+  "reason": "User reports interrupted turn; CIM verifies no exact operation worker remains. Release this operation lease via its normal owner/fencing-token API to resume saved work."
+}

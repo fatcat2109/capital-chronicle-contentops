@@ -1,0 +1,14 @@
+{
+  "plan": {
+    "native_plan_run_id": "cc124-btc-range-20261117-r2",
+    "native_plan_stage": "media-plan",
+    "native_plan_request_sha256": "403a0f057583a6547cc1f115c7dad035380aa490030d51349730fe4527491e74",
+    "story_plan": {
+      "chart_plan": "Propose one original range-and-scenario card based solely on SOURCE_1, document cc124-btc-range-20261117-r2, content SHA256 6ddaf312d32d2ee8d083b8443568b974a9b4fd742e9edc0f479e6dab990ded10. Show a horizontal range diagram, not a fabricated historical price path: lower bound 63829.52, Main reference 64451.95 and upper bound 65637.9. Label the range as the retained two-day band on Main's Bitcoin spot reference scale, in US dollars per Bitcoin; never assign those levels to a futures or ETF quote. Distinguish the scenario threshold from the range boundaries. Show the exact explicit uncalibrated model estimates: 54% at or below the reference and 46% above, at horizon 2026-11-18T00:37:44Z converted to ET. These are not win rates or entry probabilities. Separate two review conditions: completed one-hour close below 63829.52 makes a short a candidate for the next pass; above 65637.9 removes the short lean. Neither is a guaranteed outcome or automatic order. State confirmations not observed and positioning not observed. Do not draw entry zone, targets, volume, extra dates or interpolated prices. MAX decides wording, form, count and placement after writing. Existing TradingView media owner may capture a fresh guest Coinbase BTCUSD snapshot after writer submission, preserving full TradingView attribution/header and a separately labelled display capture clock; it supplies context, never replacement source prices or extended freshness. OTHER_ANALYSIS needs no fabricated 24-month official-release chart. All article/card facts retain data cutoff 2026-11-17T00:37:43.684818Z and publication deadline 2026-11-17T01:37:43.684818Z. Fresh media never resets either. Use only this new operation's values and source-bound facts.",
+      "photo_plan": "Optional only: existing media owner may select an unused authentic Bitcoin-related contextual photograph with verified exact source URL, creator, licence, depicted date and reuse rights. Keep archive/context caption and full canonical credit. Do not illustrate omitted headlines or allegations. No Fed or Capitol reuse. The source-bound card and lawful TradingView snapshot are the preferred useful visuals; no photo acquisition in this role.",
+      "source_requests": [],
+      "thesis": "Standing aside inside Bitcoin's two-day band remains consistent with Main's weak directional estimate: an outcome probability does not establish an entry setup. A completed one-hour close beyond the band changes the next review."
+    }
+  },
+  "assets": []
+}

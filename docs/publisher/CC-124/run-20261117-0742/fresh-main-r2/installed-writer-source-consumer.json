@@ -1,0 +1,38 @@
+{
+  "observed_at_utc": "2026-11-17T01:19:21.243128+00:00",
+  "consumer": "Installed NativeDesktopTurn frozen writer request",
+  "request_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\desktop_request_write.json",
+  "request_sha256": "9df40823ece1c678e1ac9f7a141b205f99e4ecc99bbc2afb799dba4f61ab4b5f",
+  "document_id": "cc124-btc-range-20261117-r2",
+  "source_text_sha256": "6ddaf312d32d2ee8d083b8443568b974a9b4fd742e9edc0f479e6dab990ded10",
+  "data_cutoff_utc": "2026-11-17T00:37:43.684818Z",
+  "source_clock_bindings": [
+    {
+      "field": "/known_at_utc",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\capture.json",
+      "sha256": "9b84f738e0229cc340e13f711db73f1788dd0dcb071683b2da52abe3285b88bc",
+      "value": "2026-11-17T00:37:43.684818Z"
+    },
+    {
+      "field": "/known_at_utc",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\capture.json",
+      "sha256": "9b84f738e0229cc340e13f711db73f1788dd0dcb071683b2da52abe3285b88bc",
+      "value": "2026-11-17T00:37:43.684818Z"
+    },
+    {
+      "field": "/known_at_utc",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\capture.json",
+      "sha256": "9b84f738e0229cc340e13f711db73f1788dd0dcb071683b2da52abe3285b88bc",
+      "value": "2026-11-17T00:37:43.684818Z"
+    },
+    {
+      "field": "/known_at_utc",
+      "path": "A:\\Capital Chronicle\\ResearchRuns\\claude-main-research\\daily-research-portfolio-279805139\\shocks\\shock-20261117T003541Z\\capture.json",
+      "sha256": "9b84f738e0229cc340e13f711db73f1788dd0dcb071683b2da52abe3285b88bc",
+      "value": "2026-11-17T00:37:43.684818Z"
+    }
+  ],
+  "main_scenarios": "Explicit 54/46 preserved; no complement computed",
+  "private_execution_excerpt": "Omitted from public source projection",
+  "live_consumer_uses_exact_output": true
+}

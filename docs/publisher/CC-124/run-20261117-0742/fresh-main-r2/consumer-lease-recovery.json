@@ -1,0 +1,17 @@
+{
+  "observed_at_utc": "2026-11-17T01:38:06.751076+00:00",
+  "native_editorial_cli_processes": 0,
+  "released_interrupted_consumer_lease": {
+    "lease_id": "lease_190607c72010e061",
+    "lease_key": "internal:cc-report-consume",
+    "work_item_id": null,
+    "owner_ref": "cc-editorial-73147c623cbf4ab6abfa190b5f6d0fb8",
+    "fencing_token": 969,
+    "acquired_at": "2026-11-17T01:31:14.906937+00:00",
+    "renewed_at": "2026-11-17T01:31:14.906937+00:00",
+    "expires_at": "2026-11-17T01:46:14.906937+00:00",
+    "status": "ACTIVE"
+  },
+  "binding": "cc124-btc-range-20261117-r2",
+  "basis": "Exact consumer lease acquired during this interrupted 01:31 advance; no native editorial CLI process survives."
+}

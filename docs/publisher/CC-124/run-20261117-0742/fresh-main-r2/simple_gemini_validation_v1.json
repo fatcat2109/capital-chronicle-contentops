@@ -1,0 +1,226 @@
+{
+  "cited_source_count": 1,
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "The retained Main report records dated analysis and market observations.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "cc124-btc-range-20261117-r2",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "DATED CAPITAL CHRONICLE REVIEW",
+    "report_proposition": "Bitcoin remains inside its range after the broader selloff",
+    "report_scope_notice": "Capital Chronicle's dated review provides analysis, not independently confirmed event facts or a performance record.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "cc124-btc-range-20261117-r2"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "maximum_revision_rounds": 1,
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "public_write_performed": false,
+  "report_truth_validated_separately_from_event_truth": true,
+  "revision_performed": false,
+  "revision_router_receipt": null,
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "source_bytes_precede_writer": true,
+  "source_timestamps_are_model_authority": false,
+  "source_urls": [
+    "urn:cc-public-report:main-retained:6fb237503217d861c560bead0f3f4aa2b660f0a69c6b9ada5caa226b7a0eb63c"
+  ],
+  "status": "PASS",
+  "supported_material_claim_count": 15,
+  "supported_material_claims": [
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-01",
+      "claim_kind": "FACT",
+      "claim_text": "We remain on the sidelines in Bitcoin while it stays inside its two-day range after the broader selloff. Our analysis offers a weak bearish lean, without an established entry setup.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "abddbf8c0c6011dc86701191a06c283d1e35145130d98a4495a07cee4baadeef",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-02",
+      "claim_kind": "NUMBER",
+      "claim_text": "On our spot reference scale, the two-day band runs from 63829.52 to 65637.9 US dollars per Bitcoin. The scenario reference is 64451.95, inside that band. Readers following Bitcoin through the IBIT ETF should keep these spot levels separate from the ETF price.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "abddbf8c0c6011dc86701191a06c283d1e35145130d98a4495a07cee4baadeef",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-03",
+      "claim_kind": "NUMBER",
+      "claim_text": "That range follows the fall from 73986.7 to the November 15 low of 61940.88. We have not observed positioning or a confirming break in this assessment.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "d27793319489197711b4ed437806a25fe60f317782bef21af9db8aca03757c9a",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-04",
+      "claim_kind": "FACT",
+      "claim_text": "A forecast describes where price may be at a stated time. A setup also needs an observable condition that changes the view. Our assessment has no frozen entry zone. The weak directional lean therefore leaves the stand-aside call intact.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "abddbf8c0c6011dc86701191a06c283d1e35145130d98a4495a07cee4baadeef",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-05",
+      "claim_kind": "NUMBER",
+      "claim_text": "The horizon is November seventeenth at seven thirty-seven p.m. ET, forty-four seconds into that minute. Both estimates concern that same instant on our Bitcoin spot reference scale.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "a41b03c0e93bc74e5376f1907469ab8bff0d8bdb0935a8e33f426e5c28bbf1ea",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-06",
+      "claim_kind": "NUMBER",
+      "claim_text": "**Base case — 54% Capital Chronicle model estimate, uncalibrated.** Bitcoin is at or below the reference 64451.95 at that horizon. Confirmations: none observed.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1605f9d1784dcc0b4cc210cc953c156cdd7a640d993e96a8deba262ef8f007ee",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-07",
+      "claim_kind": "NUMBER",
+      "claim_text": "**Alternative — 46% Capital Chronicle model estimate, uncalibrated.** Bitcoin is above 64451.95 at the same horizon. A squeeze through 65637.9 after two days of failed selling is the opposing mechanism.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "e3bce481e203a267312cbb9e6c3f9dbbc6e778d8686df7a816c1ff387319849e",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-08",
+      "claim_kind": "NUMBER",
+      "claim_text": "In either scenario, the range assessment changes if a completed one-hour bar closes below 63829.52 or above 65637.9. A lower close makes a short a candidate for the next review. An upper close removes the short lean. Neither condition is an automatic trade.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2e0435fb3d3842a40710b8a0b19292639bfc2211bec25e528ea0b906d25b2dfc",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-09",
+      "claim_kind": "FACT",
+      "claim_text": "These are outcome estimates, not trade win rates or probabilities of an entry becoming valid. Across the wider assessment, the other markets remain stand-asides. Those are dated context; these Bitcoin estimates assign them no joint outcome.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "a41b03c0e93bc74e5376f1907469ab8bff0d8bdb0935a8e33f426e5c28bbf1ea",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-body-10",
+      "claim_kind": "FACT",
+      "claim_text": "So what: watch a completed one-hour close beyond the band before reconsidering the range assessment. A move below the reference alone does not establish the lower-band break. A move above the reference can still leave Bitcoin inside its range.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "a41b03c0e93bc74e5376f1907469ab8bff0d8bdb0935a8e33f426e5c28bbf1ea",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-meta-title",
+      "claim_kind": "FACT",
+      "claim_text": "Bitcoin's selloff still leaves a range, not a fresh setup",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "abddbf8c0c6011dc86701191a06c283d1e35145130d98a4495a07cee4baadeef",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-meta-dek",
+      "claim_kind": "FACT",
+      "claim_text": "We remain on the sidelines in Bitcoin: our modest bearish estimate does not replace a completed break of its two-day range.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "abddbf8c0c6011dc86701191a06c283d1e35145130d98a4495a07cee4baadeef",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-meta-search-title",
+      "claim_kind": "FACT",
+      "claim_text": "Bitcoin range: why we are standing aside after the selloff",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "abddbf8c0c6011dc86701191a06c283d1e35145130d98a4495a07cee4baadeef",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-meta-meta-description",
+      "claim_kind": "FACT",
+      "claim_text": "Our Bitcoin analysis separates a weak directional estimate from a completed range break. A completed one-hour close would change the next review.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "abddbf8c0c6011dc86701191a06c283d1e35145130d98a4495a07cee4baadeef",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "btc-meta-social-hook",
+      "claim_kind": "FACT",
+      "claim_text": "Bitcoin has already sold off. We still need a completed break of its two-day range before reconsidering our stand-aside call.",
+      "document_id": "cc124-btc-range-20261117-r2",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "abddbf8c0c6011dc86701191a06c283d1e35145130d98a4495a07cee4baadeef",
+      "support_status": "SUPPORTED_EXACT_RETAINED_MAIN_REPORT_SPANS"
+    }
+  ],
+  "unknown_write_detected": false,
+  "unsupported_material_claim_count": 0,
+  "worker_router_receipt": {
+    "configuration_status": "CONFIGURED_NOT_OBSERVED",
+    "configured_model": "gpt-6.1-sol",
+    "configured_reasoning_effort": "max",
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "actual_configuration_unavailable": true,
+      "assignment_id": "cc124-btc-range-20261117-r2:write",
+      "configuration_authority": "JIM_DECISIONS_20261030_DECISION_16",
+      "configuration_source": "SUPPORTED_SPAWN_REQUEST",
+      "configuration_status": "CONFIGURED_NOT_OBSERVED",
+      "configured_model": "gpt-6.1-sol",
+      "configured_reasoning_effort": "max",
+      "expected_return": "write:9df40823ece1c678e1ac9f7a141b205f99e4ecc99bbc2afb799dba4f61ab4b5f",
+      "invocation_id": "/root/native_write_9df40823ece1",
+      "model": null,
+      "observation_source": "SUPPORTED_NATIVE_SUBAGENT_TASK_CONTEXT",
+      "reasoning_effort": null,
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "task_identity": "/root/native_write_9df40823ece1"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": null,
+    "request_sha256": "9df40823ece1c678e1ac9f7a141b205f99e4ecc99bbc2afb799dba4f61ab4b5f",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "response_sha256": "33a3ecb59d6727749ddec3ead05243923777c4a1292161667ea952330bc651ac",
+    "role": "write",
+    "selected_model": null,
+    "stage": "write"
+  }
+}

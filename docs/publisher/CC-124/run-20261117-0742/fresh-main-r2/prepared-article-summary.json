@@ -1,0 +1,38 @@
+{
+  "observed_at_utc": "2026-11-17T01:42:04.717171+00:00",
+  "current_operation_id": "cc124-btc-range-20261117-r2",
+  "current_article": {
+    "identity": "00c3e40d81597124314e5b4f4a51ce36493de45ce05cebc6c4f63784d5aa576a",
+    "title": "Bitcoin's selloff still leaves a range, not a fresh setup",
+    "source_cutoff_utc": "2026-11-17T00:37:43.684818+00:00",
+    "publication_deadline_utc": "2026-11-17T01:37:43.684818Z",
+    "current_publication_clock_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:3861s",
+    "state": "PREPARED; REVIEW_REQUIRED_NO_DISPATCH; source deadline expired",
+    "artifact": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\article_manifest_v1.json",
+      "bytes": 19255,
+      "sha256": "108ffdbc57e226c8913f5d1660fd34abeb0e6e28da864432ec9b54ec17253216"
+    },
+    "eight_previews": {
+      "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc124-btc-range-20261117-r2\\native_derivative_previews_v1.json",
+      "bytes": 17323,
+      "sha256": "09cde4687fcc5304bd58f3c0947955e0bc938d4ee2bc1add80ecd79a8e10a255"
+    }
+  },
+  "operation_dispatch_verification": [
+    {
+      "operation_id": "cc124-asia-risk-20261117",
+      "platform_dispatches": []
+    },
+    {
+      "operation_id": "cc124-btc-range-20261117-r2",
+      "platform_dispatches": []
+    }
+  ],
+  "publication_feed": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 29315,
+    "sha256": "cba078e159c14ebba059ef54995ee52500e59424ae9057b5e61032348f504979",
+    "unchanged_from_start": true
+  }
+}
