@@ -1,5 +1,4 @@
 """CC-639: isolated projection of real Nov16 rows; no live stores or network."""
-from copy import deepcopy
 from datetime import datetime, timezone
 from hashlib import sha256
 from html import escape
@@ -177,7 +176,8 @@ def test_reply_deliveries_are_counts_and_public_post_ids_without_draft_copy(reco
     report, _ = build(recorded)
     bot = report["reply_bot"]
     assert bot["delivered_count"] >= 1
-    assert bot["counts_by_kind_and_status"]["delivery"]["DELIVERED"] == bot["delivered_count"]
+    assert next(r["count"] for r in bot["counts_by_kind_and_status"] if r["kind"] == "delivery"
+                and r["status"] == "DELIVERED") == bot["delivered_count"]
     assert all(set(item) == {"post_id", "status", "delivered_at_utc"} for item in bot["delivered_drafts"])
 
 
@@ -187,3 +187,85 @@ def test_public_redirect_refuses_signin_or_another_platform():
     redirect = readback._PublicRedirects("telegram")
     with pytest.raises(HTTPError):
         redirect.redirect_request(Request("https://t.me/CapitalChronicle/186?embed=1"), None, 302, "Found", {}, "https://x.com/")
+
+
+def test_first_cut_fallback_is_yesterday_not_fifty_seconds_ago(tmp_path):
+    run = tmp_path / "20261116T121550Z"
+    run.mkdir()
+    window, _ = readback.report_window(run, now=datetime(2026, 11, 16, 12, 40, tzinfo=timezone.utc))
+    assert window["since_utc"] == "2026-11-15T12:15:00+00:00"
+    assert window["cut_source"] == "PREVIOUS_SCHEDULED_1915_NO_PREVIOUS_RUN_RETAINED"
+
+
+def test_private_data_and_private_named_causes_never_become_output_fields(recorded):
+    _, store, _, run = recorded
+    sentinels = ["PRIVATE-DRAFT-SENTINEL", "PRIVATE-CHAT-SENTINEL", "PRIVATE-KEY-SENTINEL"]
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (
+            "private-data", "private-reply", "internal:x-reply-bot-run", json.dumps({
+                "chat_id": sentinels[1], "secret": sentinels[2], "draft_text": sentinels[0],
+                "binding": {"phone": sentinels[1]}, "cause": "BOT_TOKEN_NOT_CONFIGURED"}),
+            "BINDING_UNAVAILABLE", "2026-11-16T11:05:00Z"))
+    report, _ = build(recorded)
+    paths = readback.write_report(run, report)
+    for path in paths:
+        text = path.read_text(encoding="utf-8")
+        assert not any(s in text for s in sentinels)
+    assert {"first_cause": "BOT_TOKEN_NOT_CONFIGURED", "count": 1} in report["reply_bot"]["counts_by_first_cause"]
+
+
+def test_http_runs_after_the_read_only_snapshot_is_closed(recorded, monkeypatch):
+    data, store, feed, run = recorded
+    real_connect = sqlite3.connect
+    opened = []
+
+    def connect(*args, **kwargs):
+        conn = real_connect(*args, **kwargs)
+        opened.append(conn)
+        return conn
+
+    getter, _ = getter_for(data)
+
+    def fetch(platform, url):
+        with pytest.raises(sqlite3.ProgrammingError, match="closed"):
+            opened[0].execute("SELECT 1")
+        return getter(platform, url)
+
+    monkeypatch.setattr(readback.sqlite3, "connect", connect)
+    report = readback.build_report(run, store_path=store, feed_path=feed, now=NOW, fetcher=fetch)
+    assert report["pieces"]
+
+
+def test_http_text_comparison_accepts_a_link_label_with_the_exact_target():
+    html = '<div class="tgme_widget_message_text">Our first line. <a href="https://capitalchronicle.substack.com/p/source">Read the full piece</a></div>'
+    result = readback.check_public_text("telegram", html,
+        expected_text="Our first line. https://capitalchronicle.substack.com/p/source")
+    assert result["first_line_matches"] is True and result["links_match"] is True
+
+
+def test_cli_is_the_consumer_and_writes_both_files(recorded, monkeypatch, capsys):
+    from scripts import run_day_readback as cli
+    data, store, feed, run = recorded
+    getter, _ = getter_for(data)
+    real_build = readback.build_report
+    monkeypatch.setattr(cli, "build_report", lambda *args, **kwargs: real_build(*args, **kwargs, fetcher=getter))
+    result = cli.main(["--run-dir", str(run), "--store", str(store), "--feed", str(feed)])
+    assert result == 0
+    output = json.loads(capsys.readouterr().out)
+    assert output["state"] == "READBACK_WRITTEN"
+    report = json.loads((run / "day_readback.json").read_bytes())
+    assert report["digest"]["recipients"] == 5
+    assert "Exceptions:" in (run / "day_readback.md").read_text(encoding="utf-8")
+    assert output["exceptions"] == report["exceptions"]
+
+
+def test_sealed_outlets_without_store_rows_keep_public_identity(recorded):
+    _, store, _, _ = recorded
+    with sqlite3.connect(store) as conn:
+        conn.execute("DELETE FROM platform_dispatches WHERE message_id IN (SELECT message_id FROM outbox_messages WHERE work_item_id='cc536-measured-odds-2')")
+        conn.execute("DELETE FROM outbox_messages WHERE work_item_id='cc536-measured-odds-2'")
+    report, _ = build(recorded)
+    piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
+    telegram = next(r for r in piece["platforms"] if r["platform"] == "telegram")
+    assert telegram["status"] == "MISSING_ROW" and telegram["public_url"] == "https://t.me/CapitalChronicle/186"
+    assert telegram["public_readback"]["http_status"] == 200

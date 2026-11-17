@@ -81,6 +81,10 @@ def safe_url(value):
         if any(PRIVATE_KEY.search(k) or k not in {"lb", "id", "story_fbid", "embed"}
                for k, _ in parse_qsl(u.query)):
             return None
+        if host == "t.me" and not re.fullmatch(r"/CapitalChronicle/\d+", u.path, re.I):
+            return None
+        if host == "discord.com" and not re.fullmatch(r"/channels/\d+/\d+/\d+", u.path):
+            return None
         return urlunsplit((u.scheme, u.netloc, u.path, u.query, ""))
     except ValueError:
         return None
@@ -183,7 +187,8 @@ def _plain(value):
 
 
 def _tokens(value):
-    return re.findall(r"\w+", _plain(value).casefold())
+    # A link can render with a descriptive label; its target is checked separately.
+    return re.findall(r"\w+", re.sub(r"https?://\S+", " ", _plain(value)).casefold())
 
 
 def _contains_in_order(needle, haystack):
@@ -207,6 +212,9 @@ def check_public_text(platform, html, *, expected_text="", expected_title=""):
     body = None
     if platform == "telegram":
         body = next((n for n in nodes if "tgme_widget_message_text" in n.attrs.get("class", "").split()), None)
+    elif platform == "substack_notes":
+        body = next((n for n in nodes if {"comment-body", "note-body"}.intersection(n.attrs.get("class", "").split())
+                     or n.attrs.get("data-testid") in {"comment-body", "note-body"}), None)
     else:
         body = next((n for n in nodes if n.tag == "article"), None)
         if body is None:
@@ -266,9 +274,7 @@ def report_window(run_dir, *, since=None, until=None, now=None):
         start, source = max(previous), "PREVIOUS_RUN_FOLDER_ENTRY"
     else:
         local = entry.astimezone(LOCAL)
-        start = datetime.combine(local.date(), time(19, 15), LOCAL)
-        if start >= entry:
-            start -= timedelta(days=1)
+        start = datetime.combine(local.date() - timedelta(days=1), time(19, 15), LOCAL)
         source = "PREVIOUS_SCHEDULED_1915_NO_PREVIOUS_RUN_RETAINED"
     if start >= end:
         raise ValueError("REPORT_WINDOW_EMPTY_OR_REVERSED")
@@ -300,8 +306,11 @@ def _public_rows(conn, window, feed):
         "EXISTS (SELECT 1 FROM readbacks r WHERE r.dispatch_id=d.dispatch_id AND "
         "julianday(r.read_at) > julianday(?) AND julianday(r.read_at) <= julianday(?)) OR "
         "EXISTS (SELECT 1 FROM reconciliations r WHERE r.work_item_id=m.work_item_id AND "
-        "julianday(r.reconciled_at) > julianday(?) AND julianday(r.reconciled_at) <= julianday(?)))",
-        (*ROUTES, *span, *span, *span, *span)).fetchall()
+        "julianday(r.reconciled_at) > julianday(?) AND julianday(r.reconciled_at) <= julianday(?)) OR "
+        "EXISTS (SELECT 1 FROM outbox_messages n WHERE n.work_item_id=m.work_item_id "
+        "AND n.destination='internal:native-neo-tool' AND julianday(n.created_at) > julianday(?) "
+        "AND julianday(n.created_at) <= julianday(?)))",
+        (*ROUTES, *span, *span, *span, *span, *span)).fetchall()
     urls = [o["url"] for f in feed for o in f["outlets"] if o["name"] == "substack"]
     for url in urls:
         rows.extend(conn.execute(base + "WHERE d.public_object_url=? AND m.destination='substack'", (url,)))
@@ -315,15 +324,42 @@ def _public_rows(conn, window, feed):
     return list(by_id.values())
 
 
+def _native_observations(conn, work_id, until):
+    """Reuse stored request/return diagnostics when a dispatch has no readback yet."""
+    requests, returns = {}, []
+    for row in conn.execute("""SELECT created_at,
+        json_extract(payload,'$.request.request_sha256') AS request_hash,
+        json_extract(payload,'$.request.destination') AS platform,
+        json_extract(payload,'$.result.request_sha256') AS response_hash,
+        json_extract(payload,'$.result.status') AS status,
+        json_extract(payload,'$.result.reason_code') AS reason_code,
+        json_extract(payload,'$.result.first_cause') AS first_cause
+        FROM outbox_messages WHERE work_item_id=? AND destination='internal:native-neo-tool'
+        AND julianday(created_at) <= julianday(?) ORDER BY created_at,message_id""", (work_id, until)):
+        if row["request_hash"] and row["platform"] in ROUTES:
+            requests[row["request_hash"]] = row["platform"]
+        if row["response_hash"] and row["status"]:
+            returns.append(dict(row))
+    by_platform = defaultdict(list)
+    for row in returns:
+        platform = requests.get(row["response_hash"])
+        if platform:
+            by_platform[platform].append((row["created_at"], {"status": row["status"],
+                "reason_code": code(row["reason_code"]), "first_cause": code(row["first_cause"])}))
+    return by_platform
+
+
 def _digest(conn, run_dir, result):
     digest_id = result.get("digest_id")
     packet = {}
     if digest_id:
-        row = conn.execute("SELECT payload FROM outbox_messages WHERE destination=? AND work_item_id=?",
+        row = conn.execute("SELECT message_id,payload FROM outbox_messages WHERE destination=? AND work_item_id=?",
                            ("internal:substack-daily-digest", digest_id)).fetchone()
         if row:
-            packet = json.loads(row[0])
+            packet = json.loads(row["payload"])
     summary = {"digest_id": digest_id, "state": code(result.get("final_route_state")) or "RUN_RESULT_UNAVAILABLE",
+               "first_cause": first_cause(result),
+               "packet_message_id": row["message_id"] if digest_id and packet else None,
                "packet_present": bool(packet), "article_count": len(packet.get("articles", [])),
                "cutoff_utc": packet.get("cutoff_utc"), "public_url": safe_url(result.get("public_object_url")),
                "recipients": None, "opens": None, "open_rate_percent": None, "email_confirmed": None,
@@ -347,7 +383,7 @@ def _digest(conn, run_dir, result):
                     number = match[1].replace(",", "")
                     summary[key] = float(number) if "." in number else int(number)
             summary["metrics_observed_at_utc"] = read.get("at_utc") or observed.get("observed_at_utc")
-    return summary
+    return summary, packet.get("native_payload", {})
 
 
 def _reply_bot(conn, window):
@@ -381,8 +417,12 @@ def _reply_bot(conn, window):
             delivered.setdefault(post, {"post_id": post, "status": "DELIVERED", "delivered_at_utc": None})
             if row["delivered_at_utc"]:
                 delivered[post]["delivered_at_utc"] = row["delivered_at_utc"]
-    return {"counts_by_kind_and_status": {k: dict(v) for k, v in counts.items()},
-            "counts_by_first_cause": dict(causes), "delivered_count": len(delivered),
+    # Codes are values, not dynamic JSON keys: e.g. a named credentials cause must
+    # not create a key containing a forbidden private-field word.
+    return {"counts_by_kind_and_status": [{"kind": kind, "status": status, "count": count}
+                for kind, values in sorted(counts.items()) for status, count in sorted(values.items())],
+            "counts_by_first_cause": [{"first_cause": cause, "count": count} for cause, count in sorted(causes.items())],
+            "delivered_count": len(delivered),
             "delivered_drafts": list(delivered.values())}
 
 
@@ -396,14 +436,14 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
     start, end = utc(window["since_utc"]), utc(window["until_utc"])
     feed = [r for r in read_records(feed_path) if start < utc(r["published_at_utc"]) <= end
             and utc(r["recorded_at_utc"]) <= end]
-    cache = {}
+    cache, expected = {}, {}
 
     def exception(cause, piece, platform=None, row=None, status=None):
         report["exceptions"].append({"piece_id": piece, "platform": platform,
             "message_id": row.get("message_id") if row else None,
             "dispatch_id": row.get("dispatch_id") if row else None,
             "status": status, "first_cause": cause,
-            "public_url": safe_url(row.get("public_object_url")) if row else None})
+            "public_url": safe_url(row.get("public_object_url") or row.get("public_url")) if row else None})
 
     def http_check(platform, url, text="", title=""):
         target = public_get_url(platform, url)
@@ -433,6 +473,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
         feed_by_url = {o["url"]: f for f in feed for o in f["outlets"] if o["name"] == "substack"}
         consumed = set()
         for work_id, group in sorted(groups.items()):
+            if work_id == result.get("digest_id"):
+                continue  # This run's digest has its own packet/page/delivery section.
             sealed = next((feed_by_url[r["public_object_url"]] for r in group
                            if r["destination"] == "substack" and r["public_object_url"] in feed_by_url), None)
             if sealed:
@@ -442,6 +484,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                      "published_at_utc": sealed["published_at_utc"] if sealed else None, "platforms": []}
             required = {o["name"] for o in sealed["outlets"]} if sealed else set()
             actual = set()
+            native = _native_observations(conn, work_id, window["until_utc"])
             for row in group:
                 platform = row["destination"]
                 actual.add(platform)
@@ -454,7 +497,8 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                                              (row["dispatch_id"],)):
                         if utc(read["read_at"]) <= end:
                             history.append((read["read_at"], json.loads(read["readback_data"])))
-                cause = next((c for _, value in history if (c := first_cause(value))), None)
+                diagnostics = sorted(history + native.get(platform, []), key=lambda item: utc(item[0]))
+                cause = next((c for _, value in diagnostics if (c := first_cause(value))), None)
                 status = row["status"] or row["outbox_status"]
                 route = {"platform": platform, "message_id": row["message_id"], "dispatch_id": row["dispatch_id"],
                          "status": status, "outbox_status": row["outbox_status"], "first_cause": cause,
@@ -466,14 +510,15 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 if _failure(status):
                     route["first_cause"] = cause or "FIRST_CAUSE_NOT_RECORDED"
                     exception(route["first_cause"], piece_id, platform, row, status)
-                for clock, value in history:
+                prior_failures = set()
+                for clock, value in diagnostics:
                     if start < utc(clock) and _failure(value.get("status")) and value.get("status") != status:
-                        exception(first_cause(value) or "FIRST_CAUSE_NOT_RECORDED", piece_id, platform, row, value["status"])
-                route["public_readback"] = http_check(platform, row["public_object_url"], _expected(intent),
-                                                       sealed["title"] if sealed and platform == "substack" else "")
-                if route["public_readback"]:
-                    for issue in route["public_readback"]["exceptions"]:
-                        exception(issue, piece_id, platform, row, status)
+                        failure = (value["status"], first_cause(value) or "FIRST_CAUSE_NOT_RECORDED")
+                        if failure not in prior_failures:
+                            exception(failure[1], piece_id, platform, row, failure[0])
+                            prior_failures.add(failure)
+                expected[row["message_id"]] = (_expected(intent), sealed["title"] if sealed and platform == "substack" else "")
+                route["public_readback"] = None
                 piece["platforms"].append(route)
             for platform in sorted(required - actual):
                 piece["platforms"].append({"platform": platform, "status": "MISSING_ROW", "first_cause": "EXPECTED_PLATFORM_ROW_MISSING",
@@ -482,13 +527,30 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
             report["pieces"].append(piece)
         for sealed in feed:
             if sealed["content_id"] not in consumed:
-                report["pieces"].append({"piece_id": sealed["content_id"], "title": sealed["title"],
-                    "published_at_utc": sealed["published_at_utc"], "platforms": []})
+                piece = {"piece_id": sealed["content_id"], "title": sealed["title"],
+                         "published_at_utc": sealed["published_at_utc"], "platforms": []}
                 for outlet in sealed["outlets"]:
-                    exception("SEALED_OUTLET_STORE_ROW_MISSING", sealed["content_id"], outlet["name"], status="MISSING_ROW")
-        report["digest"] = _digest(conn, run_dir, result)
-        report["digest"]["public_readback"] = http_check("substack", report["digest"]["public_url"])
+                    route = {"platform": outlet["name"], "status": "MISSING_ROW", "first_cause": "SEALED_OUTLET_STORE_ROW_MISSING",
+                             "public_url": safe_url(outlet["url"]), "store_readback": None, "public_readback": None}
+                    piece["platforms"].append(route)
+                    exception("SEALED_OUTLET_STORE_ROW_MISSING", sealed["content_id"], outlet["name"], route, status="MISSING_ROW")
+                report["pieces"].append(piece)
+        report["digest"], digest_copy = _digest(conn, run_dir, result)
         report["reply_bot"] = _reply_bot(conn, window)
+    # Release the SQLite snapshot before doing any HTTP. A slow page cannot keep
+    # the production reader transaction open throughout the network pass.
+    for piece in report["pieces"]:
+        for route in piece["platforms"]:
+            text, title = expected.get(route.get("message_id"), ("", piece["title"] or ""))
+            route["public_readback"] = http_check(route["platform"], route["public_url"], text, title)
+            if route["public_readback"]:
+                for issue in route["public_readback"]["exceptions"]:
+                    exception(issue, piece["piece_id"], route["platform"], route, route["status"])
+    report["digest"]["public_readback"] = http_check("substack", report["digest"]["public_url"],
+        digest_copy.get("body_markdown", ""), digest_copy.get("title", ""))
+    if report["digest"]["public_readback"]:
+        for issue in report["digest"]["public_readback"]["exceptions"]:
+            exception(issue, report["digest"]["digest_id"], "substack", report["digest"], report["digest"]["state"])
     report["exception_count"] = len(report["exceptions"])
     return report
 
