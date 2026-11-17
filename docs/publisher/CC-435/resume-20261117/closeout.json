@@ -1,0 +1,22 @@
+{
+  "item": "CC-435",
+  "status": "BLOCKED",
+  "first_outside_cause": "TRANSPORT_TLS_HANDSHAKE_UNAVAILABLE",
+  "failed_operation": "GET https://api.linkedin.com/v2/userinfo",
+  "smallest_next_action": "Ops Product restores connectivity to the existing official LinkedIn API endpoint; Publisher then verifies the next eligible plan through all eight existing routes.",
+  "instagram_action": "Ops Product puts https://capitalchronicle.substack.com/ in the profile website through its existing bio route.",
+  "choice": "Reconcile exact existing objects rather than send expired calls or invent missing parent cards.",
+  "readback_evidence_commit": "60102f2b",
+  "retained_gold_routes_confirmed": ["telegram", "discord", "threads", "substack_notes"],
+  "next_run_eight_route_acceptance_complete": false,
+  "tests": {"file": "tests/test_plan_analysis_distribution_cc435.py", "passed": 38, "failed": 0, "seconds": 29.09},
+  "live_consumer_evidence": "installed-minute-observation.json",
+  "public_write_performed": false,
+  "schedule_changed": false,
+  "application_restarted": false,
+  "new_source_code": false,
+  "model": "gpt-6.1-sol",
+  "effort": "max",
+  "model_evidence": "CONFIGURED_NOT_OBSERVED",
+  "editorial_model_calls": 0
+}
