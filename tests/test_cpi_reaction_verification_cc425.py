@@ -5,7 +5,7 @@ import pytest
 
 from scripts.verify_cpi_reaction_page_v1 import compare_cells, join_capture_periods, recompute_market, sample_releases
 from test_cpi_reaction_page_cc425 import pack
-from live_contentops.cpi_reaction_page_v1 import writer_guidance
+from live_contentops.cpi_reaction_page_v1 import TOKEN, bind_tables, writer_guidance
 
 
 def test_fixed_seed_keeps_newest_three_and_five_distinct_older_releases():
@@ -59,3 +59,48 @@ def test_capture_recovery_joins_only_one_explicit_month_for_same_measure_and_dat
     recovered = join_capture_periods(rows)
     assert recovered[1]["reference_period"] == "2026-07"
     assert recovered[2]["reference_period"] is None
+
+
+@pytest.mark.parametrize("cutoff", [None, "2026-11-10T09:31:46Z"])
+def test_historical_page_uses_bound_observation_windows_without_inventing_fresh_cutoff(cutoff):
+    from live_contentops.reader_article_contract_v1 import POLICY, validate_publication_clock
+    article = bind_tables({"substack_body_markdown": TOKEN}, pack())
+    article["reader_article_contract"] = {"policy": POLICY, "data_cutoff_utc": cutoff}
+    now = datetime(2026, 11, 17, tzinfo=timezone.utc)
+    validate_publication_clock(article, now=now, destination="substack")
+    # The exception belongs to the exact CPI table page, not a normal stale story.
+    article.pop("cpi_reaction_page")
+    with pytest.raises(ValueError, match="ARTICLE_DATA_CUTOFF"):
+        validate_publication_clock(article, now=now, destination="substack")
+
+
+def test_historical_publication_still_refuses_changed_cells():
+    from live_contentops.reader_article_contract_v1 import POLICY, validate_publication_clock
+    article = bind_tables({"substack_body_markdown": TOKEN}, pack())
+    article["reader_article_contract"] = {"policy": POLICY, "data_cutoff_utc": None}
+    article["substack_body_markdown"] = article["substack_body_markdown"].replace("-0.2353%", "+0.2353%")
+    with pytest.raises(ValueError, match="TABLE_CHANGED"):
+        validate_publication_clock(article, now=datetime.now(timezone.utc), destination="substack")
+
+
+def test_current_visual_reviewer_keeps_exact_binding_and_unresolved_issue_guard(monkeypatch):
+    import json
+    from live_contentops import native_desktop_editorial_v1 as native
+    binding = {"assets": [], "renders": [{"render_id": "canonical", "sha256": "a" * 64}],
+               "renderer_sha256": {"renderer": "b" * 64}}
+    monkeypatch.setattr(native, "native_artifact_key", lambda *args: "exact-article")
+    monkeypatch.setattr(native, "final_visual_binding", lambda *args, **kwargs: binding)
+    turn = SimpleNamespace(run_id="CONTROLLED-run", store=SimpleNamespace(
+        get_outbox_message=lambda key: {"payload": json.dumps({"article_identity": "CONTROLLED-article"})}),
+        _get=lambda *args: {"invocation_observation": {"invocation_id": "CONTROLLED-original-writer"}})
+    request = {"governed_input": {"binding": binding}}
+    response = {"invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT",
+        "invocation_id": "CONTROLLED-current-reviewer", "model": "gpt-6.1-sol", "reasoning_effort": "max"},
+        "output": {"decision": "ACCEPT", "asset_findings": [], "render_findings": [{
+            "render_id": "canonical", "sha256": "a" * 64, "pixels_inspected": True,
+            "checks": dict.fromkeys(native.FINAL_VISUAL_LAYOUT_CHECKS, "PASS"), "findings": [],
+            "evidence_notes": "Controlled exact-assembly contract test; no real visual judgment claimed."}]}}
+    native.validate_final_visual_return(turn, request, response)
+    response["output"]["render_findings"][0]["findings"] = ["Controlled unresolved clipping defect"]
+    with pytest.raises(ValueError, match="UNRESOLVED_ISSUE"):
+        native.validate_final_visual_return(turn, request, response)

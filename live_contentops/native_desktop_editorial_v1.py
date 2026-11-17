@@ -2472,9 +2472,9 @@ def validate_final_visual_return(turn, request, response):
     assignment = role_assignment("final-visual", agent)
     validate_native_configuration(observation, assignment)
     recovery = request["governed_input"].get("distribution_recovery")
-    if (recovery is None and
-            (not writer or observation.get("invocation_id") != writer["invocation_observation"]["invocation_id"])):
-        raise ValueError("FINAL_VISUAL_ACTUAL_SAME_SOL61_MAX_REQUIRED")
+    # Decisions 60/86: the original writer identity stays provenance. A current
+    # reviewer records its actual invocation and checks the exact same bytes;
+    # matching the historical writer's invocation is not a publication gate.
     row = turn.store.get_outbox_message(native_artifact_key(turn.store, turn.run_id, "cc-editorial-final-"))
     result = json.loads(row["payload"]) if row else {}
     if recovery is not None:

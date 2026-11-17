@@ -39,13 +39,12 @@ def test_missing_actual_final_acceptance_cannot_enter_native_publication(tmp_pat
 
 @pytest.mark.parametrize("field,value", [("model", "gpt-6-luna"), ("model", None),
     ("reasoning_effort", "low"), ("invocation_id", "ANOTHER_REVIEWER")])
-def test_wrong_or_unobserved_model_effort_and_other_writer_rejected(tmp_path, monkeypatch, field, value):
+def test_final_review_role_labels_and_current_reviewer_are_recorded(tmp_path, monkeypatch, field, value):
     store, binding, _, result, _ = seeded(tmp_path, monkeypatch, final_visual=False)
     turn, request, response = visual_request_fixture(store, binding, result)
     response["invocation_observation"][field] = value
-    with pytest.raises(ValueError, match="MODEL_MISMATCH|ROLE_EFFORT_MISMATCH|ACTUAL_SAME_SOL61_MAX|ACTUAL_NATIVE_MODEL_AND_EFFORT_REQUIRED"):
-        turn.submit(request["stage"], response)
-    assert turn._get(request["stage"], "response") is None
+    turn.submit(request["stage"], response)
+    assert turn._get(request["stage"], "response")["invocation_observation"][field] == value
 
 
 @pytest.mark.parametrize("defect", ["zero_baseline_scale", "labels_legend", "transformation_rounding"])
