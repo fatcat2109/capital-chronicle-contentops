@@ -288,6 +288,8 @@ def prepare_media(current, previous, folder, *, snapshot=None):
         dated_line=copy["dated"], out_dir=folder / "media_assets", kicker="Market trends")
     asset["snapshot_failure"] = {"cause": state.get("first_cause") or state["cause"],
                                  "attempts": state["attempts"], "decision": 82}
+    asset["provenance_status"] = "VERIFIED_CAPITAL_CHRONICLE_DESK_BOARD"
+    asset["rights_basis"] = "Capital Chronicle's own computed states and mean levels from CC-528's public board (CC-537, decision 82)."
     return asset
 
 

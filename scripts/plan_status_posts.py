@@ -129,6 +129,12 @@ def main(argv=None) -> int:
                 reply_bot = bot_refresh(store, binding_path=args.store.parent / "control/x_reply_bot_binding.json")
             except Exception as exc:
                 reply_bot = {"status": "REPLY_BOT_FAILED", "cause": type(exc).__name__, "public_submit_actions": 0}
+        if args.publish and not args.dry_run:
+            # CC-537 follows immediate/private delivery and precedes slow page
+            # writing. Its board remains independent of plan-export freshness.
+            from live_contentops.daily_trend_board_v1 import run_due as trend_board
+            result["daily_trend_board"] = trend_board(store,
+                output_root=args.store.parent / "daily_app_outputs/daily-trend-board", automatic_neo=True)
         plan_pages = None
         if args.publish and not args.dry_run:
             # CC-603's corrections are owed even while Main's export is stale.
@@ -165,12 +171,6 @@ def main(argv=None) -> int:
                 latest_states=result.get("latest_states") or {}, now=datetime.now(timezone.utc)))
             from live_contentops.neo_endpoint_executor_v1 import resume_stored_requests
             result["publication"]["neo_stored_requests"] = resume_stored_requests(store)
-        if args.publish and not args.dry_run:
-            # CC-537 is independent of Main's plan-state export and of trades.
-            # It uses this existing minute entry, store and coordinator only.
-            from live_contentops.daily_trend_board_v1 import run_due as trend_board
-            result["daily_trend_board"] = trend_board(store,
-                output_root=args.store.parent / "daily_app_outputs/daily-trend-board", automatic_neo=True)
         if args.publish and not args.dry_run:
             # CC-468 reads confirmed pages already in the store and checks their
             # original capture clocks. An unrelated stale status export must
