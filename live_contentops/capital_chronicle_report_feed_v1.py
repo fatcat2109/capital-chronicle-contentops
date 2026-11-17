@@ -677,9 +677,10 @@ class MainReportFeed:
                 frozen_input["input_known_at_cutoff_utc"] = known_at_cutoff_utc
             _persist(self.tracker.store, input_key, frozen_input, "internal:native-current-input")
         if self.retained_research and not pool:
-            from live_contentops.contentops_foundation_library_v1 import library_projection
+            from live_contentops.contentops_foundation_library_v1 import dependency_rows, library_projection
             from live_contentops.contentops_editorial_desk_v1 import read_reviews
-            desk = library_projection(self.tracker.store.list_outbox_messages(), read_reviews(self.tracker.store))
+            desk = library_projection(dependency_rows(self.tracker.store), read_reviews(self.tracker.store),
+                                      include_story_context=False)
             held = {p["brief_id"] for p in (desk or {}).get("packages", []) if p["review"]["state"] == "HOLD"}
             held_ids = {i for b in (desk or {}).get("briefs", []) if b["brief_id"] in held for i in b["source_item_ids"]}
             active_ids = {i for b in (desk or {}).get("briefs", []) if b["brief_id"] not in held for i in b["source_item_ids"]}
