@@ -1,0 +1,25 @@
+{
+  "item": "CC-403",
+  "observed_at_utc": "2026-11-17T03:03:49.920156+00:00",
+  "tested_commit": "5f3058eb",
+  "status": "BLOCKED",
+  "first_cause": "ARTICLE_DATA_CUTOFF_EXPIRED:8678s",
+  "data_cutoff_utc": "2026-11-17T00:37:43.684818+00:00",
+  "publication_deadline_utc": "2026-11-17T01:37:43.684818+00:00",
+  "tests": {
+    "tests": 114,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "new_canonicals": 0,
+  "public_writes": 0,
+  "new_operations": 0,
+  "editorial_model_calls": 0,
+  "claude_calls": 0,
+  "chat_messages": 0,
+  "schedule_changes": 0,
+  "app_restarts": 0,
+  "next_action": "Ops Live supplies a current completed Main analysis through the existing feed; Publisher resumes the existing CC-124 daily-note path and records its clean-title Substack readback and actual publication within 60 minutes of its original data cutoff. Do not retry the invalidated prior request.",
+  "choice_and_reason": "Use the held single-pass Main outputs through the installed source owner; preserve their original clocks because the explicit CC-403 public deadline cannot be refreshed by retrieval, rewriting or media."
+}
