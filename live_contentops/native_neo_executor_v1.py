@@ -322,6 +322,10 @@ class NativeNeoExecutor:
                 path = Path(str(artifact.get("path") or ""))
                 if not artifact.get("sha256") or not path.is_file() or sha256(path.read_bytes()).hexdigest() != artifact["sha256"]:
                     raise ValueError("NATIVE_NEO_PAYLOAD_OR_MEDIA_BYTES_CHANGED")
+        if self._composed(request):
+            from live_contentops.destination_transport_registry_v1 import SURFACE_REGISTRY
+            if request["surface"] not in SURFACE_REGISTRY:
+                raise ValueError("NEO_PUBLICATION_SURFACE_UNREGISTERED")
         claim = {"tool_request_sha256": packet["tool_request_sha256"],
                  "native_invocation_id": self.native_invocation_id,
                  "begun_at_utc": self.clock().isoformat(), "required_tool": TOOL}

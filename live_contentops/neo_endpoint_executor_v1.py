@@ -626,7 +626,7 @@ class NeoBrowserDriver:
         if url:
             self.client.call("navigate", {"page": page, "url": url})
         else:
-            root = ROOTS["x"] + "/with_replies" if destination == "x" else request["entry_url"]
+            root = (ROOTS["x"] if request.get("quote_parent") else ROOTS["x"] + "/with_replies") if destination == "x" else request["entry_url"]
             self.client.call("navigate", {"page": page, "url": root})
         selector = 'article[data-testid="tweet"]' if destination == "x" else '.FeedProseMirror'
         self.client.wait(page, selector)
@@ -652,6 +652,27 @@ class NeoBrowserDriver:
                 and _note_missing_link_reply_text(request, p.get("observed_text"))]
             missing_link_reply = bool(matches)
         if len(matches) != 1:
+            if destination == "x" and request.get("quote_parent") and not url and candidates and texts:
+                # Quote-posts are own-account roots. A freshly loaded own Posts
+                # feed whose newest post predates the attempt can prove absence;
+                # the existing owner still enforces its ten-minute wait.
+                attempt = request.get("latest_dispatch_attempt_at_utc")
+                clocks = [p.get("published_at_utc") for p in candidates]
+                from .native_neo_executor_v1 import _post_texts
+                absent = (attempt and all(clocks) and all(p.get("observed_text") for p in candidates)
+                    and not any(_post_texts([texts[0]])[0] in _post_texts([p["observed_text"]])[0] for p in candidates)
+                    and max(datetime.fromisoformat(t.replace("Z", "+00:00")) for t in clocks)
+                        < datetime.fromisoformat(attempt.replace("Z", "+00:00")))
+                if absent:
+                    identity = self.client.run(page, "identity", destination="x", expected_identity=request["expected_identity"])
+                    current = self.client.snapshot(page)
+                    if identity.get("authenticated") and current.get("url") == request["entry_url"]:
+                        return {"status":"READBACK_COMPLETE", "verified":False, "target_post_absent":True,
+                            "authenticated":True, "activity_feed_loaded":True, "observed_profile_url":current["url"],
+                            "observed_identity":identity["observed_identity"],
+                            "observed_text":"\n\n".join(p["observed_text"] for p in candidates),
+                            "observed_feed_post_ids":[p["public_object_id"] for p in candidates],
+                            "newest_feed_post_at_utc":max(clocks)}
             return {"status":"READBACK_UNAVAILABLE", "verified":False,
                 "reason_code":"NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND", "observed_identity":request["expected_identity"]}
         root = matches[0]

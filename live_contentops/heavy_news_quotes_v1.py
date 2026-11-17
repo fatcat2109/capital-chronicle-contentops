@@ -122,7 +122,8 @@ def reserve(store, row, now):
     day = now.astimezone(LOCAL).date().isoformat()
     lease = store.acquire_lease("heavy-news-quote-budget", row["key"], ttl_seconds=30)
     try:
-        reservations = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=replies.RESERVATIONS)]
+        reservations = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=replies.RESERVATIONS)
+                        if r["status"] != "RECONCILED_ABSENT"]
         used = [r for r in reservations if r.get("kind") == "quote" and r["day"] == day]
         if any(r["key"] == row["key"] for r in used):
             return
@@ -250,7 +251,18 @@ def refresh_due(store, *, feed_path=FEED, root=ROOT, now=None, call=None, captur
             coordinator = coordinator_for(row["key"], folder) if coordinator_for else bind_native_neo_coordinator(
                 store, operation_id=row["key"], output_dir=folder / "native-neo",
                 native_invocation_id="minute-consumer-cc467", allow_publish=True, automatic=True)[0]
-            return replies.publish(store, row["key"], coordinator=coordinator, root=root, now=now if call else None)
+            result = replies.publish(store, row["key"], coordinator=coordinator, root=root, now=now if call else None)
+            for dispatch in store.get_dispatches_for_work_item(row["key"]):
+                if dispatch["status"] == "RECONCILED_ABSENT_SAFE_TO_RETRY":
+                    executor = getattr(getattr(coordinator.transport_runtime,"_neo_transport",None),"native_executor",None)
+                    failure = coordinator._destination_day_failure("x") or {}
+                    if executor and failure.get("dispatch_id") == dispatch["dispatch_id"] and failure.get("safe_error_classification") == "KeyError":
+                        coordinator.resolve_unregistered_quote_begin_failure(dispatch["dispatch_id"],native_executor=executor)
+                    store.set_outbox_status(row["key"],"SOURCE_EXPIRED_AFTER_RECONCILED_ABSENCE")
+                    for reserved in store.list_outbox_messages(destination=replies.RESERVATIONS):
+                        if json.loads(reserved["payload"]).get("key") == row["key"]:
+                            store.set_outbox_status(reserved["message_id"],"RECONCILED_ABSENT")
+            return result
         held = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=replies.DESTINATION)
                 if json.loads(r["payload"]).get("heavy_news_quote") == POLICY]
         for row in held:
@@ -261,7 +273,8 @@ def refresh_due(store, *, feed_path=FEED, root=ROOT, now=None, call=None, captur
                 return {"status": "QUOTE_READBACK_RECOVERY", "result": publisher(row)}
             if (now - replies.clock(row["source_posted_at_utc"])).total_seconds() < MAX_SECONDS and not dispatches:
                 return {"status": "QUOTE_RESUMED", "result": publisher(row)}
-        used = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=replies.RESERVATIONS)]
+        used = [json.loads(r["payload"]) for r in store.list_outbox_messages(destination=replies.RESERVATIONS)
+                if r["status"] != "RECONCILED_ABSENT"]
         if sum(r.get("kind") == "quote" and r.get("day") == now.astimezone(LOCAL).date().isoformat() for r in used) >= DAILY_CAP:
             return {"status": "CC467_FIVE_QUOTES_PER_DAY"}
         if not Path(feed_path).is_file():

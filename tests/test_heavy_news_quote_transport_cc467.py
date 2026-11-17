@@ -27,7 +27,7 @@ def test_handoff_requires_exact_stored_quote_and_proves_edge_instead_of_link(pre
     handoff = NeoDestinationHandoff(store=store)
     request = handoff.request(destination="x", action="PUBLISH", intent=intent, authorization_context=auth)
     assert request["quote_parent"] == intent["quote_parent"] and "reply_parent" not in request
-    assert request["surface"] == "X_QUOTE_POST"
+    assert request["surface"] == "X_POST"
     assert request["content_binding"]["media_manifest"][0]["sha256"] == intent["media_assets"][0]["sha256"]
     handoff.native_executor = lambda request:{"request_sha256":request["request_sha256"],"observed_identity":"@Capitalnicle",
         "status":"SUCCESS", "public_object_id":"456", "public_object_url":"https://x.com/Capitalnicle/status/456",
@@ -93,6 +93,81 @@ def test_prepare_opens_exact_source_quote_and_uploads_without_opening_file_dialo
     with pytest.raises(NeoEndpointError,match="VISIBLE_SOURCE_CHANGED"):
         NeoBrowserDriver(client).prepare(request,1)
     assert not client.uploads and not any(k=="click" for k,_ in client.actions)
+
+
+def test_real_native_begin_uses_the_registered_x_surface_and_bad_surface_never_claims(prepared, tmp_path):
+    from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator, NativeNeoInputRequired
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    store,_,_,raw,now=prepared
+    row=quotes.stage(store,raw,now=now)
+    coordinator,executor=bind_native_neo_coordinator(store,operation_id=row["key"],output_dir=tmp_path/"native",
+        native_invocation_id="fixture-cc467",allow_publish=True)
+    coordinator.register_plan(row["key"],replies.plan_for(store,row["key"],root=tmp_path))
+    _,intent,auth=request_for(prepared,tmp_path)
+    ids=DurablePublicationCoordinator._ids(row["key"],replies.digest(row),"x")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"],message_id=ids["message_id"],platform="x",status="DISPATCH_ATTEMPT_STARTED")
+    executor.inline_transport=True
+    auth["dispatch_attempt_identity"]=ids["dispatch_id"]
+    request=NeoDestinationHandoff(store=store).request(destination="x",action="PUBLISH",intent=intent,authorization_context=auth)
+    with pytest.raises(NativeNeoInputRequired):executor(request)
+    packet=executor.begin(request["request_sha256"])
+    assert packet["composed_run"]["1_identity"]["expected_identity"]=="@Capitalnicle"
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    bad={**request,"surface":"UNREGISTERED_QUOTE_SURFACE"}
+    bad["request_sha256"]=sha256_of({k:v for k,v in bad.items() if k!="request_sha256"})
+    with pytest.raises(NativeNeoInputRequired):executor(bad)
+    with pytest.raises(ValueError,match="SURFACE_UNREGISTERED"):executor.begin(bad["request_sha256"])
+    assert executor._get(bad["request_sha256"],"started") is None
+
+
+def test_quote_absence_reader_requires_loaded_own_profile_and_older_last_post():
+    from live_contentops.neo_destination_handoff_v1 import ROOTS
+    class Reader:
+        def call(self,*a):pass
+        def wait(self,*a):pass
+        def snapshot(self,p):return {"url":ROOTS["x"]}
+        def run(self,p,phase,**kw):
+            if phase=="identity":return {"authenticated":True,"observed_identity":"@Capitalnicle"}
+            return {"tweets":[{"public_object_id":"1","public_object_url":ROOTS["x"]+"/status/1",
+                "observed_text":"An earlier, different ordinary post.","published_at_utc":"2026-11-17T12:00:00Z"}]}
+    request={"destination":"x","action":"READBACK","entry_url":ROOTS["x"],"expected_identity":"@Capitalnicle",
+        "quote_parent":{"public_object_id":"source"},"native_payload":{"text":"The exact missing quote-post."},
+        "content_binding":{},"latest_dispatch_attempt_at_utc":"2026-11-17T13:00:00Z"}
+    result=NeoBrowserDriver(Reader()).readback(request,1)
+    assert result["target_post_absent"] and result["authenticated"] and result["observed_feed_post_ids"]==["1"]
+    from live_contentops.native_neo_executor_v1 import _readback_absence_evidence
+    result["native_tool_observation"]={"observed_at_utc":"2026-11-17T13:09:59Z"}
+    assert not _readback_absence_evidence(request,result)
+    result["native_tool_observation"]["observed_at_utc"]="2026-11-17T13:10:00Z"
+    assert _readback_absence_evidence(request,result)
+    request["latest_dispatch_attempt_at_utc"]="2026-11-17T11:00:00Z"
+    assert "target_post_absent" not in NeoBrowserDriver(Reader()).readback(request,1)
+
+
+def test_local_begin_circuit_repair_requires_exact_original_claim_and_reconciled_absence(prepared,tmp_path):
+    from live_contentops.native_neo_executor_v1 import bind_native_neo_coordinator,NativeNeoInputRequired
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    from live_contentops.publication_coordinator_v1 import DurablePublicationCoordinator
+    store,_,_,raw,now=prepared
+    row=quotes.stage(store,raw,now=now)
+    c,e=bind_native_neo_coordinator(store,operation_id=row["key"],output_dir=tmp_path/"native",native_invocation_id="fixture",allow_publish=True)
+    c.register_plan(row["key"],replies.plan_for(store,row["key"],root=tmp_path))
+    _,intent,auth=request_for(prepared,tmp_path)
+    ids=DurablePublicationCoordinator._ids(row["key"],replies.digest(row),"x")
+    store.register_platform_dispatch(dispatch_id=ids["dispatch_id"],message_id=ids["message_id"],platform="x",status="UNKNOWN_WRITE")
+    auth["dispatch_attempt_identity"]=ids["dispatch_id"]
+    request=NeoDestinationHandoff(store=store).request(destination="x",action="PUBLISH",intent=intent,authorization_context=auth)
+    request["surface"]="X_QUOTE_POST"
+    request["request_sha256"]=sha256_of({k:v for k,v in request.items() if k!="request_sha256"})
+    with pytest.raises(NativeNeoInputRequired):e(request)
+    e._put(request["request_sha256"],"started",{"begun_at_utc":now.isoformat()},row["key"])
+    c._record_destination_day_failure(intent,"x",{"dispatch_id":ids["dispatch_id"],"safe_error_classification":"KeyError","status":"UNKNOWN_WRITE"})
+    with pytest.raises(ValueError,match="BEGIN_FAILURE_AND_ABSENCE"):
+        c.resolve_unregistered_quote_begin_failure(ids["dispatch_id"],native_executor=e)
+    store.set_dispatch_status(ids["dispatch_id"],"RECONCILED_ABSENT_SAFE_TO_RETRY")
+    result=c.resolve_unregistered_quote_begin_failure(ids["dispatch_id"],native_executor=e)
+    assert result["severity"]=="RESOLVED_LOCAL_PREWRITE" and c._destination_day_failure("x") is None
+    assert store.get_platform_dispatch(ids["dispatch_id"])["status"]=="RECONCILED_ABSENT_SAFE_TO_RETRY"
 
 
 @pytest.mark.parametrize("quote_views,ordinary_views,decision",[(30,10,"KEEP"),(1,10,"STOP"),(None,10,None)])
