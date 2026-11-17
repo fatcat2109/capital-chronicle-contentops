@@ -41,6 +41,7 @@ readbacks above supply the live-consumer evidence.
 The branch continues operating HEAD `944f53d36c1ccbdda1e34ffa1e15515cbdfb864b`,
 which already contains the implementation and newer accepted consumers; remote
 master predates them. Integration uses a fast-forward and live/rollback tags.
+The [integration readback](integration.json) records the installed delivery and tags.
 Inherited modified files remain outside this delivery and retain their hashes.
 No schedule, application, Main file or other chat was changed.
 
