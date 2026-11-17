@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "2d47bc5c376342969fc469355f87ca0cfde8d9d8730778cc719857996cc38adc",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1e85b-c03c-7d70-9308-be7e54f8b18d",
+    "observation_source": "BrowserOS Neo page 149: signed-in Profile link /Capitalnicle, Account menu, Edit profile; no write",
+    "observed_at_utc": "2026-11-17T09:47:56.557Z"
+  },
+  "result": {
+    "request_sha256": "028353a435c056b2c176ff15e0cfe8c1b39a13ccac846d96361e6262cb6660c0",
+    "status": "VERIFIED",
+    "authenticated": true,
+    "observed_identity": "@Capitalnicle",
+    "observed_profile_url": "https://x.com/Capitalnicle"
+  }
+}
