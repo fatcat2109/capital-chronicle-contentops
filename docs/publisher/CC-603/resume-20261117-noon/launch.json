@@ -23,5 +23,12 @@
     }
   },
   "continuation": "User cleared an interruption/account switch; branch and BACKLOG checked before continuing; same item and no schedule change.",
-  "test_execution": "One pytest process at a time; targeted files. The first resumed combined run was stopped after 83.6 seconds; all later slices use an enforced 55-second timeout. The 55-second timeout run produced no completion result and was split."
+  "test_execution": "One pytest process at a time; targeted files. The first resumed combined run was stopped after 83.6 seconds; all later slices use an enforced 55-second timeout. The 55-second timeout run produced no completion result and was split.",
+  "continuation_launch": {
+    "process_id": 42472,
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "max",
+    "evidence_state": "CONFIGURED_NOT_OBSERVED",
+    "started_at_utc": "2026-11-17T05:35:03Z"
+  }
 }

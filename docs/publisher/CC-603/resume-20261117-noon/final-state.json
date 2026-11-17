@@ -1,0 +1,317 @@
+{
+  "observed_at_utc": "2026-11-17T05:53:14.785793+00:00",
+  "corrections_complete": true,
+  "posts": {
+    "cc359-zone-correction-20261109": {
+      "outbox_status": "PUBLISHED",
+      "strict_complete": true,
+      "dispatches": [
+        {
+          "dispatch_id": "dispatch_4b9d0955b60922b91ff03abfab48c5f9",
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-09T13:57:17.584359+00:00",
+          "public_object_id": "107",
+          "public_object_url": "https://t.me/CapitalChronicle/107"
+        },
+        {
+          "dispatch_id": "dispatch_71fdae51a6d8073e2f2d583371d32fc4",
+          "platform": "substack_notes",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-09T13:57:15.140746+00:00",
+          "public_object_id": "c-382817690",
+          "public_object_url": "https://substack.com/@deancapitalchronicle/note/c-382817690"
+        },
+        {
+          "dispatch_id": "dispatch_8e26c1dc01fa645152504b47e08a93c3",
+          "platform": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-09T13:57:12.653485+00:00",
+          "public_object_id": "1569350151401639966",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569350151401639966"
+        },
+        {
+          "dispatch_id": "dispatch_e29d55b139e249d83ed06c054990d919",
+          "platform": "x",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-09T13:57:33.360151+00:00",
+          "public_object_id": "2119792055350337767",
+          "public_object_url": "https://x.com/Capitalnicle/status/2119792055350337767"
+        },
+        {
+          "dispatch_id": "dispatch_eb901dc382209e08af303ad2a06594ed",
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-09T13:57:20.533493+00:00",
+          "public_object_id": "17915910789554425",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfhfaevlDDY"
+        }
+      ]
+    },
+    "cc603-gold-timing-correction-20261112": {
+      "outbox_status": "SETTLED",
+      "strict_complete": true,
+      "dispatches": [
+        {
+          "dispatch_id": "dispatch_2efa41366563bf34af3fa815f9697772",
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-15T19:18:00.008964+00:00",
+          "public_object_id": "184",
+          "public_object_url": "https://t.me/CapitalChronicle/184"
+        },
+        {
+          "dispatch_id": "dispatch_796db3424675b9656112164e7a908724",
+          "platform": "substack_notes",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-15T19:17:55.852890+00:00",
+          "public_object_id": "c-388463042",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-388463042"
+        },
+        {
+          "dispatch_id": "dispatch_86c13b549ac46b74eb072a2f30510842",
+          "platform": "discord",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-15T19:17:25.019559+00:00",
+          "public_object_id": "1571605061375623189",
+          "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1571605061375623189"
+        },
+        {
+          "dispatch_id": "dispatch_afa7808049ee0567aa5debd16ff868f6",
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-15T19:18:03.413661+00:00",
+          "public_object_id": "18037576661852124",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Dfxg403AWfN"
+        }
+      ]
+    },
+    "cc603-followup-5da8be4c6a0f24959930f9bd8870753f": {
+      "outbox_status": "SETTLED",
+      "strict_complete": false,
+      "dispatches": [
+        {
+          "dispatch_id": "dispatch_61d5f6d1611ae436151598831e74cf61",
+          "platform": "substack_notes",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-16T00:21:52.187544+00:00",
+          "public_object_id": "c-388486151",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-388486151"
+        },
+        {
+          "dispatch_id": "dispatch_7a36c6323cfa9933b450f512f26d9d25",
+          "platform": "telegram",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-16T00:22:53.329383+00:00",
+          "public_object_id": "185",
+          "public_object_url": "https://t.me/CapitalChronicle/185"
+        },
+        {
+          "dispatch_id": "dispatch_804fb24058bb52ede2e727b3c529adc3",
+          "platform": "facebook_page",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-16T00:21:44.821093+00:00",
+          "public_object_id": "106091951705748_1456620159989733",
+          "public_object_url": "https://www.facebook.com/1342369584748125/posts/1456620159989733"
+        },
+        {
+          "dispatch_id": "dispatch_a9ae017499b7d84875a762a62bd3444a",
+          "platform": "instagram_business",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-16T00:35:26.449069+00:00",
+          "public_object_id": "18110206477946626",
+          "public_object_url": "https://www.instagram.com/p/DfyFNdaktf3/"
+        },
+        {
+          "dispatch_id": "dispatch_cd309c728f31642a106ad535159b63db",
+          "platform": "threads",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-16T00:22:57.723940+00:00",
+          "public_object_id": "17985378177003257",
+          "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/DfyDx_aEvhJ"
+        },
+        {
+          "dispatch_id": "dispatch_ec9b964e49665348ce13ca0b4a2b74bd",
+          "platform": "x",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-16T00:24:01.205301+00:00",
+          "public_object_id": "2122123689437323291",
+          "public_object_url": "https://x.com/Capitalnicle/status/2122123689437323291"
+        }
+      ]
+    },
+    "cc603-followup-5da8be4c6a0f24959930f9bd8870753f-missing-links": {
+      "outbox_status": "SETTLED",
+      "strict_complete": false,
+      "dispatches": [
+        {
+          "dispatch_id": "dispatch_c15512d63c5d4cd7b2a43bc2d2a7e09e",
+          "platform": "substack_notes",
+          "status": "DISPATCH_CONFIRMED",
+          "dispatched_at": "2026-11-17T05:00:37.536733+00:00",
+          "public_object_id": "c-389505878",
+          "public_object_url": "https://substack.com/@capitalchronicle/note/c-389505878"
+        }
+      ]
+    }
+  },
+  "pending_link_replies": [],
+  "latest_consumer": {
+    "at_utc": "2026-11-17T05:52:25.059484Z",
+    "status": "OK",
+    "call_followups": {
+      "corrections_complete": true,
+      "posts": [
+        {
+          "cause": "CC603_NO_COMPLETE_MATCH_IN_HELD_PRICES",
+          "status": "NOT_ELIGIBLE"
+        },
+        {
+          "call_id": "call_a03802808373f8f8fdf9502b",
+          "cause": "CC603_CONFLICTING_HELD_PRICE_BAR",
+          "status": "NOT_COMPLETED"
+        },
+        {
+          "key": "cc603-followup-5da8be4c6a0f24959930f9bd8870753f",
+          "status": "EXISTING"
+        },
+        {
+          "key": "cc603-followup-2659ec1cce1bb40e17daaa29b411cfd6",
+          "status": "EXISTING"
+        },
+        {
+          "key": "cc603-followup-f49e1e0410897667ef56618fcf0f8d00",
+          "status": "EXISTING"
+        },
+        {
+          "key": "cc603-followup-6cb9230ae34621ee299bdf3f4bdf64fd",
+          "status": "EXISTING"
+        },
+        {
+          "key": "cc603-followup-35a552222e8a572fca26451a4c15858b",
+          "status": "EXISTING"
+        },
+        {
+          "key": "cc603-followup-af988bdf8344f88829c6ecffa685fd7b",
+          "status": "EXISTING"
+        },
+        {
+          "key": "cc603-followup-9b071613650e3f3bf1b6c59c1ba1cb72",
+          "status": "EXISTING"
+        },
+        {
+          "key": "cc603-followup-bb2dc2d3cb28deb79b8e10171dd15d0d",
+          "status": "EXISTING"
+        },
+        {
+          "key": "cc603-followup-f260f6f4cfc6259accfef172c3e4ab93",
+          "status": "EXISTING"
+        },
+        {
+          "key": "cc603-followup-813c70c1a6848bcf9f9556f648b6c781",
+          "status": "EXISTING"
+        },
+        {
+          "cause": "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+          "key": "cc603-followup-2659ec1cce1bb40e17daaa29b411cfd6",
+          "media_request": {
+            "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-2659ec1cce1bb40e17daaa29b411cfd6\\reviewed_chart.json",
+            "symbol": "EURUSD",
+            "visible_from_utc": "2026-11-11T03:27:10.699521+00:00",
+            "visible_to_utc": "2026-11-11T13:30:00+00:00"
+          },
+          "status": "MEDIA_PENDING"
+        },
+        {
+          "cause": "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+          "key": "cc603-followup-f49e1e0410897667ef56618fcf0f8d00",
+          "media_request": {
+            "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-f49e1e0410897667ef56618fcf0f8d00\\reviewed_chart.json",
+            "symbol": "XAUUSD",
+            "visible_from_utc": "2026-11-11T06:34:13.611454+00:00",
+            "visible_to_utc": "2026-11-11T16:45:00+00:00"
+          },
+          "status": "MEDIA_PENDING"
+        },
+        {
+          "cause": "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+          "key": "cc603-followup-6cb9230ae34621ee299bdf3f4bdf64fd",
+          "media_request": {
+            "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-6cb9230ae34621ee299bdf3f4bdf64fd\\reviewed_chart.json",
+            "symbol": "USDJPY",
+            "visible_from_utc": "2026-11-11T06:34:37.544714+00:00",
+            "visible_to_utc": "2026-11-11T13:45:00+00:00"
+          },
+          "status": "MEDIA_PENDING"
+        },
+        {
+          "cause": "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+          "key": "cc603-followup-35a552222e8a572fca26451a4c15858b",
+          "media_request": {
+            "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-35a552222e8a572fca26451a4c15858b\\reviewed_chart.json",
+            "symbol": "USOIL",
+            "visible_from_utc": "2026-11-09T09:13:56.142951+00:00",
+            "visible_to_utc": "2026-11-09T11:30:00+00:00"
+          },
+          "status": "MEDIA_PENDING"
+        },
+        {
+          "cause": "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+          "key": "cc603-followup-af988bdf8344f88829c6ecffa685fd7b",
+          "media_request": {
+            "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-af988bdf8344f88829c6ecffa685fd7b\\reviewed_chart.json",
+            "symbol": "EURUSD",
+            "visible_from_utc": "2026-11-09T09:18:15.384073+00:00",
+            "visible_to_utc": "2026-11-09T20:30:00+00:00"
+          },
+          "status": "MEDIA_PENDING"
+        },
+        {
+          "cause": "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+          "key": "cc603-followup-9b071613650e3f3bf1b6c59c1ba1cb72",
+          "media_request": {
+            "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-9b071613650e3f3bf1b6c59c1ba1cb72\\reviewed_chart.json",
+            "symbol": "US500",
+            "visible_from_utc": "2026-11-10T03:17:06.207616+00:00",
+            "visible_to_utc": "2026-11-10T06:30:00+00:00"
+          },
+          "status": "MEDIA_PENDING"
+        },
+        {
+          "cause": "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+          "key": "cc603-followup-bb2dc2d3cb28deb79b8e10171dd15d0d",
+          "media_request": {
+            "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-bb2dc2d3cb28deb79b8e10171dd15d0d\\reviewed_chart.json",
+            "symbol": "USOIL",
+            "visible_from_utc": "2026-11-10T03:17:37.024348+00:00",
+            "visible_to_utc": "2026-11-10T06:45:00+00:00"
+          },
+          "status": "MEDIA_PENDING"
+        },
+        {
+          "cause": "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+          "key": "cc603-followup-f260f6f4cfc6259accfef172c3e4ab93",
+          "media_request": {
+            "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-f260f6f4cfc6259accfef172c3e4ab93\\reviewed_chart.json",
+            "symbol": "EURUSD",
+            "visible_from_utc": "2026-11-11T06:35:01.183861+00:00",
+            "visible_to_utc": "2026-11-11T13:15:00+00:00"
+          },
+          "status": "MEDIA_PENDING"
+        },
+        {
+          "cause": "CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
+          "key": "cc603-followup-813c70c1a6848bcf9f9556f648b6c781",
+          "media_request": {
+            "binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\call-followups\\cc603-followup-813c70c1a6848bcf9f9556f648b6c781\\reviewed_chart.json",
+            "symbol": "XAUUSD",
+            "visible_from_utc": "2026-11-11T16:26:16.601628+00:00",
+            "visible_to_utc": "2026-11-11T19:30:00+00:00"
+          },
+          "status": "MEDIA_PENDING"
+        }
+      ],
+      "status": "OK"
+    }
+  }
+}

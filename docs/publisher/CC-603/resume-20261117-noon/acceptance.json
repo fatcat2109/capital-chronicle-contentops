@@ -1,0 +1,20 @@
+{
+  "observed_at_utc": "2026-11-17T05:54:39.870324+00:00",
+  "record_matches_public_scorecard": true,
+  "record_counts": {
+    "HIT": 0,
+    "STOPPED": 5,
+    "EXPIRED": 37,
+    "total": 42,
+    "scored": 6
+  },
+  "corrections_read_back_before_first_followup": true,
+  "stored_hit_and_expiry_consumer_tests": "PASS",
+  "x_original_chart_record_notices_read_back": true,
+  "substack_root_and_one_reply_exist": true,
+  "substack_original_link_strict_acceptance": false,
+  "substack_gap_disposition": "Recorded gap under Ops Product 16 Nov 08:47 GMT+7 amendment: one reply or a recorded gap; no further edits or deletes (Jim decisions 136 and 84).",
+  "new_public_writes_this_run": 0,
+  "no_second_reply": true,
+  "code_live_commit": "8dcae0ccb1bc542c9182efdd6a8570a054e477d0"
+}

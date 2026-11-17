@@ -1,0 +1,45 @@
+{
+  "started_at_utc": "2026-11-17T05:47:46.407207+00:00",
+  "finished_at_utc": "2026-11-17T05:48:04.077398+00:00",
+  "result": {
+    "dispatch_id": "dispatch_c15512d63c5d4cd7b2a43bc2d2a7e09e",
+    "destination": "substack_notes",
+    "reconciliation_status": "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE",
+    "public_write_performed": false,
+    "publish_called": false
+  },
+  "dispatch": {
+    "dispatch_id": "dispatch_c15512d63c5d4cd7b2a43bc2d2a7e09e",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-17T05:00:37.536733+00:00",
+    "public_object_id": "c-389505878",
+    "public_object_url": "https://substack.com/@capitalchronicle/note/c-389505878"
+  },
+  "readback": {
+    "destination": "substack_notes",
+    "dispatch_id": "dispatch_c15512d63c5d4cd7b2a43bc2d2a7e09e",
+    "readback": {
+      "content_binding_checks": {
+        "link_reply_gap": true,
+        "media_match": true,
+        "text_match": false,
+        "thread_match": true
+      },
+      "identity_match": true,
+      "meaningful_media_visible": false,
+      "observed_at_utc": "2026-11-17T05:48:01.054049+00:00",
+      "observed_public_object_id": "c-389505878",
+      "observed_public_object_url": "https://substack.com/@capitalchronicle/note/c-389505878",
+      "source_status": "BLOCKED",
+      "verified": false,
+      "write_absent": false,
+      "write_exists": true
+    }
+  },
+  "gap_settled": true,
+  "root_complete": false,
+  "reply_status": "SETTLED",
+  "page_id": 118,
+  "public_write_performed": false,
+  "publish_called": false
+}

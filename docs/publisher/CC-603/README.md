@@ -1,14 +1,56 @@
 # CC-603 — Original call, outcome and pinned record
 
-The implementation is live at `c5ee1ef32f32fc9c35e83fc4ff2205d2cb53be33` in
-`A:\Capital Chronicle\ContentOps`. **Live acceptance remains incomplete:** the
-Substack Note lost its original-link text. One link reply is prepared, but
-Substack Notes' existing daily failure circuit refused it before any write.
+The implementation and reply recovery are live in `A:\Capital Chronicle\ContentOps`
+at code commit `8dcae0ccb1bc542c9182efdd6a8570a054e477d0`. Both corrections
+and the first Bitcoin follow-up are public. The existing minute consumer used
+the one queued link reply at **17 November 2026, 12:00:37 GMT+7**.
 
-The earliest next ET day is **17 November 2026, 12:00 GMT+7**. The existing
-minute consumer can resume that same reply after the circuit ends, or after
-the prior uncertain write is reconciled. This run changed no schedule and
-performed no public post, edit or deletion.
+**The Substack original-link requirement remains unmet.** Substack dropped that
+URL from the reply as well as the root. This run reconciled the exact reply as
+an existing, incomplete object and recorded the gap under Ops Product's
+16 November 08:47 GMT+7 amendment: one missing-line reply or a gap in the Result,
+with no further edits. The reply and root remain `SETTLED`, without claiming
+strict content completion. No second reply, edit or deletion is queued.
+
+This is the amendment's recorded-gap outcome. It does not claim that Substack's
+original-link acceptance passed. This run made no public write or schedule change.
+
+## 17 November continuation
+
+- [Reply readback](resume-20261117-noon/reply-readback.json) identifies
+  [c-389505878](https://substack.com/@capitalchronicle/note/c-389505878) under
+  the original follow-up. `UNKNOWN_WRITE` is cleared;
+  `RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE` and the missing-link check remain.
+- [Current X thread](resume-20261117-noon/x-public-readback.json) retains its
+  chart, original quote and time, outcome, original/record links and both notices.
+- [Public scorecard readback](resume-20261117-noon/pinned-public-record.json)
+  still shows **0 hits, 5 stopped, 37 expiries; 42 results, 6 scored**. It matches
+  the follow-up's record line. Its entry never traded; no trading win is claimed.
+- [Final consumer observation](resume-20261117-noon/final-state.json) confirms
+  both corrections and no pending link reply. The minute consumer continues
+  scanning the existing call sources; other retained candidates still need their
+  own move charts, and the gold candidate reports conflicting held price bars.
+- [Acceptance](resume-20261117-noon/acceptance.json) records the exact permitted
+  outcome and the remaining strict Substack gap.
+
+The changed reader recognizes only a unique reply under the bound original,
+then verifies its author on its own public page. Missing URLs can establish that
+the write occurred; they can never establish complete copy. The existing
+coordinator persists that distinction and the minute consumer settles the gap.
+
+**51 targeted checks and 10 installed checks pass**, including a stored hit and
+expiry, exactly-once delivery, wrong-author/parent/object rejection, ambiguous
+replies, preserved issued bytes, and no repeat send after an incomplete reply.
+Evidence is in [integration.json](resume-20261117-noon/integration.json).
+Live tag: `contentops-live-20261117-cc603-reply-readback`; rollback tag:
+`contentops-rollback-20261117-cc603-reply-readback` at
+`6df78cbbbebabc957000bda8f20a63ccb141fbdd`.
+
+All unrelated dirty files retain their original hashes. The existing
+`CapitalChronicle-PlanStatusPosts-V1` task and sole coordinator are unchanged.
+[Launch evidence](resume-20261117-noon/launch.json) records both configured
+`gpt-6.1-sol/max` launches as `CONFIGURED_NOT_OBSERVED`; no new editorial role
+or Claude invocation was made.
 
 ## Verified public objects
 
@@ -35,7 +77,7 @@ view, without a trading win. The pinned record remains **0 hits, 5 stopped,
 37 expiries; 42 results, 6 scored**, matching [Telegram 134](https://t.me/CapitalChronicle/134).
 The original publication and current readback clocks remain separate.
 
-## One missing-link reply
+## Earlier preparation of the one reply
 
 Ops Product's 16 November amendment permits a missing line once as a reply in
 the same thread, or a recorded gap. The new consumer path prepares only the
@@ -45,8 +87,9 @@ and refuses any missing analytical sentence or changed original.
 
 The reply has one durable identity:
 `cc603-followup-5da8be4c6a0f24959930f9bd8870753f-missing-links`.
-It remains `CC603_PREPARED`, with **zero dispatches** at the final observation.
-The existing coordinator returned `DESTINATION_FAILED_ET_DAY_SKIP`.
+At the earlier 17 November 07:37 GMT+7 observation it was `CC603_PREPARED`,
+with **zero dispatches**. The coordinator returned `DESTINATION_FAILED_ET_DAY_SKIP`.
+The later continuation above records the actual single attempt and readback.
 
 The first failure is a different, existing Notes dispatch:
 `dispatch_52b74856711d9922bcacceba907a1974`. It remains `UNKNOWN_WRITE` with
@@ -54,11 +97,10 @@ The first failure is a different, existing Notes dispatch:
 run remained pending. No retry or circuit override was performed. CC-401's
 daily failure policy remains intact.
 
-After strict reply readback, the consumer can recognize the complete parent
-thread. It preserves the root's `RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE`
-record rather than claiming the root itself recovered its missing text.
+Strict reply readback would complete the parent thread. The actual reply lost
+its URLs, so both exact objects retain incomplete-content observations instead.
 
-## Integration and checks
+## Earlier integration and checks
 
 The existing `CapitalChronicle-PlanStatusPosts-V1` task runs
 `pythonw.exe -B scripts\plan_status_posts.py --publish` from the operating root.
@@ -83,6 +125,6 @@ Current evidence: [fresh original readbacks](resume-20261117/before-reply-readba
 [prior-write readback](resume-20261117/destination-readback.json) and
 [final state](resume-20261117/final-state.json).
 
-Completion requires the existing reply's strict readback beside the original
-Substack chart, with its original and pinned-record links. Resume that exact
-identity; preserve all issued objects and uncertain-write recovery.
+The current continuation above supersedes this earlier pending-reply state.
+The one permitted reply has been used; its remaining gap is recorded, and the
+original issued objects and all prior observations remain intact.
