@@ -1,0 +1,55 @@
+{
+  "tool_request_sha256": "b80372b7c182625750af9f4f640f0fdd536af212b85686b43e9c9221a11748a3",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1e85b-c03c-7d70-9308-be7e54f8b18d",
+    "observed_at_utc": "2026-11-17T10:54:39.480Z",
+    "observation_source": "Neo page 162 company 143198922 published feed and exact public activity; full authored copy, short-link target displayed by LinkedIn public link interstitial, actual high-resolution public image downloaded and pixel comparison passed. Reused the existing same-invocation read-only claim from the automatic coordinator."
+  },
+  "result": {
+    "request_sha256": "9091f783b03e99777c4b3fbde9fc130a34e05ff1e8d901717377b1f00d8804c0",
+    "status": "SUCCESS",
+    "verified": true,
+    "authenticated": true,
+    "content_verified": true,
+    "observed_identity": "linkedin:company:143198922",
+    "observed_stable_id": "143198922",
+    "public_object_id": "urn:li:activity:7528407905289732096",
+    "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528407905289732096",
+    "observed_text": "What gold, the euro and the S&P did after each CPI since 2024\n\nWhy it matters: Our historical tables keep the gaps and changing samples visible.\n\nContext: A historical CPI reference through 2026-10-14: early moves, later closes and gaps across gold, the euro, the S&P and the other markets.\n\nRead the full brief: https://lnkd.in/ghpRMj8K\n\nCapital Chronicle calculations; U.S. Bureau of Labor Statistics first prints; price proxies as labelled Descriptive computed changes; source-specific forecasts; raw third-party prices are excluded. Capital Chronicle offers analysis only, not financial advice or recommendations.\n\nCapital Chronicle may hold positions in the markets it covers.",
+    "observed_post_count": 1,
+    "observed_media_sha256": [
+      "48c4ec921aba2c6c7fce6fe592ad2f3a4c7d6b0d12b3d100090f9b02dfc967e2"
+    ],
+    "media_comparisons": [
+      {
+        "source_asset_sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44",
+        "platform_sha256": "48c4ec921aba2c6c7fce6fe592ad2f3a4c7d6b0d12b3d100090f9b02dfc967e2",
+        "public_image_url": "https://media.licdn.com/dms/image/v2/D5622AQG_j2G_s7A0vQ/feedshare-image-high-res/B56aHpB9RwJEAQ-/0/1794910967159?e=1796256000&v=beta&t=O5L98OWBpjtcc453dFyiUxQll0MfMwJ25FgAa20VJoc",
+        "observed_image_url": "https://media.licdn.com/dms/image/v2/D5622AQG_j2G_s7A0vQ/feedshare-shrink_800/B56aHpB9RwJEAg-/0/1794910967159?e=1796256000&v=beta&t=owHUjg4a1zquAoZrfPhgXXtjw8YM-pxrknm-J3fLIBw",
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528407905289732096",
+        "pixels_inspected": true,
+        "source_pixels_match": true,
+        "comparison_method": "RGB_BLUR075_TILE32_LUMA60_V1",
+        "rms": 1.3618,
+        "worst_tile_rms": 6.9316,
+        "max_luma_delta": 38,
+        "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec\\docs\\publisher\\CC-425\\resume-20261117\\public-media\\cc425-public-company-image.jpg"
+      }
+    ],
+    "public_image_urls": [
+      "https://media.licdn.com/dms/image/v2/D5622AQG_j2G_s7A0vQ/feedshare-image-high-res/B56aHpB9RwJEAQ-/0/1794910967159?e=1796256000&v=beta&t=O5L98OWBpjtcc453dFyiUxQll0MfMwJ25FgAa20VJoc"
+    ],
+    "media_check_state": "MATCHED_FULL_RESOLUTION_PIXELS",
+    "observed_link_resolutions": [
+      {
+        "displayed_url": "https://lnkd.in/ghpRMj8K",
+        "target_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+        "target_verified": true,
+        "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528407905289732096",
+        "verification": "Visible destination anchor on the LinkedIn external-link interstitial; canonical already independently read back"
+      }
+    ]
+  }
+}

@@ -13,6 +13,7 @@ from live_contentops.native_desktop_publication_v1 import NativeReviewedPublicat
 
 root = Path(__file__).resolve().parent
 label = sys.argv[1] if len(sys.argv) > 1 else "exact-readback"
+dispatch_id = sys.argv[2] if len(sys.argv) > 2 else "dispatch_873dddf89422b103efe92b1b5f469f1c"
 binding = json.loads(Path(r"A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs\owner-manual\cc425-cpi-reaction-history-20261111-v1\binding.json").read_bytes())
 with (root / (label + ".stderr.txt")).open("w", encoding="utf-8") as err:
     faulthandler.dump_traceback_later(90, repeat=False, file=err)
@@ -22,7 +23,7 @@ with (root / (label + ".stderr.txt")).open("w", encoding="utf-8") as err:
             rollout=json.loads(Path("config/native_desktop_rollout_v1.json").read_bytes()),
             native_invocation_id=os.environ["CODEX_THREAD_ID"])
         operation._authorize_and_bind()
-        result = operation.coordinator.readback_existing_dispatch("dispatch_873dddf89422b103efe92b1b5f469f1c")
+        result = operation.coordinator.readback_existing_dispatch(dispatch_id)
         result["pending_requests"] = operation.executor.pending(work_item_id=binding["run_id"])
     except Exception as exc:
         traceback.print_exc(file=err)
