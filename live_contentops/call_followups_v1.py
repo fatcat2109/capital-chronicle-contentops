@@ -684,6 +684,29 @@ def pending_link_replies(store):
             if r["status"] == "CC603_PREPARED" and json.loads(r["payload"]).get("kind") == LINK_REPLY]
 
 
+def settle_link_reply_gap(store, row):
+    """Ops Product, 16 Nov: record the dropped line after the one allowed reply."""
+    if row.get("kind") != LINK_REPLY:
+        return False
+    validate_link_reply(store, row)
+    for dispatch in store.get_dispatches_for_work_item(row["key"]):
+        if dispatch["platform"] != "substack_notes" or dispatch["status"] != "DISPATCH_CONFIRMED":
+            continue
+        reconciled = any(r["reconciliation_id"] == "reconciliation_" + dispatch["dispatch_id"].removeprefix("dispatch_")
+            and r["status"] == "RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE"
+            for r in store.get_reconciliations_for_work_item(row["key"]))
+        readbacks = store.list_readbacks_for_dispatch(dispatch["dispatch_id"])
+        observed = json.loads(readbacks[-1]["readback_data"])["readback"] if readbacks else {}
+        if (reconciled and observed.get("write_exists") and observed.get("identity_match")
+                and observed.get("observed_public_object_id") == dispatch.get("public_object_id")
+                and observed.get("observed_public_object_url") == dispatch.get("public_object_url")
+                and (observed.get("content_binding_checks") or {}).get("link_reply_gap") is True):
+            store.set_outbox_status(row["key"], "SETTLED")
+            store.set_outbox_status(row["link_reply_parent"]["key"], "SETTLED")
+            return True
+    return False
+
+
 def run_record(result):
     """Keep progress in the minute task's existing record, without copy or media bytes."""
     def publication(value):
@@ -762,6 +785,10 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
             store.set_outbox_status(key,"PUBLISHED")
             continue
         link_reply = row.get("kind") == LINK_REPLY
+        if link_reply and settle_link_reply_gap(store, row):
+            results.append({"key":key,"status":"PUBLISHED_WITH_LINK_GAP",
+                "cause":"SUBSTACK_NOTES_DROPPED_ORIGINAL_LINK; ONE_REPLY_USED; NO_EDIT_DECISIONS_136_84"})
+            break
         asset = None if link_reply else asset_for(row) if asset_for else held_chart(store,row,root=root)
         if not asset and not link_reply:
             results.append({"key":key,"status":"MEDIA_PENDING","cause":"CC603_REAL_TRADINGVIEW_MOVE_CHART_REQUIRED",
@@ -825,5 +852,8 @@ def run_due(store, export, *, now=None, root=ROOT, coordinator_for=None, host=No
                 parent = row["link_reply_parent"]["key"]
                 if post_complete(store, posts._row_payload(store, parent)):
                     store.set_outbox_status(parent, "PUBLISHED")
+        elif link_reply and settle_link_reply_gap(store, row):
+            results[-1].update(status="PUBLISHED_WITH_LINK_GAP",
+                cause="SUBSTACK_NOTES_DROPPED_ORIGINAL_LINK; ONE_REPLY_USED; NO_EDIT_DECISIONS_136_84")
         break  # One actual publication slice per existing minute, not one blocked candidate.
     return {"status":"OK","corrections_complete":corrections_complete(store),"posts":results}

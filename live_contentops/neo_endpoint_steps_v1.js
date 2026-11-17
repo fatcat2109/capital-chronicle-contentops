@@ -423,6 +423,8 @@ if (input.phase === 'readback') {
         links:postLinks, public_image_urls:Array.from(e.querySelectorAll('img'))
           .map(i=>i.currentSrc||i.src).filter(u=>/^https:\/\/pbs.twimg.com\/media\//.test(u))};
     }).filter(e=>e.public_object_url && /^https:\/\/x.com\/Capitalnicle\/status\//i.test(e.public_object_url));
+    const permalink = document.querySelector('main [class*="feedPermalinkUnit"]');
+    const parentUrl = permalink && links(permalink).find(a=>a.url === location.href)?.url;
     const notes = Array.from(document.querySelectorAll('.FeedProseMirror')).filter(visible).map(e => {
       const root = e.closest('article,[class*="feedPermalinkUnit"]') || e.parentElement?.parentElement?.parentElement;
       const ancestors = [root,root.parentElement,root.parentElement?.parentElement].filter(Boolean);
@@ -436,8 +438,13 @@ if (input.phase === 'readback') {
       // A permalink opens over a home feed. Its URL cannot identify unrelated
       // background notes: require the object's own rendered timestamp link.
       const url = links(owner).find(a=>noteUrl(a.url))?.url;
+      // The permalink's own reply list is separate from the related-note articles.
+      // This visible relationship can identify an incomplete reply, not its copy.
+      const replyParent = parentUrl && !permalink.contains(e) && !e.closest('article')
+        && document.querySelector('main')?.contains(e) ? parentUrl : null;
       return {public_object_url:url,public_object_id:url?.match(/note\/(c-\d+)/)?.[1],
-        observed_text:e.innerText, links:links(owner), public_image_urls:imageUrls(owner)};
+        observed_text:e.innerText, links:links(owner), public_image_urls:imageUrls(owner),
+        ...(replyParent ? {reply_parent_url:replyParent,reply_parent_id:replyParent.match(/note\/(c-\d+)/)?.[1]} : {})};
     }).filter(e=>e.public_object_url);
     return {url:location.href,tweets,notes};
   }, input.expected_identity));

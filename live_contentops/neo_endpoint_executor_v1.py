@@ -632,6 +632,19 @@ class NeoBrowserDriver:
         matches = [p for p in candidates if (not url or p["public_object_url"] == url)
             and texts and ((bool(url) and p['public_object_url']==url) or self._matches(request,texts[0],p) or (
                 not url and _text(texts[0])[:100] in _text(p["observed_text"]))) ]
+        missing_link_reply = False
+        parent = request.get("reply_parent") or {}
+        if not matches and not url and destination == "substack_notes" and parent:
+            from .neo_destination_handoff_v1 import _note_missing_link_reply_text
+            # The known failure removed both URLs. Identify only a unique reply
+            # rendered under this exact parent, then verify its canonical author.
+            matches = [p for p in candidates
+                if data.get("url") == parent.get("public_object_url")
+                and p.get("reply_parent_url") == parent.get("public_object_url")
+                and p.get("reply_parent_id") == parent.get("public_object_id")
+                and p.get("public_object_id") != parent.get("public_object_id")
+                and _note_missing_link_reply_text(request, p.get("observed_text"))]
+            missing_link_reply = bool(matches)
         if len(matches) != 1:
             return {"status":"READBACK_UNAVAILABLE", "verified":False,
                 "reason_code":"NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND", "observed_identity":request["expected_identity"]}
@@ -655,6 +668,18 @@ class NeoBrowserDriver:
                         "reason_code":"NEO_NOTE_AUTHOR_NOT_VERIFIED"}
             else:
                 root = next((r for r in candidates if r["public_object_url"] == root["public_object_url"]), root)
+        if missing_link_reply:
+            from .neo_destination_handoff_v1 import _note_missing_link_reply_text
+            if not _note_missing_link_reply_text(request, root.get("observed_text")):
+                return {"status":"READBACK_UNAVAILABLE", "verified":False,
+                    "reason_code":"NEO_NOTE_REPLY_CONTENT_CHANGED"}
+            return {**root, "status":"SUCCESS", "request_sha256":request["request_sha256"],
+                "observed_identity":request["expected_identity"], "content_verified":False,
+                "reason_code":"NEO_NOTE_REPLY_LINKS_DROPPED",
+                "observed_reply_parent_id":parent["public_object_id"],
+                "observed_reply_parent_url":parent["public_object_url"],
+                "observed_links":[{**link,"public_object_url":root["public_object_url"]}
+                                  for link in root.get("links") or []]}
         if len(texts)>1:
             # X delivers replies after the root. Wait for the expected final
             # post, rather than accepting the root-only loading snapshot.
@@ -667,8 +692,14 @@ class NeoBrowserDriver:
         for text in texts:
             found = [r for r in candidates if self._matches(request,text,r)]
             if len(found) != 1:
+                observed_parent = (request.get("reply_parent") or {})
+                parent_visible = any(r["public_object_url"] == observed_parent.get("public_object_url")
+                                     for r in candidates)
                 return compare_public_images(request, {**root, 'status':'SUCCESS', 'content_verified':False,
                     'observed_identity':request['expected_identity'], 'reason_code':'NEO_THREAD_READBACK_INCOMPLETE',
+                    'request_sha256':request['request_sha256'],
+                    **({'observed_reply_parent_id':observed_parent['public_object_id'],
+                        'observed_reply_parent_url':observed_parent['public_object_url']} if parent_visible else {}),
                     'observed_links':[{**link,'public_object_url':root['public_object_url']} for link in root.get('links') or []]},
                     http=getattr(self.client,'image_http',None))
             thread.append(found[0])

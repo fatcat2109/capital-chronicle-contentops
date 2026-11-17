@@ -368,6 +368,7 @@ def normalize_readback_result(
     normalized_checks = {key: checks[key] for key in (
         "text_match", "media_match", "thread_match", "account_match",
         "canonical_link_match", "public_url_match", "object_id_match",
+        "link_reply_gap",
     ) if type(checks.get(key)) is bool}
     if normalized_checks:
         normalized["content_binding_checks"] = normalized_checks

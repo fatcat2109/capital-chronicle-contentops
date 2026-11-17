@@ -197,6 +197,42 @@ def _note_bound_text(value, binding, links, public_url):
     return _text(value)
 
 
+def _note_missing_link_reply_text(request, observed):
+    """Recognize only CC-603's two-link reply with every other word retained."""
+    binding = request.get("content_binding") or {}
+    segments = binding.get("expected_text_segments") or []
+    if (request.get("destination") != "substack_notes"
+            or not re.fullmatch(r"cc603-followup-[a-f0-9]{32}-missing-links", str(request.get("work_item_id") or ""))
+            or len(segments) != 1 or binding.get("media_manifest") or not request.get("reply_parent")):
+        return False
+    expected = segments[0]
+    urls = re.findall(r"^(?:Original|Record): (https://\S+)\s*$", expected, re.M)
+    if len(urls) != 2 or len(set(urls)) != 2 or set(urls) != _bound_link_targets(binding):
+        return False
+    actual = str(observed or "")
+    for url in urls:
+        expected = expected.replace(url, "")
+        actual = actual.replace(url, "")
+    return _text(actual) == _text(expected)
+
+
+def _note_incomplete_link_reply(request, result):
+    """Exact author, parent and remaining copy establish existence, never success."""
+    parent = request.get("reply_parent") or {}
+    return bool(request.get("action") == "READBACK"
+        and result.get("request_sha256") == request.get("request_sha256")
+        and result.get("observed_identity") == request.get("expected_identity")
+        and result.get("public_object_id")
+        and result.get("public_object_id") != parent.get("public_object_id")
+        and (not request.get("public_object_id") or result.get("public_object_id") == request["public_object_id"])
+        and (not request.get("public_object_url") or result.get("public_object_url") == request["public_object_url"])
+        and _public_url("substack_notes", result.get("public_object_url"), result.get("public_object_id"),
+                        expected_identity=request.get("expected_identity"))
+        and result.get("observed_reply_parent_id") == parent.get("public_object_id")
+        and result.get("observed_reply_parent_url") == parent.get("public_object_url")
+        and _note_missing_link_reply_text(request, result.get("observed_text")))
+
+
 def _x_reader_text(value, links, public_object_url, canonical, *, bound_urls=()):
     text = _text(value)
     substitutions = []
@@ -724,6 +760,8 @@ class NeoDestinationHandoff:
         if (not public_object_id and not public_object_url
                 and result.get("observed_identity") == request["expected_identity"]
                 and result.get("public_object_id")
+                and (not re.fullmatch(r"cc603-followup-[a-f0-9]{32}-missing-links", str(request.get("work_item_id") or ""))
+                     or _note_incomplete_link_reply(request, result))
                 and _public_url(destination, result.get("public_object_url"), result["public_object_id"], expected_identity=request["expected_identity"])):
             public_object_id = result["public_object_id"]
             public_object_url = result["public_object_url"]
@@ -861,6 +899,8 @@ class NeoDestinationHandoff:
             and result.get("public_object_url") == public_object_url
             and _public_url(destination, public_object_url, public_object_id, expected_identity=request["expected_identity"])
             and bool(observed_text))
+        link_reply_gap = not verified and _note_incomplete_link_reply(request, result)
+        identity_exists = identity_exists or link_reply_gap
         # Publication and exact copy equality are separate observations. A
         # later credit/caption edit cannot unpublish an otherwise identified
         # canonical or invalidate unchanged derivative copies (CC-199 CLD-C7).
@@ -900,9 +940,9 @@ class NeoDestinationHandoff:
         if callable(complete_readback):
             if absent:
                 complete_readback(request, write_absent=True)
-            elif verified or canonical_present:
-                complete_readback({**request, "public_object_id": public_object_id,
-                                   "public_object_url": public_object_url})
+            elif verified or canonical_present or link_reply_gap:
+                complete_readback({**request, "public_object_id": result.get("public_object_id"),
+                                   "public_object_url": result.get("public_object_url")})
             elif (identity_exists and text_match and not media_match
                     and result.get("media_check_state") == "MISSING_REQUIRED_MEDIA"
                     and result.get("missing_required_media_observed") is True
@@ -913,6 +953,7 @@ class NeoDestinationHandoff:
                 "meaningful_media_visible": bool(expected_media and media_match),
                 "canonical_publication_verified": canonical_present,
                 "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match,
+                    **({"link_reply_gap": True} if link_reply_gap else {}),
                     **({"link_card_match": bool(link_card_match)} if binding.get("expected_link_card_url") else {})}}
 
 
