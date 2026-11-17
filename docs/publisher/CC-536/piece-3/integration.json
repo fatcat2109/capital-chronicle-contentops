@@ -1,0 +1,62 @@
+{
+  "item": "CC-536",
+  "piece": 3,
+  "integrated_at_utc": "2026-11-17T11:42:46.990187+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "branch": "backlog/cc-536-piece-3-five-sessions",
+  "previous_head": "f0d083f095ff12d6f88276801b34d84b054c416a",
+  "installed_commit": "e2235c273c65736fbcd1f11bad2e98bc09b860ff",
+  "merge": "fast-forward",
+  "rollback_tag": "contentops/cc-536-piece3-rollback-20261117T114246Z",
+  "preserved_dirty_paths": [
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "sha256": "9be80f6e56e837c5141cc449b2ff8cbc8eb11fdb7374ab2ceed87c67643ecb4f",
+      "bytes": 3959,
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "sha256": "75bfb5aab26c3fff71410cf46b8ee571ff91d18585355b7da4aab3937a259491",
+      "bytes": 19341,
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "sha256": "39439e46a34c2aa7980b28a6059010b8c322a67c5df5d29ae746bff0f66e16c0",
+      "bytes": 39129,
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "sha256": "7671b24af3b8dfc1bc94e02720b89d293162f5aebf37f77aa5f1ccf16d667e49",
+      "bytes": 6166,
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "sha256": "1468304043a9146bf7d43e7f195d9758064646f26c95db6a2b86ca321be7a9e8",
+      "bytes": 1460241,
+      "initial_bytes_unchanged": true
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "sha256": "3d0091fd8eff31a07b18e7cdc9e383e4b9fae0d8d31f40d51f9a6da5d706ecec",
+      "bytes": 74644,
+      "initial_bytes_unchanged": true
+    }
+  ],
+  "application_restart": false,
+  "live_tag": "contentops/cc-536-piece3-live-20261117T114352Z",
+  "installed_module": "A:\\Capital Chronicle\\ContentOps\\live_contentops\\measured_odds_series_v1.py",
+  "installed_tests": {
+    "path": "installed-root-consumer-tests.xml",
+    "result": "33 passed"
+  },
+  "installed_source_verification": {
+    "live_tag": "live-20261117-cc651-173754",
+    "commit": "c75564df26b15258576d12f1fed5ee258706656a",
+    "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+    "blobs_verified": 7
+  }
+}
