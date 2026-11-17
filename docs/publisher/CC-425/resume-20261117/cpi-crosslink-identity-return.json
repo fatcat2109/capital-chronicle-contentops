@@ -1,0 +1,16 @@
+{
+  "tool_request_sha256": "c6c0d75783bf385967e8f960e8c78edbee09fa782089afdc09c9e0dde42b5a8a",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1e85b-c03c-7d70-9308-be7e54f8b18d",
+    "observation_source": "Neo page 157: authenticated Capital Chronicle publisher dashboard and exact existing CPI post share centre",
+    "observed_at_utc": "2026-11-17T10:29:15.958Z"
+  },
+  "result": {
+    "request_sha256": "fb4b846fee1687dc4f0227fb764a7b2deaadda0210dd5a90bc05efba5de4ba8c",
+    "status": "SUCCESS",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com"
+  }
+}
