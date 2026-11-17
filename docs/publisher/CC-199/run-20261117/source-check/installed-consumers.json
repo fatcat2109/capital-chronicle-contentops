@@ -1,0 +1,28 @@
+{
+  "observed_at_utc": "2026-11-17T02:05:51.233795+00:00",
+  "production_day": "2026-11-17",
+  "daily_article_limit": 2,
+  "publication_feed_before": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\published_content_v1.jsonl",
+    "bytes": 29315,
+    "sha256": "cba078e159c14ebba059ef54995ee52500e59424ae9057b5e61032348f504979"
+  },
+  "article_slots_in_use": [],
+  "active_leases": [
+    {
+      "lease_id": "lease_9493de018ccb76fd",
+      "lease_key": "cc466-plan-page-editorial",
+      "status": "ACTIVE",
+      "expires_at": "2026-11-17T02:23:04.862366+00:00"
+    }
+  ],
+  "main_plan_export": {
+    "generated_at_utc": "2026-11-17T02:04:59.927756Z",
+    "content_hash": "2d024246c5a762b67d56825e838d052ca871986a59664ffb9ad05f4ea5c53a77",
+    "plan_count": 89,
+    "latest_plan_registration_utc": "2026-11-12T17:40:00.360572Z"
+  },
+  "clock_use": "Export generation does not refresh original analysis capture.",
+  "operation_allocated": false,
+  "channel_readbacks": "None performed by this run."
+}
