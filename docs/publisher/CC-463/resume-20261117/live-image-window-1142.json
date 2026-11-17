@@ -1,0 +1,620 @@
+{
+  "start_day": "2026-11-16",
+  "following_days_required": 7,
+  "window_end_utc": "2026-11-23T19:00:00+00:00",
+  "observed_at_utc": "2026-11-17T04:41:56.601975+00:00",
+  "whole_window_elapsed": false,
+  "baseline_chart_first_day_complete": true,
+  "completed_following_days": 0,
+  "days_without_market_posts": [],
+  "violations_by_day": {},
+  "unknown_type_records_by_day": {},
+  "status": "OBSERVATION_PENDING",
+  "days": [
+    {
+      "day": "2026-11-16",
+      "counts_by_type": {
+        "TRADINGVIEW_MARKET_CHART": 20,
+        "DRAWN_CARD": 1
+      },
+      "observed_posts": [
+        {
+          "record_id": "aea9bee0cf5ab3c29eef7444e261ccd527b55542cd10c9db704c8967fba85fce",
+          "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+          "destination": "discord",
+          "market": [
+            "XAUUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-15T19:17:25.019559+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_86c13b549ac46b74eb072a2f30510842"
+        },
+        {
+          "record_id": "aab97805aeb971920816ea2af77acea8e9837b9603e95ade0157dc6aa92aba1d",
+          "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+          "destination": "telegram",
+          "market": [
+            "XAUUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-15T19:18:00.008964+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_2efa41366563bf34af3fa815f9697772"
+        },
+        {
+          "record_id": "b49d50060c9a7d8fe244882e24ca93cf64c15058dcd62ebc20bdc5b051cf8574",
+          "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+          "destination": "threads",
+          "market": [
+            "XAUUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-15T19:18:03.413661+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_afa7808049ee0567aa5debd16ff868f6"
+        },
+        {
+          "record_id": "9c6cc73faf2adf8e077e2253ed5de29551d3dc3e3dd187c58684efdc97089584",
+          "piece_id": "909dfe6e2b39a803e79b150f47c9dab2621780cd40fb9ece56eefeae302c77ee",
+          "destination": "threads",
+          "market": [
+            "XAUUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-15T19:30:36.050603+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_5c8a279ef51a506efca43c25b2a3b5a3"
+        },
+        {
+          "record_id": "65c571c50a11e0e84c357f3da281371b50eaa661be71e7eaddd9f19848c088fb",
+          "piece_id": "eeac29b2e5c6e6048b6ffe9390d928b9abed1ba4ba5dd3d133a700f9fe1562c8",
+          "destination": "substack_notes",
+          "market": [
+            "XAUUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-15T19:17:55.852890+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-a304b67fdaaf3abcc341",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "a304b67fdaaf3abcc3412291839d497944f8a87d7ea5eb30c4366b0f0dc20a42",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_796db3424675b9656112164e7a908724"
+        },
+        {
+          "record_id": "7a890d221e9af04e69e0c26479df52b500a3a5fa63f227c0bd6e74bfdafefc68",
+          "piece_id": "8c8b6dcd366f109888e2ad7143d3c8d8b953506e8fe27ea93b2c15d356ec966a",
+          "destination": "facebook_page",
+          "market": [
+            "BTCUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-16T00:21:44.821093+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-59bc3e0a9650468327d2",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_804fb24058bb52ede2e727b3c529adc3"
+        },
+        {
+          "record_id": "49c2fbc86cfdff6fd11370cc230498aa5fd5dd9a190969954bd625ed68a2b3a6",
+          "piece_id": "8c8b6dcd366f109888e2ad7143d3c8d8b953506e8fe27ea93b2c15d356ec966a",
+          "destination": "telegram",
+          "market": [
+            "BTCUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-16T00:22:53.329383+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-59bc3e0a9650468327d2",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_7a36c6323cfa9933b450f512f26d9d25"
+        },
+        {
+          "record_id": "c5432a90d84d62498f77fd76619cb86f9d4c6468af378d5a5d59128a4e1436cd",
+          "piece_id": "8c8b6dcd366f109888e2ad7143d3c8d8b953506e8fe27ea93b2c15d356ec966a",
+          "destination": "threads",
+          "market": [
+            "BTCUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-16T00:22:57.723940+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-59bc3e0a9650468327d2",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_cd309c728f31642a106ad535159b63db"
+        },
+        {
+          "record_id": "4a7a05aa0f7f472a8f2d57390be6cfbfdd6b4246f6b9f5612b53984b0f84c90f",
+          "piece_id": "ba9ea5fef447a310ad70a23ed691bb5489a227032e4e5fc7794a9f1b3b64abed",
+          "destination": "threads",
+          "market": [
+            "BTCUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-16T00:27:03.583009+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-59bc3e0a9650468327d2",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_43030d0522c85739ae8b4af738937b1a"
+        },
+        {
+          "record_id": "d37145b8ef42b798394f3023bed526cf8dbce6989175c57ebedd8e347ebbe391",
+          "piece_id": "8c8b6dcd366f109888e2ad7143d3c8d8b953506e8fe27ea93b2c15d356ec966a",
+          "destination": "substack_notes",
+          "market": [
+            "BTCUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-16T00:21:52.187544+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-59bc3e0a9650468327d2",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_61d5f6d1611ae436151598831e74cf61"
+        },
+        {
+          "record_id": "3436271ee6fb964fcd19d8bfd1c49dff1ed4cc8aa30e50ced1c58578715f91ec",
+          "piece_id": "8c8b6dcd366f109888e2ad7143d3c8d8b953506e8fe27ea93b2c15d356ec966a",
+          "destination": "x",
+          "market": [
+            "BTCUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-16T00:24:49+00:00",
+          "publication_clock_basis": "OBSERVED_PUBLICATION_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-59bc3e0a9650468327d2",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "59bc3e0a9650468327d2ed4889e94972e83ceb671a4cbb58594ec460adcf7eac",
+            "width": 1524,
+            "height": 858
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_ec9b964e49665348ce13ca0b4a2b74bd"
+        },
+        {
+          "record_id": "10402ced121f1e2394d0217a2aa7c4813715faa63b2e31f279ef68696cc353e4",
+          "piece_id": "8c8b6dcd366f109888e2ad7143d3c8d8b953506e8fe27ea93b2c15d356ec966a",
+          "destination": "instagram_business",
+          "market": [
+            "BTCUSD"
+          ],
+          "canonical_url": null,
+          "published_at_utc": "2026-11-16T00:35:26.449069+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "tradingview-snapshot-92a6d6925c83d66c41a5",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "92a6d6925c83d66c41a51e1dd7edff59712c2ad6f8a548116bd8c43fa517ad58",
+            "width": 1088,
+            "height": 1360
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": "CC463_TRADINGVIEW_FIRST_V1",
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_a9ae017499b7d84875a762a62bd3444a"
+        },
+        {
+          "record_id": "a1648e3ce52a90d81a02d6da74513aacc7a5615bc3b85dd39ed0827b61037b47",
+          "piece_id": "f2f246607f8c188875cf3edf679defb235ab37825372a9202115be86e70df4af",
+          "destination": null,
+          "market": null,
+          "canonical_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+          "published_at_utc": "2026-11-16T07:44:03.233000+00:00",
+          "publication_clock_basis": "OBSERVED_PUBLICATION_CLOCK",
+          "lead_image": {
+            "asset_id": "cc536-piece2-btc-native-20-50",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+            "width": 978,
+            "height": 873
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": null,
+          "text_fallback": null,
+          "observation_ref": null
+        },
+        {
+          "record_id": "29dce3b6545706643f6794f84c68b50ef5a849943fa1810239446d12541ebf47",
+          "piece_id": "f2f246607f8c188875cf3edf679defb235ab37825372a9202115be86e70df4af",
+          "destination": "discord",
+          "market": null,
+          "canonical_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+          "published_at_utc": "2026-11-16T07:44:32.598124+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "cc536-piece2-btc-native-20-50",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+            "width": 978,
+            "height": 873
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": null,
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_e43d58eee8e8c8fe6f5a640774ef16f8"
+        },
+        {
+          "record_id": "3a2ac8b8634fb8421386b9fc3d64bb994200abf1781705f60be460536b4d29fc",
+          "piece_id": "f2f246607f8c188875cf3edf679defb235ab37825372a9202115be86e70df4af",
+          "destination": "facebook_page",
+          "market": null,
+          "canonical_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+          "published_at_utc": "2026-11-16T07:44:35.926491+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "cc536-piece2-btc-native-20-50",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+            "width": 978,
+            "height": 873
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": null,
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_bb9729cf36dfcffec0afb050dd116c35"
+        },
+        {
+          "record_id": "bbb5b1a27a2e07df09e515ae509f5d8cdd38d2023f569c2c520a51db3aafe641",
+          "piece_id": "f2f246607f8c188875cf3edf679defb235ab37825372a9202115be86e70df4af",
+          "destination": "telegram",
+          "market": null,
+          "canonical_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+          "published_at_utc": "2026-11-16T07:46:25.968126+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "cc536-piece2-btc-native-20-50",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+            "width": 978,
+            "height": 873
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": null,
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_bf305391d7590b239bd830b27524e43b"
+        },
+        {
+          "record_id": "38ee04af9d0a2876a4cc96c78956e88da621fd5b7d2c437011b120c8f7a6ad0c",
+          "piece_id": "f2f246607f8c188875cf3edf679defb235ab37825372a9202115be86e70df4af",
+          "destination": "threads",
+          "market": null,
+          "canonical_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+          "published_at_utc": "2026-11-16T07:46:30.705459+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "cc536-piece2-btc-native-20-50",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+            "width": 978,
+            "height": 873
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": null,
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_bbcbbd89e5a4492cfb9b8a54e59c1208"
+        },
+        {
+          "record_id": "8b801efe50b31aecdb3119ba02350580fbb549a5e8662afc54489d77ce2c6f53",
+          "piece_id": "f2f246607f8c188875cf3edf679defb235ab37825372a9202115be86e70df4af",
+          "destination": "x",
+          "market": null,
+          "canonical_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+          "published_at_utc": "2026-11-16T07:49:28+00:00",
+          "publication_clock_basis": "OBSERVED_PUBLICATION_CLOCK",
+          "lead_image": {
+            "asset_id": "cc536-piece2-btc-native-20-50",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+            "width": 978,
+            "height": 873
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": null,
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_712ef8fcd42f489a57994a2b924645db"
+        },
+        {
+          "record_id": "083b353b479e8eaa722d19297ceff0b50f946f2566f0aefc41edf4b644a02070",
+          "piece_id": "f2f246607f8c188875cf3edf679defb235ab37825372a9202115be86e70df4af",
+          "destination": "linkedin_company",
+          "market": null,
+          "canonical_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+          "published_at_utc": "2026-11-16T07:45:47.624233+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "cc536-piece2-btc-native-20-50",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+            "width": 978,
+            "height": 873
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": null,
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_eca6349fe08cca69fe6d4dd2fa7840c0"
+        },
+        {
+          "record_id": "30357ec13dcb0c92b181182bf4216c31b3e145392cb69bdbe382b67365c45247",
+          "piece_id": "f2f246607f8c188875cf3edf679defb235ab37825372a9202115be86e70df4af",
+          "destination": "instagram_business",
+          "market": null,
+          "canonical_url": "https://capitalchronicle.substack.com/p/following-the-trend-worked-unevenly",
+          "published_at_utc": "2026-11-16T08:10:42.013091+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "cc536-piece2-btc-native-20-50",
+            "image_type": "TRADINGVIEW_MARKET_CHART",
+            "sha256": "f4f3e25b3b2e586eaf002f37730d89be0bcb983c94c349c0becb08552320e4ad",
+            "width": 978,
+            "height": 873
+          },
+          "lead_image_type": "TRADINGVIEW_MARKET_CHART",
+          "image_contract": null,
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_c97bd3d8a67765db725069a6a9e7980d"
+        },
+        {
+          "record_id": "6ff0f0fb741a7885d7db3dc9779dd882e83ef0ed2411370cdbf69e1de9df3dbd",
+          "piece_id": "347d462d86432d4ad367fbf592f72f19606eff9b09661397fd9c76d316c868c9",
+          "destination": "substack",
+          "market": null,
+          "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-9cf",
+          "published_at_utc": "2026-11-16T12:16:31.912220+00:00",
+          "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+          "lead_image": {
+            "asset_id": "digest-card-0f34208d816abc4d58ae",
+            "image_type": "DRAWN_CARD",
+            "sha256": "a621165359811148c183e7f8f4317bdb369545621fed6d403c712ca0d1adf15f",
+            "width": 1600,
+            "height": 900
+          },
+          "lead_image_type": "DRAWN_CARD",
+          "image_contract": null,
+          "text_fallback": null,
+          "observation_ref": "coordinator:dispatch_3b7cdce94b9bd5fd1435970ddc755d4c"
+        }
+      ],
+      "status": "PASS",
+      "whole_day_elapsed": true,
+      "market_posts": 12,
+      "market_chart_posts": 12,
+      "all_market_posts_have_chart": true,
+      "chart_first_day_complete": true,
+      "unscoped_chart_records": [
+        "a1648e3ce52a90d81a02d6da74513aacc7a5615bc3b85dd39ed0827b61037b47",
+        "29dce3b6545706643f6794f84c68b50ef5a849943fa1810239446d12541ebf47",
+        "3a2ac8b8634fb8421386b9fc3d64bb994200abf1781705f60be460536b4d29fc",
+        "bbb5b1a27a2e07df09e515ae509f5d8cdd38d2023f569c2c520a51db3aafe641",
+        "38ee04af9d0a2876a4cc96c78956e88da621fd5b7d2c437011b120c8f7a6ad0c",
+        "8b801efe50b31aecdb3119ba02350580fbb549a5e8662afc54489d77ce2c6f53",
+        "083b353b479e8eaa722d19297ceff0b50f946f2566f0aefc41edf4b644a02070",
+        "30357ec13dcb0c92b181182bf4216c31b3e145392cb69bdbe382b67365c45247"
+      ],
+      "instagram_4x5_dimension_candidates": [
+        "10402ced121f1e2394d0217a2aa7c4813715faa63b2e31f279ef68696cc353e4"
+      ],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-17",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-18",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-19",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-20",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-21",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-22",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    },
+    {
+      "day": "2026-11-23",
+      "counts_by_type": {},
+      "observed_posts": [],
+      "status": "OBSERVATION_PENDING",
+      "whole_day_elapsed": false,
+      "market_posts": 0,
+      "market_chart_posts": 0,
+      "all_market_posts_have_chart": false,
+      "chart_first_day_complete": false,
+      "unscoped_chart_records": [],
+      "instagram_4x5_dimension_candidates": [],
+      "violations": [],
+      "unknown_type_records": [],
+      "text_fallback_posts": 0,
+      "public_write_performed": false,
+      "schedule_changed": false
+    }
+  ],
+  "public_write_performed": false,
+  "schedule_changed": false
+}

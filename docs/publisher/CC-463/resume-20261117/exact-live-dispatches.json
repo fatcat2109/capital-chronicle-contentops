@@ -1,0 +1,29 @@
+[
+  {
+    "dispatch_id": "dispatch_a9ae017499b7d84875a762a62bd3444a",
+    "message_id": "outbox_a9ae017499b7d84875a762a62bd3444a",
+    "platform": "instagram_business",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-16T00:35:26.449069+00:00",
+    "public_object_id": "18110206477946626",
+    "public_object_url": "https://www.instagram.com/p/DfyFNdaktf3/"
+  },
+  {
+    "dispatch_id": "dispatch_7a36c6323cfa9933b450f512f26d9d25",
+    "message_id": "outbox_7a36c6323cfa9933b450f512f26d9d25",
+    "platform": "telegram",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-16T00:22:53.329383+00:00",
+    "public_object_id": "185",
+    "public_object_url": "https://t.me/CapitalChronicle/185"
+  },
+  {
+    "dispatch_id": "dispatch_ec9b964e49665348ce13ca0b4a2b74bd",
+    "message_id": "outbox_ec9b964e49665348ce13ca0b4a2b74bd",
+    "platform": "x",
+    "status": "DISPATCH_CONFIRMED",
+    "dispatched_at": "2026-11-16T00:24:01.205301+00:00",
+    "public_object_id": "2122123689437323291",
+    "public_object_url": "https://x.com/Capitalnicle/status/2122123689437323291"
+  }
+]

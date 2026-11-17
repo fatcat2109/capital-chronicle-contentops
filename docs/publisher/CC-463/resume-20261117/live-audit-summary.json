@@ -1,0 +1,51 @@
+{
+  "day": "2026-11-16",
+  "status": "PASS",
+  "whole_day_elapsed": true,
+  "counts_by_type": {
+    "TRADINGVIEW_MARKET_CHART": 20,
+    "DRAWN_CARD": 1
+  },
+  "market_posts": 12,
+  "market_chart_posts": 12,
+  "chart_first_day_complete": true,
+  "text_fallback_posts": 0,
+  "violations": [],
+  "unscoped_chart_records": [
+    "a1648e3ce52a90d81a02d6da74513aacc7a5615bc3b85dd39ed0827b61037b47",
+    "29dce3b6545706643f6794f84c68b50ef5a849943fa1810239446d12541ebf47",
+    "3a2ac8b8634fb8421386b9fc3d64bb994200abf1781705f60be460536b4d29fc",
+    "bbb5b1a27a2e07df09e515ae509f5d8cdd38d2023f569c2c520a51db3aafe641",
+    "38ee04af9d0a2876a4cc96c78956e88da621fd5b7d2c437011b120c8f7a6ad0c",
+    "8b801efe50b31aecdb3119ba02350580fbb549a5e8662afc54489d77ce2c6f53",
+    "083b353b479e8eaa722d19297ceff0b50f946f2566f0aefc41edf4b644a02070",
+    "30357ec13dcb0c92b181182bf4216c31b3e145392cb69bdbe382b67365c45247"
+  ],
+  "nonmarket_drawn_records": [
+    {
+      "record_id": "6ff0f0fb741a7885d7db3dc9779dd882e83ef0ed2411370cdbf69e1de9df3dbd",
+      "piece_id": "347d462d86432d4ad367fbf592f72f19606eff9b09661397fd9c76d316c868c9",
+      "destination": "substack",
+      "market": null,
+      "canonical_url": "https://capitalchronicle.substack.com/p/capital-chronicle-daily-digest-november-9cf",
+      "published_at_utc": "2026-11-16T12:16:31.912220+00:00",
+      "publication_clock_basis": "RETAINED_COORDINATOR_DISPATCH_CLOCK",
+      "lead_image": {
+        "asset_id": "digest-card-0f34208d816abc4d58ae",
+        "image_type": "DRAWN_CARD",
+        "sha256": "a621165359811148c183e7f8f4317bdb369545621fed6d403c712ca0d1adf15f",
+        "width": 1600,
+        "height": 900
+      },
+      "lead_image_type": "DRAWN_CARD",
+      "image_contract": null,
+      "text_fallback": null,
+      "observation_ref": "coordinator:dispatch_3b7cdce94b9bd5fd1435970ddc755d4c"
+    }
+  ],
+  "drawn_digest_work_item_id": "cc143-digest-2026-11-16",
+  "whole_window_elapsed": false,
+  "window_end_utc": "2026-11-23T19:00:00+00:00",
+  "completed_following_days": 0,
+  "violations_by_day": {}
+}

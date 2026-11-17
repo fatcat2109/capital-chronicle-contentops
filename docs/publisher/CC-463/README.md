@@ -1,9 +1,9 @@
-16 November continuation: the audit repair is pushed and live, with 39 build
-and 12 installed checks passing. Published TradingView images are now observed;
-the live native 4:5 Instagram and full day/week proof remain incomplete.
-Neo returns NEO_ENDPOINT_CONNECTIONERROR. See the [current continuation](resume-20261116/README.md)
-for exact objects, observed clocks and the next action. The original 11 November
-build evidence below retains its historical result.
+17 November continuation: Neo is reachable. The completed 16 November production
+day has 12 TradingView-first market image records, and the live native 4:5
+Instagram chart is opened and visually verified. All 39 installed checks pass.
+The following seven-day observation ends on 24 November at 02:00 GMT+7; it is
+still incomplete. See the [current continuation](resume-20261117/README.md).
+The original build and earlier continuation retain their historical results.
 
 CC-463 implements Jim's decision 124 in the existing `DurablePublicationCoordinator` and `tradingview_snapshot_v1` service. Its base is the CC-459 operating HEAD, `3358a4252d6cc3b8dc21e2bfdc9c34c3534b499a`. Fresh market writes require a TradingView first image of the correct market and a quote-bound price-scale check. A refusal is recorded as a definite no-write before any destination probe. Existing ambiguous attempts and native returns retain their readback path.
 
