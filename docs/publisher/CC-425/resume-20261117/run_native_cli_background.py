@@ -2,6 +2,7 @@
 from contextlib import redirect_stdout, redirect_stderr
 from datetime import datetime, timezone
 import json
+import faulthandler
 import os
 from pathlib import Path
 import sys
@@ -19,6 +20,7 @@ args = [command, "--binding", r"A:\Capital Chronicle\Runtime\ContentOps\daily_ap
         "--rollout", str(Path.cwd() / "config/native_desktop_rollout_v1.json"),
         "--native-invocation-id", os.environ["CODEX_THREAD_ID"], *sys.argv[3:]]
 with (root / (label + ".json")).open("w", encoding="utf-8") as out, (root / (label + ".stderr.txt")).open("w", encoding="utf-8") as err:
+    faulthandler.dump_traceback_later(90, repeat=False, file=err)
     with redirect_stdout(out), redirect_stderr(err):
         try:
             code = main(args)
@@ -27,5 +29,7 @@ with (root / (label + ".json")).open("w", encoding="utf-8") as out, (root / (lab
         except Exception:
             traceback.print_exc()
             code = 1
+        finally:
+            faulthandler.cancel_dump_traceback_later()
 (root / (label + "-end.json")).write_text(json.dumps({**started, "exit_code": code,
     "finished_at_utc": datetime.now(timezone.utc).isoformat()}, indent=2), encoding="utf-8")

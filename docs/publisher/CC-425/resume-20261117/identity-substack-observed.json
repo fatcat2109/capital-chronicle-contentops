@@ -1,0 +1,17 @@
+{
+  "tool_request_sha256": "49eff6bfc9453ffcf729aa5e35798840e376439fcbfc476fa4ad1fc2c9711765",
+  "tool_observation": {
+    "surface": "CODEX_EXEC",
+    "tool_name": "mcp__browseros_neo__run",
+    "native_invocation_id": "01a1e85b-c03c-7d70-9308-be7e54f8b18d",
+    "observation_source": "BrowserOS Neo page 145 publisher dashboard: Capital Chronicle publication, Create, and /publish/posts routes",
+    "observed_at_utc": "2026-11-17T09:52:29.808Z"
+  },
+  "result": {
+    "request_sha256": "c488caa4e203bf0c4a007bc36108352101e598821cf78b57a5d570f6a70202bb",
+    "status": "VERIFIED",
+    "authenticated": true,
+    "observed_identity": "capitalchronicle.substack.com",
+    "observed_profile_url": "https://capitalchronicle.substack.com/"
+  }
+}
