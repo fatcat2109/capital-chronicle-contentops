@@ -13,12 +13,13 @@ from zoneinfo import ZoneInfo
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of
 from live_contentops.event_article_guard_v1 import CONFLICTS_NOTICE, PUBLIC_NOTICE, check_publication_copy
+from live_contentops.plan_call_cards_v1 import no_entry_words
 from live_contentops.plan_status_posts_v1 import TITLES, _utc, read_export, result_rows_from_export
 
 SCHEMA = "contentops.weekly_scored_calls.v1"
 ET = ZoneInfo("America/New_York")
 RESULTS = {"HIT": "hit", "STOPPED": "stopped", "EXPIRED": "closed at the end of its window",
-           "NOT_TRIGGERED": "not triggered"}
+           "NOT_TRIGGERED": "the entry window ended with no entry"}
 WRITER_GUIDANCE = (
     "\nCC379_WHOLE_WEEK_RECORD: The SOURCE_PACK includes Main's complete weekly scored-call record. "
     "Include its canonical_content_text exactly once as a section of substack_body_markdown, "
@@ -89,8 +90,9 @@ def project(export, *, cutoff_utc):
         levels = _zone(symbol, zone.get("minimum"), zone.get("maximum"), plan)
         local = resolved.astimezone(ET)
         day = f"{local:%a} {local.day} {local:%b}"
+        words = no_entry_words(plan) if result == "NOT_TRIGGERED" else RESULTS[result]
         line = (f"- {day} ET: {TITLES.get(symbol, symbol)}; original direction was {direction}; "
-                f"{levels}{RESULTS[result]}.")
+                f"{levels}{words}.")
         rows.append({"plan_id": plan["plan_id"], "outcome_id": outcome["outcome_id"],
                      "source_plan_hash": score.get("source_plan_hash"), "score_hash": score.get("content_hash"),
                      "resolved_at_utc": score["resolved_at_utc"], "scored_at_utc": score["scored_at_utc"],
@@ -112,7 +114,7 @@ def project(export, *, cutoff_utc):
         local = resolved.astimezone(ET)
         levels = _zone(row["symbol"], plan["zone_low"], plan["zone_high"], sources.get(row["plan_id"]) or {})
         line = (f"- {local:%a} {local.day} {local:%b} ET: {TITLES[row['symbol']]}; "
-                f"original direction was {plan['direction']}; {levels}expired without entry; not scored.")
+                f"original direction was {plan['direction']}; {levels}{no_entry_words(sources[row['plan_id']])}; not scored.")
         rows.append({"plan_id": row["plan_id"], "outcome_id": None, "score_hash": None,
             "resolved_at_utc": row["at_utc"], "scored_at_utc": None, "market": row["symbol"],
             "direction": plan["direction"], "zone": {"minimum": plan["zone_low"], "maximum": plan["zone_high"]},

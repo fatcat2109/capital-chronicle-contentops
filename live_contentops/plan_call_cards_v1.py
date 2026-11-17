@@ -140,8 +140,14 @@ def record_line(status):
         since = f"Since {at.day} {at:%b}: "
     counts = {result: sum(s["result"] == result for s in scores.values())
               for result in ("HIT", "STOPPED", "EXPIRED", "NOT_TRIGGERED")}
-    labels = {"HIT": "HIT", "STOPPED": "STOPPED", "EXPIRED": "time exits", "NOT_TRIGGERED": "not triggered"}
-    parts = [f"{count} {labels[result]}" for result, count in counts.items() if count]
+    labels = {"HIT": "HIT", "STOPPED": "STOPPED", "EXPIRED": "time exits"}
+    parts = [f"{counts[result]} {label}" for result, label in labels.items() if counts[result]]
+    no_entries = {}
+    for score in scores.values():
+        if score["result"] == "NOT_TRIGGERED":
+            words = no_entry_words(score)
+            no_entries[words] = no_entries.get(words, 0) + 1
+    parts.extend(f"{words}: {count}" for words, count in no_entries.items())
     return f"{since}{len(scores)} calls judged: " + ", ".join(parts) + "."
 
 
@@ -354,13 +360,34 @@ def _run_summary(row, lead, limit):
     return lead + "\n\n" + "\n\n".join(blocks)
 
 
+def entry_condition_facts(plan):
+    """CC-647: read Main's explicit facts; no fill or price infers a zone touch."""
+    outcome = plan.get("outcome") or {}
+    sources = (outcome, outcome.get("score") or {}, plan)
+    traded = next((source["entry_condition_traded"] for source in sources
+                   if isinstance(source.get("entry_condition_traded"), bool)), None)
+    cause = next((source[key] for key in ("first_blocking_cause", "first_cause") for source in sources
+                  if isinstance(source.get(key), str) and source[key]), None)
+    return traded, cause
+
+
+def no_entry_words(plan):
+    traded, cause = entry_condition_facts(plan)
+    if traded is False:
+        return "price did not reach the entry zone"
+    if traded is True:
+        words = "price reached the entry zone, but no position was opened"
+        category = re.sub(r"[\s-]+", "_", (cause or "").upper())
+        if category in {"SOFTWARE_OR_PROCESS_DEFECT", "PROTECTION_OR_RECONCILIATION_BLOCK"}:
+            words += " because of a fault on our side"
+        return words
+    return "the entry window ended with no entry"
+
+
 def ending_words(row):
-    if row.get("triggered_not_traded"):
-        return "triggered, not traded"
-    if row.get("untriggered"):
-        direction = row.get("direction_correct")
-        return ("not triggered; price then went our way" if direction is True else
-                "not triggered; price then went against us" if direction is False else "not triggered")
+    if row.get("untriggered") or row.get("triggered_not_traded") or row.get("result") == "NOT_TRIGGERED":
+        source = row.get("outcome_source_plan") or row.get("source_plan") or row
+        return no_entry_words(source)
     if row.get("result") == "HIT":
         if "TIME_EXIT" in str(row.get("score_basis") or ""):
             return "closed at its time exit" + (", on our side of the entry" if row.get("direction_correct") is True else "")
@@ -397,11 +424,13 @@ def _result_rows(export):
         if not scored and not untriggered and not not_traded:
             continue  # A watch ending does not establish that an open model trade closed.
         correction = score.get("corrects_outcome_id")
+        traded, cause = entry_condition_facts(raw)
         identity = f"{raw['plan_id']}|RESULT" + (f"|{score.get('outcome_id')}" if correction else "")
         result.append({"key": "plan-result-post-" + hashlib.sha256(identity.encode()).hexdigest()[:32],
             "plan_id": raw["plan_id"], "symbol": raw["asset_id"], "to": "RESULT", "at_utc": at,
             "kind": "result", "untriggered": untriggered,
             "triggered_not_traded": not_traded,
+            "entry_condition_traded": traded, "first_blocking_cause": cause,
             "direction_correct": score.get("direction_correct", score.get("went_our_way")),
             "result": outcome.get("result") or score.get("result") or "NOT_TRIGGERED",
             "scored": scored, "outcome_id": outcome.get("outcome_id"),
