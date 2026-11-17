@@ -1,5 +1,11 @@
 # CC-384 — public instrument and both entry conditions
 
+**17 November completion:** all three exact issued-post readbacks now pass,
+including Telegram's public page; 20 targeted tests pass and the installed
+consumer remains wired. No real dual-entry plan exists in the current export
+or retained queue. See [completion evidence](resume-20261117/README.md).
+The older blocked states below are retained history.
+
 **15 November resumed verification:** CC-383 fields are now live. Twenty targeted
 tests pass, and fresh Discord/Threads official readbacks match the first
 applicable post. The remaining public Telegram check is blocked by

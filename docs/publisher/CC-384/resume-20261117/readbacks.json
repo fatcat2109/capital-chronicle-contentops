@@ -1,0 +1,82 @@
+{
+  "observed_at_utc": "2026-11-17T02:34:01.860522+00:00",
+  "plan_id": "plan_7676aac16455086193912626",
+  "work_item_id": "plan-status-post-9d265480c8c1ab40d56cdd7e692f486b",
+  "entries": [
+    {
+      "kind": "LIMIT",
+      "zone_high": 7530.0,
+      "zone_low": 7520.0
+    }
+  ],
+  "public_writes": 0,
+  "destinations": [
+    {
+      "destination": "discord",
+      "object_id": "1569526675622985822",
+      "object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569526675622985822",
+      "outbox_message_id": "outbox_0ec7ae26e962d0cdc0a4e70600d8ea75",
+      "dispatch_id": "dispatch_0ec7ae26e962d0cdc0a4e70600d8ea75",
+      "expected_text_sha256": "351495c8fdad37a7d93bdfa2d855c7e02e8c2762bc054a0d12878014c5b36614",
+      "readback": {
+        "status": "SUCCESS",
+        "verified": true,
+        "write_exists": true,
+        "message_id": "1569526675622985822",
+        "public_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1569526675622985822",
+        "body_text_visible": true,
+        "substack_url_visible": true,
+        "meaningful_media_visible": true,
+        "attached_article_visual": false,
+        "image_sha256_match": null,
+        "thread_verified": true,
+        "reply_parent_verified": true
+      }
+    },
+    {
+      "destination": "telegram",
+      "object_id": "114",
+      "object_url": "https://t.me/CapitalChronicle/114",
+      "outbox_message_id": "outbox_98c5dfff7513d80c534b09b84954e9f1",
+      "dispatch_id": "dispatch_98c5dfff7513d80c534b09b84954e9f1",
+      "expected_text_sha256": "a639b57156265d9979591b7cae428c2c30bf20dc16d426eba3566209d75aacd0",
+      "readback": {
+        "status": "SUCCESS",
+        "text_match": true,
+        "object_url_match": true,
+        "public_surface": "https://t.me/s/CapitalChronicle?before=115",
+        "evidence": "telegram-public-readback.json"
+      }
+    },
+    {
+      "destination": "threads",
+      "object_id": "18109674764193148",
+      "object_url": "https://www.threads.com/@official.capitalchronicle/post/DfivsEtozIr",
+      "outbox_message_id": "outbox_20d4b813b36c24eb694de7c5e81defa9",
+      "dispatch_id": "dispatch_20d4b813b36c24eb694de7c5e81defa9",
+      "expected_text_sha256": "6134356d4bc8ff511d9bef65eaf601b5d3c51b51ef1ce1eac7e16436d75bafe7",
+      "readback": {
+        "status": "SUCCESS",
+        "platform": "threads",
+        "post_id": "18109674764193148",
+        "public_url": "https://www.threads.com/@official.capitalchronicle/post/DfivsEtozIr",
+        "destination_identity": "official.capitalchronicle",
+        "account_identity_verified": true,
+        "visible_body_text": "Micro E-mini S&P 500 (MES futures, Dec 2026): new plan. Levels use the plan's prices. If price trades into 7,520–7,530, the desk is bullish on the S&P 500 over the period to Thu 12 Nov, 07:00 ET. Invalidated if price moves below 7,480. Why: a global risk impulse, lower oil plus covering of an index short. Asia holds 7,556-7,567 and Nikkei futures rose 3.2%.… Full reasoning on our Telegram channel. Analysis, not financial advice. Capital Chronicle may hold positions in the markets it covers.",
+        "body_text_visible": true,
+        "substack_url_visible": true,
+        "meaningful_media_visible": true,
+        "expected_chart_visual_similarity": null,
+        "media_type": "IMAGE",
+        "content_binding_checks": {
+          "text_match": true,
+          "media_match": true,
+          "canonical_link_match": true,
+          "account_match": true,
+          "public_url_match": true,
+          "object_id_match": true
+        }
+      }
+    }
+  ]
+}
