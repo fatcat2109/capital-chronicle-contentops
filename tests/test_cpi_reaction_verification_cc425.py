@@ -156,7 +156,7 @@ def test_existing_reader_revision_appends_only_the_confirmed_cpi_reference(monke
     result = {"article_identity": "original-article", "qualified_article_count": 1,
               "article": {"title": "Our CPI review", "substack_body_markdown": "Original CPI review, unchanged."},
               "evidence": [], "previews": [{"destination": d, "payload": {"text": "Original CPI copy."}}
-                    for d in sorted(native.FINAL_VISUAL_CHANNELS - {"substack"})], "media_assets": [],
+                    for d in sorted(native.FINAL_VISUAL_CHANNELS - {"substack", "youtube"})], "media_assets": [],
               "simple_result": {"publication_lifecycle_plan": {"plan_hash": "CONTROLLED-plan"}}}
     messages = {"final": {"payload": json.dumps(result)},
                 "reference-message": {"payload": json.dumps({"article": target_article})}}
@@ -178,6 +178,7 @@ def test_existing_reader_revision_appends_only_the_confirmed_cpi_reference(monke
         assert view["article"]["substack_body_markdown"] == after
         assert view["article"]["title"] == result["article"]["title"]
         assert view["evidence"] == result["evidence"]
+        assert view["previews"] == result["previews"] and len(view["previews"]) == 7
         assert result["article"]["substack_body_markdown"] == "Original CPI review, unchanged."
         class ReviewTurn:
             run_id = proposal["run_id"]

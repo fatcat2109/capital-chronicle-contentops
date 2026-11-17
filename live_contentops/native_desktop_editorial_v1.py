@@ -2309,9 +2309,12 @@ def final_visual_binding(result, *, renders, destinations=None, verify_render_so
     by_id = {a["asset_id"]: a for a in assets}
     previews = {p["destination"]: p["payload"] for p in result.get("previews", [])}
     from live_contentops.destination_transport_registry_v1 import V1_REQUIRED_DERIVATIVE_DESTINATIONS
-    if set(previews) not in (FINAL_VISUAL_CHANNELS - {"substack"}, set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)):
-        raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
     scope = ({"substack", *previews} if destinations is None else set(destinations))
+    # A canonical-only amendment preserves its historical derivative epoch.
+    # CC-338 has seven frozen copies from the YouTube prohibition period.
+    if scope != {"substack"} and set(previews) not in (
+            FINAL_VISUAL_CHANNELS - {"substack"}, set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)):
+        raise ValueError("FINAL_VISUAL_EXACT_EIGHT_VARIANTS_REQUIRED")
     if destinations is not None and scope not in (
             DATED_DISTRIBUTION_DESTINATIONS, LINKEDIN_DATED_DISTRIBUTION_DESTINATIONS,
             {"substack"}, FINAL_VISUAL_CHANNELS,
