@@ -89,6 +89,25 @@ def test_live_piece_reuses_binding_and_never_imports_or_rewrites_attempts(ready,
     assert target.list_platform_dispatches() == dispatches
 
 
+def test_interrupted_import_reuses_exact_written_binding_and_release_clock(ready, monkeypatch):
+    _, target, binding, path, rollout = ready
+    create = ContentOpsDurableStore.create_work_item
+    def interrupted(store, **kwargs):
+        if store.db_path == target.db_path:
+            raise ConnectionError("controlled interruption after binding write")
+        return create(store, **kwargs)
+    monkeypatch.setattr(ContentOpsDurableStore, "create_work_item", interrupted)
+    with pytest.raises(ConnectionError, match="controlled interruption"):
+        release_finished_piece(path, rollout)
+    live_path = Path(rollout["editorial_output_root"]) / "owner-manual" / binding["run_id"] / "binding.json"
+    written = live_path.read_bytes()
+    monkeypatch.setattr(ContentOpsDurableStore, "create_work_item", create)
+    released = release_finished_piece(path, rollout)
+    assert released["classification"] == "FINISHED_PIECE_READY_FOR_COORDINATOR"
+    assert canonical_bytes(released["binding"]) == written == live_path.read_bytes()
+    assert target.list_platform_dispatches() == []
+
+
 def test_daily_digest_does_not_consume_standing_original_article_target(ready, monkeypatch):
     _, target, _, path, rollout = ready
     released = release_finished_piece(path, rollout)

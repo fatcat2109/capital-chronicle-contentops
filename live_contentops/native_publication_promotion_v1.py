@@ -221,6 +221,18 @@ def promotion_plan(operation, rollout):
     if release:
         binding.update(finished_piece_authority_ref=operation["release_authority"],
                        publication_eligibility_utc=eligible)
+        # A connection loss may leave the exact binding file before the atomic
+        # database import. Resume that same release clock, rather than making
+        # its own already-written artifact conflict on every retry.
+        retained_path = out / "binding.json"
+        if retained_path.exists():
+            retained = json.loads(retained_path.read_bytes())
+            clock = "publication_eligibility_utc"
+            if ({k: v for k, v in retained.items() if k != clock}
+                    != {k: v for k, v in binding.items() if k != clock}
+                    or not retained.get(clock)):
+                raise ValueError("CC074_LIVE_ARTIFACT_CONFLICT:" + str(retained_path))
+            binding = retained
     original = next(
         r
         for r in operation["rows"]
