@@ -1,0 +1,49 @@
+{
+  "live_tag": "live-20261117-cc651-173754",
+  "main_commit": "c75564df26b15258576d12f1fed5ee258706656a",
+  "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+  "files": {
+    "README.md": {
+      "sha256": "e2073f18035ea622409a8e6cfd5fff37bde34c673a54eec89dcc2fc45875d95f",
+      "git_blob": "a549538b56ab92abee9f905dadb9852af9b80eed",
+      "main_path": "data/research/desk-odds/README.md"
+    },
+    "AUDIT.md": {
+      "sha256": "2ddf4a54c65732678afc0a21ce3a1661f9cb60c3e7c51d0e52316288fa2db67b",
+      "git_blob": "d48935b38deb61aeae79e34c5d310c95078004c9",
+      "main_path": "data/research/desk-odds/AUDIT.md"
+    },
+    "desk_odds_v1.json": {
+      "sha256": "42de028cd9688e9e6a920fb899ead93728e2ddc23dec0adfd80b4bca42bb46f4",
+      "git_blob": "8a4c54fec1ea99e5bc406375ef956b2fd837049c",
+      "main_path": "data/research/desk-odds/desk_odds_v1.json"
+    },
+    "desk_odds_sides_v1.json": {
+      "sha256": "bf342abf0211a15619bf88585fb4b508206484ed0b454855782396d66cf9a94e",
+      "git_blob": "f240298648a7a911f7f30e3af484b9ce47924881",
+      "main_path": "data/research/desk-odds/desk_odds_sides_v1.json"
+    },
+    "audit/summary.json": {
+      "sha256": "3dc86814ce62d6bdd0474e9d2fdf993c51658fdd57f0ba943bb81630c83f17c5",
+      "git_blob": "1e75452ea5272153db23603338b73065a00fada5",
+      "main_path": "data/research/desk-odds/audit/summary.json"
+    },
+    "desk_odds_census_v1.py": {
+      "sha256": "a6e6f0fb46a42d337a0839cf38d622a0f371e4af7315dc6ffcbe1074460e23ba",
+      "git_blob": "7664d5a1304bf8861b46a9d27ebbafbeebad79ae",
+      "main_path": "tools/product/desk_odds_census_v1.py"
+    },
+    "desk_odds_v1.py": {
+      "sha256": "89eb314fbdda2fac5a707719bf61ece50bb4ec77f95fba1f4b1d6110d294595e",
+      "git_blob": "306656bef2ef6c0becf9b44b6d8221f0c3fe56b4",
+      "main_path": "tools/product/desk_odds_v1.py"
+    }
+  },
+  "fx_repair_live": true,
+  "retrieved_at_utc": "2026-11-17T11:14:19.521343+00:00",
+  "source_generated_at_utc": "2026-11-16T06:54:17.399006Z",
+  "audit": "CC-521 bytes retained exactly; AUDIT.md contains earlier sample figures. Current table and audit/summary.json carry repaired FX generation. Do not mix older AUDIT.md numeric claims with current rows.",
+  "side_split_matching_table_hash": true,
+  "side_source_generated_at_utc": "2026-11-16T06:54:17.399006Z",
+  "remote_verification": "git ls-remote --tags origin live-20261117-* observed live-20261117-cc651-173754 pointing to annotated tag object 84fd2df079115444e032a89485afe1801d431663 and peeled commit c75564df26b15258576d12f1fed5ee258706656a; no later local live tag found."
+}

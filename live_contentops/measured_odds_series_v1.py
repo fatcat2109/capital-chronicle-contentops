@@ -415,6 +415,9 @@ def register(store, piece_file, output_dir):
     # still defaults to the preview site's retired first-publication route.
     plan.update(measured_odds_piece=identity, distribution_policy="SUBSTACK_FIRST_V1",
                 substack_first_dependency=True)
+    # The shared hosted-media consumer follows this reference to the reviewed
+    # channel selection. This series saves that payload under its existing name.
+    plan["artifact_refs"]["native_derivative_previews"] = "native_preview_packages_v1.json"
     plan.pop("plan_hash",None)
     plan["plan_hash"] = sha256_of(plan)
     (output / "article_manifest_v1.json").write_bytes(canonical_bytes(article))

@@ -99,6 +99,43 @@ def test_piece_two_exact_sides_reach_the_existing_native_compiler():
     assert "Bitcoin trend-short: 73 trades, 0.297R; the later half lost." in payloads["x"]["full_text"]
 
 
+def test_piece_three_repaired_fx_and_exact_sides_reach_native_compiler():
+    root = SOURCE / "piece-3"
+    piece = json.loads((root / "piece-3.json").read_bytes())
+    manifest, held = odds.sources(root / "source")
+    report = odds.validate_piece(piece, root / "source")
+    assert manifest["fx_repair_live"] is True
+    assert len(report) == 119
+    assert {r["side"] for r in report if r["side"]} == {"LONG", "SHORT"}
+    table = held["desk_odds_v1.json"]
+    markets = held["desk_odds_sides_v1.json"]["tables"][table["content_hash"]]["markets"]
+    for market in odds.FX:
+        assert table["markets"][market]["close_check"]["rule"] == "CLOSE_SET_TO_NEXT_SESSION_OPEN"
+        assert table["markets"][market]["close_check"]["applied"] is True
+        assert markets[market]["source_id"] == table["markets"][market]["source_id"]
+        assert any("/markets/" + market + "/sides/" in r["pointer"] for r in report)
+    # Read actual public cells against each named column, including the baseline.
+    rows = [line.split("|")[1:-1] for line in piece["article"]["substack_body_markdown"].splitlines()
+            if line.startswith("| ") and "trades;" not in line]
+    order = ["XAUUSD", "USOIL", "US500", "BTCUSD", "EURUSD", "USDJPY"]
+    for index, market in enumerate(order):
+        for cells, behaviour in [(rows[index], "WITH_YARDSTICK_5"),
+                                 (rows[index + 6], "AGAINST_YARDSTICK_5")]:
+            for cell, side in zip(cells[1:3], ("LONG", "SHORT")):
+                source = markets[market]["sides"][behaviour][side]
+                assert cell.strip() == f"{source[0]}; {source[2]}"
+        baseline = markets[market]["always"]["WITH_YARDSTICK_5"]["ALWAYS_LONG"]
+        assert rows[index][3].strip() == f"{baseline[0]}; {baseline[2]}"
+    from live_contentops.eight_platform_substack_first_pipeline_v1 import build_native_derivative_payloads
+    payloads = build_native_derivative_payloads(article=piece["article"], selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/five-sessions-did-not-settle-the-trend-question",
+        media_asset_ids=[piece["media_assets"][0]["asset_id"]])
+    assert len(payloads) == 8
+    assert "Trend-short: 218 trades, -0.048R." in payloads["x"]["full_text"]
+    assert "always long: 704 trades, 0.086R" in payloads["telegram"]["text"]
+    assert "With and against use different stop widths." in payloads["youtube"]["text"]
+
+
 def test_fx_result_waits_for_repaired_main_table(piece):
     _extra(piece, "Euro -0.075R.", "desk_odds_v1.json", "/by_market/EURUSD/0/2")
     with pytest.raises(ValueError, match="ODDS_FX_CLOSE_REPAIR_NOT_LIVE:EURUSD"):
@@ -117,10 +154,10 @@ def test_private_reference_book_cannot_become_a_numeric_source(piece):
         odds.number_report(piece, SOURCE / "source")
 
 
-@pytest.mark.parametrize("piece_number", [1, 2])
+@pytest.mark.parametrize("piece_number", [1, 2, 3])
 def test_actual_coordinator_registers_and_consumes_the_same_bound_piece(tmp_path, monkeypatch, piece_number):
     store = ContentOpsDurableStore(tmp_path / "test.sqlite3")
-    file = SOURCE / "piece-1.json" if piece_number == 1 else SOURCE / "piece-2/piece-2.json"
+    file = SOURCE / "piece-1.json" if piece_number == 1 else SOURCE / f"piece-{piece_number}/piece-{piece_number}.json"
     packet = odds.register(store, file, tmp_path / "article")
     assert packet["plan"]["distribution_policy"] == "SUBSTACK_FIRST_V1"
     assert packet["plan"]["substack_first_dependency"] is True

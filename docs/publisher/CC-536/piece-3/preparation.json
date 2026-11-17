@@ -1,0 +1,1517 @@
+{
+  "schema": "CC536Piece3LightPreparationV1",
+  "role": {
+    "configured_model": "gpt-6.1-sol",
+    "configured_effort": "low",
+    "telemetry_status": "CONFIGURED_NOT_OBSERVED",
+    "invocation_identifier": null,
+    "reason": "No supported inference-time telemetry or invocation identifier exposed to this role."
+  },
+  "prepared_at_utc": "2026-11-17T11:15:16.263699+00:00",
+  "source_manifest": "source/manifest.json",
+  "live_tag": "live-20261117-cc651-173754",
+  "main_commit": "c75564df26b15258576d12f1fed5ee258706656a",
+  "table_hash": "4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41",
+  "verification": {
+    "table_side_hash_match": true,
+    "table_and_side_generation_match": true,
+    "fixed_calendar_half_split_match": true,
+    "fx_close_repair_live": true,
+    "fx_close_repair_pointers": [
+      "desk_odds_v1.json#/markets/EURUSD/close_check",
+      "desk_odds_v1.json#/markets/USDJPY/close_check"
+    ],
+    "fx_same_hash_split_live": true
+  },
+  "angle_proposal": "Five sessions is not enough: with and against the trend. Compare the existing short-horizon results by direction, showing how pooled labels hide long/short differences. Treat the title as a question about a fixed short horizon, not proof that every longer holding period is better.",
+  "method": {
+    "table_description": {
+      "source": "desk_odds_v1.json#/what_this_is",
+      "verbatim": "These six-market daily-bar base rates include asset drift: in the audited November 2016 to November 2026 sample a zero-net-mean 2,000-draw 60-calendar-day block test produced 1.12 PAID_BOTH_HALVES rows out of 54 by chance on average (95% range 0 to 4), versus 5 observed. Choosing rows on the first five years and starting flat on the last five selected 3 rows: 2 stayed positive over 363 test trades at +0.098R per trade, a retrospective dependent sample at a uniform cost of 0.05 normal day with futures roll risk and D1 path uncertainty, not a prospective probability. EURUSD and USDJPY closes are the next session's open, because Yahoo's daily currency bar carries the day's open as its close."
+    },
+    "measurement": {
+      "source": "desk_odds_v1.json#/how_measured",
+      "verbatim": "Daily bars; R is the stop distance; cost 0.05 of a normal day (D1 ATR14) per round trip; a decision at a close is entered at the next open; inside one bar the stop is taken before the target; one trade at a time per market and behaviour. t is the mean over its standard error using sample standard deviation (nominal IID, not a dependence-adjusted significance claim). Halves split at the fixed midpoint of the calendar window, not the median trade. BTC sessions include weekends; futures are unadjusted continuous proxies with roll risk. Signed oil prices are retained; pending entries use decision-close ATR and include the fill bar."
+    },
+    "side_measurement": {
+      "source": "desk_odds_sides_v1.json#/how_measured",
+      "verbatim": "The census's own one-at-a-time trade list for each market and behaviour, on the table's named history source, window, cost in normal days, warmup and half split; each trade keeps the side it was taken on. The two sides of a row add back to the table's row exactly (checked per market). Always-in: the behaviour's stop, target, hold and trailing, entered at the next open after every free session (one trade at a time), after the same cost. win_share counts trades above 0R after cost."
+    },
+    "behaviours": {
+      "WITH_YARDSTICK_5": {
+        "source": "desk_odds_v1.json#/behaviours/WITH_YARDSTICK_5",
+        "verbatim": "With the yardstick, either side; stop 1.5 normal days; target 2R; up to 5 sessions."
+      },
+      "AGAINST_YARDSTICK_5": {
+        "source": "desk_odds_v1.json#/behaviours/AGAINST_YARDSTICK_5",
+        "verbatim": "Against the yardstick; stop 1 normal day; target 2R; up to 5 sessions."
+      }
+    },
+    "half_split": {
+      "source": "desk_odds_v1.json#/half_split_date",
+      "value": "2021-11-10"
+    },
+    "yardstick_definition": "README.md: Exact method (CC-521), Inputs and clocks; source code desk_odds_v1.py yardstick. UP requires all four specified differences positive, DOWN all negative, otherwise MIXED.",
+    "important_comparison_limit": "The with-yardstick and against-yardstick rows use different stop widths. Both have a 2R target; this is not an isolated test changing direction alone.",
+    "source_clock_limit": "Retained bulk known_epoch is acquisition-known-at, not original historical availability. Current generation is not the history endpoint."
+  },
+  "markets": {
+    "XAUUSD": {
+      "history": {
+        "series_id": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/series_id",
+          "value": "YAHOO_FINANCE:GC=F"
+        },
+        "source_id": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/source_id",
+          "value": "5b5c9a9a200ac0463a9f7bc5ee0773e4e24140785210f3e3930a93bba731695c"
+        },
+        "bars": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/bars",
+          "value": 2513
+        },
+        "from": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/from",
+          "value": "2016-11-14"
+        },
+        "through": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/through",
+          "value": "2026-11-10"
+        },
+        "source_sha256": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/source_sha256",
+          "value": "0302bf881f3ebab17f720d76042998bd781ac7fa89f9869e73e4a40cca831ed9"
+        },
+        "known_epoch": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/known_epoch",
+          "value": 1794456063.406985
+        },
+        "exchange_timezone": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/exchange_timezone",
+          "value": "America/New_York"
+        },
+        "sunday_stubs_removed": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/sunday_stubs_removed",
+          "value": 0
+        },
+        "signed_price_bars": {
+          "source": "desk_odds_v1.json#/markets/XAUUSD/signed_price_bars",
+          "value": 0
+        }
+      },
+      "side_state": {
+        "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/state",
+        "value": "SPLIT"
+      },
+      "pooled_rows": {
+        "WITH_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/2/0",
+            "value": "WITH_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/2/1",
+            "value": 349
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/2/2",
+            "value": 0.053
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/2/3",
+            "value": 1.0
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/2/4",
+            "value": 0.01
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/2/5",
+            "value": 0.09
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/2/6",
+            "value": "PAID"
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/3/0",
+            "value": "AGAINST_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/3/1",
+            "value": 349
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/3/2",
+            "value": -0.106
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/3/3",
+            "value": -1.6
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/3/4",
+            "value": -0.1
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/3/5",
+            "value": -0.11
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/XAUUSD/3/6",
+            "value": "LOST_BOTH_HALVES"
+          }
+        }
+      },
+      "sides": {
+        "WITH_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG/0",
+              "value": 230
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG/1",
+              "value": 0.51
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG/2",
+              "value": 0.109
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG/3",
+              "value": 1.6
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG/4",
+              "value": 0.05
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG/5",
+              "value": 0.15
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/LONG/6",
+              "value": "PAID"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT/0",
+              "value": 119
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT/1",
+              "value": 0.45
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT/2",
+              "value": -0.055
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT/3",
+              "value": -0.6
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT/4",
+              "value": -0.05
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT/5",
+              "value": -0.06
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/WITH_YARDSTICK_5/SHORT/6",
+              "value": "LOST_BOTH_HALVES"
+            }
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG/0",
+              "value": 119
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG/1",
+              "value": 0.44
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG/2",
+              "value": -0.013
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG/3",
+              "value": -0.1
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG/4",
+              "value": -0.1
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG/5",
+              "value": 0.09
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/LONG/6",
+              "value": "FLAT"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT/0",
+              "value": 230
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT/1",
+              "value": 0.38
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT/2",
+              "value": -0.154
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT/3",
+              "value": -2.0
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT/4",
+              "value": -0.11
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT/5",
+              "value": -0.19
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/XAUUSD/sides/AGAINST_YARDSTICK_5/SHORT/6",
+              "value": "LOST_BOTH_HALVES"
+            }
+          }
+        }
+      }
+    },
+    "US500": {
+      "history": {
+        "series_id": {
+          "source": "desk_odds_v1.json#/markets/US500/series_id",
+          "value": "YAHOO_FINANCE:ES=F"
+        },
+        "source_id": {
+          "source": "desk_odds_v1.json#/markets/US500/source_id",
+          "value": "a831a4c8e6502e35ec7851864b8efa09aea07866e4609162b8b3eb6f6d6deea7"
+        },
+        "bars": {
+          "source": "desk_odds_v1.json#/markets/US500/bars",
+          "value": 2514
+        },
+        "from": {
+          "source": "desk_odds_v1.json#/markets/US500/from",
+          "value": "2016-11-14"
+        },
+        "through": {
+          "source": "desk_odds_v1.json#/markets/US500/through",
+          "value": "2026-11-10"
+        },
+        "source_sha256": {
+          "source": "desk_odds_v1.json#/markets/US500/source_sha256",
+          "value": "8d131819526b351479a0f3e06d6ce4bad849aef46a0f1f3c471df8eb880d1e1a"
+        },
+        "known_epoch": {
+          "source": "desk_odds_v1.json#/markets/US500/known_epoch",
+          "value": 1794456065.046727
+        },
+        "exchange_timezone": {
+          "source": "desk_odds_v1.json#/markets/US500/exchange_timezone",
+          "value": "America/New_York"
+        },
+        "sunday_stubs_removed": {
+          "source": "desk_odds_v1.json#/markets/US500/sunday_stubs_removed",
+          "value": 0
+        },
+        "signed_price_bars": {
+          "source": "desk_odds_v1.json#/markets/US500/signed_price_bars",
+          "value": 0
+        }
+      },
+      "side_state": {
+        "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/state",
+        "value": "SPLIT"
+      },
+      "pooled_rows": {
+        "WITH_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/US500/2/0",
+            "value": "WITH_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/US500/2/1",
+            "value": 378
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/US500/2/2",
+            "value": -0.006
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/US500/2/3",
+            "value": -0.1
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/US500/2/4",
+            "value": 0.05
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/US500/2/5",
+            "value": -0.06
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/US500/2/6",
+            "value": "FLAT"
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/US500/3/0",
+            "value": "AGAINST_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/US500/3/1",
+            "value": 378
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/US500/3/2",
+            "value": -0.111
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/US500/3/3",
+            "value": -1.9
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/US500/3/4",
+            "value": -0.21
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/US500/3/5",
+            "value": -0.02
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/US500/3/6",
+            "value": "LOST_BOTH_HALVES"
+          }
+        }
+      },
+      "sides": {
+        "WITH_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG/0",
+              "value": 301
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG/1",
+              "value": 0.52
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG/2",
+              "value": 0.032
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG/3",
+              "value": 0.6
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG/4",
+              "value": 0.12
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG/5",
+              "value": -0.06
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/LONG/6",
+              "value": "PAID"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT/0",
+              "value": 77
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT/1",
+              "value": 0.42
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT/2",
+              "value": -0.155
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT/3",
+              "value": -1.4
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT/4",
+              "value": -0.29
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT/5",
+              "value": -0.08
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/WITH_YARDSTICK_5/SHORT/6",
+              "value": "LOST_BOTH_HALVES"
+            }
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG/0",
+              "value": 77
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG/1",
+              "value": 0.42
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG/2",
+              "value": 0.015
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG/3",
+              "value": 0.1
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG/4",
+              "value": 0.22
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG/5",
+              "value": -0.1
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/LONG/6",
+              "value": "FLAT"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT/0",
+              "value": 301
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT/1",
+              "value": 0.34
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT/2",
+              "value": -0.143
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT/3",
+              "value": -2.2
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT/4",
+              "value": -0.28
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT/5",
+              "value": 0.01
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/US500/sides/AGAINST_YARDSTICK_5/SHORT/6",
+              "value": "LOST"
+            }
+          }
+        }
+      }
+    },
+    "USOIL": {
+      "history": {
+        "series_id": {
+          "source": "desk_odds_v1.json#/markets/USOIL/series_id",
+          "value": "YAHOO_FINANCE:CL=F"
+        },
+        "source_id": {
+          "source": "desk_odds_v1.json#/markets/USOIL/source_id",
+          "value": "bb14a61fc7890c725ca3989ad5498d6196d0aab7e2c27f50492bca2993981662"
+        },
+        "bars": {
+          "source": "desk_odds_v1.json#/markets/USOIL/bars",
+          "value": 2513
+        },
+        "from": {
+          "source": "desk_odds_v1.json#/markets/USOIL/from",
+          "value": "2016-11-14"
+        },
+        "through": {
+          "source": "desk_odds_v1.json#/markets/USOIL/through",
+          "value": "2026-11-10"
+        },
+        "source_sha256": {
+          "source": "desk_odds_v1.json#/markets/USOIL/source_sha256",
+          "value": "e58c03628bf8afa40f50a8412157249478f242c3e32278fb49d0b35eaea2ec2e"
+        },
+        "known_epoch": {
+          "source": "desk_odds_v1.json#/markets/USOIL/known_epoch",
+          "value": 1794456064.245489
+        },
+        "exchange_timezone": {
+          "source": "desk_odds_v1.json#/markets/USOIL/exchange_timezone",
+          "value": "America/New_York"
+        },
+        "sunday_stubs_removed": {
+          "source": "desk_odds_v1.json#/markets/USOIL/sunday_stubs_removed",
+          "value": 0
+        },
+        "signed_price_bars": {
+          "source": "desk_odds_v1.json#/markets/USOIL/signed_price_bars",
+          "value": 2
+        }
+      },
+      "side_state": {
+        "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/state",
+        "value": "SPLIT"
+      },
+      "pooled_rows": {
+        "WITH_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/2/0",
+            "value": "WITH_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/2/1",
+            "value": 333
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/2/2",
+            "value": 0.02
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/2/3",
+            "value": 0.4
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/2/4",
+            "value": 0.08
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/2/5",
+            "value": -0.04
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/2/6",
+            "value": "FLAT"
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/3/0",
+            "value": "AGAINST_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/3/1",
+            "value": 333
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/3/2",
+            "value": -0.137
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/3/3",
+            "value": -2.2
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/3/4",
+            "value": -0.21
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/3/5",
+            "value": -0.07
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/USOIL/3/6",
+            "value": "LOST_BOTH_HALVES"
+          }
+        }
+      },
+      "sides": {
+        "WITH_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG/0",
+              "value": 180
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG/1",
+              "value": 0.54
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG/2",
+              "value": 0.115
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG/3",
+              "value": 1.7
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG/4",
+              "value": 0.14
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG/5",
+              "value": 0.08
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/LONG/6",
+              "value": "PAID"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT/0",
+              "value": 153
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT/1",
+              "value": 0.43
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT/2",
+              "value": -0.092
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT/3",
+              "value": -1.2
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT/4",
+              "value": -0.02
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT/5",
+              "value": -0.13
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/WITH_YARDSTICK_5/SHORT/6",
+              "value": "LOST_BOTH_HALVES"
+            }
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG/0",
+              "value": 153
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG/1",
+              "value": 0.44
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG/2",
+              "value": 0.013
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG/3",
+              "value": 0.1
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG/4",
+              "value": -0.02
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG/5",
+              "value": 0.03
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/LONG/6",
+              "value": "FLAT"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT/0",
+              "value": 180
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT/1",
+              "value": 0.32
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT/2",
+              "value": -0.265
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT/3",
+              "value": -3.3
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT/4",
+              "value": -0.3
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT/5",
+              "value": -0.2
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USOIL/sides/AGAINST_YARDSTICK_5/SHORT/6",
+              "value": "LOST_BOTH_HALVES"
+            }
+          }
+        }
+      }
+    },
+    "BTCUSD": {
+      "history": {
+        "series_id": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/series_id",
+          "value": "YAHOO_FINANCE:BTC-USD"
+        },
+        "source_id": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/source_id",
+          "value": "5a8244f90e3abb04bac4f75ced1e34e78c5729029d74f8f776dd681f1e66b6f0"
+        },
+        "bars": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/bars",
+          "value": 3651
+        },
+        "from": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/from",
+          "value": "2016-11-12"
+        },
+        "through": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/through",
+          "value": "2026-11-10"
+        },
+        "source_sha256": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/source_sha256",
+          "value": "a85d5cfacd642d8909572d55e33ba43e983f43f936e358267c6b04dacc8720dc"
+        },
+        "known_epoch": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/known_epoch",
+          "value": 1794456065.954216
+        },
+        "exchange_timezone": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/exchange_timezone",
+          "value": "UTC"
+        },
+        "sunday_stubs_removed": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/sunday_stubs_removed",
+          "value": 0
+        },
+        "signed_price_bars": {
+          "source": "desk_odds_v1.json#/markets/BTCUSD/signed_price_bars",
+          "value": 0
+        }
+      },
+      "side_state": {
+        "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/state",
+        "value": "SPLIT"
+      },
+      "pooled_rows": {
+        "WITH_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/2/0",
+            "value": "WITH_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/2/1",
+            "value": 499
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/2/2",
+            "value": 0.09
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/2/3",
+            "value": 1.9
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/2/4",
+            "value": 0.21
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/2/5",
+            "value": -0.02
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/2/6",
+            "value": "PAID"
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/3/0",
+            "value": "AGAINST_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/3/1",
+            "value": 499
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/3/2",
+            "value": -0.078
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/3/3",
+            "value": -1.5
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/3/4",
+            "value": -0.17
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/3/5",
+            "value": 0.01
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/BTCUSD/3/6",
+            "value": "LOST"
+          }
+        }
+      },
+      "sides": {
+        "WITH_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG/0",
+              "value": 281
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG/1",
+              "value": 0.5
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG/2",
+              "value": 0.197
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG/3",
+              "value": 3.0
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG/4",
+              "value": 0.32
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG/5",
+              "value": 0.05
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/LONG/6",
+              "value": "PAID_BOTH_HALVES"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT/0",
+              "value": 218
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT/1",
+              "value": 0.42
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT/2",
+              "value": -0.048
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT/3",
+              "value": -0.8
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT/4",
+              "value": 0.01
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT/5",
+              "value": -0.09
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/WITH_YARDSTICK_5/SHORT/6",
+              "value": "LOST"
+            }
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG/0",
+              "value": 218
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG/1",
+              "value": 0.45
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG/2",
+              "value": 0.04
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG/3",
+              "value": 0.5
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG/4",
+              "value": -0.04
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG/5",
+              "value": 0.09
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/LONG/6",
+              "value": "PAID"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT/0",
+              "value": 281
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT/1",
+              "value": 0.35
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT/2",
+              "value": -0.169
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT/3",
+              "value": -2.5
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT/4",
+              "value": -0.25
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT/5",
+              "value": -0.08
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/BTCUSD/sides/AGAINST_YARDSTICK_5/SHORT/6",
+              "value": "LOST_BOTH_HALVES"
+            }
+          }
+        }
+      }
+    },
+    "EURUSD": {
+      "history": {
+        "series_id": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/series_id",
+          "value": "YAHOO_FINANCE:EURUSD=X"
+        },
+        "source_id": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/source_id",
+          "value": "5a4b571939266fc1f934a34ed7085d9add478db7b25b7e1cb29d24e50d6b6c66"
+        },
+        "bars": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/bars",
+          "value": 2531
+        },
+        "from": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/from",
+          "value": "2016-11-14"
+        },
+        "through": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/through",
+          "value": "2026-11-10"
+        },
+        "source_sha256": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/source_sha256",
+          "value": "331ab4aa82b57592e0bd394686069938f6735b126ac95f94ed142b07374c01f9"
+        },
+        "known_epoch": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/known_epoch",
+          "value": 1794456061.79785
+        },
+        "exchange_timezone": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/exchange_timezone",
+          "value": "Europe/London"
+        },
+        "sunday_stubs_removed": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/sunday_stubs_removed",
+          "value": 0
+        },
+        "signed_price_bars": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/signed_price_bars",
+          "value": 0
+        },
+        "close_check": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/close_check",
+          "value": {
+            "rule": "CLOSE_SET_TO_NEXT_SESSION_OPEN",
+            "applied": true,
+            "threshold": 0.25,
+            "flat_close_share_before": 0.7363,
+            "flat_close_share_after": 0.0199,
+            "rows_changed": 2527,
+            "last_row_dropped": "2026-11-11",
+            "why": "Yahoo's daily FX bar carries the open as its close; a 24-hour market's next open is its close."
+          }
+        },
+        "close_basis": {
+          "source": "desk_odds_v1.json#/markets/EURUSD/close_basis",
+          "value": "CLOSE_SET_TO_NEXT_SESSION_OPEN"
+        }
+      },
+      "side_state": {
+        "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/state",
+        "value": "SPLIT"
+      },
+      "pooled_rows": {
+        "WITH_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/2/0",
+            "value": "WITH_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/2/1",
+            "value": 347
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/2/2",
+            "value": -0.054
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/2/3",
+            "value": -1.1
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/2/4",
+            "value": -0.06
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/2/5",
+            "value": -0.05
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/2/6",
+            "value": "LOST_BOTH_HALVES"
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/3/0",
+            "value": "AGAINST_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/3/1",
+            "value": 347
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/3/2",
+            "value": -0.035
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/3/3",
+            "value": -0.6
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/3/4",
+            "value": -0.05
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/3/5",
+            "value": -0.02
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/EURUSD/3/6",
+            "value": "LOST_BOTH_HALVES"
+          }
+        }
+      },
+      "sides": {
+        "WITH_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG/0",
+              "value": 162
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG/1",
+              "value": 0.46
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG/2",
+              "value": -0.026
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG/3",
+              "value": -0.4
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG/4",
+              "value": -0.02
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG/5",
+              "value": -0.04
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/LONG/6",
+              "value": "FLAT"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT/0",
+              "value": 185
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT/1",
+              "value": 0.42
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT/2",
+              "value": -0.079
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT/3",
+              "value": -1.2
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT/4",
+              "value": -0.1
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT/5",
+              "value": -0.06
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/WITH_YARDSTICK_5/SHORT/6",
+              "value": "LOST_BOTH_HALVES"
+            }
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG/0",
+              "value": 185
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG/1",
+              "value": 0.45
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG/2",
+              "value": 0.017
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG/3",
+              "value": 0.2
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG/4",
+              "value": -0.01
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG/5",
+              "value": 0.04
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/LONG/6",
+              "value": "FLAT"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT/0",
+              "value": 162
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT/1",
+              "value": 0.37
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT/2",
+              "value": -0.094
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT/3",
+              "value": -1.1
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT/4",
+              "value": -0.09
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT/5",
+              "value": -0.1
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/EURUSD/sides/AGAINST_YARDSTICK_5/SHORT/6",
+              "value": "LOST_BOTH_HALVES"
+            }
+          }
+        }
+      }
+    },
+    "USDJPY": {
+      "history": {
+        "series_id": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/series_id",
+          "value": "YAHOO_FINANCE:JPY=X"
+        },
+        "source_id": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/source_id",
+          "value": "40c7de73ec8b21aff27677c98f6370a385b5de533fc5cafcc400b545ffed495b"
+        },
+        "bars": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/bars",
+          "value": 2437
+        },
+        "from": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/from",
+          "value": "2016-11-11"
+        },
+        "through": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/through",
+          "value": "2026-11-09"
+        },
+        "source_sha256": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/source_sha256",
+          "value": "c57c3a5413e18e051194285fa80793544ec17a0d84bc6fe9579a08d1a2718f8e"
+        },
+        "known_epoch": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/known_epoch",
+          "value": 1794415959.568039
+        },
+        "exchange_timezone": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/exchange_timezone",
+          "value": "Europe/London"
+        },
+        "sunday_stubs_removed": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/sunday_stubs_removed",
+          "value": 0
+        },
+        "signed_price_bars": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/signed_price_bars",
+          "value": 0
+        },
+        "close_check": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/close_check",
+          "value": {
+            "rule": "CLOSE_SET_TO_NEXT_SESSION_OPEN",
+            "applied": true,
+            "threshold": 0.25,
+            "flat_close_share_before": 0.6877,
+            "flat_close_share_after": 0.0252,
+            "rows_changed": 2431,
+            "last_row_dropped": "2026-11-10",
+            "why": "Yahoo's daily FX bar carries the open as its close; a 24-hour market's next open is its close."
+          }
+        },
+        "close_basis": {
+          "source": "desk_odds_v1.json#/markets/USDJPY/close_basis",
+          "value": "CLOSE_SET_TO_NEXT_SESSION_OPEN"
+        }
+      },
+      "side_state": {
+        "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/state",
+        "value": "SPLIT"
+      },
+      "pooled_rows": {
+        "WITH_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/2/0",
+            "value": "WITH_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/2/1",
+            "value": 333
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/2/2",
+            "value": -0.015
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/2/3",
+            "value": -0.3
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/2/4",
+            "value": -0.09
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/2/5",
+            "value": 0.04
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/2/6",
+            "value": "FLAT"
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "behaviour": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/3/0",
+            "value": "AGAINST_YARDSTICK_5"
+          },
+          "n": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/3/1",
+            "value": 333
+          },
+          "mean_r": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/3/2",
+            "value": -0.047
+          },
+          "t": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/3/3",
+            "value": -0.7
+          },
+          "first_half_r": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/3/4",
+            "value": 0.01
+          },
+          "second_half_r": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/3/5",
+            "value": -0.09
+          },
+          "read": {
+            "source": "desk_odds_v1.json#/by_market/USDJPY/3/6",
+            "value": "LOST"
+          }
+        }
+      },
+      "sides": {
+        "WITH_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG/0",
+              "value": 214
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG/1",
+              "value": 0.5
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG/2",
+              "value": 0.032
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG/3",
+              "value": 0.5
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG/4",
+              "value": -0.09
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG/5",
+              "value": 0.11
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/LONG/6",
+              "value": "PAID"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT/0",
+              "value": 119
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT/1",
+              "value": 0.38
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT/2",
+              "value": -0.099
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT/3",
+              "value": -1.1
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT/4",
+              "value": -0.08
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT/5",
+              "value": -0.13
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/WITH_YARDSTICK_5/SHORT/6",
+              "value": "LOST_BOTH_HALVES"
+            }
+          }
+        },
+        "AGAINST_YARDSTICK_5": {
+          "LONG": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG/0",
+              "value": 119
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG/1",
+              "value": 0.49
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG/2",
+              "value": 0.068
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG/3",
+              "value": 0.6
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG/4",
+              "value": -0.03
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG/5",
+              "value": 0.21
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/LONG/6",
+              "value": "PAID"
+            }
+          },
+          "SHORT": {
+            "n": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT/0",
+              "value": 214
+            },
+            "win_share": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT/1",
+              "value": 0.37
+            },
+            "mean_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT/2",
+              "value": -0.112
+            },
+            "t": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT/3",
+              "value": -1.4
+            },
+            "first_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT/4",
+              "value": 0.04
+            },
+            "second_half_r": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT/5",
+              "value": -0.2
+            },
+            "read": {
+              "source": "desk_odds_sides_v1.json#/tables/4462cfd99426679c0b31a2c1a01291fd39a28d3af5da4810677a7523208ade41/markets/USDJPY/sides/AGAINST_YARDSTICK_5/SHORT/6",
+              "value": "LOST"
+            }
+          }
+        }
+      }
+    }
+  },
+  "limits": [
+    "No new market result, mean, win share or probability computed. All numeric cells copied verbatim from Main JSON.",
+    "These are retrospective dependent samples, include asset drift, use uniform assumed costs and daily-bar adverse path ordering. No calibrated future probability or trading edge inferred.",
+    "AUDIT.md and README.md retain earlier generation narrative and midpoint examples. Current JSON table and its matching side table define the current numeric sample; audit/summary.json has repaired FX summary.",
+    "Raw broker bars and third-party history are not reproduced; the writer receives Main computed outputs and method."
+  ],
+  "visual_proposal": "A compact direction-separated comparison of Main mean R after assumed costs for with/against rows, keeping LONG and SHORT separate. Include counts and both half-periods; writer chooses useful chart and placement. Do not combine means or convert win share to a future probability."
+}
