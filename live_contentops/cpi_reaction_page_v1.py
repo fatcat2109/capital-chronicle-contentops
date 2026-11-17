@@ -136,7 +136,10 @@ def writer_guidance(documents):
             "State the actual last release covered. The old map/result description retains "
             "its original clock: never call a past release upcoming or its result not yet due. "
             "Use only a supplied Main map, result and scenario set; never invent absent ones. "
-            + ("Ops Product's table review precedes the first CPI post under CC-417. "
+            + ("CC-425's 12 November amendment replaces the Ops table read: recompute every cell "
+               "of the newest three releases and five older releases selected with a fixed seed "
+               "from the bound store; a mismatch stops publication and names its cell. "
+               "If November is absent, publish through October and state that coverage. "
                if any(p["record_id"] == RECORD_ID for p in projections) else
                "Keep the FOMC statement and press conference distinct; do not combine overlapping windows. ")
             + "Retain CC-403, "

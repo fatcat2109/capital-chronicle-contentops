@@ -69,8 +69,8 @@ def prepare(binding_path, profile_path, out, *, cutoff_utc, event="CPI"):
         "table_sha256": rendered["cpi_reaction_page"]["table_sha256"],
         "source_table_sha256": [t["source_table_sha256"] for t in pack[0]["cpi_reaction_page"]["tables"]],
         "publication_state": "NOT_DISPATCHED",
-        "remaining": (["CC-417: Ops Product reads the table before the first post",
-                      "CC-417 producer refresh: the November map/result and actual data cutoff",
+        "remaining": (["CC-425: verify three newest and five fixed-seed older releases against bound inputs",
+                      "State October coverage if November is absent; retain the original source clocks",
                       "Native final article, media/review, canonical readback and CPI review link"]
                       if event == "CPI" else ["Native final article and source-bound media/review",
                         "Existing coordinator publication and exact public readback",
