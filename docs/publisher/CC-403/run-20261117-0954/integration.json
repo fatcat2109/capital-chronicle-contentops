@@ -1,0 +1,130 @@
+{
+  "observed_at_utc": "2026-11-17T03:04:59.534191+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "operating_before": "779df6b21901d21edf65f9578748ff42154f95ac",
+  "installed_delivery_commit": "6b4a653c143c695e113285c8200044bb7839fdcb",
+  "remote_branch_head": "6b4a653c143c695e113285c8200044bb7839fdcb",
+  "integration_method": "fast-forward",
+  "installed_files": [
+    {
+      "relative_path": "docs/publisher/CC-403/README.md",
+      "committed_blob": "ab7f81be4e2dfeaaa075230fad1ed8270cf22c64",
+      "installed_blob": "ab7f81be4e2dfeaaa075230fad1ed8270cf22c64",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/README.md",
+      "committed_blob": "67b366392449a0b6adf4bfc171d6218d28b7ef00",
+      "installed_blob": "67b366392449a0b6adf4bfc171d6218d28b7ef00",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/installed-consumers.json",
+      "committed_blob": "e232b4a17420a080ba731c2ae3e5a5c94be62b86",
+      "installed_blob": "e232b4a17420a080ba731c2ae3e5a5c94be62b86",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/launch-observation.json",
+      "committed_blob": "3a96e5438f82cf11cecc2aa20b94b1a9b8fe8462",
+      "installed_blob": "3a96e5438f82cf11cecc2aa20b94b1a9b8fe8462",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/preserved-work.json",
+      "committed_blob": "a3bf4168ea423485eabbb45d60cab9ace4e7369e",
+      "installed_blob": "a3bf4168ea423485eabbb45d60cab9ace4e7369e",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/publication-status.json",
+      "committed_blob": "29fc284a50535812675b9ea566d28759c0de164d",
+      "installed_blob": "29fc284a50535812675b9ea566d28759c0de164d",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/result.json",
+      "committed_blob": "e698bba623714962a3ad00416e8207e2b124851a",
+      "installed_blob": "e698bba623714962a3ad00416e8207e2b124851a",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/source-assessment.json",
+      "committed_blob": "91b363a69cfd0a8e4acc217da98adae91ce84c23",
+      "installed_blob": "91b363a69cfd0a8e4acc217da98adae91ce84c23",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/targeted-tests-fixed.xml",
+      "committed_blob": "13a5d1e001f690191156bffa62250dd895657a13",
+      "installed_blob": "13a5d1e001f690191156bffa62250dd895657a13",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/targeted-tests.xml",
+      "committed_blob": "2c2829dbe0b69f737cac7bb7fc29f9954355fdce",
+      "installed_blob": "2c2829dbe0b69f737cac7bb7fc29f9954355fdce",
+      "matches": true
+    },
+    {
+      "relative_path": "docs/publisher/CC-403/run-20261117-0954/verification.json",
+      "committed_blob": "9b1334dd0c18c96e4130ab776b4c031657f1ca05",
+      "installed_blob": "9b1334dd0c18c96e4130ab776b4c031657f1ca05",
+      "matches": true
+    },
+    {
+      "relative_path": "tests/test_daily_note_first_draft_cc403.py",
+      "committed_blob": "a638aa6098a7f157a2fdcd40100fcc97ddae7a91",
+      "installed_blob": "a638aa6098a7f157a2fdcd40100fcc97ddae7a91",
+      "matches": true
+    }
+  ],
+  "preserved_modified_files": [
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "relative_path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\codex-publisher-exec",
+      "relative_path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/README.md",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/production_day_evidence_v1.json",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/ACTIVATION.md",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+      "unchanged": true
+    },
+    {
+      "root": "A:\\Capital Chronicle\\ContentOps",
+      "relative_path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "unchanged": true
+    }
+  ],
+  "live_consumer_proof": "source-assessment.json imports the existing source, writer source-pack and reader-clock owners from the operating root; both exact Main passages are consumed with original capture clocks. No production code changed in this continuation.",
+  "acceptance_status": "BLOCKED: ARTICLE_DATA_CUTOFF_EXPIRED; fresh daily-note Substack readback and actual publication within the hour remain unobserved.",
+  "public_writes": 0,
+  "app_restarts": 0,
+  "schedule_changes": 0,
+  "chat_messages": 0
+}
