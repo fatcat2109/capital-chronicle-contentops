@@ -147,3 +147,19 @@ def test_daily_boundary_deadline_and_fourteen_day_observation_are_actual_clocks(
     late = datetime(2026,11,17,16,59,59,tzinfo=timezone.utc)
     row.update(created_at_utc=late.isoformat(), source_posted_at_utc=(late-timedelta(seconds=5)).isoformat())
     assert replies.clock(quotes.quote_parent(row)["deadline_at_utc"]) == late+timedelta(seconds=1)
+
+
+def test_overlapping_minute_ticks_cannot_renew_another_ticks_fence(prepared, tmp_path):
+    store, _, _, raw, now = prepared
+    held = store.acquire_lease("heavy-news-quotes-minute", quotes.POLICY, ttl_seconds=600)
+    result=quotes.refresh_due(store, now=now, root=tmp_path, call=lambda *a:pytest.fail("overlapping editorial work"))
+    assert result["status"]=="EXISTING_QUOTE_TICK_ACTIVE"
+    store.release_lease(held["lease_id"],quotes.POLICY,held["fencing_token"])
+
+
+def test_public_names_can_replace_private_source_shorthand_without_changing_numbers(prepared):
+    store, _, _, raw, now = prepared
+    raw.update(created_at_utc=now.isoformat(), fact_text="0.8%", text="Rates drive stocks. Price dispersion is 0.8%. Chart: TradingView. " + PUBLIC_NOTICE)
+    assert quotes.validate_copy(raw,store=store) is raw
+    with pytest.raises(ValueError,match="FIGURE_BINDING"):
+        quotes.validate_copy({**raw,"text":raw["text"].replace("0.8%","0.9%")},store=store)
