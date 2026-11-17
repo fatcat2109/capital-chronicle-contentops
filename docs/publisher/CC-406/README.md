@@ -1,5 +1,24 @@
 # CC-406 Vietnamese morning gold note
 
+## 17 November continuation
+
+The installed producer delivered a 123-word Vietnamese note and one inspected
+BLS chart at 10:10 GMT+7. The normal installed desk refresh consumed the exact
+note and paired chart. Both printed CPI figures match their held official BLS
+spans; the exact final notice is present. The note uses Main's completed
+16 November synthesis and two verified public spans for its qualitative
+real-yield mechanism and countercase. No source code or schedule changed.
+
+The Ops-dispatched run started at 10:06 GMT+7, after the 07:30 deadline, and
+the dated note was absent at entry. The actual delivery is late and does not
+count toward acceptance. The 16 November on-time delivery remains recorded,
+but the required consecutive streak resets. The next possible three-morning
+sequence is 18, 19 and 20 November; each needs its real on-time desk observation.
+
+See [delivery and live consumer evidence](resume-20261117.json) and the
+[20 passing targeted checks](resume-20261117-targeted.xml). The existing request,
+earlier deliveries and unrelated worktree files retain their bytes.
+
 ## 16 November continuation
 
 The producer now also reads Main's completed `analysis-native.json` synthesis.
