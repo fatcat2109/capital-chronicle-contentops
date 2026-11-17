@@ -38,7 +38,8 @@ write. Runtime action evidence and final verification are retained beside this
 file. Model/effort: gpt-6.1-sol/max configured in the observed exec arguments;
 actual runtime model/effort telemetry is CONFIGURED_NOT_OBSERVED.
 
-Validation: 156 unique targeted cases have passing latest results. The four-file
+Validation: 157 unique targeted cases have passing latest results, including the
+settled-consumer repair selection. The four-file
 run passed 155 and exposed one pre-existing CC-359 assertion missing the mandatory
 chart credit; the same failure reproduced with the operating-base composer.
 After correcting that assertion, all 13 affected tests passed. Production code

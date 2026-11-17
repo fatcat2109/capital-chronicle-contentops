@@ -15,7 +15,6 @@
     "facebook_page"
   ],
   "cancelled_dispatches_terminal_zero_write": true,
-  "wrong_copies_after_correction_possible": false,
   "correction_count": 2,
   "corrections": [
     {
@@ -75,5 +74,7 @@
   "model": "gpt-6.1-sol",
   "effort": "max",
   "model_effort_telemetry": "CONFIGURED_NOT_OBSERVED",
-  "choice": "Retain the already public pre-event plan chart; use terminal dispatch truth after the minute consumer settles its outbox projection."
+  "choice": "Retain the already public pre-event plan chart; use terminal dispatch truth after the minute consumer settles its outbox projection.",
+  "observed_wrong_copy_dispatches_after_correction": 0,
+  "wrong_copy_send_fence": "All four exact original dispatches are terminal DEFINITE_NO_WRITE; atomic claims refuse another send."
 }
