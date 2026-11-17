@@ -24,7 +24,7 @@ def main(argv=None):
     parser.add_argument("--run-dir", required=True, type=Path, help="This 19:15 run's existing route-1900/<stamp> folder")
     parser.add_argument("--store", type=Path, default=PRODUCTION_STORE)
     parser.add_argument("--feed", type=Path, default=DEFAULT_FEED)
-    parser.add_argument("--since", help="Explicit inclusive-cut UTC boundary; selection is strictly after it")
+    parser.add_argument("--since", help="Exclusive UTC start; default is the preceding digest run's folder clock")
     parser.add_argument("--until", help="Inclusive UTC end; default is result.json's clock, otherwise now")
     args = parser.parse_args(argv)
     try:

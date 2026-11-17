@@ -16,10 +16,10 @@ from pathlib import Path
 import re
 import sqlite3
 from urllib.error import HTTPError, URLError
-from urllib.parse import parse_qsl, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, read_records
+from live_contentops.published_content_v1 import DEFAULT_FEED, PRODUCTION_STORE, PublishedContentError, read_records
 
 LOCAL = timezone(timedelta(hours=7))
 ROUTES = ("substack", "substack_notes", "telegram", "x", "discord", "linkedin",
@@ -145,10 +145,19 @@ class _Node:
     attrs: dict = field(default_factory=dict)
     children: list = field(default_factory=list)
 
+    def hidden(self):
+        return (self.tag in {"script", "style", "noscript"} or "hidden" in self.attrs
+                or self.attrs.get("aria-hidden") == "true"
+                or re.search(r"display\s*:\s*none|visibility\s*:\s*hidden", self.attrs.get("style", ""), re.I))
+
     def text(self):
+        if self.hidden():
+            return ""
         return " ".join(c.text() if isinstance(c, _Node) else c for c in self.children)
 
     def walk(self):
+        if self.hidden():
+            return
         yield self
         for child in self.children:
             if isinstance(child, _Node):
@@ -201,12 +210,19 @@ def _links(value):
     return sorted(set(re.findall(r"https?://[^\s<>\"']+", unescape(without_images))))
 
 
-def _link_identity(value):
-    u = urlsplit(value.rstrip(".,;:)"))
-    return u.netloc.lower(), u.path.rstrip("/")
+def _link_identity(value, base_url=""):
+    try:
+        u = urlsplit(urljoin(base_url, value.rstrip(".,;:)")))
+        if u.scheme in {"http", "https"} and u.hostname:
+            query = tuple(sorted((k, v) for k, v in parse_qsl(u.query)
+                                 if not k.startswith("utm_") and k not in {"fbclid", "gclid"}))
+            return u.netloc.lower(), u.path.rstrip("/"), query
+    except ValueError:
+        pass
+    return None
 
 
-def check_public_text(platform, html, *, expected_text="", expected_title=""):
+def check_public_text(platform, html, *, expected_text="", expected_title="", page_url=""):
     """Inspect the post body, never a menu, script, metadata or another post."""
     nodes = list(_HTML(html).root.walk())
     body = None
@@ -232,7 +248,7 @@ def check_public_text(platform, html, *, expected_text="", expected_title=""):
     found_links = [n.attrs["href"] for n in body.walk() if n.tag == "a" and "href" in n.attrs]
     found_links.extend(_links(text))
     expected_links = {_link_identity(u) for u in _links(expected_text)}
-    actual_links = {_link_identity(u) for u in found_links}
+    actual_links = {_link_identity(u, page_url) for u in found_links}
     missing = len(expected_links - actual_links)
     exceptions = []
     if first_matches is False:
@@ -434,8 +450,6 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
               "window": window, "pieces": [], "exceptions": [],
               "store_open_mode": "ro", "public_writes": 0, "browser_opens": 0, "model_calls": 0}
     start, end = utc(window["since_utc"]), utc(window["until_utc"])
-    feed = [r for r in read_records(feed_path) if start < utc(r["published_at_utc"]) <= end
-            and utc(r["recorded_at_utc"]) <= end]
     cache, expected = {}, {}
 
     def exception(cause, piece, platform=None, row=None, status=None):
@@ -444,6 +458,14 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
             "dispatch_id": row.get("dispatch_id") if row else None,
             "status": status, "first_cause": cause,
             "public_url": safe_url(row.get("public_object_url") or row.get("public_url")) if row else None})
+
+    try:
+        feed = [r for r in read_records(feed_path) if start < utc(r["published_at_utc"]) <= end
+                and utc(r["recorded_at_utc"]) <= end]
+    except (OSError, PublishedContentError) as exc:
+        # A broken export does not hide the public identities/readbacks held in the store.
+        feed = []
+        exception(code(str(exc)) or "PUBLICATION_FEED_UNREADABLE", "publication_feed")
 
     def http_check(platform, url, text="", title=""):
         target = public_get_url(platform, url)
@@ -460,7 +482,7 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                     "first_line_matches": None, "text_complete": None, "links_match": None,
                     "exceptions": [cause or "PUBLIC_HTTP_UNAVAILABLE"]}
         return {**checked, **check_public_text(platform, response.get("html", ""),
-                                               expected_text=text, expected_title=title)}
+                                               expected_text=text, expected_title=title, page_url=target)}
 
     with closing(sqlite3.connect(Path(store_path).resolve().as_uri() + "?mode=ro", uri=True, timeout=5)) as conn:
         conn.row_factory = sqlite3.Row
@@ -537,6 +559,19 @@ def build_report(run_dir, *, store_path=PRODUCTION_STORE, feed_path=DEFAULT_FEED
                 report["pieces"].append(piece)
         report["digest"], digest_copy = _digest(conn, run_dir, result)
         report["reply_bot"] = _reply_bot(conn, window)
+        seen = {(e["message_id"], e["status"]) for e in report["exceptions"]}
+        # A contradictory outbox status, or an uncertain private reply delivery,
+        # is still an exception even when it has no public dispatch row.
+        for row in conn.execute("""SELECT message_id,work_item_id,destination,status,
+            json_extract(payload,'$.reason_code') AS reason_code,
+            json_extract(payload,'$.cause') AS cause
+            FROM outbox_messages WHERE (status IN ('UNKNOWN_WRITE','DEFINITE_NO_WRITE')
+            OR status LIKE 'RECONCILED_ABSENT%') AND julianday(created_at) > julianday(?)
+            AND julianday(created_at) <= julianday(?) ORDER BY created_at,message_id""",
+            (window["since_utc"], window["until_utc"])):
+            if (row["message_id"], row["status"]) not in seen:
+                exception(first_cause(dict(row)) or "FIRST_CAUSE_NOT_RECORDED", row["work_item_id"],
+                          row["destination"] if row["destination"] in ROUTES else "internal", dict(row), row["status"])
     # Release the SQLite snapshot before doing any HTTP. A slow page cannot keep
     # the production reader transaction open throughout the network pass.
     for piece in report["pieces"]:

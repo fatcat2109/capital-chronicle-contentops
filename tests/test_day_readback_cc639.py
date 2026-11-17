@@ -269,3 +269,80 @@ def test_sealed_outlets_without_store_rows_keep_public_identity(recorded):
     telegram = next(r for r in piece["platforms"] if r["platform"] == "telegram")
     assert telegram["status"] == "MISSING_ROW" and telegram["public_url"] == "https://t.me/CapitalChronicle/186"
     assert telegram["public_readback"]["http_status"] == 200
+
+
+def test_sealed_feed_failure_still_uses_store_publications(recorded):
+    _, _, feed, _ = recorded
+    feed.write_bytes(feed.read_bytes().rstrip(b"\n"))
+    report, _ = build(recorded)
+    assert any(e["first_cause"] == "TORN_FEED_TAIL_READBACK_REQUIRED" for e in report["exceptions"])
+    piece = next(p for p in report["pieces"] if p["piece_id"] == "cc536-measured-odds-2")
+    assert any(r["public_url"] == "https://t.me/CapitalChronicle/186" for r in piece["platforms"])
+    assert report["digest"]["recipients"] == 5
+
+
+def test_native_first_cause_is_used_when_the_dispatch_has_no_readback(recorded):
+    _, store, _, _ = recorded
+    with sqlite3.connect(store) as conn:
+        conn.execute("DELETE FROM readbacks WHERE dispatch_id IN (SELECT dispatch_id FROM platform_dispatches WHERE platform='linkedin_company')")
+    report, _ = build(recorded)
+    piece = next(p for p in report["pieces"] if p["piece_id"] == "substack:225143229")
+    company = next(r for r in piece["platforms"] if r["platform"] == "linkedin_company")
+    assert company["store_readback"] is None
+    assert company["first_cause"] == "NEO_EXACT_PUBLIC_OBJECT_NOT_FOUND"
+    member = next(r for r in piece["platforms"] if r["platform"] == "linkedin")
+    assert member["first_cause"] == "FIRST_CAUSE_NOT_RECORDED"
+
+
+def test_hidden_full_text_does_not_mask_a_cut_off_post():
+    html = '<div class="tgme_widget_message_text">First line. <span hidden>Second sentence and link. <a href="https://capitalchronicle.substack.com/p/source">Read it</a></span></div>'
+    check = readback.check_public_text("telegram", html,
+        expected_text="First line.\nSecond sentence and link. https://capitalchronicle.substack.com/p/source")
+    assert check["first_cause"] == "PUBLIC_TEXT_CUT_OFF"
+    assert check["links_match"] is False
+
+
+def test_relative_public_links_match_and_bad_anchors_do_not_abort():
+    html = '<article>First line. <a href="/p/source">Our source</a><a href="http://[invalid">broken</a></article>'
+    result = readback.check_public_text("substack", html, expected_text="First line. https://capitalchronicle.substack.com/p/source",
+        page_url="https://capitalchronicle.substack.com/p/current")
+    assert result["links_match"] is True
+
+
+def test_notes_use_only_the_note_body_and_its_exact_link():
+    html = '<nav>Our note https://capitalchronicle.substack.com/p/source</nav><div class="comment-body">Our note.</div>'
+    result = readback.check_public_text("substack_notes", html,
+        expected_text="Our note. https://capitalchronicle.substack.com/p/source")
+    assert result["first_line_matches"] and not result["links_match"]
+
+
+def test_failure_readback_is_selected_after_an_old_dispatch_clock(recorded):
+    _, store, _, _ = recorded
+    with sqlite3.connect(store) as conn:
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (
+            "old-message", "old-piece", "x", "{}", "UNKNOWN_WRITE", "2026-11-10T10:00:00Z"))
+        conn.execute("INSERT INTO platform_dispatches VALUES(?,?,?,?,?,?,?,?)", (
+            "old-dispatch", "old-message", "x", "UNKNOWN_WRITE", "2026-11-10T10:01:00Z", None, None, None))
+        conn.execute("INSERT INTO readbacks VALUES(?,?,?,?)", ("new-read", "old-dispatch",
+            json.dumps({"status": "UNKNOWN_WRITE", "reason_code": "EXACT_PUBLIC_OBJECT_NOT_FOUND"}), "2026-11-16T11:00:00Z"))
+    report, _ = build(recorded)
+    assert any(e["dispatch_id"] == "old-dispatch" and e["first_cause"] == "EXACT_PUBLIC_OBJECT_NOT_FOUND" for e in report["exceptions"])
+
+
+def test_link_queries_are_checked_instead_of_matching_any_same_path():
+    html = '<article>First line. <a href="https://example.com/data?series=wrong">Source</a></article>'
+    result = readback.check_public_text("substack", html,
+        expected_text="First line. https://example.com/data?series=correct")
+    assert result["links_match"] is False
+
+
+def test_internal_and_contradictory_outbox_uncertainty_are_explicit(recorded):
+    _, store, _, _ = recorded
+    with sqlite3.connect(store) as conn:
+        conn.execute("UPDATE outbox_messages SET status='UNKNOWN_WRITE' WHERE destination='telegram' AND work_item_id='cc536-measured-odds-2'")
+        conn.execute("INSERT INTO outbox_messages VALUES(?,?,?,?,?,?)", (
+            "private-uncertainty", "reply-delivery", "internal:x-reply-bot-delivery", json.dumps({"cause": "SEND_TIMED_OUT"}),
+            "UNKNOWN_WRITE", "2026-11-16T11:05:00Z"))
+    report, _ = build(recorded)
+    assert any(e["platform"] == "telegram" and e["status"] == "UNKNOWN_WRITE" for e in report["exceptions"])
+    assert any(e["message_id"] == "private-uncertainty" and e["first_cause"] == "SEND_TIMED_OUT" for e in report["exceptions"])
