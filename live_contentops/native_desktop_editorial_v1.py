@@ -2645,14 +2645,16 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     assets = image_view["media_assets"]
     # A renderer-only acceptance may advance after a public send. Reuse the exact
     # frozen dispatch package and plan; a new plan would duplicate existing objects.
-    rows = store.list_outbox_messages()
+    rows = store.list_outbox_messages(work_item_id=row["work_item_id"],
+                                      destination="internal:native-publication-binding")
     bindings = [json.loads(r["payload"]) for r in rows
         if r["destination"] == "internal:native-publication-binding"
         and json.loads(r["payload"]).get("run_id") == run_id]
     if bindings and publication_dispatch_locks_media(store, run_id, row["work_item_id"]):
         from hashlib import sha256
         binding = bindings[-1]
-        prepared = [json.loads(r["payload"]) for r in store.list_outbox_messages()
+        prepared = [json.loads(r["payload"]) for r in store.list_outbox_messages(
+            work_item_id=row["work_item_id"], destination="internal:native-prepared-handoff")
             if r["destination"] == "internal:native-prepared-handoff"
             and json.loads(r["payload"]).get("run_id") == run_id]
         prior = prepared[-1] if prepared else {}
