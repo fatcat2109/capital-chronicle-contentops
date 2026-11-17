@@ -1,5 +1,7 @@
 # CC-543: plan alerts before analysis
 
+**Live timing acceptance passed on 17 November.** Main registered USD/JPY at **13:28:43.661312 GMT+7**; [Telegram post 188](https://t.me/CapitalChronicle/188) was published at **13:30:01 GMT+7**, a gap of **77.338688 seconds**, within the 600-second limit. The existing installed consumer sent it with its TradingView chart while the analysis page remained unavailable. [Exact readback and bindings](live-plan-readback-20261117.json).
+
 The existing minute consumer composes each new plan-state post from Main's frozen public fields. Its first publication pass sends Telegram and Discord through the existing coordinator before private reply work, page writing, browser publication, scorecards or other destinations. The same outbox identity goes to the other destinations afterwards. No schedule, second publisher or store is added.
 
 The post carries the supplied market, direction, entry zone, invalidation, target, entry deadline and time exit. Public clocks are ET. It preserves the notices and decision 117's position wording. A source-bound TradingView chart is required, with CC-463's identity, scale, rights and attribution checks. This fast path uses the plain TradingView chart rather than CC-465's model-reviewed template, so image review cannot silently reintroduce a model dependency. Missing charts produce no write. Existing issued requests and public objects retain their payloads and recovery paths.
@@ -27,4 +29,23 @@ The first observed installed `IMMEDIATE_ALERTS` tick was **04:57:40 GMT+7 on 13 
 
 The [installed read-only export check](installed-export-read.json) passed the current `2.0.0` export and rendered 78 retained rows, with zero publication or model calls. The [public Telegram readback](telegram-public-readback.json), observed through BrowserOS Neo at **06:16:23 GMT+7**, reaches object 182; those older objects do not prove the new path. Only the public `t.me/s/CapitalChronicle` page was read.
 
-**Remaining cause: NEXT_MAIN_PLAN_NOT_REGISTERED.** The build is installed and wired; the only unfinished acceptance is outside Publisher: Main must naturally register its next plan. Publisher then reads that exact plan's `registered_at_utc`, its coordinator-confirmed Telegram object and the public channel's publication time, writes both clocks here and marks DONE if the observed gap is at most 600 seconds. The new fields in `integration.json` remain null until that observation. No test plan, backdated clock, replacement schedule or old post is used to satisfy it.
+At that 13 November observation, the remaining cause was `NEXT_MAIN_PLAN_NOT_REGISTERED`. The next natural registration and its public clock are now observed below; the corresponding `next_live_*` fields in [integration evidence](integration.json) are populated. The earlier replay and installation records retain their original clocks.
+
+## Live acceptance: 17 November
+
+The source is Main's public export, plan `plan_30f3365059e996b2f0d1d79a`, bound to registration hash `da7f960b2bf777324e08158cff7e9691d401b6296f17c6482e520492f71bb575`. Its frozen alert uses `CC543_V1`. The installed code commit remains an ancestor of the operating root.
+
+| Observation | Time on 17 November, GMT+7 | Gap from registration |
+|---|---|---|
+| Main `registered_at_utc` | 13:28:43.661312 | — |
+| Telegram public `<time datetime>` for post 188 | 13:30:01 | 77.338688 seconds |
+| Discord coordinator reconciliation | 13:29:56.943867 | At most 73.282555 seconds |
+| Immediate-alert tick, both destinations confirmed | 13:30:02.317785 | 78.656473 seconds |
+
+Telegram's public page was read through BrowserOS Neo at **14:01:26.202 GMT+7**, only at `https://t.me/s/CapitalChronicle?before=189`. Its exact object, text and photo attachment match the stored intent. Browser pixels show the USD/JPY TradingView chart and retained attribution. Both API intents name the same chart asset; its local bytes match the delivery manifest's SHA256. Discord's evidence is the stored coordinator readback, rather than a new browser observation. Dispatch start, reconciliation and public publication clocks remain distinct.
+
+The next recorded page pass returned `ValueError:PLAN_ANALYSIS_RUN_NOT_FOUND`; it did not delay either API alert. A confirmed analysis page and its later reply have not been observed for this plan. The replay covers confirmation followed by replies without editing the first alert. That outstanding page work remains with CC-432 and does not negate this item's live Telegram timing proof.
+
+The [repeated targeted replay](live-readback-replay-20261117-green.xml) passed **7 tests**. Its [first run](live-readback-replay-20261117.xml) had 6 passes and one fixture failure: CC-468's newly added daily Note path was not mocked and reached a temporary store without a `leases` table. The CC-543 test now isolates that unrelated path; publication code is unchanged. Only this test file was run, in one pytest process without workers.
+
+This delivery contains the test fix and evidence, cut from operating HEAD `3e73c3151f8594191188573b3591c7c49b17677c` to retain the installed consumer and its records. It is pushed for the first Publisher runner under this dispatch's no-deploy instruction. Live timing acceptance is PASS; delivery status remains `BUILT_UNMERGED (Ops review pending)` until that runner integrates the delivery. This run performed no publication, edit, runtime application or schedule change. Top-level launch arguments were `gpt-6.1-sol` / `max`, recorded as `CONFIGURED_NOT_OBSERVED`; no editorial model call was made.
