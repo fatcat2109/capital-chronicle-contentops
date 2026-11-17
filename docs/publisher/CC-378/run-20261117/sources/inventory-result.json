@@ -1,0 +1,9 @@
+{
+  "observed_at_utc": "2026-11-17T04:56:06.204258+00:00",
+  "completed_source_count": 56,
+  "eligible_completed_sources": 1,
+  "changed_native_outputs_since_prior": 14,
+  "latest_original_capture_utc": "2026-11-17T04:13:36.733674Z",
+  "classification": "ELIGIBLE_MAIN_SOURCE_AVAILABLE",
+  "next_action": "Use the existing newsroom with original clocks."
+}
