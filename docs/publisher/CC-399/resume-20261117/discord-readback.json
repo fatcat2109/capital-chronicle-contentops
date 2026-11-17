@@ -1,0 +1,73 @@
+{
+  "item": "CC-399",
+  "observed_at_utc": "2026-11-17T07:55:37.434351+00:00",
+  "method": "Existing official Discord adapter; GET requests only; no coordinator/store mutation.",
+  "store_access": "SQLite URI mode=ro; query_only=ON; exact primary-key lookups.",
+  "plan_id": "plan_30f3365059e996b2f0d1d79a",
+  "objects": [
+    {
+      "role": "setup",
+      "dispatch_id": "dispatch_1404d2e6f026834653af26c42b8a4f70",
+      "outbox_id": "outbox_1404d2e6f026834653af26c42b8a4f70",
+      "source_key": "plan-status-post-7dc744efd5c6fa801ab5144d9a620a67",
+      "stored_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-17T06:29:54.652723+00:00",
+      "expected_public_object_id": "1572136686857748551",
+      "expected_public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572136686857748551",
+      "expected_body_sha256": "72df826c709abdde0cff75e09af0bf6686192501bc66f50046b71d2937c8a7f1",
+      "expected_media_asset_ids": [
+        "tradingview-plan-bfb517f1cd5760658a5c"
+      ],
+      "expected_thread_id": null,
+      "expected_parent_id": null,
+      "observed_at_utc": "2026-11-17T07:55:36.091235+00:00",
+      "readback": {
+        "status": "SUCCESS",
+        "verified": true,
+        "write_exists": true,
+        "message_id": "1572136686857748551",
+        "public_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572136686857748551",
+        "body_text_visible": true,
+        "meaningful_media_visible": true,
+        "attached_article_visual": false,
+        "image_sha256_match": null,
+        "thread_verified": true,
+        "reply_parent_verified": true
+      }
+    },
+    {
+      "role": "ending",
+      "dispatch_id": "dispatch_898f92143aa08dc4ec9e4d2ce007ef53",
+      "outbox_id": "outbox_898f92143aa08dc4ec9e4d2ce007ef53",
+      "source_key": "plan-result-post-f5ecb8c81fed4b645e17580901ac7ff0",
+      "stored_status": "DISPATCH_CONFIRMED",
+      "dispatched_at_utc": "2026-11-17T07:03:01.709560+00:00",
+      "expected_public_object_id": "1572145031173906523",
+      "expected_public_object_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572145031173906523",
+      "expected_body_sha256": "50bd0ded4806b3fdc3f68b13beca3fed3951f600b765b4e782dfe8ff7bcfa48f",
+      "expected_media_asset_ids": [
+        "tradingview-plan-51158950383ff0a0e4a7"
+      ],
+      "expected_thread_id": "1572136686857748551",
+      "expected_parent_id": "1572136686857748551",
+      "observed_at_utc": "2026-11-17T07:55:37.433908+00:00",
+      "readback": {
+        "status": "SUCCESS",
+        "verified": true,
+        "write_exists": true,
+        "message_id": "1572145031173906523",
+        "public_url": "https://discord.com/channels/1519310996030750782/1572136686857748551/1572145031173906523",
+        "body_text_visible": true,
+        "meaningful_media_visible": true,
+        "attached_article_visual": false,
+        "image_sha256_match": null,
+        "thread_verified": true,
+        "reply_parent_verified": true
+      }
+    }
+  ],
+  "current_plan_page_row": null,
+  "public_writes_by_this_run": 0,
+  "production_store_writes_by_this_run": 0,
+  "editorial_model_calls_by_this_run": 0
+}

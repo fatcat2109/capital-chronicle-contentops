@@ -1,0 +1,12 @@
+{
+  "started_at_utc": "2026-11-17T08:04:49.860276+00:00",
+  "finished_at_utc": "2026-11-17T08:05:45.035882+00:00",
+  "elapsed_seconds": 55.175,
+  "exit_code": 124,
+  "selected_test": "test_copied_store_five_cards_fill_and_ending_use_sole_coordinator",
+  "pytest_processes": 1,
+  "workers": 0,
+  "shards": 0,
+  "full_suite": false,
+  "timeout_seconds": 55
+}

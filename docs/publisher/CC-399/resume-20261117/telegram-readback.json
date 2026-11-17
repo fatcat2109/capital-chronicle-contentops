@@ -1,0 +1,42 @@
+{
+  "item": "CC-399",
+  "method": "BrowserOS Neo read of public t.me/s channel only; no signed-in Telegram page.",
+  "observed_by_browser_at_utc": "2026-11-17T07:47:00.006706+00:00",
+  "extracted_at_utc": "2026-11-17T07:56:45.317349+00:00",
+  "source_file_sha256": "0cf6230367db539e296559d4aca0cc6ac300d2e2635780497f665423bb19777b",
+  "source_file_bytes": 22336,
+  "tab_group_id": "E1010B7A60736E45DDD1A07AB399D6E6",
+  "feed_url": "https://t.me/s/CapitalChronicle?before=190",
+  "plan_id": "plan_30f3365059e996b2f0d1d79a",
+  "objects": [
+    {
+      "role": "setup",
+      "public_url": "https://t.me/CapitalChronicle/188",
+      "expected_body_sha256": "72df826c709abdde0cff75e09af0bf6686192501bc66f50046b71d2937c8a7f1",
+      "observed_text": "USD/JPY: armed, waiting for price to trade into 159.02–159.38.\nWe are bearish on USD/JPY if price trades into 159.02–159.38. Spot plan cancelled on high at or above 160.3 before entry. Entry can start until Tue 17 Nov, 2:00 AM ET. Filled positions close by Wed 18 Nov, 1:30 PM ET.\nTarget level: 158.05.\nRegistered 17 Nov 01:28 ET.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView",
+      "whitespace_normalized_body_matches_frozen_payload": true,
+      "parent_public_url": null,
+      "parent_link_visible": false,
+      "stored_reply_to_id": null
+    },
+    {
+      "role": "ending",
+      "public_url": "https://t.me/CapitalChronicle/189",
+      "expected_body_sha256": "50bd0ded4806b3fdc3f68b13beca3fed3951f600b765b4e782dfe8ff7bcfa48f",
+      "observed_text": "USD/JPY: not triggered.\nUpdated 17 Nov 02:00 ET.\nEntry condition: price trades into 159.02–159.38.\nSpot plan cancelled on high at or above 160.3 before entry.\nEntry can start until Tue 17 Nov, 2:00 AM ET.\nFilled positions close by Wed 18 Nov, 1:30 PM ET.\nTarget level: 158.05.\n\nCapital Chronicle offers analysis only, not financial advice or recommendations. Capital Chronicle may hold positions in the markets it covers.\n\nChart: TradingView",
+      "whitespace_normalized_body_matches_frozen_payload": true,
+      "parent_public_url": "https://t.me/CapitalChronicle/188",
+      "parent_link_visible": true,
+      "stored_reply_to_id": "188"
+    }
+  ],
+  "checks": {
+    "same_setup_ending_zone_target_cancel_condition_and_clocks": "PASS",
+    "ending_replies_to_setup": "PASS",
+    "not_triggered_does_not_claim_position_closed": "PASS",
+    "legacy_count_post_not_required": "CC-466 no-count contract; CC-543 immediate first-post contract"
+  },
+  "public_writes_by_this_run": 0,
+  "production_store_writes_by_this_run": 0,
+  "observation_clock_basis": "BrowserOS saved public-feed read output modification clock"
+}

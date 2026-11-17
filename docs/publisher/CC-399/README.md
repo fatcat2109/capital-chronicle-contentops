@@ -6,11 +6,15 @@ gold card, its thread and the full-analysis reply. The old run thread has no
 card messages. CC-466 now removes count posts: new plans use their own card
 and thread, while issued objects keep their original route and bytes.
 
-This continuation fixes an omitted ending: a confirmed card remains a parent
-after its internal queue row becomes SETTLED or SUPERSEDED_NOT_POSTED. The
-current Main export has no new plan since 13 November at 00:40 GMT+7. A fresh
-card and its later Discord ending remain unobserved. See the
-[15 November observation](resume-20261115/live-consumer.json).
+The 17 November readback verifies the new USD/JPY setup and its untriggered
+ending on Telegram and Discord. The ending answers its exact card on both
+destinations. The full-analysis page and its analysis reply remain absent;
+CC-549 already delivers their source-loader fix on a branch. See the
+[current source and page state](resume-20261117/source-and-page-state.json).
+
+The earlier ending-selection fix keeps a confirmed card available as a parent
+after its internal queue row becomes SETTLED or SUPERSEDED_NOT_POSTED. Its
+[15 November observation](resume-20261115/live-consumer.json) remains history.
 
 First integrated into `A:\Capital Chronicle\ContentOps` at
 `675d75b50a8148088a2038d530a9ba2f120de66c`, on 10 November 2026 at
@@ -177,3 +181,71 @@ last registration is **13 November 00:40 GMT+7**. Main's next actual plan is
 outside Publisher's lane. The installed consumer will use it; Publisher then
 reads back its Discord card thread, analysis link and later ending. No Ops
 review, new schedule, synthetic plan or historical repost is needed.
+
+## Resume — 17 November 2026
+
+The new Main plan is `plan_30f3365059e996b2f0d1d79a`, registered at
+**13:28:43.661 GMT+7 on 17 November**. The earlier
+`NEXT_MAIN_PLAN_NOT_REGISTERED` cause is resolved. This second-stream run
+performed readbacks and prepared this evidence delivery; it made no public,
+production-store, deployment or schedule change.
+
+BrowserOS Neo read only the public Telegram channel at **14:47 GMT+7**:
+
+- [Setup 188](https://t.me/CapitalChronicle/188) carries the 159.02–159.38
+  entry zone, cancellation at or above 160.3 before entry, and 158.05 target.
+- [Ending 189](https://t.me/CapitalChronicle/189) quotes setup 188 and says
+  “not triggered.” It retains the same terms, the entry deadline of
+  **17 November, 2:00 AM ET**, and the separate filled-position horizon of
+  **18 November, 1:30 PM ET**. It does not claim that a position closed.
+
+Both observed bodies match their frozen dispatch payloads after whitespace
+normalization. The public parent link and stored reply identity agree. See
+[the Telegram readback](resume-20261117/telegram-readback.json). CC-466 removes
+count posts, and CC-543 supplies this immediate first-post format; the older
+run-announcement acceptance does not require another count post.
+
+The existing official Discord adapter made GET requests at **14:55 GMT+7**.
+It verifies the exact bodies, visible media and public identities of the
+[setup](https://discord.com/channels/1519310996030750782/1519311669216673802/1572136686857748551)
+and its
+[ending](https://discord.com/channels/1519310996030750782/1572136686857748551/1572145031173906523).
+The ending is inside thread `1572136686857748551`, whose starter is that setup.
+Its parent check passes. These checks establish visible media, without claiming
+an image-byte comparison. See
+[the Discord readback](resume-20261117/discord-readback.json).
+
+At **15:01 GMT+7**, the production outbox still has no analysis-page row for
+this plan. Its existing workspace contains only the source result
+`SOURCE_PAGE_PENDING / ValueError:PLAN_ANALYSIS_RUN_NOT_FOUND`. Main's exact
+run folder and `analysis-native.json` exist; the old `role-pack.json` and
+`role-evidence.json` do not. CC-549 commit
+`f08c81a6dde4adc86b3bdb51346d934260a08520` already fixes this old-packaging lookup.
+That commit is absent from the operating root's history at this observation.
+This run reuses that delivery instead of creating another fix. A status ending
+does not establish publication of the full analysis or its analysis reply.
+
+[Seven targeted cases](resume-20261117/targeted-consumer-tests.xml) pass in
+32.96 seconds, with 48.165 seconds for the whole test process. They cover the
+current no-count consumer, exact fill/ending parents, untriggered wording,
+parent readback and the confirmed-page summary. One pytest process ran at a
+time, without workers, shards or a full suite. The first combined selection
+and the isolated copied-store coordinator recheck each stopped at the
+55-second budget; neither is counted as passing. Their incomplete results
+remain in [the first attempt](resume-20261117/seven-test-budget.json) and
+[the copied-store attempt](resume-20261117/copied-store-test-run.json).
+Earlier completed copied-store evidence is retained above. No implementation
+or test source changed in this readback delivery.
+
+Delivery branch: `backlog/cc-399-live-readback-20261117`, cut from the named
+ContentOps operating root's HEAD
+`fa5931bea97aecd4f7e56403586c33925824acf0`. Existing unrelated
+`local-evidence/` files remain outside the delivery. Launch process 37836 names
+`gpt-6.1-sol` and effort `max`, **CONFIGURED_NOT_OBSERVED**; this verification
+made no editorial model call.
+
+**Delivery state: BUILT_UNMERGED (Ops review pending).** The first Publisher
+runner integrates the existing CC-549 source fix, then resumes the existing
+source-bound page/reply path and records the canonical page and analysis
+replies under these same cards. CC-399's setup and ending readbacks now pass;
+its full-analysis acceptance remains open until those public objects exist.

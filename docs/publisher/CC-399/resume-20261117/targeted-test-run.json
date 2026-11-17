@@ -1,0 +1,20 @@
+{
+  "started_at_utc": "2026-11-17T08:03:00.608935+00:00",
+  "finished_at_utc": "2026-11-17T08:03:48.773917+00:00",
+  "elapsed_seconds": 48.165,
+  "exit_code": 0,
+  "selected_tests": [
+    "test_cc466_new_consumer_queues_only_plans_and_dry_run_has_no_old_count_copy",
+    "test_fill_and_winning_time_exit_keep_their_own_card_parent",
+    "test_unfilled_ending_is_owed_only_for_a_posted_setup",
+    "test_main_scorer_supplies_untriggered_direction_without_publisher_inference",
+    "test_own_card_comments_read_back_from_their_exact_parent",
+    "test_cc432_summary_and_confirmed_page_replace_short_reasons"
+  ],
+  "pytest_processes": 1,
+  "workers": 0,
+  "shards": 0,
+  "full_suite": false,
+  "timeout_seconds": 55,
+  "prior_attempt": "seven-test-budget.json"
+}
