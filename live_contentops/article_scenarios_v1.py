@@ -59,6 +59,9 @@ def payload_text(payload):
 
 
 def validate_article_scenarios(article, documents):
+    from .cpi_reaction_page_v1 import descriptive_reference_page
+    if descriptive_reference_page(article, documents):
+        return
     scenarios = article.get("scenario_analysis")
     if not isinstance(scenarios, list) or not 2 <= len(scenarios) <= 3:
         raise ValueError("SCENARIOS_REQUIRED")
@@ -125,6 +128,9 @@ def validate_article_scenarios(article, documents):
 
 
 def validate_social_scenarios(article, payload):
+    from .cpi_reaction_page_v1 import descriptive_reference_page
+    if descriptive_reference_page(article):
+        return
     social = article.get("social_scenarios") or {}
     copies = [payload_text(payload)]
     if isinstance(payload, dict) and not payload.get("posts"):

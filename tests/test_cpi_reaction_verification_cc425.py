@@ -83,6 +83,24 @@ def test_historical_publication_still_refuses_changed_cells():
         validate_publication_clock(article, now=datetime.now(timezone.utc), destination="substack")
 
 
+def test_exact_cpi_history_reference_reaches_scenario_checks_without_invented_forecast():
+    from live_contentops.article_scenarios_v1 import validate_article_scenarios, validate_social_scenarios
+    from live_contentops.cpi_reaction_page_v1 import TITLE
+    documents = pack()
+    article = bind_tables({"title": TITLE, "substack_body_markdown": TOKEN}, documents)
+    validate_article_scenarios(article, documents)
+    validate_social_scenarios(article, {"text": "Our historical CPI comparisons retain their observation gaps."})
+    changed = {**article, "substack_body_markdown": article["substack_body_markdown"].replace("-0.2353%", "+0.2353%")}
+    with pytest.raises(ValueError, match="TABLE_CHANGED"):
+        validate_article_scenarios(changed, documents)
+    with pytest.raises(ValueError, match="SCENARIOS_REQUIRED"):
+        validate_article_scenarios({**article, "title": "Today's gold forecast"}, documents)
+    with pytest.raises(ValueError, match="SCENARIOS_REQUIRED"):
+        validate_article_scenarios({**article, "cpi_reaction_page": {}}, documents)
+    with pytest.raises(ValueError, match="SOURCE_CHANGED"):
+        validate_article_scenarios({**article, "cpi_reaction_page": {**article["cpi_reaction_page"], "export_bytes_sha256": "wrong"}}, documents)
+
+
 def test_current_visual_reviewer_keeps_exact_binding_and_unresolved_issue_guard(monkeypatch):
     import json
     from live_contentops import native_desktop_editorial_v1 as native

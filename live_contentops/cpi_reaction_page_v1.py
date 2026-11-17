@@ -16,6 +16,25 @@ LINK_POLICY = "CC425_CONFIRMED_REFERENCE_LINK_V1"
 TITLE = "What gold, the euro and the S&P did after each CPI since 2024"
 
 
+def descriptive_reference_page(article, documents=None):
+    """CC-425's 12 Nov publish-through-October direction needs no invented odds."""
+    binding = article.get("cpi_reaction_page") or {}
+    if (binding.get("policy") != POLICY or binding.get("record_id") != RECORD_ID
+            or article.get("title") != TITLE or article.get("scenario_analysis")
+            or article.get("social_scenarios")):
+        return False
+    validate_bound_tables(article)
+    if documents is not None:
+        sources = [d for d in documents if (d.get("cpi_reaction_page") or {}).get("record_id") == RECORD_ID]
+        if len(sources) != 1:
+            raise ValueError("CPI_REACTION_SOURCE_AMBIGUOUS")
+        projection = sources[0]["cpi_reaction_page"]
+        if any(binding.get(k) != projection.get(k) for k in
+               ("policy", "record_id", "export_bytes_sha256", "source_body_sha256")):
+            raise ValueError("CPI_REACTION_SOURCE_CHANGED")
+    return True
+
+
 def reference_link_revision(store, *, run_id, proposal, result):
     """Append one checked canonical link to an exact confirmed CPI post."""
     from copy import deepcopy
