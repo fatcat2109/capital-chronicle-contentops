@@ -1,0 +1,189 @@
+{
+  "item": "CC-425",
+  "acceptance": "PASS",
+  "observed_at_utc": "2026-11-17T11:09:09.562448+00:00",
+  "operating_root": "A:\\Capital Chronicle\\ContentOps",
+  "implementation_head": "7c9d0096e30c197ff1b5bb81a91d26fe06821d3a",
+  "operation": "cc425-cpi-reaction-history-20261111-v1",
+  "live_binding_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\owner-manual\\cc425-cpi-reaction-history-20261111-v1\\binding.json",
+  "live_binding_sha256": "b427b3834658065d2605ff1bad39268448a376d58b2ff96508e241f928846456",
+  "article_identity": "08d670ac572144224b951de4d57e5b29f572a7ddf1872df9a5f9d8de125ff18d",
+  "canonical": {
+    "dispatch_id": "dispatch_873dddf89422b103efe92b1b5f469f1c",
+    "platform": "substack",
+    "status": "DISPATCH_CONFIRMED",
+    "public_object_id": "225323477",
+    "public_object_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+    "outbox_status": "DISPATCH_CONFIRMED"
+  },
+  "verification": {
+    "seed": 425,
+    "checked_fields": 7004,
+    "reaction_cells": 192,
+    "mismatches": 0,
+    "selected_releases": [
+      "2024-02-13T13:30:00Z",
+      "2024-03-12T12:30:00Z",
+      "2024-06-12T12:30:00Z",
+      "2024-12-11T13:30:00Z",
+      "2025-02-12T13:30:00Z",
+      "2026-08-12T12:30:00Z",
+      "2026-09-11T12:30:00Z",
+      "2026-10-14T12:30:00Z"
+    ],
+    "source_sha256": "5aec0a3da9141dc8a2120ee629486aae30dc658d3b1f838e2727bdf2d7f9e750"
+  },
+  "published_copy": {
+    "post_id": "225323477",
+    "canonical_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+    "published_at_utc": "2026-11-17T10:06:46.417Z",
+    "observed_at_utc": "2026-11-17T10:13:21.279Z",
+    "public_body_matches": true,
+    "normalized_body_characters": 53269,
+    "media": [
+      {
+        "observed_at_utc": "2026-11-17T10:13:14.892Z",
+        "sha256": "d89585c42a9eecfcc0d355051f45695aa5b83e36df9eb226128aad0bff5d1d44",
+        "size_bytes": 73994,
+        "status": 200,
+        "url": "https://substack-post-media.s3.amazonaws.com/public/images/f39c98e5-f984-4b8b-b35e-103550d2d199_1440x1040.png"
+      },
+      {
+        "observed_at_utc": "2026-11-17T10:13:21.279Z",
+        "sha256": "9068896edca5b08b498ab339f7e77df51092b5824babbf4bcd9bdbfbba174b08",
+        "size_bytes": 13226368,
+        "status": 200,
+        "url": "https://substack-post-media.s3.amazonaws.com/public/images/13f8c3b7-5768-4bf1-80cb-ba48d84a579d_5472x3648.jpeg"
+      }
+    ],
+    "alt_text_and_captions_present": true
+  },
+  "cpi_crosslink": {
+    "status": "PRESENTATION_EDIT_CONFIRMED",
+    "verified": true,
+    "new_post_calls": 0,
+    "canonical_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+    "cpi_post_url": "https://capitalchronicle.substack.com/p/if-october-core-cpi-is-03-or-higher",
+    "public_body_matches": true,
+    "all_five_public_images_preserved": true,
+    "observed_at_utc": "2026-11-17T10:45:04.596951+00:00"
+  },
+  "live_consumer_proof": {
+    "sole_coordinator_canonical_status": "DISPATCH_CONFIRMED",
+    "exact_live_binding_registered": true,
+    "cpi_reference_edit_status": "PRESENTATION_EDIT_CONFIRMED",
+    "effective_cpi_body_contains_reference": true,
+    "prior_cpi_edit_retained": "PRESENTATION_EDIT_CONFIRMED"
+  },
+  "destinations": [
+    {
+      "dispatch_id": "dispatch_6514c9b4bca308f05ab18f3712eafca2",
+      "platform": "discord",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "1572195010357624906",
+      "public_object_url": "https://discord.com/channels/1519310996030750782/1519311669216673802/1572195010357624906",
+      "outbox_status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_d7d5c9b995a5c082c00a461eaf382927",
+      "platform": "facebook_page",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "106091951705748_1457972769854472",
+      "public_object_url": "https://www.facebook.com/1342369584748125/posts/1457972769854472",
+      "outbox_status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_6ff0d22221870a31362c21bf36b12801",
+      "platform": "instagram_business",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17899779021412415",
+      "public_object_url": "https://www.instagram.com/p/Df1ybLuEsB3/",
+      "outbox_status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_28d69265b4602968e22a4a62bfabecc3",
+      "platform": "linkedin",
+      "status": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "public_object_id": null,
+      "public_object_url": null,
+      "outbox_status": "RECONCILED_ABSENT_SAFE_TO_RETRY"
+    },
+    {
+      "dispatch_id": "dispatch_437f5a6f489f72398d70dc1cc7892383",
+      "platform": "linkedin_company",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "urn:li:activity:7528407905289732096",
+      "public_object_url": "https://www.linkedin.com/feed/update/urn:li:activity:7528407905289732096",
+      "outbox_status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_873dddf89422b103efe92b1b5f469f1c",
+      "platform": "substack",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "225323477",
+      "public_object_url": "https://capitalchronicle.substack.com/p/what-gold-the-euro-and-the-s-and",
+      "outbox_status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_5050f915e8dc13968c08e1a1378dfed7",
+      "platform": "telegram",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "190",
+      "public_object_url": "https://t.me/CapitalChronicle/190",
+      "outbox_status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_7b232e487b04542d00a37c8cceb16e10",
+      "platform": "threads",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "17976073455155088",
+      "public_object_url": "https://www.threads.com/@official.capitalchronicle/post/Df1tUkRk0I0",
+      "outbox_status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_0de34c3031c450dc63122e941b362580",
+      "platform": "x",
+      "status": "DISPATCH_CONFIRMED",
+      "public_object_id": "2122641720060100824",
+      "public_object_url": "https://x.com/Capitalnicle/status/2122641720060100824",
+      "outbox_status": "DISPATCH_CONFIRMED"
+    },
+    {
+      "dispatch_id": "dispatch_d9d04d336965fb4402e239f1b4599dd3",
+      "platform": "youtube",
+      "status": "DEFINITE_NO_WRITE",
+      "public_object_id": null,
+      "public_object_url": null,
+      "outbox_status": "DEFINITE_NO_WRITE"
+    }
+  ],
+  "destination_exceptions": [
+    {
+      "destination": "linkedin",
+      "cause": "DESTINATION_FAILED_ET_DAY_SKIP",
+      "observed_state": "RECONCILED_ABSENT_SAFE_TO_RETRY",
+      "retry": "Existing destination policy resumes on the next ET day; no extra post was made."
+    },
+    {
+      "destination": "youtube",
+      "cause": "YOUTUBE_EXTERNAL_LINK_VERIFICATION_REQUIRED",
+      "observed_state": "DEFINITE_NO_WRITE",
+      "prepared_person_action": "Complete YouTube Studio external-link verification for the existing Capital Chronicle channel; retain this dispatch and its exact copy."
+    }
+  ],
+  "targeted_tests": {
+    "final_data_and_reader_files": 25,
+    "selected_hosted_media": 1,
+    "recovery_selected_media": 1,
+    "sequential_edit": 2,
+    "interrupted_import": 1,
+    "bounded_handoff": 2
+  },
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "max",
+  "model_evidence": "CONFIGURED_NOT_OBSERVED",
+  "native_invocation_id": "01a1e85b-c03c-7d70-9308-be7e54f8b18d",
+  "live_tag": "contentops-live-cc425-20261117-final",
+  "rollback_tag": "contentops-rollback-cc425-20261117",
+  "choice": "Publish October-covered exact CC-417 edition under Ops Product 12 Nov amendment; keep original source and publication clocks distinct."
+}
